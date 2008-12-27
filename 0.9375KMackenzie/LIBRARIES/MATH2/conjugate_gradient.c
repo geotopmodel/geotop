@@ -20,11 +20,10 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 
 	/*
 	 *\param icnt  - (long)
-	 *\param epsilon - (double) required tollerance
+	 *\param epsilon - (double) required tollerance (2-order norm of the residuals)
 	 *\param x     - (DOUBLEVECTRO *) vector of the unknowns x in Ax=b
 	 *\param b     - (DOUBLEVECTOR *) vector of b in Ax=b
-	 *\param param  - (PARAM *) parameters of the linear and symmetric application A (y=Ax)
-	 *\param (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x,PARAM *param)) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
+	 *\param (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
 	 *
 	 *\return the number of reitaratons
 	 *\brief algorithm proposed by Jonathan Richard Shewckuck in http://www.cs.cmu.edu/~jrs/jrspapers.html#cg
@@ -64,7 +63,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 
 	delta=delta_new;
 
-	while ((icnt<=icnt_max) && ((delta_new>pow(epsilon,2.0)*delta) && (delta_new>epsilon))) {
+	while ((icnt<=icnt_max) && (delta_new>epsilon)) {
 
 
 		s=(* funz)(q,d);
@@ -80,7 +79,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 		}
 		delta=delta_new;
 		delta_new=prodscal(r,r);
-		printf ("delta_new=%le icnt=%ld icnt_max=%ld deltamin=%le\n",delta_new,icnt,icnt_max,DELTA_MIN);
+		printf ("delta_new=%le icnt=%ld icnt_max=%ld deltamin=%le\n",delta_new,icnt,icnt_max,epsilon);
 
 		beta=delta_new/delta;
 		if (delta_new>delta) {
