@@ -25,7 +25,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	 *\param b     - (DOUBLEVECTOR *) vector of b in Ax=b
 	 *\param (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
 	 *
-	 *\return the number of reitaratons
+	 *\return the number of reitarations
 	 *\brief algorithm proposed by Jonathan Richard Shewckuck in http://www.cs.cmu.edu/~jrs/jrspapers.html#cg
 	 *
 	 * \author Emanuele Cordano
