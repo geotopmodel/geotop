@@ -84,11 +84,12 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 		beta=delta_new/delta;
 		if (delta_new>delta) {
 			printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
-			stop_execution();
+	//		stop_execution();
 		}
 		linear_comb_doublevector(d,r,d,1.0,beta);
 
 		icnt++;
+
 
 	}
 
