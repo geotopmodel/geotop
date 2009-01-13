@@ -1,3 +1,28 @@
+
+/* MATH2 CONTAINS ALGEBRAIC ROUTINES FOR GEOtop AND OTHER MODELS
+MATH2 Version 0.9375 KMackenzie
+
+file geo_statistic.09375.c
+
+Copyright, 2009 Stefano Endrizzi, Emanuele Cordano, Matteo Dall'Amico and Riccardo Rigon
+
+This file is part of MATH2.
+ MATH2 is free software: you can redistribute it and/or modify
+    it under the terms of the GNU  General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    MATH2 is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU  General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 #include "turtle.h"
 #include "t_datamanipulation.h"
 #include "geo_statistic.09375.h"
@@ -8,7 +33,7 @@
 
 void variogramma(DOUBLEMATRIX *coord,DOUBLEMATRIX *Z0,DOUBLEMATRIX *variogr,DOUBLEVECTOR *U,
 		double scala_integr, double varianza);
-		
+
 double gamma1(double r, double scala_integr, double varianza);
 
 int ludcmp(SHORTVECTOR *indx, DOUBLEMATRIX *var);
@@ -22,10 +47,10 @@ Name: ordi_kriging
 Synopsis: void ordi_kriging(DOUBLEMATRIX *pesi,DOUBLEMATRIX *coord,DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,
 		DOUBLEVECTOR *V, double *scala_integr1, double *varianza1)
 
-General information: Calcola la distribuzione delle pioggia tramite algoritmo di ordinary kriging. 
-	I pesi vengono calcolati tramite la risoluzione delle equazioni con una decomposizione LU 
+General information: Calcola la distribuzione delle pioggia tramite algoritmo di ordinary kriging.
+	I pesi vengono calcolati tramite la risoluzione delle equazioni con una decomposizione LU
 	(cfr. 2.3 in Numerical Recepies in C)
-   
+
 Authors & Date: Riccardo Rigon, Marco Pegoretti, Giacomo Bertoldi 1998
 
 	Inputs: 1) coord: coord matrice con coordinate stazioni
@@ -45,7 +70,7 @@ See Also: turtle.dat file
 
 References: Pegoretti, Marco, Geomodel, implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino,
                   Tesi di Laurea, Relatore R.Rigon, Universita' degli studi di Trento, A.A. 1997-98.
-Bugs: 
+Bugs:
 
 */
 
@@ -62,7 +87,7 @@ DOUBLEVECTOR *gam;
 SHORTVECTOR *indx;
 
 /* coordinate vertice basso sx matrice */
-/* controllare la convenzione FluidTurtle! 
+/* controllare la convenzione FluidTurtle!
 in r.out.turtle mi sembra essere: {dx,dy,S,W}
 */
 
@@ -95,7 +120,7 @@ if(n>1){ /* nn>1: piu stazioni: faccio il kriging */
    		for(j=1;j<=n;j++){
     		x=E->co[i]-E->co[j];
     		y=N->co[i]-N->co[j];
-    		r=sqrt(pow(x,(double)2)+pow(y,(double)2)); /* r: distanza */		
+    		r=sqrt(pow(x,(double)2)+pow(y,(double)2)); /* r: distanza */
     		/************* calcolo il variogramma con gamma1(r,int_scale,variance) in geo_statistic.c *********/
     		var->co[i][j]=gamma2(r, int_scale, variance);
     		/**************************************************************/
@@ -118,7 +143,7 @@ if(n>1){ /* nn>1: piu stazioni: faccio il kriging */
 	if(n>1){
 		for(i=1;i<=row;i++){
 			for(j=1;j<=col;j++){
-				/*Calcolo la distanza di ogni pixel rispetto a tutte le stazioni*/ 
+				/*Calcolo la distanza di ogni pixel rispetto a tutte le stazioni*/
 				ii=(i-1)*col+j;
 				for(k=1;k<=n;k++){
 					/* gam: vettore con la distanza del pixel dalle stazioni */
@@ -148,7 +173,7 @@ if(n>1){ /* nn>1: piu stazioni: faccio il kriging */
 	}else{
 		for(i=1;i<=row;i++){
 			for(j=1;j<=col;j++){
-				/*Calcolo la distanza di ogni pixel rispetto a tutte le stazioni*/ 
+				/*Calcolo la distanza di ogni pixel rispetto a tutte le stazioni*/
 				ii=(i-1)*col+j;
 				weights->co[ii][1]=variogr->co[ii][2]/(variogr->co[ii][1]+variogr->co[ii][2]);
 				weights->co[ii][2]=variogr->co[ii][1]/(variogr->co[ii][1]+variogr->co[ii][2]);
@@ -202,21 +227,21 @@ Inputs: 1)Z0: matrice delle elevazioni(Z0)
 
 Needs:  t_io.c, t_alloc.c, t_error.c.
 
-Example: Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino, 
+Example: Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino,
               Tesi di Laurea, Relatore R.Rigon, Universita' degli studi di Trento, A.A. 1997-98.
-                  
+
 See Also: turtle.dat file
 
-References:  Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino, 
+References:  Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino,
               Tesi di Laurea, Relatore R.Rigon, Universita' degli studi di Trento, A.A. 1997-98.
 
 
-Bugs: 
+Bugs:
 
 */
 
 void variogramma2(DOUBLEVECTOR *E, DOUBLEVECTOR *N, DOUBLEMATRIX *Z0, DOUBLEMATRIX *variogr, DOUBLEVECTOR *U, double int_scale, double variance)
-		
+
 {
 long ii,i,j,k;
 double X,Y,rx,ry,rz,h2;
@@ -251,18 +276,18 @@ Authors & Date: Riccardo Rigon, Paolo Verardo, Giacomo Bertoldi 1999
 
 Inputs: 1) r distanza [m]
         2) scala_integr scala integrale [m]
-        3) varianza 
+        3) varianza
 
 Needs:  t_io.c, t_alloc.c, t_error.c.
 
-Example: Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino, 
+Example: Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino,
               Tesi di Laurea, Relatore R.Rigon, Universita' degli studi di Trento, A.A. 1997-98.
-                  
+
 See Also: turtle.dat file
 
-References:  Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino, 
+References:  Pegoretti, M., Geomodel:implementazione di un modello scalabile di deflusso e bilancio idrologico di bacino,
               Tesi di Laurea, Relatore R.Rigon, Universita' degli studi di Trento, A.A. 1997-98.
-Bugs: 
+Bugs:
 
 */
 

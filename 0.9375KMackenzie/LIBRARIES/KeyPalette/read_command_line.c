@@ -1,43 +1,35 @@
 
-//#include <cstdio>
-#include <stdio.h>
-#include "read_command_line.h"
+/* KeyPalette MANAGES  THE I/O FILES  OF A MODEL
+KeyPalette Version 0.9375 KMackenzie
 
-/*
- * read_command_line.c
- *
- *  Created on: Jul 17, 2008
- *      Author: ecor
- */
+file read_command_line.c
 
-#define SUCCESS 1
-#define NO_SUCCESS 0
-/*
- * *! GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop Version 0.9375 Lavagna
+Copyright, 2009 Emanuele Cordano and Riccardo Rigon
 
-Copyright, 2008 Riccardo Rigon, Emanuele Cordano, Stefano Endrizzi,  Giacomo Bertoldi, Matteo Dall'Amico, Davide Tamanini, Fabrizio Zanotti, Silvia Simoni, Marco Pegoretti and Paolo Verardo following the footsteps of the FREE SOFTWARE FOUNDATION
-LINCENSE
-
-This file is part of GEOtop.
- GEOtop is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
+This file is part of KeyPalette.
+ KeyPalette is free software: you can redistribute it and/or modify
+    it under the terms of the GNU  General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    KeyPalette is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
+    You should have received a copy of the GNU  General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- *
- *
- *
- */
+*/
+
+
+
+//#include <cstdio>
+#include <stdio.h>
+#include "read_command_line.h"
+
+#define SUCCESS 1
+#define NO_SUCCESS 0
+
 
 
 
