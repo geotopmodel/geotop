@@ -2,13 +2,13 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -25,23 +25,6 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 
 
  #include "turtle.h"
-
-/*---------------------------------------------------------------------------*/
-/*        Here are defined some particular structs used in geotop1.5:        */
-/*---------------------------------------------------------------------------*/
-typedef struct {
-	double alfa,m,n,v;
-	double teta_r,teta_sat;
-} VAN_GENUCHTEN;
-
-
-/*---------------------------------------------------------------------------*/
-typedef struct {
-	short isdynamic;
-	const char * name;
-	long nrl,nrh,ncl,nch,ndl,ndh;
-	VAN_GENUCHTEN ***element;
-} VAN_GENUCHTENTENSOR;
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
@@ -97,6 +80,9 @@ typedef struct {
 	double VSFA;
 	double HSFA;
 
+	double hsun;
+	double dsun;
+
 } ENERGY;
 
 
@@ -147,7 +133,7 @@ typedef struct {
 	SHORTMATRIX *shadow;		  /*=1 if shadow, =0 if not*/
 	LONGVECTOR *clax;
 	LONGMATRIX *cont;
-	DOUBLEMATRIX *ty; /*  ty : matrix containing land use parameters   */
+	DOUBLEMATRIX *ty;
 	DOUBLEVECTOR *LAI;
 
 } LAND;/*all this data are calculated on the basis of land use data and some other par*/
@@ -247,6 +233,7 @@ typedef struct {
     long n_error;        /*Current number of error of the simulation*/
     long max_error;      /*Maximum number of error for the simulation*/
 	long snowlayer_max;
+	long snowlayer_inf;
 	DOUBLEVECTOR *Dmin;
 	DOUBLEVECTOR *Dmax;
 	double Sr_glac;
@@ -306,7 +293,7 @@ typedef struct {
 	short nsky;
 	double channel_thres;
 
-	LONGVECTOR *saving_points;
+	DOUBLEVECTOR *saving_points;
 
 	double Vis; //visibility in km (>5 km)
 	double Lozone; //thickness of the stratospheric ozone layer (in cm normal conditions)
@@ -361,6 +348,12 @@ typedef struct {
 
 	double q1;
 	double q2;
+
+	double ***transect;
+	double **vtrans;
+
+	LONGVECTOR *cont_trans;
+	LONGVECTOR *ibeg;
 
 } PAR;
 
@@ -506,12 +499,3 @@ typedef struct {
 } METEO;
 
 
-
-/*---------------------------------------------------------------------------*/
-/*    Definition of subroutines to allocate and deallocate some structs:     */
-/*---------------------------------------------------------------------------*/
-VAN_GENUCHTEN ***_3D(long nrl,long nrh,long ncl,long nch,long ndl,long ndh);
-VAN_GENUCHTENTENSOR *new_VAN_GENUCHTENtensor(long ndh,long nrh,long nch);
-void free_VAN_GENUCHTEN_3D(VAN_GENUCHTEN ***t,long ndl,long nrl,long ncl);
-void free_VAN_GENUCHTENTENSOR(VAN_GENUCHTENTENSOR *m);
-void initialize_VAN_GENUCHTENtensor(VAN_GENUCHTENTENSOR *L,VAN_GENUCHTEN sign);

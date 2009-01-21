@@ -2,13 +2,13 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna 
+GEOtop-Version 0.9375-Subversion Mackenzie 
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna. 
+ This file is part of GEOtop 0.9375 Mackenzie. 
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -141,17 +141,17 @@ void time_loop( TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL
     /*update of time vector:*/
 	/*--------------------------------------------------------------------------------------------*/
 	/*! Call updates_time(), which uptates time counters every time step*/
-
+	
     updates_times(times,par);
 	meteo_distr(met, liston, egy, wat, land, top, snow, times->time, par);
 	 	
-//	printf("\n ENERGY START %10.2f\n",times->time);
-//	stop_execution();
+	//printf("\n ENERGY START %10.2f\n",times->time);
+	//stop_execution();
 
     if(par->en_balance==1) energy_balance(times, par, land, top, sl, met, wat, egy, snow, glac, liston);
     
-//	printf("\n ENERGY END %10.2f\n",times->time);
-//	stop_execution();
+	//printf("\n ENERGY END %10.2f\n",times->time);
+	//stop_execution();
 	
 //	printf("\n MASS START %10.2f\n",times->time);
 	//stop_execution();

@@ -2,32 +2,27 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna 
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna. 
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-    
-    
-    
-    
-//Authors: Stefano Endrizzi and Giacomo Bertoldi
-//Date: 13 November 2005
-//Contents: Meteorological subrotines (included turbulent transfer)
+
+
 
 /*----------------------------------------------------------------------------------------------------------*/
 void meteo_distr(METEO *met, LISTON *liston, ENERGY *egy, WATER *wat, LAND *land, TOPO *top, SNOW *snow, double time, PAR *par);
@@ -39,17 +34,17 @@ void meteo_vert_distr(long i, DOUBLEMATRIX *Z, METEO *met, PAR *par);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void shortwave_radiation(long r, long c, double alpha, double direction, double E0, short shadow, double sky, double fcloud, double slope,
-						 double aspect, double tau_atm, double *met_data, long *met_col, double sky_st, double tau_atm_st, double A, double *SWbeam, double *SWdiff, 
+						 double aspect, double tau_atm, double *met_data, long *met_col, double sky_st, double tau_atm_st, double A, double *SWbeam, double *SWdiff,
 						 double *cosinc, LONGMATRIX *nDt_shadow, LONGMATRIX *nDt_sun);
-						 
-/*----------------------------------------------------------------------------------------------------------*/
-void albedo(double T_surface, double coszen, double prec_snow, double albedo_constant, double snowD, double *albedo, double *tausn, short pixel_type, double alpha, 
-			double aep, double avo, double airo, double Dt, double fcloud);		    
 
-			
-/*----------------------------------------------------------------------------------------------------------*/						
+/*----------------------------------------------------------------------------------------------------------*/
+void albedo(double T_surface, double coszen, double prec_snow, double albedo_constant, double snowD, double *albedo, double *tausn, short pixel_type, double alpha,
+			double aep, double avo, double airo, double Dt, double fcloud);
+
+
+/*----------------------------------------------------------------------------------------------------------*/
 void shadow_n(short point, TOPO *top, double alpha, double direction, SHORTMATRIX *shadow);
-		
+
 
 /*----------------------------------------------------------------------------------------------------------*/
 void kriging_distr(double t, METEO_STATIONS *met_st, float *data, float novalue, DOUBLEMATRIX *Z, double int_scale, double variance, DOUBLEMATRIX *out);
@@ -71,15 +66,15 @@ void sat_vap_pressure_inv(double *T, double p, double P);
 /*----------------------------------------------------------------------------------------------------------*/
 void turbulent_fluxes(long r, long c, double zmu, double zmt, double z0, double d0, double z0_z0t, double v, double P, double RH, double gammaT, double Ta, double Ts,
 					  double *H, double *E, double *dH_dT, double *dE_dT, double *r_v, double *rho, double *Qa, DOUBLEVECTOR *report, PAR *par);
-					  
+
 double Eg_Epot(double r_v, double theta, double res, double sat);
 
-void canopy_fluxes(double r_v, double rho, double Tv, double Ta, double Qa, double Pa, double SWin, double fW, double *theta, double LAI, double *land, double *root, 
+void canopy_fluxes(double r_v, double rho, double Tv, double Ta, double Qa, double Pa, double SWin, double fW, double *theta, double LAI, double *land, double *root,
 	double *Ecp, double *dEcp_dT, double *fv, double *ft, double *ftl);
-						  					  
+
 double Psim(double z);
 
-double Psih(double z);		
+double Psih(double z);
 
 double Zero(double z);
 

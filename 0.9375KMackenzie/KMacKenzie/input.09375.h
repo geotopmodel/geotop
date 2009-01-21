@@ -2,29 +2,28 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna 
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna. 
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-    
-    
-    
-    
+
+
+
 typedef struct {
 	DOUBLEMATRIX *land_classes;
 	DOUBLEMATRIX *met;
@@ -32,7 +31,7 @@ typedef struct {
 	double D;
 	double Dsnow0;
 	double agesnow0;
-    double rhosnow0;	
+    double rhosnow0;
 	double rhoglac0;
 	double Dglac0;
 	double Tglac0;
@@ -46,7 +45,7 @@ typedef struct {
 /****************************************************************************************************/
 /* Subroutine which get all the input file and put the variables in the apposite structs            */
 /****************************************************************************************************/
-void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
+void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, LISTON *liston);
 
 

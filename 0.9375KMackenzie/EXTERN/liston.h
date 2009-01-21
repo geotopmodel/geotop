@@ -1,10 +1,9 @@
 
 /* STATEMENT:
 
-GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion Mackenzie 
+INTERFACE GEOtop-Micromet
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 
  LICENSE:
 

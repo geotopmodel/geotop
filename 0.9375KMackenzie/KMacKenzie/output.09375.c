@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -24,6 +24,7 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 
 
 
+#include "keywords_file.h"
 #include "struct.geotop.09375.h"
 #include "liston.h"
 #include "output.09375.h"
@@ -36,7 +37,6 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #include "t_utilities.h"
 #include "rw_maps.h"
 #include "constant.h"
-#include "keywords_file.h"
 #include "extensions.h"
 #include "times.h"
 #include "energy.balance.h"
@@ -102,6 +102,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
  double JD,z;
  long d2,mo2,y2,h2,mi2;
  short sy;
+
+//double jd;
+//long day,month,year,hour0,hour1,hour2,min0,min1,min2;
 
  /* Assignment to some internal variables of some input par:*/
  time_max=times->TH*3600.0;
@@ -323,10 +326,11 @@ if(par->state_pixel==1){
 			fprintf(f,"%14.3f,%14.9f,%f,%14.4f,%14.6f,%14.6f,%14.6f,%14.6f,%14.12f,%14.6f,%14.12f,",
 					egy->out1->co[17][i]/*v*/,egy->out1->co[55][i]/*vdir*/,egy->out1->co[18][i]/*RH*/,egy->out1->co[19][i]/*P*/,egy->out1->co[20][i]/*Ta*/,egy->out1->co[10][i]/*Tsurface*/,
 					egy->out1->co[46][i],egy->out1->co[47][i],egy->out1->co[48][i],egy->out1->co[49][i],egy->out1->co[50][i]);
-			fprintf(f,"%14.5f,%14.5f,%14.5f,%14.5f,%14.12f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,",
-					egy->out1->co[14][i]/*Rsw*/,egy->out1->co[53][i]/*SWbeam*/,egy->out1->co[54][i]/*SWdiff*/,egy->out1->co[45][i],egy->out1->co[15][i]/*albedo*/,egy->out1->co[12][i]/*Rlwin*/,egy->out1->co[13][i]/*Rlwout*/,
-					egy->out1->co[11][i]/*Rnet*/,egy->out1->co[14][i]+egy->out1->co[45][i]/*SW*/,egy->out1->co[12][i]+egy->out1->co[13][i]/*LW*/,
-					egy->out1->co[6][i]/*H*/,egy->out1->co[5][i]/*L*/,egy->out1->co[9][i]/*Qrain*/,egy->out1->co[8][i]/*G*/,egy->out1->co[7][i]/*surfEB*/);
+			fprintf(f,"%14.5f,%14.5f,%14.5f,%14.5f,%14.12f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,",
+					egy->out1->co[14][i]/*Rsw*/,egy->out1->co[53][i]/*SWbeam*/,egy->out1->co[54][i]/*SWdiff*/,egy->out1->co[45][i],egy->out1->co[15][i]/*albedo*/,
+					(180/Pi)*egy->hsun,(180/Pi)*egy->dsun,(180/Pi)*acos(cos(top->slopes->co[r][c])*sin(egy->hsun)+sin(top->slopes->co[r][c])*cos(egy->hsun)*cos(-top->aspect->co[r][c]+egy->dsun)),
+					egy->out1->co[12][i]/*Rlwin*/,egy->out1->co[13][i]/*Rlwout*/,egy->out1->co[11][i]/*Rnet*/,egy->out1->co[14][i]+egy->out1->co[45][i]/*SW*/,
+					egy->out1->co[12][i]+egy->out1->co[13][i]/*LW*/,egy->out1->co[6][i]/*H*/,egy->out1->co[5][i]/*L*/,egy->out1->co[9][i]/*Qrain*/,egy->out1->co[8][i]/*G*/,egy->out1->co[7][i]/*surfEB*/);
 			fprintf(f,"%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,",
 					egy->out1->co[24][i]/*Rswin_cum*/,egy->out1->co[28][i]/*Rswout_cum*/,egy->out1->co[22][i]/*Rlwin_cum*/,egy->out1->co[23][i]/*Rlwout_cum*/,
 					egy->out1->co[24][i]+egy->out1->co[28][i],egy->out1->co[22][i]+egy->out1->co[23][i],egy->out1->co[21][i]/*Rnet_cum*/,
@@ -1027,6 +1031,7 @@ free_doublematrix(M);
 //SPECIAL PLOTS AT SOME DAYS
 /**********************************************************************************************************/
 /**********************************************************************************************************/
+
 if(times->i_plot==times->n_plot){
 
 	printf("\nWriting output data for JD:%ld year:%ld file:%ld\n",times->d_plot, times->AAAA, times->nt_plot);
@@ -1059,6 +1064,7 @@ if(times->i_plot==times->n_plot){
 		for(c=1;c<=top->Z0->nch;c++){
 			if(top->Z0->co[r][c]!=UV->V->co[2]){
 				sy=sl->type->co[r][c];
+				l=1;
 				M->co[r][c]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
 					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
 			}
@@ -1089,7 +1095,82 @@ if(times->i_plot==times->n_plot){
 	}
 }
 
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+//TRANSECTS
+/**********************************************************************************************************/
+/**********************************************************************************************************/
 
+/*date_time(times->time, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour0, &min0);
+date_time(times->time+par->Dt, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour1, &min1);
+date_time(times->time+2.0*par->Dt, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour2, &min2);
+
+M=new_doublematrix(Nr,Nc);
+for(r=1;r<=Nr;r++){
+	for(c=1;c<=Nc;c++){
+		if(top->Z0->co[r][c]!=NoV){
+
+			if(snow->lnum->co[r][c]>=1){
+				M->co[r][c]=snow->T->co[snow->lnum->co[r][c]][r][c];
+			}else if(par->glaclayer_max>0){
+				if(snow->lnum->co[r][c]==0 && glac->lnum->co[r][c]>=1){
+					M->co[r][c]=glac->T->co[1][r][c];
+				}else{
+					M->co[r][c]=sl->T->co[1][r][c];
+				}
+			}else{
+				M->co[r][c]=sl->T->co[1][r][c];
+			}
+
+		}else{
+			M->co[r][c]=NoV;
+		}
+	}
+}
+
+for(j=0;j<2;j++){
+
+	for(i=0;i<dim2(par->transect[j]);i++){
+
+		if(par->transect[j][i][2]>=hour1+min1/60.0 && par->transect[j][i][2]<hour2+min2/60.0){
+
+			par->vtrans[j][i]=interp_value(par->transect[j][i][0], par->transect[j][i][1], M, top->Z0)*(par->transect[j][i][2]-(hour1+min1/60.0))/((hour2+min2/60.0)-(hour1+min1/60.0));
+
+			//printf("1. %ld %ld %f\n",i,j,par->vtrans[j][i]);
+
+		}else if(par->transect[j][i][2]>hour0+min0/60.0 && par->transect[j][i][2]<hour1+min1/60.0){
+
+			par->vtrans[j][i]+=interp_value(par->transect[j][i][0], par->transect[j][i][1], M, top->Z0)*((hour1+min1/60.0)-par->transect[j][i][2])/((hour1+min1/60.0)-(hour0+min0/60.0));
+
+			//printf("2. %ld %ld %f %ld\n",i,j,par->vtrans[j][i],par->ibeg->co[j+1]);
+
+			if(par->ibeg->co[j+1]==-1){
+				par->ibeg->co[j+1]=0;
+				par->cont_trans->co[j+1]+=1;
+			}
+
+			if(i!=0){
+				//printf("%ld %ld %f\n",j,i,pow(pow(par->transect[j][i][0]-par->transect[j][i-1][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][i-1][1],2.0),0.5));
+
+				if(pow(pow(par->transect[j][i][0]-par->transect[j][i-1][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][i-1][1],2.0),0.5)>40){
+					par->ibeg->co[j+1]=i;
+					par->cont_trans->co[j+1]+=1;
+				}
+			}
+
+			if(fabs(par->vtrans[j][i]-NoV)>1.0E-2){
+				f=fopen(namefile_i(join_strings(WORKING_DIRECTORY,"_transectMOD"),j+1),"a");
+				fprintf(f,"%ld,%ld,%f,%f,%f,%f,%f,%f\n",par->cont_trans->co[j+1],i,pow(pow(par->transect[j][i][0]-par->transect[j][par->ibeg->co[j+1]][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][par->ibeg->co[j+1]][1],2.0),0.5),
+					par->transect[j][i][0],par->transect[j][i][1],par->transect[j][i][2],par->transect[j][i][3],par->vtrans[j][i]);
+				fclose(f);
+			}
+		}
+	}
+
+
+}
+
+free_doublematrix(M);*/
 
 
 
@@ -1099,15 +1180,17 @@ if(times->i_plot==times->n_plot){
 /**********************************************************************************************************/
 /**********************************************************************************************************/
 
-if(times->time==0){
-	isavings=0;
-}
+if(times->time==0) isavings=0;
+
 if(isavings < par->saving_points->nh){
-	if(par->saving_points->nh==1 && par->saving_points->co[1]==0){
+
+	if(par->saving_points->nh==1 && par->saving_points->co[1]==0.0){
+
 		isavings=1;
+
 	}else{
 
-		if(times->time+par->Dt >= 86400*par->saving_points->co[isavings+1]){
+		if(times->time+par->Dt >= 86400.0*par->saving_points->co[isavings+1]){
 			isavings+=1;
 
 			write_suffix(SSSS, isavings, 0);
@@ -1460,7 +1543,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
  }
  free_doublematrix(par->chkpt);
  if(par->state_pixel==1) free_longmatrix(par->rc);
- free_longvector(par->saving_points);
+ free_doublevector(par->saving_points);
  free_longvector(par->JD_plots);
  if(par->point_sim==1){
 	if(par->micromet1==1 || par->micromet2==1 || par->micromet3==1){
@@ -1468,6 +1551,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		free_longvector(par->c_points);
 	}
  }
+/* free(par->transect);
+ free(par->vtrans);
+ free_longvector(par->cont_trans);
+ free_longvector(par->ibeg); */
  free(par);
 
  printf("Deallocating liston\n");
@@ -1544,11 +1631,11 @@ void write_date(FILE *f, long day, long month, long year, long hour, long min)
 
 void plot(char *name, long JD, long y, long i, DOUBLEMATRIX *M, short format){
 
-	char ADS[ ]={"aaaaddddssss"};
+	char ADS[ ]={"aaaaddddLssss"};
 
 	write_suffix(ADS, y, 0);
 	write_suffix(ADS, JD, 4);
-	write_suffix(ADS, i, 8);
+	write_suffix(ADS, i, 9);
 	write_map(join_strings(name,ADS), 0, format, M, UV);
 }
 
@@ -1644,10 +1731,10 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		fprintf(f," Water content of wilting point [-]: %f\n",land->ty->co[lu][jtwp]);
 		fprintf(f," Water content of field capacity [-]: %f\n",land->ty->co[lu][jtfc]);
 		for(l=1;l<=Nl;l++){
-			fprintf(f," Kv_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKv][l-1]);
+			fprintf(f," Kv_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKv][l]);
 		}
 		for(l=1;l<=Nl;l++){
-			fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKh][l-1]);
+			fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKh][l]);
 		}
 
 		fprintf(f," Terrain elevation [m]: %f\n",top->Z0->co[r][c]);
@@ -1669,8 +1756,8 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		fprintf(f," Slope along negative y direction [-]: %f \n",top->dz_dy->co[r][c]);
 		fprintf(f," Topology of curvature (0-1) [-]: %d \n",top->curv->co[r][c]);
 		fprintf(f," Area considering the slope [m^2]: %f \n",top->area->co[r][c]);
-		fprintf(f," Aspect [rad] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]);
-		fprintf(f," Mean slope of the pixel [rad]: %f \n",top->slopes->co[r][c]);
+		fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]*180.0/Pi);
+		fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slopes->co[r][c]*180.0/Pi);
 		fprintf(f," Slope to calculate the surface velocity of the channel incoming flow [-]: %f \n",top->i_ch->co[r][c]);
 		fprintf(f," Land use number is %d \n",land->use->co[r][c]);
 
@@ -1693,7 +1780,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		fprintf(f,"DATE,JDfrom0,JD,t[d],t_i[s],t_f[s],v[m/s],Vdir,RH[-],P[hPa],Tair[C],Tsurface[C],Tdew[C],eair[mbar],Qair[-],esurf[mbar]");
-		fprintf(f,",Qsurf[-],SWin[W/m2],SWin_beam,SWin_diff,SWout[W/m2],albedo[-],LWin[W/m2],LWout[W/m2],Rnet[W/m2],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2]");
+		fprintf(f,",Qsurf[-],SWin[W/m2],SWin_beam,SWin_diff,SWout[W/m2],albedo[-],alpha[deg],direction[deg],phi[deg],LWin[W/m2],LWout[W/m2],Rnet[W/m2],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2]");
 		fprintf(f,",Qrain[W/m2],Gsoil[W/m2],SurfaceEB[W/m2],SWin_c[MJ],SWout_c[MJ],LWin_c[MJ],LWout_c[MJ],SW_cum[MJ],LWn_cum[MJ],Rnet_cm[MJ],H_cum[MJ],LE_cum[MJ]");
 		fprintf(f,",G_cum[MJ],Eg[mm],Sg[mm],Etc[mm],Psnow[mm],Prain[mm],Psnow_c[mm],Prain_SOILc[mm],Prain_SNOWc[mm],Ptot_c[mm],Wt[mm],maxStor");
 		fprintf(f,",DWt[mm],Ptot_atm,Rain_atm,Snow_atm,Evap_can,Drip_can,Ptot_atm_cum,Prain_atm_cum,Psnow_atm_cum,Evap_can_cum,Drip_can_cum,Pn[mm],Runoff[mm]");
@@ -1823,6 +1910,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		}
 		fprintf(f," \n");
 		t_fclose(f);
+
 	}
 
 	//DATA BASIN
@@ -1869,6 +1957,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		}
 	}
 
+
 	//ALTIMETRIC RANKS
 	for(i=1;i<=par->ES_num;i++){
 
@@ -1892,6 +1981,8 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 	}
 
 	free_doublevector(root_fraction);
+
+
 }
 
 /*==================================================================================================================*/
@@ -2008,55 +2099,99 @@ double interp_value(double E, double N, DOUBLEMATRIX *M, DOUBLEMATRIX *Z){
 	double  dN, dE, N0, E0, DN, DE, w1, V;
 	long r, c;
 
-	r=row(N, Nr, 0, UV);
-	c=col(E, Nc, 0, UV);
+	r=row1(N, Nr, 0, UV);
+	c=col1(E, Nc, 0, UV);
 
-	dN=UV->U->co[1];
-	dE=UV->U->co[2];
+	if(r==0 || c==0 || Z->co[r][c]==NoV){
 
-	N0=UV->U->co[3] + (Nr-r+0.5)*dN;
-	E0=UV->U->co[4] + (c-0.5)*dE;
-
-	DN=(N-N0)/(0.5*dN);
-	DE=(E-E0)/(0.5*dE);
-
-	if(DE>=0 && DN<=DE && DN>=-DE){
-		if(Z->co[r][c+1]!=NoV){
-			w1=(E0+dE-E)/dE;
-			V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c+1];
-		}else{
-			V=M->co[r][c];
-		}
-
-	}else if(DN>=0 && DN>=-DE && DN>=DE){
-		if(Z->co[r-1][c]!=NoV){
-			w1=(N0+dN-N)/dN;
-			V=w1*M->co[r][c]+(1.0-w1)*M->co[r-1][c];
-		}else{
-			V=M->co[r][c];
-		}
-
-	}else if(DE<=0 && DN<=DE && DN>=-DE){
-		if(Z->co[r][c-1]!=NoV){
-			w1=(E-(E0-dE))/dE;
-			V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c-1];
-		}else{
-			V=M->co[r][c];
-		}
+		V=NoV;
 
 	}else{
-		if(Z->co[r+1][c]!=NoV){
-			w1=(N-(N0-dN))/dN;
-			V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c+1];
-		}else{
-			V=M->co[r][c];
-		}
 
+		dN=UV->U->co[1];
+		dE=UV->U->co[2];
+
+		N0=UV->U->co[3] + (Nr-r+0.5)*dN;
+		E0=UV->U->co[4] + (c-0.5)*dE;
+
+		DN=(N-N0)/(0.5*dN);
+		DE=(E-E0)/(0.5*dE);
+
+		//printf("No:%f E0:%f N:%f E:%f Dn:%f De:%f\n",N0,E0,N,E,DN,DE);
+
+		if(DN<=DE && DN>=-DE){
+			//printf("1\n");
+			//printf("%ld %ld %f\n",r,c,M->co[r][c]);
+
+			if(Z->co[r][c+1]!=NoV){
+				w1=(E0+dE-E)/dE;
+				V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c+1];
+			}else{
+				V=M->co[r][c];
+			}
+
+		}else if(DN>=DE && DN>=-DE){
+			//printf("2\n");
+			//printf("%ld %ld %f\n",r,c,M->co[r][c]);
+			if(Z->co[r-1][c]!=NoV){
+				w1=(N0+dN-N)/dN;
+				V=w1*M->co[r][c]+(1.0-w1)*M->co[r-1][c];
+			}else{
+				V=M->co[r][c];
+			}
+
+		}else if(DN>=DE && DN<=-DE){
+			//printf("3\n");
+			//printf("%ld %ld %f\n",r,c,M->co[r][c]);
+			if(Z->co[r][c-1]!=NoV){
+				w1=(E-(E0-dE))/dE;
+				V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c-1];
+			}else{
+				V=M->co[r][c];
+			}
+
+		}else{
+			//printf("4\n");
+			//printf("%ld %ld %f\n",r,c,M->co[r][c]);
+			if(Z->co[r+1][c]!=NoV){
+				w1=(N-(N0-dN))/dN;
+				V=w1*M->co[r][c]+(1.0-w1)*M->co[r+1][c];
+			}else{
+				V=M->co[r][c];
+			}
+
+		}
 	}
 
 	return(V);
 
 }
 
+long row1(double N, long nrows, long i, T_INIT *UV)
+{
 
+	long cont=0;
+
+	if(N>=UV->U->co[3] && N<=UV->U->co[3]+nrows*UV->U->co[1]){
+		do{
+			cont+=1;
+		}while(UV->U->co[3]+(nrows-cont)*UV->U->co[1]>N);
+	}
+
+	return(cont);
+}
+
+long col1(double E, long ncols, long i, T_INIT *UV)
+{
+
+	long cont=0;
+
+	if(E>=UV->U->co[4] && E<=UV->U->co[4]+ncols*UV->U->co[2]){
+		do{
+			cont+=1;
+		}while(UV->U->co[4]+cont*UV->U->co[2]<E);
+	}
+
+	return(cont);
+}
 

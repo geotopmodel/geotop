@@ -1,20 +1,21 @@
 
+
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -23,12 +24,8 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-//Author: Stefano Endrizzi
-//Date: 13 November 2005
-//Contents: Snow subroutines
-
-#include "constant.h"
 #include "keywords_file.h"
+#include "constant.h"
 #include "struct.geotop.09375.h"
 #include "snow.09375.h"
 #include "write_dem.h"
@@ -181,11 +178,11 @@ if( theta_i < par->snow_maxpor ){
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 
-void snow_layer_combination(long r, long c, SNOW *snow, double Ta, long max, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, double time)
+void snow_layer_combination(long r, long c, SNOW *snow, double Ta, long linf, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, double time)
 
 {
 
-long l, cont=0;
+long l, cont=0, max=Dmin->nh;
 short occuring;
 double D0=0.0,D1=0.0,D=0.0;
 DOUBLEVECTOR *Dmin2,*Dmax2,*wice,*wliq,*Dz,*Temp;
@@ -232,7 +229,7 @@ if(D<=0.000001){
 
 
 //3. se non c'e' ancora nessun layer di neve e 1mm<=z<Dmin(1), si inizializza un nuovo layer di neve (caso semplificato)
-if(snow->lnum->co[r][c]==0 && snow->Dzl->co[1][r][c]>=1 && snow->Dzl->co[1][r][c]<Dmin->co[1]){
+if(snow->lnum->co[r][c]==0 && snow->Dzl->co[1][r][c]>=0.000001 && snow->Dzl->co[1][r][c]<Dmin->co[1]){
 
 	snow->lnum->co[r][c]=1;
 	snow->type->co[r][c]=1;
@@ -262,6 +259,7 @@ if(snow->lnum->co[r][c]==0 && snow->Dzl->co[1][r][c]>=Dmin->co[1]){
 if(snow->type->co[r][c]==1 && snow->Dzl->co[1][r][c]>=Dmin->co[1]){
 
 	snow->type->co[r][c]=2;
+
 	//si assegna alla neve la temperatura dell'aria
 	/*if(Ta<Tfreezing){
 		snow->T->co[1][r][c]=Ta;
@@ -275,10 +273,10 @@ if(snow->type->co[r][c]==1 && snow->Dzl->co[1][r][c]>=Dmin->co[1]){
 
 // SIMMETRICAL PARAMETERIZATION SCHEME (new)
 
-// if you want to ise the old one, COMMENT FROM HERE
+// if you want to use the old one, COMMENT FROM HERE
 
+Dmax->co[linf]=1.0E10;	//snow layer of unlimited thickness
 
-Dmax->co[(long)(1+floor(0.5*max))]=1.0E10;
 if(snow->type->co[r][c]==2){
 
 	wliq=new_doublevector(max);
@@ -288,37 +286,45 @@ if(snow->type->co[r][c]==2){
 
 	Dmin2=new_doublevector(max);
 	Dmax2=new_doublevector(max);
-	min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2);
-	//show_Dminmax(r, c, Dmin2->co, Dmax2->co, snow);
+	min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);
 
 	for(l=1;l<=max;l++){
 		D0+=snow->Dzl->co[l][r][c];
 	}
 
 	do{
+
+		//show_Dminmax(r, c, Dmin2->co, Dmax2->co, snow->lnum->co[r][c]);
+		//write_snow_all(r, c, snow);
+
 		cont+=1;
+
 		if(cont>10){
+			show_Dminmax(r, c, Dmin2->co, Dmax2->co, snow->lnum->co[r][c]);
+			write_snow_all(r, c, snow);
 			printf("Iteration to assign new thicknesses to the snow layers does not converge, r:%ld c:%ld\n",r,c);
-			t_error("Error 1 in snow combination");
+			t_error("Error 1 in snow combination - Change values of blocks 5 and 6 parameter file");
 		}
 
 		occuring=0;
 
 		//assign
-		for(l=1;l<=snow->lnum->co[r][c];l++){
+		for(l=1;l<=max;l++){
 			wice->co[l]=snow->w_ice->co[l][r][c];
 			wliq->co[l]=snow->w_liq->co[l][r][c];
 			Dz->co[l]=snow->Dzl->co[l][r][c];
 			Temp->co[l]=snow->T->co[l][r][c];
 		}
+
 		//trying to adjust the layer thicknesses maintaining the same layer number
-		for(l=snow->lnum->co[r][c];l>floor(snow->lnum->co[r][c]/2.0)+1;l--){
-			if(Dz->co[l]>Dmax2->co[l]) set_snow(r,c,wliq->co, wice->co, Temp->co, Dz->co, l, l-1, Dmax2->co[l]);
-			if(Dz->co[l]<Dmin2->co[l] && Dz->co[l-1]>=Dmin2->co[l]-Dz->co[l]) set_snow(r,c,wliq->co, wice->co, Temp->co, Dz->co, l, l-1, Dmin2->co[l]);
+		for(l=snow->lnum->co[r][c];l>=linf;l--){
+			if(Dz->co[l]>Dmax2->co[l] && l>1) set_snow(r, c, wliq->co, wice->co, Temp->co, Dz->co, l, l-1, Dmax2->co[l]);
+			if(Dz->co[l]<Dmin2->co[l] && Dz->co[l-1]>=Dmin2->co[l]-Dz->co[l] && l>1) set_snow(r, c, wliq->co, wice->co, Temp->co, Dz->co, l, l-1, Dmin2->co[l]);
 		}
-		for(l=1;l<floor(snow->lnum->co[r][c]/2.0)+1;l++){
-			if(Dz->co[l]>Dmax2->co[l]) set_snow(r,c,wliq->co, wice->co, Temp->co, Dz->co, l, l+1, Dmax2->co[l]);
-			if(Dz->co[l]<Dmin2->co[l] && Dz->co[l+1]>=Dmin2->co[l]-Dz->co[l]) set_snow(r,c,wliq->co, wice->co, Temp->co, Dz->co, l, l+1, Dmin2->co[l]);
+
+		for(l=1;l<=linf;l++){
+			if(Dz->co[l]>Dmax2->co[l] && l<snow->lnum->co[r][c]) set_snow(r, c, wliq->co, wice->co, Temp->co, Dz->co, l, l+1, Dmax2->co[l]);
+			if(Dz->co[l]<Dmin2->co[l] && Dz->co[l+1]>=Dmin2->co[l]-Dz->co[l] && l<snow->lnum->co[r][c]) set_snow(r, c, wliq->co, wice->co, Temp->co, Dz->co, l, l+1, Dmin2->co[l]);
 		}
 
 		//checking if it is ok now
@@ -328,22 +334,26 @@ if(snow->type->co[r][c]==2){
 
 		//if it is ok, it is done; otherwise try to spplit or merge layers
 		if(occuring==0){
+
 			for(l=1;l<=snow->lnum->co[r][c];l++){
 				snow->w_ice->co[l][r][c]=wice->co[l];
 				snow->w_liq->co[l][r][c]=wliq->co[l];
 				snow->Dzl->co[l][r][c]=Dz->co[l];
 				snow->T->co[l][r][c]=Temp->co[l];
 			}
+
 		}else{
 
 			for(l=1;l<=snow->lnum->co[r][c];l++){
+
 				if(snow->Dzl->co[l][r][c]<Dmin2->co[l]){
 					merge_layers(r, c, snow, l);
-					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2);
+					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);
 				}
+
 				if(snow->lnum->co[r][c]<max && snow->Dzl->co[l][r][c]>Dmax2->co[l]){
 					split_layers(r, c, snow, l);
-					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2);
+					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);
 				}
 			}
 		}
@@ -354,7 +364,8 @@ if(snow->type->co[r][c]==2){
 		D1+=snow->Dzl->co[l][r][c];
 	}
 	if(fabs(D0-D1)>0.001){
-		t_error("Error 2 in snow combination");
+		printf("r:%ld c:%ld Dold:%f Dnew:%f\n",r,c,D0,D1);
+		t_error("Error 2 in snow combination - Change values of blocks 5 and 6 parameter file");
 	}
 
 	free_doublevector(wice);
@@ -805,26 +816,7 @@ if( (D==0.0 && glac->T->co[1][r][c]>-98.999) || (D>0 && D<=0.1) ){
 }
 
 
-/*----------------------------------------------------------------------------------------------------------*/
 
-void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, DOUBLEVECTOR *Dmin2, DOUBLEVECTOR *Dmax2){
-
-	long l,m;
-
-	m=floor(n/2.0);
-
-	for(l=1;l<=m;l++){
-		Dmin2->co[l]=Dmin->co[l];
-		Dmin2->co[n-l+1]=Dmin->co[l];
-		Dmax2->co[l]=Dmax->co[l];
-		Dmax2->co[n-l+1]=Dmax->co[l];
-	}
-	if(2*m!=n){
-		Dmin2->co[m+1]=Dmin->co[m+1];
-		Dmax2->co[m+1]=Dmax->co[m+1];
-	}
-
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -954,7 +946,7 @@ void set_windtrans_snow(SNOW *snow, double **Z, double **Ta, double **P, double 
 					write_snow_all(r, c, snow);
 					printf("%f %f %f %f\n",DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c]);
 				}
-				snow_layer_combination(r, c, snow, Ta[r][c], par->snowlayer_max, par->Dmin, par->Dmax, t);
+				snow_layer_combination(r, c, snow, Ta[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, t);
 				D=DEPTH(r,c,snow->lnum,snow->Dzl);
 				if(D!=D){
 					printf("Novalue in set_windtrans_snow(c): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
@@ -1206,6 +1198,53 @@ void merge_layers(long r, long c, SNOW *snow, long l1){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, DOUBLEVECTOR *Dmin2, DOUBLEVECTOR *Dmax2, long linf){
+
+	long l,mup,mdw,N=Dmin->nh;
+
+	if(n==N){
+
+		for(l=1;l<=n;l++){
+			Dmin2->co[l]=Dmin->co[l];
+			Dmax2->co[l]=Dmax->co[l];
+		}
+
+	}else{
+
+		mup=ceil(n/2.0);
+		mdw=floor(n/2.0);
+
+		//printf("a. n=%ld linf=%ld mup=%ld mdw=%ld\n",n,linf,mup,mdw);
+
+		if(linf<N-mup && linf<=mdw){
+			mdw=linf-1;
+			mup=n-mdw;
+		}else if(linf>mdw && linf>=N-mup){
+			mup=N-linf;
+			mdw=n-mup;
+		}
+
+		//printf("b. n=%ld linf=%ld mup=%ld mdw=%ld\n",n,linf,mup,mdw);
+
+		for(l=1;l<=mdw;l++){
+			Dmin2->co[l]=Dmin->co[l];
+			Dmax2->co[l]=Dmax->co[l];
+		}
+
+		for(l=n;l>n-mup;l--){
+			Dmin2->co[l]=Dmin->co[N+l-n];
+			Dmax2->co[l]=Dmax->co[N+l-n];
+		}
+
+	}
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 void initialize_snow(long r, long c, long l, SNOW *snow){
 
 	snow->w_ice->co[l][r][c]=0.0;
@@ -1220,11 +1259,11 @@ void initialize_snow(long r, long c, long l, SNOW *snow){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void show_Dminmax(long r, long c, double *Dmin, double *Dmax, SNOW *snow){
+void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n){
 
 	long l;
 
-	for(l=1;l<=snow->lnum->co[r][c];l++){
-		printf("l:%ld ltot:%ld Dmin:%f Dmax:%f\n",l,snow->lnum->co[r][c],Dmin[l],Dmax[l]);
+	for(l=1;l<=n;l++){
+		printf("l:%ld ltot:%ld Dmin:%f Dmax:%f\n",l,n,Dmin[l],Dmax[l]);
 	}
 }

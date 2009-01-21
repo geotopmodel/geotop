@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -24,11 +24,12 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 
 
 
+
+#include "keywords_file.h"
 #include "struct.geotop.09375.h"
 #include "times.h"
 
 #include "constant.h"
-#include "keywords_file.h"
 #include "pedo.funct.h"
 #include "write_dem.h"
 #include "t_datamanipulation.h"
@@ -63,6 +64,7 @@ void updates_times(TIMES *times, PAR *par){
 	if(par->JD_plots->co[1]!=0){
 		occurring=0;
 		for(i=1;i<=par->JD_plots->nh;i++){
+			//tmin=0.0;
 			tmin=get_time( (double)(par->JD_plots->co[i]-1), times->AAAA, par->JD0, par->year0 );
 			tmax=get_time( (double)(par->JD_plots->co[i]  ), times->AAAA, par->JD0, par->year0 );
 			if(fmod(tmax-tmin,times->n_plot*par->Dt)!=0.0){
@@ -89,13 +91,15 @@ void updates_times(TIMES *times, PAR *par){
 		times->n_plot=1;
 	}
 
-	date_time(times->time+par->Dt, par->year0, par->JD0, 0.0, &(times->JD), &(times->DD), &(times->MM), &(times->AAAA), &(times->hh), &(times->mm));
+	date_time(times->time+0.5*par->Dt, par->year0, par->JD0, 0.0, &(times->JD), &(times->DD), &(times->MM), &(times->AAAA), &(times->hh), &(times->mm));
 
 	if (times->time>=times->TH*3600.0){
 		f=fopen(files->co[ferr]+1,"a");
 		fprintf(f,"\nTime table [s]: \nt_E=%10.2f   t_Wv=%10.2f   t_Wh=%10.2f   t_write=%10.2f\n", times->egy, times->vert_wb, times->horiz_wb, times->writeout);
 		fclose(f);
 	}
+
+	//printf("%ld %ld\n", times->i_plot, times->n_plot);
 
 }
 

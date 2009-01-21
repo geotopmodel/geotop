@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -23,10 +23,8 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-/*Authors: Stefano Endrizzi, Matteo Dall'Amico, Emanuele Cordano - October 2008*/
-
-#include "constant.h"
 #include "keywords_file.h"
+#include "constant.h"
 #include "struct.geotop.09375.h"
 #include "water.balance.h"
 #include "pedo.funct.h"`
@@ -199,20 +197,12 @@ void vertical_water_balance (double Dt, DOUBLEMATRIX *Z, SOIL *sl, WATER *wat, d
 								sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil)
 								-th1;
 
-							/*if(r==56 && c==157) printf("r:%ld c:%ld l:%ld th0:%f th1:%f over1:%f thi:%f T:%f theq:%f Th:%f h:%f psisat:%f P0:%f\n",r,c,l,th0,th1,oversat,sl->thice->co[l][r][c],sl->T->co[l][r][c],teta_psi(Psif2(sl->T->co[l][r][c]),sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],
-								1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil),th1+sl->thice->co[l][r][c],
-								internal_energy_soil(th1, sl->thice->co[l][r][c], sl->T->co[l][r][c], sl->pa->co[sy][jdz][l], sl->pa->co[sy][jct][l], sl->pa->co[sy][jsat][l]),
-								psisat, sl->P->co[l][r][c]);*/
-
 							DW=(th1-th0)*(sl->pa->co[sy][jdz][l]);
 							h=internal_energy_soil(th0, sl->thice->co[l][r][c], sl->T->co[l][r][c], sl->pa->co[sy][jdz][l], sl->pa->co[sy][jct][l], sl->pa->co[sy][jsat][l]);
 							from_internal_soil_energy(r, c, l, h+Lf*DW, &th1, &(sl->thice->co[l][r][c]), &(sl->T->co[l][r][c]), sl->pa->co[sy], par->psimin);
 
 							sl->P->co[l][r][c]=psi_teta(th1+oversat,sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
 								sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
-
-							//sl->P->co[l][r][c]=psi->co[l];
-							//if(r==56 && c==157)  printf("P1:%f P2:%f h:%f DW:%f th1:%f thi:%f T:%f\n\n",psi->co[l],sl->P->co[l][r][c],h,DW,th1,sl->thice->co[l][r][c],sl->T->co[l][r][c]);
 
 						}else{
 							sl->P->co[l][r][c]=psi->co[l];
@@ -275,8 +265,6 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 	short infcond, sy=sl->type->co[r][c];
 	double psisat=par->PsiInf+psi_saturation(sl->thice->co[1][r][c], sl->pa->co[sy][jsat][1], sl->pa->co[sy][jres][1], sl->pa->co[sy][ja][1], sl->pa->co[sy][jns][1], 1-1/sl->pa->co[sy][jns][1]);
 	double mass0, mass1, masserror, masserror_tol=par->MaxerrVWB*Dt/3600.0, masserrordisplay;
-	FILE *f;
-	//long ri=56, ci=157;
 	long ri=0, ci=0;
 
 	*masserrorcum=0.0;
@@ -305,7 +293,7 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 					sl->pa->co[sy][jns][1],1-1/sl->pa->co[sy][jns][1],fmin(sl->pa->co[sy][jpsimin][1], Psif(sl->T->co[1][r][c], par->psimin)),par->Esoil);
 		por=sl->pa->co[sy][jsat][1]-sl->thice->co[1][r][c];
 		sl->Jinf->co[r][c]=-(theta1-por)*sl->pa->co[sy][jdz][1]/Dt;
-		e1->co[1]=psisat;
+		psit->co[1]=psisat;
 		if(r==ri && c==ci) printf("Jinf0:%f\n ",sl->Jinf->co[r][c]);
 	}
 
@@ -381,14 +369,15 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 				theta1=teta_psi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
 					sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)), par->Esoil);
 
-				if(e0->co[1]>=psisat){	//first layer saturated at the beginning of the loop
+				if(e0->co[1]>=psisat){	//saturated soil either at the beginning of the time step or as an effect of the iteration (this method prevents numerical instabilities)
+										//the inflitration flux becomes the unknown
 					ad->co[l]= -1.0;
 					ads->co[l]= -K1dw/dzdw;
 					b->co[l]= -K1dw - K1dw/dzdw*psisat;
-					ad1=C1*dz/dt + K1dw/dzdw;
+					ad1=C1*dz/dt + K1dw/dzdw;	//keeps memory of the coefficients in case the first soil layer is not saturated
 					ads1=-K1dw/dzdw;
 					b1=(C1*e0->co[l]+theta0-theta1)*dz/dt + (Inf-K1dw);
-				}else{							//first layer unsaturated*/
+				}else{							//first layer unsaturated, the suction head remains the unknown
 					ad->co[l]= C1*dz/dt + K1dw/dzdw;
 					ads->co[l]=-K1dw/dzdw;
 					b->co[l]=(C1*e0->co[l]+theta0-theta1)*dz/dt + (Inf-K1dw);
@@ -430,7 +419,7 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 					b->co[l]=(C1*e0->co[l]+theta0-theta1)*dz/dt + (K1up-K1dw);
 
 				}
-				if(e0->co[1]>=psisat){	//first layer saturated at the beginning of the loop
+				if(e0->co[1]>=psisat){	//saturated soil either at the beginning of the time step or as an effect of the iteration (this method prevents numerical instabilities)
 				    b2=b->co[2];
 					adi1=adi->co[1];
 					e0->co[1]=psisat;
@@ -471,24 +460,24 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 
 				tridiag(2,r,c,Nl,adi,ad,ads,b,e1);
 
-				//saturated sl
-				if(e0->co[1]>=psisat){ //first layer saturated at the beginning of the loop
+				//saturated soil either at the beginning of the time step or as an effect of the iteration (this method prevents numerical instabilities)
+				if(e0->co[1]>=psisat){
 
 					theta0=teta_psi(psit->co[1], sl->thice->co[1][r][c], sl->pa->co[sy][jsat][1], sl->pa->co[sy][jres][1], sl->pa->co[sy][ja][1],
 						sl->pa->co[sy][jns][1], 1-1/sl->pa->co[sy][jns][1], fmin(sl->pa->co[sy][jpsimin][1], Psif(sl->T->co[1][r][c], par->psimin)), par->Esoil);
-					theta1=sl->pa->co[sy][jsat][1]-sl->thice->co[1][r][c];
+					theta1=sl->pa->co[sy][jsat][1]-sl->thice->co[1][r][c];	//porosity
 					if(theta1>theta0){
-						Inf=(theta1-theta0)*sl->pa->co[sy][jdz][1]/dt;
+						Inf=(theta1-theta0)*sl->pa->co[sy][jdz][1]/dt;	//if the soil is not saturated at the beginning of the time step, it is considered saturated now, updating the infilitration
 					}else{
 						Inf=0.0;
 					}
 
 					if(r==ri && c==ci) printf("Pnet:%e Inf:%e\n",Pnet,e1->co[1]);
-					if(Pnet-Inf>e1->co[1]){
+					if(Pnet-Inf>=e1->co[1]){	//there is enough water that can infilitrate (e1 is the infiltration)
 						Inf+=e1->co[1];
 						e1->co[1]=e0->co[1];
 						if(r==ri && c==ci) printf("case1 Pnet:%e Inf:%e ",Pnet,Inf);
-					}else{
+					}else{	//there is not enough water that can infiltrate, the unknown becomes again the suction head
 						l=1;
 						ad->co[l]=ad1;
 						ads->co[l]=ads1;
@@ -502,13 +491,8 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 
 						tridiag(2,r,c,Nl,adi,ad,ads,b,e1);
 						if(r==ri && c==ci) printf("case2 Pnet:%e e1:%f ",Pnet,e1->co[1]);
-
 					}
 				}
-
-				//passage betw insaturated and saturated sl
-				infcond=0;
-				if(psit->co[1]<psisat && e1->co[1]>psisat+par->TolPsiInf) infcond=1;
 
 				//avoid instability when psi<psimin
 				if(e1->co[1]>1.0E5){
@@ -530,9 +514,9 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 				}
 
 
-				//passage betw insaturated and saturated sl
+				//passage between insaturated and saturated soil (should be avoided)
 				infcond=0;
-				if(psit->co[1]<psisat && e1->co[1]>psisat+par->TolPsiInf) infcond=1;
+				if(psit->co[1]<psisat && e1->co[1]>=psisat+par->TolPsiInf) infcond=1;
 
 				cont++;
 
@@ -672,27 +656,6 @@ void Richards(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double Pne
 	free_doublevector(e1);
 	free_doublevector(psit);
 
-	if(sl->Jinf->co[r][c]!=sl->Jinf->co[r][c]){
-		sl->Jinf->co[r][c]=0.0;
-		//if(par->n_error<par->max_error){
-			//par->n_error++;
-			f=fopen(files->co[ferr]+1,"a");
-			fprintf(f,"Infiltration not a number, pixel r:%ld c:%ld!\n",r,c);
-			fclose(f);
-		//}
-	}
-
-	for(l=1;l<=Nl;l++){
-		if(sl->J->co[l][r][c]!=sl->J->co[l][r][c]){
-			sl->J->co[l][r][c]=0.0; /*loosing of mass*/
-			//if(par->n_error<par->max_error){
-				//par->n_error++;
-				f=fopen(files->co[ferr]+1,"a");
-				fprintf(f,"Not a number for vertical flow J[%ld,%ld,%ld]!\n",l,r,c);
-				fclose(f);
-			//}
-		}
-	}
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------------*/
@@ -738,9 +701,7 @@ if(par->point_sim==0){	//distributed simulations
 							i=0.001*( wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
 							if(i<0) i=0;  //correct false slopes
 							q=b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;	//mm/s
-							if(q>0){
-								if(wat->h_sup->co[r][c]/q<dt) dt=wat->h_sup->co[r][c]/q;
-							}
+							if(q>0){ if(wat->h_sup->co[r][c]/q<dt) dt=wat->h_sup->co[r][c]/q; }
 						}
 					}
 				}
@@ -834,7 +795,7 @@ if(par->point_sim==0){	//distributed simulations
 
 			/*computation of value of flow which can go into channel:*/
 			q_sup_max=fmin(2.0*b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(top->i_ch->co[r][c])*1000.0/dx/dy,cnet->Q->co[ch]);
-			if (top->DD->co[r][c]==10) q_sup_max=cnet->Q->co[ch];
+			if (top->DD->co[r][c]==10) q_sup_max=cnet->Q->co[ch];	//closure section
 			if(q_sup_max!=q_sup_max) printf("q_sup_max no value: qsup:%f r:%ld c:%ld ch:%ld\n",cnet->Q->co[ch],r,c,ch);
 
 			/*wat of channel pixel which becames lateral flow and doesn't go into the channel;
@@ -917,7 +878,6 @@ void subflow(double Dt, TOPO *top, SOIL *sl, PAR *par, WATER *wat, double *Delta
 				dn=dy;
 
 				/*case with two land-pixel:*/
-
 				if((top->pixel_type->co[r][c]==0 || top->pixel_type->co[r][c]==10) && (top->pixel_type->co[R][C]==0 || top->pixel_type->co[R][C]==10)){
 
 					sy=sl->type->co[r][c];
@@ -944,11 +904,11 @@ void subflow(double Dt, TOPO *top, SOIL *sl, PAR *par, WATER *wat, double *Delta
 
 							i=top->dz_dx->co[r][c]+0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds;
 							q=Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1)*i*sl->pa->co[sy][jdz][l]*dn*1.0E-6;	//[m3/s]
-							if(r==ri && c==ci) printf("i:%f if:%f ig:%f %f %f k:%20.19f q:%f\n",i,top->dz_dx->co[r][c],0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds,sl->P->co[l][r][c],sl->P->co[l][R][C],Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1),q);
+							if(r==ri && c==ci) printf("l:%ld T:%f i:%f if:%f ig:%f P:%f P:%f k:%e q:%f\n",l,sl->T->co[l][r][c],i,top->dz_dx->co[r][c],0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds,sl->P->co[l][r][c],sl->P->co[l][R][C],Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1),q);
 
 							set_psi(P1, sl, &q, Dt, l, r, c, R, C, par->psimin, par->Esoil);
 
-							if(r==ri && c==ci) printf("P:%f oldP:%f P:%f oldP:%f q:%20.18f\n",P1->co[l][r][c],sl->P->co[l][r][c],P1->co[l][R][C],sl->P->co[l][R][C],q);
+							if(r==ri && c==ci) printf("P:%f oldP:%f P:%f oldP:%f q:%e\n",P1->co[l][r][c],sl->P->co[l][r][c],P1->co[l][R][C],sl->P->co[l][R][C],q);
 						}
 					}
 				}
@@ -990,11 +950,11 @@ void subflow(double Dt, TOPO *top, SOIL *sl, PAR *par, WATER *wat, double *Delta
 
 							i=top->dz_dy->co[r][c]+0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds;
 							q=Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1)*i*sl->pa->co[sy][jdz][l]*dn*1.0E-6;	//[m3/s]
-							if(r==ri && c==ci) printf("i:%f if:%f ig:%f %f %f k:%20.19f q:%f\n",i,top->dz_dy->co[r][c],0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds,sl->P->co[l][r][c],sl->P->co[l][R][C],Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1),q);
+							if(r==ri && c==ci) printf("l:%ld T:%f i:%f if:%f ig:%f P:%f P:%f k:%e q:%f\n",l,sl->T->co[l][r][c],i,top->dz_dx->co[r][c],0.001*(sl->P->co[l][r][c]-sl->P->co[l][R][C])/ds,sl->P->co[l][r][c],sl->P->co[l][R][C],Mean(sl->pa->co[sy][jKav][l], ds, ds, Kh, Kh1),q);
 
 							set_psi(P1, sl, &q, Dt, l, r, c, R, C, par->psimin, par->Esoil);
 
-							if(r==ri && c==ci) printf("P:%f oldP:%f P:%f oldP:%f q:%20.18f\n",P1->co[l][r][c],sl->P->co[l][r][c],P1->co[l][R][C],sl->P->co[l][R][C],q);
+							if(r==ri && c==ci) printf("P:%f oldP:%f P:%f oldP:%f q:%e\n",P1->co[l][r][c],sl->P->co[l][r][c],P1->co[l][R][C],sl->P->co[l][R][C],q);
 						}
 					}
 				}
@@ -1065,7 +1025,7 @@ void subflow_channel(double Dt, double Dtmax, CHANNEL *cnet, SOIL *sl, PAR *par)
 			dP=fmax(sl->P->co[l][r][c] - psi_saturation(sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
 				sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l]), 0.0);
 
-			//q[m3/s] q=Kh*(sin(slope)+2*dP/dn)*D*dpixel
+			//q[m3/s] q=2*Kh*(sin(slope)+4*dP/dn)*D*dpixel
 			//slope=slope to the channel (q1)
 			//dn=fraction of the pixel covered by land
 			//dP=difference f pressure between land and channel
@@ -1144,6 +1104,8 @@ void set_psi(DOUBLETENSOR *P1, SOIL *sl, double *Q, double dt, long l, long r1, 
 	double dx,dy,D,V,theta,thetamin,q=*Q;
 	short sy,sgnchg=0;
 
+	long ri=0, ci=0;
+
 	dx=UV->U->co[1];	//[m]
 	dy=UV->U->co[2];	//[m]
 	D=0.001*sl->pa->co[sl->type->co[r1][c1]][jdz][l];	//layer thickness [m]
@@ -1173,10 +1135,15 @@ void set_psi(DOUBLETENSOR *P1, SOIL *sl, double *Q, double dt, long l, long r1, 
 	thetamin=teta_psi(fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], psimin)), sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
 		sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], psimin)), Esoil);
 
-	if(theta-q*dt/V<thetamin) q=(theta-thetamin)*V/dt;
+	if(theta-q*dt/V<thetamin){
+		q=(theta-thetamin)*V/dt;
+	}
 
-	P1->co[l][rout][cout]=psi_teta(theta-q*dt/V, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
+	P1->co[l][r][c]=psi_teta(theta-q*dt/V, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
 		sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], psimin)), Esoil);
+
+	if(r==ri && c==ci) printf("LIM 1. th:%f thmin:%f q:%f Pin:%f Pf:%f\n",theta,thetamin,q,P1->co[l][r][c],P1->co[l][r][c]);
+
 
 	r=rin;
 	c=cin;
@@ -1185,8 +1152,10 @@ void set_psi(DOUBLETENSOR *P1, SOIL *sl, double *Q, double dt, long l, long r1, 
 	theta=teta_psi(P1->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
 		sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], psimin)), Esoil);
 
-	P1->co[l][rout][cout]=psi_teta(theta+q*dt/V, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
+	P1->co[l][r][c]=psi_teta(theta+q*dt/V, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
 		sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], psimin)), Esoil);
+
+	if(r==ri && c==ci) printf("LIM 2. th:%f thmin:%f q:%f Pin:%f Pf:%f\n",theta,thetamin,q,P1->co[l][r][c],P1->co[l][r][c]);
 
 	if(sgnchg==0){
 		*Q=q;

@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -23,9 +23,20 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
+//#include "turtle.h"
+
 #include "struct.geotop.09375.h"
+#include "keywords_file.h"
+#include "get_filenames.h"
+#include "constant.h"
 #include "liston.h"
-#include "input.09375.h"
+#include "rw_maps.h"
+#include "extensions.h"
+#include "tabs.h"
+
+
+
+
 #include "geomorphology.0875.h"
 #include "pedo.funct.h"
 #include "write_dem.h"
@@ -34,14 +45,9 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #include "t_random.h"
 #include "networks.h"
 #include "t_utilities.h"
-#include "constant.h"
-#include "keywords_file.h"
 
 #include "dtm_resolution.h"
-#include "rw_maps.h"
-#include "extensions.h"
-#include "tabs.h"
-#include "key.palette.h"
+#include "input.09375.h"
 
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
@@ -50,7 +56,7 @@ extern long Nl, Nr, Nc;
 extern double NoV;
 
 /*--------------------------------------------------------------------------------------------------*/
-//! Subroutine which reads input data, performs  geomporphological analisys and allocates data I_METEO_CLOUDCOVER
+//! Subroutine which reads input data, performs  geomporphological analisys and allocates data
 void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, LISTON *liston)
 
@@ -66,21 +72,9 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
  DOUBLEMATRIX *SNOW0, *GLACIER0, *M;
  DOUBLEVECTOR *v;
  //Checking variables
- short iland=0, sy;
+ short iland=0, sy, a;
  double glac0, theta;
  INIT_TOOLS *IT;
-
- /* Declaration of variables to be read in ___geotop.init & ___geotop.inpts
-  * \author Emanuele Cordano
-  * \date 13 dec 2008
-  * */
- char *keyfile, *inptsfile;
- KEYWORDS *keywords_file;
- short ik;
- FILE *fkey,*finpts;
-
-
- /* End Declaration of variables to be read in ___geotop.init & ___geotop.inpts*/
 
  IT=(INIT_TOOLS *)malloc(sizeof(INIT_TOOLS));
  if(!IT) t_error("IT was not allocated");
@@ -90,8 +84,8 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
 /*  (if it is in WORKING_DIRECTORY), otherwise from prompt        									*/
 /****************************************************************************************************/
 printf("\nGEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE\n");
-printf("\nVersion 0.9375 MacLavagna\n");
-printf("\nCopyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico and others following the footsteps of the FREE SOFTWARE FOUNDATION\n");
+printf("\nVersion 0.9375 Mackenzie\n");
+printf("\nCopyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico and others following the footsteps of the FREE SOFTWARE FOUNDATION\n");
 
 if(!argv[1]){
 	WORKING_DIRECTORY=get_workingdirectory();
@@ -100,40 +94,22 @@ if(!argv[1]){
 }
 
 printf("\nWORKING DIRECTORY: %s",WORKING_DIRECTORY);
-/* READ FILENAMES with KeyPalette */
-keyfile=join_strings(WORKING_DIRECTORY,"___geotop.init");
-inptsfile=join_strings(WORKING_DIRECTORY,"___geotop.inpts");
-/* GET KEYWORD FOR EACH FILES */
-fkey=t_fopen(keyfile,"r");
-ik=read_index(fkey,PRINT); /* read file keywords string */
-keywords_file=read_keywords(fkey,PRINT); /* read  keywords for each file */
-t_fclose(fkey);
-write_keywords(keywords_file);
 
 
 
-/* GET FILENAMES */
-finpts=t_fopen(inptsfile,"r");
-ik=read_index(finpts,PRINT);
-files=join_path_to_stringbin(WORKING_DIRECTORY,read_names(finpts,keywords_file->names,NOFILE_NAME,PRINT),"/");
+files=get_filenames_from_keys(WORKING_DIRECTORY,PROGRAM_NAME,PRINT);
 
-
-write_read_filenames(files,keywords_file->comments);
-
-t_fclose(finpts);
-
-free_keywords(keywords_file); /* the keywords_file is no more recalled and than it is freed */
-/* END READ FILENAMES with KeyPalette */
 /* READ INPUT parameters contained on I_CONTROL_PARMETERS */
-read_inpts_par(par, times,files->element[I_CONTROL_PARAMETERS]+1, ".txt", "1:");
 
-//files=read_filenames(WORKING_DIRECTORY, "__geotop", ".inpts", "1:");
+
+read_inpts_par(par, times,files->element[I_CONTROL_PARAMETERS]+1,textfile, "1:");
+
 if(files->index->nh!=nfiles){
 	for(i=1;i<=files->index->nh;i++){
 		printf("i:%ld file:%s\n",i,files->co[i]+1);
 	}
-	printf("files given:%ld files required%ld\n",files->index->nh,nfiles);
-	t_error("Wrong number of files in .inpts file");
+	printf("files given:%d files required%ld\n",files->index->nh,nfiles);
+	t_error("Wrong number of files in .inpts or .init file");
 }
 for(i=1;i<=nfiles;i++){
 	printf("File n:%ld %s\n",i,files->co[i]+1);
@@ -142,7 +118,6 @@ files->co[ferr]=join_strings(files->co[ferr]+1,textfile)-1;
 f=t_fopen(files->co[ferr]+1,"w");
 fprintf(f,"Files of the errors in the simulation\n");
 t_fclose(f);
-
 
 /****************************************************************************************************/
 /*! Reading of the Input files:                                                                      */
@@ -167,9 +142,8 @@ NoV=UV->V->co[2];
 times->time=0.0;
 
 
-
 /****************************************************************************************************/
-//Reading of RAIN data file,	METEO data file 	and CLOUD data file
+//Reading of RAIN data file,	METEO data file, 	and CLOUD data file
 
 //METEO DATA
 met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
@@ -251,8 +225,10 @@ t_fclose(f);*/
 met->nstsrad=0;
 do{
 	met->nstsrad++;
-}while(met->nstsrad<met->st->Z->nh && ( met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1) ));
-if(met->column[met->nstsrad-1][iSW]==-1){
+	a=0;
+	if( met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1) ) a=1;
+}while(met->nstsrad<met->st->Z->nh && a==0);
+if(a==0){
 	printf("WARNING: NO shortwave radiation measurements available\n");
 }else{
 	printf("Shortwave radiation measurements from station %ld\n",met->nstsrad);
@@ -262,7 +238,7 @@ if(met->column[met->nstsrad-1][iSW]==-1){
 met->nstcloud=0;
 do{
 	met->nstcloud++;
-}while(met->nstcloud<met->st->Z->nh && met->column[met->nstcloud-1][iC]!=-1);
+}while(met->nstcloud<met->st->Z->nh && met->column[met->nstcloud-1][iC]==-1);
 if(met->column[met->nstcloud-1][iC]==-1){
 	printf("WARNING: NO cloudiness measurements available\n");
 }else{
@@ -273,13 +249,12 @@ if(met->column[met->nstcloud-1][iC]==-1){
 met->nstlrad=0;
 do{
 	met->nstlrad++;
-}while(met->nstlrad<met->st->Z->nh && met->column[met->nstlrad-1][iLWi]!=-1);
+}while(met->nstlrad<met->st->Z->nh && met->column[met->nstlrad-1][iLWi]==-1);
 if(met->column[met->nstlrad-1][iLWi]==-1){
 	printf("WARNING: NO longwave radiation measurements available\n");
 }else{
 	printf("Longwave radiation measurements from station %ld\n",met->nstlrad);
 }
-
 
 
 /****************************************************************************************************/
@@ -291,7 +266,7 @@ if(met->column[met->nstlrad-1][iLWi]==-1){
 
 //Initialize matrix of shadow
 land->shadow=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
-initialize_shortmatrix(land->shadow,1);/* initialized as if it was always NOT in shadow*/
+initialize_shortmatrix(land->shadow,0);/* initialized as if it was always NOT in shadow*/
 
 //Check that there aren't cell with an undefined land use value
 for(r=1;r<=top->Z0->nrh;r++){
@@ -325,14 +300,19 @@ land->LAI=new_doublevector(par->n_landuses);
 
 for(i=1;i<=par->n_landuses;i++){
 
-	if(i==(long)IT->land_classes->co[1][i]){
-		for(j=1;j<=nlandprop;j++){
-			land->ty->co[i][j]=IT->land_classes->co[j+1][i];
+	for(j=1;j<=IT->land_classes->nch;j++){
+
+		if(i==(long)IT->land_classes->co[1][j]){
+
+			for(l=1;l<=nlandprop;l++){
+				land->ty->co[i][l]=IT->land_classes->co[l+1][j];
+			}
+
+			//z0 (convert in m)
+			land->ty->co[i][jz0]*=0.001;
+			land->ty->co[i][jd0]*=0.001;
+			land->ty->co[i][jhc]*=0.001;
 		}
-		//z0 (convert in m)
-		land->ty->co[i][jz0]*=0.001;
-		land->ty->co[i][jd0]*=0.001;
-		land->ty->co[i][jhc]*=0.001;
 	}
 
 	land->LAI->co[i]=0.5*land->ty->co[i][jLAIw]+0.5*land->ty->co[i][jLAIs];
@@ -367,24 +347,27 @@ if(par->point_sim==0){
 	top->dz_dy=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	initialize_doublematrix(top->dz_dx,0.0);
 	initialize_doublematrix(top->dz_dy,0.0);
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch-1;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
-				if(top->Z0->co[r][c+1]!=UV->V->co[2]){
-					top->dz_dx->co[r][c]=(top->Z0dp->co[r][c]-top->Z0dp->co[r][c+1])/UV->U->co[1];
-				}else{
-					top->dz_dx->co[r][c]=0.0;
+
+	if(par->wat_balance==1){
+		for(r=1;r<=top->Z0->nrh;r++){
+			for(c=1;c<=top->Z0->nch-1;c++){
+				if(top->Z0->co[r][c]!=UV->V->co[2]){
+					if(top->Z0->co[r][c+1]!=UV->V->co[2]){
+						top->dz_dx->co[r][c]=(top->Z0dp->co[r][c]-top->Z0dp->co[r][c+1])/UV->U->co[1];
+					}else{
+						top->dz_dx->co[r][c]=0.0;
+					}
 				}
 			}
 		}
-	}
-	for(c=1;c<=top->Z0->nch;c++){
-		for(r=1;r<=top->Z0->nrh-1;r++){
-			if (top->Z0->co[r][c]!=UV->V->co[2]){
-				if (top->Z0->co[r+1][c]!=UV->V->co[2]){
-					top->dz_dy->co[r][c]=(top->Z0dp->co[r][c]-top->Z0dp->co[r+1][c])/UV->U->co[2];
-				}else{
-					top->dz_dy->co[r][c]=0.0;
+		for(c=1;c<=top->Z0->nch;c++){
+			for(r=1;r<=top->Z0->nrh-1;r++){
+				if (top->Z0->co[r][c]!=UV->V->co[2]){
+					if (top->Z0->co[r+1][c]!=UV->V->co[2]){
+						top->dz_dy->co[r][c]=(top->Z0dp->co[r][c]-top->Z0dp->co[r+1][c])/UV->U->co[2];
+					}else{
+						top->dz_dy->co[r][c]=0.0;
+					}
 				}
 			}
 		}
@@ -443,8 +426,13 @@ for(r=1;r<=top->Z0->nrh;r++){
 
 
 /* Creating of the matrix of slope to calculate the surface velocity of the channel incoming flow ("top->i_ch"):*/
- top->i_ch=new_doublematrix(top->Z0->nrh,top->Z0->nch);
- channel_lateral_slope(top->Z0dp,top->DD,UV,top->i_ch);
+if(par->point_sim==0 && par->wat_balance==1){
+	top->i_ch=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+	channel_lateral_slope(top->Z0dp,top->DD,UV,top->i_ch);
+}else{
+	top->i_ch=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+	initialize_doublematrix(top->i_ch,0.0);
+}
 
 /****************************************************************************************************/
 /*! Filling up of the struct "channel" (of the type CHANNEL):                                        */
@@ -1092,25 +1080,12 @@ if(par->recover==1){
 	assign_recovered(files->co[rsnag]+1, snow->age->co, par, top->Z0, IT->Z);
 
     for(l=1;l<=par->snowlayer_max;l++){
-		if(l<=3){
-			assign_recovered(namefile_i_we(files->co[rDzs]+1, l), snow->Dzl->co[l], par, top->Z0, IT->Z);
-			assign_recovered(namefile_i_we(files->co[rwls]+1, l), snow->w_liq->co[l], par, top->Z0, IT->Z);
-			assign_recovered(namefile_i_we(files->co[rwis]+1, l), snow->w_ice->co[l], par, top->Z0, IT->Z);
-			assign_recovered(namefile_i_we(files->co[rTs]+1, l), snow->T->co[l], par, top->Z0, IT->Z);
-		}else{
-			for(r=1;r<=Nr;r++){
-				for(c=1;c<=Nc;c++){
-
-					snow->Dzl->co[l][r][c]=0.0;
-					snow->w_ice->co[l][r][c]=0.0;
-					snow->w_liq->co[l][r][c]=0.0;
-					snow->T->co[l][r][c]=-99.0;
-
-				}
-			}
-
-		}
+		assign_recovered(namefile_i_we(files->co[rDzs]+1, l), snow->Dzl->co[l], par, top->Z0, IT->Z);
+		assign_recovered(namefile_i_we(files->co[rwls]+1, l), snow->w_liq->co[l], par, top->Z0, IT->Z);
+		assign_recovered(namefile_i_we(files->co[rwis]+1, l), snow->w_ice->co[l], par, top->Z0, IT->Z);
+		assign_recovered(namefile_i_we(files->co[rTs]+1, l), snow->T->co[l], par, top->Z0, IT->Z);
 	}
+
 }
 
 
@@ -1221,7 +1196,7 @@ if(par->glaclayer_max>0){
 		}
 	}
 
-	if(par->recover==1){
+	/*if(par->recover==1){
 
 		assign_recovered_long(files->co[rni]+1, glac->lnum->co, par, top->Z0, IT->Z);
 
@@ -1233,7 +1208,7 @@ if(par->glaclayer_max>0){
 			assign_recovered(namefile_i_we(files->co[rTi]+1, l),  glac->T->co[l], par, top->Z0, IT->Z);
 
 		}
-	}
+	}*/
 }
 
 
@@ -1392,12 +1367,47 @@ t_fclose(f);
 /*Free the struct allocated in this subroutine:*/
 free_doublematrix(SNOW0);
 if(par->glaclayer_max>0) free_doublematrix(GLACIER0);
-if(par->point_sim==0) free_doublematrix(top->Z0dp);
+if(par->point_sim==0 && par->wat_balance==1) free_doublematrix(top->Z0dp);
 
 free_doublematrix(IT->land_classes);
 free_doublematrix(IT->met);
 free(IT->met_col_names);
 free(IT);
+
+/****************************************************************************************************/
+
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+//TRANSECTS
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+/*par->transect=(double***)malloc(2*sizeof(double**));
+par->vtrans=(double**)malloc(2*sizeof(double*));
+
+par->cont_trans=new_longvector(2);
+initialize_longvector(par->cont_trans,0);
+
+par->ibeg=new_longvector(2);
+initialize_longvector(par->ibeg,-1);
+
+for(j=0;j<2;j++){
+
+	f=t_fopen(namefile_i(join_strings(WORKING_DIRECTORY,"_transect"),j+1),"r");
+	par->transect[j]=read_datameteo(f, 0, 4, NoV);
+	t_fclose(f);
+
+	f=t_fopen(namefile_i(join_strings(WORKING_DIRECTORY,"_transectMOD"),j+1),"w");
+	fprintf(f,"flight,point,distance,E,N,time,Tmeas,Tmod\n");
+	t_fclose(f);
+
+	par->vtrans[j]=(double*)malloc(dim2(par->transect[j])*sizeof(double));
+
+}*/
+
+
+
+
+
 
 }
 /*--------------------------------------------------------------------------------------------------*/
@@ -1436,7 +1446,7 @@ DOUBLEMATRIX *De_Saint_Venant(DOUBLEVECTOR *s0,double u0,double D,double Dt)
                                                                           /(4.0*D*smax*u0*Dt)))>0.00001);
 
  fprintf(f,"s0max(farthest channel distance)= %f",s0max);
- fprintf(f,"\nsmax(number channel-pixels)=%ld",smax);
+ fprintf(f,"\nsmax(number channel-pixels)=%ld\n",smax);
 
  /* Initialization of fraction_spread matrix:*/
  fraction_spread=new_doublematrix(s0->nh,smax);
@@ -1680,18 +1690,35 @@ write_map(files->co[fsky]+1, 0, par->format_out, top->sky, UV);
 
 /****************************************************************************************************/
 //reading DRAINAGE DIRECTIONS
-M=read_map(2, files->co[fdd]+1, top->Z0, UV);
-top->DD=copyshort_doublematrix(M);
-for(r=1;r<=top->Z0->nrh;r++){
-	for(c=1;c<=top->Z0->nch;c++){
-		if (top->DD->co[r][c]>11) top->DD->co[r][c]=0;
-		if (top->Z0->co[r][c]==UV->V->co[2]) top->DD->co[r][c]=9;
+if(existing_file(files->co[fdd]+1)>0){
+	M=read_map(2, files->co[fdd]+1, top->Z0, UV);
+	top->DD=copyshort_doublematrix(M);
+	for(r=1;r<=top->Z0->nrh;r++){
+		for(c=1;c<=top->Z0->nch;c++){
+			if(top->DD->co[r][c]>11) top->DD->co[r][c]=0;
+			if(top->Z0->co[r][c]==UV->V->co[2]) top->DD->co[r][c]=9;
+		}
+	}
+	write_map(files->co[fdd]+1, 1, par->format_out, M, UV);
+	free_doublematrix(M);
+	top->Z0dp=depitted(top->DD, top->Z0);
+}else{//novalue (9)
+	top->DD=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
+	for(r=1;r<=top->Z0->nrh;r++){
+		for(c=1;c<=top->Z0->nch;c++){
+			top->DD->co[r][c]=9;
+		}
+	}
+	if(par->wat_balance==1){
+		par->wat_balance=0.0;
+		f=fopen(files->co[ferr]+1,"a");
+		fprintf(f,"Warning: DRAINAGE DIRECTION MAPS NOT PRESENT, cannot resolve water balance\n");
+		fclose(f);
+		printf("Warning: DRAINAGE DIRECTION MAPS NOT PRESENT, cannot resolve water balance\n");
 	}
 }
-write_map(files->co[fdd]+1, 1, par->format_out, M, UV);
-free_doublematrix(M);
 
-top->Z0dp=depitted(top->DD, top->Z0);
+
 
 /****************************************************************************************************/
 //reading SOIL MAP
@@ -1752,15 +1779,19 @@ free_doublematrix(M);
 
 /****************************************************************************************************/
 //GRADIENTS along drainage directions
-if(existing_file(files->co[fgrad]+1)>0){
-	top->i_DD=read_map(2, files->co[fgrad]+1, top->Z0, UV);
-}else{/*The matrix the slope along the Drainage Direction "top->i_DD" must be calculated*/
+if(par->wat_balance==1){
+	if(existing_file(files->co[fgrad]+1)>0){
+		top->i_DD=read_map(2, files->co[fgrad]+1, top->Z0, UV);
+	}else{/*The matrix the slope along the Drainage Direction "top->i_DD" must be calculated*/
+		top->i_DD=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+		initialize_doublematrix(top->i_DD,UV->V->co[2]);
+		gradients(top->Z0dp,top->DD,top->i_DD,UV);
+	}
+	write_map(files->co[fgrad]+1, 0, par->format_out, top->i_DD, UV);
+}else{
 	top->i_DD=new_doublematrix(top->Z0->nrh,top->Z0->nch);
-	initialize_doublematrix(top->i_DD,UV->V->co[2]);
-	gradients(top->Z0dp,top->DD,top->i_DD,UV);
+	initialize_doublematrix(top->i_DD,0.0);
 }
-write_map(files->co[fgrad]+1, 0, par->format_out, top->i_DD, UV);
-
 /****************************************************************************************************/
 //Effective area of each pixel
 if(existing_file(files->co[farea]+1)>0){
@@ -1773,107 +1804,128 @@ write_map(files->co[farea]+1, 0, par->format_out, top->area, UV);
 
 /****************************************************************************************************/
 //Channel network (in top->pixel_type)
-if(existing_file(files->co[fnet]+1)>0){
-	M=read_map(2, files->co[fnet]+1, top->Z0, UV);
-	top->pixel_type=copyshort_doublematrix(M);
-	free_doublematrix(M);
-}else{
-	//reading or calculating TCA
-	if(existing_file(files->co[ftca]+1)>0){
-		M=read_map(2, files->co[ftca]+1, top->Z0, UV);
-		ca=copylong_doublematrix(M);
+if(par->wat_balance==1){
+	if(existing_file(files->co[fnet]+1)>0){
+		M=read_map(2, files->co[fnet]+1, top->Z0, UV);
+		top->pixel_type=copyshort_doublematrix(M);
+		free_doublematrix(M);
 	}else{
-		ca=new_longmatrix(top->Z0->nrh,top->Z0->nch);
-		initialize_longmatrix(ca,0);
-		for(r=1;r<=top->Z0->nrh;r++){
-			for(c=1;c<=top->Z0->nch;c++){
-				if(top->Z0->co[r][c]==UV->V->co[2]) ca->co[r][c]=(long)UV->V->co[2];
+		//reading or calculating TCA
+		if(existing_file(files->co[ftca]+1)>0){
+			M=read_map(2, files->co[ftca]+1, top->Z0, UV);
+			ca=copylong_doublematrix(M);
+		}else{
+			ca=new_longmatrix(top->Z0->nrh,top->Z0->nch);
+			initialize_longmatrix(ca,0);
+			for(r=1;r<=top->Z0->nrh;r++){
+				for(c=1;c<=top->Z0->nch;c++){
+					if(top->Z0->co[r][c]==UV->V->co[2]) ca->co[r][c]=(long)UV->V->co[2];
+				}
+			}
+			tca(top->DD,ca);
+			M=copydouble_longmatrix(ca);
+		}
+		write_map(files->co[ftca]+1, 1, par->format_out, M, UV);
+		free_doublematrix(M);
+		//calculate laplacian
+		curv=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+		nablaquadro(top->Z0,curv,UV->U,UV->V);
+		top->pixel_type=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
+		//copy drainage directions in top->pixel_type
+		copy_shortmatrix(top->DD,top->pixel_type);
+		//see geomorphologic library (overwrites pixel_type=10 for channels)
+		select_hillslopes_mod(ca,top->i_DD,curv,top->pixel_type,par->channel_thres,UV->U);
+		free_longmatrix(ca);
+		free_doublematrix(curv);
+	}
+
+	/*! Creation of pixel-type matrix "top->pixel_type" (0=land,9=novalue,10=channel,11=lake,12=sea) on the
+	basis of land use map (land->use) and channel network (already in top->pixel_type matrix): */
+	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+	for(r=1;r<=top->Z0->nrh;r++){
+		for(c=1;c<=top->Z0->nch;c++){
+			if(top->Z0->co[r][c]!=UV->V->co[2]){
+				if (top->pixel_type->co[r][c]!=10) top->pixel_type->co[r][c]=0;
+				//if (land->use->co[r][c]==11/*lake*/ || land->use->co[r][c]==12/*sea*/) top->pixel_type->co[r][c]=land->use->co[r][c];
+				M->co[r][c]=(double)top->pixel_type->co[r][c];
+			}else{
+				M->co[r][c]=UV->V->co[2];
+				top->pixel_type->co[r][c]=9;
 			}
 		}
-		tca(top->DD,ca);
-		M=copydouble_longmatrix(ca);
 	}
-	write_map(files->co[ftca]+1, 1, par->format_out, M, UV);
+	write_map(files->co[fnet]+1, 1, par->format_out, M, UV);
 	free_doublematrix(M);
-	//calculate laplacian
-	curv=new_doublematrix(top->Z0->nrh,top->Z0->nch);
-	nablaquadro(top->Z0,curv,UV->U,UV->V);
-	top->pixel_type=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
-	//copy drainage directions in top->pixel_type
-	copy_shortmatrix(top->DD,top->pixel_type);
-	//see geomorphologic library (overwrites pixel_type=10 for channels)
-	select_hillslopes_mod(ca,top->i_DD,curv,top->pixel_type,par->channel_thres,UV->U);
-	free_longmatrix(ca);
-	free_doublematrix(curv);
-}
 
-/*! Creation of pixel-type matrix "top->pixel_type" (0=land,9=novalue,10=channel,11=lake,12=sea) on the
-   basis of land use map (land->use) and channel network (already in top->pixel_type matrix): */
-M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
-for(r=1;r<=top->Z0->nrh;r++){
-	for(c=1;c<=top->Z0->nch;c++){
-		if(top->Z0->co[r][c]!=UV->V->co[2]){
-			if (top->pixel_type->co[r][c]!=10) top->pixel_type->co[r][c]=0;
-			//if (land->use->co[r][c]==11/*lake*/ || land->use->co[r][c]==12/*sea*/) top->pixel_type->co[r][c]=land->use->co[r][c];
-			M->co[r][c]=(double)top->pixel_type->co[r][c];
-		}else{
-			M->co[r][c]=UV->V->co[2];
-			top->pixel_type->co[r][c]=9;
+}else{
+
+	top->pixel_type=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
+	for(r=1;r<=top->Z0->nrh;r++){
+		for(c=1;c<=top->Z0->nch;c++){
+			if(top->Z0->co[r][c]!=UV->V->co[2]){
+				top->pixel_type->co[r][c]=0;
+			}else{
+				top->pixel_type->co[r][c]=9;
+			}
 		}
 	}
+
 }
-write_map(files->co[fnet]+1, 1, par->format_out, M, UV);
-free_doublematrix(M);
-
-
 /****************************************************************************************************/
 //Outlet distances
-if(existing_file(files->co[fdist]+1)>0){
-	top->pixel_distance=read_map(1, files->co[fdist]+1, top->Z0, UV);
-	//Check values
-	for(r=1;r<=top->pixel_distance->nrh;r++){
-		for(c=1;c<=top->pixel_distance->nch;c++){
-			if(top->pixel_distance->co[r][c]==UV->V->co[2]){
+if(par->wat_balance==1){
+	if(existing_file(files->co[fdist]+1)>0){
+		top->pixel_distance=read_map(1, files->co[fdist]+1, top->Z0, UV);
+		//Check values
+		for(r=1;r<=top->pixel_distance->nrh;r++){
+			for(c=1;c<=top->pixel_distance->nch;c++){
+				if(top->pixel_distance->co[r][c]==UV->V->co[2]){
+					if(top->Z0->co[r][c]!=UV->V->co[2]){
+						f=fopen(files->co[ferr]+1,"a");
+						fprintf(f,"\nPixeldistance has NOVALUE where DTM does not in pixel r=%4ld c=%4ld, corrected, but inconsistently\n",r,c);
+						fclose(f);
+						top->pixel_distance->co[r][c]=0.0;
+					}
+				}
+			}
+		}
+		//A null top->pixel_distance is changed in half pixel size
+		for(r=1;r<=land->use->nrh;r++){
+			for(c=1;c<=land->use->nch;c++){
 				if(top->Z0->co[r][c]!=UV->V->co[2]){
-					f=fopen(files->co[ferr]+1,"a");
-					fprintf(f,"\nPixeldistance has NOVALUE where DTM does not in pixel r=%4ld c=%4ld, corrected, but inconsistently\n",r,c);
-					fclose(f);
-					top->pixel_distance->co[r][c]=0.0;
+					if (top->pixel_distance->co[r][c]<=0.0) top->pixel_distance->co[r][c]=UV->U->co[2]/2.0;
+				}
+			}
+		}
+	}else{
+		top->pixel_distance=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+		initialize_doublematrix(top->pixel_distance,UV->V->co[2]);
+		//se geomorphologic libraries
+		outletdistance(top->DD,top->pixel_distance,UV->U);
+		for(r=1;r<=land->use->nrh;r++){
+			for(c=1;c<=land->use->nch;c++){
+				if(top->pixel_distance->co[r][c]==UV->V->co[2]){
+					if(top->Z0->co[r][c]!=UV->V->co[2]){
+						f=fopen(files->co[ferr]+1,"a");
+						fprintf(f,"\nPixeldistance has NOVALUE where DTM does not in pixel r=%4ld c=%4ld, corrected, but inconsistently\n",r,c);
+						fclose(f);
+						top->pixel_distance->co[r][c]=0.0;
+					}
+				}
+				if(top->Z0->co[r][c]!=UV->V->co[2]){
+					if (top->pixel_distance->co[r][c]<=0.0) top->pixel_distance->co[r][c]=UV->U->co[2]/2.0;
 				}
 			}
 		}
 	}
-	//A null top->pixel_distance is changed in half pixel size
-	for(r=1;r<=land->use->nrh;r++){
-		for(c=1;c<=land->use->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
-				if (top->pixel_distance->co[r][c]<=0.0) top->pixel_distance->co[r][c]=UV->U->co[2]/2.0;
-			}
-		}
-	}
-}else{
-	top->pixel_distance=new_doublematrix(top->Z0->nrh,top->Z0->nch);
-	initialize_doublematrix(top->pixel_distance,UV->V->co[2]);
-	//se geomorphologic libraries
-	outletdistance(top->DD,top->pixel_distance,UV->U);
-	for(r=1;r<=land->use->nrh;r++){
-		for(c=1;c<=land->use->nch;c++){
-			if(top->pixel_distance->co[r][c]==UV->V->co[2]){
-				if(top->Z0->co[r][c]!=UV->V->co[2]){
-					f=fopen(files->co[ferr]+1,"a");
-					fprintf(f,"\nPixeldistance has NOVALUE where DTM does not in pixel r=%4ld c=%4ld, corrected, but inconsistently\n",r,c);
-					fclose(f);
-					top->pixel_distance->co[r][c]=0.0;
-				}
-			}
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
-				if (top->pixel_distance->co[r][c]<=0.0) top->pixel_distance->co[r][c]=UV->U->co[2]/2.0;
-			}
-		}
-	}
-}
-write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV);
+	write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV);
 
+}else{
+
+	top->pixel_distance=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+	initialize_doublematrix(top->pixel_distance,0.0);
+
+}
 
 }
 
@@ -1897,7 +1949,7 @@ void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools
 	if(v->co[1]<=0) t_error("ERROR: 0 is not admitted for nDtwater");
 	par->nDt_water=(long)v->co[1];
 	par->f_bound_Richards=v->co[2];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
-	par->imp=v->co[3];	/*Impedence factor for (partially) frozen sl*/
+	par->imp=v->co[3];	/*Impedence factor for (partially) frozen soil*/
 	par->psimin=v->co[4];
 	par->Esoil=v->co[5];
 	par->stmin=v->co[6];
@@ -1951,19 +2003,20 @@ void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools
 	par->snowcorrfact=v->co[12];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD SNOW PRECIPITATION */
 	par->raincorrfact=v->co[13];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD RAIN PRECIPITATION */
 	par->snowlayer_max=(long)v->co[14]; /* MAXIMUM NUMBER OF SNOW LAYERS */
-	par->snow_maxpor=v->co[15];
-	par->drysnowdef_rate=v->co[16];
-	par->snow_density_cutoff=v->co[17];
-	par->wetsnowdef_rate=v->co[18];
-	par->snow_viscosity=v->co[19];
+	par->snowlayer_inf=(long)v->co[15];
+	par->snow_maxpor=v->co[16];
+	par->drysnowdef_rate=v->co[17];
+	par->snow_density_cutoff=v->co[18];
+	par->wetsnowdef_rate=v->co[19];
+	par->snow_viscosity=v->co[20];
 	if(par->snowlayer_max<3) t_error("Maximum number of snow layers too small, it must be not smaller than 3");
 	if( par->snowlayer_max!=1+2*floor(0.5*(par->snowlayer_max-1)) ) t_error("Maximum number of snow layers must be odd");
 	free_doublevector(v);
 	/* 5th-6th block MINIMUM and MAXIMUM SNOW LAYER THICKNESS*/
 	par->Dmin=read_doublearray(f,PRINT);
-	if(par->Dmin->nh<1+floor(0.5*par->snowlayer_max)) t_error("Error in assigning max and min thickness to the snow layers");
+	if(par->Dmin->nh!=par->snowlayer_max) t_error("Error in assigning max and min thickness to the snow layers");
 	par->Dmax=read_doublearray(f,PRINT);
-	if(par->Dmax->nh<1+floor(0.5*par->snowlayer_max)) t_error("Error in assigning max and min thickness to the snow layers");
+	if(par->Dmin->nh!=par->snowlayer_max) t_error("Error in assigning max and min thickness to the snow layers");
 	/*if(par->Dmax->co[(long)(1+floor(0.5*par->snowlayer_max))]<1.0E10){
 		printf("\nWARNING: Snow layer %ld must have infinite thickness!!! Assigned %f mm instead of %f mm\n",(long)(1+floor(0.5*par->snowlayer_max)),1.0E10,par->Dmax->co[(long)(1+floor(0.5*par->snowlayer_max))]);
 		stop_execution();
@@ -2024,10 +2077,11 @@ void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools
 	par->micromet2=(short)v->co[5];
 	par->micromet3=(short)v->co[6];
 	par->snowtrans=(short)v->co[7];
-	if(par->snowtrans==1 && par->micromet1==0 && par->micromet2==0 && par->micromet3==0){
+	/*if(par->snowtrans==1 && par->micromet1==0 && par->micromet2==0 && par->micromet3==0){
 		par->snowtrans=0;
 		printf("\nWarning: if you do not run Micromet, you can't run SnowTrans3D\n");
-	}
+	}*/
+	if(par->snowtrans==1) t_error("You cannot run Snowtran without getting a licence from Glen Liston");
 	free_doublevector(v);
 	//other par
 	par->print=0;
@@ -2073,7 +2127,7 @@ void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0
 	par->chkpt=read_doublematrix(f,"a",PRINT);
 
 	//3. saving points
-	par->saving_points=read_longarray(f,PRINT);
+	par->saving_points=read_doublearray(f,PRINT);
 
 	//4. output par
 	v=read_doublearray(f,PRINT);
@@ -2168,7 +2222,10 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	M=read_doublematrix(f,"a",PRINT);
 	if(M->nch!=10) t_error("Error in block 2 option file");
 
-	//3. horizon name
+	//3. saving points
+	par->saving_points=read_doublearray(f,PRINT);
+
+	//4. horizon name
 	s=read_stringarray(f,PRINT);
 
 	t_fclose(f);
@@ -2534,13 +2591,13 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 		if(!UV) t_error("UV was not allocated in input");
 		UV->U=new_doublevector(4);
 		UV->V=new_doublevector(2);
-		UV->U->co[2]=1.0;
-		UV->U->co[1]=1.0;
-		UV->U->co[4]=0.0;
-		UV->U->co[3]=0.0;
-		UV->V->co[1]=-1;
-		UV->V->co[2]=-9999.0;
 	}
+	UV->U->co[2]=1.0;
+	UV->U->co[1]=1.0;
+	UV->U->co[4]=0.0;
+	UV->U->co[3]=0.0;
+	UV->V->co[1]=-1;
+	UV->V->co[2]=-9999.0;
 
 	//m. deallocation
 	if(read_dem==1 && (par->micromet1!=1 && par->micromet2!=1 && par->micromet3!=1 && par->recover!=1)){
@@ -2562,7 +2619,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 
 	//6. SET PROPERTIES
 	top->Z0=new_doublematrix(1,M->nrh);
-	top->Z0dp=new_doublematrix(1,M->nrh);
 	land->use=new_shortmatrix(1,M->nrh);
 	sl->type=new_shortmatrix(1,M->nrh);
 	top->slopes=new_doublematrix(1,M->nrh);
@@ -2578,7 +2634,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	top->pixel_distance=new_doublematrix(1,M->nrh);
 	for(i=1;i<=M->nrh;i++){
 		top->Z0->co[1][i]=M->co[i][3];
-		top->Z0dp->co[1][i]=0.0;
 		land->use->co[1][i]=(short)M->co[i][4];
 		sl->type->co[1][i]=(short)M->co[i][5];
 		top->slopes->co[1][i]=M->co[i][6]*Pi/180.0;
@@ -2618,8 +2673,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	par->output_balancegl=0;
 	par->output_Rswdown=0;
 	par->output_meteo=0;
-	par->saving_points=new_longvector(1);
-	initialize_longvector(par->saving_points,9999999);
 	par->JD_plots=new_longvector(1);
 	par->JD_plots->co[1]=0;
 	par->snowtrans=0;
@@ -2683,7 +2736,7 @@ double **read_horizon(char *name, long i){
 		printf("\nNo horizon file of the Meteo Station #%ld is present. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
 
 		f=t_fopen(namefile_i(name,i),"w");
-		fprintf(f,"/** Horizon file for met station #%ld */\n",i);
+		fprintf(f,"/** Horizon file for met station or point #%ld */\n",i);
 		fprintf(f,"\n");
 		fprintf(f,"1: double matrix horizon {4,2}\n");
 
@@ -2811,7 +2864,7 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
 		//printf("i:%ld %f\n",i,a[i][1]);
 	}
 
-	if(novalueend=0){
+	if(novalueend==0){
 		i++;
 		a=(double **)realloc(a,(i+1)*sizeof(double*));
 		a[i]=(double *)malloc(sizeof(double));
@@ -2826,14 +2879,21 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
 /***********************************************************/
 /***********************************************************/
 
-void read_inpts_par(PAR *par, TIMES *times, char *program, char *ext, char *pos){
+void read_inpts_par(PAR *par, TIMES *times, char *filename, char *ext, char *pos){
 
 	DOUBLEVECTOR *V;
 	double Dt_output;
+	FILE *fd;
+	short  index;
 
-	printf("\nENTERING SEVERAL CONTROL PROGRAM PAR\n");
+	printf("\nENTERING SEVERAL CONTROL PROGRAM PAR \n");
 
-	V=read_parameters("/", program, ext, pos);
+	fd=t_fopen(join_strings(filename,ext),"r");
+	index=read_index(fd,PRINT);
+	V=read_doublearray(fd,PRINT);
+	t_fclose(fd);
+
+//	V=read_parameters("",program, ext, pos);
 
 	printf("ENTER THE INTEGRATION INTERVAL [s]: %f\n",V->co[1]);
 	par->Dt=(double)V->co[1];
@@ -2954,8 +3014,8 @@ DOUBLEMATRIX *depitted(SHORTMATRIX *DD, DOUBLEMATRIX *Z){
 	static short r_DD[11]={0,0,-1,-1,-1,0,1,1,1,-9999,0}; /* differential of number-pixel for rows and*/
 	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; /* columns, depending on Drainage Directions*/
 	DOUBLEMATRIX *M;
-	long r,c,i,cont=0;
-	long maxiter=50;
+	long r,c,cont=0;
+	short a;
 
 	M=new_doublematrix(Z->nrh,Z->nch);
 	for(r=1;r<=Z->nrh;r++){
@@ -2964,20 +3024,21 @@ DOUBLEMATRIX *depitted(SHORTMATRIX *DD, DOUBLEMATRIX *Z){
 		}
 	}
 
-	for(i=1;i<=maxiter;i++){
+	do{
+		a=0;
+		cont++;
 		for(r=1;r<=Z->nrh;r++){
 			for(c=1;c<=Z->nch;c++){
 				if(M->co[r][c]!=UV->V->co[2]){
 					if(M->co[r][c]<M->co[r+r_DD[DD->co[r][c]]][c+c_DD[DD->co[r][c]]]){
 						M->co[r+r_DD[DD->co[r][c]]][c+c_DD[DD->co[r][c]]]=M->co[r][c];
-						if(i==maxiter) cont+=1;
+						a=1;
 					}
 				}
 			}
 		}
-	}
-
-	if(cont>0) t_error("Not able to depit the dem, increase iteration number");
+		if(cont>50) printf("DEPITTING: iteration #%ld\n",cont);
+	}while(a==1);
 
 	return(M);
 
@@ -2990,7 +3051,9 @@ void assign_recovered(char *name, double **assign, PAR *par, DOUBLEMATRIX *Z1, D
 	DOUBLEMATRIX *M;
 
 	if(par->point_sim==0){
+
 		M=read_map(2, name, Z1, UV);
+
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
 				assign[r][c]=M->co[r][c];

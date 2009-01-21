@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion MacLavagna
+GEOtop-Version 0.9375-Subversion KMackenzie
 
 Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 MacLavagna.
+ This file is part of GEOtop 0.9375 KMackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    GEOtop is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -23,10 +23,6 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-
-//Authors: Stefano Endrizzi and Giacomo Bertoldi
-//Date: 13 November 2005
-//Contents: Meteorological subroutines (included turbulent transfer)
 
 #include "constant.h"
 #include "keywords_file.h"
@@ -51,7 +47,7 @@ extern double NoV;
 /*==================================================================================================================*/
 void meteo_distr(METEO *met, LISTON *liston, ENERGY *egy, WATER *wat, LAND *land, TOPO *top, SNOW *snow, double time, PAR *par){
 
-	long i;
+	long i,r,c;
 	double t_station;
 	//FILE *f;
 
@@ -59,6 +55,7 @@ void meteo_distr(METEO *met, LISTON *liston, ENERGY *egy, WATER *wat, LAND *land
 	for(i=1;i<=met->st->Z->nh;i++){
 		time_conversion(par->JD0, par->year0, time+par->Dt, met->st->JD0->co[i], met->st->Y0->co[i], &t_station);
 		t_station+=(met->st->ST->co[i]-par->ST)*3600.0;
+		//printf("%f %f\n", time+par->Dt,t_station);
 		meteo_interp(met->data[i-1], met->st->Dt->co[i], t_station, met->var[i-1]);
 	}
 
@@ -83,6 +80,14 @@ void meteo_distr(METEO *met, LISTON *liston, ENERGY *egy, WATER *wat, LAND *land
 		kriging_distr(time, met->st, met->LP, -0.01, top->Z0, par->integr_scale_rain, par->variance_rain, wat->total);
 		meteo_vert_distr(1, top->Z0, met, par);		//use the data of the first station
 
+	}
+
+	if(par->en_balance==0){
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				wat->Pn->co[r][c]=wat->total->co[r][c]/3600.0;	//from [mm/h] to [mm/s]
+			}
+		}
 	}
 
 }
@@ -446,7 +451,6 @@ if(pixel_type==11 || pixel_type==12){
 		}else{
 			fzen=0.0;
 		}
-		fzen=0.0;
 		/*dipendence from snow age */
 		fage=*tausn/(1.0+*tausn);
 		//fage=1.0-1.0/(1.0+*tausn);

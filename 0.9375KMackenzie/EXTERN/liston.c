@@ -1,10 +1,9 @@
 
 /* STATEMENT:
 
-GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion Mackenzie 
+INTERFACE GEOtop-Micromet
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 
  LICENSE:
 
@@ -21,6 +20,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
+
     
     
 #include "constant.h"
@@ -50,7 +50,7 @@ extern void micromet_code_(int *nx,int *ny, double *xmn, double *ymn, float *del
 				float *tair_grid, float *topo, float *topo_land, float *topoflag, float *tp_scale, float *Up_const, float *Ur_const, float *Utau, float *Utau_t, 
 				float *uwind_grid, float *veg_z0, float *vegsnowdepth, float *vegtype, float *vonKarman, float *vwind_grid, float *wind_min, float *winddir_flag, 
 				float *winddir_grid, float *windspd_flag, float *windspd_grid, float *xmu, float *z_0, float *ztop_susp, float *erosion_dist, float *wbal_subgrid, 
-				float *tabler_dir, float *slope_adjust, float *Utau_t_const, float *Utau_t_flag, float *ro_soft_snow_old, float *ro_soft_snow, float *ro_nsnow); */ 
+				float *tabler_dir, float *slope_adjust, float *Utau_t_const, float *Utau_t_flag, float *ro_soft_snow_old, float *ro_soft_snow, float *ro_nsnow);*/
 	
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************
@@ -657,9 +657,9 @@ void liston2doublevector(DOUBLEVECTOR *V, float *vector){
 void extend_topography(DOUBLEMATRIX *M, double novalue){
 	
 	long r,c,rr,cc;
-	DOUBLEMATRIX *Q;
+	//DOUBLEMATRIX *Q;
 	
-	Q=new_doublematrix(M->nrh,M->nch);
+	//Q=new_doublematrix(M->nrh,M->nch);
 	
 	for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=M->nch;c++){
@@ -668,20 +668,20 @@ void extend_topography(DOUBLEMATRIX *M, double novalue){
 				find_the_nearest(r, c, novalue, M, &rr, &cc);
 				//printf("r:%ld c:%ld rr:%ld cc:%ld %f\n",r,c,rr,cc,M->co[rr][cc]);
 				//stop_execution();
-				Q->co[r][c]=M->co[rr][cc];
-			}else{
+				M->co[r][c]=M->co[rr][cc];
+			}/*else{
 				Q->co[r][c]=M->co[r][c];
-			}
+			}*/
 		}
 	}
 	
-	for(r=1;r<=M->nrh;r++){
+	/*for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=M->nch;c++){
 			M->co[r][c]=Q->co[r][c];
 		}
-	}
+	}*/
 	
-	free_doublematrix(Q);
+	//free_doublematrix(Q);
 		
 }
 				
