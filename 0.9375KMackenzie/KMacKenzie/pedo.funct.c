@@ -275,7 +275,7 @@ void from_internal_soil_energy(long r, long c, long l, double h, double *thw, do
 	th1=*thw;
 	do{
 		th0=th1;
-		if(dfunct_theq(th0,w,*thi,h,soil,l,psimin)<1.0E20){
+		if(dfunct_theq(th0,w,*thi,h,soil,l,psimin)<1.0E5){
 			th1=th0-funct_theq(th0,w,*thi,h,soil,l,psimin)/dfunct_theq(th0,w,*thi,h,soil,l,psimin);
 		}else{
 			th1=th0+10*tolerance;
