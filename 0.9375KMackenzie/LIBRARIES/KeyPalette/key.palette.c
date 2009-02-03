@@ -31,6 +31,8 @@ This file is part of KeyPalette.
 #include "t_utilities.h"
 #include "key.palette.h"
 
+#define REFK "_to_"
+
 KEYWORDS *read_keywords (FILE *init, short print) {
 
 /*!
@@ -463,6 +465,12 @@ void free_keywords(KEYWORDS *keywords) {
 	  * the comment of a filename is a keyword !!! */
 	 LONGVECTOR *lennames;
 	 LONGVECTOR *keyreferences;
+	 char *empty_name_extended;
+
+
+
+
+
 
 	 STRINGBIN *names;
 
@@ -477,8 +485,8 @@ void free_keywords(KEYWORDS *keywords) {
 	 for (keycnt=keywords->index->nl; keycnt<=keywords->index->nh;keycnt++) {
 
 		 key_ref=keywords->element[keycnt]+1;
-
-		 lennames->element[keycnt]=(long)strlen(empty_name)+1;
+		 empty_name_extended=join_strings(join_strings(empty_name,REFK),keywords->element[keycnt]+1);
+		 lennames->element[keycnt]=(long)strlen(empty_name_extended)+1;
 		 keyreferences->element[keycnt]=EMPTY_VALUE;
 
 
@@ -505,7 +513,8 @@ void free_keywords(KEYWORDS *keywords) {
 	 names=new_stringbin(lennames);
 	 for (keycnt=names->index->nl;keycnt<=names->index->nh;keycnt++){
 		 if (keyreferences->element[keycnt]==EMPTY_VALUE) {
-			 strcpy(names->element[keycnt]+1,empty_name);
+			 empty_name_extended=join_strings(join_strings(empty_name,REFK),keywords->element[keycnt]+1);
+			 strcpy(names->element[keycnt]+1,empty_name_extended);
 		 }else  {
 			 strcpy(names->element[keycnt]+1,written_names->names->element[keyreferences->element[keycnt]]+1);
 		 }
