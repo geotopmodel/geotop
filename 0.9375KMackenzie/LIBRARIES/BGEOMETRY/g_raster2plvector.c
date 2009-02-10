@@ -1,4 +1,3 @@
-
 /* BGEOMETRY BUILDS THE MESH FROM A RASTER FOR THE BOUSSINESQ MODEL
 KeyPalette Version 0.9375 KMackenzie
 
@@ -22,12 +21,24 @@ This file is part of BGEOMETRY.
 */
 
 #include "turtle.h"
+#include "t_alloc.h"
+
+
+/* These functions allow to use basin with a generic shape.
+ * WARNING: The mask is the raster which contains all the basin, the boundary of the basin must contain no-value elements.
+ *
+ *
+ *
+ */
+
+
 #include "geometry.h"
 #include "geometry_freememory.h"
 #include "geometry_io.h"
 
 #include "rw_maps.h"
 //#include "gridded.element.input.geotop.h"
+
 #include "g_raster2plvector.h"
 
 #define NO_ELEVATION 0.0
@@ -45,16 +56,102 @@ This file is part of BGEOMETRY.
 #define FLOATING_POINT_TYPE 0
 #define MAP_FORMAT 2
 
-long index_pixel(long r, long c,long nrh, long nch){
+
+
+//LONGBIN *addresses(LONGMATRIX *lmask,DOUBLEVECTOR *V, int (* check_novalue2)(double x,double y,DOUBLEVECTOR *V),int reply,long row_shift,long col_shift){
+/** \param V (DOUBLEVECTOR *) - vector regarding the query appied (searching novalue)
+	 * \param (* check_novalue)(double x,DOUBLEVECTOR *V) (int) - query expressed as a function returning a long integer
+	 * \param reply - expected reply from the query to save the element addresses
+	 */
+
+
+//int create_raster_index_matrices(LONGMATRIX *lmask,long novalue, LONGMATRIX *i_pixels,LONGMATRIX *i_horizontal_lines, LONGMATRIX *i_vertical_lines, LONGMATRIX *i_vertex){
 	/*
 	 *
+	 * \author Emanuele Cordano
+	 * \date January 2008
+	 *
+*/
+
+LONGBIN *addresses(LONGMATRIX *lmask,long row_shift,long col_shift){
+	/*
+	 *
+	 *
+	 * \param lmask (DOUBLEMATRIX *) - matrix wth 0 or 1 values (if element is 1 the element is within the basin, 0 otherwise)
+	 * \param row_shitf (long) - integer parameters to be set for vertical line searching (-1: left vertical line searching, 0: pixel searching, 1: right vertical line searching)
+	 * \param col_shift (long) - integer parameters to be set for horizonttal line searching (-1: top horizontal line searching, 0: pixel searching, 1: bottom vertical line searching)
+	 *
+	 *\return a LONGBIN containing for each rows the number of columns at wihch the element retrun the query equal to the variable reply
+	 * \author Emanuele Cordano
+	 * \date January 2009
+	 *
+	 *
+	 */
+	LONGVECTOR *ndata;
+
+	LONGBIN *LB;
+	long r,c,j,data_counter;
+
+	printf("ENTRANCE:  %ld %ld %ld %ld ",row_shift,col_shift,lmask->nrh,lmask->nch);
+
+	if ((row_shift<-1)|| (row_shift>1) || (col_shift<-1)|| (col_shift>1) ) {
+		printf ("Warning in addresses function source file g_raster2plvector_novalue_manegement: parameters row_shift or col_shift exceed 1 (in absolute value) \n");
+		printf ("This could cause bus errors!!\n ");
+	}
+
+
+	for (r=lmask->nrl;r<=lmask->nrh;r++) {
+		if ((lmask->element[r][lmask->ncl]==1) || (lmask->element[r][lmask->nch]==1)) printf ("Warning in addresses function source file g_raster2plvector_novalue_manegement: at row %ld the mask of the basin reaches the border !\n",r);
+	}
+	for (c=lmask->ncl;c<=lmask->nch;c++) {
+		if ((lmask->element[lmask->nrl][c]==1) || (lmask->element[lmask->nrh][c]==1)) printf ("Warning in addresses function source file g_raster2plvector_novalue_manegement: at column %ld the mask of the basin reaches the border!\n",c);
+	}
+	ndata=new_longvector(lmask->nrh);
+	ndata->element[ndata->nl]=0;
+//	ndata->element[ndata->nh]=0;
+	for (r=lmask->nrl+1;r<=lmask->nrh;r++){
+		data_counter=0;
+		for (c=lmask->ncl+1;c<=lmask->nch;c++){
+			if ((lmask->element[r][c]==1) || (lmask->element[r][c+col_shift]==1) || (lmask->element[r+row_shift][c]==1) || (lmask->element[r+row_shift][c+col_shift]==1))
+				data_counter++;
+
+		}
+		ndata->element[r]=data_counter;
+	}
+//	print_longvector_elements(ndata,PRINT);
+//	stop_execution();
+	LB=new_longbin(ndata);
+//	printf("OKK pl");
+//	stop_execution();
+	for (r=lmask->nrl+1;r<=lmask->nrh;r++){
+		j=0;
+		for (c=lmask->ncl+1;c<=lmask->nch-1;c++){
+			if ((lmask->element[r][c]==1) || (lmask->element[r][c+col_shift]==1) || (lmask->element[r+row_shift][c]==1) || (lmask->element[r+row_shift][c+col_shift]==1)) {
+				j++;
+				LB->element[r][j]=c;
+			}
+		}
+
+	}
+	return LB;
+
+}
+//COME FARE CON I VERTICI???
+
+
+
+long index_pixel_from_a_bin(long r, long c, LONGVECTOR *s_index){
+	/*
+	 *\param lmask (DOUBLEMATRIX *) - matrix with 0 or 1 values (if element is 1 the element is within the basin, 0 otherwise)
+	 *\param row_shitf (long) - integer parameters to be set for vertical line searching (-1: left vertical line searching, 0: pixel searching, 1: right vertical line searching)
+	 *\param col_shift (long) - integer parameters to be set for horizonttal line searching (-1: top horizontal line searching, 0: pixel searching, 1: bottom vertical line searching)
+
 	 * \param - (long) r row
 	 * \param - (long) c column
-	 * \param - (long) nrh number of row
-	 * \param - (long) nch number of columns
+	 * \param - (LONGVECTOR *) sum of the index of the bin
 	 *
 	 * \auhor Emanuele Cordano
-	 * \date November 2008
+	 * \date January 2009
 	 *
 	 *\return index_pixel an index related
 	 *
@@ -62,45 +159,130 @@ long index_pixel(long r, long c,long nrh, long nch){
 	long l;
 
 	if (r%2==0) {
-		l=(r-1)*nch+(nch-c+1);
+		l=s_index->element[r]-c+1;
 	}else {
-		l=(r-1)*nch+c;
+		if (r>1) {
+			l=s_index->element[r-1]+c;
+		} else {
+			l=c;
+		}
+
+
 	}
 	return l;
 
 }
 
-LONGMATRIX *indices(long nrh, long nch,long IBASE,long (*t_index)(long r, long c,long nrh, long nch)){
+LONGMATRIX *m_indices_with_novalues(LONGBIN *laddresses, long nch, long novalue, long IBASE, long (*index_pixel_from_a_bin)(long r, long c, LONGVECTOR *s_index)){
 	/*
 	 *
 	 * \author Emanuele Cordano
-	 * \date November 2008
+	 * \date January 2009
 	 *
-
-	 * \param - (long) nrh number of row
-	 * \param - (long) nch number of columns
-	 * \param - (long) IBASE long
-	 * long (*t_index)(long r, long c,long nrh, long nch) - function used for
+	 * \param (LONGBIN *) - the bin of the addresses of pixels inside the domain
+	 * \param (long)      - number of columnus for the requested longmatrix
+	 * \param (long)       - integer values for NULL
+	 * \param (long)      - IBASE base number
+	 * \param (long)       -  (*index_pixel_from_a_bin)(long r, long c, LONGVECTOR *s_index) - function which numbers the pixel inside the domain
 	 *
-	 *\return a LONGMATRIX of the indices
+	 * \brief It creates a longmatrix with cell index (for pixels inside the domain)  and novalue (for pixels outside the domain)
 	 */
+	LONGMATRIX *m_ind;
+	LONGVECTOR *s_index;
+	long r,c,j,l;
 
-	LONGMATRIX *m_indices;
-	long r,c;
-	m_indices=new_longmatrix(nrh,nch);
-	for (r=m_indices->nrl;r<=m_indices->nrh;r++){
-		for (c=m_indices->ncl;c<=m_indices->nch;c++){
-			m_indices->element[r][c]=(*t_index)(r,c,m_indices->nrh,m_indices->nch)+IBASE;
-		}
+	s_index=new_longvector(laddresses->index->nh);
+	s_index->element[s_index->nl]=laddresses->index->element[s_index->nl];
+	for (l=s_index->nl+1;l<=s_index->nh;l++){
+		if (laddresses->index->element[l]>nch) printf("Error: in m_indices_with_novalues at row %ld , %ld exceeds number of columns %ld \n",l,laddresses->index->element[l],nch);
+		s_index->element[l]=s_index->element[l-1]+laddresses->index->element[l];
 	}
-//	printf ("IBASE=%ld",IBASE);
+//	stop_execution();
+//	printf("22novalue %ld :\n",novalue);
+//	stop_execution();
+	m_ind=new_longmatrix(laddresses->index->nh,nch);
+	for(r=m_ind->nrl;r<=m_ind->nrh;r++) {
+		for(c=m_ind->ncl;c<=m_ind->nch;c++) {
+			m_ind->element[r][c]=novalue;
+	//		printf("m_IND[%ld][%ld]: %ld\n",r,c,m_ind->element[r][c]);
 
-	return m_indices;
+		}
+		for(j=m_ind->ncl;j<=laddresses->index->element[r];j++){
+			m_ind->element[r][laddresses->element[r][j]]=(*index_pixel_from_a_bin)(r,j,s_index)+IBASE;
+//			printf("m_IND[%ld][%ld]: %ld\n",r,laddresses->element[r][j],m_ind->element[r][laddresses->element[r][j]]);
+		}
+
+
+	}
+
+
+	return m_ind;
+
+
 
 
 }
 
 
+/*
+ * LONGMATRIX *m_indices_with_novalues(LONGBIN *addresses, long nch, long novalue, long IBASE, long (*index_pixel_from_a_bin)(long r, long c, LONGVECTOR *s_index))
+ * LONGBIN *addresses(LONGMATRIX *lmask,long row_shift,long col_shift)
+ */
+
+LONGMATRIX *m_indices_from_mask(DOUBLEMATRIX *mask,long row_shift,long col_shift,long novalue,long IBASE,long (*index_pixel_from_a_bin)(long r, long c,LONGVECTOR *s_index),DOUBLEVECTOR *V, int (*check_novalues)(double x, DOUBLEVECTOR *V)){
+	/*
+	 *
+	 * \param mask (DOUBLEMATRIX *) - mask of the basin
+	 * \param row_shitf (long) - integer parameters to be set for vertical line searching (-1: left vertical line searching, 0: pixel searching, 1: right vertical line searching)
+	 * \param col_shift (long) - integer parameters to be set for horizonttal line searching (-1: top horizontal line searching, 0: pixel searching, 1: bottom vertical line searching)
+	 * \param (long)       - integer values for NULL
+	 * \param (long)      - IBASE base number
+	 * \param (long)       -  (*index_pixel_from_a_bin)(long r, long c, LONGVECTOR *s_index) - function which numbers the pixel inside the domain
+	 * \param V (DOUBLEVECTOR *)- vector containing novalue information
+	 * \param int (*check_novalues)(double x, DOUBLEVECTOR *V)) -
+	 *
+	 * \author Emanuele Cordano
+	 * \date January 2008
+	 *
+	 *
+	 */
+	LONGBIN *LB;
+	LONGMATRIX *m_ind;
+	LONGMATRIX *lmask;
+	long r,c;
+
+	lmask=new_longmatrix(mask->nrh,mask->nch);
+	printf("1: lmask %ld %ld:\n",lmask->nrh,lmask->nch);
+//	stop_execution();
+	for (r=mask->nrl;r<=mask->nrh;r++) {
+		for (c=mask->ncl;c<=mask->nch;c++) {
+	//		printf("value:%lf at  %ld,%ld \n",mask->element[r][c],r,c);
+			if ((*check_novalues)(mask->element[r][c],V)==0) {
+	//			printf("NONNULL value:%lf at  %ld,%ld \n",mask->element[r][c],r,c);
+				lmask->element[r][c]=1;
+	//			stop_execution();
+			}else if ((*check_novalues)(mask->element[r][c],V)==1) {
+				lmask->element[r][c]=0;
+		//		printf("NULL value:%lf at  %ld,%ld \n",mask->element[r][c],r,c);
+			}
+		}
+	}
+	printf("lmask %ld %ld :\n",lmask->nrh,lmask->nch);
+
+
+	//printf("novalue %ld :\n",novalue);
+	//stop_execution();
+	LB=addresses(lmask,row_shift,col_shift);
+	m_ind=m_indices_with_novalues(LB,lmask->nch,novalue,IBASE,index_pixel_from_a_bin);
+	printf("STOP!\n");
+	free_longbin(LB);
+	free_longmatrix(lmask);
+
+	//stop_execution();
+	return m_ind;
+
+}
+//LONGMATRIX *indices_conditioned(long nrh, long nch,long IBASE,long (*t_index)(long r, long c,long nrh, long nch)
 
 
 
@@ -230,7 +412,7 @@ LINE *new_vertical_line_from_raster(long r,long c, long nrh, long nch, double ns
 }
 
 
-LINEVECTOR *get_linevector_from_raster_grid(LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,LONGMATRIX *i_vertex, double nsres, double ewres, double blc_x, double blc_y){
+LINEVECTOR *get_linevector_from_raster_grid(LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,LONGMATRIX *i_vertex, double nsres, double ewres, double blc_x, double blc_y, long novalue){
 
 /*
  * \author Emanuele Cordano
@@ -245,23 +427,23 @@ LINEVECTOR *get_linevector_from_raster_grid(LONGMATRIX *i_horizontal,LONGMATRIX 
  * \param ewres - (double) east-west resolution
  * \param blc_x - (double) x coordinate for the bottom left corner
  * \param blc_y - (double) y coordinate for the bottom left corner
- *
+ * \param novalue - (long) null value
  * \return a linevector with vertical and horizontal line ordering assigned
+ *
+ *\\OCCORRE TENERE CONTO DEL NOVALUE!!!
  *
  */
 
 LINEVECTOR *lines;
-long r,c,i;
-
-
-lines=new_linevector(i_horizontal->nrh*i_horizontal->nch+i_vertical->nrh*i_vertical->nch);
-
+long r,c,i,count;
+/* Counting lines */
+count=0;
 /* VERTICA LINES */
 for(r=i_vertical->nrl;r<=i_vertical->nrh;r++){
 	for (c=i_vertical->ncl;c<=i_vertical->nch;c++){
 		/* vertical lines at the left edge of the grid element*/
-//		printf("indexxx=%ld r=%ld c=%ld  \n",i_vertical->element[r][c],r,c);
-		lines->element[i_vertical->element[r][c]]=new_vertical_line_from_raster(r,c,i_vertical->nrh,i_vertical->nch,nsres,ewres,blc_x,blc_y,i_vertical->element[r][c],i_vertex->element[r+1][c],i_vertex->element[r][c]);
+
+		if (i_vertical->element[r][c]!=novalue) count++;
 	}
 }
 //stop_execution();
@@ -269,8 +451,31 @@ for(r=i_vertical->nrl;r<=i_vertical->nrh;r++){
 /* VERTICA LINES */
 for(r=i_horizontal->nrl;r<=i_horizontal->nrh;r++){
 	for (c=i_horizontal->ncl;c<=i_horizontal->nch;c++){
-		/* vertical lines at the upper limit of the grid element */
-		lines->element[i_horizontal->element[r][c]]=new_horizontal_line_from_raster(r,c,i_horizontal->nrh,i_horizontal->nch,nsres,ewres,blc_x,blc_y,i_horizontal->element[r][c],i_vertex->element[r][c],i_vertex->element[r][c+1]);
+		/* horizontal lines at the upper limit of the grid element */
+		if (i_horizontal->element[r][c]!=novalue) count++ ;
+	}
+}
+/* verify of lines element */
+printf("OK HERE IN LINEVECTOR");
+stop_execution();
+lines=new_linevector(count);
+count=0;
+
+/* VERTICA LINES */
+for(r=i_vertical->nrl;r<=i_vertical->nrh;r++){
+	for (c=i_vertical->ncl;c<=i_vertical->nch;c++){
+		/* vertical lines at the left edge of the grid element*/
+//		printf("indexxx=%ld r=%ld c=%ld  \n",i_vertical->element[r][c],r,c);
+		if (i_vertical->element[r][c]!=novalue) lines->element[i_vertical->element[r][c]]=new_vertical_line_from_raster(r,c,i_vertical->nrh,i_vertical->nch,nsres,ewres,blc_x,blc_y,i_vertical->element[r][c],i_vertex->element[r+1][c],i_vertex->element[r][c]);
+	}
+}
+//stop_execution();
+/* HORIZONTAL LINES */
+/* VERTICA LINES */
+for(r=i_horizontal->nrl;r<=i_horizontal->nrh;r++){
+	for (c=i_horizontal->ncl;c<=i_horizontal->nch;c++){
+		/* horizontal lines at the upper limit of the grid element */
+		if (i_horizontal->element[r][c]!=novalue) lines->element[i_horizontal->element[r][c]]=new_horizontal_line_from_raster(r,c,i_horizontal->nrh,i_horizontal->nch,nsres,ewres,blc_x,blc_y,i_horizontal->element[r][c],i_vertex->element[r][c],i_vertex->element[r][c+1]);
 	}
 }
 /* verify of lines element */
@@ -322,52 +527,57 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 	ledges=new_longvector(4);
 
 
-	if (!i_vertical->element[r][c]) {
-		printf ("Warning: vertical line missing (polygon %ld) at r=%ld c=%ld \n ",index,r,c);
+	if ((!i_vertical->element[r][c]) || (i_vertical->element[r][c]<=0)) {
+		printf ("Warning: left vertical line missing  (polygon %ld) at r=%ld c=%ld \n ",index,r,c);
+		ledges->element[1]=i_vertical->element[r][c];
 	} else {
 		ledges->element[1]=i_vertical->element[r][c];
+	//	printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c],index,r,c);
 
 	}
-	if (!i_vertical->element[r][c+1]) {
-		printf ("Warning: vertical line missing (polygon %ld) at r=%ld c=%ld \n ",index,r,c+1);
+	if ((!i_vertical->element[r][c+1]) || (i_vertical->element[r][c+1]<=0)) {
+		printf ("Warning: right vertical line missing (polygon %ld) at r=%ld c=%ld \n ",index,r,c+1);
+		ledges->element[2]=i_vertical->element[r][c+1];
 	} else {
 		ledges->element[2]=i_vertical->element[r][c+1];
-
+	//	printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c+1],index,r,c+1);
 	}
 
-	if (!i_horizontal->element[r][c]) {
-		printf ("Warning: horizontal line missing (polygon %ld) at r=%ld c=%ld \n",index,r,c);
+	if ((!i_horizontal->element[r][c]) || (i_horizontal->element[r][c]<=0)) {
+		printf ("Warning: top horizontal line missing (polygon %ld) at r=%ld c=%ld \n",index,r,c);
+		ledges->element[3]=i_horizontal->element[r][c];
 	} else {
 		ledges->element[3]=i_horizontal->element[r][c];
 
 	}
 
 
-	if (!i_horizontal->element[r+1][c]) {
-		printf ("Warning: horizontal line missing (polygon %ld) at r=%ld c=%ld \n",index,r,c);
+	if ((!i_horizontal->element[r+1][c]) || (i_horizontal->element[r+1][c]<=0)) {
+		printf ("Warning: bottom horizontal line missing (polygon %ld) at r=%ld c=%ld \n",index,r,c);
+		ledges->element[4]=i_horizontal->element[r+1][c];
 	} else {
 		ledges->element[4]=i_horizontal->element[r+1][c];
 
 	}
 
 
-
+	if (print==1) printf(" Polygon : %ld [r= %ld , c = %ld ] lines (edges): %ld, %ld, %ld, %ld  \n",index,r,c,ledges->element[1],ledges->element[2],ledges->element[3],ledges->element[4]);
 
 	edges=extract_linvector_from_linevector(ledges,lines);
 	PO=new_polygon_from_a_linevector(edges,centroid);
 
+
+	if (print==1) printf(" Polygon : %ld [r= %ld , c = %ld ] lines (edges): %ld, %ld, %ld, %ld was allocated \n",index,r,c,ledges->element[1],ledges->element[2],ledges->element[3],ledges->element[4]);
 	free_point(centroid);
 	free_longvector(ledges);
 	free_linevector(edges);
-
-	if (print==1) printf(" Polygon : %ld [r= %ld , c = %ld ] was allocated \n",index,r,c);
 
 	return PO;
 
 
 }
 
-POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pixels,LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,double nsres, double ewres, double blc_x, double blc_y,short print) {
+POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pixels,LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,double nsres, double ewres, double blc_x, double blc_y,long novalue, short print) {
 	/*
 	 * \author Emanuele Cordano
 	 * \date November 2008
@@ -381,20 +591,32 @@ POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pix
 	 *\param ewres - (double) east-west resolution
 	 *\param blc_x - (double) x coordinate for the bottom left corner
 	 *\param blc_y - (double) y coordinate for the bottom left corner
+	 *\param novalue (long) NULL value
 	 *\param print - (short) it is a verbose modality if print==1
 	 *
 	 *
 	 */
 	POLYGONVECTOR *pv;
-	long i,r,c;
-
-
-	pv=new_polygonvector(i_pixels->nrh*i_pixels->nch);
+	long i,r,c,count;
+	/* counter for the pixels within te basin    */
+	count=0;
 
 	for(r=i_pixels->nrl;r<=i_pixels->nrh;r++){
 		for(c=i_pixels->ncl;c<=i_pixels->nch;c++){
-			i=i_pixels->element[r][c];
-			pv->element[i]=new_pixel_from_raster(i,r,c,lines,i_horizontal,i_vertical,nsres, ewres,blc_x,blc_y,print);
+			if (i_pixels->element[r][c]!=novalue) count++;
+
+		}
+	}
+
+	pv=new_polygonvector(count);
+	count=0;
+
+	for(r=i_pixels->nrl;r<=i_pixels->nrh;r++){
+		for(c=i_pixels->ncl;c<=i_pixels->nch;c++){
+			if (i_pixels->element[r][c]!=novalue) {
+				i=i_pixels->element[r][c];
+				pv->element[i]=new_pixel_from_raster(i,r,c,lines,i_horizontal,i_vertical,nsres, ewres,blc_x,blc_y,print);
+			}
 		}
 	}
 
@@ -411,7 +633,7 @@ POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pix
 
 }
 
-/* Functions wich converts DOUBLEVECTOR and DOUBLEMATRIX according to a given function */
+/* Functions which converts DOUBLEVECTOR and DOUBLEMATRIX according to a given function */
 
 DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRIX *M, double novalue){
 	/*
@@ -596,3 +818,5 @@ DOUBLEMATRIX *get_doublematrix_from_mapseries(LONGMATRIX *indices,DOUBLETENSOR *
 	return mv;
 
 }
+
+

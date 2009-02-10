@@ -21,9 +21,19 @@ This file is part of BGEOMETRY.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-long index_pixel(long r, long c,long nrh, long nch);
 
-LONGMATRIX *indices(long nrh, long nch,long IBASE,long (*t_index)(long r, long c,long nrh, long nch));
+
+//long index_pixel(long r, long c,long nrh, long nch);
+
+//LONGMATRIX *indices(long nrh, long nch,long IBASE,long (*t_index)(long r, long c,long nrh, long nch));
+
+LONGBIN *addresses(LONGMATRIX *lmask,long row_shift,long col_shift);
+
+long index_pixel_from_a_bin(long r, long c, LONGVECTOR *s_index);
+
+LONGMATRIX *m_indices_with_novalues(LONGBIN *laddresses, long nch, long novalue, long IBASE, long (*index_pixel_from_a_bin)(long r, long c, LONGVECTOR *s_index));
+
+LONGMATRIX *m_indices_from_mask(DOUBLEMATRIX *mask,long row_shift,long col_shift,long novalue,long IBASE,long (*index_pixel_from_a_bin)(long r, long c,LONGVECTOR *s_index),DOUBLEVECTOR *V, int (*check_novalues)(double x, DOUBLEVECTOR *V));
 
 POINT *new_point_from_raster(long r,long c, long nrh, long nch, double lx, double ly, double nsres, double ewres, double blc_x, double blc_y, long index);
 
@@ -33,14 +43,15 @@ LINE *new_vertical_line_from_raster(long r,long c, long nrh, long nch, double ns
 
 
 
+LINEVECTOR *get_linevector_from_raster_grid(LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,LONGMATRIX *i_vertex, double nsres, double ewres, double blc_x, double blc_y, long novalue);
 
-LINEVECTOR *get_linevector_from_raster_grid(LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,LONGMATRIX *i_vertex, double nsres, double ewres, double blc_x, double blc_y);
+
 
 
 POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,double nsres, double ewres, double blc_x, double blc_y,short print);
 
-POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pixels,LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,double nsres, double ewres, double blc_x, double blc_y,short print);
 
+POLYGONVECTOR *get_polygonvector_from_raster(LINEVECTOR *lines,LONGMATRIX *i_pixels,LONGMATRIX *i_horizontal,LONGMATRIX *i_vertical,double nsres, double ewres, double blc_x, double blc_y,long novalue, short print);
 DOUBLEVECTOR *read_doublevector_from_raster(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref,LONGMATRIX *indices);
 
 DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRIX *M, double novalue);

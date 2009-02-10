@@ -34,12 +34,13 @@ This file is part of BGEOMETRY.
 #define NO_INTERSECTION -99
 #define NULL -99
 
-polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *polygons, long boundary, short print){
+polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *polygons, long boundary, long displacement ,short print){
 	/*
 	 *
 	 * \param polygon - (POLYGON *) polygon to which link are referred
 	 * \param polygons - (POLYGONS *) vector of polygons
 	 * \param boundary - (long) long value which indetifies the boundary
+	 * \param displacement - (long) displacement in the POLYNGONVECTOR polygons around the index value of polygon where to find the connections
 	 * \param print    - (short)
 	 *
 	 * \author Emanuele Cordano
@@ -52,6 +53,8 @@ polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *po
 	polygon_connection_attributes *pca;
 	long l,s,l_po1,l_po2,icnt;
 	double dist;
+	long A_min,A_max; /* extremes of the search interval */
+
 	icnt=1;
 
 	pca=(polygon_connection_attributes *)malloc((sizeof(polygon_connection_attributes)));
@@ -60,8 +63,10 @@ polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *po
 	pca->d_connections=new_doublevector(polygon->edge_indices->nh);
 	initialize_longvector(pca->connections,boundary);
 	initialize_doublevector(pca->d_connections,NULL);
+	A_min=fmax(polygon->index-displacement,polygons->nl);
+	A_max=fmin(polygon->index+displacement,polygons->nh);
 
-	for (l=polygons->nl;l<=polygons->nh;l++){
+	for (l=A_min;l<=A_max;l++){
 		if (l!=polygon->index) {
 			dist=1.0;
 			l_po1=0;
@@ -117,12 +122,13 @@ polygon_connection_attribute_array *new_connection_attributes(long nh){
 
 }
 
-polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons, long boundary, short print){
+polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons, long boundary, long displacement, short print){
 
 	/*
 
 	 * \param polygons - (POLYGONS *) vector of polygons
 	 * \param boundary - (long) long value which indetifies the boundary
+	 * \param displacement - (long) displacement in the POLYNGONVECTOR polygons around the index value of polygon where to find the connections
 	 * \param print    - (short)
 	 *
 	 * \author Emanuele Cordano
@@ -140,7 +146,7 @@ polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons
 	printf ("pca Allocated!\n");
 
 	for(l=pca->nl;l<=pca->nh;l++){
-		pca->element[l]=get_connection(polygons->element[l],polygons,boundary,print);
+		pca->element[l]=get_connection(polygons->element[l],polygons,boundary,displacement,print);
 		if (print==1) printf ("Polygons %ld (%ld connections) of %ld !! \n",l,pca->element[l]->connections->nh,pca->nh);
 	}
 
