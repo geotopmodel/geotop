@@ -1,6 +1,6 @@
 
 /* BGEOMETRY BUILDS THE MESH FROM A RASTER FOR THE BOUSSINESQ MODEL
-KeyPalette Version 0.9375 KMackenzie
+BGEOMETRY Version 0.9375 KMackenzie
 
 file geometry_attribute.h
 

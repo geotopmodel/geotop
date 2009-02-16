@@ -35,6 +35,26 @@ This file is part of MATH2.
 
 #define DELTA_MIN epsilon
 
+/* DA SCRIVERE!!!!
+ *
+ * int (* temporary_function)(DOUBLEVECTOR *y,DOUBLEVECTOR *x);
+ * DOUBLEVECTOR *diagonal_elements;
+ *
+ * DOUBLEVECTOR *diagonal(int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x)) { da fare }
+ *
+ * int conditioned_function(DOUBLEVECTOR *y, DOUBLEVECTOR *x) {
+ *
+ * }
+ *
+ * fare rutines gradiente coniugato precondizionato
+ *
+int (*condtioning (int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x),DOUBLEVECTOR *b, DOUBLEVECTOR *b_cond))(DOUBLEVECTOR *x,DOUBLEVECTOR *y) {
+
+int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x);
+
+}
+*/
+
 long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *b, int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x)){
 
 	/*

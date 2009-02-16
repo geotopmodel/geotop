@@ -1804,7 +1804,7 @@ write_map(files->co[farea]+1, 0, par->format_out, top->area, UV);
 
 /****************************************************************************************************/
 //Channel network (in top->pixel_type)
-if(par->wat_balance==1){
+//if(1==1)
 	if(existing_file(files->co[fnet]+1)>0){
 		M=read_map(2, files->co[fnet]+1, top->Z0, UV);
 		top->pixel_type=copyshort_doublematrix(M);
@@ -1857,7 +1857,7 @@ if(par->wat_balance==1){
 	write_map(files->co[fnet]+1, 1, par->format_out, M, UV);
 	free_doublematrix(M);
 
-}else{
+/*}else{
 
 	top->pixel_type=new_shortmatrix(top->Z0->nrh,top->Z0->nch);
 	for(r=1;r<=top->Z0->nrh;r++){
@@ -1870,7 +1870,7 @@ if(par->wat_balance==1){
 		}
 	}
 
-}
+}*/
 /****************************************************************************************************/
 //Outlet distances
 if(par->wat_balance==1){

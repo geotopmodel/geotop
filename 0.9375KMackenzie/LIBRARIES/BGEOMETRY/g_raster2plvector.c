@@ -713,7 +713,7 @@ for (r=M->nrl;r<=M->nrh;r++){
 		for (c=M->ncl;c<=M->nch;c++){
 			i=indices->element[r][c];
 			M->element[r][c]=INIT_VALUE;
-			if (i>v->nh)  {
+			if ((i>v->nh) || (i<v->nl))  {
 				if (Mref->element[r][c]!=novalue) printf ("Error:: in get_doublematrix_from_doublevector index %ld exceeds size of matrix [%ld,%ld] at %ld,%ld \n",i,M->nrh,M->nch,r,c);
 			}else{
 				M->element[r][c]=v->element[i];
