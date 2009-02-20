@@ -1873,7 +1873,8 @@ write_map(files->co[farea]+1, 0, par->format_out, top->area, UV);
 }*/
 /****************************************************************************************************/
 //Outlet distances
-if(par->wat_balance==1){
+
+//if(par->wat_balance==1){
 	if(existing_file(files->co[fdist]+1)>0){
 		top->pixel_distance=read_map(1, files->co[fdist]+1, top->Z0, UV);
 		//Check values
@@ -1897,7 +1898,7 @@ if(par->wat_balance==1){
 				}
 			}
 		}
-	}else{
+/*	}else{
 		top->pixel_distance=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 		initialize_doublematrix(top->pixel_distance,UV->V->co[2]);
 		//se geomorphologic libraries
@@ -1917,7 +1918,7 @@ if(par->wat_balance==1){
 				}
 			}
 		}
-	}
+	} */
 	write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV);
 
 }else{
