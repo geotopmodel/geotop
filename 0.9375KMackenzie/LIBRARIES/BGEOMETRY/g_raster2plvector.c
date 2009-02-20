@@ -28,7 +28,7 @@ This file is part of BGEOMETRY.
  * WARNING: The mask is the raster which contains all the basin, the boundary of the basin must contain no-value elements.
  *
  *
- *
+ * right vertical line
  */
 
 
@@ -125,7 +125,7 @@ LONGBIN *addresses(LONGMATRIX *lmask,long row_shift,long col_shift){
 //	stop_execution();
 	for (r=lmask->nrl+1;r<=lmask->nrh;r++){
 		j=0;
-		for (c=lmask->ncl+1;c<=lmask->nch-1;c++){
+		for (c=lmask->ncl+1;c<=lmask->nch;c++){
 			if ((lmask->element[r][c]==1) || (lmask->element[r][c+col_shift]==1) || (lmask->element[r+row_shift][c]==1) || (lmask->element[r+row_shift][c+col_shift]==1)) {
 				j++;
 				LB->element[r][j]=c;
@@ -532,15 +532,15 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 		ledges->element[1]=i_vertical->element[r][c];
 	} else {
 		ledges->element[1]=i_vertical->element[r][c];
-	//	printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c],index,r,c);
+//		printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c],index,r,c);
 
 	}
 	if ((!i_vertical->element[r][c+1]) || (i_vertical->element[r][c+1]<=0)) {
-		printf ("Warning: right vertical line missing (polygon %ld) at r=%ld c=%ld \n ",index,r,c+1);
+		printf ("Warning: right vertical line missing (polygon %ld) at r=%ld c=%ld \n ",index,r,c);
 		ledges->element[2]=i_vertical->element[r][c+1];
 	} else {
 		ledges->element[2]=i_vertical->element[r][c+1];
-	//	printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c+1],index,r,c+1);
+//		printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c+1],index,r,c+1);
 	}
 
 	if ((!i_horizontal->element[r][c]) || (i_horizontal->element[r][c]<=0)) {
