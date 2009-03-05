@@ -42,9 +42,9 @@ This file is part of BGEOMETRY.
 #include "g_raster2plvector.h"
 
 #define NO_ELEVATION 0.0
-#define CENTER -0.5
-#define CENTER -0.5
-#define TOP -1.0
+#define LX_CENTER -0.5
+#define LY_CENTER 0.5
+#define TOP 1.0
 #define BOTTOM 0.0
 #define LEFT -1.0
 #define RIGHT 0.0
@@ -315,7 +315,7 @@ POINT *new_point_from_raster(long r,long c, long nrh, long nch, double lx, doubl
 
 //	index=(*t_index)(r,c,nrh,nch)+NBASE;
 	x=((double)c+lx)*ewres+blc_x;
-	y=((double)(nrh-r+1)+ly)*nsres+blc_x;
+	y=((double)(nrh-r)+ly)*nsres+blc_y;
 
 	P=new_point(index,x,y,NO_ELEVATION);
 
@@ -521,7 +521,7 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 	nch=i_horizontal->nch;
 
 
-	centroid=new_point_from_raster(r,c,nrh,nch,CENTER,CENTER,nsres,ewres,blc_x,blc_y,index);
+	centroid=new_point_from_raster(r,c,nrh,nch,LX_CENTER,LY_CENTER,nsres,ewres,blc_x,blc_y,index);
     /* indices of the edge of the pixel */
 
 	ledges=new_longvector(4);
@@ -654,6 +654,7 @@ DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRI
 	for (r=M->nrl;r<=M->nrh;r++){
 		for (c=M->ncl;c<=M->nch;c++){
 					if (M->element[r][c]!=novalue) cnt++;
+
 		}
 	}
 
@@ -674,7 +675,7 @@ DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRI
 	}
 
 	for (i=v->nl;i<=v->nh;i++){
-		if (v->element[i]==INIT_VALUE) printf("Error:: in get_doublevector_from_doublevector index %ld  was not assigned (%lf) !!\n",i,v->element[i]);
+		if (v->element[i]==INIT_VALUE) printf("Error:: in get_doublevector_from_doublematrix index %ld  was not assigned (%lf) !!\n",i,v->element[i]);
 	}
 
 	return v;
@@ -704,10 +705,7 @@ long i,r,c;
 M=new_doublematrix(Mref->nrh,Mref->nch);
 
 if ((indices->nrh!=M->nrh) || (indices->nch!=M->nch)) printf("Error:: in get_doublematrix_from_doublevector indices [%ld,%ld] and M [%ld,%ld] has different sizes! \n",indices->nrh,indices->nch,M->nrh,M->nch);
-//if (v->nh!=nrh*nch) {
-//	printf("Error::in get_doublematrix_from_doublevector number of elemets in vector %lf does not correspond to the number of rows and column %lf and %lf. The matrix was not created!!\n",v->nh,nrh,nch);
-//	return M;
-//}
+
 
 for (r=M->nrl;r<=M->nrh;r++){
 		for (c=M->ncl;c<=M->nch;c++){
