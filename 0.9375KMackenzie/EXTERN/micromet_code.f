@@ -4,7 +4,7 @@ c micromet_code.f
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-	  subroutine MICROMET_CODE(nx,ny,xmn,ymn,deltax,deltay,
+	  subroutine MICROMETCODE(nx,ny,xmn,ymn,deltax,deltay,
      &  iyear_init,imonth_init,iday_init,xhour_init,dt,undef,
      &  ifill,iobsint,dn,iter,curve_len_scale,slopewt,curvewt,
      &  topo_land,curvature,terrain_slope,slope_az,topoflag,snow_d,

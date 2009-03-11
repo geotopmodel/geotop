@@ -32,7 +32,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 
 extern T_INIT *UV;
 	
-extern void micromet_code_(int *nx,int *ny, double *xmn, double *ymn, float *deltax, float *deltay, int *iyear_init, int *imonth_init, int *iday_init, float *xhour_init, 
+extern void micrometcode_(int *nx,int *ny, double *xmn, double *ymn, float *deltax, float *deltay, int *iyear_init, int *imonth_init, int *iday_init, float *xhour_init, 
 				float *dt, float *undef, int *ifill, int *iobsint, float *dn, int *iter, float *curve_len_scale, float *slopewt,float *curvewt, float *topo, float *curvature, 
 				float *terrain_slope, float *slope_az, float *topoflag, float *snowdepth, float *tair_grid, float *rh_grid, float *uwind_grid, float *vwind_grid, float *Qsi_grid, float *prec_grid, 
 				int *i_tair_flag, int *i_rh_flag, int *i_wind_flag, int *i_solar_flag, int *i_prec_flag, float *windspd_grid, float *winddir_grid, float *windspd_flag, 
@@ -362,7 +362,7 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 		
 	
 //	run micromet
-	micromet_code_(&(liston->nx), &(liston->ny), &(liston->xmn), &(liston->ymn), &(liston->deltax), &(liston->deltay), &(liston->iyear_init), &(liston->imonth_init),
+	micrometcode_(&(liston->nx), &(liston->ny), &(liston->xmn), &(liston->ymn), &(liston->deltax), &(liston->deltay), &(liston->iyear_init), &(liston->imonth_init),
 		&(liston->iday_init), &(liston->xhour_init), &(liston->dt), &(liston->undef), &(liston->ifill), &(liston->iobsint), &(liston->dn), &iter, 
 		&(liston->curve_len_scale), &(liston->slopewt), &(liston->curvewt), liston->topo, liston->curvature, liston->terrain_slope, liston->slope_az,
 		&(liston->topoflag), liston->snowdepth, liston->tair_grid, liston->rh_grid, liston->uwind_grid, liston->vwind_grid, liston->Qsi_grid, liston->prec_grid,
