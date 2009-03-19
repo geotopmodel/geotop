@@ -75,7 +75,22 @@ typedef struct {
 	POLYGON **element;
 }  POLYGONVECTOR;
 
-/* array of attributes for each point,lines, polygons
+/* array of attributes for each point,lines, polygons*/
+
+typedef void attribute_point;
+typedef void attribute_line;
+typedef void attribute_polygon;
+
+
+typedef struct {
+
+	LONGVECTOR *connections;
+	DOUBLEVECTOR *d_connections;
+
+} polygon_connection_attributes;
+
+
+
 
 typedef struct {
 	short isdynamic;
@@ -94,8 +109,9 @@ typedef struct {
 typedef struct {
 	short isdynamic;
 	long nh,nl;
-	attribute_polygon **element;
-}  attribute_polygon_array;*/
+	polygon_connection_attributes **element;
+}  polygon_connection_attribute_array;
+
 
 /* function header */
 

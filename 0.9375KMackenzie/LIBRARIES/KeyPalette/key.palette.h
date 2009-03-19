@@ -27,7 +27,7 @@ This file is part of KeyPalette.
 
 #define EMPTY_VALUE -99
 
-#define NOFILE_NAME "MISSING FILE"
+//#define NOFILE_NAME "MISSING FILE"
 
 #define NOMODEL_NAME "OFF"
 
@@ -53,9 +53,11 @@ void free_keywords(KEYWORDS *keywords);
 
 STRINGBIN *read_names(FILE *fd, STRINGBIN *keywords, char *empty_name, short print);
 
-void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments);
+
 
 void write_keywords(KEYWORDS *keywords);
+
+void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments);
 
 KEYWORDS_LIST *read_keywords_list (char *filename, short print);
 

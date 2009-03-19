@@ -26,13 +26,13 @@ This file is part of BGEOMETRY.
 #include "geometry.h"
 #include "t_datamanipulation.h"
 #include "geometry_utilities.h"
-//#include "read_command_line.h"
-//#include "additional_read_functions.h"
-#include "geometry_io.h"
+
+
+//#include "geometry_io.h"
 #include "geometry_attribute.h"
 
 #define NO_INTERSECTION -99
-#define NULL -99
+#define NULL_VALUE -99
 
 polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *polygons, long boundary, long displacement ,short print){
 	/*
@@ -62,7 +62,7 @@ polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *po
 	pca->connections=new_longvector(polygon->edge_indices->nh);
 	pca->d_connections=new_doublevector(polygon->edge_indices->nh);
 	initialize_longvector(pca->connections,boundary);
-	initialize_doublevector(pca->d_connections,NULL);
+	initialize_doublevector(pca->d_connections,NULL_VALUE);
 	A_min=fmax(polygon->index-displacement,polygons->nl);
 	A_max=fmin(polygon->index+displacement,polygons->nh);
 
@@ -84,10 +84,7 @@ polygon_connection_attributes *get_connection(POLYGON *polygon,POLYGONVECTOR *po
 
 
 	}
-//	printf("...!\n");
-//	print_longvector_elements(pca->connections,1);
-//	print_doublevector_elements(pca->d_connections,1);
-//	stop_execution();
+
 
 	return pca;
 
@@ -140,17 +137,19 @@ polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons
 	 *
 	 */
 	polygon_connection_attribute_array *pca;
-	long l;
+	long l,j;
 
 	pca=new_connection_attributes(polygons->nh);
 	printf ("pca Allocated!\n");
 
 	for(l=pca->nl;l<=pca->nh;l++){
 		pca->element[l]=get_connection(polygons->element[l],polygons,boundary,displacement,print);
-		if (print==1) printf ("Polygons %ld (%ld connections) of %ld !! \n",l,pca->element[l]->connections->nh,pca->nh);
+		if (print==1) printf ("Polygons %ld (%ld connections) of %ld (displacement=%ld)!! \n",l,pca->element[l]->connections->nh,pca->nh,displacement);
 	}
 
 	if (print==1) printf (" Finished polygon_connection_array struct filling!! \n ");
+
+
 
 	return pca;
 }
@@ -196,8 +195,8 @@ int fprint_polygonconnectionattributearray(char *filename,polygon_connection_att
 		fprintf(fd,"%ld    ",i);
 
 		for (l=nl;l<=nh;l++){
-			link_val=NULL;
-			d_link_val=NULL;
+			link_val=NULL_VALUE;
+			d_link_val=NULL_VALUE;
 			if ((l<=pca->element[i]->connections->nh) && (l>=pca->element[i]->connections->nl)) link_val=pca->element[i]->connections->element[l];
 			if ((l<=pca->element[i]->d_connections->nh) && (l>=pca->element[i]->d_connections->nl)) d_link_val=pca->element[i]->d_connections->element[l];
 			fprintf(fd,"%ld    ",link_val);
@@ -210,5 +209,40 @@ int fprint_polygonconnectionattributearray(char *filename,polygon_connection_att
 	fprintf(fd,"\n");
 	fclose(fd);
 	return 0;
+
+}
+
+
+int connections_symmetry(polygon_connection_attribute_array* pca, long boundary) {
+	/*
+	 *\param  pca - (polygon_connection_attrivute_array *) the attributte array of which the symmetry is verified;
+	 *\param boundary - (long) - boundary indicator
+	 *
+	 *\author Emanuele Cordano
+	 *\date  March 2008
+	 *
+	 *
+	 */
+	long i,j,kl,c;
+	int s=1,sk; /* symmetry is assumed */
+
+	for (i=pca->nl;i<=pca->nh;i++) {
+		for (j=pca->element[i]->connections->nl;j<=pca->element[i]->connections->nh;j++) {
+			if (pca->element[i]->connections->element[j]!=boundary){
+
+				kl=pca->element[i]->connections->element[j];
+				sk=0;
+				for (c=pca->element[kl]->connections->nl;c<=pca->element[kl]->connections->nh;c++) {
+					if (pca->element[kl]->connections->element[c]==i) sk=1;
+				}
+				if (sk==0) {
+					s=0;
+					printf("Error in pca: struct is not symmetric in the calls %ld , %ld      /n",i,kl);
+				}
+			}
+		}
+	}
+
+	return s;
 
 }

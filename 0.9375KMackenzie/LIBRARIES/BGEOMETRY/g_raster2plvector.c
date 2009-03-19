@@ -31,7 +31,7 @@ This file is part of BGEOMETRY.
  * right vertical line
  */
 
-
+#include "linear_span.h"
 #include "geometry.h"
 #include "geometry_freememory.h"
 #include "geometry_io.h"
@@ -395,13 +395,13 @@ LINE *new_vertical_line_from_raster(long r,long c, long nrh, long nch, double ns
 
 	LINE *line;
 	POINT *P1, *P2;
-	long index;
+
 
 //	index=(*t_index)(r,c,nrh,nch)+NBASE;
 	P1=new_point_from_raster(r,c,nrh,nch,LEFT,BOTTOM,nsres,ewres,blc_x,blc_y,ivertex1);
 	P2=new_point_from_raster(r,c,nrh,nch,LEFT,TOP,nsres,ewres,blc_x,blc_y,ivertex2);
 //	printf("index=%ld r=%ld c=%ld  \n",iline,r,c);
-//stop_execution();
+
 	line=new_line_from_points(iline,P1,P2);
 
 	free_point(P1);
@@ -456,8 +456,7 @@ for(r=i_horizontal->nrl;r<=i_horizontal->nrh;r++){
 	}
 }
 /* verify of lines element */
-printf("OK HERE IN LINEVECTOR");
-stop_execution();
+
 lines=new_linevector(count);
 count=0;
 
@@ -514,7 +513,7 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 	POLYGON *PO;
 	LONGVECTOR *ledges;
 	POINT *centroid;
-	double x,y,z;
+
 	long nrh,nch;
 
 	nrh=i_vertical->nrh;
@@ -532,7 +531,7 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 		ledges->element[1]=i_vertical->element[r][c];
 	} else {
 		ledges->element[1]=i_vertical->element[r][c];
-//		printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c],index,r,c);
+
 
 	}
 	if ((!i_vertical->element[r][c+1]) || (i_vertical->element[r][c+1]<=0)) {
@@ -540,7 +539,7 @@ POLYGON *new_pixel_from_raster(long index,long r, long c ,LINEVECTOR *lines, LON
 		ledges->element[2]=i_vertical->element[r][c+1];
 	} else {
 		ledges->element[2]=i_vertical->element[r][c+1];
-//		printf ("DEBUG ON VERTICAL LINE %ld  (polygon %ld) at r=%ld c=%ld \n ",i_vertical->element[r][c+1],index,r,c+1);
+
 	}
 
 	if ((!i_horizontal->element[r][c]) || (i_horizontal->element[r][c]<=0)) {
@@ -662,7 +661,7 @@ DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRI
 	for (i=v->nl;i<=v->nh;i++){
 		v->element[i]=INIT_VALUE;
 	}
-	if (cnt>M->nrh*M->nch) printf ("Error:: Error:: in get_doublevector_from_doublematrix vector elements [%lf] execeed doublematrix elements!!\n",v->nh,M->nrh*M->nch);
+	if (cnt>M->nrh*M->nch) printf ("Error:: Error:: in get_doublevector_from_doublematrix vector elements [%ld] execeed number doublematrix elements [%ld]!!\n",v->nh,M->nrh*M->nch);
 	for (r=M->nrl;r<=M->nrh;r++){
 		for (c=M->ncl;c<=M->nch;c++){
 			i=indices->element[r][c];
@@ -681,7 +680,7 @@ DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRI
 	return v;
 }
 
-//*read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref)
+
 
 DOUBLEMATRIX *get_doublematrix_from_doublevector(DOUBLEVECTOR *v, LONGMATRIX *indices, DOUBLEMATRIX *Mref, double novalue) {
 /*

@@ -31,7 +31,7 @@ This file is part of BGEOMETRY.
 
 #define DELIMITERS ";"
 #define MAX_POINTS 20
-#define NULL -99
+#define NULL_VALUE -99
 #define NO_ELEVATION 0.0
 
 
@@ -131,9 +131,8 @@ LINEVECTOR *extract_linvector_from_linevector(LONGVECTOR *nlines, LINEVECTOR *li
  * \return a reduced linevoctor with the lines extracted
  */
 	LINEVECTOR *lve;
-	LONGVECTOR *lvei;
-	long j;
 
+	long j;
 //	print_longvector_elements(nlines,1);
 
 
@@ -308,7 +307,7 @@ int fprint_polygonvector(char *filename, POLYGONVECTOR *polygons) {
 		fprintf(fd,"%ld    ",polygons->element[i]->index);
 		fprintf(fd,"%lf    ",polygons->element[i]->area2D);
 		for (l=nl;l<=nh;l++){
-			lval=NULL;
+			lval=NULL_VALUE;
 			if ((l<=polygons->element[i]->edge_indices->nh) && (l>=polygons->element[i]->edge_indices->nl)) lval=polygons->element[i]->edge_indices->element[l];
 			fprintf(fd,"%ld    ",lval);
 		}

@@ -24,3 +24,5 @@ This file is part of MATH2.
 
 long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *b, int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x));
 int linear_comb_doublevector(DOUBLEVECTOR *result,DOUBLEVECTOR *a, DOUBLEVECTOR *b, double ca, double cb);
+long conjugate_gradient_search_LONG(long epsilon,LONGVECTOR *x,LONGVECTOR *b, int (* funz)(LONGVECTOR *y,LONGVECTOR *x));
+double max_doublevector(DOUBLEVECTOR *v);

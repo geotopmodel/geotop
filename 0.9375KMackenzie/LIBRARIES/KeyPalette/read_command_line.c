@@ -25,6 +25,7 @@ This file is part of KeyPalette.
 
 //#include <cstdio>
 #include <stdio.h>
+#include <string.h>
 #include "read_command_line.h"
 
 #define SUCCESS 1

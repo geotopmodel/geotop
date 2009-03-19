@@ -200,8 +200,8 @@ void write_keywords(KEYWORDS *keywords){
 	printf ("\n HERE ARE WRITTEN THE FOLLOWING KEYWORDS  :  \n ");
 
     for (kcount=keywords->names->index->nl;kcount<=keywords->names->index->nh;kcount++){
- //   	  printf("\n Ok ciao keys!! ");
-		  printf ("\nkeyword n %d : %s  as  %s \n ",kcount,keywords->names->element[kcount]+1,keywords->comments->element[kcount]+1);
+
+		  printf ("\nkeyword n %ld : %s  as  %s \n ",kcount,keywords->names->element[kcount]+1,keywords->comments->element[kcount]+1);
 
     }
 
@@ -209,6 +209,51 @@ void write_keywords(KEYWORDS *keywords){
 
 
 }
+
+
+
+
+void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments) {
+
+
+	/*!
+
+	 *  void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments)
+
+	 * \author Emanuele Cordano
+	 *
+	 * \date 8 Fabruary 2008
+	 *
+	 *
+	 *
+	*/
+
+
+
+
+
+	 long kcount;
+
+
+	 if (filenames->index->nh!=comments->index->nh) {
+
+		 t_error("Error in write_read_filenames: there is no correspondence between comments and keyword files");
+	 }else{
+
+		 printf ("THE PROGRAM HAS JUST READ THE FOLLOWING FILENAMES:  \n ");
+
+		 for (kcount=filenames->index->nl;kcount<=filenames->index->nh;kcount++){
+	//	 if (strcmp(filenames->element[kcount]+1,NOFILE_NAME))
+			 printf ("\nREAD FILENAME: %s as file %d  i.e. %s",filenames->element[kcount]+1,kcount,comments->element[kcount]+1);
+
+		 }
+
+	 printf("\n");
+
+
+	 }
+
+ }
 
 
 KEYWORDS_LIST *reorder_keywords_list(KEYWORDS_LIST *written_palette, STRINGBIN *keywords_model, long jread, char *empty_name) {
@@ -528,47 +573,6 @@ void free_keywords(KEYWORDS *keywords) {
 
 
  }
- void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments) {
-
-
-	/*!
-
-	 *  void write_read_filenames(STRINGBIN *filenames, STRINGBIN *comments)
-
-	 * \author Emanuele Cordano
-	 *
-	 * \date 8 Fabruary 2008
-	 *
-	 *
-	 *
-	*/
-
-
-
-
-
-	 long kcount;
-
-
-	 if (filenames->index->nh!=comments->index->nh) {
-
-		 t_error("Error in write_read_filenames: there is no correspondence between comments and keyword files");
-	 }else{
-
-		 printf ("THE PROGRAM HAS JUST READ THE FOLLOWING FILENAMES:  \n ");
-
-		 for (kcount=filenames->index->nl;kcount<=filenames->index->nh;kcount++){
-		 if (strcmp(filenames->element[kcount]+1,NOFILE_NAME)) printf ("\nREAD FILENAME: %s as file %d  i.e. %s",filenames->element[kcount]+1,kcount,comments->element[kcount]+1);
-
-		 }
-
-	 printf("\n");
-
-
- }
-
- }
-
 
 
  STRINGBIN *join_path_to_stringbin(char *path, STRINGBIN *stringvector,char *no_joinstring) {

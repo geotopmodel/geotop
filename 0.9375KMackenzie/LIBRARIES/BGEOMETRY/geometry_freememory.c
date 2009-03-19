@@ -26,8 +26,11 @@ This file is part of BGEOMETRY.
 
 #include "turtle.h"
 #include "geometry.h"
-#include "geometry_freememory.h"
+#include "t_datamanipulation.h"
+#include "geometry_utilities.h"
 #include "geometry_attribute.h"
+#include "geometry_freememory.h"
+
 void free_point(POINT *P){
 	/*
 	 *

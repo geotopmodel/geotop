@@ -30,12 +30,11 @@ void free_polygon(POLYGON *PO);
 void free_linevector(LINEVECTOR *lv);
 
 
-//void free_point_attributes(attribute_point *point);
+void free_polygonvector(POLYGONVECTOR *pv);
 
 
-//void free_line_attributes(attribute_line *line);
 
 
-//void free_polygon_attributes(attribute_polygon *polygon);
-
+void free_polygon_connection_attributes (polygon_connection_attributes *pca);
+void free_polygon_connection_attribute_array(polygon_connection_attribute_array *pcaa);
 

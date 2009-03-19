@@ -149,7 +149,7 @@ double prodscal (DOUBLEVECTOR *a, DOUBLEVECTOR *b)
  * */
 {
 	double p=0.0;
-	int i;
+	long i;
 	if (a->nh != b->nh)
 	t_error("Error in prodscal(): The two vectors have not equal dimensions\n");
 	for(i=a->nl;i<=a->nh;i++) {
@@ -313,7 +313,7 @@ DOUBLEVECTOR *extract_a_column_from_doublematrix(long d,DOUBLEMATRIX *M) {
 		 *    */
 
 		DOUBLEVECTOR *VC;
-		long r,c;
+		long r;
 
 		VC=new_doublevector(M->nrh);
 		if ((d>=M->ncl) && (d<=M->nch)) {

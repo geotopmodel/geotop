@@ -70,23 +70,24 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	 * \author Emanuele Cordano
 	 * \date November 2008
 	 *
+	 *\note modified by Emanuele Cordano (March 2009)
 	 */
 
 
-	double delta,delta_new,alpha,beta;
+	double delta,delta_new,alpha,beta,delta0;
 	DOUBLEVECTOR *r, *d,*q,*y;
-	//,*x_new, *r_new, *d_new;
-	int s;
+
+	int s,sl;
 	long icnt_max;
+	long j;
+	double p;
 
 	r=new_doublevector(x->nh);
 	d=new_doublevector(x->nh);
 	q=new_doublevector(x->nh);
 	y=new_doublevector(x->nh);
 
-//	r_new=new_doublevector(x->nh);
-//	d_new=new_doublevector(x->nh);
-//	x_new=new_doublevector(x->nh);
+
 
 	icnt=0;
 	icnt_max=x->nh;
@@ -94,38 +95,59 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 
 
     s=(* funz)(y,x);
-	linear_comb_doublevector(r,b,y,1.0,-1.0);
+    delta_new=0.0;
+    for (j=y->nl;j<=y->nh;j++) {
+    	r->element[j]=b->element[j]-y->element[j];
+    	d->element[j]=r->element[j];
+    	delta_new+=r->element[j]*r->element[j];
+    }
+    delta0=1.0;
+  //  printf("start delta_new epsilon :%le %le ",delta_new,epsilon);
+ //   stop_execution();
 
-	copy_doublevector(r,d);
-	delta_new=prodscal(r,r);
-	printf("delta_init= %lf\n",delta_new);
 
-	delta=delta_new;
-
-	while ((icnt<=icnt_max) && (delta_new>epsilon)) {
-
-
-		s=(* funz)(q,d);
-		alpha=delta_new/prodscal(d,q);
-		linear_comb_doublevector(x,x,d,1.0,alpha);
-
-		if (icnt%MAX_REITERATON==0) {
-			s=(* funz)(y,x);
-			linear_comb_doublevector(r,b,y,1.0,-1.0);
-		}else{
-			linear_comb_doublevector(r,r,q,1.0,-alpha);
-//		    copy_doublevector(r_new,r);
-		}
+	//while ((icnt<=icnt_max) && (delta_new>pow(epsilon,2.0)*delta0)) {
+	while ((icnt<=icnt_max) && (max_doublevector(r)>epsilon)) {
 		delta=delta_new;
-		delta_new=prodscal(r,r);
-		printf ("delta_new=%le icnt=%ld icnt_max=%ld deltamin=%le\n",delta_new,icnt,icnt_max,epsilon);
-
-		beta=delta_new/delta;
-		if (delta_new>delta) {
-			printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
-	//		stop_execution();
+		s=(* funz)(q,d);
+		p=0.0;
+		for(j=q->nl;j<=q->nh;j++) {
+			p+=q->element[j]*d->element[j];
+		/*	if (((j==y->nl) && sl==0 ) || (sl==1)) {
+				    		printf("p =%le q[%ld]=%le d[%ld]=%le (j=%ld)  ",p,j,q->element[j],j,d->element[j],j);
+				//    		if (delta_new==0.0) sl=1;
+			}*/
 		}
-		linear_comb_doublevector(d,r,d,1.0,beta);
+		alpha=delta_new/p;
+		for(j=x->nl;j<=x->nh;j++) {
+			x->element[j]=x->element[j]+alpha*d->element[j];
+		}
+
+	    s=(* funz)(y,x);
+	    delta_new=0.0;
+	    sl=0;
+	    for (j=y->nl;j<=y->nh;j++) {
+	   // 	r->element[j]=b->element[j]-y->element[j];
+	    	r->element[j]=r->element[j]-alpha*q->element[j];
+	    	delta_new+=r->element[j]*r->element[j];
+/*    	if (((j==y->nl) && sl==0 ) || (sl==1)) {
+	    		printf("delta_new =%le (j=%ld)  ",delta_new,j);
+	//    		if (delta_new==0.0) sl=1;
+	    	}*/
+	    }
+	    beta=delta_new/delta;
+	   // double aa=1.0e-21;
+	    printf("delta_new =%le p=%le alpha=%le beta=%le delta_max=%le\n",delta_new,p,alpha,beta,max_doublevector(r));
+	    //stop_execution();
+
+//		if (delta_new>delta) {
+	//		printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
+	//		stop_execution();
+	//	}
+	//	linear_comb_doublevector(d,r,d,1.0,beta);
+		for (j=d->nl;j<=d->nh;j++) {
+			 d->element[j]=r->element[j]+beta*d->element[j];
+		}
 
 		icnt++;
 
@@ -177,3 +199,125 @@ int linear_comb_doublevector(DOUBLEVECTOR *result,DOUBLEVECTOR *a, DOUBLEVECTOR 
 }
 
 
+long conjugate_gradient_search_LONG(long epsilon,LONGVECTOR *x,LONGVECTOR *b, int (* funz)(LONGVECTOR *y,LONGVECTOR *x)){
+
+	/*
+	 *\param icnt  - (long)
+	 *\param epsilon - (double) required tollerance (2-order norm of the residuals)
+	 *\param x     - (LONGVECTRO *) vector of the unknowns x in Ax=b
+	 *\param b     - (LONGVECTOR *) vector of b in Ax=b
+	 *\param (* funz)(LONGVECTOR *y,LONGVECTOR *x) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
+	 *
+	 *\return the number of reitarations
+	 *\brief algorithm proposed by Jonathan Richard Shewckuck in http://www.cs.cmu.edu/~jrs/jrspapers.html#cg . All the physical variables are expressed as long integer.
+	 *
+	 * \author Emanuele Cordano
+	 * \date March 2009
+	 *
+	 *\note modified by Emanuele Cordano (March 2009)
+	 */
+
+
+	long delta,delta_new,alpha,beta,delta0;
+	LONGVECTOR *r, *d,*q,*y;
+	long icnt;
+	int s,sl;
+	long icnt_max;
+	long j;
+	long p;
+
+	r=new_longvector(x->nh);
+	d=new_longvector(x->nh);
+	q=new_longvector(x->nh);
+	y=new_longvector(x->nh);
+
+
+
+
+	icnt_max=x->nh;
+	icnt=0;
+
+
+    s=(* funz)(y,x);
+    delta_new=0.0;
+    for (j=y->nl;j<=y->nh;j++) {
+    	r->element[j]=b->element[j]-y->element[j];
+    	d->element[j]=r->element[j];
+    	delta_new+=r->element[j]*r->element[j];
+    }
+    printf("delta_new =%ld delta_max=%ld \n",delta_new,epsilon*epsilon);
+
+
+//	while ((icnt<=icnt_max) && (delta_new>epsilon*epsilon))
+	while ((icnt<=icnt_max) && (max_doublevector(r)<=epsilon)) {
+		delta=delta_new;
+		s=(* funz)(q,d);
+		p=0.0;
+		for(j=q->nl;j<=q->nh;j++) {
+			p+=q->element[j]*d->element[j];
+
+		}
+		alpha=delta_new/p;
+		for(j=x->nl;j<=x->nh;j++) {
+			x->element[j]=x->element[j]+alpha*d->element[j];
+		}
+
+	    s=(* funz)(y,x);
+	    delta_new=0.0;
+	    sl=0;
+	    for (j=y->nl;j<=y->nh;j++) {
+	   // 	r->element[j]=b->element[j]-y->element[j];
+	    	r->element[j]=r->element[j]-alpha*q->element[j];
+	    	delta_new+=r->element[j]*r->element[j];
+/*    	if (((j==y->nl) && sl==0 ) || (sl==1)) {
+	    		printf("delta_new =%ld (j=%ld)  ",delta_new,j);
+	//    		if (delta_new==0) sl=1;
+	    	}*/
+	    }
+	    beta=delta_new/delta;
+	   // double aa=1.0e-21;
+	   printf("delta_new =%ld p=%ld alpha=%ld beta=%ld delta_max=%ld \n",delta_new,p,alpha,beta,epsilon*epsilon);
+	    //stop_execution();
+
+//		if (delta_new>delta) {
+	//		printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
+	//		stop_execution();
+	//	}
+	//	linear_comb_doublevector(d,r,d,1.0,beta);
+		for (j=d->nl;j<=d->nh;j++) {
+			 d->element[j]=r->element[j]+beta*d->element[j];
+		}
+
+		icnt++;
+
+
+	}
+
+
+	free_longvector(r);
+	free_longvector(d);
+	free_longvector(q);
+	free_longvector(y);
+
+	return icnt;
+
+}
+
+
+double max_doublevector(DOUBLEVECTOR *v) {
+	/*
+	 * \date March 2009
+	 * \author Emanuele Cordano
+	 *
+	 * \brief maximum value in a doublevector
+	 *
+	 */
+	 long j;
+	 double MK=abs(v->element[v->nl]);
+
+	 for (j=v->nl+1;j<=v->nh;j++){
+		 MK=fmax(MK,abs(v->element[j]));
+	 }
+
+	 return MK;
+}
