@@ -105,12 +105,20 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
   //  printf("start delta_new epsilon :%le %le ",delta_new,epsilon);
  //   stop_execution();
 
+    double epsilon0=epsilon;
+    double pe=5.0;
 
 	//while ((icnt<=icnt_max) && (delta_new>pow(epsilon,2.0)*delta0)) {
 	while ((icnt<=icnt_max) && (max_doublevector(r)>epsilon)) {
+		if (icnt>1000) {
+			epsilon=epsilon0*pow(10.0,pe);
+			if (icnt%1000==0) pe=pe+1.0;
+		}
+
 		delta=delta_new;
 		s=(* funz)(q,d);
 		p=0.0;
+
 		for(j=q->nl;j<=q->nh;j++) {
 			p+=q->element[j]*d->element[j];
 		/*	if (((j==y->nl) && sl==0 ) || (sl==1)) {
@@ -127,8 +135,11 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	    delta_new=0.0;
 	    sl=0;
 	    for (j=y->nl;j<=y->nh;j++) {
-	   // 	r->element[j]=b->element[j]-y->element[j];
-	    	r->element[j]=r->element[j]-alpha*q->element[j];
+	    	if (icnt%50==0) {
+					r->element[j]=b->element[j]-y->element[j];
+	    	} else {
+	    		r->element[j]=r->element[j]-alpha*q->element[j];
+	    	}
 	    	delta_new+=r->element[j]*r->element[j];
 /*    	if (((j==y->nl) && sl==0 ) || (sl==1)) {
 	    		printf("delta_new =%le (j=%ld)  ",delta_new,j);
@@ -313,10 +324,10 @@ double max_doublevector(DOUBLEVECTOR *v) {
 	 *
 	 */
 	 long j;
-	 double MK=abs(v->element[v->nl]);
+	 double MK=fabs(v->element[v->nl]);
 
 	 for (j=v->nl+1;j<=v->nh;j++){
-		 MK=fmax(MK,abs(v->element[j]));
+		 MK=fmax(MK,fabs(v->element[j]));
 	 }
 
 	 return MK;
