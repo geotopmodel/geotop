@@ -97,12 +97,12 @@ printf("\nWORKING DIRECTORY: %s",WORKING_DIRECTORY);
 
 
 
-files=get_filenames_from_keys(WORKING_DIRECTORY,PROGRAM_NAME,PRINT);
+files=get_filenames_from_keys(WORKING_DIRECTORY,PROGRAM_NAME,PRINT); /* reads the keywords in __geotoo.init */
 
 /* READ INPUT parameters contained on I_CONTROL_PARMETERS */
 
 
-read_inpts_par(par, times,files->element[I_CONTROL_PARAMETERS]+1,textfile, "1:");
+read_inpts_par(par, times,files->element[I_CONTROL_PARAMETERS]+1,textfile, "1:"); /* reads the parameters in __control_parameters */
 
 if(files->index->nh!=nfiles){
 	for(i=1;i<=files->index->nh;i++){
@@ -122,9 +122,9 @@ t_fclose(f);
 /****************************************************************************************************/
 /*! Reading of the Input files:                                                                      */
 /****************************************************************************************************/
-read_parameterfile(files->co[fpar]+1, par, liston, IT);
+read_parameterfile(files->co[fpar]+1, par, liston, IT); /* reads the file __parameters.txt */
 
-read_soil_parameters(files->co[fspar]+1, &n_soiltypes, sl);	//it also defines Nl
+read_soil_parameters(files->co[fspar]+1, &n_soiltypes, sl);	 /* reads the file _soil.txt and defines NL (number of soil layers) */
 
 if(par->point_sim!=1){ /* distributed simulation */
 	read_inputmaps(top, land, sl, par);
@@ -148,18 +148,18 @@ times->time=0.0;
 //METEO DATA
 met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
 if(!met->st) t_error("meteo_stations was not allocated");
-init_meteo_stations(IT->met, met->st);
+init_meteo_stations(IT->met, met->st);/* reads __parameter file block 11 */
 
-met->column=alloc_long2(IT->met->nrh);
+met->column=alloc_long2(IT->met->nrh); /* allocate a matrix nX1 where n is the number of meteo stations */
 met->data=(double ***)malloc(IT->met->nrh*sizeof(double**));
 met->horizon=(double ***)malloc(IT->met->nrh*sizeof(double**));
-met->var=alloc2(met->st->Z->nh,nmet);	//meteo variables for the current instant
-
+met->var=alloc2(met->st->Z->nh,nmet);/* allocates a matrix nXnmet where nmet is the number of meteorological variables as defined in constant.h */
+//meteo variables for the current instant
 
 for(i=1;i<=IT->met->nrh;i++){
-	f=t_fopen(namefile_i(files->co[fmet]+1, i),"r");
-	met->column[i-1]=alloc_long1(nmet);
-	ReadMeteoHeader(f, IT->met_col_names, met->st->offset->co[i], &ncols, met->column[i-1]);
+	f=t_fopen(namefile_i(files->co[fmet]+1, i),"r"); /* open the meteo file of each station */
+	met->column[i-1]=alloc_long1(nmet); /* allocates a vector of "nmet" values of long to each meteo station */
+	ReadMeteoHeader(f, IT->met_col_names, met->st->offset->co[i], &ncols, met->column[i-1]); /* reads the header of the meteo file */
 	met->data[i-1]=read_datameteo(f, met->st->offset->co[i], ncols, UV->V->co[2]);
 	met->horizon[i-1]=read_horizon(files->co[fhor]+1, i);
 	t_fclose(f);
@@ -226,7 +226,7 @@ met->nstsrad=0;
 do{
 	met->nstsrad++;
 	a=0;
-	if( met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1) ) a=1;
+	if( met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1) ) a=1; // if there is a station that has SW fix the number
 }while(met->nstsrad<met->st->Z->nh && a==0);
 if(a==0){
 	printf("WARNING: NO shortwave radiation measurements available\n");
@@ -286,17 +286,17 @@ for(r=1;r<=top->Z0->nrh;r++){
 }
 
 
-par->n_landuses=0;
+par->n_landuses=0;// the maximum digit in the first row of block 1 in parameters file
 for(i=1;i<=IT->land_classes->nch;i++){
 	if(par->n_landuses<(long)IT->land_classes->co[1][i]) par->n_landuses=(long)IT->land_classes->co[1][i];
 }
 printf("\nNumber of land use types: %ld\n",par->n_landuses);
 
 //properties for each land use
-land->ty=new_doublematrix(par->n_landuses,nlandprop);
+land->ty=new_doublematrix(par->n_landuses,nlandprop);/* land type (classes) */
 initialize_doublematrix(land->ty,0.0);
 
-land->LAI=new_doublevector(par->n_landuses);
+land->LAI=new_doublevector(par->n_landuses); /* leaf area index */
 
 for(i=1;i<=par->n_landuses;i++){
 
@@ -342,7 +342,7 @@ for(i=1;i<=IT->land_classes->nch;i++){
 /****************************************************************************************************/
 // Completing of "top" (of the type TOPO):
 
-if(par->point_sim==0){
+if(par->point_sim==0){ // distributed simulation
 	top->dz_dx=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	top->dz_dy=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	initialize_doublematrix(top->dz_dx,0.0);
@@ -484,7 +484,7 @@ if(par->print==1){
    fclose(f);
 }
 
-/* Creation of the matrix with the coeficent to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
+/* Creation of the matrix with the coefficient to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
 
 cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt/(double)par->nDt_water);
 if(par->print==1){
@@ -542,34 +542,35 @@ if(par->recover==1){
 /****************************************************************************************************/
 /*! Completing of "sl" (of the type SOIL):                                                    */
 
-sl->thice=new_doubletensor(Nl,Nr,Nc);
+sl->thice=new_doubletensor(Nl,Nr,Nc); /* soil theta_ice */
 initialize_doubletensor(sl->thice,0.0);
 
-sl->Jinf=new_doublematrix(land->use->nrh,land->use->nch);
+sl->Jinf=new_doublematrix(land->use->nrh,land->use->nch);/* infiltration */
 initialize_doublematrix(sl->Jinf,0.0);
 
-sl->J=new_doubletensor(Nl,Nr,Nc);
+sl->J=new_doubletensor(Nl,Nr,Nc); /* water flux outgoing from one layer to the lower one */
 initialize_doubletensor(sl->J,0.0);
 
-sl->P=new_doubletensor(Nl,Nr,Nc);
+sl->P=new_doubletensor(Nl,Nr,Nc); /* soil pressure */
 initialize_doubletensor(sl->P,0.0);
 
-sl->T=new_doubletensor(Nl,Nr,Nc);
+sl->T=new_doubletensor(Nl,Nr,Nc); /* soil temperature */
 initialize_doubletensor(sl->T,0.0);
 
+/* Initial condition on soil pressure and ice content depending on soil temperature  */
 for(r=1;r<=Nr;r++){
 	for(c=1;c<=Nc;c++){
 		if(top->Z0->co[r][c]!=NoV){
-			for(i=1;i<=n_soiltypes;i++){
+			for(i=1;i<=n_soiltypes;i++){// for each soil type
 				if(sl->type->co[r][c]==i){
 					sy=sl->type->co[r][c];
-					for(l=1;l<=Nl;l++){
+					for(l=1;l<=Nl;l++){// for each soil layer
 						sl->P->co[l][r][c]=sl->pa->co[sy][jpsi][l];
 						sl->T->co[l][r][c]=sl->pa->co[sy][jT][l];
 
-						if(sl->T->co[l][r][c]<=Tfreezing && sl->pa->co[sy][jsf][l]==1){
+						if(sl->T->co[l][r][c]<=Tfreezing && sl->pa->co[sy][jsf][l]==1){// if the temperature is below Tfreez and the freezing soil flag is switched on
 							theta=teta_psi(sl->P->co[l][r][c], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-									1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+									1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);// find the TOTAL water content
 							//Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
 							sl->thice->co[l][r][c]=theta - teta_psi(Psif2(sl->T->co[l][r][c]), 0.0, sl->pa->co[sy][jsat][l],
 									sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
@@ -710,7 +711,7 @@ if(par->recover==1){
 				if(par->distr_stat==1)egy->Ta_min->co[r][c]=+9.0E99;
 			}
 
-		}else{
+		}else{// no value pixels
 
 			if(par->output_Rn>0){
 				egy->Rn_mean->co[r][c]=UV->V->co[2];
@@ -758,7 +759,7 @@ if(par->recover==1){
 	}
  }
 
- egy->out1=new_doublematrix(58,par->chkpt->nrh);
+ egy->out1=new_doublematrix(58,par->chkpt->nrh);// creates a matrix with 58 rows and as many columns as the number of check points
  initialize_doublematrix(egy->out1,0.0);
 
  egy->out2=new_doublevector(11);
@@ -769,7 +770,7 @@ if(par->recover==1){
 	initialize_doublematrix(egy->out3,0.0);
  }
 
- if(par->JD_plots->co[1]!=0){
+ if(par->JD_plots->co[1]!=0){// if the special output option is activated
 	egy->Hplot=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	egy->LEplot=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	egy->SWinplot=new_doublematrix(top->Z0->nrh,top->Z0->nch);
@@ -869,7 +870,7 @@ if(par->recover==1){
 }
 
 
-/* Initialization of vector "wat->output" with basin's means and pixel's values for the output:*/
+/* Initialization of vector "wat->output" with basin's averages and pixel's values for the output:*/
 wat->out1=new_doublematrix(28,par->chkpt->nrh);
 initialize_doublematrix(wat->out1,0.0);
 wat->out2=new_doublevector(8);
@@ -1302,7 +1303,7 @@ if(par->micromet1==1){
 	}
 }
 
-//vector used for instanatneous data for each station
+//vector used for instantaneous data for each station
 met->LT=(float*)malloc(met->st->Z->nh*sizeof(float));
 met->Lrh=(float*)malloc(met->st->Z->nh*sizeof(float));
 met->Lws=(float*)malloc(met->st->Z->nh*sizeof(float));
@@ -1936,7 +1937,7 @@ write_map(files->co[farea]+1, 0, par->format_out, top->area, UV);
 //----------------------------------------------------------------------------------------------
 
 void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools){
-
+/* reads the file __parameters.txt */
 	FILE *f;
 	long i,index;
 	DOUBLEVECTOR *v;
@@ -2105,7 +2106,7 @@ void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0){
-
+/* reads the file _options.txt and sets some parameters */
 	FILE *f;
 	long index, i;
 	DOUBLEVECTOR *v;
@@ -2115,16 +2116,18 @@ void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0
 
 	//1. base par
 	v=read_doublearray(f,PRINT);
-	par->wat_balance=(short)v->co[1];
-	par->en_balance=(short)v->co[2];
-	par->state_snow=(short)v->co[3];
-	par->state_snow_age=(short)v->co[4];
-	par->state_glac=(short)v->co[5];
-	par->state_px_coord=(short)v->co[6];
-	par->distr_stat=(short)v->co[7];
+	par->wat_balance=(short)v->co[1];/* 1 calculates water balance, 0 do not calculate */
+	par->en_balance=(short)v->co[2];/* 1 calculates energy_balance, 0 do not calculate */
+	par->state_snow=(short)v->co[3];/* 1 if you have a file with initial snow depth (in days), 0 otherwise */
+	par->state_snow_age=(short)v->co[4];/* 1 if you have a file with snow age (in days), 0 otherwise */
+	par->state_glac=(short)v->co[5];/* 1 if you have a file with glacier depth, 0 otherwise */
+	par->state_px_coord=(short)v->co[6];/* 1 if all coordinates are in (East-North) format, 0 if in (row, columns) format */
+	par->distr_stat=(short)v->co[7];/* 1 to plot distribute statistics (min, max, var), 0 otherwise */
 	free_doublevector(v);
 
 	//2. chkpt
+	/* 2 block - COORDINATES of the points for which point values are plotted
+	if state_px_coord==1 (E, N, layer) ---  if state_px_coord==0 (row,col,layer) (max 9999 points)*/
 	par->chkpt=read_doublematrix(f,"a",PRINT);
 
 	//3. saving points
@@ -2154,6 +2157,10 @@ void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0
 	free_doublevector(v);
 
 	//5. special output
+	/* 5 block - SPECIAL OUTPUT PARAMETERS
+	It is possible to select some days for which energy balance and meteo data are plotted with a very short time step.
+	This is useful if some careful analysis has to be done. If you do not want to use this possibility, just write 0 as first
+	component of this vector */
 	v=read_doublearray(f,PRINT);
 	if(v->co[1]!=0.0 && v->nh>1){
 		times->n_plot=floor(v->co[1]*3600/par->Dt);
@@ -2220,6 +2227,20 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	free_doublevector(v);
 
 	//2. chkpt
+	/** 2 block - COORDINATES of the points for which the simulations is run
+	if state_px_coord==1 coordinate are (E, N) ---  if state_px_coord==0 coordinate are (row,col) (max 9999 points)
+	#1	E(row)
+	#2	N(col)
+	#3	Z[m]
+	#4	landuse
+	#5	soiltype
+	#6	slopes[rad]
+	#7	aspect[rad]
+	#8	sky[-]
+	#9	dz/dE(net)
+	#10	dz/dS(net)
+	write -99 if you want to read the values from the distributed files */
+
 	M=read_doublematrix(f,"a",PRINT);
 	if(M->nch!=10) t_error("Error in block 2 option file");
 
@@ -2235,7 +2256,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	//4. CALCULATE TOPOGRAPHIC PROPERTIES
 	//a. read dem
 	read_dem=0;
-	for(i=1;i<=M->nrh;i++){
+	for(i=1;i<=M->nrh;i++){// for every given point
 		if(M->co[i][3]==-99.0 || M->co[i][6]==-99.0 || M->co[i][7]==-99.0 || M->co[i][8]==-99.0 || M->co[i][9]==-99.0 || M->co[i][10]==-99.0) read_dem=1;
 	}
 	if(par->micromet1==1 || par->micromet2==1 || par->micromet3==1 || par->recover==1) read_dem=1;
@@ -2721,10 +2742,10 @@ double **read_horizon(char *name, long i){
 			printf("Error: in file %s insufficient number of columns\n");
 			t_error("ERROR!!");
 		}
-		hor=alloc2(M->nrh,2);
-		for(j=1;j<=M->nch;j++){
-			hor[j-1][0]=M->co[j][1];
-			hor[j-1][1]=M->co[j][2];
+		hor=alloc2(M->nrh,2);/* M->rh is the number of azimuth in which the horizon is divided */
+		for(j=1;j<=M->nrh;j++){
+			hor[j-1][0]=M->co[j][1];/* azimuth angle */
+			hor[j-1][1]=M->co[j][2];/* horizon elevation angle */
 		}
 
 		free_doublematrix(M);
@@ -2768,25 +2789,25 @@ void init_meteo_stations(DOUBLEMATRIX *INPUTmeteo, METEO_STATIONS *st){
 
 	if(INPUTmeteo->nch!=13) t_error("ERROR IN INPUT OF METEO STATIONS");
 
-	st->E=new_doublevector(INPUTmeteo->nrh);
-	st->N=new_doublevector(INPUTmeteo->nrh);
-	st->lat=new_doublevector(INPUTmeteo->nrh);
-	st->lon=new_doublevector(INPUTmeteo->nrh);
-	st->Z=new_doublevector(INPUTmeteo->nrh);
-	st->sky=new_doublevector(INPUTmeteo->nrh);
-	st->ST=new_doublevector(INPUTmeteo->nrh);
-	st->Vheight=new_doublevector(INPUTmeteo->nrh);
-	st->Theight=new_doublevector(INPUTmeteo->nrh);
-	st->JD0=new_doublevector(INPUTmeteo->nrh);
-	st->Y0=new_longvector(INPUTmeteo->nrh);
-	st->Dt=new_doublevector(INPUTmeteo->nrh);
-	st->offset=new_longvector(INPUTmeteo->nrh);
+	st->E=new_doublevector(INPUTmeteo->nrh); /* East coordinate [m] of the meteo station */
+	st->N=new_doublevector(INPUTmeteo->nrh);/* North coordinate [m] of the meteo station */
+	st->lat=new_doublevector(INPUTmeteo->nrh);/* Latitude [rad] of the meteo station */
+	st->lon=new_doublevector(INPUTmeteo->nrh);/* Longitude [rad] of the meteo station */
+	st->Z=new_doublevector(INPUTmeteo->nrh);/* Elevation [m] of the meteo station */
+	st->sky=new_doublevector(INPUTmeteo->nrh);/* Sky-view-factor [-] of the meteo station */
+	st->ST=new_doublevector(INPUTmeteo->nrh);/* Standard time minus UTM [hours] of the meteo station */
+	st->Vheight=new_doublevector(INPUTmeteo->nrh); /* Wind velocity measurement height [m] (a.g.l.)  */
+	st->Theight=new_doublevector(INPUTmeteo->nrh); /* Air temperature measurement height [m] (a.g.l.)  */
+	st->JD0=new_doublevector(INPUTmeteo->nrh);/* Decimal Julian Day of the first data */
+	st->Y0=new_longvector(INPUTmeteo->nrh);/* Year of the first data */
+	st->Dt=new_doublevector(INPUTmeteo->nrh);/* Dt of sampling of the data [sec]*/
+	st->offset=new_longvector(INPUTmeteo->nrh);/* offset column*/
 
 	for(i=1;i<=INPUTmeteo->nrh;i++){
 		st->E->co[i]=INPUTmeteo->co[i][1];
 		st->N->co[i]=INPUTmeteo->co[i][2];
-		st->lat->co[i]=INPUTmeteo->co[i][3]*Pi/180.0;
-		st->lon->co[i]=INPUTmeteo->co[i][4]*Pi/180.0;
+		st->lat->co[i]=INPUTmeteo->co[i][3]*Pi/180.0; /* from deg to [rad] */
+		st->lon->co[i]=INPUTmeteo->co[i][4]*Pi/180.0;/* from deg to [rad] */
 		st->Z->co[i]=INPUTmeteo->co[i][5];
 		st->sky->co[i]=INPUTmeteo->co[i][6];
 		st->ST->co[i]=INPUTmeteo->co[i][7];
@@ -2794,7 +2815,7 @@ void init_meteo_stations(DOUBLEMATRIX *INPUTmeteo, METEO_STATIONS *st){
 		st->Theight->co[i]=INPUTmeteo->co[i][9];
 		st->JD0->co[i]=INPUTmeteo->co[i][10];
 		st->Y0->co[i]=(long)(INPUTmeteo->co[i][11]);
-		st->Dt->co[i]=INPUTmeteo->co[i][12]*3600;		//seconds
+		st->Dt->co[i]=INPUTmeteo->co[i][12]*3600;		//from hours to seconds
 		st->offset->co[i]=(long)(INPUTmeteo->co[i][13]);
 	}
 
@@ -2805,24 +2826,37 @@ void init_meteo_stations(DOUBLEMATRIX *INPUTmeteo, METEO_STATIONS *st){
 /***********************************************************/
 /***********************************************************/
 void ReadMeteoHeader(FILE *f, STRINGBIN *ColDescr, long offset, long *ncols, long *MeteoCont){
-
+	/* Author: Stefano Endrizzi, 2008
+	 * reads the header of the meteo file and finds the number of variables (ncols)
+	 * Input:
+	 * f: file of the meteo station
+	 * ColDescr: vector of strings read in the parameter file, block n.12
+	 * offset: offset column as read in the parameter file, block 11
+	 * Output:
+	 * ncols: number of strings in the header of the meteo file
+	 * MeteoCont: vector of long representing the vector of the columns of the met structure (met->column): is equal
+	 * to the number of strings in parameters file block 12. The vector is initialized with -1. If the name of the meteo variable
+	 * read in the meteo file corresponds to the allowed meteo variables given in ColDescr, then the corresponding column is
+	 * set with the column of the meteo file */
 	char **a;
 	long i,j;
 
 	for(i=0;i<dim1l(MeteoCont);i++){
+		/*dim1l() is a function that finds the number of elements of a vector of long. */
 		MeteoCont[i]=-1;
 	}
 
-	a=readline_textarray(f, offset);
+	a=readline_textarray(f, offset); /* vector of strings containing the names of meteo variables read in the header of the meteo file */
 
-	*ncols=dim_vect_strings(a);
+	*ncols=dim_vect_strings(a); /* number of elements (strings) in the header of the meteo file */
 
-	for(j=1;j<=dim1l(MeteoCont);j++){
-		for(i=1;i<=*ncols;i++){
+	for(j=1;j<=dim1l(MeteoCont);j++){/* for every allowed meteo string given in parameter file block 12 */
+		for(i=1;i<=*ncols;i++){/* for every meteo strings in the meteo file */
 			if(compare_strings(ColDescr->co[j]+1, a[i-1])==1 && MeteoCont[j-1]==-1){
-				MeteoCont[j-1]=i-1;
+				/* checks that the description string in the meteo file corresponds with the string in parameters file block 12 which is the same in constant.h  */
+				MeteoCont[j-1]=i-1;// it means that if the SW in the meteo file is the third string, then at the 7th position of the vector (it is the 7th string in constant.h) there will be written 2
 				//printf("j:%ld dim:%ld ncol:%ld col:%ld\n",j,dim1l(MeteoCont),*ncols,MeteoCont[j-1]);
-			}else if(compare_strings(ColDescr->co[j]+1, a[i-1])==1 && MeteoCont[j-1]!=-1){
+			}else if(compare_strings(ColDescr->co[j]+1, a[i-1])==1 && MeteoCont[j-1]!=-1){ /*it means that in the meteo file there is a string that has been repeated */
 				printf("Column '%s' is present twice\n",ColDescr->co[j]+1);
 				t_error("Meteo Column name DUPLICATED!");
 			}
@@ -2840,7 +2874,15 @@ void ReadMeteoHeader(FILE *f, STRINGBIN *ColDescr, long offset, long *ncols, lon
 /***********************************************************/
 /***********************************************************/
 double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
-
+	/* Author: Stefano Endrizzi, 2008
+	 * reads the data of the meteo file
+	 * Input:
+	 * f: file of the meteo station
+	 * offset: offset column as read in the parameter file, block 11
+	 * cols: number of columns present in the meteo file
+	 * ndef:
+	 * Output:
+	 * a: matrix with the meteo values */
 	double **a;
 	long i, j;
 	short end, novalueend=1;
@@ -2857,7 +2899,7 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
 		readline_array(f, a[i], offset, ncols, ndef, &end);
 		//printf("i:%ld %f\n",i,a[i][1]);
 		if(end==0)i++;
-	}while(end==0);
+	}while(end==0);/* reads all the meteo file until the end (until end-of-file is reached) */
 
 
 	for(j=1;j<=ncols;j++){
@@ -2881,7 +2923,7 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
 /***********************************************************/
 
 void read_inpts_par(PAR *par, TIMES *times, char *filename, char *ext, char *pos){
-
+// reads __ocontrol_parameters.txt
 	DOUBLEVECTOR *V;
 	double Dt_output;
 	FILE *fd;
@@ -2961,7 +3003,15 @@ void read_inpts_par(PAR *par, TIMES *times, char *filename, char *ext, char *pos
 /***********************************************************/
 
 void read_soil_parameters(char *name, long *nsoil, SOIL *sl){
-
+/* function that reads the soil parameter file _soil.txt and create the doubletensor of soil parameters
+* the doubletensor is composed by three indexes: [sy][sprop][slay]:
+* sy is the number of soil types
+* sprop is the number of soil properties considered (see constant.h)
+* [slay] is the number of soil layer considered
+* Input: name of the file to read
+* Output: number of soil layers (*nsoil) and doubletensor sl->pa
+* Author: Stefano Endrizzi
+* Comments: Matteo Dall'Amico, April 2009 */
 	FILE *f;
 	long index, i, j, k;
 	DOUBLEMATRIX *M;
@@ -2971,13 +3021,13 @@ void read_soil_parameters(char *name, long *nsoil, SOIL *sl){
 
 	printf("%ld Different soil types given\n",index);
 
-	M=read_doublematrix(f,"a",PRINT);
-	Nl=M->nrh;
-
+	M=read_doublematrix(f,"a",PRINT);// reads the first matrix corresponding to the first soil type
+	Nl=M->nrh;// number of layers (must be the same for each soil type)
+	/* create the doubletensor of soil parameters */
 	sl->pa=new_doubletensor(index, nsoilprop, Nl);
-	initialize_doubletensor(sl->pa,0.0);
+ 	initialize_doubletensor(sl->pa,0.0);
 
-	for(i=1;i<=index;i++){
+	for(i=1;i<=index;i++){// for each soil type
 
 		if(i>1){
 			M=read_doublematrix(f,"a",PRINT);
@@ -2986,15 +3036,15 @@ void read_soil_parameters(char *name, long *nsoil, SOIL *sl){
 
 		if(M->nch!=nsoilprop)t_error("Wrong column number in the parameter file");
 
-		for(j=1;j<=nsoilprop;j++){
-			for(k=1;k<=M->nrh;k++){
+		for(j=1;j<=nsoilprop;j++){// for each soil property
+			for(k=1;k<=M->nrh;k++){// for each layer
 				sl->pa->co[i][j][k]=M->co[k][j];
 				if(j==jdz && i!=1){
 					if(sl->pa->co[i][j][k]!=sl->pa->co[i-1][j][k]) t_error("Soil layer thicknesses must be the same for each sl type");
 				}
-				if(sl->pa->co[i][jlatfl][k]<0 || sl->pa->co[i][jlatfl][k]>2) t_error("Value not admitted of jlatfl in soil parameters");
-				if(sl->pa->co[i][jsf][k]<0 || sl->pa->co[i][jsf][k]>1) t_error("Value not admitted of jsf in soil parameters");
-				if(sl->pa->co[i][jKav][k]<0 || sl->pa->co[i][jKav][k]>1) t_error("Value not admitted of jKav in soil parameters");
+				if(sl->pa->co[i][jlatfl][k]<0 || sl->pa->co[i][jlatfl][k]>2) t_error("Value not admitted of jlatfl (lateral flow) in soil parameters");
+				if(sl->pa->co[i][jsf][k]<0 || sl->pa->co[i][jsf][k]>1) t_error("Value not admitted of jsf (soil freezing) in soil parameters");
+				if(sl->pa->co[i][jKav][k]<0 || sl->pa->co[i][jKav][k]>1) t_error("Value not admitted of jKav (average type on conductivity) in soil parameters");
 			}
 		}
 		free_doublematrix(M);

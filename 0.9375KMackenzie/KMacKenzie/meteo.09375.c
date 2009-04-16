@@ -53,6 +53,7 @@ void meteo_distr(METEO *met, LISTON *liston, ENERGY *egy, WATER *wat, LAND *land
 
 	//INTERPOLATION OF METEO VARIABLES
 	for(i=1;i<=met->st->Z->nh;i++){
+		//printf("\nmet->st->JD0->co[i]=%f, met->st->Y0->co[i]=%ld",met->st->JD0->co[i], met->st->Y0->co[i]);
 		time_conversion(par->JD0, par->year0, time+par->Dt, met->st->JD0->co[i], met->st->Y0->co[i], &t_station);
 		t_station+=(met->st->ST->co[i]-par->ST)*3600.0;
 		//printf("%f %f\n", time+par->Dt,t_station);

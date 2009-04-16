@@ -29,53 +29,53 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-    DOUBLEMATRIX *Rn_mean;
-	DOUBLEMATRIX *Rn_max;
-	DOUBLEMATRIX *Rn_min;
-	DOUBLEMATRIX *LW_in;
-	DOUBLEMATRIX *LW_out;
-	DOUBLEMATRIX *LW_max;
-	DOUBLEMATRIX *LW_min;
-	DOUBLEMATRIX *SW;
-	DOUBLEMATRIX *SW_max;
-    DOUBLEMATRIX *ET_mean;
-	DOUBLEMATRIX *ET_max;
-	DOUBLEMATRIX *ET_min;
-    DOUBLEMATRIX *H_mean;
-	DOUBLEMATRIX *H_max;
-	DOUBLEMATRIX *H_min;
-    DOUBLEMATRIX *G_mean;
-	DOUBLEMATRIX *G_max;
-	DOUBLEMATRIX *G_min;
-	DOUBLEMATRIX *G_snowsoil;
-    DOUBLEMATRIX *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
-	DOUBLEMATRIX *Ts_max;
-	DOUBLEMATRIX *Ts_min;
-	DOUBLEMATRIX *Rswdown_mean;
-	DOUBLEMATRIX *Rswdown_max;
-	DOUBLEMATRIX *Ta_mean;
-	DOUBLEMATRIX *Ta_max;
-	DOUBLEMATRIX *Ta_min;
-	DOUBLEMATRIX *out1;			/*matrix with pixel's values for the output*/
-	DOUBLEVECTOR *out2;			/*vector with basin's means for the output*/
-	DOUBLEMATRIX *out3;
-	DOUBLEMATRIX *Rswbeam;
-	LONGMATRIX *nDt_shadow;
-	LONGMATRIX *nDt_sun;
+    DOUBLEMATRIX *Rn_mean;/*Map of averaged Net Radiation (on nDt_output_basin Dt time intervals). Created if(par->output_Rn>0) */
+	DOUBLEMATRIX *Rn_max;/*Map of Max Net Radiation (on nDt_output_basin Dt time intervals) Created if (par->output_Rn>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *Rn_min;/*Map of Min Net Radiation (on nDt_output_basin Dt time intervals) Created if (par->output_Rn>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *LW_in;/*Map of Incoming LW Radiation (on nDt_output_basin Dt time intervals). Created if(par->output_Rn>0) */
+	DOUBLEMATRIX *LW_out;/*Map of Outgoing LW Radiation (on nDt_output_basin Dt time intervals). Created if(par->output_Rn>0) */
+	DOUBLEMATRIX *LW_max;/*Map of Max LW Radiation (on nDt_output_basin Dt time intervals) Created if (par->output_Rn>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *LW_min;/*Map of Min LW Radiation (on nDt_output_basin Dt time intervals) Created if (par->output_Rn>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *SW;/*Map of SW Radiation (on nDt_output_basin Dt time intervals). Created if(par->output_Rn>0) */
+	DOUBLEMATRIX *SW_max;/*Map of Max SW Radiation (on nDt_output_basin Dt time intervals). Created if (par->output_Rn>0 && par->distr_stat==1) */
+    DOUBLEMATRIX *ET_mean;/*Map of averaged EvapoTranspiration (on nDt_output_basin Dt time intervals). Created if(par->output_ET>0) */
+	DOUBLEMATRIX *ET_max;/*Map of Max EvapoTranspiration (on nDt_output_basin Dt time intervals). Created if (par->output_ET>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *ET_min;/*Map of Min EvapoTranspiration (on nDt_output_basin Dt time intervals). Created if (par->output_ET>0 && par->distr_stat==1) */
+    DOUBLEMATRIX *H_mean;/*Map of averaged Sensible Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_H>0) */
+	DOUBLEMATRIX *H_max;/*Map of Max Sensible Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_H>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *H_min;/*Map of Min Sensible Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_H>0 && par->distr_stat==1) */
+    DOUBLEMATRIX *G_mean;/*Map of Averaged Ground Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_G>0) */
+	DOUBLEMATRIX *G_max;/*Map of Max Ground Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_G>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *G_min;/*Map of Min Ground Heat flux (on nDt_output_basin Dt time intervals). Created if(par->output_G>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *G_snowsoil;/*Map of Heat flux between snow and soil (on nDt_output_basin Dt time intervals). Created if(par->output_G>0) */
+    DOUBLEMATRIX *Ts_mean;/*Map of averaged Surface Temperature (on nDt_output_basin Dt time intervals) Created if(par->output_Ts>0) */
+	DOUBLEMATRIX *Ts_max;/*Map of Max Surface Temperature (on nDt_output_basin Dt time intervals). Created if(par->output_Ts>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *Ts_min;/*Map of Min Surface Temperature (on nDt_output_basin Dt time intervals). Created if(par->output_Ts>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *Rswdown_mean;/*Map of averaged SWin Radiation (on nDt_output_basin Dt time intervals) Created if(par->output_Rswdown>0) */
+	DOUBLEMATRIX *Rswdown_max;/*Map of Max SWin Radiation (on nDt_output_basin Dt time intervals) Created if(par->output_Rswdown>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *Ta_mean;/*Map of averaged Air temperature (on nDt_output_basin Dt time intervals) Created if(par->output_meteo>0) */
+	DOUBLEMATRIX *Ta_max;/*Map of Max Air temperature (on nDt_output_basin Dt time intervals) Created if(par->output_meteo>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *Ta_min;/*Map of Min Air temperature (on nDt_output_basin Dt time intervals) Created if(par->output_meteo>0 && par->distr_stat==1) */
+	DOUBLEMATRIX *out1;/*matrix with pixel's values for the output*/
+	DOUBLEVECTOR *out2;/*vector with basin's averages for the output*/
+	DOUBLEMATRIX *out3;/* matrix with altimetric stripes values for the output*/
+	DOUBLEMATRIX *Rswbeam;/*Map of averaged SWbeam Radiation (on nDt_output_basin Dt time intervals) Created if(par->output_Rswdown>0) */
+	LONGMATRIX *nDt_shadow;/* Map of number of Dt in which the pixel is in shadow */
+	LONGMATRIX *nDt_sun;/* Map of number of Dt in which the pixel is in sun. Created if(par->ES_num>0) */
 
-	DOUBLEMATRIX *Hplot;
-	DOUBLEMATRIX *LEplot;
-	DOUBLEMATRIX *SWinplot;
-	DOUBLEMATRIX *SWoutplot;
-	DOUBLEMATRIX *LWinplot;
-	DOUBLEMATRIX *LWoutplot;
-	DOUBLEMATRIX *Tsplot;
+	DOUBLEMATRIX *Hplot;/* sensible heat flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *LEplot;/* EvapoTranspiration flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *SWinplot;/* SWin flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *SWoutplot;/* SWout flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *LWinplot;/* LWin flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *LWoutplot;/* LWout flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *Tsplot;/* Surface Temperature flux: activated if par->JD_plots has more than one component */
 
 	DOUBLEMATRIX *SWin;
 	DOUBLEMATRIX *LWin;
 
-	DOUBLEMATRIX *Hgrid;
-	DOUBLEMATRIX *Tsgrid;
+	DOUBLEMATRIX *Hgrid;/* map of sensible heat flux [W/m2] */
+	DOUBLEMATRIX *Tsgrid;/* map of surface temperature [ûC] */
 
 	double VSFA;
 	double HSFA;
@@ -90,12 +90,12 @@ typedef struct {
 typedef struct {
 
 	SHORTMATRIX *type;
-	DOUBLETENSOR *pa;
-	DOUBLETENSOR *P;
-	DOUBLETENSOR *T;
-	DOUBLETENSOR *thice;
-	DOUBLEMATRIX *Jinf;
-	DOUBLETENSOR *J;
+	DOUBLETENSOR *pa; /* doubletensor of soil parameters */
+	DOUBLETENSOR *P; /* soil pressure */
+	DOUBLETENSOR *T; /* soil temperature */
+	DOUBLETENSOR *thice; /* soil theta_ice */
+	DOUBLEMATRIX *Jinf; /* water infiltration in the soil surface */
+	DOUBLETENSOR *J; /*  water flux outgoing from one layer to the lower one */
 
 } SOIL;
 
@@ -133,8 +133,8 @@ typedef struct {
 	SHORTMATRIX *shadow;		  /*=1 if shadow, =0 if not*/
 	LONGVECTOR *clax;
 	LONGMATRIX *cont;
-	DOUBLEMATRIX *ty;
-	DOUBLEVECTOR *LAI;
+	DOUBLEMATRIX *ty; /* land type (better would be land cover, i.e. pasture, rock, forest, paved_road...) */
+	DOUBLEVECTOR *LAI; /* leaf area index */
 
 } LAND;/*all this data are calculated on the basis of land use data and some other par*/
 
@@ -162,23 +162,23 @@ typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of 
 typedef struct { /*nstations=number of all the rain-stations,npixel=number of all the pixels of the basin R*C,
                    R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
     DOUBLEMATRIX *weights_Kriging; /*dimension=npixel*nstations */
-    DOUBLETENSOR *q_sub;           /*subsuperficial flows in mm/s; positive if go out from the cell; dimension=(number of layers)*R*C*/
-	DOUBLEMATRIX *q_sup;
-    DOUBLEMATRIX *h_sup;    /*height of water over the sl-surface not infiltrated in mm; dimension=R*C*/
+    DOUBLETENSOR *q_sub;           /*ground flow (subsurface) in [mm/s]; positive if go out from the cell; dimension=(number of layers)*R*C*/
+	DOUBLEMATRIX *q_sup;/* runoff discharge in [mm/s] */
+    DOUBLEMATRIX *h_sup;    /*height of water over the soil surface not infiltrated in mm; dimension=R*C*/
     DOUBLEMATRIX *total;    /*total(snow+rain) precipitation in mm (in a Dt)*/
     DOUBLEMATRIX *Pn;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
     DOUBLEMATRIX *wt;       /*intercepted precipitation in mm*/
     DOUBLEMATRIX *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-    DOUBLEMATRIX *PrSNW_mean;
-	DOUBLEMATRIX *Psnow;
+    DOUBLEMATRIX *PrSNW_mean;/* average of precipitation fallen as snow */
+	DOUBLEMATRIX *Psnow;/* precipitation calculated as snow (as result of the air temperature) */
 
 	//output variables
-    DOUBLEMATRIX *out1;
-	DOUBLEVECTOR *out2;
+    DOUBLEMATRIX *out1;/*matrix with pixel's values for the output*/
+	DOUBLEVECTOR *out2;/*matrix with basin's values for the output*/
 
-	DOUBLEMATRIX *hsupav;
+	DOUBLEMATRIX *hsupav;/* average of water height on a pixel in the output time step [mm]. Created if(par->output_h_sup>0) */
 
 	DOUBLEMATRIX *outfluxes;
 
@@ -191,11 +191,11 @@ typedef struct {
     short n_iter;  /*n_iter=number of iterations to do for each time-step*/
     double TH;     /*TH=last of all the simulation in hours*/
     long i_pixel;  /*counter for the output of a pixel*/
-    long n_pixel;  /*nDt_output_pixel=number of Dt after which the output of a pixel are printed*/
+    long n_pixel;  /* number of Dt of calculation after which the output of a pixel is printed. Ex. if Dt=900s and Dt_output=1h => n_pixel=4 */
 	long i_basin;
 	long n_basin;
 	long i_plot;
-	long n_plot;
+	long n_plot;/* hour interval after which the special output are printed */
 	long nt_plot;
 	long d_plot;
     double JD;      /*day=current Julian day during the simulation*/
@@ -241,10 +241,10 @@ typedef struct {
 	DOUBLEVECTOR *Dmin_glac;
 	DOUBLEVECTOR *Dmax_glac;
 
-    short state_snow;    /*0 IF YOU DO NOT HAVE A FILE WITH SNOW HIGTH, 1 OTHERWISE*/
-	short state_glac;
+    short state_snow;/* 1 if you have a file with initial snow depth (in days), 0 otherwise */
+	short state_glac;/* 1 if you have a file with glacier depth, 0 otherwise */
 	short state_turb;
-	short state_snow_age;
+	short state_snow_age;/* 1 if you have a file with snow age (in days), 0 otherwise */
 	short state_lwrad;
 
 	double imp;
@@ -252,42 +252,43 @@ typedef struct {
 
 	double epsilon_snow;
 
-	double output_Txy;
-	double output_TETAxy;
-	double output_TETAICExy;
-	double output_PSIxy;
-	double output_snow;
-	double output_glac;
-	double output_h_sup;
-	double output_albedo;
-    double output_Rn;
-	double output_G;
-	double output_H;
-	double output_ET;
-	double output_Ts;
-	double output_P;
-	double output_Wr;
-	double output_balancesn;
-	double output_balancegl;
-	double output_Rswdown;
-	double output_meteo;
+
+	double output_Txy; /* 1 if you want to display output Txy distributed MAPS, 0 otherwise */
+	double output_TETAxy;/* 1 if you want to display output TETAxy distributed MAPS, 0 otherwise */
+	double output_TETAICExy; /* 1 if you want to display output TETA_ICExy distributed MAPS, 0 otherwise */
+	double output_PSIxy; /* 1 if you want to display output PSIxy distributed MAPS, 0 otherwise */
+	double output_snow; /* 1 if you want to display output SNOW distributed MAPS, 0 otherwise */
+	double output_glac;/* 1 if you want to display output GLACIER distributed MAPS, 0 otherwise */
+	double output_h_sup;/* 1 if you want to display output h_sup distributed MAPS, 0 otherwise */
+	double output_albedo;/* 1 if you want to display output albedo distributed MAPS, 0 otherwise */
+    double output_Rn;/* 1 if you want to display output radiation distributed MAPS, 0 otherwise */
+	double output_G;/* 1 if you want to display output G distributed MAPS, 0 otherwise */
+	double output_H;/* 1 if you want to display output H distributed MAPS, 0 otherwise */
+	double output_ET;/* 1 if you want to display output ET distributed MAPS, 0 otherwise */
+	double output_Ts;/* 1 if you want to display output Ts distributed MAPS, 0 otherwise */
+	double output_P;/* 1 if you want to display output Precipitation distributed MAPS, 0 otherwise */
+	double output_Wr;/* 1 if you want to display output Wr (water stored in vegetation) distributed MAPS, 0 otherwise */
+	double output_balancesn;/* 1 if you want to display output snow melting and sublimation distributed MAPS, 0 otherwise */
+	double output_balancegl;/* 1 if you want to display output glacier melting and sublimation distributed MAPS, 0 otherwise */
+	double output_Rswdown;/* 1 if you want to display output SWin MAPS, 0 otherwise */
+	double output_meteo;/* 1 if you want to display output meteo MAPS, 0 otherwise */
 
 	DOUBLEMATRIX *chkpt;
 	LONGMATRIX *rc;
-	short ES_num;
-	short state_px_coord;
+	short ES_num; /* see __control file: >=1 (or<=1) how many altimetric stripes you want to consider (up to 99) (negative value means that this is done only for glacier pixels) */
+	short state_px_coord;/* 1 if all coordinates are in (East-North) format, 0 if in (row, columns) format */
 
-	double integr_scale_rain;
-	double variance_rain;
+	double integr_scale_rain;/* range of the variogram */
+	double variance_rain;/* sill of the variogram */
 
-	short recover;
+	short recover;/* =1 if you want to recover a simulation, 0 otherwise */
 
-	double Vmin;
+	double Vmin;/* minimum wind speed [m/s]*/
 
-	double snowcorrfact;
-	double raincorrfact;
+	double snowcorrfact;/* correction factor for snow precipitation */
+	double raincorrfact;/* correction factor for rain precipitation */
 
-	double RHmin;
+	double RHmin; /* minimum relative humidity of the air [%] */
 
 	short format_out;
 	short nsky;
@@ -310,9 +311,10 @@ typedef struct {
 	double longitude;
 
 	double z0_snow;
-	long n_landuses;
+	long n_landuses;/* the maximum digit in the first row of block 1 in parameters file */
 
-	LONGVECTOR *JD_plots;
+	LONGVECTOR *JD_plots; /* vector of Julian Days in which energy balance and meteo data are plotted with a very short time step
+	see block 5 _options file */
 
 	short micromet1;
 	short micromet2;
@@ -329,8 +331,8 @@ typedef struct {
 	double glac_thr;
 	short state_pixel;
 
-	short wat_balance;
-	short en_balance;
+	short wat_balance;/* 1 calculates water_balance, 0 do not calculate */
+	short en_balance;/* 1 calculates energy_balance, 0 do not calculate */
 
 	long nDt_water;
 	long MaxiterVWB;
@@ -338,7 +340,7 @@ typedef struct {
 	double MaxerrVWB;
 	double dtminVWB;
 
-	short distr_stat;
+	short distr_stat;/* 1 to plot distribute statistics (min, max, var), 0 otherwise */
 
 	double Dpsi;
 	double dtmin;
@@ -374,8 +376,8 @@ typedef struct {
 	DOUBLEVECTOR *evap;
 	DOUBLEVECTOR *subl;
 	DOUBLEVECTOR *melted;
-	DOUBLEMATRIX *max;
-	DOUBLEMATRIX *average;
+	DOUBLEMATRIX *max;/* Max snow depth. Created if(par->output_snow>0)*/
+	DOUBLEMATRIX *average;/* average snow depth in the print output interval. Created if(par->output_snow>0)*/
 	DOUBLEMATRIX *MELTED;
 	DOUBLEMATRIX *SUBL;
 	DOUBLEMATRIX *t_snow;
@@ -404,13 +406,13 @@ typedef struct {
 	DOUBLEMATRIX *ListonSWE;
 	DOUBLEMATRIX *softSWE;
 	DOUBLEMATRIX *softSWE1;
-	DOUBLEMATRIX *Dplot;
+	DOUBLEMATRIX *Dplot;/* snow depth: activated if par->JD_plots has more than one component */
 
-	DOUBLEVECTOR *CR1;
-	DOUBLEVECTOR *CR2;
+	DOUBLEVECTOR *CR1;/* destructive metamorphism in snow compaction rate */
+	DOUBLEVECTOR *CR2;/* overburden load in snow compaction rate*/
 	DOUBLEVECTOR *CR3;
-	DOUBLEVECTOR *CR1m;
-	DOUBLEVECTOR *CR2m;
+	DOUBLEVECTOR *CR1m;/* average destructive metamorphism snow compaction rate */
+	DOUBLEVECTOR *CR2m;/* overburden load in snow compaction rate*/
 	DOUBLEVECTOR *CR3m;
 
 } SNOW;
@@ -440,19 +442,19 @@ typedef struct {
 } GLACIER;
 
 typedef struct{
-	DOUBLEVECTOR *E;
-	DOUBLEVECTOR *N;
-	DOUBLEVECTOR *lat;
-	DOUBLEVECTOR *lon;
-	DOUBLEVECTOR *Z;
-	DOUBLEVECTOR *sky;
-	DOUBLEVECTOR *ST;
-	DOUBLEVECTOR *Vheight;
-	DOUBLEVECTOR *Theight;
-	DOUBLEVECTOR *JD0;
-	LONGVECTOR *Y0;
-	DOUBLEVECTOR *Dt;
-	LONGVECTOR *offset;
+	DOUBLEVECTOR *E;/* East coordinate [m] of the meteo station */
+	DOUBLEVECTOR *N;/* North coordinate [m] of the meteo station */
+	DOUBLEVECTOR *lat;/* Latitude [rad] of the meteo station */
+	DOUBLEVECTOR *lon; /* Longitude [rad] of the meteo station */
+	DOUBLEVECTOR *Z;/* Elevation [m] of the meteo station */
+	DOUBLEVECTOR *sky;/* Sky-view-factor [-] of the meteo station */
+	DOUBLEVECTOR *ST;/* Standard time minus UTM [hours] of the meteo station */
+	DOUBLEVECTOR *Vheight;/* Wind velocity measurement height [m] (a.g.l.)  */
+	DOUBLEVECTOR *Theight;/* Air temperature measurement height [m] (a.g.l.)  */
+	DOUBLEVECTOR *JD0;/* Decimal Julian Day of the first data */
+	LONGVECTOR *Y0;/* Year of the first data */
+	DOUBLEVECTOR *Dt;/* Dt of sampling of the data [sec]*/
+	LONGVECTOR *offset;/* offset column */
 } METEO_STATIONS;
 
 
@@ -463,7 +465,7 @@ typedef struct {
 	double ***horizon;
 	double **var;
 
-	DOUBLEMATRIX *Tgrid;
+	DOUBLEMATRIX *Tgrid;/* Map of air temperature in each point */
 	DOUBLEMATRIX *Pgrid;
 	DOUBLEMATRIX *Vgrid;
 	DOUBLEMATRIX *Vdir;
@@ -492,9 +494,9 @@ typedef struct {
 	float *Lwd;
 	float *LP;
 
-	long nstsrad;
-	long nstlrad;
-	long nstcloud;
+	long nstsrad; /* number of the station from which one gets the data of SW radiation */
+	long nstlrad; /* number of the station from which one gets the data of LW radiation */
+	long nstcloud; /* number of the station from which one gets the data of cloudiness */
 
 } METEO;
 
