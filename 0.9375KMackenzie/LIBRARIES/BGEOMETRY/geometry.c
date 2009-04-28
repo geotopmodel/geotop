@@ -91,6 +91,57 @@ LINE *new_line_from_points(long index, POINT *P1,POINT *P2){
 
 }
 
+LINEVECTOR *new_linevector(long nh){
+	/*
+	 * \author Emanuele Cordano
+	 * \date November 2008
+	 *
+	 * \return allocates a line vector with nh elements
+	 */
+	LINEVECTOR *lv;
+
+	lv=(LINEVECTOR *)malloc(sizeof(LINEVECTOR));
+	if (!lv) t_error("Linevector struct was not allocated");
+
+	lv->isdynamic=isDynamic;
+	lv->nl=NL;
+	lv->nh=nh;
+
+
+	lv->element=(LINE **)malloc((size_t)((nh-NL+1+NR_END)*sizeof(LINE *)));
+	if (!lv->element) t_error("Linevector element struct was not allocated");
+
+	return lv;
+
+}
+
+
+POLYGONVECTOR *new_polygonvector(long nh){
+	/*
+	 * \author Emanuele Cordano
+	 * \date November 2008
+	 *
+	 * \return allocates a polygon vector with nh elements
+	 */
+	POLYGONVECTOR *pv;
+
+	pv=(POLYGONVECTOR *)malloc(sizeof(POLYGONVECTOR));
+	if (!pv) t_error("Polygonvector struct was not allocated");
+
+	pv->isdynamic=isDynamic;
+	pv->nl=NL;
+	pv->nh=nh;
+
+
+	pv->element=(POLYGON **)malloc((size_t)((nh-NL+1+NR_END)*sizeof(POLYGON *)));
+	if (!pv) t_error("Polygonvector element struct was not allocated");
+
+	return pv;
+
+}
+
+
+
 POLYGON *new_polygon_from_a_linevector(LINEVECTOR *lines,POINT *centroid){
 	/*
 	 * \author Emanuele Cordano, Davide Giacomelli
@@ -182,56 +233,5 @@ POLYGON *new_polygon_from_a_linevector(LINEVECTOR *lines,POINT *centroid){
 
 
 }
-
-
-LINEVECTOR *new_linevector(long nh){
-	/*
-	 * \author Emanuele Cordano
-	 * \date November 2008
-	 *
-	 * \return allocates a line vector with nh elements
-	 */
-	LINEVECTOR *lv;
-
-	lv=(LINEVECTOR *)malloc(sizeof(LINEVECTOR));
-	if (!lv) t_error("Linevector struct was not allocated");
-
-	lv->isdynamic=isDynamic;
-	lv->nl=NL;
-	lv->nh=nh;
-
-
-	lv->element=(LINE **)malloc((size_t)((nh-NL+1+NR_END)*sizeof(LINE *)));
-	if (!lv->element) t_error("Linevector element struct was not allocated");
-
-	return lv;
-
-}
-
-
-POLYGONVECTOR *new_polygonvector(long nh){
-	/*
-	 * \author Emanuele Cordano
-	 * \date November 2008
-	 *
-	 * \return allocates a polygon vector with nh elements
-	 */
-	POLYGONVECTOR *pv;
-
-	pv=(POLYGONVECTOR *)malloc(sizeof(POLYGONVECTOR));
-	if (!pv) t_error("Polygonvector struct was not allocated");
-
-	pv->isdynamic=isDynamic;
-	pv->nl=NL;
-	pv->nh=nh;
-
-
-	pv->element=(POLYGON **)malloc((size_t)((nh-NL+1+NR_END)*sizeof(POLYGON *)));
-	if (!pv) t_error("Polygonvector element struct was not allocated");
-
-	return pv;
-
-}
-
 
 

@@ -2,7 +2,7 @@
 /* BGEOMETRY BUILDS THE MESH FROM A RASTER FOR THE BOUSSINESQ MODEL
 KeyPalette Version 0.9375 KMackenzie
 
-file additional_read_functions.c
+file g_raster2plvector.c
 
 Copyright, 2009 Emanuele Cordano and Riccardo Rigon
 
@@ -61,3 +61,4 @@ DOUBLEVECTOR *read_doublevector_from_raster(short a, char *filename, DOUBLEMATRI
 int write_raster_from_doublevector(char *filename, DOUBLEVECTOR *v, T_INIT *UVref, LONGMATRIX *indices, DOUBLEMATRIX *Mref);
 
 DOUBLEMATRIX *get_doublematrix_from_mapseries(LONGMATRIX *indices,DOUBLETENSOR *mapseries, T_INIT *UVref);
+DOUBLEMATRIX *get_doublematrix_from_doublevector(DOUBLEVECTOR *v, LONGMATRIX *indices, DOUBLEMATRIX *Mref, double novalue);

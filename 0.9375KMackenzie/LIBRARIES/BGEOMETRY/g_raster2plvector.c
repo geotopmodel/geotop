@@ -31,11 +31,11 @@ This file is part of BGEOMETRY.
  * right vertical line
  */
 
+#include "geometry_io.h"
+
 #include "linear_span.h"
 #include "geometry.h"
 #include "geometry_freememory.h"
-#include "geometry_io.h"
-
 #include "rw_maps.h"
 //#include "gridded.element.input.geotop.h"
 
@@ -666,7 +666,7 @@ DOUBLEVECTOR *get_doublevector_from_doublematrix(LONGMATRIX *indices,DOUBLEMATRI
 		for (c=M->ncl;c<=M->nch;c++){
 			i=indices->element[r][c];
 			if ((i<v->nl) && (i>v->nh))  {
-//				printf ("Error:: in get_doublevector_from_doublevector index %ld exceeds size of matrix [%ld,%ld] at %ld,%ld",i,M->nrh,M->nch,r,c);
+	//			printf ("Error:: in get_doublevector_from_doublevector index %ld exceeds size of matrix [%ld,%ld] at %ld,%ld",i,M->nrh,M->nch,r,c);
 			}else{
 				v->element[i]=M->element[r][c];
 			}
