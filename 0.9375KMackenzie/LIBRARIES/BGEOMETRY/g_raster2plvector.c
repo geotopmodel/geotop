@@ -31,10 +31,11 @@ This file is part of BGEOMETRY.
  * right vertical line
  */
 
-#include "geometry_io.h"
+
 
 #include "linear_span.h"
 #include "geometry.h"
+#include "geometry_io.h"
 #include "geometry_freememory.h"
 #include "rw_maps.h"
 //#include "gridded.element.input.geotop.h"

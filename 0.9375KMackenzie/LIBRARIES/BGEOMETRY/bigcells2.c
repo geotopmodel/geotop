@@ -251,7 +251,7 @@ LONGMATRIX_VECTOR *get_fine_indices(LONGMATRIX *fine,LONGMATRIX *coarse,long i_f
 
 	nrsh=fine->nrh/coarse->nrh;
 	ncsh=fine->nch/coarse->nch;
-	if (print==1) printf ("get_fine_indices: generation of a LONGMATRIX_VECTOR (ncells=%ld(%ld,%ld)) (small square dimension %ld %ld) (coarse gird %ld %ld)(fine grid %ld %ld)\n",lco->nh,i_firstcell,i_lastcell,nrsh,ncsh,coarse->nrh,coarse->nch,fine->nrh,fine->nch);
+//	if (print==1) printf ("get_fine_indices: generation of a LONGMATRIX_VECTOR (ncells=%ld(%ld,%ld)) (small square dimension %ld %ld) (coarse gird %ld %ld)(fine grid %ld %ld)\n",lco->nh,i_firstcell,i_lastcell,nrsh,ncsh,coarse->nrh,coarse->nch,fine->nrh,fine->nch);
 	for(l=lco->nl;l<=lco->nh;l++) {
 		lco->element[l]=new_longmatrix(nrsh,ncsh);
 		for (r=lco->element[l]->nrl;r<=lco->element[l]->nrh;r++){
@@ -378,7 +378,7 @@ DOUBLERASTER_MAP *get_doubleraster_map(long n_coarsemaps, long n_finemaps,char *
 	 */
 
 	DOUBLERASTER_MAP *draster;
-	char *aa;
+	//char *aa;
 
 	draster=(DOUBLERASTER_MAP *)malloc(sizeof(DOUBLERASTER_MAP));
 	if (!draster) t_error("DOUBLERASTER_MAP was not allocated");
