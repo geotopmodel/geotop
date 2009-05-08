@@ -39,6 +39,7 @@ POLYGONVECTOR *get_polygonvector(DOUBLEVECTOR *centroid_x_coord, DOUBLEVECTOR *c
 
 LINEVECTOR *extract_linvector_from_linevector(LONGVECTOR *nlines, LINEVECTOR *lines);
 
-
+int write_linevector(char *filename, LINEVECTOR *lines);
 int fprint_linevector(char *filename, LINEVECTOR *lines);
+int write_polygonvector(char *filename, POLYGONVECTOR *polygons);
 int fprint_polygonvector(char *filename, POLYGONVECTOR *polygons);

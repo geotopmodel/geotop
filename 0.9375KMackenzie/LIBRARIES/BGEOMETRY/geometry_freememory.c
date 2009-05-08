@@ -144,7 +144,10 @@ void free_polygon_connection_attributes (polygon_connection_attributes *pca){
 void  free_polygon_connection_attribute_array(polygon_connection_attribute_array *pcaa){
 
 	long l;
+
+	if (!pcaa) printf("Error in free_polygon_connection_array: polygon_connection_attribute_array was never allocated! \n");
 	for (l=pcaa->nl;l<=pcaa->nh;l++){
+		if (!pcaa->element[l]) printf("Error in free_poylogon_connection_array: attributes of polygon %ld (of %ld) was never allocated! \n",l,pcaa->nh);
 		free_polygon_connection_attributes (pcaa->element[l]);
 	}
 	free(pcaa);

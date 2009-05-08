@@ -33,6 +33,7 @@ polygon_connection_attribute_array *new_connection_attributes(long nh);
 
 polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons, long boundary,long displacement,short print);
 
+int write_polygonconnectionattributearray(char *filename,polygon_connection_attribute_array *pca);
 int fprint_polygonconnectionattributearray(char *filename,polygon_connection_attribute_array *pca);
 
 int connections_symmetry(polygon_connection_attribute_array* pca, long boundary);

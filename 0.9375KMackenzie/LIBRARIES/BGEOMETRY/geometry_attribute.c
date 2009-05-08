@@ -155,6 +155,68 @@ polygon_connection_attribute_array *get_connection_array(POLYGONVECTOR *polygons
 }
 
 
+int write_polygonconnectionattributearray(char *filename,polygon_connection_attribute_array *pca) {
+	/*
+		 *
+		 * \author Emanuele Cordano
+		 * \data November 2008
+		 *
+		 * \param name - (char *)name of file where to write the linevector properties
+		 * \param pca - (polygon_connection_attribute_array *) the polygon_connection_attribute_array to be printed
+		 *
+		 *\brief This functions writes a polygonconnectionattributearray in an ascii files with fluidturle formalism
+		 *\return 0 if the polygon_connection_attribute_array is written correctly, -1 otherwise
+		 *
+		 */
+
+	FILE *fd;
+	long i,nh,nl,l,link_val;
+	double d_link_val;
+	nl=NL;
+	nh=NL;
+	for (i=pca->nl;i<=pca->nh;i++){
+		if (nl>pca->element[i]->connections->nl) nl=pca->element[i]->connections->nl;
+		if (nh<pca->element[i]->connections->nh) nh=pca->element[i]->connections->nh;
+	}
+
+	fd=fopen(filename,"w");
+	/* PRINT HEADER */
+	fprintf(fd,"index{%ld}\n",pca->nh);
+	fprintf(fd,"/**  FILE CONTAINIG NECESSARY INFORMATION FOR POLOYGON CONNECTION  \n");
+	fprintf(fd," each polygon connection array is expressed as a double array containing the following information \n");
+	fprintf(fd,"polygon_index    ");
+
+	for (l=nl;l<=nh;l++) {
+		fprintf(fd,"P%ld    ",l);
+		fprintf(fd,"d_P%ld    ",l);
+	}
+	fprintf(fd," */  \n  ");
+
+	/* end print header */
+	for (i=pca->nl;i<=pca->nh;i++){
+		fprintf(fd,"\n");
+		fprintf(fd,"%ld: double array connections %ld {",i,i);
+		fprintf(fd,"%ld    ",i);
+
+		for (l=nl;l<=nh;l++){
+			link_val=NULL_VALUE;
+			d_link_val=NULL_VALUE;
+			if ((l<=pca->element[i]->connections->nh) && (l>=pca->element[i]->connections->nl)) link_val=pca->element[i]->connections->element[l];
+			if ((l<=pca->element[i]->d_connections->nh) && (l>=pca->element[i]->d_connections->nl)) d_link_val=pca->element[i]->d_connections->element[l];
+			fprintf(fd,",%ld,   ",link_val);
+			fprintf(fd,"%lf    ",d_link_val);
+		}
+		fprintf(fd,"}");
+	}
+
+
+	fprintf(fd,"\n");
+	fclose(fd);
+	return 0;
+
+}
+
+
 int fprint_polygonconnectionattributearray(char *filename,polygon_connection_attribute_array *pca) {
 	/*
 		 *

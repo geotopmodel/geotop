@@ -112,15 +112,15 @@ void write_grid(GRID *grid){
 	int l,s,r;
 
 	//if (strcmp(filenames->element[O_INFO_LINES]+1,MISSING_FILE))
-	l=fprint_linevector(grid->file_resume_lines,grid->lines);
+	l=write_linevector(grid->file_resume_lines,grid->lines);
 	//if (strcmp(filenames->element[O_INFO_POLYGONS]+1,MISSING_FILE))
-	s=fprint_polygonvector(grid->file_resume_polygons,grid->polygons);
+	s=write_polygonvector(grid->file_resume_polygons,grid->polygons);
 	//if (strcmp(filenames->element[O_INFO_CONNECTIONS]+1,MISSING_FILE))
-	r=fprint_polygonconnectionattributearray(grid->file_resume_connections,grid->links);
+	r=write_polygonconnectionattributearray(grid->file_resume_connections,grid->links);
 
-	printf("write_grid function: fprint_linevector %s (exit statues %d)\n",grid->file_resume_lines,l);
-	printf("write_grid function: fprint_polygonvector %s (exit statues %d)\n",grid->file_resume_polygons,s);
-	printf("write_grid function: fprint_polygonconnectionattributearray %s (exit statues %d)\n",grid->file_resume_connections,r);
+	printf("write_grid function: write_linevector %s (exit statues %d)\n",grid->file_resume_lines,l);
+	printf("write_grid function: write_polygonvector %s (exit statues %d)\n",grid->file_resume_polygons,s);
+	printf("write_grid function: write_polygonconnectionattributearray %s (exit statues %d)\n",grid->file_resume_connections,r);
 	//r=fprint_polygonconnectionattributearray(grid->file_resume_connections,grid->links);
 
 }
@@ -219,7 +219,7 @@ LONGMATRIX_VECTOR *new_longmatrix_vector(long nh){
 
 		vector->element=(LONGMATRIX **)malloc((size_t)((nh-NL+1+NR_END)*sizeof(LONGMATRIX *)));
 		if (!vector->element) t_error("Longmatrix vector  was not allocated");
-		printf("mew_longmatrix_vector\n\n ");
+		printf("new_longmatrix_vector\n\n ");
 		return vector;
 
 
@@ -244,13 +244,19 @@ LONGMATRIX_VECTOR *get_fine_indices(LONGMATRIX *fine,LONGMATRIX *coarse,long i_f
 
 	LONGMATRIX_VECTOR *lco;
 	long l,r,c,rs,cs,rp,cp;
-	long nrsh,ncsh;
+	long nrsh,ncsh,enrsh,encsh;
 	long i_novalue=novalue-5;
 	long ncells=i_lastcell-i_firstcell+1;
 	lco=new_longmatrix_vector(ncells);
 
 	nrsh=fine->nrh/coarse->nrh;
 	ncsh=fine->nch/coarse->nch;
+	enrsh=fine->nrh%coarse->nrh;
+	encsh=fine->nch%coarse->nch;
+
+	if (enrsh!=0) t_error("Error in get_fine_indices: number of rows (coarse and grid) are not multiples");
+	if (encsh!=0) t_error("Error in get_fine_indices: number of rows (coarse and grid) are not multiples");
+
 //	if (print==1) printf ("get_fine_indices: generation of a LONGMATRIX_VECTOR (ncells=%ld(%ld,%ld)) (small square dimension %ld %ld) (coarse gird %ld %ld)(fine grid %ld %ld)\n",lco->nh,i_firstcell,i_lastcell,nrsh,ncsh,coarse->nrh,coarse->nch,fine->nrh,fine->nch);
 	for(l=lco->nl;l<=lco->nh;l++) {
 		lco->element[l]=new_longmatrix(nrsh,ncsh);
@@ -272,7 +278,7 @@ LONGMATRIX_VECTOR *get_fine_indices(LONGMATRIX *fine,LONGMATRIX *coarse,long i_f
 			l=coarse->element[rs][cs];
 			if (l!=novalue) l=l-i_firstcell+1;
 			if ((l!=novalue) && ((l<=lco->nh) && (l>=lco->nl))) lco->element[l]->element[rp][cp]=fine->element[r][c];
-			if ((l!=novalue) && ((l>lco->nh) || (l<lco->nl))) printf("Error in get_fine_indices: uncorrect value %ld of %ld  for coearse->element[%ld][%ld] r=%ld c=%ld \n",l,lco->nh,rs,cs,rp,cp);
+			if ((l!=novalue) && ((l>lco->nh) || (l<lco->nl))) printf("Error in get_fine_indices: incorrect value %ld of %ld  for coearse->element[%ld][%ld] r=%ld c=%ld \n",l,lco->nh,rs,cs,rp,cp);
 
 
 		}
@@ -428,13 +434,13 @@ DOUBLESQUARE_GRID *get_doublesquare_grid(DOUBLERASTER_MAP *draster, char *resume
 
 	DOUBLESQUARE_GRID *dsq;
 	if (print==1) printf("Function get_doublesquare_grid file_resume: %s \n",resume_filenames);
-	char *file_resume_lines_coarse=join_strings(resume_filenames,"_lines_coarse.txt");
-	char *file_resume_polygons_coarse=join_strings(resume_filenames,"_polygons_coarse.txt");
-	char *file_resume_connections_coarse=join_strings(resume_filenames,"_connections_coarse.txt");
+	char *file_resume_lines_coarse=join_strings(resume_filenames,"__coarse_lines.txt");
+	char *file_resume_polygons_coarse=join_strings(resume_filenames,"__coarse_polygons.txt");
+	char *file_resume_connections_coarse=join_strings(resume_filenames,"__coarse_connections.txt");
 
-	char *file_resume_lines_fine=join_strings(resume_filenames,"_lines_fine.txt");
-	char *file_resume_polygons_fine=join_strings(resume_filenames,"_polygons_fine.txt");
-	char *file_resume_connections_fine=join_strings(resume_filenames,"_connections_fine.txt");
+	char *file_resume_lines_fine=join_strings(resume_filenames,"__fine_lines.txt");
+	char *file_resume_polygons_fine=join_strings(resume_filenames,"__fine_polygons.txt");
+	char *file_resume_connections_fine=join_strings(resume_filenames,"__fine_connections.txt");
 	char *file_resume_c_polygon=join_strings(resume_filenames,"_c_polygon.txt");
 	char *file_resume_c_line=join_strings(resume_filenames,"_c_line.txt");
 
@@ -501,13 +507,26 @@ int write_small_lines_indices(LONGBIN *small_lines,char *filename) {
 	 *\param   (LONBIN *) small_lines
 	 *\param  (char *)   filename
 	 *
-	 *\brief write the indices of small lines in a textfles with write_longbin_element function
+	 *\brief write the indices of small lines in a textfile with write_longbin_element function
 	 */
 
 	FILE *f;
+	long j,c;
 
 	f=t_fopen(filename,"w");
-	write_longbin_elements(f,small_lines,MAX_COL);
+	fprintf(f,"index{%ld}\n",small_lines->index->nh);
+	fprintf(f,"/**  FILE CONTAINIG NECESSARY INFORMATION FOR LINE CONTENTS  \n");
+	fprintf(f," each (small line) array for (big) line  is expressed as a double array */ \n");
+	for(j=small_lines->index->nl;j<=small_lines->index->nh;j++) {
+		fprintf(f,"%ld:long array big line %ld {",j,j);
+		for(c=NL;c<small_lines->index->element[j];c++){
+			fprintf(f,"%ld,",small_lines->element[j][c]);
+		}
+		fprintf(f,"%ld}\n",small_lines->element[j][small_lines->index->element[j]]);
+	}
+
+
+//	write_longbin_elements(f,small_lines,MAX_COL);
 	t_fclose(f);
 
 	return 0;
@@ -538,7 +557,11 @@ void free_longmatrix_vector (LONGMATRIX_VECTOR *lmv) {
  */
 	long i;
 
+	if (!lmv) printf("Error in free_longmatrix_vector: longmatrix_vector was not allocated! /n");
+	if (!lmv->element) printf("Error in free_longmatrix_vector: longmatrix_vector elements were not allocated! /n");
 	for (i=lmv->nl;i<=lmv->nh;i++){
+
+		if (!lmv->element[i]) printf("Error in free_longmatrix_vector: longmatrix at %ld (of %ld) was not allocated! /n",i,lmv->nh);
 		free_longmatrix(lmv->element[i]);
 	}
 	free(lmv->element);
@@ -554,8 +577,12 @@ void free_grid(GRID *grid) {
 	 *
 	 */
 	//da fare...
+	if (!grid) printf("Error in free_grid: grid was never allocated! \n");
+	if (!grid->links) printf("Error in free_grid: links (connection) was never allocated! \n");
 	free_polygon_connection_attribute_array(grid->links);
+	if (!grid->polygons) printf("Error in free_grid: polygons was never allocated! \n");
 	free_polygonvector(grid->polygons);
+	if (!grid->lines) printf("Error in free_grid: lines was never allocated! \n");
 	free_linevector(grid->lines);
 
 	free(grid);
@@ -566,13 +593,18 @@ void free_square_grid(SQUARE_GRID *sq) {
 	/*
 	 * \author Emanuele Cordano
 	 * \date April 2009
-	 *
+	 *An attemp was made to free a non dynamic matrix free_longmatrix
 	 */
-
+	if (!sq->grid) printf("Error in free_square_grid: a grid was never allocated!\n");
 	free_grid(sq->grid);
+
+	if (!sq->indices_horizontal_lines->element) printf("Error in free_square_grid: indices_horizontal_lines was never allocated \n");
 	free_longmatrix(sq->indices_horizontal_lines);
+	if (!sq->indices_vertical_lines->element) printf("Error in free_square_grid: indices_vertical_lines was never allocated \n");
 	free_longmatrix(sq->indices_vertical_lines);
+	if (!sq->indices_vertex->element) printf("Error in free_square_grid: indices_vertex was never allocated \n");
 	free_longmatrix(sq->indices_vertex);
+	if (!sq->indices_pixel->element) printf("Error in free_square_grid: indices_pixel was never allocated \n");
 	free_longmatrix(sq->indices_pixel);
 
 
@@ -621,11 +653,15 @@ void free_doublesquare_grid(DOUBLESQUARE_GRID *dsq) {
 	 * \date April 2009
 	 *
 	 */
-
+	if (!dsq) printf("Error in free_doublesquare_grid: doublesquare_grid was never allocated! /n");
+	if (!dsq->big) printf("Error in free_doublesquare_grid: coarse (big) grid was never allocated! /n");
 	free_square_grid(dsq->big);
-	free_square_grid(dsq->fine);
-	free_longbin(dsq->small_content_line);
-	free_longmatrix_vector(dsq->small_content_polygon);
+	if (!dsq->fine) printf("Error in free_doublesquare_grid: fine grid was never allocated! /n");
+//	free_square_grid(dsq->fine);
+	if (!dsq->small_content_line) printf("Error in free_doublesquare_grid: small_content_line was never allocated! /n");
+//	free_longbin(dsq->small_content_line);
+	if (!dsq->small_content_polygon) printf("Error in free_doublesquare_grid: small_content_polygon was never allocated! /n");
+//	free_longmatrix_vector(dsq->small_content_polygon);
 
 	free(dsq);
 
@@ -655,8 +691,9 @@ char *copy_string(char *origin){
  */
 char *dest;
 
-dest=(char *)malloc((strlen(origin)+1)*sizeof(char));
-strcpy(dest,origin);
+dest=origin;
+//dest=(char *)malloc((size_t)(strlen(origin)+4)*sizeof(char));
+//strcpy(dest,origin);
 return dest;
 }
 

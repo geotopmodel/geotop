@@ -34,6 +34,7 @@ This file is part of BGEOMETRY.
 #define NULL_VALUE -99
 #define NO_ELEVATION 0.0
 
+#define NO_COLS_LINEVECTOR_DOUBLEMATRIX 8
 
 LINE *get_line(DOUBLEVECTOR *vertex_x_coord, DOUBLEVECTOR *vertex_y_coord, long line_index, char *number_strings, short print){
 	/*
@@ -214,6 +215,127 @@ return pv;
 
 }
 
+int write_linevector(char *filename, LINEVECTOR *lines){
+	/*
+		 *
+		 * \author Emanuele Cordano
+		 * \data November 2008
+		 *
+		 * \param name - (char *)name of file where to write the linevector properties
+		 * \param linevector - (LINEVECTOR *) the linevector to be printed
+		 *
+		 *\brief write a linevecto in a fluidturtle formalism.
+		 *\brief
+		 *\return 0 if the linevector is written correctly, -1 otherwise
+		 *
+		 */
+	FILE *fd;
+	long i;
+	double xm,ym;
+
+	fd=fopen(filename,"w");
+	fprintf(fd,"index{1}\n");
+	fprintf(fd,"/**  FILE CONTAINIG NECESSARY INFORMATION FOR LINES \n");
+	fprintf(fd,"x    ");
+	fprintf(fd,"y    ");
+
+	fprintf(fd,"line_index    ");
+	fprintf(fd,"lenght2d    ");
+	fprintf(fd,"x_P1    ");
+	fprintf(fd,"y_P1    ");
+	fprintf(fd,"x_P2   ");
+	fprintf(fd,"y_P2   \n ");
+	fprintf(fd,"*/ \n");
+	fprintf(fd,"1: double matrix lines information  {%ld,%ld}",lines->nh,NO_COLS_LINEVECTOR_DOUBLEMATRIX);
+		for (i=lines->nl;i<=lines->nh;i++){
+	//		printf("entrato!!! %ld\n",i);
+			fprintf(fd,"\n");
+			xm=(lines->element[i]->begin->x+lines->element[i]->end->x)/2.0;
+			ym=(lines->element[i]->begin->y+lines->element[i]->end->y)/2.0;
+			fprintf(fd,"%lf    ",xm);
+			fprintf(fd,"%lf    ",ym);
+			fprintf(fd,"%ld    ",lines->element[i]->index);
+			fprintf(fd,"%lf    ",lines->element[i]->length2d);
+				fprintf(fd,"%lf    ",lines->element[i]->begin->x);
+				fprintf(fd,"%lf    ",lines->element[i]->begin->y);
+				fprintf(fd,"%lf   ",lines->element[i]->end->x);
+				fprintf(fd,"%lf    ",lines->element[i]->end->y);
+		}
+
+
+		fclose(fd);
+		return 0;
+}
+
+int write_polygonvector(char *filename, POLYGONVECTOR *polygons) {
+	/*
+		 *
+		 * \author Emanuele Cordano
+		 * \data May 2009
+		 *
+		 * \param name - (char *)name of file where to write the linevector properties
+		 * \param polygons - (POLYGONVECTOR *) the polygonvector to be printed
+		 *
+		 *\brief This functions writes a polygonvector in an ascii files with fluidturle formalism
+		 *
+		 *\return 0 if the polygonvector is written correctly, -1 otherwise
+		 *
+		 */
+
+	FILE *fd;
+	long i,nh,nl,l,lval;
+	nl=NL;
+	nh=NL;
+	for (i=polygons->nl;i<=polygons->nh;i++){
+		if (nl>polygons->element[i]->edge_indices->nl) nl=polygons->element[i]->edge_indices->nl;
+		if (nh<polygons->element[i]->edge_indices->nh) nh=polygons->element[i]->edge_indices->nh;
+	}
+
+	fd=fopen(filename,"w");
+	/* PRINT HEADER */
+	fprintf(fd,"index{%ld}\n",polygons->nh);
+	fprintf(fd,"/**  FILE CONTAINIG NECESSARY INFORMATION FOR POLOYGONS  \n");
+	fprintf(fd," each polygon  is expressed as a double array coteining the following information \n");
+	fprintf(fd,"x     ");
+	fprintf(fd,"y    ");
+
+	fprintf(fd,"polygon_index    ");
+	fprintf(fd,"area2d    ");
+	for (l=nl;l<=nh;l++) {
+		fprintf(fd,"L%ld    ",l);
+	}
+	fprintf(fd,"  */ \n");
+
+	/* end print header */
+	for (i=polygons->nl;i<=polygons->nh;i++){
+		fprintf(fd,"\n/** %ld block x     ",i);
+		fprintf(fd,"y    ");
+
+			fprintf(fd,"polygon_index    ");
+			fprintf(fd,"area2d    ");
+			for (l=nl;l<=nh;l++) {
+				fprintf(fd,"L%ld    ",l);
+			}
+		fprintf(fd," */ \n");
+		fprintf(fd,"%ld: double array {",i);
+		fprintf(fd,"%lf,    ",polygons->element[i]->centroid->x);
+		fprintf(fd,"%lf,    ",polygons->element[i]->centroid->y);
+		fprintf(fd,"%ld,    ",polygons->element[i]->index);
+		fprintf(fd,"%lf    ",polygons->element[i]->area2D);
+		for (l=nl;l<=nh;l++){
+			lval=NULL_VALUE;
+			if ((l<=polygons->element[i]->edge_indices->nh) && (l>=polygons->element[i]->edge_indices->nl)) lval=polygons->element[i]->edge_indices->element[l];
+			fprintf(fd,",%ld    ",lval);
+		}
+		fprintf(fd,"}");
+	}
+
+
+	fprintf(fd,"\n");
+	fclose(fd);
+	return 0;
+
+}
 
 int fprint_linevector(char *filename, LINEVECTOR *lines){
 	/*
@@ -242,7 +364,8 @@ int fprint_linevector(char *filename, LINEVECTOR *lines){
 	fprintf(fd,"x_P1    ");
 	fprintf(fd,"y_P1    ");
 	fprintf(fd,"x_P2   ");
-	fprintf(fd,"y_P2    ");
+	fprintf(fd,"y_P2   ");
+
 
 	for (i=lines->nl;i<=lines->nh;i++){
 //		printf("entrato!!! %ld\n",i);

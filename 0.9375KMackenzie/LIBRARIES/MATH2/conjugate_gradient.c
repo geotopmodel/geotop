@@ -229,7 +229,7 @@ long conjugate_gradient_search_LONG(long epsilon,LONGVECTOR *x,LONGVECTOR *b, in
 	 */
 
 
-	long delta,delta_new,alpha,beta,delta0;
+	long delta,delta_new,alpha,beta;
 	LONGVECTOR *r, *d,*q,*y;
 	long icnt;
 	int s,sl;
