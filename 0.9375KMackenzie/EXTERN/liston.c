@@ -31,6 +31,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 #include "rw_maps.h"
 
 extern T_INIT *UV;
+extern char *WORKING_DIRECTORY;
 	
 extern void micrometcode_(int *nx,int *ny, double *xmn, double *ymn, float *deltax, float *deltay, int *iyear_init, int *imonth_init, int *iday_init, float *xhour_init, 
 				float *dt, float *undef, int *ifill, int *iobsint, float *dn, int *iter, float *curve_len_scale, float *slopewt,float *curvewt, float *topo, float *curvature, 
@@ -38,25 +39,15 @@ extern void micrometcode_(int *nx,int *ny, double *xmn, double *ymn, float *delt
 				int *i_tair_flag, int *i_rh_flag, int *i_wind_flag, int *i_solar_flag, int *i_prec_flag, float *windspd_grid, float *winddir_grid, float *windspd_flag, 
 				float *winddir_flag, float *sprec, float *windspd_min, float *Qli_grid, int *i_longwave_flag, float *vegtype, float *forest_LAI, int *iyear, int *imonth, 
 				int *iday, float *xhour, int *lapse_rate_user_flag, int *iprecip_lapse_rate_user_flag,float *use_shortwave_obs, float *use_longwave_obs, float *use_sfc_pressure_obs, 
-				float *sfc_pressure, float *calc_subcanopy_met, float *vegsnowdepth, float *gap_frac, float *cloud_frac_factor, float *barnes_lg_domain, int *k_stn, float *xlat_grid, 
+				float *sfc_pressure, float *calc_subcanopy_met, float *vegsnowdepth, float *can_gap, float *cloud_frac_factor, float *barnes_lg_domain, int *k_stn, float *xlat_grid, 
 				int *nstat, double *xstn_orig, double *ystn_orig, float *elev_orig, float *Tair_orig, float *rh_orig, float *windspd_orig, float *winddir_orig, float *prec_orig, 
-				int *nveg_geotop, float *LAIwinter, float *LAIsummer);
-				
-/*extern void snowtran_code_(float *bc_flag, float *bs_flag, float *C_z, float *conc_salt, float *deltax, float *deltay, float *dh_salt, float *dh_salt_u, float *dh_salt_v, 
-				float *dh_susp, float *dh_susp_u, float *dh_susp_v, float *dt, float *dz_susp, float *fall_vel, float *fetch, float *gravity, float *h_const, float *h_star, 
-				float *ht_rhobs, float *ht_windobs, int *iter, int *nx, int *ny, float *Qsalt, float *Qsalt_max, float *Qsalt_maxu, float *Qsalt_maxv, float *Qsalt_u, 
-				float *Qsalt_v, float *Qsubl, float *Qsusp, float *Qsusp_u, float *Qsusp_v, float *rh_grid, float *ro_air, float *ro_snow, float *ro_water, float *swe_depth,
-				float *snow_d_init, float *snow_z0, float *soft_snow_d, float *sprec, float *subgrid_flag, float *wbal_salt, float *wbal_susp, float *wbal_qsubl, float *sum_sprec,
-				float *tair_grid, float *topo, float *topo_land, float *topoflag, float *tp_scale, float *Up_const, float *Ur_const, float *Utau, float *Utau_t, 
-				float *uwind_grid, float *veg_z0, float *vegsnowdepth, float *vegtype, float *vonKarman, float *vwind_grid, float *wind_min, float *winddir_flag, 
-				float *winddir_grid, float *windspd_flag, float *windspd_grid, float *xmu, float *z_0, float *ztop_susp, float *erosion_dist, float *wbal_subgrid, 
-				float *tabler_dir, float *slope_adjust, float *Utau_t_const, float *Utau_t_flag, float *ro_soft_snow_old, float *ro_soft_snow, float *ro_nsnow);*/
-	
+				int *nveg_geotop, float *LAIwinter, float *LAIsummer, float *cloud);
+					
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************
-void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z, PAR *par, METEO_STATIONS *st, DOUBLEMATRIX *snowD_init, double rhosnow0, LISTON *liston){ 
+void initialize_liston(DOUBLEMATRIX *landtype, DOUBLEMATRIX *LU, DOUBLEMATRIX *Z, PAR *par, METEO_STATIONS *st, DOUBLEMATRIX *snowD_init, double rhosnow0, LISTON *liston){ 
 
 	double JD0;
 	long day0, month0, year0, hour0, min0, r, c, nr=Z->nrh, nc=Z->nch;
@@ -90,7 +81,7 @@ void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z,
 	//b. initial snow depth
 	for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=M->nch;c++){
-			if(Z->co[r][c]!=UV->V->co[2]){
+			if(LU->co[r][c]!=UV->V->co[2]){
 				snowD_init->co[r][c]*=0.001;	//from [mm] to [m]
 			}
 		}
@@ -122,8 +113,8 @@ void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z,
 	//e. vegetation 
 	for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=M->nch;c++){
-			if(Z->co[r][c]!=UV->V->co[2]){
-				M->co[r][c]=(double)LU->co[r][c];
+			if(LU->co[r][c]!=UV->V->co[2]){
+				M->co[r][c]=LU->co[r][c];
 			}else{
 				M->co[r][c]=UV->V->co[2];
 			}
@@ -139,12 +130,12 @@ void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z,
 	//vegetation snow depth set at a minimum value (0.01) for every type of vegetation (not definitive) 
 	liston->vegsnowdepth=allocatev_f(liston->nvegtypes);
 	liston->veg_z0=allocatev_f(liston->nvegtypes);
-	liston->gap_frac=allocatev_f(liston->nvegtypes);
+	liston->can_gap=allocatev_f(liston->nvegtypes);
 
 	for(i=0;i<liston->nvegtypes;i++){
 		liston->vegsnowdepth[i]=(float)(0.001*landtype->co[i+1][jvholdsn]);	//[m]
-		liston->veg_z0[i]=(float)(landtype->co[i+1][jz0]);					//[m]
-		liston->gap_frac[i]=(float)(1.0-landtype->co[i+1][jfc]);	//1-fraction of canopy
+		liston->veg_z0[i]=(float)(landtype->co[i+1][jz0veg]);					//[m]
+		liston->can_gap[i]=(float)(1.0-landtype->co[i+1][jcf]);
 	}
 
 	liston->forest_LAIw=allocatev_f(liston->nvegtypes);	//MicroMet input
@@ -174,9 +165,9 @@ void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z,
 	liston->i_tair_flag = 1;
 	liston->i_rh_flag = 1;
 	liston->i_wind_flag = 1;
-	liston->i_solar_flag = 1;
+	liston->i_solar_flag = 0;
 	liston->i_prec_flag = 1;
-	liston->i_longwave_flag = 1;
+	liston->i_longwave_flag = (int)par->micromet3;
 	liston->lapse_rate_user_flag=0;
 	liston->iprecip_lapse_rate_user_flag=0;
 	liston->use_shortwave_obs=0;
@@ -197,6 +188,7 @@ void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z,
 	liston->rh_grid=allocatem_f(nr,nc);
 	liston->uwind_grid=allocatem_f(nr,nc);
 	liston->vwind_grid=allocatem_f(nr,nc);
+	liston->cloud=allocatem_f(nr,nc);
 	liston->Qsi_grid=allocatem_f(nr,nc);
 	liston->prec_grid=allocatem_f(nr,nc);
 	liston->windspd_grid=allocatem_f(nr,nc);
@@ -273,7 +265,7 @@ void deallocate_liston(LISTON *liston){
 	free(liston->forest_LAIw);
 	free(liston->forest_LAIs);	
 	free(liston->sum_sprec);
-	free(liston->gap_frac);
+	free(liston->can_gap);
 
 	free(liston->met_stE);
 	free(liston->met_stN);
@@ -286,6 +278,7 @@ void deallocate_liston(LISTON *liston){
 	free(liston->rh_grid);
 	free(liston->uwind_grid);
 	free(liston->vwind_grid);
+	free(liston->cloud);
 	free(liston->Qsi_grid);
 	free(liston->prec_grid);
 	free(liston->windspd_grid);
@@ -370,8 +363,9 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 		liston->winddir_grid, &(liston->windspd_flag), &(liston->winddir_flag), liston->sprec, &(liston->windspd_min), liston->Qli_grid, &(liston->i_longwave_flag), 
 		liston->vegtype, liston->forest_LAI, &iyear, &imonth, &iday, &xhour, &(liston->lapse_rate_user_flag), &(liston->iprecip_lapse_rate_user_flag), 
 		&(liston->use_shortwave_obs), &(liston->use_longwave_obs), &(liston->use_sfc_pressure_obs), liston->sfc_pressure, &(liston->calc_subcanopy_met), 
-		liston->vegsnowdepth, liston->gap_frac, &(liston->cloud_frac_factor), &(liston->barnes_lg_domain), liston->k_stn, liston->xlat_grid, &(liston->nstat), 
-		liston->met_stE, liston->met_stN, liston->met_stZ, met->LT, met->Lrh, met->Lws, met->Lwd, met->LP, &(liston->nvegtypes), liston->forest_LAIw, liston->forest_LAIs); 
+		liston->vegsnowdepth, liston->can_gap, &(liston->cloud_frac_factor), &(liston->barnes_lg_domain), liston->k_stn, liston->xlat_grid, &(liston->nstat), 
+		liston->met_stE, liston->met_stN, liston->met_stZ, met->LT, met->Lrh, met->Lws, met->Lwd, met->LP, &(liston->nvegtypes), liston->forest_LAIw, liston->forest_LAIs,
+		liston->cloud); 
 	
 //	recorder the outputs	
 	if(par->point_sim!=1){
@@ -379,6 +373,10 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 		if(par->micromet1==1){
 			liston2matrix_2(met->Tgrid,liston->tair_grid);
 			liston2matrix_2(met->Pgrid,liston->sfc_pressure);
+			
+			//liston2matrix_2(met->Vgrid,liston->curvature);
+			//write_map(join_strings(WORKING_DIRECTORY,"__curv"), 0, par->format_out, met->Vgrid, UV);	
+									
 			liston2matrix_2(met->Vgrid,liston->windspd_grid);
 			liston2matrix_2(met->Vdir,liston->winddir_grid);
 			liston2matrix_2(met->RHgrid,liston->rh_grid);
@@ -394,7 +392,8 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 			}
 			met->LapseRate=0.006509;	//normal lapse rate
 		}
-		if(par->micromet2==1) liston2matrix_2(egy->SWin,liston->Qsi_grid);
+		if(par->micromet2==1) liston2matrix_2(met->CFgrid,liston->cloud);
+		//if(par->micromet2==1) liston2matrix_2(egy->SWin,liston->Qsi_grid);
 		if(par->micromet3==1) liston2matrix_2(egy->LWin,liston->Qli_grid);		
 
 	}else{
@@ -432,14 +431,15 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 		}
 		
 		if(par->micromet2==1){
-			liston2matrix_2(M,liston->Qsi_grid);
-			set_to_point_simulation(M, egy->SWin, par->r_points, par->c_points);
+			//liston2matrix_2(M,liston->Qsi_grid);
+			//set_to_point_simulation(M, egy->SWin, par->r_points, par->c_points);
+			liston2matrix_2(M,liston->cloud);
+			set_to_point_simulation(M, met->CFgrid, par->r_points, par->c_points);
 		}
 			
 		if(par->micromet3==1){
 			liston2matrix_2(M,liston->Qli_grid);
 			set_to_point_simulation(M, egy->LWin, par->r_points, par->c_points);
-			
 		}
 	}
 	
@@ -451,97 +451,7 @@ void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************
 //*******************************************************************************************************************************************************	
-void call_SnowTrans(double t, double dt, DOUBLEMATRIX *Z, SNOW *snow, DOUBLEMATRIX *Psnow, LISTON *liston){
-
-	int iter;
-	long l,r,c,nr,nc;
-	DOUBLEMATRIX *M;
 	
-	iter=(int)(1+t/dt);
-
-	nr=snow->lnum->nrh;
-	nc=snow->lnum->nch;
-	M=new_doublematrix(nr,nc);
-
-//	SWE(m)
-	initialize_doublematrix(M,0.0);
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if(Z->co[r][c]!=UV->V->co[2]){
-				for(l=1;l<=snow->lnum->co[r][c];l++){
-					M->co[r][c]+=(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c])/1000.0;	//SWE in metres
-				}
-			}else{
-				M->co[r][c]=UV->V->co[2];
-			}
-		}
-	}
-	extend_topography(M, UV->V->co[2]);
-	matrix2liston_2(liston->snowdepth, M);
-
-//	Psnow(m)
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if(Z->co[r][c]!=UV->V->co[2]){			
-				M->co[r][c]=Psnow->co[r][c]/1000.0;	//from mm (GEOtop) to m (SnowTrans3D)
-			}else{
-				M->co[r][c]=UV->V->co[2];
-			}
-		}
-	}
-	extend_topography(M, UV->V->co[2]);	
-	matrix2liston_2(liston->sprec_geotop, M);
-		
-//	Density of the new snow that may fall (kg/m3)
-	extend_topography(snow->rho_newsnow, UV->V->co[2]);	
-	matrix2liston_2(liston->ro_nsnow, snow->rho_newsnow);
-
-//	Soft snow depth
-	fmultiplydoublematrix(M, snow->softSWE, 1.0/liston->ro_snow, UV->V->co[2]);	//M [m] - softSWE [kg/m2]
-	extend_topography(M, UV->V->co[2]);
-	matrix2liston_2(liston->soft_snow_d,M);
-	
-	/*snowtran_code_(&(liston->bc_flag), &(liston->bs_flag), &(liston->C_z), liston->conc_salt, &(liston->deltax), &(liston->deltay), liston->dh_salt, liston->dh_salt_u,
-				liston->dh_salt_v, liston->dh_susp, liston->dh_susp_u, liston->dh_susp_v, &(liston->dt), &(liston->dz_susp), &(liston->fall_vel), &(liston->fetch), 
-				&(liston->gravity), &(liston->h_const), liston->h_star, &(liston->ht_rhobs), &(liston->ht_windobs), &iter, &(liston->nx), &(liston->ny), liston->Qsalt, 
-				liston->Qsalt_max, liston->Qsalt_maxu, liston->Qsalt_maxv, liston->Qsalt_u, liston->Qsalt_v, liston->Qsubl, liston->Qsusp, liston->Qsusp_u, liston->Qsusp_v,
-				liston->rh_grid, &(liston->ro_air), &(liston->ro_snow), &(liston->ro_water), liston->snowdepth, liston->snow_d_init, &(liston->snow_z0), liston->soft_snow_d, 
-				liston->sprec_geotop, &(liston->subgrid_flag), liston->wbal_salt, liston->wbal_susp, liston->wbal_qsubl, liston->sum_sprec, liston->tair_grid, 
-				liston->topo, liston->topo_land, &(liston->topoflag), &(liston->tp_scale), &(liston->Up_const), &(liston->Ur_const), liston->Utau, liston->Utau_t, 
-				liston->uwind_grid, liston->veg_z0, liston->vegsnowdepth, liston->vegtype, &(liston->vonKarman), liston->vwind_grid, &(liston->wind_min), 
-				&(liston->winddir_flag), liston->winddir_grid, &(liston->windspd_flag), liston->windspd_grid, &(liston->xmu), liston->z_0, &(liston->ztop_susp),
-				&(liston->erosion_dist), liston->wbal_subgrid, &(liston->tabler_dir), &(liston->slope_adjust), &(liston->Utau_t_const), &(liston->Utau_t_flag),
-				liston->ro_soft_snow_old, liston->ro_soft_snow, liston->ro_nsnow);*/
-
-	liston2matrix_2(snow->Wsalt,liston->wbal_salt);
-	liston2matrix_2(snow->Wsusp,liston->wbal_susp);
-	liston2matrix_2(snow->Wsubl,liston->wbal_qsubl);
-	liston2matrix_2(snow->Wsubgrid,liston->wbal_subgrid);
-	liston2matrix_2(snow->ListonSWE,liston->snowdepth);
-		
-	liston2matrix_2(M,liston->soft_snow_d);
-	//assignnovalue(M, Z, UV->V->co[2]);
-	fmultiplydoublematrix(snow->softSWE1, M, liston->ro_snow, UV->V->co[2]);	//M [m] - softSWE [kg/m2]
-	
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			snow->Wsalt->co[r][c]*=1000.0;		//from m to mm (or kg/m2)
-			snow->Wsusp->co[r][c]*=1000.0;
-			snow->Wsubl->co[r][c]*=1000.0;
-			snow->Wsubgrid->co[r][c]*=1000.0;
-			snow->ListonSWE->co[r][c]*=1000.0;
-		}
-	}
-	
-//	deallocate
-	free_doublematrix(M);
-	
-}
-
-//*******************************************************************************************************************************************************
-//*******************************************************************************************************************************************************
-//*******************************************************************************************************************************************************
-//*******************************************************************************************************************************************************	
 DOUBLEMATRIX *liston2matrix(float *vector, long nr, long nc){
 	
 	DOUBLEMATRIX *M;
