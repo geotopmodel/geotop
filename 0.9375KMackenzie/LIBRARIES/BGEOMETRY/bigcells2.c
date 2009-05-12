@@ -97,7 +97,7 @@ SQUARE_GRID *get_square_grid(DOUBLEMATRIX *DTM, T_INIT *UV,char *file_resume_lin
 	sq->grid->file_resume_lines=copy_string(file_resume_lines);
 	sq->grid->file_resume_polygons=copy_string(file_resume_polygons);
 	sq->grid->file_resume_connections=copy_string(file_resume_connections);
-	write_grid(sq->grid);
+//	write_grid(sq->grid);
 
 	return sq;
 
@@ -564,7 +564,7 @@ void free_longmatrix_vector (LONGMATRIX_VECTOR *lmv) {
 		if (!lmv->element[i]) printf("Error in free_longmatrix_vector: longmatrix at %ld (of %ld) was not allocated! /n",i,lmv->nh);
 		free_longmatrix(lmv->element[i]);
 	}
-	free(lmv->element);
+//	free(lmv->element);
 	free(lmv);
 
 

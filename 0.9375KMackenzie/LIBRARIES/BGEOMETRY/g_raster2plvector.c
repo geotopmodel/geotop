@@ -741,7 +741,7 @@ DOUBLEVECTOR *read_doublevector_from_raster(short a, char *filename, DOUBLEMATRI
 	 * \param filename (char *) name of the file
 	 * \param Mref - (DOUBLEMATRIX *) - reference map
 	 * \param UVref - (T_INIT *) T_IIT struct containg ewres and nwres information
-	 * \param  (*t_index)(long r, long c,long nrh, long nch) -(long) reordering  function
+	 * \param  LONGMATRIX *indices;
 	 *
 	 * \brief it reads a doublematrix with "read_map" functions and it gets an re-ordered doublevector
 	 *

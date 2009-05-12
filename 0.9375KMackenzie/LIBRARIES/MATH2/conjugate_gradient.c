@@ -140,6 +140,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	    	} else {
 	    		r->element[j]=r->element[j]-alpha*q->element[j];
 	    	}
+	    	r->element[j]=r->element[j];
 	    	delta_new+=r->element[j]*r->element[j];
 /*    	if (((j==y->nl) && sl==0 ) || (sl==1)) {
 	    		printf("delta_new =%le (j=%ld)  ",delta_new,j);
@@ -210,109 +211,6 @@ int linear_comb_doublevector(DOUBLEVECTOR *result,DOUBLEVECTOR *a, DOUBLEVECTOR 
 }
 
 
-long conjugate_gradient_search_LONG(long epsilon,LONGVECTOR *x,LONGVECTOR *b, int (* funz)(LONGVECTOR *y,LONGVECTOR *x)){
-
-	/*
-	 *\param icnt  - (long)
-	 *\param epsilon - (double) required tollerance (2-order norm of the residuals)
-	 *\param x     - (LONGVECTRO *) vector of the unknowns x in Ax=b
-	 *\param b     - (LONGVECTOR *) vector of b in Ax=b
-	 *\param (* funz)(LONGVECTOR *y,LONGVECTOR *x) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
-	 *
-	 *\return the number of reitarations
-	 *\brief algorithm proposed by Jonathan Richard Shewckuck in http://www.cs.cmu.edu/~jrs/jrspapers.html#cg . All the physical variables are expressed as long integer.
-	 *
-	 * \author Emanuele Cordano
-	 * \date March 2009
-	 *
-	 *\note modified by Emanuele Cordano (March 2009)
-	 */
-
-
-	long delta,delta_new,alpha,beta;
-	LONGVECTOR *r, *d,*q,*y;
-	long icnt;
-	int s,sl;
-	long icnt_max;
-	long j;
-	long p;
-
-	r=new_longvector(x->nh);
-	d=new_longvector(x->nh);
-	q=new_longvector(x->nh);
-	y=new_longvector(x->nh);
-
-
-
-
-	icnt_max=x->nh;
-	icnt=0;
-
-
-    s=(* funz)(y,x);
-    delta_new=0.0;
-    for (j=y->nl;j<=y->nh;j++) {
-    	r->element[j]=b->element[j]-y->element[j];
-    	d->element[j]=r->element[j];
-    	delta_new+=r->element[j]*r->element[j];
-    }
-    printf("delta_new =%ld delta_max=%ld \n",delta_new,epsilon*epsilon);
-
-
-//	while ((icnt<=icnt_max) && (delta_new>epsilon*epsilon))
-	while ((icnt<=icnt_max) && (max_doublevector(r)<=epsilon)) {
-		delta=delta_new;
-		s=(* funz)(q,d);
-		p=0.0;
-		for(j=q->nl;j<=q->nh;j++) {
-			p+=q->element[j]*d->element[j];
-
-		}
-		alpha=delta_new/p;
-		for(j=x->nl;j<=x->nh;j++) {
-			x->element[j]=x->element[j]+alpha*d->element[j];
-		}
-
-	    s=(* funz)(y,x);
-	    delta_new=0.0;
-	    sl=0;
-	    for (j=y->nl;j<=y->nh;j++) {
-	   // 	r->element[j]=b->element[j]-y->element[j];
-	    	r->element[j]=r->element[j]-alpha*q->element[j];
-	    	delta_new+=r->element[j]*r->element[j];
-/*    	if (((j==y->nl) && sl==0 ) || (sl==1)) {
-	    		printf("delta_new =%ld (j=%ld)  ",delta_new,j);
-	//    		if (delta_new==0) sl=1;
-	    	}*/
-	    }
-	    beta=delta_new/delta;
-	   // double aa=1.0e-21;
-	   printf("delta_new =%ld p=%ld alpha=%ld beta=%ld delta_max=%ld \n",delta_new,p,alpha,beta,epsilon*epsilon);
-	    //stop_execution();
-
-//		if (delta_new>delta) {
-	//		printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
-	//		stop_execution();
-	//	}
-	//	linear_comb_doublevector(d,r,d,1.0,beta);
-		for (j=d->nl;j<=d->nh;j++) {
-			 d->element[j]=r->element[j]+beta*d->element[j];
-		}
-
-		icnt++;
-
-
-	}
-
-
-	free_longvector(r);
-	free_longvector(d);
-	free_longvector(q);
-	free_longvector(y);
-
-	return icnt;
-
-}
 
 
 double max_doublevector(DOUBLEVECTOR *v) {
@@ -332,3 +230,7 @@ double max_doublevector(DOUBLEVECTOR *v) {
 
 	 return MK;
 }
+
+
+
+
