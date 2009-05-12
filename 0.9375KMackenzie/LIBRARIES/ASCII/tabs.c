@@ -161,8 +161,8 @@ void readline_array(FILE *f, double *a, long offset, long ncol, double ndef, sho
 						
 				if(i==0 && ch[0]==10) ch[0]=32;
 				if(i==0 && ch[0]==-1) printf("\nWarning: END OF FILE ENCOUNTERED WHILE READING\n");	
-				if(ch[0]<44 || ch[0]>57){
-					if(ch[0]!=32 && ch[0]!=-1) t_error("ERROR: NOT ADMITTED COMMENTS NOT PROCEDED BY THE CHARACTER '/' OR COMMENTS NOT CLOSED");
+				if(ch[0]<44 || ch[0]>57){					
+					if(ch[0]!=32 && ch[0]!=-1) t_error("ERROR: NOT ADMITTED COMMENTS NOT PROCEDED BY THE CHARACTER '/' OR COMMENTS NOT CLOSED");			
 				}
 			}while(ch[0]<-1 || (ch[0]>-1 && ch[0]<10) || (ch[0]>10 && ch[0]<13) || (ch[0]>13 && ch[0]<42) || ch[0]==47 || ch[0]>57);
 			
@@ -338,7 +338,7 @@ double *alloc1(long n){
 long **alloc_long2(long n){
 	long **a,i;
 	a=(long **)malloc( (n+1)*sizeof(long*) );
-	for(i=1;i<=n;i++){
+	for(i=0;i<=n;i++){
 		a[i]=(long *)malloc( sizeof(long) );
 		if(i<n) a[i][0]=0;
 		if(i==n) a[i][0]=end_vector_long;
@@ -349,7 +349,7 @@ long **alloc_long2(long n){
 long *alloc_long1(long n){
 	long *a,i;
 	a=(long *)malloc((n+1)*sizeof(long) );
-	for(i=1;i<=n;i++){
+	for(i=0;i<=n;i++){
 		if(i<n) a[i]=0;
 		if(i==n) a[i]=end_vector_long;
 	}

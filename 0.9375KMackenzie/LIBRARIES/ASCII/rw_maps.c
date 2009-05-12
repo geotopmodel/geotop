@@ -369,6 +369,19 @@ char *namefile_i_we(char *name, long i){
 	
 }	
 
+char *namefile_i_we2(char *name, long i){
+
+	char SSSS[ ]={"SSSS"};
+	char *name_out;
+	
+	write_suffix(SSSS, i, 0);
+	
+	name_out=join_strings(name,SSSS);
+		
+	return(name_out);
+	
+}	
+
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
@@ -476,6 +489,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 					if(a>1){
 						if(M->co[r][c]==UVref->V->co[2] && Mref->co[r][c]!=UVref->V->co[2]){
 							printf("Novalues not consistent in %s file",filename2);
+							printf("\nr:%ld c:%ld Mref:%f M:%f\n",r,c,Mref->co[r][c], M->co[r][c]);							
 							t_error("Inconsistent map");
 						}
 						if(M->co[r][c]!=UVref->V->co[2] && Mref->co[r][c]==UVref->V->co[2]) M->co[r][c]=UVref->V->co[2];
@@ -545,7 +559,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 				t_error("Inconsistent map");
 			}
 			if(nr!=Mref->nrh){
-				printf("Number of rows in %s file is not consistent with DTM file! \n",filename2);
+				printf("Number of rows in %s file (%ld) is not consistent with DTM file (%ld)! \n",filename2,nr,Mref->nrh);
 				t_error("Inconsistent map");
 			}
 			if(nc!=Mref->nch){
@@ -572,6 +586,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 				if(a>1){
 					if (M->co[r][c]==UVref->V->co[2] && Mref->co[r][c]!=UVref->V->co[2]){
 						printf("Novalues not consistent in %s file",filename2);
+						printf("\nr:%ld c:%ld Mref:%f M:%f\n",r,c,Mref->co[r][c], M->co[r][c]);							
 						t_error("Inconsistent map");	
 					}
 					if(M->co[r][c]!=UVref->V->co[2] && Mref->co[r][c]==UVref->V->co[2]) M->co[r][c]=UVref->V->co[2];
@@ -731,6 +746,40 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 
 }
 
+void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV){
+
+//	a=0 non include "l" nel suffisso
+//	a=1 include "l" nel suffisso
+//	l:layer
+//	i:temporal step
+	
+	char SSSSLLLLL[ ]={"LLLLLNNNNN"};
+	char SSSS[ ]={"NNNN"};		
+	char *name;
+	long r, c;
+	DOUBLEMATRIX *M;
+		
+	if(a==0){
+		write_suffix(SSSS, i, 0);	
+		name=join_strings(filename,SSSS);				
+	}else if(a==1){
+		write_suffix(SSSSLLLLL, l, 1);	
+		write_suffix(SSSSLLLLL, i, 6);	
+		name=join_strings(filename,SSSSLLLLL);		
+	}
+ 
+	M=new_doublematrix(T->nrh,T->nch);
+	for(r=1;r<=T->nrh;r++){
+		for(c=1;c<=T->nch;c++){
+			M->co[r][c]=T->co[l][r][c];
+		}
+	}
+
+	write_map(name, type, format, M, UV);
+	
+	free_doublematrix(M);
+
+}
 
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
@@ -739,7 +788,7 @@ void write_tensorseries2(long i, char *filename, short type, short format, DOUBL
 
 	long l;
 	for(l=1;l<=T->ndh;l++){
-		write_tensorseries(1, l, i, filename, type, format, T, UV);
+		write_tensorseries_bis(1, l, i, filename, type, format, T, UV);
 	}
 }
 

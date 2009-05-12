@@ -2,27 +2,25 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
-
 
 
 #include "keywords_file.h"
@@ -64,8 +62,8 @@ void updates_times(TIMES *times, PAR *par){
 	if(par->JD_plots->co[1]!=0){
 		occurring=0;
 		for(i=1;i<=par->JD_plots->nh;i++){
-			//tmin=0.0;
-			tmin=get_time( (double)(par->JD_plots->co[i]-1), times->AAAA, par->JD0, par->year0 );
+			tmin=0.0;
+			//tmin=get_time( (double)(par->JD_plots->co[i]-1), times->AAAA, par->JD0, par->year0 );
 			tmax=get_time( (double)(par->JD_plots->co[i]  ), times->AAAA, par->JD0, par->year0 );
 			if(fmod(tmax-tmin,times->n_plot*par->Dt)!=0.0){
 				N=floor(tmax-tmin/(times->n_plot*par->Dt))+1;
@@ -110,11 +108,25 @@ void updates_times(TIMES *times, PAR *par){
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 void date_time(double t, long y0, double JDstart, double delay, double *JD, long *d, long *m, long *y, long *h, long *min){
-
+	/* Author: Stefano Endrizzi   Year:
+	* function that calculates the current date (year, month, day, hour, minute)
+	* Input:
+	* 			t: current time (sec) from the start of the simulation
+	* 			y0: year of the beginning of the simulation
+	* 		JDstart: Julian day of the beginning of the simulation
+	* 		 delay:
+	* Output:
+	* 			JD: julian day of the time of plot
+	* 			d: day of the time of plot
+	* 			m: month of the time of plot
+	* 			y: year of the time of plot
+	* 			h: hour of the time of plot
+	* 		  min: minute of the time of plot
+	* comment: Matteo Dall'Amico, May 2009 */
 	short i;
 	long JDint;
 
-	i=is_leap(y0);
+	i=is_leap(y0); // 1 is leap, 0 is not leap
 	*JD=JDstart+delay+t/86400.0;
 	*y=y0;
 
@@ -177,15 +189,28 @@ void date_time(double t, long y0, double JDstart, double delay, double *JD, long
 
 
 void time_conversion(double JD01, long Y01, double t1, double JD02, long Y02, double *t2){
-
+	/* Author:    Year:
+	 * function that calculates the current time [second] based on a new origin given by the beginning of the
+	 * first datum of the meteo file.
+	 * Input:
+	 * 			JD01: julian day of the beginning of the simulation
+	 * 			Y01: year of the beginning of the simulation
+	 * 			t1: current time counter of the simulation
+	 * 			JD02: julian day of the first datum of the meteo station
+	 * 			Y02: year of the first datum of the meteo station
+	 * Output:
+	 * 			t2:  current time [second] based on a new origin given by the beginning of the first datum of the meteo file
+	 * t2<0: the simulation started prior of the meteo data and the current time counter hasn't reached the beginning of the meteo data yet.
+	 * t2>0: the simulation started after of the meteo data or the current time counter has reached the beginning of the meteo data
+	 * comment: Matteo Dall'Amico, April 2009 */
 	double dJD;
 	long y;
 
 	y=Y02;
-	dJD=JD01-JD02;
+	dJD=JD01-JD02;// the difference between the decimal julian day of the current day and that of the meteo station
 
 	do{
-		if(y<Y01){
+		if(y<Y01){// the year of the first datum of the meteo station < the current year of the simulation
 			dJD+=(365.0+is_leap(y));
 			y++;
 		}else if(y>Y01){

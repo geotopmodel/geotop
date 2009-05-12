@@ -63,12 +63,21 @@ typedef struct {
 	LONGMATRIX *nDt_shadow;/* Map of number of Dt in which the pixel is in shadow */
 	LONGMATRIX *nDt_sun;/* Map of number of Dt in which the pixel is in sun. Created if(par->ES_num>0) */
 
-	DOUBLEMATRIX *Hplot;/* sensible heat flux: activated if par->JD_plots has more than one component */
-	DOUBLEMATRIX *LEplot;/* EvapoTranspiration flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *Hgplot;/* sensible heat flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *LEgplot;/* EvapoTranspiration flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *Hvplot;
+	DOUBLEMATRIX *LEvplot;
+
 	DOUBLEMATRIX *SWinplot;/* SWin flux: activated if par->JD_plots has more than one component */
-	DOUBLEMATRIX *SWoutplot;/* SWout flux: activated if par->JD_plots has more than one component */
-	DOUBLEMATRIX *LWinplot;/* LWin flux: activated if par->JD_plots has more than one component */
-	DOUBLEMATRIX *LWoutplot;/* LWout flux: activated if par->JD_plots has more than one component */
+	DOUBLEMATRIX *SWgplot;
+	DOUBLEMATRIX *SWvplot;
+
+	DOUBLEMATRIX *LWinplot;
+	DOUBLEMATRIX *LWgplot;
+	DOUBLEMATRIX *LWvplot;
+
+	DOUBLEMATRIX *Tgplot;
+	DOUBLEMATRIX *Tvplot;
 	DOUBLEMATRIX *Tsplot;/* Surface Temperature flux: activated if par->JD_plots has more than one component */
 
 	DOUBLEMATRIX *SWin;
@@ -77,11 +86,11 @@ typedef struct {
 	DOUBLEMATRIX *Hgrid;/* map of sensible heat flux [W/m2] */
 	DOUBLEMATRIX *Tsgrid;/* map of surface temperature [ûC] */
 
-	double VSFA;
-	double HSFA;
+	DOUBLEVECTOR *VSFA;
+	DOUBLEVECTOR *HSFA;
 
-	double hsun;
-	double dsun;
+	double hsun;/* solar elevation angle (radiants) */
+	double dsun;/* solar azimuth angle (from N clockwise, radiants) */
 
 } ENERGY;
 
@@ -89,21 +98,26 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-	SHORTMATRIX *type;
+	SHORTMATRIX *type;/* matrix of soil type */
 	DOUBLETENSOR *pa; /* doubletensor of soil parameters */
 	DOUBLETENSOR *P; /* soil pressure */
 	DOUBLETENSOR *T; /* soil temperature */
 	DOUBLETENSOR *thice; /* soil theta_ice */
 	DOUBLEMATRIX *Jinf; /* water infiltration in the soil surface */
 	DOUBLETENSOR *J; /*  water flux outgoing from one layer to the lower one */
+	DOUBLEMATRIX *Tv;
+	DOUBLETENSOR *Tav;
+	DOUBLETENSOR *thwav;
+	DOUBLETENSOR *thiav;
 
 } SOIL;
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    DOUBLEMATRIX *Z0;        /*elevetions of each pixel (DEM)*/
-	DOUBLEMATRIX *Z0dp;
+    DOUBLEMATRIX *Z0;         /*elevetions of each pixel (DEM)*/
+	DOUBLEMATRIX *Z0dp;		  /*DEM depitted*/
+	DOUBLEMATRIX *Z0ext;      /*DEM extended (to avoid curvature problems)*/
     DOUBLEMATRIX *sky;        /*view factor (of the sky) for each pixel*/
     SHORTMATRIX *pixel_type; /*0=land,9=novalue,10=channel,11=lake,12=sea*/
     SHORTMATRIX *DD;         /*Drainage Directions for each pixel; ex matr_ev->slopes*/
@@ -128,9 +142,10 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    SHORTMATRIX *use;             /*land use (wood,lake,town,...) for each pixel*/
-    DOUBLEMATRIX *albedo;         /*albedo calculated for each pixel*/
-	SHORTMATRIX *shadow;		  /*=1 if shadow, =0 if not*/
+    DOUBLEMATRIX *LC;            //land cover (wood,lake,town,...) for each pixel*/
+	SHORTMATRIX *LC2;			  //FURTHER LAND CLASSIFICATION
+    DOUBLEMATRIX *albedo;         //albedo calculated for each pixel*/
+	SHORTMATRIX *shadow;		  //=1 if shadow, =0 if not*/
 	LONGVECTOR *clax;
 	LONGMATRIX *cont;
 	DOUBLEMATRIX *ty; /* land type (better would be land cover, i.e. pasture, rock, forest, paved_road...) */
@@ -162,9 +177,9 @@ typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of 
 typedef struct { /*nstations=number of all the rain-stations,npixel=number of all the pixels of the basin R*C,
                    R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
     DOUBLEMATRIX *weights_Kriging; /*dimension=npixel*nstations */
-    DOUBLETENSOR *q_sub;           /*ground flow (subsurface) in [mm/s]; positive if go out from the cell; dimension=(number of layers)*R*C*/
-	DOUBLEMATRIX *q_sup;/* runoff discharge in [mm/s] */
-    DOUBLEMATRIX *h_sup;    /*height of water over the soil surface not infiltrated in mm; dimension=R*C*/
+    DOUBLETENSOR *q_sub;            /*ground flow (subsurface) in [mm/s]; positive if go out from the cell; dimension=(number of layers)*R*C*/
+	DOUBLEMATRIX *q_sup;/*runoff discharge in [mm/s] */
+    DOUBLEMATRIX *h_sup;    /*height of water over the sl-surface not infiltrated in mm; dimension=R*C*/
     DOUBLEMATRIX *total;    /*total(snow+rain) precipitation in mm (in a Dt)*/
     DOUBLEMATRIX *Pn;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
@@ -191,7 +206,7 @@ typedef struct {
     short n_iter;  /*n_iter=number of iterations to do for each time-step*/
     double TH;     /*TH=last of all the simulation in hours*/
     long i_pixel;  /*counter for the output of a pixel*/
-    long n_pixel;  /* number of Dt of calculation after which the output of a pixel is printed. Ex. if Dt=900s and Dt_output=1h => n_pixel=4 */
+    long n_pixel;  /*nDt_output_pixel=number of Dt after which the output of a pixel are printed*/
 	long i_basin;
 	long n_basin;
 	long i_plot;
@@ -215,31 +230,31 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    double Dt;      /*Dt=the integration time interval [s]*/
-	double JD0;
-	long year0;
-	double ST;
-    short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
+    double Dt; /*Dt=the integration time interval [s]*/
+	double JD0;/* Decimal julian day of the beginning of simulation (0.0 - 365.99)*/
+	long year0;/* Year of the beginning of the simulation*/
+	double ST;/* Standard time to which all the output data are referred (difference respect UMT, in hour) */
+    short print; /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
     short monin_obukhov;
-    double gamma_m;   /*Exponent of the law of uniform motion on the surface*/
-    double T_rain;    /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
-    double T_snow;    /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
-    double aep;       /*ALBEDO EXTINCTION PARAMETER [m]*/
-    double avo;       /*NEW SNOW VISIBLE BAND REFLECTANCE*/
-    double airo;      /*NEW NEAR INFRARED BAND REFLECTANCE*/
-    double Sr;		  /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-    double rho_ice;     /*Ice density [kg/mc]*/
-    long total_pixel;    /*The number of the valid pixel of the whole basin*/
-    long n_error;        /*Current number of error of the simulation*/
-    long max_error;      /*Maximum number of error for the simulation*/
-	long snowlayer_max;
-	long snowlayer_inf;
-	DOUBLEVECTOR *Dmin;
-	DOUBLEVECTOR *Dmax;
+    double gamma_m;/*Exponent of the law of uniform motion on the surface*/
+    double T_rain; /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
+    double T_snow; /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
+    double aep; /*ALBEDO EXTINCTION PARAMETER [m]*/
+    double avo; /*NEW SNOW VISIBLE BAND REFLECTANCE*/
+    double airo; /*NEW NEAR INFRARED BAND REFLECTANCE*/
+    double Sr; /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
+    double rho_ice; /*Ice density [kg/mc]*/
+    long total_pixel;/*The number of the valid pixel of the whole basin*/
+    long n_error; /*Current number of error of the simulation*/
+    long max_error; /*Maximum number of error for the simulation*/
+	long snowlayer_max;/* max number of snow layers*/
+	long snowlayer_inf;/* layer of unlimited thickness (beginning from below) */
+	DOUBLEVECTOR *Dmin;/* vector of Min snow-layer thickness [mm] */
+	DOUBLEVECTOR *Dmax;/* vector of Max snow-layer thickness [mm] */
 	double Sr_glac;
-	long glaclayer_max;
-	DOUBLEVECTOR *Dmin_glac;
-	DOUBLEVECTOR *Dmax_glac;
+	long glaclayer_max;/* maximum number of glacier layers, it must be at least 1 (if it is 0 the glacier module is switched off)*/
+	DOUBLEVECTOR *Dmin_glac;/* Min thickness of glacier layers [mm] */
+	DOUBLEVECTOR *Dmax_glac;/* Max thickness of glacier layers [mm] */
 
     short state_snow;/* 1 if you have a file with initial snow depth (in days), 0 otherwise */
 	short state_glac;/* 1 if you have a file with glacier depth, 0 otherwise */
@@ -251,7 +266,6 @@ typedef struct {
 	double f_bound_Richards;
 
 	double epsilon_snow;
-
 
 	double output_Txy; /* 1 if you want to display output Txy distributed MAPS, 0 otherwise */
 	double output_TETAxy;/* 1 if you want to display output TETAxy distributed MAPS, 0 otherwise */
@@ -273,8 +287,8 @@ typedef struct {
 	double output_Rswdown;/* 1 if you want to display output SWin MAPS, 0 otherwise */
 	double output_meteo;/* 1 if you want to display output meteo MAPS, 0 otherwise */
 
-	DOUBLEMATRIX *chkpt;
-	LONGMATRIX *rc;
+	DOUBLEMATRIX *chkpt;/* Matrix (n X 3) where n is the number of points that have to be plotted and 3 is the number of parameters: if state_px_coord==1 (E, N, layer) ---  if state_px_coord==0 (row,col,layer) (max 9999 points)*/
+	LONGMATRIX *rc;/* Matrix (n X 2) where n is the number of points that have to be plotted. The first represents the row of the point in the raster, the second the column */
 	short ES_num; /* see __control file: >=1 (or<=1) how many altimetric stripes you want to consider (up to 99) (negative value means that this is done only for glacier pixels) */
 	short state_px_coord;/* 1 if all coordinates are in (East-North) format, 0 if in (row, columns) format */
 
@@ -300,12 +314,11 @@ typedef struct {
 	double Lozone; //thickness of the stratospheric ozone layer (in cm normal conditions)
 
 	short point_sim;/* =0 distributed simulation, =1 point simulation (the parameter files are different in the two cases) */
-
-	double snow_maxpor;
-	double snow_density_cutoff;
-	double drysnowdef_rate;
-	double wetsnowdef_rate;
-	double snow_viscosity;
+	double snow_maxpor;/* Max allowd snow porosity [-]*/
+	double snow_density_cutoff;/* Snow density cutoff [Kg/m3] to change snow deformation rate */
+	double drysnowdef_rate;/* Snow compaction (% per hour) due to destructive metamorphism for snow density<snow_density_cutoff and dry snow */
+	double wetsnowdef_rate;/* Enhancement factor in presence of wet snow */
+	double snow_viscosity;/* snow viscosity coefficient [Kg s /m2] at T=0ûC and snow_density=0 */
 
 	double latitude;
 	double longitude;
@@ -315,17 +328,16 @@ typedef struct {
 
 	LONGVECTOR *JD_plots; /* vector of Julian Days in which energy balance and meteo data are plotted with a very short time step
 	see block 5 _options file */
-
-	short micromet1;
-	short micromet2;
-	short micromet3;
-	short snowtrans;
+	short micromet1;/* Use Micromet for wind,T,RH,Prec,Pres (=1), otherwise (=0)*/
+	short micromet2;/* Use Micromet for SWin (=1), otherwise (=0)*/
+	short micromet3;/* Use Micromet for LWin (=1), otherwise (=0)*/
+	short snowtrans;/* Use SnowTrans3D (=1), otherwise (=0)*/
 
 	LONGVECTOR *r_points;
 	LONGVECTOR *c_points;
 
-	double psimin;
-	double Esoil;
+	double psimin;/* Absolute minimum admitted suction potential */
+	double Esoil;/* Soil comprimibility if oversaturated water is added*/
 	double stmin;
 
 	double glac_thr;
@@ -357,19 +369,21 @@ typedef struct {
 	LONGVECTOR *cont_trans;
 	LONGVECTOR *ibeg;
 
+	long nLC;
+
 } PAR;
 
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-	SHORTMATRIX  *type;
-	LONGMATRIX	 *lnum;
-	DOUBLETENSOR *Dzl;
-	DOUBLETENSOR *w_liq;
-	DOUBLETENSOR *w_ice;
-	DOUBLETENSOR *T;
-	DOUBLEMATRIX *age;
+	SHORTMATRIX  *type;/* snow type (0,1 or 2) depending on snow height */
+	LONGMATRIX	 *lnum;/* number of snow layer */
+	DOUBLETENSOR *Dzl;/* snow layer depth [mm]*/
+	DOUBLETENSOR *w_liq;/* mass of liquid water present in the snow per unit of surface [kg/m2] */
+	DOUBLETENSOR *w_ice;/* equivalent mass of liquid water stored in the snow per unit of surface [kg/m2] */
+	DOUBLETENSOR *T;/* temperature of the snow layer [ûC]*/
+	DOUBLEMATRIX *age;/* matrix of snow age (in days)*/
 	double evap_basin;
 	double subl_basin;
 	double melted_basin;
@@ -392,7 +406,7 @@ typedef struct {
 	DOUBLEMATRIX *DDFmelt;
 	//DOUBLETENSOR *MC;
 
-	DOUBLEMATRIX *rho_newsnow;
+	DOUBLEMATRIX *rho_newsnow;/* density of the new snow [Kg/m3] */
 	DOUBLEMATRIX *Wsubl;
 	DOUBLEMATRIX *Wsusp;
 	DOUBLEMATRIX *Wsalt;
@@ -418,11 +432,11 @@ typedef struct {
 } SNOW;
 
 typedef struct {
-	LONGMATRIX	 *lnum;
-	DOUBLETENSOR *Dzl;
-	DOUBLETENSOR *w_liq;
-	DOUBLETENSOR *w_ice;
-	DOUBLETENSOR *T;
+	LONGMATRIX	 *lnum;/* number of glacier layers */
+	DOUBLETENSOR *Dzl;/* layer depth [mm] */
+	DOUBLETENSOR *w_liq;/* mass of liquid water present in the ice per unit of surface [kg/m2] */
+	DOUBLETENSOR *w_ice;/* equivalent mass of liquid water stored in the ice per unit of surface [kg/m2] */
+	DOUBLETENSOR *T;/* temperature of the glacier layer [ûC]*/
 	double evap_basin;
 	double subl_basin;
 	double melted_basin;
@@ -460,16 +474,17 @@ typedef struct{
 
 typedef struct {
 	METEO_STATIONS *st;
-	double ***data;
-	long **column;
+	double ***data;/* tensor (#meteo_stat X #rows_meteo_data X #actual_meteo_variables) of ALL the data variables for all the stations */
+	long **column;/* matrix (#meteo_stat X #allowed_meteo_variables) indicating in which column lies the correspondent meteo variable */
 	double ***horizon;
-	double **var;
+	double **var;/* matrix (#meteo_stat X #allowed_meteo_variables) of the interpolated value of the meteo data for the current time */
 
 	DOUBLEMATRIX *Tgrid;/* Map of air temperature in each point */
-	DOUBLEMATRIX *Pgrid;
-	DOUBLEMATRIX *Vgrid;
-	DOUBLEMATRIX *Vdir;
-	DOUBLEMATRIX *RHgrid;
+	DOUBLEMATRIX *Pgrid;/* Map of air pressure in each point */
+	DOUBLEMATRIX *Vgrid;/* Map of wind velocity in each point */
+	DOUBLEMATRIX *Vdir;/* Map of wind direction in each point */
+	DOUBLEMATRIX *RHgrid;/* Map of relative humidity in each point */
+	DOUBLEMATRIX *CFgrid;
 
 	DOUBLEMATRIX *Vspdmean;
 	DOUBLEMATRIX *Vdirmean;
@@ -480,8 +495,8 @@ typedef struct {
 	DOUBLEMATRIX *Vdirplot;
 	DOUBLEMATRIX *RHplot;
 
-	double V;
-	double RH;
+	double V;/* wind velocity [m/s] */
+	double RH;/* relative humidity [%]*/
 	double LapseRate;
 
 	DOUBLEMATRIX *Tday;

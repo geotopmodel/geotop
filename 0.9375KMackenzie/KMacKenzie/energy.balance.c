@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -23,8 +23,11 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-#include "constant.h"
+//Author: Stefano Endrizzi
+//Date: 3 October 2008
+//Contents: Energy balance (and also mass balance for snow and glacier)
 #include "keywords_file.h"
+#include "constant.h"
 #include "struct.geotop.09375.h"
 #include "liston.h"
 #include "energy.balance.h"
@@ -61,81 +64,129 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 //1.DICHIARAZIONE DELLE VARIABILI
 //*******************************
 
-//Counters of rows,coulumns,layers of the basin
-long r,c,l,j;
+long r,c,l,j;//Counters of rows, columns, layers of the basin
+long Ns,Ng;//Number of rows, columns,layers of the soil in the whole basin, Maximum number of snow layers, Maximum number of glacier layers
+long ns,ng=0;//Number of snow layer in a pixel, number of glacier layer in a pixel
+double E0;//soil-earth correction [-]
+double Ts;//GROUND SURFACE TEMPERATURE
+double Qs;// Specific humidity of the surface
+double snowD, glacD=0.0;//Snow depth [mm] and glacier depth [mm]
+double Prain_over; //Precipitation as rain [mm] over the canopy
+double Psnow_over;//Precipitation as snow [mm water equivalent] over the canopy
+double Psoil; //precipitation that reaches the soil [mm] below canopy
+double Prain=0.0;// precipitation that reaches the soil as rain [mm] below canopy
+double Prain_on_snow; // precipitation that reaches the snow as rain [mm] below canopy
+double Psnow=0.0;	//precipitation that reaches the soil as snow [mm] below canopy
 
-//Number of rows,coulumns,layers of the soil in the whole basin, Maximum number of snow layers, Maximum number of glacier layers
-long Ns,Ng;
+double SWin; //Short wave radiation incoming [W/mq]
+double	SW;// SW net to the ground [W/m2]
+double SWbeam; // Incoming Direct SW radition [W/m2]
+double SWdiff; // Diffuse SW radition [W/m2]
+double SWv_vis;// SW going to vegetation nel visibile
+double	SWv_nir;// SW going to vegetation nel near infrared
+double	SWg_vis;// SW che va nel ground nel visibile
+double	SWg_nir;// SW going to the ground near infrared
+double	cosinc=0.0; // cosine of the incidence angle [-] for a pixel
+double	avis_b;// albedo nel visibile beam
+double	avis_d;// albedo nel visibile diffuse
+double	anir_b;// albedo near infrared beam
+double	anir_d;// albedo near infrared diffuse
 
-//Number of snow layer in a pixel, number of glacier layer in a pixel
-long ns,ng=0;
+double epsa=0.0; //Atmospheric absorbance for long wave radiation [-]
+double	LWin; // incoming Long Wave long wave radiation diffused towards land [W/m2] for a pixel
+double	LW;// LW net to the ground
+double	LWv;// Long wave of
+double	Tsurr;// Temperature of the sorrounding surfaces (not of the pixel) [ûC]
 
-//soil-earth correction [-]
-double E0;
+double Hv; // Sensible heat flux of the vegetation [W/m2]
+double H;//Sensible heat fluxe of the groudn [W/m2] for a pixel
 
-//SURFACE TEMPERATURE
-double Ts;
+double LE;// Latent heat flux
+double	Ev; // evaporation fluxes for vegetation
+double	E;//Evaporation fluxes [kg/(s*m2)]
+double	Evt;// transpiration from the vegetation
+double	fwet;
+double	fsnow;
+double	fsnowcan;// % of canopy covered by snow
 
-//Snow depth [mm] and adimensional snow age [] for a pixel, snow density [kg/m3]
-double snowD, tausn=0.0, glacD=0.0;
+double surfEB;//heat flux on the surface (be it snow or soil) [W/m2]
+double G;// Heat flux going into the soil surface [W/m2]
 
-//Precipitation as rain [mm] and as snow [mm water equivalent]
-double Prain_over=0.0, Psnow_over=0.0;	//above canopy
-double Psoil, Prain=0.0, Prain_on_snow, Psnow=0.0;	//below canopy
+DOUBLEVECTOR *theta;//Adimensional water content
 
-//Air density [kg/mc]
-double rho_air;
-
-//Short wave radiation [W/mq], cosine of the incidence angle [-], albedo [-] for a pixel
-double SWin, SWout, SWbeam=0.0, SWdiff=0.0, cosinc=0.0, albedo_value=0.0;
-
-//Atmospheric absorbance for long wave radiation [-], long wave radiation diffused towards land [W/m2] for a pixel
-double epsa=0.0, LWin, LWout, dLWout_dT, Tsurr;
-
-//Sensible heat fluxes [W/m2] and its derivative respect to surface temperature for a pixel
-double H, dH_dT, LE, dLE_dT, r_v;
-
-//Evaporation fluxes [kg/(s*m2)]
-double E, dE_dT, Epc=0.0, dEpc_dT=0.0, fec=0.0, ftc=0.0, Rge;
-
-//Net surface energy balance[W/m2] and its derivative respect to surface temperature (SW radiation is not included in surfEB, since it is in SWabsf:short wave radiation absorption fraction)
-double surfEB, dsurfEB_dT;
-
-//Surface Soil heat flux[W/m2]
-double G;
-
-//Adimensional water content
-DOUBLEVECTOR *theta;
-
-//Thermal capacity [J m^-3 K^-1], thermal conductivity [W m^-1 K^-1] for a snow/soil layer, and thermal conductivity [W m^-1 K^-1] at the interface between 2 layers (for a pixel).
-DOUBLEVECTOR *c_heat, *k_thermal, *k_thermal_interface;
+DOUBLEVECTOR *c_heat; //Thermal capacity [J m^-3 K^-1] (for a pixel)
+DOUBLEVECTOR *k_thermal; //, thermal conductivity [W m^-1 K^-1] for a snow/soil layer (for a pixel)
+DOUBLEVECTOR *k_thermal_interface; // thermal conductivity [W m^-1 K^-1] at the interface between 2 layers (for a pixel)
 //The 1st component is for the highest layer (be it of snow or soil), the (nl+ns)th component for the deepest soil layer
 
-//Snow/soil layer thickness [m], liquid water content [kg/mq], ice content [kg/mq], temperature [Celsius], melting ice (if>0) or icing water (if<0) [kg/mq] in Dt
-DOUBLEVECTOR *D, *wliq, *wice, *Temp, *deltaw;
+DOUBLEVECTOR *D; //vector of column (snow+soil) layer thickness [m]
+DOUBLEVECTOR *wliq; // vector of column (snow+soil)liquid water content [kg/mq]
+DOUBLEVECTOR *wice; // vector of column (snow+soil) ice content [kg/mq]
+DOUBLEVECTOR *Temp; // vector of column (snow+soil) temperature [Celsius]
+DOUBLEVECTOR *deltaw; // vector of column (snow+soil) melting ice (if>0) or icing water (if<0) [kg/mq] in Dt
 //The 1st component is for the highest layer (be it of snow or soil), the (nl+ns)th component for the deepest soil layer
 
 //Other auxilairy variables
-double z0, d0, z0_z0t, eps, ee=0.0, dee=0.0, Tdew=0.0, Qa, evap_c, drip_c, maxstorage_c, LEs, LEc, dLEs_dT, dLEc_dT;
-double epsa_min, epsa_max, tau_atm, RHpoint, Vpoint;
+double z0,
+	z0veg,
+	d0,
+	d0veg,
+	z0_z0t,
+	hveg,
+	eps;
+double	ee=0.0;// saturated water vapour pressure
+double	dee=0.0;// derivative of saturated water pressure
+double	Tdew=0.0; // dew temperature (temp. di rugiada)
+double	Qa;// specific humidity
+double evap_c;
+double	drip_c;
+double	maxstorage_c;
+double	LAI=0.5;// leaf area index
+double fc=0.0;// canopy fraction
+double drip_sn; //unused variable
+double	expon;// unused variable
+double epsa_min;
+double	epsa_max;
+double	tau_atm;// atmospheri transmittance
+double	RHpoint;// Relative humidity of the point [%]
+double	Vpoint;// wind velocity of the point [m/s]
 DOUBLEVECTOR *turbulence;
 DOUBLEVECTOR *ftcl, *SWabsf, *froot;
 double DTcorr=0.0;
-double Mr_snow,Er_snow,Sr_snow,Mr_glac,Er_glac,Sr_glac,Er_soil,Sr_soil;
-double zmeas_T, zmeas_u;
-double fcloud, tau_atm_st, Hadv;
-long cont=0;
-short sy,lu;
+double Mr_snow;// snow melting rate [mm/s]
+double	Er_snow;// snow evaporation rate [mm/s]
+double	Sr_snow;// snow sublimation rate [mm/s]
+double	Mr_glac;// glacier melting rate [mm/s]
+double	Er_glac;// glacier evaporation rate [mm/s]
+double	Sr_glac;// glacier sublimation rate [mm/s]
+double	Er_soil;// soil evaporation rate [mm/s]
+double	Sr_soil;// soil sublimation rate [mm/s]
+double zmeas_T; // [m] elevation of the air temperature sensor (with respect to the ground surface)
+double	zmeas_u;// [m] elevation of the wind temperature sensor (with respect to the ground surface)
+double fcloud;// cloud fraction of the sky (from 0 to 1)
+double	tau_cloud;// clear sky trasmissivity
+double	tau_cloud_av;//average clear sky trasmissivity
+double	sa;// sin(alpha) where alpha is the solar altitude angle
+double	Hadv=0.0;
+short sy; // soil type
+short lu;// land use
 
-//Cloud variables
-static short need_cloud_next_day;
-static short check_rain_night;
-static double cloud_p_t;
-static double cloud_p_v;
-static double cloud_n_t;
-static double cloud_n_v;
-
-FILE *f;
+double Hg0,
+	Hg1,
+	Eg0,
+	Eg1,
+	dE_dT,
+	dH_dT;
+long cont;
+double rh,
+	rv,
+	rc,
+	rb,
+	rh_ic,
+	rv_ic,
+	Qv,
+	Qg;
+FILE *f;// file pointer
 
 //ALLOCATION
 Ns=par->snowlayer_max; /*maximum number of snow layers*/
@@ -155,65 +206,68 @@ theta=new_doublevector(Nl);
 ftcl=new_doublevector(Nl);
 froot=new_doublevector(Nl);
 turbulence=new_doublevector(11);
-
+// INITIALIZATION
 initialize_doublematrix(snow->rho_newsnow,UV->V->co[2]);
-snow->melted_basin=0.0; snow->evap_basin=0.0; snow->subl_basin=0.0; glac->melted_basin=0.0; glac->evap_basin=0.0; glac->subl_basin=0.0;
-initialize_doublevector(snow->CR1,0.0); initialize_doublevector(snow->CR2,0.0); initialize_doublevector(snow->CR3,0.0);
+snow->melted_basin=0.0;
+snow->evap_basin=0.0;
+snow->subl_basin=0.0;
+glac->melted_basin=0.0;
+glac->evap_basin=0.0;
+glac->subl_basin=0.0;
+initialize_doublevector(snow->CR1,0.0);
+initialize_doublevector(snow->CR2,0.0);
+initialize_doublevector(snow->CR3,0.0);
 
 //SHADOW & CLOUDINESS
 sun((double)(times->hh+times->mm/60.0), times->JD, &(egy->hsun), &(egy->dsun), &E0, par->latitude, par->longitude, par->ST);
-
+shadow_n(par->point_sim, top, egy->hsun, egy->dsun, land->shadow);
 //shadows calculated only when shortwave is not calculated with micromet
-if(par->micromet2!=1) shadow_n(par->point_sim, top, egy->hsun, egy->dsun, land->shadow);
+//if(par->micromet2!=1) shadow_n(par->point_sim, top, egy->hsun, egy->dsun, land->shadow);
 
-//cloudiness calculated only when longwave is not calculated with micromet
-if( (par->micromet2!=1 || par->micromet3!=1) && (met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1)) ){
+if( par->micromet2==1 ){/* Use Micromet for SWin (=1) */
+
+	if(times->time==0) printf("\nCloudiness data from MICROMET\n\n");
 
 	if(times->time==0){
-		printf("Warning: Cloudiness data are not provided, but cloudiness is inferred from shortwave radiation\n");
-		f=fopen(files->co[ferr]+1,"a");
-		fprintf(f,"Warning: Cloudiness data are not provided, but cloudiness is inferred from shortwave radiation\n");
-		fclose(f);
-
-		f=t_fopen(join_strings(files->co[I_METEO_CLOUDCOVER]+1,textfile),"w");
+		f=t_fopen(join_strings(WORKING_DIRECTORY,"ii_clouds.txt"),"w");
 		//fprintf(f,"Daily cloud cover inferred by shortwave radiation measurements\n");
-		fprintf(f,"time;date;alpha;direction;sin(alpha);SWmeas;SWmax;kd;tau_atm;tau_cloud;fcloud;SWcorr;\n");
+		fprintf(f,"time;date;alpha;direction;sin(alpha);fcloud;tau_cloud\n");
 		t_fclose(f);
+	}
 
-		cloud_p_t=0.0;
-		cloud_p_v=0.5;
-		need_cloud_next_day=1;
+}else{ /* Micromet for SW switched off */
 
-		if(met->column[met->nstsrad-1][iRh]==-1) printf("WARNING: No RH data for the radiation station\n");
-		if(met->column[met->nstsrad-1][iT]==-1) printf("WARNING: No T data for the radiation station\n");
-		if(met->column[met->nstsrad-1][iPt]==-1) printf("WARNING: No precipitation data for the radiation station\n");
+	if( met->column[met->nstcloud-1][iC]!=-1 || met->column[met->nstsrad-1][itauC]!=-1){ /* at least one station has data on cloudiness or SW*/
+
+		if(times->time==0) printf("\nCloudiness data AVAILABLE\n\n");
+
+		if(met->column[met->nstcloud-1][itauC]!=-1){/* cloudiness file available */
+			tau_cloud_av=met->var[met->nstcloud-1][met->column[met->nstcloud-1][itauC]];
+		}else{
+			fcloud=met->var[met->nstcloud-1][met->column[met->nstcloud-1][iC]];
+			if(fcloud>1) fcloud=1.0;
+			tau_cloud_av=1.0-0.75*pow(fcloud,3.4);
+		}
+
+	}else{/* no station has data on cloudiness or SW*/
+
+		fcloud=0.5;	//default value in case no data of cloudiness are available
+		tau_cloud_av=1.0-0.75*pow(fcloud,3.4);
+
+		if(times->time==0){
+			printf("Warning: Cloudiness data are not provided. Cloud fraction always set at 0.5!!!!\n");
+			f=fopen(files->co[ferr]+1,"a");
+			fprintf(f,"Warning: Cloudiness data are not provided. Cloud fraction always set at 0.5!!!!\n");
+			fclose(f);
+		}
 
 	}
 
-	cloudiness(met->nstsrad, met, Asurr, egy->hsun, egy->dsun, E0, &tau_atm_st, &need_cloud_next_day, &cloud_p_v, &cloud_p_t, &cloud_n_v, &cloud_n_t, &check_rain_night, times, par, &fcloud);
-
-	if(met->column[met->nstcloud-1][iC]!=-1){
-		fcloud=met->var[met->nstcloud-1][met->column[met->nstcloud-1][iC]];
-		if(fcloud>1) fcloud=1.0;
+	if( (met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1))  ){
+		if(egy->hsun>0) find_tau_cloud_station(met->nstcloud, met, par, egy->hsun, E0, Asurr, met->st->sky->co[met->nstsrad], &tau_cloud, &sa);
+	}else{
+		tau_cloud=tau_cloud_av;
 	}
-
-}else if( (par->micromet2!=1 || par->micromet3!=1) && (met->column[met->nstcloud-1][iC]!=-1) ){
-
-	fcloud=met->var[met->nstcloud-1][met->column[met->nstcloud-1][iC]];
-	if(fcloud>1) fcloud=1.0;
-
-
-}else{
-
-	if(times->time==0){
-		printf("Warning: Cloudiness data are not provided, neither are shortwave radiation data. Cloud fraction always set at 0.5!!!!\n");
-		f=fopen(files->co[ferr]+1,"a");
-		fprintf(f,"Warning: Cloudiness data are not provided, neither are shortwave radiation data. Cloud fraction always set at 0.5!!!!\n");
-		fclose(f);
-	}
-
-	fcloud=0.5;	//default value in case no data of cloudiness are available
-
 }
 
 
@@ -221,11 +275,11 @@ if( (par->micromet2!=1 || par->micromet3!=1) && (met->column[met->nstsrad-1][iSW
 for(r=1;r<=Nr;r++){
 	for(c=1;c<=Nc;c++){
 
-        if(top->Z0->co[r][c]!=NoV){//if the pixel is not a novalue
+        if(land->LC->co[r][c]!=NoV){//if the pixel is not a novalue
 
 			//value used to calculate soil characteristics
 			sy=sl->type->co[r][c];
-			lu=land->use->co[r][c];
+			lu=(short)land->LC->co[r][c];
 
 			//INITIALIZATION
 			//Sr=sublimation rate Er=evaporation rate Mr=melting rate [mm/s]
@@ -235,10 +289,10 @@ for(r=1;r<=Nr;r++){
 			//initial condition
 			if(times->time==0.0){
 
-				if(par->recover!=1){
-					//snow layer resetting
-					snow_layer_combination(r, c, snow, met->Tgrid->co[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, times->time);
+				//snow layer resetting
+				snow_layer_combination(r, c, snow, met->Tgrid->co[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, times->time);
 
+				if(par->recover!=1){
 					//initial non-dimensional snow age
 					non_dimensionalize_snowage(&(snow->age->co[r][c]), met->Tgrid->co[r][c]);
 
@@ -258,12 +312,16 @@ for(r=1;r<=Nr;r++){
 			if(snowD!=snowD){
 				printf("Novalue in egy balance(a): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
 				write_snow_all(r, c, snow);
+				stop_execution();
 			}
+
 
 			//calculates theta from psi(state variable)
 			for(l=1;l<=Nl;l++){
+				//printf("a) l:%ld P:%f ice:%f\n",l,sl->P->co[l][r][c],sl->thice->co[l][r][c]);
 				theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
 					sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)), par->Esoil);
+				//printf("b) l:%ld P:%f th:%f \n",l,sl->P->co[l][r][c],theta->co[l]);
 			}
 
 			//glacier
@@ -272,102 +330,8 @@ for(r=1;r<=Nr;r++){
 				glacD=DEPTH(r, c, glac->lnum, glac->Dzl);
 			}
 
+
 			//METEOROLOGICAL COMPUTATIONS
-
-			//RH and V
-			if(par->micromet1==1){
-				RHpoint=met->RHgrid->co[r][c];
-				Vpoint=met->Vgrid->co[r][c];
-			}else{
-				RHpoint=met->RH;
-				Vpoint=met->V;
-			}
-
-			if(Vpoint<par->Vmin) Vpoint=par->Vmin;
-			if(RHpoint<0.01*par->RHmin) RHpoint=0.01*par->RHmin;
-
-			//Skin temperature
-			Ts=surface(r, c, ns, ng, snow->T, glac->T, sl->T);
-
-			//RAIN AND SNOW PRECIPITATION [mm]
-			//calculate dew temperature (otherwise replace Tdew with met->Tgrid) to distinguish between rain and snow
-			sat_vap_pressure(&ee,&dee,met->Tgrid->co[r][c],met->Pgrid->co[r][c]);
-			ee=RHpoint*0.622*ee/(met->Pgrid->co[r][c]-0.378*ee);
-			ee=ee*met->Pgrid->co[r][c]/(0.622+ee*0.378);
-			sat_vap_pressure_inv(&Tdew,ee,met->Pgrid->co[r][c]);
-			//convert total precipitation to [mm]
-			wat->total->co[r][c]*=(par->Dt/3600.0);	//from [mm/h] to [mm]
-			//distinguish between rain and snow
-			part_snow(wat->total->co[r][c], &Prain_over, &Psnow_over, Tdew, par->T_rain, par->T_snow);
-			//modify rain and snow using correction factors
-			Prain_over*=par->raincorrfact;
-			Psnow_over*=par->snowcorrfact;
-			wat->total->co[r][c]=Prain_over+Psnow_over;
-			//precipitation reaching sl (in the fraction of the grid surface not covered by canopy)
-			Psoil=(1.0-land->ty->co[lu][jfc])*wat->total->co[r][c];	//below canopy
-
-			//INCIDENT SHORTWAVE RADIATION
-			if(par->micromet2==1){
-				SWbeam=UV->V->co[2];
-				SWdiff=UV->V->co[2];
-				SWin=egy->SWin->co[r][c];
-				cosinc=cos(top->slopes->co[r][c])*sin(egy->hsun)+sin(top->slopes->co[r][c])*cos(egy->hsun)*cos(-top->aspect->co[r][c]+egy->dsun);
-			}else{
-				tau_atm=atm_transmittance(egy->hsun, met->Pgrid->co[r][c], RHpoint, met->Tgrid->co[r][c], Asurr, par->Vis, par->Lozone);
-				shortwave_radiation(r, c, egy->hsun, egy->dsun, E0, land->shadow->co[r][c], top->sky->co[r][c], fcloud, top->slopes->co[r][c],
-									top->aspect->co[r][c], tau_atm, met->var[met->nstsrad-1], met->column[met->nstsrad-1], met->st->sky->co[met->nstsrad], tau_atm_st, Asurr,
-									&SWbeam, &SWdiff, &cosinc, egy->nDt_shadow, egy->nDt_sun);
-				SWin=SWbeam+SWdiff;
-			}
-
-			//ALBEDO
-			tausn=snow->age->co[r][c];
-			albedo(Ts, cosinc, Psnow_over, land->ty->co[lu][jalbedo], snowD, &albedo_value, &tausn, top->pixel_type->co[r][c], egy->hsun, par->aep, par->avo, par->airo,
-					par->Dt, fcloud);
-
-
-			//LONGWAVE RADIATION
-			//soil-snow emissivity
-			if(snowD>10){
-				eps=par->epsilon_snow;
-			}else{
-				eps=land->ty->co[lu][jem];
-			}
-			if(par->micromet3==1){
-				epsa=UV->V->co[2];
-				epsa_max=UV->V->co[2];
-				epsa_min=UV->V->co[2];
-				LWin=egy->LWin->co[r][c];
-			}else{
-				longwave_radiation(par->state_lwrad, ee, met->Tgrid->co[r][c], fcloud, &epsa, &epsa_max, &epsa_min);
-				//from Halberstam and Schieldge (1981)
-				/*if( (par->meteo_stations->co[1][8]-1.0E-3*snowD)/stab2>5 ) epsa=0.95;
-				if( (par->meteo_stations->co[1][8]-1.0E-3*snowD)/stab2>10 ) epsa=0.99;*/
-				Tsurr=Ts;	//Temperature of surrounding surfaces
-				LWin=top->sky->co[r][c]*epsa*SB(met->Tgrid->co[r][c])+(1-top->sky->co[r][c])*eps*SB(Tsurr);
-			}
-
-			//TURBULENT HEAT FLUXES
-			if(snowD>land->ty->co[lu][jz0thres]){
-				z0=par->z0_snow;
-				d0=0.0;
-				z0_z0t=0.0;
-			}else{
-				z0=land->ty->co[lu][jz0];
-				d0=land->ty->co[lu][jd0];
-				z0_z0t=land->ty->co[lu][jz0zt];
-			}
-
-			//correction of measured temperature (Arck and Scherer, 2001)
-			/*for(l=-15;l<=0;l++){
-				if(Vpoint<=0.95){
-					DTcorr=0.0007*(albedo_value*SWin)+(1-0.127*(0.5*pow(Vpoint/0.95,2.0)))*DTcorr;
-				}else{
-					DTcorr=0.0007*(albedo_value*SWin)+(1-0.127*(2*pow(Vpoint/0.95,0.5)-1.5))*DTcorr;
-				}
-			}
-			if(DTcorr<0) DTcorr=0.0;
-			met->Tgrid->co[r][c]-=DTcorr;*/
 
 			//temperature and wind velocity measurement heights
 			zmeas_u=met->st->Vheight->co[1]-1.0E-3*snowD;
@@ -377,33 +341,119 @@ for(r=1;r<=Nr;r++){
 			if(zmeas_u<0.1) zmeas_u=0.1;
 			if(zmeas_T<0.1) zmeas_T=0.1;
 
-			turbulent_fluxes(r, c, zmeas_u, zmeas_T,  z0, d0, z0_z0t, Vpoint, met->Pgrid->co[r][c], RHpoint, met->LapseRate, met->Tgrid->co[r][c],
-							 Ts, &H, &E, &dH_dT, &dE_dT, &r_v, &rho_air, &Qa, turbulence, par);
-
-			//EVAPOTRANSPIRATION
-			evaporation_soil(fmax(ns,ng), E, dE_dT, theta->co[1], sl->pa->co[sy][jres][1], sl->pa->co[sy][jsat][1], r_v, Ts, &Rge, &LEs, &dLEs_dT, &evap_c, &drip_c, &maxstorage_c,
-				&Epc, &dEpc_dT, &fec, &ftc, ftcl, &LEc, &dLEc_dT);
-
-			if(land->ty->co[lu][jfc]>0){
-				root(land->ty->co[lu][jroot], sl->pa->co[sy][jdz], froot->co);
-				evaporation_canopy(r, c, wat->total->co[r][c], theta->co, r_v, rho_air, met->Tgrid->co[r][c], met->Tgrid->co[r][c], Qa, met->Pgrid->co[r][c], SWin,
-					land->LAI->co[sy], land->ty->co[lu], froot->co, &(wat->wt->co[r][c]), &LEc, &dLEc_dT, &evap_c, &drip_c, &maxstorage_c, &Epc, &dEpc_dT, &fec, &ftc,
-					ftcl->co, par);
-					//precipitation reaching soil(in the fraction of the grid surface covered by canopy)
-					Psoil+=land->ty->co[lu][jfc]*drip_c;
+			//RH and V
+			if(par->micromet1==1){
+				RHpoint=met->RHgrid->co[r][c];//+0.15;
+				if(RHpoint>1) RHpoint=1.0;
+				Vpoint=met->Vgrid->co[r][c];
+			}else{
+				RHpoint=met->RH;
+				Vpoint=met->V;
 			}
 
-			//latent heat flux
-			LE=(1-land->ty->co[lu][jfc])*LEs + land->ty->co[lu][jfc]*LEc;
-			dLE_dT=(1-land->ty->co[lu][jfc])*dLEs_dT + land->ty->co[lu][jfc]*dLEc_dT;
+			if(Vpoint<par->Vmin) Vpoint=par->Vmin;
+			if(RHpoint<0.01*par->RHmin) RHpoint=0.01*par->RHmin;
+			snow->rho_newsnow->co[r][c]=rho_newlyfallensnow(Vpoint, met->Tgrid->co[r][c], Tfreezing);
 
+
+			//RAIN AND SNOW PRECIPITATION [mm]
+			//calculate dew temperature (otherwise replace Tdew with met->Tgrid) to distinguish between rain and snow
+			sat_vap_pressure(&ee,&dee,met->Tgrid->co[r][c],met->Pgrid->co[r][c]);
+			Qa=RHpoint*spec_humidity(ee, met->Pgrid->co[r][c]);
+			ee=Qa*met->Pgrid->co[r][c]/(0.622+Qa*0.378);
+			sat_vap_pressure_inv(&Tdew,ee,met->Pgrid->co[r][c]);
+			//convert total precipitation to [mm]
+			wat->total->co[r][c]*=(par->Dt/3600.0);	//from [mm/h] to [mm]
+			//distinguish between rain and snow
+			part_snow(wat->total->co[r][c], &Prain_over, &Psnow_over, Tdew, par->T_rain, par->T_snow);
+			//modify rain and snow using correction factors
+			Prain_over*=par->raincorrfact;
+			Psnow_over*=par->snowcorrfact;
+			wat->total->co[r][c]=Prain_over+Psnow_over;
+			//precipitation reaching soil below canopy
+			Psoil=(1.0-fc)*wat->total->co[r][c];
 			//rough partition of precipitation reaching the sl (below canopy) in rain and snow
 			part_snow(Psoil, &Prain, &Psnow, Tdew, par->T_rain, par->T_snow);
 			wat->Psnow->co[r][c]=Psnow;
 
+
+			//SHORTWAVE RADIATION
+			//initialization of shortwave radiation absorbed by soil
+			SW=0.0;
+
+			if(par->micromet2==1){/* Use Micromet for SWin */
+				fcloud=met->CFgrid->co[r][c];
+				tau_cloud_av=1.0-0.75*pow(fcloud,3.4);
+				tau_cloud=tau_cloud_av;
+				if(r==par->rc->co[1][1] && c==par->rc->co[1][2]){
+					f=fopen(join_strings(WORKING_DIRECTORY,"ii_clouds.txt"),"a");
+					if(times->mm>=10){
+						fprintf(f,"%f;%ld/%ld/%ld %ld:%ld;%f;%f;%f;%f;%f\n",times->time,times->DD,times->MM,times->AAAA,times->hh,times->mm,egy->hsun*180.0/Pi,egy->dsun*180.0/Pi,
+							sin(egy->hsun),fcloud,tau_cloud_av);
+					}else{
+						fprintf(f,"%f;%ld/%ld/%ld %ld:0%ld;%f;%f;%f;%f;%f\n",times->time,times->DD,times->MM,times->AAAA,times->hh,times->mm,egy->hsun*180.0/Pi,egy->dsun*180.0/Pi,
+							sin(egy->hsun),fcloud,tau_cloud_av);
+					}
+					fclose(f);
+				}
+			}
+
+			//calculation of SWin
+			tau_atm=atm_transmittance(egy->hsun, met->Pgrid->co[r][c], RHpoint, met->Tgrid->co[r][c], Asurr, par->Vis, par->Lozone);
+			shortwave_radiation(r, c, egy->hsun, egy->dsun, E0, land->shadow->co[r][c], top->sky->co[r][c], tau_cloud, sa, top->slopes->co[r][c],
+				top->aspect->co[r][c], tau_atm, met->var[met->nstsrad-1], met->column[met->nstsrad-1], met->st->sky->co[met->nstsrad],  Asurr, &SWbeam, &SWdiff,
+				&cosinc, egy->nDt_shadow, egy->nDt_sun);
+			SWin=SWbeam+SWdiff;
+
+			//albedo
+			if(snowD>0){
+				update_snow_age(Psnow_over, snow->T->co[ns][r][c], par->Dt, &(snow->age->co[r][c]));
+				avis_b=snow_albedo(land->ty->co[lu][ja_vis], snowD, par->aep, par->avo, 0.2, snow->age->co[r][c], cosinc, (*Fzen));
+				avis_d=snow_albedo(land->ty->co[lu][ja_vis], snowD, par->aep, par->avo, 0.2, snow->age->co[r][c], cosinc, (*Zero));
+				anir_b=snow_albedo(land->ty->co[lu][ja_nir], snowD, par->aep, par->airo, 0.5, snow->age->co[r][c], cosinc, (*Fzen));
+				anir_d=snow_albedo(land->ty->co[lu][ja_nir], snowD, par->aep, par->airo, 0.5, snow->age->co[r][c], cosinc, (*Zero));
+			}else{
+				avis_b=land->ty->co[lu][ja_vis];
+				avis_d=land->ty->co[lu][ja_vis];
+				anir_b=land->ty->co[lu][ja_nir];
+				anir_d=land->ty->co[lu][ja_nir];
+			}
+			//shortwave absorbed by soil (when vegetation is not present)
+			SW+=( SWdiff*(1.0-0.5*avis_d-0.5*anir_d) + SWbeam*(1.0-0.5*avis_b-0.5*anir_b) );
+
+			//correct in case of reading data
+			SW=flux(1, iSWn, met->column, met->var, 1.0, SW);
+
+			//Extinction coefficient for SW in the snow layers
+			rad_snow_absorption(r, c, SWabsf, SW, snow);
+			set_shallow_snowpack(r, c, par->Dt, snow, SWabsf->co, &Mr_snow, &ns);
+
+
+			//LONGWAVE RADIATION
+			//soil-snow emissivity
+			if(snowD>10){
+				eps=par->epsilon_snow;
+			}else{
+				eps=land->ty->co[lu][jemg];
+			}
+			if(par->micromet3==1){/* Use Micromet for LWin */
+				epsa=UV->V->co[2];
+				epsa_max=UV->V->co[2];
+				epsa_min=UV->V->co[2];
+				LWin=egy->LWin->co[r][c];
+			}else{
+				longwave_radiation(par->state_lwrad, ee, RHpoint, met->Tgrid->co[r][c], tau_cloud_av, &epsa, &epsa_max, &epsa_min);
+				Tsurr=surface(r, c, ns, ng, snow->T, glac->T, sl->T);	//Temperature of surrounding surfaces
+				LWin=top->sky->co[r][c]*epsa*SB(met->Tgrid->co[r][c])+(1-top->sky->co[r][c])*eps*SB(Tsurr);
+			}
+			//if incoming LW data are available, they are used (priority)
+			LWin=flux(met->nstlrad, iLWi, met->column, met->var, 1.0, LWin);
+
+			//roughness lengths
+			update_roughness_soil(land->ty->co[lu][jz0soil], 0.0, 0.0, snowD, land->ty->co[lu][jz0thressoil], par->z0_snow, &z0, &d0, &z0_z0t);
+
 			//SOIL AND SNOW PROPERTIES
-			soil_properties(r, c, ns+ng+1, ns+ng+Nl, theta->co, sl->thice->co, D->co, wliq->co, wice->co, k_thermal->co, c_heat->co,
-							Temp->co, sl);
+			soil_properties(r, c, ns+ng+1, ns+ng+Nl, theta->co, sl->thice->co, D->co, wliq->co, wice->co, k_thermal->co, c_heat->co, Temp->co, sl);
 
 			if(ns>0) snow_properties(r, c, 1, ns, D->co, wliq->co, wice->co, k_thermal->co, c_heat->co, Temp->co, snow->Dzl->co, snow->w_liq->co,
 							snow->w_ice->co, snow->T->co, (*k_thermal_snow_Sturm));
@@ -413,96 +463,20 @@ for(r=1;r<=Nr;r++){
 
 			k_interface(ns+ng+Nl, k_thermal->co, D->co, k_thermal_interface->co);
 
-			//ENERGY FLUXES AT THE ATMOSPHERE INTERFACE
+			//ENERGY BALANCE
+			PointEnergyBalance(r, c, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, met->Tgrid->co[r][c], Qa, met->Pgrid->co[r][c], met->LapseRate,
+				eps, fc, LAI, wat->wt->co[r][c], fwet, fsnowcan, theta->co, land->ty->co[lu], froot->co, par, ftcl, turbulence, SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E,
+				&LWv, &Hv, &Ev, &Evt, &(sl->Tv->co[r][c]), &Ts, &Qs, sy, sl, Hadv, SWabsf->co, times->time, par->Dt, k_thermal->co, c_heat->co, D->co, wice->co, wliq->co,
+				snow->type->co[r][c], deltaw->co, Temp->co, &Hg0, &Hg1, &Eg0, &Eg1);
 
-			H=flux(1, iH, met->column, met->var, 1.0, H);
-			dH_dT=flux(1, iH, met->column, met->var, 0.0, dH_dT);
+			rb=0.0; rc=0.0; rh_ic=0.0; rv_ic=0.0;
+			EnergyFluxes(Temp->co[1], r, c, ns+ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, met->Tgrid->co[r][c], Qa, met->Pgrid->co[r][c], met->LapseRate,
+				sl->P->co[1][r][c], sl->thice->co[1][r][c], eps, fc, LAI, wat->wt->co[r][c], fwet, fsnowcan, theta->co, sl->pa->co[sy], land->ty->co[lu], froot->co, par, ftcl,
+				turbulence, SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &dH_dT, &E, &dE_dT, &LWv, &Hv, &Ev, &Evt, &(sl->Tv->co[r][c]), &Qv, &Ts, &Qs, cont, &Hg0, &Hg1, &Eg0, &Eg1, &rh,
+				&rv, &rc, &rb, &rh_ic, &rv_ic, &Qg);
 
-			LE=flux(1, iLE, met->column, met->var, 1.0, LE);
-			dLE_dT=flux(1, iLE, met->column, met->var, 0.0, dLE_dT);
-
-			SWin=flux(1, iSWi, met->column, met->var, 1.0, SWin);
-			SWout=flux(1, iSWo, met->column, met->var, 1.0, SWin*albedo_value);
-
-			LWin=flux(met->nstlrad, iLWi, met->column, met->var, 1.0, LWin);
-			LWout=flux(1, iLWo, met->column, met->var, 1.0, eps*SB(Ts));
-			dLWout_dT=flux(1, iLWo, met->column, met->var, 0.0, eps*dSB_dT(Ts));
-
-			//Extinction coefficient for SW in the snow layers
-			rad_snow_absorption(r, c, SWabsf, SWin-SWout, snow);
-
-			//surface egy flux (shortwave radiation not included)
-			surfEB=eps*LWin-LWout - H - LE;
-			dsurfEB_dT=-dLWout_dT -dH_dT -dLE_dT;
-
-			//Advection
-			Hadv=0.0;
-			if(snow->Dzl->co[1][r][c]>0 || (snow->Dzl->co[1][r][c]==0 && (egy->Hgrid->co[r][c]<=0 || egy->Tsgrid->co[r][c]<=Tfreezing))){
-				if(egy->VSFA!=1.0) Hadv=egy->HSFA*egy->VSFA*adv_efficiency(egy->VSFA)/(1.0-egy->VSFA);
-				if(Hadv>egy->HSFA) Hadv=egy->HSFA;
-				cont++;
-			}
-			surfEB+=Hadv;
-
-			//Find errors
-			if(dsurfEB_dT!=dsurfEB_dT){
-				printf("NOvalue in egy balance1 : r:%ld c:%ld surfEB:%f dsurfEB_dT:%f dLWout_dT:%f dH_dT:%f dLE_dT:%f\n",r,c,surfEB,dsurfEB_dT,dLWout_dT,dH_dT,dLE_dT);
-				stop_execution();
-			}
-
-			if(surfEB!=surfEB){
-				printf("NOvalue in egy balance2 : r:%ld c:%ld surfEB:%f SWin:%f SWout:%f albedo:%f Ts:%f LWin:%f eps:%f LWout:%f H:%f LE:%f LEs:%f LEc:%f\n",r,c,surfEB,SWin,SWout,albedo_value,Ts,LWin,eps,LWout,H,LE,LEs,LEc);
-				printf("SW(1-a):%f SWabs:%f\n",surfEB,SWabsf->co[1]);
-				write_snow_all(r,c,snow);
-				stop_execution();
-			}
-
-			if(fabs(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))>1500){
-				f=fopen(files->co[ferr]+1,"a");
-				fprintf(f,"\ntime=%10.1f r=%4ld c=%4ld Rn=%10.3f Rsw=%10.3f Rlwdiff=%10.3f albedo=%10.8f eps=%10.8fTa=%10.5f Ts=%10.5f Rsw_meas=%f sin(alpha)=%f cos(inc)=%f\n",
-					times->time,r,c,SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)),SWin,LWin,albedo_value,
-					eps,met->Tgrid->co[r][c],Ts,met->var[0][iSW],sin(egy->hsun),cosinc);
-				printf("ERROR: r:%ld c:%ld surfEB:%f SWin:%f SWout:%f albedo:%f Ts:%f LWin:%f eps:%f LWout:%f H:%f LE:%f LEs:%f LEc:%f\n",r,c,surfEB,SWin,SWout,albedo_value,Ts,LWin,eps,LWout,H,LE,LEs,LEc);
-				printf("ERROR: r:%ld c:%ld surfEB:%f dsurfEB_dT:%f dLWout_dT:%f dH_dT:%f dLE_dT:%f\n",r,c,surfEB,dsurfEB_dT,dLWout_dT,dH_dT,dLE_dT);
-				write_snow_all(r,c,snow);
-				//stop_execution();
-			}
-
-			//Too shallow snow layers can give numerical instabilities. Just get rid of them  at the beginning if there is enough energy
-			if(snow->type->co[r][c]==1){
-				if(surfEB+SWabsf->co[1]>Lf*wice->co[1]){
-
-					Mr_snow=wice->co[1]/par->Dt; //[mm/h]
-					snow->w_ice->co[1][r][c]=0.0;
-					snow->w_liq->co[1][r][c]=0.0;
-					snow->T->co[1][r][c]=-99.0;
-					snow->Dzl->co[1][r][c]=0.0;
-					snow->lnum->co[r][c]=0;
-					snow->type->co[r][c]=0;
-
-					SWabsf->co[1]-=Lf*wice->co[1];
-					for(l=2;l<=ns+ng+Nl;l++){
-						k_thermal_interface->co[l-1]=k_thermal_interface->co[l];
-						c_heat->co[l-1]=c_heat->co[l];
-						D->co[l-1]=D->co[l];
-						Temp->co[l-1]=Temp->co[l];
-						wice->co[l-1]=wice->co[l];
-						wliq->co[l-1]=wliq->co[l];
-					}
-					ns=0;
-				}
-			}
-
-			SolveEB(ns+ng, Nl, par->Dt, surfEB, dsurfEB_dT, SWabsf, ns+1, land->ty->co[lu][jGbottom], k_thermal_interface->co, c_heat->co, D->co,
-					Temp->co, deltaw->co, wice->co, wliq->co, snow->type->co[r][c], met->Tgrid->co[r][c], sl, r, c, times->time, par);
-
-			//THERMAL FLUX UPDATE
-			H+=dH_dT*(Temp->co[1]-Ts);
-			LE+=dLE_dT*(Temp->co[1]-Ts);
-			E+=dE_dT*(Temp->co[1]-Ts);
-			Epc+=dEpc_dT*(Temp->co[1]-Ts);
-			LWout=flux(1, iLWo, met->column, met->var, 1.0, eps*SB(Temp->co[1]));
-			surfEB=SWin-SWout + eps*LWin-LWout - H - LE + Hadv;
+			LE=E*latent(Temp->co[1],Levap(Temp->co[1]));
+			surfEB=SW + LW  - H - LE;
 
 			if(ns==0){
 				G=surfEB;
@@ -511,7 +485,14 @@ for(r=1;r<=Nr;r++){
 			}
 
 			//UPDATE SNOW AND SOIL PROPERTIES
-			evaporation(r,c,ns+ng, E, Rge, wice->co, wliq->co, D->co, par->Dt, &Sr_snow, &Er_snow, &Er_soil);
+
+			for(l=1;l<=Nl+ns+ng;l++){
+				if(wliq->co[l]!=wliq->co[l]) printf("%ld %ld wliq error 1\n",r,c);
+				if(wice->co[l]!=wice->co[l]) printf("%ld %ld wice error 1\n",r,c);
+			}
+
+			if(E!=E) printf("E error 2\n");
+			evaporation(r,c, ns+ng, E, wice->co, wliq->co, D->co, par->Dt, &Sr_snow, &Er_snow, &Er_soil);
 			if(ng>0){
 				Sr_glac=Sr_snow;
 				Er_glac=Er_snow;
@@ -519,13 +500,16 @@ for(r=1;r<=Nr;r++){
 				Er_snow=0.0;
 			}
 
-			update_soil(ng+ns+Nl, r, c, sl, Temp->co, deltaw->co, wice->co, theta->co, land->ty->co[lu][jfc], ftcl->co, Epc, Er_soil, par);
+			for(l=1;l<=Nl+ns+ng;l++){
+				if(wliq->co[l]!=wliq->co[l]) printf("%ld %ld wliq error 2\n");
+				if(wice->co[l]!=wice->co[l]) printf("%ld %ld wice error 2\n");
+			}
+
+			update_soil(ng+ns+Nl, r, c, sl, Temp->co, deltaw->co, wice->co, theta->co, ftcl->co, Evt, Er_soil, par);
 
 			liqWBsnow(r, c, snow, &Mr_snow, &Prain_on_snow, par, top->slopes->co[r][c], Prain, wice->co, wliq->co, Temp->co);
-
-			snow->rho_newsnow->co[r][c]=rho_newlyfallensnow(Vpoint, met->Tgrid->co[r][c], Tfreezing);
-
 			iceWBsnow(r, c, snow, Psnow, met->Tgrid->co[r][c]);
+			snow_layer_combination(r, c, snow, met->Tgrid->co[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, times->time);
 
 			if(par->glaclayer_max>0){
 				WBglacier(snow->lnum->co[r][c], r, c, glac, &Mr_glac, par, wice->co, wliq->co, Temp->co);
@@ -534,67 +518,47 @@ for(r=1;r<=Nr;r++){
 				ng=glac->lnum->co[r][c];
 			}
 
-			snow_layer_combination(r, c, snow, met->Tgrid->co[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, times->time);
-			ns=snow->lnum->co[r][c];
-
-			Ts=surface(r, c, ns, ng, snow->T, glac->T, sl->T);
-			if(Ts!=Ts){
-				printf("NOvalue in egy balance3: r:%ld c:%ld ns:%ld ng:%ld Ts:%f\n",r,c,ns,ng,Ts);
+			snowD=DEPTH(r, c, snow->lnum, snow->Dzl);
+			if(snowD!=snowD){
+				printf("Novalue in egy balance: r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
+				write_snow_all(r, c, snow);
 				stop_execution();
 			}
 
-			snowD=DEPTH(r, c, snow->lnum, snow->Dzl);
-			if(snowD!=snowD){
-				printf("Novalue in egy balance(b): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
-				write_snow_all(r, c, snow);
-			}
+
+			//NET PRECIPITATION
+			wat->Pn->co[r][c] = Mr_glac + Prain/par->Dt + Mr_snow;
+
 
 			//OUTPUT DATA
 			prepare_output(Er_soil, Mr_snow, Er_snow, Sr_snow, Mr_glac, Er_glac, Sr_glac, Prain, Psnow_over, egy, wat, snow, glac, land, top, sl, met, times,
-				par, r, c, tausn, albedo_value, LE, surfEB, H, G, Ts, SWin, SWbeam, eps, LWin, egy->hsun, cosinc);
+				par, r, c, 0.25*(avis_d+anir_d+avis_b+anir_b), LE, surfEB, H, G, Temp->co[1], SWin, SWin-SW, SWbeam, eps, LWin, cosinc);
 
-			output_pixel(r, c, Psnow, Prain-Prain_on_snow, Prain_on_snow, Sr_soil, Er_soil, Mr_snow, Er_snow, Sr_snow, Mr_glac, Er_glac, Sr_glac, Epc, fec, ftc, LE, H,
-				surfEB, G, Ts, albedo_value, eps, LWin, SWin, LWout, SWout, epsa, epsa_min, epsa_max, SWbeam, SWdiff, DTcorr, Tdew, times->n_pixel, turbulence, par,
-				wat, egy, top, met, snow, glac, land, Vpoint, RHpoint, Psnow_over, Prain_over, maxstorage_c, evap_c, drip_c, z0, d0);
+			output_pixel(r, c, Psnow, Prain-Prain_on_snow, Prain_on_snow, Sr_soil, Er_soil, Mr_snow, Er_snow, Sr_snow, Mr_glac, Er_glac, Sr_glac, Evt, LE, H,
+				surfEB, G, Temp->co[1], 0.25*(avis_d+anir_d+avis_b+anir_b), eps, LAI, LWin, SWin, LWin-LW, SWin-SW, epsa, epsa_min, epsa_max, SWbeam, SWdiff, DTcorr, Tdew,
+				times->n_pixel, turbulence, par, wat, egy, top, met, snow, glac, land, Vpoint, RHpoint, Psnow_over, Prain_over, maxstorage_c, evap_c, drip_c, z0, d0,
+				(SWv_vis+SWv_nir), LWv, fc*Hv, fc*Levap(sl->Tv->co[r][c])*Ev, sl->Tv->co[r][c], Ts, Hg0, Hg1, Eg0, Eg1, fc, rh, rv, rb, rc, rh_ic, rv_ic, Hv,
+				Levap(sl->Tv->co[r][c])*Ev, Qv, Qg, Qa, Qs);
 
-			output_basin(Prain, Psnow, Ts, Er_soil, Sr_soil, Epc, fec, ftc, LE, H, surfEB, 0, SWin, LWin, albedo_value, eps, top->sky->co[r][c], par->Dt,
-				times->n_basin, wat->out2->co, egy->out2->co);
+			output_basin(times->n_basin, Prain, Psnow, met->Tgrid->co[r][c], Temp->co[1], sl->Tv->co[r][c], Er_soil+Sr_soil, Evt, Ev-Evt, LE, H, SW, LW, fc*Levap(sl->Tv->co[r][c])*Ev,
+				fc*Hv, fc*(SWv_vis+SWv_nir), fc*LWv, SWin, wat->out2->co, egy->out2->co, times->Dt);
 
-			if(par->ES_num>0) output_altrank(par->ES_num, Prain, Psnow, Ts, Er_soil, Sr_soil, Epc, fec, ftc, LE, H, surfEB, 0, SWin, LWin, albedo_value, eps,
-				top->sky->co[r][c], wat->Pn->co[r][c], wat->Pn->co[r][c]-sl->Jinf->co[r][c], Er_snow, Sr_snow, Mr_snow, Er_glac, Sr_glac, Mr_glac, par->Dt,
-				times->n_basin, top->Z0->co[r][c], top->Zmin, top->Zmax, glacD, par->glac_thr, egy->out3->co);
+			if(par->ES_num>0) output_altrank(par->ES_num, Prain, Psnow, Temp->co[1], Er_soil, Sr_soil, Evt, Ev-Evt, LE, H, surfEB, SWin, SWin-SW, LWin, eps,
+				top->sky->co[r][c], wat->Pn->co[r][c], wat->Pn->co[r][c]-sl->Jinf->co[r][c], Er_snow, Sr_snow, Mr_snow, Er_glac, Sr_glac, Mr_glac, par->Dt, times->n_basin,\
+				top->Z0->co[r][c], top->Zmin, top->Zmax, glacD, par->glac_thr, egy->out3->co);
 
-			output_map_plots(r, c, par, times->time, times->n_plot, egy, met, snow, H, LE, SWin, SWout, LWin, LWout, Ts);
+			output_map_plots(r, c, par, times->time, times->n_plot, egy, met, snow, H, LE, fc*Hv, fc*Levap(sl->Tv->co[r][c])*Ev, SWin, SW, fc*(SWv_vis+SWv_nir), LWin, LW, fc*LWv, Ts,
+				Temp->co[1], sl->Tv->co[r][c]);
 
-			//ERROR WRITING
-			if(surfEB!=surfEB){
-				f=fopen(files->co[ferr]+1,"a");
-				fprintf(f,"\nNOVALUE in ENERGY BALANCE, cell r=%4ld c=%4ld time=%10.3f",r,c,times->time);
-				fclose(f);
-			}
-
-			egy->Hgrid->co[r][c]=H;
-			egy->Tsgrid->co[r][c]=Ts;
+			egy->Hgrid->co[r][c]=H+fc*Hv;
+			egy->Tsgrid->co[r][c]=Temp->co[1];
 
 		}
 	}
 }
 
-//CALCULATE ADVECTION PARAMETERS FROM SNOW FREE TO SNOW COVERED AREA
-if(fabs(cont/(double)par->total_pixel-(1.0-egy->VSFA))>1.0E-5){
-	if(times->time>0) printf("INCONSISTENCY: %f %f\n",cont/(double)par->total_pixel,1.0-egy->VSFA);
-}
-snow_fluxes_H(snow, egy->Tsgrid, egy->Hgrid, top->Z0, met->Tgrid, times, par, &(egy->VSFA), &(egy->HSFA));
-
-//ACCOUNT FOR SNOW WIND TRANSPORT
-if(par->snowtrans==1){
-	get_softsnow(snow, top->Z0->co);
-	call_SnowTrans(times->time, par->Dt, top->Z0, snow, wat->Psnow, liston);
-	set_windtrans_snow(snow, top->Z0->co, met->Tgrid->co, wat->Psnow->co, times->time, par, met);
-}
-
 //PREPARE SNOW OUTPUT
-output_snow(snow, top->Z0->co, par);
+output_snow(snow, land->LC->co, par);
 
 //DEALLOCATION
 free_doublevector(c_heat);
@@ -654,7 +618,7 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 		if(r==ri && c==ci) printf("l:%ld r:%ld c:%ld thi:%f th:%f P:%f \n",l,r,c,thi,th,P);
 
 		//heat gained(+) or lost(-)
-		Q=(e1->co[l]-e0->co[l])*ct;							//K * J * m^-2 * K^-1 = J * m^-2
+		Q=(e1->co[l]-Tin)*ct;							//K * J * m^-2 * K^-1 = J * m^-2
 
 		//if heat lost
 		if(Q<=0){
@@ -667,7 +631,7 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 				}else{
 					//heat to reach the curve from above
 					dw->co[l]=(theq-th)*A;	//<0
-					if(r==ri && c==ci) printf("case2 :Q:%f dw:%f th:%f theq:%f qadd:%f\n",Q,dw->co[l],th,theq,Lf*dw->co[l]);
+					if(r==ri && c==ci) printf("case2 :Q:%f e1:%f e0:%f ct:%f dw:%f th:%f theq:%f qadd:%f\n",Q,e1->co[l],e0->co[l],ct,dw->co[l],th,theq,Lf*dw->co[l]);
 					Q-=(Lf*dw->co[l]);
 					//move on the curve
 					th1=th+dw->co[l]/A;
@@ -676,7 +640,7 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 					if(r==ri && c==ci) printf("l:%ld case2a) theq:%e thi:%e th:%e h:%e Q:%e dw:%e T:%e\n",l,theq,thi1,th1,h,Q,dw->co[l],Tin);
 					from_internal_soil_energy(r, c, l, h+Q, &th1, &thi1, &(T->co[l]), sl->pa->co[sy], psimin);
 					dw->co[l]+=(th1-theq)*A;
-					if(r==ri && c==ci) printf("l:%ld case2b) thi:%e th:%e T:%e dw:%e theq:%e\n",l,thi1,th1,T->co[l],dw->co[l],teta_psi(Psif2(T->co[l]), 0.0, sat, res, a, n, m, psimin, 1.0));
+					if(r==ri && c==ci) printf("l:%ld case2b) thi:%e th:%e T:%f dw:%e theq:%e\n",l,thi1,th1,T->co[l],dw->co[l],teta_psi(Psif2(T->co[l]), 0.0, sat, res, a, n, m, psimin, 1.0));
 				}
 
 			}else{
@@ -691,7 +655,7 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 					th1=th;
 					thi1=thi;
 					h=internal_energy_soil(th1, thi1, Teq, d, Cs, sat);
-					if(r==ri && c==ci) printf("l:%ld case4a) theq:%f thi:%f th:%f h:%f Q:%f dw:%f T:%f Teq:%f\n",l,theq,thi1,th1,h,Q,dw->co[l],Tin,Teq);
+					if(r==ri && c==ci) printf("l:%ld case4a) e0:%f e1:%f ct(e1-e0):%f theq:%f thi:%f th:%f h:%f Q:%f dw:%f T:%f Teq:%f\n",l,e0->co[l],e1->co[l],ct*(e1->co[l]-e0->co[l]),theq,thi1,th1,h,Q,dw->co[l],Tin,Teq);
 					from_internal_soil_energy(r, c, l, h+Q, &th1, &thi1, &(T->co[l]), sl->pa->co[sy], psimin);
 					dw->co[l]=(th1-th)*A;
 					if(r==ri && c==ci) printf("l:%ld case4b) thi:%f th:%f T:%f dw:%f theq:%f\n",l,thi1,th1,T->co[l],dw->co[l],teta_psi(Psif2(T->co[l]), 0.0, sat, res, a, n, m, psimin, 1.0));
@@ -754,6 +718,8 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 			}
 		}
 
+		//stop_execution();
+
 		/*if(e1->co[l]<=e0->co[l]){
 			if(T->co[l]<e1->co[l]-1.E-5 || T->co[l]>e0->co[l]+1.E-5){
 				printf("ERROR 1 in freezing sl r:%ld c:%ld l:%ld e0:%f e1:%f T:%f dw:%f th:%f thi:%f\n",r,c,l,e0->co[l],e1->co[l],T->co[l],dw->co[l],th,thi);
@@ -780,264 +746,6 @@ void soil_freezing(long l, long r, long c, DOUBLEVECTOR *e0, DOUBLEVECTOR *e1, D
 
 }
 
-
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void cloudinessSWglob(double alpha, double E0, double P, double RH, double T, double SW, double A, double sky, double Vis, double L03, double *fcloud, double *tau_atm, double *kd, double *sa, double *tau_cloud){
-
-	double kd0;
-
-	*tau_atm=atm_transmittance(alpha, P, RH, T, A, Vis, L03);
-	*kd=0.2;
-	*sa=sin(alpha);
-	if(*sa<0.05) *sa=0.05;
-	if(*sa<0.10) *kd=(*kd*(*sa-0.05)+1.0*(0.10-(*sa)))/(0.10-0.05);
-
-	do{
-		kd0=*kd;
-		//SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*A*Isc*T*sin
-		*tau_cloud=(SW/(Isc*E0*(*tau_atm))) / ( (1-(*kd))*(*sa) + sky*(*kd)*(*sa) + (1-sky)*A*(*sa) );
-		*kd=diff2glob((*tau_cloud)*(*tau_atm));
-		if(*sa<0.10) *kd=(*kd*(*sa-0.05)+1.0*(0.10-(*sa)))/(0.10-0.05);
-	}while(fabs(kd0-(*kd))>0.05);
-
-	if(*tau_cloud>=1){
-		*fcloud=0.0;
-	}else{
-		*fcloud=pow((1.0-(*tau_cloud))/0.75,1/3.4);
-		if(*fcloud>1) *fcloud=1.0;
-	}
-
-}
-
-void cloudinessSWdiff(double alpha, double E0, double P, double RH, double T, double SWd, double SWb, double A, double sky, double Vis, double L03, double *fcloud, double *tau_atm, double *kd, double *sa, double *tau_cloud){
-
-	*sa=sin(alpha);
-	if(*sa<0.01) *sa=0.01;
-	*tau_atm=atm_transmittance(alpha, P, RH, T, A, Vis, L03);
-	if(SWd+SWb>0){
-		*kd=SWd/(SWd+SWb);
-		*tau_cloud=(SWd/(Isc*E0*(*tau_atm)*(*sa))) / ( sky*(*kd)+(1-sky)*A );
-	}else{
-		*kd=0.0;
-		*tau_cloud=0.0;
-	}
-
-	if(*tau_cloud>=1){
-		*fcloud=0.0;
-	}else{
-		*fcloud=pow((1.0-(*tau_cloud))/0.75,1/3.4);
-		if(*fcloud>1) *fcloud=1.0;
-	}
-
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void cloudiness(long i, METEO *met, double A, double alpha, double direction, double E0, double *tau_atm, short *need_cloud_next_day,
-		double *cloud_p_v, double *cloud_p_t, double *cloud_n_v, double *cloud_n_t, short *check_rain_night, TIMES *times, PAR *par, double *fcloud){
-
-	short shad_st;
-	double kd, sa, tau_cloud, t_station, P, RH, T, SW;
-	FILE *f;
-	double r2d=180.0/Pi;	//from rad to degree
-
-	if(met->column[i-1][iPs]!=-1){
-		P=met->var[i-1][iPs];
-	}else{
-		P=pressure(met->st->Z->co[i], Pa0, 0.0);
-	}
-
-	if(met->column[i-1][iRh]!=-1){
-		RH=0.01*met->var[i-1][met->column[i-1][iRh]];
-	}else{
-		RH=0.5;
-	}
-
-	if(met->column[i-1][iT]!=-1){
-		T=met->var[i-1][met->column[i-1][iT]];
-	}else{
-		T=0.0;
-	}
-
-	shad_st=shadows_point(met->horizon[i-1], alpha*r2d, direction*r2d, 2.0, 5.0);
-	time_conversion(par->JD0, par->year0, times->time+0.5*par->Dt, met->st->JD0->co[i], met->st->Y0->co[i], &t_station);
-	t_station+=(met->st->ST->co[i]-par->ST)*3600.0;
-
-	if(shad_st==0){	// the met station is NOT in shadow, therefore cloudiness can be trusted
-
-		if(met->column[i-1][iSWb]!=-1 && met->column[i-1][iSWd]!=-1){
-			cloudinessSWdiff(alpha, E0, P, RH, T, met->var[i-1][met->column[i-1][iSWd]], met->var[i-1][met->column[i-1][iSWb]],  A, met->st->sky->co[i], par->Vis, par->Lozone, fcloud, tau_atm, &kd, &sa, &tau_cloud);
-		}else if(met->column[i-1][iSW]!=-1){
-			cloudinessSWglob(alpha, E0, P, RH, T, met->var[i-1][met->column[i-1][iSW]], A, met->st->sky->co[i], par->Vis, par->Lozone, fcloud, tau_atm, &kd, &sa, &tau_cloud);
-		}else{
-			t_error("Cannot calculate cloudiness, either SWglobal, or both SWdirect and SWdiffuse are required");
-		}
-
-		*need_cloud_next_day=1;// during the day we trust the cloudiness and set nee_cloud_next_day=1 so at sunset it calls the routine check_clouds_nextday()
-		*check_rain_night=0;
-
-		*cloud_p_v=*fcloud; // record the cloud value
-		*cloud_p_t=t_station; // record the time value
-
-	}else{
-
-		if(alpha>0){
-			if(met->column[i-1][iSWb]!=-1 && met->column[i-1][iSWd]!=-1){
-				cloudinessSWdiff(alpha, E0, P, RH, T, met->var[i-1][met->column[i-1][iSWd]], met->var[i-1][met->column[i-1][iSWb]],  A, met->st->sky->co[i], par->Vis, par->Lozone, fcloud, tau_atm, &kd, &sa, &tau_cloud);
-			}else if(met->column[i-1][iSW]!=-1){
-				cloudinessSWglob(alpha, E0, P, RH, T, met->var[i-1][met->column[i-1][iSW]], A, met->st->sky->co[i], par->Vis, par->Lozone, fcloud, tau_atm, &kd, &sa, &tau_cloud);
-			}else{
-				t_error("Cannot calculate cloudiness, either SWglobal, or both SWdirect and SWdiffuse are required");
-			}
-		}else{
-			kd=0.0;sa=0.0;tau_cloud=0.0;*tau_atm=0.0;
-		}
-
-		if(*need_cloud_next_day==1)  {// sun near to sunset: go to find the next value of cloud for the next morning
-			// function that goes forward in time to find the nearest reliable cloud value and records the respective time and cloud value
-			// now we know the cloudiness of the next day, therefore we don't have to do again this loop
-			check_clouds_nextday(t_station, i, met->st, met->column, met->data, cloud_n_t, cloud_n_v, check_rain_night, A, met->horizon[i-1], 2.0, 5.0, par); // now we know the cloudiness of the next day, therefore we don't have to do again this loop
-			*need_cloud_next_day=0;
-		}
-
-		*fcloud=interpolate_function(*cloud_p_t, *cloud_p_v, *cloud_n_t, *cloud_n_v, t_station);
-		if(*check_rain_night==1) *fcloud=1.0; // if during the night it has been raining, than the cloudiness is set to the maximum
-	}
-
-
-	if(met->column[i-1][iSWb]!=-1 && met->column[i-1][iSWd]!=-1){
-		SW=met->var[i-1][met->column[i-1][iSWd]];
-	}else if(met->column[i-1][iSW]!=-1){
-		SW=met->var[i-1][met->column[i-1][iSW]];
-	}
-
-	f=fopen(join_strings(files->co[I_METEO_CLOUDCOVER]+1,textfile),"a");
-	if(times->mm<10){
-		fprintf(f,"%f;%ld/%ld/%ld %ld:0%ld;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f\n",
-				times->time,times->DD,times->MM,times->AAAA,times->hh,times->mm,alpha*180.0/Pi,direction*180.0/Pi,sa,SW,Isc*E0*sa,kd,*tau_atm,tau_cloud,*fcloud,
-				(1.0-0.75*pow(*fcloud,3.4))*(*tau_atm)*Isc*E0*sa);
-	}else{
-		fprintf(f,"%f;%ld/%ld/%ld %ld:%ld;%f;%f;%f;%f;%f;%f;%f;%f;%f;%f\n",
-				times->time,times->DD,times->MM,times->AAAA,times->hh,times->mm,alpha*180.0/Pi,direction*180.0/Pi,sa,SW,Isc*E0*sa,kd,*tau_atm,tau_cloud,*fcloud,
-				(1.0-0.75*pow(*fcloud,3.4))*(*tau_atm)*Isc*E0*sa);
-	}
-	fclose(f);
-
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/* Authors: Matteo Dall'Amico and Stefano Endrizzi, May 2008
- * function that goes forward in time to find the nearest reliable cloud value and records the respective time and cloud value
- * Input:double time_now: time counter that updates to retrieve the first sunny hour
-		 TIMES* times: to have the day and hour
-		 PAR* par
-		 hor_height: matrix with horizon elevation at the met station
-		 DATA_METEOROLOGICAL *data_meteo: met data (radiation, pressure...)
-		 double tol_mount: tolerance over a mountaneous horizon to get a reliable radiation
-		 double tol_flat: tolerance over a flat horizon to get a reliable radiation
-
- * Output: double *cloud_n_t: time when the cloud in the next morning is reliable
- * 		 double *cloud_n_v: cloud value at the next morning
- * 		 short *check_rain: 1: during the night there has been precipitation, 0 otherwise
- * */
-
-void check_clouds_nextday(double t, long i, METEO_STATIONS *stm, long **col, double ***data_meteo, double *cloud_n_t, double *cloud_n_v, short *check_rain_night, double A, double **hor_height,
-						  double tol_mount, double tol_flat, PAR *par)
-{
-
-	double alpha;// sun elevation
-	double azimuth;// solar azimuth
-	double E0; // Earth-Sun distance
-	double tau_atm_st; // trasmittance through the atmosphere
-	short shad_st=1; // 1 if the Meteo Station is in shadow, 0 otherwise
-	double kd, sa, tau_cloud;
-
-	double time_now=stm->Dt->co[i]*ceil(t/stm->Dt->co[i]); //current time
-	long hour, min, day, month, year;
-	double JD;
-
-	long n, ndata=dim2(data_meteo[i-1]);// n:index (1 to ndata) of the met data in the meteo_data matrix
-	long rain_count=0; // counter of rainy times in the night
-	short alarm=0; // 1 if the routine is looking for data beyond the scope of the meteo_data matrix, 0 otherwise
-	double r2d=180.0/Pi;	//from rad to degree
-
-	double P, RH, T;
-
-	do {
-		time_now+=stm->Dt->co[i];
-		n=(long)(time_now/stm->Dt->co[i]);
-		if (n >= ndata) alarm=1;
-		date_time(time_now-0.5*stm->Dt->co[i], stm->Y0->co[i], stm->JD0->co[i], 0.0, &JD, &day, &month, &year, &hour, &min);
-		sun((double)(hour+min/60.0), JD, &alpha, &azimuth, &E0, stm->lat->co[i], stm->lon->co[i], stm->ST->co[i]);
-		if (alpha>0) shad_st=shadows_point(hor_height, alpha*r2d, azimuth*r2d, tol_mount, tol_flat);
-		// find if there is rain in the night
-		if(col[i-1][iPt]!=-1){ if(data_meteo[i-1][n][col[i-1][iPt]]>0.1) rain_count++; }
-	} while (shad_st==1 && alarm==0); // do the loop if the point is in shadow; when it is in sun (shad_Mst=0), exit the loop
-
-	if (rain_count!=0) *check_rain_night=1;
-
-	if (alarm==0) { // we didn't go beyond the matrix of meteo_data
-
-		if(col[i-1][iPs]!=-1){
-			P=data_meteo[i-1][n][col[i-1][iPs]];
-		}else{
-			P=pressure(stm->Z->co[i], Pa0, 0.0);
-		}
-
-		if(col[i-1][iRh]!=-1){
-			RH=0.01*data_meteo[i-1][n][col[i-1][iRh]];
-		}else{
-			RH=0.5;
-		}
-
-		if(col[i-1][iT]!=-1){
-			T=data_meteo[i-1][n][col[i-1][iT]];
-		}else{
-			T=0.0;
-		}
-
-		if(col[i-1][iSWb]!=-1 && col[i-1][iSWd]!=-1){
-			cloudinessSWdiff(alpha, E0, P, RH, T, data_meteo[i-1][n][col[i-1][iSWd]], data_meteo[i-1][n][col[i-1][iSWb]],  A, stm->sky->co[i], par->Vis, par->Lozone, cloud_n_v, &tau_atm_st, &kd, &sa, &tau_cloud);
-		}else if(col[i-1][iSW]!=-1){
-			cloudinessSWglob(alpha, E0, P, RH, T, data_meteo[i-1][n][col[i-1][iSW]], A, stm->sky->co[i], par->Vis, par->Lozone, cloud_n_v, &tau_atm_st, &kd, &sa, &tau_cloud);
-		}else{
-			t_error("Cannot calculate cloudiness, either SWglobal, or both SWdirect and SWdiffuse are required");
-		}
-
-		*cloud_n_t=time_now-stm->Dt->co[i]; // record the time value
-
-	}else{
-
-		*cloud_n_v=0.5; // record the cloud value at the intermediate value
-		*cloud_n_t=time_now-stm->Dt->co[i]; // record the time value
-	}
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-double interpolate_function(double x1, double y1, double x2, double y2, double x)
-// Author: Matteo Dall'Amico, May 2008
-
-{
-	double y;
-	y=y1+(y2-y1)/(x2-x1)*(x-x1);
-	return (y);
-
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1106,11 +814,16 @@ double surface(long r, long c, long ns, long ng, DOUBLETENSOR *snow, DOUBLETENSO
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 void non_dimensionalize_snowage(double *snowage, double Ta){
-
+	/* Author:  Stefano Endrizzi  Year:
+	* Input:	snowage: snow age (days) of the snow on the pixel
+	* 			Ta: air temperature
+	* Output: snowage: new non-dimensionalized snow age
+	* see Stefano Endrizzi PhD thesis, pg.69
+	* comment: Matteo Dall'Amico, May 2009 */
 	double r1, r2, r3;
 
-	r1=exp(5000.0*(1.0/273.16-1.0/(Ta+273.16)));
-	r2=pow(r1,10);
+	r1=exp(5000.0*(1.0/273.16-1.0/(Ta+273.16)));//effect of grain growth due to vapour diffusion
+	r2=pow(r1,10);// additional effect near and at freezing point due to melting and refreezing
 	if(r2>1.0) r2=1.0;
 	r3=0.3;
 
@@ -1123,13 +836,26 @@ void non_dimensionalize_snowage(double *snowage, double Ta){
 /******************************************************************************************************************************************/
 
 void glacier_init_t0(long r, long c, double Ta, GLACIER *glac, SNOW *snow, PAR *par, double time){
-
-	double D, h;
+	/* Author:  Stefano Endrizzi  Year:
+	* function that initializes the glacier column verifying that the first glacier layer is deeper than
+	* the minimum admitted depth. If this is true, than all the mass and energy parameters are then given
+	* to the snow otherwise see glac_layer_combination()
+	* Input:	r: row of the pixel in the raster
+	* 			c: column of the pixel in the raster
+	* 			Ta: air temperature
+	* 		snow:	snow structure
+	* 		glac: glacier structure
+	* 		par: parameter structure
+	* 		time: current time of the simulation
+	* Output: snow and glac modified
+	* comment: Matteo Dall'Amico, May 2009 */
+	double D;
+	double h;// internal energy of the layer
 	long l;
 
 	D=DEPTH(r, c, glac->lnum, glac->Dzl);
 
-	//when glacier depth is too low, glacier becomes a snow layer
+	//when glacier depth is too low, glacier becomes a snow layer and all the mass and internal energy is given to the first glacier layer
 	if(D>0 && D<par->Dmin_glac->co[1]){
 		h=(c_ice*glac->w_ice->co[1][r][c] + c_liq*glac->w_liq->co[1][r][c])*(glac->T->co[1][r][c]-Tfreezing) + Lf*glac->w_liq->co[1][r][c];
 		for(l=2;l<=glac->lnum->co[r][c];l++){
@@ -1144,7 +870,7 @@ void glacier_init_t0(long r, long c, double Ta, GLACIER *glac, SNOW *snow, PAR *
 			glac->w_ice->co[l][r][c]=0.0;
 			glac->T->co[l][r][c]=-99.0;
 		}
-
+		// the mass and internal energy of the glacier layer is then added with that of the snow
 		h+=(c_ice*snow->w_ice->co[1][r][c] + c_liq*snow->w_liq->co[1][r][c])*(snow->T->co[1][r][c]-Tfreezing) + Lf*snow->w_liq->co[1][r][c];
 		snow->Dzl->co[1][r][c]+=glac->Dzl->co[1][r][c];
 		snow->w_ice->co[1][r][c]+=glac->w_ice->co[1][r][c];
@@ -1175,8 +901,8 @@ void glacier_init_t0(long r, long c, double Ta, GLACIER *glac, SNOW *snow, PAR *
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *abs, long nlim, double Gb, double *k, double *C, double *D, double *T, double *dw, double *wi, double *wl,
-			 short snowtype, double Ta, SOIL *sl, long r, long c, double t, PAR *par){
+void SolveEB(long n1, long n2, double dt, double Tg, double h0, double h1, double dhdT, double *SW, long nlim, double Gb, double *k, double *C, double *D, double *T,
+			 double *dw, double *wi, double *wl, short snowtype, double Ta, SOIL *sl, long r, long c, double t, PAR *par){
 
 	//n1: snow (and glacier)
 	//n2: sl
@@ -1187,8 +913,8 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 	double Dcorr;
 	SHORTVECTOR *mf;
 	DOUBLEVECTOR *ad, *ads, *adi, *b, *ad1, *ads1, *adi1, *b1, *e;
-	DOUBLEVECTOR *e0g,*e1g, *dwg, *Tg, *Cg;
-	long ri=0,ci=0;
+	DOUBLEVECTOR *e0g,*e1g, *dwg, *Tsoil, *Cg;
+	long ri=12,ci=13;
 	//FILE *f;
 
 	mf=new_shortvector(n);
@@ -1208,46 +934,43 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 	e0g=new_doublevector(n2);
 	e1g=new_doublevector(n2);
 	dwg=new_doublevector(n2);
-	Tg=new_doublevector(n2);
+	Tsoil=new_doublevector(n2);
 	Cg=new_doublevector(n2);
 
 	Dcorr=D[1];
 	//Dcorr=0.5*(0.5*D->co[1]+CA*(D->co[1]+0.5*D->co[2]));
 
-	ad->co[1]=-dhdT + 2.0*(1-KNe)*k[1]/(D[1]+D[2]) + C[1]*Dcorr/dt;
+	ad->co[1]=-(1.0-KNe)*dhdT + 2.0*(1-KNe)*k[1]/(D[1]+D[2]) + C[1]*Dcorr/dt;
 	ads->co[1]=2.0*(KNe-1)*k[1]/(D[1]+D[2]);
-	b->co[1]=C[1]*Dcorr*T[1]/dt + (h+abs->co[1]) + 2.0*KNe*k[1]*(T[2]-T[1])/(D[1]+D[2]) - dhdT*T[1];
-	if(r==ri && c==ci) printf("B l:%ld b:%f 1:%f 2:%f 3:%f 4:%f\n",1,b->co[1],C[1]*Dcorr*T[1]/dt,(h+abs->co[1]),2.0*KNe*k[1]*(T[2]-T[1])/(D[1]+D[2]),-dhdT*T[1]);
+	b->co[1]=C[1]*Dcorr*T[1]/dt + 2.0*KNe*k[1]*(T[2]-T[1])/(D[1]+D[2]) + SW[1] + KNe*h0 + (1.0-KNe)*(h1-dhdT*Tg);
+	if(r==ri && c==ci) printf("B l:%ld b:%f 1:%f 2:%f 3:%f 4:%f\n", 1, b->co[1], C[1]*Dcorr*T[1]/dt, 2.0*KNe*k[1]*(T[2]-T[1])/(D[1]+D[2]), SW[1]+KNe*h0, (1.0-KNe)*(h1-dhdT*Tg));
 
 	for(l=2;l<=n-1;l++){
 		ad->co[l]=C[l]*D[l]/dt + 2.0*(1-KNe)*k[l-1]/(D[l-1]+D[l]) + 2.0*(1-KNe)*k[l]/(D[l]+D[l+1]);
 		ads->co[l]=2.0*(KNe-1)*k[l]/(D[l]+D[l+1]);
 		adi->co[l-1]=ads->co[l-1];	//la matrice e' simmetrica
 		b->co[l]=C[l]*D[l]*T[l]/dt - 2.0*KNe*k[l-1]*(T[l]-T[l-1])/(D[l-1]+D[l]) + 2.0*KNe*k[l]*(T[l+1]-T[l])/(D[l]+D[l+1]);
-		if(l<=nlim) b->co[l]+=abs->co[l];
-		if(r==ri && c==ci) printf("B l:%ld b:%f 1:%f 2:%f 3:%f ",l,b->co[l],C[l]*D[l]*T[l]/dt,-2.0*KNe*k[l-1]*(T[l]-T[l-1])/(D[l-1]+D[l]),2.0*KNe*k[l]*(T[l+1]-T[l])/(D[l]+D[l+1]));
-		if(l<=nlim){
-			if(r==ri && c==ci) printf("4:%f\n",abs->co[l]);
-		}else{
-			if(r==ri && c==ci) printf("\n");
-		}
+		if(l<=nlim) b->co[l]+=SW[l];
+		if(r==ri && c==ci) printf("B l:%ld b:%f T:%f 1:%f 2:%f 3:%f ",l,b->co[l],T[l],C[l]*D[l]*T[l]/dt,-2.0*KNe*k[l-1]*(T[l]-T[l-1])/(D[l-1]+D[l]),2.0*KNe*k[l]*(T[l+1]-T[l])/(D[l]+D[l+1]));
+		if(l<=nlim && r==ri && c==ci) printf("4:%f",SW[l]);
+		if(r==ri && c==ci) printf("\n");
 	}
 
 	ad->co[n]=C[n]*D[n]/dt + 2.0*(1-KNe)*k[n-1]/(D[n-1]+D[n]);
 	adi->co[n-1]=ads->co[n-1];		//la matrice e' simmetrica
 	b->co[n]=C[n]*D[n]*T[n]/dt - 2.0*KNe*k[n-1]*(T[n]-T[n-1])/(D[n-1]+D[n]) + Gb;
-	if(r==ri && c==ci)printf("B l:%ld b:%f 1:%f 2:%f 3:%f\n",n,b->co[n],C[n]*D[n]*T[n]/dt,-2.0*KNe*k[n-1]*(T[n]-T[n-1])/(D[n-1]+D[n]),Gb);
+	if(r==ri && c==ci) printf("B l:%ld b:%f 1:%f 2:%f 3:%f\n",n,b->co[n],C[n]*D[n]*T[n]/dt,-2.0*KNe*k[n-1]*(T[n]-T[n-1])/(D[n-1]+D[n]),Gb);
 
 	tridiag(1,r,c,n,adi,ad,ads,b,e);
 	check_errors(r,c,n,adi,ad,ads,b,e,T,mf);
 
-	for(l=1;l<=n;l++){
+	/*for(l=1;l<=n;l++){
 		if(r==ri && c==ci){
 			printf("1. l:%ld h:%f abs:%f sum:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld",l,h,abs->co[1],h+abs->co[1],ad->co[l],b->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
 			if(l>=n1+1 && l<=n1+n2) printf(" wice2:%f ",sl->thice->co[l-n1][r][c]*sl->pa->co[sy][jdz][l-n1]);
 			printf("\n");
 		}
-	}
+	}*/
 
 	//nel caso neve semplificato (type=1), se non si verifica scioglimento, non si fa il bilancio di energia!!
 	if(snowtype==1 && e->co[1]<Ta-20){
@@ -1261,9 +984,9 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 		}
 		tridiag(1,r,c,n,adi,ad,ads,b,e);
 		check_errors(r,c,n,adi,ad,ads,b,e,T,mf);
-		for(l=1;l<=n;l++){
+		/*for(l=1;l<=n;l++){
 			if(r==ri && c==ci) printf("1b. l:%ld h:%f sum:%f abs:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld \n",l,h,abs->co[1],h+abs->co[1],ad->co[l],b->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
-		}
+		}*/
 	}
 
 	//melting e freezing
@@ -1298,9 +1021,9 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 		Cg->co[l]=C[l+n1];
 		if(sl->pa->co[sy][jsf][l]==1){
 			occuring=1;
-			soil_freezing(l, r, c, e0g, e1g, dwg, Tg, Cg, sl, par->psimin);
-			if(r==ri && c==ci) printf("frez1. l:%ld e0g:%f e1g:%f Tg:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tg->co[l],dwg->co[l]);
-			if(Tg->co[l]!=Tg->co[l]) printf("NOvalue Tg1: r:%ld c:%ld l:%ld wi:%f wl:%f dw:%f mf:%ld T:%f\n",r,c,l,wi[l],wl[l],dw[l],mf->co[l],T[l]);
+			soil_freezing(l, r, c, e0g, e1g, dwg, Tsoil, Cg, sl, par->psimin);
+			if(r==ri && c==ci) printf("frez1. l:%ld e0g:%f e1g:%f Tsoil:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tsoil->co[l],dwg->co[l]);
+			if(Tsoil->co[l]!=Tsoil->co[l]) printf("NOvalue Tg1: r:%ld c:%ld l:%ld wi:%f wl:%f dw:%f mf:%ld T:%f\n",r,c,l,wi[l],wl[l],dw[l],mf->co[l],T[l]);
 		}
 	}
 
@@ -1347,12 +1070,12 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 			if(l>n1){
 				if(sl->pa->co[sy][jsf][l-n1]==1){
 					if(l>1){
-						b1->co[l-1]-=ads->co[l-1]*Tg->co[l-n1];
+						b1->co[l-1]-=ads->co[l-1]*Tsoil->co[l-n1];
 						ads1->co[l-1]=0.0;
-						if(r==ri && c==ci) printf("#. l:%ld B:%f B1:%f Tgbelow:%f m:%ld Ads:%f\n",l-1,b->co[l-1],b1->co[l-1],Tg->co[l-n1],l-n1,ads->co[l-1]);
+						if(r==ri && c==ci) printf("#. l:%ld B:%f B1:%f Tgbelow:%f m:%ld Ads:%f\n",l-1,b->co[l-1],b1->co[l-1],Tsoil->co[l-n1],l-n1,ads->co[l-1]);
 					}
 					if(l<n){
-						b1->co[l+1]-=adi->co[l]*Tg->co[l-n1];
+						b1->co[l+1]-=adi->co[l]*Tsoil->co[l-n1];
 						adi1->co[l]=0.0;
 					}
 				}
@@ -1362,9 +1085,9 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 		tridiag(1,r,c,n,adi1,ad1,ads1,b1,e);
 		check_errors(r,c,n,adi1,ad1,ads1,b1,e,T,mf);
 
-		for(l=1;l<=n;l++){
+		/*for(l=1;l<=n;l++){
 			if(r==ri && c==ci) printf("2. l:%ld h:%f abs:%f sum:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld \n",l,h,abs->co[1],h+abs->co[1],ad1->co[l],b1->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
-		}
+		}*/
 
 		//riinizializzazione
 		occuring=0;
@@ -1413,8 +1136,8 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 			//Cg->co[l]=C[l+n1];
 			if(sl->pa->co[sy][jsf][l]==1){
 				occuring=1;
-				soil_freezing(l, r, c, e0g, e1g, dwg, Tg, Cg, sl, par->psimin);
-				if(r==ri && c==ci) printf("frez2. l:%ld e0g:%f e1g:%f Tg:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tg->co[l],dwg->co[l]);
+				soil_freezing(l, r, c, e0g, e1g, dwg, Tsoil, Cg, sl, par->psimin);
+				if(r==ri && c==ci) printf("frez2. l:%ld e0g:%f e1g:%f Tsoil:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tsoil->co[l],dwg->co[l]);
 			}
 		}
 
@@ -1469,12 +1192,12 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 				if(l>n1){
 					if(sl->pa->co[sy][jsf][l-n1]==1){
 						if(l>1){
-							b1->co[l-1]-=ads->co[l-1]*Tg->co[l-n1];
+							b1->co[l-1]-=ads->co[l-1]*Tsoil->co[l-n1];
 							ads1->co[l-1]=0.0;
-							if(r==ri && c==ci) printf("#. l:%ld B:%f B1:%f Tgbelow:%f m:%ld Ads:%f\n",l-1,b->co[l-1],b1->co[l-1],Tg->co[l-n1],l-n1,ads->co[l-1]);
+							if(r==ri && c==ci) printf("#. l:%ld B:%f B1:%f Tgbelow:%f m:%ld Ads:%f\n",l-1,b->co[l-1],b1->co[l-1],Tsoil->co[l-n1],l-n1,ads->co[l-1]);
 						}
 						if(l<n){
-							b1->co[l+1]-=adi->co[l]*Tg->co[l-n1];
+							b1->co[l+1]-=adi->co[l]*Tsoil->co[l-n1];
 							adi1->co[l]=0.0;
 						}
 					}
@@ -1485,7 +1208,7 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 			check_errors(r,c,n,adi1,ad1,ads1,b1,e,T,mf);
 
 			for(l=1;l<=n;l++){
-				if(r==ri && c==ci) printf("3. l:%ld h:%f abs:%f sum:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld \n",l,h,abs->co[1],h+abs->co[1],ad1->co[l],b1->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
+				if(r==ri && c==ci) printf("3. l:%ld ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld \n",l,ad1->co[l],b1->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
 			}
 
 			occuring=0;
@@ -1516,7 +1239,7 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 				tridiag(1,r,c,n,adi1,ad1,ads1,b,e);
 				check_errors(r,c,n,adi1,ad1,ads1,b,e,T,mf);
 				for(l=1;l<=n;l++){
-					if(r==ri && c==ci)printf("3b. l:%ld h:%f abs:%f sum:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld\n ",l,h,abs->co[1],h+abs->co[1],ad1->co[l],b1->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
+					if(r==ri && c==ci)printf("3b. l:%ld ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld\n ",l,ad1->co[l],b1->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
 				}
 			}
 
@@ -1555,14 +1278,14 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 				e1g->co[l]=e->co[l+n1];
 				//Cg->co[l]=C[l+n1];
 				if(sl->pa->co[sy][jsf][l]==1){
-					soil_freezing(l, r, c, e0g, e1g, dwg, Tg, Cg, sl, par->psimin);
-					if(r==ri && c==ci) printf("frez3. l:%ld e0g:%f e1g:%f Tg:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tg->co[l],dwg->co[l]);
+					soil_freezing(l, r, c, e0g, e1g, dwg, Tsoil, Cg, sl, par->psimin);
+					if(r==ri && c==ci) printf("frez3. l:%ld e0g:%f e1g:%f Tsoil:%f dwg:%f\n",l,e0g->co[l],e1g->co[l],Tsoil->co[l],dwg->co[l]);
 				}
 			}
 
 			for(l=n1+1;l<=n1+n2;l++){
 				if(sl->pa->co[sy][jsf][l-n1]==1){
-					T[l]=Tg->co[l-n1];
+					T[l]=Tsoil->co[l-n1];
 					dw[l]=dwg->co[l-n1];
 					if(wl[l]!=wl[l]) printf("NOvalue wl[i]soil: r:%ld c:%ld l:%ld wi:%f wl:%f dw:%f mf:%ld T:%f\n",r,c,l,wi[l],wl[l],dw[l],mf->co[l],T[l]);
 					if(r==ri && c==ci) printf("l:%ld m:%ld T:%f dw:%f\n",l,l-n1,T[l],dw[l]);
@@ -1579,7 +1302,7 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 
 	for(l=1;l<=n;l++){
 
-		if(r==ri && c==ci) printf("END l:%ld h:%f abs:%f ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld ",l,h,abs->co[1],ad->co[l],b->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
+		if(r==ri && c==ci) printf("END l:%ld ad:%f b:%f T:%f dw:%f wliq:%f wice:%f e:%f mf:%ld ",l,ad->co[l],b->co[l],T[l],dw[l],wl[l],wi[l],e->co[l],mf->co[l]);
 
 		//Continuity Check
 		//1
@@ -1615,6 +1338,7 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 
 	}
 
+
 	free_shortvector(mf);
 	free_doublevector(ad);
 	free_doublevector(ads);
@@ -1628,7 +1352,7 @@ void SolveEB(long n1, long n2, double dt, double h, double dhdT, DOUBLEVECTOR *a
 	free_doublevector(e0g);
 	free_doublevector(e1g);
 	free_doublevector(dwg);
-	free_doublevector(Tg);
+	free_doublevector(Tsoil);
 	free_doublevector(Cg);
 
 
@@ -1756,18 +1480,13 @@ void k_interface(long n, double *k, double *D, double *ki){
 /******************************************************************************************************************************************/
 
 void prepare_output(double Er_soil, double Mr_snow, double Er_snow, double Sr_snow, double Mr_glac, double Er_glac, double Sr_glac, double prec_rain, double prec_snow_atm,
-			ENERGY *egy, WATER *wat, SNOW *snow, GLACIER *glac, LAND *land, TOPO *top, SOIL *sl, METEO *met, TIMES *times, PAR *par, long r, long c, double tausn, double albedo_value,
-			double LE, double surfEB, double H, double G, double Ts, double SWin, double SWbeam, double eps, double LWin, double alpha, double cosinc){
+			ENERGY *egy, WATER *wat, SNOW *snow, GLACIER *glac, LAND *land, TOPO *top, SOIL *sl, METEO *met, TIMES *times, PAR *par, long r, long c, double A,
+			double LE, double surfEB, double H, double G, double Ts, double SWin, double SWout, double SWbeam, double eps, double LWin, double cosinc){
 
 	FILE *f;
 	long l;
 
-	//STRUCT WATER
-	//precipitazione disponibile nel terreno (liquida) [mm/s]
-	wat->Pn->co[r][c]=Mr_snow + Mr_glac + prec_rain/par->Dt;
-
 	//STRUCT SNOW
-	snow->age->co[r][c]=tausn;
 	snow->melted_basin+=Mr_snow*par->Dt;	//[mm]
 	snow->evap_basin+=Er_snow*par->Dt;
 	snow->subl_basin+=Sr_snow*par->Dt;
@@ -1797,7 +1516,13 @@ void prepare_output(double Er_soil, double Mr_snow, double Er_snow, double Sr_sn
 		wat->PrSNW_mean->co[r][c]+=prec_snow_atm;								/*[mm]*/
 	}
 
-	if(par->output_albedo>0) land->albedo->co[r][c]+=albedo_value/((par->output_albedo*3600.0)/(par->Dt));
+	if(par->output_albedo>0){
+		if(SWout>0){
+			land->albedo->co[r][c]+=(SWout/SWin)/((par->output_albedo*3600.0)/(par->Dt));
+		}else{
+			land->albedo->co[r][c]+=A/((par->output_albedo*3600.0)/(par->Dt));
+		}
+	}
 
 	if(par->output_ET>0){
 		egy->ET_mean->co[r][c]+=LE/((par->output_ET*3600.0)/(par->Dt)); //[W/m^2]
@@ -1854,28 +1579,28 @@ void prepare_output(double Er_soil, double Mr_snow, double Er_snow, double Sr_sn
 	}
 
 	if(par->output_Rn>0){
-		egy->Rn_mean->co[r][c]+=(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))/((par->output_Rn*3600.0)/(par->Dt)); //[W/m^2]
-		if(fabs(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))>1500){
+		egy->Rn_mean->co[r][c]+=(SWin-SWout + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))/((par->output_Rn*3600.0)/(par->Dt)); //[W/m^2]
+		if(fabs(SWin-SWout + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))>1500){
 			f=fopen(files->co[ferr]+1,"a");
 			fprintf(f,"\ntime=%10.1f r=%4ld c=%4ld Rn=%10.3f Rsw=%10.3f Rlwdiff=%10.3f albedo=%10.8f eps=%10.8fTa=%10.5f Ts=%10.5f Rsw_meas=%f sin(alpha)=%f cos(inc)=%f\n",
-				times->time,r,c,SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)),SWin,LWin,albedo_value,
-				eps,met->Tgrid->co[r][c],Ts,met->var[0][iSW],sin(alpha),cosinc);
+				times->time,r,c,SWin-SWout + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)),SWin,LWin,A,
+				eps,met->Tgrid->co[r][c],Ts,met->var[0][iSW],sin(egy->hsun),cosinc);
 			fprintf(f,"\nH:%f LE:%f\n",H,LE);
 			fclose(f);
 		}
 		egy->LW_in->co[r][c]+=( top->sky->co[r][c]*5.67E-8*eps*pow((Ts+tk),4.0) )/((par->output_Rn*3600.0)/(par->Dt));
 		egy->LW_out->co[r][c]+=( top->sky->co[r][c]*eps*LWin )/((par->output_Rn*3600.0)/(par->Dt));
-		egy->SW->co[r][c]+=( SWin*(1.0-albedo_value) )/((par->output_Rn*3600.0)/(par->Dt));
+		egy->SW->co[r][c]+=( SWin-SWout )/((par->output_Rn*3600.0)/(par->Dt));
 		if(par->distr_stat==1){
 			if(egy->LW_max->co[r][c]<top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))
 				egy->LW_max->co[r][c]=top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0));
 			if(egy->LW_min->co[r][c]>top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)))
 				egy->LW_min->co[r][c]=top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0));
-			if(egy->Rn_max->co[r][c]<(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0))))
-				egy->Rn_max->co[r][c]=(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)));
-			if(egy->Rn_min->co[r][c]>(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0))))
-				egy->Rn_min->co[r][c]=(SWin*(1.0-albedo_value) + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)));
-			if(egy->SW_max->co[r][c]<(SWin*(1.0-albedo_value))) egy->SW_max->co[r][c]=SWin*(1.0-albedo_value);
+			if(egy->Rn_max->co[r][c]<(SWin-SWout + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0))))
+				egy->Rn_max->co[r][c]=(SWin-SWout  + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)));
+			if(egy->Rn_min->co[r][c]>(SWin-SWout  + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0))))
+				egy->Rn_min->co[r][c]=(SWin-SWout  + top->sky->co[r][c]*(eps*LWin - 5.67E-8*eps*pow((Ts+tk),4.0)));
+			if(egy->SW_max->co[r][c]<(SWin-SWout)) egy->SW_max->co[r][c]=SWin-SWout;
 		}
 	}
 }
@@ -1886,10 +1611,13 @@ void prepare_output(double Er_soil, double Mr_snow, double Er_snow, double Sr_sn
 /******************************************************************************************************************************************/
 
 void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, double prec_rain_on_snow, double Sr_soil, double Er_soil, double Mr_snow, double Er_snow, double Sr_snow,
-			double Mr_glac, double Er_glac, double Sr_glac, double Epc, double fec, double ftc, double LE, double H, double surfEB, double G, double Ts, double albedo_value, double eps,
+			double Mr_glac, double Er_glac, double Sr_glac, double Evt, double LE, double H, double surfEB, double G, double Tg, double A, double eps, double LAI,
 			double LWin, double SWin, double LWout, double SWout, double epsa, double epsa_min, double epsa_max, double SWbeam, double SWdiff, double DTcorr, double Tdew,
 			long n, DOUBLEVECTOR *turbulence, PAR *par, WATER *wat, ENERGY *egy, TOPO *top, METEO *met, SNOW *snow, GLACIER *glac, LAND *land, double Vpoint, double RHpoint,
-			double prec_snow_atm, double prec_rain_atm, double maxstorage_c, double evap_c, double drip_c, double z0, double d0){
+			double prec_snow_atm, double prec_rain_atm, double maxstorage_c, double evap_c, double drip_c, double z0, double d0, double SWv, double LWv, double Hv, double LEv,
+			double Tv, double Ts, double Hg0, double Hg1, double Eg0, double Eg1, double fc, double rh, double rv, double rb, double rc, double rh_ic, double rv_ic,
+			double Hv1, double LEv1, double Qv, double Qg, double Qa, double Qs){
+
 
 	long i, j, l;
 	double ea, es, de_dT, Q;
@@ -1918,13 +1646,13 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 				egy->out1->co[1][i]+=Er_soil*par->Dt;	//Eg[mm]
 				egy->out1->co[2][i]+=Sr_soil*par->Dt;	//Sg[mm]
 				//egy->out1->co[3][i]+=Epc*fec*(1000.0/rho_w)*par->Dt;	//Evc[mm]
-				egy->out1->co[4][i]+=Epc*ftc*(1000.0/rho_w)*par->Dt;	//Etc[mm]
+				egy->out1->co[4][i]+=Evt*(1000.0/rho_w)*par->Dt;	//Etc[mm]
 				egy->out1->co[5][i]+=LE/(double)n; //ET[W/m^2]
 				egy->out1->co[6][i]+=H/(double)n; //H[W/m^2]
 				egy->out1->co[7][i]+=surfEB/(double)n;
 				egy->out1->co[8][i]+=G/(double)n;
 				egy->out1->co[9][i]+=((prec_rain_on_soil+prec_rain_on_snow)*Lf/par->Dt)/(double)n; //Qrain[W/m^2]
-				egy->out1->co[10][i]+=Ts/(double)n; //Ts[C]
+				egy->out1->co[10][i]+=Tg/(double)n; //Ts[C]
 				//Rnet and Rnet_cumulated
 				egy->out1->co[11][i]+=(SWin-SWout+eps*LWin-LWout)/(double)n;
 				egy->out1->co[21][i]+=(SWin-SWout+eps*LWin-LWout)*par->Dt*1.0E-6;
@@ -1940,7 +1668,7 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 				if(SWout>0){
 					egy->out1->co[15][i]+=(SWout/SWin)/(double)n;
 				}else{
-					egy->out1->co[15][i]+=albedo_value/(double)n;
+					egy->out1->co[15][i]+=A/(double)n;
 				}
 				egy->out1->co[28][i]-=SWout*par->Dt*1.0E-6;
 				egy->out1->co[45][i]-=SWout/(double)n;
@@ -1966,7 +1694,7 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 				//number of iteration
 				egy->out1->co[30][i]+=turbulence->co[1]/(double)n;
 				//CH, CL (transfer coefficient for H and L)
-				egy->out1->co[35][i]+=turbulence->co[10]/(double)n;
+				/*egy->out1->co[35][i]+=turbulence->co[10]/(double)n;
 				egy->out1->co[36][i]+=turbulence->co[11]/(double)n;
 				egy->out1->co[37][i]+=DTcorr/(double)n;
 				egy->out1->co[38][i]+=turbulence->co[3]/(double)n;
@@ -1975,7 +1703,7 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 				egy->out1->co[41][i]+=turbulence->co[6]/(double)n;
 				egy->out1->co[42][i]+=turbulence->co[7]/(double)n;
 				egy->out1->co[43][i]+=turbulence->co[8]/(double)n;
-				egy->out1->co[44][i]+=turbulence->co[9]/(double)n;
+				egy->out1->co[44][i]+=turbulence->co[9]/(double)n;*/
 
 				//ea(mbar) Q(-)
 				egy->out1->co[46][i]+=Tdew/(double)n;
@@ -2006,7 +1734,7 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 				}else{
 					egy->out1->co[55][i]=UV->V->co[2];
 				}
-				egy->out1->co[56][i]+=(land->LAI->co[land->use->co[r][c]])/(double)n;
+				egy->out1->co[56][i]+=LAI/(double)n;
 
 				egy->out1->co[57][i]+=z0/(double)n;
 				egy->out1->co[58][i]+=d0/(double)n;
@@ -2025,13 +1753,41 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 					snow->CR3m->co[l]+=(snow->CR3->co[l]*3600.0/(double)n);
 				}
 
+				egy->out1->co[59][i]+=SWv/(double)n;
+				egy->out1->co[60][i]+=LWv/(double)n;
+				egy->out1->co[61][i]+=Hv/(double)n;
+				egy->out1->co[62][i]+=LEv/(double)n;
+				egy->out1->co[63][i]+=Tv/(double)n;
+				egy->out1->co[64][i]+=Ts/(double)n;
+
+				egy->out1->co[65][i]+=Hg0/(double)n;
+				egy->out1->co[66][i]+=Levap(Tg)*Eg0/(double)n;
+				egy->out1->co[67][i]+=Hg1/(double)n;
+				egy->out1->co[68][i]+=Levap(Tg)*Eg1/(double)n;
+				egy->out1->co[69][i]+=fc/(double)n;
+
+				egy->out1->co[70][i]+=(1./rh)/(double)n;
+				egy->out1->co[71][i]+=(1./rv)/(double)n;
+				egy->out1->co[72][i]+=(1./rb)/(double)n;
+				egy->out1->co[73][i]+=(1./rc)/(double)n;
+				egy->out1->co[74][i]+=(1./rh_ic)/(double)n;
+				egy->out1->co[77][i]+=(1./rv_ic)/(double)n;
+
+				egy->out1->co[75][i]+=(Hv1)/(double)n;
+				egy->out1->co[76][i]+=(LEv1)/(double)n;
+
+				egy->out1->co[78][i]+=(Qv)/(double)n;
+				egy->out1->co[79][i]+=(Qg)/(double)n;
+				egy->out1->co[80][i]+=(Qa)/(double)n;
+				egy->out1->co[81][i]+=(Qs)/(double)n;
+
 			}
 		}
 	}
 
 	//OUTPUT precipitation+melting for each land use (split in snow covered and snow free)
 	for(i=1;i<=land->clax->nh;i++){
-		if(land->use->co[r][c]==land->clax->co[i]) j=i;
+		if((short)land->LC->co[r][c]==land->clax->co[i]) j=i;
 	}
 	if(snow->type->co[r][c]==2){
 		wat->outfluxes->co[1][j]+=prec_rain_on_soil;
@@ -2049,59 +1805,63 @@ void output_pixel(long r, long c, double prec_snow, double prec_rain_on_soil, do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void output_basin(double prec_rain, double prec_snow, double Ts, double Er_soil, double Sr_soil, double Epc, double fec, double ftc, double LE, double H, double surfEB,
-				double Eimm, double SWin, double LWin, double albedo, double eps, double V, double Dt, long n, double *wat, double *en){
+void output_basin(long n, double prec_rain, double prec_snow, double Ta, double Tg, double Tv, double Eg, double Evt, double Eve, double LE, double H, double SW, double LW,
+	double LEv, double Hv, double SWv, double LWv, double SWin, double *wat, double *en, double Dt){
 
 	//OUTPUT MEDI PER BACINO
 	wat[1]+=prec_rain;																/*[mm]*/
-	wat[2]+=prec_snow;																/*[mm]*/
-	en[1]+=Ts/(double)n;															/*Ts[C]*/
-	en[2]+=Er_soil*Dt;																/*Eg[mm]*/
-	en[3]+=Sr_soil*Dt;																/*Sg[mm]*/
-	en[4]+=Epc*fec*Dt;																/*Evc[mm]*/
-	en[5]+=Epc*ftc*Dt;																/*Etc[mm]*/
+	wat[2]+=prec_snow;
+	en[1]+=Ta/(double)n;
+	en[2]+=Tg/(double)n;															/*Ts[C]*/
+	en[3]+=Eg*Dt;																	/*Eg[mm]*/
+	en[4]+=Eve*Dt;																	/*Evc[mm]*/
+	en[5]+=Evt*Dt;																	/*Etc[mm]*/
 	en[6]+=LE/(double)n;															/*ET[W/m2]*/
 	en[7]+=H/(double)n;																/*H[W/m2]*/
-	en[8]+=surfEB/(double)n;															/*G[W/m2]*/
-	en[9]+=Eimm/(double)n;															/*Ecanopy[W/m2]*/
-	en[10]+=(prec_rain*Lf/Dt)/(double)n;											/*Qrain[W/m2]*/
-	en[11]+=(SWin*(1.0-albedo) + V*(eps*LWin - eps*SB(Ts)))/(double)n;				/*Rn[W/m2]*/
+	en[8]+=SW/(double)n;
+	en[9]+=LW/(double)n;
+	en[10]+=LEv/(double)n;
+	en[11]+=Hv/(double)n;
+	en[12]+=SWv/(double)n;
+	en[13]+=LWv/(double)n;
+	en[14]+=SWin/(double)n;
+	en[15]+=Tv/(double)n;
 }
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void output_altrank(long ES, double prec_rain, double prec_snow, double Ts, double Er_soil, double Sr_soil, double Epc, double fec, double ftc, double LE, double H, double surfEB,
-	double Eimm, double SWin, double LWin, double albedo, double eps, double V, double Pn, double runoff, double Er_snow, double Sr_snow, double Mr_snow, double Er_glac,
-	double Sr_glac, double Mr_glac, double Dt, long n, double Z, double Zmin, double Zmax, double glacD, double glacDmin, double **out){
+void output_altrank(long ES, double prec_rain, double prec_snow, double Ts, double Er_soil, double Sr_soil, double Evt, double Eve, double LE, double H, double surfEB, double SWin, double SWout,
+	double LWin, double eps, double V, double Pn, double runoff, double Er_snow, double Sr_snow, double Mr_snow, double Er_glac, double Sr_glac, double Mr_glac, double Dt, long n, double Z, double Zmin,
+	double Zmax, double glacD, double glacDmin, double **out1){
 
 	long i;
 
 	//OUTPUT MEDI PER FASCE ALTIMETRICHE
 	for(i=1;i<=ES;i++){
 		if( ( (Z>=Zmin+(i-1)*(Zmax-Zmin)/(double)ES && Z<Zmin+i*(Zmax-Zmin)/(double)ES) || (Z==Zmin+i*(Zmax-Zmin)/(double)ES && i==ES) ) && glacD>=glacDmin ){
-			out[1][i]+=Er_soil*Dt;					//Eg[mm]
-			out[2][i]+=Sr_soil*Dt;					//Sg[mm]
-			out[3][i]+=Epc*fec*(1000.0/rho_w)*Dt;	//Evc[mm]
-			out[4][i]+=Epc*ftc*(1000.0/rho_w)*Dt;	//Etc[mm]
-			out[5][i]+=LE/(double)n;				//ET[W/m^2]
-			out[6][i]+=H/(double)n;					//H[W/m^2]
-			out[7][i]+=surfEB/(double)n;				//G[W/m^2]
-			out[8][i]+=Eimm/(double)n;				//Ecanopy[W/m^2]
-			out[9][i]+=(prec_rain*Lf/Dt)/(double)n; //Qrain[W/m^2]
-			out[10][i]+=Ts/(double)n;				//Ts[C]
-			out[11][i]+=(SWin*(1.0-albedo) + V*(eps*LWin - eps*SB(Ts)))/(double)n; //[W/m^2]
-			out[12][i]+=prec_rain;					//[mm]
-			out[13][i]+=prec_snow;					//[mm]
-			out[14][i]+=Pn*Dt;						//[mm]
-			out[15][i]+=runoff*Dt;					//[mm]
-			out[16][i]+=Mr_snow*Dt;
-			out[17][i]+=Er_snow*Dt;
-			out[18][i]+=Sr_snow*Dt;
-			out[20][i]+=Mr_glac*Dt;
-			out[21][i]+=Er_glac*Dt;
-			out[22][i]+=Sr_glac*Dt;
+			out1[1][i]+=Er_soil*Dt;					//Eg[mm]
+			out1[2][i]+=Sr_soil*Dt;					//Sg[mm]
+			out1[3][i]+=Eve*(1000.0/rho_w)*Dt;		//Evc[mm]
+			out1[4][i]+=Evt*(1000.0/rho_w)*Dt;		//Etc[mm]
+			out1[5][i]+=LE/(double)n;				//ET[W/m^2]
+			out1[6][i]+=H/(double)n;					//H[W/m^2]
+			out1[7][i]+=surfEB/(double)n;			//G[W/m^2]
+			//out1[8][i]+=Eimm/(double)n;				//Ecanopy[W/m^2]
+			out1[9][i]+=(prec_rain*Lf/Dt)/(double)n; //Qrain[W/m^2]
+			out1[10][i]+=Ts/(double)n;				//Ts[C]
+			out1[11][i]+=(SWin-SWout + V*(eps*LWin - eps*SB(Ts)))/(double)n; //[W/m^2]
+			out1[12][i]+=prec_rain;					//[mm]
+			out1[13][i]+=prec_snow;					//[mm]
+			out1[14][i]+=Pn*Dt;						//[mm]
+			out1[15][i]+=runoff*Dt;					//[mm]
+			out1[16][i]+=Mr_snow*Dt;
+			out1[17][i]+=Er_snow*Dt;
+			out1[18][i]+=Sr_snow*Dt;
+			out1[20][i]+=Mr_glac*Dt;
+			out1[21][i]+=Er_glac*Dt;
+			out1[22][i]+=Sr_glac*Dt;
 		}
 	}
 }
@@ -2115,10 +1875,13 @@ double flux(long i, long icol, long **col, double **met, double k, double est){
 	double F;
 
 	if(col[i-1][icol]!=-1){
-		F=k*met[i-1][icol];
+		F=k*met[i-1][col[i-1][icol]];
 	}else{
 		F=est;
 	}
+
+	//printf("%ld %ld %f %f\n",col[i-1][icol],icol,est,F);
+
 	return(F);
 }
 
@@ -2126,7 +1889,7 @@ double flux(long i, long icol, long **col, double **met, double k, double est){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void evaporation(long r, long c, long n, double E, double Rg, double *wi, double *wl, double *D, double dt, double *Ss, double *Es, double *Eg){
+void evaporation(long r, long c, long n, double E, double *wi, double *wl, double *D, double dt, double *Ss, double *Es, double *Eg){
 
 	double thres=0.20;	//threshold on liquid content in the snow after which evaporation (not sublimation) occurs
 	double th_liq;		//liquid content
@@ -2158,7 +1921,7 @@ void evaporation(long r, long c, long n, double E, double Rg, double *wi, double
 			*Ss=E;
 		}
 	}else{	//sl
-		*Eg=Rg*E;
+		*Eg=E;
 	}
 }
 
@@ -2166,7 +1929,7 @@ void evaporation(long r, long c, long n, double E, double Rg, double *wi, double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void update_soil(long ntot, long r, long c, SOIL *sl, double *T, double *dw, double *wi, double *th, double fc, double *ft, double Ep, double Eg, PAR *par){
+void update_soil(long ntot, long r, long c, SOIL *sl, double *T, double *dw, double *wi, double *th, double *ft, double Evt, double E, PAR *par){
 
 	long l, m;
 	double source,theta,A,dt=par->Dt;
@@ -2186,10 +1949,10 @@ void update_soil(long ntot, long r, long c, SOIL *sl, double *T, double *dw, dou
 		A=sl->pa->co[sy][jdz][l]*0.001*rho_w;
 
 		if(l==1){
-			source=dw[m] - dt*( (1-fc)*Eg + fc*Ep*ft[1] );	//[kg/m2]=[mm water]
+			source=dw[m] - fmax( dt*(E+Evt*ft[1]), 0.0 );	//[kg/m2]=[mm water]
 			//source=dw[m];
 		}else{
-			source=dw[m] - dt*fc*Ep*ft[l];
+			source=dw[m] - fmax( dt*Evt*ft[l], 0.0 );
 			//source=dw[m];
 		}
 
@@ -2202,11 +1965,23 @@ void update_soil(long ntot, long r, long c, SOIL *sl, double *T, double *dw, dou
 
 		A=sl->pa->co[sy][jdz][l]*0.001*rho_w;
 
+		//printf("%ld psiante:%f theta:%f theta:%f\n",l,sl->P->co[l][r][c],teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
+		//		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)), par->Esoil),th[l]);
+
 		sl->P->co[l][r][c]=psi_teta(theta, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
 				sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)), par->Esoil);
 
+		//printf("psipost:%f theta:%f theta:%f source:%f dw:%f e:%f ice:%f\n",sl->P->co[l][r][c],teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
+		//		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)), par->Esoil),theta,
+		//		source/A,dw[m]/A,(source-dw[m])/A,sl->thice->co[l][r][c]);
+
+		//stop_execution();
+
 	}
+	//printf("\n\n");
 }
+
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -2343,8 +2118,10 @@ void iceWBsnow(long r, long c, SNOW *snow, double P, double Ta){
 
 			h=(c_ice*snow->w_ice->co[ns][r][c] + c_liq*snow->w_liq->co[ns][r][c])*(snow->T->co[ns][r][c] - Tfreezing) + Lf*snow->w_liq->co[ns][r][c];
 			h+=(c_ice*P)*(Ta - Tfreezing);
+
 			snow->Dzl->co[ns][r][c]+=Dz;
 			snow->w_ice->co[ns][r][c]+=P;
+
 			if(h<0.0){
 				snow->T->co[ns][r][c]=Tfreezing + h/(c_ice*snow->w_ice->co[ns][r][c] + c_liq*snow->w_liq->co[ns][r][c]);
 			}else{
@@ -2514,7 +2291,8 @@ void output_snow(SNOW *snow, double **Z, PAR *par){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void output_map_plots(long r, long c, PAR *par, double t, long n, ENERGY *egy, METEO *met, SNOW *snow, double H, double LE, double SWin, double SWout, double LWin, double LWout, double Ts){
+void output_map_plots(long r, long c, PAR *par, double t, long n, ENERGY *egy, METEO *met, SNOW *snow, double Hg, double LEg, double Hv, double LEv, double SWin,
+	double SWg, double SWv, double LWin, double LWg, double LWv, double Ts, double Tg, double Tv){
 
 	long j, d, M, y, h, m, N;
 	double tmin, tmax, JD;
@@ -2525,8 +2303,8 @@ void output_map_plots(long r, long c, PAR *par, double t, long n, ENERGY *egy, M
 
 		for(j=1;j<=par->JD_plots->nh;j++){
 
-			tmin=get_time( (double)(par->JD_plots->co[j]-1), y, par->JD0, par->year0 );
-			//tmin=0.0;
+			//tmin=get_time( (double)(par->JD_plots->co[j]-1), y, par->JD0, par->year0 );
+			tmin=0.0;
 			tmax=get_time( (double)(par->JD_plots->co[j]  ), y, par->JD0, par->year0 );
 			if(fmod(tmax-tmin,n*par->Dt)!=0.0){
 				N=floor(tmax-tmin/(n*par->Dt))+1;
@@ -2534,13 +2312,23 @@ void output_map_plots(long r, long c, PAR *par, double t, long n, ENERGY *egy, M
 			}
 
 			if(t>=tmin && t<tmax){
-				egy->Hplot->co[r][c]+=H/(double)n;
-				egy->LEplot->co[r][c]+=LE/(double)n;
+				egy->Hgplot->co[r][c]+=Hg/(double)n;
+				egy->LEgplot->co[r][c]+=LEg/(double)n;
+				egy->Hvplot->co[r][c]+=Hv/(double)n;
+				egy->LEvplot->co[r][c]+=LEv/(double)n;
+
 				egy->SWinplot->co[r][c]+=SWin/(double)n;
-				egy->SWoutplot->co[r][c]+=SWout/(double)n;
+				egy->SWgplot->co[r][c]+=SWg/(double)n;
+				egy->SWvplot->co[r][c]+=SWv/(double)n;
+
 				egy->LWinplot->co[r][c]+=LWin/(double)n;
-				egy->LWoutplot->co[r][c]+=LWout/(double)n;
+				egy->LWgplot->co[r][c]+=LWg/(double)n;
+				egy->LWvplot->co[r][c]+=LWv/(double)n;
+
 				egy->Tsplot->co[r][c]+=Ts/(double)n;
+				egy->Tgplot->co[r][c]+=Tg/(double)n;
+				egy->Tvplot->co[r][c]+=Tv/(double)n;
+
 				snow->Dplot->co[r][c]+=DEPTH(r,c,snow->lnum,snow->Dzl)/(double)n;
 				met->Taplot->co[r][c]+=met->Tgrid->co[r][c]/(double)n;
 				if(par->micromet1==1){
@@ -2554,84 +2342,7 @@ void output_map_plots(long r, long c, PAR *par, double t, long n, ENERGY *egy, M
 }
 
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-void evaporation_soil(long nsnow, double E, double dEdT, double theta, double res, double sat, double Ratm, double Ts, double *RG, double *LE_s, double *dLEdT_s, double *Evc,
-    double *Dc, double *Msc, double *Epc, double *dEpcdT, double *fec, double *ftc, DOUBLEVECTOR *ftcl, double *LE_c, double *dLEdT_c){
 
-	double L;
-
-	//surface resistance
-	if(nsnow>0){
-		*RG=1.0;
-	}else{
-		*RG=Eg_Epot(Ratm, theta, res, sat);
-		if(*RG!=*RG) printf("NOvalue in evaporation sl: Ratm:%f theta:%f thetar:%f thetasat:%f\n",Ratm, theta, res, sat);
-	}
-	//latent heat flux from bare sl surfaces
-	L=latent(Ts, Levap(Ts));
-	*LE_s=(*RG)*E*L;
-	*dLEdT_s=(*RG)*dEdT*L;
-	if(*LE_s!=*LE_s || *dLEdT_s!=*dLEdT_s){
-		printf("NO VALUE in evaporation LEs:%f DLEDT:%f L:%f RG:%F E:%f\n",*LE_s,*dLEdT_s,L,*RG,E);
-		stop_execution();
-	}
-	//set at 0 canopy fluxes
-	*Evc=0.0;	//evaporation canopy
-	*Dc=0.0;	//drip canopy
-	*Msc=0.0;	//max storage canopy
-	*Epc=0.0;	//potential evaporation canopy
-	*dEpcdT=0.0;
-	*fec=0.0;
-	*ftc=0.0;
-	initialize_doublevector(ftcl,0.0);
-	*LE_c=0.0;	//latent heat flux from canopy surfaces
-	*dLEdT_c=0.0;
-
-}
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-void evaporation_canopy(long r, long c, double Ptot, double *theta, double Ratm, double rho, double Tv, double Ta, double Qa, double Pa, double SW, double LAI,
-	double *land, double *root, double *Wc, double *LE, double *dLEdT, double *Evc, double *Dc, double *Msc, double *Epc, double *dEpcdT, double *fec, double *ftc,
-	double *ftcl, PAR *par){
-
-	double Lv, fec_i, fec_w, fW, dt=par->Dt ;
-
-	*Msc=0.2*LAI;	//Maximum storage in canopy [mm] from Dickinson
-	*Wc+=Ptot;		//increase water on canopy
-	if(*Wc>*Msc){
-		*Dc=*Wc-*Msc;	//canopy drip
-		*Wc=*Msc;
-	}
-	if(*Msc>0){
-		fW=*Wc/(*Msc);
-	}else{
-		fW=0.0;
-	}
-
-	canopy_fluxes(Ratm, rho, Tv, Ta, Qa, Pa, SW, fW, theta, LAI, land, root, Epc, dEpcdT, fec, ftc, ftcl);
-
-	Lv=Levap(Tv);
-	*Wc-=(*fec)*(*Epc)*dt;	//evaporation from canopy
-	if(*Wc<0){
-		//decrease evaporation and maintain Wc=0
-		*fec+=(*Wc/(dt*(*Epc)));
-		*Wc=0.0;
-	}
-	*Evc=(*fec)*(*Epc)*dt;
-
-	//very rough partition of storage on leaves between water and snow (to be improved)
-	part_snow(*fec, &fec_w, &fec_i, Ta, par->T_rain, par->T_snow);
-
-	//LE evapotranspiration in W/m2
-	*LE=(*Epc)*( (Lv+Lf)*fec_i + Lv*fec_w + Lv*(*ftc) );
-	*dLEdT=(*dEpcdT)*( (Lv+Lf)*fec_i + Lv*fec_w + Lv*(*ftc) );
-	if((*LE)!=(*LE)) printf("NOvalue in evaporation_canopy: r:%ld c:%ld Epc:%f fec:%f fec_i:%f fec_w:%f ftc:%f Wc:%f Msc:%f Dc:%f Tv:%f Ta:%f fW:%f Qa:%f rho:%f SW:%f Lv:%f\n",r,c,*Epc,*fec,fec_i,fec_w,*ftc,*Wc,*Msc,*Dc,Tv,Ta,fW,Qa,rho,SW,Lv);
-}
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -2674,6 +2385,7 @@ void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R, SNOW *sno
 		//k*=1.E10;
 		frac->co[m]=res-R*exp(-k*z);
 		res=R*exp(-k*z);
+		//printf("l:%ld res:%f R:%f k:%f %f %f %f\n",l,res,R,k,snow->w_ice->co[l][r][c],snow->w_liq->co[l][r][c],snow->Dzl->co[l][r][c]);
 		if(l==1){
 			frac->co[m]+=res;
 			res=0.0;
@@ -2685,117 +2397,6 @@ void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R, SNOW *sno
 }
 
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void snow_fluxes_H(SNOW *snow, DOUBLEMATRIX *Ts, DOUBLEMATRIX *H, DOUBLEMATRIX *Z, DOUBLEMATRIX *Ta, TIMES *times, PAR *par, double *VSFA, double *Hv){
-
-	long r,c,nr,nc,cont=0,contT=0,rmin=0,cmin=0,rmax=0,cmax=0;
-	double Hsca=0.0,Hsfa=0.0,Hmax=-10000.0,Hmin=10000.0,Hrsm=0.0,Tsmax=-300.0,Tsmin=300.0,Tsmean=0.0,Tamean=0.0,SFA;
-	double Hvmean=0.0,Hvmax=-10000.0,Hvmin=10000.0,Hvrsm=0.0,Tsvmean=0.0;
-	double JD;
-	long d2,mo2,y2,h2,mi2;
-	FILE *f;
-
-	nr=Z->nrh;
-	nc=Z->nch;
-
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if(Z->co[r][c]!=UV->V->co[2]){
-				if(snow->Dzl->co[1][r][c]>0){
-					//printf("%e %ld %ld %ld %ld\n",snow->Dzl->co[1][r][c],snow->type->co[r][c],snow->lnum->co[r][c],r,c);
-					cont++;
-					Hsca+=H->co[r][c];
-				}else{
-					Hsfa+=H->co[r][c];
-					Tsmean+=Ts->co[r][c];
-					if(H->co[r][c]>Hmax) Hmax=H->co[r][c];
-					if(H->co[r][c]<Hmin) Hmin=H->co[r][c];
-					if(Ts->co[r][c]>Tsmax) Tsmax=Ts->co[r][c];
-					if(Ts->co[r][c]<Tsmin) Tsmin=Ts->co[r][c];
-				}
-				Tamean+=Ta->co[r][c];
-				if(Ts->co[r][c]>Tfreezing && Ts->co[r][c]>Ta->co[r][c] && snow->Dzl->co[1][r][c]==0){
-					contT++;
-					Hvmean+=H->co[r][c];
-					Tsvmean+=Ts->co[r][c];
-					if(H->co[r][c]>Hvmax) Hvmax=H->co[r][c];
-					if(H->co[r][c]<Hvmin) Hvmin=H->co[r][c];
-				}
-			}
-		}
-	}
-
-	if(cont>0) Hsca/=(double)cont;
-	if(cont<par->total_pixel) Hsfa/=(double)(par->total_pixel-cont);
-	if(cont<par->total_pixel) Tsmean/=(double)(par->total_pixel-cont);
-	Tamean/=(double)par->total_pixel;
-	SFA=(par->total_pixel-cont)/(double)par->total_pixel;
-
-	if(contT>0){
-		Hvmean/=(double)contT;
-		Tsvmean/=(double)contT;
-	}
-
-	if(cont<par->total_pixel){
-		for(r=1;r<=nr;r++){
-			for(c=1;c<=nc;c++){
-				if(Z->co[r][c]!=UV->V->co[2]){
-					if(snow->Dzl->co[1][r][c]==0.0){
-						Hrsm+=pow(H->co[r][c]-Hsfa,2.0)/(double)(par->total_pixel-cont);
-						if(Ts->co[r][c]==Tsmin){
-							rmin=r;
-							cmin=c;
-						}
-						if(Ts->co[r][c]==Tsmax){
-							rmax=r;
-							cmax=c;
-						}
-					}
-				}
-			}
-		}
-		Hrsm=pow(Hrsm,0.5);
-	}
-
-	if(contT>0){
-		for(r=1;r<=nr;r++){
-			for(c=1;c<=nc;c++){
-				if(Z->co[r][c]!=UV->V->co[2]){
-					if(Ts->co[r][c]>Tfreezing && Ts->co[r][c]>Ta->co[r][c] && snow->Dzl->co[1][r][c]==0) Hvrsm+=pow(H->co[r][c]-Hvmean,2.0)/(double)contT;
-				}
-			}
-		}
-		Hvrsm=pow(Hvrsm,0.5);
-	}
-
-	date_time(times->time, par->year0, par->JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
-	f=fopen(join_strings(files->co[fHpatch]+1,textfile),"a");
-	write_date(f, d2, mo2, y2, h2, mi2);
-	fprintf(f,",%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,MIN:%ld %ld,MAX:%ld %ld\n",JD+(double)(daysfrom0(y2)),SFA,1-SFA,Hsca,Hsfa,Hmax,Hmin,Hrsm,Tsmean,Tsmin,Tsmax,Tamean,contT/(double)par->total_pixel,Hvmean,Hvmin,Hvmax,Hvrsm,Tsvmean,rmin,cmin,rmax,cmax);
-	fclose(f);
-
-	*Hv=Hvmean;
-	*VSFA=contT/(double)par->total_pixel;
-
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-double adv_efficiency(double SFA){
-
-	double Y;
-
-	Y=-0.043+1.0859*exp(-2.9125*SFA);
-
-	return(Y);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -2822,10 +2423,570 @@ void root(double d, double *D, double *root_fraction){
 
 }
 
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+double soil_red_evap(double psi, double T){
+	double alpha;
+	alpha=exp(1.0E-3*psi*g/(461.50464*(T+tk)));
+	return(alpha);
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+double red_evap(long n, double psi, double T){
+	if(n>0){
+		return(1.0);
+	}else{
+		return(soil_red_evap(psi,T));
+	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void update_roughness_soil(double z0, double d0, double z0_z0t, double snowD, double thres, double z0snow, double *z0_ris, double *d0_ris, double *z0_z0t_ris){
+
+	if(snowD>thres){
+		*z0_ris=z0snow;
+		*d0_ris=0.0;
+		*z0_z0t_ris=0.0;
+	}else{
+		*z0_ris=z0;
+		*d0_ris=d0-0.001*snowD;
+		*z0_z0t_ris=z0_z0t;
+	}
+
+}
+
+void update_roughness_veg(double z0, double d0, double hc, double fsnow, double thres, double zmu, double zmt, double *z0_ris, double *d0_ris, double *hc_ris){
+
+	*z0_ris = 0.9*(1.0-fsnow)*z0 + 0.1*z0;
+	*d0_ris = 0.9*(1.0-fsnow)*d0 + 0.1*d0;
+	*hc_ris = 0.9*(1.0-fsnow)*hc + 0.1*hc;
+
+	if(*hc_ris>zmu) *hc_ris=0.99*zmu;
+	if(*hc_ris>zmt) *hc_ris=0.99*zmt;
+	if(*hc_ris-(*d0_ris)<(*z0_ris)) *hc_ris=1.01*(*z0_ris)+(*d0_ris);
+}
 
 
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void EnergyFluxes(double Tg, long r, long c, long n, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta,
+	double Qa, double P, double LR, double psi, double ice, double e, double fc, double LAI, double Wc, double fwet, double fsnow, double *theta, double **soil,
+	double *land, double *root, PAR *par, DOUBLEVECTOR *ftcl, DOUBLEVECTOR *rep, double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT, double *E,
+	double *dE_dT, double *LWv, double *Hv, double *Ev, double *Evt, double *Tv, double *Qv, double *Ts, double *Qs, long cont, double *Hg0, double *Hg1, double *Eg0,
+	double *Eg1, double *rh, double *rv, double *rc, double *rb, double *rh_ic, double *rv_ic, double *Qg){
+
+	double Hg, dHg_dT, Eg, dEg_dT, LWg;
+	double dQgdT, rm;
+
+	//initalization
+	initialize_doublevector(ftcl,0.0);
+	*H=0.0;	*dH_dT=0.0;
+	*E=0.0;	*dE_dT=0.0;
+	*LW=0.0;
+	*Hv=0.0; *Ev=0.0; *Evt=0.0; *LWv=0.0;
+
+	//thermodynamical calculations
+	sat_spec_humidity(Qg, &dQgdT, red_evap(n, psi, Tg), Tg, P);
+
+	//TURBULENT FLUXES IN CASE OF BARE SOIL
+	*Hg0=0.0;
+	*Eg0=0.0;
+	if(fc<1){
+		if(cont<=10){
+			aero_resistance(zmu, zmT, z0s, d0s, rz0s, v, Ta, Tg, Qa, *Qg, P, LR, rep, &rm, rh, rv, par->state_turb, par->monin_obukhov);
+		}else{
+			aero_resistance(zmu, zmT, z0s, d0s, rz0s, v, Ta, Tg, Qa, *Qg, P, LR, rep, &rm, rh, rv, par->state_turb, 4);
+		}
+		if(*Qg>Qa && n==0) *rv=(*rv)+exp(8.206-4.255*(ice+theta[1])/soil[jsat][1]);
+		turbulent_fluxes(*rh, *rv, P, Ta, Tg, Qa, *Qg, dQgdT, &Hg, &dHg_dT, &Eg, &dEg_dT);
+
+		*H+=(1.0-fc)*Hg;	*dH_dT+=(1.0-fc)*dHg_dT;
+		*E+=(1.0-fc)*Eg;	*dE_dT+=(1.0-fc)*dEg_dT;
+
+		*LW+=(1.0-fc)*( e*LWin-SB(Tg) );
+
+		*Ts=Tg;
+
+		if(Eg!=Eg) printf("Error in bare soil %ld %ld\n",r,c);
+
+		*Hg0=Hg;
+		*Eg0=Eg;
+	}
+
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void PointEnergyBalance(long r, long c, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v,
+	double Ta, double Qa, double P, double LR, double eps, double fc, double LAI, double Wc, double fwet, double fsnow, double *theta, double *land, double *root,
+	PAR *par, DOUBLEVECTOR *ftcl, DOUBLEVECTOR *turb_rep, double SWin, double LWin, double SWv, double *LW, double *H, double *E, double *LWv, double *Hv, double *Ev,
+	double *Evt, double *Tv, double *Ts, double *Qs, short sy, SOIL *sl, double Hadd, double *SW, double t, double Dt, double *k, double *C, double *D, double *wi,
+	double *wl, short sntype, double *dw, double *T, double *Hg0, double *Hg1, double *Eg0, double *Eg1){
+
+	short occurs=0;
+	long l, cont1, cont2=0, cont3=0, n=Nl+ns+ng;
+	double Tg, dH_dT, dE_dT, EB, dEB_dT;
+	double AD0, B0, L0;
+	SHORTVECTOR *mf;
+	DOUBLEVECTOR *ad0, *ads0, *adi0, *b0, *ad1, *ads1, *adi1, *b1, *e, *T0;
+	DOUBLEVECTOR *e0g, *e1g, *Cg, *Tpg, *dwg;
+	double rh, rv, rc, rb, rh_ic, rv_ic, Qv, Qg;
+	double Zboundary=land[jzb], Tboundary=land[jtb];
+
+
+	//TO CANCEL
+	//********************************************************************************************************
+	long ri=0, ci=0;
+	//********************************************************************************************************
+
+	//ALLOCATE
+	mf=new_shortvector(n);
+
+	ad0=new_doublevector(n);
+	ads0=new_doublevector(n-1);
+	adi0=new_doublevector(n-1);
+	b0=new_doublevector(n);
+	ad1=new_doublevector(n);
+	ads1=new_doublevector(n-1);
+	adi1=new_doublevector(n-1);
+	b1=new_doublevector(n);
+	e=new_doublevector(n);
+	T0=new_doublevector(n);
+
+	e0g=new_doublevector(Nl);
+	e1g=new_doublevector(Nl);
+	Cg=new_doublevector(Nl);
+	Tpg=new_doublevector(Nl);
+	dwg=new_doublevector(Nl);
+
+	//TO CANCEL
+	//********************************************************************************************************
+	if(r==ri && c==ci){	for(l=1;l<=Nl+ns+ng;l++){	printf("\n.%ld T:%f",l,T[l]);	}	}
+	//********************************************************************************************************
+
+	Tg=T[1];
+	for(l=1;l<=n;l++){ T0->co[l]=T[l]; }
+
+	EnergyFluxes(Tg, r, c, ns+ng, zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, P, LR, sl->P->co[1][r][c], sl->thice->co[1][r][c], eps, fc, LAI, Wc, fwet, fsnow,
+			theta, sl->pa->co[sy], land, root, par, ftcl, turb_rep, SWin, LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, Ev, Evt, Tv, &Qv, Ts, Qs, cont3, Hg0, Hg1, Eg0,
+			Eg1, &rh, &rv, &rc, &rb, &rh_ic, &rv_ic, &Qg);
+	EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Hadd;
+	dEB_dT = -eps*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;
+
+	coeff(n, ns+1, ad0->co, ads0->co, adi0->co, b0->co, k, C, D, T, KNe*EB, SW, Zboundary, Tboundary, Dt);
+	AD0=ad0->co[1];	B0=b0->co[1];
+
+	L0=turb_rep->co[2];
+
+	//TO CANCEL
+	//********************************************************************************************************
+	if(r==ri && c==ci){printf("\nTg:%f T1:%f Ta:%f Tv:%f H:%f E:%e dH_dT:%f EB:%f SW:%f LE:%f LW:%f \n",Tg,T[1],Ta,*Tv,*H,*E,dH_dT,EB+SW[1],SW[1],latent(Tg,Levap(Tg))*(*E),*LW);}
+	//********************************************************************************************************
+
+	do{
+
+		Tg=T[1];
+		ad0->co[1]=AD0;	b0->co[1]=B0;
+		for(l=1;l<=n;l++){ mf->co[l]=0; }
+
+		if(cont2>0){
+			EnergyFluxes(Tg, r, c, ns+ng, zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, P, LR, sl->P->co[1][r][c], sl->thice->co[1][r][c], eps, fc, LAI,
+				Wc, fwet, fsnow, theta, sl->pa->co[sy], land, root, par, ftcl, turb_rep, SWin, LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, Ev, Evt, Tv, &Qv, Ts, Qs,
+				cont3, Hg0, Hg1, Eg0, Eg1, &rh, &rv, &rc, &rb, &rh_ic, &rv_ic, &Qg);
+			EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Hadd;
+			dEB_dT = -eps*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;
+		}
+
+		if(L0*turb_rep->co[2]<0) cont3++;
+		L0=turb_rep->co[2];
+
+		ad0->co[1]-=(1.0-KNe)*dEB_dT;
+		b0->co[1]+=(1.0-KNe)*(EB-dEB_dT*Tg);
+
+		tridiag(1, r, c, n, adi0, ad0, ads0, b0, e);
+		check_errors(r, c, n, adi0, ad0, ads0, b0, e, T, mf);
+
+		occurs=0;
+		update_coeff(r, c, ns+ng, Nl, &occurs, ad1->co, ads1->co, adi1->co, b1->co, mf->co, ad0->co, ads0->co, adi0->co, b0->co, T0->co, e->co, wi, wl, C,
+			e0g, e1g, Cg, Tpg, dwg, sl, sl->pa->co[sy][jsf], par, Dt, T, dw);
+
+		//TO CANCEL
+		//********************************************************************************************************
+		if(r==ri && c==ci){
+			for(l=1;l<=n;l++){
+				if(l<n) printf("%ld ad:%f adi:%f ads:%f b:%f e:%f\n",l,ad0->co[l],adi0->co[l],ads0->co[l],b0->co[l],e->co[l]);
+				if(l<n) printf("%ld ad:%f adi:%f ads:%f b:%f e:%f mf:%ld\n",l,ad1->co[l],adi1->co[l],ads1->co[l],b1->co[l],e->co[l],mf->co[l]);
+			}
+		}
+		//********************************************************************************************************
+
+		cont1=0;
+
+		do{
+
+			tridiag(1, r, c, n, adi1, ad1, ads1, b1, e);
+			check_errors(r, c, n, adi1, ad1, ads1, b1, e, T, mf);
+
+			//TO CANCEL
+			//********************************************************************************************************
+			if(r==ri && c==ci){
+				for(l=1;l<=n;l++){
+					if(l<n) printf("%ld ad:%f adi:%f ads:%f b:%f e:%f mf:%ld\n",l,ad1->co[l],adi1->co[l],ads1->co[l],b1->co[l],e->co[l],mf->co[l]);
+				}
+			}
+			//********************************************************************************************************
+
+			assign_values(ns+ng, mf->co, e->co, wi, wl, dw, T);
+
+			occurs=0;
+			update_coeff(r, c, ns+ng, Nl, &occurs, ad1->co, ads1->co, adi1->co, b1->co, mf->co, ad0->co, ads0->co, adi0->co, b0->co, T0->co, e->co, wi, wl, C,
+				e0g, e1g, Cg, Tpg, dwg, sl, sl->pa->co[sy][jsf], par, Dt, T, dw);
+
+			cont1++;
+
+		}while(occurs!=0 && cont1<10);
+
+		check_continuity(n, dw, wi, wl);
+
+		cont2++;
+
+		//TO CANCEL
+		//********************************************************************************************************
+		//if(cont1==20) printf("cont1:%ld r:%ld c:%ld\n",cont1,r,c);
+		//if(cont1==20) stop_execution();
+		if(r==ri && c==ci)for(l=1;l<=Nl+ns+ng;l++){ printf("\nb) cont1:%ld %ld T:%f dw:%f mf:%ld wi:%f wl:%f\n",cont1,l,T[l],dw[l],mf->co[l],wi[l],wl[l]); }
+		if(r==ri && c==ci) printf("\nTg:%f T1:%f Ta:%f Tv:%f H:%f E:%e dH_dT:%f EB:%f SW:%f cont2:%ld cont3:%ld \n",Tg,T[1],Ta,*Tv,*H,*E,dH_dT,EB,SW[1],cont2,cont3);
+		/*if((Tg>0 || T[1]>0) && ns>0){
+			for(l=1;l<=Nl+ns+ng;l++){ printf("b) cont2:%ld %ld T:%f dw:%f mf:%ld wi:%f wl:%f \n",cont2,l,T[l],dw[l],mf->co[l],wi[l],wl[l]); }
+			printf("r:%ld c:%ld Tg:%f T1:%f Ta:%f Tv:%f H:%f E:%e dH_dT:%f EB:%f SW:%f cont2:%ld cont3:%ld \n",r,c,Tg,T[1],Ta,*Tv,*H,*E,dH_dT,EB,SW[1],cont2,cont3);
+			stop_execution();
+		}*/
+		//if(r==ri && c==ci) stop_execution();
+		//********************************************************************************************************
+
+	//only one iteration is temporarily done!!
+	}while(cont2<0);
+
+	//TO CANCEL
+	//********************************************************************************************************
+	//if(r==ri && c==ci) printf("CONVERGENCE\n");
+	//if(r==ri && c==ci) stop_execution();
+	for(l=1;l<=Nl+ns+ng;l++){
+		if(T[l]!=T[l] || dw[l]!=dw[l]){
+			printf("ERRROR IN ENERGY BALANCE r:%ld c:%ld l:%ld T:%f dw:%f wi:%f wl:%f\n",r,c,l,T[l],dw[l],wi[l],wl[l]);
+			stop_execution();
+		}
+	}
+	//********************************************************************************************************
+
+	//Update
+	*H=(*H)+dH_dT*(T[1]-Tg);
+	*E=(*E)+dE_dT*(T[1]-Tg);
+	*LW=(*LW)-eps*dSB_dT(Tg)*(T[1]-Tg);
+	for(l=1;l<=Nl+ns+ng;l++){
+		wl[l]+=dw[l];
+		wi[l]-=dw[l];
+	}
+
+
+	//Deallocate
+	free_doublevector(ad0);
+	free_doublevector(ads0);
+	free_doublevector(adi0);
+	free_doublevector(b0);
+	free_doublevector(ad1);
+	free_doublevector(ads1);
+	free_doublevector(adi1);
+	free_doublevector(b1);
+	free_doublevector(e);
+	free_doublevector(T0);
+
+	free_doublevector(e0g);
+	free_doublevector(e1g);
+	free_doublevector(Cg);
+	free_doublevector(Tpg);
+	free_doublevector(dwg);
+
+	free_shortvector(mf);
+
+}
+
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void coeff(long n, long nlim, double *ad, double *ads, double *adi, double *b, double *k, double *C, double *D, double *T, double hup, double *h, double Zboundary, double Tboundary, double Dt){
+
+	double Dcorr;
+	long l;
+
+	Dcorr=D[1];
+	//Dcorr=0.5*(0.5*D[1]+CA*(D[1]+0.5*D[2]));
+
+	ad[1] = 2.0*(1-KNe)*k[1]/(D[1]+D[2]) + C[1]*Dcorr/Dt;
+	ads[1] = 2.0*(KNe-1)*k[1]/(D[1]+D[2]);
+	b[1] = C[1]*Dcorr*T[1]/Dt + 2.0*KNe*k[1]*(T[2]-T[1])/(D[1]+D[2]) + hup + h[1];
+
+	for(l=2;l<=n-1;l++){
+		ad[l] = C[l]*D[l]/Dt + 2.0*(1-KNe)*k[l-1]/(D[l-1]+D[l]) + 2.0*(1-KNe)*k[l]/(D[l]+D[l+1]);
+		ads[l] = 2.0*(KNe-1)*k[l]/(D[l]+D[l+1]);
+		adi[l-1] = ads[l-1];	//symmetrical matrix
+		b[l] = C[l]*D[l]*T[l]/Dt - 2.0*KNe*k[l-1]*(T[l]-T[l-1])/(D[l-1]+D[l]) + 2.0*KNe*k[l]*(T[l+1]-T[l])/(D[l]+D[l+1]);
+		if(l<=nlim) b[l]+=h[l];
+	}
+
+	if(Zboundary<=0) k[n]=0.0;
+	k[n]=0.0;
+	ad[n] = C[n]*D[n]/Dt + 2.0*(1-KNe)*k[n-1]/(D[n-1]+D[n]) + 2.0*(1-KNe)*k[n]/(D[n]+2.0*Zboundary);
+	adi[n-1] = ads[n-1];
+	b[n] = C[n]*D[n]*T[n]/Dt - 2.0*KNe*k[n-1]*(T[n]-T[n-1])/(D[n-1]+D[n]) + 2.0*KNe*k[n]*(Tboundary-T[n])/(D[n]+2.0*Zboundary) + 2.0*(1-KNe)*k[n]*Tboundary/(D[n]+2.0*Zboundary);
+
+}
+
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void update_coeff(long r, long c, long n1, long n2, short *occurs, double *AD, double *ADS, double *ADI, double *B, short *mf, double *ad, double *ads, double *adi,
+	double *b, double *e0, double *e, double *wi, double *wl, double *C, DOUBLEVECTOR *e0g, DOUBLEVECTOR *e1g, DOUBLEVECTOR *Cg, DOUBLEVECTOR *Tg, DOUBLEVECTOR *dwg,
+	SOIL *sl, double *SFflag, PAR *par, double Dt, double *T, double *dw){
+
+	long l, m;
+	double tol=0.0;
+
+	//for snow: changes coefficients and solves the equation
+	//for soil: solves the equation and changes coefficients
+
+	//INITIALIZE
+	for(l=1;l<=n1+n2;l++){
+		AD[l]=ad[l];
+		B[l]=b[l];
+		if(l!=n1+n2) ADS[l]=ads[l];
+		if(l!=n1+n2) ADI[l]=adi[l];
+	}
+
+	//SNOW AND GLACIER
+	//1.check cases
+	for(l=1;l<=n1;l++){
+
+		if(mf[l]==0){
+			if(e[l]>Tfreezing && wi[l]>0.0){
+				mf[l]=1;//melting
+				*occurs=1;
+			}else if(e[l]<Tfreezing && wl[l]>0.0){
+				mf[l]=2;//freezing
+				*occurs=1;
+			}
+
+		}else if(mf[l]==1){
+			if(e[l]>wi[l]){
+				mf[l]=10;
+				*occurs=1;
+			}
+
+		}else if(mf[l]==2){
+			if(-e[l]>wl[l]){
+				mf[l]=20;
+				*occurs=1;
+			}
+		}
+	}
+
+	//2.change coefficients
+	for(l=1;l<=n1;l++){
+		if(mf[l]==1 || mf[l]==2){
+			AD[l]=Lf/Dt;
+			B[l]-=ad[l]*Tfreezing;
+		}else if(mf[l]==10){
+			B[l]-=Lf*wi[l]/Dt;
+		}else if(mf[l]==20){
+			B[l]+=Lf*wl[l]/Dt;
+		}
+		if(l>1){
+			if(mf[l-1]==1 || mf[l-1]==2){
+				ADI[l-1]=0.0;
+				B[l]-=adi[l-1]*Tfreezing;
+			}
+		}
+		if(l<n1+n2){
+			if(mf[l+1]==1 || mf[l+1]==2){
+				ADS[l]=0.0;
+				B[l]-=ads[l]*Tfreezing;
+			}
+		}
+	}
+
+	//SOIL FREEZING
+	for(l=1;l<=n2;l++){
+		e0g->co[l]=e0[l+n1];
+		e1g->co[l]=e[l+n1];
+		Cg->co[l]=C[l+n1];
+		if(SFflag[l]==1){
+			soil_freezing(l, r, c, e0g, e1g, dwg, Tg, Cg, sl, par->psimin);
+			tol+=(fabs(T[l+n1]-Tg->co[l]));
+			if(tol>0.1){
+				*occurs=1;
+				mf[l+n1]=-1;
+			}
+			T[l+n1]=Tg->co[l];
+			dw[l+n1]=dwg->co[l];
+		}else{
+			T[l+n1]=e1g->co[l];
+			dw[l+n1]=0.0;
+		}
+	}
+	for(l=1;l<=n2;l++){
+		if(SFflag[l]==1){
+			m=l+n1;
+			if(m>1){
+				B[m-1]-=ads[m-1]*Tg->co[l];
+				ADS[m-1]=0.0;
+			}
+			if(m<n1+n2){
+				B[m+1]-=adi[m]*Tg->co[l];
+				ADI[m]=0.0;
+			}
+		}
+	}
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void assign_values(long n1, short *mf, double *e, double *wi, double *wl, double *dw, double *T){
+
+	long l;
+
+	//snow and glacier
+	for(l=1;l<=n1;l++){
+		if(mf[l]==0){
+			T[l]=e[l];
+			dw[l]=0.0;
+		}else if(mf[l]==1 || mf[l]==2){
+			T[l]=Tfreezing;
+			dw[l]=e[l];
+		}else if(mf[l]==10){
+			T[l]=Tfreezing;
+			dw[l]=wi[l];
+		}else if(mf[l]==20){
+			T[l]=e[l];
+			dw[l]=-wl[l];
+			if(T[l]>Tfreezing){
+				dw[l]+=c_ice*(T[l]-Tfreezing)/Lf;
+				T[l]=Tfreezing;
+			}
+		}
+	}
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void check_continuity(long n, double *dw, double *wi, double *wl){
+
+	long l;
+
+	for(l=1;l<=n;l++){
+		if(wl[l]+dw[l]<0) dw[l]=-wl[l];
+		if(wi[l]-dw[l]<0) dw[l]=wi[l];
+	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+void find_tau_cloud_station(long i, METEO *met, PAR *par, double alpha, double E0, double A, double sky, double *tau, double *sa){
+	/* Author: Stefano Endrizzi    Year:
+		 * function that calculates the transmittance of the sky given measures of SW radiation
+		 * Input:	i:	number of meteo station under consideration
+		 * 			met: meteo data
+		 * 			par: parameters
+		 * 			alpha: solar altitude angle
+		 * 			E0: earth-sun correction
+		 * 			A:
+		 * 			sky: sky view factor on the considered station
+		 *
+		 * Output:	tau: transmittance of the sky
+		 * 			sa: sin(alpha)
+		 * comment: Matteo Dall'Amico, April 2009 */
+	double P, RH, T, tau_atm, kd, kd0;
+
+	if(met->column[i-1][iPs]!=-1){/* there is a column of air pressure in the station meteo file */
+		P=met->var[i-1][met->column[i-1][iPs]];
+	}else{
+		P=pressure(met->st->Z->co[i], Pa0, 0.0);
+	}
+
+	if(met->column[i-1][iRh]!=-1){/* there is a column of relative humidity in the station meteo file */
+		RH=0.01*met->var[i-1][met->column[i-1][iRh]];
+	}else{
+		RH=0.5;
+	}
+
+	if(met->column[i-1][iT]!=-1){/* there is a column of air temperature in the station meteo file */
+		T=met->var[i-1][met->column[i-1][iT]];
+	}else{
+		T=0.0;
+	}
+
+	tau_atm=atm_transmittance(alpha, P, RH, T, A, par->Vis, par->Lozone);
+
+	if(met->column[i-1][iSWb]!=-1 && met->column[i-1][iSWd]!=-1){/* there is a column of SWglobal or SWdirect in the station meteo file */
+		if(met->var[i-1][met->column[i-1][iSWb]]+met->var[i-1][met->column[i-1][iSWd]]>0){
+			*sa=fmax(0.01,sin(alpha));
+			kd=met->var[i-1][met->column[i-1][iSWd]]/(met->var[i-1][met->column[i-1][iSWb]]+met->var[i-1][met->column[i-1][iSWd]]);
+			*tau=fmin(1.0,(met->var[i-1][met->column[i-1][iSWd]]/(Isc*E0*tau_atm*(*sa)))/(sky*kd+(1-sky)*A));
+		}else{
+			*tau=0.0;
+		}
+
+	}else if(met->column[i-1][iSW]!=-1){/* there is a column of SWin in the station meteo file */
+		kd=0.2;
+		*sa=sin(alpha);
+		if(*sa<0.05) *sa=0.05;
+		if(*sa<0.10) kd=(kd*(*sa-0.05)+1.0*(0.10-(*sa)))/(0.10-0.05);
+
+		//printf("kd:%f\n",kd);
+
+		do{
+			kd0=kd;
+			//SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*A*Isc*T*sin
+			*tau=(met->var[i-1][met->column[i-1][iSW]]/(Isc*E0*tau_atm*(*sa)))/((1-kd)+sky*kd+(1-sky)*A);
+			if(*tau>1) *tau=1.0;
+			if(*tau<0) *tau=0.0;
+			kd=diff2glob(*tau*tau_atm);
+			if(*sa<0.10) kd=(kd*(*sa-0.05)+1.0*(0.10-(*sa)))/(0.10-0.05);
+			//printf("kd:%f kd0:%f tau:%f ta:%f sa:%f alpha:%f SW:%f sky:%f\n",kd,kd0,*tau,tau_atm,*sa,alpha*180./Pi,met->var[i-1][met->column[i-1][iSW]],sky);
+		}while(fabs(kd0-kd)>0.005);
+
+		//printf("conv\n");
+	}
+}
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/

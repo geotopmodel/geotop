@@ -1,21 +1,20 @@
 
-
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -24,6 +23,9 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
+//Author: Stefano Endrizzi
+//Date: 13 November 2005
+//Contents: Snow subroutines
 #include "keywords_file.h"
 #include "constant.h"
 #include "struct.geotop.09375.h"
@@ -43,9 +45,13 @@ extern STRINGBIN *files;
 /*==================================================================================================================*/
 
 double rho_newlyfallensnow(double u, double Tatm, double Tfreez)
-
-//Jordan et al., 1999
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function that calculates the density of the newly fallen snow based on Jordan et al, (1999)
+	* Input:	u: wind velocity [m/s]
+	* 			Tatm: Air temperature [ûC]
+	* 			Tfreez: Freezing temperature
+	* Output: snow density [Kg/m3]
+	* comment: Matteo Dall'Amico, May 2009 */
 {
 
 double rho,T;
@@ -157,7 +163,7 @@ if( theta_i < par->snow_maxpor ){
 	eta=eta0*exp(c4*(Tfreezing-snow->T->co[l][r][c])+c5*(rho_i*theta_i));
 	*CR2=-load/eta;
 
-	//printf("l:%ld %e %e\n",l,*CR1,*CR2);
+	//printf("l:%ld %e %e eta0:%f T:%f thi:%f Dzl:%f\n",l,*CR1,*CR2,eta0,snow->T->co[l][r][c],theta_i,snow->Dzl->co[l][r][c]);
 
 	snow->Dzl->co[l][r][c]*=(1.0 + ((*CR1)+(*CR2))*par->Dt);
 
@@ -179,15 +185,34 @@ if( theta_i < par->snow_maxpor ){
 /*==================================================================================================================*/
 
 void snow_layer_combination(long r, long c, SNOW *snow, double Ta, long linf, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, double time)
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function that finds the equilibrium number of snow layers depending on the given layer depth
+	* and on the allowed minimum and maximum depth.
+	* If snow[l]<Dmin[n-l+1] => a layer has less snow than allowed, therefore its mass and energy
+	* has to be shared with the lower one.
+	* If snow[l]>Dmax[n-l+1] => a layer has more snow than allowed, therefore a new glacier layer has
+	* to be initialized.
+	* The scheme is symmetrical
+	* The routine goes on until an equilibrium is found.
+	* Input:	r: row of the pixel in the raster
+	* 			c: column of the pixel in the raster
+	* 			Dmin: minimum allowed snow depth
+	* 			Dmax: maximum allowed snow depth
+	* 			snow: snow structure
+	* 			Ta: not used
+	* 			linf: layer of unlimited thickness (beginning from below)
+	* 			time: not used
+	* Output: structure "snow" modified with correct number of snow layers
+	* comment: Matteo Dall'Amico, May 2009 */
 {
 
-long l, cont=0, max=Dmin->nh;
+long l, cont=0;
+long max=Dmin->nh;// max number of snow layers
 short occuring;
-double D0=0.0,D1=0.0,D=0.0;
+double D0=0.0,D1=0.0;
+double D=0.0;//D=snow depth(mm)
 DOUBLEVECTOR *Dmin2,*Dmax2,*wice,*wliq,*Dz,*Temp;
 
-//D=snow depth(mm)
 for(l=1;l<=max;l++){
 	D+=snow->Dzl->co[l][r][c];
 }
@@ -332,7 +357,7 @@ if(snow->type->co[r][c]==2){
 			if(Dz->co[l]<Dmin2->co[l] || Dz->co[l]>Dmax2->co[l]) occuring=1;
 		}
 
-		//if it is ok, it is done; otherwise try to spplit or merge layers
+		//if it is ok, it is done; otherwise try to split or merge layers
 		if(occuring==0){
 
 			for(l=1;l<=snow->lnum->co[r][c];l++){
@@ -595,22 +620,42 @@ if(snow->type->co[r][c]==2){
 /*==================================================================================================================*/
 
 void glac_layer_combination(long r, long c, GLACIER *glac, double Ta, long max, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, double time)
+	/* Author:  Stefano Endrizzi  Year:
+	* function that finds the equilibrium number of glacier layers depending on the given layer depth
+	* and on the allowed minimum and maximum depth.
+	* If glac[l]<Dmin[n-l+1] => a layer has less ice than allowed, therefore its mass and energy
+	* has to be shared with the lower one.
+	* If glac[l]>Dmax[n-l+1] => a layer has more ice than allowed, therefore a new glacier layer has
+	* to be initialized.
+	* The routine goes on until an equilibrium is found.
+	* Input:	r: row of the pixel in the raster
+	* 			c: column of the pixel in the raster
+	* 			Dmin: minimum allowed glacier depth
+	* 			Dmax: maximum allowed glacier depth
+	* 			glac: glacier structure
+	* 			Ta: not used
+	* 			max: maximum admitted glacier layer
+	* 			time: not used
+	* Output: glac modified with correct number of glacier layers
+	* comment: Matteo Dall'Amico, May 2009 */
 //Dmin, Dmax (1) il piu' superficiale
 //Dmin, Dmax (5) il piu' profondo
 
 {
 
-long l,n,m;
+long l;
+long n;// number of glacier layers
+long m;
 short occuring;
-double h,D=0.0;
+double h;// internal energy of the glacier layer
+double D=0.0;// glacier depth [mm]
 
-//D=glac depth(mm)
 for(l=1;l<=max;l++){
 	D+=glac->Dzl->co[l][r][c];
 }
 
 
-if( (D==0.0 && glac->T->co[1][r][c]>-98.999) || (D>0 && D<=0.1) ){
+if( (D==0.0 && glac->T->co[1][r][c]>-98.999) || (D>0 && D<=0.1) ){// no glacier
 	for(l=2;l<=max;l++){
 		glac->Dzl->co[l][r][c]=0.0;
 		glac->w_liq->co[l][r][c]=0.0;
@@ -999,7 +1044,15 @@ double get_SWE(long r, long c, LONGMATRIX *n, DOUBLETENSOR *w1, DOUBLETENSOR *w2
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 void snowlayer_merging(long r, long c, SNOW *snow, long l1, long l2, long lres){
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function that merges two snow layers in one based accounting for the mass and the energy of the system.
+	* Input:	r: row of the pixel in the raster
+	* 			c: column of the pixel in the raster
+	* 			l1: first layer to merge
+	* 			l2: second layer to merge
+	* 			lres: resulting merged layer
+	* Output: snow structure modified with correct merged layers
+	* comment: Matteo Dall'Amico, May 2009 */
 	double h;
 
 	h=internal_energy(snow->w_ice->co[l1][r][c],snow->w_liq->co[l1][r][c],snow->T->co[l1][r][c])+internal_energy(snow->w_ice->co[l2][r][c],snow->w_liq->co[l2][r][c],snow->T->co[l2][r][c]);
@@ -1038,7 +1091,16 @@ double internal_energy(double w_ice, double w_liq, double T){
 /******************************************************************************************************************************************/
 
 void from_internal_energy(long r, long c, double h, double *w_ice, double *w_liq, double *T){
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function that merges two snow layers in one based accounting for the mass and the energy of the system.
+	* Input:	r: row of the pixel in the raster
+	* 			c: column of the pixel in the raster
+	* 			h: internal energy of the layer
+	* Output:
+	* 		wice : equivalent mass of liquid water stored in the snow per unit of surface [kg/m2]
+	* 		wliq : mass of liquid water present in the snow per unit of surface [kg/m2]
+	* 			T: temperature of the snow layer
+	* comment: Matteo Dall'Amico, May 2009 */
 	double SWE=(*w_ice)+(*w_liq);
 
 	if(h<0){
@@ -1199,10 +1261,20 @@ void merge_layers(long r, long c, SNOW *snow, long l1){
 /******************************************************************************************************************************************/
 
 void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, DOUBLEVECTOR *Dmin2, DOUBLEVECTOR *Dmax2, long linf){
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function that finds the range of minimum and maximum allowed layer thickness of a new snow layer
+	* Input:
+	* 		n:	number of snow layers
+	* 	 Dmin:	vector of minimum snow layer thickness
+	* 	 Dmax:	vector of maximum snow layer thickness
+	* 	 linf:	layer of unlimited thickness (beginning from below)
+	* Output:
+	* 	 Dmin2:	vector of new minimum snow layer thickness
+	* 	 Dmax2: vector of new maximum snow layer thickness
+	* comment: Matteo Dall'Amico, May 2009 */
 	long l,mup,mdw,N=Dmin->nh;
 
-	if(n==N){
+	if(n==N){// number of snow layers equals the maximum admitted snow layers
 
 		for(l=1;l<=n;l++){
 			Dmin2->co[l]=Dmin->co[l];
@@ -1267,3 +1339,96 @@ void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n){
 		printf("l:%ld ltot:%ld Dmin:%f Dmax:%f\n",l,n,Dmin[l],Dmax[l]);
 	}
 }
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void update_snow_age(double Psnow, double Ts, double Dt, double *tsnow){
+
+	double r1, r2, r3;
+
+	//effect of grain growth due to vapour diffusion
+	r1=exp(5000.0*(1.0/tk-1.0/(Ts+tk)));
+
+	//effect melt and refreezing*/
+	r2=pow(r1,10);
+	if(r2>1.0) r2=1.0;
+
+	//effect of dirt
+	r3=0.3;
+
+	//non-dimensional snow age: 10 mm of snow precipitation restore snow age Dt(s)
+	*tsnow=(*tsnow+(r1+r2+r3)*Dt*1.0E-6)*(1.0-Psnow/10.0);
+	if(*tsnow<0.0) *tsnow=0.0;
+	if((*tsnow)!=(*tsnow)) printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n",*tsnow,Psnow,Ts,r1,r2,r3);
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(double x)){
+	double A, Fage=1.0-1.0/(1.0+tsnow), w;
+	A=freshsnow_alb*(1.0-C*Fage);
+	A+=0.4*(1.0-A)*(*F)(cosinc);
+	if(snowD<AEP){	//if snow is shallow (<AEP), interpolate between snow and ground albedo
+		w=(1.0-snowD/AEP)*exp(-snowD*0.5/AEP);
+		A=w*ground_alb+(1.0-w)*A;
+	}
+	return(A);
+}
+
+double Fzen(double cosinc){
+	double f, b=2.0;
+	if(cosinc<0.5){
+		f=(1.0/b)*((b+1.0)/(1.0+2.0*b*cosinc)-1.0);
+	}else{
+		f=0.0;
+	}
+	return(f);
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+//Too shallow snow layers can give numerical instabilities. Just get rid of them at the beginning if there is enough energy
+
+void set_shallow_snowpack(long r, long c, double Dt, SNOW *snow, double *SW, double *Mr, long *n){
+
+	if(snow->type->co[r][c]==1){
+
+		//printf("D:%f %f %f %f\n",snow->Dzl->co[1][r][c],SW[1],SW[2],Lf*snow->w_ice->co[1][r][c]/Dt);
+
+		if(SW[1]+SW[2]>Lf*snow->w_ice->co[1][r][c]/Dt){
+
+			//printf("%f %f %f\n",SW[1],SW[2],Lf*snow->w_ice->co[1][r][c]/Dt);
+
+			*Mr=snow->w_ice->co[1][r][c]/Dt; //[mm/s]
+			SW[1]+=(SW[2]-Lf*snow->w_ice->co[1][r][c]/Dt);
+			SW[2]=0.0;
+
+			//printf("%f %f\n",SW[1],SW[2]);
+			//stop_execution();
+
+			snow->w_ice->co[1][r][c]=0.0;
+			snow->w_liq->co[1][r][c]=0.0;
+			snow->T->co[1][r][c]=-99.0;
+			snow->Dzl->co[1][r][c]=0.0;
+			snow->lnum->co[r][c]=0;
+			snow->type->co[r][c]=0;
+
+			*n=0;
+		}
+	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+

@@ -46,7 +46,7 @@ typedef struct {
 	float *forest_LAIw;
 	float *forest_LAIs;	
 	float *sum_sprec;
-	float *gap_frac;
+	float *can_gap;
 	
 	double xmn;
 	double ymn;
@@ -89,6 +89,7 @@ typedef struct {
 	float *rh_grid;
 	float *uwind_grid;
 	float *vwind_grid;
+	float *cloud;
 	float *Qsi_grid;
 	float *prec_grid;
 	float *windspd_grid;
@@ -159,7 +160,7 @@ typedef struct {
  } LISTON;
 
 //initialize Liston variables (to be called every time step)
-void initialize_liston(DOUBLEMATRIX *landtype, SHORTMATRIX *LU, DOUBLEMATRIX *Z, PAR *par, METEO_STATIONS *st, DOUBLEMATRIX *snowD_init, double rhosnow0, LISTON *liston);
+void initialize_liston(DOUBLEMATRIX *landtype, DOUBLEMATRIX *LU, DOUBLEMATRIX *Z, PAR *par, METEO_STATIONS *st, DOUBLEMATRIX *snowD_init, double rhosnow0, LISTON *liston);
 void deallocate_liston(LISTON *liston);
 
 void call_MicroMet(double t, double dt, DOUBLEMATRIX *Z, METEO *met, ENERGY *egy, SNOW *snow, DOUBLEMATRIX *prec, DOUBLEVECTOR *LAI, LISTON *liston, PAR *par);

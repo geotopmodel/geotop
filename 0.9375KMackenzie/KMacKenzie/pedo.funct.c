@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -92,7 +92,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a, double n, 
 
  psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
 
- if(psi<pmin){
+ if(psi<pmin+10.0){
 	dteta=dthdp_min;
  }else if(psi>psisat){
     dteta=1/E;
@@ -266,7 +266,8 @@ double internal_energy_soil(double thw, double thi, double T, double D, double C
 void from_internal_soil_energy(long r, long c, long l, double h, double *thw, double *thi, double *T, double **soil, double psimin){
 
 	double w, th0, th1, th2, tolerance=1.0E-6;
-	long cont=0, maxiter=20;
+	long cont=0, maxiter=100;
+	double n;
 	FILE *f;
 
 	w=( (*thw)*rho_w + (*thi)*rho_w )*soil[jdz][l]*0.001;
@@ -275,38 +276,47 @@ void from_internal_soil_energy(long r, long c, long l, double h, double *thw, do
 	th1=*thw;
 	do{
 		th0=th1;
-		if(dfunct_theq(th0,w,*thi,h,soil,l,psimin)<1.0E5){
-			th1=th0-funct_theq(th0,w,*thi,h,soil,l,psimin)/dfunct_theq(th0,w,*thi,h,soil,l,psimin);
-		}else{
-			th1=th0+10*tolerance;
-		}
-		//printf("CR %f %f %f %f\n",th1,th0,funct_theq(th0,w,*thi,h,soil,l,psimin),dfunct_theq(th0,w,*thi,h,soil,l,psimin));
-		cont++;
+		n=1.0;
+		do{
+			if(th0==soil[jsat][l]) th0=soil[jsat][l]-0.001;
+			if(dfunct_theq(th0,w,*thi,h,soil,l,psimin)!=0) th1=th0-n*funct_theq(th0,w,*thi,h,soil,l,psimin)/dfunct_theq(th0,w,*thi,h,soil,l,psimin);
+			/*printf("h:%f th0:%f th1:%f thi:%f n:%f funct_theq(th0,w,*thi,h,soil,l,psimin):%f funct_theq(th1,w,*thi,h,soil,l,psimin):%f dfunct_theq(th0,w,*thi,h,soil,l,psimin):%f\n",
+				h,th0,th1,*thi,n,funct_theq(th0,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin),dfunct_theq(th0,w,*thi,h,soil,l,psimin));*/
+			n/=2.0;
+			cont++;
+		}while(fabs(funct_theq(th0,w,*thi,h,soil,l,psimin))<fabs(funct_theq(th1,w,*thi,h,soil,l,psimin)));
+		//if(r==12 && c==229)printf("CR %f %f %f %f\n",th1,th0,funct_theq(th0,w,*thi,h,soil,l,psimin),dfunct_theq(th0,w,*thi,h,soil,l,psimin));
 	}while(cont<maxiter && fabs(th1-th0)>tolerance);
 
 	//solve equation AT+BTf(kT)+Cf(kT)+D=0 - Bisection
 	if(cont==maxiter){
-		th0=soil[jres][l];
-		th1=fmax(soil[jsat][l], w/soil[jdz][l]);
+		th1=soil[jres][l];
+		th0=fmax(soil[jsat][l], w/soil[jdz][l]);
 
 		if((funct_theq(th0,w,*thi,h,soil,l,psimin)>0 && funct_theq(th1,w,*thi,h,soil,l,psimin)>0)||(funct_theq(th0,w,*thi,h,soil,l,psimin)<0 && funct_theq(th1,w,*thi,h,soil,l,psimin)<0)){
 			printf("\nERROR 1. IN SOIL INTERNAL ENERGY r:%ld c:%ld l:%ld\n",r,c,l);
 			printf("th:%30.29f theq:%f thi:%30.29f T:%f th1:%f T1:%f\n",*thw,teta_psi(Psif2(*T), 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0),*thi,*T,th1,(g*(Tfreezing+tk))/(1000.0*Lf)*psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0));
-			printf("%f %f\n",funct_theq(*thw,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin));
+			printf("%f %f\n",funct_theq(th0,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin));
 			f=fopen(files->co[ferr]+1,"a");
 			fprintf(f,"\nERROR 1. IN SOIL INTERNAL ENERGY r:%ld c:%ld l:%ld\n",r,c,l);
 			fprintf(f,"th:%30.29f thi:%30.29f T:%f th1:%f T1:%f\n",*thw,*thi,*T,th1,(g*(Tfreezing+tk))/(1000.0*Lf)*psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0));
 			fprintf(f,"%f %f\n",funct_theq(*thw,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin));
 			fclose(f);
+			stop_execution();
+
 		}
 
 		do{
+
+
 			th2=(th0+th1)/2.0;
+
 			if((funct_theq(th0,w,*thi,h,soil,l,psimin)>0 && funct_theq(th2,w,*thi,h,soil,l,psimin)<0)||(funct_theq(th0,w,*thi,h,soil,l,psimin)<0 && funct_theq(th2,w,*thi,h,soil,l,psimin)>0)){
 				th1=th2;
 			}else{
 				th0=th2;
 			}
+
 		}while(fabs(th1-th0)>tolerance);
 
 	}
@@ -315,12 +325,13 @@ void from_internal_soil_energy(long r, long c, long l, double h, double *thw, do
 		*thw=w/soil[jdz][l];
 		*thi=0.0;
 		*T=(h-Lf*w)/( c_liq*w + soil[jct][l]*0.001*soil[jdz][l]*(1.0-soil[jsat][l]));
-		//if(r==1 && c==1) printf("\nSOL1 l:%ld h:%f thw:%f thi:%f T:%f\n",l,h,*thw,*thi,*T);
+		//if(r==12 && c==229) printf("\nSOL1 l:%ld h:%f thw:%f thi:%f T:%f\n",l,h,*thw,*thi,*T);
 	}else{
 		*thw=th1;
 		*thi=w/soil[jdz][l]-th1;
 		*T=psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0)*(g*(Tfreezing+tk))/(1000.0*Lf);
-		//if(r==1 && c==1) printf("\nSOL2 l:%ld h:%f thw:%f thi:%f T:%f funct:%f\n",l,h,*thw,*thi,*T,funct_theq(th1,w,*thi,h,soil,l,psimin));
+		//if(r==12 && c==229) printf("\nSOL2 l:%ld h:%f thw:%f thi:%f T:%f funct:%f\n",l,h,*thw,*thi,*T,funct_theq(th1,w,*thi,h,soil,l,psimin));
+		//if(r==12 && c==229) printf("\n....%f %f %f %f\n",th1,soil[jres][l],psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0),psimin);
 	}
 
 }

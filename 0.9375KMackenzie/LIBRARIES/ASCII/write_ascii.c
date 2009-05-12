@@ -71,7 +71,7 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 	FILE *f;
 	long r,c;
 
-	f=t_fopen(join_strings(name,ascii_grass),"w");
+	f=fopen(join_strings(name,ascii_grass),"w");
 	
 	fprintf(f,"north:%f\n",UV->U->co[3]+DTM->nrh*UV->U->co[1]);
 	fprintf(f,"south:%f\n",UV->U->co[3]);
@@ -94,7 +94,7 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 		}
 		if(r<DTM->nrh) fprintf(f,"\n");
 	}
-	t_fclose(f);
+	fclose(f);
 		
 }
 
@@ -115,7 +115,7 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 		t_error("Fatal error");
 	}
 
-	f=t_fopen(join_strings(name,ascii_esri),"w");
+	f=fopen(join_strings(name,ascii_esri),"w");
 	
 	fprintf(f,"ncols         %ld\n",DTM->nch);
 	fprintf(f,"nrows         %ld\n",DTM->nrh);
@@ -138,5 +138,5 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 		}
 		if(r<DTM->nrh) fprintf(f,"\n");
 	}
-	t_fclose(f);
+	fclose(f);
 }

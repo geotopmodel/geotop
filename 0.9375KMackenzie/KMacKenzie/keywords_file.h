@@ -185,6 +185,7 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define	fsndur	O_SNOW_DURATION_DISTRIBUTED_MAP	/*	  output 2D plus time tensor for snow duration distributed  in the whole basin (without extension) 	*/
 #define	fsnav	O_AVERAGE_SNOW_FROM_BEGGIN_DISTRIBUTED_MAP	/*	 output 2D plus time tensor for averaged snow since begin of simulation distributed  in the whole basin (without extension) 	*/
 #define	fmeltlu	O_MELT_FLUXES_vs_LANDUSE	/*	  output textfile for melt fluxes for each land use class the whole basin (without extension) 	*/
+
 #define	pH	O_K_pH	/*	 to be commented by Stefano Endrizzi	*/
 #define	pLE	O_K_pLE	/*	 to be commented by Stefano Endrizzi	*/
 #define	pSWin	O_K_pSWin	/*	 to be commented by Stefano Endrizzi	*/
@@ -198,24 +199,25 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define	pRH	O_K_pRH	/*	 to be commented by Stefano Endrizzi	*/
 #define	pD	O_K_pD	/*	 to be commented by Stefano Endrizzi	*/
 #define	pth	O_K_ptheta	/*	 to be commented by Stefano Endrizzi	*/
-#define	rpsi	REC_PRESSUREHEAD	/*	   recover file for pressure head (without extension)	*/
-#define	riceg	REC_ICECONTENT	/*	      recover file for ice content (without extension)	*/
-#define	rTg	REC_TEMPERATURE	/*	     recover file for temperature (without extension)	*/
-#define	rDzs	REC_SNOWLAYER	/*	       recover file for snow layer (without extension)	*/
-#define	rwls	REC_WLIQ_SNOW	/*	       recover file for melted liquid water content WLIQ (without extension)	*/
-#define	rwis	REC_WICE_SNOW	/*	       recover file for melted solid water content WICE (without extension)	*/
-#define	rTs	REC_SNOW_TEMPERATURE	/*	 recover file for snow temperature (without extension)	*/
-#define	rDzi	REC_GLACIERLAYER	/*	    recover file for glacier layer (without extension)	*/
-#define	rwli	REC_WLIQ_GLACIER	/*	   recover file for WLIQ in glacier (without extension)	*/
-#define	rwii	REC_WICE_GLACIER	/*	   recover file for WICE in glacier (without extension)	*/
-#define	rTi	REC_GLACIER_TEMPERATURE	/*	   recover file for glacier temperature (without extension)	*/
-#define	rns	REC_NUMBER_SNOWLAYER	/*	      recover file for number of snow layers(without extension)	*/
-#define	rni	REC_NUMBER_GLACIERLAYER	/*	     recover file for number of glacier layers(without extension)	*/
-#define	rsnag	REC_DIMENSIONLESS_SNOW_AGE	/*	  recover file for dimensionless snow age (without extension)	*/
-#define	rhsup	REC__h_sup	/*	 recover file for h_sup (without extension)	*/
-#define	rwt	REC__wt	/*	 recover file for wt (without extension)	*/
-#define	rQch	REC__Qchannel	/*	 recover file for Qchannel (without extension)	*/
-#define	rSFA	REC_SFA	/*	 recover file for SFR (without extension)	*/
-#define	fHpatch	zSFA	/*	 recover file for zSFR (without extension)	*/
+
+#define	rpsi	REC_PRESSUREHEAD	/*recover file for pressure head (without extension)	*/
+#define	riceg	REC_ICECONTENT	/*recover file for ice content (without extension)	*/
+#define	rTg	REC_TEMPERATURE	/*recover file for temperature (without extension)	*/
+#define	rDzs	REC_SNOWLAYER	/*recover file for snow layer (without extension)	*/
+#define	rwls	REC_WLIQ_SNOW	/* recover file for melted liquid water content WLIQ (without extension)	*/
+#define	rwis	REC_WICE_SNOW	/*recover file for melted solid water content WICE (without extension)	*/
+#define	rTs	REC_SNOW_TEMPERATURE	/*recover file for snow temperature (without extension)	*/
+#define	rDzi	REC_GLACIERLAYER	/*recover file for glacier layer (without extension)	*/
+#define	rwli	REC_WLIQ_GLACIER	/* recover file for WLIQ in glacier (without extension)	*/
+#define	rwii	REC_WICE_GLACIER	/*recover file for WICE in glacier (without extension)	*/
+#define	rTi	REC_GLACIER_TEMPERATURE	/* recover file for glacier temperature (without extension)	*/
+#define	rns	REC_NUMBER_SNOWLAYER	/* recover file for number of snow layers(without extension)	*/
+#define	rni	REC_NUMBER_GLACIERLAYER	/*recover file for number of glacier layers(without extension)	*/
+#define	rsnag	REC_DIMENSIONLESS_SNOW_AGE	/*recover file for dimensionless snow age (without extension)	*/
+#define	rhsup	REC__h_sup	/*recover file for h_sup (without extension)	*/
+#define	rwt	REC__wt	/*recover file for wt (without extension)	*/
+#define	rQch	REC__Qchannel	/*recover file for Qchannel (without extension)	*/
+#define	rSFA	REC_SFA	/*recover file for SFR (without extension)	*/
+#define	fHpatch	zSFA	/*recover file for zSFR (without extension)	*/
 
 

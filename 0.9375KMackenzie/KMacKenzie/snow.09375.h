@@ -2,27 +2,31 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie 
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie. 
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
-
+    
+    
+    
+//Author: Stefano Endrizzi
+//Date: 13 November 2005
+//Contents: Snow subroutines
 
 /*----------------------------------------------------------------------------------------------------------*/
 double rho_newlyfallensnow(double u, double Tatm, double Tfreez);
@@ -68,3 +72,15 @@ void initialize_snow(long r, long c, long l, SNOW *snow);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n);
+
+/*----------------------------------------------------------------------------------------------------------*/
+void update_snow_age(double Psnow, double Ts, double Dt, double *tsnow);
+
+/*----------------------------------------------------------------------------------------------------------*/
+double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(double x));
+double Fzen(double cosinc);
+
+/*----------------------------------------------------------------------------------------------------------*/
+void set_shallow_snowpack(long r, long c, double Dt, SNOW *snow, double *SW, double *Mr, long *n);
+
+/*----------------------------------------------------------------------------------------------------------*/

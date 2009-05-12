@@ -33,6 +33,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #include "constant.h"
 #include "energy.balance.h"
 #include "water.balance.h"
+#include "meteo.09375.h"
 
 void time_loop(TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, PAR *par, ENERGY *egy,
 			SNOW *snow, GLACIER *glac, TIMES *times, LISTON *liston);
@@ -143,6 +144,7 @@ void time_loop( TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL
 	/*! Call updates_time(), which uptates time counters every time step*/
 
     updates_times(times,par);
+    //printf("time=%f",times->time); stop_execution();
 	meteo_distr(met, liston, egy, wat, land, top, snow, times->time, par);
 
 	//printf("\n ENERGY START %10.2f\n",times->time);
@@ -153,13 +155,13 @@ void time_loop( TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL
 	//printf("\n ENERGY END %10.2f\n",times->time);
 	//stop_execution();
 
-//	printf("\n MASS START %10.2f\n",times->time);
+	//printf("\n MASS START %10.2f\n",times->time);
 	//stop_execution();
 
 	if(par->wat_balance==1) water_balance(top, sl, land, wat, cnet, par, times->time);
 
-//	printf("\n MASS END %10.2f\n",times->time);
-//	stop_execution();
+	//printf("\n MASS END %10.2f\n",times->time);
+	//stop_execution();
 
 	//printf("\n WRITE OUTPUT b %10.2f\n",times->time);
 	//stop_execution();
@@ -194,17 +196,16 @@ void checkErrorSize(char *errfilepath)
 /* 		printf("Error file '%s' has grown to dimension = %f Mbytes\n", errfilepath, errordimension); */
 		if(errordimension > 100.0)
 		{
-		printf("\n*****************************************************************************************************");
-		printf("\n*****************************************************************************************************");
-		printf("\n**                                                                         ");
-		printf("\n**                                                                         ");
-		printf("\n**  Error file '%s' has grown TOO MUCH!!!", errfilepath);
-		printf("\n**  Check the parameter choice!");
-		printf("\n**                                                                         ");
-		printf("\n**  LET'S STOP THIS NONSENSE!!!!!!!!!!!!!!!!!!!!!!!!                       ");
-		printf("\n**                                                                         ");
-		printf("\n*****************************************************************************************************");
-		printf("\n*****************************************************************************************************\n");
+			printf("\n*****************************************************************************************************");
+			printf("\n*****************************************************************************************************");
+			printf("\n**                                                                         ");
+			printf("\n**                                                                         ");
+			printf("\n**  Error file '%s' has grown TOO MUCH!!!", errfilepath);
+			printf("\n**  Check the parameter choice!");
+			printf("\n**                                                                         ");
+			printf("\n**                                                                         ");
+			printf("\n*****************************************************************************************************");
+			printf("\n*****************************************************************************************************\n");
 			exit(1);
 		}
 	}

@@ -2,19 +2,19 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -27,8 +27,7 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 
 #define PROGRAM_NAME  "___geotop"
 
-/*Constants */
-
+//Constants
 #define omega 0.261799388			/* velocita' di rotazione terrestre [rad/hr] */
 #define omega_anno 0.0007167		/* velocita' di rivoluzione terrestre [rad/hr] */
 #define Isc 1367					/* Costante solare [W/mq] */
@@ -43,38 +42,49 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define k_liq 0.600					/* thermal conductivity of water [W m^-1 K^-1]*/
 #define k_ice 2.290					/* thermal conductivity of water [W m^-1 K^-1]*/
 #define k_air 0.023					/* thermal conductivity of air   [W m^-1 K^-1]*/
-#define c_liq 4188.0				/* heat capacity of water		[J/(kg/K)]*/
-#define c_ice 2117.0				/* heat capacity of ice		[J/(kg/K)]*/
+#define c_liq 4188.0				/* heat capacity of water		[J/(kg*K)]*/
+#define c_ice 2117.0				/* heat capacity of ice		[J/(kg*K)]*/
+#define c_can 2700.0				/* heat capacity of canopy [J/(kg*K)]*/
 #define CA 0.34						/* tunable parameter in order to have surface temperature instead layer center temperature*/
 #define KNe 0.50					/* Krank-Nicholson parameter for egy balance*/
 #define KNw 1.00					/* Krank-Nicholson parameter for water balance*/
 #define Tfreezing 0.0E1				/* freezing temperature [Celsius]*/
 #define ka 0.41						/* Von Karman constant*/
 #define mu_l 0.001787				/* Dynamic viscosity of water at 0 degrees Celsius*/
-#define Asurr 0.8
+#define Asurr 0.0		/* Albedo of sorrounding terrain */
+#define wsn_vis 0.8					//snow on canopy: scattering parameters
+#define wsn_nir 0.4
+#define Bsnd_vis 0.5
+#define Bsnd_nir 0.5
+#define Bsnb_vis 0.5
+#define Bsnb_nir 0.5
+#define Tol_h_mount 2.0
+#define Tol_h_flat 20.0
+#define veg_jumping_exp 3.0
+
 
 //Meteo data
-#define iPt 0						/*Precipitation*/
-#define iWs iPt+1					/*Wind speed*/
-#define iWd iWs+1					/*Wind direction*/
-#define iRh iWd+1					/*Relative humidity*/
-#define iT iRh+1					/*Air temperature*/
-#define iTlr iT+1					/*Lapse rate*/
-#define iPs iTlr+1					/*Air Pressure*/
-#define iSW iPs+1					/*global shortwave radiation*/
-#define iSWb iSW+1					/*direct SW*/
-#define iSWd iSWb+1					/*diffuse SW*/
-#define iC	 iSWd+1					/*Cloudiness*/
-#define iSWi iC+1					/*incoming shortwave*/
-#define iLWi iSWi+1					/*incoming longwave*/
-#define iSWo iLWi+1					/*outgoing shortwave*/
-#define iLWo iSWo+1					/*outgoing longwave*/
-#define iH iLWo+1					/*Sensible heat flux*/
-#define iLE iH+1					/*Latent heat flux*/
-#define nmet iLE+1
+#define iPt 0		/*Precipitation*/
+#define iWs iPt+1	/*Wind speed*/
+#define iWd iWs+1	/*Wind direction*/
+#define iRh iWd+1	/*Relative humidity*/
+#define iT iRh+1	/*Air temperature*/
+#define iTlr iT+1	/*Lapse rate*/
+#define iPs iTlr+1	/*Air Pressure*/
+#define iSW iPs+1	/*global shortwave radiation*/
+#define iSWb iSW+1	/*direct SW*/
+#define iSWd iSWb+1	/*diffuse SW*/
+#define itauC iSWd+1/*sky trasmissivity*/
+#define iC	 itauC+1/*Cloudiness*/
+#define iLWi iC+1	/*incoming longwave*/
+#define iSWn iLWi+1	/*net shortwave*/
+#define iLWn iSWn+1	/*net longwave*/
+#define iH iLWn+1	/*Sensible heat flux*/
+#define iLE iH+1	/*Latent heat flux*/
+#define nmet iLE+1	/* number of meteo variables */
 
-/*Files
-#define fpar 1						//parameter file
+//Files
+/*#define fpar 1						//parameter file
 #define fopt fpar+1					//options
 #define fspar fopt+1				//soil parameters
 #define fmet fspar+1				//meteo
@@ -135,20 +145,7 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define fsndur fgld+1				//o. snow duration maps (days)
 #define fsnav fsndur+1				//o. averaged snow depth
 #define fmeltlu fsnav+1				//o. precipitation/snow melted/glacier melted for each land use type
-#define pH fmeltlu+1				//specific day map plots(p.) sensible heat flux
-#define pLE pH+1					//p. latent heat flux
-#define pSWin pLE+1					//p. incoming shortwave radiation
-#define pSWout pSWin+1				//p. outgoing shortwave radiation
-#define pLWin pSWout+1				//p. incoming longwave radiation
-#define pLWout pLWin+1				//p. outgoing longwave radiation
-#define pTs pLWout+1				//p. surface temperature
-#define pTa pTs+1					//p. air temperature
-#define pVspd pTa+1					//p. wind speed
-#define pVdir pVspd+1				//p. wind direction
-#define pRH pVdir+1					//p. relative humidity
-#define pD pRH+1					//p. snow depth
-#define pth pD+1					//p. water content of the most superficial layer
-#define rpsi pth+1					//recover file (f.) psi
+#define rpsi fmeltlu+1					//recover file (f.) psi
 #define riceg rpsi+1				//r. soil ice content
 #define rTg riceg+1					//r. soil temperature
 #define rDzs rTg+1					//r. snow layer thicknesses
@@ -163,11 +160,8 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define rni rns+1					//r. number of glacier layers
 #define rsnag rni+1					//r. snow age
 #define rhsup rsnag+1				//r. water over the surface
-#define rwt rhsup+1					//r. water stored on canopy
-#define rQch rwt+1					//r. water stored in channels
-#define rSFA rQch+1					//r. snow free area
-#define fHpatch rSFA+1				//file giving the fraction of snow free areas and corresponding properties
-#define nfiles fHpatch				//number of files
+#define rQch rhsup+1					//r. water stored in channels
+#define nfiles rQch					//number of files
 */
 //soil data
 #define jdz 1						//layer thickness [mm]
@@ -189,21 +183,30 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define nsoilprop jKav				//number of soil properties considered
 
 //land use data
-#define jz0 1						//roughness length [m]
-#define jz0zt jz0+1					//ratio z0/z0t (equal to 0 if z0t is calculated with Albertson&Cahill formulas)
-#define jd0 jz0zt+1					//d0 [m]
-#define jz0thres jd0+1				//threshold on snow depth to change roughness length to snow covered values
-#define jhc jz0thres+1				//canopy height
-#define jfc jhc+1					//canopy fraction
-#define jLAIw jfc+1					//LAI winter
+#define jz0soil 1					//roughness length for soil
+#define jz0thressoil jz0soil+1		//threshold on snow depth to change roughness length to snow covered values in soil area
+#define jHveg jz0thressoil+1		//vegetation height
+#define jz0veg jHveg+1				//roughness length for vegetation
+#define jd0 jz0veg+1				//displacement height for vegetation
+#define jz0thresveg jd0+1			//threshold on snow depth to change roughness length to snow covered values in vegetated area
+#define jLAIw jz0thresveg+1			//LAI winter
 #define jLAIs jLAIw+1				//LAI summer
-#define jroot jLAIs+1				//root depth [mm]
+#define jcf jLAIs+1					//Canopy gap fraction (k)
+#define jroot jcf+1					//root depth [mm]
 #define jrs jroot+1					//canopy transpiration coefficient
 #define jtwp jrs+1					//wilting point water cont.
 #define jtfc jtwp+1					//field capacity water cont.
 #define jvholdsn jtfc+1				//vegetation holding snow capacity (used for blowing snow)
-#define jalbedo jvholdsn+1			//albedo without snow
-#define jem jalbedo+1				//soil emissivity
-#define jcm jem+1					//gauckler strickler (1/manning) coefficient
-#define jGbottom jcm+1				//soil heat flux at the bottom of the soil domain
-#define nlandprop jGbottom			//number of land use properties
+#define jvR_vis jvholdsn+1			//vegetation in the visible spectrum
+#define jvR_nir jvR_vis+1			//vegetation in the near infrared spectrum
+#define jvT_vis jvR_nir+1			//vegetation in the visible spectrum
+#define jvT_nir jvT_vis+1			//vegetation in the near infrared spectrum
+#define jvCh jvT_nir+1				//departure of leaf angles from a random distribution (1 horizontal, 0 random, -1 vertical)
+#define jcd jvCh+1					//surface density of canopy [kg/(m2*LAI)]
+#define ja_vis jcd+1				//ground albedo in the visible spectrum
+#define ja_nir ja_vis+1				//ground albedo in the near infrared spectrum
+#define jemg ja_nir+1				//soil emissivity
+#define jcm jemg+1					//gauckler strickler (1/manning) coefficient
+#define jzb jcm+1					//Depth 0 Temperature amplitude
+#define jtb jzb+1					//Temperature at the Depth above
+#define nlandprop jtb				//number of land use properties

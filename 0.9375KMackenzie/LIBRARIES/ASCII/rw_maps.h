@@ -67,6 +67,7 @@ short existing_file_text(char *name);
 
 char *namefile_i(char *name, long i);
 char *namefile_i_we(char *name, long i);
+char *namefile_i_we2(char *name, long i);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
@@ -93,5 +94,7 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT
 void write_mapseries(long i, char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV);
 
 void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
+
+void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
 
 void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);

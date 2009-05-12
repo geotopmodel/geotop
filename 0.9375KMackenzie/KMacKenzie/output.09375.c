@@ -2,26 +2,25 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion KMackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 KMackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie.
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GEOtop is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
 
 
 #include "keywords_file.h"
@@ -102,13 +101,15 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
  double JD,z;
  long d2,mo2,y2,h2,mi2;
  short sy;
+ double fwet;
+
 
 //double jd;
 //long day,month,year,hour0,hour1,hour2,min0,min1,min2;
 
  /* Assignment to some internal variables of some input par:*/
- time_max=times->TH*3600.0;
- total_pixel=(double)par->total_pixel;
+time_max=times->TH*3600.0;
+total_pixel=(double)par->total_pixel;
 
 /* Print on the screen and into error-file the temporal coordinate of simulation: */
 if (times->i_pixel==times->n_pixel){
@@ -144,11 +145,14 @@ if (times->i_pixel==times->n_pixel){
 //DISCHARGE
 //****************************************************************************************************************
 //****************************************************************************************************************
+ if(times->time==0){
+	Rout=0.0; Qsub_ch=0.0; Qsup_ch=0.0; R_G=0.0; Q_G=0.0;
+ }
 
  Q_GG=0.0;
- for(r=1;r<=top->Z0->nrh;r++){
-	for(c=1;c<=top->Z0->nch;c++){
-       if (top->Z0->co[r][c]!=UV->V->co[2]){/*if the pixel is not a novalue*/
+ for(r=1;r<=Nr;r++){
+	for(c=1;c<=Nc;c++){
+       if (land->LC->co[r][c]!=NoV){/*if the pixel is not a novalue*/
           Q_GG+=sl->J->co[Nl][r][c]*UV->U->co[1]*UV->U->co[2]*0.001; /*[mc/s]*/
        }
     }
@@ -243,6 +247,7 @@ if (times->i_pixel==times->n_pixel){/*Print the outlet flows*/
 //DATA POINT
 //****************************************************************************************************************
 //****************************************************************************************************************
+
 if(par->state_pixel==1){
 
 	for(i=1;i<=par->chkpt->nrh;i++){
@@ -314,6 +319,13 @@ if(par->state_pixel==1){
 			}
 
 
+			if(egy->out1->co[56][i]>0){
+				fwet=pow(wat->out1->co[14][i]/(0.1*egy->out1->co[56][i]),2./3.);
+				if(fwet>1) fwet=1.0;
+			}else{
+				fwet=0.0;
+			}
+
 			/*update of the file "f" every times->n_pixel times: */
 			t_i=times->time-par->Dt*times->n_pixel;
 			name=join_strings(files->co[fpoint]+1,SSSS);
@@ -324,7 +336,7 @@ if(par->state_pixel==1){
 			fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
 			fprintf(f,",%f,%f,%f,",0.5*(t_i+par->Dt+times->time+par->Dt)/(double)86400,(t_i+par->Dt),(times->time+par->Dt));
 			fprintf(f,"%14.3f,%14.9f,%f,%14.4f,%14.6f,%14.6f,%14.6f,%14.6f,%14.12f,%14.6f,%14.12f,",
-					egy->out1->co[17][i]/*v*/,egy->out1->co[55][i]/*vdir*/,egy->out1->co[18][i]/*RH*/,egy->out1->co[19][i]/*P*/,egy->out1->co[20][i]/*Ta*/,egy->out1->co[10][i]/*Tsurface*/,
+					egy->out1->co[17][i]/*v*/,egy->out1->co[55][i]/*vdir*/,egy->out1->co[18][i]/*RH*/,egy->out1->co[19][i]/*P*/,egy->out1->co[20][i]/*Ta*/,egy->out1->co[64][i]/*Tsurface*/,
 					egy->out1->co[46][i],egy->out1->co[47][i],egy->out1->co[48][i],egy->out1->co[49][i],egy->out1->co[50][i]);
 			fprintf(f,"%14.5f,%14.5f,%14.5f,%14.5f,%14.12f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,%14.5f,",
 					egy->out1->co[14][i]/*Rsw*/,egy->out1->co[53][i]/*SWbeam*/,egy->out1->co[54][i]/*SWdiff*/,egy->out1->co[45][i],egy->out1->co[15][i]/*albedo*/,
@@ -348,12 +360,14 @@ if(par->state_pixel==1){
 					 snowD,SWE,snowdensity,snowtemperature,snow->out_bs->co[9][i],snow->out_bs->co[10][i],snow->melted->co[i],snow->subl->co[i],snow->evap->co[i],
 					 glacD,GWE,glacdensity,glactemperature,glac->melted->co[i],glac->subl->co[i],glac->evap->co[i]);
 			fprintf(f,"%14.9f,",wat->out1->co[15][i]/*q_v*/);
-			fprintf(f,"%14.12f,%14.3f,%14.6f,%14.11f,%14.11f,%14.9f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,",
-					 egy->out1->co[16][i]/*LW_emissivity*/,
-					 egy->out1->co[29][i],egy->out1->co[30][i],egy->out1->co[35][i],egy->out1->co[36][i],egy->out1->co[37][i],
-					 egy->out1->co[38][i],egy->out1->co[39][i],egy->out1->co[40][i],egy->out1->co[41][i],egy->out1->co[42][i],
-			         egy->out1->co[43][i],egy->out1->co[44][i]);
-			fprintf(f,"%f,%f,%f,%f,%f,%20.18f\n",egy->out1->co[51][i],egy->out1->co[52][i],egy->out1->co[56][i],egy->out1->co[57][i],egy->out1->co[58][i],wat->out1->co[28][i]/(double)times->n_pixel);
+			/*fprintf(f,"%14.12f,%14.3f,%14.6f,%14.11f,%14.11f,%14.9f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,%14.11f,",
+					 egy->out1->co[16][i],egy->out1->co[29][i],egy->out1->co[30][i],egy->out1->co[35][i],egy->out1->co[36][i],egy->out1->co[37][i],egy->out1->co[38][i],
+					 egy->out1->co[39][i],egy->out1->co[40][i],egy->out1->co[41][i],egy->out1->co[42][i],egy->out1->co[43][i],egy->out1->co[44][i]);*/
+			fprintf(f,"%14.12f,%14.3f,%14.6f,", egy->out1->co[16][i],egy->out1->co[29][i],egy->out1->co[30][i]);
+			fprintf(f,"%f,%f,%f,%f,%f,%20.18f,",egy->out1->co[51][i],egy->out1->co[52][i],egy->out1->co[56][i],egy->out1->co[57][i],egy->out1->co[58][i],wat->out1->co[28][i]/(double)times->n_pixel);
+			fprintf(f,"%f,%f,%f,%f,%f,%f,%f,%f,",egy->out1->co[64][i],egy->out1->co[10][i],egy->out1->co[63][i],egy->out1->co[59][i],egy->out1->co[60][i],egy->out1->co[61][i],egy->out1->co[62][i],fwet);
+			fprintf(f,"%f,%f,%f,%f,%f,%f,%f,",egy->out1->co[6][i]+egy->out1->co[61][i],egy->out1->co[5][i]+egy->out1->co[62][i],egy->out1->co[65][i],egy->out1->co[66][i],egy->out1->co[67][i],egy->out1->co[68][i],egy->out1->co[69][i]);
+			fprintf(f,"%f,%f,%f,%f,%f,%f,%f,%f,%e,%e,%e,%e\n",egy->out1->co[70][i],egy->out1->co[71][i],egy->out1->co[72][i],egy->out1->co[73][i],egy->out1->co[74][i],egy->out1->co[77][i],egy->out1->co[75][i],egy->out1->co[76][i],egy->out1->co[78][i],egy->out1->co[79][i],egy->out1->co[80][i],egy->out1->co[81][i]);
 			fclose(f);
 
 			/*update of the file "f" every times->n_pixel times: */
@@ -363,7 +377,7 @@ if(par->state_pixel==1){
 			f=fopen(name,"a");
 			write_date(f, d2, mo2, y2, h2, mi2);
 			fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
-			fprintf(f,",%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f",(t_i+par->Dt),(times->time+par->Dt),snowD,SWE,snowtemperature,snowdensity,egy->out1->co[15][i]/*albedo*/,
+			fprintf(f,",%f,%f,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f",(t_i+par->Dt),(times->time+par->Dt),snow->type->co[r][c],snowD,SWE,snowtemperature,snowdensity,egy->out1->co[15][i]/*albedo*/,
 				snow->melted->co[i],snow->subl->co[i],snow->evap->co[i],snow->lnum->co[r][c],snow->out_bs->co[1][i],snow->out_bs->co[2][i],
 				snow->out_bs->co[3][i],snow->out_bs->co[4][i],snow->out_bs->co[5][i],snow->out_bs->co[6][i],snow->out_bs->co[7][i],
 				snow->out_bs->co[8][i],snow->out_bs->co[9][i],snow->out_bs->co[10][i]);
@@ -462,7 +476,7 @@ if(par->state_pixel==1){
 		for(i=1;i<=par->chkpt->nrh;i++){
 			for(j=1;j<=20;j++) { egy->out1->co[j][i]=0.0; }
 			for(j=29;j<=30;j++) { egy->out1->co[j][i]=0.0; }
-			for(j=35;j<=58;j++) { egy->out1->co[j][i]=0.0; }
+			for(j=35;j<=81;j++) { egy->out1->co[j][i]=0.0; }
 			for(j=1;j<=12;j++) { wat->out1->co[j][i]=0.0; }
 			for(j=15;j<=20;j++) { wat->out1->co[j][i]=0.0; }
 			for(j=28;j<=28;j++) { wat->out1->co[j][i]=0.0; }
@@ -483,6 +497,47 @@ if(par->state_pixel==1){
 //BASIN DATA
 //****************************************************************************************************************
 //****************************************************************************************************************
+if(times->time==0){
+	/*NOTE: these are all static variables*/
+	wt0_basin=0.0;		Ssup=0.0;				Ssub=0.0;
+	SWE_previous=0.0;   Smelt_previous=0.0;		Ssubl_previous=0.0;		Sevap_previous=0.0;   Smelt=0.0;	Ssubl=0.0;	Sevap=0.0;
+	GWE_previous=0.0;   Gmelt_previous=0.0;		Gsubl_previous=0.0;		Gevap_previous=0.0;   Gmelt=0.0;	Gsubl=0.0;	Gevap=0.0;
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if (land->LC->co[r][c]!=NoV){ /*if the pixel is not a novalue*/
+
+				sy=sl->type->co[r][c];
+
+				/*find the total water on the soil-surface (volume for unit of area):*/
+				Ssup+=wat->h_sup->co[r][c];
+
+				/*find the total water in the subsoil (volume for unit of area):*/
+				for(l=1;l<=Nl;l++){
+					Ssub+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
+						sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil)*sl->pa->co[sy][jdz][l];
+				}
+
+				/*water on the leaves*/
+				wt0_basin+=wat->wt->co[r][c];
+
+				/*find the mean water equivalent snow and glacier height at the initial condition:*/
+				for(l=1;l<=snow->lnum->co[r][c];l++){
+					SWE_previous+=(1.0E+3*(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c])/rho_w)/total_pixel;
+				}
+
+				if(par->glaclayer_max>0){
+					for(l=1;l<=glac->lnum->co[r][c];l++){
+						GWE_previous+=(1.0E+3*(glac->w_liq->co[l][r][c]+glac->w_ice->co[l][r][c])/rho_w)/total_pixel;
+					}
+				}
+
+				 S_ch0=0.0; S_ch1=0.0;
+
+			}
+		}
+	}
+}
 
 /* Updating snow and glacier melting : */
 Smelt+=snow->melted_basin/total_pixel;	//[mm]
@@ -499,9 +554,9 @@ if (times->i_basin==times->n_basin){/*Print of the output of all the basin*/
 	wat->out2->co[7]=-Ssub;
 	wt0_basin=0.0;	Ssup=0.0;	Ssub=0.0;	SWE=0.0;	GWE=0.0;
 
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if (top->Z0->co[r][c]!=UV->V->co[2]){ /*if the pixel is not a novalue(=9)*/
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if (land->LC->co[r][c]!=NoV){ /*if the pixel is not a novalue(=9)*/
 
 				/*Snow water equivalent [mm]*/
 				for(l=1;l<=snow->lnum->co[r][c];l++){
@@ -560,23 +615,24 @@ if (times->i_basin==times->n_basin){/*Print of the output of all the basin*/
 	date_time(times->time+par->Dt, par->year0, par->JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
 	write_date(f, d2, mo2, y2, h2, mi2);
 	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
-	fprintf(f,",%f,%f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.4f,%14.3f,%14.3f,%14.3f,%14.3f,%14.3f,%14.4f,%14.4f,%14.4f,%14.4f,%14.4f,%14.4f,%14.3f,%14.3f,%14.3f,%14.4f,%14.4f,%14.4f,%14.4f,%20.18f\n",
-		(t_i+par->Dt),(times->time+par->Dt), egy->out2->co[2]/*Eg*/,egy->out2->co[3]/*Sg*/,egy->out2->co[4]/*Ecv*/,egy->out2->co[5]/*Etc*/,egy->out2->co[6]/*ET*/,
-		egy->out2->co[11]/*Rn*/,egy->out2->co[8]/*G*/,egy->out2->co[7]/*H*/,egy->out2->co[9]/*Ecanopy*/,egy->out2->co[1]/*Ts*/,
-		wat->out2->co[1]/*Prain*/,wat->out2->co[2]/*Psnow*/,wat->out2->co[5]/*Dwt*/,wat->out2->co[3]/*Pn*/,
-		wat->out2->co[4]/*runoff*/,wat->out2->co[6]/*Dssup*/,wat->out2->co[7]/*Dssub*/,DS_ch,R_G,Rout,SWE,SWE-SWE_previous,Smelt,Smelt-Smelt_previous,Ssubl,
-		Ssubl-Ssubl_previous,Sevap,Sevap-Sevap_previous,GWE,GWE-GWE_previous,Gmelt,Gmelt-Gmelt_previous,Gsubl,Gsubl-Gsubl_previous,Gevap,Gevap-Gevap_previous,wat->out2->co[8]/(double)times->n_basin);
+	fprintf(f,",%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+		(t_i+par->Dt),(times->time+par->Dt),egy->out2->co[3],egy->out2->co[4],egy->out2->co[5],egy->out2->co[8],egy->out2->co[9],egy->out2->co[7],egy->out2->co[6],//9
+		egy->out2->co[12],egy->out2->co[13],egy->out2->co[11],egy->out2->co[10],egy->out2->co[1],egy->out2->co[2],egy->out2->co[15],//16
+		egy->out2->co[14],wat->out2->co[1]/*Prain*/,wat->out2->co[2]/*Psnow*/,wat->out2->co[5]/*Dwt*/,wat->out2->co[3]/*Pn*/, wat->out2->co[4]/*runoff*/,
+		wat->out2->co[6]/*Dssup*/,wat->out2->co[7]/*Dssub*/,DS_ch,R_G,Rout,Ssup/total_pixel,Ssub/total_pixel,wt0_basin/total_pixel,//30
+		SWE,SWE-SWE_previous,Smelt,Smelt-Smelt_previous,Ssubl,Ssubl-Ssubl_previous,Sevap,Sevap-Sevap_previous,GWE,GWE-GWE_previous,Gmelt,Gmelt-Gmelt_previous,Gsubl,//43
+		Gsubl-Gsubl_previous,Gevap,Gevap-Gevap_previous,wat->out2->co[8]/(double)times->n_basin);//47
 	fclose(f);
 
 	/*writing of some results on the screen:*/
-	printf(" Rn=%6.2f W/m2  H=%6.2f W/m2  ET=%6.2f W/m2 \n Prain=%6.2f mm  Psnow=%6.2f mm  Rout=%6.2f mm/h \n Max Error Richards=%20.18f mm/h\n\n",
-		egy->out2->co[11],egy->out2->co[7],egy->out2->co[6],wat->out2->co[1],wat->out2->co[2],Rout*3600.0/(double)(par->Dt*times->n_basin),wat->out2->co[8]/(double)times->n_basin);
+	printf(" SW=%f W/m2  LW:%f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Prain=%6.2f mm  Psnow=%6.2f mm  Rout=%6.2f mm/h \n Max Error Richards=%20.18f mm/h\n\n",
+		egy->out2->co[8],egy->out2->co[9],egy->out2->co[7],egy->out2->co[6],wat->out2->co[1],wat->out2->co[2],Rout*3600.0/(double)(par->Dt*times->n_basin),wat->out2->co[8]/(double)times->n_basin);
 
 	Rout=0.0; R_G=0.0;
 	SWE_previous=SWE;   Smelt_previous=Smelt;	Ssubl_previous=Ssubl;	Sevap_previous=Sevap;
 	GWE_previous=GWE;   Gmelt_previous=Gmelt;	Gsubl_previous=Gsubl;	Gevap_previous=Gevap;
 
-	for(j=1;j<=11;j++){
+	for(j=1;j<=15;j++){
 		egy->out2->co[j]=0.0;
 	}
 
@@ -631,46 +687,113 @@ for(i=1;i<=par->ES_num;i++){
 //****************************************************************************************************************
 //****************************************************************************************************************
 if(par->output_h_sup>0){
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]) wat->hsupav->co[r][c]+=wat->h_sup->co[r][c]/((par->output_h_sup*3600.0)/(par->Dt));
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV) wat->hsupav->co[r][c]+=wat->h_sup->co[r][c]/((par->output_h_sup*3600.0)/(par->Dt));
 		}
 	}
 }
 
 //TETA
-if(par->output_TETAxy>0 && fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==0){
-	n_file=(long)((times->time+par->Dt)/(par->output_TETAxy*3600.0));
+if(par->output_TETAxy>0){
 	Q=new_doubletensor(Nl,Nr,Nc);
 	initialize_doubletensor(Q,UV->V->co[2]);
+
 	for(r=1;r<=Nr;r++){
 		for(c=1;c<=Nc;c++){
-			if(top->Z0->co[r][c]!=NoV){
+			if(land->LC->co[r][c]!=NoV){
 				sy=sl->type->co[r][c];
 				for(l=1;l<=Nl;l++){
 					Q->co[l][r][c]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
 									sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l],Psif(sl->T->co[l][r][c],par->psimin)),
 									par->Esoil);
+					sl->thwav->co[l][r][c]+=(Q->co[l][r][c]/((par->output_TETAxy*3600.0)/(par->Dt)));
 				}
 			}
 		}
 	}
-	write_tensorseries2(n_file, files->co[fliq]+1, 0, par->format_out, Q, UV);
+
+	if( fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==0 ){
+		n_file=(long)((times->time+par->Dt)/(par->output_TETAxy*3600.0));
+		write_tensorseries2(n_file, join_strings(files->co[fliq]+1, "_IST_"), 0, par->format_out, Q, UV);
+		write_tensorseries2(n_file, join_strings(files->co[fliq]+1, "_MEAN_"), 0, par->format_out, sl->thwav, UV);
+
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(land->LC->co[r][c]!=NoV){
+					for(l=1;l<=Nl;l++){
+						sl->thwav->co[l][r][c]=0.0;
+					}
+				}
+			}
+		}
+	}
+
 	free_doubletensor(Q);
 }
 
 
 
 //T
-if(par->output_Txy>0 && fmod(times->time+par->Dt,par->output_Txy*3600.0)==0){
-	n_file=(long)((times->time+par->Dt)/(par->output_Txy*3600.0));
-	write_tensorseries2(n_file, files->co[fT]+1, 0, par->format_out, sl->T, UV);
+if(par->output_Txy>0){
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
+				sy=sl->type->co[r][c];
+				for(l=1;l<=Nl;l++){
+					sl->Tav->co[l][r][c]+=(sl->T->co[l][r][c]/((par->output_Txy*3600.0)/(par->Dt)));
+				}
+			}
+		}
+	}
+
+	if( fmod(times->time+par->Dt,par->output_Txy*3600.0)==0 ){
+		n_file=(long)((times->time+par->Dt)/(par->output_Txy*3600.0));
+		write_tensorseries2(n_file, join_strings(files->co[fT]+1, "IST"), 0, par->format_out, sl->T, UV);
+		write_tensorseries2(n_file, join_strings(files->co[fT]+1, "MEAN"), 0, par->format_out, sl->Tav, UV);
+
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(land->LC->co[r][c]!=NoV){
+					for(l=1;l<=Nl;l++){
+						sl->Tav->co[l][r][c]=0.0;
+					}
+				}
+			}
+		}
+	}
 }
 
 //TETAICE
-if(par->output_TETAICExy>0 && fmod(times->time+par->Dt,par->output_TETAICExy*3600.0)==0){
-	n_file=(long)((times->time+par->Dt)/(par->output_TETAICExy*3600.0));
-	write_tensorseries2(n_file, files->co[fice]+1, 0, par->format_out, sl->thice, UV);
+if(par->output_TETAICExy>0){
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
+				sy=sl->type->co[r][c];
+				for(l=1;l<=Nl;l++){
+					sl->thiav->co[l][r][c]+=(sl->thice->co[l][r][c]/((par->output_TETAICExy*3600.0)/(par->Dt)));
+				}
+			}
+		}
+	}
+
+	if( fmod(times->time+par->Dt,par->output_TETAICExy*3600.0)==0 ){
+		n_file=(long)((times->time+par->Dt)/(par->output_TETAICExy*3600.0));
+		write_tensorseries2(n_file, join_strings(files->co[fice]+1, "IST"), 0, par->format_out, sl->thice, UV);
+		write_tensorseries2(n_file, join_strings(files->co[fice]+1, "MEAN"), 0, par->format_out, sl->thiav, UV);
+
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(land->LC->co[r][c]!=NoV){
+					for(l=1;l<=Nl;l++){
+						sl->thiav->co[l][r][c]=0.0;
+					}
+				}
+			}
+		}
+	}
 }
 
 //PSI
@@ -680,7 +803,7 @@ if(par->output_PSIxy>0 && fmod(times->time+par->Dt,par->output_PSIxy*3600.0)==0)
 }
 
 //matrix to handle data
-M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+M=new_doublematrix(Nr,Nc);
 initialize_doublematrix(M,UV->V->co[2]);
 
 //ALBEDO
@@ -698,7 +821,7 @@ if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)==0){
 	write_suffix(SSSS, n_file, 0);
 	for(r=1;r<=snow->Dzl->nrh;r++){
 		for(c=1;c<=snow->Dzl->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
+			if(land->LC->co[r][c]!=NoV){
 				M->co[r][c]=0.0;
 				for(l=1;l<=snow->lnum->co[r][c];l++){
 					M->co[r][c]+=snow->Dzl->co[l][r][c];
@@ -732,7 +855,7 @@ if(par->glaclayer_max>0 && par->output_glac>0 && fmod(times->time+par->Dt,par->o
 	write_suffix(SSSS, n_file, 0);
 	for(r=1;r<=glac->Dzl->nrh;r++){
 		for(c=1;c<=glac->Dzl->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
+			if(land->LC->co[r][c]!=NoV){
 				M->co[r][c]=0.0;
 				for(l=1;l<=glac->lnum->co[r][c];l++){
 					M->co[r][c]+=(glac->w_liq->co[l][r][c]+glac->w_ice->co[l][r][c]);
@@ -911,7 +1034,7 @@ if(par->output_balancesn>0 && fmod(times->time+par->Dt,par->output_balancesn*360
 
 	for(r=1;r<=snow->Dzl->nrh;r++){
 		for(c=1;c<=snow->Dzl->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
+			if(land->LC->co[r][c]!=NoV){
 				M->co[r][c]=0.0;
 				D=0.0;
 				for(l=1;l<=snow->lnum->co[r][c];l++){
@@ -937,7 +1060,7 @@ if(par->glaclayer_max>0 && par->output_balancegl>0 && fmod(times->time+par->Dt,p
 
 	for(r=1;r<=glac->Dzl->nrh;r++){
 		for(c=1;c<=glac->Dzl->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
+			if(land->LC->co[r][c]!=NoV){
 				M->co[r][c]=0.0;
 				D=0.0;
 				for(l=1;l<=glac->lnum->co[r][c];l++){
@@ -972,9 +1095,9 @@ if(par->output_Rswdown>0 && fmod(times->time+par->Dt,par->output_Rswdown*3600.0)
 		initmatrix(-1.0E+9, egy->Rswdown_max, top->Z0, NoV);
 	}
 
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
 				if(egy->nDt_sun->co[r][c]>0){
 					M->co[r][c]=egy->nDt_shadow->co[r][c]/(double)(egy->nDt_sun->co[r][c]);
 				}else{
@@ -1026,153 +1149,6 @@ if(par->output_meteo>0 && fmod(times->time+par->Dt,par->output_meteo*3600.0)==0)
 free_doublematrix(M);
 
 
-/**********************************************************************************************************/
-/**********************************************************************************************************/
-//SPECIAL PLOTS AT SOME DAYS
-/**********************************************************************************************************/
-/**********************************************************************************************************/
-
-if(times->i_plot==times->n_plot){
-
-	printf("\nWriting output data for JD:%ld year:%ld file:%ld\n",times->d_plot, times->AAAA, times->nt_plot);
-	f=fopen(files->co[ferr]+1,"a");
-	fprintf(f,"\nWriting output data for JD:%ld year:%ld file:%ld  ",times->d_plot, times->AAAA, times->nt_plot);
-	write_date(f, times->DD, times->MM, times->AAAA, times->hh, times->mm);
-	fprintf(f,"\n");
-	fclose(f);
-
-	n_file=(long)((times->time+par->Dt)/(times->n_plot*par->Dt));
-
-	plot(files->co[pH]+1, times->d_plot, times->AAAA, times->nt_plot, egy->Hplot, par->format_out);
-	plot(files->co[pLE]+1, times->d_plot, times->AAAA, times->nt_plot, egy->LEplot, par->format_out);
-	plot(files->co[pSWin]+1, times->d_plot, times->AAAA, times->nt_plot, egy->SWinplot, par->format_out);
-	plot(files->co[pSWout]+1, times->d_plot, times->AAAA, times->nt_plot, egy->SWoutplot, par->format_out);
-	plot(files->co[pLWin]+1, times->d_plot, times->AAAA, times->nt_plot, egy->LWinplot, par->format_out);
-	plot(files->co[pLWout]+1, times->d_plot, times->AAAA, times->nt_plot, egy->LWoutplot, par->format_out);
-	plot(files->co[pTs]+1, times->d_plot, times->AAAA, times->nt_plot, egy->Tsplot, par->format_out);
-	plot(files->co[pTa]+1, times->d_plot, times->AAAA, times->nt_plot, met->Taplot, par->format_out);
-	plot(files->co[pD]+1, times->d_plot, times->AAAA, times->nt_plot, snow->Dplot, par->format_out);
-	if(par->micromet1==1){
-		plot(files->co[pVspd]+1, times->d_plot, times->AAAA, times->nt_plot, met->Vspdplot, par->format_out);
-		plot(files->co[pVdir]+1, times->d_plot, times->AAAA, times->nt_plot, met->Vdirplot, par->format_out);
-		plot(files->co[pRH]+1, times->d_plot, times->AAAA, times->nt_plot, met->RHplot, par->format_out);
-	}
-
-	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
-	initialize_doublematrix(M,UV->V->co[2]);
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
-				sy=sl->type->co[r][c];
-				l=1;
-				M->co[r][c]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
-					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
-			}
-		}
-	}
-	plot(files->co[pth]+1, times->d_plot, times->AAAA, times->nt_plot, M, par->format_out);
-	free_doublematrix(M);
-
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if(top->Z0->co[r][c]!=UV->V->co[2]){
-				egy->Hplot->co[r][c]=0.0;
-				egy->LEplot->co[r][c]=0.0;
-				egy->SWinplot->co[r][c]=0.0;
-				egy->SWoutplot->co[r][c]=0.0;
-				egy->LWinplot->co[r][c]=0.0;
-				egy->LWoutplot->co[r][c]=0.0;
-				egy->Tsplot->co[r][c]=0.0;
-				snow->Dplot->co[r][c]=0.0;
-				met->Taplot->co[r][c]=0.0;
-				if(par->micromet1==1){
-					met->Vspdplot->co[r][c]=0.0;
-					met->Vdirplot->co[r][c]=0.0;
-					met->RHplot->co[r][c]=0.0;
-				}
-			}
-		}
-	}
-}
-
-/**********************************************************************************************************/
-/**********************************************************************************************************/
-//TRANSECTS
-/**********************************************************************************************************/
-/**********************************************************************************************************/
-
-/*date_time(times->time, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour0, &min0);
-date_time(times->time+par->Dt, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour1, &min1);
-date_time(times->time+2.0*par->Dt, par->year0, par->JD0, 0.0, &jd, &day, &month, &year, &hour2, &min2);
-
-M=new_doublematrix(Nr,Nc);
-for(r=1;r<=Nr;r++){
-	for(c=1;c<=Nc;c++){
-		if(top->Z0->co[r][c]!=NoV){
-
-			if(snow->lnum->co[r][c]>=1){
-				M->co[r][c]=snow->T->co[snow->lnum->co[r][c]][r][c];
-			}else if(par->glaclayer_max>0){
-				if(snow->lnum->co[r][c]==0 && glac->lnum->co[r][c]>=1){
-					M->co[r][c]=glac->T->co[1][r][c];
-				}else{
-					M->co[r][c]=sl->T->co[1][r][c];
-				}
-			}else{
-				M->co[r][c]=sl->T->co[1][r][c];
-			}
-
-		}else{
-			M->co[r][c]=NoV;
-		}
-	}
-}
-
-for(j=0;j<2;j++){
-
-	for(i=0;i<dim2(par->transect[j]);i++){
-
-		if(par->transect[j][i][2]>=hour1+min1/60.0 && par->transect[j][i][2]<hour2+min2/60.0){
-
-			par->vtrans[j][i]=interp_value(par->transect[j][i][0], par->transect[j][i][1], M, top->Z0)*(par->transect[j][i][2]-(hour1+min1/60.0))/((hour2+min2/60.0)-(hour1+min1/60.0));
-
-			//printf("1. %ld %ld %f\n",i,j,par->vtrans[j][i]);
-
-		}else if(par->transect[j][i][2]>hour0+min0/60.0 && par->transect[j][i][2]<hour1+min1/60.0){
-
-			par->vtrans[j][i]+=interp_value(par->transect[j][i][0], par->transect[j][i][1], M, top->Z0)*((hour1+min1/60.0)-par->transect[j][i][2])/((hour1+min1/60.0)-(hour0+min0/60.0));
-
-			//printf("2. %ld %ld %f %ld\n",i,j,par->vtrans[j][i],par->ibeg->co[j+1]);
-
-			if(par->ibeg->co[j+1]==-1){
-				par->ibeg->co[j+1]=0;
-				par->cont_trans->co[j+1]+=1;
-			}
-
-			if(i!=0){
-				//printf("%ld %ld %f\n",j,i,pow(pow(par->transect[j][i][0]-par->transect[j][i-1][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][i-1][1],2.0),0.5));
-
-				if(pow(pow(par->transect[j][i][0]-par->transect[j][i-1][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][i-1][1],2.0),0.5)>40){
-					par->ibeg->co[j+1]=i;
-					par->cont_trans->co[j+1]+=1;
-				}
-			}
-
-			if(fabs(par->vtrans[j][i]-NoV)>1.0E-2){
-				f=fopen(namefile_i(join_strings(WORKING_DIRECTORY,"_transectMOD"),j+1),"a");
-				fprintf(f,"%ld,%ld,%f,%f,%f,%f,%f,%f\n",par->cont_trans->co[j+1],i,pow(pow(par->transect[j][i][0]-par->transect[j][par->ibeg->co[j+1]][0],2.0)+pow(par->transect[j][i][1]-par->transect[j][par->ibeg->co[j+1]][1],2.0),0.5),
-					par->transect[j][i][0],par->transect[j][i][1],par->transect[j][i][2],par->transect[j][i][3],par->vtrans[j][i]);
-				fclose(f);
-			}
-		}
-	}
-
-
-}
-
-free_doublematrix(M);*/
-
-
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
@@ -1195,13 +1171,14 @@ if(isavings < par->saving_points->nh){
 
 			write_suffix(SSSS, isavings, 0);
 
+
 			for(l=1;l<=Nl;l++){
 				write_tensorseries(1, l, isavings, files->co[rpsi]+1, 0, par->format_out, sl->P, UV);
 				write_tensorseries(1, l, isavings, files->co[riceg]+1, 0, par->format_out, sl->thice, UV);
 				write_tensorseries(1, l, isavings, files->co[rTg]+1, 0, par->format_out, sl->T, UV);
 			}
 			write_map(join_strings(files->co[rhsup]+1,SSSS), 0, par->format_out, wat->h_sup, UV);
-			write_map(join_strings(files->co[rwt]+1,SSSS), 0, par->format_out, wat->wt, UV);
+
 
 			for(l=1;l<=par->snowlayer_max;l++){
 				write_tensorseries(1, l, isavings, files->co[rDzs]+1, 0, par->format_out, snow->Dzl, UV);
@@ -1213,6 +1190,7 @@ if(isavings < par->saving_points->nh){
 			M=copydouble_longmatrix(snow->lnum);
 			write_map(join_strings(files->co[rns]+1, SSSS), 1, par->format_out, M, UV);
 			free_doublematrix(M);
+
 
 			if(par->glaclayer_max>0){
 				for(l=1;l<=par->glaclayer_max;l++){
@@ -1226,6 +1204,7 @@ if(isavings < par->saving_points->nh){
 				free_doublematrix(M);
 			}
 
+
 			name=join_strings(files->co[rQch]+1,SSSS);
 			name=join_strings(name,textfile);
 			f=t_fopen(name,"w");
@@ -1238,22 +1217,13 @@ if(isavings < par->saving_points->nh){
 			}
 			t_fclose(f);
 
-			name=join_strings(files->co[rSFA]+1,SSSS);
-			name=join_strings(name,textfile);
-			f=t_fopen(name,"w");
-			fprintf(f,"/**Fraction of snow free area and average sensible heat flux (W/m2) from snow free area\n");
-			fprintf(f," VSFA		HSFA*/\n");
-			fprintf(f,"index{1}\n");
-			fprintf(f,"1:double vector SFA {%f,%f}\n",egy->VSFA,egy->HSFA);
-			t_fclose(f);
-
-
 
 		}
 	}
 }
 
 }
+
 /*--------------------------------------------------------------------------------------------------*/
 
 
@@ -1301,21 +1271,26 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
  printf("Deallocating sl\n");
  free_doubletensor(sl->P);
  free_doubletensor(sl->T);
+ free_doublematrix(sl->Tv);
  free_doubletensor(sl->thice);
  free_doublematrix(sl->Jinf);
  free_doubletensor(sl->J);
  free_shortmatrix(sl->type);
  free_doubletensor(sl->pa);
+ if(par->output_TETAICExy>0) free_doubletensor(sl->thiav);
+ if(par->output_TETAxy>0) free_doubletensor(sl->thwav);
+ if(par->output_Txy>0) free_doubletensor(sl->Tav);
  free(sl);
 
  /* Deallocation of struct LAND "land": */
  printf("Deallocating land\n");
- free_shortmatrix(land->use);
+ free_doublematrix(land->LC);
  if(par->output_albedo>0) free_doublematrix(land->albedo);
  free_shortmatrix(land->shadow);
  free_longvector(land->clax);
  free_longmatrix(land->cont);
  free_doublematrix(land->ty);
+ if(files->index->nh>nfiles && par->point_sim==0){if(existing_file(files->co[nfiles+1]+1)>0) free_shortmatrix(land->LC2);}
  free(land);
 
  /* Deallocation of struct WATER "water": */
@@ -1365,7 +1340,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
  free_doublematrix(egy->Hgrid);
  free_doublematrix(egy->Tsgrid);
 
- if(par->micromet2==1) free_doublematrix(egy->SWin);
+ //if(par->micromet2==1) free_doublematrix(egy->SWin);
  if(par->micromet3==1) free_doublematrix(egy->LWin);
 
  if(par->output_Rn>0){
@@ -1424,14 +1399,23 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
  if(par->ES_num>0) free_doublematrix(egy->out3);
 
  if(par->JD_plots->co[1]!=0){
-	free_doublematrix(egy->Hplot);
-	free_doublematrix(egy->LEplot);
+	free_doublematrix(egy->Hgplot);
+	free_doublematrix(egy->LEgplot);
+	free_doublematrix(egy->Hvplot);
+	free_doublematrix(egy->LEvplot);
 	free_doublematrix(egy->SWinplot);
-	free_doublematrix(egy->SWoutplot);
+	free_doublematrix(egy->SWgplot);
+	free_doublematrix(egy->SWvplot);
 	free_doublematrix(egy->LWinplot);
-	free_doublematrix(egy->LWoutplot);
+	free_doublematrix(egy->LWgplot);
+	free_doublematrix(egy->LWvplot);
 	free_doublematrix(egy->Tsplot);
+	free_doublematrix(egy->Tgplot);
+	free_doublematrix(egy->Tvplot);
  }
+
+ free_doublevector(egy->HSFA);
+ free_doublevector(egy->VSFA);
 
  free(egy);
  /* Deallocation of struct SNOW "snow": */
@@ -1509,6 +1493,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		free_doublematrix(met->RHmean);
 	}
  }
+ if(par->micromet2==1) free_doublematrix(met->CFgrid);
  if(par->JD_plots->co[1]!=0){
 	free_doublematrix(met->Taplot);
 	if(par->micromet1==1){
@@ -1551,10 +1536,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		free_longvector(par->c_points);
 	}
  }
-/* free(par->transect);
+ /*free(par->transect);
  free(par->vtrans);
  free_longvector(par->cont_trans);
- free_longvector(par->ibeg); */
+ free_longvector(par->ibeg);*/
  free(par);
 
  printf("Deallocating liston\n");
@@ -1650,8 +1635,6 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 	long i,j,r,c,l;
 	char *name,SSSS[ ]={"SSSS"};
 	double total_pixel, z;
-	static double wt0_basin,Ssup,Ssub,Rout,R_G,S_ch0,S_ch1,Qsub_ch,Qsup_ch,Q_G,SWE_previous,GWE_previous,Smelt,Ssubl,Sevap;
-	static double Gmelt,Gsubl,Gevap,Smelt_previous,Ssubl_previous,Sevap_previous,Gmelt_previous,Gsubl_previous,Gevap_previous;
 	short sy,lu;
 	DOUBLEVECTOR *root_fraction;
 	FILE *f;
@@ -1660,7 +1643,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 	f=t_fopen(join_strings(files->co[fQ]+1,textfile),"w");
 	fprintf(f,"DATE,JDfrom0,JD,Q_tot[mc/s],Qsub_ch[mc/s],Qsup_ch[mc/s],Q_G[mc/s]\n");
 	t_fclose(f);
-	Rout=0.0; S_ch0=0.0; S_ch1=0.0; Qsub_ch=0.0; Qsup_ch=0.0; R_G=0.0; Q_G=0.0;
+
 	root_fraction=new_doublevector(Nl);
 
 	//MELT FLUXES
@@ -1694,6 +1677,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 	}
 
 
+
 	//DATA POINTS
 	for(i=1;i<=par->chkpt->nrh;i++){
 
@@ -1701,7 +1685,16 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		r=par->rc->co[i][1];
 		c=par->rc->co[i][2];
 		sy=sl->type->co[r][c];
-		lu=land->use->co[r][c];
+		lu=(short)land->LC->co[r][c];
+
+		for(l=1;l<=Nl;l++){
+			wat->out1->co[2][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
+								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
+								fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
+		}
+		wat->out1->co[1][i]=wat->h_sup->co[r][c];
+		wat->out1->co[14][i]=wat->wt->co[r][c];
+
 
 		name=join_strings(files->co[fpoint]+1,"_info_");
 		name=join_strings(name,SSSS);
@@ -1759,19 +1752,20 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]*180.0/Pi);
 		fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slopes->co[r][c]*180.0/Pi);
 		fprintf(f," Slope to calculate the surface velocity of the channel incoming flow [-]: %f \n",top->i_ch->co[r][c]);
-		fprintf(f," Land use number is %d \n",land->use->co[r][c]);
+		fprintf(f," Land use number is %d \n",(short)land->LC->co[r][c]);
 
 		root(land->ty->co[lu][jroot], sl->pa->co[sy][jdz], root_fraction->co);
 		for(l=1;l<=Nl;l++){
 			fprintf(f," The root fraction [-] of layer %ld: %f\n",l,root_fraction->co[l]);
 		}
 
-		fprintf(f," Albedo without snow and alpha=0 [-]: %f \n",land->ty->co[lu][jalbedo]);
-		fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",land->ty->co[lu][jfc]);
-		fprintf(f," Momentum roughness length z0 [m]: %f \n",land->ty->co[lu][jz0]);
+		//fprintf(f," Albedo without snow and alpha=0 [-]: %f \n",land->ty->co[lu][jalbedo]);
+		fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",land->ty->co[lu][jcf]);
+		fprintf(f," Momentum roughness length z0soil [m]: %f \n",land->ty->co[lu][jz0soil]);
+		fprintf(f," Momentum roughness length z0veg [m]: %f \n",land->ty->co[lu][jz0veg]);
 		fprintf(f," KRIGING WEIGHTS=\n");
 		for(j=1;j<=n;j++){
-			fprintf(f," STATION %ld = %f\n",j,wat->weights_Kriging->co[(r-1)*top->Z0->nch+c][j]);
+			fprintf(f," STATION %ld = %f\n",j,wat->weights_Kriging->co[(r-1)*Nc+c][j]);
 		}
 		fprintf(f," */ \n");
 		t_fclose(f);
@@ -1779,21 +1773,22 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(files->co[fpoint]+1,SSSS);
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
-		fprintf(f,"DATE,JDfrom0,JD,t[d],t_i[s],t_f[s],v[m/s],Vdir,RH[-],P[hPa],Tair[C],Tsurface[C],Tdew[C],eair[mbar],Qair[-],esurf[mbar]");
-		fprintf(f,",Qsurf[-],SWin[W/m2],SWin_beam,SWin_diff,SWout[W/m2],albedo[-],alpha[deg],direction[deg],phi[deg],LWin[W/m2],LWout[W/m2],Rnet[W/m2],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2]");
-		fprintf(f,",Qrain[W/m2],Gsoil[W/m2],SurfaceEB[W/m2],SWin_c[MJ],SWout_c[MJ],LWin_c[MJ],LWout_c[MJ],SW_cum[MJ],LWn_cum[MJ],Rnet_cm[MJ],H_cum[MJ],LE_cum[MJ]");
-		fprintf(f,",G_cum[MJ],Eg[mm],Sg[mm],Etc[mm],Psnow[mm],Prain[mm],Psnow_c[mm],Prain_SOILc[mm],Prain_SNOWc[mm],Ptot_c[mm],Wt[mm],maxStor");
-		fprintf(f,",DWt[mm],Ptot_atm,Rain_atm,Snow_atm,Evap_can,Drip_can,Ptot_atm_cum,Prain_atm_cum,Psnow_atm_cum,Evap_can_cum,Drip_can_cum,Pn[mm],Runoff[mm]");
-		fprintf(f,",q_sup[mm],q_sub[mm],DS_sup[mm],DS_sub[mm],q_G[mm],snowDEPTH[mm],SWE[mm],snowDENSITY[kg/m3],snowT[C],BStot[mm],BStot_cum[mm]");
-		fprintf(f,",snowMELT[mm],snowSUBL[mm],snowEVAP[mm],glacierDEPTH[mm],GWE[mm],gDENSITY[kg/m3],glcT[C],glcMELT[mm],glcSUBL[mm],glcEVAP[mm],qv(mm/d)");
-		fprintf(f,",LWemissiv,LObukhov[m],numb.iter.,CH,CL,DTcorr,z0T[m],z0q[m],cm,ch,cv,zmu[m],zmT[m],LWmin[W/m2],LWmax[W/m2],LAI,z0[m],d0[m],ErrorRichards[mm/h]\n");
+		fprintf(f,"DATE,JDfrom0,JD,t[d],t_i[s],t_f[s],v[m/s],Vdir,RH[-],P[hPa],Tair[C],Tsurface[C],Tdew[C],eair[mbar],Qair[-],esurf[mbar]");//16
+		fprintf(f,",Qsurf[-],SWin[W/m2],SWin_beam,SWin_diff,SWout[W/m2],albedo[-],alpha[deg],direction[deg],phi[deg],LWin[W/m2],LWout[W/m2],Rnet[W/m2],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2]");//32
+		fprintf(f,",Qrain[W/m2],Gsoil[W/m2],SurfaceEB[W/m2],SWin_c[MJ],SWout_c[MJ],LWin_c[MJ],LWout_c[MJ],SW_cum[MJ],LWn_cum[MJ],Rnet_cm[MJ],H_cum[MJ],LE_cum[MJ]");//44
+		fprintf(f,",G_cum[MJ],Eg[mm],Sg[mm],Etc[mm],Psnow[mm],Prain[mm],Psnow_c[mm],Prain_SOILc[mm],Prain_SNOWc[mm],Ptot_c[mm],Wt[mm],maxStor");//56
+		fprintf(f,",DWt[mm],Ptot_atm,Rain_atm,Snow_atm,Evap_can,Drip_can,Ptot_atm_cum,Prain_atm_cum,Psnow_atm_cum,Evap_can_cum,Drip_can_cum,Pn[mm],Runoff[mm]");//69
+		fprintf(f,",q_sup[mm],q_sub[mm],DS_sup[mm],DS_sub[mm],q_G[mm],snowDEPTH[mm],SWE[mm],snowDENSITY[kg/m3],snowT[C],BStot[mm],BStot_cum[mm]");//80
+		fprintf(f,",snowMELT[mm],snowSUBL[mm],snowEVAP[mm],glacierDEPTH[mm],GWE[mm],gDENSITY[kg/m3],glcT[C],glcMELT[mm],glcSUBL[mm],glcEVAP[mm],qv(mm/d)");//91
+		fprintf(f,",LWemissiv,LObukhov[m],numb.iter.,LWmin[W/m2],LWmax[W/m2],LAI,z0[m],d0[m],ErrorRichards[mm/h]");//100
+		fprintf(f,",Ts,Tg,Tv,SWv,LWv,Hv,LEv,fwet,Htot,LEtot,Hg0,LEg0,Hg1,LEg1,fc,Ch,Cv,Cb,Cc,Ch_ic,Cv_ic,Hv,LEv,Qv,Qg,Qa,Qs\n");//120
 		t_fclose(f);
 
 		name=join_strings(files->co[fsnz]+1,SSSS);
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		//fprintf(f,"/**Snow profile for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */\n",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f,"DATE,JDfrom0,JD,t_i[s],t_f[s],Snowdepth[mm],SWE[mm],Temp_aver[C],Density_aver[kg/m3],albedo,melting[mm],sublimation[mm],evaporation[mm],nlayer,BSsalt[mm],BSsalt_cum[mm],BSsusp[mm],BSsusp_cum[mm],BSsubl[mm],BSsubl_cum[mm],BSsbgr[mm],BSsbgr_cum[mm],BStot[mm],BStot_cum[mm]");
+		fprintf(f,"DATE,JDfrom0,JD,t_i[s],t_f[s],Snowtype,Snowdepth[mm],SWE[mm],Temp_aver[C],Density_aver[kg/m3],albedo,melting[mm],sublimation[mm],evaporation[mm],nlayer,BSsalt[mm],BSsalt_cum[mm],BSsusp[mm],BSsusp_cum[mm],BSsubl[mm],BSsubl_cum[mm],BSsbgr[mm],BSsbgr_cum[mm],BStot[mm],BStot_cum[mm]");
 		for(l=1;l<=par->snowlayer_max;l++){
 			fprintf(f,",Dlayer[mm]_%1ld",l);
 		}
@@ -1916,46 +1911,13 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 	//DATA BASIN
 	f=t_fopen(join_strings(files->co[fbas]+1,textfile),"w");
 	fprintf(f,"DATE,JDfrom0,JD");
-	fprintf(f,",t_i[s],t_f[s],Eg[mm],Sg[mm],Ecv[mm],Etc[mm],ET[W/mq]");
-	fprintf(f,",Rn[W/mq],G[W/mq],H[W/mq],Ecanopy[W/mq],Ts[C],Prain[mm],Psnow[mm],Dwt[mm]");
-	fprintf(f,",Pn[mm],Runoff[mm],DS_sup[mm],DS_sub[mm],DS_ch[mm],R_G[mm],R_tot[mm]");
+	fprintf(f,",t_i[s],t_f[s],Esoil[mm],Ecv[mm],Etc[mm],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2],SWv[W/m2],LWv[W/m2],Hv[W/m2],LEv[W/m2]");
+	fprintf(f,",Ta[C],Tg[C],Tv[C],SWin[C],Prain[mm],Psnow[mm],Dwt[mm]");
+	fprintf(f,",Pn[mm],Infiltration[mm],DS_sup[mm],DS_sub[mm],DS_ch[mm],R_G[mm],R_tot[mm],SSup[mm],SSub[mm],wt[mm]");
 	fprintf(f,",SWE[mm],D_SWE[mm],MeltSnow[mm],D_MeltSnow[mm],SublSnow[mm],D_SublSnow[mm],EvapSnow[mm]");
 	fprintf(f,",D_EvapSnow[mm],GWE[mm],D_GWE[mm],MeltGlac[mm],D_MeltGlac[mm],SublGlac[mm],D_SublGlac[mm],EvapGlac[mm]");
 	fprintf(f,",D_EvapGlac[mm],ErrorRichards[mm/h]\n");
 	t_fclose(f);
-
-	/*NOTE: these are all static variables*/
-	wt0_basin=0.0;		Ssup=0.0;				Ssub=0.0;
-	SWE_previous=0.0;   Smelt_previous=0.0;		Ssubl_previous=0.0;		Sevap_previous=0.0;   Smelt=0.0;	Ssubl=0.0;	Sevap=0.0;
-	GWE_previous=0.0;   Gmelt_previous=0.0;		Gsubl_previous=0.0;		Gevap_previous=0.0;   Gmelt=0.0;	Gsubl=0.0;	Gevap=0.0;
-
-	for(r=1;r<=top->Z0->nrh;r++){
-		for(c=1;c<=top->Z0->nch;c++){
-			if (top->Z0->co[r][c]!=UV->V->co[2]){ /*if the pixel is not a novalue*/
-
-				sy=sl->type->co[r][c];
-
-				/*find the total water on the sl-surface (volume for unit of area):*/
-				Ssup+=wat->h_sup->co[r][c];
-
-				/*find the mean water equivalent snow and glacier height at the initial condition:*/
-				for(l=1;l<=snow->lnum->co[r][c];l++){
-					SWE_previous+=(1.0E+3*(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c])/rho_w)/total_pixel;
-				}
-				if(par->glaclayer_max>0){
-					for(l=1;l<=glac->lnum->co[r][c];l++){
-						GWE_previous+=(1.0E+3*(glac->w_liq->co[l][r][c]+glac->w_ice->co[l][r][c])/rho_w)/total_pixel;
-					}
-				}
-
-				/*find the total water in the subsoil (volume for unit of area):*/
-				for(l=1;l<=Nl;l++){
-					Ssub+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-						sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil)*sl->pa->co[sy][jdz][l];
-				}
-			}
-		}
-	}
 
 
 	//ALTIMETRIC RANKS
@@ -1990,7 +1952,21 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 void write_soil_output(long n, long i, double t, double dt, long y0, double JD0, LONGMATRIX *rc, SOIL *sl, double psimin, double Esoil){
-
+	/* Author:  Stefano Endrizzi  Year:
+	* function writes the soil parameters of specified checkpoints pixels
+	* Input:
+	* 			n:	number of Dt after which the output of a pixel is printed
+	* 			i:	number of pixel (among the checkpoints) that is currently written (see chkpt->nrh)
+	* 			t:	current time
+	* 			dt: integration interval
+	* 			y0: year of the beginning of the simulation
+	* 			rc: matrix containing the number of row and column of the checkpoint i
+	* 			sl: soil stucture
+	* 		psimin:	Absolute minimum admitted suction potential
+	* 		 Esoil:Soil comprimibility if oversaturated water is added
+	* Output:
+	* 		soil parameters are written
+	* comment: Matteo Dall'Amico, May 2009 */
 	char *name,SSSS[ ]={"SSSS"};
 	double t_i, JD;
 	long d2, mo2, y2, h2, mi2, l, r=rc->co[i][1], c=rc->co[i][2];
@@ -2035,6 +2011,7 @@ void write_soil_output(long n, long i, double t, double dt, long y0, double JD0,
 	for(l=1;l<=Nl;l++){
 		fprintf(f,",%f",teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
 					sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l],Psif(sl->T->co[l][r][c],psimin)),Esoil));
+		//printf("alpha:%f\n",sl->pa->co[sy][ja][l]);
 	}
 	fprintf(f," \n");
 	fclose(f);

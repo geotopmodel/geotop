@@ -2,8 +2,6 @@
 #include "t_utilities.h"
 #include "tensor3D.h"
 
-
-
 char *WORKING_DIRECTORY='\0';
 
 /*WORKING_POSITION=SEEK_SET;*/
@@ -52,16 +50,16 @@ char newname[256];
 FILE *fp=NULL;
 
 
-if(strcmp(mode,"w")==0 || strcmp(mode,"wb")==0){
+/*if(strcmp(mode,"w")==0 || strcmp(mode,"wb")==0){
 	if((fp=fopen(name,"r"))!=NULL ){
-		/* The file already exist */
+		// The file already exist
 		//printf("\nWarning::Overwriting the file %s \n",name);
 		strcpy(newname,name);
 		strcat(newname,".old");
 		t_fclose(fp);
 		//rename(name,newname);
 	}
-}
+}*/
 
 if((fp=fopen(name,mode))==NULL){
 	printf("%s",name);
