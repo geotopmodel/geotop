@@ -2937,72 +2937,82 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef){
 /***********************************************************/
 /***********************************************************/
 
-void read_inpts_par(PAR *par, TIMES *times, char *program, char *ext, char *pos){
+/***********************************************************/
+/***********************************************************/
+
+void read_inpts_par(PAR *par, TIMES *times, char *filename, char *ext, char *pos){
 // reads __ocontrol_parameters.txt
-	DOUBLEVECTOR *V;
-	double Dt_output;
+DOUBLEVECTOR *V;
+double Dt_output;
+FILE *fd;
+short  index;
 
-	printf("\nENTERING SEVERAL CONTROL PROGRAM PAR\n");
+printf("\nENTERING SEVERAL CONTROL PROGRAM PAR \n");
 
-	//V=read_parameters(WORKING_DIRECTORY, program, ext, pos);
-	V=read_parameters("", program, ext, pos);
-	printf("ENTER THE INTEGRATION INTERVAL [s]: %f\n",V->co[1]);
-	par->Dt=(double)V->co[1];
+fd=t_fopen(join_strings(filename,ext),"r");
+index=read_index(fd,PRINT);
+V=read_doublearray(fd,PRINT);
+t_fclose(fd);
 
-	printf("ENTER THE Decimal julian day at the beginning of simulation (0.0 - 365.99): %f\n",V->co[2]);
-	par->JD0=(double)V->co[2];
+//	V=read_parameters("",program, ext, pos);
 
-	printf("ENTER THE YEAR at the beginning of simulation (0.0 - 365.99): %f\n",V->co[3]);
-	par->year0=(long)V->co[3];
+printf("ENTER THE INTEGRATION INTERVAL [s]: %f\n",V->co[1]);
+par->Dt=(double)V->co[1];
 
-	printf("ENTER THE NUMBER OF DAYS OF SIMULATION: %f\n",V->co[4]);
-	times->TH=(double)V->co[4];
-	times->TH*=24; /*TH in hour*/
+printf("ENTER THE Decimal julian day at the beginning of simulation (0.0 - 365.99): %f\n",V->co[2]);
+par->JD0=(double)V->co[2];
 
-	printf("ENTER THE Standard time to which all the output data are referred (difference respect UMT, in hour): %f\n",V->co[5]);
-	par->ST=(double)V->co[5];
+printf("ENTER THE YEAR at the beginning of simulation (0.0 - 365.99): %f\n",V->co[3]);
+par->year0=(long)V->co[3];
 
-	printf("ENTER THE NUMBER OF Dt AFTER WHICH THE OUTPUT FOR A SPECIFIED PIXEL ARE PRINTED: %f\n",V->co[6]);
-	Dt_output=(double)V->co[6];
-	if(Dt_output*3600<par->Dt) Dt_output=par->Dt/3600.0;
-	times->n_pixel=(long)(Dt_output*3600/(long)par->Dt);
-	times->i_pixel=0;/*counter for the output of a pixel*/
+printf("ENTER THE NUMBER OF DAYS OF SIMULATION: %f\n",V->co[4]);
+times->TH=(double)V->co[4];
+times->TH*=24; /*TH in hour*/
 
-	printf("ENTER THE NUMBER OF Dt AFTER WHICH THE OUTPUT FOR THE BASIN ARE PRINTED: %f\n",V->co[7]);
-	Dt_output=(double)V->co[7];
-	if(Dt_output*3600<par->Dt) Dt_output=par->Dt/3600.0;
-	times->n_basin=(long)(Dt_output*3600/(long)par->Dt);
-	times->i_basin=0;/*counter for the output of a pixel*/
+printf("ENTER THE Standard time to which all the output data are referred (difference respect UMT, in hour): %f\n",V->co[5]);
+par->ST=(double)V->co[5];
 
-	printf(">=1 if you want to display RESULTS for altimetric stripes, it is how many altimetric stripes you want to consider (up to 99): %f\n",V->co[8]);
-	par->ES_num=(short)V->co[8];
-	if(par->ES_num>99 || par->ES_num<-99) t_error("Number of altimetric stripes not valid");
-	if(par->ES_num<0){
-		par->glac_thr=0.1;
-		par->ES_num*=(-1);
-	}else if(par->ES_num>0){
-		par->glac_thr=-0.1;
-	}
+printf("ENTER THE NUMBER OF Dt AFTER WHICH THE OUTPUT FOR A SPECIFIED PIXEL ARE PRINTED: %f\n",V->co[6]);
+Dt_output=(double)V->co[6];
+if(Dt_output*3600<par->Dt) Dt_output=par->Dt/3600.0;
+times->n_pixel=(long)(Dt_output*3600/(long)par->Dt);
+times->i_pixel=0;/*counter for the output of a pixel*/
 
-	printf("Multiplying factor decreasing the dem resolution for the calculation of the sky view factor: %f\n",V->co[9]);
-	par->nsky=(short)V->co[9];
-	if(par->nsky<1) t_error("Multiplying factor for sky view factor calculation must be greater than or equal to 1: %f");
+printf("ENTER THE NUMBER OF Dt AFTER WHICH THE OUTPUT FOR THE BASIN ARE PRINTED: %f\n",V->co[7]);
+Dt_output=(double)V->co[7];
+if(Dt_output*3600<par->Dt) Dt_output=par->Dt/3600.0;
+times->n_basin=(long)(Dt_output*3600/(long)par->Dt);
+times->i_basin=0;/*counter for the output of a pixel*/
 
-	printf("Thershold for the definition of channel network (in pixel number draining): %f\n",V->co[10]);
-	par->channel_thres=(double)V->co[10];
+printf(">=1 if you want to display RESULTS for altimetric stripes, it is how many altimetric stripes you want to consider (up to 99): %f\n",V->co[8]);
+par->ES_num=(short)V->co[8];
+if(par->ES_num>99 || par->ES_num<-99) t_error("Number of altimetric stripes not valid");
+if(par->ES_num<0){
+par->glac_thr=0.1;
+par->ES_num*=(-1);
+}else if(par->ES_num>0){
+par->glac_thr=-0.1;
+}
 
-	printf("OUTPUT MAPS in fluidturtle format (=1), GRASS ASCII (=2), ESRI ASCII (=3): %f\n",V->co[11]);
-	par->format_out=(short)V->co[11];
+printf("Multiplying factor decreasing the dem resolution for the calculation of the sky view factor: %f\n",V->co[9]);
+par->nsky=(short)V->co[9];
+if(par->nsky<1) t_error("Multiplying factor for sky view factor calculation must be greater than or equal to 1: %f");
 
-	printf("=1 for one point simulation, =0 for distributed simulation. The parameter file is different in these cases: %f\n",V->co[12]);
-	par->point_sim=(short)V->co[12];
+printf("Thershold for the definition of channel network (in pixel number draining): %f\n",V->co[10]);
+par->channel_thres=(double)V->co[10];
 
-	printf("=1 if you want to recover a simulation, 0 otherwise: %f\n",V->co[13]);
-	par->recover=(short)V->co[13];
+printf("OUTPUT MAPS in fluidturtle format (=1), GRASS ASCII (=2), ESRI ASCII (=3): %f\n",V->co[11]);
+par->format_out=(short)V->co[11];
 
-	printf("\n");
+printf("=1 for one point simulation, =0 for distributed simulation. The parameter file is different in these cases: %f\n",V->co[12]);
+par->point_sim=(short)V->co[12];
 
-	free_doublevector(V);
+printf("=1 if you want to recover a simulation, 0 otherwise: %f\n",V->co[13]);
+par->recover=(short)V->co[13];
+
+printf("\n");
+
+free_doublevector(V);
 }
 
 /***********************************************************/

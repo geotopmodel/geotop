@@ -178,14 +178,14 @@ double Hg0,
 	dE_dT,
 	dH_dT;
 long cont;
-double rh,
-	rv,
-	rc,
-	rb,
-	rh_ic,
-	rv_ic,
-	Qv,
-	Qg;
+double rh,// resistenza del calore sensibile
+	rv,// resistenza del calore latente
+	rc,// resistenza della canopy per calore latente
+	rb,// resistenza della canopy per calore sensibile
+	rh_ic,// resistenza del calore sensibile undrcanopy
+	rv_ic,// resistenza del calore latente undercanopy
+	Qv,// umiditˆ specifica vicina alla canopy
+	Qg;//umiditˆ specifica vicina alla superficie del suolo
 FILE *f;// file pointer
 
 //ALLOCATION
@@ -2539,7 +2539,7 @@ void PointEnergyBalance(long r, long c, long ns, long ng, double zmu, double zmT
 	PAR *par, DOUBLEVECTOR *ftcl, DOUBLEVECTOR *turb_rep, double SWin, double LWin, double SWv, double *LW, double *H, double *E, double *LWv, double *Hv, double *Ev,
 	double *Evt, double *Tv, double *Ts, double *Qs, short sy, SOIL *sl, double Hadd, double *SW, double t, double Dt, double *k, double *C, double *D, double *wi,
 	double *wl, short sntype, double *dw, double *T, double *Hg0, double *Hg1, double *Eg0, double *Eg1){
-
+	// k: conduc. termica, C: cap.termica, D=spessore layer[m], wi=ice[Kg/m2], wl=water[kg/m2], dw=kg/m2 che cambia fase, Hg=calore sensibile, E=evaporation
 	short occurs=0;
 	long l, cont1, cont2=0, cont3=0, n=Nl+ns+ng;
 	double Tg, dH_dT, dE_dT, EB, dEB_dT;
@@ -2593,17 +2593,17 @@ void PointEnergyBalance(long r, long c, long ns, long ng, double zmu, double zmT
 	coeff(n, ns+1, ad0->co, ads0->co, adi0->co, b0->co, k, C, D, T, KNe*EB, SW, Zboundary, Tboundary, Dt);
 	AD0=ad0->co[1];	B0=b0->co[1];
 
-	L0=turb_rep->co[2];
+	L0=turb_rep->co[2];// lunghezza di Obhukov
 
 	//TO CANCEL
 	//********************************************************************************************************
 	if(r==ri && c==ci){printf("\nTg:%f T1:%f Ta:%f Tv:%f H:%f E:%e dH_dT:%f EB:%f SW:%f LE:%f LW:%f \n",Tg,T[1],Ta,*Tv,*H,*E,dH_dT,EB+SW[1],SW[1],latent(Tg,Levap(Tg))*(*E),*LW);}
 	//********************************************************************************************************
 
-	do{
+	do{// calcola le temperature cambiando le forzanti
 
 		Tg=T[1];
-		ad0->co[1]=AD0;	b0->co[1]=B0;
+		ad0->co[1]=AD0;	b0->co[1]=B0;// condizione al contorno
 		for(l=1;l<=n;l++){ mf->co[l]=0; }
 
 		if(cont2>0){
@@ -2639,7 +2639,7 @@ void PointEnergyBalance(long r, long c, long ns, long ng, double zmu, double zmT
 
 		cont1=0;
 
-		do{
+		do{// calcola le temperature lasciando le forzanti del time step precedente
 
 			tridiag(1, r, c, n, adi1, ad1, ads1, b1, e);
 			check_errors(r, c, n, adi1, ad1, ads1, b1, e, T, mf);
