@@ -77,7 +77,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	double delta,delta_new,alpha,beta,delta0;
 	DOUBLEVECTOR *r, *d,*q,*y;
 
-	int s,sl;
+	int s;
 	long icnt_max;
 	long j;
 	double p;
@@ -133,7 +133,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 
 	    s=(* funz)(y,x);
 	    delta_new=0.0;
-	    sl=0;
+	    //sl=0;
 	    for (j=y->nl;j<=y->nh;j++) {
 	    	if (icnt%50==0) {
 					r->element[j]=b->element[j]-y->element[j];
@@ -150,7 +150,7 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	    beta=delta_new/delta;
 	   // double aa=1.0e-21;
 	    printf("delta_new =%le p=%le alpha=%le beta=%le delta_max=%le\n",delta_new,p,alpha,beta,max_doublevector(r));
-	    //stop_execution();
+	    stop_execution();
 
 //		if (delta_new>delta) {
 	//		printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
