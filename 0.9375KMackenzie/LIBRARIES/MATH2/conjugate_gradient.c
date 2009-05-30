@@ -58,7 +58,7 @@ int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x);
 long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *b, int (* funz)(DOUBLEVECTOR *y,DOUBLEVECTOR *x)){
 
 	/*
-	 *\param icnt  - (long)
+	 *\param icnt_max  - (long)
 	 *\param epsilon - (double) required tollerance (2-order norm of the residuals)
 	 *\param x     - (DOUBLEVECTRO *) vector of the unknowns x in Ax=b
 	 *\param b     - (DOUBLEVECTOR *) vector of b in Ax=b
@@ -110,10 +110,10 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 
 	//while ((icnt<=icnt_max) && (delta_new>pow(epsilon,2.0)*delta0)) {
 	while ((icnt<=icnt_max) && (max_doublevector(r)>epsilon)) {
-		if (icnt>1000) {
+/*		if (icnt>1000) {
 			epsilon=epsilon0*pow(10.0,pe);
 			if (icnt%1000==0) pe=pe+1.0;
-		}
+		}*/
 
 		delta=delta_new;
 		s=(* funz)(q,d);
@@ -149,8 +149,8 @@ long conjugate_gradient_search(long icnt, double epsilon,  DOUBLEVECTOR *x, DOUB
 	    }
 	    beta=delta_new/delta;
 	   // double aa=1.0e-21;
-	    printf("delta_new =%le p=%le alpha=%le beta=%le delta_max=%le\n",delta_new,p,alpha,beta,max_doublevector(r));
-	    stop_execution();
+	//    printf("delta_new =%le p=%le alpha=%le beta=%le delta_max=%le\n",delta_new,p,alpha,beta,max_doublevector(r));
+	 //   stop_execution();
 
 //		if (delta_new>delta) {
 	//		printf("Problem does not converge delta=%lf delta_new=%lf beta=%lf icnt=%ld icnt_max=%ld epsilon=%lf \n ",delta,delta_new,beta,icnt,icnt_max,epsilon);
