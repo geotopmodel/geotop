@@ -21,9 +21,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-//#define ascii_grass ".grassasc"
-#define ascii_grass ".asc"
-//#define ascii_esri ".asc"
-#define ascii_esri ".esriasc"
+/* !modified by Matteo Dall'Amico according to international standards on july 17 */
+#define ascii_grass ".grassasc"
+#define ascii_esri ".asc"
 #define ascii_ft ".txt"
 #define textfile ".txt"

@@ -133,9 +133,10 @@ void snow_compactation(long r, long c, long l, SNOW *snow, double slope, PAR *pa
 {
 
 long m;
-double theta_i,c1,c2,c3,c4,c5,load,eta0,eta;
+double theta_i,rho,c1,c2,c3,c4,c5,load,eta0,eta;
 
-theta_i=snow->w_ice->co[l][r][c]/(0.001*snow->Dzl->co[l][r][c]*rho_i);
+theta_i=snow->w_ice->co[l][r][c]/(0.001*snow->Dzl->co[l][r][c]*rho_i);	
+rho=(snow->w_ice->co[l][r][c]+snow->w_liq->co[l][r][c])/(0.001*snow->Dzl->co[l][r][c]);
 
 if( theta_i < par->snow_maxpor ){
 
@@ -190,7 +191,7 @@ void snow_layer_combination(long r, long c, SNOW *snow, double Ta, long linf, DO
 	* and on the allowed minimum and maximum depth.
 	* If snow[l]<Dmin[n-l+1] => a layer has less snow than allowed, therefore its mass and energy
 	* has to be shared with the lower one.
-	* If snow[l]>Dmax[n-l+1] => a layer has more snow than allowed, therefore a new glacier layer has
+	* If snow[l]>Dmax[n-l+1] => a layer has more snow than allowed, therefore a new snow layer has
 	* to be initialized.
 	* The scheme is symmetrical
 	* The routine goes on until an equilibrium is found.
@@ -354,6 +355,7 @@ if(snow->type->co[r][c]==2){
 
 		//checking if it is ok now
 		for(l=1;l<=snow->lnum->co[r][c];l++){
+
 			if(Dz->co[l]<Dmin2->co[l] || Dz->co[l]>Dmax2->co[l]) occuring=1;
 		}
 
@@ -368,14 +370,16 @@ if(snow->type->co[r][c]==2){
 			}
 
 		}else{
-
-			for(l=1;l<=snow->lnum->co[r][c];l++){
-
+		
+			for(l=1;l<=snow->lnum->co[r][c];l++){	
+			
+				//write_snow_all(r,c,snow);
+				
 				if(snow->Dzl->co[l][r][c]<Dmin2->co[l]){
-					merge_layers(r, c, snow, l);
-					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);
+					merge_layers(r, c, snow, l);	
+					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);	
 				}
-
+												
 				if(snow->lnum->co[r][c]<max && snow->Dzl->co[l][r][c]>Dmax2->co[l]){
 					split_layers(r, c, snow, l);
 					min_max_layer(snow->lnum->co[r][c], Dmin, Dmax, Dmin2, Dmax2, linf);
@@ -860,149 +864,6 @@ if( (D==0.0 && glac->T->co[1][r][c]>-98.999) || (D>0 && D<=0.1) ){// no glacier
 
 }
 
-
-
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void set_windtrans_snow(SNOW *snow, double **Z, double **Ta, double **P, double t, PAR *par, METEO *met){
-
-	double DW,DW0,SWE,D,rho;
-	long i,r,c,nr,nc,ns;
-	FILE *f;
-
-	nr=snow->T->nrh;
-	nc=snow->T->nch;
-
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if(Z[r][c]!=UV->V->co[2]){
-
-				//printf("%ld %ld T:%f V:%f\n",r,c,met->Tgrid->co[r][c],met->Vgrid->co[r][c]);
-				//stop_execution();
-
-				D=DEPTH(r,c,snow->lnum,snow->Dzl);
-				if(D!=D){
-					printf("Novalue in set_windtrans_snow(a): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
-					write_snow_all(r, c, snow);
-				}
-				SWE=get_SWE(r,c,snow->lnum,snow->w_ice,snow->w_liq);
-				ns=snow->lnum->co[r][c];
-
-				DW=snow->Wsalt->co[r][c] + snow->Wsubl->co[r][c] + snow->Wsusp->co[r][c] + snow->Wsubgrid->co[r][c];
-
-				//if(r==par->rc->co[1][1] && c==par->rc->co[1][2]) printf("DW:%f\n",DW);
-
-				DW0=DW;
-
-				if(SWE+DW-snow->ListonSWE->co[r][c]>1.E-4){
-					f=fopen(files->co[ferr]+1,"a");
-					fprintf(f,"Not accordance with Liston: r:%ld c:%ld nl:%ld D:%f rho:%f SWE:%f Lis1:%f List2:%f DW:%f DWsalt:%f DWsubl:%f DWsusp:%f DWsubgrid:%f\n",
-						r,c,ns,D,SWE*1000/D,SWE,snow->ListonSWE->co[r][c]-DW,snow->ListonSWE->co[r][c],DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],
-						snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c]);
-					fclose(f);
-				}
-
-				if(snow->lnum->co[r][c]>0){	//snow on the soil
-
-					if(DW<0){	//snow eroded
-
-						i=ns;
-						do{
-							if(i<ns){
-
-								if(snow->w_ice->co[i+1][r][c]<0){
-									DW=snow->w_ice->co[i+1][r][c];
-									snow->w_ice->co[i+1][r][c]=0.0;
-									snow->Dzl->co[i+1][r][c]=0.0;
-									snow->lnum->co[r][c]-=1;
-								}
-							}
-
-							if(fabs(DW)>0.05*snow->w_ice->co[i][r][c] && snow->w_liq->co[i][r][c]>0){
-								printf("\nPositive snow water content with snow erosion by wind in cell r:%ld c:%ld snowlayer:%ld\n",r,c,i);
-								f=fopen(files->co[ferr]+1,"a");
-								fprintf(f,"\nPositive snow water content with snow erosion by wind in cell r:%ld c:%ld snowlayer:%ld\n",r,c,i);
-								fprintf(f,"DW:%f DWsalt:%f DWsubl:%f DWsusp:%f DWsubgrid:%f i:%ld ns:%ld Wliq:%f Wice:%f Dlayer:%f T:%f Psnow:%f softSWEbeg:%f softSWEend:%f D:%f SWE:%f SWEliston:%f DW:%f check:%f\n",
-									DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c],i,ns,
-									snow->w_liq->co[i][r][c],snow->w_ice->co[i][r][c],snow->Dzl->co[i][r][c],snow->T->co[i][r][c],P[r][c],
-									snow->softSWE->co[r][c],snow->softSWE1->co[r][c],D,SWE,snow->ListonSWE->co[r][c]-DW0,DW0,
-									snow->ListonSWE->co[r][c]-DW0-SWE);
-								fclose(f);
-								DW=snow->Wsubgrid->co[r][c];
-								snow->Wsalt->co[r][c]=0.0;
-								snow->Wsusp->co[r][c]=0.0;
-								snow->Wsubl->co[r][c]=0.0;
-							}
-
-							rho=snow->w_ice->co[i][r][c]/(0.001*snow->Dzl->co[i][r][c]);	//rho snow [kg/m3]
-							snow->w_ice->co[i][r][c]+=DW;				//kg/m2
-							DW=0.0;
-							snow->Dzl->co[i][r][c]+=1.0E3*(DW/rho);	//mm
-
-							i--;
-
-						}while(snow->w_ice->co[i+1][r][c]<0 && i>0);
-
-						if(i==0 && snow->w_ice->co[i+1][r][c]<0){
-							snow->w_ice->co[i+1][r][c]=0.0;				//kg/m2
-							snow->Dzl->co[i+1][r][c]=0.0;	//mm
-							snow->lnum->co[r][c]=0;
-
-							f=fopen(files->co[ferr]+1,"a");
-							fprintf(f,"\nSnow eroded more than snow present in cell r:%ld c:%ld\n",r,c);
-							fprintf(f,"DW:%f DWsalt:%f DWsubl:%f DWsusp:%f DWsubgrid:%f i:%ld ns:%ld Wliq:%f Wice:%f Dlayer:%f T:%f Psnow:%f softSWE:%f D0:%f SWE0:%f SWEliston0:%f DW0:%f check:%f\n",
-								DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c],i,ns,
-								snow->w_liq->co[i][r][c],snow->w_ice->co[i][r][c],snow->Dzl->co[i][r][c],snow->T->co[i][r][c],
-								P[r][c],snow->softSWE->co[r][c],D,SWE,snow->ListonSWE->co[r][c]-DW0,DW0,snow->ListonSWE->co[r][c]-DW0-SWE);
-							fclose(f);
-						}
-
-					}else{	//snow drifted
-
-						snow->w_ice->co[snow->lnum->co[r][c]][r][c]+=DW;
-						snow->Dzl->co[snow->lnum->co[r][c]][r][c]+=1.0E+3*DW/rho_newlyfallensnow(met->Vgrid->co[r][c], met->Tgrid->co[r][c], Tfreezing);
-
-					}
-
-				}else{	//snot not on the soil
-
-					if(DW<0){
-
-						f=fopen(files->co[ferr]+1,"a");
-						fprintf(f,"Snow erosion >0 for snowD=0 in cell r:%ld c:%ld\n",r,c);
-						fclose(f);
-
-					}else{
-
-						snow->w_ice->co[1][r][c]+=DW;
-						snow->Dzl->co[1][r][c]+=1.0E+3*DW/rho_newlyfallensnow(met->Vgrid->co[r][c], met->Tgrid->co[r][c], Tfreezing);
-						snow->T->co[1][r][c]=Ta[r][c];
-						if(snow->T->co[1][r][c]>Tfreezing) snow->T->co[1][r][c]=Tfreezing;
-					}
-				}
-				D=DEPTH(r,c,snow->lnum,snow->Dzl);
-				if(D!=D){
-					printf("Novalue in set_windtrans_snow(b): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
-					printf("Snow density :%f V:%f T:%f\n",rho_newlyfallensnow(met->Vgrid->co[r][c], met->Tgrid->co[r][c], Tfreezing),met->Vgrid->co[r][c], met->Tgrid->co[r][c]);
-					write_snow_all(r, c, snow);
-					printf("%f %f %f %f\n",DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c]);
-				}
-				snow_layer_combination(r, c, snow, Ta[r][c], par->snowlayer_inf, par->Dmin, par->Dmax, t);
-				D=DEPTH(r,c,snow->lnum,snow->Dzl);
-				if(D!=D){
-					printf("Novalue in set_windtrans_snow(c): r:%ld c:%ld SnowD:%f lnum:%ld\n",r,c,DEPTH(r, c, snow->lnum, snow->Dzl),snow->lnum->co[r][c]);
-					write_snow_all(r, c, snow);
-					printf("%f %f %f %f\n",DW,snow->Wsalt->co[r][c],snow->Wsubl->co[r][c],snow->Wsusp->co[r][c],snow->Wsubgrid->co[r][c]);
-				}
-			}
-		}
-	}
-}
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1054,7 +915,11 @@ void snowlayer_merging(long r, long c, SNOW *snow, long l1, long l2, long lres){
 	* Output: snow structure modified with correct merged layers
 	* comment: Matteo Dall'Amico, May 2009 */
 	double h;
-
+/*printf("\nr=%ld, c=%ld, l1=%ld, l2=%ld ",r,c,l1,l2);
+printf("snow->w_ice[l1]=%f, snow->w_liq[l1]=%f, snow->T[l1]=%f",snow->w_ice->co[l1][r][c],snow->w_liq->co[l1][r][c],snow->T->co[l1][r][c]);stop_execution();
+printf("snow->T[l2]=%f",snow->T->co[l2][r][c]);stop_execution();
+printf("snow->w_liq[l2]=%f",snow->w_liq->co[l2][r][c]);stop_execution();
+printf("snow->w_ice[l2]=%f",snow->w_ice->co[l2][r][c]);stop_execution();*/
 	h=internal_energy(snow->w_ice->co[l1][r][c],snow->w_liq->co[l1][r][c],snow->T->co[l1][r][c])+internal_energy(snow->w_ice->co[l2][r][c],snow->w_liq->co[l2][r][c],snow->T->co[l2][r][c]);
 	snow->Dzl->co[lres][r][c]=snow->Dzl->co[l1][r][c]+snow->Dzl->co[l2][r][c];
 	snow->w_ice->co[lres][r][c]=snow->w_ice->co[l1][r][c]+snow->w_ice->co[l2][r][c];
@@ -1117,7 +982,7 @@ void from_internal_energy(long r, long c, double h, double *w_ice, double *w_liq
 		*w_liq=SWE;
 		*w_ice=0.0;
 		*T=Tfreezing;
-		if(*w_ice<0 || *w_liq<0 || *T>Tfreezing) printf("Error 3 in H calculation r:%ld c:%ld : wice:%f wliq:%f T:%f h:%f SWE:%f Lf*SWE:%f\n",r,c,*w_ice,*w_liq,*T,h,SWE,Lf*SWE);
+		if(*w_ice<0 || *w_liq<0 || *T>Tfreezing) printf("Error 3 in H calculation r:%ld c:%ld : wice:%f wliq:%f T:%f h:%f SWE:%f Lf*SWE:%f\n",r,c,*w_ice,*w_liq,*T,h,SWE,Lf*SWE);	
 	}
 }
 
@@ -1125,7 +990,7 @@ void from_internal_energy(long r, long c, double h, double *w_ice, double *w_liq
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void get_softsnow(SNOW *snow, double **Z){
+/*void get_softsnow(SNOW *snow, double **Z){
 
 	long l,r,c,nr=snow->T->nrh,nc=snow->T->nch;
 	short wet;
@@ -1142,7 +1007,7 @@ void get_softsnow(SNOW *snow, double **Z){
 			}
 		}
 	}
-}
+}*/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1286,7 +1151,7 @@ void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, DOUBLEVECTOR 
 		mup=ceil(n/2.0);
 		mdw=floor(n/2.0);
 
-		//printf("a. n=%ld linf=%ld mup=%ld mdw=%ld\n",n,linf,mup,mdw);
+		//printf("a. n=%ld linf=%ld mup=%ld mdw=%ld\n",n,linf,mup,mdw);stop_execution();
 
 		if(linf<N-mup && linf<=mdw){
 			mdw=linf-1;
@@ -1307,7 +1172,7 @@ void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax, DOUBLEVECTOR 
 			Dmin2->co[l]=Dmin->co[N+l-n];
 			Dmax2->co[l]=Dmax->co[N+l-n];
 		}
-
+		
 	}
 
 }

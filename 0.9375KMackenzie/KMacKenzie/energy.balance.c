@@ -49,7 +49,9 @@ void checkErrorSize(char *errfilepath);
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
 extern STRINGBIN *files;
-extern long Nl, Nr, Nc;
+extern long Nl; // total number of soil layers (constant in the whole basin)
+extern long Nr; // total number of rows (of the map)
+extern long Nc;// total number of columns (of the map)
 extern double NoV;
 
 /******************************************************************************************************************************************/
@@ -65,8 +67,10 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 //*******************************
 
 long r,c,l,j;//Counters of rows, columns, layers of the basin
-long Ns,Ng;//Number of rows, columns,layers of the soil in the whole basin, Maximum number of snow layers, Maximum number of glacier layers
-long ns,ng=0;//Number of snow layer in a pixel, number of glacier layer in a pixel
+long Ns;// Maximum number of snow layers
+long Ng;// Maximum number of glacier layers
+long ns;//Number of snow layer in a pixel,
+long ng=0;// number of glacier layer in a pixel
 double E0;//soil-earth correction [-]
 double Ts;//GROUND SURFACE TEMPERATURE
 double Qs;// Specific humidity of the surface
@@ -95,11 +99,11 @@ double	anir_d;// albedo near infrared diffuse
 double epsa=0.0; //Atmospheric absorbance for long wave radiation [-]
 double	LWin; // incoming Long Wave long wave radiation diffused towards land [W/m2] for a pixel
 double	LW;// LW net to the ground
-double	LWv;// Long wave of
+double	LWv;// Long wave of vegetation
 double	Tsurr;// Temperature of the sorrounding surfaces (not of the pixel) [ûC]
 
 double Hv; // Sensible heat flux of the vegetation [W/m2]
-double H;//Sensible heat fluxe of the groudn [W/m2] for a pixel
+double H;//Sensible heat flux of the ground [W/m2] for a pixel
 
 double LE;// Latent heat flux
 double	Ev; // evaporation fluxes for vegetation
@@ -127,21 +131,21 @@ DOUBLEVECTOR *deltaw; // vector of column (snow+soil) melting ice (if>0) or icin
 //The 1st component is for the highest layer (be it of snow or soil), the (nl+ns)th component for the deepest soil layer
 
 //Other auxilairy variables
-double z0,
-	z0veg,
-	d0,
-	d0veg,
-	z0_z0t,
-	hveg,
-	eps;
-double	ee=0.0;// saturated water vapour pressure
-double	dee=0.0;// derivative of saturated water pressure
-double	Tdew=0.0; // dew temperature (temp. di rugiada)
-double	Qa;// specific humidity
+double z0;// surface roughness [mm] i.e. the height above the ground where the wind velocity profile is 0, following the rule of thumb it's roughly 1/10 of the height of the object.
+double z0veg;// surface roughness [mm] for the vegetation
+double d0; //zero-plane displacement [mm]. It is usually 2/3*z0. It only plays a role when the object are so dense that the wind will hardly move though them, so it's like as the ground was displaced up by d0.
+double d0veg;//zero-plane displacement for vegetation
+double z0_z0t;//ratio z0/z0T
+double hveg;// vegetation height (not present in this version)
+double eps;// surface LW emissivity (be it soil or snow) [-]
+double ee=0.0;// saturated water vapour pressure
+double dee=0.0;// derivative of saturated water pressure
+double Tdew=0.0; // dew temperature (temp. di rugiada)
+double Qa;// Air specific humidity
 double evap_c;
-double	drip_c;
-double	maxstorage_c;
-double	LAI=0.5;// leaf area index
+double drip_c;
+double maxstorage_c;
+double LAI=0.5;// leaf area index
 double fc=0.0;// canopy fraction
 double drip_sn; //unused variable
 double	expon;// unused variable
@@ -364,6 +368,12 @@ for(r=1;r<=Nr;r++){
 			sat_vap_pressure_inv(&Tdew,ee,met->Pgrid->co[r][c]);
 			//convert total precipitation to [mm]
 			wat->total->co[r][c]*=(par->Dt/3600.0);	//from [mm/h] to [mm]
+
+			// CORRECTION OF PRECIPITATION DUE TO TOPOGRAPHY (JUST FOR 1D SIMULATION)
+			if (par->point_sim==1){
+				wat->total->co[r][c]*=cos(top->slopes->element[r][c]);
+			}
+
 			//distinguish between rain and snow
 			part_snow(wat->total->co[r][c], &Prain_over, &Psnow_over, Tdew, par->T_rain, par->T_snow);
 			//modify rain and snow using correction factors
@@ -2454,7 +2464,19 @@ double red_evap(long n, double psi, double T){
 /******************************************************************************************************************************************/
 
 void update_roughness_soil(double z0, double d0, double z0_z0t, double snowD, double thres, double z0snow, double *z0_ris, double *d0_ris, double *z0_z0t_ris){
-
+	/* Author:  Stefano Endrizzi  Year:
+	 * function that updates the soil surface roughness
+	 * Input:	z0s: 	roughness length of the soil surface
+	 * 			d0:		zero-plane displacement [mm]
+	 * 			z0_z0t: ratio z0/z0t
+	 * 			snowD:	snow depth [mm]
+	 * 			thresh: threshold on snow depth to change roughness
+	 * 			z0snow:	roughness length over snow [mm]
+	 *
+	 * Output:	z0_ris:	resulting roughness length
+	 * 			d0_ris: resulting zero_plane displacement
+	 * 			z0_z0t_ris:	resulting ratio z0/zot
+	 * comment: Matteo Dall'Amico, May 2009 */
 	if(snowD>thres){
 		*z0_ris=z0snow;
 		*d0_ris=0.0;
@@ -2487,7 +2509,69 @@ void EnergyFluxes(double Tg, long r, long c, long n, double zmu, double zmT, dou
 	double Qa, double P, double LR, double psi, double ice, double e, double fc, double LAI, double Wc, double fwet, double fsnow, double *theta, double **soil,
 	double *land, double *root, PAR *par, DOUBLEVECTOR *ftcl, DOUBLEVECTOR *rep, double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT, double *E,
 	double *dE_dT, double *LWv, double *Hv, double *Ev, double *Evt, double *Tv, double *Qv, double *Ts, double *Qs, long cont, double *Hg0, double *Hg1, double *Eg0,
-	double *Eg1, double *rh, double *rv, double *rc, double *rb, double *rh_ic, double *rv_ic, double *Qg){
+	double *Eg1, double *rh, double *rv, double *rc, double *rb, double *rh_ic, double *rv_ic, double *Qg)
+	/* Author:  Stefano Endrizzi  Year:2009
+	* Input:	Tg: temperature of the first soil layer
+	* 			r: row number
+	* 			c: column number
+	* 			n: number of snow+glacier layers
+	* 			zmu: height of wind velocity sensor with respect to the ground surface [m]
+	* 			zmT: height of temperature sensor with respect to the ground surface [m]
+	* 			z0s: roughness length of the soil surface [mm]
+	* 			d0s: zero-plane displacement for the soil [mm]
+	* 			rz0s: as to do with roughness length of soil
+	* 			z0v:roughness length for vegetation [mm]
+	* 			d0v:zero-plane displacement for vegetation [mm]
+	* 			rz0v:has to do with roughness length of vegetation
+	* 			hveg: vegetation height
+	* 			v:	wind velocity in the point
+	*			Ta: air temperature
+	*			Qa: air specific humidity
+	*			P: air pressure
+	*			LR: air lapse rate
+	*			psi: psi of the first soil layer
+	*			ice: ice content of the first soil layer
+	*			e: surface LW emissivity (be it snow or soil)
+	*			fc: canopy fraction
+	*			LAI: leaf area index
+	*			Wc: liquid precipitation intercepted by precipitation [mm]
+	*			fwet: ??
+	*			fsnow: fraction of canopy covered by snow vector of land cover properties for the specified land cover
+	*			theta: vector of adimensional water content
+	*			soil: matrix of soil parameters [#_of_soil_properties][#_of_soil_layers] for the given soil type
+	*			land: vector of land cover properties for the specified land cover
+	*			root: vector of root fraction?
+	*			par: parameters structure
+	*			ftcl: vector of?
+	*			rep: vector of?
+	*			SWin: incoming SW
+	*			LWin: incoming LW
+	*			SWv: SW to the vegetation
+	*			cont3:
+	* Output:
+	*			LW: Net LW to the ground
+	*			H: sensible heat flux to the ground
+	*			E: Evaporation flux to the ground [Kg/m2]
+	*			LWv: LW of vegetation
+	*			Hv: sensible heat flux for vegetation
+	*			Ev: Evaporation flux for vegetation
+	*			Evt:
+	*			Tv:
+	*			Ts: surface temperature
+	*			Qs: surface specific humidity
+	*			Hg0: sensible heat flux in the ground at t=t0
+	*			Hg1: sensible heat flux in the ground at t1=t0+Dt
+	*			Eg0: evaporation heat flux in the ground at t=t0
+	*			Eg1: evaporation heat flux in the ground at t1=t0+Dt
+	*			rh:
+	*			rv:
+	*			rc:
+	*			rb:
+	*			rh_ic:
+	*			rv_ic:
+	*			Qg:
+	* comment: Matteo Dall'Amico, May 2009 */
+{
 
 	double Hg, dHg_dT, Eg, dEg_dT, LWg;
 	double dQgdT, rm;
@@ -2539,7 +2623,70 @@ void PointEnergyBalance(long r, long c, long ns, long ng, double zmu, double zmT
 	PAR *par, DOUBLEVECTOR *ftcl, DOUBLEVECTOR *turb_rep, double SWin, double LWin, double SWv, double *LW, double *H, double *E, double *LWv, double *Hv, double *Ev,
 	double *Evt, double *Tv, double *Ts, double *Qs, short sy, SOIL *sl, double Hadd, double *SW, double t, double Dt, double *k, double *C, double *D, double *wi,
 	double *wl, short sntype, double *dw, double *T, double *Hg0, double *Hg1, double *Eg0, double *Eg1){
-	// k: conduc. termica, C: cap.termica, D=spessore layer[m], wi=ice[Kg/m2], wl=water[kg/m2], dw=kg/m2 che cambia fase, Hg=calore sensibile, E=evaporation
+	/* Author:  Stefano Endrizzi  Year:2009
+	* Input:	r: row number
+	* 			c: column number
+	* 			ns: number of snow layers
+	* 			ng: number of glacier layers
+	* 			zmu: height of wind velocity sensor with respect to the ground surface [m]
+	* 			zmT: height of temperature sensor with respect to the ground surface [m]
+	* 			z0s: roughness length of the soil surface [mm]
+	* 			d0s: zero-plane displacement for the soil [mm]
+	* 			rz0s: as to do with roughness length of soil
+	* 			z0v:roughness length for vegetation [mm]
+	* 			d0v:zero-plane displacement for vegetation [mm]
+	* 			rz0v:has to do with roughness length of vegetation
+	* 			hveg: vegetation height
+	* 			v:	wind veolocity in the point
+	*			Ta: air temperature
+	*			Qa: air specific humidity
+	*			P: air pressure
+	*			LR: air lapse rate
+	*			eps: surface LW emissivity (be it snow or soil)
+	*			fc: canopy fraction
+	*			LAI: leaf area index
+	*			Wc:  liquid precipitation intercepted by precipitation [mm]
+	*			fwet: ?
+	*			fsnow: fraction of canopy covered by snow
+	*			theta: vector of adimensional water content
+	*			land: vector of land cover properties for the specified land cover
+	*			root: vector of root fraction?
+	*			par: parameters structure
+	*			ftcl: vector of?
+	*			turb_rep: vector of?
+	*			SWin: incoming SW
+	*			LWin: incoming LW
+	*			SWv: SW to the vegetation
+	*			sy: soil type
+	*			sl:
+	*			Hadd: heat advection?
+	*			SW: ??
+	*			t: time
+	*			Dt: time integration interval
+	*			k: vector of thermal conductivities
+	*			C: vector of thermal capacities
+	*			D: vector of soil thickness
+	*			wi: vector of ice content in the ground [kg/m2]
+	*			wl: vector of water content in the ground [kg/m2]
+	*			sntype: vector of snow type
+	*			dw:vector of water changing phase in the ground [kg/m2]
+	*			T: vector of soil temperatures
+	* Output:
+	*			LW: Net LW to the ground
+	*			H: sensible heat flux to the ground
+	*			E: Evaporation flux to the ground [Kg/m2]
+	*			LWv: LW of vegetation
+	*			Hv: sensible heat flux for vegetation
+	*			Ev: Evaporation flux for vegetation
+	*			Evt:
+	*			Tv:
+	*			Ts: surface temperature
+	*			Qs: surface specific humidity
+	*			Hg0: sensible heat flux in the ground at t=t0
+	*			Hg1: sensible heat flux in the ground at t1=t0+Dt
+	*			Eg0: evaporation heat flux in the ground at t=t0
+	*			Eg1: evaporation heat flux in the ground at t1=t0+Dt
+	* comment: Matteo Dall'Amico, May 2009 */
 	short occurs=0;
 	long l, cont1, cont2=0, cont3=0, n=Nl+ns+ng;
 	double Tg, dH_dT, dE_dT, EB, dEB_dT;

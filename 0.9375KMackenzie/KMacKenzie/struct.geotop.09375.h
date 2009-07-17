@@ -99,16 +99,20 @@ typedef struct {
 typedef struct {
 
 	SHORTMATRIX *type;/* matrix of soil type */
-	DOUBLETENSOR *pa; /* doubletensor of soil parameters */
+	DOUBLETENSOR *pa; /* doubletensor of soil parameters [#_of_soil_types][#_of_soil_properties][#_of_soil_layers] */
 	DOUBLETENSOR *P; /* soil pressure */
 	DOUBLETENSOR *T; /* soil temperature */
 	DOUBLETENSOR *thice; /* soil theta_ice */
 	DOUBLEMATRIX *Jinf; /* water infiltration in the soil surface */
 	DOUBLETENSOR *J; /*  water flux outgoing from one layer to the lower one */
 	DOUBLEMATRIX *Tv;
-	DOUBLETENSOR *Tav;
-	DOUBLETENSOR *thwav;
-	DOUBLETENSOR *thiav;
+	DOUBLETENSOR *Tav;/* average soil temperature in a layer in the output Dt interval*/
+	DOUBLETENSOR *thwav;/* average water content in a layer in the output Dt interval*/
+	DOUBLETENSOR *thiav;/* average ice content in a layer in the output Dt interval*/
+	DOUBLEMATRIX *Tmean; // mean temperature in a layer for particular pixel in a Dt_output
+	DOUBLEMATRIX *thetaw_mean; // mean theta_water in a layer for particular pixel in a Dt_output
+	DOUBLEMATRIX *thetai_mean; // mean theta_ice in a layer for particular pixel in a Dt_output
+	DOUBLEMATRIX *psi_mean; // mean water suction in a layer for particular pixel in a Dt_output
 
 } SOIL;
 
@@ -148,7 +152,7 @@ typedef struct {
 	SHORTMATRIX *shadow;		  //=1 if shadow, =0 if not*/
 	LONGVECTOR *clax;
 	LONGMATRIX *cont;
-	DOUBLEMATRIX *ty; /* land type (better would be land cover, i.e. pasture, rock, forest, paved_road...) */
+	DOUBLEMATRIX *ty; /*  matrix (#_of_land-uses X #_of_land-properties): matrix of land type (better would be land cover, i.e. pasture, rock, forest, paved_road...):  */
 	DOUBLEVECTOR *LAI; /* leaf area index */
 
 } LAND;/*all this data are calculated on the basis of land use data and some other par*/
@@ -184,7 +188,7 @@ typedef struct { /*nstations=number of all the rain-stations,npixel=number of al
     DOUBLEMATRIX *Pn;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
-    DOUBLEMATRIX *wt;       /*intercepted precipitation in mm*/
+    DOUBLEMATRIX *wt;       /*liquid precipitation intercepted by precipitation [mm]*/
     DOUBLEMATRIX *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
     DOUBLEMATRIX *PrSNW_mean;/* average of precipitation fallen as snow */
 	DOUBLEMATRIX *Psnow;/* precipitation calculated as snow (as result of the air temperature) */
@@ -207,7 +211,7 @@ typedef struct {
     double TH;     /*TH=last of all the simulation in hours*/
     long i_pixel;  /*counter for the output of a pixel*/
     long n_pixel;  /*nDt_output_pixel=number of Dt after which the output of a pixel are printed*/
-	long i_basin;
+	long i_basin;/*counter for the output of a basin*/
 	long n_basin;
 	long i_plot;
 	long n_plot;/* hour interval after which the special output are printed */
@@ -235,7 +239,7 @@ typedef struct {
 	long year0;/* Year of the beginning of the simulation*/
 	double ST;/* Standard time to which all the output data are referred (difference respect UMT, in hour) */
     short print; /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
-    short monin_obukhov;
+    short monin_obukhov;/* 1 stability and instability considered, 2 stability not considered, 3 instability not considered, 4 always neutrality,5 Oerlemans&Grisogono (2002) on glacier*/
     double gamma_m;/*Exponent of the law of uniform motion on the surface*/
     double T_rain; /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
     double T_snow; /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
@@ -258,14 +262,14 @@ typedef struct {
 
     short state_snow;/* 1 if you have a file with initial snow depth (in days), 0 otherwise */
 	short state_glac;/* 1 if you have a file with glacier depth, 0 otherwise */
-	short state_turb;
+	short state_turb;/* 0 if you want to use Louis' scheme, 1 if you want to use the complete scheme to calculate turbulent transfer coefficients*/
 	short state_snow_age;/* 1 if you have a file with snow age (in days), 0 otherwise */
-	short state_lwrad;
+	short state_lwrad;/*Which formula for incoming longwave radiation: 0 (dati Zongo)  1 (Brutsaert, 1975), 2 (Satterlund, 1979), 3 (Koenig-Langlo & Augstein, 1994), 4 (Idso, 1981), 5 (Andreas & Ackley, 1982), 6 (Konzelmann, 1994)*/
 
 	double imp;
 	double f_bound_Richards;
 
-	double epsilon_snow;
+	double epsilon_snow;/* snow LW emissivity [-]  */
 
 	double output_Txy; /* 1 if you want to display output Txy distributed MAPS, 0 otherwise */
 	double output_TETAxy;/* 1 if you want to display output TETAxy distributed MAPS, 0 otherwise */
@@ -323,7 +327,7 @@ typedef struct {
 	double latitude;
 	double longitude;
 
-	double z0_snow;
+	double z0_snow;/* roughness length over snow [mm]*/
 	long n_landuses;/* the maximum digit in the first row of block 1 in parameters file */
 
 	LONGVECTOR *JD_plots; /* vector of Julian Days in which energy balance and meteo data are plotted with a very short time step
@@ -497,7 +501,7 @@ typedef struct {
 
 	double V;/* wind velocity [m/s] */
 	double RH;/* relative humidity [%]*/
-	double LapseRate;
+	double LapseRate;/* air temperature Lapse rate */
 
 	DOUBLEMATRIX *Tday;
 	DOUBLEMATRIX *Tvar;

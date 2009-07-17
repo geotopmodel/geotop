@@ -258,6 +258,15 @@ if(par->state_pixel==1){
 
 		sy=sl->type->co[r][c];
 
+		// update of mean punctual values
+		for(l=1;l<=Nl;l++){
+			sl->Tmean->co[l][i]+=sl->T->co[l][r][c]/(double)times->n_pixel;
+			//printf("time=%f,l=%ld,sl->T=%f,sl->Tmean=%f,times->i_pixel=%ld,time->n_pixel=%ld",times->time,l,sl->T->co[l][r][c],sl->Tmean->co[l],times->i_pixel,times->n_pixel);stop_execution();
+			sl->thetai_mean->co[l][i]+=sl->thice->co[l][r][c]/(double)times->n_pixel;
+			sl->thetaw_mean->co[l][i]+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
+					sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil)/(double)times->n_pixel;
+			sl->psi_mean->co[l][i]+=sl->P->co[l][r][c]/(double)times->n_pixel;
+		}
 		/*Print of pixel-output every times->n_pixel time step */
 		if (times->i_pixel==times->n_pixel){
 
@@ -266,7 +275,7 @@ if(par->state_pixel==1){
 				wat->out1->co[12][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
 					fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
-			}
+				}
 
 			//wat->wt [mm] is the water (in both the liquid and solid form) that is currently on the leaves
 			wat->out1->co[13][i]=-wat->out1->co[14][i];
@@ -486,6 +495,10 @@ if(par->state_pixel==1){
 				wat->out1->co[2][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
 								fmin(sl->pa->co[sy][jpsimin][l], Psif(sl->T->co[l][r][c], par->psimin)),par->Esoil);
+				sl->Tmean->co[l][i]=0.0;
+				sl->thetaw_mean->co[l][i]=0.0;
+				sl->thetai_mean->co[l][i]=0.0;
+				sl->psi_mean->co[l][i]=0.0;
 			}
 			wat->out1->co[1][i]=wat->h_sup->co[r][c];
 
@@ -1272,6 +1285,11 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
  free_doubletensor(sl->P);
  free_doubletensor(sl->T);
  free_doublematrix(sl->Tv);
+ free_doublematrix(sl->Tmean);
+ free_doublematrix(sl->psi_mean);
+ free_doublematrix(sl->thetai_mean);
+ free_doublematrix(sl->thetaw_mean);
+
  free_doubletensor(sl->thice);
  free_doublematrix(sl->Jinf);
  free_doubletensor(sl->J);
@@ -1700,74 +1718,111 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,SSSS);
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
-		fprintf(f,"/** The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f," Elevation above sea level: %10.3f m\n",top->Z0->co[r][c]);
-		fprintf(f," Gauckler-Strickler [m^1/3/s]: %f\n",land->ty->co[lu][jcm]);
-		for(l=1;l<=Nl;l++){
-			fprintf(f," Residual water content[-] of the layer %ld: %f\n",l,sl->pa->co[sy][jres][l]);
+		fprintf(f,"GEOtop KMackenzie: Summary of the main properties of the simulation in the point\nEast [m],North [m]\n%.2f,%.2f\nrow identification number,col identification number,Number of layers:\n%ld,%ld,%ld\n",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c,Nl);
+		fprintf(f,"Integration time, Output time interval (sec)\n%.0f,%.0f\n",par->Dt,(double)(times->n_pixel*par->Dt));
+		fprintf(f,"soil layer depth [mm]\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.0f,",sl->pa->co[sy][jdz][l]);
+			}fprintf(f,"%.0f\n",sl->pa->co[sy][jdz][Nl]);
+		fprintf(f,"z coordinate [mm] of the center of each soil layer\n");
+		z=0.0;
+		for(l=1;l<=Nl-1;l++){
+			z+=sl->pa->co[sy][jdz][l];
+			fprintf(f,"%.2f,",z-0.5*sl->pa->co[sy][jdz][l]);
+			}
+		fprintf(f,"%.2f\n",z+0.5*sl->pa->co[sy][jdz][Nl]);
+		fprintf(f,"Residual water content[-] in each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%f,",sl->pa->co[sy][jres][l]);
+			}
+		fprintf(f,"%f\n",sl->pa->co[sy][jres][Nl]);
+		fprintf(f,"Saturated water content[-] in each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",sl->pa->co[sy][jsat][l]);
+			}
+		fprintf(f,"%.2f\n",sl->pa->co[sy][jsat][Nl]);
+		fprintf(f,"Alpha of Van Genuchten [mm^-1] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",sl->pa->co[sy][ja][l]);
+			}
+		fprintf(f,"%.2f\n",sl->pa->co[sy][ja][Nl]);
+		fprintf(f,"n of Van Genuchten [-] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",sl->pa->co[sy][jns][l]);
+			}
+		fprintf(f,"%.2f\n",sl->pa->co[sy][jns][Nl]);
+		fprintf(f,"m of Van Genuchten [mm^-1] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",1-1/sl->pa->co[sy][jns][l]);
+			}
+		fprintf(f,"%.2f\n",1-1/sl->pa->co[sy][jns][Nl]);
+		fprintf(f,"v of Van Genuchten [mm^-1] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",sl->pa->co[sy][jv][l]);
+			}
+		fprintf(f,"%.2f\n",sl->pa->co[sy][jv][Nl]);
+		fprintf(f,"Kv_sat [mm/s] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.3f,",sl->pa->co[sy][jKv][l]);
+			}
+		fprintf(f,"%.3f\n",sl->pa->co[sy][jKv][Nl]);
+		fprintf(f,"Kh_sat [mm/s] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.3f,",sl->pa->co[sy][jKh][l]);
+			}
+		fprintf(f,"%.3f\n",sl->pa->co[sy][jKh][Nl]);
+		fprintf(f,"Thermal capacity of the soil skeleton [J/(m3 K)] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.0f,",sl->pa->co[sy][jct][l]);
+			}
+		fprintf(f,"%.0f\n",sl->pa->co[sy][jct][Nl]);
+		fprintf(f,"Thermal conductivity of the soil skeleton [W/(m K)] for each layer\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%.2f,",sl->pa->co[sy][jkt][l]);
 		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," Saturated water content[-] of the layer %ld: %f\n",l,sl->pa->co[sy][jsat][l]);
-		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," Alpha of van Genuchten[mm^-1] of the layer %ld: %f\n",l,sl->pa->co[sy][ja][l]);
-		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," n of van Genuchten[-] of the layer %ld: %f\n",l,sl->pa->co[sy][jns][l]);
-		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," m of van Genuchten[-] of the layer %ld: %f\n",l,1-1/sl->pa->co[sy][jns][l]);
-		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," v of van Genuchten[-] of the layer %ld: %f\n",l,sl->pa->co[sy][jv][l]);
-		}
-		fprintf(f," Water content of wilting point [-]: %f\n",land->ty->co[lu][jtwp]);
-		fprintf(f," Water content of field capacity [-]: %f\n",land->ty->co[lu][jtfc]);
-		for(l=1;l<=Nl;l++){
-			fprintf(f," Kv_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKv][l]);
-		}
-		for(l=1;l<=Nl;l++){
-			fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKh][l]);
-		}
-
-		fprintf(f," Terrain elevation [m]: %f\n",top->Z0->co[r][c]);
-		fprintf(f," Sky view factor [-]: %f\n",top->sky->co[r][c]);
+		fprintf(f,"%.2f\n",sl->pa->co[sy][jkt][Nl]);
+		fprintf(f,"Water content of wilting point [-]:\n");fprintf(f,"%.3f\n",land->ty->co[lu][jtwp]);
+		fprintf(f,"Water content of field capacity [-]:\n");fprintf(f,"%.3f\n",land->ty->co[lu][jtfc]);
+		fprintf(f,"Elevation above sea level [m]:\n");fprintf(f,"%f m\n",top->Z0->co[r][c]);
+		fprintf(f,"Gauckler-Strickler [m^1/3/s]:\n");fprintf(f,"%f\n",land->ty->co[lu][jcm]);
+		fprintf(f,"Sky view factor [-]:\n");fprintf(f,"%.3f\n",top->sky->co[r][c]);
 		if (top->pixel_type->co[r][c]==0){
-			fprintf(f," The pixel-type is land (0) \n");
+			fprintf(f,"The pixel-type is land\n0\n");
 		}else if (top->pixel_type->co[r][c]==9){
-			fprintf(f," The pixel-type is novalue (9) \n");
+			fprintf(f,"The pixel-type is novalue\n9 \n");
 		}else if (top->pixel_type->co[r][c]==10){
-			fprintf(f," The pixel-type is channel (10) \n");
+			fprintf(f,"The pixel-type is channel\n10 \n");
 		}else if (top->pixel_type->co[r][c]==11){
-			fprintf(f," The pixel-type is lake (11) \n");
+			fprintf(f,"The pixel-type is lake\n11\n");
 		}else if (top->pixel_type->co[r][c]==12){
-			fprintf(f," The pixel-type is sea (12) \n");
+			fprintf(f,"The pixel-type is sea\n12 \n");
 		}
-		fprintf(f," Drainage Direction is %d \n",top->DD->co[r][c]);
-		fprintf(f," Slope along Drainage Direction [-]: %f \n",top->i_DD->co[r][c]);
-		fprintf(f," Slope along positive x direction [-]: %f \n",top->dz_dx->co[r][c]);
-		fprintf(f," Slope along negative y direction [-]: %f \n",top->dz_dy->co[r][c]);
-		fprintf(f," Topology of curvature (0-1) [-]: %d \n",top->curv->co[r][c]);
-		fprintf(f," Area considering the slope [m^2]: %f \n",top->area->co[r][c]);
-		fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]*180.0/Pi);
-		fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slopes->co[r][c]*180.0/Pi);
-		fprintf(f," Slope to calculate the surface velocity of the channel incoming flow [-]: %f \n",top->i_ch->co[r][c]);
-		fprintf(f," Land use number is %d \n",(short)land->LC->co[r][c]);
+		fprintf(f,"Drainage Direction:\n%d \n",top->DD->co[r][c]);
+		fprintf(f,"Slope along Drainage Direction [-]:\n%f \n",top->i_DD->co[r][c]);
+		fprintf(f,"Slope along positive x direction [-]:\n%f \n",top->dz_dx->co[r][c]);
+		fprintf(f,"Slope along negative y direction [-]:\n%f \n",top->dz_dy->co[r][c]);
+		fprintf(f,"Topology of curvature (0-1) [-]:\n%d \n",top->curv->co[r][c]);
+		fprintf(f,"Area considering the slope [m^2]:\n%f \n",top->area->co[r][c]);
+		fprintf(f,"Aspect [deg] [0=Nord, clockwise]:\n%f \n",top->aspect->co[r][c]*180.0/Pi);
+		fprintf(f,"Mean slope of the pixel [deg]:\n%f \n",top->slopes->co[r][c]*180.0/Pi);
+		fprintf(f,"Slope to calculate the surface velocity of the channel incoming flow [-]:\n%f \n",top->i_ch->co[r][c]);
+		fprintf(f,"Land use number:\n%d\n",(short)land->LC->co[r][c]);
 
 		root(land->ty->co[lu][jroot], sl->pa->co[sy][jdz], root_fraction->co);
-		for(l=1;l<=Nl;l++){
-			fprintf(f," The root fraction [-] of layer %ld: %f\n",l,root_fraction->co[l]);
-		}
+		fprintf(f,"Root fraction [-]:\n");
+		for(l=1;l<=Nl-1;l++){
+			fprintf(f,"%f,",root_fraction->co[l]);
+		}fprintf(f,"%f\n",root_fraction->co[Nl]);
 
 		//fprintf(f," Albedo without snow and alpha=0 [-]: %f \n",land->ty->co[lu][jalbedo]);
-		fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",land->ty->co[lu][jcf]);
-		fprintf(f," Momentum roughness length z0soil [m]: %f \n",land->ty->co[lu][jz0soil]);
-		fprintf(f," Momentum roughness length z0veg [m]: %f \n",land->ty->co[lu][jz0veg]);
-		fprintf(f," KRIGING WEIGHTS=\n");
+		fprintf(f,"Surface fraction of land covered by vegetation [-]:\n%f \n",land->ty->co[lu][jcf]);
+		fprintf(f,"Momentum roughness length z0soil [m]:\n%f \n",land->ty->co[lu][jz0soil]);
+		fprintf(f,"Momentum roughness length z0veg [m]:\n%f \n",land->ty->co[lu][jz0veg]);
+		fprintf(f,"KRIGING WEIGHTS=\n");
 		for(j=1;j<=n;j++){
-			fprintf(f," STATION %ld = %f\n",j,wat->weights_Kriging->co[(r-1)*Nc+c][j]);
+			fprintf(f,"STATION %ld = %f\n",j,wat->weights_Kriging->co[(r-1)*Nc+c][j]);
 		}
-		fprintf(f," */ \n");
+		//fprintf(f," */ \n");
 		t_fclose(f);
 
 		name=join_strings(files->co[fpoint]+1,SSSS);
@@ -1775,8 +1830,8 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		f=t_fopen(name,"w");
 		fprintf(f,"DATE,JDfrom0,JD,t[d],t_i[s],t_f[s],v[m/s],Vdir,RH[-],P[hPa],Tair[C],Tsurface[C],Tdew[C],eair[mbar],Qair[-],esurf[mbar]");//16
 		fprintf(f,",Qsurf[-],SWin[W/m2],SWin_beam,SWin_diff,SWout[W/m2],albedo[-],alpha[deg],direction[deg],phi[deg],LWin[W/m2],LWout[W/m2],Rnet[W/m2],SW[W/m2],LW[W/m2],H[W/m2],LE[W/m2]");//32
-		fprintf(f,",Qrain[W/m2],Gsoil[W/m2],SurfaceEB[W/m2],SWin_c[MJ],SWout_c[MJ],LWin_c[MJ],LWout_c[MJ],SW_cum[MJ],LWn_cum[MJ],Rnet_cm[MJ],H_cum[MJ],LE_cum[MJ]");//44
-		fprintf(f,",G_cum[MJ],Eg[mm],Sg[mm],Etc[mm],Psnow[mm],Prain[mm],Psnow_c[mm],Prain_SOILc[mm],Prain_SNOWc[mm],Ptot_c[mm],Wt[mm],maxStor");//56
+		fprintf(f,",Qrain[W/m2],Gsoil[W/m2],SurfEB[W/m2],SWin_c[MJ],SWout_c[MJ],LWin_c[MJ],LWout_c[MJ],SW_cum[MJ],LWn_cum[MJ],Rnet_cm[MJ],H_cum[MJ],LE_cum[MJ]");//44
+		fprintf(f,",SurfEB_cum[MJ],Eg[mm],Sg[mm],Etc[mm],Psnow[mm],Prain[mm],Psnow_c[mm],Prain_SOILc[mm],Prain_SNOWc[mm],Ptot_c[mm],Wt[mm],maxStor");//56
 		fprintf(f,",DWt[mm],Ptot_atm,Rain_atm,Snow_atm,Evap_can,Drip_can,Ptot_atm_cum,Prain_atm_cum,Psnow_atm_cum,Evap_can_cum,Drip_can_cum,Pn[mm],Runoff[mm]");//69
 		fprintf(f,",q_sup[mm],q_sub[mm],DS_sup[mm],DS_sub[mm],q_G[mm],snowDEPTH[mm],SWE[mm],snowDENSITY[kg/m3],snowT[C],BStot[mm],BStot_cum[mm]");//80
 		fprintf(f,",snowMELT[mm],snowSUBL[mm],snowEVAP[mm],glacierDEPTH[mm],GWE[mm],gDENSITY[kg/m3],glcT[C],glcMELT[mm],glcSUBL[mm],glcEVAP[mm],qv(mm/d)");//91
@@ -1855,7 +1910,21 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		//fprintf(f,"/** Profiles of sl temperature for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f,"DATE,JDfrom0,JD");
+		fprintf(f,"DATE,JDfrom0,JD,time");
+		z=0.0;
+		for(l=1;l<=Nl;l++){
+			z+=sl->pa->co[sy][jdz][l];
+			fprintf(f,",%.0f ",z-0.5*sl->pa->co[sy][jdz][l]);
+		}
+		fprintf(f," \n");
+		t_fclose(f);
+
+		/*creation of the file "Tz_MEAN.txt": */
+		name=join_strings(files->co[fTz_mean]+1,SSSS);
+		name=join_strings(name,textfile);
+		f=t_fopen(name,"w");
+		//fprintf(f,"/** Profiles of soil temperature average for the time interval for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",parameters->checkpoints->element[i][1],parameters->checkpoints->element[i][2],r,c);
+		fprintf(f,"DATE,JDfrom0,JD,time");
 		z=0.0;
 		for(l=1;l<=Nl;l++){
 			z+=sl->pa->co[sy][jdz][l];
@@ -1869,11 +1938,25 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		//fprintf(f,"/** Profiles of water pressure (mm) for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f,"DATE,JDfrom0,JD");
+		fprintf(f,"DATE,JDfrom0,JD,time");
 		z=0.0;
 		for(l=1;l<=Nl;l++){
 			z+=sl->pa->co[sy][jdz][l];
 			fprintf(f,",%.0f ",z-0.5*sl->pa->co[sy][jdz][l]);
+		}
+		fprintf(f," \n");
+		t_fclose(f);
+
+		/*creation of the file "PSI_MEANz.txt": */
+		name=join_strings(files->co[fpsiz_mean]+1,SSSS);
+		name=join_strings(name,textfile);
+		f=t_fopen(name,"w");
+		//fprintf(f,"/** Profiles of water pressure (mm) average in the time interval for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
+		fprintf(f,"DATE,JDfrom0,JD,time");
+		z=0.0;
+		for(l=1;l<=Nl;l++){
+		z+=sl->pa->co[sy][jdz][l];
+		fprintf(f,",%.0f ",z-0.5*sl->pa->co[sy][jdz][l]);
 		}
 		fprintf(f," \n");
 		t_fclose(f);
@@ -1883,7 +1966,21 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		//fprintf(f,"/** Profiles of water content for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f,"DATE,JDfrom0,JD");
+		fprintf(f,"DATE,JDfrom0,JD,time");
+		z=0.0;
+		for(l=1;l<=Nl;l++){
+			z+=sl->pa->co[sy][jdz][l];
+			fprintf(f,",%.0f ",z-0.5*sl->pa->co[sy][jdz][l]);
+		}
+		fprintf(f," \n");
+		t_fclose(f);
+
+		/*creation of the file "TETAz_MEAN.txt": */
+		name=join_strings(files->co[fliqz_mean]+1,SSSS);
+		name=join_strings(name,textfile);
+		f=t_fopen(name,"w");
+		//fprintf(f,"/** Profiles of water content average in the time interval for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
+		fprintf(f,"DATE,JDfrom0,JD,time");
 		z=0.0;
 		for(l=1;l<=Nl;l++){
 			z+=sl->pa->co[sy][jdz][l];
@@ -1897,7 +1994,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		name=join_strings(name,textfile);
 		f=t_fopen(name,"w");
 		//fprintf(f,"/** Profiles of ice content for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld:\n",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
-		fprintf(f,"DATE,JDfrom0,JD");
+		fprintf(f,"DATE,JDfrom0,JD,time");
 		z=0.0;
 		for(l=1;l<=Nl;l++){
 			z+=sl->pa->co[sy][jdz][l];
@@ -1905,6 +2002,21 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		}
 		fprintf(f," \n");
 		t_fclose(f);
+
+		/*creation of the file "TETAICEz_MEAN.txt": */
+		name=join_strings(files->co[ficez_mean]+1,SSSS);
+		name=join_strings(name,textfile);
+		f=t_fopen(name,"w");
+		//fprintf(f,"/** Profiles of ice content average in the time interval for the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld: */",par->chkpt->co[i][1],par->chkpt->co[i][2],r,c);
+		fprintf(f,"DATE,JDfrom0,JD,time");
+		z=0.0;
+		for(l=1;l<=Nl;l++){
+			z+=sl->pa->co[sy][jdz][l];
+			fprintf(f,",%.0f ",z-0.5*sl->pa->co[sy][jdz][l]);
+		}
+		fprintf(f," \n");
+		t_fclose(f);
+
 
 	}
 
@@ -1953,9 +2065,9 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 /*==================================================================================================================*/
 void write_soil_output(long n, long i, double t, double dt, long y0, double JD0, LONGMATRIX *rc, SOIL *sl, double psimin, double Esoil){
 	/* Author:  Stefano Endrizzi  Year:
-	* function writes the soil parameters of specified checkpoints pixels
+	* function writes the soil parameters of specified checkpoints pixels. It is called when the current time equals the time of output
 	* Input:
-	* 			n:	number of Dt after which the output of a pixel is printed
+	* 			n:	number of Dt after which the output of a pixel is printed (Es. se Dt=900sec e time output=1h, allora n=4)
 	* 			i:	number of pixel (among the checkpoints) that is currently written (see chkpt->nrh)
 	* 			t:	current time
 	* 			dt: integration interval
@@ -1978,36 +2090,36 @@ void write_soil_output(long n, long i, double t, double dt, long y0, double JD0,
 	//date_time(0.5*(t_i+dt+t+dt), y0, JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
 	date_time(t+dt, y0, JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
 
-	/*update of the sl profile temperature in the control pixel:*/
+	/*update of the sl profile temperature at the end of the output interval in the control pixel:*/
 	name=join_strings(files->co[fTz]+1,SSSS);
 	name=join_strings(name,textfile);
 	f=fopen(name,"a");
 	write_date(f, d2, mo2, y2, h2, mi2);
-	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
+	fprintf(f,",%f,%f,%.0f",JD+(double)(daysfrom0(y2)),JD,t+dt);
 	for(l=1;l<=Nl;l++){
 		fprintf(f,",%f",sl->T->co[l][r][c]);
 	}
 	fprintf(f," \n");
 	fclose(f);
 
-	/*writing psi as weighted mean: */
+	/*writing psi at the end of the output interval: */
 	name=join_strings(files->co[fpsiz]+1,SSSS);
 	name=join_strings(name,textfile);
 	f=fopen(name,"a");
 	write_date(f, d2, mo2, y2, h2, mi2);
-	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
+	fprintf(f,",%f,%f,%.0f",JD+(double)(daysfrom0(y2)),JD,t+dt);
 	for(l=1;l<=Nl;l++){
 		fprintf(f,",%f",sl->P->co[l][r][c]);
 	}
 	fprintf(f," \n");
 	fclose(f);
 
-	/*writing the water content as weighted mean: */
+	/*writing the water content at the end of the output interval: */
 	name=join_strings(files->co[fliqz]+1,SSSS);
 	name=join_strings(name,textfile);
 	f=fopen(name,"a");
 	write_date(f, d2, mo2, y2, h2, mi2);
-	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
+	fprintf(f,",%f,%f,%.0f",JD+(double)(daysfrom0(y2)),JD,t+dt);
 	for(l=1;l<=Nl;l++){
 		fprintf(f,",%f",teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
 					sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l],Psif(sl->T->co[l][r][c],psimin)),Esoil));
@@ -2016,17 +2128,90 @@ void write_soil_output(long n, long i, double t, double dt, long y0, double JD0,
 	fprintf(f," \n");
 	fclose(f);
 
-	/*writing the ice content: */
+	/*writing the ice content at the end of the output interval: */
 	name=join_strings(files->co[ficez]+1,SSSS);
 	name=join_strings(name,textfile);
 	f=fopen(name,"a");
 	write_date(f, d2, mo2, y2, h2, mi2);
-	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
+	fprintf(f,",%f,%f,%.0f",JD+(double)(daysfrom0(y2)),JD,t+dt);
 	for(l=1;l<=Nl;l++){
 		fprintf(f,",%f",sl->thice->co[l][r][c]);
 	}
 	fprintf(f," \n");
 	fclose(f);
+
+	// find the date at the middle of the interval
+	t_i=t-dt*n;
+	date_time(0.5*(t_i+t)+dt, y0, JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
+
+	/*write the soil profile temperature as an AVERAGE of the output interval in the control pixel:*/
+	name=join_strings(files->co[fTz_mean]+1,SSSS);
+	name=join_strings(name,textfile);
+	f=fopen(name,"a");
+	write_date(f, d2, mo2, y2, h2, mi2);
+	fprintf(f,",%f,%f,%.0f",JD+(double)(daysfrom0(y2)),JD,0.5*(t_i+t)+dt);
+	for(l=1;l<=Nl;l++){
+		if (t==0){
+			fprintf(f,",%f",sl->T->co[l][r][c]);}
+		else {
+			fprintf(f,",%f",sl->Tmean->co[l][i]);
+		}
+	}
+	fprintf(f," \n");
+	fclose(f);
+
+	/*write the  soil profile suction as an AVERAGE of the output interval in the control pixel:*/
+	name=join_strings(files->element[fpsiz_mean]+1,SSSS);
+	name=join_strings(name,textfile);
+	f=fopen(name,"a");
+	//printf("\ntimes+dt=%f, t_i=%f, n=%ld, t_i+dt=%f, 0.5*(t_i+dt+t+dt)=%f",t+dt,t_i,n,t_i+dt,0.5*(t_i+dt+t+dt)); stop_execution();
+	write_date(f, d2, mo2, y2, h2, mi2);
+	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);fprintf(f,",%.0f", 0.5*(t_i+t)+dt);
+	for(l=1;l<=Nl;l++){
+		if(t==0){
+			fprintf(f,",%f",sl->P->co[l][r][c]);
+		}else{
+			fprintf(f,",%f",sl->psi_mean->co[l][i]);
+		}
+	}
+	fprintf(f," \n");
+	fclose(f);
+	/*write the  soil profile water content as an AVERAGE of the output interval in the control pixel:*/
+	name=join_strings(files->element[fliqz_mean]+1,SSSS);
+	name=join_strings(name,textfile);
+	f=fopen(name,"a");
+	//printf("\ntimes+dt=%f, t_i=%f, n=%ld, t_i+dt=%f, 0.5*(t_i+dt+t+dt)=%f",t+dt,t_i,n,t_i+dt,0.5*(t_i+dt+t+dt)); stop_execution();
+	write_date(f, d2, mo2, y2, h2, mi2);
+	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);fprintf(f,",%.0f", 0.5*(t_i+t)+dt);
+	for(l=1;l<=Nl;l++){
+		if(t==0){
+			fprintf(f,",%f",teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
+					sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],fmin(sl->pa->co[sy][jpsimin][l],Psif(sl->T->co[l][r][c],psimin)),Esoil));
+		}else{
+			fprintf(f,",%f",sl->thetaw_mean->co[l][i]);
+		}
+	}
+	fprintf(f," \n");
+	fclose(f);
+	/*write the  soil profile ice content as an AVERAGE of the output interval in the control pixel:*/
+	name=join_strings(files->element[ficez_mean]+1,SSSS);
+	name=join_strings(name,textfile);
+	f=fopen(name,"a");
+	//printf("\ntimes+dt=%f, t_i=%f, n=%ld, t_i+dt=%f, 0.5*(t_i+dt+t+dt)=%f",t+dt,t_i,n,t_i+dt,0.5*(t_i+dt+t+dt)); stop_execution();
+	write_date(f, d2, mo2, y2, h2, mi2);
+	fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);fprintf(f,",%.0f", 0.5*(t_i+t)+dt);
+	for(l=1;l<=Nl;l++){
+		if(t==0){
+			fprintf(f,",%f",sl->thice->co[l][r][c]);
+		}else{
+			fprintf(f,",%f",sl->thetai_mean->co[l][i]);
+		}
+	}
+	fprintf(f," \n");
+	fclose(f);
+
+
+
 }
 /*==================================================================================================================*/
 /*==================================================================================================================*/

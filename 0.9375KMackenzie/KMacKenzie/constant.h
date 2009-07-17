@@ -207,6 +207,6 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #define ja_nir ja_vis+1				//ground albedo in the near infrared spectrum
 #define jemg ja_nir+1				//soil emissivity
 #define jcm jemg+1					//gauckler strickler (1/manning) coefficient
-#define jzb jcm+1					//Depth 0 Temperature amplitude
-#define jtb jzb+1					//Temperature at the Depth above
+#define jzb jcm+1					//Depth of zero annual amplitude temperature (zaa)
+#define jtb jzb+1					//Temperature of the zaa (zero annual amplitude temperature)
 #define nlandprop jtb				//number of land use properties

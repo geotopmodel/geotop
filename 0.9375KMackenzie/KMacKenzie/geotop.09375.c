@@ -1,4 +1,3 @@
-
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
@@ -44,7 +43,9 @@ void checkErrorSize(char *errfilepath);
 /*----------   1. Global variables  ------------*/
 T_INIT *UV;
 STRINGBIN *files;
-long Nl,Nr,Nc;
+long Nl; // total number of soil layers (constant in the whole basin)
+long Nr; // total number of rows (of the map)
+long Nc;// total number of columns (of the map)
 double NoV;
 
 clock_t init, end, start, stop, start_loop, stop_loop;

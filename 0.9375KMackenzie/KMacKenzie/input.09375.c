@@ -523,6 +523,18 @@ initialize_doubletensor(sl->T,0.0);
 sl->Tv=new_doublematrix(Nr,Nc);
 initialize_doublematrix(sl->Tv,0.0);
 
+sl->Tmean=new_doublematrix(Nl,par->chkpt->nrh);
+initialize_doublematrix(sl->Tmean,0.0);; // mean temperature in a layer for particular pixel in a Dt_output
+
+sl->thetaw_mean=new_doublematrix(Nl,par->chkpt->nrh);
+initialize_doublematrix(sl->thetaw_mean,0.0);; // mean water content in a layer for particular pixel in a Dt_output
+
+sl->thetai_mean=new_doublematrix(Nl,par->chkpt->nrh);
+initialize_doublematrix(sl->thetai_mean,0.0);; // mean ice content in a layer for particular pixel in a Dt_output
+
+sl->psi_mean=new_doublematrix(Nl,par->chkpt->nrh);
+initialize_doublematrix(sl->psi_mean,0.0);; // mean water suction in a layer for particular pixel in a Dt_output
+
 if(par->output_TETAICExy>0){
 	sl->thiav=new_doubletensor(Nl,Nr,Nc);
 	initialize_doubletensor(sl->thiav,0.0);
@@ -2018,12 +2030,12 @@ void read_parameterfile(char *name, PAR *par, LISTON *liston, INIT_TOOLS *itools
 	par->airo=v->co[8];     /*NEW NEAR INFRARED BAND REFLECTANCE*/
 	par->Sr=v->co[9];       /*IRREDUCIBLE WATER SATURATION [-]*/
 	par->epsilon_snow=v->co[10];/* SNOW LONGWAVE EMISSIVITY [-]  */
-	par->z0_snow=v->co[11]*0.001;
+	par->z0_snow=v->co[11]*0.001;/* roughness length over snow [mm]*/
 	par->snowcorrfact=v->co[12];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD SNOW PRECIPITATION */
 	par->raincorrfact=v->co[13];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD RAIN PRECIPITATION */
 	par->snowlayer_max=(long)v->co[14]; /* MAXIMUM NUMBER OF SNOW LAYERS */
 	par->snowlayer_inf=(long)v->co[15];
-	par->snow_maxpor=v->co[16];
+	par->snow_maxpor=v->co[16];/* MAXIMUM SNOW POROSITY ALLOWED [-]*/
 	par->drysnowdef_rate=v->co[17];
 	par->snow_density_cutoff=v->co[18];
 	par->wetsnowdef_rate=v->co[19];
