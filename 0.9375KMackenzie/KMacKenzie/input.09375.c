@@ -2617,8 +2617,8 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 
 	//i.show results
 	printf("\nPOINTS:\n");
-	fprintf(f,"\nPOINTS:\n");
 	f=fopen(files->co[ferr]+1,"a");
+	fprintf(f,"\nPOINTS:\n");
 	for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=10;c++){
 			printf("%f  ",M->co[r][c]);
