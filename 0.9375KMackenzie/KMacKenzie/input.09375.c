@@ -2268,6 +2268,15 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 
 	//3. saving points
 	par->saving_points=read_doublearray(f,PRINT);
+	if(par->saving_points->nh>1)  {
+		printf("You have inserted %ld saving points when in 1D simulation they are not allowed",par->saving_points->nh);
+		t_error("Saving points in block 3 of file option are not allowed! Set to {0} ");
+	}else if (par->saving_points->co[1]>0.0) {
+		printf("You have inserted one saving point equal to %f when in 1D simulation only 0 is allowed",par->saving_points->co[1]);
+		t_error("Saving points in block 3 of file option are not allowed! Set to {0} ");
+	}
+
+
 
 	//4. horizon name
 	s=read_stringarray(f,PRINT);
