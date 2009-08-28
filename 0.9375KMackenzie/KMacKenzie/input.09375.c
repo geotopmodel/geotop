@@ -158,13 +158,13 @@ met->data=(double ***)malloc(IT->met->nrh*sizeof(double**));
 met->horizon=(double ***)malloc(IT->met->nrh*sizeof(double**));
 met->var=alloc2(met->st->Z->nh,nmet);	/* allocates a matrix (n X nmet) where n is the # of meteo station and
  nmet is the number of meteorological variables as defined in constant.h */
-
+int k,p;
 //meteo variables for the current instant
 for(i=1;i<=IT->met->nrh;i++){
 	f=t_fopen(namefile_i(files->co[fmet]+1, i),"r"); /* open the meteo file of each station */
 	met->column[i-1]=alloc_long1(nmet); /* allocates a vector of "nmet" values of long to each meteo station */
 	ReadMeteoHeader(f, IT->met_col_names, met->st->offset->co[i], &ncols, met->column[i-1]); /* reads the header of the meteo file */
-	met->data[i-1]=read_datameteo(f, met->st->offset->co[i], ncols, UV->V->co[2]);
+	met->data[i-1]=read_datameteo(f, met->st->offset->co[i], ncols, UV->V->co[2]);//for(k=0;k<17;k++){printf("%ld\t",met->column[i-1][k]);}printf("\n");for(k=0;k<=300;k++){ for(p=0;p<5;p++) {printf("%f\t",met->data[i-1][k][p]);}printf("\n");}stop_execution();
 	met->horizon[i-1]=read_horizon(files->co[fhor]+1, i);
 	t_fclose(f);
 }
@@ -193,6 +193,7 @@ if(met->column[met->nstcloud-1][iC]==-1 && met->column[met->nstcloud-1][itauC]==
 }else{
 	printf("Cloudiness measurements from station %ld\n",met->nstcloud);
 }
+
 
 //FIND A STATION WITH LONGWAVE RADIATION DATA
 met->nstlrad=0;

@@ -268,12 +268,12 @@ if( par->micromet2==1 ){/* Use Micromet for SWin (=1) */
 	}
 
 	if( (met->column[met->nstsrad-1][iSW]!=-1 || (met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1))  ){
-		if(egy->hsun>0) find_tau_cloud_station(met->nstcloud, met, par, egy->hsun, E0, Asurr, met->st->sky->co[met->nstsrad], &tau_cloud, &sa);
+		if(egy->hsun>0) find_tau_cloud_station(met->nstsrad, met, par, egy->hsun, E0, Asurr, met->st->sky->co[met->nstsrad], &tau_cloud, &sa);
 	}else{
 		tau_cloud=tau_cloud_av;
 	}
 }
-
+//if(egy->hsun>0){printf("\ntau_claud=%f",tau_cloud);stop_execution();}
 
 //COMPUTATIONS FOR EACH CELL
 for(r=1;r<=Nr;r++){
@@ -433,7 +433,6 @@ for(r=1;r<=Nr;r++){
 
 			//correct in case of reading data
 			SW=flux(1, iSWn, met->column, met->var, 1.0, SW);
-
 			//Extinction coefficient for SW in the snow layers
 			rad_snow_absorption(r, c, SWabsf, SW, snow);
 			set_shallow_snowpack(r, c, par->Dt, snow, SWabsf->co, &Mr_snow, &ns);
