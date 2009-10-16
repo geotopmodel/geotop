@@ -2377,8 +2377,8 @@ void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0
 
 	t_fclose(f);
 
-	if(par->chkpt->nch<2) t_error("Error in block 16 in parameter files: E and N coordinates missing");
-	if(par->chkpt->nrh>9999) t_error("Error in block 16 in parameter files: no more than 9999 points allowed");
+	if(par->chkpt->nch<2) t_error("Error in I_OPTIONS file: E and N coordinates missing");
+	if(par->chkpt->nrh>9999) t_error("Error in I_OPTIONS file: no more than 9999 points allowed");
 
 	if(par->state_pixel==1){
 		par->rc=new_longmatrix(par->chkpt->nrh,2);
@@ -2806,8 +2806,8 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 
 	//i.show results
 	printf("\nPOINTS:\n");
-	fprintf(f,"\nPOINTS:\n");
 	f=fopen(error_file_name,"a");
+	fprintf(f,"\nPOINTS:\n");
 	for(r=1;r<=M->nrh;r++){// # of points
 		for(c=1;c<=10;c++){// # of properties
 			printf("%f  ",M->co[r][c]);

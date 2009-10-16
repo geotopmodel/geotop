@@ -384,12 +384,13 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 
 				//calculates theta from psi(state variable)
 				for(l=1;l<=Nl;l++){
+					//printf("\nr=%ld, c=%ld, l=%ld, sl->thice->co[l][r][c]=%f, top->Z0->co[r][c]=%f, sy=%d, sl->pa->co[sy][jsat][l]=%f, sl->pa->co[sy][jres][l]=%f, sl->pa->co[sy][ja][l]=%f, sl->pa->co[sy][jns][l]=%f, theta->co[l]=%f",r,c,l,sl->thice->co[l][r][c], top->Z0->co[r][c],sy,sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],theta->co[l]);//stop_execution();
 					psisat=psi_saturation(sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l]);
 					DPsi->co[l]=Fmax(sl->P->co[l][r][c]-psisat, 0.0);
 					sl->P->co[l][r][c]=Fmin(sl->P->co[l][r][c], psisat);
 					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin2, par->Esoil);
 					if(theta->co[l]!=theta->co[l])printf("theta no value l:%ld teta:%f P:%f DPSi:%f T:%f\n",l,theta->co[l],sl->P->co[l][r][c],DPsi->co[l],sl->T->co[l][r][c]);
-				}
+					}
 
 				//glacier
 				if(par->glaclayer_max>0){
@@ -456,7 +457,6 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 					fcloud=find_cloudfactor(Tpoint, RHpoint, top->Z0->co[r][c], met->LRv[2], met->LRv[3]);
 					tau_cloud_av=1.0-0.75*pow(fcloud,3.4);
 				}
-
 				//in case of shortwave data not available (tau_cloud was initialized to 0) and in case of values too low
 				if(tau_cloud<0.1) tau_cloud=tau_cloud_av;
 
@@ -657,7 +657,6 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 					sl->P->co[l][r][c]+=DPsi->co[l];
 					if(sl->P->co[l][r][c]!=sl->P->co[l][r][c])printf("Psi no value l:%ld teta:%f P:%f T:%f\n",l,theta->co[l],sl->P->co[l][r][c],sl->T->co[l][r][c]);
 				}
-
 			}
 		}
 	}

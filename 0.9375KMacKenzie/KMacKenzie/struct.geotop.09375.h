@@ -160,7 +160,7 @@ typedef struct {
 	DOUBLEMATRIX *slope_m;
 	DOUBLEMATRIX *slopeaz_m;
 
-	long ***i_cont;
+	long ***i_cont;/* Cont for Richards 3D*/
 	LONGMATRIX *lrc_cont;
 
 } TOPO;

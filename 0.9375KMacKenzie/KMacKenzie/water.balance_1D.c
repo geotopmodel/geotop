@@ -151,7 +151,7 @@ void vertical_water_balance(double Dt, DOUBLEMATRIX *Z, SOIL *sl, WATER *wat, do
 	short sy;
 	double masserrorbasin=0.0, masserror;
 	double Pnbasin=0.0, Infbasin=0.0;
-	double DW, th0, th1, theq, h, psisat, oversat, ice0, T0;
+	//double DW, th0, th1, theq, h, psisat, oversat, ice0, T0;
 	FILE *f;                    /* file which contains the errors of simulation*/
 
 	psi=new_doublevector(Nl);
@@ -290,7 +290,7 @@ void supflow(double Dt, double Dtmax, TOPO *top, LAND *land, WATER *wat, CHANNEL
 	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; /* columns, depending on Drainage Directions*/
 	double dx,dy;                                         /* the two dimensions of a pixel*/
 	double Ks;											  /* the Strickler's coefficent calculated with a standard deviation*/
-	double q_sup_max;                                     /* maximum superficial flow (in the first part) or the incoming flow in a channel pixel (in the second part)*/
+	//double q_sup_max;                                     /* maximum superficial flow (in the first part) or the incoming flow in a channel pixel (in the second part)*/
 	double b[10];                                         /* area perpendicular to the superficial flow divided by h_sup*/
 	double i;											  /*hydraulic gradient*/
 	double q,tb,te,dt;
@@ -1178,7 +1178,7 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 		}while(cont<par->MaxiterVWB && cond_out==0);
 
 		if(fabs(*massloss)>max_error){
-				printf("Error too high %ld %ld massloss:%f Inf:%f Infpot:%f lat:%f bc:%ld bc0:%ld psi1:%f e1:%f\n",r,c,*massloss,ActInf,*Inf,q_lat,bc,bc0,psit->co[1],e1->co[1]);
+				printf("Error too high %ld %ld massloss:%f Inf:%f Infpot:%f lat:%f bc:%d bc0:%d psi1:%f e1:%f\n",r,c,*massloss,ActInf,*Inf,q_lat,bc,bc0,psit->co[1],e1->co[1]);
 				//stop_execution();
 			}
 

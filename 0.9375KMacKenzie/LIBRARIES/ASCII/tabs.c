@@ -162,8 +162,8 @@ void readline_array(FILE *f, double *a, long offset, long ncol, double ndef, sho
 				// ascii character 10='/n' and 32='Space'
 				if(i==0 && ch[0]==10) ch[0]=32;// it means that the first line of the file is a "return"
 				if(i==0 && ch[0]==-1) printf("\nWarning: END OF FILE ENCOUNTERED WHILE READING\n");
-				if(ch[0]<44 || ch[0]>57){
-					if(ch[0]!=32 && ch[0]!=-1) t_error("ERROR: NOT ADMITTED COMMENTS NOT PROCEDED BY THE CHARACTER '/' OR COMMENTS NOT CLOSED");
+				if(ch[0]<44 || ch[0]>57){// means that the character in the meteo file are NOT numbers or "," or "/" or "," or "."
+					if(ch[0]!=32 && ch[0]!=-1) t_error("ERROR: CHECK METEO FILE: PROBABLY NOT NUMERIC CHARACTERS ARE GIVEN, i.e. NA");
 				}
 			}while(ch[0]<-1 || (ch[0]>-1 && ch[0]<10) || (ch[0]>10 && ch[0]<13) || (ch[0]>13 && ch[0]<42) || ch[0]==47 || ch[0]>57);
 

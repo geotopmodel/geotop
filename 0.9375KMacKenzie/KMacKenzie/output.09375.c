@@ -1788,8 +1788,8 @@ long r,c,l; /* added by Emanuele Cordano for de-allocating double or triple poin
 // long r,c,l;
 r=0;
 c=0;
-l=0;
-while (top->i_cont[l]!=NULL) {
+l=1;
+while (top->i_cont[l]!=NULL && l<=Nl) {
 //		r=0;
 //		while (top->i_cont[l][r]!=NULL) {
 //			/*(while (top->i_cont[l][r][c]!=NULL) { CONTROLLARE QUI

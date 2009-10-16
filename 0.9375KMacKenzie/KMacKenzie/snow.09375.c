@@ -1445,7 +1445,8 @@ void glac2snow(long r, long c, SNOW *snow, GLACIER *glac, DOUBLEVECTOR *Dmin, DO
 void liqWBsnow(long r, long c, SNOW *snow, double *Mr, double *PonS, PAR *par, double slope, double P, double *wi, double *wl, double *T, double Edt){
 
 	long l, m;
-	double Se, theta_liq, thice, Dwl=P, Dwi, wice_old, rho, h;
+	double Se, theta_liq, thice, Dwl=P, Dwi, wice_old, rho;
+	//double h;
 
 	//rain on snow
 	*PonS=0.0;	//initialization
@@ -1573,7 +1574,8 @@ void liqWBsnow(long r, long c, SNOW *snow, double *Mr, double *PonS, PAR *par, d
 void iceWBsnow(long r, long c, SNOW *snow, double P, double T){
 
 	long ns;
-	double Dz, h;
+	double Dz;
+	//double h;
 
 	if(P>0){
 
@@ -1674,7 +1676,8 @@ void glacier_init_t0(long r, long c, double Ta, GLACIER *glac, SNOW *snow, PAR *
 void WBglacier(long ns, long r, long c, GLACIER *glac, double *Mr, PAR *par, double *wi, double *wl, double *T, double Edt){
 
 	long l, m;
-	double Dz, thice, theta_liq, Dwi, h;
+	double Dz, thice, theta_liq, Dwi;
+	//double h;
 
 	*Mr=0.0;
 
