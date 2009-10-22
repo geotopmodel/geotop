@@ -42,7 +42,7 @@ void water_balance_1D(TOPO *top, SOIL *sl, LAND *land, WATER *wat, CHANNEL *cnet
 
 	double Dt, DPsiMax=0.0, te, tb, dt;
 	long i, n, r, c, l, rref, cref, lref;
-	FILE *f;
+	FILE *f;// file pointer
 	DOUBLETENSOR *P1, *P2;
 
 	P1=new_doubletensor(Nl,Nr,Nc);
@@ -861,6 +861,7 @@ void set_psi(DOUBLETENSOR *psi, DOUBLETENSOR *q, SOIL *sl, double dt, long l, lo
 
 	double theta;
 	short sy;
+	FILE *f;
 
 	double p;
 
@@ -880,7 +881,13 @@ void set_psi(DOUBLETENSOR *psi, DOUBLETENSOR *q, SOIL *sl, double dt, long l, lo
 
 	//if(l==1)printf(";;;l:%ld P:%f theta:%f n:%f q:%e",l,psi->co[l][r][c],theta,sl->pa->co[sy][jsat][l]-sl->thice->co[l][r][c],q->co[l][r][c]);
 
-	if(fabs(p-psi->co[l][r][c])>12000) stop_execution();
+	if(fabs(p-psi->co[l][r][c])>12000) {
+		printf("ATTENTION!!!!!!! water.balance_1D.c: P_init - P_fin >12000");
+		f=fopen(error_file_name,"a");
+		fprintf(f,"ATTENTION!!!!!!! water.balance_1D.c: P_init - P_fin >12000");
+		fclose(f);
+		stop_execution();
+	}
 
 }
 

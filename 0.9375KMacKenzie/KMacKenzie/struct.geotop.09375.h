@@ -290,7 +290,7 @@ typedef struct {
 	short state_lwrad;/*Which formula for incoming longwave radiation: 0 (dati Zongo)  1 (Brutsaert, 1975), 2 (Satterlund, 1979), 3 (Koenig-Langlo & Augstein, 1994), 4 (Idso, 1981), 5 (Andreas & Ackley, 1982), 6 (Konzelmann, 1994)*/
 
 	double imp;
-	double f_bound_Richards;
+	double f_bound_Richards;/* bottom boundary condition for Richards equation [-], range [0,1]: 0=no flux, 1=free drainage*/
 
 	double epsilon_snow;/* snow LW emissivity [-]  */
 
@@ -371,7 +371,7 @@ typedef struct {
 	short wat_balance;/* 1 calculates water_balance, 0 do not calculate */
 	short en_balance;/* 1 calculates energy_balance, 0 do not calculate */
 
-	long nDt_water;
+	long nDt_water;/*  Possible (uniform) reduction factor of the integration time step for water balance (if=2, Dt for water balance is reduced by 1/2)*/
 	long MaxiterVWB;
 	double TolVWb;
 	double MaxerrVWB;
