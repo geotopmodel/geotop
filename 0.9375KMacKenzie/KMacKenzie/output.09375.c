@@ -757,13 +757,12 @@ if(par->output_TETAxy>0 && fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==
 	free_doubletensor(Q);
 
 	write_suffix(SSSS, n_file, 0);
-	if (name!=NULL) free(name);
 	temp=join_strings(files->co[fliq]+1,"error");
-	name=join_strings(name,SSSS);
-	free(temp);
+	name=join_strings(temp,SSSS);
 	write_map(name, 0, par->format_out, wat->error, UV);
 	initmatrix(0.0, wat->error, land->LC, NoV);
-	free(name);
+	if (name!=NULL) free(name);
+	free(temp);
 }
 
 
