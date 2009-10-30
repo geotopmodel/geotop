@@ -1795,6 +1795,10 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 			ad->co[l] += (C+C1)*D[l]/par->Dt;
 			b->co[l] += ((C+C1)*D[l]*T[l] - dU)/par->Dt;
 
+			if(ad->co[1]==0.0){
+				printf("r=%ld, c=%ld, ns+ng=%ld, wi[1]=%f, wl[1]=%f, dw[1]=%f, D[1]=%f C1=%f, C0=%f\n",r, c, ns+ng, wi[1], wl[1], dw[1], D[1], C1, C0);
+				t_error("Energy balance: ad[1]=0.0");
+			}
 		}
 
 		tridiag(1, r, c, n, adi, ad, ads, b, e);
