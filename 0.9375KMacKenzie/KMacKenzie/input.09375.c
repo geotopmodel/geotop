@@ -2118,52 +2118,12 @@ write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV);
 
 
 //Additional maps
-if(files->index->nh>nfiles){
-	if(existing_file(files->co[nfiles+1]+1)>0){
+M=copydoublematrix_const(1.0, land->LC, UV->V->co[2]);
+land->LC2=copyshort_doublematrix(M);
+par->nLC=1;
+free_doublematrix(M);
 
-		M=read_map(2, files->co[nfiles+1]+1, land->LC, UV);
-		land->LC2=copyshort_doublematrix(M);
-
-		par->nLC=0;
-		for(r=1;r<=top->Z0->nrh;r++){
-			for(c=1;c<=top->Z0->nch;c++){
-				if(land->LC->co[r][c]!=UV->V->co[2]){
-					iLC=land->LC2->co[r][c];
-					if(iLC<0) iLC*=(-1);
-					if(par->nLC<iLC) par->nLC=iLC;
-				}
-			}
-		}
-	}else{
-
-		/*land->LC2=new_shortmatrix(land->LC->nrh,land->LC->nch);
-		for(r=1;r<=land->LC->nrh;r++){
-			for(c=1;c<=land->LC->nch;c++){
-				if(land->LC->co[r][c]!=UV->V->co[2]){
-					land->LC2->co[r][c]=(1+floor((r-16)/10)) + 28*(floor((c-16)/10));
-					M->co[r][c]=(double)land->LC2->co[r][c];
-				}else{
-					M->co[r][c]=UV->V->co[2];
-				}
-				printf("r:%ld c:%ld %f\n",r,c,M->co[r][c]);
-			}
-		}*/
-
-		M=copydoublematrix_const(1.0, land->LC, UV->V->co[2]);
-		land->LC2=copyshort_doublematrix(M);
-		par->nLC=1;
-
-		write_map(files->co[nfiles+1]+1, 0, par->format_out, M, UV);
-	}
-
-}else{
-
-	M=copydoublematrix_const(1.0, land->LC, UV->V->co[2]);
-	land->LC2=copyshort_doublematrix(M);
-	par->nLC=1;
-
-}
-
+if(files->index->nh!=nfiles) t_error("Error in file number");
 }
 
 //----------------------------------------------------------------------------------------------

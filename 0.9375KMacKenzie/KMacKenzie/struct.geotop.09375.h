@@ -90,7 +90,7 @@ typedef struct {
 	DOUBLEMATRIX *Hgrid;/* map of sensible heat flux [W/m2] */
 	DOUBLEMATRIX *Tsgrid;/* map of surface temperature [ûC] */
 
-	DOUBLEVECTOR *VSFA;
+	DOUBLEVECTOR *VSFA;/* value snow free area */
 	DOUBLEVECTOR *HSFA;
 
 	double hsun;/* solar elevation angle (radiants) */

@@ -671,10 +671,10 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 	//if(par->blowing_snow==1) set_windtrans_snow2(snow, met, land, top, par, times->time);
 
 	//CALCULATE ADVECTION PARAMETERS FROM SNOW FREE TO SNOW COVERED AREA
-	if(par->point_sim!=1){
+	/*if(par->point_sim!=1){
 		find_SCA(land->LC2->co, snow, par, land->LC->co, times->time);
 		//snow_fluxes_H(land->LC2->co, snow, egy->Tsgrid, egy->Hgrid, land->LC, met->Tgrid, times, par, egy->VSFA->co, egy->HSFA->co);
-	}
+	}*/
 
 	//PREPARE SNOW OUTPUT
 	output_snow(snow, land->LC->co, par);

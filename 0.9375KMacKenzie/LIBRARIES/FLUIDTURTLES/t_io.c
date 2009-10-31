@@ -26,19 +26,14 @@ long  WORKING_POSITION=0;
 long IO_PARMS_COUNTER=0;
 
 
-t_keywords T_KEYWORDS={{"2","ascii","binary"},
-
-							  {"7","char","short","int","long","float","double","string"},
-
-							  {"5","array","vector","matrix","list","tensor"},
-
-							  {"2","->","<-"},
-
-							  {"2"," ",","},
-
-							  {"2","{","}"}};
-
-
+t_keywords T_KEYWORDS={
+					   {"2","ascii","binary"},/* gender */
+					   {"7","char","short","int","long","float","double","string"},/* type */
+					   {"5","array","vector","matrix","list","tensor"},/* category */
+					   {"2","->","<-"},/* symbol */
+					   {"2"," ",","},/* separator */
+					   {"2","{","}"}/* delimiter */
+					};
 
 
 /**-----------------------------------------------------------------------*/
@@ -4508,436 +4503,131 @@ return blocks;
 
 
 int header_scan(FILE* inputfile,HEADER * h)
-
 {
-
-
-
-char buffer[64],semicolon, keyword[MAX_KEYWORD_LENGTH+1],ch;
-
-char ocurl='{';//ccurl='}';
-
-//short y=-1,yy=-1;
-
-
-
-long i,j,len,pos;
-
-extern t_keywords T_KEYWORDS;
-
-
-
-
-
-if((h)==NULL){
-
-
-
-	t_error("This header was not allocated");
-
-
-
-}
-
-
-while(iscomment(buffer,inputfile)){
-	read_comment(inputfile,0,MAXBUFFERSIZE,NOPRINT);
-}
-
-/*
-read_comment(inputfile,1,MAXBUFFERSIZE,PRINT);
-*/
-pos=ftell(inputfile);
-
-fscanf(inputfile,"%ld %c",&(h->number),&semicolon);
-
-
-if(semicolon!=':'){
-
-         h->number=0;
-
-		 fseek(inputfile,pos,SEEK_SET);
-
-} else {
-
-
-
-	pos=ftell(inputfile);
-
-}
-
-
-
-/* scans the gender, the type and the category of the variable and fills the
-
-appropriate subvariable of the header */
-
-
-
-skip_whitespaces(inputfile);
-
-
-
-	/* Looking for the gender */
-
-
-
-i=0;
-
-
-
-ch=fgetc(inputfile);
-
-/*
-printf("^^^%c^^^\n",ch);
-*/
-do{
-
-
-
-	  keyword[i]=ch;
-
-	  ch=fgetc(inputfile);
-
-	  i++;
-
-
-
-	}while(!isspace(ch) && ch!=ocurl);
-
-
-
-
-
-keyword[i]='\0';
-
-
-
-/*  len=strtol(T_KEYWORDS.gender[0],tmp , 10);
-
-
-
-	if(!len){
-
-		t_error("Error in reading the number of keyword genders");
-
+	char buffer[64],semicolon, keyword[MAX_KEYWORD_LENGTH+1],ch;
+	char ocurl='{';//ccurl='}';
+	//short y=-1,yy=-1;
+	long i,j,len,pos;
+	extern t_keywords T_KEYWORDS;
+	if((h)==NULL){
+		t_error("This header was not allocated");
 	}
-
-*/
-
-
-
-len=2;
-
-
-
-
-
-j=0;
-
-
-
-
-
-do{
-
-	j++;
-
-
-
-} while(strcmp(T_KEYWORDS.gender[j],keyword)!=0 && j <=len);
-
-
-
-
-
-if(j > len){
-
-
-
-		h->gender=1;
-
-
-
-}else{
-
-
-
-	h->gender=j;
-
-
-
-	if(ch!=ocurl) i=0;
-
-
-
-	else i=-1;
-
-}
-
-
-
-
-
-/* Looking for the type */
-
-
-
-
-
-if(i==0){
-
-
-
+	while(iscomment(buffer,inputfile)){
+		read_comment(inputfile,0,MAXBUFFERSIZE,NOPRINT);
+	}
+	/*
+	read_comment(inputfile,1,MAXBUFFERSIZE,PRINT);
+	*/
 	pos=ftell(inputfile);
-
-
-
+	fscanf(inputfile,"%ld %c",&(h->number),&semicolon);
+	if(semicolon!=':'){
+			 h->number=0;
+			 fseek(inputfile,pos,SEEK_SET);
+	} else {
+		pos=ftell(inputfile);
+	}
+	/* scans the gender, the type and the category of the variable and fills the
+	appropriate subvariable of the header */
 	skip_whitespaces(inputfile);
+		/* Looking for the gender */
+	i=0;
+	ch=fgetc(inputfile);
 
-
-
-    ch=fgetc(inputfile);
-
-
+	/*printf("^^^%c^^^\n",ch);*/
 
 	do{
-
-
-
-	  		keyword[i]=ch;
-
-	  		ch=fgetc(inputfile);
-
-    		i++;
-
-
-
-		}while(!isspace(ch) && ch!=ocurl );
-
-
-
+		keyword[i]=ch;
+		ch=fgetc(inputfile);
+		i++;
+		}while(!isspace(ch) && ch!=ocurl);
 	keyword[i]='\0';
-
-
-
-}
-
-
-
-/* len=strtol(T_KEYWORDS.type[0],tmp,10);\
-
-if(!len){
-
-	t_error("Error in reading the number of keywords types");
-
-}
-
- */
-
-
-
-len=7;
-
-
-
-
-
-j=0;
-
-
-
-do{
-
-	j++;
-
-
-
-} while(strcmp(T_KEYWORDS.type[j],keyword)!=0 && j <=len);
-
-
-
-if(j > len){
-
-
-
-		h->type=5;
-
-
-
-}else{
-
-
-
-   	h->type=j;
-
-
-
-	if(ch!=ocurl) i=0;
-
-
-
-	else i=-1;
-
-
-
-
-
-}
-
-
-
-
-
-
-
-/* Looking for the category */
-
-
-
-
-
-if(i==0){
-
-
-
-pos=ftell(inputfile);
-
-
-
-skip_whitespaces(inputfile);
-
-
-
-ch=fgetc(inputfile);
-
-
-
-do{
-
-
-
-
-
-	  	keyword[i]=ch;
-
-
-
-	  	ch=fgetc(inputfile);
-
-
-
-      	i++;
-
-
-
-}while(!isspace(ch) && ch!=ocurl);
-
-
-
-keyword[i]='\0';
-
-
-
-}
-
-
-
-/* printf("keyword=%s+\n",keyword); */
-
-/* len=strtol(T_KEYWORDS.category[0],tmp,10);
-
-	if(!len){
-
-		t_error("Error in reading the number of keywords types");
-
-	}
-
-
-
-*/
-
-
-
-	len=5;
-
-
-
+	/*  len=strtol(T_KEYWORDS.gender[0],tmp , 10);
+		if(!len){
+			t_error("Error in reading the number of keyword genders");
+		}
+	*/
+	len=2;
 	j=0;
-
-
-
 	do{
-
 		j++;
-	/* 	printf("%s+%s+\n",T_KEYWORDS.category[j],keyword);   */
-
-	} while(strcmp(T_KEYWORDS.category[j],keyword)!=0 && j <=len);
-
-
-
-
-
-if(j > len){
-
-
-
-	h->category=3;
-
-
-
-}else{
-
-
-
-	h->category=j;
-
-
-
-  	if(ch!=ocurl) i=0;
-
-
-
-	else i=-1;
-
-
-
-}
-
-
-
-
-
-if(i > 0){
-
-
-
-	fseek(inputfile,pos,SEEK_SET);
-
-
-
-} else if( i < 0 ){
-
-
-
-	ungetc(ch,inputfile);
-
-
-
-}
-
-
-
-h->name=query_for_label(inputfile);
-
-
-/* printf("^^^%s^^^\n",h->name); */
-
-
-return OK;
-
-
-
+	} while(strcmp(T_KEYWORDS.gender[j],keyword)!=0 && j <=len);
+	if(j > len){
+		h->gender=1;
+	}else{
+		h->gender=j;
+		if(ch!=ocurl) i=0;
+		else i=-1;
+	}
+	/* Looking for the type */
+	if(i==0){
+		pos=ftell(inputfile);
+		skip_whitespaces(inputfile);
+		ch=fgetc(inputfile);
+		do{
+				keyword[i]=ch;
+				ch=fgetc(inputfile);
+				i++;
+			}while(!isspace(ch) && ch!=ocurl );
+		keyword[i]='\0';
+	}
+	/* len=strtol(T_KEYWORDS.type[0],tmp,10);\
+	if(!len){
+		t_error("Error in reading the number of keywords types");
+	}
+	 */
+	len=7;
+	j=0;
+	do{
+		j++;
+	} while(strcmp(T_KEYWORDS.type[j],keyword)!=0 && j <=len);
+	if(j > len){
+			h->type=5;/* nel caso la keyword NON sia tra quelle ammesse, viene posta per default a 5 */
+	}else{
+		h->type=j;
+		if(ch!=ocurl) i=0;
+		else i=-1;
+	}
+	/* Looking for the category */
+	if(i==0){
+	pos=ftell(inputfile);
+	skip_whitespaces(inputfile);
+	ch=fgetc(inputfile);
+	do{
+			keyword[i]=ch;
+			ch=fgetc(inputfile);
+			i++;
+	}while(!isspace(ch) && ch!=ocurl);
+	keyword[i]='\0';
+	}
+	/* printf("keyword=%s+\n",keyword); */
+	/* len=strtol(T_KEYWORDS.category[0],tmp,10);
+		if(!len){
+			t_error("Error in reading the number of keywords types");
+		}
+	*/
+		len=5;
+		j=0;
+		do{
+			j++;
+		 	/*printf("%s+%s+\n",T_KEYWORDS.category[j],keyword);*/
+		} while(strcmp(T_KEYWORDS.category[j],keyword)!=0 && j <=len);
+	if(j > len){
+		h->category=3;/* nel caso la keyword NON sia tra quelle ammesse, viene posta per default a 3 */
+	}else{
+		h->category=j;
+		if(ch!=ocurl) i=0;
+		else i=-1;
+	}
+	if(i > 0){
+		fseek(inputfile,pos,SEEK_SET);
+	} else if( i < 0 ){
+		ungetc(ch,inputfile);
+	}
+	h->name=query_for_label(inputfile);
+	 /*printf("^^^%s^^^\n",h->name);
+	 printf("ciao: number=%ld, gender=%d, type=%d, category=%d, name=%s",h->number,h->gender,h->type,h->category,h->name);
+	 stop_execution();*/
+	return OK;
 }
 
 
