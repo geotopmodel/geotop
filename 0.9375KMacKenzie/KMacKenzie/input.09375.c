@@ -1812,7 +1812,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par){
 long r, c, i, rtot, ctot, iLC;
 DOUBLEMATRIX *M, *Q, *curv;
 SHORTMATRIX *P;
-LONGMATRIX *ca;
+LONGMATRIX *ca;/* map of contributing area */
 T_INIT *UV2;
 FILE *f;
 
@@ -2010,14 +2010,14 @@ if(par->wat_balance==1){
 
 /****************************************************************************************************/
 //Effective area of each pixel
-if(existing_file(files->co[farea]+1)>0){
+/*if(existing_file(files->co[farea]+1)>0){
 	top->area=read_map(2, files->co[farea]+1, land->LC, UV);
 }else{
 	top->area=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	area0875(top->Z0,UV->U,UV->V,top->area);
 }
 write_map(files->co[farea]+1, 0, par->format_out, top->area, UV);
-
+*/
 /****************************************************************************************************/
 //Channel network (in top->pixel_type)
 if(existing_file(files->co[fnet]+1)>0){
@@ -2822,7 +2822,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	top->DD=new_shortmatrix(1,M->nrh);
 	top->curv=new_shortmatrix(1,M->nrh);
 	top->i_DD=new_doublematrix(1,M->nrh);
-	top->area=new_doublematrix(1,M->nrh);
+	/*top->area=new_doublematrix(1,M->nrh);// commented by Matteo on 3/11/09*/
 	top->pixel_type=new_shortmatrix(1,M->nrh);
 	top->pixel_distance=new_doublematrix(1,M->nrh);
 	for(i=1;i<=M->nrh;i++){
@@ -2838,7 +2838,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 		top->DD->co[1][i]=10;	//outlet
 		top->curv->co[1][i]=0;
 		top->i_DD->co[1][i]=0.0;
-		top->area->co[1][i]=UV->U->co[1]*UV->U->co[2];
+		/*top->area->co[1][i]=UV->U->co[1]*UV->U->co[2];// commented by Matteo on 3/11/09 */
 		top->pixel_type->co[1][i]=0;
 		top->pixel_distance->co[1][i]=1.0;
 	}

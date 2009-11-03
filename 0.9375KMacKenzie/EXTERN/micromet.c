@@ -2,9 +2,9 @@
 
 MICROMET CODE
 
-Code written by Stefano Endrizzi by translating and adapting the idea behind the Micromet Fortran Code 
-by G. Liston and X. The author does not guarantee the perfect conformance of this code with the Fortran one. 
-However, he asks to give credit to Liston and  X, JHM YYYYY, 2006, when using it with satisfaction. 
+Code written by Stefano Endrizzi by translating and adapting the idea behind the Micromet Fortran Code
+by G. Liston and X. The author does not guarantee the perfect conformance of this code with the Fortran one.
+However, he asks to give credit to Liston and  X, JHM YYYYY, 2006, when using it with satisfaction.
 
 */
 
@@ -21,8 +21,8 @@ extern T_INIT *UV;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void Micromet(T_INIT *UV, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
-	double slopewt, double curvewt, double windspd_min, double dn, short ifill, short iobsint, long Tcode, long RHcode, long Vcode, long Vdircode, 
+void Micromet(T_INIT *UV, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
+	double slopewt, double curvewt, double windspd_min, double dn, short ifill, short iobsint, long Tcode, long RHcode, long Vcode, long Vdircode,
 	long Pcode, DOUBLEMATRIX *Tair_grid, DOUBLEMATRIX *RH_grid, DOUBLEMATRIX *windspd_grid, DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *sfc_pressure,
 	DOUBLEMATRIX *prec_grid, double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate){
 
@@ -31,18 +31,18 @@ void Micromet(T_INIT *UV, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature, DOUBLEMAT
 	get_wind(UV, met, Vcode, Vdircode, windspd_grid, winddir_grid, curvature, slope_az, terrain_slope, slopewt, curvewt, windspd_min, dn, topo, ifill, iobsint);
 	get_precipitation(UV, met, Pcode, prec_grid, dn, topo, ifill, iobsint, Prec_lapse_rate);
 	get_pressure(topo, sfc_pressure, UV->V->co[2]);
-	
+
 }
-	
+
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 
 
-void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid, double dn, DOUBLEMATRIX *topo, short ifill, short iobsint, 
+void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid, double dn, DOUBLEMATRIX *topo, short ifill, short iobsint,
 	double T_lapse_rate){
-	
+
 	double topo_ref, delta_topo, novalue=UV->V->co[2];
 	long n, col;
 	long r, c;
@@ -58,7 +58,7 @@ void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid
 			if(met->var[n-1][col]!=novalue) met->var[n-1][col] += (1.E-3*T_lapse_rate * delta_topo + tk);
 		}
 	}
-	
+
 	//Use the barnes oi scheme to interpolate the station data to the grid.
 	interpolate_meteo(UV, met->st, met->var, met->column, Tcode, Tair_grid, dn, ifill, iobsint);
 
@@ -71,7 +71,7 @@ void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid
 			}
 		}
 	}
-	
+
 	//Convert the station data to sea level values in [K].
 	for(n=1;n<=met->st->Z->nh;n++){
 		delta_topo = topo_ref - met->st->Z->co[n];
@@ -80,7 +80,7 @@ void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid
 			if(met->var[n-1][col]!=novalue) met->var[n-1][col] -= (1.E-3*T_lapse_rate * delta_topo + tk);
 		}
 	}
-	
+
 }
 
 //***************************************************************************************************************
@@ -88,7 +88,7 @@ void get_temperature(T_INIT *UV, METEO *met, long Tcode, DOUBLEMATRIX *Tair_grid
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void get_relative_humidity(T_INIT *UV, METEO *met, long RHcode, long Tcode, DOUBLEMATRIX *RH_grid, DOUBLEMATRIX *Tair_grid, double dn, 
+void get_relative_humidity(T_INIT *UV, METEO *met, long RHcode, long Tcode, DOUBLEMATRIX *RH_grid, DOUBLEMATRIX *Tair_grid, double dn,
 	DOUBLEMATRIX *topo, short ifill, short iobsint, double Td_lapse_rate){
 
 // First convert stn relative humidity to dew-point temperature.  Use
@@ -116,7 +116,7 @@ void get_relative_humidity(T_INIT *UV, METEO *met, long RHcode, long Tcode, DOUB
 					printf("RH data must be together with T data at the same station, error in station %ld\n",n);
 					t_error("Correct the data and run again the code");
 				}
-				
+
 				//convert RH in Tdew
 				met->var[n-1][colRH]=Tdew(met->var[n-1][colT], Fmax(10.0,met->var[n-1][colRH])/100.0, met->st->Z->co[n]);
 			}
@@ -158,13 +158,13 @@ void get_relative_humidity(T_INIT *UV, METEO *met, long RHcode, long Tcode, DOUB
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, double slopewt, double curvewt, DOUBLEMATRIX *curvature, 
+void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, double slopewt, double curvewt, DOUBLEMATRIX *curvature,
 	DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
 
 	long r, c, nc=topo->nch, nr=topo->nrh;
 	double deg2rad=Pi/180.0,rad2deg=180.0/Pi,dirdiff,wslope_max,windwt;
 	DOUBLEMATRIX *wind_slope;
-	
+
 	//Compute the wind modification factor which is a function of topography and wind direction following Liston and Sturm (1998).
 
 	//Compute the slope in the direction of the wind.
@@ -176,7 +176,7 @@ void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, doub
 			}
 		}
 	}
-	
+
 	//Scale the wind slope such that the max abs(wind slope) has a value
 	//of abs(0.5).  Include a 1 mm slope in slope_max to prevent
 	//divisions by zero in flat terrain where the slope is zero.
@@ -196,7 +196,7 @@ void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, doub
 		}
 	}
 
- 
+
 	//Calculate the wind speed and direction adjustments.  The
 	//curvature and wind_slope values range between -0.5 and +0.5.
 	//Valid slopewt and curvewt values are between 0 and 1, with
@@ -207,7 +207,7 @@ void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, doub
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if(topo->co[r][c]!=undef){
-		
+
 				//Compute the wind weighting factor.
 				windwt = 1.0 + slopewt * wind_slope->co[r][c] + curvewt * curvature->co[r][c];
 
@@ -236,7 +236,7 @@ void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, doub
 			}
 		}
 	}
-	
+
 	free_doublematrix(wind_slope);
 }
 
@@ -244,7 +244,7 @@ void topo_mod_winds(DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *windspd_grid, doub
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *windspd_grid, DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *curvature, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, 
+void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *windspd_grid, DOUBLEMATRIX *winddir_grid, DOUBLEMATRIX *curvature, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
 	double slopewt, double curvewt, double windspd_min, double dn, DOUBLEMATRIX *topo, short ifill, short iobsint){
 
 // This program takes the station wind speed and direction, converts
@@ -263,7 +263,7 @@ void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *w
 	long r, c, n, colV, colVdir, colu, colv, nc=topo->nch, nr=topo->nrh;
 	double speed, u, v, novalue=UV->V->co[2];
 	double deg2rad=Pi/180.0,rad2deg=180.0/Pi;
-	
+
 //	Filter through the original input data, and eliminate any
 //  missing values (r.e., make sure each wind direction is paired
 //   up with a wind speed.
@@ -295,13 +295,13 @@ void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *w
 			}
 		}
 	}
-				
+
 	//Convert these station data to u and v wind components.
 	ucode=Vcode;
 	vcode=Vdircode;	//used to replace the meteo columns (V,Vdir) with (u,v)
 	for(n=1;n<=met->st->Z->nh;n++){
 		colV=met->column[n-1][Vcode];
-		colVdir=met->column[n-1][Vdircode];	
+		colVdir=met->column[n-1][Vdircode];
 		if(colV!=-1){
 			if(met->var[n-1][colV]!=novalue){
 				speed = Fmax(windspd_min, met->var[n-1][colV]);
@@ -320,11 +320,11 @@ void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *w
 	//U component.
 	u_grid=new_doublematrix(nr,nc);
 	interpolate_meteo(UV, met->st, met->var, met->column, ucode, u_grid, dn, ifill, iobsint);
-	
+
 	//V component.
-	v_grid=new_doublematrix(nr,nc);	
+	v_grid=new_doublematrix(nr,nc);
 	interpolate_meteo(UV, met->st, met->var, met->column, vcode, v_grid, dn, ifill, iobsint);
-	
+
 	//Convert these u and v components to speed and directions.
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
@@ -335,9 +335,9 @@ void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *w
 			}
 		}
 	}
-	
+
 	free_doublematrix(u_grid);
-	free_doublematrix(v_grid);	
+	free_doublematrix(v_grid);
 
 	//Modify the wind speed and direction according to simple wind-topography relationships.
 	topo_mod_winds(winddir_grid, windspd_grid, slopewt, curvewt, curvature,  slope_az,  terrain_slope, topo, novalue);
@@ -360,7 +360,7 @@ void get_wind(T_INIT *UV, METEO *met, long Vcode, long Vdircode, DOUBLEMATRIX *w
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void get_precipitation(T_INIT *UV, METEO *met, long Pcode, DOUBLEMATRIX *prec_grid, double dn, DOUBLEMATRIX *topo, short ifill, short iobsint, 
+void get_precipitation(T_INIT *UV, METEO *met, long Pcode, DOUBLEMATRIX *prec_grid, double dn, DOUBLEMATRIX *topo, short ifill, short iobsint,
 	double Prec_lapse_rate){
 
 // Interpolate the observed precipitation values to the grid.  Also
@@ -369,21 +369,21 @@ void get_precipitation(T_INIT *UV, METEO *met, long Pcode, DOUBLEMATRIX *prec_gr
 //   the precipitation on the actual elevation grid.  The reason the
 //   interpolated station elevations are used as the topographic
 //   reference surface (instead of something like sea level), is
-//   because the precipitation adjustment factor is a non-linear 
+//   because the precipitation adjustment factor is a non-linear
 //   function of elevation difference.
- 
+
 // The adjustment factor that is used comes from: Thornton, P. E.,
 //   S. W. Running, and M. A. White, 1997: Generating surfaces of
 //   daily meteorological variables over large regions of complex
 //   terrain.  J. Hydrology, 190, 214-251.
 
 	long Zcode, n, col, r, c, nc=topo->nch, nr=topo->nrh;
-	double delta_topo, alfa, novalue=UV->V->co[2];	
+	double delta_topo, alfa, novalue=UV->V->co[2];
 	DOUBLEMATRIX *topo_ref_grid;
 
 // Use the barnes oi scheme to interpolate the station data to
 //   the grid.
-	interpolate_meteo(UV, met->st, met->var, met->column, Pcode, prec_grid, dn, ifill, iobsint);	
+	interpolate_meteo(UV, met->st, met->var, met->column, Pcode, prec_grid, dn, ifill, iobsint);
 
 // Use the barnes oi scheme to interpolate the station elevation data
 //   to the grid, so that it can be used as a topographic reference
@@ -396,12 +396,12 @@ void get_precipitation(T_INIT *UV, METEO *met, long Pcode, DOUBLEMATRIX *prec_gr
 			if(met->var[n-1][col]!=novalue) met->var[n-1][col]=met->st->Z->co[n];
 		}
 	}
-	interpolate_meteo(UV, met->st, met->var, met->column, Zcode, topo_ref_grid, dn, ifill, iobsint);		
+	interpolate_meteo(UV, met->st, met->var, met->column, Zcode, topo_ref_grid, dn, ifill, iobsint);
 
 //	Convert the gridded station data to the actual gridded elevations.
 	for(c=1;c<=nc;c++){
 		for(r=1;r<=nr;r++){
-			if(topo->co[r][c]!=novalue){          
+			if(topo->co[r][c]!=novalue){
 				delta_topo = topo_ref_grid->co[r][c] - topo->co[r][c];
 				//Dont let the elevation difference be greater than some number
 				//(like 1800 meters gives a factor of 4.4).  If it is too large
@@ -413,7 +413,7 @@ void get_precipitation(T_INIT *UV, METEO *met, long Pcode, DOUBLEMATRIX *prec_gr
 			}
 		}
 	}
-	
+
 	free_doublematrix(topo_ref_grid);
 }
 
@@ -426,7 +426,7 @@ void get_pressure(DOUBLEMATRIX *topo, DOUBLEMATRIX *sfc_pressure, double undef){
 
 	long r,c,nc=topo->nch,nr=topo->nrh;
 	double one_atmos,scale_ht;
-   
+
 	one_atmos = 1013.25;
 	scale_ht = 8500.0;
 
@@ -472,24 +472,24 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, d
 
 	//Convert each Td to a gridded relative humidity (0-1).
     rh_700 = RHfromTdew(Tair_700, Td_700, Z);
-	
+
 	//Use this RH at 700 mb to define the cloud fraction (0-1).
 	fcloud = f_1 * exp((rh_700 - 1.0)/one_minus_RHe);
 
 	fcloud = Fmin(1.0, fcloud);
 	fcloud = Fmax(0.0, fcloud);
-	
+
 	return(fcloud);
 
 }
-	
+
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-	  
+
 void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long **metcol, long metcod, DOUBLEMATRIX *grid, double dn0, short ifill, short iobsint){
-	
+
 	long r,c,n,col,nstn;
 	double novalue=UV->V->co[2];
 	double xmn=UV->U->co[4];
@@ -498,7 +498,7 @@ void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long
 	double dy=UV->U->co[2];
 	double dn;
 	DOUBLEVECTOR *var, *xst, *yst;
-	
+
 	nstn=0;
 	for(n=1;n<=allmstn->Z->nh;n++){
 		col=metcol[n-1][metcod];
@@ -507,7 +507,7 @@ void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long
 		}
 	}
 	if(nstn==0){
-		printf("No data for the variable cod:%ld\n",metcod);
+		printf("No data for the variable cod:%ld, num of stations=%ld\n",metcod,allmstn->Z->nh);//stop_execution();
 		t_error("Recheck the meteo data and run the model again");
 	}
 	var=new_doublevector(nstn);
@@ -525,7 +525,7 @@ void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long
 			}
 		}
 	}
-	if(nstn>1){			
+	if(nstn>1){
 		if(iobsint==1){
 			dn=dn0;
 		}else{
@@ -544,7 +544,7 @@ void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long
 	free_doublevector(yst);
 
 }
-	
+
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
@@ -554,7 +554,7 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *
 
 	//real dn_max           ! the max obs spacing, dn_r
 	//real dn_min           ! dn_r, for large n
-	  
+
 	double dn_max, dn_min;
 
 	dn_max = pow(deltax*nc * deltay*nr, 0.5) * ((1.0 + pow((double)nstns, 0.5)) / ((double)nstns - 1.0));
@@ -570,7 +570,7 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void barnes_oi(long nc, long nr, double deltax, double deltay, double xmn, double ymn, long nstns, DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, DOUBLEVECTOR *var, 
+void barnes_oi(long nc, long nr, double deltax, double deltay, double xmn, double ymn, long nstns, DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, DOUBLEVECTOR *var,
 	double dn, DOUBLEMATRIX *grid, double undef, short ifill){
 
 	long r, c, mm, nn, nflag;
@@ -622,7 +622,7 @@ void barnes_oi(long nc, long nr, double deltax, double deltay, double xmn, doubl
 		ftot1 = 0.0;
 
 		for(mm=1;mm<=nstns;mm++){	//111
-	
+
 			xb = xstn->co[mm];
 			yb = ystn->co[mm];
 			dsq = pow(xb - xa, 2.0) + pow(yb - ya, 2.0);
@@ -664,7 +664,7 @@ void barnes_oi(long nc, long nr, double deltax, double deltay, double xmn, doubl
 			nflag = 0;
 
 			for(nn=1;nn<=nstns;nn++){	//333
-           
+
 				xa = xstn->co[nn];
 				ya = ystn->co[nn];
 				dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
@@ -687,7 +687,7 @@ void barnes_oi(long nc, long nr, double deltax, double deltay, double xmn, doubl
 				wtot2 = wtot2 + w2;
 				ftot1 = ftot1 + w1 * var->co[nn];
 				ftot2 = ftot2 + w2 * dvar->co[nn];
-		
+
 			} //end 333
 
 			if (wtot1==0.0 || wtot2==0.0) printf("wts total zero\n");
@@ -722,11 +722,11 @@ double Tdew(double T, double RH, double Z){
 	b=17.502;
 	c=240.97;
 
-	e=A*exp(b*T/(c+T));	
+	e=A*exp(b*T/(c+T));
 	Q=RH*0.622*e/(P-0.378*e);
 	e=Q*P/(0.622+Q*0.378);
 	Td=c*log(e/A)/(b-log(e/A));
-	
+
 	return(Td);
 }
 
@@ -746,16 +746,16 @@ double RHfromTdew(double T, double Tdew, double Z){
 	A=6.1121*(1.0007+3.46E-6*P);
 	b=17.502;
 	c=240.97;
-	
+
 	e=A*exp(b*Tdew/(c+Tdew));
 	Q=0.622*e/(P-0.378*e);
 	e=A*exp(b*T/(c+T));
 	Qs=0.622*e/(P-0.378*e);
 	RH=Q/Qs;
-	
+
 	RH=Fmin(1.0, RH);
 	RH=Fmax(0.0, RH);
-	
+
 	return(RH);
 }
 
@@ -763,8 +763,8 @@ double RHfromTdew(double T, double Tdew, double Z){
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-	
-void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, 
+
+void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az,
 	double curve_len_scale, double undef){
 
 	long r,c,inc,h,k;
@@ -773,16 +773,16 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 	double rad2deg=180.0/Pi;
     double deltaxy,curve_max,topo1,topo2,topo3,topo4,topo5,topo6,topo7,topo8;
 	DOUBLEMATRIX *dzdx, *dzdy;
-	
+
 	dzdx=new_doublematrix(nr,nc);
 	dzdy=new_doublematrix(nr,nc);
-	  
+
 //	Compute the topographic information required to run the wind model.
 	initialize_doublematrix(curvature, 0.0);
 	initialize_doublematrix(terrain_slope, 0.0);
-	initialize_doublematrix(slope_az, 0.0);	
-	initialize_doublematrix(dzdx, 0.0);	
-	initialize_doublematrix(dzdy, 0.0);	
+	initialize_doublematrix(slope_az, 0.0);
+	initialize_doublematrix(dzdx, 0.0);
+	initialize_doublematrix(dzdy, 0.0);
 
 // CURVATURE CALCULATIONS.
 
@@ -791,21 +791,21 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 
 // Convert the length scale to an appropriate grid increment.
 	inc = Fmax(1, (long)(curve_len_scale/deltaxy));
-	
+
 // Compute the curvature.
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if(topo->co[r][c]!=undef){
-						                          
+
 				k=inc;
 				do{
 					if(r-k<1 || c-k<1) k--;
 				}while(r-k<1 || c-k<1);
 				do{
-					if(topo->co[r-k][c-k]==undef) k--;			
+					if(topo->co[r-k][c-k]==undef) k--;
 				}while(topo->co[r-k][c-k]==undef);
 				topo1=topo->co[r-k][c-k];
-									            
+
 				k=inc;
 				do{
 					if(r+k>nr || c+k>nc) k--;
@@ -814,7 +814,7 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 					if(topo->co[r+k][c+k]==undef) k--;
 				}while(topo->co[r+k][c+k]==undef);
 				topo2=topo->co[r+k][c+k];
-					  
+
 				k=inc;
 				do{
 					if(r+k>nr || c-k<1) k--;
@@ -822,8 +822,8 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r+k][c-k]==undef) k--;
 				}while(topo->co[r+k][c-k]==undef);
-				topo3=topo->co[r+k][c-k];				
-									
+				topo3=topo->co[r+k][c-k];
+
 				k=inc;
 				do{
 					if(r-k<1 || c+k>nc) k--;
@@ -831,8 +831,8 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r-k][c+k]==undef) k--;
 				}while(topo->co[r-k][c+k]==undef);
-				topo4=topo->co[r-k][c+k];					
-					            
+				topo4=topo->co[r-k][c+k];
+
 				k=inc;
 				do{
 					if(r+k>nr) k--;
@@ -840,8 +840,8 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r+k][c]==undef) k--;
 				}while(topo->co[r+k][c]==undef);
-				topo5=topo->co[r+k][c];	
-													
+				topo5=topo->co[r+k][c];
+
 				k=inc;
 				do{
 					if(r-k<1) k--;
@@ -849,8 +849,8 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r-k][c]==undef) k--;
 				}while(topo->co[r-k][c]==undef);
-				topo6=topo->co[r-k][c];	
-            
+				topo6=topo->co[r-k][c];
+
 				k=inc;
 				do{
 					if(c+k>nc) k--;
@@ -858,8 +858,8 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r][c+k]==undef) k--;
 				}while(topo->co[r][c+k]==undef);
-				topo7=topo->co[r][c+k];	
-            
+				topo7=topo->co[r][c+k];
+
 				k=inc;
 				do{
 					if(c-k<1) k--;
@@ -867,7 +867,7 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				do{
 					if(topo->co[r][c-k]==undef) k--;
 				}while(topo->co[r][c-k]==undef);
-				topo8=topo->co[r][c-k];	
+				topo8=topo->co[r][c-k];
 
 				curvature->co[r][c] = (4.0 * topo->co[r][c] - topo1 - topo2 - topo3 - topo4) / (pow(2.0, 0.5) * 16.0 * inc * deltaxy) +
 									  (4.0 * topo->co[r][c] - topo5 - topo6 - topo7 - topo8) / (16.0 * inc * deltaxy);
@@ -919,7 +919,7 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
                     }
                 }
 				dzdx->co[r][h] = (topo->co[r][h] - topo->co[r][h-1] ) / deltax;
-			}	
+			}
 		}
 	}
 
@@ -962,15 +962,15 @@ void topo_data(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *c
 				//   azimuth values must range from 0 to 360.
 				slope_az->co[r][c] = rad2deg * (3.0 / 2.0 * Pi - atan2(dzdy->co[r][c], dzdx->co[r][c]));
 				if (slope_az->co[r][c]>=360.0) slope_az->co[r][c] -= 360.0;
- 
+
 				// Compute the slope of the terrain.
 				terrain_slope->co[r][c] = rad2deg * atan(pow(pow(dzdx->co[r][c], 2.0) + pow(dzdy->co[r][c], 2.0), 0.5));
-				
+
 			}
 		}
 	}
-	
+
 	free_doublematrix(dzdx);
-	free_doublematrix(dzdy);	
+	free_doublematrix(dzdy);
 }
-		
+

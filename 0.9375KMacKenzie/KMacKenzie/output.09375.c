@@ -1718,7 +1718,7 @@ long r,c,l; /* added by Emanuele Cordano for de-allocating double or triple poin
  free_doublematrix(top->dz_dx);
  free_doublematrix(top->dz_dy);
  free_shortmatrix(top->curv);
- free_doublematrix(top->area);
+ /*free_doublematrix(top->area); */
  free_doublematrix(top->aspect);
  free_doublematrix(top->slopes);
  free_doublematrix(top->i_ch);
@@ -2417,7 +2417,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		fprintf(f,"Slope along positive x direction [-]:\n%f \n",top->dz_dx->co[r][c]);
 		fprintf(f,"Slope along negative y direction [-]:\n%f \n",top->dz_dy->co[r][c]);
 		fprintf(f,"Topology of curvature (0-1) [-]:\n%d \n",top->curv->co[r][c]);
-		fprintf(f,"Area considering the slope [m^2]:\n%f \n",top->area->co[r][c]);
+		/*fprintf(f,"Area considering the slope [m^2]:\n%f \n",top->area->co[r][c]);*/
 		fprintf(f,"Aspect [deg] [0=Nord, clockwise]:\n%f \n",top->aspect->co[r][c]*180.0/Pi);
 		fprintf(f,"Mean slope of the pixel [deg]:\n%f \n",top->slopes->co[r][c]*180.0/Pi);
 		fprintf(f,"Slope to calculate the surface velocity of the channel incoming flow [-]:\n%f \n",top->i_ch->co[r][c]);

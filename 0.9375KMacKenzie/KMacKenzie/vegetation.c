@@ -35,7 +35,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 	double *Etrans, double *Tv, double *Qv, double *decay, double *Locc){
 
 	double C, C0;
-	double A=0.5;
+	double A=1.0; /* was 0.5 see email stefano of 3/11/09*/
 	double T00=Tv0, T10, T11=Tv0, T11p=Tv0, DT, Wcrn=Wcrn0, Wcsn=Wcsn0;
 	double err0, err1=1.E+99, nw;
 	double Lobukhov, Lobukhov0, h0=0.0, h1, dhdT, dQ;
