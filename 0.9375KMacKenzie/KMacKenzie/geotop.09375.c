@@ -35,8 +35,10 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #include "energy.balance.h"
 #include "water.balance_1D.h"
 #include "water.balance_3D.h"
+#include "pedo.funct.h"
 
 void time_loop(ALLDATA *all);
+void time_loop_superfast(ALLDATA *all);
 
 
 /*----------   1. Global variables  ------------*/
@@ -102,10 +104,14 @@ int main(int argc,char *argv[]){
 /*------------------    3.  Acquisition of input data and initialization    --------------------*/
 get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 
-if(adt->P->superfast!=1) write_init_condit(adt->M->st->Z->nh, adt->I, adt->W, adt->P, adt->T, adt->L, adt->S, adt->E, adt->N, adt->G);
+if(adt->P->superfast!=1) {write_init_condit(adt->M->st->Z->nh, adt->I, adt->W, adt->P, adt->T, adt->L, adt->S, adt->E, adt->N, adt->G);}
 
 /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
-time_loop(adt);
+if(adt->P->superfast!=1) {// regular version
+	time_loop(adt);
+}else{// superfast
+	time_loop_superfast(adt);
+}
 
 /*--------------------   5.Completion of the output files and deallocations  --------------------*/
 dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
@@ -124,7 +130,7 @@ void time_loop(ALLDATA *all)
 
  /*begin of time-cycle:*/
  do{
-
+	//printf("par->point_sim=%d, par->superfast=%ld",all->P->point_sim,all->P->superfast); stop_execution();
     updates_times(all->I, all->P);
 
 	meteo_distr(all->M, all->E, all->W, all->T, all->N, all->I->time, all->P);
@@ -133,35 +139,27 @@ void time_loop(ALLDATA *all)
 	//stop_execution();
 
     if(all->P->en_balance==1) {
-    	if(all->P->superfast!=1)
-    		energy_balance(all->I, all->P, all->L, all->T, all->S, all->M, all->W, all->E, all->N, all->G);
-    	else
-    		energy_balance_superfast(all->I, all->P, all->L, all->T, all->S, all->M, all->W, all->E, all->N, all->G);
-    }
+    	energy_balance(all->I, all->P, all->L, all->T, all->S, all->M, all->W, all->E, all->N, all->G);
+		}
 
 	//printf("\n ENERGY END %10.2f\n",all->I->time);
 	//stop_execution();
 
 	//printf("\n MASS START %10.2f\n",all->I->time);
 	//stop_execution();
-
 	if(all->P->wat_balance==1){
 		water_balance_1D(all->T, all->S, all->L, all->W, all->C, all->P, all->I->time);
 	}else if(all->P->wat_balance==3){
 		water_balance_3D(all, all->I->time);
 	}
-
 	//printf("\n MASS END %10.2f\n",all->I->time);
 	//stop_execution();
 
 	//printf("\n WRITE OUTPUT b %10.2f\n",all->I->time);
 	//stop_execution();
 
-	if(all->P->superfast!=1) {
-		write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
-	} else {
-	write_output_superfast(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
-	}
+	write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
+
 	//printf("\n WRITE OUTPUT e %10.2f\n",all->I->time);
 	//stop_execution();
 
@@ -175,4 +173,80 @@ void time_loop(ALLDATA *all)
 }
 
 /*--------------------------------------------------------------------------------------------*/
+void time_loop_superfast(ALLDATA *all)
+{
 
+	double t_station;
+	long l,r,c,i;
+	short sy=0;
+
+ /*begin of time-cycle:*/
+ do{
+
+    updates_times(all->I, all->P);
+
+	//meteo_distr(all->M, all->E, all->W, all->T, all->N, all->I->time, all->P);// was like this
+
+    //INTERPOLATION OF METEO VARIABLES
+	time_conversion(all->P->JD0, all->P->year0, all->I->time+all->P->Dt, all->M->st->JD0->co[1], all->M->st->Y0->co[1], &t_station);
+	t_station+=(all->M->st->ST->co[1]-all->P->ST)*3600.0;
+	meteo_interp(all->M->data[0], all->M->st->Dt->co[1], t_station, all->M->var[0]);
+	//printf("\n ENERGY START %10.2f\n",all->I->time);
+	//stop_execution();
+
+	// STORE INITIAL CONDITION
+	if(all->I->time==0.0){
+		for(i=1;i<=all->P->chkpt->nrh;i++){
+			r=all->P->rc->co[i][1];
+			c=all->P->rc->co[i][2];
+			sy=all->S->type->co[r][c];
+			for(l=1;l<=Nl;l++){
+				all->S->output[0][0][l-1]=all->S->T->co[l][r][c];// Tmin
+				all->S->output[0][1][l-1]=all->S->T->co[l][r][c];// Tmax
+				all->S->output[0][2][l-1]=all->S->T->co[l][r][c];// Tmean
+				//printf("time=%f, T[%ld]=%f",times->time, l, all->S->T->co[l][r][c]); stop_execution();
+				all->S->output[0][3][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
+						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
+						all->P->psimin2,all->P->Esoil);//Theta_w min
+				all->S->output[0][4][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
+						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
+						all->P->psimin2,all->P->Esoil);//Theta_w max
+				all->S->output[0][5][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
+						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
+						all->P->psimin2,all->P->Esoil);//Theta_w mean
+
+				all->S->output[0][6][l-1]=all->S->thice->co[l][r][c];//Theta_i min
+				all->S->output[0][7][l-1]=all->S->thice->co[l][r][c];//Theta_i max
+				all->S->output[0][8][l-1]=all->S->thice->co[l][r][c];//Theta_i mean
+				}
+			}
+		}
+
+	energy_balance_superfast(all->I, all->P, all->L, all->T, all->S, all->M, all->W, all->E, all->N, all->G);
+
+	//printf("\n ENERGY END %10.2f\n",all->I->time);
+	//stop_execution();
+
+	//printf("\n MASS START %10.2f\n",all->I->time);
+	//stop_execution();
+
+	vertical_water_balance(all->P->Dt, all->L->LC, all->S, all->W, all->I->time, all->P);
+	//printf("\n MASS END %10.2f\n",all->I->time);
+	//stop_execution();
+
+	//printf("\n WRITE OUTPUT b %10.2f\n",all->I->time);
+	//stop_execution();
+
+	write_output_superfast(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
+
+	//printf("\n WRITE OUTPUT e %10.2f\n",all->I->time);
+	//stop_execution();
+
+	//Increase TIME!
+	all->I->time+=(long)all->P->Dt;
+
+ }while(all->I->time<=(all->I->TH*3600.0));/*end of time-cycle*/
+
+ free(all->I);
+
+}

@@ -4,7 +4,7 @@
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
 GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico, Emanuele Cordano
 
  LICENSE:
 
@@ -520,11 +520,11 @@ if(par->state_pixel==1){
 				sl->thetai_mean->co[l][i]=0.0;
 				sl->psi_mean->co[l][i]=0.0;
 				sl->Tmin->co[l][i]=99.0;
-				sl->thetaw_min->co[l][i]=1.0;
-				sl->thetai_min->co[l][i]=1.0;
+				sl->thetaw_min->co[l][i]=99.0;
+				sl->thetai_min->co[l][i]=99.0;
 				sl->Tmax->co[l][i]=-99.0;
-				sl->thetaw_max->co[l][i]=-1.0;
-				sl->thetai_max->co[l][i]=-1.0;
+				sl->thetaw_max->co[l][i]=-99.0;
+				sl->thetai_max->co[l][i]=-99.0;
 			}
 			wat->out1->co[1][i]=wat->h_sup->co[r][c];
 
@@ -770,7 +770,7 @@ if(par->output_TETAxy>0 && fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==
 //T
 if(par->output_Txy>0 && fmod(times->time+par->Dt,par->output_Txy*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Txy*3600.0));
-	//write_tensorseries2(n_file, files->co[fT]+1, 0, par->format_out, sl->T, UV);
+	write_tensorseries2(n_file, files->co[fT]+1, 0, par->format_out, sl->T, UV);
 
 	//***************************************************************************
 	//calculate active layer depth
@@ -1826,6 +1826,13 @@ free(top);
  free_doubletensor(sl->J);
  free_shortmatrix(sl->type);
  free_doubletensor(sl->pa);
+ int i;
+ if(par->superfast==1){
+	 for(i=1;i<par->num_of_time-1;i++){
+		 //if(sl->output[i]!=NULL)
+			 free_alloc2(&sl->output[i]);
+	 }
+ }
  free(sl);
 
  /* Deallocation of struct LAND "land": */
@@ -1872,16 +1879,6 @@ free(top);
  free_doublevector(cnet->Q_sup_spread);
  free_doublevector(cnet->Q_sub_spread);
  free(cnet);
-
- /* Deallocation of struct FILENAMES "filenames": */
- printf("Deallocating files\n");
- free_stringbin(files);
- free(error_file_name);
- /* Deallocation of struct T_INIT "UV": */
- printf("Deallocating UV\n");
- free_doublevector(UV->U);
- free_doublevector(UV->V);
- free(UV);
 
  /* Deallocation of struct ENERGY "egy": */
  printf("Deallocating egy\n");
@@ -2103,7 +2100,7 @@ free(top);
  }*/
  /* END deallocating met */
 
- int i,num_meteo_st=met->st->E->nh;
+ int num_meteo_st=met->st->E->nh;
  for(i=0;i<num_meteo_st;i++){
 	 //printf("\nfree data of meteo_st %d",i+1);stop_execution();
 	 if(met->data[i]!=NULL)
@@ -2120,17 +2117,14 @@ free(top);
  //free(met->horizon);// was like this
  free(met->column);
 
- if(par->superfast==1){
-	 for(i=1;i<par->num_of_time-1;i++){
-		 //if(sl->output[i]!=NULL)
-			 free_alloc2(&sl->output[i]);
-	 }
- }
+
+
  /*l=0;
  while(met->LRs[l]!=NULL){
 	 free(met->LRs[l]);
 	 l++;
  }*/
+
  if(existing_file_text(files->co[fLRs]+1)==1){
 	 if(met->LRs!=NULL)
 	 free_alloc2(&met->LRs);// was free(met->LRs)
@@ -2165,6 +2159,16 @@ free(top);
  free_longvector(par->cont_trans);
  free_longvector(par->ibeg);*/
  free(par);
+
+  /* Deallocation of struct FILENAMES "filenames": */
+ printf("Deallocating files\n");
+ free_stringbin(files);
+ free(error_file_name);
+ /* Deallocation of struct T_INIT "UV": */
+ printf("Deallocating UV\n");
+ free_doublevector(UV->U);
+ free_doublevector(UV->V);
+ free(UV);
 
 }
 
@@ -2458,7 +2462,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		t_fclose(f);
 		free(name);
 		/*name=join_strings(files->co[fveg]+1,SSSS);
-		name=join_strings(name,textfile);
+		name=join_strings(temp,textfile);
 		f=t_fopen(name,"w");
 		fprintf(f,"DATE,JDfrom0,JD,v[m/s],Tair,Tcan,Tg,Tsur,snowD,SWE,Lobukhov,Lobukhov_wc,a,LAI,fc,z0[m],d0[m],SWv,LWv,Hv,LEv,Ev[mm],Etrans,");
 		fprintf(f,"Melt_over_canopy,Prain,Psnow,Wcrain,Wcrain_max,Wcsnow,Wcsnow_max,Hv,LEv,Hg_uc,LEg_ug,Hg_bg,LEg_bg,Hg,LEg,Qv,Qg,Qa,Qs,Ch,Cv,Cb,Cc,Ch_ic,Cv_ic\n");
@@ -2807,7 +2811,7 @@ void write_soil_output(long n, long i, double t, double dt, long y0, double JD0,
 	free(name);
 	/*write the  soil profile suction as an AVERAGE of the output interval in the control pixel:*/
 	temp=join_strings(files->element[fpsiz_mean]+1,SSSS);
-	name=join_strings(name,textfile);
+	name=join_strings(temp,textfile);
 	free(temp);
 	f=fopen(name,"a");
 	//printf("\ntimes+dt=%f, t_i=%f, n=%ld, t_i+dt=%f, 0.5*(t_i+dt+t+dt)=%f",t+dt,t_i,n,t_i+dt,0.5*(t_i+dt+t+dt)); stop_execution();
@@ -2932,7 +2936,6 @@ double interp_value(double E, double N, DOUBLEMATRIX *M, DOUBLEMATRIX *Z){
 		//printf("No:%f E0:%f N:%f E:%f Dn:%f De:%f\n",N0,E0,N,E,DN,DE);
 
 		if(DN<=DE && DN>=-DE){
-			//printf("1\n");
 			//printf("%ld %ld %f\n",r,c,M->co[r][c]);
 
 			if(Z->co[r][c+1]!=NoV){
@@ -3018,31 +3021,13 @@ void write_output_superfast(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, T
 {
  /*internal auxiliary variables:*/
  long i,r=0,c=0,l; /*counters*/
- //long j; /*counters*/
-// long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
- //double t_i=0;         /*time of begin of an interval time for the output*/
- //char SSSS[ ]={"SSSS"};
  char *name=NULL; /*modified by Emanuele Cordano on 24/9/9 */
  FILE *f;
- //char *temp;/* added by Emanuele Cordano on 21 September 2009 */
- //double t_i, JD;
- //long d2, mo2, y2, h2, mi2;
- //long n=times->n_pixel;
- //double t=times->time;
- //double dt=par->Dt;
- //long y0=par->year0;
- //double JD0=par->JD0;
- //double psimin=par->psimin;
- //double Esoil=par->Esoil;
-//double z;
 
  /*internal variables to memorize input par:*/
  double time_max;      /*time of all the simulation [s]*/
  double total_pixel;   /*total number of pixel which are not novalue*/
  short sy=0; /* modified by Emanuele Cordano on 24 September 2009 */
-
-//double jd;
-//long day,month,year,hour0,hour1,hour2,min0,min1,min2;
 
  /* Assignment to some internal variables of some input par:*/
 time_max=times->TH*3600.0;
@@ -3077,7 +3062,6 @@ if (times->i_pixel==times->n_pixel){
 	}
 }
 
-//DISCHARGE
 //****************************************************************************************************************
 //DATA POINT
 //****************************************************************************************************************
@@ -3101,45 +3085,20 @@ if(par->state_pixel==1){
 					par->psimin2,par->Esoil)/(double)times->n_pixel;
 
 			sl->Tmin->co[l][i]=Fmin(sl->T->co[l][r][c], sl->Tmin->co[l][i]);
-			sl->thetai_min->co[l][i]=Fmin(sl->thice->co[l][r][c], sl->Tmin->co[l][i]);
+			sl->thetai_min->co[l][i]=Fmin(sl->thice->co[l][r][c], sl->thetai_min->co[l][i]);
 			sl->thetaw_min->co[l][i]=Fmin(teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
 					par->psimin2,par->Esoil),sl->thetaw_min->co[l][i]);
 
 			sl->Tmax->co[l][i]=Fmax(sl->T->co[l][r][c], sl->Tmax->co[l][i]);
-			sl->thetai_max->co[l][i]=Fmax(sl->thice->co[l][r][c], sl->Tmax->co[l][i]);
+			sl->thetai_max->co[l][i]=Fmax(sl->thice->co[l][r][c], sl->thetai_max->co[l][i]);
 			sl->thetaw_max->co[l][i]=Fmax(teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
 					par->psimin2,par->Esoil),sl->thetaw_max->co[l][i]);
 		}
-		if(times->time==0){// INITIAL CONDITION
-			for(l=1;l<=Nl;l++){
-				sl->output[0][0][l-1]=sl->T->co[l][r][c];
-				sl->output[0][1][l-1]=sl->T->co[l][r][c];
-				sl->output[0][2][l-1]=sl->T->co[l][r][c];
-				sl->output[0][3][l-1]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
-						sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-						par->psimin2,par->Esoil);
-				sl->output[0][4][l-1]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
-						sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-						par->psimin2,par->Esoil);
-				sl->output[0][5][l-1]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
-						sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-						par->psimin2,par->Esoil);
-				sl->output[0][6][l-1]=sl->thice->co[l][r][c];
-				sl->output[0][7][l-1]=sl->thice->co[l][r][c];
-				sl->output[0][8][l-1]=sl->thice->co[l][r][c];
-				}
-			}
 
 		/*Print of pixel-output every times->n_pixel time step */
 		if (times->i_pixel==times->n_pixel){
-			//
-			//printf("\ntimes->i_pixel=%ld, par->num_of_time=%d, Dt_output=%f, par->Dt=%f, times->n_pixel=%ld",times->i_pixel, times->num_of_time,times->n_pixel*par->Dt,par->Dt, times->n_pixel); stop_execution();
-			//sl output
-			//write_soil_output(times->n_pixel, i, times->time, par->Dt, par->year0, par->JD0, par->rc, 			sl, 	par->psimin, par->Esoil);
-			// 				   (long n, 	long i, double t, 	double dt, long y0, double JD0, LONGMATRIX *rc, SOIL *sl, double psimin, double Esoil)
-			// devo ora inserire i dati nel tensore
 			/* matrix 9xNl that contains the value of the output variable for each layer
 			 * row0: Tmin
 			 * row1: Tmax
@@ -3152,6 +3111,7 @@ if(par->state_pixel==1){
 			 * row8: ThetaImean
 			*/
 			for(l=1;l<=Nl;l++){
+				/* record the variables in the supertensor */
 				sl->output[times->count_super_printed+1][0][l-1]=sl->Tmin->co[l][i];
 				sl->output[times->count_super_printed+1][1][l-1]=sl->Tmax->co[l][i];
 				sl->output[times->count_super_printed+1][2][l-1]=sl->Tmean->co[l][i];
@@ -3161,14 +3121,24 @@ if(par->state_pixel==1){
 				sl->output[times->count_super_printed+1][6][l-1]=sl->thetai_min->co[l][i];
 				sl->output[times->count_super_printed+1][7][l-1]=sl->thetai_max->co[l][i];
 				sl->output[times->count_super_printed+1][8][l-1]=sl->thetai_mean->co[l][i];
+				/* update the variables */
+				sl->thetaw_mean->co[l][i]=0.0;
+				sl->Tmean->co[l][i]=0.0;
+				sl->thetai_mean->co[l][i]=0.0;
+				sl->Tmin->co[l][i]=99.0;
+				sl->thetaw_min->co[l][i]=99.0;
+				sl->thetai_min->co[l][i]=99.0;
+				sl->Tmax->co[l][i]=-99.0;
+				sl->thetaw_max->co[l][i]=-99.0;
+				sl->thetai_max->co[l][i]=-99.0;
 				}
 			}//end(times->i_pixel==times->n_pixel)
 		}//end for(i=1;i<=par->chkpt->nrh;i++)
 
 		// now I have to print the output "just" at the end of the simulation
 		if(times->time>=time_max){
-			double Dt_output=times->n_pixel*par->Dt;
-			name=join_strings(files->co[fTz]+1,textfile);
+			double Dt_output=times->n_pixel*par->Dt; // [sec]
+			name=join_strings(files->co[supfs]+1,textfile);
 			write_supertensor(r,c,sl->type->co[r][c], Dt_output, par->num_of_time, times->time, par->Dt, par->year0, par->JD0, name, sl->pa->co[sy][jdz], times, sl->output);
 		}
 		free(name);
@@ -3181,7 +3151,20 @@ if(par->state_pixel==1){
 /****************************************************************************************************/
 void write_supertensor(long r, long c,short sy,double Dt_output, short n,double t, double dt, long y0, double JD0, char* file, double* Dz, TIMES *times, double *** out){
 	/*Author: Matteo Dall'Amico, 6 october 2009 in Caltrano
-	 * writes the super_output_tensor in a file */
+	 * writes the super_output_tensor in a file
+	 * r: row
+	 * c: column
+	 * sy: soil type
+	 * Dt_output: print output
+	 * n: number of times the output must be written (num of times)
+	 * t: time
+	 * dt: integration interval
+	 * y0: year of beginning
+	 * JD0: julian day of beginning
+	 * file: file name
+	 * Dz: vector of layer depth
+	 * times: TIMES structure
+	 * tensor of ouput results */
 
 	//char* name=NULL;
 	double z;
@@ -3194,7 +3177,45 @@ void write_supertensor(long r, long c,short sy,double Dt_output, short n,double 
 	f=fopen(file,"w");
 	// write the header
 	fprintf(f,"DATE,time");
-
+	// write Tmin
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",Tmin ");
+	}
+	// write Tmax
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",Tmax ");
+	}
+	// write Tmean
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",Tmean ");
+	}
+	// write Theta_w min
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaW min ");
+	}
+	// write Theta_w max
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaW max ");
+	}
+	// write Theta_w mean
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaW mean ");
+	}
+	// write Theta_I min
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaI min ");
+	}
+	// write Theta_I max
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaI max ");
+	}
+	// write Theta_I mean
+	for(l=1;l<=Nl;l++){
+		fprintf(f,",ThetaI mean ");
+		}
+	fprintf(f," \n");
+	// write the header
+	fprintf(f,"DATE,time");
 	for(j=1;j<=9;j++){
 		z=0.0;
 		for(l=1;l<=Nl;l++){
@@ -3205,16 +3226,11 @@ void write_supertensor(long r, long c,short sy,double Dt_output, short n,double 
 	fprintf(f," \n");
 	// ORA DEVI SCRIVERE LA Tmin, Tmax, Tmean... ecc.
 	// Tmin
-	for(i=0;i<n;i++){// for every year
-		// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		// DEVI TROVARE IL TEMPO t....
-		// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		//t_i=t-dt*n;
-		//date_time(0.5*(t_i+dt+t+dt), y0, JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
+	for(i=0;i<n;i++){// for every superfast output time
 
 		date_time(i*Dt_output, y0, JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
 		write_date(f, d2, mo2, y2, h2, mi2);
-		fprintf(f,",%.0f",t+dt);
+		fprintf(f,",%.0f",i*Dt_output);
 		for(j=1;j<=9;j++){// for every variable
 			for(l=1;l<=Nl;l++){// for every layer
 				fprintf(f,",%f",out[i][j-1][l-1]);

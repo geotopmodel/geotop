@@ -275,9 +275,9 @@ void vertical_water_balance(double Dt, DOUBLEMATRIX *Z, SOIL *sl, WATER *wat, do
 
 	wat->out2->co[8]+=masserrorbasin*3600.0/Dt;
 
-	f=fopen(error_file_name,"a");
+	/*f=fopen(error_file_name,"a");
 	fprintf(f,"\nERROR MASS BALANCE: %20.18fmm/h - Pnet: %20.18fmm/h - Infiltration: %20.18fmm/h\n",masserrorbasin*3600.0/Dt,Pnbasin*3600.0/Dt,Infbasin*3600.0/Dt);
-	fclose(f);
+	fclose(f);*/
 
 }
 
@@ -618,8 +618,6 @@ void subflow(double Dt, LAND *land, TOPO *top, SOIL *sl, PAR *par, WATER *wat, d
 
 						wat->q_sub->co[l][r][c] += q;
 
-						//if(l==1)printf("->%ld q:%e qsub:%e",l,q,wat->q_sub->co[l][r][c]);
-
 					}
 				}
 			}
@@ -640,6 +638,7 @@ void subflow(double Dt, LAND *land, TOPO *top, SOIL *sl, PAR *par, WATER *wat, d
 						*cref=c;
 						*lref=l;
 					}
+
 				}
 			}
 		}
@@ -760,8 +759,6 @@ void check_q_1(DOUBLETENSOR *Pbeg, DOUBLETENSOR *Pend, double *Q, SOIL *sl, doub
 	thetamin=teta_psi(sl->pa->co[sy][jpsimin][l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
 		sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], psimin, Esoil);
 
-	//if(l==1) printf("th:%f thmin:%f ",theta0,thetamin);
-
 	if(theta0 <= thetamin){
 		q = 0.0;
 	}else if(theta0 - q*dt/sl->pa->co[sy][jdz][l] < thetamin){
@@ -779,8 +776,6 @@ void check_q_1(DOUBLETENSOR *Pbeg, DOUBLETENSOR *Pend, double *Q, SOIL *sl, doub
 			sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], psimin, Esoil);
 		q = (theta0 - theta1)*sl->pa->co[sy][jdz][l]/dt;
 	}
-
-	//if(l==1) printf("q:%e theta:%f Pend:%f\n",q,theta1,Pend->co[l][r][c]);
 
 	*Q = q;
 
@@ -861,7 +856,7 @@ void set_psi(DOUBLETENSOR *psi, DOUBLETENSOR *q, SOIL *sl, double dt, long l, lo
 
 	double theta;
 	short sy;
-	FILE *f;
+	//FILE *f;
 
 	double p;
 
@@ -881,13 +876,13 @@ void set_psi(DOUBLETENSOR *psi, DOUBLETENSOR *q, SOIL *sl, double dt, long l, lo
 
 	//if(l==1)printf(";;;l:%ld P:%f theta:%f n:%f q:%e",l,psi->co[l][r][c],theta,sl->pa->co[sy][jsat][l]-sl->thice->co[l][r][c],q->co[l][r][c]);
 
-	if(fabs(p-psi->co[l][r][c])>12000) {
+	/*if(fabs(p-psi->co[l][r][c])>12000) {
 		printf("ATTENTION!!!!!!! water.balance_1D.c: P_init - P_fin >12000");
 		f=fopen(error_file_name,"a");
 		fprintf(f,"ATTENTION!!!!!!! water.balance_1D.c: P_init - P_fin >12000");
 		fclose(f);
 		stop_execution();
-	}
+	}*/
 
 }
 
@@ -1106,9 +1101,11 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 	e0=new_doublevector(Nl);
 
 	*massloss=1.E99;
-	//error=1.E99;
-	if(par->superfast==1) max_error=1E-1;
-	else max_error=1E-2;
+	if(par->superfast!=1){// regular version
+		max_error=1E-2;
+	}else{// superfast
+		max_error=1E-1;
+	}
 	mass0=0.0;
 	for(l=1;l<=Nl;l++){
 		mass0+=sl->pa->co[sy][jdz][l]*teta_psi(psit->co[l],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
@@ -1139,7 +1136,6 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 		cont2=0;
 		nw=1.0;
 		massloss0=(*massloss);
-		//error0=error;
 
 		do{
 			for(l=1;l<=Nl;l++){
@@ -1151,14 +1147,12 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 				sl->T->co[1][r][c]);
 
 			ActInf=Fmin(*Inf, k + k*(h-e1->co[1])/(0.5*sl->pa->co[sy][jdz][1]));
-			//printf("cont:%ld cont2:%ld %f %f %f\n",cont,cont2,ActInf,*Inf,k + k*(h-e1->co[1])/(0.5*sl->pa->co[sy][jdz][1]));
 
 			mass1=0.0;
 			q_lat=0.0;
 			for(l=1;l<=Nl;l++){
 				mass1+=sl->pa->co[sy][jdz][l]*teta_psi(e1->co[l],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
 					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2, par->Esoil);
-				//q_lat+=q_sub->co[l][r][c]*dt;
 			}
 			*massloss=mass1-mass0-ActInf*dt;
 
@@ -1169,6 +1163,7 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 
 			cont2++;
 			nw/=4.0;
+
 
 		}while(fabs(*massloss)>fabs(massloss0) && cont2<5);
 
@@ -1185,9 +1180,8 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 		}while(cont<par->MaxiterVWB && cond_out==0);
 
 		if(fabs(*massloss)>max_error){
-				printf("Error too high %ld %ld massloss:%f Inf:%f Infpot:%f lat:%f bc:%d bc0:%d psi1:%f e1:%f\n",r,c,*massloss,ActInf,*Inf,q_lat,bc,bc0,psit->co[1],e1->co[1]);
-				//stop_execution();
-			}
+			printf("Error too high %ld %ld massloss:%f Inf:%f Infpot:%f lat:%f bc:%d bc0:%d psi1:%f e1:%f\n",r,c,*massloss,ActInf,*Inf,q_lat,bc,bc0,psit->co[1],e1->co[1]);
+		}
 
 
 	*Inf=ActInf;

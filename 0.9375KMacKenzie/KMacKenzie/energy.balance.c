@@ -307,8 +307,6 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 	for(r=1;r<=Nr;r++){
 		for(c=1;c<=Nc;c++){
 
-			//printf("%ld %ld\n",r,c);
-
 			if(land->LC->co[r][c]!=NoV){//if the pixel is not a novalue
 
 				//METEO
@@ -390,7 +388,7 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 					sl->P->co[l][r][c]=Fmin(sl->P->co[l][r][c], psisat);
 					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin2, par->Esoil);
 					if(theta->co[l]!=theta->co[l])printf("theta no value l:%ld teta:%f P:%f DPSi:%f T:%f\n",l,theta->co[l],sl->P->co[l][r][c],DPsi->co[l],sl->T->co[l][r][c]);
-					}
+				}
 
 				//glacier
 				if(par->glaclayer_max>0){
@@ -1711,14 +1709,14 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 	short max_iter;// max number of iterations
 	short iter_close;
 	short Evap; // 1: evaporation is active, 0: evaporation excluded
-	if (par->superfast==1) {// when the superfast version is on, then evaporation is excluded by default
+	if (par->superfast!=1) {// regular version
+		Evap=1;
+		max_tol=1E-4;
+		max_iter=10;
+	}else{// when the superfast version is on, then evaporation is excluded by default
 		Evap=0;
 		max_tol=1E-3;
 		max_iter=5;
-	}else{
-		Evap=1;
-		max_tol=1E-6;
-		max_iter=10;
 	}
 
 	//ALLOCATE
@@ -1955,6 +1953,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 		if(l>ns+ng){
 			theta[l-ns-ng] = wl[l]/(rho_w*D[l]);
 			sl->thice->co[l-ns-ng][r][c] = wi[l]/(rho_w*D[l]);
+			if(sl->thice->co[l-ns-ng][r][c]>sl->pa->co[sy][jsat][l-ns-ng]-0.00001) sl->thice->co[l-ns-ng][r][c]=sl->pa->co[sy][jsat][l-ns-ng]-0.00001;
 			sl->T->co[l-ns-ng][r][c] = T[l];
 
 			sl->P->co[l-ns-ng][r][c]=psi_teta(theta[l-ns-ng], sl->thice->co[l-ns-ng][r][c], sl->pa->co[sy][jsat][l-ns-ng],
@@ -2011,13 +2010,12 @@ void coeff(long r, long c, long ns, long ng, long nlim, double *ad, double *ads,
 
 	//upper boundary condition
 	short Neumann;
-	if (par->superfast==1) {// if the superfast version is on, then by default the top boundary condtion is Dirichlet
-		Neumann=0;
-	}else {// regular version: Neumann condition
+	if (par->superfast!=1) {// regular version: Neumann condition
 		Neumann=1;
+	}else {// if the superfast version is on, then by default the top boundary condition is Dirichlet
+		Neumann=0;
 	}
-	//double Ts=-5.0;// Top Dirichlet
-
+	//double Ts=-5.0;
 	//bottom boundary condition
 	short Dirichlet=1;
 	double Jbottom=0.0;

@@ -191,7 +191,8 @@ if (par->superfast==1 && met->column[0][iTsup]==-1) {
 }
 // superfast version
 if(par->superfast==1){
-	sl->output=(double ***)malloc((par->num_of_time+1)*sizeof(double**));
+	par->num_of_time=(long)(1+floor(3600.*times->TH/(times->n_pixel*par->Dt))); // number of times that the results have to be written in the super tensor. I have set 10 days
+	sl->output=(double ***)malloc((par->num_of_time+1)*sizeof(double**));// one for the initial condition
 	for(i=0;i<=par->num_of_time;i++){
 		sl->output[i]=alloc2(9,Nl);
 		/* matrix 9xNl that contains the value of the output variable for each layer
@@ -651,6 +652,8 @@ initialize_doublematrix(sl->thetaw_max,-1.0);; // max water content in a layer f
 
 sl->thetai_max=new_doublematrix(Nl,par->chkpt->nrh);
 initialize_doublematrix(sl->thetai_max,-1.0);; // max ice content in a layer for particular pixel in a Dt_output
+
+
 
 for(r=1;r<=Nr;r++){
 	for(c=1;c<=Nc;c++){
@@ -1809,7 +1812,7 @@ long col(double E, long ncols, long i, T_INIT *UV)
 
 void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par){
 
-long r, c, i, rtot, ctot, iLC;
+long r, c, i, rtot, ctot;//iLC;
 DOUBLEMATRIX *M, *Q, *curv;
 SHORTMATRIX *P;
 LONGMATRIX *ca;/* map of contributing area */
@@ -2246,6 +2249,10 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	par->monin_obukhov=(short)v->co[3];
 	par->micromet=(short)v->co[4];
 	par->blowing_snow=(short)v->co[5];
+	if(v->nh>5) par->superfast=(short)v->co[6];// superfast version
+	//printf("par->point_sim=%d, part->superfast=%ld",par->point_sim, par->superfast); stop_execution();
+	if(par->point_sim!=1) par->superfast=0;
+	//printf("par->point_sim=%d, part->superfast=%ld",par->point_sim, par->superfast); stop_execution();
 	if(par->blowing_snow==1 && par->micromet==0){
 		par->blowing_snow=0;
 		printf("\nWarning: if you do not run Micromet, you can't run SnowTrans3D\n");
@@ -2419,17 +2426,8 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	//4. horizon name
 	s=read_stringarray(f,PRINT);
 
-
-
-	//5. superfast version
-	v=read_doublearray(f,PRINT);
-	//short thor=10;// (days) to be taken in input
-	par->superfast=(long)v->co[1];
-	long thor=(long)v->co[2];
-	par->num_of_time=(long)(floor(times->TH/(24*thor))+1); // number of times that the results have to be written in the super tensor. I have set 10 days
-	//printf("superfast=%ld, num_of_time=%ld",par->superfast,par->num_of_time);stop_execution();
-	free_doublevector(v);
 	t_fclose(f);
+
 	//4. CALCULATE TOPOGRAPHIC PROPERTIES
 	//a. read dem
 	read_dem=0;
@@ -2443,7 +2441,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 			top->Z1=read_map(0, files->co[fdem]+1, Q, UV); //topography
 			free_doublematrix(Q);
 		}else{
-			printf("Warning: Dem file not present\n");
+			printf("Warning: Dem file not present - Cannot apply micromet\n");
 			read_dem=0;
 		}
 	}
@@ -2495,11 +2493,13 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 			}
 		}
 	}
+	printf("read land use 0=No, 1=Yes: %d\n",read_lu);
 	if(read_lu==0){
 		par->micromet=0;
 		for(i=1;i<=M->nrh;i++){
 			if(M->co[i][4]==-99) M->co[i][4]=1.0;
 		}
+		printf("%f\n",M->co[1][4]);
 	}else{
 		for(i=1;i<=M->nrh;i++){
 			if(M->co[i][4]==-99){
@@ -2809,6 +2809,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 		par->rc->co[i][1]=1;
 		par->rc->co[i][2]=i;
 	}
+	printf("%f\n",M->co[1][4]);
 
 	//6. SET PROPERTIES
 	top->Z0=new_doublematrix(1,M->nrh);// matrice 1x(#punti di misura)

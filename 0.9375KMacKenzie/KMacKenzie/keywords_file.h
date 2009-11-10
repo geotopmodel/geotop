@@ -136,12 +136,18 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define	REC__Qchannel	                            REC__wt+1	/*	 recover file for Qchannel (without extension)	*/
 #define	REC_SFA	                                    REC__Qchannel+1	/*	 recover file for SFR (without extension)	*/
 #define	zSFA	                                    REC_SFA+1	/*	 recover file for zSFR (without extension)	*/
-#define	fTz_mean									zSFA+1	/*	 output text files with time series of the mean soil temperature in the plot interval at the control pixels (without extension) 	*/
-#define	fpsiz_mean									fTz_mean+1	/*	 output text files with time series of the mean soil psi in the plot interval at the control pixels (without extension) 	*/
-#define	fliqz_mean									fpsiz_mean+1	/*	 output text files with time series of the mean soil theta_w in the plot interval at the control pixels (without extension) 	*/
-#define	ficez_mean									fliqz_mean+1	/*	 output text files with time series of the mean soil theta_i in the plot interval at the control pixels (without extension) 	*/
-//#define O_Bugs										ficez_mean+1
-#define	nfiles  									ficez_mean /*number of files */
+#define	O_SOILTEMPERTURE_MEAN_CONTROLPIXELS			zSFA+1 /*	 output text files with time series of the mean soil temperature in the plot interval at the control pixels (without extension) 	*/
+#define	O_PRESSUREHEAD_MEAN_CONTROLPIXELS			O_SOILTEMPERTURE_MEAN_CONTROLPIXELS+1/*	 output text files with time series of the mean soil psi in the plot interval at the control pixels (without extension) 	*/
+#define	O_WATERCONTENT_MEAN_CONTROLPIXELS			O_PRESSUREHEAD_MEAN_CONTROLPIXELS+1/*	 output text files with time series of the mean soil theta_w in the plot interval at the control pixels (without extension) 	*/
+#define	O_ICECONTENT_MEAN_CONTROLPIXELS				O_WATERCONTENT_MEAN_CONTROLPIXELS+1/*	 output text files with time series of the mean soil theta_i in the plot interval at the control pixels (without extension) 	*/
+#define SUPERFAST_FILE								O_ICECONTENT_MEAN_CONTROLPIXELS+1
+//#define	fTz_mean									zSFA+1	/*	 output text files with time series of the mean soil temperature in the plot interval at the control pixels (without extension) 	*/
+//#define	fpsiz_mean									fTz_mean+1	/*	 output text files with time series of the mean soil psi in the plot interval at the control pixels (without extension) 	*/
+//#define	fliqz_mean									fpsiz_mean+1	/*	 output text files with time series of the mean soil theta_w in the plot interval at the control pixels (without extension) 	*/
+//#define	ficez_mean									fliqz_mean+1	/*	 output text files with time series of the mean soil theta_i in the plot interval at the control pixels (without extension) 	*/
+//#define supfs										ficez_mean+1/* output file of the superfast version*/
+//#define O_Bugs									supfs+1
+#define	nfiles  									SUPERFAST_FILE /*number of files */
 //#define	nfiles  									zSFA /*number of files */
 
 
@@ -208,10 +214,11 @@ Copyright, 2008 Stefano Endrizzi, Emanuele Cordano, Riccardo Rigon, Matteo Dall'
 #define	fsndur	O_SNOW_DURATION_DISTRIBUTED_MAP	/*	  output 2D plus time tensor for snow duration [days] distributed  in the whole basin (without extension) 	*/
 #define	fsnav	O_AVERAGE_SNOW_FROM_BEGGIN_DISTRIBUTED_MAP	/*	 output 2D plus time tensor for average snow depth [mm] since begin of simulation distributed  in the whole basin (without extension) 	*/
 #define	fmeltlu	O_MELT_FLUXES_vs_LANDUSE	/*	  output textfile for melt fluxes for each land use class the whole basin (without extension) 	*/
-//#define	fTz_mean	O_SOILTEMPERTURE_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil temperature in the plot interval at the control pixels (without extension) 	*/
-//#define	fpsiz_mean	O_PRESSUREHEAD_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil psi in the plot interval at the control pixels (without extension) 	*/
-//#define	fliqz_mean	O_WATERCONTENT_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil theta_w in the plot interval at the control pixels (without extension) 	*/
-//#define	ficez_mean	O_ICECONTENT_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil theta_i in the plot interval at the control pixels (without extension) 	*/
+#define	fTz_mean	O_SOILTEMPERTURE_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil temperature in the plot interval at the control pixels (without extension) 	*/
+#define	fpsiz_mean	O_PRESSUREHEAD_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil psi in the plot interval at the control pixels (without extension) 	*/
+#define	fliqz_mean	O_WATERCONTENT_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil theta_w in the plot interval at the control pixels (without extension) 	*/
+#define	ficez_mean	O_ICECONTENT_MEAN_CONTROLPIXELS	/*	 output text files with time series of the mean soil theta_i in the plot interval at the control pixels (without extension) 	*/
+#define supfs		SUPERFAST_FILE /* output of the superfast version */
 
 #define	pH		O_K_pH	/* specific day map plots(p.) for the sensible heat flux		*/
 #define	pLE		O_K_pLE	/*	specific day map plots(p.) for the Latent heat flux (LEg + LEv = LE sum of the ground and vegentation component)	*/
