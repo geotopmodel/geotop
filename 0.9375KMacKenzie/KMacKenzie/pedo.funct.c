@@ -83,11 +83,11 @@ double psi_teta2(double w, double i, double s, double r, double a, double n, dou
  if(w>s-i){
 	TETA=TETAsat;
 	sat=1;
-	printf("1: theta:%f sat:%ld\n",TETA,sat);
+	printf("1: theta:%f sat:%d\n",TETA,sat);
  }else{
  	TETA=(w-r)/(s-r);
 	sat=0;
-	printf("2: theta:%f sat:%ld\n",TETA,sat);
+	printf("2: theta:%f sat:%d\n",TETA,sat);
  }
 
  if(TETA<TETAmin) TETA=TETAmin;
@@ -224,7 +224,7 @@ double K(double psi, double K_sat, double imp, double i, double s, double r, dou
 
 {
 
- double TETA,TETATOT,psisat,K_unsat,iceratio;
+ double TETA,psisat,K_unsat,iceratio;//TETATOT;
 
  if(psi<pmin){
 	K_unsat=0.0;

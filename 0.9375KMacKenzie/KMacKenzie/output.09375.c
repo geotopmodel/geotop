@@ -1634,7 +1634,7 @@ if(isavings < par->saving_points->nh){
 			for(i=1;i<=par->nLC;i++){
 				temp=join_strings(files->co[rSFA]+1,SSSS);
 				temp1=join_strings(temp,"L");
-				name=namefile_i(name,i);
+				name=namefile_i(temp1,i);
 				f=t_fopen(name,"w");
 				fprintf(f,"/**Fraction of snow free area and average sensible heat flux (W/m2) from snow free area\n");
 				fprintf(f," VSFA		HSFA*/\n");
@@ -2278,9 +2278,9 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 			write_suffix(SSSS, i, 0);
 			temp=join_strings(files->co[fmeltlu]+1,"_snowcovered_");
 			temp1=join_strings(temp,SSSS);
+			name=join_strings(temp1,textfile);/* bug found by Xujun on 12/11/09*/
 			free(temp);
 			free(temp1);
-			name=join_strings(temp1,textfile);
 			f=t_fopen(name,"w");
 			fprintf(f,"/** LAND USE CLASS: %ld\n",land->clax->co[i]);
 			fprintf(f,"SNOW COVERED AREA\n");
