@@ -49,7 +49,7 @@ long Nl; // total number of soil layers (constant in the whole basin)
 long Nr; // total number of rows (of the map)
 long Nc;// total number of columns (of the map)
 double NoV;
-
+long j,r,c;
 
 /*----------   2.  Begin of main and declaration of its variables (several structs)   ----------*/
 int main(int argc,char *argv[]){
@@ -104,7 +104,21 @@ int main(int argc,char *argv[]){
 /*------------------    3.  Acquisition of input data and initialization    --------------------*/
 get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 
-if(adt->P->superfast!=1) {write_init_condit(adt->M->st->Z->nh, adt->I, adt->W, adt->P, adt->T, adt->L, adt->S, adt->E, adt->N, adt->G);}
+if(adt->P->superfast!=1) {
+	write_init_condit(adt->M->st->Z->nh, adt->I, adt->W, adt->P, adt->T, adt->L, adt->S, adt->E, adt->N, adt->G);
+	if(adt->P->en_balance!=1){// write the initial condition if energy.balance is switched off
+		for(r=1;r<=Nr;r++){
+				for(c=1;c<=Nc;c++){
+					if(adt->L->LC->co[r][c]!=NoV){//if the pixel is not a novalue
+						for(j=1;j<=adt->P->rc->nrh;j++){
+							if(r==adt->P->rc->co[j][1] && c==adt->P->rc->co[j][2])
+								write_soil_output(0, j, adt->I->time, 0.0, adt->P->year0, adt->P->JD0, adt->P->rc, adt->S, adt->P->psimin, adt->P->Esoil);
+						}
+					}
+				}
+			}
+		}
+	}
 
 /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 if(adt->P->superfast!=1) {// regular version
