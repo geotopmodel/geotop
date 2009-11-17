@@ -300,6 +300,7 @@ void supflow(double Dt, double Dtmax, TOPO *top, LAND *land, WATER *wat, CHANNEL
 if(par->point_sim==0){	//distributed simulations
 
 	initialize_doublevector(cnet->Q,0.0);
+	initialize_doublevector(cnet->Q_sup_spread,0.0);
 
 	dx=UV->U->co[1];                                     /*cell side [m]*/
 	dy=UV->U->co[2];                                     /*cell side [m]*/
@@ -312,18 +313,20 @@ if(par->point_sim==0){	//distributed simulations
 	do{
 
 		tb=te;
-		dt=Dt;
+		dt=par->Dt;
+
+		//printf("tb:%f dt:%f\n",tb,dt);
+
 		//find dt min
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
-				if(wat->h_sup->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8){
+				if(wat->h_sup->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
 					lu=(short)land->LC->co[r][c];
 					Ks=land->ty->co[lu][jcm];
 					i=0.001*( wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
 					//i=top->i_DD->co[r][c];
-					if(i<0) i=0;  //correct false slopes
+					if(i<0) i=0; // correct false slopes
 					q=b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;	//mm/s
-					//q=wat->h_sup->co[r][c]/dt;
 					if(q>0){
 						if(wat->h_sup->co[r][c]/q<dt) dt=wat->h_sup->co[r][c]/q;
 					}
@@ -332,8 +335,8 @@ if(par->point_sim==0){	//distributed simulations
 		}
 
 		te=tb+dt;
-		if(te>Dt){
-			te=Dt;
+		if(te>par->Dt){
+			te=par->Dt;
 			dt=te-tb;
 		}
 
@@ -344,23 +347,21 @@ if(par->point_sim==0){	//distributed simulations
 		initialize_doublematrix(wat->q_sup,0.0);
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
-				if(wat->h_sup->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8){
+				if(wat->h_sup->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
 					lu=(short)land->LC->co[r][c];
 					Ks=land->ty->co[lu][jcm];
 					i=0.001*( wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
 					//i=top->i_DD->co[r][c];
 					if(i<0) i=0.0;
 					wat->q_sup->co[r][c]=b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;
-					//if(wat->h_sup->co[r][c]>0)printf("%ld %ld h:%f q:%f\n",r,c,wat->h_sup->co[r][c],wat->q_sup->co[r][c]);
-					//wat->q_sup->co[r][c]=wat->h_sup->co[r][c]/dt;
+
 					if(wat->q_sup->co[r][c]!=wat->q_sup->co[r][c]){
 						printf("NO VALUE SUP:%ld %ld %ld %ld %f %f\n",r,c,r+r_DD[top->DD->co[r][c]],c+c_DD[top->DD->co[r][c]],wat->h_sup->co[r][c],wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]]);
 						printf("i:%f Dh:%f Ks:%f pow:%f iF:%f\n",i,wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]],Ks,pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m),top->i_DD->co[r][c]);
 					}
 
-				}else if(top->DD->co[r][c]==10){
+				}else if(top->pixel_type->co[r][c]==10){
 					wat->q_sup->co[r][c]=wat->h_sup->co[r][c]/dt; /*[mm/s]*/
-					//if(wat->h_sup->co[r][c]>0)printf("ch. %ld %ld h:%f q:%f\n",r,c,wat->h_sup->co[r][c],wat->q_sup->co[r][c]);
 				}
 			}
 		}
@@ -373,76 +374,38 @@ if(par->point_sim==0){	//distributed simulations
 					R=r+r_DD[top->DD->co[r][c]];
 					C=c+c_DD[top->DD->co[r][c]];
 
-					/*the superficial flow is subtracted to the land pixels (code 0):*/
-					if (top->pixel_type->co[r][c]==0){
-						wat->h_sup->co[r][c]-=wat->q_sup->co[r][c]*dt;
-						//possible correction
-						if(wat->h_sup->co[r][c]<0){
-							wat->q_sup->co[r][c]+=wat->h_sup->co[r][c]/dt;
-							wat->h_sup->co[r][c]=0.0;
-							if(wat->q_sup->co[r][c]!=wat->q_sup->co[r][c]) printf("A\n");
-						}
-						//if(wat->q_sup->co[r][c]>0)printf("corr %ld %ld qdt:%f h:%f dt:%f\n",r,c,wat->q_sup->co[r][c]*dt,wat->h_sup->co[r][c],dt);
-					}
+					wat->h_sup->co[r][c]-=wat->q_sup->co[r][c]*dt;
+					wat->h_sup->co[r][c]=Fmax(wat->h_sup->co[r][c], 0.0);
 
-					/*the superficial flow is added to the land pixels (code 0):*/
-					if (top->pixel_type->co[R][C]==0) wat->h_sup->co[R][C]+=wat->q_sup->co[r][c]*dt;
+					//the superficial flow is added to the land pixels (code 0): Ê Ê
+					if (top->pixel_type->co[R][C]==0){
+						wat->h_sup->co[R][C]+=wat->q_sup->co[r][c]*dt;
 
-					/*the superficial flow is added to flow which flows into the channel pixels (code 10):*/
-					if (top->pixel_type->co[R][C]==10){
+					//the superficial flow is added to flow which flows into the channel pixels (code 10):
+					}else if (top->pixel_type->co[R][C]==10){
 						for(ch=1;ch<=cnet->r->nh;ch++){
 							if(R==cnet->r->co[ch] && C==cnet->c->co[ch]){
 								cnet->Q->co[ch]+=wat->q_sup->co[r][c]*dt/par->Dt;
 								if(cnet->Q->co[ch]!=cnet->Q->co[ch]){
 									printf("qsup no value: r:%ld c:%ld ch:%ld R:%ld C:%ld qsup:%f hsup:%f\n",r,c,ch,R,C,wat->q_sup->co[r][c],wat->h_sup->co[r][c]);
 								}
-								//if(wat->q_sup->co[r][c]>0) printf("channel r:%ld c:%ld ch:%ld q:%f %f dt:%f\n",R,C,ch,wat->q_sup->co[r][c],cnet->Q->co[ch],dt);
 							}
 						}
 					}
+
 				}
 			}
 		}
-
 		for(ch=1;ch<=cnet->r->nh;ch++){
-
-			r=cnet->r->co[ch];
-			c=cnet->c->co[ch];
-
-			lu=(short)land->LC->co[r][c];
-			Ks=land->ty->co[lu][jcm];
-
-			/*computation of value of flow which can go into channel:*/
-			wat->h_sup->co[r][c]=Fmax(wat->h_sup->co[r][c], 0.0);
-			//q_sup_max=Fmin(2.0*b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(top->i_ch->co[r][c])*1000.0/dx/dy,cnet->Q->co[ch]);
-			//q_sup_max=cnet->Q->co[ch];
-			//if (top->DD->co[r][c]==10) q_sup_max=cnet->Q->co[ch];	//closure section
-			//if(q_sup_max!=q_sup_max) printf("q_sup_max no value: qsup:%f r:%ld c:%ld ch:%ld h:%f ich:%f\n",cnet->Q->co[ch],r,c,ch,wat->h_sup->co[r][c],top->i_ch->co[r][c]);
-
-			/*wat of channel pixel which becames lateral flow and doesn't go into the channel;
-			the variable cnet->q_sup is use in this case improperly:*/
-			//cnet->Q->co[ch]-=q_sup_max;
-
-			/*the water on surface in channel pixel is updated:*/
-			//wat->h_sup->co[r][c]-=wat->q_sup->co[r][c]*dt;
-			//wat->h_sup->co[r][c]+=cnet->Q->co[ch]*dt;
-
-			/*now is assingned to cnet->q_sup is right value:*/
-			//cnet->Q->co[ch]=q_sup_max;
-
-			/*The new water arrived in the channel-network is spread immediately along a
-			virtual coordinate s (=distance from the outlet) so that it can travel to the
-			outlet, after simple traslation, compling with the convolution of the De
-			Saint Venant equations. This is made either for superficial flow or for the
-			subsuperficial flow:*/
 			for(s=1;s<=cnet->Q_sup_spread->nh;s++){
 				cnet->Q_sup_spread->co[s]+=(cnet->Q->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; /*in mc/s*/
-				//if(cnet->Q_sup_spread->co[s]>0)printf("s:%ld Q:%f\n",s,cnet->Q_sup_spread->co[s]);
 			}
 
 		}
 
-	}while(te<Dt);
+
+	}while(te<par->Dt);
+
 
 }else{	//point simulation
 
@@ -454,7 +417,7 @@ if(par->point_sim==0){	//distributed simulations
 				Ks=land->ty->co[lu][jcm];
 				i=pow(pow(top->dz_dx->co[r][c],2.0)+pow(top->dz_dy->co[r][c],2.0),0.5);
 				if(wat->h_sup->co[r][c]>0) q=Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0;	//mm/s
-				wat->h_sup->co[r][c]-=q*Dt;
+				wat->h_sup->co[r][c]-=q*par->Dt;
 				if(wat->h_sup->co[r][c]<0) wat->h_sup->co[r][c]=0.0;
 			}
 		}
@@ -463,6 +426,7 @@ if(par->point_sim==0){	//distributed simulations
 
 
 }
+
 
 
 /*--------------------------------------------*/
