@@ -6,11 +6,14 @@
 extern T_INIT *UV;
 extern double NoV;
 
+#define fluidtodyn 0.8
+#define incr_V_factor 1
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/	
+/******************************************************************************************************************************************/
 
 void BlowingSnow(long r, long c, float FetchDist, SNOW *snow, double T, double RH, double Uten, double StubHt, double *Transport, double *Sublimation, double *LatentH){
 
@@ -20,7 +23,7 @@ void BlowingSnow(long r, long c, float FetchDist, SNOW *snow, double T, double R
 	int Snow_Age;
 	float Trans,Subl,Lat;
 	double Wliq,Wice;
-		
+
 	EffectiveStubHt = (float)StubHt;
 	if(EffectiveStubHt<1.E-6) EffectiveStubHt=1.E-6;
 
@@ -37,8 +40,8 @@ void BlowingSnow(long r, long c, float FetchDist, SNOW *snow, double T, double R
 	}
 
 	Snow_Age = (int)(snow->dimens_age->co[r][c]/3600.0);	//snowage in hours
-	if(Snow_Age<1) Snow_Age=1;	
-	
+	if(Snow_Age<1) Snow_Age=1;
+
 	if(snow->lnum->co[r][c]>0){
 		Wliq=snow->w_liq->co[snow->lnum->co[r][c]][r][c];
 		Wice=snow->w_ice->co[snow->lnum->co[r][c]][r][c];
@@ -48,22 +51,22 @@ void BlowingSnow(long r, long c, float FetchDist, SNOW *snow, double T, double R
 	}
 
 	Probability_Threshold(Wliq, Wice, Snow_Age, snow->Psnow->co[r][c], T, Uten_Prob, &P, &Ut);
-	
-	Ut = 0.8 * Ut;   //{Fluid threshold to Dynamical threshold}
-		
+
+	Ut *= fluidtodyn;	//{Fluid threshold to Dynamical threshold}
+
 	Pbsm (EffectiveStubHt, BoundaryHt, FetchDist, Ut, Uten, (float)T, (float)RH, &Trans, &Subl, &Lat);
-					
+
 //  {Probability, P, used to calculate Transport rate, Sublimation, and Latent Heat Flux}
 	Trans*=P;		//{kg/m-width/s}
 	Subl*=P;		//{kg/m2/s}
 	Lat*=P;			//{J/m2/s}
-	
+
 	*Transport = (double)Trans;
 	*Sublimation = (double)Subl;
 	*LatentH = (double)Lat;
 }
-	
-	
+
+
 //*****************************************************************************************************
 //*****************************************************************************************************
 //*****************************************************************************************************
@@ -96,7 +99,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
   SigmaZ, Sigma2, SvDens, Usthr,  Ustar,
   UstarZ, Uz,     Vs,     Vsalt,  Sigma,
   Vsusp,  Z,      Zr,     Zstb;
-  
+
   short a, end=0;
 
 //     define constants for equations
@@ -188,7 +191,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 			Vs = DmDt/Mpm;              //{Sublimation rate coefficient Eq. 6.13}
 
 			SBsalt = Vs * Nsalt * Hsalt;  //{Eq. 6.11}
-		
+
 // calculate mass flux in the suspended layers and the sublimation
 //   rate for layers of height Inc from height r to b}
 
@@ -206,14 +209,14 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 			SBsum = 0;
 
 			Z = Zr + Inc;
-	  
+
 			do{
 				if(Z<=0.15){
 					Nz = 0.8 * exp(-1.55*(pow(0.05628*Ustar, -0.544) - pow(Z, -0.544))); // {Eq. 5.26, Revised in Dec. 1995}
 					if(Nz>Nsalt) Z = Z + Inc;
 				}
-			}while(Z<=0.15 && Nz>Nsalt);	  
-	  
+			}while(Z<=0.15 && Nz>Nsalt);
+
 			Lb = Z + Inc;
 			Z = Lb;
 			Inc = 0.001;
@@ -265,7 +268,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 							C = 1.0/(Diff * SvDens * Nuss);
 							DmDt = ((2.0*PI * Mpr * SigmaZ) - (Htran*B/A))/((LATH*B/A) + C);
 							Mpm = 1.333 * PI * DICE * pow(Mpr,3.0) * (1.0 + 3.0/Alpha + 2.0/pow(Alpha,2.0));  //{Eq. 6.16} {Gamma Dist. Corr.}
-							            
+
 							Vs = DmDt/Mpm;                             //{Eq. 6.13}
 
 							Sbz = Vs * Nz * Inc;                       //{mg}
@@ -274,7 +277,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 							if(H >= 5.0) {Qz = 0.0;}
 							TQsum = TQsum + Qz;                        //{Eq. 5.5}
 							if(H <= Fht) {FQsum = FQsum + Qz;}         //{Eq. 5.5}
-												
+
 							if(Nz >= 1E-5) {
 								if(((H-Inc) >= 0.5) && (H < 0.6)) {
 									Inc = 0.1;
@@ -284,7 +287,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 							}else{
 								end=1;
 							} //{if}
-						
+
 						}else {
 							FQsalt = 0.0;        //{No wind at boundary; no flux}
 							TQsalt = 0.0;
@@ -293,7 +296,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 							SBsalt = 0.0;
 							SBsum = 0.0;
 							end=1;
-						} //{if}			
+						} //{if}
 					}
 					H = H + Inc;
 
@@ -301,7 +304,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 			}while(a==1);
 		}  //{if}
 	} //{if}
-		
+
 	Sum (TQsalt, TQsum, SBsum, SBsalt, Trans, Subl, LatentH);
 
 } //{PBSM procedure}
@@ -316,17 +319,17 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 
   float Qsubl2;
   float L = 2.838E6; //!latent heat of sublimation (J/kg) List 1949
-  
+
 // {total sublimation}
 
    Qsubl2 = (SBsum + SBsalt)*(-1.E+6); //{-mgmm2s to b MILLIGRAMS PER M2 S}
    if  ((SBsum + SBsalt) == 0.0) {Qsubl2 = 0.0;} //{- 0.000 to 0.000}
 
    *SubFlux = Qsubl2/(1.E6);        //{mg/m2/s to kg/m2/s}
-   
-   *TransFlux = (TQsalt + TQsusp); //{kg/m-width/s}   
+
+   *TransFlux = (TQsalt + TQsusp); //{kg/m-width/s}
    *HeatFlux=  *SubFlux * L;          //{J/m2/s}
-   
+
 } //{sum procedure}
 
 //*****************************************************************************************************
@@ -334,7 +337,7 @@ void Pbsm (float Meht, float Fht, float Fetch, float Uthr, float Uten, float Tem
 //*****************************************************************************************************
 //*****************************************************************************************************
 //*****************************************************************************************************
-	
+
 void Probability_Threshold(double Wliq, double Wice, int Snow_Age, double Psnow, double Temperature, float Uten, float *Probability, float *Threshold){
 
 //{Probability of blowing snow occurrence and threshold wind speeds determined
@@ -357,7 +360,7 @@ void Probability_Threshold(double Wliq, double Wice, int Snow_Age, double Psnow,
             c = (-pow(Wind - Mean,2.0))/(2.0*pow(Variance,2.0));
             *Probability = *Probability + (1.0/(Variance * 2.5055)) * (exp(c)) * 0.1;
         } //{while do}
-		
+
         *Threshold = 9.9;     //{m/s}
 
 	}else if(Psnow>0) {  // {with concurrent snowfall: new dry snow}
@@ -389,7 +392,7 @@ void Probability_Threshold(double Wliq, double Wice, int Snow_Age, double Psnow,
         *Threshold = 9.43 + 0.18 * Temperature + 0.0033 * pow(Temperature,2.0); //{m/s}
    } //{if}
 
-} //{Probability_threshold procedure}	
+} //{Probability_threshold procedure}
 
 //*****************************************************************************************************
 //*****************************************************************************************************
@@ -399,35 +402,36 @@ void Probability_Threshold(double Wliq, double Wice, int Snow_Age, double Psnow,
 void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 
 	float FetchDist=(float)par->snow_fetch;//between 300 and 1000 m
-	double DW,SWE,D,rho,Wsub,ActToPot;
+	double DW,SWE,D,rho,Wsub,ActToPot,DWl;
 	double dx,dy,RH,T,U,StubHt;
 	double LatH;
 	long i,r,c,nr,nc,ns;
 	long r0,c0;
 	long num_change;
 	short lu;
-	double Qtrans=0.0,Qsubl=0.0,Dsum=0.0,SWEsum=0.0;//initialization
+	double Qtrans=0.0,Qsubl=0.0,Dsum=0.0,SWEsum=0.0,Uav=0.0;//initialization
 	long l;
-	
+	double q;
+
 	double Wsubl_tot=0.0,Wtrans_tot=0.0;
-	double W, a4, b4, c4, d4, e4, f4, CR;
-	
+	double W, a4, b4, c4, d4, e4, f4, CR, h;
+
 	a4=2.66E-3;c4=0.04;d4=0.0884;e4=0.046;f4=400;
-	
+
 	nr=snow->T->nrh;
 	nc=snow->T->nch;
 
-	dx=UV->U->co[1];                                     
-	dy=UV->U->co[2];      
-		 	
+	dx=UV->U->co[1];
+	dy=UV->U->co[2];
+
 	//Wtrans [kg/m2] , Qtrans [kg m-1 s-1]
-	initialize_doublematrix(snow->Wtrans, 0.0);	
-	
+	initialize_doublematrix(snow->Wtrans, 0.0);
+
 	//call PBSM
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if(land->LC->co[r][c]!=NoV){
-				
+
 				//vegetation height above snow surface (stubble)
 				lu=(short)land->LC->co[r][c];
 				D=DEPTH(r,c,snow->lnum,snow->Dzl);
@@ -437,64 +441,65 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 				}else{
 					StubHt=land->ty->co[lu][jHveg] - 1.E-3*D;
 				}
-				
+
 				//met variable
 				RH=met->RHgrid->co[r][c];
 				T=met->Tgrid->co[r][c];
 				U=met->Vgrid->co[r][c];
-				
-				//find the equilibrium fluxes
-				BlowingSnow(r, c, FetchDist, snow, T, RH, U, StubHt, &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]), &LatH);
 
-				//calculation only needed 
+				//find the equilibrium fluxes
+				BlowingSnow(r, c, FetchDist, snow, T, RH, incr_V_factor*U, StubHt, &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]), &LatH);
+
+				//calculation only needed
 				Qtrans += (fabs(snow->Qtrans->co[r][c]))/(double)par->total_pixel;
 				Qsubl += snow->Qsub->co[r][c]/(double)par->total_pixel;
 				Dsum += D/(double)par->total_pixel;
+				Uav += U/(double)par->total_pixel;
 				for(l=1;l<=snow->lnum->co[r][c];l++){
 					SWEsum += (snow->w_ice->co[l][r][c] + snow->w_liq->co[l][r][c])/(double)par->total_pixel;
-				}				 									
+				}
 			}
 		}
 	}
 
-	set_no_value(snow->Qtrans, land->LC, NoV);	
+	set_no_value(snow->Qtrans, land->LC, NoV);
 	extend_topography(snow->Qtrans, NoV);
 
-		
+
 	//if there is snow and blowing snow at the same time
 	if( (Qsubl>0 || Qtrans>0) && Dsum>0){
-			
+
 		//wind in direction west-east
-		
+
 		for(r=1;r<=nr;r++){
-		
+
 			for(c=1;c<=nc;c++){
 				snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.)));
 			}
-				
+
 			initialize_longvector(snow->change_dir_wind,0);
 			num_change=0;
 			c=1;
 
-			num_change++;				
+			num_change++;
 			c0=c;
 			snow->change_dir_wind->co[num_change]=c;
-			
+
 			//printf("R:%ld c0:%ld numchange:%ld chdir:%ld\n",r,c0,num_change,snow->change_dir_wind->co[num_change]);
-					
+
 			do{
 				c=c0;
 				do{
 					c++;
 				}while( (-sin(met->Vdir->co[r][c]*Pi/180.))*(-sin(met->Vdir->co[r][c0]*Pi/180.))>0 && c<nc );
 
-				num_change++;				
-				c0=c;				
+				num_change++;
+				c0=c;
 				snow->change_dir_wind->co[num_change]=c;
 				//printf("R:%ld c0:%ld numchange:%ld chdir:%ld\n",r,c0,num_change,snow->change_dir_wind->co[num_change]);
-			
+
 			}while(c0<nc);
-								
+
 			for(i=1;i<num_change;i++){
 				if( (-sin(met->Vdir->co[r][snow->change_dir_wind->co[i]]*Pi/180.)) > 0 ){
 					if(snow->change_dir_wind->co[i]!=1){
@@ -507,112 +512,123 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 						if(snow->change_dir_wind->co[i+1]==nc || (snow->change_dir_wind->co[i+1]!=nc && c<snow->change_dir_wind->co[i+1])){
 							//increasing potential snow transport
 							if( fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.))) >= fabs(snow->Qtrans->co[r][c-1]*(-sin(met->Vdir->co[r][c-1]*Pi/180.))) ){
+								q=snow->Qtrans_x->co[r][c];
 								snow->Qtrans_x->co[r][c]=snow->Qtrans_x->co[r][c-1]+(3./FetchDist)*dx*(snow->Qtrans_x->co[r][c]-snow->Qtrans_x->co[r][c-1]);
+								if(q<snow->Qtrans_x->co[r][c]) printf("err1 q:%e Q:%e %ld %ld %ld\n",q,snow->Qtrans_x->co[r][c],l,r,c);
 							//decreasing potential snow transport
 							}else{
 								snow->Qtrans_x->co[r][c]=Fmin(snow->Qtrans_x->co[r][c-1],snow->Qtrans_x->co[r][c]);
 							}
-							snow->Wtrans->co[r][c] += ( snow->Qtrans_x->co[r][c-1] - snow->Qtrans_x->co[r][c] )*par->Dt/dx;	
+							snow->Wtrans->co[r][c] += ( snow->Qtrans_x->co[r][c-1] - snow->Qtrans_x->co[r][c] )*par->Dt/dx;
 						}
 					}
-							
+
 				}else{
 					if(snow->change_dir_wind->co[i+1]!=nc){
 						snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;
 					}else{
 						//snow->Qtrans_x->co[r][nc]=0.0;
-					}		
+					}
 					//printf("-...i:%ld min:%ld max:%ld\n",i,snow->change_dir_wind->co[i],snow->change_dir_wind->co[i+1]);
 					for(c=snow->change_dir_wind->co[i+1]-1;c>=snow->change_dir_wind->co[i];c--){
 						if(snow->change_dir_wind->co[i+1]==nc || (snow->change_dir_wind->co[i+1]!=nc && c<snow->change_dir_wind->co[i+1]-1)){
 							if( fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.))) >= fabs(snow->Qtrans->co[r][c+1]*(-sin(met->Vdir->co[r][c+1]*Pi/180.))) ){
+								q=snow->Qtrans_x->co[r][c];
 								snow->Qtrans_x->co[r][c]=snow->Qtrans_x->co[r][c+1]+(3./FetchDist)*dx*(snow->Qtrans_x->co[r][c]-snow->Qtrans_x->co[r][c+1]);
+								if(q<snow->Qtrans_x->co[r][c]) printf("err2 q:%e Q:%e %ld %ld %ld\n",q,snow->Qtrans_x->co[r][c],l,r,c);
 							}else{
 								snow->Qtrans_x->co[r][c]=Fmin(snow->Qtrans_x->co[r][c+1],snow->Qtrans_x->co[r][c]);
 							}
-							snow->Wtrans->co[r][c] += ( snow->Qtrans_x->co[r][c+1] - snow->Qtrans_x->co[r][c] )*par->Dt/dx;	
+							snow->Wtrans->co[r][c] += ( snow->Qtrans_x->co[r][c+1] - snow->Qtrans_x->co[r][c] )*par->Dt/dx;
 						}
 					}
 				}
 			}
-		}	
-		
-							
+		}
+
+
 		//wind in direction south-north
 		for(c=1;c<=nc;c++){
-		
+
 			for(r=1;r<=nr;r++){
-				if(land->LC->co[r][c]!=NoV){
-					snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)));
-				}
+				snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)));
 			}
-						
+
 			initialize_longvector(snow->change_dir_wind,0);
 			num_change=0;
 			r=1;
 
-			num_change++;				
+			num_change++;
 			r0=r;
-			snow->change_dir_wind->co[num_change]=r;	
-			
-			//printf("C:%ld r0:%ld numchange:%ld chdir:%ld\n",c,r0,num_change,snow->change_dir_wind->co[num_change]);							
-					
+			snow->change_dir_wind->co[num_change]=r;
+
+			//printf("C:%ld r0:%ld numchange:%ld chdir:%ld\n",c,r0,num_change,snow->change_dir_wind->co[num_change]);
+
 			do{
 				r=r0;
 				do{
 					r++;
 				}while( (-cos(met->Vdir->co[r][c]*Pi/180.))*(-cos(met->Vdir->co[r][c0]*Pi/180.))>0 && r<nr );
 
-				num_change++;				
-				r0=r;				
+				num_change++;
+				r0=r;
 				snow->change_dir_wind->co[num_change]=r;
-				
-				//printf("C:%ld r0:%ld numchange:%ld chdir:%ld\n",c,r0,num_change,snow->change_dir_wind->co[num_change]);	
-						
+
+				//printf("C:%ld r0:%ld numchange:%ld chdir:%ld\n",c,r0,num_change,snow->change_dir_wind->co[num_change]);
+
 			}while(r0<nr);
-				
+
 			for(i=1;i<num_change;i++){
 				if( (-cos(met->Vdir->co[snow->change_dir_wind->co[i]][c]*Pi/180.)) < 0 ){
 					if(snow->change_dir_wind->co[i]!=1){
 						snow->Qtrans_y->co[snow->change_dir_wind->co[i]][c]=0.0;
 					}else{
 						//snow->Qtrans_y->co[1][c]=0.0;
-					}						
+					}
 					//printf("+...i:%ld min:%ld max:%ld\n",i,snow->change_dir_wind->co[i],snow->change_dir_wind->co[i+1]);
 					for(r=snow->change_dir_wind->co[i]+1;r<=snow->change_dir_wind->co[i+1];r++){
 						if(snow->change_dir_wind->co[i+1]==nr || (snow->change_dir_wind->co[i+1]!=nr && r<snow->change_dir_wind->co[i+1])){
-							if(fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.)))>=fabs(snow->Qtrans->co[r-1][c]*(-sin(met->Vdir->co[r-1][c]*Pi/180.)))){
+							if(fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)))>=fabs(snow->Qtrans->co[r-1][c]*(-cos(met->Vdir->co[r-1][c]*Pi/180.)))){
+								q=snow->Qtrans_y->co[r][c];
 								snow->Qtrans_y->co[r][c]=snow->Qtrans_y->co[r-1][c]+(3./FetchDist)*dy*(snow->Qtrans_y->co[r][c]-snow->Qtrans_y->co[r-1][c]);
+								if(q<snow->Qtrans_y->co[r][c]) printf("err3 q:%e Q:%e - %e %e - %e - i:%ld %ld %ld - %ld %ld %ld\n",q,snow->Qtrans_y->co[r][c],
+									fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.))),
+									fabs(snow->Qtrans->co[r-1][c]*(-cos(met->Vdir->co[r-1][c]*Pi/180.))),
+									snow->Qtrans_y->co[r-1][c],
+									i,snow->change_dir_wind->co[i],snow->change_dir_wind->co[i+1],
+									l,r,c);
 							}else{
 								snow->Qtrans_y->co[r][c]=Fmin(snow->Qtrans_y->co[r-1][c],snow->Qtrans_y->co[r][c]);
 							}
-							snow->Wtrans->co[r][c] += ( snow->Qtrans_y->co[r-1][c] - snow->Qtrans_y->co[r][c] )*par->Dt/dy;	
+							snow->Wtrans->co[r][c] += ( snow->Qtrans_y->co[r-1][c] - snow->Qtrans_y->co[r][c] )*par->Dt/dy;
 						}
 					}
 					//printf("end");
-					
+
 				}else{
 					if(snow->change_dir_wind->co[i+1]!=nr){
 						snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;
 					}else{
 						//snow->Qtrans_y->co[nr][c]=0.0;
-					}			
+					}
 					//printf("+...i:%ld min:%ld max:%ld\n",i,snow->change_dir_wind->co[i+1],snow->change_dir_wind->co[i]);
 					for(r=snow->change_dir_wind->co[i+1]-1;r>=snow->change_dir_wind->co[i];r--){
 						if(snow->change_dir_wind->co[i+1]==nr || (snow->change_dir_wind->co[i+1]!=nr && r<snow->change_dir_wind->co[i+1]-1)){
-							if(fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.)))>=fabs(snow->Qtrans->co[r+1][c]*(-sin(met->Vdir->co[r+1][c]*Pi/180.)))){
+							if(fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)))>=fabs(snow->Qtrans->co[r+1][c]*(-cos(met->Vdir->co[r+1][c]*Pi/180.)))){
+								q=snow->Qtrans_y->co[r][c];
 								snow->Qtrans_y->co[r][c]=snow->Qtrans_y->co[r+1][c]+(3./FetchDist)*dy*(snow->Qtrans_y->co[r][c]-snow->Qtrans_y->co[r+1][c]);
+								if(q<snow->Qtrans_y->co[r][c]) printf("err4 q:%e Q:%e %ld %ld %ld\n",q,snow->Qtrans_y->co[r][c],l,r,c);
 							}else{
 								snow->Qtrans_y->co[r][c]=Fmin(snow->Qtrans_y->co[r+1][c],snow->Qtrans_y->co[r][c]);
 							}
-							snow->Wtrans->co[r][c] += ( snow->Qtrans_y->co[r+1][c] - snow->Qtrans_y->co[r][c] )*par->Dt/dy;	
+							snow->Wtrans->co[r][c] += ( snow->Qtrans_y->co[r+1][c] - snow->Qtrans_y->co[r][c] )*par->Dt/dy;
 						}
 					}
 					//printf("end");
 				}
 			}
 		}
-		
+
 		//printf("OK\n");
 
 		//update snow depth
@@ -621,22 +637,27 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 				if(land->LC->co[r][c]!=UV->V->co[2]){
 
 					ns=snow->lnum->co[r][c];
-				
-					D=DEPTH(r,c,snow->lnum,snow->Dzl);				
+
+					D=DEPTH(r,c,snow->lnum,snow->Dzl);
 					SWE=get_SWE(r,c,snow->lnum,snow->w_ice,snow->w_liq);
-					
+
 					if(snow->Qtrans->co[r][c]>0){
 						ActToPot=(pow(pow(snow->Qtrans_x->co[r][c],2.0)+pow(snow->Qtrans_y->co[r][c],2.0),0.5))/snow->Qtrans->co[r][c];
 					}else{
 						ActToPot=0.0;
 					}
+
+					if(ActToPot>1.0001) printf("Error set_windtrans_snow %f %f %f\n",ActToPot,
+						(pow(pow(snow->Qtrans_x->co[r][c],2.0)+pow(snow->Qtrans_y->co[r][c],2.0),0.5)),
+						snow->Qtrans->co[r][c] );
+
 					Wsub=-par->Dt*snow->Qsub->co[r][c]*ActToPot;
-					
+
 					Wtrans_tot+=snow->Wtrans->co[r][c]/(double)par->total_pixel;
 					Wsubl_tot+=Wsub/(double)par->total_pixel;
-										
-					DW=snow->Wtrans->co[r][c] + Wsub;	
-					
+
+					DW=snow->Wtrans->co[r][c] + Wsub;
+
 					//snow compaction because of wind transport (Jordan, 99)
 					W=0.0;
 					for(l=snow->lnum->co[r][c];l>=1;l--){
@@ -644,66 +665,90 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 						b4=Fmin(1.0,exp(-e4*(rho-f4)));
 						W+=(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c]);	//kg m-2
 						CR=-a4*b4*(pow(pow(snow->Qtrans_x->co[r][c],2.0)+pow(snow->Qtrans_y->co[r][c],2.0),0.5))*exp(-c4*snow->T->co[l][r][c]-d4*g*W);
-						snow->Dzl->co[l][r][c]*=(1.0 + CR*par->Dt);	
+						snow->Dzl->co[l][r][c]*=(1.0 + CR*par->Dt);
 					}
-					
-				
+
+
 					if(ns>0){	//snow on the soil
 
 						if(DW<0){	//snow eroded
-							
+
 							i=ns;
-							do{					
-								if(i<ns){ 
-							
+							DWl=0.0;
+							do{
+								if(i<ns){
+
 									if(snow->w_ice->co[i+1][r][c]<0){
 										DW=snow->w_ice->co[i+1][r][c];
+										DWl=snow->w_liq->co[i+1][r][c];
 										snow->w_ice->co[i+1][r][c]=0.0;
+										snow->w_liq->co[i+1][r][c]=0.0;
 										snow->Dzl->co[i+1][r][c]=0.0;
 										snow->lnum->co[r][c]-=1;
 									}
 								}
-							
+
 								snow->Dzl->co[i][r][c]*=(snow->w_ice->co[i][r][c]+DW)/snow->w_ice->co[i][r][c];
+
+								/*if(snow->Dzl->co[i][r][c]>0){
+									h = internal_energy(snow->w_ice->co[i][r][c], snow->w_liq->co[i][r][c], snow->T->co[i][r][c]);
+								}*/
+
 								snow->w_ice->co[i][r][c]+=DW;				//kg/m2
+								snow->w_liq->co[i][r][c]+=DWl;				//kg/m2
+
+								/*if(snow->Dzl->co[i][r][c]>0){
+									from_internal_energy(r, c, h + internal_energy(DW, 0.0, snow->T->co[i][r][c]) + Lf*DWl, &(snow->w_ice->co[i][r][c]),
+										&(snow->w_liq->co[i][r][c]), &(snow->T->co[i][r][c]));
+								}*/
+
 								DW=0.0;
-															
+								DWl=0.0;
+
 								i--;
-							
+
 							}while(snow->w_ice->co[i+1][r][c]<0 && i>0);
-							
+
 							if(i==0 && snow->w_ice->co[i+1][r][c]<0){
 								snow->w_ice->co[i+1][r][c]=0.0;				//kg/m2
-								snow->Dzl->co[i+1][r][c]=0.0;	//mm	
+								snow->Dzl->co[i+1][r][c]=0.0;	//mm
 								snow->lnum->co[r][c]=0;
 							}
-									
+
 						}else{	//snow drifted
-					
-							snow->w_ice->co[snow->lnum->co[r][c]][r][c]+=DW;
-							snow->Dzl->co[snow->lnum->co[r][c]][r][c]+=1.0E+3*DW/rho_newlyfallensnow(met->Vgrid->co[r][c], met->Tgrid->co[r][c], Tfreezing);
-									
+
+							i = snow->lnum->co[r][c];
+
+							//h = internal_energy(snow->w_ice->co[i][r][c], snow->w_liq->co[i][r][c], snow->T->co[i][r][c]);
+
+							snow->w_ice->co[i][r][c]+=DW;
+
+							/*from_internal_energy(r, c, h + internal_energy(DW, 0.0, snow->T->co[i][r][c]), &(snow->w_ice->co[i][r][c]),
+								&(snow->w_liq->co[i][r][c]), &(snow->T->co[i][r][c]));*/
+
+							snow->Dzl->co[snow->lnum->co[r][c]][r][c]+=1.0E+3*DW/rho_newlyfallensnow(met->Vgrid->co[r][c], snow->T->co[i][r][c], Tfreezing);
+
 						}
-		
+
 					}else{	//snot not on the soil
-	
+
 						if(DW>0){
-				
+
 							snow->w_ice->co[1][r][c]+=DW;
 							snow->Dzl->co[1][r][c]+=1.0E+3*DW/rho_newlyfallensnow(met->Vgrid->co[r][c], met->Tgrid->co[r][c], Tfreezing);
 							snow->T->co[1][r][c]=T;
 							if(snow->T->co[1][r][c]>Tfreezing) snow->T->co[1][r][c]=Tfreezing;
 						}
-					
+
 					}
-				
+
 					snow_layer_combination(r, c, snow, T, par->snowlayer_inf, par->Dmin, par->Dmax, t);
 
 				}
 			}
 		}
 	}
-	
+
 	Dsum=0.0;
 	SWEsum=0.0;
 	for(r=1;r<=nr;r++){
@@ -714,12 +759,12 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 				Dsum += D/(double)par->total_pixel;
 				for(l=1;l<=snow->lnum->co[r][c];l++){
 					SWEsum += (snow->w_ice->co[l][r][c] + snow->w_liq->co[l][r][c])/(double)par->total_pixel;
-				}				
+				}
 			}
 		}
-	}	
-	printf("BLOWING SNOW: Dend:%f SWEend:%f Wsubl:%e Wtrans:%e DW:%e SWEin:%f\n",Dsum,SWEsum,Wsubl_tot,Wtrans_tot,Wsubl_tot+Wtrans_tot,SWEsum-Wsubl_tot-Wtrans_tot);
-	
+	}
+	printf("BLOWING SNOW: Dend:%f SWEend:%f U:%f Wsubl:%e Wtrans:%e DW:%e SWEin:%f\n",Dsum,SWEsum,Uav,Wsubl_tot,Wtrans_tot,Wsubl_tot+Wtrans_tot,SWEsum-Wsubl_tot-Wtrans_tot);
+
 }
 
 //*****************************************************************************************************
@@ -737,13 +782,13 @@ void print_windtrans_snow(long r, long c, SNOW *snow, PAR *par){
 		ActToPot=(pow(pow(snow->Qtrans_x->co[r][c],2.0)+pow(snow->Qtrans_y->co[r][c],2.0),0.5))/snow->Qtrans->co[r][c];
 	}else{
 		ActToPot=0.0;
-	}					
-	Wsub=-par->Dt*snow->Qsub->co[r][c]*ActToPot;			
+	}
+	Wsub=-par->Dt*snow->Qsub->co[r][c]*ActToPot;
 	DW=snow->Wtrans->co[r][c]+Wsub;
-					
+
 	if(par->output_snow>0){
-		snow->Wtot->co[r][c]+=DW;			
-		//snow->Wtrans_cum->co[r][c]+=snow->Wtrans->co[r][c];			
+		snow->Wtot->co[r][c]+=DW;
+		//snow->Wtrans_cum->co[r][c]+=snow->Wtrans->co[r][c];
 		//snow->Wsusp_cum->co[r][c]+=snow->Wsub->co[r][c];
 		//snow->Wsubl_cum->co[r][c]+=snow->Wsub->co[r][c];
 		//snow->Wsubgrid_cum->co[r][c]+=snow->Qtrans->co[r][c];
@@ -761,7 +806,7 @@ void print_windtrans_snow(long r, long c, SNOW *snow, PAR *par){
 				snow->out_bs->co[7][i]+=snow->Qtrans->co[r][c];
 				snow->out_bs->co[8][i]+=snow->Qtrans->co[r][c];*/
 				snow->out_bs->co[9][i]+=DW;
-				snow->out_bs->co[10][i]+=DW;						
+				snow->out_bs->co[10][i]+=DW;
 			}
 		}
 	}
@@ -773,9 +818,9 @@ void print_windtrans_snow(long r, long c, SNOW *snow, PAR *par){
 //*****************************************************************************************************
 //*****************************************************************************************************
 void extend_topography(DOUBLEMATRIX *M, double novalue){
-	
+
 	long r,c,rr,cc;
-	
+
 	for(r=1;r<=M->nrh;r++){
 		for(c=1;c<=M->nch;c++){
 			if(M->co[r][c]==novalue){
@@ -783,19 +828,19 @@ void extend_topography(DOUBLEMATRIX *M, double novalue){
 				M->co[r][c]=M->co[rr][cc];
 			}
 		}
-	}	
+	}
 }
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/				
+/******************************************************************************************************************************************/
 
 void find_the_nearest(long r, long c, double novalue, DOUBLEMATRIX *M, long *rr, long *cc){
-	
+
 	long i=0;
 	short k;
-		
+
 	do{
 		i++;
 		k=0;
@@ -814,12 +859,12 @@ void find_the_nearest(long r, long c, double novalue, DOUBLEMATRIX *M, long *rr,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/				
+/******************************************************************************************************************************************/
 
 short no_novalue(long r, long c, DOUBLEMATRIX *M, double novalue, long *rr, long *cc){
-	
+
 	short k=0;
-		
+
 	if((r>=1 && r<=M->nrh) && (c>=1 && c<=M->nch)){
 		if(M->co[r][c]!=novalue){
 			k=1;
@@ -827,17 +872,17 @@ short no_novalue(long r, long c, DOUBLEMATRIX *M, double novalue, long *rr, long
 			*cc=c;
 		}
 	}
-	
+
 	return(k);
 }
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/				
+/******************************************************************************************************************************************/
 void set_no_value(DOUBLEMATRIX *M, DOUBLEMATRIX *N, double undef){
-	
+
 	long r, c;
-	
+
 	for(r=1; r<=M->nrh; r++){
 		for(c=1; c<=M->nch; c++){
 			if(N->co[r][c]==undef) M->co[r][c]=undef;
@@ -848,4 +893,4 @@ void set_no_value(DOUBLEMATRIX *M, DOUBLEMATRIX *N, double undef){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/				
+/******************************************************************************************************************************************/

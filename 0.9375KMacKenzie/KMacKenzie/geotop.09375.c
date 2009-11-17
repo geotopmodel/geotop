@@ -4,7 +4,7 @@
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
 GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Cordano
 
  LICENSE:
 

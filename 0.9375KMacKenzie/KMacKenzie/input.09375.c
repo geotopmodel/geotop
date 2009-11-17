@@ -78,7 +78,7 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
 /****************************************************************************************************/
 printf("\nGEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE\n");
 printf("\nVersion 0.9375 Mackenzie\n");
-printf("\nCopyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico and others following the footsteps of the FREE SOFTWARE FOUNDATION\n");
+printf("\nCopyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon and others following the footsteps of the FREE SOFTWARE FOUNDATION according to GPLv3\n");
 
 if(!argv[1]){
 	WORKING_DIRECTORY=get_workingdirectory();
