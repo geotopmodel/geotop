@@ -654,7 +654,7 @@ sl->thetai_max=new_doublematrix(Nl,par->chkpt->nrh);
 initialize_doublematrix(sl->thetai_max,-1.0);; // max ice content in a layer for particular pixel in a Dt_output
 
 
-
+//Filling struc SOIL with input values: in particular soil->Pressure, soil->temperature, soil->thice
 for(r=1;r<=Nr;r++){
 	for(c=1;c<=Nc;c++){
 		if(land->LC->co[r][c]!=NoV){
