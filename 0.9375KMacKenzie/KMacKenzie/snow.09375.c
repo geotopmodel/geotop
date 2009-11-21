@@ -172,7 +172,8 @@ if( theta_i < par->snow_maxpor ){
 	eta=eta0*exp(c4*(Tfreezing-snow->T->co[l][r][c])+c5*(rho_i*theta_i));
 	*CR2=-load/eta;
 
-	snow->Dzl->co[l][r][c]*=(1.0 + ((*CR1)+(*CR2))*par->Dt);
+	//snow->Dzl->co[l][r][c]*=(1.0 + ((*CR1)+(*CR2))*par->Dt);// was like this
+	snow->Dzl->co[l][r][c]*=Fmax(0.1, 1.0 + ((*CR1)+(*CR2))*par->Dt);// new by stefano on 18/11/09
 
 }else{
 

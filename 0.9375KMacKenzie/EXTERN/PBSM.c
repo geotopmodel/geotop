@@ -665,7 +665,8 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 						b4=Fmin(1.0,exp(-e4*(rho-f4)));
 						W+=(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c]);	//kg m-2
 						CR=-a4*b4*(pow(pow(snow->Qtrans_x->co[r][c],2.0)+pow(snow->Qtrans_y->co[r][c],2.0),0.5))*exp(-c4*snow->T->co[l][r][c]-d4*g*W);
-						snow->Dzl->co[l][r][c]*=(1.0 + CR*par->Dt);
+						//snow->Dzl->co[l][r][c]*=(1.0 + CR*par->Dt);// was like this
+						snow->Dzl->co[l][r][c] *= Fmax(0.1, 1.0 + CR*par->Dt);// new by stefano, 18/11/09
 					}
 
 
