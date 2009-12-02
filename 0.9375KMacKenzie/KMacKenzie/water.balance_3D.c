@@ -508,7 +508,7 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r-1][c]);
 			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
-			a+=1.E-3*(kn/UV->U->co[2])*(adt->T->Z0->co[r-1][c] - adt->T->Z0->co[r][c]);
+			a+=(kn/UV->U->co[2])*(adt->T->Z0->co[r-1][c] - adt->T->Z0->co[r][c]);
 		}
 	}
 
@@ -519,7 +519,7 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r+1][c]);
 			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
-			a+=1.E-3*(kn/UV->U->co[2])*(adt->T->Z0->co[r+1][c] - adt->T->Z0->co[r][c]);
+			a+=(kn/UV->U->co[2])*(adt->T->Z0->co[r+1][c] - adt->T->Z0->co[r][c]);
 		}
 	}
 
@@ -530,7 +530,7 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c-1]);
 			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
-			a+=1.E-3*(kn/UV->U->co[1])*(adt->T->Z0->co[r][c-1] - adt->T->Z0->co[r][c]);
+			a+=(kn/UV->U->co[1])*(adt->T->Z0->co[r][c-1] - adt->T->Z0->co[r][c]);
 		}
 	}
 
@@ -541,7 +541,7 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c+1]);
 			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
-			a+=1.E-3*(kn/UV->U->co[1])*(adt->T->Z0->co[r][c+1] - adt->T->Z0->co[r][c]);
+			a+=(kn/UV->U->co[1])*(adt->T->Z0->co[r][c+1] - adt->T->Z0->co[r][c]);
 		}
 	}
 
