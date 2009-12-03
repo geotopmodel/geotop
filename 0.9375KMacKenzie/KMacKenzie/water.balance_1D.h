@@ -33,25 +33,13 @@ void vertical_water_balance(double Dt, DOUBLEMATRIX *Z, SOIL *sl, WATER *wat, do
 void supflow(double Dt, double Dtmax, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par);
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/													
-void subflow(double Dt, LAND *land, TOPO *top, SOIL *sl, PAR *par, WATER *wat, double *DeltaPsiMax, long *rref, long *cref, long *lref, 
-	DOUBLETENSOR *P1, DOUBLETENSOR *P2);
+void subflow(double Dt, LAND *land, TOPO *top, SOIL *sl, PAR *par, WATER *wat);
 		
-/*----------------------------------------------------------------------------------------------------------------------------------------------------*/												
-void subflow_channel(double Dt, double Dtmax, CHANNEL *cnet, SOIL *sl, PAR *par);
-
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/												
 void routing(CHANNEL *cnet);
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/												
 void output_waterbalance(double Dt, WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z);
-
-/*----------------------------------------------------------------------------------------------------------------------------------------------------*/													
-void check_q_1(DOUBLETENSOR *Pbeg, DOUBLETENSOR *Pend, double *Q, SOIL *sl, double dt, long l, long r, long c, double psimin, double Esoil, double max_dpsi);
-
-void check_q_2(DOUBLETENSOR *Pbeg, DOUBLETENSOR *Pend, double *Q, SOIL *sl, double dt, long l, long r1, long c1, long r2, long c2, 
-	double psimin, double Esoil);
-
-void set_psi(DOUBLETENSOR *psi, DOUBLETENSOR *q, SOIL *sl, double dt, long l, long r, long c, double psimin, double Esoil);
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/													
 void Richards_1D(double Dt, long r, long c, SOIL *sl, DOUBLEVECTOR *psi, double *h, double Pnet, double t, PAR *par, double *masslosscum, 

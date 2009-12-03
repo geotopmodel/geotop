@@ -4,7 +4,7 @@
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
 GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Cordano
 
  LICENSE:
 
@@ -486,10 +486,14 @@ if(par->point_sim==1){// point simulation: the distance from the outlet doesn't 
 	initialize_doublevector(cnet->Q_sup_s,0.0);
 	cnet->Q_sub_s=new_doublevector(1);
 	initialize_doublevector(cnet->Q_sub_s,0.0);
-	cnet->Q_sup_spread=new_doublevector(1);
-	initialize_doublevector(cnet->Q_sup_spread,0.0);
-	cnet->Q_sub_spread=new_doublevector(1);
-	initialize_doublevector(cnet->Q_sub_spread,0.0);
+	cnet->Qsup_spread=new_doublevector(1);
+	initialize_doublevector(cnet->Qsup_spread,0.0);
+	cnet->Qsub_spread=new_doublevector(1);
+	initialize_doublevector(cnet->Qsub_spread,0.0);
+	cnet->Qsup=new_doublevector(1);
+	initialize_doublevector(cnet->Qsup,0.0);
+	cnet->Qsub=new_doublevector(1);
+	initialize_doublevector(cnet->Qsub,0.0);
 } else{// distributed simulation
 /* Creation of the vectors with the position of the channel-pixels ("cnet->r" and "cnet->c"):*/
 cnet->r=new_longvector(i);
@@ -550,7 +554,7 @@ if(par->print==1){
 cnet->Q_sup_s=new_doublevector(cnet->fraction_spread->nch);
 initialize_doublevector(cnet->Q_sup_s,0.0);
 
-cnet->Q_sup_spread=new_doublevector(cnet->fraction_spread->nch);
+cnet->Qsup_spread=new_doublevector(cnet->fraction_spread->nch);
 
 /* Initialization of the vector with channel-flow (derived from q_sub) for each virtual channel-pixel with the
    same distance from outlet ("cnet->Q_sub_s"); note: vector's dimension is the number of virtual stretches
@@ -558,7 +562,9 @@ cnet->Q_sup_spread=new_doublevector(cnet->fraction_spread->nch);
 cnet->Q_sub_s=new_doublevector(cnet->fraction_spread->nch);
 initialize_doublevector(cnet->Q_sub_s,0.0);
 
-cnet->Q_sub_spread=new_doublevector(cnet->fraction_spread->nch);
+cnet->Qsub_spread=new_doublevector(cnet->fraction_spread->nch);
+cnet->Qsup=new_doublevector(cnet->r->nh);
+cnet->Qsub=new_doublevector(cnet->r->nh);
 }
 
 if(par->recover==1){
@@ -610,6 +616,9 @@ initialize_doubletensor(sl->thice,0.0);
 
 sl->Jinf=new_doublematrix(Nr,Nc);/* infiltration */
 initialize_doublematrix(sl->Jinf,0.0);
+
+sl->bc=new_shortmatrix(Nr,Nc);/* boundary condition in Richards */
+initialize_shortmatrix(sl->bc,0);
 
 sl->J=new_doubletensor(Nl,Nr,Nc); /* water flux outgoing from one layer to the lower one */
 initialize_doubletensor(sl->J,0.0);
@@ -1652,7 +1661,7 @@ DOUBLEMATRIX *De_Saint_Venant(DOUBLEVECTOR *s0,double u0,double D,double Dt)
  for(ch=1;ch<=s0->nh;ch++){
     if (s0max<s0->co[ch]) s0max=s0->co[ch];
  }
-
+//printf("u0=%f, Dt=%f",u0,Dt);stop_execution();
  f=fopen(error_file_name,"a");
 
  /* Finding out the distance of the farthest virtual channel-stretch; it has to be enough to allow an
@@ -2148,21 +2157,28 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	itools->land_classes=read_doublematrix(f,"a",PRINT);
 	//2nd block
 	v=read_doublearray(f,PRINT);
-	if(v->co[1]<=0) t_error("ERROR: 0 is not admitted for nDtwater");
 	par->nDt_water=(long)v->co[1];
+	if(par->nDt_water<=0) t_error("ERROR: 0 is not admitted for nDtwater");
 	par->f_bound_Richards=v->co[2];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
 	par->imp=v->co[3];	/*Impedence factor for (partially) frozen soil*/
 	par->psimin=v->co[4];
-	par->psimin2=par->psimin;
+	//par->psimin2=par->psimin;
 	par->Esoil=v->co[5];
-	par->MaxiterVWB=(long)v->co[6];
-	par->TolVWb=v->co[7];
-	par->Dpsi=v->co[8];
-	par->dtmin=v->co[9];
-	itools->u0=v->co[10]; /*THE MEAN VELOCITY IN CHANNELS*/
-	itools->D=v->co[11];  /*THE HYDRODYNAMICAL DISPERSION IN CHANNELS*/
-	par->gamma_m=v->co[12]; /*Exponent of the law of uniform motion on the surface*/
+	par->TolVWb=v->co[6];
+	par->MaxErrWb=v->co[7];
+	par->MaxiterTol=(long)v->co[8];
+	par->MaxiterErr=(long)v->co[9];
+	if(par->MaxiterErr<par->MaxiterTol) par->MaxiterErr=par->MaxiterTol;
+	par->min_tol_grad_conj=v->co[10];
+	par->max_tol_grad_conj=v->co[11];
+	if(par->min_tol_grad_conj>par->max_tol_grad_conj) par->min_tol_grad_conj=par->max_tol_grad_conj;
+	par->harm_or_arit_mean=(short)v->co[12];
+	par->underrelax=v->co[13];
+	itools->u0=v->co[14]; /* MEAN VELOCITY IN CHANNELS */
+	itools->D=v->co[15]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
+	par->gamma_m=v->co[16]; /*Exponent of the law of uniform motion on the surface*/
 	free_doublevector(v);
+
 	//3rd block
 	v=read_doublearray(f,PRINT);
 	par->latitude=v->co[1]*Pi/180.0;

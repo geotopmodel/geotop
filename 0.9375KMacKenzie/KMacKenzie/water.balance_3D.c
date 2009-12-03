@@ -28,11 +28,14 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #include "water.balance_3D.h"
 #include "pedo.funct.h"
 #include "sparse_matrix.h"
+#include "lu.h"
 
 extern T_INIT *UV;
 extern STRINGBIN *files;
 extern long Nl, Nr, Nc;
 extern double NoV;
+extern char *error_file_name;
+#define Kred_exf 1.
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -44,7 +47,7 @@ void water_balance_3D(ALLDATA *adt, double time){
 	Richards_3D(adt);
 	supflow2(adt->T, adt->L, adt->W, adt->C, adt->P);
 	routing2(adt->C);
-	output_waterbalance2(adt->W, adt->S, adt->P, adt->L->LC);
+	if(adt->P->state_pixel==1) output_waterbalance2(adt->W, adt->S, adt->P, adt->L->LC);
 
 }
 
@@ -56,36 +59,39 @@ void water_balance_3D(ALLDATA *adt, double time){
 
 void Richards_3D(ALLDATA *adt){
 
-	DOUBLEVECTOR *psi, *dpsi, *b, *theta0;
-	long i, l, r, c, cont, cont2, iter;
+	DOUBLEVECTOR *psi, *dpsi, *b, *psi0;
+	long i, l, r, c, cont, cont2, iter,diff_bc, iter_tot=0;
 	short sy=0;/* modified by Emanuele Cordano on 24/9/9 */
-	double mass0, mass1, massinf, massloss0, massloss, Inf, nw, res, k;
-	//FILE *f;
+	double mass0, mass1, massinf, massloss0, massloss,massinf2, Infmax, Infpot, nw, resnum, k, resden, tol=adt->P->max_tol_grad_conj;
+	FILE *f;
 	short out=0;
+	long n=Nl*adt->P->total_pixel;
+	static double cum_losses;
 
-	psi=new_doublevector(Nl*adt->P->total_pixel);
-	dpsi=new_doublevector(Nl*adt->P->total_pixel);
-	b=new_doublevector(Nl*adt->P->total_pixel);
-	theta0=new_doublevector(Nl*adt->P->total_pixel);
+	f=fopen(error_file_name,"a");
+
+	if(adt->I->time==0.0) cum_losses=0.0;
+
+	psi=new_doublevector(n);
+	dpsi=new_doublevector(n);
+	b=new_doublevector(n);
+	psi0=new_doublevector(n);
+	//ap=new_doublevector(adt->T->Ai->nh);
+	//V=new_doublevector(n);
 
 	massloss=1.E99;
-
 	mass0=0.0;
-	for(i=1;i<=Nl*adt->P->total_pixel;i++){
+	for(i=1;i<=n;i++){
 		l=adt->T->lrc_cont->co[i][1];
 		r=adt->T->lrc_cont->co[i][2];
 		c=adt->T->lrc_cont->co[i][3];
 		sy=adt->S->type->co[r][c];
+		psi0->co[i]=adt->S->P->co[l][r][c];
+		psi->co[i]=psi0->co[i];
 		mass0+=adt->S->pa->co[sy][jdz][l]*teta_psi(adt->S->P->co[l][r][c],adt->S->thice->co[l][r][c],adt->S->pa->co[sy][jsat][l],adt->S->pa->co[sy][jres][l],
-		   adt->S->pa->co[sy][ja][l],adt->S->pa->co[sy][jns][l],1-1/adt->S->pa->co[sy][jns][l],adt->P->psimin2, adt->P->Esoil);
-		psi->co[i]=adt->S->P->co[l][r][c];
-		theta0->co[i]=teta_psi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin2, adt->P->Esoil);
-		if(l==1) adt->S->Jinf->co[r][c]=adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/adt->P->Dt;
+				adt->S->pa->co[sy][ja][l],adt->S->pa->co[sy][jns][l],1-1/adt->S->pa->co[sy][jns][l],adt->P->psimin, adt->P->Esoil);
 	}
-
 	mass0/=(double)adt->P->total_pixel;	//in [mm]
-	printf("mass0:%f mm\n",mass0);
 
 	cont=0;
 
@@ -93,72 +99,27 @@ void Richards_3D(ALLDATA *adt){
 
 		cont++;
 
-		/*for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(adt->L->LC->co[r][c]!=NoV){
-
-					i=adt->T->i_cont[1][r][c];
-					sy=adt->S->type->co[r][c];
-					k=K(psi->co[i], adt->S->pa->co[sy][jKv][1], adt->P->imp, adt->S->thice->co[1][r][c], adt->S->pa->co[sy][jsat][1],
-						adt->S->pa->co[sy][jres][1], adt->S->pa->co[sy][ja][1], adt->S->pa->co[sy][jns][1], 1-1/adt->S->pa->co[sy][jns][1],
-						adt->S->pa->co[sy][jv][1], adt->S->pa->co[sy][jpsimin][1], adt->S->T->co[1][r][c]);
-
-					if(adt->S->Jinf->co[r][c]<=k && psi->co[i]<0 && adt->W->h_sup->co[r][c]<0.1){
-						adt->W->bc->co[r][c]=0;	//Neumann
-					}else{
-						adt->W->bc->co[r][c]=1;	//Dirichlet
-					}
-				}
-			}
-		}*/
-
-		for(i=1;i<=Nl*adt->P->total_pixel;i++){
-			b->co[i]=Find_b(i, theta0, adt);
+		for(i=1;i<=n;i++){
+			b->co[i]=Find_b(i, psi0, adt);
 		}
 
-		iter=tridiag_preconditioned_conjugate_gradient_search(1.E-4, psi, b, Solve_Richards_3D_p, adt);
+		/*c=1;
+		for(i=1;i<=adt->T->Ai->nh;i++){
 
-		/*for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(adt->L->LC->co[r][c]!=NoV){
+			do{
+				if(i>adt->T->Ax->co[c]) c++;
+			}while(i>adt->T->Ax->co[c]);
 
-					occur=0;
-
-					i=adt->T->i_cont[1][r][c];
-					sy=adt->S->type->co[r][c];
-					k=K(psi->co[i], adt->S->pa->co[sy][jKv][1], adt->P->imp, adt->S->thice->co[1][r][c], adt->S->pa->co[sy][jsat][1],
-						adt->S->pa->co[sy][jres][1], adt->S->pa->co[sy][ja][1], adt->S->pa->co[sy][jns][1], 1-1/adt->S->pa->co[sy][jns][1],
-						adt->S->pa->co[sy][jv][1], adt->S->pa->co[sy][jpsimin][1], adt->S->T->co[1][r][c]);
-
-					//Neumann
-					if(k + k*(adt->W->h_sup->co[r][c]-psi->co[i])/(0.5*adt->S->pa->co[sy][jdz][1]) > adt->S->Jinf->co[r][c]){
-						if(adt->W->bc->co[r][c]==1){
-							occur=1;
-							adt->W->bc->co[r][c]=0;
-						}
-					//Dirichlet
-					}else{
-						if(adt->W->bc->co[r][c]==0){
-							occur=1;
-							adt->W->bc->co[r][c]=1;
-						}
-					}
-
-				}
-			}
+			initialize_doublevector(V, 0.0);
+			V->co[c]=1.0;
+			ap->co[i]=Solve_Richards_3D(adt->T->Ai->co[i], V, adt);
 		}
 
-		if(occur==1) iter=jacobi_preconditioned_conjugate_gradient_search(1.E-5, psi, b, Solve_Richards_3D_p, adt);*/
+		mat_lsolve(ap, adt->T->Ax, adt->T->Ai, b, psi);*/
+		iter=tridiag_preconditioned_conjugate_gradient_search(tol, psi, b, Solve_Richards_3D_p, adt);
+		iter_tot+=iter;
 
-		/*for(i=1;i<=Nl*adt->P->total_pixel;i++){
-			l=adt->T->lrc_cont->co[i][1];
-			r=adt->T->lrc_cont->co[i][2];
-			c=adt->T->lrc_cont->co[i][3];
-			printf("i:%ld l:%ld r:%ld c:%ld P:%f P0:%f\n",i,l,r,c,psi->co[i],adt->S->P->co[l][r][c]);
-		}*/
-		//stop_execution();
-
-		for(i=1;i<=Nl*adt->P->total_pixel;i++){
+		for(i=1;i<=n;i++){
 			l=adt->T->lrc_cont->co[i][1];
 			r=adt->T->lrc_cont->co[i][2];
 			c=adt->T->lrc_cont->co[i][3];
@@ -166,165 +127,118 @@ void Richards_3D(ALLDATA *adt){
 		}
 
 		cont2=0.0;
-		nw=1.0;
+		nw=adt->P->underrelax;
 		massloss0=massloss;
 
 		do{
 
 			mass1=0.0;
 			massinf=0.0;
-			for(i=1;i<=Nl*adt->P->total_pixel;i++){
+			diff_bc=0;
+			for(i=1;i<=n;i++){
 				l=adt->T->lrc_cont->co[i][1];
 				r=adt->T->lrc_cont->co[i][2];
 				c=adt->T->lrc_cont->co[i][3];
 				psi->co[i]=adt->S->P->co[l][r][c]+nw*dpsi->co[i];
+				if(psi->co[i]!=psi->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
+
 				if(l==1){
 					sy=adt->S->type->co[r][c];
-					k=K(psi->co[i], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][1l], adt->S->pa->co[sy][ja][l],
+					k=K(adt->S->P->co[l][r][c], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][1l], adt->S->pa->co[sy][ja][l],
 						adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][r][c]);
-					Inf=Fmin(adt->S->Jinf->co[r][c], k + k*(adt->W->h_sup->co[r][c]-psi->co[i])/(0.5*adt->S->pa->co[sy][jdz][l]));
-					massinf+=Inf*adt->P->Dt;
+					Infmax=k + k*(adt->W->h_sup->co[r][c]-psi->co[i])/(0.5*adt->S->pa->co[sy][jdz][l]);
+					if((adt->W->h_sup->co[r][c]-psi->co[i])<0) Infmax=k*Kred_exf + k*Kred_exf*(adt->W->h_sup->co[r][c]-psi->co[i])/(0.5*adt->S->pa->co[sy][jdz][l]);
+					Infpot=adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/adt->P->Dt;
+					adt->S->Jinf->co[r][c]=Fmin(Infpot, Infmax);
+					massinf+=adt->S->Jinf->co[r][c]*adt->P->Dt;
+
+					//check consistency of boundary condition
+					if( (adt->S->bc->co[r][c]==0 && Infpot>Infmax) || (adt->S->bc->co[r][c]==1 && Infpot<=Infmax) ) diff_bc++;
 				}
+
 				mass1+=adt->S->pa->co[sy][jdz][l]*teta_psi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-			   		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin2, adt->P->Esoil);
+			   		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
 			}
 			mass1/=(double)adt->P->total_pixel;//[mm]
 			massinf/=(double)adt->P->total_pixel;
-			printf("mass1:%f mm\n",mass1);
-			printf("massinf:%f mm\n",massinf);
 
-			massloss=mass1-mass0-massinf;
+			massloss=mass0-(mass1-massinf);
+
+			//printf("nw:%f massloss:%e massloss0:%e\n",nw,massloss,massloss0);
 
 			cont2++;
-			printf("cont:%ld cont2:%ld massloss0:%e massloss1:%e\n",cont,cont2,massloss0,massloss);
 			nw/=4.0;
 
-		}while(fabs(massloss)>fabs(massloss0) && cont2<5);
+		}while(fabs(massloss)>fabs(massloss0) && cont2<3);
 
-		res=0.0;
-		for(i=1;i<=Nl*adt->P->total_pixel;i++){
+		resnum=0.0;
+		resden=0.0;
+		for(i=1;i<=n;i++){
 			l=adt->T->lrc_cont->co[i][1];
 			r=adt->T->lrc_cont->co[i][2];
 			c=adt->T->lrc_cont->co[i][3];
-			if(psi->co[i]<adt->P->psimin2) psi->co[i]=adt->P->psimin2;
-			res+=pow((psi->co[i]-adt->S->P->co[l][r][c]),2.0);
+			if(psi->co[i]<adt->P->psimin) psi->co[i]=adt->P->psimin;
+			resnum+=fabs(psi->co[i]-adt->S->P->co[l][r][c]);
+			resden+=fabs(adt->S->P->co[l][r][c]-psi0->co[i]);
 			adt->S->P->co[l][r][c]=psi->co[i];
 		}
-		res=pow(res,0.5);
+		if(resden<1.E-20) resden=1.E-20;
 
-		printf("->res:%f massloss:%f ..  %ld %ld\n",res,fabs(massloss),cont,adt->P->MaxiterVWB);
+		//printf("->iterCG:%ld res:%e mass0:%f mass1:%f massloss:%f massinf:%f nw:%f diff_bc:%ld tol:%e..  iterNR:%ld/%ld\n",iter,resnum/resden,mass0,mass1,massloss,massinf,nw,diff_bc,tol,cont,adt->P->MaxiterTol);
 
-		if(res<=adt->P->TolVWb && fabs(massloss)<=0.02) out=1;	//go out of the "do"
+		out=0;
 
-	}while(cont<adt->P->MaxiterVWB && out==0);
+		if(resnum/resden<=adt->P->TolVWb) out=1;
+		if(cont>=adt->P->MaxiterTol) out=1;
 
-	for(i=1;i<=Nl*adt->P->total_pixel;i++){
+		if(fabs(massloss)>adt->P->MaxErrWb) out=0;
+
+		//if(diff_bc>0) out=0;
+
+		//if(resnum/resden<=adt->P->TolVWb && fabs(massloss)>adt->P->MaxErrWb) tol*=0.1;
+
+		if(iter==0){
+			//tol*=0.1;
+			out=1;
+		}
+
+		if(cont>=adt->P->MaxiterErr) out=1;
+
+	}while(out==0);
+
+	cum_losses+=massloss;
+
+	fprintf(f,"->iterCG:%ld res:%e nw:%f mass0:%f mass1:%f massloss:%f massinf:%f diff_bc:%ld tol:%e..  iterNR:%ld/%ld\n",iter_tot,resnum/resden,nw,mass0,mass1,massloss,massinf,diff_bc,tol,cont,adt->P->MaxiterTol);
+	fprintf(f,"cum_loss:%f\n",cum_losses);
+
+	massinf2=0.0;
+	for(i=1;i<=n;i++){
 		l=adt->T->lrc_cont->co[i][1];
 		r=adt->T->lrc_cont->co[i][2];
 		c=adt->T->lrc_cont->co[i][3];
 
 		if(l==1){
-			sy=adt->S->type->co[r][c];
-			k=K(psi->co[i], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][1l], adt->S->pa->co[sy][ja][l],
-				adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][r][c]);
-			Inf=Fmin(adt->S->Jinf->co[r][c], k + k*(adt->W->h_sup->co[r][c]-psi->co[i])/(0.5*adt->S->pa->co[sy][jdz][l]));
-
-			/*if(Inf<0 || adt->W->h_sup->co[r][c])
-				printf("a)%ld %ld Inf:%f Inf0:%f h:%f Pn:%f psi:%f k:%f\n",r,c,Inf,adt->S->Jinf->co[r][c],adt->W->h_sup->co[r][c],
-					adt->W->Pn->co[r][c],psi->co[i],k);*/
-
-			adt->S->Jinf->co[r][c]=Inf;
 			adt->W->h_sup->co[r][c]+=(adt->W->Pn->co[r][c]-adt->S->Jinf->co[r][c])*adt->P->Dt;
-
-			/*if(Inf<0 || adt->W->h_sup->co[r][c])
-				printf("b)%ld %ld Inf:%f Inf0:%f h:%f Pn:%f psi:%f k:%f\n",r,c,Inf,adt->S->Jinf->co[r][c],adt->W->h_sup->co[r][c],
-					adt->W->Pn->co[r][c],psi->co[i],k);*/
-
-			/*if(psi->co[i]>0 || Inf!=0){
-				printf("i:%ld l:%ld r:%ld c:%ld P:%f inf:%f hsup:%f\n",i,l,r,c,psi->co[i],adt->S->Jinf->co[r][c],adt->W->h_sup->co[r][c]);
-				stop_execution();
-			}*/
+			if(adt->W->h_sup->co[r][c]<0) adt->W->h_sup->co[r][c]=0.0;
 		}
 
-		if(psi->co[i]!=psi->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
 	}
+	massinf2/=(double)adt->P->total_pixel;
 
-	Assign_Psi(psi, adt->S, adt->L, adt->P, adt->T);
+	fprintf(f,"mass0:%f mass1:%f massinf:%f massloss:%f factor:%f\n",mass0,mass1,massinf2,mass0-(mass1-massinf2),(massinf-massloss)/massinf);
 
-	adt->W->out2->co[8]+=massloss*3600.0/adt->P->Dt;
-
-	/*f=fopen(error_file_name,"a");
-	fprintf(f,"\nERROR MASS BALANCE: %20.18fmm/h\n",massloss*3600.0/adt->P->Dt);
-	fclose(f);	*/
+	adt->W->out2->co[8]+=massloss;
 
 	free_doublevector(psi);
 	free_doublevector(b);
 	free_doublevector(dpsi);
-	free_doublevector(theta0);
+	free_doublevector(psi0);
+	//free_doublevector(ap);
+	//free_doublevector(V);
+
+	fclose(f);
 
 
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void Assign_Psi(DOUBLEVECTOR *psi, SOIL *sl, LAND *land, PAR *par, TOPO *top){
-
-	long r, c, l;
-	double psisat, th1, theq, th0, oversat, DW, h, ice0, T0;
-	short sy;
-
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			if(land->LC->co[r][c]!=NoV){
-				for(l=1;l<=Nl;l++){
-					sy=sl->type->co[r][c];
-					if(sl->T->co[l][r][c]<=Tfreezing && par->en_balance==1){
-						sy=sl->type->co[r][c];
-						psisat=psi_saturation(sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-							1-1/sl->pa->co[sy][jns][l]);
-
-						th1=teta_psi(Fmin(psi->co[top->i_cont[l][r][c]],psisat),sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-							sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil);
-
-						theq=teta_psi(Psif(sl->T->co[l][r][c]),sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],
-							1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil);
-
-						if(fabs(theq-th1)>1.E-8){
-
-							th0=teta_psi(Fmin(sl->P->co[l][r][c],psisat),sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-								sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil);
-
-							oversat=teta_psi(psi->co[top->i_cont[l][r][c]],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-								sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil) - th1;
-
-							DW=(th1-th0)*(sl->pa->co[sy][jdz][l]);
-							h=internal_energy_soil(th0, sl->thice->co[l][r][c], sl->T->co[l][r][c], sl->pa->co[sy][jdz][l], sl->pa->co[sy][jct][l], sl->pa->co[sy][jsat][l]);
-
-							ice0=sl->thice->co[l][r][c];
-							T0=sl->T->co[l][r][c];
-
-							from_internal_soil_energy(r, c, l, h+Lf*DW, &th1, &(sl->thice->co[l][r][c]), &(sl->T->co[l][r][c]), sl->pa->co[sy], par->psimin);
-
-							sl->P->co[l][r][c]=psi_teta(th1+oversat,sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-								sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil);
-
-							if(sl->P->co[l][r][c]!=sl->P->co[l][r][c]) printf("no value psi Assign_Psi l:%ld r:%ld c:%ld\n",l,r,c);
-
-
-						}else{
-							sl->P->co[l][r][c]=psi->co[top->i_cont[l][r][c]];
-						}
-
-					}else{
-						sl->P->co[l][r][c]=psi->co[top->i_cont[l][r][c]];
-					}
-				}
-			}
-		}
-	}
 }
 
 /******************************************************************************************************************************************/
@@ -338,6 +252,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 	short sy;
 	double a = 0.0;
 	double C, dz, k, kn, dzn;
+	double Infmax;
 
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
@@ -345,7 +260,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 	sy=adt->S->type->co[r][c];
 
 	C=dteta_dpsi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin2, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
 	dz=adt->S->pa->co[sy][jdz][l];
 	a+=psi->co[i]*(C*dz/adt->P->Dt);
 
@@ -355,8 +270,18 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 
 	if(l==1){
 		//Dirichlet
-		//if(adt->W->bc->co[r][c]==1) a+=(k/(dz/2.))*psi->co[i];
-		if(adt->S->Jinf->co[r][c]>k+k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.)) a+=(k/(dz/2.))*psi->co[i];
+		if(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c]<0){
+			Infmax=k*Kred_exf+Kred_exf*k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.);
+		}else{
+			Infmax=k+k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.);
+		}
+		if(adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/adt->P->Dt > Infmax){
+			if(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c]<0){
+				a+=(k*Kred_exf/(dz/2.))*psi->co[i];
+			}else{
+				a+=(k/(dz/2.))*psi->co[i];
+			}
+		}
 	}
 
 	if(l>1){
@@ -364,7 +289,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			adt->S->pa->co[sy][ja][l-1], adt->S->pa->co[sy][jns][l-1], 1-1/adt->S->pa->co[sy][jns][l-1], adt->S->pa->co[sy][jv][l-1], adt->S->pa->co[sy][jpsimin][l-1],
 			adt->S->T->co[l-1][r][c]);
 		dzn=adt->S->pa->co[sy][jdz][l-1];
-		kn=Harmonic_Mean(dz, dzn, k, kn);
+		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
 		dzn=0.5*dz + 0.5*dzn;
 		a+=(kn/dzn)*(psi->co[i]-psi->co[adt->T->i_cont[l-1][r][c]]);
 	}
@@ -374,7 +299,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			adt->S->pa->co[sy][ja][l+1], adt->S->pa->co[sy][jns][l+1], 1-1/adt->S->pa->co[sy][jns][l+1], adt->S->pa->co[sy][jv][l+1], adt->S->pa->co[sy][jpsimin][l+1],
 			adt->S->T->co[l+1][r][c]);
 		dzn=adt->S->pa->co[sy][jdz][l+1];
-		kn=Harmonic_Mean(dz, dzn, k, kn);
+		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
 		dzn=0.5*dz + 0.5*dzn;
 		a+=(kn/dzn)*(psi->co[i]-psi->co[adt->T->i_cont[l+1][r][c]]);
 	}
@@ -389,7 +314,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r-1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r-1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r-1][c]);
-			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
 			a+=1.E-3*(kn/UV->U->co[2])*(psi->co[i]-psi->co[adt->T->i_cont[l][r-1][c]]);
 		}
 	}
@@ -400,7 +325,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r+1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r+1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r+1][c]);
-			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
 			a+=1.E-3*(kn/UV->U->co[2])*(psi->co[i]-psi->co[adt->T->i_cont[l][r+1][c]]);
 		}
 	}
@@ -411,7 +336,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r][c-1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c-1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c-1]);
-			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
 			a+=1.E-3*(kn/UV->U->co[1])*(psi->co[i]-psi->co[adt->T->i_cont[l][r][c-1]]);
 		}
 	}
@@ -422,7 +347,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r][c+1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c+1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c+1]);
-			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
 			a+=1.E-3*(kn/UV->U->co[1])*(psi->co[i]-psi->co[adt->T->i_cont[l][r][c+1]]);
 		}
 	}
@@ -440,12 +365,15 @@ double Solve_Richards_3D_p(long i, DOUBLEVECTOR *psi, void *adt) {
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
+double Find_b(long i, DOUBLEVECTOR *psi0, ALLDATA *adt){
+	/* function that finds the known term dell'eq. di richards*/
 
 	long l, r, c;
 	short sy;
 	double a = 0.0;
 	double C, dz, k, kn, dzn, theta1;
+	double Infmax;
+	double theta0; /* theta at the time step n*/
 
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
@@ -453,11 +381,13 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 	sy=adt->S->type->co[r][c];
 
 	C=dteta_dpsi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin2, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+	theta0=teta_psi(psi0->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
+			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
 	theta1=teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin2, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
 	dz=adt->S->pa->co[sy][jdz][l];
-	a+=(C*adt->S->P->co[l][r][c]+theta0->co[i]-theta1)*dz/adt->P->Dt;
+	a+=(C*adt->S->P->co[l][r][c]+theta0-theta1)*dz/adt->P->Dt;
 
 	k=K(adt->S->P->co[l][r][c], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
@@ -465,15 +395,24 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 
 	if(l==1){
 		//Dirichlet
-		//if(adt->W->bc->co[r][c]==1){
-		if(adt->S->Jinf->co[r][c]>k+k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.)){
-			a+=(k + k*adt->W->h_sup->co[r][c]/(dz/2.));
+		if(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c]<0){
+			Infmax=k*Kred_exf+Kred_exf*k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.);
+		}else{
+			Infmax=k+k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(dz/2.);
+		}
+		if(adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/adt->P->Dt > Infmax){
+			if(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c]<0){
+				a+=(k*Kred_exf + k*Kred_exf*adt->W->h_sup->co[r][c]/(dz/2.));
+			}else{
+				a+=(k + k*adt->W->h_sup->co[r][c]/(dz/2.));
+			}
+			adt->S->bc->co[r][c]=1;
 		//Neumann
 		}else{
-			a+=adt->S->Jinf->co[r][c];
+			a+=( adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/adt->P->Dt );
+			adt->S->bc->co[r][c]=0;
 		}
 	}
-
 
 	if(l==Nl) a-=k*0.0;
 
@@ -482,7 +421,7 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			adt->S->pa->co[sy][ja][l-1], adt->S->pa->co[sy][jns][l-1], 1-1/adt->S->pa->co[sy][jns][l-1], adt->S->pa->co[sy][jv][l-1], adt->S->pa->co[sy][jpsimin][l-1],
 			adt->S->T->co[l-1][r][c]);
 		dzn=adt->S->pa->co[sy][jdz][l-1];
-		kn=Harmonic_Mean(dz, dzn, k, kn);
+		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
 		dzn=0.5*dz + 0.5*dzn;
 		a+=kn;
 	}
@@ -492,10 +431,11 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			adt->S->pa->co[sy][ja][l+1], adt->S->pa->co[sy][jns][l+1], 1-1/adt->S->pa->co[sy][jns][l+1], adt->S->pa->co[sy][jv][l+1], adt->S->pa->co[sy][jpsimin][l+1],
 			adt->S->T->co[l+1][r][c]);
 		dzn=adt->S->pa->co[sy][jdz][l+1];
-		kn=Harmonic_Mean(dz, dzn, k, kn);
+		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
 		dzn=0.5*dz + 0.5*dzn;
 		a-=kn;
 	}
+
 
 	k=K(adt->S->P->co[l][r][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
@@ -507,8 +447,8 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r-1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r-1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r-1][c]);
-			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
-			a+=(kn/UV->U->co[2])*(adt->T->Z0->co[r-1][c] - adt->T->Z0->co[r][c]);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
+			a+=(kn/UV->U->co[2])*(adt->T->Z0dp->co[r-1][c] - adt->T->Z0dp->co[r][c]);
 		}
 	}
 
@@ -518,8 +458,8 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r+1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r+1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r+1][c]);
-			kn=Harmonic_Mean(UV->U->co[2], UV->U->co[2], k, kn);
-			a+=(kn/UV->U->co[2])*(adt->T->Z0->co[r+1][c] - adt->T->Z0->co[r][c]);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
+			a+=(kn/UV->U->co[2])*(adt->T->Z0dp->co[r+1][c] - adt->T->Z0dp->co[r][c]);
 		}
 	}
 
@@ -529,8 +469,8 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r][c-1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c-1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c-1]);
-			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
-			a+=(kn/UV->U->co[1])*(adt->T->Z0->co[r][c-1] - adt->T->Z0->co[r][c]);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
+			a+=(kn/UV->U->co[1])*(adt->T->Z0dp->co[r][c-1] - adt->T->Z0dp->co[r][c]);
 		}
 	}
 
@@ -540,8 +480,8 @@ double Find_b(long i, DOUBLEVECTOR *theta0, ALLDATA *adt){
 			kn=K(adt->S->P->co[l][r][c+1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c+1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
 				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
 				adt->S->T->co[l][r][c+1]);
-			kn=Harmonic_Mean(UV->U->co[1], UV->U->co[1], k, kn);
-			a+=(kn/UV->U->co[1])*(adt->T->Z0->co[r][c+1] - adt->T->Z0->co[r][c]);
+			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
+			a+=(kn/UV->U->co[1])*(adt->T->Z0dp->co[r][c+1] - adt->T->Z0dp->co[r][c]);
 		}
 	}
 
@@ -561,17 +501,17 @@ void supflow2(TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par)
 	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; /* columns, depending on Drainage Directions*/
 	double dx,dy;                                         /* the two dimensions of a pixel*/
 	double Ks;											  /* the Strickler's coefficent calculated with a standard deviation*/
-	//double q_sup_max;                                     /* maximum superficial flow (in the first part) or the incoming flow in a channel pixel (in the second part)*/
 	double b[10];                                         /* area perpendicular to the superficial flow divided by h_sup*/
 	double i;											  /*hydraulic gradient*/
 	double q,tb,te,dt;
 	short lu;
 
-
 if(par->point_sim==0){	//distributed simulations
 
-	initialize_doublevector(cnet->Q,0.0);
-	initialize_doublevector(cnet->Q_sup_spread,0.0);
+	initialize_doublevector(cnet->Qsup,0.0);
+	initialize_doublevector(cnet->Qsup_spread,0.0);
+	initialize_doublevector(cnet->Qsub,0.0);
+	initialize_doublevector(cnet->Qsub_spread,0.0);
 
 	dx=UV->U->co[1];                                     /*cell side [m]*/
 	dy=UV->U->co[2];                                     /*cell side [m]*/
@@ -596,7 +536,7 @@ if(par->point_sim==0){	//distributed simulations
 					Ks=land->ty->co[lu][jcm];
 					i=0.001*( wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
 					//i=top->i_DD->co[r][c];
-					if(i<0) i=0; // correct false slopes
+					if(i<0) i=0;  //correct false slopes
 					q=b[top->DD->co[r][c]+1]*Ks*pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;	//mm/s
 					if(q>0){
 						if(wat->h_sup->co[r][c]/q<dt) dt=wat->h_sup->co[r][c]/q;
@@ -630,9 +570,6 @@ if(par->point_sim==0){	//distributed simulations
 						printf("NO VALUE SUP:%ld %ld %ld %ld %f %f\n",r,c,r+r_DD[top->DD->co[r][c]],c+c_DD[top->DD->co[r][c]],wat->h_sup->co[r][c],wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]]);
 						printf("i:%f Dh:%f Ks:%f pow:%f iF:%f\n",i,wat->h_sup->co[r][c] - wat->h_sup->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]],Ks,pow(wat->h_sup->co[r][c]/1000.0,1.0+par->gamma_m),top->i_DD->co[r][c]);
 					}
-
-				}else if(top->pixel_type->co[r][c]==10){
-					wat->q_sup->co[r][c]=wat->h_sup->co[r][c]/dt; /*[mm/s]*/
 				}
 			}
 		}
@@ -640,7 +577,7 @@ if(par->point_sim==0){	//distributed simulations
 		/*After the computation of the surface flow,these flows are moved trough D8 scheme:*/
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
-				if(top->pixel_type->co[r][c]!=9){
+				if(top->pixel_type->co[r][c]==0){
 
 					R=r+r_DD[top->DD->co[r][c]];
 					C=c+c_DD[top->DD->co[r][c]];
@@ -648,7 +585,7 @@ if(par->point_sim==0){	//distributed simulations
 					wat->h_sup->co[r][c]-=wat->q_sup->co[r][c]*dt;
 					wat->h_sup->co[r][c]=Fmax(wat->h_sup->co[r][c], 0.0);
 
-					//the superficial flow is added to the land pixels (code 0): Ê Ê
+					//the superficial flow is added to the land pixels (code 0):
 					if (top->pixel_type->co[R][C]==0){
 						wat->h_sup->co[R][C]+=wat->q_sup->co[r][c]*dt;
 
@@ -656,20 +593,30 @@ if(par->point_sim==0){	//distributed simulations
 					}else if (top->pixel_type->co[R][C]==10){
 						for(ch=1;ch<=cnet->r->nh;ch++){
 							if(R==cnet->r->co[ch] && C==cnet->c->co[ch]){
-								cnet->Q->co[ch]+=wat->q_sup->co[r][c]*dt/par->Dt;
-								if(cnet->Q->co[ch]!=cnet->Q->co[ch]){
+								cnet->Qsup->co[ch]+=wat->q_sup->co[r][c]*dt/par->Dt;
+								if(cnet->Qsup->co[ch]!=cnet->Qsup->co[ch]){
 									printf("qsup no value: r:%ld c:%ld ch:%ld R:%ld C:%ld qsup:%f hsup:%f\n",r,c,ch,R,C,wat->q_sup->co[r][c],wat->h_sup->co[r][c]);
 								}
 							}
 						}
 					}
 
+				}else if(top->pixel_type->co[r][c]==10){
+					for(ch=1;ch<=cnet->r->nh;ch++){
+						if(r==cnet->r->co[ch] && c==cnet->c->co[ch]){
+							cnet->Qsub->co[ch]=wat->h_sup->co[r][c]/par->Dt; /*[mm/s]*/
+							wat->h_sup->co[r][c]=0.0;
+						}
+					}
 				}
+
 			}
 		}
+
 		for(ch=1;ch<=cnet->r->nh;ch++){
-			for(s=1;s<=cnet->Q_sup_spread->nh;s++){
-				cnet->Q_sup_spread->co[s]+=(cnet->Q->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; /*in mc/s*/
+			for(s=1;s<=cnet->Qsup_spread->nh;s++){
+				cnet->Qsup_spread->co[s]+=(cnet->Qsup->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; /*in mc/s*/
+				cnet->Qsub_spread->co[s]+=(cnet->Qsub->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; /*in mc/s*/
 			}
 
 		}
@@ -708,17 +655,15 @@ void routing2(CHANNEL *cnet){
 
 	long s;
 
-	/*The just calculated Q_sup_spread and Q_sub_spread are added to the flow already
+	/*The just calculated Qsup_spread and Qsub_spread are added to the flow already
 	present in the channel-network(Q_sup_s and Q_sub_s) and at once it is made a
 	traslation of Q_sup_s e Q_sub_s towards the outlet:*/
-	for(s=1;s<=cnet->Q_sup_spread->nh-1;s++){
-		//cnet->Q_sub_s->co[s]=cnet->Q_sub_s->co[s+1]+cnet->Q_sub_spread->co[s];
-		cnet->Q_sup_s->co[s]=cnet->Q_sup_s->co[s+1]+cnet->Q_sup_spread->co[s];
-		//if(cnet->Q_sup_s->co[s]>0)printf("->s:%ld Q:%f\n",s,cnet->Q_sup_s->co[s]);
+	for(s=1;s<=cnet->Qsup_spread->nh-1;s++){
+		cnet->Q_sub_s->co[s]=cnet->Q_sub_s->co[s+1]+cnet->Qsub_spread->co[s];
+		cnet->Q_sup_s->co[s]=cnet->Q_sup_s->co[s+1]+cnet->Qsup_spread->co[s];
 	}
-	//cnet->Q_sub_s->co[cnet->Q_sub_spread->nh]=cnet->Q_sub_spread->co[cnet->Q_sub_spread->nh];
-	cnet->Q_sup_s->co[cnet->Q_sup_spread->nh]=cnet->Q_sup_spread->co[cnet->Q_sup_spread->nh];
-	//if(cnet->Q_sup_s->co[cnet->Q_sup_spread->nh]>0)printf("->s:%ld Q:%f\n",cnet->Q_sup_spread->nh,cnet->Q_sup_s->co[cnet->Q_sup_spread->nh]);
+	cnet->Q_sub_s->co[cnet->Qsub_spread->nh]=cnet->Qsub_spread->co[cnet->Qsub_spread->nh];
+	cnet->Q_sup_s->co[cnet->Qsup_spread->nh]=cnet->Qsup_spread->co[cnet->Qsup_spread->nh];
 }
 
 /******************************************************************************************************************************************/
@@ -760,4 +705,3 @@ void output_waterbalance2(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-

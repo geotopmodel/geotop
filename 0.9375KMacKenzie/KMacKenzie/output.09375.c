@@ -1823,6 +1823,7 @@ free(top);
 
  free_doubletensor(sl->thice);
  free_doublematrix(sl->Jinf);
+ free_shortmatrix(sl->bc);
  free_doubletensor(sl->J);
  free_shortmatrix(sl->type);
  free_doubletensor(sl->pa);
@@ -1876,8 +1877,10 @@ free(top);
  free_doublematrix(cnet->fraction_spread);
  free_doublevector(cnet->Q_sup_s);
  free_doublevector(cnet->Q_sub_s);
- free_doublevector(cnet->Q_sup_spread);
- free_doublevector(cnet->Q_sub_spread);
+ free_doublevector(cnet->Qsup_spread);
+ free_doublevector(cnet->Qsub_spread);
+ free_doublevector(cnet->Qsup);
+ free_doublevector(cnet->Qsub);
  free(cnet);
 
  /* Deallocation of struct ENERGY "egy": */

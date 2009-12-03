@@ -125,6 +125,7 @@ typedef struct {
 	DOUBLEMATRIX *thetai_min; // min theta_ice in a layer for particular pixel in a Dt_output
 	double TsupN;// Dirichlet boundary condition at the surface
 	double ***output /* tensor (#ofYears X #ofOutputVariables X #ofLayers)  */;
+	SHORTMATRIX *bc; /* boundary condition in Richards equation */
 } SOIL;
 
 
@@ -191,8 +192,17 @@ typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of 
     /*cnet-flow in virtual stretches of channel:*/
     DOUBLEVECTOR *Q_sup_s;   /*derived from q_sup[mc/s]; dimension=ns*/
     DOUBLEVECTOR *Q_sub_s;   /*derived from q_sub[mc/s]; dimension=ns*/
-	DOUBLEVECTOR *Q_sup_spread;
-    DOUBLEVECTOR *Q_sub_spread;
+	DOUBLEVECTOR *Qsup_spread;
+    DOUBLEVECTOR *Qsub_spread;
+    DOUBLEVECTOR *Qsup;
+    DOUBLEVECTOR *Qsub;
+    /* i pixel canale sono un vettore di tante componenti quanti i pixel canali
+     * Q_sup_s: supponi che hai un canale di 1km che viene diviso in tronchi. _s
+     * si riferisce ad un tronco. "s" e' l'indice dei tronchi e ch e' l'indice dei canali.
+     * Per passare l'acqua dai canali ai tronchi, c'e' sup_spread in cui c'e' dentro la diffusione
+     * termodinamica. franction_spread e' la matrice che correla i canali in tronchi.
+     * q_sup in water e' l'acqua che viene passata alle celle nel versante, fuori dal canale.
+     * Qsup invece la tratta nel canale.*/
 } CHANNEL;
 
 
@@ -411,6 +421,13 @@ typedef struct {
 	short LRflag;
 	long num_of_time; /* superfast version: time frequency one wants the simulation to store the results, ex. every year*/
 	long superfast; /* =1: the superfast version of GEOtop is switched on, 0 othewise (regular version)*/
+	double MaxErrWb;
+	long MaxiterTol;
+	long MaxiterErr;
+	double min_tol_grad_conj;
+	double max_tol_grad_conj;
+	short harm_or_arit_mean;
+	double underrelax;
 } PAR;
 
 
