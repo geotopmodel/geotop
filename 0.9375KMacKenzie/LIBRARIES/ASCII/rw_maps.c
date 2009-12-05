@@ -30,6 +30,9 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 #include "write_ascii.h"
 #include "extensions.h"
 
+#ifdef USE_NETCDF_MAP
+#include "netcdf4geotop.h"
+#endif
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
@@ -393,6 +396,13 @@ char *namefile_i_we2(char *name, long i){
 
 short existing_file(char *name){
 
+#ifdef USE_NETCDF_MAP
+	if (strncmp(name,"#",1) == 0){
+		//if current name indicates a netcdf variable (string start with #)
+		return 4; //name contains netcdf variable name + attributes names and values
+	}
+#endif
+
 	//if the file exists gives 1 (fluidturtle), 2(grassascii), 3(esriascii), 0 if the file doesn't exist
 
 	short a=0;
@@ -420,6 +430,13 @@ short existing_file(char *name){
 }
 
 short existing_file_text(char *name){
+
+#ifdef USE_NETCDF_MAP
+	if (strncmp(name,"#",1) == 0){
+		//if current filename indicates a netcdf variable (string start with #)
+		return 4; //filename contains netcdf variable name + attributes names and  values
+	}
+#endif
 
 	//if the file exists gives 1, 0 if the file doesn't exist
 
@@ -566,13 +583,24 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 			X0map=header[2];
 			Y0map=header[3];
 			filename2=esri;
+#ifdef USE_NETCDF_MAP
+		}else if(existing_file(filename)==4){
+			M=read_netcdf(filename, Mref,&Dxmap,&Dymap,&X0map,&Y0map);
+			nr=M->nrh;
+			nc=M->nch;;
+			filename2="netcdf";
+
+#endif
+
 		}else{
 			printf("The file %s doesn't exist\n",filename);
 			t_error("Fatal error");
 		}
 
 		free(header);
-		if(a>0){
+
+		//if((a>0)&&(existing_file(filename)!=4)){ //no check in netcdf file USE_NETCDF_MAP
+		if(a>0){//USE_NETCDF_MAP
 			//Check header
 			if(Dxmap!=UVref->U->co[2]){
 				printf("Dx in %s file is different from Dx in DTM file! \n",filename2);
@@ -610,6 +638,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 			UVref->V->co[2]=novalue;
 		}
 
+if(existing_file(filename)!=4){ //USE_NETCDF_MAP
 		//assign values and check novalues
 		M=new_doublematrix(nr,nc);
 		for(r=1;r<=nr;r++){
@@ -625,7 +654,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 				}
 			}
 		}
-
+}//USE_NETCDF_MAP
 		free(m);
 	}
 	free(ft);free(grass);free(esri);
@@ -709,7 +738,7 @@ DOUBLETENSOR *read_maptensor(long i, long lmax, char *filename, DOUBLEMATRIX *Mr
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV){
+void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV,double time_in_sec,long temporal_step){//USE_NETCDF_MAP
 
 //	type=0  floating point
 //	type=1  integer
@@ -717,6 +746,8 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT
 //	format=1 fluidturtle
 //	format=2 grassascii
 //	format=3 esriascii
+//  format=4 netcdf //USE_NETCDF_MAP
+//	if time_in_sec = 0 and format=4 dont't write map //USE_NETCDF_MAP
 
 	if(format==1){
 		write_fluidturtle(filename, type, M, UV);
@@ -725,6 +756,21 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT
 	}else if(format==3){
 		write_esriascii(filename, type, M, UV);
 	}
+#ifdef USE_NETCDF_MAP
+	//if filename indicates a netcdf variable - don't write in a file separate but write in the netcdf file
+	else if (format==VAL_NETCDF_FORMAT){
+		if (time_in_sec != 0){
+			if (strncmp(filename,"#",1) == 0){
+				write_netcdf(temporal_step,filename,type, format,M,UV, time_in_sec);
+			}
+		}
+	 }
+#else
+	else  if (format==4){
+		t_error("Define USE_NETCDF_MAP in project symbols to allow netcdf map output or change format_out value in I_CONTROL_PARAMETERS file");
+	}
+#endif
+
 
 }
 
@@ -736,14 +782,14 @@ void write_mapseries(long i, char *filename, short type, short format, DOUBLEMAT
 	char SSSS[ ]={"SSSS"};
 
 	write_suffix(SSSS, i, 0);
-	write_map(join_strings(filename, SSSS), type, format, M, UV);
+	write_map(join_strings(filename, SSSS), type, format, M, UV,0,0);//USE_NETCDF_MAP
 
 }
 
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV){
+void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec){//USE_NETCDF_MAP
 
 //	a=0 non include "l" nel suffisso
 //	a=1 include "l" nel suffisso
@@ -772,7 +818,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 		}
 	}
 
-	write_map(name, type, format, M, UV);
+	write_map(name, type, format, M, UV,0,0);//USE_NETCDF_MAP
 	if (name!=NULL) free(name); /* added by Emanuele Cordano on 24/9/9 */
 	free_doublematrix(M);
 
@@ -807,7 +853,7 @@ void write_tensorseries_bis(short a, long l, long i, char *filename, short type,
 		}
 	}
 
-	write_map(name, type, format, M, UV);
+	write_map(name, type, format, M, UV,0,0);//USE_NETCDF_MAP
 	if (name!=NULL) free(name);
 
 	free_doublematrix(M);
@@ -816,13 +862,16 @@ void write_tensorseries_bis(short a, long l, long i, char *filename, short type,
 
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
+void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec){//USE_NETCDF_MAP
 
-void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV){
-
+#ifdef USE_NETCDF_MAP
+	write_doubletensor_in_netcdf(i,filename,type, format,T,UV, time_in_sec);
+#else
 	long l;
 	for(l=1;l<=T->ndh;l++){
 		write_tensorseries_bis(1, l, i, filename, type, format, T, UV);
 	}
+#endif
 }
 
 //----------------------------------------------------------------------------------------------

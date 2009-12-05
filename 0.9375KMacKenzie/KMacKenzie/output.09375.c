@@ -753,24 +753,30 @@ if(par->output_TETAxy>0 && fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==
 			}
 		}
 	}
-	write_tensorseries2(n_file, files->co[fliq]+1, 0, par->format_out, Q, UV);
+	write_tensorseries2(n_file, files->co[fliq]+1, 0, par->format_out, Q, UV,times->time+par->Dt); //USE_NETCDF_MAP
+	//modified by Emanuele Cordano
 	free_doubletensor(Q);
 
+#ifdef USE_NETCDF_MAP
+	temp=join_strings(files->co[fliq]+1,"$_error");
+	write_map(temp, 0, par->format_out, wat->error, UV,times->time+par->Dt,n_file);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[fliq]+1,"error");
 	name=join_strings(temp,SSSS);
-	write_map(name, 0, par->format_out, wat->error, UV);
+	write_map(name, 0, par->format_out, wat->error, UV,0,0);
 	initmatrix(0.0, wat->error, land->LC, NoV);
 	if (name!=NULL) free(name);
+#endif
 	free(temp);
 }
 
 
 
-//T
+//T  EMANUELE CORDANO 27 nov 2009
 if(par->output_Txy>0 && fmod(times->time+par->Dt,par->output_Txy*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Txy*3600.0));
-	write_tensorseries2(n_file, files->co[fT]+1, 0, par->format_out, sl->T, UV);
+	write_tensorseries2(n_file, files->co[fT]+1, 0, par->format_out, sl->T, UV,times->time+par->Dt); //USE_NETCDF_MAP
 
 	//***************************************************************************
 	//calculate active layer depth
@@ -803,15 +809,22 @@ if(par->output_Txy>0 && fmod(times->time+par->Dt,par->output_Txy*3600.0)==0){
 //TETAICE
 if(par->output_TETAICExy>0 && fmod(times->time+par->Dt,par->output_TETAICExy*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_TETAICExy*3600.0));
-	write_tensorseries2(n_file, files->co[fice]+1, 0, par->format_out, sl->thice, UV);
+	write_tensorseries2(n_file, files->co[fice]+1, 0, par->format_out, sl->thice, UV,times->time+par->Dt); //USE_NETCDF_MAP
 }
 
 //PSI
 if(par->output_PSIxy>0 && fmod(times->time+par->Dt,par->output_PSIxy*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_PSIxy*3600.0));
-	temp=join_strings(files->co[fpsi]+1,"LIQ");
-	write_tensorseries2(n_file,temp, 0, par->format_out, sl->P, UV);
+#ifdef USE_NETCDF_MAP
+	//LIQ file correspond exactly to netcdf variable
+	temp=join_strings(files->co[fpsi]+1,"");
+	write_tensorseries2(n_file,temp, 0, par->format_out, sl->P, UV,times->time+par->Dt);
 	free(temp);
+#else
+	temp=join_strings(files->co[fpsi]+1,"LIQ");
+	write_tensorseries2(n_file,temp, 0, par->format_out, sl->P, UV,0);
+	free(temp);
+#endif
 	Q=new_doubletensor(Nl,Nr,Nc);
 	initialize_doubletensor(Q,UV->V->co[2]);
 	for(r=1;r<=Nr;r++){
@@ -826,9 +839,17 @@ if(par->output_PSIxy>0 && fmod(times->time+par->Dt,par->output_PSIxy*3600.0)==0)
 			}
 		}
 	}
-	temp=join_strings(files->co[fpsi]+1,"TOT");
-	write_tensorseries2(n_file,temp, 0, par->format_out, Q, UV);
+#ifdef USE_NETCDF_MAP
+	//TOT file correspond netcdfvarname_tot variable
+	temp=join_strings(files->co[fpsi]+1,"$_tot"); //$ is token field separator
+	printf("%s\n",temp);
+	write_tensorseries2(n_file,temp, 0, par->format_out, Q, UV,times->time+par->Dt);
 	free(temp);
+#else
+	temp=join_strings(files->co[fpsi]+1,"TOT");
+	write_tensorseries2(n_file,temp, 0, par->format_out, Q, UV,times->time+par->Dt);
+	free(temp);
+#endif
 	//***************************************************************************
 	//calculate saturation front depth
 	/*K=new_doublematrix(Nr,Nc);
@@ -889,11 +910,16 @@ initialize_doublematrix(M,UV->V->co[2]);
 //ALBEDO
 if(par->output_albedo>0 && fmod(times->time+par->Dt,par->output_albedo*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_albedo*3600.0));
+#ifdef USE_NETCDF_MAP
+	write_map(temp,0, par->format_out, land->albedo, UV,times->time+par->Dt,n_file);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[falb]+1,SSSS);
-	write_map(temp,0, par->format_out, land->albedo, UV);
+	write_map(temp,0, par->format_out, land->albedo, UV,0,0);
 	free(temp);
+#endif
 	initmatrix(0.0, land->albedo, top->Z0, NoV);
+
 }
 
 //SNOW DEPTH
@@ -910,11 +936,17 @@ if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)==0){
 			}
 		}
 	}
+#ifdef USE_NETCDF_MAP
+	temp=join_strings(files->co[fsn]+1,"$_dist"); //$ is token field separator
+	write_map(temp, 0, par->format_out, M, UV,times->time+par->Dt,n_file);
+#else
 	temp=join_strings(files->co[fsn]+1,"Dist");
 	temp1=join_strings(temp,SSSS);
-	write_map(temp1, 0, par->format_out, M, UV);
+	write_map(temp1, 0, par->format_out, M, UV,0,0);
 	free(temp1);
+#endif
 	free(temp);
+
 	//write_map(join_strings(join_strings(files->co[fsn]+1,"Dmax"),SSSS), 0, par->format_out, snow->max, UV);
 	//initmatrix(0.0, snow->max, top->Z0, NoV);
 	//write_map(join_strings(join_strings(files->co[fsn]+1,"Daverage"),SSSS), 0, par->format_out, snow->average, UV);
@@ -928,12 +960,18 @@ if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)==0){
 		//initmatrix(0.0, snow->Wsusp_cum, top->Z0, NoV);
 		//write_map(join_strings(join_strings(files->co[fsn]+1,"BSsbgr"),SSSS), 0, par->format_out, snow->Wsubgrid_cum, UV);
 		//initmatrix(0.0, snow->Wsubgrid_cum, top->Z0, NoV);
+	#ifdef USE_NETCDF_MAP
+		temp=join_strings(files->co[fsn]+1,"$_bstot"); //$ is token field separator
+		write_map(temp, 0, par->format_out, snow->Wtot, UV,times->time+par->Dt,n_file);
+	#else
 		temp=join_strings(files->co[fsn]+1,"BStot");
 		temp1=join_strings(temp,SSSS);
-		write_map(temp1, 0, par->format_out, snow->Wtot, UV);
+		write_map(temp1, 0, par->format_out, snow->Wtot, UV,0,0);
 		free(temp1);
+	#endif
 		free(temp);
 		initmatrix(0.0, snow->Wtot, top->Z0, NoV);
+
 	}
 }
 
@@ -951,50 +989,107 @@ if(par->glaclayer_max>0 && par->output_glac>0 && fmod(times->time+par->Dt,par->o
 			}
 		}
 	}
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fgl]+1, 0, par->format_out, M, UV,times->time+par->Dt,n_file);
+#else
 	temp=join_strings(files->co[fgl]+1,SSSS);
-	write_map(temp, 0, par->format_out, M, UV);
+	write_map(temp, 0, par->format_out, M, UV,0,0);
 	free(temp);
+#endif
+
 }
 
 //WATER OVER THE SURFACE
 if(par->output_h_sup>0 && fmod(times->time+par->Dt,par->output_h_sup*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_h_sup*3600.0));
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fhsup]+1, 0, par->format_out, wat->hsupav, UV,times->time+par->Dt,n_file);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[fhsup]+1,SSSS);
-	write_map(temp, 0, par->format_out, wat->hsupav, UV);
+	write_map(temp, 0, par->format_out, wat->hsupav, UV,0,0);
 	free(temp);
+#endif
 	initmatrix(0.0, wat->hsupav, top->Z0, NoV);
 }
 
 //RADIATION
 if(par->output_Rn>0 && fmod(times->time+par->Dt,par->output_Rn*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Rn*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fRn]+1,"$_nmean");
+	write_map(name, 0, par->format_out, egy->Rn_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->Rn_mean, top->Z0, NoV);
+	free(name);
+
+	name=join_strings(files->co[fRn]+1,"$_lwin");
+	write_map(name, 0, par->format_out, egy->LW_in, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->LW_in, top->Z0, NoV);
+	free(name);
+
+	name=join_strings(files->co[fRn]+1,"$lwout");
+	write_map(name, 0, par->format_out, egy->LW_out, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->LW_out, top->Z0, NoV);
+	free(name);
+
+	name=join_strings(files->co[fRn]+1,"$_sw");
+	write_map(name, 0, par->format_out, egy->SW, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->SW, top->Z0, NoV);
+	free(name);
+
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fRn]+1,"$_nmax");
+		write_map(name, 0, par->format_out, egy->Rn_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->Rn_max, top->Z0, NoV);
+		free(name);
+
+		name=join_strings(files->co[fRn]+1,"$_nmin");
+		write_map(name, 0, par->format_out, egy->Rn_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->Rn_min, top->Z0, NoV);
+		free(name);
+
+		name=join_strings(files->co[fRn]+1,"$_lwmax");
+		write_map(name, 0, par->format_out, egy->LW_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->LW_max, top->Z0, NoV);
+		free(name);
+
+		name=join_strings(files->co[fRn]+1,"$_lwmin");
+		write_map(name, 0, par->format_out, egy->LW_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->LW_min, top->Z0, NoV);
+		free(name);
+
+		name=join_strings(files->co[fRn]+1,"$_swmax");
+		write_map(name, 0, par->format_out, egy->SW_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->SW_max, top->Z0, NoV);
+		free(name);
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	name=join_strings(files->co[fRn]+1,"nmean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->Rn_mean, UV);
+	write_map(temp, 0, par->format_out, egy->Rn_mean, UV,0,0);
 	free(temp);
 	initmatrix(0.0, egy->Rn_mean, top->Z0, NoV);
 	free(name);
 
 	name=join_strings(files->co[fRn]+1,"LWin");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->LW_in, UV);
+	write_map(temp, 0, par->format_out, egy->LW_in, UV,0,0);
 	free(temp);
 	initmatrix(0.0, egy->LW_in, top->Z0, NoV);
 	free(name);
 
 	name=join_strings(files->co[fRn]+1,"LWout");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->LW_out, UV);
+	write_map(temp, 0, par->format_out, egy->LW_out, UV,0,0);
 	free(temp);
 	initmatrix(0.0, egy->LW_out, top->Z0, NoV);
 	free(name);
 
 	name=join_strings(files->co[fRn]+1,"SW");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->SW, UV);
+	write_map(temp, 0, par->format_out, egy->SW, UV,0,0);
 	free(temp);
 	initmatrix(0.0, egy->SW, top->Z0, NoV);
 	free(name);
@@ -1002,56 +1097,82 @@ if(par->output_Rn>0 && fmod(times->time+par->Dt,par->output_Rn*3600.0)==0){
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fRn]+1,"nmax");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Rn_max, UV);
+		write_map(temp, 0, par->format_out, egy->Rn_max, UV,0,0);
 		free(temp);
 		initmatrix(-1.0E+9, egy->Rn_max, top->Z0, NoV);
 		free(name);
 
 		name=join_strings(files->co[fRn]+1,"nmin");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Rn_min, UV);
+		write_map(temp, 0, par->format_out, egy->Rn_min, UV,0,0);
 		free(temp);
 		initmatrix(1.0E+9, egy->Rn_min, top->Z0, NoV);
 		free(name);
 
 		name=join_strings(files->co[fRn]+1,"LWmax");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->LW_max, UV);
+		write_map(temp, 0, par->format_out, egy->LW_max, UV,0,0);
 		free(temp);
 		initmatrix(-1.0E+9, egy->LW_max, top->Z0, NoV);
 		free(name);
 
 		name=join_strings(files->co[fRn]+1,"LWmin");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->LW_min, UV);
+		write_map(temp, 0, par->format_out, egy->LW_min, UV,0,0);
 		free(temp);
 		initmatrix(1.0E+9, egy->LW_min, top->Z0, NoV);
 		free(name);
 
 		name=join_strings(files->co[fRn]+1,"SWmax");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->SW_max, UV);
+		write_map(temp, 0, par->format_out, egy->SW_max, UV,0,0);
 		free(temp);
 		initmatrix(-1.0E+9, egy->SW_max, top->Z0, NoV);
 		free(name);
 	}
+#endif
 }
 
 //GROUND HEAT FLUX
 if(par->output_G>0 && fmod(times->time+par->Dt,par->output_G*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_G*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fG]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->G_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->G_mean, top->Z0, NoV);
+	free(name);
+
+	name=join_strings(files->co[fG]+1,"$_snowsoil");
+	write_map(name, 0, par->format_out, egy->G_snowsoil, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->G_snowsoil, top->Z0, NoV);
+	free(name);
+
+	if(par->distr_stat==1){
+
+		name=join_strings(files->co[fG]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->G_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->G_max, top->Z0, NoV);
+		free(name);
+
+		name=join_strings(files->co[fG]+1,"$_min");
+		write_map(name, 0, par->format_out, egy->G_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->G_min, top->Z0, NoV);
+		free(name);
+
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	name=join_strings(files->co[fG]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->G_mean, UV);
+	write_map(temp, 0, par->format_out, egy->G_mean, UV,0,0);
 	initmatrix(0.0, egy->G_mean, top->Z0, NoV);
 	free(temp);
 	free(name);
 
 	name=join_strings(files->co[fG]+1,"snowsoil");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->G_snowsoil, UV);
+	write_map(temp, 0, par->format_out, egy->G_snowsoil, UV,0,0);
 	initmatrix(0.0, egy->G_snowsoil, top->Z0, NoV);
 	free(temp);
 	free(name);
@@ -1060,30 +1181,49 @@ if(par->output_G>0 && fmod(times->time+par->Dt,par->output_G*3600.0)==0){
 
 		name=join_strings(files->co[fG]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->G_max, UV);
+		write_map(temp, 0, par->format_out, egy->G_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->G_max, top->Z0, NoV);
 		free(temp);
 		free(name);
 
 		name=join_strings(files->co[fG]+1,"min");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->G_min, UV);
+		write_map(temp, 0, par->format_out, egy->G_min, UV,0,0);
 		initmatrix(1.0E+9, egy->G_min, top->Z0, NoV);
 		free(name);
 		free(temp);
 
 	}
+#endif
+
 }
 
 //SENSIBLE HEAT FLUX
 if(par->output_H>0 && fmod(times->time+par->Dt,par->output_H*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_H*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fH]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->H_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->H_mean, top->Z0, NoV);
+	free(name);
+
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fH]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->H_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->H_max, top->Z0, NoV);
+		free(name);
+		name=join_strings(files->co[fH]+1,"$_min");
+		write_map(name, 0, par->format_out, egy->H_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->H_min, top->Z0, NoV);
+		free(name);
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	//name=join_strings(files->co[fH]+1,"mean+");
 	name=join_strings(files->co[fH]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->H_mean, UV);
+	write_map(temp, 0, par->format_out, egy->H_mean, UV,0,0);
 	initmatrix(0.0, egy->H_mean, top->Z0, NoV);
 	free(name);
 	free(temp);
@@ -1093,28 +1233,48 @@ if(par->output_H>0 && fmod(times->time+par->Dt,par->output_H*3600.0)==0){
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fH]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->H_max, UV);
+		write_map(temp, 0, par->format_out, egy->H_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->H_max, top->Z0, NoV);
 		free(name);
 		free(temp);
 		name=join_strings(files->co[fH]+1,"min");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->H_min, UV);
+		write_map(temp, 0, par->format_out, egy->H_min, UV,0,0);
 		initmatrix(1.0E+9, egy->H_min, top->Z0, NoV);
 		free(name);
 		free(temp);
 	}
+#endif
+
+
 }
 
 //LATENT HEAT FLUX
 if(par->output_ET>0 && fmod(times->time+par->Dt,par->output_ET*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_ET*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fLE]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->ET_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->ET_mean, top->Z0, NoV);
+	free(name);
+
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fLE]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->ET_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->ET_max, top->Z0, NoV);
+		free(name);
+		name=join_strings(files->co[fLE]+1,"$_min");
+		write_map(name, 0, par->format_out, egy->ET_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->ET_min, top->Z0, NoV);
+		free(name);
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	//name=join_strings(files->co[fLE]+1,"mean+");
 	name=join_strings(files->co[fLE]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->ET_mean, UV);
+	write_map(temp, 0, par->format_out, egy->ET_mean, UV,0,0);
 	initmatrix(0.0, egy->ET_mean, top->Z0, NoV);
 	//name=join_strings(files->co[fLE]+1,"mean-");
 	//write_map(join_strings(name,SSSS), 0, par->format_out, egy->ET_mean2, UV);
@@ -1124,86 +1284,126 @@ if(par->output_ET>0 && fmod(times->time+par->Dt,par->output_ET*3600.0)==0){
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fLE]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->ET_max, UV);
+		write_map(temp, 0, par->format_out, egy->ET_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->ET_max, top->Z0, NoV);
 		free(temp);
 		free(name);
 		name=join_strings(files->co[fLE]+1,"min");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->ET_min, UV);
+		write_map(temp, 0, par->format_out, egy->ET_min, UV,0,0);
 		initmatrix(1.0E+9, egy->ET_min, top->Z0, NoV);
 		free(name);
 		free(temp);
 	}
+#endif
 }
 
 //SURFACE TEMPERATURE
 if(par->output_Ts>0 && fmod(times->time+par->Dt,par->output_Ts*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Ts*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fTs]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->Ts_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->Ts_mean, top->Z0, NoV);
+	free(name);
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fTs]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->Ts_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->Ts_max, top->Z0, NoV);
+		free(name);
+		name=join_strings(files->co[fTs]+1,"$_min");
+		write_map(name, 0, par->format_out, egy->Ts_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->Ts_min, top->Z0, NoV);
+		free(name);
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	name=join_strings(files->co[fTs]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->Ts_mean, UV);
+	write_map(temp, 0, par->format_out, egy->Ts_mean, UV,0,0);
 	initmatrix(0.0, egy->Ts_mean, top->Z0, NoV);
 	free(temp);
 	free(name);
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fTs]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Ts_max, UV);
+		write_map(temp, 0, par->format_out, egy->Ts_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->Ts_max, top->Z0, NoV);
 		free(temp);
 		free(name);
 		name=join_strings(files->co[fTs]+1,"min");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Ts_min, UV);
+		write_map(temp, 0, par->format_out, egy->Ts_min, UV,0,0);
 		initmatrix(1.0E+9, egy->Ts_min, top->Z0, NoV);
 		free(name);
 		free(temp);
 	}
+#endif
+
 }
 
 //PRECIPITATION
 if(par->output_P>0 && fmod(times->time+par->Dt,par->output_P*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_P*3600.0));
+#ifdef USE_NETCDF_MAP
+	temp=join_strings(files->co[fprec]+1,"$_total");
+	write_map(temp, 0, par->format_out, wat->PrTOT_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, wat->PrTOT_mean, top->Z0, NoV);
+	free(temp);
+	temp=join_strings(files->co[fprec]+1,"$_snow");
+	write_map(temp, 0, par->format_out, wat->PrSNW_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, wat->PrSNW_mean, top->Z0, NoV);
+	free(temp);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[fprec]+1,"TOTAL");
 	name=join_strings(temp,SSSS);
-	write_map(name, 0, par->format_out, wat->PrTOT_mean, UV);
+	write_map(name, 0, par->format_out, wat->PrTOT_mean, UV,0,0);
 	initmatrix(0.0, wat->PrTOT_mean, top->Z0, NoV);
 	free(name);
 	free(temp);
 	temp=join_strings(files->co[fprec]+1,"SNOW");
 	name=join_strings(temp,SSSS);
-	write_map(name, 0, par->format_out, wat->PrSNW_mean, UV);
+	write_map(name, 0, par->format_out, wat->PrSNW_mean, UV,0,0);
 	initmatrix(0.0, wat->PrSNW_mean, top->Z0, NoV);
 	free(name);
 	free(temp);
-
+#endif
 }
 
 //INTERCEPTED PRECIPITATION
 if(par->output_Wr>0 && fmod(times->time+par->Dt,par->output_Wr*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Wr*3600.0));
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fcint]+1, 0, par->format_out, wat->wcan_rain, UV,times->time+par->Dt,n_file);
+#else
 	write_suffix(SSSS, n_file, 0);
 	name=join_strings(files->co[fcint]+1,SSSS);
-	write_map(name, 0, par->format_out, wat->wcan_rain, UV);
+	write_map(name, 0, par->format_out, wat->wcan_rain, UV,0,0);
 	free(name);
+#endif
 }
 
 //SNOW ENERGY BALANCE
 if(par->output_balancesn>0 && fmod(times->time+par->Dt,par->output_balancesn*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_balancesn*3600.0));
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fmsn]+1, 0, par->format_out, snow->MELTED, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, snow->MELTED, top->Z0, NoV);
+	write_map(files->co[fssn]+1, 0, par->format_out, snow->SUBL, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, snow->SUBL, top->Z0, NoV);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[fmsn]+1,SSSS);
-	write_map(temp, 0, par->format_out, snow->MELTED, UV);
+	write_map(temp, 0, par->format_out, snow->MELTED, UV,0,0);
 	free(temp);
 	initmatrix(0.0, snow->MELTED, top->Z0, NoV);
 	temp=join_strings(files->co[fssn]+1,SSSS);
-	write_map(temp, 0, par->format_out, snow->SUBL, UV);
+	write_map(temp, 0, par->format_out, snow->SUBL, UV,0,0);
 	free(temp);
 	initmatrix(0.0, snow->SUBL, top->Z0, NoV);
+#endif
 
 	for(r=1;r<=snow->Dzl->nrh;r++){
 		for(c=1;c<=snow->Dzl->nch;c++){
@@ -1218,23 +1418,34 @@ if(par->output_balancesn>0 && fmod(times->time+par->Dt,par->output_balancesn*360
 			}
 		}
 	}
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fsnd]+1, 0, par->format_out, M, UV,times->time+par->Dt,n_file);
+#else
 	temp=join_strings(files->co[fsnd]+1,SSSS);
-	write_map(temp, 0, par->format_out, M, UV);
+	write_map(temp, 0, par->format_out, M, UV,0,0);
 	free(temp);
+#endif
 }
 
 //GLACIER ENERGY BALANCE
 if(par->glaclayer_max>0 && par->output_balancegl>0 && fmod(times->time+par->Dt,par->output_balancegl*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_balancegl*3600.0));
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fmgl]+1, 0, par->format_out, glac->MELTED, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, glac->MELTED, top->Z0, NoV);
+	write_map(files->co[fsgl]+1, 0, par->format_out, glac->SUBL, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, glac->SUBL, top->Z0, NoV);
+#else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[fmgl]+1,SSSS);
-	write_map(temp, 0, par->format_out, glac->MELTED, UV);
+	write_map(temp, 0, par->format_out, glac->MELTED, UV,0,0);
 	free(temp);
 	initmatrix(0.0, glac->MELTED, top->Z0, NoV);
 	temp=join_strings(files->co[fsgl]+1,SSSS);
-	write_map(temp, 0, par->format_out, glac->SUBL, UV);
+	write_map(temp, 0, par->format_out, glac->SUBL, UV,0,0);
 	free(temp);
 	initmatrix(0.0, glac->SUBL, top->Z0, NoV);
+#endif
 
 	for(r=1;r<=glac->Dzl->nrh;r++){
 		for(c=1;c<=glac->Dzl->nch;c++){
@@ -1251,33 +1462,73 @@ if(par->glaclayer_max>0 && par->output_balancegl>0 && fmod(times->time+par->Dt,p
 			}
 		}
 	}
+#ifdef USE_NETCDF_MAP
+	write_map(files->co[fgld]+1, 0, par->format_out, M, UV,0,n_file);
+#else
 	temp=join_strings(files->co[fgld]+1,SSSS);
-	write_map(temp, 0, par->format_out, M, UV);
+	write_map(temp, 0, par->format_out, M, UV,0,0);
 	free(temp);
+#endif
+
 }
 
 //SOLAR RADIATION
 if(par->output_Rswdown>0 && fmod(times->time+par->Dt,par->output_Rswdown*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_Rswdown*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fSW]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->Rswdown_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->Rswdown_mean, top->Z0, NoV);
+	free(name);
+
+	name=join_strings(files->co[fSW]+1,"$_beam_mean");
+	write_map(name, 0, par->format_out, egy->Rswbeam, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->Rswbeam, top->Z0, NoV);
+	free(name);
+
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fSW]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->Rswdown_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->Rswdown_max, top->Z0, NoV);
+		free(name);
+	}
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
+				if(egy->nDt_sun->co[r][c]>0){
+					M->co[r][c]=egy->nDt_shadow->co[r][c]/(double)(egy->nDt_sun->co[r][c]);
+				}else{
+					M->co[r][c]=0.0;
+				}
+			}
+		}
+	}
+	name=join_strings(files->co[fSW]+1,"$_shadowfractime");
+	write_map(name, 0, par->format_out, M, UV,times->time+par->Dt,n_file);
+	initlongmatrix(0, egy->nDt_shadow, top->Z0, NoV);
+	initlongmatrix(0, egy->nDt_sun, top->Z0, NoV);
+	free(name);
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	name=join_strings(files->co[fSW]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->Rswdown_mean, UV);
+	write_map(temp, 0, par->format_out, egy->Rswdown_mean, UV,0,0);
 	initmatrix(0.0, egy->Rswdown_mean, top->Z0, NoV);
 	free(name);
 	free(temp);
 
 	name=join_strings(files->co[fSW]+1,"beam_mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->Rswbeam, UV);
+	write_map(temp, 0, par->format_out, egy->Rswbeam, UV,0,0);
 	initmatrix(0.0, egy->Rswbeam, top->Z0, NoV);
 	free(name);
 	free(temp);
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fSW]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Rswdown_max, UV);
+		write_map(temp, 0, par->format_out, egy->Rswdown_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->Rswdown_max, top->Z0, NoV);
 		free(name);
 		free(temp);
@@ -1296,60 +1547,96 @@ if(par->output_Rswdown>0 && fmod(times->time+par->Dt,par->output_Rswdown*3600.0)
 	}
 	name=join_strings(files->co[fSW]+1,"shadowfractime");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, M, UV);
+	write_map(temp, 0, par->format_out, M, UV,0,0);
 	initlongmatrix(0, egy->nDt_shadow, top->Z0, NoV);
 	initlongmatrix(0, egy->nDt_sun, top->Z0, NoV);
 	free(name);
 	free(temp);
+#endif
 }
 
 //METEO
 if(par->output_meteo>0 && fmod(times->time+par->Dt,par->output_meteo*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_meteo*3600.0));
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fTa]+1,"$_mean");
+	write_map(name, 0, par->format_out, egy->Ta_mean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, egy->Ta_mean, top->Z0, NoV);
+	free(name);
+	if(par->distr_stat==1){
+		name=join_strings(files->co[fTa]+1,"$_max");
+		write_map(name, 0, par->format_out, egy->Ta_max, UV,times->time+par->Dt,n_file);
+		initmatrix(-1.0E+9, egy->Ta_max, top->Z0, NoV);
+		free(name);
+		name=join_strings(files->co[fTa]+1,"$_min");
+		write_map(name, 0, par->format_out, egy->Ta_min, UV,times->time+par->Dt,n_file);
+		initmatrix(1.0E+9, egy->Ta_min, top->Z0, NoV);
+		free(name);
+	}
+#else
 	write_suffix(SSSS, n_file, 0);
 
 	name=join_strings(files->co[fTa]+1,"mean");
 	temp=join_strings(name,SSSS);
-	write_map(temp, 0, par->format_out, egy->Ta_mean, UV);
+	write_map(temp, 0, par->format_out, egy->Ta_mean, UV,0,0);
 	initmatrix(0.0, egy->Ta_mean, top->Z0, NoV);
 	free(temp);
 	free(name);
 	if(par->distr_stat==1){
 		name=join_strings(files->co[fTa]+1,"max");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Ta_max, UV);
+		write_map(temp, 0, par->format_out, egy->Ta_max, UV,0,0);
 		initmatrix(-1.0E+9, egy->Ta_max, top->Z0, NoV);
 		free(name);
 		free(temp);
 		name=join_strings(files->co[fTa]+1,"min");
 		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, egy->Ta_min, UV);
+		write_map(temp, 0, par->format_out, egy->Ta_min, UV,0,0);
 		initmatrix(1.0E+9, egy->Ta_min, top->Z0, NoV);
 		free(name);
 		free(temp);
 	}
+#endif
 
 	if(par->micromet==1){
-		name=join_strings(files->co[fwspd]+1,"mean");
-		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, met->Vspdmean, UV);
-		initmatrix(0.0, met->Vspdmean, top->Z0, NoV);
-		free(temp);
-		free(name);
+#ifdef USE_NETCDF_MAP
+	name=join_strings(files->co[fwspd]+1,"$_mean");
+	write_map(name, 0, par->format_out, met->Vspdmean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, met->Vspdmean, top->Z0, NoV);
+	free(name);
 
-		name=join_strings(files->co[fwdir]+1,"mean");
-		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, met->Vdirmean, UV);
-		initmatrix(0.0, met->Vdirmean, top->Z0, NoV);
-		free(temp);
-		free(name);
+	name=join_strings(files->co[fwdir]+1,"$_mean");
+	write_map(name, 0, par->format_out, met->Vdirmean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, met->Vdirmean, top->Z0, NoV);
+	free(name);
 
-		name=join_strings(files->co[frh]+1,"mean");
-		temp=join_strings(name,SSSS);
-		write_map(temp, 0, par->format_out, met->RHmean, UV);
-		initmatrix(0.0, met->RHmean, top->Z0, NoV);
-		free(temp);
-		free(name);
+	name=join_strings(files->co[frh]+1,"$_mean");
+	write_map(name, 0, par->format_out, met->RHmean, UV,times->time+par->Dt,n_file);
+	initmatrix(0.0, met->RHmean, top->Z0, NoV);
+	free(name);
+#else
+	name=join_strings(files->co[fwspd]+1,"mean");
+	temp=join_strings(name,SSSS);
+	write_map(temp, 0, par->format_out, met->Vspdmean, UV,0,0);
+	initmatrix(0.0, met->Vspdmean, top->Z0, NoV);
+	free(temp);
+	free(name);
+
+	name=join_strings(files->co[fwdir]+1,"mean");
+	temp=join_strings(name,SSSS);
+	write_map(temp, 0, par->format_out, met->Vdirmean, UV,0,0);
+	initmatrix(0.0, met->Vdirmean, top->Z0, NoV);
+	free(temp);
+	free(name);
+
+	name=join_strings(files->co[frh]+1,"mean");
+	temp=join_strings(name,SSSS);
+	write_map(temp, 0, par->format_out, met->RHmean, UV,0,0);
+	initmatrix(0.0, met->RHmean, top->Z0, NoV);
+	free(temp);
+	free(name);
+#endif
+
 	}
 }
 
@@ -1564,60 +1851,79 @@ if(isavings < par->saving_points->nh){
 
 			write_suffix(SSSS, isavings, 0);
 
+#ifdef USE_NETCDF_MAP
+			//force output map in esriascii format
+			short int tmp_format_output;
+			if (par->format_out >= 4){
+				tmp_format_output=par->format_out;
+				par->format_out=3;
+			}
+#endif
 
 			for(l=1;l<=Nl;l++){
-				write_tensorseries(1, l, isavings, files->co[rpsi]+1, 0, par->format_out, sl->P, UV);
-				write_tensorseries(1, l, isavings, files->co[riceg]+1, 0, par->format_out, sl->thice, UV);
-				write_tensorseries(1, l, isavings, files->co[rTg]+1, 0, par->format_out, sl->T, UV);
+				write_tensorseries(1, l, isavings, files->co[rpsi]+1, 0, par->format_out, sl->P, UV,0);
+				write_tensorseries(1, l, isavings, files->co[riceg]+1, 0, par->format_out, sl->thice, UV,0);
+				write_tensorseries(1, l, isavings, files->co[rTg]+1, 0, par->format_out, sl->T, UV,0);
 			}
+
 			temp=join_strings(files->co[rhsup]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->h_sup, UV);
+			write_map(temp, 0, par->format_out, wat->h_sup, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			temp=join_strings(files->co[rwcrn]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->wcan_rain, UV);
+			write_map(temp, 0, par->format_out, wat->wcan_rain, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			temp=join_strings(files->co[rwcsn]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->wcan_snow, UV);
+			write_map(temp, 0, par->format_out, wat->wcan_snow, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			temp=join_strings(files->co[rTv]+1,SSSS);
-			write_map(temp, 0, par->format_out, sl->Tv, UV);
+			write_map(temp, 0, par->format_out, sl->Tv, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
+
+
 
 
 			for(l=1;l<=par->snowlayer_max;l++){
-				write_tensorseries(1, l, isavings, files->co[rDzs]+1, 0, par->format_out, snow->Dzl, UV);
-				write_tensorseries(1, l, isavings, files->co[rwls]+1, 0, par->format_out, snow->w_liq, UV);
-				write_tensorseries(1, l, isavings, files->co[rwis]+1, 0, par->format_out, snow->w_ice, UV);
-				write_tensorseries(1, l, isavings, files->co[rTs]+1, 0, par->format_out, snow->T, UV);
+				write_tensorseries(1, l, isavings, files->co[rDzs]+1, 0, par->format_out, snow->Dzl, UV,0);
+				write_tensorseries(1, l, isavings, files->co[rwls]+1, 0, par->format_out, snow->w_liq, UV,0);
+				write_tensorseries(1, l, isavings, files->co[rwis]+1, 0, par->format_out, snow->w_ice, UV,0);
+				write_tensorseries(1, l, isavings, files->co[rTs]+1, 0, par->format_out, snow->T, UV,0);
+
 			}
 			temp=join_strings(files->co[rsnag_adim]+1,SSSS);
-			write_map(temp, 0, par->format_out, snow->nondimens_age, UV);
+			write_map(temp, 0, par->format_out, snow->nondimens_age, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			temp=join_strings(files->co[rsnag_dim]+1,SSSS);
-			write_map(temp, 0, par->format_out, snow->dimens_age, UV);
+			write_map(temp, 0, par->format_out, snow->dimens_age, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			M=copydouble_longmatrix(snow->lnum);
 			temp=join_strings(files->co[rns]+1, SSSS);
-			write_map(temp, 1, par->format_out, M, UV);
+			write_map(temp, 1, par->format_out, M, UV,0,0); //USE_NETCDF_MAP
 			free(temp);
 			free_doublematrix(M);
 
 
 			if(par->glaclayer_max>0){
 				for(l=1;l<=par->glaclayer_max;l++){
-					write_tensorseries(1, l, isavings, files->co[rDzi]+1, 0, par->format_out, glac->Dzl, UV);
-					write_tensorseries(1, l, isavings, files->co[rwli]+1, 0, par->format_out, glac->w_liq, UV);
-					write_tensorseries(1, l, isavings, files->co[rwii]+1, 0, par->format_out, glac->w_ice, UV);
-					write_tensorseries(1, l, isavings, files->co[rTi]+1, 0, par->format_out, glac->T, UV);
+					write_tensorseries(1, l, isavings, files->co[rDzi]+1, 0, par->format_out, glac->Dzl, UV,0);
+					write_tensorseries(1, l, isavings, files->co[rwli]+1, 0, par->format_out, glac->w_liq, UV,0);
+					write_tensorseries(1, l, isavings, files->co[rwii]+1, 0, par->format_out, glac->w_ice, UV,0);
+					write_tensorseries(1, l, isavings, files->co[rTi]+1, 0, par->format_out, glac->T, UV,0);
+
 				}
 				M=copydouble_longmatrix(glac->lnum);
 				temp=join_strings(files->co[rni]+1,SSSS);
-				write_map(temp, 1, par->format_out, M, UV);
+				write_map(temp, 1, par->format_out, M, UV,0,0); //USE_NETCDF_MAP
 				free(temp);
 				free_doublematrix(M);
+
 			}
 
-
+#ifdef USE_NETCDF_MAP
+			//restore original output map parameter
+			if (par->format_out >= 4){
+				par->format_out=tmp_format_output;
+			}
+#endif
 			temp=join_strings(files->co[rQch]+1,SSSS);
 			name=join_strings(temp,textfile);
 			f=t_fopen(name,"w");
@@ -2242,13 +2548,21 @@ void write_date(FILE *f, long day, long month, long year, long hour, long min)
 /*==================================================================================================================*/
 
 void plot(char *name, long JD, long y, long i, DOUBLEMATRIX *M, short format){
+	// USE_NETCDF_MAP
+	//force output map in esriascii format
+	if (format >= 4) {
+		printf("Warning: output map are writtenm in esriiasci format. Poject not built to support NetCDF files \n");//added by Emanuele Cordano 
+		format=3;
+		}
+	// USE_NETCDF_MAP 
 
 	char ADS[ ]={"aaaaddddLssss"};
 
 	write_suffix(ADS, y, 0);
 	write_suffix(ADS, JD, 4);
 	write_suffix(ADS, i, 9);
-	write_map(join_strings(name,ADS), 0, format, M, UV);
+	write_map(join_strings(name,ADS), 0, format, M, UV,0,0); //USE_NETCDF_MAP
+
 }
 
 /*==================================================================================================================*/

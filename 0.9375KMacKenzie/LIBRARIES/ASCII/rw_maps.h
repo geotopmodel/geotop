@@ -20,8 +20,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-    
-    
+
+
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 //BASE subroutines
@@ -89,12 +89,12 @@ DOUBLETENSOR *read_maptensor(long i, long lmax, char *filename, DOUBLEMATRIX *Mr
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV);
+void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV,double time_in_sec,long temporal_step); //USE_NETCDF_MAP
 
 void write_mapseries(long i, char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV);
 
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
+void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec); //USE_NETCDF_MAP
 
 void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
 
-void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
+void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec); //USE_NETCDF_MAP

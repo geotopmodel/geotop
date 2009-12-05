@@ -26,8 +26,11 @@ This file is part of KeyPalette.
 #include "key.palette.h"
 #include "get_filenames.h"
 #define INIT ".init"
+#ifdef USE_NETCDF_MAP
+#define INPTS ".inpts.cf"
+#else
 #define INPTS ".inpts"
-
+#endif
 
 #define NOFILE_NAME join_strings(WORKING_DIRECTORY,"MISSING_FILE")
 

@@ -4,7 +4,7 @@
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
 GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Cordano
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
@@ -37,6 +37,9 @@ Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Co
 #include "snow.09375.h"
 #include "micromet.h"
 #include "input.09375.h"
+#ifdef USE_NETCDF_MAP
+#include "netcdf4geotop.h"
+#endif
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
 extern STRINGBIN *files;
@@ -121,6 +124,12 @@ t_fclose(f);
 /****************************************************************************************************/
 read_parameterfile(files->co[fpar]+1, par, IT);	/* reads the file __parameters.txt */
 read_soil_parameters(files->co[fspar]+1, &n_soiltypes, sl);	/* reads the file _soil.txt and defines NL (number of soil layers) */
+
+#ifdef USE_NETCDF_MAP
+if (par->format_out==VAL_NETCDF_FORMAT) {
+	write_vertical_dimension_in_netcdf(sl->pa,jdz,par->JD0,par->year0);
+}
+#endif
 
 if(par->point_sim!=1){ /* distributed simulation */
 	read_inputmaps(top, land, sl, par);
@@ -1661,7 +1670,7 @@ DOUBLEMATRIX *De_Saint_Venant(DOUBLEVECTOR *s0,double u0,double D,double Dt)
  for(ch=1;ch<=s0->nh;ch++){
     if (s0max<s0->co[ch]) s0max=s0->co[ch];
  }
-//printf("u0=%f, Dt=%f",u0,Dt);stop_execution();
+
  f=fopen(error_file_name,"a");
 
  /* Finding out the distance of the farthest virtual channel-stretch; it has to be enough to allow an
@@ -1832,7 +1841,7 @@ FILE *f;
 M=new_doublematrix(1,1);
 top->Z0=read_map(0, files->co[fdem]+1, M, UV); //topography
 free_doublematrix(M);
-write_map(files->co[fdem]+1, 0, par->format_out, top->Z0, UV);
+write_map(files->co[fdem]+1, 0, par->format_out, top->Z0, UV,0,0);//USE_NETCDF_MAP
 
 if(existing_file(files->co[flu]+1)>0){ //landuse (reading or write default values)
 	land->LC=read_map(1, files->co[flu]+1, top->Z0, UV);
@@ -1878,7 +1887,7 @@ if(existing_file(files->co[flu]+1)>0){ //landuse (reading or write default value
 	}
 
 }
-write_map(files->co[flu]+1, 1, par->format_out, land->LC, UV);
+write_map(files->co[flu]+1, 1, par->format_out, land->LC, UV,0,0);//USE_NETCDF_MAP
 
 /****************************************************************************************************/
 //reading SKY VIEW FACTOR
@@ -1913,7 +1922,7 @@ if(existing_file(files->co[fsky]+1)>0){
 	free_doublevector(UV2->V);
 	free(UV2);
 }
-write_map(files->co[fsky]+1, 0, par->format_out, top->sky, UV);
+write_map(files->co[fsky]+1, 0, par->format_out, top->sky, UV,0,0);//USE_NETCDF_MAP
 
 /****************************************************************************************************/
 //reading DRAINAGE DIRECTIONS
@@ -1926,7 +1935,7 @@ if(existing_file(files->co[fdd]+1)>0){
 			if(top->DD->co[r][c]>11) top->DD->co[r][c]=0;
 		}
 	}
-	write_map(files->co[fdd]+1, 1, par->format_out, M, UV);
+	write_map(files->co[fdd]+1, 1, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 	free_doublematrix(M);
 	top->Z0dp=depitted(top->DD, top->Z0);
 }else{
@@ -1958,7 +1967,7 @@ if(existing_file(files->co[fsoil]+1)>0){
 	M=copydoublematrix_const(1.0, land->LC, UV->V->co[2]);
 	sl->type=copyshort_doublematrix(M);
 }
-write_map(files->co[fsoil]+1, 1, par->format_out, M, UV);
+write_map(files->co[fsoil]+1, 1, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 free_doublematrix(M);
 
 /****************************************************************************************************/
@@ -1973,7 +1982,7 @@ if(existing_file(files->co[fcurv]+1)>0){
 	nablaquadro_mask(top->Z0,top->curv,UV->U,UV->V);
 	M=copydouble_shortmatrix(top->curv);
 }
-write_map(files->co[fcurv]+1, 1, par->format_out, M, UV);
+write_map(files->co[fcurv]+1, 1, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 free_doublematrix(M);
 
 /****************************************************************************************************/
@@ -1987,7 +1996,7 @@ if(existing_file(files->co[fslp]+1)>0){
 	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	fmultiplydoublematrix(M, top->slopes, 180.0/Pi, UV->V->co[2]);	//prints in degrees
 }
-write_map(files->co[fslp]+1, 0, par->format_out, M, UV);
+write_map(files->co[fslp]+1, 0, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 free_doublematrix(M);
 
 /****************************************************************************************************/
@@ -2001,7 +2010,7 @@ if(existing_file(files->co[fasp]+1)>0){
 	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	fmultiplydoublematrix(M, top->aspect, 180.0/Pi, UV->V->co[2]);
 }
-write_map(files->co[fasp]+1, 0, par->format_out, M, UV);
+write_map(files->co[fasp]+1, 0, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 free_doublematrix(M);
 
 /****************************************************************************************************/
@@ -2014,7 +2023,7 @@ if(par->wat_balance==1){
 		initialize_doublematrix(top->i_DD,UV->V->co[2]);
 		gradients(top->Z0dp,top->DD,top->i_DD,UV);
 	}
-	write_map(files->co[fgrad]+1, 0, par->format_out, top->i_DD, UV);
+	write_map(files->co[fgrad]+1, 0, par->format_out, top->i_DD, UV,0,0);//USE_NETCDF_MAP
 }else{
 	top->i_DD=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 	initialize_doublematrix(top->i_DD,0.0);
@@ -2047,7 +2056,7 @@ if(existing_file(files->co[fnet]+1)>0){
 		tca(top->DD,ca);
 		M=copydouble_longmatrix(ca);
 	}
-	write_map(files->co[ftca]+1, 1, par->format_out, M, UV);
+	write_map(files->co[ftca]+1, 1, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 	free_doublematrix(M);
 	//calculate laplacian
 	curv=new_doublematrix(top->Z0->nrh,top->Z0->nch);
@@ -2075,7 +2084,7 @@ for(r=1;r<=top->Z0->nrh;r++){
 		M->co[r][c]=(double)top->pixel_type->co[r][c];
 	}
 }
-write_map(files->co[fnet]+1, 1, par->format_out, M, UV);
+write_map(files->co[fnet]+1, 1, par->format_out, M, UV,0,0);//USE_NETCDF_MAP
 free_doublematrix(M);
 
 /****************************************************************************************************/
@@ -2125,7 +2134,7 @@ if(existing_file(files->co[fdist]+1)>0){
 		}
 	}
 }
-write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV);
+write_map(files->co[fdist]+1, 0, par->format_out, top->pixel_distance, UV,0,0);//USE_NETCDF_MAP
 
 
 
@@ -2595,7 +2604,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 						}
 					}
 				}
-				write_map(files->co[fslp]+1, 0, par->format_out, P, UV);
+				write_map(files->co[fslp]+1, 0, par->format_out, P, UV,0,0);//USE_NETCDF_MAP
 			}
 		}
 	}
@@ -2646,7 +2655,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 						}
 					}
 				}
-				write_map(files->co[fasp]+1, 0, par->format_out, P, UV);
+				write_map(files->co[fasp]+1, 0, par->format_out, P, UV,0,0);//USE_NETCDF_MAP
 			}
 		}
 	}
@@ -2692,7 +2701,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 				nablaquadro_mask(top->Z1, curv, UV->U, UV->V);
 				sky_view_factor(P, 36, UV, top->Z1, curv);
 				free_shortmatrix(curv);
-				write_map(files->co[fsky]+1, 0, par->format_out, P, UV);
+				write_map(files->co[fsky]+1, 0, par->format_out, P, UV,0,0);//USE_NETCDF_MAP
 			}
 		}
 	}

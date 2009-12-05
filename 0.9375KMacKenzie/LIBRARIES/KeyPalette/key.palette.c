@@ -605,24 +605,40 @@ void free_keywords(KEYWORDS *keywords) {
 
  lenstring=new_longvector(stringvector->index->nh);
  for (i=lenstring->nl;i<=lenstring->nh;i++) {
+#ifdef USE_NETCDF_MAP
+	 //calculate exact lenght
+	 if (strncmp(stringvector->element[i]+1,"#",1) == 0){
+ 		//if current line start with # -> netcdf variable definition
+		 lenstring->element[i]=(long)strlen(stringvector->element[i]+1)+1;
+	}else if (!strcmp(stringvector->element[i]+1,no_joinstring)) {
+#else
  	if (!strcmp(stringvector->element[i]+1,no_joinstring)) {
+#endif
  		lenstring->element[i]=(long)strlen(stringvector->element[i]+1)+1;
  	} else {
  		str=join_strings(path,stringvector->element[i]+1);
  		lenstring->element[i]=(long)strlen(str)+1;
  		free(str);
  	}
+	//printf("%ld-%s\n",i,stringvector->element[i]+1);
  }
  joinedstring=new_stringbin(lenstring);
  for (i=lenstring->nl;i<=lenstring->nh;i++) {
- 	if (!strcmp(stringvector->element[i]+1,no_joinstring)) {
+#ifdef USE_NETCDF_MAP
+	 if (strncmp(stringvector->element[i]+1,"#",1) == 0){
+ 		//don't add path to lines starting with # -> netcdf variable definition
+	 	strcpy(joinedstring->element[i]+1,stringvector->element[i]+1);
+	}else if (!strcmp(stringvector->element[i]+1,no_joinstring)) {
+#else
+	if (!strcmp(stringvector->element[i]+1,no_joinstring)) {
+#endif
  		strcpy(joinedstring->element[i]+1,stringvector->element[i]+1);
  	} else {
  		str=join_strings(path,stringvector->element[i]+1);
  		strcpy(joinedstring->element[i]+1,str);
  		free(str);
  	}
-
+	//printf("%ld-%s-%s\n",i,stringvector->element[i]+1,joinedstring->element[i]+1);
  }
  free_longvector(lenstring);
 
