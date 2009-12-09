@@ -1,6 +1,6 @@
 #include "turtle.h"
 #include "lu.h"
-
+#include "t_datamanipulation.h"
 long ind_matrix(long r, long c, LONGVECTOR *Ax, LONGVECTOR *Ai){
 
 	long indbeg, indend, ind;
@@ -12,17 +12,17 @@ long ind_matrix(long r, long c, LONGVECTOR *Ax, LONGVECTOR *Ai){
 		indbeg=Ax->co[c-1];
 		indend=Ax->co[c];
 	}
-			
+
 	ind=indbeg;
 	do{
 		ind++;
 	}while(Ai->co[ind]!=r && ind<indend);
-	
+
 	if(Ai->co[ind]==r){
 		//printf("%ld %ld ind:%ld\n",r,c,ind);
 		return(ind);
 	}else{
-		//printf("%ld %ld ind:%ld\n",r,c,0);		
+		//printf("%ld %ld ind:%ld\n",r,c,0);
 		return(0);
 	}
 
@@ -50,9 +50,9 @@ int mat_lu( DOUBLEVECTOR *Ap, LONGVECTOR *Ax, LONGVECTOR *Ai, LONGVECTOR *P ){
 	* --- partial pivoting ---
 	*/
 		printf("K:%ld/%ld\n",k,n);
-		
+
 		for (i=k, maxi=k, c=0.0; i<=n; i++){
-				
+
 			ind=ind_matrix(P->co[i],k,Ax,Ai);
 			if(ind>0){
 				c1=fabs(Ap->co[ind]);
@@ -78,7 +78,7 @@ int mat_lu( DOUBLEVECTOR *Ap, LONGVECTOR *Ax, LONGVECTOR *Ai, LONGVECTOR *P ){
 	/*
 	*	suspected singular matrix
 	*/
-	 	
+
 	 	ind=ind_matrix(P->co[k],k,Ax,Ai);
 	 	if(ind>0){
 	 		if(Ap->co[ind]==0.0){
@@ -100,7 +100,7 @@ int mat_lu( DOUBLEVECTOR *Ap, LONGVECTOR *Ax, LONGVECTOR *Ai, LONGVECTOR *P ){
 				//printf("--> ind:%ld ind2:%ld %f %f\n",ind,ind2,Ap->co[ind],Ap->co[ind2]);
 				Ap->co[ind2]=Ap->co[ind2]/Ap->co[ind];
 			}
-			
+
 		/*
 		* --- elimination ---
 		*/
@@ -137,7 +137,7 @@ void mat_backsubs1(DOUBLEVECTOR *Ap, LONGVECTOR *Ax, LONGVECTOR *Ai, DOUBLEVECTO
 	ind=ind_matrix(P->co[n],n,Ax,Ai);
 	//printf("....n:%ld ind:%ld %f\n",n,ind,Ap->co[ind]);
     X->co[n] = B->co[P->co[n]]/Ap->co[ind];
-	
+
 	for (k=n-1; k>=1; k--){
 		sum = 0.0;
 		for (j=k+1; j<=n; j++){
@@ -160,7 +160,7 @@ void mat_lsolve(DOUBLEVECTOR *Ap, LONGVECTOR *Ax, LONGVECTOR *Ai, DOUBLEVECTOR *
 	long i, n=Ax->nh;
 
 	initialize_doublevector(X, 0.0);
-	
+
 	P=new_longvector(n);
 	printf("oki\n");
 	i=mat_lu(Ap, Ax, Ai, P );
