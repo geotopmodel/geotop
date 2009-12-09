@@ -763,7 +763,7 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 		out=0;
 		if(res <= par->TolVWb) out=1;	//go out of the "do"
 		if(cont >= par->MaxiterTol) out=1;
-		if(fabs(*massloss) <= par->MaxErrWb) out=0;
+		if(fabs(*massloss) >= par->MaxErrWb) out=0;
 		if(diff_bc > 0 || cont2 > 1) out=0;
 		if(cont >= par->MaxiterErr) out=1;
 
