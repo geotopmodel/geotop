@@ -911,7 +911,8 @@ initialize_doublematrix(M,UV->V->co[2]);
 if(par->output_albedo>0 && fmod(times->time+par->Dt,par->output_albedo*3600.0)==0){
 	n_file=(long)((times->time+par->Dt)/(par->output_albedo*3600.0));
 #ifdef USE_NETCDF_MAP
-	write_map(temp,0, par->format_out, land->albedo, UV,times->time+par->Dt,n_file);
+	//write_map(temp,0, par->format_out, land->albedo, UV,times->time+par->Dt,n_file);
+	write_map(files->co[falb]+1,0, par->format_out, land->albedo, UV,times->time+par->Dt,n_file); //091209
 #else
 	write_suffix(SSSS, n_file, 0);
 	temp=join_strings(files->co[falb]+1,SSSS);
@@ -2551,10 +2552,10 @@ void plot(char *name, long JD, long y, long i, DOUBLEMATRIX *M, short format){
 	// USE_NETCDF_MAP
 	//force output map in esriascii format
 	if (format >= 4) {
-		printf("Warning: output map are writtenm in esriiasci format. Poject not built to support NetCDF files \n");//added by Emanuele Cordano 
+		printf("Warning: output map are writtenm in esriiasci format. Poject not built to support NetCDF files \n");//added by Emanuele Cordano
 		format=3;
 		}
-	// USE_NETCDF_MAP 
+	// USE_NETCDF_MAP
 
 	char ADS[ ]={"aaaaddddLssss"};
 
