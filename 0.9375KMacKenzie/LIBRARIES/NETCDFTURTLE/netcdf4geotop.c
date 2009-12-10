@@ -141,6 +141,7 @@ void write_doubletensor_in_netcdf(long i, char *filename, short type, short form
 		long_var_name = LONGITUDE_VAR_NAME;
 		layer_var_name = VERTICAL_DIMENSION;
 
+
 		//Set here tensor name
 		T->name =current_var_name;
 		t_nc_put_rotate180_y_doubletensor_vs_time (T, i-1, netcdf_filename,time_var_name,long_var_name,lat_var_name,layer_var_name);
@@ -175,13 +176,13 @@ void write_doubletensor_in_netcdf(long i, char *filename, short type, short form
 			dv_time_new=new_doublevector(dv_time->nh +1);
 			dv_time_new->name=time_var_name;
 			//insert new time stamp
-			for(idx_time_stamp=dv_time->nl;idx_time_stamp <= dv_time->nh;idx_time_stamp++){
+			for(idx_time_stamp=dv_time->nl;idx_time_stamp < dv_time->nh;idx_time_stamp++){//091209
 				dv_time_new->element[idx_time_stamp]=dv_time->element[idx_time_stamp];
 			}
 			dv_time_new->element[idx_time_stamp]=simulation_start_time_in_sec + time_in_sec;
 			//printf("WRITE %s in %s->%s\n",dv_time_new->name,filename_wr,time_var_name);
 			t_nc_put_doublevector(dv_time_new,netcdf_filename,time_var_name);
-			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units);
+			//t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units);//091209
 			free_doublevector(dv_time);
 			free_doublevector(dv_time_new);
 
@@ -193,8 +194,10 @@ void write_doubletensor_in_netcdf(long i, char *filename, short type, short form
 			//printf("WRITE %s in %s->%s\n",dv_time_new->name,filename_wr,time_var_name);
 			t_nc_put_doublevector(dv_time_new,netcdf_filename,time_var_name);
 			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units);
+			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "axis","t");//091209
 			free_doublevector(dv_time_new);
 		}
+
 
 	 }
 	 free(cur_filename);
@@ -234,6 +237,9 @@ void write_netcdf(long i, char *filename, short type, short format, DOUBLEMATRIX
 		lat_var_name = LATITUDE_VAR_NAME;
 		long_var_name = LONGITUDE_VAR_NAME;
 
+
+
+
 		//Set here tensor name
 		M->name =current_var_name;
 		t_nc_put_rotate180_y_doublematrix_vs_time (M, i-1, netcdf_filename,time_var_name,long_var_name,lat_var_name);
@@ -269,13 +275,13 @@ void write_netcdf(long i, char *filename, short type, short format, DOUBLEMATRIX
 			dv_time_new=new_doublevector(dv_time->nh +1);
 			dv_time_new->name=time_var_name;
 			//insert new time stamp
-			for(idx_time_stamp=dv_time->nl;idx_time_stamp <= dv_time->nh;idx_time_stamp++){
+			for(idx_time_stamp=dv_time->nl;idx_time_stamp < dv_time->nh;idx_time_stamp++){ //091209
 				dv_time_new->element[idx_time_stamp]=dv_time->element[idx_time_stamp];
 			}
 			dv_time_new->element[idx_time_stamp]=simulation_start_time_in_sec + time_in_sec;
 			//printf("WRITE %s in %s->%s\n",dv_time_new->name,filename_wr,time_var_name);
 			t_nc_put_doublevector(dv_time_new,netcdf_filename,time_var_name);
-			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units);
+			//t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units); //091209
 			free_doublevector(dv_time);
 			free_doublevector(dv_time_new);
 
@@ -287,6 +293,7 @@ void write_netcdf(long i, char *filename, short type, short format, DOUBLEMATRIX
 			//printf("WRITE %s in %s->%s\n",dv_time_new->name,filename_wr,time_var_name);
 			t_nc_put_doublevector(dv_time_new,netcdf_filename,time_var_name);
 			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "units",time_units);
+			t_nc_put_var_textattributes(netcdf_filename,dv_time_new->name, "axis","t");//091209
 			free_doublevector(dv_time_new);
 		}
 
@@ -343,6 +350,7 @@ void write_vertical_dimension_in_netcdf(DOUBLETENSOR *sl_pa,long jdz_val,double 
 	z_layer_v->name=VERTICAL_DIMENSION;
 	t_nc_put_doublevector(z_layer_v,netcdf_filename, z_layer_v->name);
 	t_nc_put_var_textattributes(netcdf_filename,z_layer_v->name,"units","millimeters");
+	t_nc_put_var_textattributes(netcdf_filename,z_layer_v->name, "axis","z");//091209
 	free_doublevector(z_layer_v);
 
 }
