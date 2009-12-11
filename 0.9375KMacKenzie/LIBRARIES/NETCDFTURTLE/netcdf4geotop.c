@@ -46,6 +46,7 @@ This file is part of NETCDFTURTLE.
 #include "inpts2netcdf.h"
 #include "netcdf4geotop.h"
 #include "time.h"
+//#include "times.h" //091209
 
 #define NETCDF_CF 1
 /*----------    Global GEOTOP variables  ------------*/
@@ -307,6 +308,67 @@ double convert_gregorian_into_julian(long int Y, long int M, long int D){
 	return  (1461 * (Y + 4800 + (M - 14)/12))/4 +(367 * (M - 2 - 12 * ((M - 14)/12)))/12 - (3 * ((Y + 4900 + (M - 14)/12)/100))/4 + D - 32075 ;
 }
 
+void convert_date_time(long y0, double JDstart, long *d, long *m, long *y,long *hour,long *min){
+	/* Author:
+	* private function that calculates the current date (year, month, day, hour, minute)
+	* Input:
+	* 			y0: year of the beginning of the simulation
+	* 		JDstart: Julian day of the beginning of the simulation
+	* Output:
+	* 			d: day of the time
+	* 			m: month of the time
+	* 			y: year of the time
+	* 			h: hour of the time
+	* 		  min: minute of the time
+	* comment:specific version from date_time version */
+	short i;
+	long JDint;
+
+	i=is_leap(y0); // 1 is leap, 0 is not leap
+	JDint=floor(JDstart)+1;
+
+	if(JDint<=31){
+		*d=JDint;
+		*m=1;
+	}else if(JDint<=31+28+i){
+		*d=JDint-31;
+		*m=2;
+	}else if(JDint<=31+28+i+31){
+		*d=JDint-31-28-i;
+		*m=3;
+	}else if(JDint<=31+28+i+31+30){
+		*d=JDint-31-28-i-31;
+		*m=4;
+	}else if(JDint<=31+28+i+31+30+31){
+		*d=JDint-31-28-i-31-30;
+		*m=5;
+	}else if(JDint<=31+28+i+31+30+31+30){
+		*d=JDint-31-28-i-31-30-31;
+		*m=6;
+	}else if(JDint<=31+28+i+31+30+31+30+31){
+		*d=JDint-31-28-i-31-30-31-30;
+		*m=7;
+	}else if(JDint<=31+28+i+31+30+31+30+31+31){
+		*d=JDint-31-28-i-31-30-31-30-31;
+		*m=8;
+	}else if(JDint<=31+28+i+31+30+31+30+31+31+30){
+		*d=JDint-31-28-i-31-30-31-30-31-31;
+		*m=9;
+	}else if(JDint<=31+28+i+31+30+31+30+31+31+30+31){
+		*d=JDint-31-28-i-31-30-31-30-31-31-30;
+		*m=10;
+	}else if(JDint<=31+28+i+31+30+31+30+31+31+30+31+30){
+		*d=JDint-31-28-i-31-30-31-30-31-31-30-31;
+		*m=11;
+	}else{
+		*d=JDint-31-28-i-31-30-31-30-31-31-30-31-30;
+		*m=12;
+	}
+	double frac =JDstart - (floor(JDstart));
+	*min= ((int)floor(frac*((double)24.0*60.0) + 0.5)) % 60;
+	*hour = (int) floor(((((double)1440.0)*frac-(double)*min)/(double)60.0) + 0.5);
+}
+
 char * make_time_units(double par_jd0,long int par_year0){
 	//return string containing measure units for time
 	//calculate simulation start time in sec
@@ -321,12 +383,20 @@ char * make_time_units(double par_jd0,long int par_year0){
 	jd0_1970 = convert_gregorian_into_julian(Y,M,D);
 
 	Y=par_year0;
+	//091209_s
+	long int H,Min;
+	convert_date_time(par_year0,par_jd0,&D,&M,&Y,&H,&Min);
+	//091209_e
 	//calc jd_startsim referring to year0 M D
 	jd_startsim =  convert_gregorian_into_julian(Y,M,D);
 	diff_jd=jd_startsim - jd0_1970;
 
-	//convert jd into secods
-	simulation_start_time_in_sec=(double)(diff_jd * 100 * 864);
+	//convert jd into seconds
+	//091209_s
+	//simulation_start_time_in_sec=(double)(diff_jd * 100 * 864);
+	simulation_start_time_in_sec=(double)(diff_jd * 100 * 864) + (Min * 60) + (H * 3600);
+	//091209_e
+
 
 	return "seconds since 1970-01-01 00:00:00 UTC";
 }
