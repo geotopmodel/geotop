@@ -326,26 +326,26 @@ void meteo_interp(double **data, double Dt, double t, double *out)
 
 	if(i<0){
 		//t_error("ERROR 1 in the met data!!");
-		for(j=0;j<dim1(data[j]);j++){
+		for(j=0;j<dim1(data[i]);j++){
 			out[j]=NoV;
 		}
 
 	}else if(i>n-1){
 		//t_error("ERROR 2 in the met data!!");
-		for(j=0;j<dim1(data[j]);j++){
+		for(j=0;j<dim1(data[i]);j++){
 			out[j]=NoV;
 		}
 
 	}else if(i==n-1){// we are at the end of the data matrix => the last value is given
-		for(j=0;j<dim1(data[j]);j++){
+		for(j=0;j<dim1(data[i]);j++){
 			out[j]=data[i-1+1][j];
-			//printf("1: i:%ld j:%ld data:%f out:%f\n",i,j,data[i-1+1][j],out[j]);
+			//printf("n-1: i:%ld j:%ld data:%f out:%f\n",i,j,data[i-1+1][j],out[j]);
 		}
 
 	}else{
-		for(j=0;j<dim1(data[j]);j++){
+		for(j=0; j<dim1(data[i]); j++){
 			out[j]=data[i-1+1][j]+(data[i-1+2][j]-data[i-1+1][j])*(t-i*Dt)/Dt;
-			//printf("1: i:%ld j:%ld data:%f data:%f out:%f\n",i,j,data[i-1+2][j],data[i-1+1][j],out[j]);
+			//printf("  1: i:%ld j:%ld data:%f data:%f out:%f\n",i,j,data[i-1+2][j],data[i-1+1][j],out[j]);
 		}
 	}
 
