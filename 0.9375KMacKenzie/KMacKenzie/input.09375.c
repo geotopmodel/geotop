@@ -1963,7 +1963,7 @@ if(existing_file(files->co[fsoil]+1)>0){
 	M=read_map(2, files->co[fsoil]+1, land->LC, UV);
 	sl->type=copyshort_doublematrix(M);
 
-}else{//default value (99)
+}else{//default value (1)
 	M=copydoublematrix_const(1.0, land->LC, UV->V->co[2]);
 	sl->type=copyshort_doublematrix(M);
 }
@@ -2153,7 +2153,7 @@ if(files->index->nh!=nfiles) t_error("Error in file number");
 //----------------------------------------------------------------------------------------------
 
 void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
-/* reads the file __parameters.txt */
+	/* reads the file __parameters.txt */
 	FILE *f;
 	long i,index;
 	DOUBLEVECTOR *v;
@@ -2280,7 +2280,7 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	//printf("par->point_sim=%d, part->superfast=%ld",par->point_sim, par->superfast); stop_execution();
 	if(par->blowing_snow==1 && par->micromet==0){
 		par->blowing_snow=0;
-		printf("\nWarning: if you do not run Micromet, you can't run SnowTrans3D\n");
+		printf("\nWarning: if you do not run Micromet, you can't run PBSN\n");
 	}
 	free_doublevector(v);
 	//other par
@@ -2317,7 +2317,7 @@ void read_optionsfile_distr(char *name, PAR *par, TIMES *times, DOUBLEMATRIX *Z0
 
 	//2. chkpt
 	/* 2 block - COORDINATES of the points for which point values are plotted
-	if state_px_coord==1 (E, N, layer) ---  if state_px_coord==0 (row,col,layer) (max 9999 points)*/
+	if state_px_coord==1 (E, N) ---  if state_px_coord==0 (row,col) (max 9999 points)*/
 	par->chkpt=read_doublematrix(f,"a",PRINT);
 
 	//3. saving points
@@ -2830,7 +2830,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	for(i=1;i<=M->nrh;i++){
 		par->chkpt->co[i][1]=M->co[i][1];
 		par->chkpt->co[i][2]=M->co[i][2];
-		//par->chkpt->co[i][3]=(double)ly;
 		par->rc->co[i][1]=1;
 		par->rc->co[i][2]=i;
 	}

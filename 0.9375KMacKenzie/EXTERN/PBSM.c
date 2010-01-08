@@ -414,7 +414,7 @@ void set_windtrans_snow(SNOW *snow, METEO *met, LAND *land, PAR *par, double t){
 	double q;
 
 	double Wsubl_tot=0.0,Wtrans_tot=0.0;
-	double W, a4, b4, c4, d4, e4, f4, CR, h;
+	double W, a4, b4, c4, d4, e4, f4, CR;// h;
 
 	a4=2.66E-3;c4=0.04;d4=0.0884;e4=0.046;f4=400;
 

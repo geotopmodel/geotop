@@ -4,7 +4,7 @@
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
 GEOtop-Version 0.9375-Subversion Mackenzie
 
-Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
+Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico, Emanuele Cordano
 
  LICENSE:
 
@@ -244,15 +244,15 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 
 	//availability of SW data to calculate tau_cloud
 
-	if(met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1){
-		if(met->var[met->nstsrad-1][met->column[met->nstsrad-1][iSWb]]!=NoV && met->var[met->nstsrad-1][met->column[met->nstsrad-1][iSWd]]!=NoV){
+	if(met->column[met->nstsrad-1][iSWb]!=-1 && met->column[met->nstsrad-1][iSWd]!=-1){// there is no station measuring neither SWbeam nor SWdiff
+		if(met->var[met->nstsrad-1][met->column[met->nstsrad-1][iSWb]]!=NoV && met->var[met->nstsrad-1][met->column[met->nstsrad-1][iSWd]]!=NoV){// there is both SWbeam AND SWdiff
 			SWdata=2;
 		}else{
-			SWdata=0;
+			SWdata=0;// no data of SW
 		}
-	}else if(met->column[met->nstsrad-1][iSW]!=-1){
+	}else if(met->column[met->nstsrad-1][iSW]!=-1){//there is SWglobal
 		if(met->var[met->nstsrad-1][met->column[met->nstsrad-1][iSW]]!=NoV){
-			SWdata=1;
+			SWdata=1;// just SWglobal
 		}else{
 			SWdata=0;
 		}

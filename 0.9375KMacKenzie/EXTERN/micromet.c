@@ -3,7 +3,7 @@
 MICROMET CODE
 
 Code written by Stefano Endrizzi by translating and adapting the idea behind the Micromet Fortran Code
-by G. Liston and X. The author does not guarantee the perfect conformance of this code with the Fortran one.
+by G. Liston and X. The author does not guarantee the perfect compliance of this code with the Fortran one.
 However, he asks to give credit to Liston and  X, JHM YYYYY, 2006, when using it with satisfaction.
 
 */
