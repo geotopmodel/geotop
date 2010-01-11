@@ -2,7 +2,7 @@
 /* MATH2 CONTAINS ALGEBRAIC ROUTINES FOR GEOtop AND OTHER MODELS
 MATH2 Version 0.9375 KMackenzie
 
-file sparse_matrix.h
+file pre_conditioning.h
 
 Copyright, 2009 Stefano Endrizzi, Emanuele Cordano, Matteo Dall'Amico and Riccardo Rigon
 
@@ -22,18 +22,18 @@ This file is part of MATH2.
 */
 /*!
  *
- * \file sparse_matrix.h
+ * \file preconditioning.h
  *
  * \author Emanuele cordano
  */
 
-typedef double (*t_Matrix_element_with_voidp)(long i, DOUBLEVECTOR *eta, void *data);
+typedef double (*t_Matrix_element_with_voidp)(long i, DOUBLEVECTOR *eta, DOUBLEVECTOR *eta0, DOUBLEVECTOR *eta00, double dt, void *data);
 
-int get_diagonal(DOUBLEVECTOR *diagonal, t_Matrix_element_with_voidp Matrix, void *data);
+int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, t_Matrix_element_with_voidp Matrix, void *data);
 
-long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *b,
+long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, DOUBLEVECTOR *b,
 	t_Matrix_element_with_voidp function, void *data);
 
 double max_doublevector(DOUBLEVECTOR *v);
 
-int get_upper_diagonal(DOUBLEVECTOR *udiagonal, t_Matrix_element_with_voidp Matrix, void *data);
+int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, t_Matrix_element_with_voidp Matrix, void *data);

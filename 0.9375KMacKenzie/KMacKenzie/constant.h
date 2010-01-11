@@ -63,6 +63,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #define veg_jumping_exp 3.0
 #define ndc 2.5
 #define alpha_snow 1.E2
+
 // serve per la freezing characteristic della neve: piu' alto e' alpha, piu' e' angoloso, piu' basso, piu' e' curva
 //Meteo data
 #define iPt 0		/*Precipitation*/

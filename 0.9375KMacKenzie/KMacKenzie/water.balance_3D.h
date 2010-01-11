@@ -22,21 +22,25 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
+#define DtminWb 5.0
+#define nredDtWb 2
 
+void water_balance_3D(ALLDATA *adt);
 
-void water_balance_3D(ALLDATA *adt, double time);
+void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLDATA *adt);
 
-void Richards_3D(ALLDATA *adt);
+double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt);
 
-double Solve_Richards_3D(long i, DOUBLEVECTOR *psi, ALLDATA *adt);
+double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, void *adt);
 
-double Solve_Richards_3D_p(long i, DOUBLEVECTOR *psi, void *adt);
+double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt);
 
-double Find_b(long i, DOUBLEVECTOR *psi0, ALLDATA *adt);
-
-void supflow2(TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par);
+void supflow2(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par);
 
 void routing2(CHANNEL *cnet);
 
 void output_waterbalance2(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z);
 
+double calc_V_water(long l, long r, long c, DOUBLEVECTOR *psi, ALLDATA *adt);
+
+void find_coeff_Richards_3D(DOUBLEVECTOR *Asup, DOUBLEVECTOR *Ad, DOUBLEVECTOR *B, DOUBLEVECTOR *psi, double Dt, ALLDATA *adt);

@@ -2,7 +2,7 @@
 /*! MATH2 CONTAINS ALGEBRAIC ROUTINES FOR GEOtop AND OTHER MODELS
 MATH2 Version 0.9375 KMackenzie
 
-file sparse_matrix.c
+file pre_conditioning.c
 
 Copyright, 2009 Stefano Endrizzi, Emanuele Cordano, Matteo Dall'Amico and Riccardo Rigon
 
@@ -21,7 +21,7 @@ This file is part of MATH2.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /*!
- * \file sparse_matrix.c
+ * \file pre_conditioning.c
  *
  * \author Emanuele Cordano
  *
@@ -35,7 +35,7 @@ This file is part of MATH2.
 #define MAX_VALUE_DIAG 1e-8
 #define MAX_ITERATIONS 50
 
-int get_diagonal(DOUBLEVECTOR *diagonal, t_Matrix_element_with_voidp Matrix, void *data) {
+int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, t_Matrix_element_with_voidp Matrix, void *data) {
 	/*
 	 *
 	 * \author Emanuele Cordano
@@ -56,11 +56,10 @@ int get_diagonal(DOUBLEVECTOR *diagonal, t_Matrix_element_with_voidp Matrix, voi
 	x_v=new_doublevector(diagonal->nh);
 	for (i=x_v->nl;i<=x_v->nh;i++) {
 		x_v->co[i]=0.0;
-
 	}
 	for (i=x_v->nl;i<=x_v->nh;i++) {
 			x_v->co[i]=1.0;
-			diagonal->co[i]=(*Matrix)(i,x_v,data);
+			diagonal->co[i]=(*Matrix)(i,x_v,x0,x00,dt,data);
 			//diagonal->co[i]=1.;
 			x_v->co[i]=0.0;
 	}
@@ -71,7 +70,7 @@ int get_diagonal(DOUBLEVECTOR *diagonal, t_Matrix_element_with_voidp Matrix, voi
 	return 0;
 }
 
-int get_upper_diagonal(DOUBLEVECTOR *udiagonal, t_Matrix_element_with_voidp Matrix, void *data) {
+int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, t_Matrix_element_with_voidp Matrix, void *data) {
 	/*
 	 *
 	 * \author Emanuele Cordano,Stefano Endrizzi
@@ -92,11 +91,10 @@ int get_upper_diagonal(DOUBLEVECTOR *udiagonal, t_Matrix_element_with_voidp Matr
 	x_v=new_doublevector(udiagonal->nh+1);
 	for (i=x_v->nl;i<=x_v->nh;i++) {
 		x_v->co[i]=0.0;
-
 	}
 	for (i=udiagonal->nl;i<=udiagonal->nh;i++) {
 			x_v->co[i]=1.0;
-			udiagonal->co[i]=(*Matrix)(i+1,x_v,data);
+			udiagonal->co[i]=(*Matrix)(i+1,x_v,x0,x00,dt,data);
 			//diagonal->co[i]=1.;
 			x_v->co[i]=0.0;
 	}
@@ -107,7 +105,7 @@ int get_upper_diagonal(DOUBLEVECTOR *udiagonal, t_Matrix_element_with_voidp Matr
 	return 0;
 }
 
-long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *b,
+long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVECTOR *x, DOUBLEVECTOR *x0, DOUBLEVECTOR *x00, double dt, DOUBLEVECTOR *b,
 	t_Matrix_element_with_voidp function, void *data){
 
 	/*!
@@ -146,18 +144,18 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 	udiag=new_doublevector(x->nh-1);
 
 	icnt=0;
-	icnt_max=x->nh;
-	//icnt_max=100.0;
+	//icnt_max=x->nh;
+	icnt_max=(long)(sqrt((double)(x->nh)));
 
 	for (j=x->nl;j<=x->nh;j++){
-		y->co[j]=(*function)(j,x,data);
+		y->co[j]=(*function)(j,x,x0,x00,dt,data);
 		//printf("j:%ld %f\n",j,y->co[j]);
 	}
 	//stop_execution();
 
 
-    get_diagonal(diag,function,data);
-    get_upper_diagonal(udiag,function,data);
+    get_diagonal(diag,x0,x00,dt,function,data);
+    get_upper_diagonal(udiag,x0,x00,dt,function,data);
 
 //    print_doublevector_elements(diag,PRINT);
 //    stop_execution();
@@ -173,7 +171,7 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
     		printf("\n Error in jacobi_preconditioned_conjugate_gradient_search function: diagonal of the matrix (%lf) is negative at %ld \n",diag->co[j],j);
     		stop_execution();
     	}
-    	diag->co[j]=fmax(diag->co[j],MAX_VALUE_DIAG);
+    	diag->co[j]=Fmax(diag->co[j],MAX_VALUE_DIAG);
 
     }
     tridiag(0,0,0,x->nh,udiag,diag,udiag,r,d);
@@ -193,7 +191,7 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 		p=0.0;
 
 		for(j=q->nl;j<=q->nh;j++) {
-			q->co[j]=(*function)(j,d,data);
+			q->co[j]=(*function)(j,d,x0,x00,dt,data);
 			p+=q->co[j]*d->co[j];
 
 		}
@@ -207,7 +205,7 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 	    sl=0;
 	    for (j=y->nl;j<=y->nh;j++) {
 	    	if (icnt%MAX_ITERATIONS==0) {
-					y->co[j]=(*function)(j,x,data);
+					y->co[j]=(*function)(j,x,x0,x00,dt,data);
 					r->co[j]=b->co[j]-y->co[j];
 	    	} else {
 					r->co[j]=r->co[j]-alpha*q->co[j];
@@ -222,8 +220,8 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 	    }
 	    beta=delta_new/delta;
 	   // double aa=1.0e-21;
-	 // printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
-	  //printf(" iter:%ld/%ld \n ",icnt,icnt_max);
+	  printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
+	  printf(" iter:%ld/%ld epsilon:%e\n ",icnt,icnt_max,epsilon);
 	   //stop_execution();
 		for (j=d->nl;j<=d->nh;j++) {
 			 d->co[j]=sr->co[j]+beta*d->co[j];
@@ -234,8 +232,8 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 
 	}
 
-	printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
-	printf("iter:%ld/%ld\n",icnt,icnt_max);
+	//printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
+	//printf("iter:%ld/%ld\n",icnt,icnt_max);
 
 	free_doublevector(udiag);
 	free_doublevector(diag);
@@ -269,7 +267,7 @@ double max_doublevector(DOUBLEVECTOR *v) {
 		//stop_execution();
 
 	  for (j=v->nl+1;j<=v->nh;j++){
-		 MK=fmax(MK,fabs(v->co[j]));
+		 MK=Fmax(MK,fabs(v->co[j]));
 		// printf("j:%ld MK:%f abs:%f\n",j,MK,fabs(v->co[j]));
 	 }
 

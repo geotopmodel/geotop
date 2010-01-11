@@ -312,9 +312,9 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 				//METEO
 				//RH and V
 				if(par->micromet==1){
-					if(par->point_sim==1){
-						RHpoint=met->RHgrid->co[par->r_points->co[c]][par->r_points->co[c]];
-						Vpoint=met->Vgrid->co[par->r_points->co[c]][par->r_points->co[c]];
+					if(par->point_sim==1){						
+						RHpoint=met->RHgrid->co[par->r_points->co[c]][par->c_points->co[c]];
+						Vpoint=met->Vgrid->co[par->r_points->co[c]][par->c_points->co[c]];
 					}else{
 						RHpoint=met->RHgrid->co[r][c];
 						Vpoint=met->Vgrid->co[r][c];
@@ -325,9 +325,9 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 				}
 
 				if(par->point_sim==1 && par->micromet==1){
-					Tpoint=met->Tgrid->co[par->r_points->co[c]][par->r_points->co[c]];
-					Precpoint=wat->total->co[par->r_points->co[c]][par->r_points->co[c]];
-					Ppoint=met->Pgrid->co[par->r_points->co[c]][par->r_points->co[c]];
+					Tpoint=met->Tgrid->co[par->r_points->co[c]][par->c_points->co[c]];
+					Precpoint=wat->total->co[par->r_points->co[c]][par->c_points->co[c]];
+					Ppoint=met->Pgrid->co[par->r_points->co[c]][par->c_points->co[c]];
 				}else{
 					Tpoint=met->Tgrid->co[r][c];
 					Precpoint=wat->total->co[r][c];
@@ -1658,7 +1658,11 @@ void EnergyFluxes(double Tg, long r, long c, long n, double Tg0, double Qg0, dou
 		*Eg0=Eg;
 
 		//error messages
-		if(Hg!=Hg) printf("Hg no value bare soil %ld %ld \n",r,c);
+		if(Hg!=Hg){
+			printf("Hg no value bare soil %ld %ld \n",r,c);
+			printf("rh:%e rv:%e P:%f Ta:%f Tg:%f Qa:%f Qg:%f Hg:%f Eg:%f\n",*rh,*rv,P,Ta,Tg,Qa,*Qg,Hg,Eg);
+			stop_execution();
+		}
 		if(Eg!=Eg) printf("Eg no value bare soil %ld %ld \n",r,c);
 
 	}

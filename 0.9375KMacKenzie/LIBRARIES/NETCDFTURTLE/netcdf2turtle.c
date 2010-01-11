@@ -36,7 +36,7 @@ This file is part of numerioc_solver.
 #define INIT_VALUE -9998
 
 #include "turtle.h"
-#include <netcdf.h>
+//#include <netcdf.h>
 #include "t_nc_utilities.h"
 #include "netcdf2turtle.h"
 

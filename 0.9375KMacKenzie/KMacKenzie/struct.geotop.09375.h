@@ -164,6 +164,8 @@ typedef struct {
 	long ***i_cont;/* Cont for Richards 3D*/
 	LONGMATRIX *lrc_cont;
 
+	DOUBLETENSOR *Z;  /*! elevation [mm] of the center of each layer above a reference (e.g. sea level) */
+
 } TOPO;
 
 

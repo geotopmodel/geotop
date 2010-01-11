@@ -90,11 +90,10 @@ void meteo_distr(METEO *met, ENERGY *egy, WATER *wat, TOPO *top, SNOW *snow, dou
 				}
 			}
 		}
-
+		
 		Micromet(UV, top->Zm, top->curv_m, top->slope_m, top->slopeaz_m, met, par->slopewt, par->curvewt, par->Vmin, par->dn, par->ifill,
 			par->iobsint, iT, iRh, iWs, iWd, iPt, met->Tgrid, met->RHgrid, met->Vgrid, met->Vdir, met->Pgrid, wat->total, met->LRv[2],
 			met->LRv[3], met->LRv[4]);
-
 
 	}else{
 
@@ -323,7 +322,7 @@ void meteo_interp(double **data, double Dt, double t, double *out)
 
 	i=floor(t/Dt);	//previous instant
 	n=dim2(data);	//number of time rows in the data matrix
-
+	
 	if(i<0){
 		//t_error("ERROR 1 in the met data!!");
 		for(j=0;j<dim1(data[i]);j++){

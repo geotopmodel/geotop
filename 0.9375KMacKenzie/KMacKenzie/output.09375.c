@@ -666,7 +666,7 @@ if (times->i_basin==times->n_basin){/*Print of the output of all the basin*/
 	fclose(f);
 
 	/*writing of some results on the screen:*/
-	printf(" SW=%f W/m2  LW:%f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Prain=%6.2f mm  Psnow=%6.2f mm  Rout=%6.2f mm/h \n Max Error Richards=%20.18f mm/h\n\n",
+	printf(" SW=%f W/m2  LW=%f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Prain=%6.2f mm  Psnow=%6.2f mm  Rout=%6.2f mm/h \n Max Error Richards=%20.18f mm/h\n\n",
 		egy->out2->co[8],egy->out2->co[9],egy->out2->co[7],egy->out2->co[6],wat->out2->co[1],wat->out2->co[2],Rout*3600.0/(double)(par->Dt*times->n_basin),wat->out2->co[8]/(double)times->n_basin);
 
 	Rout=0.0; R_G=0.0;
@@ -2110,6 +2110,7 @@ while (top->i_cont[l]!=NULL && l<=Nl) {
 }
 
 free(top->i_cont);
+//free_doubletensor(top->Z);
 free(top);
 
  /* Deallocation of struct SOIL "sl": */

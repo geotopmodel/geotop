@@ -68,7 +68,7 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
  //Checking variables
  short sy;/*soil  type*/
  short a;
- double glac0, theta;
+ double glac0, theta, z;
  INIT_TOOLS *IT;
  char *temp;
 
@@ -465,6 +465,23 @@ if(par->point_sim!=1 && par->wat_balance==1){
 	initialize_doublematrix(top->i_ch,0.0);
 }
 
+/*top->Z=new_doubletensor(Nl,Nr,Nc);
+initialize_doubletensor(top->Z,NoV);
+for(r=1;r<=Nr;r++){
+	for(c=1;c<=Nc;c++){
+		if(land->LC->co[r][c]!=NoV){
+			sy=sl->type->co[r][c];
+			z=1.E3*top->Z0dp->co[r][c];
+			l=0;
+			do{
+				l++;
+				z-=sl->pa->co[sy][jdz][l]/2.;
+				top->Z->co[l][r][c]=z;
+				z-=sl->pa->co[sy][jdz][l]/2.;
+			}while(l<Nl);
+		}
+	}
+}*/
 
 /****************************************************************************************************/
 /*! Filling up of the struct "channel" (of the type CHANNEL):                                        */
@@ -542,7 +559,7 @@ if(par->print==1){
 
 /* Creation of the matrix with the coefficient to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
 
-cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt/(double)par->nDt_water);
+cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt);
 if(par->print==1){
 	temp=join_strings(WORKING_DIRECTORY,"ii_fraction_spread.txt");
    f=fopen(temp,"a");
@@ -2166,26 +2183,25 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	itools->land_classes=read_doublematrix(f,"a",PRINT);
 	//2nd block
 	v=read_doublearray(f,PRINT);
-	par->nDt_water=(long)v->co[1];
-	if(par->nDt_water<=0) t_error("ERROR: 0 is not admitted for nDtwater");
-	par->f_bound_Richards=v->co[2];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
-	par->imp=v->co[3];	/*Impedence factor for (partially) frozen soil*/
-	par->psimin=v->co[4];
-	//par->psimin2=par->psimin;
-	par->Esoil=v->co[5];
-	par->TolVWb=v->co[6];
-	par->MaxErrWb=v->co[7];
-	par->MaxiterTol=(long)v->co[8];
-	par->MaxiterErr=(long)v->co[9];
+
+	/*for(i=1;i<=v->nh;i++){
+		printf("%ld %ld %f\n",i,v->nh,v->co[i]);
+	}
+	stop_execution();*/
+
+	par->f_bound_Richards=v->co[1];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
+	par->imp=v->co[2];	/*Impedence factor for (partially) frozen soil*/
+	par->psimin=v->co[3];
+	par->Esoil=v->co[4];
+	par->TolVWb=v->co[5];
+	par->MaxErrWb=v->co[6];
+	par->MaxiterTol=(long)v->co[7];
+	par->MaxiterErr=(long)v->co[8];
 	if(par->MaxiterErr<par->MaxiterTol) par->MaxiterErr=par->MaxiterTol;
-	par->min_tol_grad_conj=v->co[10];
-	par->max_tol_grad_conj=v->co[11];
-	if(par->min_tol_grad_conj>par->max_tol_grad_conj) par->min_tol_grad_conj=par->max_tol_grad_conj;
-	par->harm_or_arit_mean=(short)v->co[12];
-	par->underrelax=v->co[13];
-	itools->u0=v->co[14]; /* MEAN VELOCITY IN CHANNELS */
-	itools->D=v->co[15]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
-	par->gamma_m=v->co[16]; /*Exponent of the law of uniform motion on the surface*/
+	par->harm_or_arit_mean=(short)v->co[9];
+	itools->u0=v->co[10]; /* MEAN VELOCITY IN CHANNELS */
+	itools->D=v->co[11]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
+	par->gamma_m=v->co[12]; /*Exponent of the law of uniform motion on the surface*/
 	free_doublevector(v);
 
 	//3rd block
@@ -2418,7 +2434,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	par->state_px_coord=(short)v->co[3];
 	//ly=(short)v->co[4];
 
-
 	//2. chkpt
 	/** 2 block - COORDINATES of the points for which the simulations is run
 	if state_px_coord==1 coordinate are (E, N) ---  if state_px_coord==0 coordinate are (row,col) (max 9999 points)
@@ -2524,7 +2539,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 		for(i=1;i<=M->nrh;i++){
 			if(M->co[i][4]==-99) M->co[i][4]=1.0;
 		}
-		printf("%f\n",M->co[1][4]);
 	}else{
 		for(i=1;i<=M->nrh;i++){
 			if(M->co[i][4]==-99){
@@ -2833,7 +2847,6 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 		par->rc->co[i][1]=1;
 		par->rc->co[i][2]=i;
 	}
-	printf("%f\n",M->co[1][4]);
 
 	//6. SET PROPERTIES
 	top->Z0=new_doublematrix(1,M->nrh);// matrice 1x(#punti di misura)
@@ -2895,7 +2908,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 
 	//8. READ HORIZONS
 	top->horizon_height=(double ****)malloc(top->Z0->nrh*sizeof(double***));
-	for(r=1;r<=top->Z0->nrh;r++){// top->Z0->nrh=1 therefore there is only one line...I don't know why
+	for(r=1;r<=top->Z0->nrh;r++){
 		top->horizon_height[r-1]=(double ***)malloc(top->Z0->nch*sizeof(double**));// as many as the number of points
 		for(c=1;c<=top->Z0->nch;c++){// for every point of the simulation 1D
 			i=c;
@@ -2907,6 +2920,7 @@ void read_optionsfile_point(char *name, PAR *par, TOPO *top, LAND *land, SOIL *s
 	free_stringbin(s); /* modified by Emanuele Cordano on 23 September 2009 again */
 
 	free_doublematrix(M);
+
 
 }
 

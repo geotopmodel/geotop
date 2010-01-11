@@ -34,7 +34,7 @@ Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Co
 #include "meteo.09375.h"
 #include "energy.balance.h"
 #include "water.balance_1D.h"
-#include "water.balance_3D.h"
+//#include "water.balance_3D.h"
 #include "pedo.funct.h"
 
 void time_loop(ALLDATA *all);
@@ -163,16 +163,15 @@ void time_loop(ALLDATA *all)
 	//stop_execution();
 	if(all->P->wat_balance==1){
 		water_balance_1D(all->T, all->S, all->L, all->W, all->C, all->P, all->I->time);
-	}else if(all->P->wat_balance==3){
-		water_balance_3D(all, all->I->time);
 	}
+
 	//printf("\n MASS END %10.2f\n",all->I->time);
 	//stop_execution();
 
 	//printf("\n WRITE OUTPUT b %10.2f\n",all->I->time);
 	//stop_execution();
 
-	write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
+	 write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
 
 	//printf("\n WRITE OUTPUT e %10.2f\n",all->I->time);
 	//stop_execution();
@@ -243,8 +242,8 @@ void time_loop_superfast(ALLDATA *all)
 
 	//printf("\n MASS START %10.2f\n",all->I->time);
 	//stop_execution();
+	water_balance_1D(all->T, all->S, all->L, all->W, all->C, all->P, all->I->time);
 
-	vertical_water_balance(all->P->Dt, all->L->LC, all->S, all->W, all->I->time, all->P);
 	//printf("\n MASS END %10.2f\n",all->I->time);
 	//stop_execution();
 
