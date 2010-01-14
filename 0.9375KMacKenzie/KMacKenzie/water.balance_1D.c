@@ -139,8 +139,6 @@ void water_balance_1D(TOPO *top, SOIL *sl, LAND *land, WATER *wat, CHANNEL *cnet
 	free_doubletensor(PSI);
 	free_doublematrix(Err);
 
-	fclose(f);
-
 }
 
 
