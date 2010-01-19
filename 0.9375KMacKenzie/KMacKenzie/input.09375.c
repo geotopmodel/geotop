@@ -68,7 +68,7 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
  //Checking variables
  short sy;/*soil  type*/
  short a;
- double glac0, theta, z;
+ double glac0, theta;// z;
  INIT_TOOLS *IT;
  char *temp;
 
@@ -2189,19 +2189,19 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	}
 	stop_execution();*/
 
-	par->f_bound_Richards=v->co[1];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
-	par->imp=v->co[2];	/*Impedence factor for (partially) frozen soil*/
-	par->psimin=v->co[3];
-	par->Esoil=v->co[4];
-	par->TolVWb=v->co[5];
-	par->MaxErrWb=v->co[6];
-	par->MaxiterTol=(long)v->co[7];
-	par->MaxiterErr=(long)v->co[8];
+	par->f_bound_Richards=v->co[2];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
+	par->imp=v->co[3];	/*Impedence factor for (partially) frozen soil*/
+	par->psimin=v->co[4];
+	par->Esoil=v->co[5];
+	par->TolVWb=v->co[6];
+	par->MaxErrWb=v->co[7];
+	par->MaxiterTol=(long)v->co[8];
+	par->MaxiterErr=(long)v->co[9];
 	if(par->MaxiterErr<par->MaxiterTol) par->MaxiterErr=par->MaxiterTol;
-	par->harm_or_arit_mean=(short)v->co[9];
-	itools->u0=v->co[10]; /* MEAN VELOCITY IN CHANNELS */
-	itools->D=v->co[11]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
-	par->gamma_m=v->co[12]; /*Exponent of the law of uniform motion on the surface*/
+	par->harm_or_arit_mean=(short)v->co[12];
+	itools->u0=v->co[14]; /* MEAN VELOCITY IN CHANNELS */
+	itools->D=v->co[15]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
+	par->gamma_m=v->co[16]; /*Exponent of the law of uniform motion on the surface*/
 	free_doublevector(v);
 
 	//3rd block

@@ -51,13 +51,13 @@
 <option id="gnu.c.compiler.option.debugging.prof.1149780030" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof" value="false" valueType="boolean"/>
 <option id="gnu.c.compiler.option.warnings.pedantic.error.1351919817" name="Pedantic warnings as errors (-pedantic-errors)" superClass="gnu.c.compiler.option.warnings.pedantic.error" value="false" valueType="boolean"/>
 <option id="gnu.c.compiler.option.debugging.other.2147166725" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" value="" valueType="string"/>
-<option id="gnu.c.compiler.option.preprocessor.def.symbols.642314640" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols"/>
+<option id="gnu.c.compiler.option.preprocessor.def.symbols.642314640" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.981608152" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="LIBRARIES/NETCDFTURTLE/turtle2netcdf.h|LIBRARIES/NETCDFTURTLE/turtle2netcdf.c|LIBRARIES/NETCDFTURTLE/t_nc_utilities.h|LIBRARIES/NETCDFTURTLE/t_nc_utilities.c|LIBRARIES/NETCDFTURTLE/netcdf4geotop.h|LIBRARIES/NETCDFTURTLE/netcdf4geotop.c|LIBRARIES/NETCDFTURTLE/netcdf2turtle.h|LIBRARIES/NETCDFTURTLE/netcdf2turtle.c|LIBRARIES/NETCDFTURTLE/inpts2netcdf.h|LIBRARIES/NETCDFTURTLE/inpts2netcdf.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="TemplateBasin_MacIntel.zip|LIBRARIES/NETCDFTURTLE/turtle2netcdf.h|LIBRARIES/NETCDFTURTLE/turtle2netcdf.c|LIBRARIES/NETCDFTURTLE/t_nc_utilities.h|LIBRARIES/NETCDFTURTLE/t_nc_utilities.c|LIBRARIES/NETCDFTURTLE/netcdf4geotop.h|LIBRARIES/NETCDFTURTLE/netcdf4geotop.c|LIBRARIES/NETCDFTURTLE/netcdf2turtle.h|LIBRARIES/NETCDFTURTLE/netcdf2turtle.c|LIBRARIES/NETCDFTURTLE/inpts2netcdf.h|LIBRARIES/NETCDFTURTLE/inpts2netcdf.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -354,7 +354,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="LIBRARIES/NETCDFTURTLE/turtle2netcdf.h|LIBRARIES/NETCDFTURTLE/turtle2netcdf.c|LIBRARIES/NETCDFTURTLE/t_nc_utilities.h|LIBRARIES/NETCDFTURTLE/t_nc_utilities.c|LIBRARIES/NETCDFTURTLE/netcdf4geotop.h|LIBRARIES/NETCDFTURTLE/netcdf4geotop.c|LIBRARIES/NETCDFTURTLE/netcdf2turtle.h|LIBRARIES/NETCDFTURTLE/netcdf2turtle.c|LIBRARIES/NETCDFTURTLE/inpts2netcdf.h|LIBRARIES/NETCDFTURTLE/inpts2netcdf.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="TemplateBasin_MacIntel.zip|LIBRARIES/NETCDFTURTLE/turtle2netcdf.h|LIBRARIES/NETCDFTURTLE/turtle2netcdf.c|LIBRARIES/NETCDFTURTLE/t_nc_utilities.h|LIBRARIES/NETCDFTURTLE/t_nc_utilities.c|LIBRARIES/NETCDFTURTLE/netcdf4geotop.h|LIBRARIES/NETCDFTURTLE/netcdf4geotop.c|LIBRARIES/NETCDFTURTLE/netcdf2turtle.h|LIBRARIES/NETCDFTURTLE/netcdf2turtle.c|LIBRARIES/NETCDFTURTLE/inpts2netcdf.h|LIBRARIES/NETCDFTURTLE/inpts2netcdf.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
