@@ -467,22 +467,23 @@ if(par->point_sim!=1 && par->wat_balance==1){
 
 top->Z=new_doubletensor(Nl,Nr,Nc);
 initialize_doubletensor(top->Z,NoV);
-for(r=1;r<=Nr;r++){
-	for(c=1;c<=Nc;c++){
-		if(land->LC->co[r][c]!=NoV){
-			sy=sl->type->co[r][c];
-			z=1.E3*top->Z0dp->co[r][c];
-			l=0;
-			do{
-				l++;
-				z-=sl->pa->co[sy][jdz][l]/2.;
-				top->Z->co[l][r][c]=z;
-				z-=sl->pa->co[sy][jdz][l]/2.;
-			}while(l<Nl);
+if(par->point_sim!=1){
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
+				sy=sl->type->co[r][c];
+				z=1.E3*top->Z0dp->co[r][c];
+				l=0;
+				do{
+					l++;
+					z-=sl->pa->co[sy][jdz][l]/2.;
+					top->Z->co[l][r][c]=z;
+					z-=sl->pa->co[sy][jdz][l]/2.;
+				}while(l<Nl);
+			}
 		}
 	}
 }
-
 top->slope_H=new_doublematrix(Nr, Nc);
 
 /****************************************************************************************************/
