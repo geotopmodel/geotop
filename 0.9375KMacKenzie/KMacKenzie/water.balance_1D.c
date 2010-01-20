@@ -619,7 +619,7 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 
 	long l, m;
 	short sy=sl->type->co[r][c];
-	double dz, K1, Kdw, Kup, ddw, dup, dzdw, dzup, K1dw, K1up, C1, theta0, theta1;
+	double dz, K1, Kdw, Kup, ddw, dup, dzdw, dzup, K1dw, K1up, C1, theta0, theta1, ksat;
 
 	l=1;
 	m=l;
@@ -649,7 +649,8 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 	ads->co[l]=-K1dw/dzdw;
 	b->co[l]=(C1*e0->co[l]+theta0-theta1)*dz/dt - K1dw - q_sub->co[l][r][c];
 
-	if(Inf > K1 + K1*(h-e0->co[l])/(dz/2.)){
+	ksat = k_from_psi(jKv, psisat_from(l, r, c, sl), l, r, c, sl, par->imp);
+	if(Inf > ksat + ksat*(h-e0->co[l])/(dz/2.)){
 		*bc=1;	//Dirichlet
 		ad->co[l]+=K1/(dz/2.);
 		b->co[l]+=(K1 + K1*h/(dz/2.));
@@ -737,7 +738,7 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 
 void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEVECTOR *psit, DOUBLEVECTOR *e1, double *massloss, SOIL *sl, PAR *par, DOUBLETENSOR *q_sub){
 
-	double mass0, nw, massloss0, mass1, resnum, resden, k, ActInf, Infmax, wlat;
+	double mass0, nw, massloss0, mass1, res, ksat, ActInf, Infmax, wlat;
 	long cont, cont2, l;
 	short sy=sl->type->co[r][c], bc, out, diff_bc;
 	DOUBLEVECTOR *e0, *adi, *ad, *ads, *b, *de;
@@ -788,19 +789,6 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 				e1->co[l]=e0->co[l]+nw*de->co[l];
 			}
 
-			k=K(e0->co[1], sl->pa->co[sy][jKv][1], par->imp, sl->thice->co[1][r][c], sl->pa->co[sy][jsat][1], sl->pa->co[sy][jres][1],
-				sl->pa->co[sy][ja][1], sl->pa->co[sy][jns][1], 1-1/sl->pa->co[sy][jns][1], sl->pa->co[sy][jv][1],
-				sl->pa->co[sy][jpsimin][1], sl->T->co[1][r][c]);
-			Infmax=k + k*(h-e1->co[1])/(0.5*sl->pa->co[sy][jdz][1]);
-			ActInf=Fmin(*Inf, Infmax);
-
-			//check consistency of boundary condition
-			if( (bc==0 && *Inf>Infmax) || (bc==1 && *Inf<=Infmax) ){
-				diff_bc=1;
-			}else{
-				diff_bc=0;
-			}
-
 			mass1=0.0;
 			wlat=0.0;
 			for(l=1;l<=Nl;l++){
@@ -816,18 +804,25 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 
 		}while(fabs(*massloss)>fabs(massloss0) && cont2<par->MaxiterCorrWb);
 
-		resnum=0.0;
-		resden=0.0;
+		//check consistency of boundary condition
+		l=1;
+		ksat = k_from_psi(jKv, psisat_from(l, r, c, sl), l, r, c, sl, par->imp);
+		Infmax = ksat + ksat*(h-e1->co[1])/(0.5*sl->pa->co[sy][jdz][1]);
+		ActInf = Fmin(*Inf, Infmax);
+		if( (bc==0 && *Inf>Infmax) || (bc==1 && *Inf<=Infmax) ){
+			diff_bc=1;
+		}else{
+			diff_bc=0;
+		}
+			
+		res=0.0;
 		for(l=1;l<=Nl;l++){
 			if(e1->co[l]<PSImin) e1->co[l]=PSImin;
-			resnum+=fabs(e1->co[l]-e0->co[l]);
-			resden+=fabs(e0->co[l]-psit->co[l]);
+			res += fabs(e1->co[l]-e0->co[l]);
 		}
-		if(resden<1.E-20) resden=1.E-20;
 
 		out=0;
-
-		if(resnum/resden <= par->TolWb) out=1;	//go out of the "do"
+		if(res <= par->TolWb) out=1;	//go out of the "do"
 		if(fabs(*massloss) >= par->MaxErrWb) out=0;
 		if(diff_bc > 0 || cont2 > 1) out=0;
 		if(cont >= par->MaxiterWb) out=1;
