@@ -90,15 +90,15 @@ void meteo_distr(METEO *met, ENERGY *egy, WATER *wat, TOPO *top, SNOW *snow, dou
 				}
 			}
 		}
-		
+
 		Micromet(UV, top->Zm, top->curv_m, top->slope_m, top->slopeaz_m, met, par->slopewt, par->curvewt, par->Vmin, par->dn, par->ifill,
 			par->iobsint, iT, iRh, iWs, iWd, iPt, met->Tgrid, met->RHgrid, met->Vgrid, met->Vdir, met->Pgrid, wat->total, met->LRv[2],
 			met->LRv[3], met->LRv[4]);
 
 	}else{
 
-		met->V=5.0;
-		met->RH=0.7;
+		met->V=2.0;// [m/s]
+		met->RH=0.7;// [70%]
 		if(met->column[0][iWs]!=-1) met->V=Fmax(par->Vmin,met->var[0][met->column[0][iWs]]);
 		if(met->column[0][iRh]!=-1) met->RH=Fmax(par->RHmin/100.,met->var[0][met->column[0][iRh]]/100.);
 
@@ -106,9 +106,9 @@ void meteo_distr(METEO *met, ENERGY *egy, WATER *wat, TOPO *top, SNOW *snow, dou
 			for(c=1;c<=Nc;c++){
 
 				//default values
-				met->Tgrid->co[r][c]=0.0;
-				met->Pgrid->co[r][c]=1.E3;
-				wat->total->co[r][c]=0.0;
+				met->Tgrid->co[r][c]=10.0;// default [10 degrees Celsius]
+				met->Pgrid->co[r][c]=101325;// default [1 atm]
+				wat->total->co[r][c]=0.0;// rain intensity [mm/h]
 
 				//constant values
 				if(met->column[0][iT]!=-1) met->Tgrid->co[r][c]=met->var[0][met->column[0][iT]];
@@ -322,7 +322,7 @@ void meteo_interp(double **data, double Dt, double t, double *out)
 
 	i=floor(t/Dt);	//previous instant
 	n=dim2(data);	//number of time rows in the data matrix
-	
+
 	if(i<0){
 		//t_error("ERROR 1 in the met data!!");
 		for(j=0;j<dim1(data[i]);j++){

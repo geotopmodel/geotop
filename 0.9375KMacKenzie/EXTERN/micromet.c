@@ -490,7 +490,8 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, d
 
 void interpolate_meteo(T_INIT *UV, METEO_STATIONS *allmstn, double **value, long **metcol, long metcod, DOUBLEMATRIX *grid, double dn0, short ifill, short iobsint){
 
-	long r,c,n,col,nstn;
+	long r,c,n,col;
+	long nstn;// number of meteo stations
 	double novalue=UV->V->co[2];
 	double xmn=UV->U->co[4];
 	double ymn=UV->U->co[3];

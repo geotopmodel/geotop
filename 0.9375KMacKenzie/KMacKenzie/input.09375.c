@@ -422,7 +422,7 @@ fclose(f);
 
 //Cont for Richards 3D
 top->i_cont=(long ***)malloc((Nl+1)*sizeof(long**));
-for(l=1;l<=Nl;l++){
+for(l=0;l<=Nl;l++){
 	top->i_cont[l]=(long **)malloc((Nr+1)*sizeof(long*));
 	for(r=1;r<=Nr;r++){
 		top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
@@ -528,7 +528,7 @@ if(par->point_sim==1){// point simulation: the distance from the outlet doesn't 
 	cnet->c=new_longvector(i);
 	cnet->ch=new_longmatrix(Nr,Nc);
 	initialize_longmatrix(cnet->ch, 0);
-	
+
 	i=0;
 	for(r=1;r<=Nr;r++){
 		for(c=1;c<=Nc;c++){
@@ -2244,6 +2244,10 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 	par->epsilon_snow=v->co[10];/* SNOW LONGWAVE EMISSIVITY [-]  */
 	par->z0_snow=v->co[11]*0.001;/* roughness length over snow [mm]*/
 	par->snowcorrfact=v->co[12];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD SNOW PRECIPITATION */
+	if(par->snowcorrfact==0){
+		par->T_rain=-40;
+		par->T_snow=-40;
+	}
 	par->raincorrfact=v->co[13];/* INCREASING FACTOR WHEN THE RAIN GAUGE IS SUPPOSED TO RECORD RAIN PRECIPITATION */
 	par->snowlayer_max=(long)v->co[14]; /* MAXIMUM NUMBER OF SNOW LAYERS */
 	par->snowlayer_inf=(long)v->co[15];
