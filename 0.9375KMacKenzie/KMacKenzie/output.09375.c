@@ -2110,7 +2110,9 @@ while (top->i_cont[l]!=NULL && l<=Nl) {
 }
 
 free(top->i_cont);
-//free_doubletensor(top->Z);
+
+free_doubletensor(top->Z);
+free_doublematrix(top->slope_H);
 free(top);
 
  /* Deallocation of struct SOIL "sl": */
@@ -2180,6 +2182,7 @@ free(top);
  printf("Deallocating channel network\n");
  free_longvector(cnet->r);
  free_longvector(cnet->c);
+ free_longmatrix(cnet->ch);
  free_doublevector(cnet->Q);
  free_doublevector(cnet->s0);
  free_doublematrix(cnet->fraction_spread);

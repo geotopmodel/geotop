@@ -34,7 +34,7 @@ Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Co
 #include "meteo.09375.h"
 #include "energy.balance.h"
 #include "water.balance_1D.h"
-//#include "water.balance_3D.h"
+#include "water.balance_3D.h"
 #include "pedo.funct.h"
 
 void time_loop(ALLDATA *all);

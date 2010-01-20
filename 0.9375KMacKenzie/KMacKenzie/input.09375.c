@@ -68,7 +68,7 @@ void get_all_input(int argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METE
  //Checking variables
  short sy;/*soil  type*/
  short a;
- double glac0, theta;// z;
+ double glac0, theta, z;
  INIT_TOOLS *IT;
  char *temp;
 
@@ -428,7 +428,7 @@ for(l=1;l<=Nl;l++){
 		top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
 	}
 }
-top->lrc_cont=new_longmatrix(Nl*par->total_pixel,3);
+top->lrc_cont=new_longmatrix((Nl+1)*par->total_pixel,3);
 i_lrc_cont(land->LC, top->i_cont, top->lrc_cont);
 
 /*! Modification of Dranaige Direction "top->DD" pixels lake (11), sea (12) or novalue (9) are put to the same value (0) */
@@ -465,7 +465,7 @@ if(par->point_sim!=1 && par->wat_balance==1){
 	initialize_doublematrix(top->i_ch,0.0);
 }
 
-/*top->Z=new_doubletensor(Nl,Nr,Nc);
+top->Z=new_doubletensor(Nl,Nr,Nc);
 initialize_doubletensor(top->Z,NoV);
 for(r=1;r<=Nr;r++){
 	for(c=1;c<=Nc;c++){
@@ -481,7 +481,9 @@ for(r=1;r<=Nr;r++){
 			}while(l<Nl);
 		}
 	}
-}*/
+}
+
+top->slope_H=new_doublematrix(Nr, Nc);
 
 /****************************************************************************************************/
 /*! Filling up of the struct "channel" (of the type CHANNEL):                                        */
@@ -520,77 +522,81 @@ if(par->point_sim==1){// point simulation: the distance from the outlet doesn't 
 	initialize_doublevector(cnet->Qsup,0.0);
 	cnet->Qsub=new_doublevector(1);
 	initialize_doublevector(cnet->Qsub,0.0);
-} else{// distributed simulation
+}else{// distributed simulation
 /* Creation of the vectors with the position of the channel-pixels ("cnet->r" and "cnet->c"):*/
-cnet->r=new_longvector(i);
-cnet->c=new_longvector(i);
-i=0;
-for(r=1;r<=Nr;r++){
-   for(c=1;c<=Nc;c++){
-      if (top->pixel_type->co[r][c]==10){
-         i++;
-         cnet->r->co[i]=r;
-         cnet->c->co[i]=c;
-      }
-   }
-}
+	cnet->r=new_longvector(i);
+	cnet->c=new_longvector(i);
+	cnet->ch=new_longmatrix(Nr,Nc);
+	initialize_longmatrix(cnet->ch, 0);
+	
+	i=0;
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if (top->pixel_type->co[r][c]==10){
+				i++;
+				cnet->r->co[i]=r;
+				cnet->c->co[i]=c;
+				cnet->ch->co[r][c]=i;
+			}
+		}
+	}
 
-/* Initialization of the matrix with the sub/superficial flows which goes in a channel-cell ("cnet->q_sup"):*/
-cnet->Q=new_doublevector(cnet->r->nh);
+	/* Initialization of the matrix with the sub/superficial flows which goes in a channel-cell ("cnet->q_sup"):*/
+	cnet->Q=new_doublevector(cnet->r->nh);
 
-/* Extraction of the vector of channel-pixels distances ("cnet->s0") from the matrix of the distances of
-   each pixel from the outlet ("top->pixel_distance")*/
-cnet->s0=new_doublevector(cnet->r->nh);
-for(i=1;i<=cnet->r->nh;i++){
-   cnet->s0->co[i]=top->pixel_distance->co[cnet->r->co[i]][cnet->c->co[i]];
-   if (cnet->s0->co[i]<=0.0){
+	/* Extraction of the vector of channel-pixels distances ("cnet->s0") from the matrix of the distances of
+	each pixel from the outlet ("top->pixel_distance")*/
+	cnet->s0=new_doublevector(cnet->r->nh);
+	for(i=1;i<=cnet->r->nh;i++){
+		cnet->s0->co[i]=top->pixel_distance->co[cnet->r->co[i]][cnet->c->co[i]];
+		if (cnet->s0->co[i]<=0.0){
+			f=fopen(error_file_name,"a");
+			fprintf(f,"Warning: negative distance from outlet of the channel pixel %ld, %ld\n",cnet->r->co[i],cnet->c->co[i]);
+			fclose(f);
+		}
+	}
+	if(par->print==1){
 		f=fopen(error_file_name,"a");
-		fprintf(f,"Warning: negative distance from outlet of the channel pixel %ld, %ld\n",cnet->r->co[i],cnet->c->co[i]);
+		for(i=1;i<=cnet->r->nh;i++){
+			fprintf(f,"cnet->s0->co[i] = %f con i = %ld r = %ld c = %ld\n",cnet->s0->co[i],i,cnet->r->co[i],cnet->c->co[i]);
+		}
 		fclose(f);
-   }
-}
-if(par->print==1){
-   f=fopen(error_file_name,"a");
-   for(i=1;i<=cnet->r->nh;i++){
-      fprintf(f,"cnet->s0->co[i] = %f con i = %ld r = %ld c = %ld\n",cnet->s0->co[i],i,cnet->r->co[i],cnet->c->co[i]);
-   }
-   fclose(f);
-}
+	}
 
-/* Creation of the matrix with the coefficient to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
+	/* Creation of the matrix with the coefficient to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
 
-cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt);
-if(par->print==1){
-	temp=join_strings(WORKING_DIRECTORY,"ii_fraction_spread.txt");
-   f=fopen(temp,"a");
-   free(temp);
-   fprintf(f,"/* Fraction spread calculated with De Saint Venant subroutine */ \n \n");
-   for(r=1;r<=cnet->fraction_spread->nrh;r++){
-      for(c=1;c<=cnet->fraction_spread->nch;c++){
-         fprintf(f,"r=%4ld c=%4ld fraction_spread=%f ",r,c,cnet->fraction_spread->co[r][c]);
-      }
-      fprintf(f,"\n");
-   }
-   fclose(f);
-}
+	cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt);
+	if(par->print==1){
+		temp=join_strings(WORKING_DIRECTORY,"ii_fraction_spread.txt");
+		f=fopen(temp,"a");
+		free(temp);
+		fprintf(f,"/* Fraction spread calculated with De Saint Venant subroutine */ \n \n");
+		for(r=1;r<=cnet->fraction_spread->nrh;r++){
+			for(c=1;c<=cnet->fraction_spread->nch;c++){
+				fprintf(f,"r=%4ld c=%4ld fraction_spread=%f ",r,c,cnet->fraction_spread->co[r][c]);
+			}
+			fprintf(f,"\n");
+		}
+		fclose(f);
+	}
 
-/* Initialization of the vector with channel-flow (derived from q_sup) for each virtual channel-pixel with the
-   same distance from outlet ("cnet->Q_sup_s"); note: vector's dimension is the number of virtual stretches
-   of channel (starting from outlet):*/
-cnet->Q_sup_s=new_doublevector(cnet->fraction_spread->nch);
-initialize_doublevector(cnet->Q_sup_s,0.0);
+	/* Initialization of the vector with channel-flow (derived from q_sup) for each virtual channel-pixel with the
+	same distance from outlet ("cnet->Q_sup_s"); note: vector's dimension is the number of virtual stretches
+	of channel (starting from outlet):*/
+	cnet->Q_sup_s=new_doublevector(cnet->fraction_spread->nch);
+	initialize_doublevector(cnet->Q_sup_s,0.0);
 
-cnet->Qsup_spread=new_doublevector(cnet->fraction_spread->nch);
+	cnet->Qsup_spread=new_doublevector(cnet->fraction_spread->nch);
 
-/* Initialization of the vector with channel-flow (derived from q_sub) for each virtual channel-pixel with the
-   same distance from outlet ("cnet->Q_sub_s"); note: vector's dimension is the number of virtual stretches
-   of channel (starting from outlet):*/
-cnet->Q_sub_s=new_doublevector(cnet->fraction_spread->nch);
-initialize_doublevector(cnet->Q_sub_s,0.0);
+	/* Initialization of the vector with channel-flow (derived from q_sub) for each virtual channel-pixel with the
+	same distance from outlet ("cnet->Q_sub_s"); note: vector's dimension is the number of virtual stretches
+	of channel (starting from outlet):*/
+	cnet->Q_sub_s=new_doublevector(cnet->fraction_spread->nch);
+	initialize_doublevector(cnet->Q_sub_s,0.0);
 
-cnet->Qsub_spread=new_doublevector(cnet->fraction_spread->nch);
-cnet->Qsup=new_doublevector(cnet->r->nh);
-cnet->Qsub=new_doublevector(cnet->r->nh);
+	cnet->Qsub_spread=new_doublevector(cnet->fraction_spread->nch);
+	cnet->Qsup=new_doublevector(cnet->r->nh);
+	cnet->Qsub=new_doublevector(cnet->r->nh);
 }
 
 if(par->recover==1){
@@ -3361,7 +3367,7 @@ void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc){
 	for(r=1;r<=Nr;r++){
 		for(c=1;c<=Nc;c++){
 			if(LC->co[r][c]!=NoV){
-				for(l=1;l<=Nl;l++){
+				for(l=0;l<=Nl;l++){
 					cont++;
 					i[l][r][c]=cont;
 					lrc->co[cont][1]=l;

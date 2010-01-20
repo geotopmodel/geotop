@@ -28,13 +28,24 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 #include "water.balance_3D.h"
 #include "pedo.funct.h"
 #include "sparse_matrix.h"
+#include "lu.h"
 
 extern T_INIT *UV;
 extern STRINGBIN *files;
 extern long Nl, Nr, Nc;
 extern double NoV;
+extern char *error_file_name;
 
+#define min_slope 0.0001
 
+//[1/s]: Keff sediments / thickness sediments
+#define Kb_ch 1.E-2
+
+//channel fraction: channel width/grid with
+#define B_dy 0.3
+
+//discharge coefficient of the weir model
+#define Cd 0.61
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -46,78 +57,90 @@ void water_balance_3D(ALLDATA *adt){
 	DOUBLEMATRIX *h;
 	DOUBLETENSOR *PSI;
 
-	long n, r, c, l;
-	double Dt0, Dt, tb, te, Loss;
+	long n, r, c, l, ch, s;
+	double Dt0, Dt, tb, te, te0, Loss;
 	static double cum_losses;
 
-	//FILE *f;
+	FILE *f;
 
-	//if(adt->I->time==0.0) cum_losses=0.0;
 	cum_losses=0.0;
 
 	h=new_doublematrix(Nr, Nc);
 	PSI=new_doubletensor(Nl, Nr, Nc);
 
-	initialize_doublevector(adt->C->Qsup_spread,0.0);
-	initialize_doublevector(adt->C->Qsub_spread,0.0);
+	initialize_doublevector(adt->C->Qsup_spread, 0.0);
+	initialize_doublevector(adt->C->Qsub_spread, 0.0);
 
-	Dt0=adt->P->Dt;
-	n=1;
-
-	te=0.0;
+	te0=0.0;
 
 	do{
 
-		tb=te;
+		Dt0=adt->P->Dt;
+		if(te0+Dt0 > adt->P->Dt) Dt0=adt->P->Dt-te0;
+		te0 += Dt0;
+
+		f=fopen(error_file_name, "a");
+		printf("te0:%f Dt0:%f\n",te0,Dt0);
+		fclose(f);
+
+		n=1;
+		te=0;
 
 		do{
 
-			Dt=Dt0/(double)n;
+			tb=te;
 
-			Richards_3D(Dt, PSI, h, &Loss, adt);
+			do{
 
-			//f=fopen(files->co[ferr]+1,"a");
-			printf("n:%ld Dt:%f tb:%f %e\n\n\n",n,Dt,tb,Loss);
-			//fclose(f);
+				Dt=Dt0/(double)n;
 
-			//printf("Loss:%f MaxLoss:%f\n",Loss,adt->P->MaxErrWb);
+				Richards_3D(Dt, PSI, h, &Loss, adt);
 
-			if(fabs(Loss) > adt->P->MaxErrWb && Dt>=DtminWb) n*=nredDtWb;
+				f=fopen(error_file_name, "a");
+				fprintf(f,"n:%ld Dt:%f Dt0:%f te0:%f tb:%f Loss:%e\n\n\n",n,Dt,Dt0,te0,tb,Loss);
+				fclose(f);
 
-		}while( fabs(Loss) > adt->P->MaxErrWb && Dt>=DtminWb);
+				if(fabs(Loss) > adt->P->MaxErrWb && Dt>adt->P->DtminWb) n*=adt->P->nredDtWb;
 
-		te=tb+Dt;
+			}while( fabs(Loss) > adt->P->MaxErrWb && Dt>adt->P->DtminWb);
 
-		supflow2(Dt, Dt0, h, adt->T, adt->L, adt->W, adt->C, adt->P);
+			te=tb+Dt;
 
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(adt->L->LC->co[r][c]!=NoV){
-					adt->W->h_sup->co[r][c] = h->co[r][c];
-					for(l=1;l<=Nl;l++){
-						adt->S->P->co[l][r][c] = PSI->co[l][r][c];
+			for(ch=1;ch<=adt->C->r->nh;ch++){
+				for(s=1;s<=adt->C->Qsup_spread->nh;s++){
+					adt->C->Qsup_spread->co[s] += (adt->C->Qsup->co[ch])*(adt->C->fraction_spread->co[ch][s]);//m3/s
+					adt->C->Qsub_spread->co[s] += (adt->C->Qsub->co[ch])*(adt->C->fraction_spread->co[ch][s]);//m3/s
+				}
+			}
+
+			for(r=1;r<=Nr;r++){
+				for(c=1;c<=Nc;c++){
+					if(adt->L->LC->co[r][c]!=NoV){
+						adt->W->h_sup->co[r][c] = h->co[r][c];
+						for(l=1;l<=Nl;l++){
+							adt->S->P->co[l][r][c] = PSI->co[l][r][c];
+						}
 					}
 				}
 			}
-		}
 
-		//printf("te/Dt0:%f\n",Dt0/te);
-		//if(fabs(Dt0/te-27.)<0.001) n=27;
+			adt->W->out2->co[8]+=Loss;
 
-		adt->W->out2->co[8]+=Loss;
+			cum_losses+=Loss;
 
-		cum_losses+=Loss;
+		}while(te<Dt0);
 
-	}while(te<Dt0);
+	}while(te0<adt->P->Dt);
 
-	routing2(adt->C);
+	//if(adt->P->channel_network == 1) routing3(adt->C);
+	routing3(adt->C);
 
 	free_doublematrix(h);
 	free_doubletensor(PSI);
 
-	//f=fopen(files->co[ferr]+1,"a");
-	printf("Loss:%e\n\n",cum_losses);
-	//fclose(f);
+	f=fopen(error_file_name, "a");
+	fprintf(f,"Total Loss:%e\n\n",cum_losses);
+	fclose(f);
 
 }
 
@@ -130,18 +153,18 @@ void water_balance_3D(ALLDATA *adt){
 void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLDATA *adt){
 
 	DOUBLEVECTOR *H00, *H0, *H1, *dH, *B;
-	long i, l, r, c, cont, cont2, diff_bc, iter_tot=0, iter;
+	long i, l, r, c, cont, cont2, landtype, iter_tot=0, iter=0;
 	short sy;
-	double mass0=0.0, mass1, massinf, massloss0, massloss=1.E99, error=1.E99, error0, Infmax, Infpot, k, nw, resnum, resden, psi;
+	double mass0=0.0, mass1, massloss0, massloss=1.E99, mass_to_channel, nw, res, psi, A, h_sup;
 	short out;
-	long n=Nl*adt->P->total_pixel;
+
+	long n=(Nl+1)*adt->P->total_pixel;
+	FILE *f;
 
 	H00=new_doublevector(n);
 	H0=new_doublevector(n);
 	dH=new_doublevector(n);
 	H1=new_doublevector(n);
-	//Ad=new_doublevector(n);
-	//Asup=new_doublevector(n-1);
 	B=new_doublevector(n);
 
 	for(i=1;i<=n;i++){
@@ -149,39 +172,21 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		r = adt->T->lrc_cont->co[i][2];
 		c = adt->T->lrc_cont->co[i][3];
 		sy = adt->S->type->co[r][c];
+		landtype=(long)adt->L->LC->co[r][c];
 
-		H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];
-		H0->co[i] = H1->co[i];
-		H00->co[i] = H0->co[i];
-
-		mass0 += adt->S->pa->co[sy][jdz][l]*teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-	}
-	mass0/=(double)adt->P->total_pixel;	//in [mm]
-
-
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			if(adt->L->LC->co[r][c]!=NoV){
-				sy=adt->S->type->co[r][c];
-				l=1;
-				i=adt->T->i_cont[l][r][c];
-
-				k=K(adt->S->P->co[l][r][c], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l],
-					adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-					adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][r][c]);
-
-				Infmax=k+k*(adt->W->h_sup->co[r][c]-adt->S->P->co[l][r][c])/(adt->S->pa->co[sy][jdz][l]/2.);
-				Infpot=adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/Dt;
-
-				if(Infpot > Infmax){
-					adt->S->bc->co[r][c]=1;
-				}else{
-					adt->S->bc->co[r][c]=0;
-				}
-			}
+		if(l==0){	//overland flow
+			H1->co[i] = adt->W->h_sup->co[r][c] + 1.E3*adt->T->Z0dp->co[r][c];
+			mass0 += Fmax(0.0, adt->W->h_sup->co[r][c]);
+		}else{	//subsurface flow
+			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];
+			mass0 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
 		}
+
+		H0->co[i] = H1->co[i];
+		H00->co[i] = H1->co[i];
 	}
+
+	find_slope_H(adt->T->i_cont, H0, adt->T->Z0dp, adt->L->LC, adt->T->slope_H);
 
 	cont=0;
 
@@ -190,7 +195,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		cont++;
 
 		for(i=1;i<=n;i++){
-			//H00->co[i] = H0->co[i];
+			if(adt->P->UpdateK==1) H00->co[i] = H1->co[i];
 			H0->co[i] = H1->co[i];
 		}
 
@@ -198,11 +203,8 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 			B->co[i] = Find_b(i, H0, H00, Dt, adt);
 		}
 
-		iter=tridiag_preconditioned_conjugate_gradient_search(1.E-6, H1, H0, H00, Dt, B, Solve_Richards_3D_p, adt);
+		iter=tridiag_preconditioned_conjugate_gradient_search(adt->P->TolCG, H1, H0, H00, Dt, B, Solve_Richards_3D_p, adt);
 		iter_tot+=iter;
-
-		//find_coeff_Richards_3D(Asup, Ad, B, H, Dt, adt);
-		//tridiag(0, 0, 0, n, Asup, Ad, Asup, B, H1);
 
 		for(i=1;i<=n;i++){
 			dH->co[i] = H1->co[i]-H0->co[i];
@@ -212,117 +214,101 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		nw=1.0;
 
 		massloss0=massloss;
-		error0=error;
 
 		do{
 
 			mass1=0.0;
+			mass_to_channel=0.0;
+
 			for(i=1;i<=n;i++){
 				H1->co[i] = H0->co[i] + nw*dH->co[i];
 				if(H1->co[i] != H1->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
-				if(H1->co[i] - adt->T->Z->co[l][r][c] < PSImin) H1->co[i] = PSImin + adt->T->Z->co[l][r][c];
 
 				l=adt->T->lrc_cont->co[i][1];
 				r=adt->T->lrc_cont->co[i][2];
 				c=adt->T->lrc_cont->co[i][3];
 				sy=adt->S->type->co[r][c];
 
-				psi = H1->co[i] - adt->T->Z->co[l][r][c];
+				if(l==0){
+					h_sup = Fmax(0.0, H1->co[i]-1.E3*adt->T->Z0dp->co[r][c]);
+					mass1 += h_sup;
 
-				mass1 += adt->S->pa->co[sy][jdz][l]*teta_psi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-			   		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-			}
-			mass1/=(double)adt->P->total_pixel;//[mm]
-
-			massinf=0.0;
-			diff_bc=0;
-			for(r=1;r<=Nr;r++){
-				for(c=1;c<=Nc;c++){
-					if(adt->L->LC->co[r][c]!=NoV){
-						sy=adt->S->type->co[r][c];
-						l=1;
-						i=adt->T->i_cont[l][r][c];
-
-						psi = H00->co[i] - adt->T->Z->co[l][r][c];
-						k=K(psi, adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l],
-							adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-							adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][r][c]);
-
-						Infmax=k*(adt->W->h_sup->co[r][c]+1.E3*adt->T->Z0dp->co[r][c]-H1->co[i])/(adt->S->pa->co[sy][jdz][l]/2.);
-						Infpot=adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/Dt;
-
-						adt->S->Jinf->co[r][c]=Fmin(Infmax,Infpot);
-						massinf += adt->S->Jinf->co[r][c]*Dt;
-
-						if( (Infpot > Infmax && adt->S->bc->co[r][c]==0) || (Infpot < Infmax && adt->S->bc->co[r][c]==1) ) diff_bc++;
-
-						if(Infpot > Infmax){
-							adt->S->bc->co[r][c]=1;
+					if(adt->T->pixel_type->co[r][c] == 10){
+						if(h_sup>0){
+							A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
+							adt->C->Qsup->co[ adt->C->ch->co[r][c] ] = A * pow( 1.E-3*h_sup , 1.5 ); //[m3/s]
+							mass_to_channel += adt->C->Qsup->co[ adt->C->ch->co[r][c] ]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
 						}else{
-							adt->S->bc->co[r][c]=0;
+							adt->C->Qsup->co[ adt->C->ch->co[r][c] ] = 0.0;
+						}
+
+					}else if(adt->T->pixel_type->co[r][c] == 1){
+						if(h_sup>0){
+							A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
+							adt->C->Q_sup_s->co[1] = A * pow( 1.E-3*h_sup , 1.5 ); //[m3/s]
+							mass_to_channel += adt->C->Q_sup_s->co[1]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
+						}else{
+							adt->C->Q_sup_s->co[1] = 0.0;
+						}
+					}
+
+				}else{
+					if(H1->co[i] - adt->T->Z->co[l][r][c] < PSImin) H1->co[i] = PSImin + adt->T->Z->co[l][r][c];
+					psi = H1->co[i] - adt->T->Z->co[l][r][c];
+					mass1 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
+
+					if(l==1 && adt->T->pixel_type->co[r][c] == 10){
+						if( H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){	//hyporreic flow
+							adt->C->Qsub->co[ adt->C->ch->co[r][c] ] = 1.E-3*Kb_ch*B_dy*(H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c])
+								*UV->U->co[1]*UV->U->co[2];	//m3/s
+							mass_to_channel += adt->C->Qsub->co[ adt->C->ch->co[r][c] ]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
 						}
 					}
 				}
 			}
-			massinf/=(double)adt->P->total_pixel;
-			massloss=mass0-(mass1-massinf);
 
-			/*find_coeff_Richards_3D(Asup, Ad, B, psi, Dt, adt);
-			error=0.0;
-			for(i=1;i<=n;i++){
-				if(i==1){
-					error += pow(Ad->co[i]*psi1->co[i] + Asup->co[i]*psi1->co[i+1] - B->co[i], 2.0);
-				}else if(i>1 && i<n){
-					error += pow(Asup->co[i-1]*psi1->co[i-1] + Ad->co[i]*psi1->co[i] + Asup->co[i]*psi1->co[i+1] - B->co[i], 2.0);
-				}else{
-					error += pow(Asup->co[i-1]*psi1->co[i-1] + Ad->co[i]*psi1->co[i] - B->co[i], 2.0);
-				}
-			}
-			error=pow(error,0.5);*/
+			massloss = (mass0-(mass1+mass_to_channel))/(double)adt->P->total_pixel;
 
 			cont2++;
-			nw/=2.0;
+			nw/=adt->P->nredCorrWb;
 
-			printf("cont:%ld cont2:%ld error:%e error0:%e massloss:%e massloss0:%e mass0:%e mass1:%e massinf:%e diff_bc:%ld\n",
-				cont,cont2,error,error0,massloss,massloss0,mass0,mass1,massinf,diff_bc);
+			f=fopen(error_file_name, "a");
+			fprintf(f,"iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e mass_to_channel:%e mass0:%e mass1:%e\n",iter,iter_tot,cont,cont2,massloss,massloss0,mass_to_channel,mass0,mass1);
+			fclose(f);
 
-		//}while( (fabs(massloss)>fabs(massloss0) || fabs(error)>fabs(error0)) && cont2<2 );
-		}while( fabs(massloss)>fabs(massloss0) && cont2<10 );
+			//printf("iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e mass_to_channel:%e mass0:%e mass1:%e\n",iter,iter_tot,cont,cont2,massloss,massloss0,mass_to_channel,mass0,mass1);
 
-		resnum=0.0;
-		resden=0.0;
+		}while( fabs(massloss)>fabs(massloss0) && cont2<adt->P->MaxiterCorrWb );
+
+		res=0.0;
 		for(i=1;i<=n;i++){
-			resnum+=fabs(H1->co[i] - H0->co[i]);
-			resden+=fabs(H0->co[i] - (adt->S->P->co[l][r][c]+adt->T->Z->co[l][r][c]));
+			res+=fabs(H1->co[i] - H0->co[i])/(double)n;
 		}
-		if(resden<1.E-20) resden=1.E-20;
 
 		out=0;
-		if(resnum/resden<=adt->P->TolWb) out=1;
-		if(fabs(massloss)>adt->P->MaxErrWb) out=0;
-		if(diff_bc>0) out=0;
-		if(cont==1) out=0;
-		if(cont>=adt->P->MaxiterWb) out=1;
+		if(res <= adt->P->TolWb) out=1;
+		if(fabs(massloss) > adt->P->MaxErrWb) out=0;
+		if(cont == 1) out=0;
+		if(cont >= adt->P->MaxiterWb) out=1;
+		if(iter==0 || cont >= adt->P->MaxiterWb) out=1;
 
-		printf("res:%e out:%d\n",resnum/resden,out);
+		f=fopen(error_file_name, "a");
+		fprintf(f,"res:%e out:%d\n",res,out);
+		fclose(f);
+
+		//printf("res:%e out:%d\n\n\n",res,out);
 
 	}while(out==0);
-
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			if(adt->L->LC->co[r][c]!=NoV){
-				sy=adt->S->type->co[r][c];
-				h->co[r][c] = adt->W->h_sup->co[r][c] + (adt->W->Pn->co[r][c]-adt->S->Jinf->co[r][c])*Dt;
-				if(h->co[r][c]<0) h->co[r][c]=0.0;
-			}
-		}
-	}
 
 	for(i=1;i<n;i++){
 		l=adt->T->lrc_cont->co[i][1];
 		r=adt->T->lrc_cont->co[i][2];
 		c=adt->T->lrc_cont->co[i][3];
-		P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
+		if(l==0){
+			h->co[r][c] = H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+		}else{
+			P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
+		}
 	}
 
 	*loss = massloss;
@@ -331,8 +317,6 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 	free_doublevector(H0);
 	free_doublevector(dH);
 	free_doublevector(H1);
-	//free_doublevector(Ad);
-	//free_doublevector(Asup);
 	free_doublevector(B);
 
 }
@@ -343,123 +327,240 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 /******************************************************************************************************************************************/
 
 double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt){
+/*!
+\author
+\date
 
-	long l, r, c, I;
+
+\param
+\param
+\param
+\param adt - (ALLDATA *)
+
+\brief This routine solves ....
+
+\return the i-th e
+
+
+*/
+	long l, r, c, landtype, I, R, C, LANDTYPE;
 	short sy;
 	double a = 0.0;
-	double C, dz, k, kn, dzn, psi;
+	double HyC, dz, k, kn, dzn, psi, ds, A, h, klim;
 
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
 	c=adt->T->lrc_cont->co[i][3];
 	sy=adt->S->type->co[r][c];
+	landtype=(long)adt->L->LC->co[r][c];
 
-	psi = H0->co[i] - adt->T->Z->co[l][r][c];
-
-	C = dteta_dpsi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-	dz = adt->S->pa->co[sy][jdz][l];
-	a += H1->co[i]*(C*dz/Dt);
-
-	psi = H00->co[i] - adt->T->Z->co[l][r][c];
-	k = K(psi, adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],adt->S->T->co[l][r][c]);
-
-	//Dirichlet
-	if(l==1){ if(adt->S->bc->co[r][c]==1) a += (k/(dz/2.))*H1->co[i]; }
-
-	if(l>1){
-		I=adt->T->i_cont[l-1][r][c];
-
-		psi = H00->co[I] - adt->T->Z->co[l-1][r][c];
-
-		kn=K(psi, adt->S->pa->co[sy][jKv][l-1], adt->P->imp, adt->S->thice->co[l-1][r][c], adt->S->pa->co[sy][jsat][l-1], adt->S->pa->co[sy][jres][l-1],
-			adt->S->pa->co[sy][ja][l-1], adt->S->pa->co[sy][jns][l-1], 1-1/adt->S->pa->co[sy][jns][l-1], adt->S->pa->co[sy][jv][l-1], adt->S->pa->co[sy][jpsimin][l-1],
-			adt->S->T->co[l-1][r][c]);
-		dzn=adt->S->pa->co[sy][jdz][l-1];
-		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-		dzn=0.5*dz + 0.5*dzn;
-		a+=(kn/dzn)*(H1->co[i]-H1->co[I]);
+	//hydraulic capacity (diagonal term)
+	if(l==0){	//overland flow
+		psi = H0->co[i]-1.E3*adt->T->Z0dp->co[r][c];
+		if(psi>0){
+			a += H1->co[i]*(1.0/Dt);
+		}else{
+			//a += H1->co[i]*(0.0/Dt);
+		}
+	}else{	//subsurface flow
+		psi = H0->co[i] - adt->T->Z->co[l][r][c];
+		HyC = dtheta_dpsi_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
+		dz = adt->S->pa->co[sy][jdz][l];
+		a += H1->co[i]*(HyC*dz/Dt);
 	}
 
+	//vertical hydraulic conductivity
+	if(l>0){
+		psi = H00->co[i] - adt->T->Z->co[l][r][c];
+		k = k_from_psi( jKv, psi, l, r, c, adt->S, adt->P->imp );
+	}
+
+	//Vertical fluxes (diagonal and tridiagonal terms)
 	if(l<Nl){
-		I=adt->T->i_cont[l+1][r][c];
+		I = adt->T->i_cont[l+1][r][c];
+		if(l==0){	//overland flow
+			if( (H0->co[i]-1.E3*adt->T->Z0dp->co[r][c]) < (H0->co[I] - adt->T->Z->co[l+1][r][c]) ){	//upward flux
+				psi = H0->co[I] - adt->T->Z->co[l+1][r][c];
+				kn = k_from_psi( jKv,  psi, l+1, r, c, adt->S, adt->P->imp );
+			}else{	//downward flow
+				kn = k_from_psi( jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp );
+			}
+			dzn = 0.5*adt->S->pa->co[sy][jdz][l+1];
+			if(adt->T->pixel_type->co[r][c]==10) kn*=(1.-B_dy);
+		}else{	//subsurface flow
+			psi = H00->co[I] - adt->T->Z->co[l+1][r][c];
+			kn = k_from_psi( jKv, psi, l+1, r, c, adt->S, adt->P->imp );
+			dzn = adt->S->pa->co[sy][jdz][l+1];
+			kn = Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
 
-		psi = H00->co[I] - adt->T->Z->co[l+1][r][c];
+			klim = Harmonic_Mean( dz, dzn, k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+				k_from_psi( jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp ) );
+			if(kn > klim) kn=klim;
 
-		kn=K(psi, adt->S->pa->co[sy][jKv][l+1], adt->P->imp, adt->S->thice->co[l+1][r][c], adt->S->pa->co[sy][jsat][l+1], adt->S->pa->co[sy][jres][l+1],
-			adt->S->pa->co[sy][ja][l+1], adt->S->pa->co[sy][jns][l+1], 1-1/adt->S->pa->co[sy][jns][l+1], adt->S->pa->co[sy][jv][l+1], adt->S->pa->co[sy][jpsimin][l+1],
-			adt->S->T->co[l+1][r][c]);
-		dzn=adt->S->pa->co[sy][jdz][l+1];
-		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-		dzn=0.5*dz + 0.5*dzn;
+			dzn = 0.5*dz + 0.5*dzn;
+		}
+		a += (kn/dzn)*(H1->co[i]-H1->co[I]);
+	}
+
+	if(l>0){
+		I=adt->T->i_cont[l-1][r][c];
+		if(l==1){	//overland flow
+			if( (H0->co[I]-1.E3*adt->T->Z0dp->co[r][c]) < (H0->co[i] - adt->T->Z->co[l][r][c]) ){	//upward flux
+				psi = H0->co[i] - adt->T->Z->co[l][r][c];
+				kn = k_from_psi( jKv,  psi, l, r, c, adt->S, adt->P->imp );
+			}else{	//downward flow
+				kn = k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp );
+			}
+			dzn = 0.5*adt->S->pa->co[sy][jdz][l];
+			if(adt->T->pixel_type->co[r][c]==10) kn*=(1.-B_dy);
+		}else{
+			psi = H00->co[I] - adt->T->Z->co[l-1][r][c];
+			kn = k_from_psi( jKv, psi, l-1, r, c, adt->S, adt->P->imp );
+			dzn = adt->S->pa->co[sy][jdz][l-1];
+			kn = Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
+
+			klim = Harmonic_Mean( dz, dzn, k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+				k_from_psi( jKv,  psisat_from(l-1, r, c, adt->S), l-1, r, c, adt->S, adt->P->imp ) );
+			if(kn > klim) kn=klim;
+
+			dzn = 0.5*dz + 0.5*dzn;
+		}
 		a+=(kn/dzn)*(H1->co[i]-H1->co[I]);
 	}
 
-	psi = H00->co[i] - adt->T->Z->co[l][r][c];
-	k=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-		adt->S->T->co[l][r][c]);
+	//lateral hydraulic conductivity
+	if(l>0){
+		psi = H00->co[i] - adt->T->Z->co[l][r][c];
+		k = k_from_psi( jKh,  psi, l, r, c, adt->S, adt->P->imp );
+	}
 
-	if(r>1){
-		if(adt->L->LC->co[r-1][c]!=NoV){
-			I=adt->T->i_cont[l][r-1][c];
+	//lateral fluxes
+	//4 neighboring cells
+	R = r+1;
+	C = c;
+	ds = 1.E3*UV->U->co[2];	//[mm]
+	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
+		if(adt->L->LC->co[R][C]!=NoV){
+			I=adt->T->i_cont[l][R][C];
+			if(l==0){	//overland flow
+				LANDTYPE = (long)adt->L->LC->co[R][C];
+				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			}else{
+				psi = H00->co[I] - adt->T->Z->co[l][R][C];
+				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
 
-			psi = H00->co[I] - adt->T->Z->co[l][r-1][c];
+				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				if(kn > klim) kn=klim;
 
-			sy=adt->S->type->co[r-1][c];
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r-1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r-1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			a+=1.E-3*(kn/UV->U->co[2])*(H1->co[i]-H1->co[I]);
+				a += kn*(H1->co[i]-H1->co[I])/ds;
+			}
 		}
 	}
 
-	if(r<Nr){
-		if(adt->L->LC->co[r+1][c]!=NoV){
-			I=adt->T->i_cont[l][r+1][c];
+	R = r-1;
+	C = c;
+	ds = 1.E3*UV->U->co[2];	//[mm]
+	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
+		if(adt->L->LC->co[R][C]!=NoV){
+			I=adt->T->i_cont[l][R][C];
+			if(l==0){	//overland flow
+				LANDTYPE = (long)adt->L->LC->co[R][C];
+				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			}else{
+				psi = H00->co[I] - adt->T->Z->co[l][R][C];
+				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
 
-			psi = H00->co[I] - adt->T->Z->co[l][r+1][c];
+				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				if(kn > klim) kn=klim;
 
-			sy=adt->S->type->co[r+1][c];
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r+1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r+1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			a+=1.E-3*(kn/UV->U->co[2])*(H1->co[i]-H1->co[I]);
+				a += kn*(H1->co[i]-H1->co[I])/ds;
+			}
 		}
 	}
 
-	if(c>1){
-		if(adt->L->LC->co[r][c-1]!=NoV){
-			I=adt->T->i_cont[l][r][c-1];
+	R = r;
+	C = c+1;
+	ds = 1.E3*UV->U->co[1];	//[mm]
+	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
+		if(adt->L->LC->co[R][C]!=NoV){
+			I=adt->T->i_cont[l][R][C];
+			if(l==0){	//overland flow
+				LANDTYPE = (long)adt->L->LC->co[R][C];
+				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			}else{
+				psi = H00->co[I] - adt->T->Z->co[l][R][C];
+				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
 
-			psi = H00->co[I] - adt->T->Z->co[l][r][c-1];
+				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				if(kn > klim) kn=klim;
 
-			sy=adt->S->type->co[r][c-1];
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c-1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c-1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			a+=1.E-3*(kn/UV->U->co[1])*(H1->co[i]-H1->co[I]);
+				a += kn*(H1->co[i]-H1->co[I])/ds;
+			}
 		}
 	}
 
-	if(c<Nc){
-		if(adt->L->LC->co[r][c+1]!=NoV){
-			I=adt->T->i_cont[l][r][c+1];
+	R = r;
+	C = c-1;
+	ds = 1.E3*UV->U->co[1];	//[mm]
+	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
+		if(adt->L->LC->co[R][C]!=NoV){
+			I=adt->T->i_cont[l][R][C];
+			if(l==0){	//overland flow
+				LANDTYPE = (long)adt->L->LC->co[R][C];
+				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			}else{
+				psi = H00->co[I] - adt->T->Z->co[l][R][C];
+				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
 
-			psi = H00->co[I] - adt->T->Z->co[l][r][c+1];
+				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				if(kn > klim) kn=klim;
 
-			sy=adt->S->type->co[r][c+1];
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c+1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c+1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			a+=1.E-3*(kn/UV->U->co[1])*(H1->co[i]-H1->co[I]);
+				a += kn*(H1->co[i]-H1->co[I])/ds;
+			}
+		}
+	}
+
+	//channel interactions with surface flow
+	if( (adt->T->pixel_type->co[r][c]==10 || adt->T->pixel_type->co[r][c]==1) && l==0){ //channel
+		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
+
+			h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+
+			//Q = A*h^(1.5)*dx [m3/s]
+			//q = Q/(dx*dy) [m/s]
+
+			A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
+			A /= (UV->U->co[1]*UV->U->co[2]); //m^(-1/2) s^(-1)
+			A *= pow(1.E3, -0.5);  //mm^(-1/2) s^(-1)
+
+			a += 1.5 * A * pow( h, 0.5 ) * H1->co[i];	//mm/s
+
+		}
+	}
+
+	//channel interaction with subsurface flow
+	if(adt->T->pixel_type->co[r][c]==10 && l==1){ //channel
+		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
+			//q = A*(H-zf)
+			A = Kb_ch*B_dy; //s^(-1)
+			a += A * H1->co[i];
 		}
 	}
 
 	return(a);
+
 }
 
 double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, void *adt) {
@@ -474,306 +575,72 @@ double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVEC
 
 double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt){
 
-	long l, r, c;
+	long l, r, c, landtype;
 	short sy;
 	double a = 0.0;
-	double C, dz, k, theta1, theta0, psi;
+	double HyC, dz, theta1, theta0, psi, A, h;
 
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
 	c=adt->T->lrc_cont->co[i][3];
 	sy=adt->S->type->co[r][c];
+	landtype=(long)adt->L->LC->co[r][c];
 
-	psi = H0->co[i] - adt->T->Z->co[l][r][c];
-
-	C=dteta_dpsi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-
-	theta1=teta_psi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->P->Esoil, adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-	theta0=teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-
-	dz=adt->S->pa->co[sy][jdz][l];
-	a+=(C*H0->co[i]+theta0-theta1)*dz/Dt;
-
-	psi = H00->co[i] - adt->T->Z->co[l][r][c];
-
-	k=K(psi, adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-		adt->S->T->co[l][r][c]);
-
-	if(l==1){
-		//Dirichlet
-		if(adt->S->bc->co[r][c]==1){
-			a += k*( adt->W->h_sup->co[r][c] + 1.E3*adt->T->Z0dp->co[r][c] )/(dz/2.);
-
-		//Neumann
+	//hydraulic capacity (diagonal term)
+	if(l==0){	//overland flow
+		psi = H0->co[i]-1.E3*adt->T->Z0dp->co[r][c];
+		if(psi>0){
+			a += (1.E3*adt->T->Z0dp->co[r][c] + Fmax(adt->W->h_sup->co[r][c], 0.0))/Dt;
 		}else{
-			a += ( adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/Dt );
+			a += (Fmax(adt->W->h_sup->co[r][c], 0.0))/Dt;
+		}
+
+	}else{	//subsurface flow
+		psi = H0->co[i] - adt->T->Z->co[l][r][c];
+		HyC = dtheta_dpsi_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
+		theta1 = theta_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
+		theta0 = theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
+		dz = adt->S->pa->co[sy][jdz][l];
+		a += (HyC*H0->co[i] + theta0 - theta1)*dz/Dt;
+	}
+
+	//channel interactions with surface flow
+	if( (adt->T->pixel_type->co[r][c]==10 || adt->T->pixel_type->co[r][c]==1) && l==0){ //channel
+		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
+
+			h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+
+			//Q = A*h^(1.5)*dx [m3/s]
+			//q = Q/(dx*dy) [m/s]
+
+			A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
+			A /= (UV->U->co[1]*UV->U->co[2]); //m^(-1/2) s^(-1)
+			A *= pow(1.E3, -0.5);  //mm^(-1/2) s^(-1)
+
+			a += ( 1.5 * A * pow( h , 0.5 ) * H0->co[i] - A * pow( h , 1.5 ) );	//mm/s
+
 		}
 	}
 
-	/*if(l==Nl) a-=k*0.0;
-
-	if(l>1){
-		I=adt->T->i_cont[l-1][r][c];
-
-		psi = H0->co[I] - 1.E3*adt->T->Z->co[l-1][r][c];
-
-		kn=K(psi, adt->S->pa->co[sy][jKv][l-1], adt->P->imp, adt->S->thice->co[l-1][r][c], adt->S->pa->co[sy][jsat][l-1], adt->S->pa->co[sy][jres][l-1],
-			adt->S->pa->co[sy][ja][l-1], adt->S->pa->co[sy][jns][l-1], 1-1/adt->S->pa->co[sy][jns][l-1], adt->S->pa->co[sy][jv][l-1], adt->S->pa->co[sy][jpsimin][l-1],
-			adt->S->T->co[l-1][r][c]);
-		dzn=adt->S->pa->co[sy][jdz][l-1];
-		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-		dzn=0.5*dz + 0.5*dzn;
-		a+=kn;
-	}
-
-	if(l<Nl){
-		I=adt->T->i_cont[l+1][r][c];
-
-		psi = H0->co[I] - 1.E3*adt->T->Z->co[l+1][r][c];
-
-		kn=K(psi, adt->S->pa->co[sy][jKv][l+1], adt->P->imp, adt->S->thice->co[l+1][r][c], adt->S->pa->co[sy][jsat][l+1], adt->S->pa->co[sy][jres][l+1],
-			adt->S->pa->co[sy][ja][l+1], adt->S->pa->co[sy][jns][l+1], 1-1/adt->S->pa->co[sy][jns][l+1], adt->S->pa->co[sy][jv][l+1], adt->S->pa->co[sy][jpsimin][l+1],
-			adt->S->T->co[l+1][r][c]);
-		dzn=adt->S->pa->co[sy][jdz][l+1];
-		kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-		dzn=0.5*dz + 0.5*dzn;
-		a-=kn;
-	}
-
-	psi = H0->co[i] - 1.E3*adt->T->Z->co[l][r][c];
-	k=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-		adt->S->T->co[l][r][c]);
-
-	if(r>1){
-		if(adt->L->LC->co[r-1][c]!=NoV){
-			I=adt->T->i_cont[l][r-1][c];
-			sy=adt->S->type->co[r-1][c];
-
-			psi = H0->co[I] - 1.E3*adt->T->Z->co[l][r-1][c];
-
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r-1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r-1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			a+=(kn/UV->U->co[2])*(adt->T->Z0dp->co[r-1][c] - adt->T->Z0dp->co[r][c]);
+	//channel interaction with subsurface flow
+	if(adt->T->pixel_type->co[r][c]==10 && l==1){ //channel
+		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
+			//q = A*(H-zf)
+			A = Kb_ch*B_dy; //s^(-1)
+			a += A * 1.E3*adt->T->Z0dp->co[r][c];
 		}
 	}
-
-	if(r<Nr){
-		if(adt->L->LC->co[r+1][c]!=NoV){
-			I=adt->T->i_cont[l][r+1][c];
-			sy=adt->S->type->co[r+1][c];
-
-			psi = H0->co[I] - 1.E3*adt->T->Z->co[l][r+1][c];
-
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r+1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r+1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			a+=(kn/UV->U->co[2])*(adt->T->Z0dp->co[r+1][c] - adt->T->Z0dp->co[r][c]);
-		}
-	}
-
-	if(c>1){
-		if(adt->L->LC->co[r][c-1]!=NoV){
-			I=adt->T->i_cont[l][r][c-1];
-			sy=adt->S->type->co[r][c-1];
-
-			psi = H0->co[I] - 1.E3*adt->T->Z->co[l][r][c-1];
-
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c-1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c-1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			a+=(kn/UV->U->co[1])*(adt->T->Z0dp->co[r][c-1] - adt->T->Z0dp->co[r][c]);
-		}
-	}
-
-	if(c<Nc){
-		if(adt->L->LC->co[r][c+1]!=NoV){
-			I=adt->T->i_cont[l][r][c+1];
-			sy=adt->S->type->co[r][c+1];
-
-			psi = H0->co[I] - 1.E3*adt->T->Z->co[l][r][c+1];
-
-			kn=K(psi, adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c+1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c+1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			a+=(kn/UV->U->co[1])*(adt->T->Z0dp->co[r][c+1] - adt->T->Z0dp->co[r][c]);
-		}
-	}*/
 
 	return(a);
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-
-void supflow2(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par)
-
-{
-	long r,c,R,C,ch,s;
-	static short r_DD[11]={0,0,-1,-1,-1,0,1,1,1,-9999,0}; // differential of number-pixel for rows and
-	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; // columns, depending on Drainage Directions
-	double dx,dy;                                         // the two dimensions of a pixel
-	double Ks;											  // the Strickler's coefficent calculated with a standard deviation
-	double b[10];                                         // area perpendicular to the superficial flow divided by h_sup
-	double i;											  //hydraulic gradient
-	double q,tb,te,dt;
-	short lu;
-
-if(par->point_sim==0){	//distributed simulations
-
-	initialize_doublevector(cnet->Qsup,0.0);
-	initialize_doublevector(cnet->Qsub,0.0);
-
-	dx=UV->U->co[1];
-	dy=UV->U->co[2];
-
-	b[1]=0.0;  b[2]=dy;             b[3]=dx/2.0+dy/2.0;  b[4]=dx;            b[5]=dx/2.0+dy/2.0;
-	b[6]=dy;   b[7]=dx/2.0+dy/2.0;  b[8]=dx;             b[9]=dx/2.0+dy/2.0;
-
-	te=0.0;
-
-	do{
-
-		tb=te;
-		dt=Dt;
-
-		//find dt min
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(h->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
-					lu=(short)land->LC->co[r][c];
-					Ks=land->ty->co[lu][jcm];
-					i=0.001*( h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
-					//i=top->i_DD->co[r][c];
-					if(i<0) i=0;  //correct false slopes
-					q=b[top->DD->co[r][c]+1]*Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;	//mm/s
-					if(q>0){
-						if(h->co[r][c]/q<dt) dt=h->co[r][c]/q;
-					}
-				}
-			}
-		}
-
-		te=tb+dt;
-		if(te>Dt){
-			te=Dt;
-			dt=te-tb;
-		}
-
-		//h(=height of water over the land-surface) is updated adding the new runoff(=precipita-
-		//tion not infiltrated of the actual time); then it is calculated q_sub and it is checked
-		//that its value is not greater than the avaible water on the land-surface:
-		//Remember the units of measure: q_sup=[mm/s],b[m],Ks[m^(1/3)/s],h[mm],dx[m],dy[m]
-		initialize_doublematrix(wat->q_sup,0.0);
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(h->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
-					lu=(short)land->LC->co[r][c];
-					Ks=land->ty->co[lu][jcm];
-					i=0.001*( h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];
-					//i=top->i_DD->co[r][c];
-					if(i<0) i=0.0;
-					wat->q_sup->co[r][c]=b[top->DD->co[r][c]+1]*Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;
-
-					if(wat->q_sup->co[r][c]!=wat->q_sup->co[r][c]){
-						printf("NO VALUE SUP:%ld %ld %ld %ld %f %f\n",r,c,r+r_DD[top->DD->co[r][c]],c+c_DD[top->DD->co[r][c]],h->co[r][c],h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]]);
-						printf("i:%f Dh:%f Ks:%f pow:%f iF:%f\n",i,h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]],Ks,pow(h->co[r][c]/1000.0,1.0+par->gamma_m),top->i_DD->co[r][c]);
-					}
-				}
-			}
-		}
-
-		//After the computation of the surface flow,these flows are moved trough D8 scheme:
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if(top->pixel_type->co[r][c]==0){
-
-					R=r+r_DD[top->DD->co[r][c]];
-					C=c+c_DD[top->DD->co[r][c]];
-
-					h->co[r][c]-=wat->q_sup->co[r][c]*dt;
-					h->co[r][c]=Fmax(h->co[r][c], 0.0);
-
-					//the superficial flow is added to the land pixels (code 0):
-					if (top->pixel_type->co[R][C]==0){
-						h->co[R][C]+=wat->q_sup->co[r][c]*dt;
-
-					//the superficial flow is added to flow which flows into the channel pixels (code 10):
-					}else if (top->pixel_type->co[R][C]==10){
-						for(ch=1;ch<=cnet->r->nh;ch++){
-							if(R==cnet->r->co[ch] && C==cnet->c->co[ch]){
-								cnet->Qsup->co[ch]+=wat->q_sup->co[r][c]*dt/Dtmax;
-								if(cnet->Qsup->co[ch]!=cnet->Qsup->co[ch]){
-									printf("qsup no value: r:%ld c:%ld ch:%ld R:%ld C:%ld qsup:%f hsup:%f\n",r,c,ch,R,C,wat->q_sup->co[r][c],h->co[r][c]);
-								}
-							}
-						}
-					}
-
-				}else if(top->pixel_type->co[r][c]==10){
-					for(ch=1;ch<=cnet->r->nh;ch++){
-						if(r==cnet->r->co[ch] && c==cnet->c->co[ch]){
-							cnet->Qsub->co[ch]=h->co[r][c]/Dtmax; //[mm/s]
-							h->co[r][c]=0.0;
-						}
-					}
-				}
-
-			}
-		}
-
-		for(ch=1;ch<=cnet->r->nh;ch++){
-			for(s=1;s<=cnet->Qsup_spread->nh;s++){
-				cnet->Qsup_spread->co[s]+=(cnet->Qsup->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; //in m3/s
-				cnet->Qsub_spread->co[s]+=(cnet->Qsub->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; //in m3/s
-			}
-
-		}
-
-
-	}while(te<Dt);
-
-
-}else{	//point simulation
-
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			if(land->LC->co[r][c]!=NoV){
-				/*q=0.0;
-				lu=(short)land->LC->co[r][c];
-				Ks=land->ty->co[lu][jcm];
-				i=pow(pow(top->dz_dx->co[r][c],2.0)+pow(top->dz_dy->co[r][c],2.0),0.5);
-				if(h->co[r][c]>0) q=Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0;	//mm/s
-				h->co[r][c]-=q*Dt;
-				if(h->co[r][c]<0) h->co[r][c]=0.0;*/
-				h->co[r][c]=0.0;
-			}
-		}
-	}
-}
-
 
 }
 
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void routing2(CHANNEL *cnet){
+void routing3(CHANNEL *cnet){
 
 	long s;
 
@@ -784,6 +651,7 @@ void routing2(CHANNEL *cnet){
 		cnet->Q_sub_s->co[s]=cnet->Q_sub_s->co[s+1]+cnet->Qsub_spread->co[s];
 		cnet->Q_sup_s->co[s]=cnet->Q_sup_s->co[s+1]+cnet->Qsup_spread->co[s];
 	}
+
 	cnet->Q_sub_s->co[cnet->Qsub_spread->nh]=cnet->Qsub_spread->co[cnet->Qsub_spread->nh];
 	cnet->Q_sup_s->co[cnet->Qsup_spread->nh]=cnet->Qsup_spread->co[cnet->Qsup_spread->nh];
 }
@@ -793,7 +661,7 @@ void routing2(CHANNEL *cnet){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void output_waterbalance2(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z){
+void output_waterbalance3(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z){
 
 	long i,l,r,c;
 
@@ -828,69 +696,85 @@ void output_waterbalance2(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double calc_V_water(long l, long r, long c, DOUBLEVECTOR *psi, ALLDATA *adt){
+void find_slope_H(long ***I, DOUBLEVECTOR *H, DOUBLEMATRIX *Z, DOUBLEMATRIX *LC, DOUBLEMATRIX *slope){
 
-	short sy;
-	double dz, k, kn, a=0.0;
-	double ig, ip;
 
-	sy=adt->S->type->co[r][c];
-	dz=adt->S->pa->co[sy][jdz][l];
-	k=K(adt->S->P->co[l][r][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-		adt->S->T->co[l][r][c]);
+	long r, c;
 
-	if(r>1){
-		if(adt->L->LC->co[r-1][c]!=NoV){
-			sy=adt->S->type->co[r-1][c];
-			kn=K(adt->S->P->co[l][r-1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r-1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r-1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			ig=(adt->T->Z0dp->co[r-1][c] - adt->T->Z0dp->co[r][c])/UV->U->co[2];
-			ip=1.E-3*(psi->co[adt->T->i_cont[l][r-1][c]]  - psi->co[adt->T->i_cont[l][r][c]])/UV->U->co[2];
-			a+=kn*(ip+ig)*adt->P->Dt;
+	DOUBLEMATRIX *a;/*contiene, per ogni punto del bacino, il coefficiente angolare della retta
+					interpolante il punto a monte, quello a valle e il punto stesso*/
+	DOUBLEMATRIX *b;/*contiene, per ogni punto del bacino,il coefficiente angolare della retta
+					interpolante il punto a destra, quello a sinistra e il punto stesso*/
+
+
+	a = new_doublematrix(Nr, Nc);
+	initialize_doublematrix(a, NoV);
+
+	b = new_doublematrix(Nr, Nc);
+	initialize_doublematrix(b, NoV);
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(LC->co[r][c]!=NoV);
+
+				if(LC->co[r-1][c]!=NoV && LC->co[r+1][c] != NoV){
+					a->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r-1][c]],Z->co[r-1][c]) - Fmax(1.E-3*H->co[I[0][r+1][c]],Z->co[r+1][c]) )/(2*UV->U->co[2]) );
+				}else if(LC->co[r-1][c]==NoV && LC->co[r+1][c] != NoV){
+					a->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r][c]],Z->co[r][c]) - Fmax(1.E-3*H->co[I[0][r+1][c]],Z->co[r+1][c]) )/(UV->U->co[2]) );
+				}else if(LC->co[r-1][c]!=NoV && LC->co[r+1][c] == NoV){
+					a->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r-1][c]],Z->co[r-1][c]) - Fmax(1.E-3*H->co[I[0][r][c]],Z->co[r][c]) )/(UV->U->co[2]) );
+				}
+
+				if(LC->co[r][c-1]!=NoV && LC->co[r][c+1] != NoV){
+					b->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r][c-1]],Z->co[r][c-1]) - Fmax(1.E-3*H->co[I[0][r][c+1]],Z->co[r][c+1]) )/(2*UV->U->co[1]) );
+				}else if(LC->co[r][c-1]==NoV && LC->co[r][c+1] != NoV){
+					b->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r][c]],Z->co[r][c]) - Fmax(1.E-3*H->co[I[0][r][c+1]],Z->co[r][c+1]) )/(UV->U->co[1]) );
+				}else if(LC->co[r][c-1]!=NoV && LC->co[r][c+1] == NoV){
+					b->co[r][c] = atan( ( Fmax(1.E-3*H->co[I[0][r][c-1]],Z->co[r][c-1]) - Fmax(1.E-3*H->co[I[0][r][c]],Z->co[r][c]) )/(UV->U->co[1]) );
+			}
 		}
 	}
 
-	if(r<Nr){
-		if(adt->L->LC->co[r+1][c]!=NoV){
-			sy=adt->S->type->co[r+1][c];
-			kn=K(adt->S->P->co[l][r+1][c], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r+1][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r+1][c]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-			ig=(adt->T->Z0dp->co[r+1][c] - adt->T->Z0dp->co[r][c])/UV->U->co[2];
-			ip=1.E-3*(psi->co[adt->T->i_cont[l][r+1][c]]  - psi->co[adt->T->i_cont[l][r][c]])/UV->U->co[2];
-			a+=kn*(ip+ig)*adt->P->Dt;
+	/*La matrice "slopes" contiene la pendenza di ogni pixel:*/
+
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(a->co[r][c]!=NoV){
+				slope->co[r][c] = tan(acos(cos(fabs(a->co[r][c]))*cos(fabs(b->co[r][c]))));
+				slope->co[r][c] = fabs(slope->co[r][c]);
+			}else{
+				slope->co[r][c] = 0.0;
+			}
 		}
 	}
 
-	if(c>1){
-		if(adt->L->LC->co[r][c-1]!=NoV){
-			sy=adt->S->type->co[r][c-1];
-			kn=K(adt->S->P->co[l][r][c-1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c-1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c-1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			ig=(adt->T->Z0dp->co[r][c-1] - adt->T->Z0dp->co[r][c])/UV->U->co[1];
-			ip=1.E-3*(psi->co[adt->T->i_cont[l][r][c-1]]  - psi->co[adt->T->i_cont[l][r][c]])/UV->U->co[1];
-			a+=kn*(ip+ig)*adt->P->Dt;
-		}
-	}
+	free_doublematrix(a);
+	free_doublematrix(b);
 
-	if(c<Nc){
-		if(adt->L->LC->co[r][c+1]!=NoV){
-			sy=adt->S->type->co[r][c+1];
-			kn=K(adt->S->P->co[l][r][c+1], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c+1], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-				adt->S->T->co[l][r][c+1]);
-			kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-			ig=(adt->T->Z0dp->co[r][c+1] - adt->T->Z0dp->co[r][c])/UV->U->co[1];
-			ip=1.E-3*(psi->co[adt->T->i_cont[l][r][c+1]]  - psi->co[adt->T->i_cont[l][r][c]])/UV->U->co[1];
-			a+=kn*(ip+ig)*adt->P->Dt;
-		}
-	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+double find_k_sup(long i1, long i2, LONGMATRIX *lrc, DOUBLEMATRIX *slope, DOUBLEMATRIX *Z, DOUBLEVECTOR *H, double cm1, double cm2, double gamma){
+
+	double a, h, cm, dHds;
+	long r1, c1, r2, c2;
+
+	r1 = lrc->co[i1][2];
+	c1 = lrc->co[i1][3];
+	if(lrc->co[i1][1]!=0) t_error("Error 1 in find_k_sup");
+
+	r2 = lrc->co[i2][2];
+	c2 = lrc->co[i2][3];
+	if(lrc->co[i2][1]!=0) t_error("Error 2 in find_k_sup");
+
+	h = Arithmetic_Mean( 1., 1., Fmax(0.0, (1.E-3*H->co[i1] - Z->co[r1][c1])), Fmax(0.0, (1.E-3*H->co[i2] - Z->co[r2][c2])) );	//[m]
+	cm = Harmonic_Mean( 1., 1., cm1, cm2 );
+	dHds = Fmax ( min_slope , Arithmetic_Mean( 1., 1., slope->co[r1][c1], slope->co[r2][c2] ) );
+
+	a = 1.E6 * pow(h, 1.0+gamma) * cm * pow(dHds, -0.5);	//[mm2/s]
 
 	return(a);
 }
@@ -898,163 +782,3 @@ double calc_V_water(long l, long r, long c, DOUBLEVECTOR *psi, ALLDATA *adt){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void find_coeff_Richards_3D(DOUBLEVECTOR *Asup, DOUBLEVECTOR *Ad, DOUBLEVECTOR *B, DOUBLEVECTOR *psi, double Dt, ALLDATA *adt){
-
-	//psi: previous iteration
-	//adt->S->P: previous time step
-
-	long i,I,l,r,c,L,R,C;
-	long n=psi->nh;
-	short sy;
-	double dz, HyC, theta1, theta0, k, kn, dzn;
-
-	initialize_doublevector(Asup, 0.0);
-	initialize_doublevector(Ad, 0.0);
-	initialize_doublevector(B, 0.0);
-
-	for(i=1;i<=n;i++){
-
-		l=adt->T->lrc_cont->co[i][1];
-		r=adt->T->lrc_cont->co[i][2];
-		c=adt->T->lrc_cont->co[i][3];
-		sy=adt->S->type->co[r][c];
-		dz=adt->S->pa->co[sy][jdz][l];
-
-		HyC=dteta_dpsi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-
-		theta1=teta_psi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-		theta0=teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
-
-		Ad->co[i] += HyC*dz/Dt;
-		B->co[i] += (HyC*psi->co[i]+theta0-theta1)*dz/Dt;
-
-		k=K(psi->co[i], adt->S->pa->co[sy][jKv][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-			adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-			adt->S->T->co[l][r][c]);
-
-		//Boundary conditions
-		if(l==1){
-			//Dirichlet
-			if(adt->S->bc->co[r][c]==1){
-				Ad->co[i] += (k/(dz/2.));
-				B->co[i] += (k + k*adt->W->h_sup->co[r][c]/(dz/2.));
-
-			//Neumann
-			}else{
-				B->co[i] += ( adt->W->Pn->co[r][c] + adt->W->h_sup->co[r][c]/Dt );
-			}
-		}
-
-		if(l==Nl) B->co[i] -= k*0.0;
-
-		//Vertical fluxes
-		if(l>1){
-			L=l-1;
-			I=adt->T->i_cont[L][r][c];
-			kn=K(psi->co[I], adt->S->pa->co[sy][jKv][L], adt->P->imp, adt->S->thice->co[L][r][c], adt->S->pa->co[sy][jsat][L],
-				adt->S->pa->co[sy][jres][L], adt->S->pa->co[sy][ja][L], adt->S->pa->co[sy][jns][L], 1-1/adt->S->pa->co[sy][jns][L],
-				adt->S->pa->co[sy][jv][L], adt->S->pa->co[sy][jpsimin][L], adt->S->T->co[L][r][c]);
-			dzn=adt->S->pa->co[sy][jdz][L];
-			kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-			dzn=0.5*dz + 0.5*dzn;
-
-			Ad->co[i] += (kn/dzn);
-			B->co[i] += kn;
-		}
-
-		if(l<Nl){
-			L=l+1;
-			I=adt->T->i_cont[L][r][c];
-			kn=K(psi->co[I], adt->S->pa->co[sy][jKv][L], adt->P->imp, adt->S->thice->co[L][r][c], adt->S->pa->co[sy][jsat][L],
-				adt->S->pa->co[sy][jres][L], adt->S->pa->co[sy][ja][L], adt->S->pa->co[sy][jns][L], 1-1/adt->S->pa->co[sy][jns][L],
-				adt->S->pa->co[sy][jv][L], adt->S->pa->co[sy][jpsimin][L], adt->S->T->co[L][r][c]);
-			dzn=adt->S->pa->co[sy][jdz][L];
-			kn=Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-			dzn=0.5*dz + 0.5*dzn;
-
-			Ad->co[i] += (kn/dzn);
-			Asup->co[i] -= (kn/dzn);
-			B->co[i] -= kn;
-		}
-
-		//Lateral fluxes
-		k=K(psi->co[i], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-			adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l],
-			adt->S->T->co[l][r][c]);
-
-		R=r-1;
-		C=c;
-		if(R>=1){
-			if(adt->L->LC->co[R][C]!=NoV){
-				sy=adt->S->type->co[R][C];
-				I=adt->T->i_cont[l][R][C];
-				kn=K(psi->co[I], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][R][C], adt->S->pa->co[sy][jsat][l],
-					adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-					adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][R][C]);
-				kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-
-				B->co[i] += (kn/UV->U->co[2])*(1.E-3*(psi->co[I] - psi->co[i]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-				//B->co[i] += (kn/UV->U->co[2])*(1.E-3*(adt->S->P->co[l][R][C] - adt->S->P->co[l][r][c]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-
-			}
-		}
-
-		R=r+1;
-		C=c;
-		if(R<=Nr){
-			if(adt->L->LC->co[R][C]!=NoV){
-				sy=adt->S->type->co[R][C];
-				I=adt->T->i_cont[l][R][C];
-				kn=K(psi->co[I], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][R][C], adt->S->pa->co[sy][jsat][l],
-					adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-					adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][R][C]);
-				kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[2], UV->U->co[2], k, kn);
-
-				B->co[i] += (kn/UV->U->co[2])*(1.E-3*(psi->co[I] - psi->co[i]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-				//B->co[i] += (kn/UV->U->co[2])*(1.E-3*(adt->S->P->co[l][R][C] - adt->S->P->co[l][r][c]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-
-			}
-		}
-
-		R=r;
-		C=c-1;
-		if(C>=1){
-			if(adt->L->LC->co[R][C]!=NoV){
-				sy=adt->S->type->co[R][C];
-				I=adt->T->i_cont[l][R][C];
-				kn=K(psi->co[I], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][R][C], adt->S->pa->co[sy][jsat][l],
-					adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-					adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][R][C]);
-				kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-
-				B->co[i] += (kn/UV->U->co[1])*(1.E-3*(psi->co[I] - psi->co[i]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-				//B->co[i] += (kn/UV->U->co[1])*(1.E-3*(adt->S->P->co[l][R][C] - adt->S->P->co[l][r][c]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-
-			}
-		}
-
-		R=r;
-		C=c+1;
-		if(C<=Nc){
-			if(adt->L->LC->co[R][C]!=NoV){
-				sy=adt->S->type->co[R][C];
-				I=adt->T->i_cont[l][R][C];
-				kn=K(psi->co[I], adt->S->pa->co[sy][jKh][l], adt->P->imp, adt->S->thice->co[l][R][C], adt->S->pa->co[sy][jsat][l],
-					adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l],
-					adt->S->pa->co[sy][jv][l], adt->S->pa->co[sy][jpsimin][l], adt->S->T->co[l][R][C]);
-				kn=Mean(adt->P->harm_or_arit_mean, UV->U->co[1], UV->U->co[1], k, kn);
-
-				B->co[i] += (kn/UV->U->co[1])*(1.E-3*(psi->co[I] - psi->co[i]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-				//B->co[i] += (kn/UV->U->co[1])*(1.E-3*(adt->S->P->co[l][R][C] - adt->S->P->co[l][r][c]) + (adt->T->Z0dp->co[R][C] - adt->T->Z0dp->co[r][c]));
-
-			}
-		}
-	}
-}
-
-

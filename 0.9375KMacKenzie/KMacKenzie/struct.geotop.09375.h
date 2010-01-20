@@ -165,6 +165,7 @@ typedef struct {
 	LONGMATRIX *lrc_cont;
 
 	DOUBLETENSOR *Z;  /*! elevation [mm] of the center of each layer above a reference (e.g. sea level) */
+	DOUBLEMATRIX *slope_H;
 
 } TOPO;
 
@@ -187,6 +188,7 @@ typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of 
                   R=number of rows of the basin,C=number of columns in the basin*/
     LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
     LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
+	LONGMATRIX *ch;
 	DOUBLEVECTOR *Q;
     DOUBLEVECTOR *s0;       /*distance of each channel-pixel from outlet; dimension=nch*/
     DOUBLEMATRIX *fraction_spread;/*fraction of flow for each s(=virtual distance) of all channel-pixel;

@@ -2,13 +2,13 @@
 /* STATEMENT:
 
 GEO_TOP MODELS THE ENERGY AND WATER FLUXES AT LAND SURFACE
-GEOtop-Version 0.9375-Subversion Mackenzie
+GEOtop-Version 0.9375-Subversion Mackenzie 
 
 Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'Amico
 
  LICENSE:
 
- This file is part of GEOtop 0.9375 Mackenzie.
+ This file is part of GEOtop 0.9375 Mackenzie. 
  GEOtop is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -21,10 +21,9 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-
-#define DtminWb 5.0
-#define nredDtWb 2
-
+    
+ 	
+    
 void water_balance_3D(ALLDATA *adt);
 
 void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLDATA *adt);
@@ -35,12 +34,11 @@ double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVEC
 
 double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt);
 
-void supflow2(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par);
+void routing3(CHANNEL *cnet);
 
-void routing2(CHANNEL *cnet);
+void output_waterbalance3(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z);
 
-void output_waterbalance2(WATER *wat, SOIL *sl, PAR *par, DOUBLEMATRIX *Z);
+void find_slope_H(long ***I, DOUBLEVECTOR *H, DOUBLEMATRIX *Z, DOUBLEMATRIX *LC, DOUBLEMATRIX *slope);
 
-double calc_V_water(long l, long r, long c, DOUBLEVECTOR *psi, ALLDATA *adt);
+double find_k_sup(long j1, long j2, LONGMATRIX *rc, DOUBLEMATRIX *slope, DOUBLEMATRIX *Z, DOUBLEVECTOR *H, double cm1, double cm2, double gamma);
 
-void find_coeff_Richards_3D(DOUBLEVECTOR *Asup, DOUBLEVECTOR *Ad, DOUBLEVECTOR *B, DOUBLEVECTOR *psi, double Dt, ALLDATA *adt);
