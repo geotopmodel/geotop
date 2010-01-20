@@ -155,7 +155,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		H00->co[i] = H0->co[i];
 
 		mass0 += adt->S->pa->co[sy][jdz][l]*teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+				adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 	}
 	mass0/=(double)adt->P->total_pixel;	//in [mm]
 
@@ -220,7 +220,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 			for(i=1;i<=n;i++){
 				H1->co[i] = H0->co[i] + nw*dH->co[i];
 				if(H1->co[i] != H1->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
-				if(H1->co[i] - adt->T->Z->co[l][r][c] < adt->P->psimin) H1->co[i] = adt->P->psimin + adt->T->Z->co[l][r][c];
+				if(H1->co[i] - adt->T->Z->co[l][r][c] < PSImin) H1->co[i] = PSImin + adt->T->Z->co[l][r][c];
 
 				l=adt->T->lrc_cont->co[i][1];
 				r=adt->T->lrc_cont->co[i][2];
@@ -230,7 +230,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 				psi = H1->co[i] - adt->T->Z->co[l][r][c];
 
 				mass1 += adt->S->pa->co[sy][jdz][l]*teta_psi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l],
-			   		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+			   		adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 			}
 			mass1/=(double)adt->P->total_pixel;//[mm]
 
@@ -298,12 +298,11 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		if(resden<1.E-20) resden=1.E-20;
 
 		out=0;
-		if(resnum/resden<=adt->P->TolVWb) out=1;
-		if(cont>=adt->P->MaxiterTol) out=1;
+		if(resnum/resden<=adt->P->TolWb) out=1;
 		if(fabs(massloss)>adt->P->MaxErrWb) out=0;
 		if(diff_bc>0) out=0;
 		if(cont==1) out=0;
-		if(cont>=adt->P->MaxiterErr) out=1;
+		if(cont>=adt->P->MaxiterWb) out=1;
 
 		printf("res:%e out:%d\n",resnum/resden,out);
 
@@ -357,7 +356,7 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTO
 
 	psi = H0->co[i] - adt->T->Z->co[l][r][c];
 
-	C = dteta_dpsi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+	C = dteta_dpsi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 	dz = adt->S->pa->co[sy][jdz][l];
 	a += H1->co[i]*(C*dz/Dt);
 
@@ -488,12 +487,12 @@ double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *a
 	psi = H0->co[i] - adt->T->Z->co[l][r][c];
 
 	C=dteta_dpsi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 
 	theta1=teta_psi(psi, adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->P->Esoil, adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 	theta0=teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+		adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 
 	dz=adt->S->pa->co[sy][jdz][l];
 	a+=(C*H0->co[i]+theta0-theta1)*dz/Dt;
@@ -924,12 +923,12 @@ void find_coeff_Richards_3D(DOUBLEVECTOR *Asup, DOUBLEVECTOR *Ad, DOUBLEVECTOR *
 		dz=adt->S->pa->co[sy][jdz][l];
 
 		HyC=dteta_dpsi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 
 		theta1=teta_psi(psi->co[i], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 		theta0=teta_psi(adt->S->P->co[l][r][c], adt->S->thice->co[l][r][c], adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], adt->P->psimin, adt->P->Esoil);
+			adt->S->pa->co[sy][jns][l], 1-1/adt->S->pa->co[sy][jns][l], PSImin, adt->P->Esoil);
 
 		Ad->co[i] += HyC*dz/Dt;
 		B->co[i] += (HyC*psi->co[i]+theta0-theta1)*dz/Dt;

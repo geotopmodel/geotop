@@ -24,6 +24,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 
 
 /*Authors: Stefano Endrizzi and Matteo Dall'Amico - October 2008*/
+
 #include "keywords_file.h"
 #include "constant.h"
 #include "struct.geotop.09375.h"
@@ -59,8 +60,8 @@ void water_balance_1D(TOPO *top, SOIL *sl, LAND *land, WATER *wat, CHANNEL *cnet
 
 	for(m=1;m<=mtot;m++){
 
-		initialize_doublevector(cnet->Qsup_spread,0.0);
-		initialize_doublevector(cnet->Qsub_spread,0.0);
+		initialize_doublevector(cnet->Qsup, 0.0);
+		initialize_doublevector(cnet->Qsub, 0.0);
 
 		te=0.0;
 
@@ -90,13 +91,13 @@ void water_balance_1D(TOPO *top, SOIL *sl, LAND *land, WATER *wat, CHANNEL *cnet
 
 				vertical_water_balance(Dt, h, PSI, Err, land->LC, sl, wat, time, par, &Pnbasin, &Infbasin, &Errbasin, &MeanErrbasin);
 
-				n*=5.;
+				n *= (double)par->nredDtWb;
 
 				f=fopen(error_file_name,"a");
 				fprintf(f,"\nn:%ld Dt:%f %f\n",n,Dt,Errbasin);
 				fclose(f);
 
-			}while((fabs(MeanErrbasin) > par->MaxErrWb || fabs(Errbasin) > 10.*par->MaxErrWb) && Dt>=10);
+			}while((fabs(MeanErrbasin) > par->MaxErrWb || fabs(Errbasin) > 10.*par->MaxErrWb) && Dt>=par->DtminWb);
 
 			te=tb+Dt;
 
@@ -253,7 +254,7 @@ void vertical_water_balance(double Dt, DOUBLEMATRIX *h, DOUBLETENSOR *PSI, DOUBL
 void supflow(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par)
 
 {
-	long r,c,R,C,ch,s;
+	long r,c,R,C,ch;
 	static short r_DD[11]={0,0,-1,-1,-1,0,1,1,1,-9999,0}; // differential of number-pixel for rows and
 	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; // columns, depending on Drainage Directions
 	double dx,dy;                                         // the two dimensions of a pixel
@@ -264,9 +265,6 @@ void supflow(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WA
 	short lu;
 
 if(par->point_sim==0){	//distributed simulations
-
-	initialize_doublevector(cnet->Qsup,0.0);
-	initialize_doublevector(cnet->Qsub,0.0);
 
 	dx=UV->U->co[1];
 	dy=UV->U->co[2];
@@ -346,7 +344,7 @@ if(par->point_sim==0){	//distributed simulations
 					}else if (top->pixel_type->co[R][C]==10){
 						for(ch=1;ch<=cnet->r->nh;ch++){
 							if(R==cnet->r->co[ch] && C==cnet->c->co[ch]){
-								cnet->Qsup->co[ch]+=wat->q_sup->co[r][c]*dt/Dtmax;
+								cnet->Qsup->co[ch] += wat->q_sup->co[r][c]*dt/Dtmax;
 								if(cnet->Qsup->co[ch]!=cnet->Qsup->co[ch]){
 									printf("qsup no value: r:%ld c:%ld ch:%ld R:%ld C:%ld qsup:%f hsup:%f\n",r,c,ch,R,C,wat->q_sup->co[r][c],h->co[r][c]);
 								}
@@ -357,7 +355,7 @@ if(par->point_sim==0){	//distributed simulations
 				}else if(top->pixel_type->co[r][c]==10){
 					for(ch=1;ch<=cnet->r->nh;ch++){
 						if(r==cnet->r->co[ch] && c==cnet->c->co[ch]){
-							cnet->Qsub->co[ch]+=h->co[r][c]/Dtmax; //[mm/s]
+							cnet->Qsub->co[ch] += h->co[r][c]/Dtmax; //[mm/s]
 							h->co[r][c]=0.0;
 						}
 					}
@@ -367,13 +365,6 @@ if(par->point_sim==0){	//distributed simulations
 		}
 
 	}while(te<Dt);
-
-	for(ch=1;ch<=cnet->r->nh;ch++){
-		for(s=1;s<=cnet->Qsup_spread->nh;s++){
-			cnet->Qsup_spread->co[s]+=(cnet->Qsup->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; //in m3/s
-			cnet->Qsub_spread->co[s]+=(cnet->Qsub->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*dx*dy; //in m3/s
-		}
-	}
 
 }else{	//point simulation
 
@@ -530,8 +521,19 @@ void subflow(double Dt, DOUBLETENSOR *PSI, LAND *land, TOPO *top, SOIL *sl, PAR 
 /*--------------------------------------------*/
 void routing(CHANNEL *cnet){
 
-	long s;
+	long s;	//channel network discretization
+	long ch;//channel ID
 
+	initialize_doublevector(cnet->Qsup_spread, 0.0);
+	initialize_doublevector(cnet->Qsub_spread, 0.0);
+
+	for(ch=1;ch<=cnet->r->nh;ch++){
+		for(s=1;s<=cnet->Qsup_spread->nh;s++){
+			cnet->Qsup_spread->co[s] += (cnet->Qsup->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*UV->U->co[1]*UV->U->co[2]; //in m3/s
+			cnet->Qsub_spread->co[s] += (cnet->Qsub->co[ch])*(cnet->fraction_spread->co[ch][s])*0.001*UV->U->co[1]*UV->U->co[2]; //in m3/s
+		}
+	}
+		
 	/*The just calculated Qsup_spread and Qsub_spread are added to the flow already
 	present in the channel-network(Q_sup_s and Q_sub_s) and at once it is made a
 	traslation of Q_sup_s e Q_sub_s towards the outlet:*/
@@ -636,11 +638,11 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 
 
 	C1=dteta_dpsi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 	theta0=teta_psi(psit->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 	theta1=teta_psi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 
 
 	ad->co[l]= C1*dz/dt + K1dw/dzdw;
@@ -682,11 +684,11 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 
 
 		C1=dteta_dpsi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 		theta0=teta_psi(psit->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 		theta1=teta_psi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 
 
 		ad->co[l]=C1*dz/dt + (K1dw/dzdw+K1up/dzup);
@@ -716,11 +718,11 @@ void find_coeff_Richards_1D(long r, long c, double dt, short *bc, double Inf, do
 
 
 	C1=dteta_dpsi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 	theta0=teta_psi(psit->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 	theta1=teta_psi(e0->co[l], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+		sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 
 	ad->co[l]=C1*dz/dt + (K1up/dzup);
 	adi->co[l-1]=-K1up/dzup;
@@ -752,7 +754,7 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 	mass0=0.0;
 	for(l=1;l<=Nl;l++){
 		mass0+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],
-			sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin,
+			sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin,
 			par->Esoil);
 	}
 
@@ -803,21 +805,21 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 			wlat=0.0;
 			for(l=1;l<=Nl;l++){
 				mass1+=sl->pa->co[sy][jdz][l]*teta_psi(e1->co[l],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
-					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin, par->Esoil);
+					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 				wlat-=q_sub->co[l][r][c]*dt;
 
 			}
 			*massloss=mass0-(mass1-ActInf*dt-wlat);
 
 			cont2++;
-			nw/=4.0;
+			nw /= par->nredCorrWb;
 
-		}while(fabs(*massloss)>fabs(massloss0) && cont2<5);
+		}while(fabs(*massloss)>fabs(massloss0) && cont2<par->MaxiterCorrWb);
 
 		resnum=0.0;
 		resden=0.0;
 		for(l=1;l<=Nl;l++){
-			if(e1->co[l]<par->psimin) e1->co[l]=par->psimin;
+			if(e1->co[l]<PSImin) e1->co[l]=PSImin;
 			resnum+=fabs(e1->co[l]-e0->co[l]);
 			resden+=fabs(e0->co[l]-psit->co[l]);
 		}
@@ -825,11 +827,10 @@ void solve_Richards_1D(long r, long c, double dt, double *Inf, double h, DOUBLEV
 
 		out=0;
 
-		if(resnum/resden <= par->TolVWb) out=1;	//go out of the "do"
-		if(cont >= par->MaxiterTol) out=1;
+		if(resnum/resden <= par->TolWb) out=1;	//go out of the "do"
 		if(fabs(*massloss) >= par->MaxErrWb) out=0;
 		if(diff_bc > 0 || cont2 > 1) out=0;
-		if(cont >= par->MaxiterErr) out=1;
+		if(cont >= par->MaxiterWb) out=1;
 
 	}while(out==0);
 

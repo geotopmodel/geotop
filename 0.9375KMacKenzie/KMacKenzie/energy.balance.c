@@ -358,7 +358,7 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 					if(par->recover!=1){ if(par->glaclayer_max>0) glacier_init_t0(r, c, Tpoint, glac, snow, par, times->time);}
 
 					for(j=1;j<=par->rc->nrh;j++){
-						if(r==par->rc->co[j][1] && c==par->rc->co[j][2] && par->superfast!=1) write_soil_output(0, j, times->time, 0.0, par->year0, par->JD0, par->rc, sl, par->psimin, par->Esoil);
+						if(r==par->rc->co[j][1] && c==par->rc->co[j][2] && par->superfast!=1) write_soil_output(0, j, times->time, 0.0, par->year0, par->JD0, par->rc, sl, PSImin, par->Esoil);
 					}
 				}
 
@@ -386,7 +386,7 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 					psisat=psi_saturation(sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l]);
 					DPsi->co[l]=Fmax(sl->P->co[l][r][c]-psisat, 0.0);
 					sl->P->co[l][r][c]=Fmin(sl->P->co[l][r][c], psisat);
-					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin2, par->Esoil);
+					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 					if(theta->co[l]!=theta->co[l])printf("theta no value l:%ld teta:%f P:%f DPSi:%f T:%f\n",l,theta->co[l],sl->P->co[l][r][c],DPsi->co[l],sl->T->co[l][r][c]);
 				}
 
@@ -1361,7 +1361,7 @@ void update_soil(long l, long r, long c, double evap, double *theta, double *the
 
 	*theta = (*theta) - evap/sl->pa->co[sy][jdz][l];
 
-	//from_internal_soil_energy(r, c, l, h-Lf*evap, theta, theta_ice, T, sl->pa->co[sy], par->psimin);
+	//from_internal_soil_energy(r, c, l, h-Lf*evap, theta, theta_ice, T, sl->pa->co[sy], PSImin);
 
 }
 
@@ -1769,7 +1769,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 
 	//Tstar only changed for soil
 	for(l=ns+ng+1;l<=n;l++){
-		psim=psi_teta(theta[l-ns-ng]+sl->thice->co[l-ns-ng][r][c], 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin, par->Esoil);
+		psim=psi_teta(theta[l-ns-ng]+sl->thice->co[l-ns-ng][r][c], 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 		Tstar->co[l-ns-ng]=Fmin(psim/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
 	}
 
@@ -1783,7 +1783,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 				C = Lf*(wi[l]+wl[l])*dtheta_snow(T[l])/D[l];
 			}else{	//soil
 				if(T[l]<=Tstar->co[l-ns-ng]){
-					C = rho_w*Lf*(Lf/(g*tk)*1.E3)*dteta_dpsi(Psif(T[l]), 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin, par->Esoil);
+					C = rho_w*Lf*(Lf/(g*tk)*1.E3)*dteta_dpsi(Psif(T[l]), 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 				}else{
 					C = 0.0;
 				}
@@ -1831,10 +1831,10 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 					}
 
 					/*th0=teta_psi(Psif(Fmin(Tstar->co[l-ns-ng],T0->co[l])), 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng],
-						sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin, par->Esoil);*/
+						sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);*/
 					th0=theta0->co[l-ns-ng];
 					th1=teta_psi(Psif(Fmin(Tstar->co[l-ns-ng],T[l])), 0.0, sl->pa->co[sy][jsat][l-ns-ng], sl->pa->co[sy][jres][l-ns-ng],
-						sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin, par->Esoil);
+						sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng], 1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 					dw[l]=(th1-th0)*D[l]*rho_w;
 
@@ -1876,7 +1876,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 					if(theta[1] < 1.1*sl->pa->co[sy][jres][1]) theta[1] = 1.1*sl->pa->co[sy][jres][1];
 				}
 				psiliq=teta_psi(theta[1], 0.0, sl->pa->co[sy][jsat][1], sl->pa->co[sy][jres][1], sl->pa->co[sy][ja][1],
-					sl->pa->co[sy][jns][1], 1-1/sl->pa->co[sy][jns][1], par->psimin, par->Esoil);
+					sl->pa->co[sy][jns][1], 1-1/sl->pa->co[sy][jns][1], PSImin, par->Esoil);
 			}
 			if(par->superfast!=1){
 				EnergyFluxes(Tg, r, c, ns+ng, T0->co[1], Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, P, LR, psiliq,
@@ -1962,7 +1962,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 
 			sl->P->co[l-ns-ng][r][c]=psi_teta(theta[l-ns-ng], sl->thice->co[l-ns-ng][r][c], sl->pa->co[sy][jsat][l-ns-ng],
 				sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng],
-				1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin2, par->Esoil);
+				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 			if(l==1 && ns+ng==0){
 				sink = Fmax( par->Dt*(*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( par->Dt*(*E), 0.0);
@@ -1974,7 +1974,7 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 
 			sl->P->co[l-ns-ng][r][c]=psi_teta(theta[l-ns-ng], sl->thice->co[l-ns-ng][r][c], sl->pa->co[sy][jsat][l-ns-ng],
 				sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng],
-				1-1/sl->pa->co[sy][jns][l-ns-ng], par->psimin2, par->Esoil);
+				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 			if(T[l]!=T[l]) printf("T no value, error 3, PointEnergyBalance, l:%ld r:%ld c:%ld T:%f\n",l,r,c,T[l]);
 			if(T[l]<-80 || T[l]>50) printf("T outside of range, error 3, PointEnergyBalance, l:%ld r:%ld c:%ld\n",l,r,c);
@@ -2263,7 +2263,7 @@ void energy_balance_superfast(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOI
 					psisat=psi_saturation(sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l]);
 					DPsi->co[l]=Fmax(sl->P->co[l][r][c]-psisat, 0.0);
 					sl->P->co[l][r][c]=Fmin(sl->P->co[l][r][c], psisat);
-					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin2, par->Esoil);
+					theta->co[l]=teta_psi(sl->P->co[l][r][c], sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 					if(theta->co[l]!=theta->co[l])printf("theta no value l:%ld teta:%f P:%f DPSi:%f T:%f\n",l,theta->co[l],sl->P->co[l][r][c],DPsi->co[l],sl->T->co[l][r][c]);
 				}
 

@@ -383,135 +383,98 @@ double dfunct_T(double T, double W, double h, double **soil, long l, double psim
 }
 
 /******************************************************************************************************************************************/
-double internal_energy_soil(double thw, double thi, double T, double D, double Csoil, double theta_sat){
-
-	double h;
-
-	//soil heat capacity [J m^-3 K^-1]
-	//heat capacity of ice [J/(kg/K)]
-	//internal energy [J/(kg*m2)]
-
-	h=(Csoil*(1-theta_sat) + c_ice*thi*rho_w + c_liq*thw*rho_w)*T*D*0.001 + Lf*thw*rho_w*D*0.001;
-
-	return(h);
-}
-
 /******************************************************************************************************************************************/
-void from_internal_soil_energy(long r, long c, long l, double h, double *thw, double *thi, double *T, double **soil, double psimin){
-
-	double thtot, T1, T0, tolerance=1.0E-8;
-	long cont=0, maxiter=100;
-	double n,psim,Tstar;
-	double p=(1000.0*Lf)/(g*(Tfreezing+tk));
-
-	thtot = (*thw) + (*thi);
-
-	//solve equation AT+BTf(kT)+Cf(kT)+D=0 - Newton Raphson
-	T1 = *T;
-	do{
-		T0 = T1;
-		n = 1.0;
-		cont++;
-
-		do{
-			T1 = T0 - n*funct_T(T0, thtot*soil[jdz][l], h, soil, l, psimin)/dfunct_T(T0, thtot*soil[jdz][l], h, soil, l, psimin);
-			//printf("..T0:%f f:%f df:%f\n",T0,funct_T(T0, thtot*soil[jdz][l], h, soil, l, psimin),dfunct_T(T0, thtot*soil[jdz][l], h, soil, l, psimin));
-			n/=2.0;
-		}while(fabs(funct_T(T0, thtot*soil[jdz][l], h, soil, l, psimin)) < fabs(funct_T(T1, thtot*soil[jdz][l], h, soil, l, psimin)) );
-
-	}while(cont<maxiter && fabs(T1-T0)>tolerance);
-
-	psim=psi_teta(thtot, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0);
-	Tstar=Fmin(psim/p, 0.0);
-
-	if(T1 <= Tstar){
-		*T = T1;
-		*thw = teta_psi(p*(*T), 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0);
-		*thi = thtot - (*thw);
-	}else{
-		*thw = thtot;
-		*thi = 0.0;
-		*T = (h-Lf*(*thw)*soil[jdz][l]) / ( soil[jct][l]*(1.0-soil[jsat][l])*0.001*soil[jdz][l] + c_liq*(*thw)*soil[jdz][l] );
-	}
-
-	if(*T!=(*T) || (*thw)!=(*thw) || (*thi)!=(*thi)) printf("No value in soil energy balance T:%f thw:%f thi:%f l:%ld r:%ld c:%ld\n",*T,*thw,*thi,l,r,c);
-	if(fabs(internal_energy_soil(*thw, *thi, *T, soil[jdz][l], soil[jct][l], soil[jsat][l]) - h ) > 0.1){
-		printf("not converging soil energy balance: h:%f T:%f thw:%f thi:%f hnew:%f l:%ld r:%ld c:%ld\n",h,*T,*thw,*thi,
-			internal_energy_soil(*thw, *thi, *T, soil[jdz][l], soil[jct][l], soil[jsat][l]) ,l,r,c);
-	}
-
-}
-
 /******************************************************************************************************************************************/
-/*void from_internal_soil_energy2(long r, long c, long l, double h, double *thw, double *thi, double *T, double **soil, double psimin){
+double theta_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil){
+	
+	double th;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	
+	th = teta_psi(psi, i, s, res, a, n, m, PSImin, Esoil);
+	
+	return(th);
+}
+/******************************************************************************************************************************************/
+double psi_from_theta(double th, long l, long r, long c, SOIL *sl, double Esoil){
+	
+	double psi;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	
+	psi = psi_teta(th, i, s, res, a, n, m, PSImin, Esoil);
+	
+	return(psi);
+}
+/******************************************************************************************************************************************/
+double dtheta_dpsi_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil){
+	
+	double dth;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	
+	dth = dteta_dpsi(psi, i, s, res, a, n, m, PSImin, Esoil);
+	
+	return(dth);
+}
+/******************************************************************************************************************************************/
+double k_from_psi(long jK, double psi, long l, long r, long c, SOIL *sl, double imp){
 
-	double w, th0, th1, th2, tolerance=1.0E-6;
-	long cont=0, maxiter=100;
-	double n;
-	FILE *f;
+	double k;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double T=sl->T->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	double kmax=sl->pa->co[sy][jK][l];
+	double v=sl->pa->co[sy][jv][l];
+	
+	k = K(psi, kmax, imp, i, s, res, a, n, m, v, PSImin, T);
+	
+	return(k);
+}
+/******************************************************************************************************************************************/
+double psisat_from(long l, long r, long c, SOIL *sl){
 
-	w=( (*thw)*rho_w + (*thi)*rho_w )*soil[jdz][l]*0.001;
-
-	//solve equation AT+BTf(kT)+Cf(kT)+D=0 - Newton Raphson
-	th1=*thw;
-	do{
-		th0=th1;
-		n=1.0;
-		cont++;
-		do{
-			if(th0==soil[jsat][l]) th0=soil[jsat][l]-0.001;
-			if(dfunct_theq(th0,w,*thi,h,soil,l,psimin)!=0) th1=th0-n*funct_theq(th0,w,*thi,h,soil,l,psimin)/dfunct_theq(th0,w,*thi,h,soil,l,psimin);
-			if(r==19 && c==19) printf("l:%ld h:%f th0:%f th1:%f thi:%f T:%f n:%f funct_theq(th0,w,*thi,h,soil,l,psimin):%f funct_theq(th1,w,*thi,h,soil,l,psimin):%f dfunct_theq(th0,w,*thi,h,soil,l,psimin):%f\n",
-				l,h,th0,th1,*thi,*T,n,funct_theq(th0,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin),dfunct_theq(th0,w,*thi,h,soil,l,psimin));
-			n/=2.0;
-		}while(fabs(funct_theq(th0,w,*thi,h,soil,l,psimin))<fabs(funct_theq(th1,w,*thi,h,soil,l,psimin)));
-		if(r==19 && c==19) printf("CR %f %f %f %f\n",th1,th0,funct_theq(th0,w,*thi,h,soil,l,psimin),dfunct_theq(th0,w,*thi,h,soil,l,psimin));
-	}while(cont<maxiter && fabs(th1-th0)>tolerance);
-
-	//solve equation AT+BTf(kT)+Cf(kT)+D=0 - Bisection
-	if(th1!=th1 || cont==maxiter){
-		th1=soil[jres][l];
-		th0=Fmax(soil[jsat][l], w/soil[jdz][l]);
-
-		if((funct_theq(th0,w,*thi,h,soil,l,psimin)>0 && funct_theq(th1,w,*thi,h,soil,l,psimin)>0)||(funct_theq(th0,w,*thi,h,soil,l,psimin)<0 && funct_theq(th1,w,*thi,h,soil,l,psimin)<0)){
-			if(r==19 && c==19) printf("\nERROR 1. IN SOIL INTERNAL ENERGY r:%ld c:%ld l:%ld\n",r,c,l);
-			if(r==19 && c==19) printf("th:%30.29f theq:%f thi:%30.29f T:%f th1:%f T1:%f\n",*thw,teta_psi(Psif(*T), 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0),*thi,*T,th1,(g*(Tfreezing+tk))/(1000.0*Lf)*psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0));
-			if(r==19 && c==19) printf("%f %f\n",funct_theq(th0,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin));
-			if(r==19 && c==19) f=fopen(files->co[ferr]+1,"a");
-			if(r==19 && c==19) fprintf(f,"\nERROR 1. IN SOIL INTERNAL ENERGY r:%ld c:%ld l:%ld\n",r,c,l);
-			if(r==19 && c==19) fprintf(f,"th:%30.29f thi:%30.29f T:%f th1:%f T1:%f\n",*thw,*thi,*T,th1,(g*(Tfreezing+tk))/(1000.0*Lf)*psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0));
-			if(r==19 && c==19) fprintf(f,"%f %f\n",funct_theq(*thw,w,*thi,h,soil,l,psimin),funct_theq(th1,w,*thi,h,soil,l,psimin));
-			if(r==19 && c==19) fclose(f);
-			if(r==19 && c==19) stop_execution();
-
-		}
-
-		do{
-
-
-			th2=(th0+th1)/2.0;
-
-			if((funct_theq(th0,w,*thi,h,soil,l,psimin)>0 && funct_theq(th2,w,*thi,h,soil,l,psimin)<0)||(funct_theq(th0,w,*thi,h,soil,l,psimin)<0 && funct_theq(th2,w,*thi,h,soil,l,psimin)>0)){
-				th1=th2;
-			}else{
-				th0=th2;
-			}
-
-		}while(fabs(th1-th0)>tolerance);
-
-	}
-
-	if(th1>w/soil[jdz][l]){
-		*thw=w/soil[jdz][l];
-		*thi=0.0;
-		*T=(h-Lf*w)/( c_liq*w + soil[jct][l]*0.001*soil[jdz][l]*(1.0-soil[jsat][l]));
-		if(r==19 && c==19) printf("\nSOL1 l:%ld h:%f thw:%f thi:%f T:%f checkE:%f\n",l,h,*thw,*thi,*T,internal_energy_soil(*thw, *thi, *T, soil[jdz][l], soil[jct][l], soil[jsat][l]));
-	}else{
-		*thw=th1;
-		*thi=w/soil[jdz][l]-th1;
-		*T=psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0)*(g*(Tfreezing+tk))/(1000.0*Lf);
-		if(r==19 && c==19) printf("\nSOL2 l:%ld h:%f thw:%f thi:%f T:%f funct:%f\n",l,h,*thw,*thi,*T,funct_theq(th1,w,*thi,h,soil,l,psimin));
-		if(r==19 && c==19) printf("\n....%f %f %f %f\n",th1,soil[jres][l],psi_teta(th1, 0.0, soil[jsat][l], soil[jres][l], soil[ja][l], soil[jns][l], 1-1/soil[jns][l], psimin, 1.0),psimin);
-	}
-
-}*/
+	double psi;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	
+	psi = psi_saturation(i, s, res, a, n, m);
+	
+	return(psi);
+}
+/******************************************************************************************************************************************/

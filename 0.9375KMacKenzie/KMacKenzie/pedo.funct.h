@@ -53,8 +53,10 @@ double funct_T(double T, double W, double h, double **soil, long l, double psimi
 
 double dfunct_T(double T, double W, double h, double **soil, long l, double psimin);
 
-double internal_energy_soil(double thw, double thi, double T, double D, double Csoil, double theta_sat);
+double theta_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil);
+double psi_from_theta(double th, long l, long r, long c, SOIL *sl, double Esoil);
+double dtheta_dpsi_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil);
+double k_from_psi(long jK, double psi, long l, long r, long c, SOIL *sl, double imp);
+double psisat_from(long l, long r, long c, SOIL *sl);
 
-void from_internal_soil_energy(long r, long c, long l, double h, double *thw, double *thi, double *T, double **soil, double psimin);
 
-//void from_internal_soil_energy2(long r, long c, long l, double h, double *thw, double *thi, double *T, double **soil, double psimin);

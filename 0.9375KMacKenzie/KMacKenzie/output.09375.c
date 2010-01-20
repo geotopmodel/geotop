@@ -272,7 +272,7 @@ if(par->state_pixel==1){
 			sl->thetai_mean->co[l][i]+=sl->thice->co[l][r][c]/(double)times->n_pixel;
 			sl->thetaw_mean->co[l][i]+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-					par->psimin2,par->Esoil)/(double)times->n_pixel;
+					PSImin,par->Esoil)/(double)times->n_pixel;
 			sl->psi_mean->co[l][i]+=sl->P->co[l][r][c]/(double)times->n_pixel;
 		}
 		/*Print of pixel-output every times->n_pixel time step */
@@ -282,7 +282,7 @@ if(par->state_pixel==1){
 			for(l=1;l<=Nl;l++){
 				wat->out1->co[12][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-					par->psimin2,par->Esoil);
+					PSImin,par->Esoil);
 			}
 
 			//wat->wcan_rain [mm] is the water (in both the liquid and solid form) that is currently on the leaves
@@ -496,7 +496,7 @@ if(par->state_pixel==1){
 			}
 
 			//sl output
-			write_soil_output(times->n_pixel, i, times->time, par->Dt, par->year0, par->JD0, par->rc, sl, par->psimin, par->Esoil);
+			write_soil_output(times->n_pixel, i, times->time, par->Dt, par->year0, par->JD0, par->rc, sl, PSImin, par->Esoil);
 
 		}//end(times->i_pixel==times->n_pixel)
 	}//end for(i=1;i<=par->chkpt->nrh;i++)
@@ -514,7 +514,7 @@ if(par->state_pixel==1){
 			for(l=1;l<=Nl;l++){
 				wat->out1->co[2][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-								par->psimin2,par->Esoil);
+								PSImin,par->Esoil);
 				sl->Tmean->co[l][i]=0.0;
 				sl->thetaw_mean->co[l][i]=0.0;
 				sl->thetai_mean->co[l][i]=0.0;
@@ -554,7 +554,7 @@ if(times->time==0){
 				/*find the total water in the subsoil (volume for unit of area):*/
 				for(l=1;l<=Nl;l++){
 					Ssub+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-						sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil)*sl->pa->co[sy][jdz][l];
+						sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin,par->Esoil)*sl->pa->co[sy][jdz][l];
 				}
 
 				/*water on the leaves*/
@@ -621,10 +621,10 @@ if (times->i_basin==times->n_basin){/*Print of the output of all the basin*/
 				for(l=1;l<=Nl;l++){
 					wat->out2->co[7]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-								par->psimin2,par->Esoil);
+								PSImin,par->Esoil);
 					Ssub+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-								par->psimin2,par->Esoil);
+								PSImin,par->Esoil);
 				}
 			}
 		}
@@ -748,7 +748,7 @@ if(par->output_TETAxy>0 && fmod(times->time+par->Dt,par->output_TETAxy*3600.0)==
 				sy=sl->type->co[r][c];
 				for(l=1;l<=Nl;l++){
 					Q->co[l][r][c]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
-									sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2, par->Esoil);
+									sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 				}
 			}
 		}
@@ -832,9 +832,9 @@ if(par->output_PSIxy>0 && fmod(times->time+par->Dt,par->output_PSIxy*3600.0)==0)
 			if(land->LC->co[r][c]!=NoV){
 				for(l=1;l<=Nl;l++){
 					theta=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
-						sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2, par->Esoil);
+						sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 					Q->co[l][r][c]=psi_teta(theta + sl->thice->co[l][r][c], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
-						sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+						sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 				}
 			}
 		}
@@ -1715,7 +1715,7 @@ if(times->i_plot==times->n_plot){
 				l=1;
 				//printf("%ld %ld psi:%f\n",r,c,sl->P->co[l][r][c]);
 				M->co[r][c]=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],
-					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin2,par->Esoil);
+					sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin,par->Esoil);
 			}
 		}
 	}
@@ -1971,21 +1971,21 @@ fprintf(f,",%f,%f",JD+(double)(daysfrom0(y2)),JD);
 l=cell1;
 	T1=sl->T->co[l][r][c];
 	Thw1=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 	Thi1=sl->thice->co[l][r][c];
 	lambdat1=k_thermal_soil(Thw1,Thi1,sl->pa->co[sy][jsat][l],T1, sl->pa->co[sy][jkt][l]);
 	CT1=sl->pa->co[sy][jct][l-nsng]*(1.-sl->pa->co[sy][jsat][l-nsng]) + 1000*c_ice*Thi1 + 1000*c_liq*Thw1;
 l=cell2;
 	T2=sl->T->co[l][r][c];
 	Thw2=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 	Thi2=sl->thice->co[l][r][c];
 	lambdat2=k_thermal_soil(Thw2,Thi2,sl->pa->co[sy][jsat][l],T2, sl->pa->co[sy][jkt][l]);
 	CT2=sl->pa->co[sy][jct][l-nsng]*(1.-sl->pa->co[sy][jsat][l-nsng]) + 1000*c_ice*Thi2 + 1000*c_liq*Thw2;
 l=cell3;
 	T3=sl->T->co[l][r][c];
 	Thw3=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],
-			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],par->psimin, par->Esoil);
+			sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],PSImin, par->Esoil);
 	Thi3=sl->thice->co[l][r][c];
 	lambdat3=k_thermal_soil(Thw3,Thi3,sl->pa->co[sy][jsat][l],T3, sl->pa->co[sy][jkt][l]);
 	CT3=sl->pa->co[sy][jct][l-nsng]*(1.-sl->pa->co[sy][jsat][l-nsng]) + 1000*c_ice*Thi3 + 1000*c_liq*Thw3;
@@ -2644,7 +2644,7 @@ void write_init_condit(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LA
 		for(l=1;l<=Nl;l++){
 			wat->out1->co[2][i]+=sl->pa->co[sy][jdz][l]*teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 								sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-								par->psimin2,par->Esoil);
+								PSImin,par->Esoil);
 		}
 		wat->out1->co[1][i]=wat->h_sup->co[r][c];
 		wat->out1->co[14][i]=wat->wcan_rain->co[r][c];
@@ -3401,19 +3401,19 @@ if(par->state_pixel==1){
 			sl->thetai_mean->co[l][i]+=sl->thice->co[l][r][c]/(double)times->n_pixel;
 			sl->thetaw_mean->co[l][i]+=teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-					par->psimin2,par->Esoil)/(double)times->n_pixel;
+					PSImin,par->Esoil)/(double)times->n_pixel;
 
 			sl->Tmin->co[l][i]=Fmin(sl->T->co[l][r][c], sl->Tmin->co[l][i]);
 			sl->thetai_min->co[l][i]=Fmin(sl->thice->co[l][r][c], sl->thetai_min->co[l][i]);
 			sl->thetaw_min->co[l][i]=Fmin(teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-					par->psimin2,par->Esoil),sl->thetaw_min->co[l][i]);
+					PSImin,par->Esoil),sl->thetaw_min->co[l][i]);
 
 			sl->Tmax->co[l][i]=Fmax(sl->T->co[l][r][c], sl->Tmax->co[l][i]);
 			sl->thetai_max->co[l][i]=Fmax(sl->thice->co[l][r][c], sl->thetai_max->co[l][i]);
 			sl->thetaw_max->co[l][i]=Fmax(teta_psi(sl->P->co[l][r][c],sl->thice->co[l][r][c],
 					sl->pa->co[sy][jsat][l],sl->pa->co[sy][jres][l],sl->pa->co[sy][ja][l],sl->pa->co[sy][jns][l],1-1/sl->pa->co[sy][jns][l],
-					par->psimin2,par->Esoil),sl->thetaw_max->co[l][i]);
+					PSImin,par->Esoil),sl->thetaw_max->co[l][i]);
 		}
 
 		/*Print of pixel-output every times->n_pixel time step */

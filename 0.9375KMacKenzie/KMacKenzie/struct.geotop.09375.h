@@ -373,7 +373,6 @@ typedef struct {
 	LONGVECTOR *r_points;
 	LONGVECTOR *c_points;
 
-	double psimin;/* Absolute minimum admitted suction potential */
 	double Esoil;/* Soil comprimibility if oversaturated water is added*/
 	double stmin;
 
@@ -382,12 +381,6 @@ typedef struct {
 
 	short wat_balance;/* 1 calculates water_balance, 0 do not calculate */
 	short en_balance;/* 1 calculates energy_balance, 0 do not calculate */
-
-	long nDt_water;/*  Possible (uniform) reduction factor of the integration time step for water balance (if=2, Dt for water balance is reduced by 1/2)*/
-	long MaxiterVWB;
-	double TolVWb;
-	double MaxerrVWB;
-	double dtminVWB;
 
 	short distr_stat;/* 1 to plot distribute statistics (min, max, var), 0 otherwise */
 
@@ -418,18 +411,21 @@ typedef struct {
 	double curvewt;
 	short topoflag;
 
-	double psimin2;
-
 	short LRflag;
 	long num_of_time; /* superfast version: time frequency one wants the simulation to store the results, ex. every year*/
 	long superfast; /* =1: the superfast version of GEOtop is switched on, 0 othewise (regular version)*/
+
 	double MaxErrWb;
-	long MaxiterTol;
-	long MaxiterErr;
-	double min_tol_grad_conj;
-	double max_tol_grad_conj;
 	short harm_or_arit_mean;
-	double underrelax;
+	long MaxiterWb;
+	double TolCG;
+	double nredCorrWb;
+	long MaxiterCorrWb;
+	short UpdateK;
+	double DtminWb;
+	long nredDtWb;
+	double TolWb;
+
 } PAR;
 
 

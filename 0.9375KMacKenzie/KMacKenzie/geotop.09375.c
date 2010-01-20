@@ -112,7 +112,7 @@ if(adt->P->superfast!=1) {
 					if(adt->L->LC->co[r][c]!=NoV){//if the pixel is not a novalue
 						for(j=1;j<=adt->P->rc->nrh;j++){
 							if(r==adt->P->rc->co[j][1] && c==adt->P->rc->co[j][2])
-								write_soil_output(0, j, adt->I->time, 0.0, adt->P->year0, adt->P->JD0, adt->P->rc, adt->S, adt->P->psimin, adt->P->Esoil);
+								write_soil_output(0, j, adt->I->time, 0.0, adt->P->year0, adt->P->JD0, adt->P->rc, adt->S, PSImin, adt->P->Esoil);
 						}
 					}
 				}
@@ -220,13 +220,13 @@ void time_loop_superfast(ALLDATA *all)
 				//printf("time=%f, T[%ld]=%f",times->time, l, all->S->T->co[l][r][c]); stop_execution();
 				all->S->output[0][3][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
 						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
-						all->P->psimin2,all->P->Esoil);//Theta_w min
+						PSImin,all->P->Esoil);//Theta_w min
 				all->S->output[0][4][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
 						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
-						all->P->psimin2,all->P->Esoil);//Theta_w max
+						PSImin,all->P->Esoil);//Theta_w max
 				all->S->output[0][5][l-1]=teta_psi(all->S->P->co[l][r][c],all->S->thice->co[l][r][c],
 						all->S->pa->co[sy][jsat][l],all->S->pa->co[sy][jres][l],all->S->pa->co[sy][ja][l],all->S->pa->co[sy][jns][l],1-1/all->S->pa->co[sy][jns][l],
-						all->P->psimin2,all->P->Esoil);//Theta_w mean
+						PSImin,all->P->Esoil);//Theta_w mean
 
 				all->S->output[0][6][l-1]=all->S->thice->co[l][r][c];//Theta_i min
 				all->S->output[0][7][l-1]=all->S->thice->co[l][r][c];//Theta_i max

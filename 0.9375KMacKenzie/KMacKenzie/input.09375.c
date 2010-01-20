@@ -705,19 +705,19 @@ for(r=1;r<=Nr;r++){
 
 						if(sl->T->co[l][r][c]<=Tfreezing){
 							theta=teta_psi(sl->P->co[l][r][c], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-									1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+									1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 							//printf("%ld P:%f thtot:%f T:%f\n",l,sl->P->co[l][r][c],theta,sl->T->co[l][r][c]);
 							//Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
 							sl->thice->co[l][r][c]=Fmin(theta, sl->pa->co[sy][jsat][l]) - teta_psi(Psif(sl->T->co[l][r][c]), 0.0, sl->pa->co[sy][jsat][l],
-									sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+									sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 							//printf("%ld thice:%f Psiunf:%f Thpsi:%f\n",l,sl->thice->co[l][r][c],Psif(sl->T->co[l][r][c]),teta_psi(Psif(sl->T->co[l][r][c]), 0.0, sl->pa->co[sy][jsat][l],
-							//	sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil));
+							//	sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil));
 							//if Theta(without freezing)<Theta_unfrozen(in equilibrium with T) Theta_ice is set at 0
 							if(sl->thice->co[l][r][c]<0) sl->thice->co[l][r][c]=0.0;
 							//Psi is updated taking into account the freezing
 							theta-=sl->thice->co[l][r][c];
 							sl->P->co[l][r][c]=psi_teta(theta, sl->thice->co[l][r][c], sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-									sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], par->psimin, par->Esoil);
+									sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PSImin, par->Esoil);
 							//printf("%ld th:%f P:%f\n",l,theta,sl->P->co[l][r][c]);
 						}
 					}
@@ -2188,17 +2188,19 @@ void read_parameterfile(char *name, PAR *par, INIT_TOOLS *itools){
 		printf("%ld %ld %f\n",i,v->nh,v->co[i]);
 	}
 	stop_execution();*/
-
-	par->f_bound_Richards=v->co[2];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
-	par->imp=v->co[3];	/*Impedence factor for (partially) frozen soil*/
-	par->psimin=v->co[4];
-	par->Esoil=v->co[5];
-	par->TolVWb=v->co[6];
-	par->MaxErrWb=v->co[7];
-	par->MaxiterTol=(long)v->co[8];
-	par->MaxiterErr=(long)v->co[9];
-	if(par->MaxiterErr<par->MaxiterTol) par->MaxiterErr=par->MaxiterTol;
-	par->harm_or_arit_mean=(short)v->co[12];
+	par->f_bound_Richards=v->co[1];	/*Parameter for the bottom boundary condition for the Richards' equation: =0 no flux, =1 free drainage*/
+	par->imp=v->co[2];	/*Impedence factor for (partially) frozen soil*/
+	par->Esoil=v->co[3];
+	par->TolWb=v->co[4];
+	par->MaxErrWb=v->co[5];
+	par->MaxiterWb=(long)v->co[6];
+	par->TolCG=v->co[7];
+	par->nredCorrWb=v->co[8];
+	par->MaxiterCorrWb=(long)v->co[9];
+	par->UpdateK=(short)v->co[10];
+	par->DtminWb=v->co[11];
+	par->nredDtWb=(long)v->co[12];
+	par->harm_or_arit_mean=(short)v->co[13];
 	itools->u0=v->co[14]; /* MEAN VELOCITY IN CHANNELS */
 	itools->D=v->co[15]; /* HYDRODYNAMIC DISPERSION IN CHANNELS */
 	par->gamma_m=v->co[16]; /*Exponent of the law of uniform motion on the surface*/
