@@ -2182,7 +2182,7 @@ free(top);
  printf("Deallocating channel network\n");
  free_longvector(cnet->r);
  free_longvector(cnet->c);
- free_longmatrix(cnet->ch);
+ if(par->point_sim!=1) free_longmatrix(cnet->ch);
  free_doublevector(cnet->Q);
  free_doublevector(cnet->s0);
  free_doublematrix(cnet->fraction_spread);
