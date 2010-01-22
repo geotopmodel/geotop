@@ -155,7 +155,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 	DOUBLEVECTOR *H00, *H0, *H1, *dH, *B;
 	long i, l, r, c, cont, cont2, landtype, iter_tot=0, iter=0;
 	short sy;
-	double mass0=0.0, mass1, massloss0, massloss=1.E99, mass_to_channel, nw, res, psi, A, h_sup;
+	double mass0=0.0, mass1, massloss0, massloss=1.E99, mass_to_channel, mass_in=0.0, nw, res, psi, A, h_sup;
 	short out;
 
 	long n=(Nl+1)*adt->P->total_pixel;
@@ -177,6 +177,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 		if(l==0){	//overland flow
 			H1->co[i] = adt->W->h_sup->co[r][c] + 1.E3*adt->T->Z0dp->co[r][c];
 			mass0 += Fmax(0.0, adt->W->h_sup->co[r][c]);
+			mass_in += adt->W->Pn->co[r][c]*Dt;
 		}else{	//subsurface flow
 			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];
 			mass0 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
@@ -267,7 +268,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLD
 				}
 			}
 
-			massloss = (mass0-(mass1+mass_to_channel))/(double)adt->P->total_pixel;
+			massloss = (mass0-(mass1+mass_to_channel-mass_in))/(double)adt->P->total_pixel;
 
 			cont2++;
 			nw/=adt->P->nredCorrWb;
@@ -629,6 +630,11 @@ double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *a
 			A = Kb_ch*B_dy; //s^(-1)
 			a += A * 1.E3*adt->T->Z0dp->co[r][c];
 		}
+	}
+
+	//Pnet
+	if(l==0){ //overland flow
+		a += adt->W->Pn->co[r][c];	//[mm/s]
 	}
 
 	return(a);
