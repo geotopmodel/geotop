@@ -57,6 +57,8 @@ double theta_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil
 double psi_from_theta(double th, long l, long r, long c, SOIL *sl, double Esoil);
 double dtheta_dpsi_from_psi(double psi, long l, long r, long c, SOIL *sl, double Esoil);
 double k_from_psi(long jK, double psi, long l, long r, long c, SOIL *sl, double imp);
+double k_from_psi2(long jK, double psi, long l, long r, long c, SOIL *sl, double imp);
+
 double psisat_from(long l, long r, long c, SOIL *sl);
 
 

@@ -459,6 +459,33 @@ double k_from_psi(long jK, double psi, long l, long r, long c, SOIL *sl, double 
 	
 	return(k);
 }
+double k_from_psi2(long jK, double psi, long l, long r, long c, SOIL *sl, double imp){
+
+	double k;
+	
+	long sy=sl->type->co[r][c];
+	
+	double i=sl->thice->co[l][r][c];
+	double T=sl->T->co[l][r][c];
+	double s=sl->pa->co[sy][jsat][l];
+	double res=sl->pa->co[sy][jres][l];
+	double a=sl->pa->co[sy][ja][l];
+	double n=sl->pa->co[sy][jns][l];
+	double m=1.-1./n;
+	double kmax=sl->pa->co[sy][jK][l];
+	double v=sl->pa->co[sy][jv][l];
+	
+	printf("%f %f %f %f %f %f %f %f %f %f %f %f\n",psi, kmax, imp, i, s, res, a, n, m, v, PSImin, T);
+	
+	k = K(psi, kmax, imp, i, s, res, a, n, m, v, PSImin, T);
+	
+	printf("k:%f\n",k);
+	
+	stop_execution();
+	
+	
+	return(k);
+}
 /******************************************************************************************************************************************/
 double psisat_from(long l, long r, long c, SOIL *sl){
 

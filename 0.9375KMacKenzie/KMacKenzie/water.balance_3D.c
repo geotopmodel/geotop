@@ -89,7 +89,7 @@ void water_balance_3D(ALLDATA *adt){
 				fprintf(f,"n:%ld Dt:%f Dt0:%f te0:%f tb:%f Loss:%e\n\n\n",n,Dt,Dt0,te0,tb,Loss);	
 				fclose(f);
 				
-				printf("te0:%f Dt0:%f\n",te0,Dt0);
+				printf("tb:%f Dt:%f\n",tb,Dt);
 						
 				if(fabs(Loss) > adt->P->MaxErrWb*(Dt/adt->P->Dt) && Dt>adt->P->DtminWb){
 					n*=adt->P->nredDtWb;
@@ -178,16 +178,17 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch
 		
 		}else{	//subsurface flow
 			
-			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];		
+			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];
 			mass0 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil)/(double)adt->P->total_pixel;
 			mass_in -= adt->S->ET->co[l][r][c]/(double)adt->P->total_pixel;;
 
 		}
 		
 		H0->co[i] = H1->co[i];
-		H00->co[i] = H1->co[i];		
-	}
+		H00->co[i] = H1->co[i];	
 		
+	}
+			
 	cont=0;
 	
 	do{
@@ -200,7 +201,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch
 			r=adt->T->lrc_cont->co[i][2];
 			c=adt->T->lrc_cont->co[i][3];	
 			
-			if(adt->P->UpdateK==1) H00->co[i] = H1->co[i];
+			//if(adt->P->UpdateK==1) H00->co[i] = H1->co[i];
 			
 			H0->co[i] = H1->co[i];
 		}
@@ -208,6 +209,7 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch
 		for(i=1;i<=n;i++){
 			B->co[i] = Find_b(i, H0, H00, Dt, adt);
 		}
+
 		
 		iter=tridiag_preconditioned_conjugate_gradient_search( adt->P->TolCG, H1, H0, H00, Dt, B, Solve_Richards_3D_p, adt );
 		iter_tot+=iter;
@@ -283,24 +285,23 @@ void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch
 		
 		printf("res:%e out:%ld cont2:%ld/%ld iter:%ld \n\n\n",res,out,cont2,adt->P->MaxiterCorrWb,iter);
 
-		for(i=1;i<n;i++){
-			l=adt->T->lrc_cont->co[i][1];
-			r=adt->T->lrc_cont->co[i][2];
-			c=adt->T->lrc_cont->co[i][3];
-				
-			if(l==0){
-				h->co[r][c] = H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
-			}else{
-				P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
-			}
-		}
-		
-		supflow3(Dt, adt->P->Dt, h, adt->T, adt->L, adt->W, adt->C, adt->P);
-		
 																								
 	}while(out==0);
-	
 
+	for(i=1;i<n;i++){
+		l=adt->T->lrc_cont->co[i][1];
+		r=adt->T->lrc_cont->co[i][2];
+		c=adt->T->lrc_cont->co[i][3];
+				
+		if(l==0){
+			h->co[r][c] = H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+		}else{
+			P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
+		}
+	}
+		
+	supflow3(Dt, adt->P->Dt, h, adt->T, adt->L, adt->W, adt->C, adt->P);
+	
 	*loss = massloss;
 	
 	free_doublevector(H00);					

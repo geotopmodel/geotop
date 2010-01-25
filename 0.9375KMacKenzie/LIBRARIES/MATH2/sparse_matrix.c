@@ -149,9 +149,7 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 
 	for (j=x->nl;j<=x->nh;j++){
 		y->co[j]=(*function)(j,x,x0,x00,dt,data);
-		//printf("j:%ld %f\n",j,y->co[j]);
 	}
-	//stop_execution();
 
 
     get_diagonal(diag,x0,x00,dt,function,data);
@@ -165,7 +163,6 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
     for (j=y->nl;j<=y->nh;j++) {
 
     	r->co[j]=b->co[j]-y->co[j];
-		//printf("j:%ld r:%le\n",j,r->co[j]);
     	if (diag->co[j]<0.0) {
     		diag->co[j]=1.0;
     		printf("\n Error in jacobi_preconditioned_conjugate_gradient_search function: diagonal of the matrix (%lf) is negative at %ld \n",diag->co[j],j);
@@ -180,9 +177,6 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
     	//d->co[j]=r->co[j]/diag->co[j];
     	delta_new+=r->co[j]*d->co[j];
     }
-
-	//printf("%f\n",max_doublevector(r));
-	//stop_execution();
 
 	while ((icnt<=icnt_max) && (max_doublevector(r)>epsilon)) {
 
@@ -220,8 +214,8 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 	    }
 	    beta=delta_new/delta;
 	   // double aa=1.0e-21;
-	  printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
-	  printf(" iter:%ld/%ld epsilon:%e\n ",icnt,icnt_max,epsilon);
+	  //printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
+	  //printf(" iter:%ld/%ld epsilon:%e\n ",icnt,icnt_max,epsilon);
 	   //stop_execution();
 		for (j=d->nl;j<=d->nh;j++) {
 			 d->co[j]=sr->co[j]+beta*d->co[j];
@@ -232,8 +226,8 @@ long tridiag_preconditioned_conjugate_gradient_search(double epsilon,  DOUBLEVEC
 
 	}
 
-	//printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
-	//printf("iter:%ld/%ld\n",icnt,icnt_max);
+	printf("alpha=%le beta=%le delta_max=%le\n",alpha,beta,max_doublevector(r));
+	printf("iter:%ld/%ld\n",icnt,icnt_max);
 
 	free_doublevector(udiag);
 	free_doublevector(diag);

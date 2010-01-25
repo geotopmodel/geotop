@@ -1960,10 +1960,6 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 			if(sl->thice->co[l-ns-ng][r][c]>sl->pa->co[sy][jsat][l-ns-ng]-0.00001) sl->thice->co[l-ns-ng][r][c]=sl->pa->co[sy][jsat][l-ns-ng]-0.00001;
 			sl->T->co[l-ns-ng][r][c] = T[l];
 
-			sl->P->co[l-ns-ng][r][c]=psi_teta(theta[l-ns-ng], sl->thice->co[l-ns-ng][r][c], sl->pa->co[sy][jsat][l-ns-ng],
-				sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng],
-				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
-
 			if(l==1 && ns+ng==0){
 				sl->ET->co[l-ns-ng][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( (*E), 0.0);
 			}else{
