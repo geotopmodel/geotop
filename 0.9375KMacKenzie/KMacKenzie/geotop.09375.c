@@ -163,6 +163,8 @@ void time_loop(ALLDATA *all)
 	//stop_execution();
 	if(all->P->wat_balance==1){
 		water_balance_1D(all->T, all->S, all->L, all->W, all->C, all->P, all->I->time);
+	}else{
+		water_balance_3D(all);
 	}
 
 	//printf("\n MASS END %10.2f\n",all->I->time);
