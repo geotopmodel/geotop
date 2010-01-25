@@ -662,6 +662,9 @@ initialize_doubletensor(sl->P,0.0);
 sl->T=new_doubletensor(Nl,Nr,Nc); /* soil temperature */
 initialize_doubletensor(sl->T,0.0);
 
+sl->ET=new_doubletensor(Nl, Nr, Nc);
+initialize_doubletensor(sl->ET,0.0);
+
 sl->Tv=new_doublematrix(Nr,Nc);
 initialize_doublematrix(sl->Tv,0.0);
 

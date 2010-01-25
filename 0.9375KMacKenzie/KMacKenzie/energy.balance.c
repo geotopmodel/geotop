@@ -1965,16 +1965,10 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 			if(l==1 && ns+ng==0){
-				sink = Fmax( par->Dt*(*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( par->Dt*(*E), 0.0);
+				sl->ET->co[l][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( (*E), 0.0);
 			}else{
-				sink = Fmax( par->Dt*(*Etrans)*ftcl->co[l-ns-ng], 0.0);
+				sl->ET->co[l][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0);
 			}
-
-			update_soil(l-ns-ng, r, c, sink, &(theta[l-ns-ng]), &(sl->thice->co[l-ns-ng][r][c]), &(sl->T->co[l-ns-ng][r][c]), sl, par);
-
-			sl->P->co[l-ns-ng][r][c]=psi_teta(theta[l-ns-ng], sl->thice->co[l-ns-ng][r][c], sl->pa->co[sy][jsat][l-ns-ng],
-				sl->pa->co[sy][jres][l-ns-ng], sl->pa->co[sy][ja][l-ns-ng], sl->pa->co[sy][jns][l-ns-ng],
-				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 			if(T[l]!=T[l]) printf("T no value, error 3, PointEnergyBalance, l:%ld r:%ld c:%ld T:%f\n",l,r,c,T[l]);
 			if(T[l]<-80 || T[l]>50) printf("T outside of range, error 3, PointEnergyBalance, l:%ld r:%ld c:%ld\n",l,r,c);

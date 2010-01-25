@@ -26,7 +26,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     
 void water_balance_3D(ALLDATA *adt);
 
-void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLDATA *adt);
+void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch, double *loss, ALLDATA *adt);
 
 double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt);
 
@@ -42,3 +42,4 @@ void find_slope_H(long ***I, DOUBLEVECTOR *H, DOUBLEMATRIX *Z, DOUBLEMATRIX *LC,
 
 double find_k_sup(long j1, long j2, LONGMATRIX *rc, DOUBLEMATRIX *slope, DOUBLEMATRIX *Z, DOUBLEVECTOR *H, double cm1, double cm2, double gamma);
 
+void supflow3(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par);

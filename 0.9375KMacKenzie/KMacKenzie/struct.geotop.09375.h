@@ -126,6 +126,7 @@ typedef struct {
 	double TsupN;// Dirichlet boundary condition at the surface
 	double ***output /* tensor (#ofYears X #ofOutputVariables X #ofLayers)  */;
 	SHORTMATRIX *bc; /* boundary condition in Richards equation */
+	DOUBLETENSOR *ET;
 } SOIL;
 
 

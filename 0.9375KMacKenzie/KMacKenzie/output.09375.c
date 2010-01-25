@@ -2137,6 +2137,8 @@ free(top);
  free_doubletensor(sl->J);
  free_shortmatrix(sl->type);
  free_doubletensor(sl->pa);
+ free_doubletensor(sl->ET);
+
  int i;
  if(par->superfast==1){
 	 for(i=1;i<par->num_of_time-1;i++){

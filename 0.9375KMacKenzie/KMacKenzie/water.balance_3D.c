@@ -36,17 +36,6 @@ extern long Nl, Nr, Nc;
 extern double NoV;
 extern char *error_file_name;
 
-#define min_slope 0.0001
-
-//[1/s]: Keff sediments / thickness sediments
-#define Kb_ch 1.E-2
-
-//channel fraction: channel width/grid with
-#define B_dy 0.3
-
-//discharge coefficient of the weir model
-#define Cd 0.61
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -54,94 +43,100 @@ extern char *error_file_name;
 
 void water_balance_3D(ALLDATA *adt){
 
+	DOUBLEVECTOR *hc;
 	DOUBLEMATRIX *h;
-	DOUBLETENSOR *PSI;
-
-	long n, r, c, l, ch, s;
+	DOUBLETENSOR *P;
+	
+	long n, r, c, l, s, ch;
 	double Dt0, Dt, tb, te, te0, Loss;
-	static double cum_losses;
-
+	static double cum_losses;	
+	
 	FILE *f;
 
-	cum_losses=0.0;
-
-	h=new_doublematrix(Nr, Nc);
-	PSI=new_doubletensor(Nl, Nr, Nc);
+	if(adt->I->time == 0) cum_losses=0.0;
 
 	initialize_doublevector(adt->C->Qsup_spread, 0.0);
 	initialize_doublevector(adt->C->Qsub_spread, 0.0);
-
+	
+	hc=new_doublevector(adt->C->r->nh);	//channel 
+	h=new_doublematrix(Nr, Nc);	//overland flow
+	P=new_doubletensor(Nl, Nr, Nc);	//soil pressure
+			
 	te0=0.0;
-
+	
 	do{
 
 		Dt0=adt->P->Dt;
 		if(te0+Dt0 > adt->P->Dt) Dt0=adt->P->Dt-te0;
-		te0 += Dt0;
-
-		f=fopen(error_file_name, "a");
+		te0 += Dt0;	
+		
 		printf("te0:%f Dt0:%f\n",te0,Dt0);
-		fclose(f);
-
+	
 		n=1;
 		te=0;
-
+	
 		do{
-
-			tb=te;
-
+	
+			tb=te;				
+		
 			do{
-
+		
 				Dt=Dt0/(double)n;
+											
+				Richards_3D(Dt, P, h, hc, &Loss, adt);
 
-				Richards_3D(Dt, PSI, h, &Loss, adt);
-
-				f=fopen(error_file_name, "a");
-				fprintf(f,"n:%ld Dt:%f Dt0:%f te0:%f tb:%f Loss:%e\n\n\n",n,Dt,Dt0,te0,tb,Loss);
+				f=fopen(error_file_name,"a");
+				fprintf(f,"n:%ld Dt:%f Dt0:%f te0:%f tb:%f Loss:%e\n\n\n",n,Dt,Dt0,te0,tb,Loss);	
 				fclose(f);
-
-				if(fabs(Loss) > adt->P->MaxErrWb && Dt>adt->P->DtminWb) n*=adt->P->nredDtWb;
-
-			}while( fabs(Loss) > adt->P->MaxErrWb && Dt>adt->P->DtminWb);
-
-			te=tb+Dt;
-
+				
+				printf("te0:%f Dt0:%f\n",te0,Dt0);
+						
+				if(fabs(Loss) > adt->P->MaxErrWb*(Dt/adt->P->Dt) && Dt>adt->P->DtminWb){
+					n*=adt->P->nredDtWb;
+					printf("reduced time step: dt:%f\n\n\n",Dt=Dt0/(double)n);
+				}
+									
+			}while( fabs(Loss) > adt->P->MaxErrWb*(Dt/adt->P->Dt) && Dt>adt->P->DtminWb); 
+		
+			te=tb+Dt;  
+			
 			for(ch=1;ch<=adt->C->r->nh;ch++){
 				for(s=1;s<=adt->C->Qsup_spread->nh;s++){
-					adt->C->Qsup_spread->co[s] += (adt->C->Qsup->co[ch])*(adt->C->fraction_spread->co[ch][s]);//m3/s
-					adt->C->Qsub_spread->co[s] += (adt->C->Qsub->co[ch])*(adt->C->fraction_spread->co[ch][s]);//m3/s
+					adt->C->Qsup_spread->co[s] += (adt->C->Qsup->co[ch])*(adt->C->fraction_spread->co[ch][s])*0.001*UV->U->co[1]*UV->U->co[2];//m3/s
+					adt->C->Qsub_spread->co[s] += (adt->C->Qsub->co[ch])*(adt->C->fraction_spread->co[ch][s])*0.001*UV->U->co[1]*UV->U->co[2];//m3/s
 				}
-			}
-
+			} 
+										                                  
 			for(r=1;r<=Nr;r++){
 				for(c=1;c<=Nc;c++){
 					if(adt->L->LC->co[r][c]!=NoV){
 						adt->W->h_sup->co[r][c] = h->co[r][c];
+						//if( adt->C->ch->co[r][c] != 0) adt->C->h_sup->co[ adt->C->ch->co[r][c] ] = hc->co[ adt->C->ch->co[r][c] ];
 						for(l=1;l<=Nl;l++){
-							adt->S->P->co[l][r][c] = PSI->co[l][r][c];
+							adt->S->P->co[l][r][c] = P->co[l][r][c];
 						}
 					}
 				}
 			}
-
+		
 			adt->W->out2->co[8]+=Loss;
-
+			
 			cum_losses+=Loss;
-
+		
 		}while(te<Dt0);
-
+		
 	}while(te0<adt->P->Dt);
 
-	//if(adt->P->channel_network == 1) routing3(adt->C);
 	routing3(adt->C);
 
+	free_doublevector(hc);
 	free_doublematrix(h);
-	free_doubletensor(PSI);
-
-	f=fopen(error_file_name, "a");
+	free_doubletensor(P);
+	
+	f=fopen(error_file_name,"a");
 	fprintf(f,"Total Loss:%e\n\n",cum_losses);
 	fclose(f);
-
+			
 }
 
 
@@ -150,313 +145,288 @@ void water_balance_3D(ALLDATA *adt){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, double *loss, ALLDATA *adt){
+void Richards_3D(double Dt, DOUBLETENSOR *P, DOUBLEMATRIX *h, DOUBLEVECTOR *h_ch, double *loss, ALLDATA *adt){
 
 	DOUBLEVECTOR *H00, *H0, *H1, *dH, *B;
-	long i, l, r, c, cont, cont2, landtype, iter_tot=0, iter=0;
+	long i, l, r, c, cont, cont2, iter_tot=0, iter=0;
 	short sy;
-	double mass0=0.0, mass1, massloss0, massloss=1.E99, mass_to_channel, mass_in=0.0, nw, res, psi, A, h_sup;
+	double mass0=0.0, mass0h=0.0, mass1, mass1h, massloss0, massloss=1.E99, mass_in=0.0, mass_out, nw, res, psi, h_sup;
 	short out;
-
+	
 	long n=(Nl+1)*adt->P->total_pixel;
+		
 	FILE *f;
-
-	H00=new_doublevector(n);
+		
+	H00=new_doublevector(n);				
 	H0=new_doublevector(n);
 	dH=new_doublevector(n);
 	H1=new_doublevector(n);
-	B=new_doublevector(n);
-
+	B=new_doublevector(n);	
+		
 	for(i=1;i<=n;i++){
+
 		l = adt->T->lrc_cont->co[i][1];
 		r = adt->T->lrc_cont->co[i][2];
 		c = adt->T->lrc_cont->co[i][3];
 		sy = adt->S->type->co[r][c];
-		landtype=(long)adt->L->LC->co[r][c];
-
-		if(l==0){	//overland flow
+		
+		if(l==0){ //overland flow
+ 
 			H1->co[i] = adt->W->h_sup->co[r][c] + 1.E3*adt->T->Z0dp->co[r][c];
-			mass0 += Fmax(0.0, adt->W->h_sup->co[r][c]);
-			mass_in += adt->W->Pn->co[r][c]*Dt;
+			mass0h += Fmax(0.0, adt->W->h_sup->co[r][c])/(double)adt->P->total_pixel;
+			mass_in += adt->W->Pn->co[r][c]*Dt/(double)adt->P->total_pixel;;
+		
 		}else{	//subsurface flow
-			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];
-			mass0 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
+			
+			H1->co[i] = adt->S->P->co[l][r][c] + adt->T->Z->co[l][r][c];		
+			mass0 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil)/(double)adt->P->total_pixel;
+			mass_in -= adt->S->ET->co[l][r][c]/(double)adt->P->total_pixel;;
+
 		}
-
+		
 		H0->co[i] = H1->co[i];
-		H00->co[i] = H1->co[i];
+		H00->co[i] = H1->co[i];		
 	}
-
-	find_slope_H(adt->T->i_cont, H0, adt->T->Z0dp, adt->L->LC, adt->T->slope_H);
-
+		
 	cont=0;
-
+	
 	do{
-
+		
 		cont++;
 
-		for(i=1;i<=n;i++){
+		for(i=1;i<=n;i++){	
+			
+			l=adt->T->lrc_cont->co[i][1];
+			r=adt->T->lrc_cont->co[i][2];
+			c=adt->T->lrc_cont->co[i][3];	
+			
 			if(adt->P->UpdateK==1) H00->co[i] = H1->co[i];
+			
 			H0->co[i] = H1->co[i];
 		}
-
+								
 		for(i=1;i<=n;i++){
 			B->co[i] = Find_b(i, H0, H00, Dt, adt);
 		}
-
-		iter=tridiag_preconditioned_conjugate_gradient_search(adt->P->TolCG, H1, H0, H00, Dt, B, Solve_Richards_3D_p, adt);
+		
+		iter=tridiag_preconditioned_conjugate_gradient_search( adt->P->TolCG, H1, H0, H00, Dt, B, Solve_Richards_3D_p, adt );
 		iter_tot+=iter;
-
-		for(i=1;i<=n;i++){
-			dH->co[i] = H1->co[i]-H0->co[i];
-		}
-
+		
 		cont2=0.0;
 		nw=1.0;
-
+		
 		massloss0=massloss;
-
+						
 		do{
-
-			mass1=0.0;
-			mass_to_channel=0.0;
-
-			for(i=1;i<=n;i++){
-				H1->co[i] = H0->co[i] + nw*dH->co[i];
-				if(H1->co[i] != H1->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
-
+			
+			mass1=0.0;	
+			mass1h=0.0;
+			mass_out=0.0;
+					
+			for(i=1;i<=n;i++){							
 				l=adt->T->lrc_cont->co[i][1];
 				r=adt->T->lrc_cont->co[i][2];
 				c=adt->T->lrc_cont->co[i][3];
 				sy=adt->S->type->co[r][c];
 
-				if(l==0){
+				dH->co[i] = H1->co[i] - H0->co[i];
+				H1->co[i] = H0->co[i] + nw*dH->co[i];
+				
+				if(H1->co[i] != H1->co[i]) printf("no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
+
+				if(l==0){	//overland flow
+				
 					h_sup = Fmax(0.0, H1->co[i]-1.E3*adt->T->Z0dp->co[r][c]);
-					mass1 += h_sup;
-
-					if(adt->T->pixel_type->co[r][c] == 10){
-						if(h_sup>0){
-							A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
-							adt->C->Qsup->co[ adt->C->ch->co[r][c] ] = A * pow( 1.E-3*h_sup , 1.5 ); //[m3/s]
-							mass_to_channel += adt->C->Qsup->co[ adt->C->ch->co[r][c] ]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
-						}else{
-							adt->C->Qsup->co[ adt->C->ch->co[r][c] ] = 0.0;
-						}
-
-					}else if(adt->T->pixel_type->co[r][c] == 1){
-						if(h_sup>0){
-							A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
-							adt->C->Q_sup_s->co[1] = A * pow( 1.E-3*h_sup , 1.5 ); //[m3/s]
-							mass_to_channel += adt->C->Q_sup_s->co[1]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
-						}else{
-							adt->C->Q_sup_s->co[1] = 0.0;
-						}
-					}
-
+					mass1h += h_sup/(double)adt->P->total_pixel;
+					
+					/*if(adt->T->pixel_type->co[r][c] == 11 && h_sup > 0){
+						adt->C->Q_sup_s->co[1] += sqrt( g * 1.E-3*h_sup ) * 1.E-3*h_sup * UV->U->co[1];
+						mass_out += (sqrt( g * 1.E-3*h_sup ) * h_sup * Dt / UV->U->co[2])/(double)adt->P->total_pixel;
+					}*/
+												
 				}else{
-					if(H1->co[i] - adt->T->Z->co[l][r][c] < PSImin) H1->co[i] = PSImin + adt->T->Z->co[l][r][c];
-					psi = H1->co[i] - adt->T->Z->co[l][r][c];
-					mass1 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
-
-					if(l==1 && adt->T->pixel_type->co[r][c] == 10){
-						if( H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){	//hyporreic flow
-							adt->C->Qsub->co[ adt->C->ch->co[r][c] ] = 1.E-3*Kb_ch*B_dy*(H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c])
-								*UV->U->co[1]*UV->U->co[2];	//m3/s
-							mass_to_channel += adt->C->Qsub->co[ adt->C->ch->co[r][c] ]*Dt*1.E3/(UV->U->co[1]*UV->U->co[2]);
-						}
-					}
+						
+					psi = H1->co[i] - adt->T->Z->co[l][r][c];	
+					mass1 += adt->S->pa->co[sy][jdz][l]*theta_from_psi(psi, l, r, c, adt->S, adt->P->Esoil)/(double)adt->P->total_pixel;	
+						
 				}
 			}
-
-			massloss = (mass0-(mass1+mass_to_channel-mass_in))/(double)adt->P->total_pixel;
-
+			
+			massloss = (mass0+mass0h-(mass1+mass1h+mass_out-mass_in));
+						
 			cont2++;
 			nw/=adt->P->nredCorrWb;
-
-			f=fopen(error_file_name, "a");
-			fprintf(f,"iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e mass_to_channel:%e mass0:%e mass1:%e\n",iter,iter_tot,cont,cont2,massloss,massloss0,mass_to_channel,mass0,mass1);
-			fclose(f);
-
-			//printf("iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e mass_to_channel:%e mass0:%e mass1:%e\n",iter,iter_tot,cont,cont2,massloss,massloss0,mass_to_channel,mass0,mass1);
-
-		}while( fabs(massloss)>fabs(massloss0) && cont2<adt->P->MaxiterCorrWb );
-
+			
+		}while( fabs(massloss)>fabs(massloss0) && cont2<adt->P->MaxiterCorrWb );		
+				
 		res=0.0;
 		for(i=1;i<=n;i++){
-			res+=fabs(H1->co[i] - H0->co[i])/(double)n;
+			res += fabs(H1->co[i] - H0->co[i])/(double)n;
 		}
-
+		
 		out=0;
 		if(res <= adt->P->TolWb) out=1;
-		if(fabs(massloss) > adt->P->MaxErrWb) out=0;
-		if(cont == 1) out=0;
-		if(cont >= adt->P->MaxiterWb) out=1;
-		if(iter==0 || cont >= adt->P->MaxiterWb) out=1;
+		if(fabs(massloss) > adt->P->MaxErrWb) out=0;	
+		if(cont==1) out=0;
+		if(cont>=adt->P->MaxiterWb) out=1;
+		if(iter==0 || cont2==adt->P->MaxiterCorrWb) out=1;
 
-		f=fopen(error_file_name, "a");
-		fprintf(f,"res:%e out:%d\n",res,out);
+		printf("iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e \n",iter,iter_tot,cont,cont2,massloss,massloss0);
+		printf("mass_in:%e mass_out:%e \n",mass_in,mass_out);
+		printf("mass0:%e mass0h:%e\n",mass0,mass0h);
+		printf("mass1:%e mass1h:%e dsub:%f sup:%f\n",mass1,mass1h,mass1-mass0,mass1h-mass0h);
+
+		f=fopen(error_file_name,"a");
+		fprintf(f,"iter:%ld/%ld cont:%ld cont2:%ld massloss:%e massloss0:%e mass_in:%e mass_out:%e mass0:%e mass0h:%e mass1:%e mass1h:%e ",iter,iter_tot,cont,cont2,massloss,massloss0,mass_in,mass_out,mass0,mass0h,mass1,mass1h);
+		fprintf(f,"res:%e out:%ld\n",res,out);
 		fclose(f);
+		
+		printf("res:%e out:%ld cont2:%ld/%ld iter:%ld \n\n\n",res,out,cont2,adt->P->MaxiterCorrWb,iter);
 
-		//printf("res:%e out:%d\n\n\n",res,out);
-
-	}while(out==0);
-
-	for(i=1;i<n;i++){
-		l=adt->T->lrc_cont->co[i][1];
-		r=adt->T->lrc_cont->co[i][2];
-		c=adt->T->lrc_cont->co[i][3];
-		if(l==0){
-			h->co[r][c] = H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
-		}else{
-			P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
+		for(i=1;i<n;i++){
+			l=adt->T->lrc_cont->co[i][1];
+			r=adt->T->lrc_cont->co[i][2];
+			c=adt->T->lrc_cont->co[i][3];
+				
+			if(l==0){
+				h->co[r][c] = H1->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+			}else{
+				P->co[l][r][c] = H1->co[i] - adt->T->Z->co[l][r][c];
+			}
 		}
-	}
+		
+		supflow3(Dt, adt->P->Dt, h, adt->T, adt->L, adt->W, adt->C, adt->P);
+		
+																								
+	}while(out==0);
+	
 
 	*loss = massloss;
-
-	free_doublevector(H00);
+	
+	free_doublevector(H00);					
 	free_doublevector(H0);
 	free_doublevector(dH);
 	free_doublevector(H1);
 	free_doublevector(B);
-
+	
 }
-
+	
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
 double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt){
-/*!
-\author
-\date
 
-
-\param
-\param
-\param
-\param adt - (ALLDATA *)
-
-\brief This routine solves ....
-
-\return the i-th e
-
-
-*/
 	long l, r, c, landtype, I, R, C, LANDTYPE;
 	short sy;
-	double a = 0.0;
-	double HyC, dz, k, kn, dzn, psi, ds, A, h, klim;
-
+	double a=0.0;
+	double dz=0.0, k=0.0, kn, dzn, psi, ds, A=0.0, h, klim;
+	
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
 	c=adt->T->lrc_cont->co[i][3];
 	sy=adt->S->type->co[r][c];
-	landtype=(long)adt->L->LC->co[r][c];
-
+	landtype=(long)adt->L->LC->co[r][c];	
+		
 	//hydraulic capacity (diagonal term)
-	if(l==0){	//overland flow
-		psi = H0->co[i]-1.E3*adt->T->Z0dp->co[r][c];
-		if(psi>0){
-			a += H1->co[i]*(1.0/Dt);
-		}else{
-			//a += H1->co[i]*(0.0/Dt);
-		}
-	}else{	//subsurface flow
-		psi = H0->co[i] - adt->T->Z->co[l][r][c];
-		HyC = dtheta_dpsi_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
+	if(l==0){
+		h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+		if(h>0) a += (1./Dt)*H1->co[i];
+	}else{
 		dz = adt->S->pa->co[sy][jdz][l];
-		a += H1->co[i]*(HyC*dz/Dt);
+		a += H1->co[i]*(dtheta_dpsi_from_psi(H0->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->Esoil)*dz/Dt);
 	}
-
+	
 	//vertical hydraulic conductivity
-	if(l>0){
-		psi = H00->co[i] - adt->T->Z->co[l][r][c];
-		k = k_from_psi( jKv, psi, l, r, c, adt->S, adt->P->imp );
-	}
-
+	if(l>0) k = k_from_psi(jKv, H00->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->imp );
+	
 	//Vertical fluxes (diagonal and tridiagonal terms)
 	if(l<Nl){
-		I = adt->T->i_cont[l+1][r][c];
+		I = adt->T->i_cont[l+1][r][c];	
+		
 		if(l==0){	//overland flow
-			if( (H0->co[i]-1.E3*adt->T->Z0dp->co[r][c]) < (H0->co[I] - adt->T->Z->co[l+1][r][c]) ){	//upward flux
-				psi = H0->co[I] - adt->T->Z->co[l+1][r][c];
-				kn = k_from_psi( jKv,  psi, l+1, r, c, adt->S, adt->P->imp );
+			
+			if( H0->co[i]< H0->co[I] ){	//upward flux
+				kn = k_from_psi(jKv,  H0->co[I] - adt->T->Z->co[l+1][r][c], l+1, r, c, adt->S, adt->P->imp );
 			}else{	//downward flow
-				kn = k_from_psi( jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp );
+				kn = k_from_psi(jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp );
 			}
 			dzn = 0.5*adt->S->pa->co[sy][jdz][l+1];
-			if(adt->T->pixel_type->co[r][c]==10) kn*=(1.-B_dy);
+			
 		}else{	//subsurface flow
-			psi = H00->co[I] - adt->T->Z->co[l+1][r][c];
-			kn = k_from_psi( jKv, psi, l+1, r, c, adt->S, adt->P->imp );
+		
+			psi = H00->co[I] - adt->T->Z->co[l+1][r][c];		
+			kn = k_from_psi(jKv, psi, l+1, r, c, adt->S, adt->P->imp );
 			dzn = adt->S->pa->co[sy][jdz][l+1];
 			kn = Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-
-			klim = Harmonic_Mean( dz, dzn, k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-				k_from_psi( jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp ) );
+			klim = Harmonic_Mean( dz, dzn, k_from_psi(jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+				k_from_psi(jKv,  psisat_from(l+1, r, c, adt->S), l+1, r, c, adt->S, adt->P->imp ) );
 			if(kn > klim) kn=klim;
-
 			dzn = 0.5*dz + 0.5*dzn;
+			
 		}
+		
 		a += (kn/dzn)*(H1->co[i]-H1->co[I]);
 	}
-
+			
 	if(l>0){
 		I=adt->T->i_cont[l-1][r][c];
-		if(l==1){	//overland flow
-			if( (H0->co[I]-1.E3*adt->T->Z0dp->co[r][c]) < (H0->co[i] - adt->T->Z->co[l][r][c]) ){	//upward flux
-				psi = H0->co[i] - adt->T->Z->co[l][r][c];
-				kn = k_from_psi( jKv,  psi, l, r, c, adt->S, adt->P->imp );
+		if(l==1){	
+
+			if( H0->co[I] < H0->co[i] ){	//upward flux
+				kn = k_from_psi(jKv,  H0->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->imp );
 			}else{	//downward flow
-				kn = k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp );
+				kn = k_from_psi(jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp );
 			}
 			dzn = 0.5*adt->S->pa->co[sy][jdz][l];
-			if(adt->T->pixel_type->co[r][c]==10) kn*=(1.-B_dy);
+
 		}else{
-			psi = H00->co[I] - adt->T->Z->co[l-1][r][c];
-			kn = k_from_psi( jKv, psi, l-1, r, c, adt->S, adt->P->imp );
+		
+			psi = H00->co[I] - adt->T->Z->co[l-1][r][c];		
+			kn = k_from_psi(jKv, psi, l-1, r, c, adt->S, adt->P->imp );
 			dzn = adt->S->pa->co[sy][jdz][l-1];
 			kn = Mean(adt->P->harm_or_arit_mean, dz, dzn, k, kn);
-
-			klim = Harmonic_Mean( dz, dzn, k_from_psi( jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-				k_from_psi( jKv,  psisat_from(l-1, r, c, adt->S), l-1, r, c, adt->S, adt->P->imp ) );
+			klim = Harmonic_Mean( dz, dzn, k_from_psi(jKv,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+				k_from_psi(jKv,  psisat_from(l-1, r, c, adt->S), l-1, r, c, adt->S, adt->P->imp ) );
 			if(kn > klim) kn=klim;
-
 			dzn = 0.5*dz + 0.5*dzn;
+			
 		}
+		
 		a+=(kn/dzn)*(H1->co[i]-H1->co[I]);
 	}
-
+	
 	//lateral hydraulic conductivity
-	if(l>0){
-		psi = H00->co[i] - adt->T->Z->co[l][r][c];
-		k = k_from_psi( jKh,  psi, l, r, c, adt->S, adt->P->imp );
-	}
-
+	if(l>0) k = k_from_psi(jKh,   H00->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->imp );
+	
 	//lateral fluxes
-	//4 neighboring cells
+	//4 neighbouring cells
 	R = r+1;
 	C = c;
 	ds = 1.E3*UV->U->co[2];	//[mm]
+	//1.
 	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
 		if(adt->L->LC->co[R][C]!=NoV){
-			I=adt->T->i_cont[l][R][C];
-			if(l==0){	//overland flow
+			if(l==0){
+			
+				I=adt->T->i_cont[l][R][C];
 				LANDTYPE = (long)adt->L->LC->co[R][C];
-				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				//A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				if(H0->co[i]<1.E3*adt->T->Z0dp->co[r][c] || H0->co[I]<1.E3*adt->T->Z0dp->co[R][C]) A=0.0;
 				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			
 			}else{
+			
+				I=adt->T->i_cont[l][R][C];				
 				psi = H00->co[I] - adt->T->Z->co[l][R][C];
-				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = k_from_psi(jKh,   psi, l, R, C, adt->S, adt->P->imp );	
 				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
-
-				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				klim = Harmonic_Mean( dz, dzn, k_from_psi(jKh,   psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi(jKh,   psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
 				if(kn > klim) kn=klim;
-
 				a += kn*(H1->co[i]-H1->co[I])/ds;
+				
 			}
 		}
 	}
@@ -464,23 +434,28 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTO
 	R = r-1;
 	C = c;
 	ds = 1.E3*UV->U->co[2];	//[mm]
+	//2.
 	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
 		if(adt->L->LC->co[R][C]!=NoV){
-			I=adt->T->i_cont[l][R][C];
-			if(l==0){	//overland flow
+			if(l==0){
+			
+				I=adt->T->i_cont[l][R][C];
 				LANDTYPE = (long)adt->L->LC->co[R][C];
-				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				//A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				if(H0->co[i]<1.E3*adt->T->Z0dp->co[r][c] || H0->co[I]<1.E3*adt->T->Z0dp->co[R][C]) A=0.0;
 				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			
 			}else{
+			
+				I=adt->T->i_cont[l][R][C];				
 				psi = H00->co[I] - adt->T->Z->co[l][R][C];
-				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = k_from_psi(jKh,   psi, l, R, C, adt->S, adt->P->imp );	
 				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
-
-				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				klim = Harmonic_Mean( dz, dzn, k_from_psi(jKh,   psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi(jKh,   psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
 				if(kn > klim) kn=klim;
-
 				a += kn*(H1->co[i]-H1->co[I])/ds;
+				
 			}
 		}
 	}
@@ -488,84 +463,76 @@ double Solve_Richards_3D(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTO
 	R = r;
 	C = c+1;
 	ds = 1.E3*UV->U->co[1];	//[mm]
+	//3.
 	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
 		if(adt->L->LC->co[R][C]!=NoV){
-			I=adt->T->i_cont[l][R][C];
-			if(l==0){	//overland flow
+			if(l==0){
+			
+				I=adt->T->i_cont[l][R][C];
 				LANDTYPE = (long)adt->L->LC->co[R][C];
-				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				//A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				if(H0->co[i]<1.E3*adt->T->Z0dp->co[r][c] || H0->co[I]<1.E3*adt->T->Z0dp->co[R][C]) A=0.0;
 				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			
 			}else{
+			
+				I=adt->T->i_cont[l][R][C];				
 				psi = H00->co[I] - adt->T->Z->co[l][R][C];
-				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = k_from_psi(jKh,   psi, l, R, C, adt->S, adt->P->imp );	
 				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
-
-				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				klim = Harmonic_Mean( dz, dzn, k_from_psi(jKh,   psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi(jKh,   psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
 				if(kn > klim) kn=klim;
-
 				a += kn*(H1->co[i]-H1->co[I])/ds;
+				
 			}
 		}
 	}
+
 
 	R = r;
 	C = c-1;
 	ds = 1.E3*UV->U->co[1];	//[mm]
+	//4.
 	if(R>=1 && R<=Nr && C>=1 && C<=Nc){
 		if(adt->L->LC->co[R][C]!=NoV){
-			I=adt->T->i_cont[l][R][C];
-			if(l==0){	//overland flow
+			if(l==0){
+			
+				I=adt->T->i_cont[l][R][C];
 				LANDTYPE = (long)adt->L->LC->co[R][C];
-				A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				//A = find_k_sup(i, I, adt->T->lrc_cont, adt->T->slope_H, adt->T->Z0dp, H00, adt->L->ty->co[landtype][jcm], adt->L->ty->co[LANDTYPE][jcm], adt->P->gamma_m);
+				if(H0->co[i]<1.E3*adt->T->Z0dp->co[r][c] || H0->co[I]<1.E3*adt->T->Z0dp->co[R][C]) A=0.0;
 				a += A*(H1->co[i]-H1->co[I])/pow(ds,2.);	//A in [mm2/s], ds in [mm], H in [mm]
+			
 			}else{
+			
+				I=adt->T->i_cont[l][R][C];				
 				psi = H00->co[I] - adt->T->Z->co[l][R][C];
-				kn = k_from_psi( jKh,  psi, l, R, C, adt->S, adt->P->imp );
+				kn = k_from_psi(jKh,   psi, l, R, C, adt->S, adt->P->imp );	
 				kn = Mean(adt->P->harm_or_arit_mean, ds, ds, k, kn);
-
-				klim = Harmonic_Mean( dz, dzn, k_from_psi( jKh,  psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
-					k_from_psi( jKh,  psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
+				klim = Harmonic_Mean( dz, dzn, k_from_psi(jKh,   psisat_from(l, r, c, adt->S), l, r, c, adt->S, adt->P->imp ),
+					k_from_psi(jKh,   psisat_from(l, R, C, adt->S), l, R, C, adt->S, adt->P->imp ) );
 				if(kn > klim) kn=klim;
-
 				a += kn*(H1->co[i]-H1->co[I])/ds;
+				
 			}
 		}
 	}
-
-	//channel interactions with surface flow
-	if( (adt->T->pixel_type->co[r][c]==10 || adt->T->pixel_type->co[r][c]==1) && l==0){ //channel
-		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
-
-			h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
-
-			//Q = A*h^(1.5)*dx [m3/s]
-			//q = Q/(dx*dy) [m/s]
-
-			A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
-			A /= (UV->U->co[1]*UV->U->co[2]); //m^(-1/2) s^(-1)
-			A *= pow(1.E3, -0.5);  //mm^(-1/2) s^(-1)
-
-			a += 1.5 * A * pow( h, 0.5 ) * H1->co[i];	//mm/s
-
+		
+	//outlet
+	/*if( (adt->T->pixel_type->co[r][c]==1 || adt->T->pixel_type->co[r][c]==11) && l==0){ 
+		h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];		
+		if( h > 0 ){	
+			a += (1.5*pow(g*1.E-3*h, 0.5)/UV->U->co[1])*H1->co[i];
 		}
-	}
-
-	//channel interaction with subsurface flow
-	if(adt->T->pixel_type->co[r][c]==10 && l==1){ //channel
-		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
-			//q = A*(H-zf)
-			A = Kb_ch*B_dy; //s^(-1)
-			a += A * H1->co[i];
-		}
-	}
+	}*/
 
 	return(a);
-
+	
 }
 
-double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, void *adt) {
-	return Solve_Richards_3D(i, H1, H0, H00, Dt, (ALLDATA *)adt);
+double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, void *adt) { 
+	return Solve_Richards_3D(i, H1, H0, H00, Dt, (ALLDATA *)adt); 
 }
 
 
@@ -576,91 +543,56 @@ double Solve_Richards_3D_p(long i, DOUBLEVECTOR *H1, DOUBLEVECTOR *H0, DOUBLEVEC
 
 double Find_b(long i, DOUBLEVECTOR *H0, DOUBLEVECTOR *H00, double Dt, ALLDATA *adt){
 
-	long l, r, c, landtype;
+	long l, r, c;
 	short sy;
 	double a = 0.0;
-	double HyC, dz, theta1, theta0, psi, A, h;
-
+	double h, V0, V1, dz;
+	
+	
 	l=adt->T->lrc_cont->co[i][1];
 	r=adt->T->lrc_cont->co[i][2];
 	c=adt->T->lrc_cont->co[i][3];
 	sy=adt->S->type->co[r][c];
-	landtype=(long)adt->L->LC->co[r][c];
 
 	//hydraulic capacity (diagonal term)
-	if(l==0){	//overland flow
-		psi = H0->co[i]-1.E3*adt->T->Z0dp->co[r][c];
-		if(psi>0){
-			a += (1.E3*adt->T->Z0dp->co[r][c] + Fmax(adt->W->h_sup->co[r][c], 0.0))/Dt;
-		}else{
-			a += (Fmax(adt->W->h_sup->co[r][c], 0.0))/Dt;
-		}
-
-	}else{	//subsurface flow
-		psi = H0->co[i] - adt->T->Z->co[l][r][c];
-		HyC = dtheta_dpsi_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
-		theta1 = theta_from_psi(psi, l, r, c, adt->S, adt->P->Esoil);
-		theta0 = theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
+	if(l==0){
+	
+		h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
+		if(h>0) a += (1./Dt)*H0->co[i];
+	
+		V1 = Fmax(0.0, H0->co[i]-1.E3*adt->T->Z0dp->co[r][c]);
+		V0 = Fmax(0.0, adt->W->h_sup->co[r][c]);
+		a += (V0-V1)/Dt;
+		
+	}else{
 		dz = adt->S->pa->co[sy][jdz][l];
-		a += (HyC*H0->co[i] + theta0 - theta1)*dz/Dt;
+		a += H0->co[i]*(dtheta_dpsi_from_psi(H0->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->Esoil)*dz/Dt);
+
+		V1 = dz * theta_from_psi(H0->co[i] - adt->T->Z->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
+		V0 = dz * theta_from_psi(adt->S->P->co[l][r][c], l, r, c, adt->S, adt->P->Esoil);
+		a += (V0-V1)/Dt;
 	}
-
-	//channel interactions with surface flow
-	if( (adt->T->pixel_type->co[r][c]==10 || adt->T->pixel_type->co[r][c]==1) && l==0){ //channel
-		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
-
-			h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];
-
-			//Q = A*h^(1.5)*dx [m3/s]
-			//q = Q/(dx*dy) [m/s]
-
-			A = Cd*(2./3.)*sqrt(2.*g)*2.*UV->U->co[1];	//m^(3/2) s^(-1)
-			A /= (UV->U->co[1]*UV->U->co[2]); //m^(-1/2) s^(-1)
-			A *= pow(1.E3, -0.5);  //mm^(-1/2) s^(-1)
-
-			a += ( 1.5 * A * pow( h , 0.5 ) * H0->co[i] - A * pow( h , 1.5 ) );	//mm/s
-
+			
+	//outlet
+	/*if( (adt->T->pixel_type->co[r][c]==1 || adt->T->pixel_type->co[r][c]==11) && l==0){ 
+		h = H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c];		
+		if( h > 0 ){	
+			a += ( (1.5*sqrt(g*1.E-3*h)/UV->U->co[1])*H0->co[i] - (sqrt(g*1.E-3*h)/UV->U->co[1])*h );
 		}
+	}*/
+	
+	//evaporation
+	if(l>0){
+		a -= adt->S->ET->co[l][r][c];
+	}else{
+		a += adt->W->Pn->co[r][c];
 	}
-
-	//channel interaction with subsurface flow
-	if(adt->T->pixel_type->co[r][c]==10 && l==1){ //channel
-		if( H0->co[i] - 1.E3*adt->T->Z0dp->co[r][c] > 0 ){
-			//q = A*(H-zf)
-			A = Kb_ch*B_dy; //s^(-1)
-			a += A * 1.E3*adt->T->Z0dp->co[r][c];
-		}
-	}
-
-	//Pnet
-	if(l==0){ //overland flow
-		a += adt->W->Pn->co[r][c];	//[mm/s]
-	}
-
+		
 	return(a);
 
 }
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
 
-void routing3(CHANNEL *cnet){
-
-	long s;
-
-	/*The just calculated Qsup_spread and Qsub_spread are added to the flow already
-	present in the channel-network(Q_sup_s and Q_sub_s) and at once it is made a
-	traslation of Q_sup_s e Q_sub_s towards the outlet:*/
-	for(s=1;s<=cnet->Qsup_spread->nh-1;s++){
-		cnet->Q_sub_s->co[s]=cnet->Q_sub_s->co[s+1]+cnet->Qsub_spread->co[s];
-		cnet->Q_sup_s->co[s]=cnet->Q_sup_s->co[s+1]+cnet->Qsup_spread->co[s];
-	}
-
-	cnet->Q_sub_s->co[cnet->Qsub_spread->nh]=cnet->Qsub_spread->co[cnet->Qsub_spread->nh];
-	cnet->Q_sup_s->co[cnet->Qsup_spread->nh]=cnet->Qsup_spread->co[cnet->Qsup_spread->nh];
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -763,28 +695,175 @@ void find_slope_H(long ***I, DOUBLEVECTOR *H, DOUBLEMATRIX *Z, DOUBLEMATRIX *LC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double find_k_sup(long i1, long i2, LONGMATRIX *lrc, DOUBLEMATRIX *slope, DOUBLEMATRIX *Z, DOUBLEVECTOR *H, double cm1, double cm2, double gamma){
+void supflow3(double Dt, double Dtmax, DOUBLEMATRIX *h, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par)
 
-	double a, h, cm, dHds;
-	long r1, c1, r2, c2;
+{
+	long r,c,R,C,ch;                                    
+	static short r_DD[11]={0,0,-1,-1,-1,0,1,1,1,-9999,0}; // differential of number-pixel for rows and
+	static short c_DD[11]={0,1,1,0,-1,-1,-1,0,1,-9999,0}; // columns, depending on Drainage Directions
+	double dx,dy;                                         // the two dimensions of a pixel
+	double Ks;											  // the Strickler's coefficent calculated with a standard deviation
+	double b[10];                                         // area perpendicular to the superficial flow divided by h_sup
+	double i;											  // hydraulic gradient
+	double q,tb,te,dt;
+	short lu;
+	
+if(par->point_sim==0){	//distributed simulations
 
-	r1 = lrc->co[i1][2];
-	c1 = lrc->co[i1][3];
-	if(lrc->co[i1][1]!=0) t_error("Error 1 in find_k_sup");
+	initialize_doublevector(cnet->Qsub, 0.0);
+	initialize_doublevector(cnet->Qsup, 0.0);
+	
+	
+	dx=UV->U->co[1];                                    
+	dy=UV->U->co[2];                                    
+ 
+	b[1]=0.0;  b[2]=dy;             b[3]=dx/2.0+dy/2.0;  b[4]=dx;            b[5]=dx/2.0+dy/2.0;
+	b[6]=dy;   b[7]=dx/2.0+dy/2.0;  b[8]=dx;             b[9]=dx/2.0+dy/2.0;
 
-	r2 = lrc->co[i2][2];
-	c2 = lrc->co[i2][3];
-	if(lrc->co[i2][1]!=0) t_error("Error 2 in find_k_sup");
+	te=0.0;
+	
+	do{
+	
+		tb=te;
+		dt=Dt;
+						
+		//find dt min
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(h->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
+					lu=(short)land->LC->co[r][c];
+					Ks=land->ty->co[lu][jcm];
+					i=0.001*( h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];				
+					//i=top->i_DD->co[r][c];
+					if(i<0) i=0;  //correct false slopes
+					q=b[top->DD->co[r][c]+1]*Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;	//mm/s
+					if(q>0){
+						if(0.5*h->co[r][c]/q<dt) dt=0.5*h->co[r][c]/q; 
+					}
+				}
+			}
+		}
+				
+		te=tb+dt;
+		if(te>Dt){
+			te=Dt;
+			dt=te-tb;
+		}
 
-	h = Arithmetic_Mean( 1., 1., Fmax(0.0, (1.E-3*H->co[i1] - Z->co[r1][c1])), Fmax(0.0, (1.E-3*H->co[i2] - Z->co[r2][c2])) );	//[m]
-	cm = Harmonic_Mean( 1., 1., cm1, cm2 );
-	dHds = Fmax ( min_slope , Arithmetic_Mean( 1., 1., slope->co[r1][c1], slope->co[r2][c2] ) );
+		
+		//printf("tb:%f dt:%f Dt:%f Dtmax:%f te:%f\n",tb,dt,Dt,Dtmax,te);
+		
+		
+		//h(=height of water over the land-surface) is updated adding the new runoff(=precipita-
+		//tion not infiltrated of the actual time); then it is calculated q_sub and it is checked
+		//that its value is not greater than the avaible water on the land-surface:
+		//Remember the units of measure: q_sup=[mm/s],b[m],Ks[m^(1/3)/s],h[mm],dx[m],dy[m]
+		initialize_doublematrix(wat->q_sup, 0.0);
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(h->co[r][c]>0 && top->DD->co[r][c]>=1 && top->DD->co[r][c]<=8 && top->pixel_type->co[r][c]==0){
+					lu=(short)land->LC->co[r][c];
+					Ks=land->ty->co[lu][jcm];							
+					i=0.001*( h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]] )/b[top->DD->co[r][c]+1] + top->i_DD->co[r][c];				
+					//i=top->i_DD->co[r][c];
+					if(i<0) i=0.0;
+					wat->q_sup->co[r][c]=b[top->DD->co[r][c]+1]*Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0/dx/dy;
 
-	a = 1.E6 * pow(h, 1.0+gamma) * cm * pow(dHds, -0.5);	//[mm2/s]
+					if(wat->q_sup->co[r][c]!=wat->q_sup->co[r][c]){
+						printf("NO VALUE SUP:%ld %ld %ld %ld %f %f\n",r,c,r+r_DD[top->DD->co[r][c]],c+c_DD[top->DD->co[r][c]],h->co[r][c],h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]]);
+						printf("i:%f Dh:%f Ks:%f pow:%f iF:%f\n",i,h->co[r][c] - h->co[r+r_DD[top->DD->co[r][c]]][c+c_DD[top->DD->co[r][c]]],Ks,pow(h->co[r][c]/1000.0,1.0+par->gamma_m),top->i_DD->co[r][c]);
+					}
+				}
+			}
+		}
 
-	return(a);
+		//After the computation of the surface flow,these flows are moved trough D8 scheme:
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				if(top->pixel_type->co[r][c]==0){
+				
+					R=r+r_DD[top->DD->co[r][c]];
+					C=c+c_DD[top->DD->co[r][c]];
+					
+					h->co[r][c]-=wat->q_sup->co[r][c]*dt;
+					h->co[r][c]=Fmax(h->co[r][c], 0.0);
+										
+					//the superficial flow is added to the land pixels (code 0):    
+					if (top->pixel_type->co[R][C]==0){
+						h->co[R][C]+=wat->q_sup->co[r][c]*dt;
+						
+					//the superficial flow is added to flow which flows into the channel pixels (code 10):
+					}else if (top->pixel_type->co[R][C]>=10){
+						for(ch=1;ch<=cnet->r->nh;ch++){
+							if(R==cnet->r->co[ch] && C==cnet->c->co[ch]){
+								cnet->Qsup->co[ch] += wat->q_sup->co[r][c]*dt/Dtmax;	
+																
+								if(cnet->Qsup->co[ch]!=cnet->Qsup->co[ch]){
+									printf("qsup no value: r:%ld c:%ld ch:%ld R:%ld C:%ld qsup:%f hsup:%f\n",r,c,ch,R,C,wat->q_sup->co[r][c],h->co[r][c]);
+								}
+							}
+						}
+					}
+					
+				}else if(top->pixel_type->co[r][c]>=10){
+					for(ch=1;ch<=cnet->r->nh;ch++){
+						if(r==cnet->r->co[ch] && c==cnet->c->co[ch]){
+							cnet->Qsub->co[ch] += h->co[r][c]/Dtmax; //[mm/s]
+							h->co[r][c]=0.0;
+						}
+					}
+				}
+				
+			}
+		}  
+						
+	}while(te<Dt);
+	
+	
+}else{	//point simulation  
+	
+	for(r=1;r<=Nr;r++){
+		for(c=1;c<=Nc;c++){
+			if(land->LC->co[r][c]!=NoV){
+				/*q=0.0;
+				lu=(short)land->LC->co[r][c];
+				Ks=land->ty->co[lu][jcm];
+				i=pow(pow(top->dz_dx->co[r][c],2.0)+pow(top->dz_dy->co[r][c],2.0),0.5);			
+				if(h->co[r][c]>0) q=Ks*pow(h->co[r][c]/1000.0,1.0+par->gamma_m)*sqrt(i)*1000.0;	//mm/s
+				h->co[r][c]-=q*Dt;
+				if(h->co[r][c]<0) h->co[r][c]=0.0;*/
+				h->co[r][c]=0.0;
+			}
+		}
+	}
 }
 
+							
+}	
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+
+void routing3(CHANNEL *cnet){
+
+	long s;
+	 
+	/*The just calculated Qsup_spread and Qsub_spread are added to the flow already
+	present in the channel-network(Q_sup_s and Q_sub_s) and at once it is made a
+	traslation of Q_sup_s e Q_sub_s towards the outlet:*/
+	for(s=1;s<=cnet->Qsup_spread->nh-1;s++){
+		cnet->Q_sub_s->co[s]=cnet->Q_sub_s->co[s+1]+cnet->Qsub_spread->co[s];
+		cnet->Q_sup_s->co[s]=cnet->Q_sup_s->co[s+1]+cnet->Qsup_spread->co[s];
+	}
+	
+	cnet->Q_sub_s->co[cnet->Qsub_spread->nh]=cnet->Qsub_spread->co[cnet->Qsub_spread->nh];
+	cnet->Q_sup_s->co[cnet->Qsup_spread->nh]=cnet->Qsup_spread->co[cnet->Qsup_spread->nh];
+}
+
+/******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
