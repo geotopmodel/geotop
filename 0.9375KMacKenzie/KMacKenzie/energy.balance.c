@@ -312,7 +312,7 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 				//METEO
 				//RH and V
 				if(par->micromet==1){
-					if(par->point_sim==1){						
+					if(par->point_sim==1){
 						RHpoint=met->RHgrid->co[par->r_points->co[c]][par->c_points->co[c]];
 						Vpoint=met->Vgrid->co[par->r_points->co[c]][par->c_points->co[c]];
 					}else{
@@ -1965,9 +1965,9 @@ void PointEnergyBalance(long r,			long c,			long ns,		long ng,		double zmu,		dou
 				1-1/sl->pa->co[sy][jns][l-ns-ng], PSImin, par->Esoil);
 
 			if(l==1 && ns+ng==0){
-				sl->ET->co[l][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( (*E), 0.0);
+				sl->ET->co[l-ns-ng][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0) + Fmax( (*E), 0.0);
 			}else{
-				sl->ET->co[l][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0);
+				sl->ET->co[l-ns-ng][r][c] = Fmax( (*Etrans)*ftcl->co[l-ns-ng], 0.0);
 			}
 
 			if(T[l]!=T[l]) printf("T no value, error 3, PointEnergyBalance, l:%ld r:%ld c:%ld T:%f\n",l,r,c,T[l]);
