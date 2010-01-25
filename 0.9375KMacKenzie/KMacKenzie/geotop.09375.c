@@ -163,7 +163,7 @@ void time_loop(ALLDATA *all)
 	//stop_execution();
 	if(all->P->wat_balance==1){
 		water_balance_1D(all->T, all->S, all->L, all->W, all->C, all->P, all->I->time);
-	}else{
+	}else if(all->P->wat_balance==3){
 		water_balance_3D(all);
 	}
 
