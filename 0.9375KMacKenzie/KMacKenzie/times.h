@@ -23,7 +23,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
     
     
-    
+#ifndef __TIMES_H__
+#define __TIMES_H__    
     
 /****************************************************************************************************/
 /* The dates, times and counters of the simulation are updated:                                      */
@@ -39,3 +40,7 @@ void get_time(double *t, double JD1, long y1, double JD0, long y0);
 short is_leap(long y);
 
 long daysfrom0(long year);
+
+double convert_date_to_julian(int year, int month, int day, int hour, int minute); 
+
+#endif

@@ -287,3 +287,25 @@ long daysfrom0(long year){
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 /*==================================================================================================================*/
+
+/*
+ * Function: convert_date_to_julian
+ * Author: Thomas Egger
+ * Description: given a year, month, day, hour and minute in integer format, 
+ *              this function calculates the julian date
+ * Parameters:  year, month, day, hour, minute are of type int (not pointers)
+ * Return:      a double representing the julian date
+ */
+double convert_date_to_julian(int year, int month, int day, int hour, int minute)
+{
+	double julday = day - 32075L +
+		1461L * ( year + 4800L + ( month - 14L ) / 12L ) / 4L +
+		367L * ( month - 2L - ( month - 14L ) / 12L * 12L ) / 12L -
+		3L * ( ( year + 4900L + ( month - 14L ) / 12L ) / 100L ) / 4L;
+
+	double frac = (minute+60.0*hour) / 1440.0;
+	
+	julday = julday + frac;
+
+	return julday;
+}
