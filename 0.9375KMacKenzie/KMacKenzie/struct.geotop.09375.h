@@ -339,7 +339,8 @@ typedef struct {
 	double integr_scale_rain;/* range of the variogram */
 	double variance_rain;/* sill of the variogram */
 
-	short recover;/* =1 if you want to recover a simulation, 0 otherwise */
+	short recover;/* =2 if you want to write recovery files, =1 if you want to recover a simulation, 0 otherwise */
+	short write_recovery_files; //0=if nothing to write, 1 if recovery files should be written
 
 	double Vmin;/* minimum wind speed [m/s]*/
 

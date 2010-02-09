@@ -556,6 +556,8 @@ void read_output_variables(char* timestamp)
 		fscanf(f, "%lf", &Gevap_previous);
 		fscanf(f, "%ld", &isavings);
 		t_fclose(f);
+		
+		isavings = 0;
 	}
 }
 

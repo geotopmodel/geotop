@@ -1825,19 +1825,18 @@ free_doublematrix(M);*/
 /**********************************************************************************************************/
 
  if(times->time==0) { 
-	 /* Initialization of isavings, a static iterator variable */
+	 /* Initialization of isavings, a iterator variable with global scope*/
 	 isavings=1;
  } else if ((times->time > 0) &&(par->recover==1) && (isavings==0)){ 
-	 /* setting isavings correctly for a recovered simulation */
-	 isavings = (int)floor((times->time) / 3600 + 0.5) + 1;
- } else if (par->recover==2) {//writing of recovery files enabled
-
 	 //check whether configuration of recovery parameters is valid
 	 if ((par->saving_points->nh != 1) || (par->saving_points->co[1] < 0)){
 		 fprintf(stderr, "%s(%d): Bad configuration of saving points interval in __options file\n", __FILE__, __LINE__);
 		 exit(1);
 	 }
 
+	 /* setting isavings correctly for a recovered simulation */
+	 isavings = (int)floor((times->time) / (3600*par->saving_points->co[1]) + 0.01) + 1;
+ } else if (par->write_recovery_files==1) {//writing of recovery files enabled
 	 /* writing recovery files */
 	 if(times->time+par->Dt >= 3600.0*isavings*par->saving_points->co[1]){
 		 char timestamp[15]; 
@@ -1857,7 +1856,6 @@ free_doublematrix(M);*/
 		 }
 
 		 write_recovery_files(timestamp, times, wat, cnet, sl, egy, snow, glac);
-		 //recover_simulation(timestamp, wat, cnet, sl, egy, snow, glac);
 		 //system("rm output/rec/*");
 	 }
  }

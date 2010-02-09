@@ -3114,6 +3114,8 @@ par->point_sim=(short)V->co[12];
 
 printf("=1 if you want to recover a simulation, 0 otherwise: %f\n",V->co[13]);
 par->recover=(short)V->co[13];
+if (par->recover==2) par->write_recovery_files = 1;
+else par->write_recovery_files = 0;
 
 printf("\n");
 
