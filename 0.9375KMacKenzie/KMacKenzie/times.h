@@ -25,6 +25,10 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     
 #ifndef __TIMES_H__
 #define __TIMES_H__    
+
+#include "keywords_file.h"
+#include "struct.geotop.09375.h"
+#include "constant.h"
     
 /****************************************************************************************************/
 /* The dates, times and counters of the simulation are updated:                                      */

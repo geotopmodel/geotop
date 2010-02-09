@@ -23,6 +23,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
+#ifndef __STRUCT_H__
+#define __STRUCT_H__
 
  #include "turtle.h"
  #include "t_datamanipulation.h"
@@ -187,27 +189,27 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                   R=number of rows of the basin,C=number of columns in the basin*/
-    LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
-    LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
+	LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
+	LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
 	LONGMATRIX *ch;
 	DOUBLEVECTOR *Q;
-    DOUBLEVECTOR *s0;       /*distance of each channel-pixel from outlet; dimension=nch*/
-    DOUBLEMATRIX *fraction_spread;/*fraction of flow for each s(=virtual distance) of all channel-pixel;
+	DOUBLEVECTOR *s0;       /*distance of each channel-pixel from outlet; dimension=nch*/
+	DOUBLEMATRIX *fraction_spread;/*fraction of flow for each s(=virtual distance) of all channel-pixel;
                                     dimension=nch*ns */
-    /*cnet-flow in virtual stretches of channel:*/
-    DOUBLEVECTOR *Q_sup_s;   /*derived from q_sup[mc/s]; dimension=ns*/
-    DOUBLEVECTOR *Q_sub_s;   /*derived from q_sub[mc/s]; dimension=ns*/
+	/*cnet-flow in virtual stretches of channel:*/
+	DOUBLEVECTOR *Q_sup_s;   /*derived from q_sup[mc/s]; dimension=ns*/
+	DOUBLEVECTOR *Q_sub_s;   /*derived from q_sub[mc/s]; dimension=ns*/
 	DOUBLEVECTOR *Qsup_spread;
-    DOUBLEVECTOR *Qsub_spread;
-    DOUBLEVECTOR *Qsup;
-    DOUBLEVECTOR *Qsub;
-    /* i pixel canale sono un vettore di tante componenti quanti i pixel canali
-     * Q_sup_s: supponi che hai un canale di 1km che viene diviso in tronchi. _s
-     * si riferisce ad un tronco. "s" e' l'indice dei tronchi e ch e' l'indice dei canali.
-     * Per passare l'acqua dai canali ai tronchi, c'e' sup_spread in cui c'e' dentro la diffusione
-     * termodinamica. franction_spread e' la matrice che correla i canali in tronchi.
-     * q_sup in water e' l'acqua che viene passata alle celle nel versante, fuori dal canale.
-     * Qsup invece la tratta nel canale.*/
+	DOUBLEVECTOR *Qsub_spread;
+	DOUBLEVECTOR *Qsup;
+	DOUBLEVECTOR *Qsub;
+	/* i pixel canale sono un vettore di tante componenti quanti i pixel canali
+	 * Q_sup_s: supponi che hai un canale di 1km che viene diviso in tronchi. _s
+	 * si riferisce ad un tronco. "s" e' l'indice dei tronchi e ch e' l'indice dei canali.
+	 * Per passare l'acqua dai canali ai tronchi, c'e' sup_spread in cui c'e' dentro la diffusione
+	 * termodinamica. franction_spread e' la matrice che correla i canali in tronchi.
+	 * q_sup in water e' l'acqua che viene passata alle celle nel versante, fuori dal canale.
+	 * Qsup invece la tratta nel canale.*/
 } CHANNEL;
 
 
@@ -589,3 +591,5 @@ typedef struct {
 	METEO *M;
 	TIMES *I;
 }ALLDATA;
+
+#endif

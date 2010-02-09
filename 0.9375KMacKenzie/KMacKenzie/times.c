@@ -27,10 +27,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
 
 
 
-#include "keywords_file.h"
-#include "struct.geotop.09375.h"
+
 #include "times.h"
-#include "constant.h"
 
 extern STRINGBIN *files;
 extern char *error_file_name;
