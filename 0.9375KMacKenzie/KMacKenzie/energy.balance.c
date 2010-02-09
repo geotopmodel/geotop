@@ -545,7 +545,10 @@ void energy_balance(TIMES *times, PAR *par,	LAND *land, TOPO *top, SOIL *sl, MET
 
 				k_interface(ns+ng+Nl, k_thermal->co, D->co, k_thermal_interface->co);
 
-				double TsupNp1=met->var[0][met->column[0][iTsup]];// for Dirichlet Boundary condition at the top of the SOIL column
+				
+				double TsupNp1=0;
+				if (met->column[0][iTsup] != -1)
+					TsupNp1 = met->var[0][met->column[0][iTsup]];// for Dirichlet Boundary condition at the top of the SOIL column
 				if(times->time==0) sl->TsupN=Temp->co[1];
 				//ADVECTION
 				//if(par->point_sim==0){
