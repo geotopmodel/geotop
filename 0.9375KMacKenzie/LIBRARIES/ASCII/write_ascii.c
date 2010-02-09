@@ -24,7 +24,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
 #include "turtle.h"
 #include "write_ascii.h"
 #include "extensions.h"
-
+#include <float.h>
 
 void write_fluidturtle(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 
@@ -63,7 +63,7 @@ void write_fluidturtle(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
+/*void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 
 //	type=0  floating point
 //	type=1  integer
@@ -98,6 +98,87 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV){
 	}
 	fclose(f);
 
+}
+*/
+void write_grassascii(char *name, short type, void *DTM, T_INIT *UV){
+	// function implementation by Thomas Egger 2009/11/30
+	//	type=0  floating point
+	//	type=1  long
+	//	type=2  short
+
+	FILE *f;
+	long r,c;
+	char filename[256];
+	DOUBLEMATRIX *doublematrix = NULL;
+	LONGMATRIX *longmatrix     = NULL;
+	SHORTMATRIX *shortmatrix   = NULL;
+	long nrh, nch;
+
+	if (DTM == NULL){
+		fprintf(stderr, "%s(%d): Attempting to write a NULL pointer to a file\n", __FILE__, __LINE__);
+		exit(1);
+	}
+
+	if (type == 0){
+		doublematrix = (DOUBLEMATRIX*)DTM;
+		nrh = doublematrix->nrh;
+		nch = doublematrix->nch;
+	}else if (type == 1){
+		longmatrix = (LONGMATRIX*)DTM;
+		nrh = longmatrix->nrh;
+		nch = longmatrix->nch;
+	} else if (type == 2){
+		shortmatrix = (SHORTMATRIX*)DTM;
+		nrh = shortmatrix->nrh;
+		nch = shortmatrix->nch;
+	} else {
+		fprintf(stderr, "Unrecognized type when invoking write_generic_grassascii: type number %d", type);
+		exit(1);
+	}
+
+	if ((nrh<0) || (nch<0)){
+		fprintf(stderr, "Cannot write a matrix with dimensions %ld x %ld to '%s%s'\n", nrh, nch, name, ascii_grass);
+		exit(1);
+	}
+
+	sprintf(filename, "%s%s", name, ascii_grass);
+	f=fopen(filename,"w");
+
+	//Write GRASS header
+	fprintf(f,"north:%f\n",UV->U->co[3]+nrh*UV->U->co[1]);
+	fprintf(f,"south:%f\n",UV->U->co[3]);
+	fprintf(f,"east:%f\n",UV->U->co[4]+nch*UV->U->co[2]);
+	fprintf(f,"west:%f\n",UV->U->co[4]);
+	fprintf(f,"rows:%ld\n",nrh);
+	fprintf(f,"cols:%ld\n",nch);
+
+	//Write GRASS data
+	for(r=1;r<=nrh;r++){
+		for(c=1;c<=nch;c++){			
+			if (type == 0){//doublematrix
+				if(doublematrix->co[r][c]==UV->V->co[1]*fabs(UV->V->co[2])){
+					fprintf(f,"*");
+				} else {
+					fprintf(f, "%.*f", (int)LDBL_DIG, doublematrix->co[r][c]);			
+				}
+			} else if (type==1){//longmatrix
+				if(longmatrix->co[r][c]==UV->V->co[1]*fabs(UV->V->co[2])){
+					fprintf(f,"*");
+				} else {
+					fprintf(f, "%ld", longmatrix->co[r][c]);
+				}
+			} else if (type==2){//shortmatrix
+				if(shortmatrix->co[r][c]==UV->V->co[1]*fabs(UV->V->co[2])){
+					fprintf(f,"*");
+				} else {
+					fprintf(f, "%d", shortmatrix->co[r][c]);
+				}
+			}
+			if(c<nch) fprintf(f," ");
+		}
+		if(r<nrh) fprintf(f,"\n");
+	}
+	fclose(f);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------

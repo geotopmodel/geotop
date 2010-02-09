@@ -1,3 +1,6 @@
+#ifndef __TURTLE_H__
+#define __TURTLE_H__
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -250,3 +253,4 @@ DOUBLEVECTOR *V;  /*sign of novalue,novalue*/
 
 void t_error(char *error_text);
 
+#endif

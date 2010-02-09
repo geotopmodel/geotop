@@ -22,17 +22,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-#include "turtle.h"
-#include "tensor3D.h" /* line added by Emanuele Cordano on 1 September 2009 */
-#include "t_utilities.h" /* line added by Emanuele Cordano on 1 September 2009 */
 #include "rw_maps.h"
-#include "import_ascii.h"
-#include "write_ascii.h"
-#include "extensions.h"
 
-#ifdef USE_NETCDF_MAP
-#include "netcdf4geotop.h"
-#endif
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
@@ -789,6 +780,47 @@ void write_mapseries(long i, char *filename, short type, short format, DOUBLEMAT
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
+/* Thomas Egger 2009/11/30 */
+void write_tensorseries(short a, char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV){
+	/* a=0 non include "l" nel suffisso
+	 * a=1 include "l" nel suffisso
+	 * l: layer
+	 * suffix: timestamp as string
+	 */
+
+	if (T == NULL)
+		return;
+	
+	char fname[128];
+	long r, c, l;
+
+	for (l=1; l<=T->ndh; l++){
+		char LLLLL[ ]={"LLLLL"};
+		DOUBLEMATRIX *M;
+
+		if(a==0){
+			sprintf(fname, "%s_%s", filename, suffix); 
+		}else if(a==1){
+			write_suffix(LLLLL, l, 1);	
+			sprintf(fname, "%s%s_%s", filename, LLLLL, suffix); 
+		}
+
+		M=new_doublematrix(T->nrh,T->nch);
+		for(r=1;r<=T->nrh;r++){
+			for(c=1;c<=T->nch;c++){
+				M->co[r][c]=T->co[l][r][c];
+			}
+		}
+
+		//write_map(fname, type, format, M, UV);
+		write_map(fname, type, format, M, UV, 0, 0);//USE_NETCDF_MAP
+		free_doublematrix(M);
+	}
+	
+
+}
+
+/*
 void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec){//USE_NETCDF_MAP
 
 //	a=0 non include "l" nel suffisso
@@ -819,10 +851,11 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 	}
 
 	write_map(name, type, format, M, UV,0,0);//USE_NETCDF_MAP
-	if (name!=NULL) free(name); /* added by Emanuele Cordano on 24/9/9 */
+	if (name!=NULL) free(name); // added by Emanuele Cordano on 24/9/9 
 	free_doublematrix(M);
 
 }
+*/
 
 void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV){
 

@@ -94,7 +94,7 @@ free((FREE_ARG) (t+ndl-NR_END));
 /*-----------------------------------------------------------------------*/
 
 
-void free_doubletensor( DOUBLETENSOR *m)
+DOUBLETENSOR* free_doubletensor( DOUBLETENSOR *m)
 
 {
 
@@ -107,13 +107,13 @@ void free_doubletensor( DOUBLETENSOR *m)
 			m->isdynamic=m->nrl=m->ncl=m->nrh=m->nch=m->ndl=m->ndh=-1;
 			free(m);
 
-			return;
+			return NULL;
 
 		  }else{
 			printf("\nWarning::An attemp was made to free a non dynamic tensor\n");
 
 		  }
-
+		  return m;
 
 }
 

@@ -21,10 +21,15 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
     
+#ifndef __WRITE_ASCII_H__
+#define __WRITE_ASCII_H__
     
     
 void write_fluidturtle(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV);
 
-void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV);
+void write_grassascii(char *name, short type, void *DTM_in, T_INIT *UV);
 
 void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV);
+
+
+#endif

@@ -172,24 +172,24 @@ Examples: 1.example.c, 2.example.c
 
 */
 
-void free_shortvector( SHORTVECTOR *);
-void free_intvector( INTVECTOR *);
-void free_longvector( LONGVECTOR *);
-void free_floatvector( FLOATVECTOR *);
-void free_doublevector( DOUBLEVECTOR *);
-void free_charvector( CHARVECTOR *);
+SHORTVECTOR* free_shortvector( SHORTVECTOR *);
+INTVECTOR* free_intvector( INTVECTOR *);
+LONGVECTOR* free_longvector( LONGVECTOR *);
+FLOATVECTOR* free_floatvector( FLOATVECTOR *);
+DOUBLEVECTOR* free_doublevector( DOUBLEVECTOR *);
+CHARVECTOR* free_charvector( CHARVECTOR *);
 
-void free_shortmatrix( SHORTMATRIX *);
-void free_intmatrix( INTMATRIX *);
-void free_longmatrix( LONGMATRIX *);
-void free_floatmatrix( FLOATMATRIX *);
-void free_doublematrix( DOUBLEMATRIX *);
+SHORTMATRIX* free_shortmatrix( SHORTMATRIX *);
+INTMATRIX* free_intmatrix( INTMATRIX *);
+LONGMATRIX* free_longmatrix( LONGMATRIX *);
+FLOATMATRIX* free_floatmatrix( FLOATMATRIX *);
+DOUBLEMATRIX* free_doublematrix( DOUBLEMATRIX *);
 
-void free_intbin( INTBIN *);
-void free_stringbin( STRINGBIN *);
-void free_shortbin( SHORTBIN *);
-void free_longbin(  LONGBIN *);
-void free_doublebin( DOUBLEBIN *);
+INTBIN* free_intbin( INTBIN *);
+STRINGBIN* free_stringbin( STRINGBIN *);
+SHORTBIN* free_shortbin( SHORTBIN *);
+LONGBIN* free_longbin(  LONGBIN *);
+DOUBLEBIN* free_doublebin( DOUBLEBIN *);
 
 void free_svector(short* v, long nl);
 void free_ivector(int* v, long nl);
@@ -242,7 +242,7 @@ void free_header(HEADER );
 double    ***d3tensor( long nrl, long nrh, long ncl, long nch, long ndl, long ndh);
 DOUBLETENSOR *new_doubletensor(long nrh,long nch,long ndh);
 void free_d3tensor(double ***t,long nrl,  long ncl, long ndl);
-void free_doubletensor( DOUBLETENSOR *m);
+DOUBLETENSOR* free_doubletensor( DOUBLETENSOR *m);
 
 
 double **dmatrix(long nrl, long nrh, long ncl,long nch);

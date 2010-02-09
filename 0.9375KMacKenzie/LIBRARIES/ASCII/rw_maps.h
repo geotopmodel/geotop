@@ -22,6 +22,20 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
+#ifndef __RW_MAPS_H__
+#define __RW_MAPS_H__
+
+#include "turtle.h"
+#include "tensor3D.h" /* line added by Emanuele Cordano on 1 September 2009 */
+#include "t_utilities.h" /* line added by Emanuele Cordano on 1 September 2009 */
+#include "import_ascii.h"
+#include "write_ascii.h"
+#include "extensions.h"
+
+#ifdef USE_NETCDF_MAP
+#include "netcdf4geotop.h"
+#endif
+
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 //BASE subroutines
@@ -93,8 +107,12 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT
 
 void write_mapseries(long i, char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV);
 
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec); //USE_NETCDF_MAP
+//void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec); //USE_NETCDF_MAP
+void write_tensorseries(short a, char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
 
 void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV);
 
 void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV,double time_in_sec); //USE_NETCDF_MAP
+
+#endif
+

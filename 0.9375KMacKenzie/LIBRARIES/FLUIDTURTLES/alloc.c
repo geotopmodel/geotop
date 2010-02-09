@@ -2646,7 +2646,7 @@ free((FREE_ARG) (m+nrl-NR_END));
 
 
 
-void free_shortvector( SHORTVECTOR *v)
+SHORTVECTOR* free_shortvector( SHORTVECTOR *v)
 
 
 
@@ -2694,7 +2694,7 @@ void free_shortvector( SHORTVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -2708,7 +2708,7 @@ void free_shortvector( SHORTVECTOR *v)
 
 		  }
 
-
+		   return v;
 }
 
 
@@ -2721,7 +2721,7 @@ void free_shortvector( SHORTVECTOR *v)
 
 
 
-void free_intvector( INTVECTOR *v)
+INTVECTOR* free_intvector( INTVECTOR *v)
 
 
 
@@ -2769,7 +2769,7 @@ void free_intvector( INTVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -2783,7 +2783,7 @@ void free_intvector( INTVECTOR *v)
 
 		  }
 
-
+		   return v;
 }
 
 
@@ -2796,7 +2796,7 @@ void free_intvector( INTVECTOR *v)
 
 
 
-void free_floatvector( FLOATVECTOR *v)
+FLOATVECTOR* free_floatvector( FLOATVECTOR *v)
 
 
 
@@ -2844,7 +2844,7 @@ void free_floatvector( FLOATVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -2858,7 +2858,7 @@ void free_floatvector( FLOATVECTOR *v)
 
 		  }
 
-
+		   return v;
 }
 
 
@@ -2871,7 +2871,7 @@ void free_floatvector( FLOATVECTOR *v)
 
 
 
-void free_longvector( LONGVECTOR *v)
+LONGVECTOR* free_longvector( LONGVECTOR *v)
 
 
 
@@ -2919,7 +2919,7 @@ void free_longvector( LONGVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -2933,7 +2933,7 @@ void free_longvector( LONGVECTOR *v)
 
 		  }
 
-
+		   return v;
 }
 
 
@@ -2949,7 +2949,7 @@ void free_longvector( LONGVECTOR *v)
 
 
 
-void free_doublevector( DOUBLEVECTOR *v)
+DOUBLEVECTOR* free_doublevector( DOUBLEVECTOR *v)
 
 
 
@@ -2997,7 +2997,7 @@ void free_doublevector( DOUBLEVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3011,7 +3011,7 @@ void free_doublevector( DOUBLEVECTOR *v)
 
 		  }
 
-
+		   return v;
 }
 
 
@@ -3024,7 +3024,7 @@ void free_doublevector( DOUBLEVECTOR *v)
 
 
 
-void free_charvector( CHARVECTOR *v)
+CHARVECTOR* free_charvector( CHARVECTOR *v)
 
 
 
@@ -3072,7 +3072,7 @@ void free_charvector( CHARVECTOR *v)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3086,6 +3086,7 @@ void free_charvector( CHARVECTOR *v)
 
 		  }
 
+		   return v;
 
 }
 
@@ -3099,7 +3100,7 @@ void free_charvector( CHARVECTOR *v)
 
 
 
-void free_shortmatrix( SHORTMATRIX *m)
+SHORTMATRIX* free_shortmatrix( SHORTMATRIX *m)
 
 
 
@@ -3147,7 +3148,7 @@ void free_shortmatrix( SHORTMATRIX *m)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3160,7 +3161,7 @@ void free_shortmatrix( SHORTMATRIX *m)
 
 
 		  }
-
+		return m;
 
 }
 
@@ -3177,7 +3178,7 @@ void free_shortmatrix( SHORTMATRIX *m)
 
 
 
-void free_intmatrix( INTMATRIX *m)
+INTMATRIX* free_intmatrix( INTMATRIX *m)
 
 
 
@@ -3225,7 +3226,7 @@ void free_intmatrix( INTMATRIX *m)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3239,7 +3240,7 @@ void free_intmatrix( INTMATRIX *m)
 
 		  }
 
-
+		   return m;
 }
 
 
@@ -3258,7 +3259,7 @@ void free_intmatrix( INTMATRIX *m)
 
 
 
-void free_floatmatrix( FLOATMATRIX *m)
+FLOATMATRIX* free_floatmatrix( FLOATMATRIX *m)
 
 
 
@@ -3306,7 +3307,7 @@ void free_floatmatrix( FLOATMATRIX *m)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3320,7 +3321,7 @@ void free_floatmatrix( FLOATMATRIX *m)
 
 		  }
 
-
+		   return m;
 }
 
 
@@ -3336,7 +3337,7 @@ void free_floatmatrix( FLOATMATRIX *m)
 
 
 
-void free_longmatrix( LONGMATRIX *m)
+LONGMATRIX* free_longmatrix( LONGMATRIX *m)
 
 
 
@@ -3384,7 +3385,7 @@ void free_longmatrix( LONGMATRIX *m)
 
 
 
-			return;
+			return NULL;
 
 
 
@@ -3398,7 +3399,7 @@ void free_longmatrix( LONGMATRIX *m)
 
 		  }
 
-
+		return m;
 }
 
 
@@ -3411,7 +3412,7 @@ void free_longmatrix( LONGMATRIX *m)
 
 
 
-void free_doublematrix( DOUBLEMATRIX *m)
+DOUBLEMATRIX* free_doublematrix( DOUBLEMATRIX *m)
 
 
 
@@ -3442,7 +3443,7 @@ void free_doublematrix( DOUBLEMATRIX *m)
 
 
 			free_dmatrix(m->co,NL,NL);
-
+			m->co = NULL;
 
 
 
@@ -3454,12 +3455,9 @@ void free_doublematrix( DOUBLEMATRIX *m)
 
 
 			free(m);
+			
 
-
-
-
-
-			return;
+			return NULL;
 
 
 
@@ -3474,6 +3472,8 @@ void free_doublematrix( DOUBLEMATRIX *m)
 		  }
 
 
+		  return m;
+		  
 }
 
 
@@ -3489,7 +3489,7 @@ void free_doublematrix( DOUBLEMATRIX *m)
 
 
 
-void free_intbin( INTBIN *l)
+INTBIN* free_intbin( INTBIN *l)
 
 
 
@@ -3540,7 +3540,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-	return;
+	return NULL;
 
 
 
@@ -3557,6 +3557,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 }
 
+ return l;
 
 }
 
@@ -3568,7 +3569,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-void free_shortbin( SHORTBIN *l)
+SHORTBIN* free_shortbin( SHORTBIN *l)
 
 
 
@@ -3623,7 +3624,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-	return;
+	return NULL;
 
 
 
@@ -3639,7 +3640,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 }
-
+ return l;
 
 }
 
@@ -3650,7 +3651,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-void free_longbin( LONGBIN *l)
+LONGBIN* free_longbin( LONGBIN *l)
 
 
 
@@ -3710,7 +3711,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-	return;
+	return NULL;
 
 
 
@@ -3726,7 +3727,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 }
-
+ return l;
 
 }
 
@@ -3736,7 +3737,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-void free_doublebin( DOUBLEBIN *l)
+DOUBLEBIN* free_doublebin( DOUBLEBIN *l)
 
 
 
@@ -3796,7 +3797,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-	return;
+	return NULL;
 
 
 
@@ -3812,7 +3813,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 }
-
+ return l;
 
 }
 
@@ -3826,7 +3827,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-void free_stringbin( STRINGBIN *l)
+STRINGBIN* free_stringbin( STRINGBIN *l)
 
 
 
@@ -3906,7 +3907,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 
 
-	return;
+	return NULL;
 
 
 
@@ -3928,7 +3929,7 @@ if(l==NULL || l->co==NULL || l->co[1]==NULL){
 
 }
 
-
+ return l;
 
 }
 
