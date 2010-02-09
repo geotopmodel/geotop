@@ -22,23 +22,7 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Matteo Dall'Amico, Emanuele Co
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-
-#include "keywords_file.h"
-#include "struct.geotop.09375.h"
-#include "vegetation.h"
-#include "pedo.funct.h"
-#include "geo_statistic.09375.h"
-#include "networks.h"
-#include "rw_maps.h"
-#include "constant.h"
-#include "extensions.h"
-#include "times.h"
-#include "energy.balance.h"
-#include "input.09375.h"
 #include "output.09375.h"
-#include "tabs.h"
-
-#include "frost_table.h"
 
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
@@ -46,6 +30,32 @@ extern STRINGBIN *files;
 extern char *error_file_name;
 extern long Nl, Nr, Nc;
 extern double NoV;
+
+/* These variables have a global scope */
+double wt0_basin=0.0; /*mean intercepted precipitation [mm] in the previous output-basin Dt*/
+double Ssup=0.0;       /*supercial Storage of water in all the basin [mm]*/
+double Ssub=0.0;      /*subsuperficial Storage of water in all the basin [mm]*/
+double Rout=0.0;      /*sum of the output flows from the last output-basin for unit of area[mm]*/
+double R_G=0.0;
+double S_ch0=0.0;     /*wat in the channel at the start of a basin-output step-time*/
+double S_ch1=0.0;     /*wat in the channel at the end of a basin-output step-time*/
+double Qsub_ch=0.0, Qsup_ch=0.0 ,Q_G=0.0; /*averaged output flows*/
+double SWE_previous=0.0;
+double GWE_previous=0.0;
+double Smelt=0.0;   /*Snow melt [mm] during the time interval*/
+double Ssubl=0.0;   /*Snow sublimation [mm] during the time interval*/
+double Sevap=0.0;   /*Snow evaporation [mm] during the time interval*/
+double Gmelt=0.0;   /*Glacier melt [mm] during the time interval*/
+double Gsubl=0.0;   /*Glacier sublimation [mm] during the time interval*/
+double Gevap=0.0;   /*Glacier evaporation [mm] during the time interval*/
+double Smelt_previous=0.0;
+double Ssubl_previous=0.0;
+double Sevap_previous=0.0;
+double Gmelt_previous=0.0;
+double Gsubl_previous=0.0;
+double Gevap_previous=0.0;
+long isavings = 0;
+/* End variables that have a global scope */
 
 
 /****************************************************************************************************/
@@ -61,30 +71,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
  char SSSS[ ]={"SSSS"};
  char *name=NULL; /*modified by Emanuele Cordano on 24/9/9 */
  FILE *f;
-
- static double wt0_basin; /*mean intercepted precipitation [mm] in the previous output-basin Dt*/
- static double Ssup;      /*supercial Storage of water in all the basin [mm]*/
- static double Ssub;      /*subsuperficial Storage of water in all the basin [mm]*/
- static double Rout;      /*sum of the output flows from the last output-basin for unit of area[mm]*/
- static double R_G;
- static double S_ch0;     /*wat in the channel at the start of a basin-output step-time*/
- static double S_ch1;     /*wat in the channel at the end of a basin-output step-time*/
- static double Qsub_ch,Qsup_ch,Q_G; /*averaged output flows*/
- static double SWE_previous;
- static double GWE_previous;
- static double Smelt;   /*Snow melt [mm] during the time interval*/
- static double Ssubl;   /*Snow sublimation [mm] during the time interval*/
- static double Sevap;   /*Snow evaporation [mm] during the time interval*/
- static double Gmelt;   /*Glacier melt [mm] during the time interval*/
- static double Gsubl;   /*Glacier sublimation [mm] during the time interval*/
- static double Gevap;   /*Glacier evaporation [mm] during the time interval*/
- static double Smelt_previous;
- static double Ssubl_previous;
- static double Sevap_previous;
- static double Gmelt_previous;
- static double Gsubl_previous;
- static double Gevap_previous;
- static long isavings;
 
  /*internal variables to memorize input par:*/
  double DS_ch;            /*difference of water in the channel (S_ch0-S_ch1)*/
@@ -1833,129 +1819,52 @@ free_doublematrix(M);*/
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
-//SAVING POINTS
+/* SAVING POINTS                                                                                          */
+/* Writing recovery files - these files are defined by the REC_ options in __geotop.inpts                 */
 /**********************************************************************************************************/
 /**********************************************************************************************************/
 
-if(times->time==0) isavings=0;
+ if(times->time==0) { 
+	 /* Initialization of isavings, a static iterator variable */
+	 isavings=1;
+ } else if ((times->time > 0) &&(par->recover==1) && (isavings==0)){ 
+	 /* setting isavings correctly for a recovered simulation */
+	 isavings = (int)floor((times->time) / 3600 + 0.5) + 1;
+ } else if (par->recover==2) {//writing of recovery files enabled
 
-if(isavings < par->saving_points->nh){
+	 //check whether configuration of recovery parameters is valid
+	 if ((par->saving_points->nh != 1) || (par->saving_points->co[1] < 0)){
+		 fprintf(stderr, "%s(%d): Bad configuration of saving points interval in __options file\n", __FILE__, __LINE__);
+		 exit(1);
+	 }
 
-	if(par->saving_points->nh==1 && par->saving_points->co[1]==0.0){
+	 /* writing recovery files */
+	 if(times->time+par->Dt >= 3600.0*isavings*par->saving_points->co[1]){
+		 char timestamp[15]; 
+		 int n=0;
 
-		isavings=1;
+		 isavings++;
 
-	}else{
+		 /* calculate a valid timestamp string for the recovery files */
+		 date_time(times->time+par->Dt, par->year0, par->JD0, 0.0, &JD, &d2, &mo2, &y2, &h2, &mi2);
+		 printf("Writing recovery files for date: %04ld%02ld%02ldT%02ld%02ld   simulation time:%f\n\n", 
+			   y2,mo2,d2,h2,mi2, times->time+par->Dt);
 
-		if(times->time+par->Dt >= 86400.0*par->saving_points->co[isavings+1]){
-			isavings+=1;
+		 n = sprintf (timestamp, "%04ld%02ld%02ldT%02ld%02ld", y2, mo2, d2, h2, mi2);
+		 if (n != 13){
+			 fprintf(stderr, "%s (%d): Not able to construct recovery filenames\n", __FILE__, __LINE__);
+			 exit(1);
+		 }
 
-			write_suffix(SSSS, isavings, 0);
-
-#ifdef USE_NETCDF_MAP
-			//force output map in esriascii format
-			short int tmp_format_output;
-			if (par->format_out >= 4){
-				tmp_format_output=par->format_out;
-				par->format_out=3;
-			}
-#endif
-
-			for(l=1;l<=Nl;l++){
-				write_tensorseries(1, l, isavings, files->co[rpsi]+1, 0, par->format_out, sl->P, UV,0);
-				write_tensorseries(1, l, isavings, files->co[riceg]+1, 0, par->format_out, sl->thice, UV,0);
-				write_tensorseries(1, l, isavings, files->co[rTg]+1, 0, par->format_out, sl->T, UV,0);
-			}
-
-			temp=join_strings(files->co[rhsup]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->h_sup, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			temp=join_strings(files->co[rwcrn]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->wcan_rain, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			temp=join_strings(files->co[rwcsn]+1,SSSS);
-			write_map(temp, 0, par->format_out, wat->wcan_snow, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			temp=join_strings(files->co[rTv]+1,SSSS);
-			write_map(temp, 0, par->format_out, sl->Tv, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-
-
-
-
-			for(l=1;l<=par->snowlayer_max;l++){
-				write_tensorseries(1, l, isavings, files->co[rDzs]+1, 0, par->format_out, snow->Dzl, UV,0);
-				write_tensorseries(1, l, isavings, files->co[rwls]+1, 0, par->format_out, snow->w_liq, UV,0);
-				write_tensorseries(1, l, isavings, files->co[rwis]+1, 0, par->format_out, snow->w_ice, UV,0);
-				write_tensorseries(1, l, isavings, files->co[rTs]+1, 0, par->format_out, snow->T, UV,0);
-
-			}
-			temp=join_strings(files->co[rsnag_adim]+1,SSSS);
-			write_map(temp, 0, par->format_out, snow->nondimens_age, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			temp=join_strings(files->co[rsnag_dim]+1,SSSS);
-			write_map(temp, 0, par->format_out, snow->dimens_age, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			M=copydouble_longmatrix(snow->lnum);
-			temp=join_strings(files->co[rns]+1, SSSS);
-			write_map(temp, 1, par->format_out, M, UV,0,0); //USE_NETCDF_MAP
-			free(temp);
-			free_doublematrix(M);
-
-
-			if(par->glaclayer_max>0){
-				for(l=1;l<=par->glaclayer_max;l++){
-					write_tensorseries(1, l, isavings, files->co[rDzi]+1, 0, par->format_out, glac->Dzl, UV,0);
-					write_tensorseries(1, l, isavings, files->co[rwli]+1, 0, par->format_out, glac->w_liq, UV,0);
-					write_tensorseries(1, l, isavings, files->co[rwii]+1, 0, par->format_out, glac->w_ice, UV,0);
-					write_tensorseries(1, l, isavings, files->co[rTi]+1, 0, par->format_out, glac->T, UV,0);
-
-				}
-				M=copydouble_longmatrix(glac->lnum);
-				temp=join_strings(files->co[rni]+1,SSSS);
-				write_map(temp, 1, par->format_out, M, UV,0,0); //USE_NETCDF_MAP
-				free(temp);
-				free_doublematrix(M);
-
-			}
-
-#ifdef USE_NETCDF_MAP
-			//restore original output map parameter
-			if (par->format_out >= 4){
-				par->format_out=tmp_format_output;
-			}
-#endif
-			temp=join_strings(files->co[rQch]+1,SSSS);
-			name=join_strings(temp,textfile);
-			f=t_fopen(name,"w");
-			fprintf(f,"/**Channel discharges(m3/s) for each channel-pixel\n");
-			fprintf(f," Q_sup_s		Q_sub_s*/\n");
-			fprintf(f,"index{1}\n");
-			fprintf(f,"1:double matrix Q_channel {%ld,2}\n",cnet->Q_sup_s->nh);
-			for(j=1;j<=cnet->Q_sup_s->nh;j++){
-				fprintf(f,"%20.16f  %20.16f\n",cnet->Q_sup_s->co[j],cnet->Q_sub_s->co[j]);
-			}
-			t_fclose(f);
-			free(name);
-			free(temp);
-			for(i=1;i<=par->nLC;i++){
-				temp=join_strings(files->co[rSFA]+1,SSSS);
-				temp1=join_strings(temp,"L");
-				name=namefile_i(temp1,i);
-				f=t_fopen(name,"w");
-				fprintf(f,"/**Fraction of snow free area and average sensible heat flux (W/m2) from snow free area\n");
-				fprintf(f," VSFA		HSFA*/\n");
-				fprintf(f,"index{1}\n");
-				fprintf(f,"1:double vector SFA {%f,%f}\n",egy->VSFA->co[i],egy->HSFA->co[i]);
-				t_fclose(f);
-				free(name);
-				free(temp);
-				free(temp1);
-			}
-
-		}
-	}
+		 write_recovery_files(timestamp, times, wat, cnet, sl, egy, snow, glac);
+		 //recover_simulation(timestamp, wat, cnet, sl, egy, snow, glac);
+		 //system("rm output/rec/*");
+	 }
+ }
 }
+
+
+
 // file bugs
 /*long cell1=1, cell2=16,cell3=26;
 double T1,Thw1,Thi1,lambdat1,CT1,T2,Thw2,Thi2,lambdat2,CT2,T3,Thw3,Thi3,lambdat3,CT3;
@@ -1992,7 +1901,7 @@ l=cell3;
 fprintf(f,",%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",T1,T2,T3,Thw1,Thw2,Thw3,Thi1,Thi2,Thi3,lambdat1,lambdat2,lambdat3,CT1,CT2,CT3);
 fclose(f);
 free(namebugs);*/
-}
+
 
 /*--------------------------------------------------------------------------------------------------*/
 

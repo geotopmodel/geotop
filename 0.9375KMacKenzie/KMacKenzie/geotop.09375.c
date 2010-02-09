@@ -36,10 +36,12 @@ Copyright, 2008 Stefano Endrizzi, Matteo Dall'Amico, Riccardo Rigon, Emanuele Co
 #include "water.balance_1D.h"
 #include "water.balance_3D.h"
 #include "pedo.funct.h"
+#include "recovery.h"
 
 void time_loop(ALLDATA *all);
 void time_loop_superfast(ALLDATA *all);
-
+void init_structs(TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
+					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
 /*----------   1. Global variables  ------------*/
 T_INIT *UV;
@@ -101,6 +103,8 @@ int main(int argc,char *argv[]){
 	if(!(adt->I)) t_error("times was not allocated");
 
 
+init_structs(adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
+
 /*------------------    3.  Acquisition of input data and initialization    --------------------*/
 get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 
@@ -119,6 +123,32 @@ if(adt->P->superfast!=1) {
 			}
 		}
 	}
+
+
+/*----------------- Try to recover simulation if wished for -----------------*/
+if (adt->P->recover == 1) {//recover from saved data
+	double JD;
+	int n=0;
+	long day, month, year, hour, minute;
+	char timestamp[15]; 
+	double TH = adt->I->TH;
+	
+	date_time(adt->I->time, adt->P->year0, adt->P->JD0, 0.0, &JD, &day, &month, &year, &hour, &minute);
+	//printf("Reading recovery files for date: %04ld%02ld%02ldT%02ld%02ld   simulation time:%f\n\n", 
+	//	   y2,mo2,d2,h2,mi2, times->time+par->Dt);
+	
+	n = sprintf (timestamp, "%04ld%02ld%02ldT%02ld%02ld", year, month, day, hour, minute);
+	if (n != 13){
+		fprintf(stderr, "%s (%d): Not able to construct recovery timestamp", __FILE__, __LINE__);
+		exit(1);
+	} 
+
+	recover_simulation(timestamp, adt->I, adt->W, adt->C, adt->S, adt->E, adt->N, adt->G);
+
+	adt->I->TH    = TH;
+	adt->I->time += (long)adt->P->Dt;
+}
+
 
 /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 if(adt->P->superfast!=1) {// regular version
@@ -264,4 +294,270 @@ void time_loop_superfast(ALLDATA *all)
 
  free(all->I);
 
+}
+
+
+void init_structs(TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
+					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
+{
+	//ENERGY struct
+	egy->Rn_mean = NULL;
+	egy->Rn_max = NULL;
+	egy->Rn_min = NULL;
+	egy->LW_in = NULL;
+	egy->LW_out = NULL;
+	egy->LW_max = NULL;
+	egy->LW_min = NULL;
+	egy->SW = NULL;
+	egy->SW_max = NULL;
+	egy->ET_mean = NULL;
+	egy->ET_max = NULL;
+	egy->ET_min = NULL;
+	egy->H_mean = NULL;
+	egy->H_max = NULL;
+	egy->H_min = NULL;
+	egy->G_mean = NULL;
+	egy->G_max = NULL;
+	egy->G_min = NULL;
+	egy->G_snowsoil = NULL;
+	egy->Ts_mean = NULL;
+	egy->Ts_max = NULL;
+	egy->Ts_min = NULL;
+	egy->Rswdown_mean = NULL;
+	egy->Rswdown_max = NULL;
+	egy->Ta_mean = NULL;
+	egy->Ta_max = NULL;
+	egy->Ta_min = NULL;
+	egy->out1 = NULL;
+	egy->out2 = NULL;
+	egy->out3 = NULL;
+	egy->Rswbeam = NULL;
+	egy->nDt_shadow = NULL;
+	egy->nDt_sun = NULL;
+	egy->Hgplot = NULL;
+	egy->LEgplot = NULL;
+	egy->Hvplot = NULL;
+	egy->LEvplot = NULL;
+	egy->SWinplot = NULL;
+	egy->SWgplot = NULL;
+	egy->SWvplot = NULL;
+	egy->LWinplot = NULL;
+	egy->LWgplot = NULL;
+	egy->LWvplot = NULL;
+	egy->Tgplot = NULL;
+	egy->Tvplot = NULL;
+	egy->Tsplot = NULL;
+	egy->SWin = NULL;
+	egy->LWin = NULL;
+	egy->Hgrid = NULL;
+	egy->Tsgrid = NULL;
+	egy->VSFA = NULL;
+	egy->HSFA = NULL;
+
+	//SOIL struct
+	sl->type = NULL;
+	sl->pa = NULL;
+	sl->P = NULL;
+	sl->T = NULL;
+	sl->thice = NULL;
+	sl->Jinf = NULL;
+	sl->J = NULL;
+	sl->Tv = NULL;
+	sl->Tav = NULL;
+	sl->thwav = NULL;
+	sl->thiav = NULL;
+	sl->Tmean = NULL;
+	sl->thetaw_mean = NULL;
+	sl->thetai_mean = NULL;
+	sl->psi_mean = NULL;
+	sl->Tmax = NULL;
+	sl->thetaw_max = NULL;
+	sl->thetai_max = NULL;
+	sl->Tmin = NULL;
+	sl->thetaw_min = NULL;
+	sl->thetai_min = NULL;
+	sl->output = NULL;
+	sl->bc = NULL;
+	sl->ET = NULL;
+
+	//TOPO struct
+	top->Z0 = NULL;         
+	top->Z1 = NULL;
+	top->Z0dp = NULL;		  
+	top->Z0ext = NULL;      
+	top->sky = NULL;        
+	top->pixel_type = NULL; 
+	top->DD = NULL;         
+	top->i_DD = NULL;       
+	top->dz_dx = NULL;      
+	top->dz_dy = NULL;      
+	top->top_index = NULL; 
+	top->curv = NULL;       
+	top->area = NULL;       
+	top->aspect = NULL;     
+	top->slopes = NULL;     
+	top->i_ch = NULL;       
+	top->pixel_distance = NULL;
+	top->ES_pixel = NULL;
+	top->ES_aspect = NULL;
+	top->ES_slope = NULL;
+	top->horizon_height = NULL;
+	top->Zm = NULL;
+	top->curv_m = NULL;
+	top->slope_m = NULL;
+	top->slopeaz_m = NULL;
+	top->i_cont = NULL;
+	top->lrc_cont = NULL;
+	top->Z = NULL;
+	top->slope_H = NULL;
+
+	//LAND struct
+	land->LC = NULL;
+	land->LC2 = NULL;
+	land->albedo = NULL;
+	land->shadow = NULL;
+	land->clax = NULL;
+	land->cont = NULL;
+	land->ty = NULL;
+
+	//CHANNEL struct
+	cnet->r = NULL;
+	cnet->c = NULL;
+	cnet->ch = NULL;
+	cnet->Q = NULL;
+	cnet->s0 = NULL;
+	cnet->fraction_spread = NULL;
+	cnet->Q_sup_s = NULL;
+	cnet->Q_sub_s = NULL;
+	cnet->Qsup_spread = NULL;
+	cnet->Qsub_spread = NULL;
+	cnet->Qsup = NULL;
+	cnet->Qsub = NULL;
+
+	//WATER struct
+	wat->weights_Kriging = NULL;
+	wat->q_sub = NULL;          
+	wat->q_sup = NULL;
+	wat->h_sup = NULL;
+	wat->total = NULL;
+	wat->Pn = NULL;
+	wat->wcan_rain = NULL;
+	wat->wcan_snow = NULL;
+	wat->PrTOT_mean = NULL;
+	wat->PrSNW_mean = NULL;
+	wat->out1 = NULL;
+	wat->out2 = NULL;
+	wat->hsupav = NULL;
+	wat->outfluxes = NULL;
+	wat->error = NULL;
+
+	//PAR struct
+	par->Dmin = NULL;
+	par->Dmax = NULL;
+	par->Dmin_glac = NULL;
+	par->Dmax_glac = NULL;
+	par->chkpt = NULL;
+	par->rc = NULL;
+     par->saving_points = NULL;
+     par->JD_plots = NULL; 
+	par->r_points = NULL;
+	par->c_points = NULL;
+	par->cont_trans = NULL;
+	par->ibeg = NULL;
+	par->transect = NULL;
+	par->vtrans = NULL;
+
+	//SNOW struct
+	snow->type = NULL;
+	snow->lnum = NULL;
+	snow->Dzl = NULL;
+	snow->w_liq = NULL;
+	snow->w_ice = NULL;
+	snow->T = NULL;
+	snow->nondimens_age = NULL;
+	snow->dimens_age = NULL;
+	snow->evap = NULL;
+	snow->subl = NULL;
+	snow->melted = NULL;
+	snow->max = NULL;
+	snow->average = NULL;
+	snow->MELTED = NULL;
+	snow->SUBL = NULL;
+	snow->t_snow = NULL;
+	snow->totav_snow = NULL;
+	snow->DDF = NULL;
+	snow->DDF1 = NULL;
+	snow->DDFvar = NULL;
+	snow->DDFcont = NULL;
+	snow->DDFTmin = NULL;
+	snow->DDFmeltTL0 = NULL;
+	snow->DDFmelt = NULL;
+	snow->rho_newsnow = NULL;
+	snow->Qsub = NULL;
+	snow->Wtrans = NULL;
+	snow->Qtrans = NULL;
+	snow->Qtrans_x = NULL;
+	snow->Qtrans_y = NULL;
+	snow->Wtot = NULL;
+	snow->Wsubl_cum = NULL;
+	snow->Wsusp_cum = NULL;
+	snow->Wsalt_cum = NULL;
+	snow->Wsubgrid_cum = NULL;
+	snow->out_bs = NULL;
+	snow->ListonSWE = NULL;
+	snow->softSWE = NULL;
+	snow->softSWE1 = NULL;
+	snow->Dplot = NULL;
+	snow->CR1 = NULL;
+	snow->CR2 = NULL;
+	snow->CR3 = NULL;
+	snow->CR1m = NULL;
+	snow->CR2m = NULL;
+	snow->CR3m = NULL;
+	snow->change_dir_wind = NULL;
+	snow->Psnow = NULL;
+	snow->rhoSOFT = NULL;
+
+	//GALCIER struct
+	glac->lnum = NULL;
+	glac->Dzl = NULL;
+	glac->w_liq = NULL;
+	glac->w_ice = NULL;
+	glac->T = NULL;
+	glac->evap = NULL;
+	glac->subl = NULL;
+	glac->melted = NULL;
+	glac->MELTED = NULL;
+	glac->SUBL = NULL;
+	glac->DDF = NULL;
+	glac->DDF1 = NULL;
+	glac->DDFvar = NULL;
+	glac->DDFcont = NULL;
+	glac->DDFTmin = NULL;
+	glac->DDFmeltTL0 = NULL;
+	glac->DDFmelt = NULL;
+
+	//METEO struct
+	met->st = NULL;
+	met->data = NULL;
+	met->column = NULL;
+	met->horizon = NULL;
+	met->var = NULL;
+	met->LRs = NULL;
+	met->LRv = NULL;
+	met->LRp = NULL;
+	met->Tgrid = NULL;
+	met->Pgrid = NULL;
+	met->Vgrid = NULL;
+	met->Vdir = NULL;
+	met->RHgrid = NULL;
+	met->Vspdmean = NULL;
+	met->Vdirmean = NULL;
+	met->RHmean = NULL;
+	met->Taplot = NULL;
+	met->Vspdplot = NULL;
+	met->Vdirplot = NULL;
+	met->RHplot = NULL;
+	met->Tday = NULL;
+	met->Tvar = NULL;
 }

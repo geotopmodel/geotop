@@ -22,8 +22,29 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-// allow netcdf map output
+#ifndef __INPUT_H__
+#define __INPUT_H__
 
+#include "times.h"
+#include "keywords_file.h"
+#include "struct.geotop.09375.h"
+#include "get_filenames.h"
+#include "geomorphology.0875.h"
+#include "pedo.funct.h"
+#include "geo_statistic.09375.h"
+#include "networks.h"
+#include "constant.h"
+#include "dtm_resolution.h"
+#include "rw_maps.h"
+#include "extensions.h"
+#include "tabs.h"
+#include "snow.09375.h"
+#include "micromet.h"
+#ifdef USE_NETCDF_MAP
+#include "netcdf4geotop.h"
+#endif
+
+#include <getopt.h> //Needed for command line parsing
 
 typedef struct {
 	DOUBLEMATRIX *land_classes;
@@ -40,7 +61,25 @@ typedef struct {
 	DOUBLEMATRIX *LU;
 } INIT_TOOLS;
 
+/* BEGIN variables used for recovery and meteoio options */
+int meteoio_flag;
+char recoverdate[15];
+static const struct option long_options[] =
+	{
+		/* These options set a flag. */
+		{"meteoio", no_argument,       &meteoio_flag, 1},
 
+		/* These options require an argument */
+		{"recover",  required_argument, 0, 'r'},
+		{"enddate",  required_argument, 0, 'e'},
+		{0, 0, 0, 0}
+	};
+/* END variables used for recovery and meteoio options */
+
+/****************************************************************************************************/
+/* Subroutine that is able to parse the command line arguments given by the user                    */
+/****************************************************************************************************/
+void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times);
 
 /****************************************************************************************************/
 /* Subroutine which get all the input file and put the variables in the apposite structs            */
@@ -99,3 +138,5 @@ void assign_recovered(char *name, double **assign, PAR *par, DOUBLEMATRIX *Z1, D
 void assign_recovered_long(char *name, long **assign, PAR *par, DOUBLEMATRIX *Z1, DOUBLEMATRIX *Z2);
 
 void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc);
+
+#endif

@@ -23,6 +23,51 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
+#ifndef __OUTPUT_H__
+#define __OUTPUT_H__
+
+#include "recovery.h"
+#include "keywords_file.h"
+#include "struct.geotop.09375.h"
+#include "vegetation.h"
+#include "pedo.funct.h"
+#include "geo_statistic.09375.h"
+#include "networks.h"
+#include "rw_maps.h"
+#include "constant.h"
+#include "extensions.h"
+#include "times.h"
+#include "energy.balance.h"
+#include "tabs.h"
+
+#include "frost_table.h"
+
+
+/* These variables have a global scope */
+extern double wt0_basin; /*mean intercepted precipitation [mm] in the previous output-basin Dt*/
+extern double Ssup;       /*supercial Storage of water in all the basin [mm]*/
+extern double Ssub;      /*subsuperficial Storage of water in all the basin [mm]*/
+extern double Rout;      /*sum of the output flows from the last output-basin for unit of area[mm]*/
+extern double R_G;
+extern double S_ch0;     /*wat in the channel at the start of a basin-output step-time*/
+extern double S_ch1;     /*wat in the channel at the end of a basin-output step-time*/
+extern double Qsub_ch, Qsup_ch ,Q_G; /*averaged output flows*/
+extern double SWE_previous;
+extern double GWE_previous;
+extern double Smelt;   /*Snow melt [mm] during the time interval*/
+extern double Ssubl;   /*Snow sublimation [mm] during the time interval*/
+extern double Sevap;   /*Snow evaporation [mm] during the time interval*/
+extern double Gmelt;   /*Glacier melt [mm] during the time interval*/
+extern double Gsubl;   /*Glacier sublimation [mm] during the time interval*/
+extern double Gevap;   /*Glacier evaporation [mm] during the time interval*/
+extern double Smelt_previous;
+extern double Ssubl_previous;
+extern double Sevap_previous;
+extern double Gmelt_previous;
+extern double Gsubl_previous;
+extern double Gevap_previous;
+extern long isavings;
+/* End variables that have a global scope */
 
 
 /****************************************************************************************************/
@@ -62,3 +107,5 @@ long col1(double E, long ncols, long i, T_INIT *UV);
 void write_output_superfast(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met);
 
 void write_supertensor(long r, long c,short sy,double Dt_output, short n,double t, double dt, long y0, double JD0, char* file, double* Dz, TIMES *times, double *** out);
+
+#endif

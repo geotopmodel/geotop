@@ -22,24 +22,8 @@ Copyright, 2008 Stefano Endrizzi, Riccardo Rigon, Emanuele Cordano, Matteo Dall'
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-#include "keywords_file.h"
-#include "struct.geotop.09375.h"
-#include "get_filenames.h"
-#include "geomorphology.0875.h"
-#include "pedo.funct.h"
-#include "geo_statistic.09375.h"
-#include "networks.h"
-#include "constant.h"
-#include "dtm_resolution.h"
-#include "rw_maps.h"
-#include "extensions.h"
-#include "tabs.h"
-#include "snow.09375.h"
-#include "micromet.h"
 #include "input.09375.h"
-#ifdef USE_NETCDF_MAP
-#include "netcdf4geotop.h"
-#endif
+
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
 extern STRINGBIN *files;
@@ -122,6 +106,14 @@ t_fclose(f);
 /****************************************************************************************************/
 /*! Reading of the Input files:                                                                      */
 /****************************************************************************************************/
+//set INIZIAL TIME
+times->time=0.0;
+
+parseCommandLineOptions(argc, argv, par, times); //parsing of command line options
+
+/* METEOIO:Check whether data should be read through the MeteoIO library */
+//if (meteoio_flag) printf("\nUsing MeteoIO library (settings in io.ini file apply)\n");
+
 read_parameterfile(files->co[fpar]+1, par, IT);	/* reads the file __parameters.txt */
 read_soil_parameters(files->co[fspar]+1, &n_soiltypes, sl);	/* reads the file _soil.txt and defines NL (number of soil layers) */
 
@@ -142,9 +134,6 @@ if(par->point_sim!=1){ /* distributed simulation */
 Nr=top->Z0->nrh;
 Nc=top->Z0->nch;
 NoV=UV->V->co[2];
-
-//set INIZIAL TIME
-times->time=0.0;
 
 /****************************************************************************************************/
 //Reading of RAIN data file,	METEO data file, 	and CLOUD data file
@@ -565,7 +554,6 @@ if(par->point_sim==1){// point simulation: the distance from the outlet doesn't 
 	}
 
 	/* Creation of the matrix with the coefficient to spread the channel-flow for each channel-pixel ("cnet->fraction_spread"):*/
-
 	cnet->fraction_spread=De_Saint_Venant(cnet->s0,IT->u0,IT->D,par->Dt);
 	if(par->print==1){
 		temp=join_strings(WORKING_DIRECTORY,"ii_fraction_spread.txt");
@@ -598,23 +586,6 @@ if(par->point_sim==1){// point simulation: the distance from the outlet doesn't 
 	cnet->Qsub_spread=new_doublevector(cnet->fraction_spread->nch);
 	cnet->Qsup=new_doublevector(cnet->r->nh);
 	cnet->Qsub=new_doublevector(cnet->r->nh);
-}
-
-if(par->recover==1){
-	if(existing_file_text(files->co[rQch]+1)==1){
-		temp=join_strings(files->co[rQch]+1,textfile);
-		f=t_fopen(temp,"r");
-		free(temp);
-		index=read_index(f,PRINT);
-		M=read_doublematrix(f,"a",PRINT);
-		t_fclose(f);
-		if(M->nrh!=cnet->fraction_spread->nch) t_error("The number of channel-pixels is not the same as the previous simulation");
-		for(i=1;i<=M->nrh;i++){
-			cnet->Q_sup_s->co[i]=M->co[i][1];
-			cnet->Q_sub_s->co[i]=M->co[i][2];
-		}
-		free_doublematrix(M);
-	}
 }
 
 /*M=new_doublematrix(Nr,Nc);
@@ -745,21 +716,6 @@ for(r=1;r<=Nr;r++){
 	}
 }
 
-
-if(par->recover==1){
-	assign_recovered(files->co[rTv]+1, sl->Tv->co, par, land->LC, IT->LU);
-	for(l=1;l<=Nl;l++){
-		temp=namefile_i_we(files->co[riceg]+1, l);
-		assign_recovered(temp, sl->thice->co[l], par, land->LC, IT->LU);
-		free(temp);
-		temp=namefile_i_we(files->co[rpsi]+1, l);
-		assign_recovered(temp, sl->P->co[l], par, land->LC, IT->LU);
-		free(temp);
-		temp=namefile_i_we(files->co[rTg]+1, l);
-		assign_recovered(temp, sl->T->co[l], par, land->LC, IT->LU);
-		free(temp);
-	}
-}
 
 /****************************************************************************************************/
 /*! Initialization of the struct "egy" (of the type ENERGY):*/
@@ -1062,13 +1018,6 @@ for(r=1;r<=Nr;r++){
 	}
 }
 
-if(par->recover==1){
-	assign_recovered(files->co[rhsup]+1, wat->h_sup->co, par, land->LC, IT->LU);
-	assign_recovered(files->co[rwcrn]+1, wat->wcan_rain->co, par, land->LC, IT->LU);
-	assign_recovered(files->co[rwcsn]+1, wat->wcan_rain->co, par, land->LC, IT->LU);
-}
-
-
 /* Initialization of vector "wat->output" with basin's means and pixel's values for the output:*/
 wat->out1=new_doublematrix(28,par->chkpt->nrh);
 initialize_doublematrix(wat->out1,0.0);
@@ -1289,38 +1238,6 @@ for(r=1;r<=Nr;r++){
 }
 
 
-if(par->recover==1){
-
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			snow->type->co[r][c]=2;
-		}
-	}
-
-	assign_recovered_long(files->co[rns]+1, snow->lnum->co, par, land->LC, IT->LU);
-	assign_recovered(files->co[rsnag_adim]+1, snow->nondimens_age->co, par, land->LC, IT->LU);
-	assign_recovered(files->co[rsnag_dim]+1, snow->dimens_age->co, par, land->LC, IT->LU);
-
-    for(l=1;l<=par->snowlayer_max;l++){
-    	temp=namefile_i_we(files->co[rDzs]+1, l);
-		assign_recovered(temp, snow->Dzl->co[l], par, land->LC, IT->LU);
-		free(temp);
-		temp=namefile_i_we(files->co[rwls]+1, l);
-		assign_recovered(temp, snow->w_liq->co[l], par, land->LC, IT->LU);
-		free(temp);
-		temp=namefile_i_we(files->co[rwis]+1, l);
-		assign_recovered(temp, snow->w_ice->co[l], par, land->LC, IT->LU);
-		free(temp);
-		temp=namefile_i_we(files->co[rTs]+1, l);
-		assign_recovered(temp, snow->T->co[l], par, land->LC, IT->LU);
-		free(temp);
-	}
-
-}
-
-
-
-
 /****************************************************************************************************/
 /*! Initialization of the struct "glac" (of the type GLACIER):*/
 
@@ -1417,20 +1334,6 @@ if(par->glaclayer_max>0){
 			}
 		}
 	}
-
-	/*if(par->recover==1){
-
-		assign_recovered_long(files->co[rni]+1, glac->lnum->co, par, land->LC, IT->LU);
-
-		for(l=1;l<=par->glaclayer_max;l++){
-
-			assign_recovered(namefile_i_we(files->co[rDzi]+1, l),  glac->Dzl->co[l], par, land->LC, IT->LU);
-			assign_recovered(namefile_i_we(files->co[rwli]+1, l),  glac->w_liq->co[l], par, land->LC, IT->LU);
-			assign_recovered(namefile_i_we(files->co[rwii]+1, l),  glac->w_ice->co[l], par, land->LC, IT->LU);
-			assign_recovered(namefile_i_we(files->co[rTi]+1, l),  glac->T->co[l], par, land->LC, IT->LU);
-
-		}
-	}*/
 }
 
 
@@ -3386,3 +3289,118 @@ void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc){
 		}
 	}
 }
+
+
+/**
+ * @brief  Parse command line options
+ *         Currently three options are valid:
+ *         1) --meteoio, which indicates that meteoio shall be used for IO
+ *         2) --recover=20040811T1100, which indicates that a simulation shall be reovered
+ *         3) --enddate=20040812T1200, which indicates until when a simulation shall be run
+ *
+ * @param argc 
+ * @param argv
+ * @param par
+ * @param times
+ *
+ * @author Thomas Egger
+ * @date   2009-12-07
+ */
+void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times)
+{
+	printf("\n[I] Parsing command line options\n");
+
+	meteoio_flag = 0;
+	/*
+	int ii=0;
+	for(ii=0; ii<argc; ii++){
+		fprintf(stderr, "arg%d: %s\n", ii, argv[ii]);
+	} 
+	*/
+
+	int longindex=0;
+	int opt = getopt_long( argc, argv, "mr:e:", long_options, &longindex );
+
+	double endDate = 0.0, juldate_recover=0.0;
+	int year, month, day, hour, minute;
+	double simulation_time = 0.0;
+	while (opt != -1) {
+		//fprintf(stderr, "longindex: %d   opt:%d\n", longindex, opt);
+
+		switch (opt) {
+		case 'e':
+			printf("[I] end date of simulation is being constructed from argument: %s\n", optarg);
+
+			if (sscanf(optarg, "%4d%2d%2dT%2d%2d", &year, &month, &day, &hour, &minute) == 5){				
+				double julday = convert_date_to_julian(year, month, day, hour, minute);
+				double jul_year = convert_date_to_julian(par->year0, 1, 1, 0, 0);
+				endDate = julday - jul_year;
+				//printf("[I] End of simulation (in julian days from start of simulation):%f %f %f ; %d/%d/%d\n", 
+				//	  julday, jul_year, endDate, year, month, day);
+			} else {
+				fprintf(stderr, "[E] Bad format of the argument of the command line parameter enddate: %s", optarg);
+				exit(1);
+			}
+
+			break;
+		case 'r':
+			printf("[I] Recovery attempt from date: %s\n", optarg);
+			par->recover = 1;
+			sprintf(recoverdate,"%s", optarg);
+			/*
+			 * Calculate the correct simulation date
+			 */
+
+			if (sscanf(optarg, "%4d%2d%2dT%2d%2d", &year, &month, &day, &hour, &minute) == 5){
+				//fprintf(stderr, "time:%f  JD:%f", times->time, times->JD);				
+				times->AAAA = year;
+				times->MM = month;
+				times->DD = day;
+				times->hh = hour;
+				times->mm = minute;
+				
+				double julday = day - 32075L +
+					1461L * ( year + 4800L + ( month - 14L ) / 12L ) / 4L +
+					367L * ( month - 2L - ( month - 14L ) / 12L * 12L ) / 12L -
+					3L * ( ( year + 4900L + ( month - 14L ) / 12L ) / 100L ) / 4L;
+				double julday2 = 1 - 32075L +
+					1461L * ( year + 4800L + ( 1 - 14L ) / 12L ) / 4L +
+					367L * ( 1 - 2L - ( 1 - 14L ) / 12L * 12L ) / 12L -
+					3L * ( ( year + 4900L + ( 1 - 14L ) / 12L ) / 100L ) / 4L;
+				double frac = (minute+60.0*hour) / 1440.0;
+
+				juldate_recover = julday-julday2 + frac;
+				//HACK: par->JD0 = juldate_recover;
+				//HACK: par->year0 = year;
+
+				//fprintf(stderr, "\njulday:%f  frac:%f\n", julday-julday2, frac);
+				times->time = (juldate_recover - par->JD0) * 86400;
+			} else {
+				fprintf(stderr, "[E]Bad format of the value of the command line parameter recover: %s", optarg);
+				exit(1);
+			}
+
+			break;
+		case 0:
+			//fprintf(stderr, "weird2\n");
+			break;
+		default:
+			printf("[I] Unrecognized command line option\n");
+			break;
+		}
+
+		opt = getopt_long( argc, argv, "r:e:", long_options, &longindex );
+		//fprintf(stderr, "\nopt:%d\n", opt);		
+	}
+
+	simulation_time = (endDate - par->JD0) * 24; //in hours
+	//printf("sub: %f,   simtime(h):%f\n", (endDate - par->JD0), simulation_time);
+	if ((simulation_time <= 0) && (endDate > 0.0)){
+		fprintf(stderr, "[E] Nothing to simulate - recover time same or later then end time of simulation\n");
+		exit(1);
+	} else if (endDate > 0.0){
+		times->TH = simulation_time;
+		printf("[I] Simulation duration in hours (times->TH): %f ( == %lf days)", times->TH, (endDate - par->JD0));
+	}
+}
+
