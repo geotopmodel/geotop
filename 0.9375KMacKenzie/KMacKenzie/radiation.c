@@ -44,6 +44,13 @@ void shortwave_radiation(long r, long c, double alpha, double direction, double 
 
 		if(shadow==1) nDt_shadow->co[r][c]+=1;
 		nDt_sun->co[r][c]+=1;
+		
+		/* Della Chiesa-Bertoldi   Negative Radiation check added  02.03.2010*/
+		if((*SWdiff+*SWbeam)<-2){
+			printf("Negative Shortwave radiation in function shortwave_radiation\n");
+			printf("*SWdiff=%f, *SWbeam=%f, kd=%f, tau_cloud=%f, tau_atm=%f, *cosinc=%f\n",*SWdiff,*SWbeam,kd,tau_cloud,tau_atm,*cosinc);
+			stop_execution();
+		}
 
 	}else{ /* se di notte */
 
@@ -206,6 +213,7 @@ double atm_transmittance(double alpha, double P, double RH, double T, double A, 
 	//double p,dp;
 
 	//transmissivity under cloudless sky (Iqbal par. 7.5)
+	/* Commented 3.2.10 by Della Chiesa-Bertoldi to fix negative radiation
 	mr = 1.0/(sin(alpha)+0.15*(pow((3.885+alpha*180.0/Pi),-1.253)));// eq. 5.7.2 pg. 100 Iqbal
 	ma = mr*P/1013.25;// eq. 5.7.2 pg. 100 Iqbal
 	w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //[cm] by Leckner: see eq. 5.4.6 pg. 94 Iqbal
@@ -225,7 +233,8 @@ double atm_transmittance(double alpha, double P, double RH, double T, double A, 
 	/*sat_vap_pressure(&p, &dp, T, P);
 	tau_atm=sin(alpha)/(1.2*sin(alpha)+RH*p*(1.0+sin(alpha))*1.E-3+0.0455);*/
 	
-	//tau_atm=0.47+0.47*sin(alpha);
+	/* Uncommented 3.2.10 by Della Chiesa to fix negative radiation  - simple Eagleson parametrization */
+	tau_atm=0.47+0.47*sin(alpha);
 
 	return(tau_atm);
 
