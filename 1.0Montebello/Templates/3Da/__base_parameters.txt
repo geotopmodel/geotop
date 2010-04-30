@@ -1,0 +1,25 @@
+/** File with control parameters */
+
+index{1}
+
+/**  1 block - CONTROL PROGRAM PARAMETERS
+#1	Dt                	THE INTEGRATION INTERVAL [s]
+#2	Julian day 0		Decimal julian day at the beginning of simulation (0.0 - 365.99)
+#3	year 0			Year at the beginning of simulation
+#4	TH                	THE NUMBER OF DAYS OF SIMULATION
+#5  standard time		Standard time to which all the output data are referred (difference respect UMT, in hour)
+
+#6	Dt_output_discharge	Delta TIME (in hour) with which THE WATER DISCHARGE AT THE BASIN OUTLET IS PRINTED
+#7	Dt_output_pixel  	Delta TIME (in hour) with which THE OUTPUT FOR SPECIFIED PIXELS IS PRINTED
+#8  Dt_output_basin		Delta TIME (in hour) with which THE OUTPUT FOR BASIN-ALTIMETRIC RANK VALUES IS PRINTED (if applicable)
+#9	nsky			Multiplying factor decreasing the dem remaps/solution for the calculation of the sky view factor
+#10	channel_thres	 	Value of the threshold for definition of pixel channel [1.0-1000.0] (used if the network map is not provided)
+#11	format_out	 	OUTPUT MAPS in fluidturtle format (=1), GRASS ASCII (=2), ESRI ASCII (=3)
+#12	point_sim		=0 distributed simulation, =1 point simulation (the parameter files are different in the two cases)
+#13 recover       	        =1 if you want to recover a simulation, 0 otherwise
+
+*/
+
+1: double array parameters {900,	0,	0,	0.5,	0,	 0.25,  0.25,	24,	1,	50000,	3,	0,	0}
+
+

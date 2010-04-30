@@ -1,0 +1,3 @@
+Year, Julian day, Hveg[mm]-see row 4 parameter file block 1, thres_veg_1[mm]-row 5, thres_veg_2[mm]-row6, LSAI-row7, canopy fraction-row8, decay coeff-row9, snow burial coeff-row10, root depth[mm]-row11, min stomatal res[s/m]-row12
+1995, 273.0, 100, 100, 99, 0, 0, 2.5, 1, 20, 100000000
+1998, 0.0, 	 100, 100, 99, 0, 0, 2.5, 1, 20, 100000000

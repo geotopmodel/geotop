@@ -1,0 +1,36 @@
+/** Soil parameters and initial condition															
+															
+Each block corresponds to each soil type given in the correspondent map.
+If no soil type file is provided, the first block parameters and initial conditions will be used
+
+The following data give the values of the main soil properties (column) to each soil layer (row).
+
+layer 1
+layer 2
+layer 3
+.....
+
+#1	Thickness(mm)
+#2	Initial psi(mm)
+#3	Initial T(C)
+#4	Kh(mm/s)
+#5	Kv(mm/s)
+#6	theta_res
+#7  wilting point
+#8  field capacity
+#9	theta_sat
+#10	alpha(mm^-1)
+#11	n
+#12	v
+#13	k_thermal_solid(W m^-1 K^-1)
+#14	c_thermal_solid(J m^-3 K^-1)
+#15 specific storativity (mm^-1) 
+*/
+
+index{1}
+
+1: float matrix soil_types {3,15}
+
+50	-400	2.5		3.0		3.0		0.2		0.3  0.5  0.95	0.01	1.6	0.5	0.21	7.5E4	1.E-4
+200	-275	1.5		0.2		0.2		0.2		0.3  0.5  0.85	0.01	1.6	0.5	0.21	1.5E5	1.E-5
+500	 75		-0.5	0.0001	0.0001	0.1		0.2  0.3  0.5	0.004	1.4	0.5	2.5		1.2E6	1.E-8	

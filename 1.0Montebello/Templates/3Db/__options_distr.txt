@@ -1,0 +1,96 @@
+/**  Options for distributed applications*/
+
+index{5} 
+
+
+
+
+
+/** 1 block - BASE STATE PARAMETERS
+#1      water balance 	 1 calculate, 0 do not calculate
+#2      energy balance   1 calculate, 0 do not calculate
+#3      state_px_coord	 1 IF ALL COORDINATES ARE IN FORMAT (EAST,NORTH), 0 IF IN FORMAT ROW AND COLUMS (r,c)
+#1	#2	#3	*/
+
+1: double vector state_based 
+{1,  1,	 1} 
+
+
+
+
+
+
+
+
+/** 2 block - COORDINATES of the points for which the simulations is run	
+
+if state_px_coord==1 coordinate are (E, N) ---  if state_px_coord==0 coordinate are (row,col) (max 9999 points)	
+
+#1	E(row)
+#2	N(col)
+*/
+
+2: double matrix local_results {1,2}
+1720736 5153671
+
+
+
+
+
+
+/** 3 block - saving points expressed as numbers of day after the beginning */
+3: long vector saving_points {0}
+
+
+
+
+
+
+
+
+
+
+/** 4 block - OUTPUT PARAMETERS 
+PLOTTING TIME STEP (in hours)
+#1       output_Txy	  		if you want to display output Txy distributed MAPS
+#2       output_TETAxy     	if you want to display output TETAxy distributed MAPS
+#3       output_TETAICExy  	if you want to display output TETAxy distributed MAPS
+#4       output_PSIxy	   	if you want to display output PSIxy distributed MAPS
+#5       output_snow       	if you want to display output SNOW distributed MAPS
+#6       output_glac	   	if you want to display output GLACIER distributed MAPS
+#7       output_h_sup	   	if you want to display output h_sup distributed MAPS
+#8       output_Rn	   	 	if you want to display output radiation distributed MAPS
+#9       output_G	   		if you want to display output G distributed MAPS
+#10      output_H	   		if you want to display output H distributed MAPS
+#11      output_ET	   		if you want to display output ET distributed MAPS
+#12      output_Ts	   		if you want to display output Ts distributed MAPS
+#13      output_P	   		if you want to display output precipitation distributed MAPS
+#14      output_Wr	   		if you want to display output Wr (water stored in vegetation) distributed MAPS
+#15      output_SNOW        if you want to display output snow melting and sublimation distributed MAPS
+#16      output_GLACIER     if you want to display output glacier melting and sublimation distributed MAPS 
+#17      output_Rswdown     if you want to display output Rswdown MAPS
+#18      output_meteo	    if you want to display output meteo MAPS
+*/
+4: double vector output_parameters {
+96,		96,		96,		96,		96,		0,		96,		96, 	0,
+0,		0,		0,		0,		0,		0,		0,		0,	0}
+
+
+
+
+
+
+
+
+
+/** 5 block - SPECIAL OUTPUT PARAMETERS
+It is possible to select some days for which energy balance and meteo data are plotted with a very short time step. 
+This is useful if some careful analyses has to be done. If you do not want to use this possibility, just write 0 as first
+component of this vector.
+
+#1 Dt plot (hour) 
+other components, julian days of the day for which you want to plot the results (unlimited)*/
+
+5: double vector special_output
+{0}
+
