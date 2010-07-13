@@ -214,7 +214,14 @@ met->LRp->co[3]=4;	//Column 4: Lapse rate for prec (dP/dz in [mm/m])
 if(existing_file_text(files->co[fLRs]+1)==1){// se esiste il file Lapse Rates
 	temp=join_strings(files->co[fLRs]+1,textfile);
 	f=t_fopen(temp,"r");
-	met->LRs=read_datameteo(f, 1, 5, UV->V->co[2],count_meteo_lines(f));
+	ch_header=0;ch1='\0';
+	while(ch1!='\n') {// to get rid of the header. In this case I am considering 1 line only of header and no comment (Matteo 28/9/09)
+			ch1=fgetc(f);
+			ch_header++;
+		}
+	int nlin=count_meteo_lines(f);
+	//printf("temp=%s,ch_header=%d, meteo_lines=%d\n",temp,ch_header,nlin);stop_execution();
+	met->LRs=read_datameteo(f, 0, 5, UV->V->co[2],nlin);
 	free(temp);
 	t_fclose(f);
 	par->LRflag=1;
@@ -227,7 +234,7 @@ met->LRv=alloc1(5);// e' il vettore che contiene le variabili dei lapse rates in
 met->LRv[met->LRp->co[1]]=NoV;
 met->LRv[met->LRp->co[2]]=NoV;
 met->LRv[met->LRp->co[3]]=NoV;
-
+//printf("met_LRs[0][col_JD]=%f\n",met->LRs[1][0]);printf("met_LRs[0][col_y]=%f\n",met->LRs[1][1]);printf("met_LRsata[0][met->LRp->co[1]]=%f\n",met->LRs[1][2]);printf("met_LRs[0][met->LRp->co[2]]=%f\n",met->LRs[1][3]);printf("met_LRs[0][met->LRp->co[3]]=%f\n",met->LRs[1][4]);stop_execution();
 
 //FIND A STATION WITH SHORTWAVE RADIATION DATA
 met->nstsrad=0;
@@ -1038,7 +1045,7 @@ initialize_doublematrix(wat->weights_Kriging, 0.999999);
 			5) vector with turtle file header (UV->V)
 			6) integral spatial scale (scala_integr)
 			7) spatial variance (varianza) */
-ordi_kriging2(wat->weights_Kriging, met->st->E, met->st->N, top->Z0, UV, par->integr_scale_rain, par->variance_rain);
+//ordi_kriging2(wat->weights_Kriging, met->st->E, met->st->N, top->Z0, UV, par->integr_scale_rain, par->variance_rain);
 //doublematrix_dem3(wat->weights_Kriging,UV->U,UV->V,"ii_kriging_weights.txt","Doublematrix of krigingweights",par->print);
 
 
@@ -3028,10 +3035,13 @@ double **read_datameteo(FILE *f, long offset, long ncols, double ndef, int numli
 
 	//printf("num lines=%d, offset=%ld,ncols=%ld, ndef=%f",numlines,offset,ncols,ndef);stop_execution();
 	a=alloc2(numlines,ncols);
+	long k;
 	for (i=0;i<numlines;i++) {
 		readline_array(f, a[i], offset, ncols, ndef, &end);
+		//for(i=0;i<=ncols;i++){printf("a[%ld][0]=%f, a[%ld][1]=%f, a[%ld][2]=%f, a[%ld][3]=%f, a[%ld][4]=%f\n",i,a[i][0],i,a[i][1],i,a[i][2],i,a[i][3],i,a[i][4]);stop_execution();}
+
 	}
-	//for(k=0;k<=ncols;k++){printf("a[%ld][%ld]=%f\n",numlines-1,k,a[numlines-1][k]);}printf("\na[%ld][0]=%f",numlines,a[numlines][0]);stop_execution();
+	//for(k=0;k<=ncols;k++){printf("a[%d][%ld]=%f\n",numlines-1,k,a[numlines-1][k])};stop_execution();
 	return(a);
 }
 
@@ -3300,7 +3310,7 @@ void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc){
  *         2) --recover=20040811T1100, which indicates that a simulation shall be reovered
  *         3) --enddate=20040812T1200, which indicates until when a simulation shall be run
  *
- * @param argc 
+ * @param argc
  * @param argv
  * @param par
  * @param times
@@ -3317,7 +3327,7 @@ void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times)
 	int ii=0;
 	for(ii=0; ii<argc; ii++){
 		fprintf(stderr, "arg%d: %s\n", ii, argv[ii]);
-	} 
+	}
 	*/
 
 	int longindex=0;
@@ -3333,11 +3343,11 @@ void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times)
 		case 'e':
 			printf("[I] end date of simulation is being constructed from argument: %s\n", optarg);
 
-			if (sscanf(optarg, "%4d%2d%2dT%2d%2d", &year, &month, &day, &hour, &minute) == 5){				
+			if (sscanf(optarg, "%4d%2d%2dT%2d%2d", &year, &month, &day, &hour, &minute) == 5){
 				double julday = convert_date_to_julian(year, month, day, hour, minute);
 				double jul_year = convert_date_to_julian(par->year0, 1, 1, 0, 0);
 				endDate = julday - jul_year;
-				//printf("[I] End of simulation (in julian days from start of simulation):%f %f %f ; %d/%d/%d\n", 
+				//printf("[I] End of simulation (in julian days from start of simulation):%f %f %f ; %d/%d/%d\n",
 				//	  julday, jul_year, endDate, year, month, day);
 			} else {
 				fprintf(stderr, "[E] Bad format of the argument of the command line parameter enddate: %s", optarg);
@@ -3354,13 +3364,13 @@ void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times)
 			 */
 
 			if (sscanf(optarg, "%4d%2d%2dT%2d%2d", &year, &month, &day, &hour, &minute) == 5){
-				//fprintf(stderr, "time:%f  JD:%f", times->time, times->JD);				
+				//fprintf(stderr, "time:%f  JD:%f", times->time, times->JD);
 				times->AAAA = year;
 				times->MM = month;
 				times->DD = day;
 				times->hh = hour;
 				times->mm = minute;
-				
+
 				double julday = day - 32075L +
 					1461L * ( year + 4800L + ( month - 14L ) / 12L ) / 4L +
 					367L * ( month - 2L - ( month - 14L ) / 12L * 12L ) / 12L -
@@ -3392,7 +3402,7 @@ void parseCommandLineOptions(int argc, char** argv, PAR *par, TIMES *times)
 		}
 
 		opt = getopt_long( argc, argv, "r:e:", long_options, &longindex );
-		//fprintf(stderr, "\nopt:%d\n", opt);		
+		//fprintf(stderr, "\nopt:%d\n", opt);
 	}
 
 	simulation_time = (endDate - par->JD0) * 24; //in hours
