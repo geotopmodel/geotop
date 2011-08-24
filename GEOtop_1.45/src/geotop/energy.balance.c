@@ -19,7 +19,6 @@
  
  */
 
-
     
 //Author: Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch
 //Contents: Energy balance (and also mass balance for snow and glacier)
