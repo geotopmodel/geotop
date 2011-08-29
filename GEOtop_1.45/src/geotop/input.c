@@ -44,6 +44,9 @@
 #include "indices.h"
 #include "recovering.h"
 
+
+#include "../geo_trivial_utilities/geo_trivial_utilities.h"
+
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
@@ -78,11 +81,17 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	char *temp;			
 	
 	IT=(INIT_TOOLS *)malloc(sizeof(INIT_TOOLS));
-	
+
 	if(!argv[1]){
+
 		WORKING_DIRECTORY=get_workingdirectory();
-	}else{
+	} else if (argc==2) {
+    // modified by Emanuele Cordano on Aug 2011
 		WORKING_DIRECTORY=assign_string(argv[1]);
+	}	else {
+	// modified by Emanuele Cordano on Aug 2011
+		WORKING_DIRECTORY=assign_string(read_option_string(argc,argv,"-wpath",".",0)); // assign_string(argv[1]); // MODIFY HERE EC
+
 	}
 	
 	//add "/" if it is missing
