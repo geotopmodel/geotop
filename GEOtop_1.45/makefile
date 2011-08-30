@@ -16,6 +16,7 @@ LIBPATH1	= $(HM)/src/libraries/fluidturtle
 LIBPATH2	= $(HM)/src/libraries/ascii
 LIBPATH3	= $(HM)/src/libraries/geomorphology
 LIBPATH4	= $(HM)/src/libraries/math
+LIBPATH5	= $(HM)/src/geo_trivial_utilities
 
 OBJ		= 	$(SCRSPATH1)/blowingsnow.o $(SCRSPATH1)/channels.o\
 		  	$(SCRSPATH1)/clouds.o $(SCRSPATH1)/deallocate.o\
@@ -43,11 +44,13 @@ OBJ		= 	$(SCRSPATH1)/blowingsnow.o $(SCRSPATH1)/channels.o\
 			$(LIBPATH3)/shadows.o  $(LIBPATH3)/dtm_resolution.o\
 			$(LIBPATH3)/geomorphology.o\
 			$(LIBPATH4)/util_math.o $(LIBPATH4)/sparse_matrix.o\
+			$(LIBPATH5)/read_command_line.o\
 			
 HPATH1 	= $(LIBPATH1)
 HPATH2	= $(LIBPATH2)
 HPATH3  = $(LIBPATH3)
 HPATH4  = $(LIBPATH4)
+HPATH5  = $(LIBPATH5)
 HPATH0  = $(SCRSPATH1)
 
 CFLAGS	= -O3 -g 
