@@ -3,7 +3,7 @@
 #################################################################################
 # Author: Matteo Dall'Amico insipired by Thomas Egger
 # Date:   29 aug 2011
-# Comment: The binary will be created in the same folder where the makefile is 
+# Comment: The binary will be created in the same folder where the makefile is.
 
 HM          	= .
 LHM		= $(HM)
