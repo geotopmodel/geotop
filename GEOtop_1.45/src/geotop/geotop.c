@@ -141,7 +141,11 @@ int main(int argc,char *argv[]){
 		t_sup=0.;
 		t_out=0.;
 		t_blowingsnow=0.;
-		
+
+# ifdef USE_NETCDF
+
+
+#endif
 		
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
@@ -151,6 +155,11 @@ int main(int argc,char *argv[]){
 		
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
+
+# ifdef USE_NETCDF
+
+#endif
+
 		free(adt);
 
 	}
