@@ -5,6 +5,7 @@
 #include <time.h>
 #include <ctype.h>
 
+#define element co //to inhertit old nomunclature for FluidTurle
 
 #define isDynamic 1         /*This number will be used to mark a dynamic allocates
                               quantity */

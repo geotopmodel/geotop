@@ -142,8 +142,8 @@ int main(int argc,char *argv[]){
 		t_out=0.;
 		t_blowingsnow=0.;
 
-# ifdef USE_NETCDF
-
+#ifdef USE_NETCDF
+// OPEN netCDF
 
 #endif
 		
@@ -156,7 +156,8 @@ int main(int argc,char *argv[]){
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 
-# ifdef USE_NETCDF
+#ifdef USE_NETCDF
+// CLOSE netCDF
 
 #endif
 
