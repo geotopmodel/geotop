@@ -3,7 +3,7 @@
    and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
-file geo_trivial_symbols.h
+file read_command_line_netcdf.h
 
 Copyright (c), 2011 Emanuele Cordano
 
@@ -23,18 +23,6 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 
+int nc_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print);
+int nc_close_geotop_archive(int ncid);
 
-
-#include "read_command_line.h"
-
-
-
-
-#ifdef USE_NETCDF
-
-	#include "netcdf.h"
-
-//	#include "geo_trivial_netcdf_utilities.h"
-	#include "read_command_line_netcdf.h"
-
-#endif

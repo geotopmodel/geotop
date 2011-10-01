@@ -3,7 +3,7 @@
    and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
-file geo_trivial_symbols.h
+file geo_trivial_utilities.h
 
 Copyright (c), 2011 Emanuele Cordano
 
@@ -25,16 +25,26 @@ This file is part of GEOTRIVIALUtilities.
 
 
 
-#include "read_command_line.h"
 
-
-
+#define GEOT_VERBOSE 0
+#define GEOT_DEAFAULT -1234
 
 #ifdef USE_NETCDF
 
-	#include "netcdf.h"
+	#define NC_GEOTOP_NULL_EXIT "null_exit"
+	#define NC_GEOTOP_1D_OUTPUT_OPTION "-nc-1D-output"
+	#define NC_GEOTOP_ARCHIVE_OPTION "-nc-archive"
 
-//	#include "geo_trivial_netcdf_utilities.h"
-	#include "read_command_line_netcdf.h"
+	#define NC_GEOTOP_MISSING 12340000
+
+
+	#define ERRCODE 2
+	#define NC_GEOTOP_ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
+	#define NC_GEOTOP_ERROR_MESSAGE_VERBOSE(filename,varname,e,n_function,n_ncfunction) {printf("Error in %s() function: %s - netcdf_filename: %s - Variable: %s",n_function,n_ncfunction,filename,varname); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
+	#define NC_GEOTOP_GLOBAL_ATTRIBUTE "global_attribute"
+	#define NC_GEOTOP_DEFINE 1
+	#define NC_GEOTOP_NODEFINE 0
+
+	#define NC_GEOTOP_NEW_EMPTY_FILE NC_CLOBBER|NC_NETCDF4
 
 #endif

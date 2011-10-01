@@ -36,6 +36,9 @@
 #include "../libraries/ascii/tabs.h"
 #include "deallocate.h"
 
+#include "../geo_trivial_utilities/geo_trivial_utilities.h"
+#include "../geo_trivial_utilities/geo_trivial_symbols.h"
+
 #include <time.h>
 
 void time_loop(ALLDATA *all);
@@ -144,6 +147,19 @@ int main(int argc,char *argv[]){
 
 #ifdef USE_NETCDF
 // OPEN netCDF
+//		char *output_netcdf_1d=read_option_string(argc,argv,NC_GEOTOP_1D_OUTPUT_OPTION,NC_GEOTOP_NULL_EXIT,GEOT_VERBOSE);
+	//	char *
+//		int ncid=NC_GEOTOP_MISSING;
+
+	//	if (strcmp(output_netcdf_1d,NC_GEOTOP_NULL_EXIT)) {
+
+		//	printf("%s\n",output_netcdf_1d); // netcdf output exist
+	//	/}
+//		stop_execution();
+	//	int ncd_output=
+
+		int ncid=nc_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
+
 
 #endif
 		
@@ -153,13 +169,16 @@ int main(int argc,char *argv[]){
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 		time_loop(adt);
 		
+#ifdef USE_NETCDF
+
+		nc_close_geotop_archive(ncid);
+
+#endif
+
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 
-#ifdef USE_NETCDF
-// CLOSE netCDF
 
-#endif
 
 		free(adt);
 
