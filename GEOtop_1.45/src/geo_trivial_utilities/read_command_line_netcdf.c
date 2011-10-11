@@ -22,7 +22,7 @@ This file is part of GEOTRIVIALUtilities.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#ifdef USE_NETCDF
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -107,6 +107,6 @@ int nc_close_geotop_archive(int ncid)  {
 	return ncid;
 }
 
-
+#endif
 
 
