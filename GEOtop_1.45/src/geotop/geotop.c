@@ -146,17 +146,7 @@ int main(int argc,char *argv[]){
 		t_blowingsnow=0.;
 
 #ifdef USE_NETCDF
-// OPEN netCDF
-//		char *output_netcdf_1d=read_option_string(argc,argv,NC_GEOTOP_1D_OUTPUT_OPTION,NC_GEOTOP_NULL_EXIT,GEOT_VERBOSE);
-	//	char *
-//		int ncid=NC_GEOTOP_MISSING;
 
-	//	if (strcmp(output_netcdf_1d,NC_GEOTOP_NULL_EXIT)) {
-
-		//	printf("%s\n",output_netcdf_1d); // netcdf output exist
-	//	/}
-//		stop_execution();
-	//	int ncd_output=
 
 		int ncid=nc_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
 
