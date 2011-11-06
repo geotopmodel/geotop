@@ -32,7 +32,26 @@ This file is part of GEOTRIVIALUtilities.
 
 #ifdef USE_NETCDF
 
+
+
+
+//	#include "netcdf.h"
+	#include "libcf_src.h"
+
+//	#include <assert.h>
+//	#include <assert.h>
 	#include "netcdf.h"
+
+//#include "nccf_grid.h"
+//#include "nccf_global.h"
+//#include "nccf_data.h"
+//#include "nccf_mosaic.h"
+//#include "nccf_host.h"
+//#include "nccf_utility_functions.h"
+//#include "nccf_handle_error.h"
+
+
+
 
 //	#include "geo_trivial_netcdf_utilities.h"
 	#include "read_command_line_netcdf.h"

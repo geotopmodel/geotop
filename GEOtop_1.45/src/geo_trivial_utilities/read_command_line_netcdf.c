@@ -68,9 +68,12 @@ int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short defi
 			status=nc_create(filename,NC_GEOTOP_NEW_EMPTY_FILE, &ncid);
 			if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_create");
 
-//  INSERT HERE HOW TO PUT DIMENSION AND GLOBAL ATTRIBUTE.
 
-
+/* This line are to test the first function of libCf just installed:
+ * this functions add the convention CF 1.0 used as global attribute
+ */
+			status=nccf_def_convention(ncid);
+			if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nccf_def_convention");
 
 		}
 
