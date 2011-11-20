@@ -36,7 +36,7 @@ This file is part of GEOTRIVIALUtilities.
 
 
 
-int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print)
+int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print) // ncge_open_from_option_string
 {
 	/*!
 	 * \author Emanuele Cordano
