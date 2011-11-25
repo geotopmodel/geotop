@@ -148,7 +148,7 @@ int main(int argc,char *argv[]){
 #ifdef USE_NETCDF
 
 
-		int ncid=nc_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
+		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
 
 
 #endif
@@ -161,7 +161,7 @@ int main(int argc,char *argv[]){
 		
 #ifdef USE_NETCDF
 
-		nc_close_geotop_archive(ncid);
+		ncgt_close_geotop_archive(ncid);
 
 #endif
 

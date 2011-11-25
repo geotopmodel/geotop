@@ -36,7 +36,7 @@ This file is part of GEOTRIVIALUtilities.
 
 
 
-int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print) // ncge_open_from_option_string
+int  ncgt_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print) // ncge_open_from_option_string
 {
 	/*!
 	 * \author Emanuele Cordano
@@ -53,7 +53,7 @@ int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short defi
 	*/
 	int i,s;
 	int status;
-	char *function_name="nc_open_open_option_string";
+	char *function_name="ncgt_open_from_option_string";
 	char *filename=read_option_string(argc,argv,option_f,NC_GEOTOP_NULL_EXIT,GEOT_VERBOSE);
 	int ncid=NC_GEOTOP_MISSING;
 
@@ -88,7 +88,7 @@ int  nc_open_from_option_string(int argc,char *argv[], char *option_f,short defi
 }
 
 
-int nc_close_geotop_archive(int ncid)  {
+int ncgt_close_geotop_archive(int ncid)  {
 
 	/*!
 	 *
@@ -104,7 +104,7 @@ int nc_close_geotop_archive(int ncid)  {
 	 */
 
 	int status;
-	char *function_name="nc_close_geotop_archive";
+	char *function_name="ncgt_close_geotop_archive";
 
 	if (ncid!=NC_GEOTOP_MISSING) {
 		status=nc_close(ncid);

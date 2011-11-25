@@ -23,6 +23,6 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 
-int nc_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print);
-int nc_close_geotop_archive(int ncid);
+int ncgt_open_from_option_string(int argc,char *argv[], char *option_f,short define_mode,short print);
+int ncgt_close_geotop_archive(int ncid);
 
