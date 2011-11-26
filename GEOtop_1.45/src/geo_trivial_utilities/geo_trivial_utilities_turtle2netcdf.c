@@ -1252,14 +1252,7 @@ int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char 
 	int dim[ndim];
 	size_t start[ndim],count[ndim];
 
-	status=nc_open(filename,NC_WRITE|NC_SHARE,&ncid);
-	if(status==NC_NOERR) {
-		status=nc_redef(ncid);
-		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
-	} else {
-		status=nc_create(filename, NEW_EMPTY_FILE, &ncid);
-		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_create");
-	}
+
 
 	/* putting the dimension */
 	/* dimension_t */
