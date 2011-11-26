@@ -990,12 +990,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	}
 	
 	//snow properties
-	if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)<1.E-5){
-		
+	if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)<1.E-5){// print condition
 		n_file=(long)((times->time+par->Dt+par->delay_day_recover)/(par->output_snow*3600.0));	
 		write_suffix(SSSS, n_file, 0);
 		
 		if(strcmp(files[fsnowdepth] , string_novalue) != 0){
+
 			for(r=1;r<=snow->S->Dzl->nrh;r++){
 				for(c=1;c<=snow->S->Dzl->nch;c++){
 					if( (long)land->LC->co[r][c]!=number_novalue){

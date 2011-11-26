@@ -1139,7 +1139,7 @@ int ncgt_put_doublevector_vs_time(DOUBLEVECTOR *v, long k, int ncid, const char 
  *
  * \return 0 if exit is ok, otherwise an error message.
  *  IMPORTANT: only one NC_UNLIMITED dimension allowed
- *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+ *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
  *
  */
 const char *function_name="ncgt_put_doublevector_vs_time";
@@ -1150,7 +1150,7 @@ int dvar; /* pointer to the variable of the doublevector */
 int ndim=2;
 int dim[ndim];
 size_t start[ndim],count[ndim];
-//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 
 status=nc_open(filename,NC_WRITE|NC_SHARE,&ncid);
 if(status==NC_NOERR) {
@@ -2085,6 +2085,82 @@ void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value){
 
 
 
+
+}
+
+
+int ncgt_put_double_vs_time(double v, const char var_name, long k, int ncid, const char *dimension_t){
+/*!
+ *\param v - (double) scalar variable
+ *\param var_name - name of the scalar variable
+ *\param k - (long) counter
+ *\param ncid - pointer to the netCDF archive
+ *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
+ *
+ *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
+ *
+ * \author Emanuele Cordano, Matteo Dall'Amico
+ * \date November 2011
+ *
+ * \return 0 if exit is ok, otherwise an error message.
+ *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+ *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
+ *
+ */
+const char *function_name="ncgt_put_double_vs_time";
+int status;
+int ncid;
+int dvar; /* pointer to the variable*/
+int ndim=1;
+int dim[ndim];
+size_t start[ndim],count[ndim];
+//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+
+/* putting the dimension */
+/* dimension_t */
+//EV unlimited dimension requires other function
+status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+//status=nc_inq_unlimdim(ncid,&dimid_t);
+if (status!=NC_NOERR) {
+	status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+}
+
+   /* The dim array is used to pass the dimids of the dimensions of
+           the netCDF variables. Both of the netCDF variables we are
+           creating share the same four dimensions. In C, the
+           unlimited dimension must come first on the list of dimids. */
+dim[0] = dimid_t;
+
+status=nc_inq_varid(ncid,var_name,&dvar);
+if (status!=NC_NOERR) {
+	status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+} else {
+	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,var_name,dvar);
+}
+
+status=nc_enddef(ncid);
+if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
+/* These settings tell netcdf to write one timestep of data. (The
+   setting of start[0] inside the loop below tells netCDF which
+   timestep to write.) */
+
+count[0]=1;
+//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+start[0]=k;
+
+/* Write the pretend data to the file. Although netCDF supports
+ * reading and writing subsets of data, in this case we write all
+ * the data in one operation. */
+
+status=nc_put_vara_double(ncid,dvar,start,count,v);
+if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+
+
+
+return 0;
 
 }
 #endif

@@ -676,5 +676,9 @@ typedef struct {
 	SNOW *N;
 	GLACIER *G;
 	METEO *M;
-	TIMES *I;	
+	TIMES *I;
+#ifdef USE_NETCDF
+	int ncid; // pointer to netCDF archive file
+	long counter_snow; // counter for time print of snow
+#endif
 }ALLDATA;

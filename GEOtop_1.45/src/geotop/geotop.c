@@ -194,7 +194,9 @@ void time_loop(ALLDATA *all){
 		i_run = 1;//Run index
 		
 		all->I->time = 0.0;//Initialize time	
-
+#ifdef USE_NETCDF
+		all->counter_snow= 0;
+#endif
 		do{			
 						
 			start=clock();
@@ -228,7 +230,22 @@ void time_loop(ALLDATA *all){
 			}
 			
 			start=clock();
+#ifdef USE_NETCDF
+			if(all->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
+				write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
+			}
+			else {
+				/* function to write in netCDF modality */
+				all->N->MELTED->name="melted_snow_in_delta_time"; // to be deleted just to test
+				if(all->P->output_snow>0 && fmod(all->I->time+all->P->Dt,all->P->output_snow*3600.0)<1.E-5){
+#ifdef USE_NETCF_ONGOING
+					add_2Dmap(all->ncid, all->N->MELTED, all->I->time+all->P->Dt, NC_GEOTOP_TIME_GENERIC, &(all->counter_snow),1, -9999);
+#endif
+				}
+			}
+#else
 			write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
+#endif
 			end=clock();
 			t_out+=(end-start)/(double)CLOCKS_PER_SEC;
 			
