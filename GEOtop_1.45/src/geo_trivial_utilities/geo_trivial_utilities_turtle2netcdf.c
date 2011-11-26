@@ -1019,7 +1019,7 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	/*!
 	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
 	 *\param fileneme - (char *) name of the NetCDF file
-	 *\param k        - (long) number of the level (0 based) at which the xy map is printed
+	 *\param k        - (long) number of the level (0 based) at which the xy map is printed (in time)
 	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
 	 *\param dimension_x - (char *) name of the x dimension (number of column)
 	 *\param dimension_y - (char *) name of the y dimension (number of row)
@@ -1037,23 +1037,12 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	const char *function_name="ncgt_putdoublematrix_vs_time";
 	int status;
 	int ncid;
-	int dimid_t,dimid_x,dimid_y; /* pointer to the dimenson of the doublematrix;*/
+	int dimid_t,dimid_x,dimid_y; /* pointer to the dimension of the doublematrix;*/
 	int dvar; /* pointer to the variable of the doublematrix */
 	int ndim=3;
 	int dim[ndim];
 	size_t start[ndim],count[ndim];
-	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-
-	status=nc_open(filename,NC_WRITE|NC_SHARE,&ncid);
-	if(status==NC_NOERR) {
-		status=nc_redef(ncid);
-		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
-	} else {
-		status=nc_create(filename, NEW_EMPTY_FILE, &ncid);
-		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_create");
-	}
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
-
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 
 
 	/* putting the dimension */
@@ -1110,13 +1099,13 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	   setting of start[0] inside the loop below tells netCDF which
 	   timestep to write.) */
 
-	count[0]=1;
-	count[1]=m->nrh;
-	count[2]=m->nch;
+	count[0]=1;// time dimension
+	count[1]=m->nrh;// y dimension
+	count[2]=m->nch;// x dimension
 	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
-	start[0]=k;
-	start[1]=0;//m->nrl;//EV
-	start[2]=0;//m->ncl;//EV
+	start[0]=k;// time dimension
+	start[1]=0;//m->nrl;//EV// y dimension
+	start[2]=0;//m->ncl;//EV// y dimension
 
 	/* Write the pretend data to the file. Although netCDF supports
 	 * reading and writing subsets of data, in this case we write all
