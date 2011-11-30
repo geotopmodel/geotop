@@ -48,14 +48,15 @@ This file is part of GEOTRIVIALUtilities.
 //#include "nccf_mosaic.h"
 //#include "nccf_host.h"
 //#include "nccf_utility_functions.h"
-//#include "nccf_handle_error.h"
+//#include "nccf_handle_error.h" #define element co
 
 
 
 
 //	#include "geo_trivial_netcdf_utilities.h"
 	#include "read_command_line_netcdf.h"
-	#include "gt_turtle2netcdf.h"
-	#include "gt_netcdf2turtle.h"
+//	#include "ncgt_utilities.h"
+	#include "ncgt_turtle2netcdf.h"
+	#include "ncgt_netcdf2turtle.h"
 
 #endif
