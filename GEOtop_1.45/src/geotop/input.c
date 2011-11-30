@@ -45,7 +45,7 @@
 #include "recovering.h"
 
 
-#include "../geo_trivial_utilities/geo_trivial_utilities.h"
+#include "../gt_utilities/gt_utilities.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;

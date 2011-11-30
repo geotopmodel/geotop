@@ -36,8 +36,8 @@
 #include "../libraries/ascii/tabs.h"
 #include "deallocate.h"
 
-#include "../geo_trivial_utilities/geo_trivial_utilities.h"
-#include "../geo_trivial_utilities/geo_trivial_symbols.h"
+#include "../gt_utilities/gt_utilities.h"
+#include "../gt_utilities/gt_symbols.h"
 
 #include <time.h>
 
