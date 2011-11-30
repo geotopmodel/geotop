@@ -27,8 +27,8 @@ This file is part of GEOTRIVIALUtilities.
 #include <stdlib.h>
 #include <string.h>
 
-#include "geo_trivial_utilities.h"
-#include "geo_trivial_symbols.h"
+#include "gt_utilities.h"
+#include "gt_symbols.h"
 
 #define SUCCESS 1
 #define NO_SUCCESS 0

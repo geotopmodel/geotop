@@ -12,10 +12,10 @@
 #define GLOBAL_ATTRIBUTE "global_attribute"
 #define INIT_VALUE -9998
 
-#include "turtle.h"
-#include <netcdf.h>
-#include "t_nc_utilities.h"
-#include "netcdf2turtle.h"
+#include "../libraries/fluidturtle/turtle.h"
+//#include <netcdf.h>
+#include "gt_utilities.h"
+//#include "netcdf2turtle.h"
 // README TO GO ON WITH ncgt_NEW_DOUBLEVECTOR
 
 
@@ -1210,7 +1210,7 @@ DOUBLETENSOR *ncgt_new_doubletensor_rotate180y(int ncid,const char *varname, con
 	char *function_name="ncgt_new_doubletensor_rotate180y";
 	int res = 0;
 
-	dt=ncgt_new_doubletensor(filename,varname,dimension_x,dimension_y,dimension_z);
+	dt=ncgt_new_doubletensor(ncid,varname,dimension_x,dimension_y,dimension_z);
 	res=rotate180_y_doubletensor(dt);
 	if (res!=0) printf("Error in %s: rotate180_y_doubletensor() did not work correctly  \n",function_name);
 
@@ -1241,7 +1241,7 @@ DOUBLEMATRIX *ncgt_new_doublematrix_rotate180y(int ncid,const char *varname, con
 	char *function_name="ncgt_new_doubletensor_rotate180y";
 	int res = 0;
 
-	dm=ncgt_new_doublematrix(filename,varname,dimension_x,dimension_y);
+	dm=ncgt_new_doublematrix(ncid,varname,dimension_x,dimension_y);
 	res=rotate180_y_doublematrix(dm);
 	if (res!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
 
@@ -1276,7 +1276,7 @@ int ncgt_get_doubletensor_rotate180y_level_l(DOUBLETENSOR *t, long l,int ncid,co
 
 	char *function_name="ncgt_get_doubletensor_rotate180y_level_l";
 
-	res=ncgt_get_doubletensor_level_l(t,l,filename,dimension_x,dimension_y,dimension_z,dimension_l);
+	res=ncgt_get_doubletensor_level_l(t,l,ncid,dimension_x,dimension_y,dimension_z,dimension_l);
 	if (res!=0) printf("Error in %s: ncgt_get_doubletensor_level_l() did not work correctly  \n",function_name);
 	res=rotate180_y_doubletensor(t);
 	if (res!=0) printf("Error in %s: rotate180_y_doubletensor() did not work correctly  \n",function_name);
@@ -1312,7 +1312,7 @@ int ncgt_get_doublematrix_rotate180y_level_l(DOUBLEMATRIX *M, long l,int ncid,co
 
 	char *function_name="ncgt_get_doublematrix_rotate180y_level_l";
 
-	res=ncgt_get_doublematrix_level_l(M,l,filename,dimension_x,dimension_y,dimension_l);
+	res=ncgt_get_doublematrix_level_l(M,l,ncid,dimension_x,dimension_y,dimension_l);
 	if (res!=0) printf("Error in %s: ncgt_get_doublematrix_level_l() did not work correctly  \n",function_name);
 	res=rotate180_y_doublematrix(M);
 	if (res!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -1340,15 +1340,15 @@ void nc_get_global_attr_lat_lon_min_max(int ncid,double *long_min,double *long_m
 	//int varid; /* pointer to the variable of the byte */
 
 
-
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LONG_MIN, long_min);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LONG_MAX, long_max);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LAT_MIN, lat_min);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LAT_MAX, lat_max);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+// RECEIVE GLOBAL ATTRIBUTE FROM MORFEO netCDF
+//	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LONG_MIN, long_min);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+//	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LONG_MAX, long_max);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+//	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LAT_MIN, lat_min);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+//	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_LAT_MAX, lat_max);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
 
 
 
@@ -1377,9 +1377,9 @@ void nc_get_global_attr_missing_value(int ncid,double *missing_value){
 
 
 
-
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_MISSING_VALUE, missing_value);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+	// RECEIVE GLOBAL ATTRIBUTE FROM MORFEO netCDF
+//	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_MISSING_VALUE, missing_value);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
 
 
 
@@ -1405,9 +1405,9 @@ void nc_get_global_attr_resolution(int ncid,double *resolution){
 
 
 
-
-	status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_MAP_RESOLUTION, resolution);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
+// received global attribute from morfeo netCDF
+	//status = nc_get_att_double(ncid, NC_GLOBAL, GLOB_ATTR_MAP_RESOLUTION, resolution);
+	//if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_get_att_double");//
 
 
 
