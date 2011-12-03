@@ -1,7 +1,7 @@
 
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 02/08/2010 12:00
-EndDateDDMMYYYYhhmm =  10/08/2010 12:00
+EndDateDDMMYYYYhhmm =  05/08/2010 12:00
 
 Latitude = 46.3
 Longitude= 11.7
@@ -13,10 +13,10 @@ DtPlotDischarge = 1
 DtPlotPoint = 1
 DtPlotBasin = 24
 
-OutputSoiloutput_maps = 24
-OutputSnowoutput_maps = 24
-OutputSurfEBALoutput_maps = 24
-OutputMeteooutput_maps = 24
+OutputSoilMaps = 24
+OutputSnowMaps = 24
+OutputSurfEBALMaps = 24
+OutputMeteoMaps = 24
 
 NumberOfMeteoStations = 1
 MeteoStationCoordinateX = 711588.97
