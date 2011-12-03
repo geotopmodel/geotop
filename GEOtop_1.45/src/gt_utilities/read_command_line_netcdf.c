@@ -51,7 +51,7 @@ int  ncgt_open_from_option_string(int argc,char *argv[], char *option_f,short de
 	 * \brief The netCDF archive is created or opened in the DEFINE MODE if define_fleg is set to 1 (NC_GEOTOP_DEFINE)
 	 *
 	*/
-	int i,s;
+	//int i,s;
 	int status;
 	char *function_name="ncgt_open_from_option_string";
 	char *filename=read_option_string(argc,argv,option_f,NC_GEOTOP_NULL_EXIT,GEOT_VERBOSE);

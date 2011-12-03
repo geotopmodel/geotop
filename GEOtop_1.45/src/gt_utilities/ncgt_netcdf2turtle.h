@@ -12,7 +12,7 @@
 
 
 
-#ifdef USE_NETCF_ONGOING
+#ifdef USE_NETCDF_ONGOING
 
 DOUBLEVECTOR *ncgt_new_doublevector(int ncid,const char *varname, const char *dimension);
 

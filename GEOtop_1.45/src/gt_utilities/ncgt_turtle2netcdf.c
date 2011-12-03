@@ -1,4 +1,4 @@
-#ifdef USE_NETCF_ONGOING
+#ifdef USE_NETCDF_ONGOING
 /* Turtle_NetCdf CONTAINS FUNCTIONS TO INPORT/EXPORT FUIDTURLE STRUCT OF DATA IN NETcdf FILES AS VARIABLES
 Turtle_NetCdf Version 0.9375 KMackenzie
 
@@ -32,7 +32,9 @@ This file is part of numerioc_solver.
 #include "../libraries/fluidturtle/turtle.h"
 //#include <netcdf.h>
 #include "gt_utilities.h"
-//#include "turtle2netcdf.h"
+#include "gt_symbols.h"
+#include "ncgt_utilities.h"
+
 
 //DEFINE/UNDEFINE this symbol in Project.Properties.C++ Build.Settings.Gcc C compiler.Defined Symbol
 //to write netcdf in standard 3 or 4
@@ -54,43 +56,42 @@ This file is part of numerioc_solver.
 #define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
 #define GLOBAL_ATTRIBUTE "global_attribute"
 
-int ncgt_newemptyfile(int ncid) {
-/*!
- *
- * \param filename - (char *) name of the file to be created
- *
- * \brief This function creates a new NETCdf empty file in the  NC_CLOBBER (overwrite) mode
- * \details http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fcreate.html#nc_005fcreate
- *
- * \return 0 if exit is ok, otherwise an error message.
- *
- * \author Emanuele Cordano
- * \date September 2009
- *
-
- */
-
-	int status;
-	int ncid;
-
- /* Create the file. The NC_CLOBBER parameter tells netCDF to
-	* overwrite this file, if it already exists.*/
-
-	status = nc_create(filename, NEW_EMPTY_FILE, &ncid);
-   if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_create");
-
-
- /* End define mode. This tells netCDF we are done defining
-  * metadata. */
-   status=nc_enddef(ncid);
-   if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_enddef");
-
-
-    if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_close");
-
-
-	return 0;
-}
+//int ncgt_newemptyfile(int ncid) {
+///*!
+// *
+// * \param filename - (char *) name of the file to be created
+// *
+// * \brief This function creates a new NETCdf empty file in the  NC_CLOBBER (overwrite) mode
+// * \details http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fcreate.html#nc_005fcreate
+// *
+// * \return 0 if exit is ok, otherwise an error message.
+// *
+// * \author Emanuele Cordano
+// * \date September 2009
+// *
+// */
+//
+//	int status;
+//
+//
+// /* Create the file. The NC_CLOBBER parameter tells netCDF to
+//	* overwrite this file, if it already exists.*/
+//
+//	status = nc_create(filename, NEW_EMPTY_FILE, &ncid);
+//   if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_create");
+//
+//
+// /* End define mode. This tells netCDF we are done defining
+//  * metadata. */
+//   status=nc_enddef(ncid);
+//   if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_enddef");
+//
+//
+//    if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_newemptyfile","nc_close");
+//
+//
+//	return 0;
+//}
 
 int ncgt_put_doublevector(DOUBLEVECTOR *v, int ncid, const char *dimension){
 	/*!
@@ -108,7 +109,7 @@ int ncgt_put_doublevector(DOUBLEVECTOR *v, int ncid, const char *dimension){
 	 *
 	 */
 	int status;
-	int ncid;
+
 	int dimid; /* pointer to the dimenson of the doublevector;*/
 	int dvar; /* pointer to the variable of the doublevector */
 	int ndim=1;
@@ -178,7 +179,7 @@ int ncgt_put_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dimension_x, co
 	 */
 	const char *function_name="ncgt_putdoublematrix";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y; /* pointer to the dimenson of the doublematrix;*/
 	int dvar; /* pointer to the variable of the doublevector */
 	int ndim=2;
@@ -254,7 +255,7 @@ int ncgt_put_var_textattributes(int ncid,const char *varname, const char *attrib
 	 *\brief See http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fput_005fatt_005f-type.html#nc_005fput_005fatt_005f-type
 	 */
 	int status; /* error status */
-	int ncid; /* NETCDF ID */
+
 	int varid; /* Netcdf variable id */
 
 
@@ -302,7 +303,6 @@ int ncgt_put_floatvector(FLOATVECTOR *v, int ncid, const char *dimension){
 	 *
 	 */
 	int status;
-	int ncid;
 	int dimid; /* pointer to the dimenson of the floatvector;*/
 	int dvar; /* pointer to the variable of the floatvector */
 	int ndim=1;
@@ -369,7 +369,7 @@ int ncgt_put_intvector(INTVECTOR *v, int ncid, const char *dimension){
 	 *
 	 */
 	int status;
-	int ncid;
+
 	int dimid; /* pointer to the dimenson of the intvector;*/
 	int dvar; /* pointer to the variable of the intvector */
 	int ndim=1;
@@ -436,7 +436,7 @@ int ncgt_put_longvector(LONGVECTOR *v, int ncid, const char *dimension){
 	 *
 	 */
 	int status;
-	int ncid;
+
 	int dimid; /* pointer to the dimenson of the longvector;*/
 	int dvar; /* pointer to the variable of the longvector */
 	int ndim=1;
@@ -503,7 +503,7 @@ int ncgt_put_shortvector(SHORTVECTOR *v, int ncid, const char *dimension){
 	 *
 	 */
 	int status;
-	int ncid;
+
 	int dimid; /* pointer to the dimenson of the shortvector;*/
 	int dvar; /* pointer to the variable of the shortvector */
 	int ndim=1;
@@ -574,7 +574,7 @@ int ncgt_put_floatmatrix(FLOATMATRIX *m, int ncid, const char *dimension_x, cons
 	 */
 	const char *function_name="ncgt_putfloatmatrix";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y; /* pointer to the dimenson of the floatmatrix;*/
 	int dvar; /* pointer to the variable of the floatmatrix */
 	int ndim=2;
@@ -650,7 +650,7 @@ int ncgt_put_shortmatrix(SHORTMATRIX *m, int ncid, const char *dimension_x, cons
 	 */
 	const char *function_name="ncgt_putshortmatrix";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y; /* pointer to the dimenson of the shortmatrix;*/
 	int dvar; /* pointer to the variable of the shortmatrix */
 	int ndim=2;
@@ -726,7 +726,7 @@ int ncgt_put_intmatrix(INTMATRIX *m, int ncid, const char *dimension_x, const ch
 	 */
 	const char *function_name="ncgt_putintmatrix";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y; /* pointer to the dimenson of the intmatrix;*/
 	int dvar; /* pointer to the variable of the intmatrix */
 	int ndim=2;
@@ -802,7 +802,7 @@ int ncgt_put_longmatrix(LONGMATRIX *m, int ncid, const char *dimension_x, const 
 	 */
 	const char *function_name="ncgt_putlongmatrix";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y; /* pointer to the dimenson of the longmatrix;*/
 	int dvar; /* pointer to the variable of the longmatrix */
 	int ndim=2;
@@ -879,7 +879,7 @@ int ncgt_put_doubletensor(DOUBLETENSOR *dt, int ncid, const char *dimension_x, c
 	 */
 	const char *function_name="ncgt_put_doubletensor";
 	int status;
-	int ncid;
+
 	int dimid_x,dimid_y,dimid_z; /* pointer to the dimenson of the doubletensor;*/
 	int dvar; /* pointer to the variable of the doubletensor */
 	int ndim=3;
@@ -970,15 +970,15 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	 */
 	const char *function_name="ncgt_putdoublematrix_vs_time";
 	int status;
-	int ncid;
 	int dimid_t,dimid_x,dimid_y; /* pointer to the dimension of the doublematrix;*/
 	int dvar; /* pointer to the variable of the doublematrix */
 	int ndim=3;
 	int dim[ndim];
 	size_t start[ndim],count[ndim];
+
+	//status=nc_redef(ncid);
+	//if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_redef");
 	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
-
-
 	/* putting the dimension */
 	/* dimension_t */
 	//EV unlimited dimension requires other function
@@ -1003,7 +1003,6 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
 	}
-
 	   /* The dim array is used to pass the dimids of the dimensions of
 	           the netCDF variables. Both of the netCDF variables we are
 	           creating share the same four dimensions. In C, the
@@ -1016,7 +1015,6 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 
 //	dim[0]=dimid_y;
 //	dim[1]=dimid_x;
-
 	status=nc_inq_varid(ncid,m->name,&dvar);
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
@@ -1025,10 +1023,8 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
 
-
-
-	status=nc_enddef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
+	//status=nc_enddef(ncid);
+	//if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
 	/* These settings tell netcdf to write one timestep of data. (The
 	   setting of start[0] inside the loop below tells netCDF which
 	   timestep to write.) */
@@ -1047,10 +1043,6 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 
 	status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
-
-
-
-
 	return 0;
 
 }
@@ -1078,22 +1070,13 @@ int ncgt_put_doublevector_vs_time(DOUBLEVECTOR *v, long k, int ncid, const char 
  */
 const char *function_name="ncgt_put_doublevector_vs_time";
 int status;
-int ncid;
+
 int dimid_t,dimid_x; /* pointer to the dimension of the doublevector;*/
 int dvar; /* pointer to the variable of the doublevector */
 int ndim=2;
 int dim[ndim];
 size_t start[ndim],count[ndim];
 //int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
-
-
-if(status==NC_NOERR) {
-	status=nc_redef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
-} else {
-	status=nc_create(filename, NEW_EMPTY_FILE, &ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_create");
-}
 
 /* putting the dimension */
 /* dimension_t */
@@ -1179,7 +1162,7 @@ int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char 
 	 */
 	const char *function_name="ncgt_putdoubletensor_vs_time";
 	int status;
-	int ncid;
+
 	int dimid_t,dimid_x,dimid_y,dimid_z ;/* pointer to the dimenson of the doubletensor;*/
 	int dvar; /* pointer to the variable of the doublematrix */
 	int ndim=4;
@@ -1284,7 +1267,7 @@ int nc_put_byte(signed char bval, int ncid,const char *varname, const char *unit
 
 	const char *function_name="nc_put_byte";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1345,7 +1328,7 @@ int nc_put_int(int ival, int ncid,const char *varname, const char *units, const 
 
 	const char *function_name="nc_put_int";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1406,7 +1389,7 @@ int nc_put_short(short sval, int ncid,const char *varname, const char *units, co
 
 	const char *function_name="nc_put_short";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1467,7 +1450,7 @@ int nc_put_float(float fval, int ncid,const char *varname, const char *units, co
 
 	const char *function_name="nc_put_float";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1528,7 +1511,7 @@ int nc_put_double(double dval, int ncid,const char *varname, const char *units, 
 
 	const char *function_name="nc_put_double";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1588,7 +1571,7 @@ int nc_put_long(long lval, int ncid,const char *varname, const char *units, cons
 
 	const char *function_name="nc_put_long";//
 	int status;
-	int ncid;
+
 	int varid; /* pointer to the variable of the variable */
 	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
@@ -1653,7 +1636,7 @@ int ncgt_put_rotate180_y_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dim
 
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doublematrix(m,filename,dimension_x,dimension_y);
+	l=ncgt_put_doublematrix(m,ncid,dimension_x,dimension_y);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -1680,7 +1663,7 @@ int ncgt_put_rotate180_y_doubletensor(DOUBLETENSOR *m, int ncid, const char *dim
 
 	l=rotate180_y_doubletensor(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doubletensor(m,filename,dimension_x,dimension_y,dimension_z);
+	l=ncgt_put_doubletensor(m,ncid,dimension_x,dimension_y,dimension_z);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly \n",function_name);
 	l=rotate180_y_doubletensor(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
@@ -1718,7 +1701,7 @@ int ncgt_put_rotate180_y_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid,
 
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doublematrix_vs_time(m,k,filename,dimension_t,dimension_x,dimension_y);
+	l=ncgt_put_doublematrix_vs_time(m,k,ncid,dimension_t,dimension_x,dimension_y);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -1757,7 +1740,7 @@ int ncgt_put_rotate180_y_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid,
 
 	l=rotate180_y_doubletensor(t);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doubletensor_vs_time(t,k,filename,dimension_t,dimension_x,dimension_y,dimension_z);
+	l=ncgt_put_doubletensor_vs_time(t,k,ncid,dimension_t,dimension_x,dimension_y,dimension_z);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doubletensor(t);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -1802,49 +1785,41 @@ int ncgt_put_rotate180_y_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid,
 }
 */
 //271009_e
-void nc_add_global_attr_lat_lon_min_max(int ncid,double long_min,double long_max,double lat_min,double lat_max){
-	/*!
-	 *
-	 * \param ncid - (int) pointer to the netCDF archive file
-	 * \param long_min,long_max,lat_min,lat_max
-	 * \author Enrico Verri
-	 * \date October 2009
-	 */
-	const char *function_name="nc_add_global_attr_lat_lon_min_max";//
-	int status; /* error status */
-	int ncid; /* NETCDF ID */
-	double *latmin,*latmax;
-	double *lonmin,*lonmax;
-	latmin=&lat_min;
-	latmax=&lat_max;
-	lonmin=&long_min;
-	lonmax=&long_max;
-
-
-
-
-	status=nc_redef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
-
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LONG_MIN,NC_DOUBLE,1,lonmin);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
-
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LONG_MAX,NC_DOUBLE,1,lonmax);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
-
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LAT_MIN,NC_DOUBLE,1,latmin);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
-
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LAT_MAX,NC_DOUBLE,1,latmax);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
-
-	status=nc_enddef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
-
-
-
-
-}
+//void nc_add_global_attr_lat_lon_min_max(int ncid,double long_min,double long_max,double lat_min,double lat_max){
+//	/*!
+//	 *
+//	 * \param ncid - (int) pointer to the netCDF archive file
+//	 * \param long_min,long_max,lat_min,lat_max
+//	 * \author Enrico Verri
+//	 * \date October 2009
+//	 */
+//	const char *function_name="nc_add_global_attr_lat_lon_min_max";//
+//	int status; /* error status */
+//
+//	double *latmin,*latmax;
+//	double *lonmin,*lonmax;
+//	latmin=&lat_min;
+//	latmax=&lat_max;
+//	lonmin=&long_min;
+//	lonmax=&long_max;
+//	status=nc_redef(ncid);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
+//
+//	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LONG_MIN,NC_DOUBLE,1,lonmin);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+//
+//	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LONG_MAX,NC_DOUBLE,1,lonmax);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+//
+//	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LAT_MIN,NC_DOUBLE,1,latmin);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+//
+//	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_LAT_MAX,NC_DOUBLE,1,latmax);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+//
+//	status=nc_enddef(ncid);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
+//}
 
 void nc_add_variable_attr_missing_value(int ncid,const char *varname,double missing_value){
 	/*!
@@ -1856,16 +1831,10 @@ void nc_add_variable_attr_missing_value(int ncid,const char *varname,double miss
 	 */
 	const char *function_name="nc_add_variable_attr_missing_value";//
 	int status; /* error status */
-	int ncid; /* NETCDF ID */
 	int varid;
 	double *missingvalue=&missing_value;
-
 	//double water_surface_missing_value[1];
 	//water_surface_missing_value[0] = NaN;
-
-
-
-
 	status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
 
@@ -1878,7 +1847,7 @@ void nc_add_variable_attr_missing_value(int ncid,const char *varname,double miss
 		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n","nc_add_cf_convention_missing_value",varname,varid);
 	}
 
-	status=nc_put_att_double(ncid, varid, ATTR_MISSING_VALUE, NC_DOUBLE, 1, missingvalue);
+	status=nc_put_att_double(ncid, varid, NC_GEOTOP_MISSING_VALUE_ATTRIBUTE, NC_DOUBLE, 1, missingvalue);
 	//status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MISSING_VALUE,NC_DOUBLE,1,missingvalue);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"nc_add_cf_convention_missing_value","nc_put_att_double");
 
@@ -1900,55 +1869,46 @@ void nc_add_global_attr_missing_value(int ncid,double missing_value){
 	 */
 	const char *function_name="nc_add_global_attr_missing_value";//
 	int status; /* error status */
-	int ncid; /* NETCDF ID */
+
 	double *missingvalue;
 	missingvalue=&missing_value;
 
-
-
 	status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
 
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MISSING_VALUE,NC_DOUBLE,1,missingvalue);
+	status=nc_put_att_double(ncid,NC_GLOBAL,NC_GEOTOP_MISSING_VALUE_ATTRIBUTE,NC_DOUBLE,1,missingvalue);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
 
 	status=nc_enddef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
 
-
-
-
 }
 
-void nc_add_global_attr_resolution(int ncid,double map_resolution){
-	/*!
-	 *
-	 * \param ncid - (int) pointer to the netCDF archive file
-	 * \param map_resolution
-	 * \author Enrico Verri
-	 * \date October 2009
-	 */
-	const char *function_name="nc_add_global_attr_resolution";//
-	int status; /* error status */
-	int ncid; /* NETCDF ID */
-	double *mapresolution;
-	mapresolution=&map_resolution;
-
-
-
-	status=nc_redef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
-
-	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MAP_RESOLUTION,NC_DOUBLE,1,mapresolution);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
-
-	status=nc_enddef(ncid);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
-
-
-
-
-}
+//void nc_add_global_attr_resolution(int ncid,double map_resolution){
+//	/*!
+//	 *
+//	 * \param ncid - (int) pointer to the netCDF archive file
+//	 * \param map_resolution
+//	 * \author Enrico Verri
+//	 * \date October 2009
+//	 */
+//	const char *function_name="nc_add_global_attr_resolution";//
+//	int status; /* error status */
+//
+//	double *mapresolution;
+//	mapresolution=&map_resolution;
+//
+//
+//
+//	status=nc_redef(ncid);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
+//
+//	status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MAP_RESOLUTION,NC_DOUBLE,1,mapresolution);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+//
+//	status=nc_enddef(ncid);
+//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");
+//}
 
 void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value){
 	/*!
@@ -1960,7 +1920,7 @@ void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value){
 	 */
 	const char *function_name="nc_add_global_attr_double";//
 	int status; /* error status */
-	int ncid; /* NETCDF ID */
+
 	double *attrvalue;
 	attrvalue=&attr_value;
 
@@ -1981,7 +1941,7 @@ void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value){
 }
 
 
-int ncgt_put_double_vs_time(double v, const char var_name, long k, int ncid, const char *dimension_t){
+int ncgt_put_double_vs_time(double v, const char *var_name, long k, int ncid, const char *dimension_t){
 /*!
  *\param v - (double) scalar variable
  *\param var_name - name of the scalar variable
@@ -2001,10 +1961,10 @@ int ncgt_put_double_vs_time(double v, const char var_name, long k, int ncid, con
  */
 const char *function_name="ncgt_put_double_vs_time";
 int status;
-int ncid;
 int dvar; /* pointer to the variable*/
 int ndim=1;
 int dim[ndim];
+int dimid_t; /* time dimensional id*/
 size_t start[ndim],count[ndim];
 //int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 
@@ -2025,6 +1985,7 @@ if (status!=NC_NOERR) {
 dim[0] = dimid_t;
 
 status=nc_inq_varid(ncid,var_name,&dvar);
+//int nc_inq_varid (int ncid, const char *name, int *varidp);
 if (status!=NC_NOERR) {
 	status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
@@ -2046,7 +2007,8 @@ start[0]=k;
  * reading and writing subsets of data, in this case we write all
  * the data in one operation. */
 
-status=nc_put_vara_double(ncid,dvar,start,count,v);
+status=nc_put_vara_double(ncid,dvar,start,count,&v);
+//int nc_put_vara_double(int ncid, int varid, const size_t start[],const size_t count[], const double *dp);
 if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 

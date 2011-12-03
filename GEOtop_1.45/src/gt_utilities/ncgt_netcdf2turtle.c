@@ -5,7 +5,7 @@
 
 
 
-#ifdef USE_NETCF_ONGOING
+#ifdef USE_NETCDF_ONGOING
 
 #define ERRCODE 2
 #define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}

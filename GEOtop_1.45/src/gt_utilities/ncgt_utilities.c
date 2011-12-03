@@ -35,7 +35,8 @@ This file is part of numerioc_solver.
 
 #include "../libraries/fluidturtle/turtle.h"
 //#include <netcdf.h>
-#include "gt_utilities.h"
+//#include "gt_utilities.h"
+#include "ncgt_utilities.h"
 
 char *copy_stringnames(const char *origin){
 /*!

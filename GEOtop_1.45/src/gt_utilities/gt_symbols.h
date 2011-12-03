@@ -52,4 +52,5 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_YLON "YLON" // Longitude coordinate (m)
 	#define NC_GEOTOP_TIME_GENERIC "time"
 	#define NC_GEOTOP_TIMEPREFIX "TIME_FOR" // prefix for the temporal axis ()
+	#define NC_GEOTOP_MISSING_VALUE_ATTRIBUTE "missing_value"
 #endif

@@ -55,8 +55,7 @@ This file is part of GEOTRIVIALUtilities.
 
 //	#include "geo_trivial_netcdf_utilities.h"
 	#include "read_command_line_netcdf.h"
-//	#include "ncgt_utilities.h"
-	#include "ncgt_turtle2netcdf.h"
-	#include "ncgt_netcdf2turtle.h"
 
+//	#include "ncgt_turtle2netcdf.h"
+	//#include "ncgt_netcdf2turtle.h"
 #endif

@@ -5,19 +5,19 @@
 
 #ifdef USE_NETCDF_ONGOING
 
-char *copy_stringnames(const char *origin);
+char *copy_stringnames(const char *);
 
-int rotate180_y_doublematrix(DOUBLEMATRIX *M);
-int rotate180_y_doubletensor(DOUBLETENSOR *M);
-int rotate180_y_floatmatrix(FLOATMATRIX *M);
+int rotate180_y_doublematrix(DOUBLEMATRIX *);
+int rotate180_y_doubletensor(DOUBLETENSOR *);
+int rotate180_y_floatmatrix(FLOATMATRIX *);
 
 
 
-int rotate180_y_longmatrix(LONGMATRIX *M);
-int rotate180_y_intmatrix(INTMATRIX *M);
-int rotate180_y_shortmatrix(SHORTMATRIX *M);
+int rotate180_y_longmatrix(LONGMATRIX *);
+int rotate180_y_intmatrix(INTMATRIX *);
+int rotate180_y_shortmatrix(SHORTMATRIX *);
 
-int invert_order_doublevector(DOUBLEVECTOR *v);
-int invert_order_longvector(LONGVECTOR *v);
+int invert_order_doublevector(DOUBLEVECTOR *);
+int invert_order_longvector(LONGVECTOR *);
 
 #endif

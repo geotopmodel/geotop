@@ -1,4 +1,4 @@
-#ifdef USE_NETCF_ONGOING
+#ifdef USE_NETCDF_ONGOING
 /* Turtle_NetCdf CONTAINS FUNCTIONS TO INPORT/EXPORT FUIDTURLE STRUCT OF DATA IN NETcdf FILES AS VARIABLES
 Turtle_NetCdf Version 0.9375 KMackenzie
 
@@ -31,7 +31,7 @@ This file is part of numerioc_solver.
 
 
 
-int ncgt_newemptyfile(int ncid);
+//int ncgt_newemptyfile(int ncid);
 
 int ncgt_put_doublevector(DOUBLEVECTOR *v, int ncid, const char *dimension);
 
@@ -113,13 +113,13 @@ int ncgt_put_rotate180_y_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid,
 int ncgt_put_rotate180_y_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z);
 
 
-void nc_add_global_attr_lat_lon_min_max(int ncid,double long_min,double long_max,double lat_min,double lat_max);
+//void nc_add_global_attr_lat_lon_min_max(int ncid,double long_min,double long_max,double lat_min,double lat_max);
 
 void nc_add_variable_attr_missing_value(int ncid,const char *varname,double missing_value);
 
 void nc_add_global_attr_missing_value(int ncid,double missing_value);
 
-void nc_add_global_attr_resolution(int ncid,double map_resolution);
+//void nc_add_global_attr_resolution(int ncid,double map_resolution);
 
 void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value);
 
