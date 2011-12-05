@@ -19,6 +19,6 @@
  
  */
 
-void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);
+void dealloc_all(TOPO *top,SOIL *sl,LANDCOVER *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);
 void dealloc_meteostations(METEO_STATIONS *st);
-void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, ENERGY *egy, METEO *met, WATER *wat);
+void reset_to_zero(PAR *par, SOIL *sl, LANDCOVER *land, SNOW *snow, GLACIER *glac, ENERGY *egy, METEO *met, WATER *wat);

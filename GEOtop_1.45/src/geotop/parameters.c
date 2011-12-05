@@ -45,7 +45,7 @@ extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 /***********************************************************/
 /***********************************************************/		
 
-short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog){
+short read_inpts_par(PAR *par, LANDCOVER *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog){
 	
 	//variables
 	FILE *f;
@@ -473,7 +473,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 /***********************************************************/
 /***********************************************************/
 
-void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog){
+void assign_numeric_parameters(PAR *par, LANDCOVER *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog){
 	
 	short occurring;
 	long cod, codn, i, j, k, n, nsoillayers, nmeteo_stations, npoints;

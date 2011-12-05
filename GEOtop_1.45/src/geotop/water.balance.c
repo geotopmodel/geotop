@@ -982,7 +982,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max(short DDcomplex, double Courant, double **h, double *hch, LAND *land, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt){
+void find_dt_max(short DDcomplex, double Courant, double **h, double *hch, LANDCOVER *land, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt){
 	
 	double dn, dD;
 	double i, q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), Ks, area, AREA, areach, Vmax, H, Hch, DH;
@@ -1142,7 +1142,7 @@ void find_dt_max(short DDcomplex, double Courant, double **h, double *hch, LAND 
 
 
 void supflow(double Dt, double t, short DDland, short DDchannel, double **h, double **dV, double *hch, double *dhch, 
-			 TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, double *Voutnet, double *Voutland, FILE *flog)
+			 TOPO *top, LANDCOVER *land, WATER *wat, CHANNEL *cnet, PAR *par, double *Voutnet, double *Voutland, FILE *flog)
 
 {
 	long r, c, R, C, ch;                                    
@@ -1360,7 +1360,7 @@ void supflow(double Dt, double t, short DDland, short DDchannel, double **h, dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt){
+void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LANDCOVER *land, double t, double *dt){
 	
 	long r, c, ch, R, C;		
 	double Ks, q, Vmax, i, H, dn, dD, ds;
@@ -1425,7 +1425,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f)
+void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LANDCOVER *land, double *Vout, FILE *f)
 
 {
 	long r,c,ch,R,C;                                    

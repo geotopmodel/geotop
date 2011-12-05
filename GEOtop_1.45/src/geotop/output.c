@@ -67,7 +67,7 @@ extern long i_sim, i_run;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met)
+void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LANDCOVER *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met)
 				  
 {
 	/*internal auxiliary variables:*/
@@ -1813,7 +1813,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac){
+void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LANDCOVER *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac){
 
 	/*internal auxiliary variables:*/
 	long i,l,m,j,r,c;

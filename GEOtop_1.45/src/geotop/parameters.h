@@ -21,9 +21,9 @@
 
 
 
-short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
+short read_inpts_par(PAR *par, LANDCOVER *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
 
-void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
+void assign_numeric_parameters(PAR *par, LANDCOVER *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
 
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, char **keyword);
 

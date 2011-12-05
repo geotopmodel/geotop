@@ -32,7 +32,7 @@ int find_dfdH(DOUBLEVECTOR *df, ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *K, 
 
 int find_f(DOUBLEVECTOR *f, ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *K, double Dt);
 
-void find_dt_Richards(short DDcomplex, double Courant, double **h, LAND *land, TOPO *top, SOIL *sl, PAR *par, double t, double *dt);
+void find_dt_Richards(short DDcomplex, double Courant, double **h, LANDCOVER *land, TOPO *top, SOIL *sl, PAR *par, double t, double *dt);
 
 double find_hsup(double Psurface, double slope);
 
@@ -43,13 +43,13 @@ double find_sup_pressure(double hsup, double slope);
 double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
 void supflow(double Dt, double t, short DDland, short DDchannel, double **h, double **dh, double *hch, double *dhch, 
-			 TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, double *Voutnet, double *Voutland, FILE *flog);
+			 TOPO *top, LANDCOVER *land, WATER *wat, CHANNEL *cnet, PAR *par, double *Voutnet, double *Voutland, FILE *flog);
 
-void find_dt_max(short DDcomplex, double Courant, double **h, double *hch, LAND *land, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt);
+void find_dt_max(short DDcomplex, double Courant, double **h, double *hch, LANDCOVER *land, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt);
 
-void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f);
+void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LANDCOVER *land, double *Vout, FILE *f);
 
-void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt);
+void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LANDCOVER *land, double t, double *dt);
 
 void draining_land(double alpha, long r, long c, DOUBLEMATRIX *Z, double **h, DOUBLEMATRIX *LC, long *R, long *C);
 

@@ -113,7 +113,7 @@ int main(int argc,char *argv[]){
 		adt->S=(SOIL *)malloc(sizeof(SOIL));
 		if(!(adt->S)) t_error("sl was not allocated");
 		
-		adt->L=(LAND *)malloc(sizeof(LAND));
+		adt->L=(LANDCOVER *)malloc(sizeof(LANDCOVER));
 		if(!(adt->L)) t_error("land was not allocated");
 		
 		adt->W=(WATER *)malloc(sizeof(WATER));

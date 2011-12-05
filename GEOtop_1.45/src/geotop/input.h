@@ -39,12 +39,12 @@ typedef struct {
 
 
 
-void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
+void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land, METEO *met, WATER *wat, CHANNEL *cnet, 
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog);
+void read_inputmaps(TOPO *top, LANDCOVER *land, SOIL *sl, PAR *par, FILE *flog);
 
-void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog);
+void read_optionsfile_point(PAR *par, TOPO *top, LANDCOVER *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog);
 
 void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog);
 

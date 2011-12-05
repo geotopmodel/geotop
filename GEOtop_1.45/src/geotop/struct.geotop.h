@@ -209,7 +209,7 @@ typedef struct {
 	
 	DOUBLEMATRIX *root_fraction;
 	
-} LAND;/*all this data are calculated on the basis of land use data and some other par*/
+} LANDCOVER;/*all this data are calculated on the basis of land use data and some other par*/
 
 
 /*---------------------------------------------------------------------------*/
@@ -664,11 +664,10 @@ typedef struct {
 	
 } METEO;
 
-
 typedef struct {
 	SOIL *S;
 	WATER *W;
-	LAND *L;
+	LANDCOVER *L;
 	PAR *P;
 	TOPO *T;
 	CHANNEL *C;
@@ -682,3 +681,27 @@ typedef struct {
 	long counter_snow; // counter for time print of snow
 #endif
 }ALLDATA;
+
+#ifdef USE_HPC
+typedef struct GCSTRUCT	//Struct containing subdomain ghost-cells adjacency data for MPI SEND/RECV commands
+{
+	int rank;
+	char calltype[4];
+	int top;
+	int left;	
+	int bottom;	
+	int right;	
+	struct GCSTRUCT *next;
+};
+typedef struct GCSTRUCT;
+
+struct WORKAREA	//Struct containing local subdomain coords
+{
+	int rank;
+	int top;
+	int left;	
+	int bottom;	
+	int right;
+};
+typedef struct WORKAREA;
+#endif

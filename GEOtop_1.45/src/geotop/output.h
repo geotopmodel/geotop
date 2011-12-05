@@ -20,9 +20,9 @@
  */
     
     
-void write_output(TIMES *times,WATER *wat,CHANNEL *cnet,PAR *par,TOPO *top,LAND *land,SOIL *sl,ENERGY *egy,SNOW *snow,GLACIER *glac,METEO *met);
+void write_output(TIMES *times,WATER *wat,CHANNEL *cnet,PAR *par,TOPO *top,LANDCOVER *land,SOIL *sl,ENERGY *egy,SNOW *snow,GLACIER *glac,METEO *met);
 
-void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac);
+void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LANDCOVER *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac);
 
 void write_soil_output(long i, long iname, double init_date, double JDfrom0, double JD, long day, long month, long year, long hour, long minute, LONGMATRIX *rc, SOIL *sl, double psimin);
 

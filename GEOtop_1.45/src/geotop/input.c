@@ -66,7 +66,7 @@ extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 //***************************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
-void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
+void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land, METEO *met, WATER *wat, CHANNEL *cnet, 
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
@@ -369,7 +369,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	/*! Completing the several time-indipendent input variables with the data of input-files:           */
 	/****************************************************************************************************/
 	/****************************************************************************************************/
-	// Completing of "land" (of the type LAND):  
+	// Completing of "land" (of the type LANDCOVER):  
 	
 	//Initialize matrix of shadow
 	land->shadow=new_shortmatrix(Nr,Nc);
@@ -1584,7 +1584,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
+void read_inputmaps(TOPO *top, LANDCOVER *land, SOIL *sl, PAR *par, FILE *flog){
 
 	long r, c, i, cont;					
 	DOUBLEMATRIX *M;
@@ -1918,7 +1918,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog){
+void read_optionsfile_point(PAR *par, TOPO *top, LANDCOVER *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog){
 
 	long i, r, c, num_lines;
 	DOUBLEMATRIX *Q, *P, *R, *S, *T, *Z, *LU;

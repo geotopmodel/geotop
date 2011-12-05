@@ -48,7 +48,7 @@ extern long i_sim;
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top, PAR *par, double t0){
+void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *top, PAR *par, double t0){
 	
 	long r, c, j, l;
 	static long line_interp;
@@ -187,7 +187,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top, P
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par, TOPO *top, short *yes){
+void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, TOPO *top, short *yes){
 
 	long i, r, c, num_change, r0, c0;
 	double dx, dy, F1, F2;
@@ -413,7 +413,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par, TOPO 
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LAND *land, PAR *par, FILE *f){
+void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, FILE *f){
 	
 	long i, l, r, c, ns;
 	double Qsub, DW, DWl, Wtrans_tot=0.0, Wsubl_tot=0.0, Utot=0.0;
