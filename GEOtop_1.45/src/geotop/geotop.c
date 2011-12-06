@@ -38,6 +38,7 @@
 
 #include "../gt_utilities/gt_utilities.h"
 #include "../gt_utilities/gt_symbols.h"
+#include "../gt_utilities/ncgt_output.h"
 
 #include <time.h>
 
@@ -149,11 +150,11 @@ int main(int argc,char *argv[]){
 
 
 		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
-
+		adt->ncid=ncid;
 
 #endif
 		
-		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
+		/*------------------    3.  Acquisition of input data and initialization    --------------------*/
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
@@ -165,7 +166,7 @@ int main(int argc,char *argv[]){
 
 #endif
 
-		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
+		/*--------------------   5.Completion of the output files and deallocations  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 
 
@@ -195,7 +196,7 @@ void time_loop(ALLDATA *all){
 		
 		all->I->time = 0.0;//Initialize time	
 #ifdef USE_NETCDF
-		all->counter_snow= 0;
+		all->counter_surface_energy= 0;
 #endif
 		do{			
 						
@@ -236,10 +237,11 @@ void time_loop(ALLDATA *all){
 			}
 			else {
 				/* function to write in netCDF modality */
-				all->N->MELTED->name="melted_snow_in_delta_time"; // to be deleted just to test
-				if(all->P->output_snow>0 && fmod(all->I->time+all->P->Dt,all->P->output_snow*3600.0)<1.E-5){
-#ifdef USE_NETCF_ONGOING
-					add_2Dmap(all->ncid, all->N->MELTED, all->I->time+all->P->Dt, NC_GEOTOP_TIME_GENERIC, &(all->counter_snow),1, -9999);
+				all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
+				if(all->P->output_surfenergy>0 && fmod(all->I->time+all->P->Dt,all->P->output_surfenergy*3600.0)<1.E-5){
+#ifdef USE_NETCDF_ONGOING
+					printf("\n sto stampando all->counter_surface_energy=%ld",all->counter_surface_energy);
+					add_2Dmap(all->ncid, all->E->Ts_mean, all->I->time+all->P->Dt, NC_GEOTOP_TIME_GENERIC, &(all->counter_surface_energy),1, -9999);
 #endif
 				}
 			}
@@ -248,7 +250,6 @@ void time_loop(ALLDATA *all){
 #endif
 			end=clock();
 			t_out+=(end-start)/(double)CLOCKS_PER_SEC;
-			
 			all->I->time += all->P->Dt;//Increase TIME	
 			
 			if( all->I->time > (all->P->end_date->co[i_sim] - all->P->init_date->co[i_sim])*86400. - 1.E-5){
