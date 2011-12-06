@@ -1,6 +1,8 @@
 #ifdef USE_NETCDF_ONGOING
 #include "../libraries/fluidturtle/turtle.h"
-#include "ncgt_output.h"
+#include "../libraries/fluidturtle/t_utilities.h"
+#include "../libraries/ascii/init.h"
+//#include "ncgt_output.h"
 #include "ncgt_turtle2netcdf.h"
 #include "gt_symbols.h"
 
