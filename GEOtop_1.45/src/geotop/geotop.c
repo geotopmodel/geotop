@@ -196,7 +196,7 @@ void time_loop(ALLDATA *all){
 		
 		all->I->time = 0.0;//Initialize time	
 #ifdef USE_NETCDF
-		all->counter_surface_energy= 0;
+		all->counter_surface_energy=0;
 #endif
 		do{			
 						
@@ -241,7 +241,7 @@ void time_loop(ALLDATA *all){
 				if(all->P->output_surfenergy>0 && fmod(all->I->time+all->P->Dt,all->P->output_surfenergy*3600.0)<1.E-5){
 #ifdef USE_NETCDF_ONGOING
 					printf("\n sto stampando all->counter_surface_energy=%ld",all->counter_surface_energy);
-					add_2Dmap(all->ncid, all->E->Ts_mean, all->I->time+all->P->Dt, NC_GEOTOP_TIME_GENERIC, &(all->counter_surface_energy),1, -9999);
+					all->counter_surface_energy=add_2Dmap(all->ncid, all->E->Ts_mean, all->I->time+all->P->Dt, NC_GEOTOP_TIME_GENERIC, all->counter_surface_energy,1, -9999);
 #endif
 				}
 			}

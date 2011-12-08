@@ -124,5 +124,5 @@ void nc_add_global_attr_missing_value(int ncid,double missing_value);
 void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value);
 
 
-int ncgt_put_double_vs_time(double v, const char var_name, long k, int ncid, const char *dimension_t);
+int ncgt_put_double_vs_time(double v, const char *var_name, long k, int ncid, const char *dimension_t);
 #endif
