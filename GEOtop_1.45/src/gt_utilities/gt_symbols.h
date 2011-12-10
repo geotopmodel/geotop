@@ -48,9 +48,24 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_NEW_EMPTY_FILE NC_CLOBBER|NC_NETCDF4
 
 	/* 26.11.2011 space-time dimension */
-	#define NC_GEOTOP_XLAT "XLAT" // Latitude coordinate (m)
-	#define NC_GEOTOP_YLON "YLON" // Longitude coordinate (m)
+	#define NC_GEOTOP_YLAT "YLAT" // Latitude coordinate (m)
+	#define NC_GEOTOP_XLON "XLON" // Longitude coordinate (m)
+	#define NC_GEOTOP_Z_GENERIC "SOIL_DEPTH"
 	#define NC_GEOTOP_TIME_GENERIC "time"
+	#define NC_GEOTOP_POINT_DIM_GENERIC "ID_point"
+	#define NC_GEOTOP_MISSING_DIMENSION "missing_dimension"
 	#define NC_GEOTOP_TIMEPREFIX "TIME_FOR" // prefix for the temporal axis ()
 	#define NC_GEOTOP_MISSING_VALUE_ATTRIBUTE "missing_value"
+	#define NC_GEOTOP_UPDATE_COUNTER_TIME 1
+	#define NC_GEOTOP_NOUPDATE_COUNTER_TIME 0
+	#define NC_GEOTOP_REINITIALIZE_VARIABLE 1
+	#define NC_GEOTOP_NOREINITIALIZE_VARIABLE 0
+	#define NC_GEOTOP_NOVALUE -9999
+	#define NC_GEOTOP_ROTATE_Y 1
+	#define NC_GEOTOP_NOROTATE_Y 0
+	#define NC_GEOTOP_2D_MAP 2
+	#define NC_GEOTOP_3D_MAP 3
+	#define NC_GEOTOP_POINT_VAR 1
+	#define NC_GEOTOP_Z_POINT_VAR 22
+	#define NC_GEOTOP_0DIM_VAR 0
 #endif
