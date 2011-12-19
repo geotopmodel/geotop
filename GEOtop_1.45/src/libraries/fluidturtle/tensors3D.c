@@ -162,7 +162,35 @@ if(L!=NULL){
 }
 
 
+void copy_doubletensor(DOUBLETENSOR *origin,DOUBLETENSOR *destination)
 
+{
+
+  long i,j, l;
+
+  if(origin==NULL || destination==NULL || origin->co==NULL || destination->co==NULL){
+
+    t_error("A tensor was not allocated");
+
+  } else if(origin->isdynamic!=1 || destination->isdynamic!=1 || origin->ndh <1 || destination->ndh <1 || origin->nrh <1 || destination->nrh <1 ||  origin->nch <1 || destination->nch <1 ){
+
+    t_error("A tensor was not allocated properly");
+
+  }else if( origin->nrh != destination->nrh ||  origin->nch != destination->nch ||  origin->ndh != destination->ndh ){
+
+    t_error("The tensors do not have the same dimensions");
+
+  }
+
+  for(i=1;i<=origin->nrh;i++){
+    for(j=1;j<=origin->nch;j++){
+    	for(l=1;j<=origin->ndh;l++){
+    		destination->co[l][i][j]=origin->co[l][i][j];
+    	}
+    }
+  }
+
+}
 
 
 

@@ -41,7 +41,7 @@
 #include "../gt_utilities/ncgt_output.h"
 
 #include <time.h>
-
+#include "output_nc.h"
 void time_loop(ALLDATA *all);
 
                
@@ -236,27 +236,7 @@ void time_loop(ALLDATA *all){
 				write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
 			}
 			else {
-				/* function to write in netCDF modality */
-				all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
-				all->S->T->name="instantaneous_temperature_in_soil_depth"; // to be deleted just to test
-				all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
-				if(all->P->output_surfenergy>0 && fmod(all->I->time+all->P->Dt,all->P->output_surfenergy*3600.0)<1.E-5){
-#ifdef USE_NETCDF_ONGOING
-					printf("\n sto stampando all->counter_surface_energy=%ld",all->counter_surface_energy);
-					//2D map
-					all->counter_surface_energy=ncgt_add_output_var(all->ncid, (void *)all->E->Ts_mean, all->I->time+all->P->Dt, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_GENERIC,
-							NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_surface_energy, NC_GEOTOP_REINITIALIZE_VARIABLE,
-							NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
-					//3D map
-					all->counter_surface_energy=ncgt_add_output_var(all->ncid, (void *)all->S->T, all->I->time+all->P->Dt, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_GENERIC,
-							NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_surface_energy, NC_GEOTOP_REINITIALIZE_VARIABLE,
-							NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
-					//point Z variable
-					all->counter_surface_energy=ncgt_add_output_var(all->ncid, (void *)all->S->Tzavplot, all->I->time+all->P->Dt, NC_GEOTOP_Z_POINT_VAR, NC_GEOTOP_TIME_GENERIC,
-							NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NC_GEOTOP_MISSING_DIMENSION, all->counter_surface_energy, NC_GEOTOP_REINITIALIZE_VARIABLE,
-							NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE);
-#endif
-				}
+				write_output_nc(all);
 			}
 #else
 			write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
