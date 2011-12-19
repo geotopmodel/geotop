@@ -1,6 +1,7 @@
 #ifdef USE_NETCDF_ONGOING
 #include "../libraries/fluidturtle/turtle.h"
 #include "../libraries/fluidturtle/t_utilities.h"
+#include "../libraries/fluidturtle/t_datamanipulation.h"
 #include "../libraries/ascii/init.h"
 //#include "ncgt_output.h"
 #include "ncgt_turtle2netcdf.h"
@@ -88,6 +89,13 @@ int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue
 	long r;// row index
 	long c; // column index
 	long l; // layer index
+	DOUBLEMATRIX *out2d=NULL;
+	DOUBLEMATRIX *out2d0=NULL;
+	DOUBLETENSOR *out3d=NULL;
+	DOUBLETENSOR *out3d0=NULL;
+
+
+
 	//void* m1;// updated matrix
 	switch (nlimdim) {
 	case NC_GEOTOP_0DIM_VAR: // to be done
@@ -96,33 +104,33 @@ int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
-		buf0=(DOUBLEMATRIX*)m0;
-		buf=(DOUBLEMATRIX*)m;
-		for (r=buf0->nrl; r<=buf0->nrh; r++){
-			for (c=buf0->ncl; c<=buf0->nch; c++){
-				if((buf0->co[r][c]!=novalue) || ((buf0->co[r][c]!=buf0->co[r][c]) && (novalue!=novalue))){
-					buf0->co[r][c]+=buf->co[r][c]*Dt;
+		out2d0=(DOUBLEMATRIX*)m0;
+		out2d=(DOUBLEMATRIX*)m;
+		for (r=out2d0->nrl; r<=out2d0->nrh; r++){
+			for (c=out2d0->ncl; c<=out2d0->nch; c++){
+				if((out2d0->co[r][c]!=novalue) || ((out2d0->co[r][c]!=out2d0->co[r][c]) && (novalue!=novalue))){
+					out2d0->co[r][c]+=out2d->co[r][c]*Dt;
 				}
 			}
 		}
-		m0=(void*)buf0;
-		m=(void*)buf;
+		m0=(void*)out2d0;
+		m=(void*)out2d;
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
-		buf0=(DOUBLETENSOR*)m0;
-		buf=(DOUBLETENSOR*)m;
-		for (r=buf0->nrl; r<=buf0->nrh; r++){
-			for (c=buf0->ncl; c<=buf0->nch; c++){
-				for (l=buf0->ndl; l<=buf0->ndh; l++){
-					if((buf0->co[l][r][c]!=novalue) || ((buf0->co[l][r][c]!=buf0->co[l][r][c]) && (novalue!=novalue))){
-						buf0->co[l][r][c]+=buf->co[l][r][c]*Dt;
+		out3d0=(DOUBLETENSOR *)m0;
+		out3d=(DOUBLETENSOR *)m;
+		for (r=out3d0->nrl; r<=out3d0->nrh; r++){
+			for (c=out3d0->ncl; c<=out3d0->nch; c++){
+				for (l=out3d0->ndl; l<=out3d0->ndh; l++){
+					if((out3d0->co[l][r][c]!=novalue) || ((out3d0->co[l][r][c]!=out3d0->co[l][r][c]) && (novalue!=novalue))){
+						out3d0->co[l][r][c]+=out3d->co[l][r][c]*Dt;
 					}
 				}
 			}
 		}
-		m0=(void*)buf0;
-		m=(void*)buf;
+		m0=(void*)out3d0;
+		m=(void*)out3d;
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
@@ -145,6 +153,13 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 	long r;// row index
 	long c; // column index
 	long l; // layer index
+
+	DOUBLEMATRIX *out2d0=NULL;
+
+	DOUBLETENSOR *out3d0=NULL;
+
+
+
 	//void* m1;// updated matrix
 	switch (nlimdim) {
 	case NC_GEOTOP_0DIM_VAR: // to be done
@@ -153,29 +168,29 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
-		buf0=(DOUBLEMATRIX*)m0;
-		for (r=buf0->nrl; r<=buf0->nrh; r++){
-			for (c=buf0->ncl; c<=buf0->nch; c++){
-				if((buf0->co[r][c]!=novalue) || ((buf0->co[r][c]!=buf0->co[r][c]) && (novalue!=novalue))){
-					buf0->co[r][c]=0;
+		out2d0=(DOUBLEMATRIX*)m0;
+		for (r=out2d0->nrl; r<=out2d0->nrh; r++){
+			for (c=out2d0->ncl; c<=out2d0->nch; c++){
+				if((out2d0->co[r][c]!=novalue) || ((out2d0->co[r][c]!=out2d0->co[r][c]) && (novalue!=novalue))){
+					out2d0->co[r][c]=0;
 				}
 			}
 		}
-		m0=(void*)buf0;
+		m0=(void*)out2d0;
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
-		buf0=(DOUBLETENSOR*)m0;
-		for (r=buf0->nrl; r<=buf0->nrh; r++){
-			for (c=buf0->ncl; c<=buf0->nch; c++){
-				for (l=buf0->ndl; l<=buf0->ndh; l++){
-					if((buf0->co[l][r][c]!=novalue) || ((buf0->co[l][r][c]!=buf0->co[l][r][c]) && (novalue!=novalue))){
-						buf0->co[l][r][c]=0;
+		out3d0=(DOUBLETENSOR*)m0;
+		for (r=out3d0->nrl; r<=out3d0->nrh; r++){
+			for (c=out3d0->ncl; c<=out3d0->nch; c++){
+				for (l=out3d0->ndl; l<=out3d0->ndh; l++){
+					if((out3d0->co[l][r][c]!=novalue) || ((out3d0->co[l][r][c]!=out3d0->co[l][r][c]) && (novalue!=novalue))){
+						out3d0->co[l][r][c]=0;
 					}
 				}
 			}
 		}
-		m0=(void*)buf0;
+		m0=(void*)out3d0;
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
@@ -187,7 +202,7 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 }
 
 
-void * new_output_var(void * m0, short nlimdim, double novalue){
+void * ncgt_new_output_var(void * m0, short nlimdim, double novalue){
    	/* define the temporal counter*/
 	/*!
 	 * \param m0 - (void *) cumulated variable at the previous time step to be updated (can be doublematrix, doublevector, doubletensor)
@@ -196,8 +211,11 @@ void * new_output_var(void * m0, short nlimdim, double novalue){
 	 */
 	//void* m1;// updated matrix
 	void *out=NULL;
-	DOUBLEMATRIX * out2d=NULL;
+	DOUBLEMATRIX *out2d=NULL;
+	DOUBLEMATRIX *out2d0=NULL;
 	DOUBLETENSOR *out3d=NULL;
+	DOUBLETENSOR *out3d0=NULL;
+
 	switch (nlimdim) {
 	case NC_GEOTOP_0DIM_VAR: // to be done
 		break;
@@ -205,15 +223,19 @@ void * new_output_var(void * m0, short nlimdim, double novalue){
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
-		//DOUBLEMATRIX *buf0=(DOUBLEMATRIX*)m0;
-		out2d=new_doublematrix(m0->nrh, m0->nch);
-		copy_doublematrix((DOUBLEMATRIX*)m0,out2d);
+
+		out2d0=(DOUBLEMATRIX *)m0;
+		out2d=new_doublematrix(out2d0->nrh, out2d0->nch);
+		copy_doublematrix(out2d0,out2d);
+		out=(void *)out2d;
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
-		//DOUBLETENSOR * buf0=(DOUBLETENSOR*)m0;
-		//out=(void *) new_doubletensor(buf0->ndh,buf0->nrh,buf0->nch);
-		//(buf0, (DOUBLETENSOR *)out);
+
+		out3d0=(DOUBLETENSOR *)m0;
+		out3d=new_doubletensor(out3d0->ndh,out3d0->nrh,out3d0->nch);
+		copy_doubletensor(out3d0,out3d);
+		out=(void *)out3d;
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
@@ -225,9 +247,9 @@ void * new_output_var(void * m0, short nlimdim, double novalue){
 
 }
 
-long ncgt_add_output_var_time(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+long ncgt_add_output_var_cumtime(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
 		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue){
-	/* define the temporal counter*/
+	/* define the temporal counter*/  // TO DO
 	/*!
 	 *
 	 * \param ncid -  (int) pointer to the netCDF archive file
@@ -247,5 +269,8 @@ long ncgt_add_output_var_time(int ncid, void *m, double time, short nlimdim, con
 	long counter_new;
 	counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter, reinitialize,
 					NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
+
+	return 22; // TO DO
+
 }
 #endif
