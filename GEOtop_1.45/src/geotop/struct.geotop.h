@@ -664,6 +664,28 @@ typedef struct {
 	
 } METEO;
 
+#ifdef USE_NETCDF
+
+typedef struct {
+	DOUBLETENSOR * soil_thw_cum; // cumulated version of S->th
+	DOUBLETENSOR * soil_thi_cum;// cumulated version of S->thice
+	DOUBLETENSOR * soil_T_cum;// cumulated version of S->T
+	DOUBLETENSOR * soil_P_cum;// cumulated version of S->P
+	DOUBLETENSOR * soil_Ptot_cum;// cumulated version of S->Ptot
+	// snow
+	DOUBLETENSOR* snowD_cum; // cumulated version of snow->S->Dzl
+	DOUBLETENSOR* snowT_cum; // cumulated version of snow->S->T
+	DOUBLETENSOR* snowI_cum; // cumulated version of snow->S->w_ice
+	DOUBLETENSOR* snowW_cum; // cumulated version of snow->S->w_liq
+	// glacier
+	DOUBLETENSOR* glacD_cum; // cumulated version of glac->G->Dzl
+	DOUBLETENSOR* glacT_cum; // cumulated version of glac->G->T
+	DOUBLETENSOR* glacI_cum; // cumulated version of glac->G->w_ice
+	DOUBLETENSOR* glacW_cum; // cumulated version of glac->G->w_liq
+} OUTPUT_NCDATA;
+
+#endif
+
 typedef struct {
 	SOIL *S;
 	WATER *W;
@@ -680,7 +702,7 @@ typedef struct {
 	int ncid; // pointer to netCDF archive file
 	long counter_snow; // counter for time print of snow
 	long counter_surface_energy; //conter for surface energy maps
-
+	OUTPUT_NCDATA *outnc;
 #endif
 }ALLDATA;
 

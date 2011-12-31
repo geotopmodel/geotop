@@ -69,12 +69,86 @@ extern long i_sim, i_run;*/
 #include <time.h>
 
 extern long i_sim,i_run;
+extern long number_novalue;
+//***************************************************************************************************************
+//***************************************************************************************************************
+void set_output_nc(ALLDATA *all){
+/*
+ * !
+ */
+	//all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
+	//all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	//all->S->Tzplot->name="instaneous_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	// soil
+	all->S->th->name="water_content_in_soil_depth";
+	all->S->T->name="temperature_in_soil_depth";
+	all->S->thice->name="ice_content_in_soil_depth";
+	all->S->P->name="liquid_water_pressure_in_soil_depth";
+	all->S->Ptot->name="total_liquid_and_ice_water_pressure_in_soil_depth";
+	// snow
+	all->N->S->type->name="type_of_snow_discretization";
+	all->N->S->lnum->name ="number_of_snow_layers";
+	all->N->S->Dzl->name ="snow_layer_depth";
+	all->N->S->T->name ="snow_layer_temperature";
+	all->N->S->w_ice->name ="ice_content_in_snow_layer";
+	all->N->S->w_liq->name= "water_content_in_snow_layer";
+	// glacier
+	/*all->G->G->type->name="type_of_glacier_discretization";
+	all->G->G->lnum->name ="number_of_glacier_layers";
+	all->G->G->Dzl->name ="glacier_layer_depth";
+	all->G->G->T->name ="glacier_layer_temperature";
+	all->G->G->w_ice->name ="ice_content_in_glacier_layer";
+	all->G->G->w_liq->name= "water_content_in_glacier_layer";
+	*/
+	// soil
+	all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	// snow
+	all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	//glacier
+	/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep");
+	*/
+	// vegetation??? TO DO
+	//all->S->Tv=new_doublematrix(Nr,Nc);
+}
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+void deallocate_output_nc(OUTPUT_NCDATA* outnc){
+/*
+ *
+ */
+	// soil
+	free_doubletensor(outnc->soil_P_cum);
+	free_doubletensor(outnc->soil_T_cum);
+	free_doubletensor(outnc->soil_thw_cum);
+	free_doubletensor(outnc->soil_thi_cum);
+	free_doubletensor(outnc->soil_Ptot_cum);
+	// snow
+	free_doubletensor(outnc->snowD_cum);
+	free_doubletensor(outnc->snowT_cum);
+	free_doubletensor(outnc->snowI_cum);
+	free_doubletensor(outnc->snowW_cum);
+	//glacier
+	free_doubletensor(outnc->glacD_cum);
+	free_doubletensor(outnc->glacT_cum);
+	free_doubletensor(outnc->glacI_cum);
+	free_doubletensor(outnc->glacW_cum);
+	free(outnc);
+}
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-//***************************************************************************************************************
-
 void write_output_nc(ALLDATA* all){
 /*
  * !
@@ -88,10 +162,10 @@ void write_output_nc(ALLDATA* all){
 		//if(par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
 	}
 	/* function to write in netCDF modality */
-	all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
-	all->S->T->name="instantaneous_temperature_in_soil_depth"; // to be deleted just to test
-	all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
-	all->S->Tzplot->name="instaneous_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	//all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
+	//all->S->T->name="instantaneous_temperature_in_soil_depth"; // to be deleted just to test
+	//all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	//all->S->Tzplot->name="instaneous_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
 	if(all->P->output_surfenergy>0 && fmod(all->I->time+all->P->Dt,all->P->output_surfenergy*3600.0)<1.E-5){
 #ifdef USE_NETCDF_ONGOING
 		printf("\n sto stampando all->counter_surface_energy=%ld",all->counter_surface_energy);

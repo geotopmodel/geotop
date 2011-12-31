@@ -98,6 +98,32 @@ DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
 }
 
 
+DOUBLETENSOR *new_doubletensor_flexlayer(long ndl,long ndh,long nrh,long nch)
+
+
+{
+
+	DOUBLETENSOR *m;
+
+	m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
+	if (!m) t_error("allocation failure in new_doubletensor()");
+	m->isdynamic=isDynamic;
+	m->nrl=NL;
+	m->nrh=nrh;
+	m->ncl=NL;
+	m->nch=nch;
+	m->ndl=ndl;
+	m->ndh=ndh;
+
+
+	m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
+
+
+	return m;
+
+
+}
+
 /*-----------------------------------------------------------------------*/
 
 
@@ -184,7 +210,7 @@ void copy_doubletensor(DOUBLETENSOR *origin,DOUBLETENSOR *destination)
 
   for(i=1;i<=origin->nrh;i++){
     for(j=1;j<=origin->nch;j++){
-    	for(l=1;j<=origin->ndh;l++){
+    	for(l=origin->ndl;l<=origin->ndh;l++){
     		destination->co[l][i][j]=origin->co[l][i][j];
     	}
     }

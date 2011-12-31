@@ -12,6 +12,6 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue);
 
 
 
-void* ncgt_new_output_var(void * m0, short nlimdim, double novalue);
+void* ncgt_new_output_var(void * m0, short nlimdim, double novalue, char*);
 
 #endif

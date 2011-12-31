@@ -156,14 +156,16 @@ int main(int argc,char *argv[]){
 		
 		/*------------------    3.  Acquisition of input data and initialization    --------------------*/
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
-		
+#ifdef USE_NETCDF
+		set_output_nc(adt);
+#endif
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 		time_loop(adt);
 		
 #ifdef USE_NETCDF
 
 		ncgt_close_geotop_archive(ncid);
-
+		deallocate_output_nc(adt->outnc);
 #endif
 
 		/*--------------------   5.Completion of the output files and deallocations  --------------------*/

@@ -203,12 +203,13 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 }
 
 
-void * ncgt_new_output_var(void * m0, short nlimdim, double novalue){
+void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffix){
    	/* define the temporal counter*/
 	/*!
-	 * \param m0 - (void *) cumulated variable at the previous time step to be updated (can be doublematrix, doublevector, doubletensor)
+	 * \param m0 - (void *) instantaneous variable (can be doublematrix, doublevector, doubletensor)
 	 * \param number_novale - NULL
-	 *
+	 * \param suffix - suffix to be added to the variable_name
+	 * \description: allocate a new output variable
 	 */
 	//void* m1;// updated matrix
 	void *out=NULL;
@@ -228,22 +229,29 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue){
 		out2d0=(DOUBLEMATRIX *)m0;
 		out2d=new_doublematrix(out2d0->nrh, out2d0->nch);
 		copy_doublematrix(out2d0,out2d);
-		out=(void *)out2d;
+		out2d->name=join_strings((char *)out2d0->name,suffix);
+		//out=(void *)out2d;
+		return ((void*)out2d);
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
 
 		out3d0=(DOUBLETENSOR *)m0;
-		out3d=new_doubletensor(out3d0->ndh,out3d0->nrh,out3d0->nch);
+		out3d=new_doubletensor_flexlayer(out3d0->ndl,out3d0->ndh,out3d0->nrh,out3d0->nch);
+		out3d->name=join_strings((char *)out3d0->name,suffix);
 		copy_doubletensor(out3d0,out3d);
-		out=(void *)out3d;
+		printf("\ncheck 31/12/2011: DA SISTEMARE\n");
+		//(void*)out=out3d;
+		return (out3d);
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
-		t_error("uncorrect number of dimensions in new_output_var");
+		t_error("incorrect number of dimensions in new_output_var");
 		break;
 
 	}
+	// initialization of the new variable out
+	//ncgt_var_set_to_zero(out,nlimdim, novalue);
 	return out;
 
 }
