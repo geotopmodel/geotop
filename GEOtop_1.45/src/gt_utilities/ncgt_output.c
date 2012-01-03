@@ -30,9 +30,9 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 	ncgt_put_double_vs_time(time,dimension_time,counter, ncid,dimension_time);
 	//char * function_name="ncgt_add_output_var";
 	switch (nlimdim) {
-	case NC_GEOTOP_0DIM_VAR: // to be done
+	case NC_GEOTOP_0DIM_VAR: // to be done (e.g. discharge at the outlet)
 		break;
-	case NC_GEOTOP_POINT_VAR: // to be done
+	case NC_GEOTOP_POINT_VAR: // to be done (e.g. evapotranspiration in a point)
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		if (rotate_y==1){
@@ -203,12 +203,13 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 }
 
 
-void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffix){
+void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffix, double print_flag){
    	/* define the temporal counter*/
 	/*!
 	 * \param m0 - (void *) instantaneous variable (can be doublematrix, doublevector, doubletensor)
 	 * \param number_novale - NULL
 	 * \param suffix - suffix to be added to the variable_name
+	 * \param print_flag - flag on printing option
 	 * \description: allocate a new output variable
 	 */
 	//void* m1;// updated matrix
@@ -217,38 +218,39 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 	DOUBLEMATRIX *out2d0=NULL;
 	DOUBLETENSOR *out3d=NULL;
 	DOUBLETENSOR *out3d0=NULL;
+	if (print_flag>0){
+		switch (nlimdim) {
+		case NC_GEOTOP_0DIM_VAR: // to be done
+			break;
+		case NC_GEOTOP_POINT_VAR: // to be done
+			break;
+		case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
+		case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
 
-	switch (nlimdim) {
-	case NC_GEOTOP_0DIM_VAR: // to be done
-		break;
-	case NC_GEOTOP_POINT_VAR: // to be done
-		break;
-	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
-	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
+			out2d0=(DOUBLEMATRIX *)m0;
+			out2d=new_doublematrix(out2d0->nrh, out2d0->nch);
+			copy_doublematrix(out2d0,out2d);
+			out2d->name=join_strings((char *)out2d0->name,suffix);
+			//out=(void *)out2d;
+			return ((void*)out2d);
+			break;
 
-		out2d0=(DOUBLEMATRIX *)m0;
-		out2d=new_doublematrix(out2d0->nrh, out2d0->nch);
-		copy_doublematrix(out2d0,out2d);
-		out2d->name=join_strings((char *)out2d0->name,suffix);
-		//out=(void *)out2d;
-		return ((void*)out2d);
-		break;
+		case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
 
-	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
+			out3d0=(DOUBLETENSOR *)m0;
+			out3d=new_doubletensor_flexlayer(out3d0->ndl,out3d0->ndh,out3d0->nrh,out3d0->nch);
+			out3d->name=join_strings((char *)out3d0->name,suffix);
+			copy_doubletensor(out3d0,out3d);
+			//printf("\n out3d->name=%s, check 31/12/2011: DA SISTEMARE\n",out3d->name);
+			//(void*)out=out3d;
+			return (out3d);
+			break;
+	//	printf("\nsono qui1 a=%ld",a);//stop_execution();
+		default:
+			t_error("incorrect number of dimensions in new_output_var");
+			break;
 
-		out3d0=(DOUBLETENSOR *)m0;
-		out3d=new_doubletensor_flexlayer(out3d0->ndl,out3d0->ndh,out3d0->nrh,out3d0->nch);
-		out3d->name=join_strings((char *)out3d0->name,suffix);
-		copy_doubletensor(out3d0,out3d);
-		printf("\ncheck 31/12/2011: DA SISTEMARE\n");
-		//(void*)out=out3d;
-		return (out3d);
-		break;
-//	printf("\nsono qui1 a=%ld",a);//stop_execution();
-	default:
-		t_error("incorrect number of dimensions in new_output_var");
-		break;
-
+		}
 	}
 	// initialization of the new variable out
 	//ncgt_var_set_to_zero(out,nlimdim, novalue);
@@ -256,14 +258,16 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 
 }
 
-long ncgt_add_output_var_cumtime(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+long ncgt_add_or_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
 		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue){
-	/* define the temporal counter*/  // TO DO
 	/*!
 	 *
 	 * \param ncid -  (int) pointer to the netCDF archive file
-	 * \param m - (void *) variable to be printed (can be doublematrix, doublevector, doubletensor)
+	 * \param m0 - (void *) cumulated variable reported from previous print time instant to be printed (can be doublematrix, doublevector, doubletensor)
+	 * \param m - (void *) instantaneous variable to be printed (can be doublematrix, doublevector, doubletensor). Must be the same type of m0.
 	 * \param dimension_time
+	 * \param print_time_step - (double) printing time step
+	 * \param computation_time_step - (double) computational time step
 	 * \param dimension_z - (char *) vertical dimension
 	 * \param dimension_y - (char *) dimension 1
 	 * \param dimension_x - (char *) dimension 2
@@ -273,13 +277,24 @@ long ncgt_add_output_var_cumtime(int ncid, void *m, double time, short nlimdim, 
 	 * \param reinitialize - short. If 1 m is re-initialized (only for nlimdim=2)
 	 * \param update - short. If 1 and counter is updated
 	 * \param number_novale - NULL
-	 *
+	 * OUTPUT
+	 * counter_new: updated counter at which the variable will be written at a successive time
 	 */
-	long counter_new;
-	counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter, reinitialize,
+	long counter_new=counter;
+	if(print_time_step>0 && fmod(time,print_time_step)<1.E-5){
+		// prints m (instantaneous)
+		counter_new=ncgt_add_output_var(ncid, m0, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter, reinitialize,
 					NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
-
-	return 22; // TO DO
-
+		// prints m0 (cumulated) and updates counter
+		counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new, reinitialize,
+						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
+		// set to zero m0 (cumulated)
+		ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
+	}else if(print_time_step>0){
+		// printing time not reached: updates cumulated variable
+		ncgt_var_update(m, m0, computation_time_step,nlimdim, number_novalue);
+	}
+	return counter_new;
 }
+
 #endif

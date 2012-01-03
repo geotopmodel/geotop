@@ -215,9 +215,10 @@ int ncgt_put_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dimension_x, co
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 
 
@@ -333,9 +334,10 @@ int ncgt_put_floatvector(FLOATVECTOR *v, int ncid, const char *dimension){
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,v->name,NC_FLOAT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
 
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -400,9 +402,10 @@ int ncgt_put_intvector(INTVECTOR *v, int ncid, const char *dimension){
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,v->name,NC_INT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
 
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -467,9 +470,10 @@ int ncgt_put_longvector(LONGVECTOR *v, int ncid, const char *dimension){
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,v->name,NC_LONG,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
 
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -534,9 +538,10 @@ int ncgt_put_shortvector(SHORTVECTOR *v, int ncid, const char *dimension){
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,v->name,NC_SHORT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
 
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -610,9 +615,10 @@ int ncgt_put_floatmatrix(FLOATMATRIX *m, int ncid, const char *dimension_x, cons
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_FLOAT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 
 
@@ -686,9 +692,10 @@ int ncgt_put_shortmatrix(SHORTMATRIX *m, int ncid, const char *dimension_x, cons
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_SHORT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 
 
@@ -762,9 +769,10 @@ int ncgt_put_intmatrix(INTMATRIX *m, int ncid, const char *dimension_x, const ch
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_INT,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 
 
@@ -838,9 +846,10 @@ int ncgt_put_longmatrix(LONGMATRIX *m, int ncid, const char *dimension_x, const 
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_LONG,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 
 
@@ -922,9 +931,10 @@ int ncgt_put_doubletensor(DOUBLETENSOR *dt, int ncid, const char *dimension_x, c
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,dt->name,NC_DOUBLE,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,dt->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,dt->name,dvar);
+	//}
 
 
 
@@ -1019,9 +1029,10 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
 
 //	// status=nc_enddef(ncid);
 //	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -1106,9 +1117,10 @@ status=nc_inq_varid(ncid,v->name,&dvar);
 if (status!=NC_NOERR) {
 	status=nc_def_var(ncid,v->name,NC_DOUBLE,ndim,dim,&dvar);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-} else {
-	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 }
+//else {
+//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+//}
 
 // status=nc_enddef(ncid);
 // if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
@@ -1212,9 +1224,10 @@ int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char 
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,t->name,NC_DOUBLE,ndim,dim,&dvar);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,t->name,dvar);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,t->name,dvar);
+	//}
 
 
 //	// status=nc_enddef(ncid);
@@ -1280,9 +1293,10 @@ int nc_put_byte(signed char bval, int ncid,const char *varname, const char *unit
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_BYTE, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1341,9 +1355,10 @@ int nc_put_int(int ival, int ncid,const char *varname, const char *units, const 
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_INT, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1402,9 +1417,10 @@ int nc_put_short(short sval, int ncid,const char *varname, const char *units, co
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_SHORT, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1463,9 +1479,10 @@ int nc_put_float(float fval, int ncid,const char *varname, const char *units, co
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_FLOAT, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1524,9 +1541,10 @@ int nc_put_double(double dval, int ncid,const char *varname, const char *units, 
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_DOUBLE, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1584,9 +1602,10 @@ int nc_put_long(long lval, int ncid,const char *varname, const char *units, cons
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_LONG, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
 
 	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
 	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
@@ -1843,9 +1862,10 @@ void nc_add_variable_attr_missing_value(int ncid,const char *varname,double miss
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid, varname, NC_DOUBLE, RANK_VAR, 0, &varid); //
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-	} else {
-		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n","nc_add_cf_convention_missing_value",varname,varid);
 	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n","nc_add_cf_convention_missing_value",varname,varid);
+	//}
 
 	status=nc_put_att_double(ncid, varid, NC_GEOTOP_MISSING_VALUE_ATTRIBUTE, NC_DOUBLE, 1, missingvalue);
 	//status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MISSING_VALUE,NC_DOUBLE,1,missingvalue);
@@ -1989,9 +2009,10 @@ status=nc_inq_varid(ncid,var_name,&dvar);
 if (status!=NC_NOERR) {
 	status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-} else {
-	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,var_name,dvar);
 }
+//else {
+	//printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,var_name,dvar);
+//}
 
 // status=nc_enddef(ncid);
 // if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);

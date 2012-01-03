@@ -198,7 +198,11 @@ void time_loop(ALLDATA *all){
 		
 		all->I->time = 0.0;//Initialize time	
 #ifdef USE_NETCDF
+		// printing time counter initialization
 		all->counter_surface_energy=0;
+		all->counter_snow=0;
+		all->counter_soil=0;
+		all->counter_glac=0;
 #endif
 		do{			
 						

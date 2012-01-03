@@ -51,7 +51,12 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_YLAT "YLAT" // Latitude coordinate (m)
 	#define NC_GEOTOP_XLON "XLON" // Longitude coordinate (m)
 	#define NC_GEOTOP_Z_GENERIC "SOIL_DEPTH"
+	#define NC_GEOTOP_Z_SOIL "SOIL_DEPTH"
+	#define NC_GEOTOP_Z_SNOW "SNOW_LAYER"
 	#define NC_GEOTOP_TIME_GENERIC "time"
+	#define NC_GEOTOP_TIME_FOR_SOIL "time_for_soil"
+	#define NC_GEOTOP_TIME_FOR_SNOW "time_for_snow"
+	#define NC_GEOTOP_TIME_FOR_GLAC "time_for_glac"
 	#define NC_GEOTOP_POINT_DIM_GENERIC "ID_point"
 	#define NC_GEOTOP_MISSING_DIMENSION "missing_dimension"
 	#define NC_GEOTOP_TIMEPREFIX "TIME_FOR" // prefix for the temporal axis ()

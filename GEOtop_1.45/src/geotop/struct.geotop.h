@@ -701,7 +701,9 @@ typedef struct {
 #ifdef USE_NETCDF
 	int ncid; // pointer to netCDF archive file
 	long counter_snow; // counter for time print of snow
-	long counter_surface_energy; //conter for surface energy maps
+	long counter_surface_energy; //counter for surface energy maps
+	long counter_soil;//counter for printing soil properties
+	long counter_glac;//counter for printing glacier properties
 	OUTPUT_NCDATA *outnc;
 #endif
 }ALLDATA;
