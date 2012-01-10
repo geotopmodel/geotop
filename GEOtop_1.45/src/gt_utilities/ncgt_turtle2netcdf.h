@@ -125,4 +125,7 @@ void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value);
 
 
 int ncgt_put_double_vs_time(double v, const char *var_name, long k, int ncid, const char *dimension_t);
+
+int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int ncid, const char *dimension_t, const char *suffix, const char *dimension_id, const char *dimension_z,DOUBLEMATRIX *rc);
+
 #endif
