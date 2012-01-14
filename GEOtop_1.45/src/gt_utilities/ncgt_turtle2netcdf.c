@@ -2041,9 +2041,11 @@ return 0;
 
 
 
-int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int ncid, const char *dimension_t, const char *suffix, const char *dimension_id, const char *dimension_z,DOUBLEMATRIX *rc){
+int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int ncid, const char *dimension_t, char *suffix,
+		const char *dimension_id, const char *dimension_z,LONGMATRIX *rc){
 	/*!
 	 *\param dt - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param k (long) printing counter
 	 *\param ncid (int) - pointer to the netCDF file
 	 *\param suffix - (char *) suffix to add to the variable name
 	 *\param dimension_id - (char *) name of the id dimension (number of row)
@@ -2052,19 +2054,15 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int
 	 *\brief This function write the variable contained in a doubletensor within a NetCDF file
 	 *
 	 * \author Emanuele Cordano
-	 * \date September 2009
+	 * \date january 2011
 	 *
 	 * \return 0 if exit is ok, otherwise an error message.
-
-	 *
 	 */
-
-	return 0;
 	DOUBLEMATRIX *M=NULL;
-	long id,l,r,c;
+	long id,l,r,c;// indexes
 
 	M=new_doublematrix(dt->ndh,rc->nrh);
-	M->name=join_strings(dt->name,suffix);
+	M->name=join_strings((char *)dt->name,suffix);
 
 	for(id=M->ncl;id<=M->nch;id++) {
 		for(l=M->nrl;l<=M->nrh;l++) {
@@ -2072,37 +2070,47 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int
 			c=rc->co[id][2];
 			M->co[l][id]=dt->co[l][r][c];
 		}
-
-
 	}
-	ncgt_put_doulematrix_vs_time(M,k,ncid,dimension_t,dimension_id,dimension_z);
-
-//	int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
-	// TO CONTINUE
-//	int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
-//	{
-		/*!
-		 *\param t - (DOUBLETENSOR *) variable to be written in the NetCDF
-		 *\param ncid (int) - pointer to the netCDF file
-		 *\param k        - (long) number of the level (0 based) at which the xyz map is printed
-		 *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
-		 *\param dimension_x - (char *) name of the x dimension (number of column)
-		 *\param dimension_y - (char *) name of the y dimension (number of row)
-		 *\param dimension_z - (char *) name of the z dimension
-		 *
-		 *\brief This function writes the variable contained in a doubletensor as a map referred to a particular time step 3D + time variable within a NetCDF file
-		 *
-		 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
-		 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
-		 *
-		 * \author Enrico Verri
-		 * \date October 2009
-		 */
+	ncgt_put_doublematrix_vs_time(M,k,ncid,dimension_t,dimension_id,dimension_z);
 	free_doublematrix(M);
 	return 0;
 }
 
 
+
+
+
+int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, const char *dimension_t,  char *suffix,
+		const char *dimension_id, LONGMATRIX *rc){
+	/*!
+	 *\param dt - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param k (long) printing counter
+	 *\param ncid (int) - pointer to the netCDF file
+	 *\param suffix - (char *) suffix to add to the variable name
+	 *\param dimension_id - (char *) name of the id dimension (number of row)
+	 *\param rc - (DOUBLEMATRIX*) matrix containing the row and column at which elements are put into the necdf archive
+	 *\brief This function write the variable contained in a doublematrix within a NetCDF file
+	 *
+	 * \author Emanuele Cordano, Matteo Dall'Amico
+	 * \date january 2011
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 */
+	DOUBLEVECTOR *M=NULL;
+	long id,r,c;// indexes
+
+	M=new_doublevector(rc->nrh);
+	M->name=join_strings((char *)dt->name,suffix);
+
+	for(id=M->nl;id<=M->nh;id++) {
+		r=rc->co[id][1];
+		c=rc->co[id][2];
+		M->co[id]=dt->co[r][c];
+	}
+	ncgt_put_doublevector_vs_time(M,k,ncid,dimension_t,dimension_id);
+	free_doublevector(M);
+	return 0;
+}
 
 
 #endif

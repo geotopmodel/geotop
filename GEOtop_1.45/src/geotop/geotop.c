@@ -191,18 +191,32 @@ void time_loop(ALLDATA *all){
 	long i;
 	
 	FILE *f;
-	
-	for (i_sim=1; i_sim<=all->P->init_date->nh; i_sim++) {
+#ifdef USE_NETCDF
+	long nsim=1;
+	// TODO: check number of simulation issue
+#else
+	long nsim=all->P->init_date->nh;
+#endif
+	for (i_sim=1; i_sim<=nsim; i_sim++) {
+
 		
+#ifdef USE_NETCDF
+	long nrun=1;
+	// TODO: check number run issue
+#else
+	long nrun=all->P->run_times->co[i_sim];
+#endif
 		i_run = 1;//Run index
 		
 		all->I->time = 0.0;//Initialize time	
 #ifdef USE_NETCDF
 		// printing time counter initialization
+		//TODO please revisit into details the initialization procedure for counters according to time coordinates
 		all->counter_surface_energy=0;
 		all->counter_snow=0;
 		all->counter_soil=0;
 		all->counter_glac=0;
+		all->counter_point=0;
 #endif
 		do{			
 						
@@ -268,7 +282,7 @@ void time_loop(ALLDATA *all){
 				}
 			}
 			
-		}while(i_run <= all->P->run_times->co[i_sim]);//end of time-cycle
+		}while(i_run <= nrun);//end of time-cycle
 		
 		reset_to_zero(all->P, all->S, all->L, all->N, all->G, all->E, all->M, all->W);
 

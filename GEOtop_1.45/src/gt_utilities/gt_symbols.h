@@ -48,8 +48,8 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_NEW_EMPTY_FILE NC_CLOBBER|NC_NETCDF4
 
 	/* 26.11.2011 space-time dimension */
-	#define NC_GEOTOP_YLAT "YLAT" // Latitude coordinate (m)
-	#define NC_GEOTOP_XLON "XLON" // Longitude coordinate (m)
+	#define NC_GEOTOP_YLAT "YLAT" // North coordinate (m)
+	#define NC_GEOTOP_XLON "XLON" // East coordinate (m)
 	#define NC_GEOTOP_Z_GENERIC "SOIL_DEPTH"
 	#define NC_GEOTOP_Z_SOIL "SOIL_DEPTH"
 	#define NC_GEOTOP_Z_SNOW "SNOW_LAYER"
@@ -57,9 +57,11 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_TIME_FOR_SOIL "time_for_soil"
 	#define NC_GEOTOP_TIME_FOR_SNOW "time_for_snow"
 	#define NC_GEOTOP_TIME_FOR_GLAC "time_for_glac"
-	#define NC_GEOTOP_POINT_DIM_GENERIC "ID_point"
+	#define NC_GEOTOP_TIME_FOR_POINT_DATA "time_for_points"
+	#define NC_GEOTOP_POINT_DIM_GENERIC "ID_control_point"
+	#define NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT "_in_control_points"
 	#define NC_GEOTOP_MISSING_DIMENSION "missing_dimension"
-	#define NC_GEOTOP_TIMEPREFIX "TIME_FOR" // prefix for the temporal axis ()
+	#define NC_GEOTOP_TIMEPREFIX "TIME_FOR_" // prefix for the temporal axis ()
 	#define NC_GEOTOP_MISSING_VALUE_ATTRIBUTE "missing_value"
 	#define NC_GEOTOP_UPDATE_COUNTER_TIME 1
 	#define NC_GEOTOP_NOUPDATE_COUNTER_TIME 0
@@ -70,6 +72,8 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_NOROTATE_Y 0
 	#define NC_GEOTOP_2D_MAP 2
 	#define NC_GEOTOP_3D_MAP 3
+	#define NC_GEOTOP_2D_MAP_IN_CONTROL_POINT 52
+	#define NC_GEOTOP_3D_MAP_IN_CONTROL_POINT 53
 	#define NC_GEOTOP_POINT_VAR 1
 	#define NC_GEOTOP_Z_POINT_VAR 22
 	#define NC_GEOTOP_0DIM_VAR 0

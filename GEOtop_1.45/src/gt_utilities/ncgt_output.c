@@ -9,7 +9,7 @@
 #include "gt_symbols.h"
 
 long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue){
+		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
    	/* define the temporal counter*/
 	/*!
 	 *
@@ -25,23 +25,21 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 	 * \param reinitialize - short. If 1 m is re-initialized (only for nlimdim=2)
 	 * \param update - short. If 1 and counter is updated
 	 * \param number_novale - NULL
+	 * \param rc - (DOUBLEMATRIX) matrix containing the rows and columns of the control points
 	 *
 	 */
 	ncgt_put_double_vs_time(time,dimension_time,counter, ncid,dimension_time);
 	//char * function_name="ncgt_add_output_var";
 	switch (nlimdim) {
-	case NC_GEOTOP_0DIM_VAR: // to be done (e.g. discharge at the outlet)
+	case NC_GEOTOP_0DIM_VAR: // TODO (e.g. discharge at the outlet)
 		break;
-	case NC_GEOTOP_POINT_VAR: // to be done (e.g. evapotranspiration in a point)
+	case NC_GEOTOP_POINT_VAR: // TODO (e.g. evapotranspiration in a point)
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		if (rotate_y==1){
 			ncgt_put_rotate180_y_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time, dimension_x, dimension_y);
 		} else {
 			ncgt_put_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time, dimension_x, dimension_y);
-		}
-		if(reinitialize==1) {
-			initmatrix(0.0, m, m, number_novalue);
 		}
 		break;
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
@@ -53,6 +51,13 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 		} else {
 			ncgt_put_doubletensor_vs_time((DOUBLETENSOR *)m,counter, ncid, dimension_time, dimension_x, dimension_y,dimension_z);
 		}
+		break;
+	case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:// option to print 2D variables in control points
+		ncgt_put_doublevector_from_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time,  NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, rc);
+		break;
+
+	case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:// option to print 3D variables in control points
+		ncgt_put_doublematrix_from_doubletensor_vs_time((DOUBLETENSOR *)m,counter, ncid, dimension_time, NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, dimension_z, rc);
 		break;
 	/* rotate map and put to netCDF */
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
@@ -99,12 +104,13 @@ int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue
 
 	//void* m1;// updated matrix
 	switch (nlimdim) {
-	case NC_GEOTOP_0DIM_VAR: // to be done
+	case NC_GEOTOP_0DIM_VAR: // TODO
 		break;
-	case NC_GEOTOP_POINT_VAR: // to be done
+	case NC_GEOTOP_POINT_VAR: // TODO
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
+	case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:
 		out2d0=(DOUBLEMATRIX*)m0;
 		out2d=(DOUBLEMATRIX*)m;
 		for (r=out2d0->nrl; r<=out2d0->nrh; r++){
@@ -119,6 +125,7 @@ int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
+	case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:
 		out3d0=(DOUBLETENSOR *)m0;
 		out3d=(DOUBLETENSOR *)m;
 		for (r=out3d0->nrl; r<=out3d0->nrh; r++){
@@ -135,7 +142,7 @@ int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
-		t_error("uncorrect number of dimensions in ncgt_var_update");
+		t_error("incorrect number of dimensions in ncgt_var_update");
 		break;
 
 	}
@@ -163,9 +170,9 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 
 	//void* m1;// updated matrix
 	switch (nlimdim) {
-	case NC_GEOTOP_0DIM_VAR: // to be done
+	case NC_GEOTOP_0DIM_VAR: // TODO
 		break;
-	case NC_GEOTOP_POINT_VAR: // to be done
+	case NC_GEOTOP_POINT_VAR: // TODO
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
@@ -220,9 +227,9 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 	DOUBLETENSOR *out3d0=NULL;
 	if (print_flag>0){
 		switch (nlimdim) {
-		case NC_GEOTOP_0DIM_VAR: // to be done
+		case NC_GEOTOP_0DIM_VAR: // TODO
 			break;
-		case NC_GEOTOP_POINT_VAR: // to be done
+		case NC_GEOTOP_POINT_VAR: // TODO
 			break;
 		case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
@@ -258,8 +265,8 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 
 }
 
-long ncgt_add_or_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue){
+long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
 	/*!
 	 *
 	 * \param ncid -  (int) pointer to the netCDF archive file
@@ -274,25 +281,26 @@ long ncgt_add_or_output_var_cumtime(int ncid, void *m0, void *m, double time, do
 	 * \param rotate_y - (short) if 1 the y dimension is rotated
 	 * \param nlimdim - (short) number of limited dimensions (time excluded)
 	 * \param counter - counter of the unlimited dimension
-	 * \param reinitialize - short. If 1 m is re-initialized (only for nlimdim=2)
+	 * \param reinitialize - short. re-initializes and/or updates the cumulated variables
 	 * \param update - short. If 1 and counter is updated
 	 * \param number_novale - NULL
+	 * \param rc - (LONGMATRIX) - matrix of the control points
 	 * OUTPUT
 	 * counter_new: updated counter at which the variable will be written at a successive time
 	 */
 	long counter_new=counter;
 	if(print_time_step>0 && fmod(time,print_time_step)<1.E-5){
 		// prints m (instantaneous)
-		counter_new=ncgt_add_output_var(ncid, m0, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter, reinitialize,
-					NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
+		counter_new=ncgt_add_output_var(ncid, m0, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter,
+					NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
 		// prints m0 (cumulated) and updates counter
-		counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new, reinitialize,
-						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE);
+		counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new,
+						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
 		// set to zero m0 (cumulated)
-		ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
+		if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
 	}else if(print_time_step>0){
 		// printing time not reached: updates cumulated variable
-		ncgt_var_update(m, m0, computation_time_step,nlimdim, number_novalue);
+		if(reinitialize==1) ncgt_var_update(m, m0, computation_time_step,nlimdim, number_novalue);
 	}
 	return counter_new;
 }

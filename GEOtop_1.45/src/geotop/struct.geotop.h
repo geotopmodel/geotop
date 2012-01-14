@@ -704,6 +704,7 @@ typedef struct {
 	long counter_surface_energy; //counter for surface energy maps
 	long counter_soil;//counter for printing soil properties
 	long counter_glac;//counter for printing glacier properties
+	long counter_point; // counter for printing point data
 	OUTPUT_NCDATA *outnc;
 #endif
 }ALLDATA;
