@@ -176,6 +176,7 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
+	case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:
 		out2d0=(DOUBLEMATRIX*)m0;
 		for (r=out2d0->nrl; r<=out2d0->nrh; r++){
 			for (c=out2d0->ncl; c<=out2d0->nch; c++){
@@ -188,6 +189,7 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 		break;
 
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
+	case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:
 		out3d0=(DOUBLETENSOR*)m0;
 		for (r=out3d0->nrl; r<=out3d0->nrh; r++){
 			for (c=out3d0->ncl; c<=out3d0->nch; c++){
@@ -202,7 +204,7 @@ int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue){
 		break;
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
-		t_error("uncorrect number of dimensions in ncgt_var_set_to_zero");
+		t_error("incorrect number of dimensions in ncgt_var_set_to_zero");
 		break;
 
 	}
@@ -233,6 +235,7 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 			break;
 		case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
+		case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:
 
 			out2d0=(DOUBLEMATRIX *)m0;
 			out2d=new_doublematrix(out2d0->nrh, out2d0->nch);
@@ -243,6 +246,7 @@ void * ncgt_new_output_var(void * m0, short nlimdim, double novalue, char* suffi
 			break;
 
 		case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
+		case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:
 
 			out3d0=(DOUBLETENSOR *)m0;
 			out3d=new_doubletensor_flexlayer(out3d0->ndl,out3d0->ndh,out3d0->nrh,out3d0->nch);

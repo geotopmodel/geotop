@@ -101,25 +101,45 @@ void set_output_nc(ALLDATA *all){
 	all->G->G->w_liq->name= "water_content_in_glacier_layer";
 	*/
 	all->outnc=(OUTPUT_NCDATA*) malloc(sizeof(OUTPUT_NCDATA));
-	// soil
-	all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->output_soil);
-	all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
-	all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
-	all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
-	all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
-	// snow
-	all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
-	all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
-	all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
-	all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
-	//glacier
-	/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-	all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-	all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-	all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-	*/
-	// vegetation??? TO DO
-	//all->S->Tv=new_doublematrix(Nr,Nc);
+	if (all->P->point_sim!=1){// distributed simulation
+		// soil
+		all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->output_soil);
+		all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		// snow
+		all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		//glacier
+		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		*/
+		// vegetation??? TO DO
+		//all->S->Tv=new_doublematrix(Nr,Nc);
+	} else{// point simulation
+		// soil
+		all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		// snow
+		all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		//glacier
+		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		*/
+	}
 }
 
 //***************************************************************************************************************
