@@ -88,6 +88,7 @@ PointOutputFile = "output_tabs/point"
 SnowProfileFile = "output_tabs/snow"
 BasinOutputFile = "output_tabs/basin"
 SoilAveragedTempProfileFile = "output_tabs/soilTave"
+SoilTempProfileFile = "output_tabs/soilTinst"
 
 SoilAveragedTempTensorFile = "output_maps/T"
 SoilLiqContentTensorFile = "output_maps/thetaliq"
