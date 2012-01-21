@@ -445,9 +445,9 @@ void write_output_nc(ALLDATA* all){
 					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
 
 	// in case one wants to plot in a particular point the surface energy variables
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,
-			all->P->output_surfenergy*3600,all->point_var_type, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY, NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_surface_energy,
-			NC_GEOTOP_UPDATE_COUNTER_TIME,NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+//	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,
+//			all->P->output_surfenergy*3600,all->point_var_type, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY, NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_surface_energy,
+//			NC_GEOTOP_UPDATE_COUNTER_TIME,NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 
 //	all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
 //					all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
