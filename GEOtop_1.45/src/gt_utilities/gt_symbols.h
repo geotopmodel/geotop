@@ -58,6 +58,7 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_TIME_FOR_SNOW "time_for_snow"
 	#define NC_GEOTOP_TIME_FOR_GLAC "time_for_glac"
 	#define NC_GEOTOP_TIME_FOR_POINT_DATA "time_for_points"
+	#define NC_GEOTOP_TIME_FOR_SURFACE_ENERGY "time_for_surface_energy"
 	#define NC_GEOTOP_POINT_DIM_GENERIC "ID_control_point"
 	#define NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT "_in_control_points"
 	#define NC_GEOTOP_MISSING_DIMENSION "missing_dimension"

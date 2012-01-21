@@ -25,7 +25,7 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 	 * \param reinitialize - short. If 1 m is re-initialized (only for nlimdim=2)
 	 * \param update - short. If 1 and counter is updated
 	 * \param number_novale - NULL
-	 * \param rc - (DOUBLEMATRIX) matrix containing the rows and columns of the control points
+	 * \param rc - (LONGMATRIX) matrix containing the rows and columns of the control points
 	 *
 	 */
 	ncgt_put_double_vs_time(time,dimension_time,counter, ncid,dimension_time);
@@ -33,17 +33,12 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 	switch (nlimdim) {
 	case NC_GEOTOP_0DIM_VAR: // TODO (e.g. discharge at the outlet)
 		break;
-	case NC_GEOTOP_POINT_VAR: // TODO (e.g. evapotranspiration in a point)
-		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		if (rotate_y==1){
 			ncgt_put_rotate180_y_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time, dimension_x, dimension_y);
 		} else {
 			ncgt_put_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time, dimension_x, dimension_y);
 		}
-		break;
-	case NC_GEOTOP_Z_POINT_VAR:// e.g. point_variable (Z,ID)
-		ncgt_put_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time, dimension_z, dimension_x);// dimension_x is the ID dimension
 		break;
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
 		if (rotate_y==1){
@@ -53,16 +48,18 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 		}
 		break;
 	case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:// option to print 2D variables in control points
+	case NC_GEOTOP_POINT_VAR:
 		ncgt_put_doublevector_from_doublematrix_vs_time((DOUBLEMATRIX *)m,counter, ncid, dimension_time,  NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, rc);
 		break;
 
 	case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:// option to print 3D variables in control points
+	case NC_GEOTOP_Z_POINT_VAR:
 		ncgt_put_doublematrix_from_doubletensor_vs_time((DOUBLETENSOR *)m,counter, ncid, dimension_time, NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, dimension_z, rc);
 		break;
 	/* rotate map and put to netCDF */
 //	printf("\nsono qui1 a=%ld",a);//stop_execution();
 	default:
-		t_error("uncorrect number of dimensions in ncgt_add_output_var");
+		t_error("incorrect number of dimensions in ncgt_add_output_var");
 		break;
 
 	}
