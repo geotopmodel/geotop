@@ -217,6 +217,13 @@ void time_loop(ALLDATA *all){
 		all->counter_soil=0;
 		all->counter_glac=0;
 		all->counter_point=0;
+		if(all->P->point_sim!=1){  //distributed simulation
+			all->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
+			all->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
+		}else{// point simulation
+			all->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
+			all->point_var_type=NC_GEOTOP_POINT_VAR;
+			}
 #endif
 		do{			
 						

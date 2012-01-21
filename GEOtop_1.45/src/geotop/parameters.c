@@ -781,8 +781,11 @@ void assign_numeric_parameters(PAR *par, LANDCOVER *land, TIMES *times, SOIL *sl
 	for (i=1; i<=par->saving_points->nh; i++) {
 		par->saving_points->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 0., 0);
 	}
-	
+#ifdef USE_NETCDF
+	par->distr_stat = 1;
+#else
 	par->distr_stat = 0;
+#endif
 	par->output_soil = assignation_number(flog, 148, 0, keyword, num_param, num_param_components, 0., 0);
 	par->output_snow = assignation_number(flog, 149, 0, keyword, num_param, num_param_components, 0., 0);
 	par->output_glac = assignation_number(flog, 150, 0, keyword, num_param, num_param_components, 0., 0);
