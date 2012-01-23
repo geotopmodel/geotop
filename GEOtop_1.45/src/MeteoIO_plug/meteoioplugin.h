@@ -7,10 +7,10 @@
 #include <vector>
 extern "C" {
 #endif
-	#include "turtle.h"
-	#include "tabs.h"
-	#include "constant.h"
-	#include "struct.geotop.09375.h"
+#include "../libraries/fluidturtle/turtle.h"
+#include "../libraries/ascii/tabs.h"
+#include "../geotop/constants.h"
+#include "../geotop/struct.geotop.h"
 
 	#define PI 3.14159265358979
 
