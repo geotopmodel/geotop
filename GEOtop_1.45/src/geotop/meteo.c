@@ -238,3 +238,17 @@ double air_cp(double T){	//air specific heat at constant pressure [J/(kg K)] (Ga
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
+
+DOUBLEMATRIX * doubletens_to_doublemat(DOUBLETENSOR * input){
+/*
+ * this functions transforms a doubletensor to a doublematrix
+*/
+	DOUBLEMATRIX *output=new_doublematrix(input->nrh,input->nch);
+	long r,c;
+	for (r=input->nrl; r<=input->nrh; r++){
+		for (c=input->ncl; c<=input->nch; c++){
+			output->co[r][c]=input->co[input->ndl][r][c];
+		}
+	}
+	return output;
+}

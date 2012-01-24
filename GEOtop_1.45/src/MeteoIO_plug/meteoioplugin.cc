@@ -1,5 +1,5 @@
 #include "meteoioplugin.h"
-
+#include "../geotop/meteo.h"
 using namespace std;
 using namespace mio;
 
@@ -53,7 +53,7 @@ extern "C" DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* UV, char* _filename)
 	try {
 
 		Grid2DObject gridObject;
-		ConfigReader cfg("io.ini");
+		Config cfg("io.ini");
 		IOHandler iohandler(cfg);
 		
 		std::string gridsrc="", filename="";
@@ -103,22 +103,24 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* me
 	   4) gridded data copied back to GEOtop DOUBLEMATRIX
 	   5) TA and RH values need to be converted as well as nodata values
 	*/
-
+	DOUBLEMATRIX *buf;
 	DEMObject dem;
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid;
 	std::string coordsys="", coordparam="";
 
-	ConfigReader cfg("io.ini");
-	IOHandler iohandler(cfg);
-	BufferedIOHandler bufferediohandler(iohandler, cfg);
-	bufferediohandler.bufferAlways(false);
-	bufferediohandler.setBufferDuration(Date(0.25), Date(0.25));
+	Config cfg("io.ini");
+	IOManager io(cfg);
+	//BufferedIOHandler bufferediohandler(iohandler, cfg);
+	//bufferediohandler.bufferAlways(false);
+	//bufferediohandler.setBufferDuration(Date(0.25), Date(0.25));
+
 
 	double novalue =  UV->V->co[2];
 	
-	Date currentdate((int)par->year0, 1, 1,0,0);     
-	currentdate += par->JD0;          
-	currentdate += time/86400.0; //time is in seconds, conversion to julian by devision
+	//Date currentdate((int)par->year0, 1, 1,0,0);
+	//currentdate += par->JD0;
+	//currentdate += time/86400.0; //time is in seconds, conversion to julian by devision
+	Date currentdate=time;
 
 	std::cout << "[MeteoIO] Time to interpolate: " << time << " == " << currentdate.toString(Date::ISO) << std::endl;
 
@@ -127,7 +129,7 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* me
 
 	try {
 		cfg.getValue("COORDSYS", "Input", coordsys);
-		cfg.getValue("COORDPARAM", "Input", coordparam, ConfigReader::nothrow);
+		cfg.getValue("COORDPARAM", "Input", coordparam, Config::nothrow);
 
 		Coords coord(coordsys, coordparam);
 		/*
@@ -186,20 +188,20 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* me
 		}
 		*/
 		//alternative: let MeteoIO do all the work
-		bufferediohandler.readMeteoData(currentdate, vecMeteo, vecStation);
+		//bufferediohandler.readMeteoData(currentdate, vecMeteo, vecStation);
+	//	io.readMeteoData(currentdate, vecMeteo);
 
 		//read DEM
-		iohandler.readDEM(dem);
+		io.readDEM(dem);
+
 
 		//interpolate
-		Meteo2DInterpolator mi(cfg, dem, vecMeteo, vecStation);
-
-		mi.interpolate(MeteoData::TA, tagrid);
-		mi.interpolate(MeteoData::RH, rhgrid);
-		mi.interpolate(MeteoData::P,  pgrid);
-		mi.interpolate(MeteoData::VW, vwgrid);
-		mi.interpolate(MeteoData::DW, dwgrid);
-		mi.interpolate(MeteoData::HNW, hnwgrid);		
+		io.interpolate(currentdate, dem, MeteoData::TA, tagrid);
+		io.interpolate(currentdate, dem, MeteoData::RH, rhgrid);
+		io.interpolate(currentdate, dem, MeteoData::P, pgrid);
+		io.interpolate(currentdate, dem, MeteoData::VW, vwgrid);
+		io.interpolate(currentdate, dem, MeteoData::DW, dwgrid);
+		io.interpolate(currentdate, dem, MeteoData::HNW, hnwgrid);
 
 		//convert values accordingly, necessary for TA and RH
 		changeRHgrid(rhgrid);
@@ -208,13 +210,21 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* me
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
 
+	buf=doubletens_to_doublemat(met->Tgrid);
 	//Now copy all that data to the appropriate grids
-	copyGridToMatrix(novalue, tagrid, met->Tgrid);
-	copyGridToMatrix(novalue, rhgrid, met->RHgrid);
-	copyGridToMatrix(novalue, pgrid, met->Pgrid);
-	copyGridToMatrix(novalue, vwgrid, met->Vgrid);
-	copyGridToMatrix(novalue, dwgrid, met->Vdir);
-	copyGridToMatrix(novalue, hnwgrid, wat->total);
+	copyGridToMatrix(novalue, tagrid, buf);
+	buf=doubletens_to_doublemat(met->RHgrid);
+	copyGridToMatrix(novalue, rhgrid, buf);
+	buf=doubletens_to_doublemat(met->Pgrid);
+	copyGridToMatrix(novalue, pgrid, buf);
+	buf=doubletens_to_doublemat(met->Vgrid);
+	copyGridToMatrix(novalue, vwgrid, buf);
+	buf=doubletens_to_doublemat(met->Vdir);
+	copyGridToMatrix(novalue, dwgrid, buf);
+	buf=doubletens_to_doublemat(wat->PrecTot);
+	copyGridToMatrix(novalue, hnwgrid, buf);
+
+	free_doublematrix(buf);
 }
 
 void copyGridToMatrix(const double& novalue, const Grid2DObject& gridObject, DOUBLEMATRIX* myGrid)
@@ -267,11 +277,13 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 	d2 += times->TH/24;      //the end of the simulation
 
 	//Construction a BufferIOHandler and reading the meteo data through meteoio as configured in io.ini
-	ConfigReader cfg("io.ini");
-	IOHandler iohandler(cfg);
-	BufferedIOHandler bufferediohandler(iohandler, cfg);
-	bufferediohandler.bufferAlways(false);
-	bufferediohandler.setBufferDuration(Date(1.0), Date(10.0));
+	Config cfg("io.ini");
+	IOManager io(cfg);
+	//BufferedIOHandler bufferediohandler(iohandler, cfg);
+	//bufferediohandler.bufferAlways(false);
+	//bufferediohandler.setBufferDuration(Date(1.0), Date(10.0));
+
+
 
 	std::vector< std::vector<MeteoData> > vecMeteo;    //the dimension of this vector will be nrOfStations
 	std::vector< std::vector<StationData> > vecStation;//the dimension of this vector will be nrOfStations
@@ -288,7 +300,7 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 		std::vector<MeteoData> vecM;   //dimension: nrOfStations
 		std::vector<StationData> vecS; //dimension: nrOfStations
 
-		bufferediohandler.readMeteoData(currentDate, vecM, vecS); //reading meteo data and meta datafor currentDate
+		io.getMeteoData(currentDate, vecM); //reading meteo data and meta datafor currentDate
 
 		//the data needs to be appended to the collection of all read meteo and meta data:
 		for (unsigned int jj=0; jj<vecM.size(); jj++){
@@ -305,12 +317,14 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 	try {
 		string tmp;
 		cfg.getValue("METEO", "OUTPUT", tmp);
-		bufferediohandler.writeMeteoData(vecMeteo, vecStation);
+		io.writeMeteoData(vecMeteo);
 	} catch (std::exception& e){} //Do nothing if not configured or error happens
 
 	//Deal with meta data, that is allocate met->st and fill with data
 	std::vector<StationData> vecMyStation;
-	bufferediohandler.readStationData(d1, vecMyStation);
+	//bufferediohandler.readStationData(d1, vecMyStation);
+    io.getStationData(d1, vecMyStation);
+
 	initializeMetaData(vecMyStation, d1, novalue, par, stations);
 	cout << "[I] MeteoIO: Amount of stations: " << vecMeteo.size() << endl;
 	
@@ -322,6 +336,7 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 
 	for (unsigned int jj=0; jj<vecStation.size(); jj++){ //for each station
 		//{Iprec, WindS, WindDir, RelHum, AirT, AirP, SWglobal, SWdirect, SWdiffuse, TauCloud, Cloud, LWin, SWnet, Tsup}
+		//iPt ,iWs ,iWdir , iWsx , iWsy, iRh ,iT ,iTdew ,iPs,iSW ,iSWb ,iSWd,itauC ,iC,iLWi,iSWn
 		(*column)[jj] = (long*)malloc((ncols+1)*sizeof(long));
 		(*column)[jj][ncols] = end_vector_long;
 		for (unsigned int ff=0; ff<nrOfVariables; ff++){
@@ -342,13 +357,14 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 			data[jj][ll] = (double *)malloc((ncols+1)*sizeof(double));
 
 			//Put data in the correct cell
-			data[jj][ll][0] = vecMeteo[jj][ll].hnw;
-			data[jj][ll][1] = vecMeteo[jj][ll].vw;
-			data[jj][ll][2] = vecMeteo[jj][ll].dw;
-			data[jj][ll][3] = vecMeteo[jj][ll].rh * 100.00; //MeteoIO deals with RH in values [0;1]
-			data[jj][ll][4] = vecMeteo[jj][ll].ta - 273.15; //MeteoIO deals with temperature in Kelvin
-			data[jj][ll][5] = vecMeteo[jj][ll].p;
-			data[jj][ll][6] = vecMeteo[jj][ll].iswr;
+
+			data[jj][ll][0] = vecMeteo[jj][ll].HNW;
+			data[jj][ll][1] = vecMeteo[jj][ll].VW;
+			data[jj][ll][2] = vecMeteo[jj][ll].DW;
+			data[jj][ll][3] = vecMeteo[jj][ll].RH * 100.00; //MeteoIO deals with RH in values [0;1]
+			data[jj][ll][4] = vecMeteo[jj][ll].TA - 273.15; //MeteoIO deals with temperature in Kelvin
+			data[jj][ll][5] = vecMeteo[jj][ll].P;
+			data[jj][ll][6] = vecMeteo[jj][ll].ISWR;
 			data[jj][ll][7] = novalue;
 			data[jj][ll][8] = novalue;
 			data[jj][ll][9] = novalue; 
@@ -366,10 +382,10 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 				}
 			}
 			
-			/*//Comment this in if you want to see the data that was retrieved
+			//Comment this in if you dont want to see the data that was retrieved
 			cout << "MeteoData [" << ll+1 << "/" << vecMeteo[jj].size() << "]:" << endl;
-			std::cout << vecMeteo[jj][ll].toString() << std::endl;
-			*/
+		//	std::cout << vecMeteo[jj][ll].toString() << std::endl;
+
 		}
 
 		for(unsigned int ff=1;ff<=ncols;ff++){
@@ -429,9 +445,9 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 	stations->ST=new_doublevector(nrOfStations);	// Standard time minus UTM [hours] of the meteo station
 	stations->Vheight=new_doublevector(nrOfStations); // Wind velocity measurement height [m] (a.g.l.)
 	stations->Theight=new_doublevector(nrOfStations); // Air temperature measurement height [m] (a.g.l.)
-	stations->JD0=new_doublevector(nrOfStations);// Decimal Julian Day of the first data
-	stations->Y0=new_longvector(nrOfStations);	// Year of the first data
-	stations->Dt=new_doublevector(nrOfStations);	// Dt of sampling of the data [sec]
+//	stations->JD0=new_doublevector(nrOfStations);// Decimal Julian Day of the first data
+//	stations->Y0=new_longvector(nrOfStations);	// Year of the first data
+//	stations->Dt=new_doublevector(nrOfStations);	// Dt of sampling of the data [sec]
 	stations->offset=new_longvector(nrOfStations);// offset column
 
 	for(unsigned int ii=1; ii<=nrOfStations; ii++){  //HACK

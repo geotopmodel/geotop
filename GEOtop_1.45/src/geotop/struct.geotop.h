@@ -525,6 +525,7 @@ typedef struct {
 	long max_times_min_lambda_wat;
 	short exit_lambda_min_wat;	
 	long max_times_halving_time_step_wat;
+	short usemeteoio;// flag indicating whether MeteoIO library is used
 		
 } PAR;
 

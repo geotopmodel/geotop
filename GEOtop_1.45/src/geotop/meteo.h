@@ -43,6 +43,7 @@ double RHfromTdew(double T, double Tdew, double Z);
 double air_density(double T, double Q, double P);
 double air_cp(double T);
 
+DOUBLEMATRIX * doubletens_to_doublemat(DOUBLETENSOR * input);
 /*----------------------------------------------------------------------------------------------------------*/
 
 

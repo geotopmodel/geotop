@@ -2,12 +2,12 @@
 #define __METEOIOPLUGIN_H__
 
 #ifdef __cplusplus
-#include "MeteoIO.h" /* C++ header */
+#include <MeteoIO.h> /* C++ header */
 #include <iostream>  /* C++ header */
 #include <vector>
 extern "C" {
 #endif
-#include "../libraries/fluidturtle/turtle.h"
+
 #include "../libraries/ascii/tabs.h"
 #include "../geotop/constants.h"
 #include "../geotop/struct.geotop.h"
