@@ -2,6 +2,7 @@
 #include "../geotop/meteo.h"
 using namespace std;
 using namespace mio;
+extern long i_sim;
 
 extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF)
 {
@@ -12,7 +13,7 @@ extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF)
 	try {
 
 		DEMObject dem;
-		IOHandler iohandler("io.ini");
+		IOHandler iohandler("io_it.ini");
 		iohandler.readDEM(dem);
 		
 		myDEM = new_doublematrix(dem.nrows, dem.ncols);
@@ -268,13 +269,17 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 	long ncols=nrOfVariables; //the total number of meteo variables used in GEOtop (should stay fixed)
 
 	//Date d1 holds the beginning of this simulation, d2 the end date of the simulation 
-	Date d1((int)par->year0, 1, 1, 0, 0);     
-	d1 += par->JD0;          
-	d1 += times->time/86400; //times->time is in seconds, conversion to julian by devision
-
-	Date d2((int)par->year0, 1, 1, 0, 0);
-	d2 += par->JD0;
-	d2 += times->TH/24;      //the end of the simulation
+	//d1=times->time;
+	//d2=times->time+par->Dt;
+	Date d1=par->init_date->co[i_sim];
+	Date d2=par->end_date->co[i_sim];
+//	Date d1((int)par->year0, 1, 1, 0, 0);
+//	d1 += par->JD0;
+//	d1 += times->time/86400; //times->time is in seconds, conversion to julian by devision
+//
+//	Date d2((int)par->year0, 1, 1, 0, 0);
+//	d2 += par->JD0;
+//	d2 += times->TH/24;      //the end of the simulation
 
 	//Construction a BufferIOHandler and reading the meteo data through meteoio as configured in io.ini
 	Config cfg("io.ini");
@@ -282,8 +287,6 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 	//BufferedIOHandler bufferediohandler(iohandler, cfg);
 	//bufferediohandler.bufferAlways(false);
 	//bufferediohandler.setBufferDuration(Date(1.0), Date(10.0));
-
-
 
 	std::vector< std::vector<MeteoData> > vecMeteo;    //the dimension of this vector will be nrOfStations
 	std::vector< std::vector<StationData> > vecStation;//the dimension of this vector will be nrOfStations
@@ -338,8 +341,8 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 		//{Iprec, WindS, WindDir, RelHum, AirT, AirP, SWglobal, SWdirect, SWdiffuse, TauCloud, Cloud, LWin, SWnet, Tsup}
 		//iPt ,iWs ,iWdir , iWsx , iWsy, iRh ,iT ,iTdew ,iPs,iSW ,iSWb ,iSWd,itauC ,iC,iLWi,iSWn
 		(*column)[jj] = (long*)malloc((ncols+1)*sizeof(long));
-		(*column)[jj][ncols] = end_vector_long;
-		for (unsigned int ff=0; ff<nrOfVariables; ff++){
+		//(*column)[jj][ncols] = end_vector_long;
+		for (int ff=0; ff<nrOfVariables; ff++){
 			//(*column)[jj][ff] = ff;
 			(*column)[jj][ff] = -1;
 		}
@@ -372,9 +375,9 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 			data[jj][ll][11] = novalue; 
 			data[jj][ll][12] = novalue; 
 			data[jj][ll][13] = novalue; 
-			data[jj][ll][ncols] = end_vector;
+			//data[jj][ll][ncols] = end_vector;
 
-			for (unsigned int gg=0; gg<nrOfVariables; gg++){
+			for ( int gg=0; gg<nrOfVariables; gg++){
 				if (data[jj][ll][gg] == IOUtils::nodata){
 					data[jj][ll][gg] = novalue;
 				} else if (data[jj][ll][gg] != novalue){ 
@@ -388,20 +391,20 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 
 		}
 
-		for(unsigned int ff=1;ff<=ncols;ff++){
+		for(int ff=1;ff<=ncols;ff++){
 			if (ll>0)
 				if(data[jj][ll-1][ff]!=novalue) 
 					novalueend=0;
 		}
 
-		if(novalueend==0){
-			data[jj]=(double **)realloc(data[jj],(vecMeteo[jj].size()+1)*sizeof(double*));
-			data[jj][vecMeteo[jj].size()] = (double *)malloc(sizeof(double));
-			data[jj][vecMeteo[jj].size()][0]=end_vector;
-		} else {
-			if (vecMeteo[jj].size()>0)
-				data[jj][vecMeteo[jj].size()-1][0]=end_vector;
-		}
+//		if(novalueend==0){
+//			data[jj]=(double **)realloc(data[jj],(vecMeteo[jj].size()+1)*sizeof(double*));
+//			data[jj][vecMeteo[jj].size()] = (double *)malloc(sizeof(double));
+//			//data[jj][vecMeteo[jj].size()][0]=end_vector;
+//		} else {
+//			if (vecMeteo[jj].size()>0)
+//				data[jj][vecMeteo[jj].size()-1][0]=end_vector;
+//		}
 	}
 
 
@@ -412,7 +415,7 @@ extern "C" double ***meteoio_readMeteoData(long*** column, METEO_STATIONS *stati
 	for (unsigned int ii=0; ii<vecStation.size(); ii++){
 		double d=0.0;
 		for (unsigned int ll=0; ll < vecMeteo[ii].size(); ll++){
-			for (unsigned int kk=0; kk<ncols; kk++){
+			for ( int kk=0; kk<ncols; kk++){
 				//printf("%f ", data[ii][ll][kk]);
 				d = data[ii][ll][kk];
 			}
@@ -433,7 +436,7 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 	//Initialize the station data: set beginning of data
 	int year, month, day, hour, minute;
 	startDate.getDate(year, month, day, hour, minute);
-	Date JD_start = startDate - Date((int)par->year0, 1, 1, 0, 0); // this is the actual elapsed simulation time
+//	Date JD_start = startDate - Date((int)par->year0, 1, 1, 0, 0); // this is the actual elapsed simulation time
 
 	//init station struct met->st
 	stations->E=new_doublevector(nrOfStations); 	// East coordinate [m] of the meteo station
@@ -448,7 +451,7 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 //	stations->JD0=new_doublevector(nrOfStations);// Decimal Julian Day of the first data
 //	stations->Y0=new_longvector(nrOfStations);	// Year of the first data
 //	stations->Dt=new_doublevector(nrOfStations);	// Dt of sampling of the data [sec]
-	stations->offset=new_longvector(nrOfStations);// offset column
+//	stations->offset=new_longvector(nrOfStations);// offset column
 
 	for(unsigned int ii=1; ii<=nrOfStations; ii++){  //HACK
 		std::cout << "[I] MeteoIO station " << ii << ":\n" << vecStation[ii-1] << std::endl;
@@ -462,10 +465,10 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 		stations->ST->co[ii]  = 0;
 		stations->Vheight->co[ii] = 8.0;
 		stations->Theight->co[ii] = 8.0;
-		stations->JD0->co[ii]     = JD_start.getJulianDate();
-		stations->Y0->co[ii]      = year;
-		stations->Dt->co[ii]      = 3600.0; //in seconds
-		stations->offset->co[ii]  = 1;
+//		stations->JD0->co[ii]     = JD_start.getJulianDate();
+//		stations->Y0->co[ii]      = year;
+//		stations->Dt->co[ii]      = 3600.0; //in seconds
+//		stations->offset->co[ii]  = 1;
 
 		//cout << "JD beginning of data: " << stations->JD0->co[ii] << endl;
 		//cout << "Y0 beginning of data: " << stations->Y0->co[ii] << endl;

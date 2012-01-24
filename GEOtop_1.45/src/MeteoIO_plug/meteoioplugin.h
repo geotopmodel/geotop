@@ -11,6 +11,7 @@ extern "C" {
 #include "../libraries/ascii/tabs.h"
 #include "../geotop/constants.h"
 #include "../geotop/struct.geotop.h"
+#include "../geotop/meteo.h"
 
 	#define PI 3.14159265358979
 
