@@ -94,7 +94,7 @@ extern "C" DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* UV, char* _filename)
 	return myGrid;
 }
 
-extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* met, WATER* wat)
+extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double JDbeg, double JDend, METEO* met, WATER* wat)
 {
 	/* 
 	   This function performs the 2D interpolations by calling the respective methods within MeteoIO
@@ -121,9 +121,9 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* me
 	//Date currentdate((int)par->year0, 1, 1,0,0);
 	//currentdate += par->JD0;
 	//currentdate += time/86400.0; //time is in seconds, conversion to julian by devision
-	Date currentdate=time;
+	Date currentdate=JDbeg;
 
-	std::cout << "[MeteoIO] Time to interpolate: " << time << " == " << currentdate.toString(Date::ISO) << std::endl;
+	std::cout << "[MeteoIO] Time to interpolate: " << JDbeg << " == " << currentdate.toString(Date::ISO) << std::endl;
 
 	std::vector<MeteoData> vecMeteo;
 	std::vector<StationData> vecStation;

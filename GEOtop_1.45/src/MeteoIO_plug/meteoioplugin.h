@@ -20,7 +20,7 @@ extern "C" {
 	DOUBLEMATRIX *meteoio_readDEM(T_INIT** UV);
 	DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* UV, char* _filename);
 
-	void meteoio_interpolate(T_INIT* UV, PAR* par, double time, METEO* met, WATER* wat);
+	void meteoio_interpolate(T_INIT* UV, PAR* par, double JDbeg, double JDend, METEO* met, WATER* wat);
 
 #ifdef __cplusplus
 	void initializeMetaData(const std::vector<mio::StationData>& vecStation, 

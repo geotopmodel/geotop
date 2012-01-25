@@ -82,12 +82,15 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 		}
 	}
 	
-	Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3, 
+	if (par->usemeteoio==1){
+		meteoio_interpolate(UV, par, JDbeg, JDend, met, wat);
+	}else{
+		Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			 top->curvature4, top->slope, top->aspect, met, par->slopewt, par->curvewt, par->Vmin, par->RHmin, par->dn, 
 			 par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPt, met->Tgrid->co[k], met->RHgrid->co[k], met->Vgrid->co[k], 
 			 met->Vdir->co[k], met->Pgrid->co[k], wat->PrecTot->co[k], met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec], 
 			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-	
+	}
 	fclose(flog);
 		
 	if(par->en_balance==0){
