@@ -291,14 +291,20 @@ long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, doubl
 	 */
 	long counter_new=counter;
 	if(print_time_step>0 && fmod(time,print_time_step)<1.E-5){
-		// prints m (instantaneous)
-		counter_new=ncgt_add_output_var(ncid, m0, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter,
-					NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
-		// prints m0 (cumulated) and updates counter
-		counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new,
+		if (m0==NULL) {
+			// prints m
+			counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new,
+			update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
+		} else {
+			// prints m (instantaneous)
+			counter_new=ncgt_add_output_var(ncid, m0, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter,
+			NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
+			// prints m0 (cumulated) and updates counter
+			counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new,
 						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
-		// set to zero m0 (cumulated)
-		if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
+			// set to zero m0 (cumulated)
+			if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
+		}
 	}else if(print_time_step>0){
 		// printing time not reached: updates cumulated variable
 		if(reinitialize==1) ncgt_var_update(m, m0, computation_time_step,nlimdim, number_novalue);
