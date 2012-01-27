@@ -77,6 +77,8 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 		if( t+Dt > par->Dt ) Dt = par->Dt - t;
 		Dt0 = Dt;
 		
+
+
 		//meteo distribution
 		meteo_distr(1, 1, met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top, par, 
 					par->init_date->co[i_sim]+(t0+t)/86400., par->init_date->co[i_sim]+(t0+t+Dt)/86400.);

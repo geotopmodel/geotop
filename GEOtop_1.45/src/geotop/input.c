@@ -219,68 +219,66 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land
 	met->line_interp_Bsnow_LR=0;	
 	
 	success = read_meteostations_file(met->imeteo_stations, met->st, files[fmetstlist], IT->meteostations_col_names, flog);
-	par->usemeteoio=0;
-	if (par->usemeteoio==1){
+	par->usemeteoio=1;
+
+	for(i=1;i<=met->st->E->nh;i++){// for all the meteo stations
 		
-	}else{// classic GEOtop parsing
-		for(i=1;i<=met->st->E->nh;i++){// for all the meteo stations
-			
-			if (met->imeteo_stations->co[1] != number_novalue) {
-				ist = met->imeteo_stations->co[i];
-			}else {
-				ist = i;
-			}
-
-			//initialize
-			met->line_interp_WEB[i-1] = 0;
-			met->line_interp_Bsnow[i-1] = 0;
-
-			//allocate var
-			met->var[i-1] = (double*)malloc(num_cols*sizeof(double));
-			
-			//read horizon
-			met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines, flog);
-			met->horizonlines[i-1] = num_lines;
-			
-			//filename
-			if (strcmp(files[fmet], string_novalue) != 0){
-
-				//read matrix
-				temp=namefile_i(files[fmet], ist);
-				met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
-				if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
-					printf("Error:: Date Column missing in file %s\n",temp);
-					stop_execution();
-					t_error("Not Possible To Continue (1) ");
-				}
-				met->numlines[i-1] = num_lines;
-
-				//fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-				added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i], met->numlines[i-1], iDate12, iJDfrom0);
-
-				//calcululate Wx and Wy if Wspeed and direction are given
-				added_wind = fill_wind_speed(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-
-				//find clouds
-				added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
-												met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0);
-
-				//find Tdew
-				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-
-				//rewrite completed files
-				rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp, added_JDfrom0, added_wind, added_cloud, added_Tdew);
-
-				free(temp);
-
-			}else {
-
-				t_error("Error: File meteo not in the list, meteo data not read, not possible to continue\n");
-
-			}
+		if (met->imeteo_stations->co[1] != number_novalue) {
+			ist = met->imeteo_stations->co[i];
+		}else {
+			ist = i;
 		}
 
+		//initialize
+		met->line_interp_WEB[i-1] = 0;
+		met->line_interp_Bsnow[i-1] = 0;
+
+		//allocate var
+		met->var[i-1] = (double*)malloc(num_cols*sizeof(double));
+
+		//read horizon
+		met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines, flog);
+		met->horizonlines[i-1] = num_lines;
+
+		//filename
+		if (strcmp(files[fmet], string_novalue) != 0){
+
+			//read matrix
+			temp=namefile_i(files[fmet], ist);
+			met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
+			if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
+				printf("Error:: Date Column missing in file %s\n",temp);
+				stop_execution();
+				t_error("Not Possible To Continue (1) ");
+			}
+			met->numlines[i-1] = num_lines;
+
+			//fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
+			added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i], met->numlines[i-1], iDate12, iJDfrom0);
+
+			//calcululate Wx and Wy if Wspeed and direction are given
+			added_wind = fill_wind_speed(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+
+			//find clouds
+			added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
+											met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0);
+
+			//find Tdew
+			added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+
+			//rewrite completed files
+			rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp, added_JDfrom0, added_wind, added_cloud, added_Tdew);
+
+			free(temp);
+
+		}else {
+
+			t_error("Error: File meteo not in the list, meteo data not read, not possible to continue\n");
+
+		}
 	}
+
+
 	//read LAPSE RATES FILE  
 	
 	if(strcmp(files[fLRs] , string_novalue) != 0){   //s stands for string
@@ -1522,7 +1520,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land
 	
 	/*Free the struct allocated in this subroutine:*/
 	
-	free_doublematrix(par->chkpt);
+	//free_doublematrix(par->chkpt);
 	free_doublevector(sl->init_water_table_height);
 
 	if(par->point_sim==1 && par->recover>0){

@@ -27,7 +27,7 @@
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"
-
+//#include "../MeteoIO_plug/meteoioplugin.h"
 extern long number_novalue, number_absent;
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
@@ -81,9 +81,9 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 			}
 		}
 	}
-	
+	//par->usemeteoio=0;
 	if (par->usemeteoio==1){
-		meteoio_interpolate(UV, par, JDbeg, JDend, met, wat);
+		meteoio_interpolate(UV, par, JDbeg, met, wat);
 	}else{
 		Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			 top->curvature4, top->slope, top->aspect, met, par->slopewt, par->curvewt, par->Vmin, par->RHmin, par->dn, 
@@ -92,7 +92,16 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
 	}
 	fclose(flog);
-		
+
+
+//	DOUBLEMATRIX *test_print;
+//	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
+//	doubletens_to_doublemat(met->Tgrid,test_print);
+//	printf("\nciao\n");
+//	print_doublematrix_elements(test_print,10);
+//	stop_execution();
+
+
 	if(par->en_balance==0){
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
@@ -242,16 +251,3 @@ double air_cp(double T){	//air specific heat at constant pressure [J/(kg K)] (Ga
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLEMATRIX * doubletens_to_doublemat(DOUBLETENSOR * input){
-/*
- * this functions transforms a doubletensor to a doublematrix
-*/
-	DOUBLEMATRIX *output=new_doublematrix(input->nrh,input->nch);
-	long r,c;
-	for (r=input->nrl; r<=input->nrh; r++){
-		for (c=input->ncl; c<=input->nch; c++){
-			output->co[r][c]=input->co[input->ndl][r][c];
-		}
-	}
-	return output;
-}

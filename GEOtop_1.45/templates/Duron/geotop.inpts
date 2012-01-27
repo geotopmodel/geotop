@@ -18,7 +18,7 @@ OutputSnowMaps = 24
 OutputSurfEBALMaps = 24
 OutputMeteoMaps = 24
 
-NumberOfMeteoStations = 1
+NumberOfMeteoStations = 4
 MeteoStationCoordinateX = 711588.97
 MeteoStationCoordinateY = 5132162.02
 MeteoStationElevation = 1542
@@ -34,10 +34,12 @@ HeaderJulianDayfrom0Meteo = "JDfrom0"
 HeaderIPrec = "Iprec"
 HeaderWindVelocity = "WindSp"
 HeaderWindDirection = "WindDir"
-HeaderRH = "relH"
+HeaderRH = "RH"
 HeaderAirTemp = "AirT"
-HeaderSWglobal = "rad"
-HeaderCloudSWTransmissivity = "CloudTrans"
+HeaderSWglobal = "Swglob"
+HeaderCloudSWTransmissivity = "TauCloud"
+
+!Iprec, WindSp, WindDir, RH, AirT, AirP, Swglob, SWdirect, SWdiffuse, TauCloud, Cloud, LWin, SWnet, Tsup
 
 PointFile = "listpoints"
 HeaderPointID = "ID"

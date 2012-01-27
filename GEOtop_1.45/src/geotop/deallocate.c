@@ -133,7 +133,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LANDCOVER *land,WATER *wat,CHANNEL *cnet,PAR
 		
 		free_longmatrix(top->horizon_point);
 	}
-	
+	free_doublematrix(par->chkpt);
 	free_doublematrix(top->sky);
 	free_doublematrix(top->Z0);
 	free_doublematrix(top->East);
