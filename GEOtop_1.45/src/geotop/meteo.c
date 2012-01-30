@@ -93,13 +93,13 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 	}
 	fclose(flog);
 
-
-//	DOUBLEMATRIX *test_print;
-//	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
-//	doubletens_to_doublemat(met->Tgrid,test_print);
-//	printf("\nciao\n");
-//	print_doublematrix_elements(test_print,10);
-//	stop_execution();
+	DOUBLEMATRIX *test_print;
+	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
+	doubletens_to_doublemat(met->Tgrid,test_print);
+	printf("\n Inside meteo_distr \n");
+//	print_doublematrix_elements(met->Tgrid,10);
+	print_doublematrix_elements(test_print,10);
+	stop_execution();
 
 
 	if(par->en_balance==0){

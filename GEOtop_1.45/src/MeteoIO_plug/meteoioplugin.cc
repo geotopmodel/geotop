@@ -2,6 +2,8 @@
 //#include "../geotop/meteo.h"
 #include "../geotop/times.h"
 #include <sstream>
+#include <stdlib.h>
+
 using namespace std;
 using namespace mio;
 extern long i_sim;
@@ -11,7 +13,6 @@ DEMObject dem;
 Config
 		cfg(
 				"/Users/noori/Documents/workspace/GEOtopCPP/src/MeteoIO_plug/io_it.ini");
-IOManager io(cfg);
 
 extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF) {
 	DOUBLEMATRIX *myDEM = NULL;
@@ -121,16 +122,12 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid;
 	std::string coordsys = "", coordparam = "";
 
-	//Config cfg("/Users/noori/Documents/workspace/GEOtopCPP/src/MeteoIO_plug/io_it.ini");
-	//IOManager io(cfg);
-
 	double novalue = UV->V->co[2];
 
 	Date d1;
 	d1.setMatlabDate(currentdate, TZ); // GEOtop use matlab offset of julian date
 
 	std::cout << "[MeteoIO] Time to interpolate: " << std::endl;
-	// std::cout << "[MeteoIO] Time to interpolate: JDbeg"<<currentdate<<" /n " << d1 << " == " << d1.toString(Date::ISO) << std::endl;
 
 	std::vector<MeteoData> vecMeteo;
 	std::vector<StationData> vecStation;
@@ -140,6 +137,7 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 		cfg.getValue("COORDPARAM", "Input", coordparam, Config::nothrow);
 
 		Coords coord(coordsys, coordparam);
+
 		/*
 		 for(unsigned int ii=1; ii<=met->st->Z->nh; ii++){//Build up MeteoData and StationData objects
 
@@ -196,25 +194,48 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 		 }
 		 */
 		//alternative: let MeteoIO do all the work
-		//bufferediohandler.readMeteoData(currentdate, vecMeteo, vecStation);
-		//	io.readMeteoData(d1, vecMeteo);
 
+		//interpolate lapse rates
+		double lrta = -LapseRateTair * 1E-3; // GEOtop default lapse rate of air temp.
+		double lspr = -LapseRatePrec * 1E-3; // GEOtop default lapse rate of precipitation
+
+		if (met->LRv[ilsTa] != LapseRateTair) {
+			// the user has given a lapse rate: use this
+			lrta = -met->LRv[ilsTa] * 1E-3;
+			stringstream lapserateTA;//create a stringstream
+			lapserateTA << lrta;//add number to the stream
+			string s = " soft";
+			cfg.addKey("TA::idw_lapse", "Interpolations2D", lapserateTA.str()
+					+ s);
+		}
+
+		if (met->LRv[ilsPrec] != LapseRatePrec) {
+			// the user has given a lapse rate: use this
+			lspr = -met->LRv[ilsPrec] * 1E-3;
+			stringstream lapserateHNW;//create a stringstream
+			lapserateHNW << lspr;//add number to the stream
+			string s = " soft";
+			cfg.addKey("HNW::idw_lapse", "Interpolations2D", lapserateHNW.str()
+					+ s);
+		}
+
+		IOManager io(cfg);
 
 		//read DEM
 		io.readDEM(dem);
 
-		//interpolate
 		io.interpolate(d1, dem, MeteoData::TA, tagrid);
 		io.interpolate(d1, dem, MeteoData::RH, rhgrid);
 		io.interpolate(d1, dem, MeteoData::P, pgrid);
 		io.interpolate(d1, dem, MeteoData::VW, vwgrid);
-		//	//	io.interpolate(d1, dem, MeteoData::DW, dwgrid);
+		//io.interpolate(d1, dem, MeteoData::DW, dwgrid);
 		io.interpolate(d1, dem, MeteoData::HNW, hnwgrid);
-		io.write2DGrid(tagrid, "ta.asc");
-		//
-		//		//convert values accordingly, necessary for TA and RH
-		//		changeRHgrid(rhgrid);
-		//		changeTAgrid(tagrid);
+
+		//convert values accordingly, necessary for TA and RH
+		changeRHgrid(rhgrid);
+		changeTAgrid(tagrid);
+		//io.write2DGrid(tagrid, "ta_c.asc");
+
 	} catch (std::exception& e) {
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
@@ -224,76 +245,98 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 
 		//Now copy all that data to the appropriate grids
 		buf = new_doublematrix(1, par->chkpt->nrh);// matrix with 1 row and number of columns equal to the number of simulation points
+		copyGridToMatrixPointWise(novalue, tagrid, buf, par->chkpt);
+		printf("\nAfter copy TA\n");
+		print_doublematrix_elements(buf, 10);
 
-		copyGridToMatrix(novalue, tagrid, buf, par->chkpt, true);
-		printf("\nciao after copy TA\n");
-			print_doublematrix_elements(buf,10);
+		//Now copy all that data to the appropriate grids
+		buf = new_doublematrix(1, par->chkpt->nrh);// matrix with 1 row and number of columns equal to the number of simulation points
+		copyGridToMatrixPointWise(novalue, rhgrid, buf, par->chkpt);
+		printf("\nAfter copy RH\n");
+		print_doublematrix_elements(buf, 10);
 
-		//	stop_execution();
+		//Now copy all that data to the appropriate grids
+		buf = new_doublematrix(1, par->chkpt->nrh);// matrix with 1 row and number of columns equal to the number of simulation points
+		copyGridToMatrixPointWise(novalue, pgrid, buf, par->chkpt);
+		printf("\nAfter copy P\n");
+		print_doublematrix_elements(buf, 10);
+
+		//Now copy all that data to the appropriate grids
+		buf = new_doublematrix(1, par->chkpt->nrh);// matrix with 1 row and number of columns equal to the number of simulation points
+		copyGridToMatrixPointWise(novalue, vwgrid, buf, par->chkpt);
+		printf("\nAfter copy VW\n");
+		print_doublematrix_elements(buf, 10);
+
+		//Now copy all that data to the appropriate grids
+		buf = new_doublematrix(1, par->chkpt->nrh);// matrix with 1 row and number of columns equal to the number of simulation points
+		copyGridToMatrixPointWise(novalue, hnwgrid, buf, par->chkpt);
+		printf("\nAfter copy HNW\n");
+		print_doublematrix_elements(buf, 10);
+
+		stop_execution();
 		// extract the points
 
-//TODO:
+		//TODO:
 		free_doublematrix(buf);
 	} else {// distributed simulation
-		buf = new_doublematrix(tagrid.nrows, tagrid.ncols);
+		buf = new_doublematrix(tagrid.nrows, tagrid.ncols); // allocate the double matrix
 		buf = doubletens_to_doublemat(met->Tgrid, buf);
 		print_doublematrix_elements(buf, 10);
 		stop_execution();
 		//Now copy all that data to the appropriate grids
-		copyGridToMatrix(novalue, tagrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, tagrid, buf);
 		buf = doubletens_to_doublemat(met->RHgrid, buf);
-		copyGridToMatrix(novalue, rhgrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, rhgrid, buf);
 		buf = doubletens_to_doublemat(met->Pgrid, buf);
-		copyGridToMatrix(novalue, pgrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, pgrid, buf);
 		buf = doubletens_to_doublemat(met->Vgrid, buf);
-		copyGridToMatrix(novalue, vwgrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, vwgrid, buf);
 		buf = doubletens_to_doublemat(met->Vdir, buf);
-		copyGridToMatrix(novalue, dwgrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, dwgrid, buf);
 		buf = doubletens_to_doublemat(wat->PrecTot, buf);
-		copyGridToMatrix(novalue, hnwgrid, buf, par->chkpt,false);
+		copyGridToMatrix(novalue, hnwgrid, buf);
 		free_doublematrix(buf);
 	}
 }
 
 void copyGridToMatrix(const double& novalue, const Grid2DObject& gridObject,
-		DOUBLEMATRIX* myGrid, DOUBLEMATRIX *coordinates, bool is_point_wise) {
+		DOUBLEMATRIX* myGrid) {
 
-	if (is_point_wise!=true) {
-		for (unsigned int ii = 0; ii < gridObject.nrows; ii++) {
-			for (unsigned int jj = 0; jj < gridObject.ncols; jj++) {
-				if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii)
-						== IOUtils::nodata) {
-					myGrid->co[ii + 1][jj + 1] = novalue;
-				} else {
-					myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj,
-							gridObject.nrows - 1 - ii);
-				}
-				//std::cout << myGrid->co[ii+1][jj+1] << " ";						
+	for (unsigned int ii = 0; ii < gridObject.nrows; ii++) {
+		for (unsigned int jj = 0; jj < gridObject.ncols; jj++) {
+			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii)
+					== IOUtils::nodata) {
+				myGrid->co[ii + 1][jj + 1] = novalue;
+			} else {
+				myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj,
+						gridObject.nrows - 1 - ii);
 			}
-			//std::cout << std::endl;
 		}
-	} else {
-		std::string coordin = "", coordinparam = "";
-		cfg.getValue("COORDSYS", "Input", coordin);
-		cfg.getValue("COORDPARAM", "Input", coordinparam, Config::nothrow);
-		Coords point(coordin, coordinparam);
-		point.copyProj(gridObject.llcorner);
-
-		double eastX, northY;
-		int i;
-
-		for (i = 1; i <= coordinates->nrh; i++) {
-			eastX = coordinates->co[i][ptX];
-			northY = coordinates->co[i][ptY];
-			point.setXY(eastX, northY, IOUtils::nodata);
-			gridObject.gridify(point);
-			double pointValue = gridObject(point.getGridI(), point.getGridJ());
-//			std::cout <<"X : "<< eastX << " Y: "<<northY <<"Point value: " << pointValue << std::endl;
-			myGrid->co[1][i] = pointValue- 273.15; //MeteoIO deals with temperature in Kelvin;
-
-		}
-		//stop_execution();
 	}
+}
+
+void copyGridToMatrixPointWise(const double& novalue,
+		const Grid2DObject& gridObject, DOUBLEMATRIX* myGrid,
+		DOUBLEMATRIX *coordinates) {
+
+	std::string coordin = "", coordinparam = "";
+	cfg.getValue("COORDSYS", "Input", coordin);
+	cfg.getValue("COORDPARAM", "Input", coordinparam, Config::nothrow);
+	Coords point(coordin, coordinparam);
+	point.copyProj(gridObject.llcorner);
+
+	double eastX, northY, pointValue;
+
+	for (int i = 1; i <= coordinates->nrh; i++) {
+		eastX = coordinates->co[i][ptX];
+		northY = coordinates->co[i][ptY];
+		point.setXY(eastX, northY, IOUtils::nodata);
+		gridObject.gridify(point);
+		pointValue = gridObject(point.getGridI(), point.getGridJ());
+		//std::cout <<"X : "<< eastX << " Y: "<<northY <<"Point value: " << pointValue << std::endl;
+		myGrid->co[1][i] = pointValue; //MeteoIO deals with temperature in Kelvin;
+	}
+	//stop_execution();
 }
 
 void changeRHgrid(Grid2DObject& g2d) {

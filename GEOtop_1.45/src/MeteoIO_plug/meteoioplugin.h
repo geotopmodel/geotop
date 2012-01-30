@@ -27,7 +27,8 @@ extern "C" {
 	void initializeMetaData(const std::vector<mio::StationData>& vecStation, 
 					    const mio::Date& startDate, const double& novalue, PAR *par, METEO_STATIONS *stations);
 
-	void copyGridToMatrix(const double& novalue, const mio::Grid2DObject& gridObject, DOUBLEMATRIX* myGrid, DOUBLEMATRIX*, bool is_point_wise);
+	void copyGridToMatrix(const double& novalue, const mio::Grid2DObject& gridObject, DOUBLEMATRIX* myGrid);
+	void copyGridToMatrixPointWise(const double& novalue, const mio::Grid2DObject& gridObject, DOUBLEMATRIX* myGrid, DOUBLEMATRIX* coordPoints);
 	void changeRHgrid(mio::Grid2DObject& g2d);
 	void changeTAgrid(mio::Grid2DObject& g2d);
 
