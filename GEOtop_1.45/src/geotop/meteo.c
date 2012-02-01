@@ -83,7 +83,8 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 	}
 	//par->usemeteoio=0;
 	if (par->usemeteoio==1){
-		meteoio_interpolate(UV, par, JDbeg, met, wat);
+		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
+		meteoio_interpolate(UV, par, JDbeg, met, wat,k);
 	}else{
 		Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			 top->curvature4, top->slope, top->aspect, met, par->slopewt, par->curvewt, par->Vmin, par->RHmin, par->dn, 
@@ -95,12 +96,38 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 
 	DOUBLEMATRIX *test_print;
 	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
-	doubletens_to_doublemat(met->Tgrid,test_print);
-	printf("\n Inside meteo_distr \n");
-//	print_doublematrix_elements(met->Tgrid,10);
+	doubletens_to_doublemat(met->Tgrid,test_print, k);
+	printf("\n TA \n");
 	print_doublematrix_elements(test_print,10);
+	doubletens_to_doublemat(met->RHgrid,test_print,k);
+	printf("\n RH \n");
+	print_doublematrix_elements(test_print,10);
+	doubletens_to_doublemat(met->Pgrid,test_print,k);
+	printf("\n P \n");
+	print_doublematrix_elements(test_print,10);
+	doubletens_to_doublemat(met->Vdir,test_print,k);
+	printf("\n Vdir \n");
+	print_doublematrix_elements(test_print,10);
+	doubletens_to_doublemat(met->Vgrid,test_print,k);
+	printf("\n Vgrid \n");
+	print_doublematrix_elements(test_print,10);
+	doubletens_to_doublemat(wat->PrecTot,test_print,k);
+	printf("\n HNW \n");
+	print_doublematrix_elements(test_print,10);
+	free_doublematrix(test_print);
+	//stop_execution();
+//-----------------------Test print--------------------------//
+//	printf("\n Inside meteo_distr \n");
+//    long r1,c1;
+//for (r1 = met->Tgrid->nrl; r1 <= met->Tgrid->nrh; r1++) {
+//			for (c1 = met->Tgrid->ncl; c1 <= met->Tgrid->nch; c1++) {
+//				printf("\nk=%ld,r=%ld,c=%ld, met->Vgrid->co[k][r][c]=%f",k,r1,c1,met->Vgrid->co[k][r1][c1]);
+//				printf("\nk=%ld,r=%ld,c=%ld, wat->PrecTot->co[k][r][c]=%f",k,r1,c1,wat->PrecTot->co[k][r1][c1]);
+//		}
+//		}
+//
 	stop_execution();
-
+//---------------------------------------------------//
 
 	if(par->en_balance==0){
 		for(r=1;r<=Nr;r++){
