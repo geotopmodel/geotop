@@ -1,5 +1,4 @@
 #include "meteoioplugin.h"
-//#include "../geotop/meteo.h"
 #include "../geotop/times.h"
 #include <sstream>
 #include <stdlib.h>
@@ -8,11 +7,9 @@ using namespace std;
 using namespace mio;
 extern long i_sim;
 const double TZ = 1.;
-
+extern long number_novalue, number_absent;
 DEMObject dem;
-Config
-		cfg(
-				"/Users/noori/Documents/workspace/GEOtopCPP/src/MeteoIO_plug/io_it.ini");
+Config cfg("/Users/noori/Documents/workspace/GEOtopCPP/src/MeteoIO_plug/io_it.ini");
 
 extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF) {
 	DOUBLEMATRIX *myDEM = NULL;
@@ -30,7 +27,7 @@ extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF) {
 		UV->U = new_doublevector(4);
 
 		UV->V->co[1] = -1.0;
-		UV->V->co[2] = -9999.0;
+		UV->V->co[2] = number_novalue;//GEOtop nodata -9999.0
 
 		UV->U->co[1] = dem.cellsize;
 		UV->U->co[2] = dem.cellsize;
@@ -117,7 +114,7 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 	 4) gridded data copied back to GEOtop DOUBLEMATRIX
 	 5) TA and RH values need to be converted as well as nodata values
 	 */
-	//DOUBLEMATRIX *buf;// bla bla...
+
 	DEMObject dem;
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid;
 	std::string coordsys = "", coordparam = "";
@@ -129,7 +126,6 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 
 	std::cout << "[MeteoIO] Time to interpolate: " << std::endl;
 
-	std::vector<MeteoData> vecMeteo;
 	std::vector<StationData> vecStation;
 
 	try {
@@ -195,26 +191,24 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 		 */
 		//alternative: let MeteoIO do all the work
 
-		//interpolate lapse rates
 		double lrta = -LapseRateTair * 1E-3; // GEOtop default lapse rate of air temp.
 		double lspr = -LapseRatePrec * 1E-3; // GEOtop default lapse rate of precipitation
 
 		if (met->LRv[ilsTa] != LapseRateTair) {
-			// the user has given a lapse rate: use this
+			// The user has given a lapse rate: use this
 			lrta = -met->LRv[ilsTa] * 1E-3;
-			stringstream lapserateTA;//create a stringstream
-			lapserateTA << lrta;//add number to the stream
+			stringstream lapserateTA;	// Create a stringstream
+			lapserateTA << lrta;		// Add number to the stream
 			string s = " soft";
-			std::cout << "Laps rate >> "<< lapserateTA.str() <<" \n";
 			cfg.addKey("TA::idw_lapse", "Interpolations2D", lapserateTA.str()
 					+ s);
 		}
 
 		if (met->LRv[ilsPrec] != LapseRatePrec) {
-			// the user has given a lapse rate: use this
+			// The user has given a lapse rate: use this
 			lspr = -met->LRv[ilsPrec] * 1E-3;
-			stringstream lapserateHNW;//create a stringstream
-			lapserateHNW << lspr;//add number to the stream
+			stringstream lapserateHNW;	// Create a stringstream
+			lapserateHNW << lspr;		// Add number to the stream
 			string s = " soft";
 			cfg.addKey("HNW::idw_lapse", "Interpolations2D", lapserateHNW.str()
 					+ s);
@@ -225,6 +219,41 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 		//read DEM
 		io.readDEM(dem);
 
+		std::vector<std::vector<MeteoData> > vecMeteos;
+		std::vector<MeteoData> meteo; 					// Intermediate storage for storing data sets for 1 timestep
+		int numOfStations = io.getMeteoData(d1, meteo); // Read the meteo data for the given timestep
+		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
+		double rain, snow, hnw,ta;
+
+		std::cout << " raincorrfact "<<par->raincorrfact <<" rain "<<rain <<" snowcorrfact "<< par->snowcorrfact <<" snow "<< snow << std::endl;
+		for(int i=0;i<numOfStations;i++){
+           	hnw = meteo[i](MeteoData::HNW);
+           	ta = meteo[i](MeteoData::TA)- 273.15; 							// MeteoIO deals with temperature in Kelvin;
+        	if (hnw > 0 && hnw!= IOUtils::nodata && ta!=IOUtils::nodata ) { // check for non-zero precipitation
+        		part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow); // perform prepossessing on HNW
+        		std::cout <<i<< " Mhnw " << hnw <<" MTa "<<ta<<" IR "<<par->raincorrfact * rain + par->snowcorrfact * snow << std::endl;
+        		meteo[i](MeteoData::HNW)= par->raincorrfact * rain + par->snowcorrfact * snow; // rain correction factor and snow correction factor
+        		vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
+           		}
+        	}
+
+		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
+		io.push_meteo_data(IOManager::filtered,d1,d1,vecMeteos);
+
+		// PRECIPITATION
+		// TODO: correct the precipitation at each station for the raincorrfact and the snowcorrfact
+//		   double prec, rain, snow;
+//		   for(n=1;n<=met->st->Z->nh;n++){
+//					if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){// check if exists prec. value
+//					prec = met->var[n-1][Pcode];// precipitation of the meteo station n
+//					part_snow(prec, &rain, &snow, met->var[n-1][Tcode], par->T_rain, par->T_snow);
+//					met->var[n-1][Pcode] = par->raincorrfact * rain + par->snowcorrfact * snow;
+//					//hnwgrid.grid2D(r, c) = par->raincorrfact * rain + par->snowcorrfact * snow;
+//					}
+//				}
+//		    part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), Train, Tsnow);
+//
+
 		cout <<"Time stamp " << d1.toString(d1.DIN) << std::endl;
 
 		io.interpolate(d1, dem, MeteoData::TA, tagrid);
@@ -234,37 +263,29 @@ extern "C" void meteoio_interpolate(T_INIT* UV, PAR* par, double currentdate,
 	  //  io.interpolate(d1, dem, MeteoData::DW, dwgrid);
 		io.interpolate(d1, dem, MeteoData::HNW, hnwgrid);
 
-		//convert values accordingly, necessary for TA and RH
+		//convert values accordingly, necessary for TA , RH and P
 		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
 		changeTAgrid(tagrid);
 		io.write2DGrid(hnwgrid, "hnw_c.asc");
 		changePgrid(pgrid);
-		// TODO: correct the precipitation for the raincorrfact and the snowcorrfact
-//		if (par->dew == 1) {
-//			part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), par->T_rain, par->T_snow);
-//		}else {
-//			part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), Train, Tsnow);
-//		}
-//		hnwgrid.grid2D(r, c) = par->raincorrfact * rain + par->snowcorrfact * snow;
 
 	} catch (std::exception& e) {
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
 
 	std::cout << "[MeteoIO] Start copying data to GEOtop format: " << std::endl;
-	if (par->point_sim == 1) {// point-wise simulation-> use DEM
-
-		//Now copy all that data to the appropriate grids
-
+	if (par->point_sim == 1) {
+		// if point-wise simulation
+		// Now copy all that data to the appropriate grids
 		copyGridToTensorPointWise(novalue, tagrid, met->Tgrid,k ,par->chkpt);
 		copyGridToTensorPointWise(novalue, rhgrid, met->RHgrid,k, par->chkpt);
 		copyGridToTensorPointWise(novalue, pgrid, met->Pgrid,k, par->chkpt);
 		copyGridToTensorPointWise(novalue, dwgrid, met->Vdir, k,par->chkpt);
 		copyGridToTensorPointWise(novalue, vwgrid, met->Vgrid, k, par->chkpt);
 		copyGridToTensorPointWise(novalue, hnwgrid, wat->PrecTot, k, par->chkpt);
-		//TODO:
 
-	} else {// distributed simulation
+	} else {
+		// if distributed simulation
 		//Now copy all that data to the appropriate grids
 		copyGridToTensor(novalue, tagrid, met->Tgrid,k);
 		copyGridToTensor(novalue, rhgrid, met->RHgrid,k);
@@ -324,10 +345,8 @@ void copyGridToMatrixPointWise(const double& novalue,
 		point.setXY(eastX, northY, IOUtils::nodata);
 		gridObject.gridify(point);
 		pointValue = gridObject(point.getGridI(), point.getGridJ());
-		//std::cout <<"X : "<< eastX << " Y: "<<northY <<"Point value: " << pointValue << std::endl;
-		myGrid->co[1][i] = pointValue; //MeteoIO deals with temperature in Kelvin;
+		myGrid->co[1][i] = pointValue;
 	}
-	//stop_execution();
 }
 
 void copyGridToTensorPointWise(const double& novalue,
@@ -347,12 +366,9 @@ void copyGridToTensorPointWise(const double& novalue,
 		point.setXY(eastX, northY, IOUtils::nodata);
 		gridObject.gridify(point);
 		pointValue = gridObject(point.getGridI(), point.getGridJ());
-		//std::cout <<"X : "<< eastX << " Y: "<<northY <<"Point value: " << pointValue << std::endl;
+		// One row because in point wise simulations the matrix is formed by one row and n columns where n is the number of checkpoints
 		myGrid->co[indx][1][i] = pointValue;
-		//One row because in point wise simulations the matrix is formed by one row and n columns
-		// where n is the number of checkpoints
-	}
-	//stop_execution();
+		}
 }
 
 
@@ -406,9 +422,6 @@ extern "C" double ***meteoio_readMeteoData(long*** column,
 	//Construction a BufferIOHandler and reading the meteo data through meteoio as configured in io.ini
 	Config cfg("io.ini");
 	IOManager io(cfg);
-	//BufferedIOHandler bufferediohandler(iohandler, cfg);
-	//bufferediohandler.bufferAlways(false);
-	//bufferediohandler.setBufferDuration(Date(1.0), Date(10.0));
 
 	std::vector<std::vector<MeteoData> > vecMeteo; //the dimension of this vector will be nrOfStations
 	std::vector<std::vector<StationData> > vecStation;//the dimension of this vector will be nrOfStations
@@ -452,7 +465,6 @@ extern "C" double ***meteoio_readMeteoData(long*** column,
 
 	//Deal with meta data, that is allocate met->st and fill with data
 	std::vector<StationData> vecMyStation;
-	//bufferediohandler.readStationData(d1, vecMyStation);
 	io.getStationData(d1, vecMyStation);
 
 	initializeMetaData(vecMyStation, d1, novalue, par, stations);
@@ -609,12 +621,10 @@ DOUBLEMATRIX * doubletens_to_doublemat(DOUBLETENSOR * input,
 	/*
 	 * this functions transforms a doubletensor to a doublematrix
 	 */
-	//printf("\ninput->nrl=%ld,input->nrh=%ld,input->ncl=%ld,input->nch=%ld,input->ndl=%ld,input->ndh=%ld",input->nrl,input->nrh,input->ncl,input->nch,input->ndl,input->ndh);
 	long r, c;
 	for (r = input->nrl; r <= input->nrh; r++) {
 		for (c = input->ncl; c <= input->nch; c++) {
 			output->co[r][c] = input->co[indx][r][c];
-			//printf("\ninput->co[input->ndl][r][c]=%ld",input->co[input->ndl][r][c]);
 		}
 	}
 	return output;
@@ -626,12 +636,10 @@ DOUBLETENSOR * doublemat_to_doubletens(DOUBLEMATRIX * input,
 	 * this functions transforms a doublematrix to a doubletensor
 	 * \param: indx (long) is the index of the doubletensor in which to copy the matrix
 	 */
-	printf("\ninput->nrl=%ld,input->nrh=%ld,input->ncl=%ld,input->nch=%ld",input->nrl,input->nrh,input->ncl,input->nch);
 	long r, c;
 	for (r = input->nrl; r <= input->nrh; r++) {
 		for (c = input->ncl; c <= input->nch; c++) {
 			output->co[indx][r][c] = input->co[r][c];
-			printf("\ninput->co[r][c]=%f, output->co[indx][r][c]=%f",input->co[r][c],output->co[indx][r][c]);
 		}
 	}
 	return output;

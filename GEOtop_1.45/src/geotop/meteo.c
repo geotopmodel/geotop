@@ -126,7 +126,7 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 //		}
 //		}
 //
-	stop_execution();
+//	stop_execution();
 //---------------------------------------------------//
 
 	if(par->en_balance==0){
