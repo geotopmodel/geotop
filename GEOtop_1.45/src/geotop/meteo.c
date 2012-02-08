@@ -83,8 +83,10 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 	}
 	//par->usemeteoio=0;
 	if (par->usemeteoio==1){
+#ifdef USE_METEOIO
 		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
 		meteoio_interpolate(UV, par, JDbeg, met, wat,k);
+#endif
 	}else{
 		Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			 top->curvature4, top->slope, top->aspect, met, par->slopewt, par->curvewt, par->Vmin, par->RHmin, par->dn, 
@@ -93,7 +95,7 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
 	}
 	fclose(flog);
-
+#ifdef USE_METEOIO
 	DOUBLEMATRIX *test_print;
 	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
 	doubletens_to_doublemat(met->Tgrid,test_print, k);
@@ -128,6 +130,7 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 //
 //	stop_execution();
 //---------------------------------------------------//
+#endif
 
 	if(par->en_balance==0){
 		for(r=1;r<=Nr;r++){

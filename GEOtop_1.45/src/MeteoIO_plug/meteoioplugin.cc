@@ -1,3 +1,4 @@
+#ifdef USE_METEOIO
 #include "meteoioplugin.h"
 #include "../geotop/times.h"
 #include <sstream>
@@ -19,7 +20,7 @@ extern "C" DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF) {
 	try {
 
 		//	DEMObject dem;
-		IOHandler iohandler("io_it.ini");
+		IOHandler iohandler(cfg);
 		iohandler.readDEM(dem);
 
 		myDEM = new_doublematrix(dem.nrows, dem.ncols);
@@ -644,3 +645,4 @@ DOUBLETENSOR * doublemat_to_doubletens(DOUBLEMATRIX * input,
 	}
 	return output;
 }
+#endif
