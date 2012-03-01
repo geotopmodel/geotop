@@ -1,4 +1,4 @@
-#ifdef USE_NETCDF_ONGOING
+#ifdef USE_NETCDF
 /* Turtle_NetCdf CONTAINS FUNCTIONS TO INPORT/EXPORT FUIDTURLE STRUCT OF DATA IN NETcdf FILES AS VARIABLES
 Turtle_NetCdf Version 0.9375 KMackenzie
 
@@ -28,33 +28,7 @@ This file is part of numerioc_solver.
  */
 
 
-
-#include "../libraries/fluidturtle/turtle.h"
-//#include <netcdf.h>
-#include "gt_utilities.h"
-#include "gt_symbols.h"
-#include "ncgt_utilities.h"
-
-
-//DEFINE/UNDEFINE this symbol in Project.Properties.C++ Build.Settings.Gcc C compiler.Defined Symbol
-//to write netcdf in standard 3 or 4
-#ifdef USE_NETCDF4
-	#define NEW_EMPTY_FILE NC_CLOBBER|NC_NETCDF4
-#else
-	#define NEW_EMPTY_FILE NC_CLOBBER
-#endif
-/* file: turtle2netcdf.c
- * all C commands for NetCDF file management
- * http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/index.html#Top
- */
-/*
- * Handle errors by printing an error message and exiting with a
- * non-zero status.
- */
-#define ERRCODE 2
-
-#define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
-#define GLOBAL_ATTRIBUTE "global_attribute"
+#include "ncgt_turtle2netcdf.h"
 
 //int ncgt_newemptyfile(int ncid) {
 ///*!

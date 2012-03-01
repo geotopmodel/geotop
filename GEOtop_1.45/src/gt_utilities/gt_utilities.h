@@ -25,13 +25,15 @@ This file is part of GEOTRIVIALUtilities.
 
 
 
-#include "read_command_line.h"
 
 
 
 
 #ifdef USE_NETCDF
 
+#ifndef GT_UTILITIES_H
+#define GT_UTILITIES_H
+#include "read_command_line.h"
 
 
 
@@ -58,4 +60,5 @@ This file is part of GEOTRIVIALUtilities.
 
 //	#include "ncgt_turtle2netcdf.h"
 	//#include "ncgt_netcdf2turtle.h"
+#endif
 #endif

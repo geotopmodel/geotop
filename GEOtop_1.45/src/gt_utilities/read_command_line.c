@@ -23,14 +23,8 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "read_command_line.h"
-
-#define SUCCESS 1
-#define NO_SUCCESS 0
-
 
 
 
@@ -148,9 +142,6 @@ int read_flag(int argc,char *argv[],char *flag,short print)
 	}
 	return s;
 }
-
-
-
 
 
 

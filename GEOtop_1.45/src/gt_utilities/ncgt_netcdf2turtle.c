@@ -5,17 +5,9 @@
 
 
 
-#ifdef USE_NETCDF_ONGOING
+#ifdef USE_NETCDF
 
-#define ERRCODE 2
-#define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
-#define GLOBAL_ATTRIBUTE "global_attribute"
-#define INIT_VALUE -9998
-
-#include "../libraries/fluidturtle/turtle.h"
-//#include <netcdf.h>
-#include "gt_utilities.h"
-//#include "netcdf2turtle.h"
+#include "ncgt_netcdf2turtle.h"
 // README TO GO ON WITH ncgt_NEW_DOUBLEVECTOR
 
 

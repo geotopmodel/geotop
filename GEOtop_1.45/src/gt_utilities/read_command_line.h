@@ -23,6 +23,16 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 
+#ifndef READ_COMMANDLINE_H
+#define READ_COMMANDLINE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SUCCESS 1
+#define NO_SUCCESS 0
+
 
 char *read_option_string(int argc,char *argv[], char *option_f,char *no_option_argument,short print);
 
@@ -36,3 +46,5 @@ int read_flag(int argc,char *argv[],char *flag,short print);
 
 /* */
 #define MISSING_ARGUMENT "missing_argument"
+#endif
+

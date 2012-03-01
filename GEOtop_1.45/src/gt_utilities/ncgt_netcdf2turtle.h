@@ -12,7 +12,19 @@
 
 
 
-#ifdef USE_NETCDF_ONGOING
+#ifdef USE_NETCDF
+
+#ifndef NCGT_NETCDF2TURTLE_H
+#define NCGT_NETCDF2TURTLE_H
+
+#define ERRCODE 2
+#define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
+#define GLOBAL_ATTRIBUTE "global_attribute"
+#define INIT_VALUE -9998
+
+#include "../libraries/fluidturtle/turtle.h"
+//#include <netcdf.h>
+#include "gt_utilities.h"
 
 DOUBLEVECTOR *ncgt_new_doublevector(int ncid,const char *varname, const char *dimension);
 
@@ -72,4 +84,5 @@ void nc_get_global_attr_resolution(int ncid,double *resolution);
 
 void nc_get_global_value(int ncid,char *attr_name,double *attr_value);
 
+#endif
 #endif

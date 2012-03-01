@@ -3,7 +3,14 @@
  * \author Emanuele Cordano
  */
 
-#ifdef USE_NETCDF_ONGOING
+#ifdef USE_NETCDF
+
+#ifndef NCGT_UTILITIES_H
+#define NCGT_UTILITIES_H
+
+#include "../libraries/fluidturtle/turtle.h"
+//#include <netcdf.h>
+#include "gt_utilities.h"
 
 char *copy_stringnames(const char *);
 
@@ -20,4 +27,5 @@ int rotate180_y_shortmatrix(SHORTMATRIX *);
 int invert_order_doublevector(DOUBLEVECTOR *);
 int invert_order_longvector(LONGVECTOR *);
 
+#endif
 #endif

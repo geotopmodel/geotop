@@ -1,12 +1,6 @@
-#ifdef USE_NETCDF_ONGOING
-#include "../libraries/fluidturtle/turtle.h"
-#include "../libraries/fluidturtle/t_utilities.h"
-#include "../libraries/fluidturtle/t_datamanipulation.h"
-#include "../libraries/ascii/init.h"
-#include "../libraries/fluidturtle/tensor3D.h"
-//#include "ncgt_output.h"
-#include "ncgt_turtle2netcdf.h"
-#include "gt_symbols.h"
+#ifdef USE_NETCDF
+
+#include "ncgt_output.h"
 
 long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
 		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){

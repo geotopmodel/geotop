@@ -23,15 +23,7 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 #ifdef USE_NETCDF
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "gt_utilities.h"
-#include "gt_symbols.h"
-
-#define SUCCESS 1
-#define NO_SUCCESS 0
+#include "read_command_line_netcdf.h"
 
 
 

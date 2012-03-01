@@ -25,11 +25,13 @@ This file is part of GEOTRIVIALUtilities.
 
 
 
+#ifdef USE_NETCDF
+#ifndef GT_SYMBOLS_H
+#define GT_SYMBOSL_H
 
 #define GEOT_VERBOSE 0
 #define GEOT_DEAFAULT -1234
 
-#ifdef USE_NETCDF
 
 	#define NC_GEOTOP_NULL_EXIT "null_exit"
 	#define NC_GEOTOP_1D_OUTPUT_OPTION "-nc-1D-output"
@@ -78,4 +80,5 @@ This file is part of GEOTRIVIALUtilities.
 	#define NC_GEOTOP_POINT_VAR 1
 	#define NC_GEOTOP_Z_POINT_VAR 22
 	#define NC_GEOTOP_0DIM_VAR 0
+#endif
 #endif
