@@ -23,6 +23,11 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 #ifdef USE_NETCDF
+
+#ifdef USE_HPC
+#include "hpc.geotop.h"
+#endif
+
 #include "read_command_line_netcdf.h"
 
 
@@ -52,14 +57,22 @@ int  ncgt_open_from_option_string(int argc,char *argv[], char *option_f,short de
 	if (strcmp(filename,NC_GEOTOP_NULL_EXIT)) {
 
 
+#ifdef USE_HPC
+		status=nc_open_par(filename,NC_WRITE|NC_SHARE,comm,info,&ncid);
+#else
 		status=nc_open(filename,NC_WRITE|NC_SHARE,&ncid);
+#endif
 		if(status==NC_NOERR) {
 			status=nc_redef(ncid);
 			if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_redef");
 		} else {
+#ifdef USE_HPC
+			status=nc_create_par(filename,NC_GEOTOP_NEW_EMPTY_FILE|NC_NETCDF4|NC_MPIIO,&ncid);
+			if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_create_par");
+#else
 			status=nc_create(filename,NC_GEOTOP_NEW_EMPTY_FILE, &ncid);
 			if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_create");
-
+#endif
 
 /* This line are to test the first function of libCf just installed:
  * this functions add the convention CF 1.0 used as global attribute

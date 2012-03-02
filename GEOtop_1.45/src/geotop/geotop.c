@@ -20,8 +20,15 @@
 
 /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
 
+#ifdef USE_HPC
+
+#include <mpi.h>
+
+#endif
+
 #include <sys/stat.h>
 #include "struct.geotop.h"
+#include "hpc.geotop.h"
 #include "input.h"
 #include "output.h"
 #include "times.h"
@@ -93,6 +100,107 @@ int main(int argc, char *argv[]) {
 	/*structs' declarations:*/
 	ALLDATA *adt;
 
+#ifdef USE_HPC
+
+	MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+
+	std::cout << "Process " << getpid() << " is " << myrank << " of " << nprocs << " processes" << std::endl;
+
+	// linked list for parallel partition structure record
+	GCSTRUCT *start = new GCSTRUCT; // first element will NOT handle any info
+	start->next = NULL;
+	WORKAREA* rankArea = new WORKAREA;
+
+	// for debug only
+	// GCSTRUCT* newStruct = new GCSTRUCT;
+	// myrank = 2;
+
+	// read the partition preference file
+	ifstream dataFile("partition.txt", ios::in);
+
+	if (!dataFile) { //file not open
+		std::cout << "Error opening data file.\n";
+		return 0;
+	}
+
+	dataFile.exceptions(ios::badbit | ios::failbit | ios::eofbit);
+
+	try {
+
+		// read preferences line by line until row = myrank
+		count = 0;
+		while(getline(dataFile,line)){
+			std::cout << "Stream pointer currently in line " << count++ << ".\n";
+			std::cout << "Confirmation: " << line << "\n";
+			char *str = new char[line.size()];
+			//strcpy(str, line.c_str());
+			//str = strtok (str, " ");
+			str = strtok (str, " ");
+			if (count == 1) cprocs = atoi(str);
+			if (atoi(str) == myrank){
+				while (str != NULL)
+				{
+					str = strtok (NULL, " ,.-)(");
+					if (str == NULL) break;
+					if (strcmp(str, "SIZE") == 0){
+						// record working area dimensions
+						rankArea->rank = rank;
+						rankArea->top = atoi(strtok (NULL, " ,.-)("));
+						rankArea->left = atoi(strtok (NULL, " ,.-)("));
+						rankArea->bottom = atoi(strtok (NULL, " ,.-)("));
+						rankArea->right = atoi(strtok (NULL, " ,.-)("));
+						//nr = abs(top - bottom);
+						//nc = abs(left - right);
+					} else if ((strcmp(str, "SEND") == 0) || (strcmp(str, "RECV")) == 0)  {
+						GCSTRUCT* newStruct = new GCSTRUCT;
+						newStruct->rank = rank;
+						//newStruct->calltype = str;
+						strcpy(newStruct->calltype, str);
+						newStruct->top = atoi(strtok (NULL, " ,.-)("));
+						newStruct->left = atoi(strtok (NULL, " ,.-)("));
+						newStruct->bottom = atoi(strtok (NULL, " ,.-)("));
+						newStruct->right = atoi(strtok (NULL, " ,.-)("));
+						if(start == NULL) {
+							start = newStruct;	//if the first node (first link) is null, set the memory there
+							start->next = NULL;
+							return 0;
+						}
+
+						GCSTRUCT *ptr = start;
+						while(ptr->next != NULL) // loop to the last node of the list
+							ptr = ptr->next;
+
+						// last node of the list
+						ptr->next = newStruct;
+						ptr->next->next = NULL;
+
+					} else {
+						// rank of the new partition
+						rank = atoi(str);
+					}
+				}
+			}
+		}
+	} catch(ios_base::failure exc) {
+		std::cout << "Error reading data file.\n";
+	}
+	try {
+		dataFile.close();
+	} catch (ios_base::failure exc) {
+		std::cout << "Error closing data file.";
+	}
+
+	// for debug only
+	if (cprocs != nprocs) {
+		std::cout << "The number of process (" << nprocs << ") is different from the one required (" << cprocs << ")" << std::endl;
+	} else {
+		std::cout << "The number of active processes (" << nprocs << ") is equal to the one calculated (" << cprocs << ")" << std::endl;
+	}
+
+#endif
+
 	/*dinamic allocations:*/
 	UV = (T_INIT *) malloc(sizeof(T_INIT));
 	if (!UV)
@@ -163,13 +271,21 @@ int main(int argc, char *argv[]) {
 #endif
 
 		/*------------------    3.  Acquisition of input data and initialization    --------------------*/
-		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W,
-				adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
+#ifdef USE_HPC
+		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, rankArea);
+#else
+		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
+#endif
+
 #ifdef USE_NETCDF
 		set_output_nc(adt);
 #endif
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
+#ifdef USE_HPC
+		time_loop(adt, start, rankArea);
+#else
 		time_loop(adt);
+#endif
 
 #ifdef USE_NETCDF
 
@@ -191,7 +307,13 @@ int main(int argc, char *argv[]) {
 }
 
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
-void time_loop(ALLDATA *all) {
+
+#ifdef USE_HPC
+void time_loop(ALLDATA *all, GCSTRUCT *start, WORKAREA *rankArea)
+#else
+void time_loop(ALLDATA *all)
+#endif
+{
 
 	clock_t start, end;
 
@@ -278,6 +400,9 @@ void time_loop(ALLDATA *all) {
 			}
 			else {
 				write_output_nc(all);
+#ifdef USE_HPC
+				updateGhostcells(start);
+#endif
 			}
 #else
 			write_output(all->I, all->W, all->C, all->P, all->T, all->L,
@@ -285,6 +410,7 @@ void time_loop(ALLDATA *all) {
 #endif
 			end = clock();
 			t_out += (end - start) / (double) CLOCKS_PER_SEC;
+
 			all->I->time += all->P->Dt;//Increase TIME	
 
 			if (all->I->time > (all->P->end_date->co[i_sim]

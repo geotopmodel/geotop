@@ -740,8 +740,9 @@ typedef struct {
 #endif
 }ALLDATA;
 
+/*
 #ifdef USE_HPC
-typedef struct GCSTRUCT	//Struct containing subdomain ghost-cells adjacency data for MPI SEND/RECV commands
+struct GCSTRUCT	//Struct containing subdomain ghost-cells adjacency data for MPI SEND/RECV commands
 {
 	int rank;
 	char calltype[4];
@@ -762,4 +763,7 @@ struct WORKAREA	//Struct containing local subdomain coords
 	int right;
 };
 typedef struct WORKAREA;
+MPI_comm comm;
+MPI_info info;
 #endif
+*/
