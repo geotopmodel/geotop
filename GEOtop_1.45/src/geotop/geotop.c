@@ -203,7 +203,11 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifdef USE_NETCDF
+#ifdef USE_HPC
+		set_output_nc(adt, rankArea);
+#else
 		set_output_nc(adt);
+#endif
 #endif
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 #ifdef USE_HPC
@@ -324,14 +328,15 @@ void time_loop(ALLDATA *all)
 				write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
 			}
 			else {
-				write_output_nc(all);
 #ifdef USE_HPC
+				write_output_nc(all, rankArea);
 				updateGhostcells(start);
+#else
+				write_output_nc(all);
 #endif
 			}
 #else
-			write_output(all->I, all->W, all->C, all->P, all->T, all->L,
-					all->S, all->E, all->N, all->G, all->M);
+			write_output(all->I, all->W, all->C, all->P, all->T, all->L, all->S, all->E, all->N, all->G, all->M);
 #endif
 			end = clock();
 			t_out += (end - start) / (double) CLOCKS_PER_SEC;
@@ -363,8 +368,7 @@ void time_loop(ALLDATA *all)
 
 		} while (i_run <= nrun);//end of time-cycle
 
-		reset_to_zero(all->P, all->S, all->L, all->N, all->G, all->E, all->M,
-				all->W);
+		reset_to_zero(all->P, all->S, all->L, all->N, all->G, all->E, all->M, all->W);
 
 	}
 }

@@ -20,6 +20,7 @@
  */
 
 #include "struct.geotop.h"
+#include "hpc.geotop.h"
 #include "input.h"
 #include "parameters.h"
 #include "../libraries/geomorphology/geomorphology.0875.h"
@@ -44,7 +45,6 @@
 #include "indices.h"
 #include "recovering.h"
 
-
 #include "../gt_utilities/gt_utilities.h"
 
 extern long number_novalue, number_absent;
@@ -53,7 +53,7 @@ extern char *string_novalue;
 extern T_INIT *UV;
 extern char *WORKING_DIRECTORY;
 extern char **files, *logfile;
-extern long Nl, Nr, Nc;
+extern long Nl, Nr, Nc, offsetNr, offsetNc;
 extern long *outputpoint, noutputpoint, *outputbasin, noutputbasin, *outputsnow, noutputsnow;
 extern long *outputglac, noutputglac, *outputsoil, noutputsoil;
 extern char **headerpoint, **headerbasin, **headersnow, **headerglac, **headersoil;
@@ -66,9 +66,13 @@ extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 //***************************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
+#ifdef USE_HPC
+void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land, METEO *met, WATER *wat, CHANNEL *cnet,
+					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, WORKAREA *rankArea)
+#else
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land, METEO *met, WATER *wat, CHANNEL *cnet, 
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
-
+#endif
 {
 	
 	FILE *flog;
@@ -156,20 +160,48 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land
 	
 	convert_JDfrom0_JDandYear(par->init_date->co[1], &JD, &year);
 	convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
-		
+
+#ifdef USE_HPC
+
+	// definisce le dimensioni del sotto-dominio relativo al processo corrente e con queste vanno dimensionati tutti gli array
+	Nr = abs(rankArea->top - rankArea->bottom);
+	Nc = abs(rankArea->left - rankArea->right);
+	if (rankArea->top == 1) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top;
+	} else if (rankArea->bottom == top->Z0->nrh) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top - 1;
+	} else {
+		offsetNr = rankArea->top - 1;
+		Nr = Nr + 2;
+	}
+	if (rankArea->left == 1) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left;
+	} else if (rankArea->right == top->Z0->nch) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left - 1;
+	} else {
+		Nc = Nc + 2;
+		offsetNc = rankArea->left;
+	}
+
+#endif
+	
 	/****************************************************************************************************/
 	/*! Reading of the Input files:                                                                     */
 	/****************************************************************************************************/
-	
+
 	if(par->point_sim!=1){  //distributed simulation
 		read_inputmaps(top, land, sl, par, flog);
 	}else{
 		read_optionsfile_point(par, top, land, sl, times, IT, flog);
 	}
-	
+
 	Nr=top->Z0->nrh;
 	Nc=top->Z0->nch;
-	
+
 	par->total_pixel=0;
 	par->total_area=0.;
 	for(r=1;r<=Nr;r++){

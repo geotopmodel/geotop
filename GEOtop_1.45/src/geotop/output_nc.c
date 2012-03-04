@@ -50,6 +50,7 @@ extern long i_sim, i_run;*/
 
 #include <sys/stat.h>
 #include "struct.geotop.h"
+#include "hpc.geotop.h"
 #include "input.h"
 #include "output.h"
 #include "times.h"
@@ -72,7 +73,13 @@ extern long i_sim,i_run;
 extern long number_novalue;
 //***************************************************************************************************************
 //***************************************************************************************************************
-void set_output_nc(ALLDATA *all){
+#ifdef USE_HPC
+	void set_output_nc(ALLDATA *all, WORKAREA *rankArea)
+#else
+	void set_output_nc(ALLDATA *all)
+#endif
+{
+
 /*
  * !
  */
@@ -244,7 +251,12 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 
 //***************************************************************************************************************
 //***************************************************************************************************************
-void write_output_nc(ALLDATA* all){
+#ifdef USE_HPC
+	void write_output_nc(ALLDATA* all, WORKAREA *rankArea)
+#else
+	void write_output_nc(ALLDATA* all)
+#endif
+{
 /*
  * !
  * ! ciao
@@ -473,9 +485,5 @@ void write_output_nc(ALLDATA* all){
 	/**********************************************************************************************************/
 
 }
-
-
-
-
 
 #endif
