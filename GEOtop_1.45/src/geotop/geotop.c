@@ -105,6 +105,8 @@ int main(int argc, char *argv[]) {
 	MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+	MPI_comm comm;
+	MPI_info info;
 
 	std::cout << "Process " << getpid() << " is " << myrank << " of " << nprocs << " processes" << std::endl;
 
@@ -113,84 +115,7 @@ int main(int argc, char *argv[]) {
 	start->next = NULL;
 	WORKAREA* rankArea = new WORKAREA;
 
-	// for debug only
-	// GCSTRUCT* newStruct = new GCSTRUCT;
-	// myrank = 2;
-
-	// read the partition preference file
-	ifstream dataFile("partition.txt", ios::in);
-
-	if (!dataFile) { //file not open
-		std::cout << "Error opening data file.\n";
-		return 0;
-	}
-
-	dataFile.exceptions(ios::badbit | ios::failbit | ios::eofbit);
-
-	try {
-
-		// read preferences line by line until row = myrank
-		count = 0;
-		while(getline(dataFile,line)){
-			std::cout << "Stream pointer currently in line " << count++ << ".\n";
-			std::cout << "Confirmation: " << line << "\n";
-			char *str = new char[line.size()];
-			//strcpy(str, line.c_str());
-			//str = strtok (str, " ");
-			str = strtok (str, " ");
-			if (count == 1) cprocs = atoi(str);
-			if (atoi(str) == myrank){
-				while (str != NULL)
-				{
-					str = strtok (NULL, " ,.-)(");
-					if (str == NULL) break;
-					if (strcmp(str, "SIZE") == 0){
-						// record working area dimensions
-						rankArea->rank = rank;
-						rankArea->top = atoi(strtok (NULL, " ,.-)("));
-						rankArea->left = atoi(strtok (NULL, " ,.-)("));
-						rankArea->bottom = atoi(strtok (NULL, " ,.-)("));
-						rankArea->right = atoi(strtok (NULL, " ,.-)("));
-						//nr = abs(top - bottom);
-						//nc = abs(left - right);
-					} else if ((strcmp(str, "SEND") == 0) || (strcmp(str, "RECV")) == 0)  {
-						GCSTRUCT* newStruct = new GCSTRUCT;
-						newStruct->rank = rank;
-						//newStruct->calltype = str;
-						strcpy(newStruct->calltype, str);
-						newStruct->top = atoi(strtok (NULL, " ,.-)("));
-						newStruct->left = atoi(strtok (NULL, " ,.-)("));
-						newStruct->bottom = atoi(strtok (NULL, " ,.-)("));
-						newStruct->right = atoi(strtok (NULL, " ,.-)("));
-						if(start == NULL) {
-							start = newStruct;	//if the first node (first link) is null, set the memory there
-							start->next = NULL;
-							return 0;
-						}
-
-						GCSTRUCT *ptr = start;
-						while(ptr->next != NULL) // loop to the last node of the list
-							ptr = ptr->next;
-
-						// last node of the list
-						ptr->next = newStruct;
-						ptr->next->next = NULL;
-
-					} else {
-						// rank of the new partition
-						rank = atoi(str);
-					}
-				}
-			}
-		}
-	} catch(ios_base::failure exc) {
-		std::cout << "Error reading data file.\n";
-	}
-	try {
-		dataFile.close();
-	} catch (ios_base::failure exc) {
-		std::cout << "Error closing data file.";
-	}
+	getpartitions(start, rankarea);
 
 	// for debug only
 	if (cprocs != nprocs) {

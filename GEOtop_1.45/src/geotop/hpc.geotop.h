@@ -28,8 +28,5 @@ struct WORKAREA	//Struct containing local subdomain coords
 	int right;
 };
 typedef struct WORKAREA;
-// MPI communicator parameters
-MPI_comm comm;
-MPI_info info;
 
 #endif
