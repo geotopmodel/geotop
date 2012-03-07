@@ -19,7 +19,7 @@ This file is part of numerioc_solver.
 
     You should have received a copy of the GNU  General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 /*!
  *
  * \file turtle2netcdf.c
@@ -90,13 +90,13 @@ int ncgt_put_doublevector(DOUBLEVECTOR *v, int ncid, const char *dimension){
 	int dim[1];
 	const char *function_name="ncgt_put_doublevector";
 	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-/*
+	/*
 
 	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
 
 	// status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
-*/
+	 */
 
 
 
@@ -118,12 +118,12 @@ int ncgt_put_doublevector(DOUBLEVECTOR *v, int ncid, const char *dimension){
 		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
 	}
 
-//	// status=nc_enddef(ncid);
-//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_double(ncid,dvar,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_double");
 
@@ -162,7 +162,7 @@ int ncgt_put_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dimension_x, co
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -196,12 +196,12 @@ int ncgt_put_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dimension_x, co
 
 
 
-//	// status=nc_enddef(ncid);
-//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_double(ncid,dvar,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_double");
 
@@ -247,7 +247,7 @@ int ncgt_put_var_textattributes(int ncid,const char *varname, const char *attrib
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes","nc_inq_varid");
 	}
 	/* http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fput_005fatt_005f-type.html#nc_005fput_005fatt_005f-type
-	*/
+	 */
 	status=nc_put_att_text(ncid,varid,attribute_name,strlen(attribute_text),attribute_text);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes","nc_put_att_text");
 
@@ -284,13 +284,13 @@ int ncgt_put_floatvector(FLOATVECTOR *v, int ncid, const char *dimension){
 	int dim[1];
 	const char *function_name="ncgt_put_floatvector";
 	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-/*
+	/*
 
 	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
 
 	// status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
-*/
+	 */
 
 
 
@@ -316,9 +316,9 @@ int ncgt_put_floatvector(FLOATVECTOR *v, int ncid, const char *dimension){
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_float(ncid,dvar,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_float");
 
@@ -352,13 +352,13 @@ int ncgt_put_intvector(INTVECTOR *v, int ncid, const char *dimension){
 	int dim[1];
 	const char *function_name="ncgt_put_intvector";
 	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-/*
+	/*
 
 	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
 
 	// status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
-*/
+	 */
 
 
 
@@ -384,9 +384,9 @@ int ncgt_put_intvector(INTVECTOR *v, int ncid, const char *dimension){
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_int(ncid,dvar,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_int");
 
@@ -420,13 +420,13 @@ int ncgt_put_longvector(LONGVECTOR *v, int ncid, const char *dimension){
 	int dim[1];
 	const char *function_name="ncgt_put_longvector";
 	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-/*
+	/*
 
 	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
 
 	// status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
-*/
+	 */
 
 
 
@@ -452,9 +452,9 @@ int ncgt_put_longvector(LONGVECTOR *v, int ncid, const char *dimension){
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_long(ncid,dvar,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_long");
 
@@ -488,13 +488,13 @@ int ncgt_put_shortvector(SHORTVECTOR *v, int ncid, const char *dimension){
 	int dim[1];
 	const char *function_name="ncgt_put_shortvector";
 	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
-/*
+	/*
 
 	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
 
 	// status=nc_redef(ncid);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
-*/
+	 */
 
 
 
@@ -520,9 +520,9 @@ int ncgt_put_shortvector(SHORTVECTOR *v, int ncid, const char *dimension){
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_short(ncid,dvar,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_short");
 
@@ -562,7 +562,7 @@ int ncgt_put_floatmatrix(FLOATMATRIX *m, int ncid, const char *dimension_x, cons
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -599,9 +599,9 @@ int ncgt_put_floatmatrix(FLOATMATRIX *m, int ncid, const char *dimension_x, cons
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_float(ncid,dvar,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_float");
 
@@ -639,7 +639,7 @@ int ncgt_put_shortmatrix(SHORTMATRIX *m, int ncid, const char *dimension_x, cons
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -676,9 +676,9 @@ int ncgt_put_shortmatrix(SHORTMATRIX *m, int ncid, const char *dimension_x, cons
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_short(ncid,dvar,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_short");
 
@@ -716,7 +716,7 @@ int ncgt_put_intmatrix(INTMATRIX *m, int ncid, const char *dimension_x, const ch
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -753,9 +753,9 @@ int ncgt_put_intmatrix(INTMATRIX *m, int ncid, const char *dimension_x, const ch
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_int(ncid,dvar,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_int");
 
@@ -793,7 +793,7 @@ int ncgt_put_longmatrix(LONGMATRIX *m, int ncid, const char *dimension_x, const 
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -830,9 +830,9 @@ int ncgt_put_longmatrix(LONGMATRIX *m, int ncid, const char *dimension_x, const 
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_long(ncid,dvar,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_long");
 
@@ -871,7 +871,7 @@ int ncgt_put_doubletensor(DOUBLETENSOR *dt, int ncid, const char *dimension_x, c
 
 
 
-//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
 
 
 
@@ -915,9 +915,9 @@ int ncgt_put_doubletensor(DOUBLETENSOR *dt, int ncid, const char *dimension_x, c
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	 /* Write the pretend data to the file. Although netCDF supports
-	    * reading and writing subsets of data, in this case we write all
-	    * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 	status=nc_put_var_double(ncid,dvar,&(dt->element[dt->nrl][dt->ncl][dt->ndl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_var_double");
 
@@ -960,8 +960,8 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	int dim[ndim];
 	size_t start[ndim],count[ndim];
 
-//	// status=nc_redef(ncid);
-//	if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_redef");
+	//	// status=nc_redef(ncid);
+	//	if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_redef");
 	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 	/* putting the dimension */
 	/* dimension_t */
@@ -987,7 +987,7 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
 	}
-	   /* The dim array is used to pass the dimids of the dimensions of
+	/* The dim array is used to pass the dimids of the dimensions of
 	           the netCDF variables. Both of the netCDF variables we are
 	           creating share the same four dimensions. In C, the
 	           unlimited dimension must come first on the list of dimids. */
@@ -997,8 +997,8 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	//        dimids[2] = lat_dimid;
 	//        dimids[3] = lon_dimid;
 
-//	dim[0]=dimid_y;
-//	dim[1]=dimid_x;
+	//	dim[0]=dimid_y;
+	//	dim[1]=dimid_x;
 	status=nc_inq_varid(ncid,m->name,&dvar);
 	if (status!=NC_NOERR) {
 		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
@@ -1008,8 +1008,8 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
 	//}
 
-//	// status=nc_enddef(ncid);
-//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 	/* These settings tell netcdf to write one timestep of data. (The
 	   setting of start[0] inside the loop below tells netCDF which
 	   timestep to write.) */
@@ -1036,90 +1036,90 @@ int ncgt_put_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char 
 
 //221009_s
 int ncgt_put_doublevector_vs_time(DOUBLEVECTOR *v, long k, int ncid, const char *dimension_t,  const char *dimension_x){
-/*!
- *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
- *\param ncid (int) - pointer to the netCDF file
- *\param k        - (long) number of the level (0 based) at which the vector(x) is printed
- *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
- *\param dimension_x - (char *) name of the x dimension
- *
- *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
- *
- * \author Enrico Verri
- * \date October 2009
- *
- * \return 0 if exit is ok, otherwise an error message.
- *  IMPORTANT: only one NC_UNLIMITED dimension allowed
- *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
- *
- */
-const char *function_name="ncgt_put_doublevector_vs_time";
-int status=NC_NOERR;
+	/*!
+	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
+	 *\param ncid (int) - pointer to the netCDF file
+	 *\param k        - (long) number of the level (0 based) at which the vector(x) is printed
+	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension
+	 *
+	 *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
+	 *
+	 * \author Enrico Verri
+	 * \date October 2009
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
+	 *
+	 */
+	const char *function_name="ncgt_put_doublevector_vs_time";
+	int status=NC_NOERR;
 
-int dimid_t,dimid_x; /* pointer to the dimension of the doublevector;*/
-int dvar; /* pointer to the variable of the doublevector */
-int ndim=2;
-int dim[ndim];
-size_t start[ndim],count[ndim];
-//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+	int dimid_t,dimid_x; /* pointer to the dimension of the doublevector;*/
+	int dvar; /* pointer to the variable of the doublevector */
+	int ndim=2;
+	int dim[ndim];
+	size_t start[ndim],count[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 
-/* putting the dimension */
-/* dimension_t */
-//EV unlimited dimension requires other function
-status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
-//status=nc_inq_unlimdim(ncid,&dimid_t);
-if (status!=NC_NOERR) {
-	status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
-}
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+	//status=nc_inq_unlimdim(ncid,&dimid_t);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
 
-/* dimension_x */
-status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
-if (status!=NC_NOERR) {
-	status=nc_def_dim(ncid,dimension_x,v->nh, &dimid_x);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
-}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,v->nh, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
 
-   /* The dim array is used to pass the dimids of the dimensions of
+	/* The dim array is used to pass the dimids of the dimensions of
            the netCDF variables. Both of the netCDF variables we are
            creating share the same four dimensions. In C, the
            unlimited dimension must come first on the list of dimids. */
-dim[0] = dimid_t;
-dim[1] = dimid_x;
+	dim[0] = dimid_t;
+	dim[1] = dimid_x;
 
-status=nc_inq_varid(ncid,v->name,&dvar);
-if (status!=NC_NOERR) {
-	status=nc_def_var(ncid,v->name,NC_DOUBLE,ndim,dim,&dvar);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-}
-//else {
-//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
-//}
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
 
-// status=nc_enddef(ncid);
-// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
-/* These settings tell netcdf to write one timestep of data. (The
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	/* These settings tell netcdf to write one timestep of data. (The
    setting of start[0] inside the loop below tells netCDF which
    timestep to write.) */
 
-count[0]=1;
-count[1]=v->nh;
-//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
-start[0]=k;
-start[1]=0;
+	count[0]=1;
+	count[1]=v->nh;
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	start[0]=k;
+	start[1]=0;
 
-/* Write the pretend data to the file. Although netCDF supports
- * reading and writing subsets of data, in this case we write all
- * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 
-//status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
-status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
-if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
-
-
+	//status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 
-return 0;
+
+
+	return 0;
 
 }
 
@@ -1185,7 +1185,7 @@ int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char 
 		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
 	}
 
-	   /* The dim array is used to pass the dimids of the dimensions of
+	/* The dim array is used to pass the dimids of the dimensions of
 	           the netCDF variables. Both of the netCDF variables we are
 	           creating share the same four dimensions. In C, the
 	           unlimited dimension must come first on the list of dimids. */
@@ -1204,8 +1204,8 @@ int ncgt_put_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid, const char 
 	//}
 
 
-//	// status=nc_enddef(ncid);
-//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	/* These settings tell netcdf to write one timestep of data. (The
 	   setting of start[0] inside the loop below tells netCDF which
@@ -1256,7 +1256,7 @@ int nc_put_byte(signed char bval, int ncid,const char *varname, const char *unit
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1318,7 +1318,7 @@ int nc_put_int(int ival, int ncid,const char *varname, const char *units, const 
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1380,7 +1380,7 @@ int nc_put_short(short sval, int ncid,const char *varname, const char *units, co
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1442,7 +1442,7 @@ int nc_put_float(float fval, int ncid,const char *varname, const char *units, co
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1504,7 +1504,7 @@ int nc_put_double(double dval, int ncid,const char *varname, const char *units, 
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1565,7 +1565,7 @@ int nc_put_long(long lval, int ncid,const char *varname, const char *units, cons
 	int status=NC_NOERR;
 
 	int varid; /* pointer to the variable of the variable */
-	#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
 
 	//create or open (if exist) the selected file
 
@@ -1617,10 +1617,10 @@ int ncgt_put_rotate180_y_doublematrix(DOUBLEMATRIX *m, int ncid, const char *dim
 	 *\param dimension_x - (char *) name of the x dimension (number of column)
 	 *\param dimension_y - (char *) name of the y dimension (number of row)
 	 *
-     *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix() to write the  doublematrix within a NetCDF file
+	 *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix() to write the  doublematrix within a NetCDF file
 	 * \return 0 if exit is ok, otherwise an error message.
 	 *
-*/
+	 */
 
 	int l=0;
 
@@ -1645,10 +1645,10 @@ int ncgt_put_rotate180_y_doubletensor(DOUBLETENSOR *m, int ncid, const char *dim
 	 *\param dimension_x - (char *) name of the x dimension (number of column)
 	 *\param dimension_y - (char *) name of the y dimension (number of row)
 	 *\param dimension_z - (char *) name of the z dimension (number of layers)
-     *\brief This function uses the functions rotate180_y_doubletensor() and ncgt_put_doublematrix() to write the  doublematrix within a NetCDF file
+	 *\brief This function uses the functions rotate180_y_doubletensor() and ncgt_put_doublematrix() to write the  doublematrix within a NetCDF file
 	 * \return 0 if exit is ok, otherwise an error message.
 	 *
-*/
+	 */
 
 	int l=0;
 
@@ -1667,24 +1667,24 @@ int ncgt_put_rotate180_y_doubletensor(DOUBLETENSOR *m, int ncid, const char *dim
 
 int ncgt_put_rotate180_y_doublematrix_vs_time(DOUBLEMATRIX *m, long k, int ncid, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
 
-		/*!
-		 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
-		 *\param ncid (int) - pointer to the netCDF file
-		 *\param k        - (long) number of the level (0 based) at which the xy map is printed
-		 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
-		 *\param dimension_x - (char *) name of the x dimension (number of column)
-		 *\param dimension_y - (char *) name of the y dimension (number of row)
-		 *
-		 *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix_vs_time() to write the  doublematrix within a NetCDF file
-		 *
-		 * \author Emanuele Cordano
-		 * \date October 2009
-		 *
-		 * \return 0 if exit is ok, otherwise an error message.
-		 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
-		 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
-		 *
-		 */
+	/*!
+	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param ncid (int) - pointer to the netCDF file
+	 *\param k        - (long) number of the level (0 based) at which the xy map is printed
+	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix_vs_time() to write the  doublematrix within a NetCDF file
+	 *
+	 * \author Emanuele Cordano
+	 * \date October 2009
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+	 *
+	 */
 
 
 	int l=0;
@@ -1776,7 +1776,7 @@ int ncgt_put_rotate180_y_doubletensor_vs_time(DOUBLETENSOR *t, long k, int ncid,
 	return 0;
 
 }
-*/
+ */
 //271009_e
 //void nc_add_global_attr_lat_lon_min_max(int ncid,double long_min,double long_max,double lat_min,double lat_max){
 //	/*!
@@ -1936,83 +1936,77 @@ void nc_add_global_attr_double(int ncid,char *attr_name,double attr_value){
 
 
 int ncgt_put_double_vs_time(double v, const char *var_name, long k, int ncid, const char *dimension_t){
-/*!
- *\param v - (double) scalar variable
- *\param var_name - name of the scalar variable
- *\param k - (long) counter
- *\param ncid - pointer to the netCDF archive
- *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
- *
- *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
- *
- * \author Emanuele Cordano, Matteo Dall'Amico
- * \date November 2011
- *
- * \return 0 if exit is ok, otherwise an error message.
- *  IMPORTANT: only one NC_UNLIMITED dimension allowed
- *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
- *
- */
-const char *function_name="ncgt_put_double_vs_time";
-int status=NC_NOERR;
-int dvar; /* pointer to the variable*/
-int ndim=1;
-int dim[ndim];
-int dimid_t; /* time dimensional id*/
-size_t start[ndim],count[ndim];
-//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+	/*!
+	 *\param v - (double) scalar variable
+	 *\param var_name - name of the scalar variable
+	 *\param k - (long) counter
+	 *\param ncid - pointer to the netCDF archive
+	 *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *
+	 *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
+	 *
+	 * \author Emanuele Cordano, Matteo Dall'Amico
+	 * \date November 2011
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
+	 *
+	 */
+	const char *function_name="ncgt_put_double_vs_time";
+	int status=NC_NOERR;
+	int dvar; /* pointer to the variable*/
+	int ndim=1;
+	int dim[ndim];
+	int dimid_t; /* time dimensional id*/
+	size_t start[ndim],count[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
 
-/* putting the dimension */
-/* dimension_t */
-//EV unlimited dimension requires other function
-status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
-//status=nc_inq_unlimdim(ncid,&dimid_t);
-if (status!=NC_NOERR) {
-	status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
-}
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+	//status=nc_inq_unlimdim(ncid,&dimid_t);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
 
-   /* The dim array is used to pass the dimids of the dimensions of
+	/* The dim array is used to pass the dimids of the dimensions of
            the netCDF variables. Both of the netCDF variables we are
            creating share the same four dimensions. In C, the
            unlimited dimension must come first on the list of dimids. */
-dim[0] = dimid_t;
+	dim[0] = dimid_t;
 
-status=nc_inq_varid(ncid,var_name,&dvar);
-//int nc_inq_varid (int ncid, const char *name, int *varidp);
-if (status!=NC_NOERR) {
-	status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
-	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
-}
-//else {
+	status=nc_inq_varid(ncid,var_name,&dvar);
+	//int nc_inq_varid (int ncid, const char *name, int *varidp);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
 	//printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,var_name,dvar);
-//}
+	//}
 
-// status=nc_enddef(ncid);
-// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
-/* These settings tell netcdf to write one timestep of data. (The
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	/* These settings tell netcdf to write one timestep of data. (The
    setting of start[0] inside the loop below tells netCDF which
    timestep to write.) */
 
-count[0]=1;
-//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
-start[0]=k;
+	count[0]=1;
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	start[0]=k;
 
-/* Write the pretend data to the file. Although netCDF supports
- * reading and writing subsets of data, in this case we write all
- * the data in one operation. */
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
 
-status=nc_put_vara_double(ncid,dvar,start,count,&v);
-//int nc_put_vara_double(int ncid, int varid, const size_t start[],const size_t count[], const double *dp);
-if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
-
-
-
-
-return 0;
-
+	status=nc_put_vara_double(ncid,dvar,start,count,&v);
+	//int nc_put_vara_double(int ncid, int varid, const size_t start[],const size_t count[], const double *dp);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+	return 0;
 }
-
 
 
 int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int ncid, const char *dimension_t, char *suffix,
@@ -2051,10 +2045,7 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int
 }
 
 
-
-
-
-int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, const char *dimension_t,  char *suffix,
+int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t,  char *suffix,
 		const char *dimension_id, LONGMATRIX *rc){
 	/*!
 	 *\param dt - (DOUBLEMATRIX *) variable to be written in the NetCDF
@@ -2086,5 +2077,1771 @@ int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int
 	return 0;
 }
 
+#ifdef USE_HPC
+
+/* a set of nc function for HPC - added by Giuseppe Onorevoli on March 6, 2012 */
+
+int ncgt_put_doublevector_par(DOUBLEVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+	/*!
+	 *
+	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension - (char *) nema of the dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a doublevector within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	int status=NC_NOERR;
+
+	int dimid; /* pointer to the dimenson of the doublevector;*/
+	int dvar; /* pointer to the variable of the doublevector */
+	int ndim=1;
+	int dim[1];
+	const char *function_name="ncgt_put_doublevector_par";
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	status=nc_inq_dimid(ncid,dimension,&dimid);
+
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension,v->nh, &dimid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_dim");
+
+	}
+	dim[0]=dimid;
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	} else {
+		printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	}
+
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
+	status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+	return 0;
+}
+
+
+int ncgt_put_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+	/*!
+	 *
+	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a doublematrix within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_putdoublematrix_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y; /* pointer to the dimenson of the doublematrix;*/
+	int dvar; /* pointer to the variable of the doublevector */
+	int ndim=2;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+
+	dim[0]=dimid_y;
+	dim[1]=dimid_x;
+
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	/* Write the pretend data to the file. Although netCDF supports
+	 * reading and writing subsets of data, in this case we write all
+	 * the data in one operation. */
+	status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+	return 0;
+}
+
+int ncgt_put_var_textattributes_par(int ncid, size_t start, size_t count,const char *varname, const char *attribute_name, const char *attribute_text){
+	/*!
+	 *
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param filename (char *) - complete filename with working path
+	 *\param attribute_name (char*) - Attribute name conventions are assumed by some netCDF generic applications, e.g., �units� as the name for a string attribute that gives the units for a netCDF variable. For examples of attribute conventions see Attribute Conventions.
+	 *\param attribute_text (char *) - text of the attributes
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief See http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fput_005fatt_005f-type.html#nc_005fput_005fatt_005f-type
+	 *
+	 */
+	int status=NC_NOERR; /* error status */
+
+	int varid; /* Netcdf variable id */
+
+
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_open");
+
+
+	// status=nc_redef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_redef");
+
+	if (!strcmp(varname,GLOBAL_ATTRIBUTE)) {
+		varid=NC_GLOBAL; /* set glabal attribues for all variable */
+	} else {
+		status=nc_inq_varid(ncid,varname,&varid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_inq_varid");
+	}
+	/*
+	 * http://www.unidata.ucar.edu/software/netcdf/docs/netcdf-c/nc_005fput_005fatt_005f-type.html#nc_005fput_005fatt_005f-type
+	 */
+	status=nc_put_att_text(ncid,varid,attribute_name,strlen(attribute_text),attribute_text);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_put_att_text");
+
+	// status=nc_enddef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_enddef");
+
+
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_put_var_textattributes_par","nc_close");
+
+	return 0;
+
+}
+
+
+int ncgt_put_floatvector_par(FLOATVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+	/*!
+	 *
+	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension - (char *) name of the dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a floatvector within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	int status=NC_NOERR;
+	int dimid; /* pointer to the dimenson of the floatvector;*/
+	int dvar; /* pointer to the variable of the floatvector */
+	int ndim=1;
+	int dim[1];
+	const char *function_name="ncgt_put_floatvector_par";
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	status=nc_inq_dimid(ncid,dimension,&dimid);
+
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension,v->nh, &dimid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_dim");
+	}
+	dim[0]=dimid;
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_FLOAT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_float(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
+
+	return 0;
+}
+
+int ncgt_put_intvector_par(INTVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+	/*!
+	 *
+	 *\param v - (INTVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension - (char *) nema of the dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a intvector within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	int status=NC_NOERR;
+
+	int dimid; /* pointer to the dimenson of the intvector;*/
+	int dvar; /* pointer to the variable of the intvector */
+	int ndim=1;
+	int dim[1];
+	const char *function_name="ncgt_put_intvector_par";
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	status=nc_inq_dimid(ncid,dimension,&dimid);
+
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension,v->nh, &dimid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_dim");
+
+	}
+	dim[0]=dimid;
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_INT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_int(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
+
+	return 0;
+}
+
+
+int ncgt_put_longvector_par(LONGVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+	/*!
+	 *
+	 *\param v - (LONGVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param ncid (int) - pointer to the netCDF file
+	 *\param dimension - (char *) nema of the dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a longvector within a NetCDF file
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	int status=NC_NOERR;
+
+	int dimid; /* pointer to the dimenson of the longvector;*/
+	int dvar; /* pointer to the variable of the longvector */
+	int ndim=1;
+	int dim[1];
+	const char *function_name="ncgt_put_longvector_par";
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+	/*
+	 if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_open");
+
+	// status=nc_redef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"ncgt_adddoublevector","nc_redef");
+	 */
+	status=nc_inq_dimid(ncid,dimension,&dimid);
+
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension,v->nh, &dimid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_dim");
+
+	}
+	dim[0]=dimid;
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_LONG,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_long(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
+
+	return 0;
+}
+
+
+int ncgt_put_shortvector_par(SHORTVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+	/*!
+	 *\param v - (SHORTVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension - (char *) nema of the dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a shortvector subset within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+
+	 *
+	 */
+	int status=NC_NOERR;
+
+	int dimid; /* pointer to the dimenson of the shortvector;*/
+	int dvar; /* pointer to the variable of the shortvector */
+	int ndim=1;
+	int dim[1];
+	const char *function_name="ncgt_put_shortvector_par";
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	status=nc_inq_dimid(ncid,dimension,&dimid);
+
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension,v->nh, &dimid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_dim");
+
+	}
+	dim[0]=dimid;
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_SHORT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_short(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
+
+	return 0;
+}
+
+//CHARVECTOR TBC (unused in Geotop)
+
+int ncgt_put_floatmatrix_par(FLOATMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+	/*!
+	 *\param m - (FLOATMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a floatmatrix subset within a NetCDF file
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_putfloatmatrix_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y; /* pointer to the dimenson of the floatmatrix;*/
+	int dvar; /* pointer to the variable of the floatmatrix */
+	int ndim=2;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+
+	dim[0]=dimid_y;
+	dim[1]=dimid_x;
+
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_FLOAT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_float(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
+
+	return 0;
+}
+
+int ncgt_put_shortmatrix_par(SHORTMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+	/*!
+	 *
+	 *\param m - (SHORTMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a shortmatrix within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_putshortmatrix_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y; /* pointer to the dimenson of the shortmatrix;*/
+	int dvar; /* pointer to the variable of the shortmatrix */
+	int ndim=2;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	dim[0]=dimid_y;
+	dim[1]=dimid_x;
+
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_SHORT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_short(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
+
+	return 0;
+}
+
+
+int ncgt_put_intmatrix_par(INTMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+	/*!
+	 *
+	 *\param m - (INTMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a intmatrix subset within a NetCDF file
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_putintmatrix_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y; /* pointer to the dimenson of the intmatrix;*/
+	int dvar; /* pointer to the variable of the intmatrix */
+	int ndim=2;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	dim[0]=dimid_y;
+	dim[1]=dimid_x;
+
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_INT,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_int(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
+
+	return 0;
+}
+
+
+int ncgt_put_longmatrix_par(LONGMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+	/*!
+	 *\param m - (LONGMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a longmatrix subset within a NetCDF file
+	 *
+	 * \return 0 if exit is ok, otherwise an error message.
+
+	 *
+	 */
+	const char *function_name="ncgt_putlongmatrix_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y; /* pointer to the dimenson of the longmatrix;*/
+	int dvar; /* pointer to the variable of the longmatrix */
+	int ndim=2;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+
+	dim[0]=dimid_y;
+	dim[1]=dimid_x;
+
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_LONG,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_long(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
+
+	return 0;
+}
+
+
+int ncgt_put_doubletensor_par(DOUBLETENSOR *dt, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y, const char *dimension_z){
+	/*!
+	 *\param dt - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *\param dimension_z - (char *) name of the z dimension (number of d TBC)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable contained in a doubletensor subset within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_put_doubletensor_par";
+	int status=NC_NOERR;
+
+	int dimid_x,dimid_y,dimid_z; /* pointer to the dimenson of the doubletensor;*/
+	int dvar; /* pointer to the variable of the doubletensor */
+	int ndim=3;
+	int dim[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existance of the dimensions */
+
+	//	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_open");
+
+	/* putting the dimension */
+
+	/* dimension_z */
+	status=nc_inq_dimid(ncid,dimension_z,&dimid_z);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_z,dt->ndh, &dimid_z);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim z");
+	}
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,dt->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim y");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,dt->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim x");
+	}
+
+	dim[0]=dimid_z;
+	dim[1]=dimid_y;
+	dim[2]=dimid_x;
+
+	status=nc_inq_varid(ncid,dt->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,dt->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,dt->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	status=nc_put_vara_double(ncid,dvar,start,count,&(dt->element[dt->nrl][dt->ncl][dt->ndl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+}
+
+
+int ncgt_put_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
+	/*!
+	 *
+	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param k        - (long) number of the level (0 based) at which the xy map is printed (in time)
+	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function writes the variable contained in a doublematrix as a map referred to a particular time step 2D + time variable within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+	 *
+	 */
+	const char *function_name="ncgt_putdoublematrix_vs_time_par";
+	int status=NC_NOERR;
+	int dimid_t,dimid_x,dimid_y; /* pointer to the dimension of the doublematrix;*/
+	int dvar; /* pointer to the variable of the doublematrix */
+	int ndim=3;
+	int dim[ndim];
+	size_t start[ndim],count[ndim];
+
+	//	// status=nc_redef(ncid);
+	//	if (status!=NC_NOERR) NC_GEOTOP_ERROR_MESSAGE(status,function_name,"nc_redef");
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);//COS^ VA MA ne definisce una sola (correggre anche per vect e tens)
+	//status=nc_inq_unlimdim(ncid,&dimid_t); //BOH??
+	//status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t); //SOLO PROVa
+	if (status!=NC_NOERR) {
+		//status=nc_def_dim(ncid,dimension_y,NC_UNLIMITED, &dimid_t);//EV
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t); //EV
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,m->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,m->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* The dim array is used to pass the dimids of the dimensions of
+	           the netCDF variables. Both of the netCDF variables we are
+	           creating share the same four dimensions. In C, the
+	           unlimited dimension must come first on the list of dimids. */
+	dim[0] = dimid_t;
+	dim[1] = dimid_y;
+	dim[2] = dimid_x;
+	//        dimids[2] = lat_dimid;
+	//        dimids[3] = lon_dimid;
+
+	//	dim[0]=dimid_y;
+	//	dim[1]=dimid_x;
+	status=nc_inq_varid(ncid,m->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,m->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,m->name,dvar);
+	//}
+
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	/* These settings tell netcdf to write one timestep of data. (The
+	   setting of start[0] inside the loop below tells netCDF which
+	   timestep to write.) */
+
+	//count[0]=1;// time dimension
+	//count[1]=m->nrh;// y dimension
+	//count[2]=m->nch;// x dimension
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	//start[0]=k;// time dimension
+	//start[1]=0;//m->nrl;//EV// y dimension
+	//start[2]=0;//m->ncl;//EV// y dimension
+
+	status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+}
+
+
+int ncgt_put_doublevector_vs_time_par(DOUBLEVECTOR *v, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x){
+	/*!
+	 *
+	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param k        - (long) number of the level (0 based) at which the vector(x) is printed
+	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
+	 *
+	 */
+	const char *function_name="ncgt_put_doublevector_vs_time_par";
+	int status=NC_NOERR;
+
+	int dimid_t,dimid_x; /* pointer to the dimension of the doublevector;*/
+	int dvar; /* pointer to the variable of the doublevector */
+	int ndim=2;
+	int dim[ndim];
+	size_t start[ndim],count[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+	//status=nc_inq_unlimdim(ncid,&dimid_t);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,v->nh, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	/* The dim array is used to pass the dimids of the dimensions of
+           the netCDF variables. Both of the netCDF variables we are
+           creating share the same four dimensions. In C, the
+           unlimited dimension must come first on the list of dimids. */
+	dim[0] = dimid_t;
+	dim[1] = dimid_x;
+
+	status=nc_inq_varid(ncid,v->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,v->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,v->name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	/* These settings tell netcdf to write one timestep of data. (The
+   setting of start[0] inside the loop below tells netCDF which
+   timestep to write.) */
+
+	//count[0]=1;
+	//count[1]=v->nh;
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	//start[0]=k;
+	//start[1]=0;
+
+	//status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+}
+
+
+int ncgt_put_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
+{
+	/*!
+	 *
+	 *\param t - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param k        - (long) number of the level (0 based) at which the xyz map is printed
+	 *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *\param dimension_z - (char *) name of the z dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function writes the variable contained in a doubletensor as a map referred to a particular time step 3D + time variable within a NetCDF file
+	 *
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	const char *function_name="ncgt_putdoubletensor_vs_time_par";
+	int status=NC_NOERR;
+
+	int dimid_t,dimid_x,dimid_y,dimid_z ;/* pointer to the dimenson of the doubletensor;*/
+	int dvar; /* pointer to the variable of the doublematrix */
+	int ndim=4;
+	int dim[ndim];
+	size_t start[ndim],count[ndim];
+
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+	//status=nc_inq_unlimdim(ncid,&dimid_t);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_z */
+	status=nc_inq_dimid(ncid,dimension_z,&dimid_z);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_z,t->ndh, &dimid_z);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_y */
+	status=nc_inq_dimid(ncid,dimension_y,&dimid_y);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_y,t->nrh, &dimid_y);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+	/* dimension_x */
+	status=nc_inq_dimid(ncid,dimension_x,&dimid_x);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_x,t->nch, &dimid_x);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	/* The dim array is used to pass the dimids of the dimensions of
+	           the netCDF variables. Both of the netCDF variables we are
+	           creating share the same four dimensions. In C, the
+	           unlimited dimension must come first on the list of dimids. */
+	dim[0] = dimid_t;
+	dim[1] = dimid_z;
+	dim[2] = dimid_y;
+	dim[3] = dimid_x;
+
+	status=nc_inq_varid(ncid,t->name,&dvar);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,t->name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,t->name,dvar);
+	//}
+
+
+	//	// status=nc_enddef(ncid);
+	//	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	/* These settings tell netcdf to write one timestep of data. (The setting of start[0] inside the loop below tells netCDF which timestep to write.) */
+	//count[0]=1;
+	//count[1]=t->ndh;
+	//count[2]=t->nrh;
+	//count[3]=t->nch;
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	//start[0]=k;
+	//start[1]=0;
+	//start[2]=0;
+	//start[3]=0;
+
+	status=nc_put_vara_double(ncid,dvar,start,count,&(t->element[t->nrl][t->ncl][t->ndl]));
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+}
+
+//SCALAR TYPES
+
+int nc_put_byte_par(signed char bval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param bval (char) - value of the byte variable//
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param filename (const char *) - name of the file
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a byte value in the netcdf variable "varname".//
+	 */
+
+	const char *function_name="nc_put_byte_par";//
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_BYTE, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_schar(ncid,varid,start,count,&bval); //
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_schar");
+
+	return 0;
+}
+
+
+int nc_put_int_par(int ival, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param ival (int) - value of the int32 variable //
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param filename (const char *) - name of the file
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a int value in the netcdf variable "varname".
+	 */
+
+	const char *function_name="nc_put_int_par";
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_INT, RANK_VAR, 0, &varid);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_int(ncid,varid,start,count,&ival);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
+
+	return 0;
+}
+
+
+int nc_put_short_par(short sval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param sval (short) - value of the short16 variable//
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param filename (const char *) - name of the file
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a short value in the netcdf variable "varname".//
+	 */
+
+	const char *function_name="nc_put_short_par";//
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_SHORT, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_short(ncid,varid,start,count,&sval);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
+
+	return 0;
+}
+
+
+int nc_put_float_par(float fval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param fval (float) - value of the float32 variable//
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a float32 value in the netcdf variable "varname".//
+	 */
+
+	const char *function_name="nc_put_float_par";//
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_FLOAT, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_float(ncid,varid,start,count,&fval);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
+
+	return 0;
+}
+
+// NC_DOUBLE
+int nc_put_double_par(double dval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param dval (double) - value of the double64 variable//
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param filename (const char *) - name of the file
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a double64 value in the netcdf variable "varname".//
+	 */
+
+	const char *function_name="nc_put_double_par";//
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_DOUBLE, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_double(ncid,varid,start,count,&dval);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+}
+
+
+int nc_put_long_par(long lval, int ncid, size_t start, size_t count, const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+{
+	/*!
+	 *
+	 * \param lval (long) - value of the long64 variable//
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param filename (const char *) - name of the file
+	 * \param varname  (const char *) - name of the variable
+	 * \param units (const char *) - name of the measure units
+	 * \param description (const char *) - description string
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\save a long64 value in the netcdf variable "varname".//
+	 */
+
+	const char *function_name="nc_put_long_par";//
+	int status=NC_NOERR;
+
+	int varid; /* pointer to the variable of the variable */
+#  define RANK_VAR 0 /* rank (number of dimensions) for the variable */
+
+	//create or open (if exist) the selected file
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_LONG, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,varname,varid);
+	//}
+
+	/* assign standard cf attributes (Description,Units,standard_name and long_name) */
+	status = nc_put_att_text(ncid, varid, "Description",strlen(description),description);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text description");
+	status = nc_put_att_text(ncid, varid, "Units", strlen(units), units);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text units");
+	status = nc_put_att_text(ncid, varid, "standard_name",strlen(standard_name),standard_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text standard_name");
+	status = nc_put_att_text(ncid, varid, "long_name",strlen(long_name),long_name);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_text long_name");
+
+	/* leave define mode */
+	status = nc_enddef (ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+	//put value
+	status = nc_put_vara_long(ncid,varid,start,count,&lval);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
+
+	return 0;
+}
+
+int ncgt_put_rotate180_y_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y) {
+	/*!
+	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix() to write the doublematrix subset within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+
+	int l=0;
+
+	char *function_name="ncgt_put_rotate180_y_doublematrix_par";
+
+
+	l=rotate180_y_doublematrix(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
+	l=ncgt_put_doublematrix(m,ncid,start,count,dimension_x,dimension_y);
+	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
+	l=rotate180_y_doublematrix(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
+
+	return l;
+}
+
+int ncgt_put_rotate180_y_doubletensor_par(DOUBLETENSOR *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y, const char *dimension_z) {
+	/*!
+	 *
+	 *\param m - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *\param dimension_z - (char *) name of the z dimension (number of layers)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function uses the functions rotate180_y_doubletensor() and ncgt_put_doublematrix() to write the  doublematrix subset within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+
+	int l=0;
+
+	char *function_name="ncgt_put_rotate180_y_doubletensor_par";
+
+	l=rotate180_y_doubletensor(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
+	l=ncgt_put_doubletensor(m,ncid,start,count,dimension_x,dimension_y,dimension_z);
+	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly \n",function_name);
+	l=rotate180_y_doubletensor(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
+
+	return l;
+
+}
+
+int ncgt_put_rotate180_y_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
+
+	/*!
+	 *
+	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param k        - (long) number of the level (0 based) at which the xy map is printed
+	 *\param dimension_x - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function uses the functions rotate180_y_doublematrix() and ncgt_put_doublematrix_vs_time() to write the doublematrix subset within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+	 *
+	 */
+
+
+	int l=0;
+
+	char *function_name="ncgt_put_rotate180_y_doublematrix_vs_time_par";
+
+
+	l=rotate180_y_doublematrix(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
+	l=ncgt_put_doublematrix_vs_time(m,k,ncid,start,count,dimension_t,dimension_x,dimension_y);
+	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
+	l=rotate180_y_doublematrix(m);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
+
+	return l;
+
+}
+
+
+int ncgt_put_rotate180_y_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
+{
+	/*!
+	 *
+	 *\param t - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param k        - (long) number of the level (0 based) at which the xyz map is printed
+	 *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *\param dimension_x - (char *) name of the x dimension (number of column)
+	 *\param dimension_y - (char *) name of the y dimension (number of row)
+	 *\param dimension_z - (char *) name of the z dimension
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function rotates and writes the variable subset contained in a doubletensor as a map referred to a particular time step 3D + time variable within a NetCDF using the functions rotate180_y_doubletensor() and ncgt_put_doubletensor_vs_time() .
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option tu Turn on netCDF-4 features.
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+
+	int l=0;
+
+	char *function_name="ncgt_put_rotate180_y_doublematrix_vs_time_par";
+
+
+	l=rotate180_y_doubletensor(t);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
+	l=ncgt_put_doubletensor_vs_time(t,k,ncid,start,count,dimension_t,dimension_x,dimension_y,dimension_z);
+	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
+	l=rotate180_y_doubletensor(t);
+	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
+
+	return l;
+}
+
+
+void nc_add_variable_attr_missing_value_par(int ncid, size_t start, size_t count,const char *varname,double missing_value){
+	/*!
+	 *
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param missing_value
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 */
+	const char *function_name="nc_add_variable_attr_missing_value_par";//
+	int status=NC_NOERR; /* error status */
+	int varid;
+	double *missingvalue=&missing_value;
+	//double water_surface_missing_value[1];
+	//water_surface_missing_value[0] = NaN;
+	// status=nc_redef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
+
+	/*check if variable already exists, otherwise define it*/
+	status=nc_inq_varid(ncid,varname,&varid);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid, varname, NC_DOUBLE, RANK_VAR, 0, &varid); //
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//	printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n","nc_add_cf_convention_missing_value",varname,varid);
+	//}
+
+	status=nc_put_att_double(ncid, varid, NC_GEOTOP_MISSING_VALUE_ATTRIBUTE, NC_DOUBLE, 1, missingvalue);
+	//status=nc_put_att_double(ncid,NC_GLOBAL,GLOB_ATTR_MISSING_VALUE,NC_DOUBLE,1,missingvalue);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,"nc_add_cf_convention_missing_value","nc_put_att_double");
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+}
+
+void nc_add_global_attr_missing_value_par(int ncid, size_t start, size_t count, double missing_value){
+	/*!
+	 *
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param missing_value
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 */
+	const char *function_name="nc_add_global_attr_missing_value_par";//
+	int status=NC_NOERR; /* error status */
+
+	double *missingvalue;
+	missingvalue=&missing_value;
+
+	// status=nc_redef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
+
+	status=nc_put_att_double(ncid,NC_GLOBAL,NC_GEOTOP_MISSING_VALUE_ATTRIBUTE,NC_DOUBLE,1,missingvalue);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+
+}
+
+
+void nc_add_global_attr_double_par(int ncid, size_t start, size_t count,char *attr_name,double attr_value){
+	/*!
+	 * \param ncid - (int) pointer to the netCDF file
+	 * \param start - (size_t) index along each dimension to the first data values to be written
+	 * \param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 * \param name and value (double) of the global attributes to insert
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 */
+	const char *function_name="nc_add_global_attr_double_par";//
+	int status=NC_NOERR; /* error status */
+
+	double *attrvalue;
+	attrvalue=&attr_value;
+
+	// status=nc_redef(ncid);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_redef");
+
+	status=nc_put_att_double(ncid,NC_GLOBAL,attr_name,NC_DOUBLE,1,attrvalue);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_att_double");
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+}
+
+
+int ncgt_put_double_vs_time_par(double v, const char *var_name, long k, int ncid, size_t start, size_t count, const char *dimension_t){
+	/*!
+	 *\param v - (double) scalar variable
+	 *\param var_name - name of the scalar variable
+	 *\param k - (long) counter
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param dimension_t - (char *) name of the t dimension (number of times: UNLIMITED)
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function writes the variable contained in a vector referred to a particular time step 2D + time variable within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *  IMPORTANT: only one NC_UNLIMITED dimension allowed
+	 *  compile netcdf_lib with --enable-netcdf-4 option to Turn on netCDF-4 features.
+	 *
+	 */
+	const char *function_name="ncgt_put_double_vs_time_par";
+	int status=NC_NOERR;
+	int dvar; /* pointer to the variable*/
+	int ndim=1;
+	int dim[ndim];
+	int dimid_t; /* time dimensional id*/
+	size_t start[ndim],count[ndim];
+	//int dim_already_exists=1; /* this flag verifies the existence of the dimensions */
+
+	/* putting the dimension */
+	/* dimension_t */
+	//EV unlimited dimension requires other function
+	status=nc_inq_dimid(ncid,dimension_t,&dimid_t);
+	//status=nc_inq_unlimdim(ncid,&dimid_t);
+	if (status!=NC_NOERR) {
+		status=nc_def_dim(ncid,dimension_t,NC_UNLIMITED, &dimid_t);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_inq_dim");
+	}
+
+	/* The dim array is used to pass the dimids of the dimensions of
+           the netCDF variables. Both of the netCDF variables we are
+           creating share the same four dimensions. In C, the
+           unlimited dimension must come first on the list of dimids. */
+	dim[0] = dimid_t;
+
+	status=nc_inq_varid(ncid,var_name,&dvar);
+	//int nc_inq_varid (int ncid, const char *name, int *varidp);
+	if (status!=NC_NOERR) {
+		status=nc_def_var(ncid,var_name,NC_DOUBLE,ndim,dim,&dvar);
+		if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_def_var");
+	}
+	//else {
+	//printf("Warning in %s (nc_inq_varid) variable %s (id: %d) already exists and will be overwritten \n",function_name,var_name,dvar);
+	//}
+
+	// status=nc_enddef(ncid);
+	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
+	/* These settings tell netcdf to write one timestep of data. (The
+   setting of start[0] inside the loop below tells netCDF which
+   timestep to write.) */
+
+	//count[0]=1;
+	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
+	//start[0]=k;
+
+	status=nc_put_vara_double(ncid,dvar,start,count,&v);
+	//int nc_put_vara_double(int ncid, int varid, const size_t start[],const size_t count[], const double *dp);
+	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
+
+	return 0;
+
+}
+
+
+int ncgt_put_doublematrix_from_doubletensor_vs_time_par(DOUBLETENSOR *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t, char *suffix,
+		const char *dimension_id, const char *dimension_z,LONGMATRIX *rc){
+	/*!
+	 *
+	 *\param dt - (DOUBLETENSOR *) variable to be written in the NetCDF
+	 *\param k (long) printing counter
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param suffix - (char *) suffix to add to the variable name
+	 *\param dimension_id - (char *) name of the id dimension (number of row)
+	 *\param dimension_z - (char *) name of the z dimension (number of d TBC)
+	 *\param rc - (DOUBLEMATRIX*) matrix containing the row and column at which elements are put into the necdf archive
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable subset contained in a doubletensor within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *\return
+	 */
+	DOUBLEMATRIX *M=NULL;
+	long id,l,r,c;// indexes
+
+	M=new_doublematrix(dt->ndh,rc->nrh);
+	M->name=join_strings((char *)dt->name,suffix);
+
+	for(id=M->ncl;id<=M->nch;id++) {
+		for(l=M->nrl;l<=M->nrh;l++) {
+			r=rc->co[id][1];
+			c=rc->co[id][2];
+			M->co[l][id]=dt->co[l][r][c];
+		}
+	}
+	ncgt_put_doublematrix_vs_time(M,k,ncid,start,count,dimension_t,dimension_id,dimension_z);
+	free_doublematrix(M);
+
+	return 0;
+}
+
+
+int ncgt_put_doublevector_from_doublematrix_vs_time_par(DOUBLEMATRIX *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t,  char *suffix,
+		const char *dimension_id, LONGMATRIX *rc){
+	/*!
+	 *
+	 *\param dt - (DOUBLEMATRIX *) variable to be written in the NetCDF
+	 *\param k (long) printing counter
+	 *\param ncid - (int) pointer to the netCDF file
+	 *\param start - (size_t) index along each dimension to the first data values to be written
+	 *\param count - (size_t) edge lengths along each dimension of the block of data values to be written
+	 *\param suffix - (char *) suffix to add to the variable name
+	 *\param dimension_id - (char *) name of the id dimension (number of row)
+	 *\param rc - (DOUBLEMATRIX*) matrix containing the row and column at which elements are put into the necdf archive
+	 *
+	 *\author Giuseppe Onorevoli
+	 *\date february 2012
+	 *
+	 *\brief This function write the variable subset contained in a doublematrix within a NetCDF file
+	 *
+	 *\return 0 if exit is ok, otherwise an error message.
+	 *
+	 */
+	DOUBLEVECTOR *M=NULL;
+	long id,r,c;// indexes
+
+	M=new_doublevector(rc->nrh);
+	M->name=join_strings((char *)dt->name,suffix);
+
+	for(id=M->nl;id<=M->nh;id++) {
+		r=rc->co[id][1];
+		c=rc->co[id][2];
+		M->co[id]=dt->co[r][c];
+	}
+	ncgt_put_doublevector_vs_time(M,k,ncid,start,count,dimension_t,dimension_id);
+	free_doublevector(M);
+
+	return 0;
+}
+#endif
+/* end added by Giuseppe Onorevoli on March 6 , 2012 */
 
 #endif

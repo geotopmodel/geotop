@@ -74,7 +74,7 @@ void updateGhostcells(GCSTRUCT *start)
 			}
 			recvcount = stopValue - startValue;
 			recvRank = ptr->rank;
-			// aggiorna la ghost-cells
+			// aggiorna le ghost-cells
 			MPI_Sendrecv(&sendbuf, sendcount, MPI_DOUBLE, sendRank, sendtag, &recvbuf, recvcount, MPI_DOUBLE, recvRank, recvtag, MPI_COMM_WORLD, &status);
 			std::cout << "Sending to: " << sendRank << " and receiving from: " << recvRank << std::endl;
 			if (ptr->top == ptr->bottom){	// buffer lungo riga

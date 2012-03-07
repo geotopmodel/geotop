@@ -249,6 +249,38 @@ void time_loop(ALLDATA *all)
 	long i;
 
 	FILE *f;
+
+#ifdef USE_HPC
+	//Nr=top->Z0->nrh;
+	//Nc=top->Z0->nch;
+
+	// define start and count values to control dimension_x and dimension_y for parallel write
+	// better to place here ouside the loop
+	Nr = abs(rankArea->top - rankArea->bottom);
+	Nc = abs(rankArea->left - rankArea->right);
+	if (rankArea->top == 1) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top;
+	} else if (rankArea->bottom == top->Z0->nrh) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top - 1;
+	} else {
+		offsetNr = rankArea->top - 1;
+		Nr = Nr + 2;
+	}
+	if (rankArea->left == 1) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left;
+	} else if (rankArea->right == top->Z0->nch) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left - 1;
+	} else {
+		Nc = Nc + 2;
+		offsetNc = rankArea->left;
+	}
+#endif
+
+
 #ifdef USE_NETCDF
 	long nsim=1;
 	// TODO: check number of simulation issue
