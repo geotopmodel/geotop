@@ -357,10 +357,7 @@ long ncgt_add_output_var_par(int ncid, size_t start, size_t count, void *m, doub
 	if(update==1){
 		counter++; // upgrade the counter
 	}
-	/* 26.11.2011 to do list:
-	 * put the attributes
-	 *
-	 *  */
+
 	return counter;
 }
 

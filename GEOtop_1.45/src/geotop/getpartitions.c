@@ -17,16 +17,17 @@ using namespace std;
 void getpartitions(GCSTRUCT *start, WORKAREA *rankArea)
 {
 
-int count, rank, myrank, nprocs, cprocs;
-string buffer,line;
-line = "none";
-char *str = new char[line.size()];
+	int count, rank, myrank, nprocs, cprocs;
+	int Np, Nrt, Nct, Nr, Nc, offsetNr, offsetNc;
+	string buffer,line;
+	line = "none";
+	char *str = new char[line.size()];
 
-ifstream dataFile("partition.txt", ios::in);
+	ifstream dataFile("partition.txt", ios::in);
 
-if (!dataFile) {	//file not open
-	std::cout << "Error opening data file.\n";
-	return;
+	if (!dataFile) {	//file not open
+		std::cout << "Error opening data file.\n";
+		return;
 	}
 
 	dataFile.exceptions(ios::badbit | ios::failbit | ios::eofbit);
@@ -48,7 +49,12 @@ if (!dataFile) {	//file not open
 				{
 					str = strtok (NULL, " ,.-)(");
 					if (str == NULL) break;
-					if (strcmp(str, "SIZE") == 0){
+					if (strcmp(str, "DATA") == 0){
+						// Memorizza i parametri dell'area di lavoro
+						Np = rank;
+						Nrt = atoi(strtok (NULL, " ,.-)("));
+						Nct = atoi(strtok (NULL, " ,.-)("));
+					} else if (strcmp(str, "SIZE") == 0){
 						// Memorizza i parametri dell'area di lavoro
 						rankArea->rank = rank;
 						rankArea->top = atoi(strtok (NULL, " ,.-)("));
@@ -86,7 +92,49 @@ if (!dataFile) {	//file not open
 					}
 				}
 			}
+
+			// definisce le dimensioni del sotto-dominio e completa i parametri necessari a dimensionare i sotto-domini in lettura e scrittura
+			Nr = abs(rankArea->top - rankArea->bottom);
+			Nc = abs(rankArea->left - rankArea->right);
+			if (rankArea->top == 1) {
+				Nr = Nr + 1;
+				offsetNr = rankArea->top;
+			} else if (rankArea->bottom == Nrt) {
+				Nr = Nr + 1;
+				offsetNr = rankArea->top - 1;
+			} else {
+				offsetNr = rankArea->top - 1;
+				Nr = Nr + 2;
+			}
+			if (rankArea->left == 1) {
+				Nc = Nc + 1;
+				offsetNc = rankArea->left;
+			} else if (rankArea->right == Nct) {
+				Nc = Nc + 1;
+				offsetNc = rankArea->left - 1;
+			} else {
+				Nc = Nc + 2;
+				offsetNc = rankArea->left;
+			}
+
+			// qui vanno definite le dimensioni relative ai blocchi in lettura e scrittura
+			rankArea->count[0]=0;
+			rankArea->count[1]=0;
+			rankArea->count[2]=0;
+			rankArea->count[3]=0;
+
+			rankArea->start[0]=0;
+			rankArea->start[1]=0;
+			rankArea->start[2]=0;
+			rankArea->start[3]=0;
+
+			rankArea->stride[0]=0;
+			rankArea->stride[1]=0;
+			rankArea->stride[2]=0;
+			rankArea->stride[3]=0;
+
 		}
+
 	} catch(ios_base::failure exc) {
 		std::cout << "Error reading data file.\n";
 	}

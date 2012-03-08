@@ -160,34 +160,6 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LANDCOVER *land
 	
 	convert_JDfrom0_JDandYear(par->init_date->co[1], &JD, &year);
 	convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
-
-#ifdef USE_HPC
-
-	// definisce le dimensioni del sotto-dominio relativo al processo corrente e con queste vanno dimensionati tutti gli array
-	Nr = abs(rankArea->top - rankArea->bottom);
-	Nc = abs(rankArea->left - rankArea->right);
-	if (rankArea->top == 1) {
-		Nr = Nr + 1;
-		offsetNr = rankArea->top;
-	} else if (rankArea->bottom == top->Z0->nrh) {
-		Nr = Nr + 1;
-		offsetNr = rankArea->top - 1;
-	} else {
-		offsetNr = rankArea->top - 1;
-		Nr = Nr + 2;
-	}
-	if (rankArea->left == 1) {
-		Nc = Nc + 1;
-		offsetNc = rankArea->left;
-	} else if (rankArea->right == top->Z0->nch) {
-		Nc = Nc + 1;
-		offsetNc = rankArea->left - 1;
-	} else {
-		Nc = Nc + 2;
-		offsetNc = rankArea->left;
-	}
-
-#endif
 	
 	/****************************************************************************************************/
 	/*! Reading of the Input files:                                                                     */

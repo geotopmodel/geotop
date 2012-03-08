@@ -2,10 +2,12 @@
  * hpc.geotop.h
  *
  *  Created on: 02/mar/2012
- *      Author: giuseppe
+ *      Author: Giuseppe Onorevoli
  */
 
 #ifdef USE_HPC
+
+#include <valarray>
 
 struct GCSTRUCT	//Struct containing subdomain ghost-cells adjacency data for MPI SEND/RECV commands
 {
@@ -26,6 +28,9 @@ struct WORKAREA	//Struct containing local subdomain coords
 	int left;
 	int bottom;
 	int right;
+	size_t start[];
+	size_t count[];
+	size_t stride[];
 };
 typedef struct WORKAREA;
 

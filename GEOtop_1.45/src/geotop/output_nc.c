@@ -1,10 +1,10 @@
 
 /* STATEMENT:
- 
- 
+
+
  */
 
-    
+
 /*#include "struct.geotop.h"
 #include "output.h"
 #include "pedo.funct.h"
@@ -24,7 +24,7 @@
 
 
 #include <time.h>
- 
+
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
@@ -46,6 +46,7 @@ extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
 
 extern long i_sim, i_run;*/
+
 #ifdef USE_NETCDF
 
 #include <sys/stat.h>
@@ -74,15 +75,11 @@ extern long number_novalue;
 //***************************************************************************************************************
 //***************************************************************************************************************
 #ifdef USE_HPC
-	void set_output_nc(ALLDATA *all, WORKAREA *rankArea)
-#else
-	void set_output_nc(ALLDATA *all)
-#endif
+void set_output_nc(ALLDATA *all, WORKAREA *rankArea)
 {
-
-/*
- * !
- */
+	/*
+	 * !
+	 */
 	//all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
 	//all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
 	//all->S->Tzplot->name="instaneous_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
@@ -106,7 +103,7 @@ extern long number_novalue;
 	all->G->G->T->name ="glacier_layer_temperature";
 	all->G->G->w_ice->name ="ice_content_in_glacier_layer";
 	all->G->G->w_liq->name= "water_content_in_glacier_layer";
-	*/
+	 */
 	// surface energy variables
 	all->E->Rn_mean->name="mean_net_radiation_in_print_time_step";
 	all->E->LWin_mean->name="mean_LWin_radiation_in_print_time_step";
@@ -153,8 +150,8 @@ extern long number_novalue;
 		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
 		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
 		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-		*/
-//
+		 */
+		//
 		// vegetation??? TODO
 		//all->S->Tv=new_doublematrix(Nr,Nc);
 	} else{// point simulation
@@ -174,16 +171,120 @@ extern long number_novalue;
 		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
 		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
 		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
-		*/
+		 */
 	}
 }
+
+#else
+
+void set_output_nc(ALLDATA *all)
+{
+
+	/*
+	 * !
+	 */
+	//all->E->Ts_mean->name="mean_surface_temperature_in_DtSurfPrint"; // to be deleted just to test
+	//all->S->Tzavplot->name="averaged_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	//all->S->Tzplot->name="instaneous_temperature_in_soil_depth_in_check_points_in_Dt_output"; // to be deleted just to test
+	// soil
+	all->S->th->name="water_content_in_soil_depth";
+	all->S->T->name="temperature_in_soil_depth";
+	all->S->thice->name="ice_content_in_soil_depth";
+	all->S->P->name="liquid_water_pressure_in_soil_depth";
+	all->S->Ptot->name="total_liquid_and_ice_water_pressure_in_soil_depth";
+	// snow
+	all->N->S->type->name="type_of_snow_discretization";
+	all->N->S->lnum->name ="number_of_snow_layers";
+	all->N->S->Dzl->name ="snow_layer_depth";
+	all->N->S->T->name ="snow_layer_temperature";
+	all->N->S->w_ice->name ="ice_content_in_snow_layer";
+	all->N->S->w_liq->name= "water_content_in_snow_layer";
+	// glacier: commented as in the Duron template there is no glacier to test
+	/*all->G->G->type->name="type_of_glacier_discretization";
+	all->G->G->lnum->name ="number_of_glacier_layers";
+	all->G->G->Dzl->name ="glacier_layer_depth";
+	all->G->G->T->name ="glacier_layer_temperature";
+	all->G->G->w_ice->name ="ice_content_in_glacier_layer";
+	all->G->G->w_liq->name= "water_content_in_glacier_layer";
+	 */
+	// surface energy variables
+	all->E->Rn_mean->name="mean_net_radiation_in_print_time_step";
+	all->E->LWin_mean->name="mean_LWin_radiation_in_print_time_step";
+	all->E->LW_mean->name="mean_LW_radiation_in_print_time_step";
+	all->E->SW_mean->name="mean_SW_radiation_in_print_time_step";
+	all->E->Rswdown_mean->name="mean_Rsdown_in_print_time_step";
+	all->E->Rswbeam_mean->name="mean_Rswbeam_in_print_time_step";
+	all->E->nDt_shadow->name="shadowed_points_in_print_time_step";
+	all->E->nDt_sun->name="sun_points_in_print_time_step";
+	all->E->Rn_max->name="max_net_radiation_in_print_time_step";
+	all->E->Rn_min->name="min_net_radiation_in_print_time_step";
+	all->E->LW_max->name="max_LW_radiation_in_print_time_step";
+	all->E->LW_min->name="min_LW_radiation_in_print_time_step";
+	all->E->SW_max->name="max_SW_radiation_in_print_time_step";
+	all->E->Rswdown_max->name="min_SW_radiation_in_print_time_step";
+	all->E->SEB_mean->name="mean_surfaceEB_in_print_time_step";
+	all->E->G_max->name="max_ground_heat_flux_in_print_time_step";
+	all->E->G_min->name="min_ground_heat_flux_in_print_time_step";
+	all->E->H_mean->name="mean_sensible_heat_flux_in_print_time_step";
+	all->E->H_max->name="max_sensible_heat_flux_in_print_time_step";
+	all->E->H_min->name="min_sensible_heat_flux_in_print_time_step";
+	all->E->ET_mean->name="mean_evapo_transpiration_flux_in_print_time_step";
+	all->E->ET_max->name="max_evapo_transpiration_flux_in_print_time_step";
+	all->E->ET_min->name="min_evapo_transpiration_flux_in_print_time_step";
+	all->E->Ts_mean->name="mean_surface_temperature_in_print_time_step";
+	all->E->Ts_max->name="max_surface_temperature_in_print_time_step";
+	all->E->Ts_min->name="min_surface_temperature_flux_in_print_time_step";
+
+	all->outnc=(OUTPUT_NCDATA*) malloc(sizeof(OUTPUT_NCDATA));
+	if (all->P->point_sim!=1){// distributed simulation
+		// soil
+		all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->output_soil);
+		all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil);
+		// snow
+		all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow);
+		//glacier
+		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+		 */
+		//
+		// vegetation??? TODO
+		//all->S->Tv=new_doublematrix(Nr,Nc);
+	} else{// point simulation
+		// soil
+		all->outnc->soil_P_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->P, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_T_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_thw_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_thi_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->thice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->soil_Ptot_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		// snow
+		all->outnc->snowD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->snowW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		//glacier
+		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		 */
+	}
+}
+#endif
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 void deallocate_output_nc(OUTPUT_NCDATA* outnc){
-/*
- *
- */
+	/*
+	 *
+	 */
 	// soil
 	free_doubletensor(outnc->soil_P_cum);
 	free_doubletensor(outnc->soil_T_cum);
@@ -245,22 +346,16 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 //	}
 //}
 
-
-
-
-
 //***************************************************************************************************************
 //***************************************************************************************************************
 #ifdef USE_HPC
-	void write_output_nc(ALLDATA* all, WORKAREA *rankArea)
-#else
-	void write_output_nc(ALLDATA* all)
-#endif
+
+void write_output_nc(ALLDATA* all, WORKAREA *rankArea)
 {
-/*
- * !
- * ! ciao
- */
+	/*
+	 * !
+	 * ! ciao
+	 */
 	//DISCHARGE
 	//****************************************************************************************************************
 	//if(par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5 && strcmp(files[fQ] , string_novalue) != 0){}
@@ -271,13 +366,232 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 	//if(all->P->Dtplot_point->co[i_sim] > 1.E-5){
 	//if(par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
 	//if(par->Dtplot_point->co[i_sim] > 1.E-5){
-		//Print of pixel-output every times->n_pixel time step
-		//if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5){
+	//Print of pixel-output every times->n_pixel time step
+	//if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5){
+	//soil water pressure head (Psi)
+	//soil
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_P_cum,(void *)all->S->P, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_thi_cum,(void *)all->S->thice, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_Ptot_cum,(void *)all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+	// snow
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowD_cum,(void *)all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowI_cum,(void *)all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, start, count, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+	// glacier
+	/*all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacD_cum,(void *)all->G->G->Dzl, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
+				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacT_cum,(void *)all->G->G->T, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
+				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacI_cum,(void *)all->G->G->w_ice, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
+				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacW_cum,(void *)all->G->G->w_liq, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
+				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+	 */
+
+	//BASIN DATA
+	//****************************************************************************************************************
+	//if(par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1){
+	//t_basin += par->Dt;
+	//if (fabs(t_basin - par->Dtplot_basin->co[i_sim])<1.E-5){
+
+	// DISTRIBUTED
+	/**********************************************************************************************************/
+	if (all->P->point_sim!=1){
+		//soil properties
+		//soil water pressure head (Psi)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_P_cum,(void *)all->S->P, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// soil Temperature
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_T_cum,(void *)all->S->T, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// soil water content (theta_w)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//soil ice content (theta_i)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thi_cum,(void *)all->S->thice, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//soil water + ice pressure head (Psi_tot)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->soil_Ptot_cum,(void *)all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+
+		//snow properties
+		// Snow depth
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowD_cum,(void *)all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// snow temperature
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// snow Ice content
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowI_cum,(void *)all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// snow Water content
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)<1.E-5){// print condition
+
+		//glacier properties
+		//if(par->glaclayer_max>0 && par->output_glac>0 && fmod(times->time+par->Dt,par->output_glac*3600.0)<1.E-5){
+
+		//SURFACE ENERGY BALANCE - RADIATION
+		/**********************************************************************************************************/
+		//if(par->output_surfenergy>0 && fmod(times->time+par->Dt,par->output_surfenergy*3600.0)<1.E-5){
+		//	269: long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+		//2D surface energy map
+
+
+		//	long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+		//			const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
+
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT,NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y,NC_GEOTOP_NOVALUE,NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Ts_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Ts_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Rn_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->LWin_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswdown_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Rswbeam_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->nDt_shadow, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->nDt_sun, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->LW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->SW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->Rswdown_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, start, count,NULL, (void *)all->E->SEB_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->G_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->G_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->H_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->H_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->H_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->ET_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->ET_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count,NULL, (void *)all->E->ET_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+
+		// in case one wants to plot in a particular point the surface energy variables
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, rankArea->start, rankArea->count, NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600,
+				all->point_var_type, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY, NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NULL, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy,
+				NC_GEOTOP_UPDATE_COUNTER_TIME,NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
+		//
+
+	}
+}
+
+#else
+
+void write_output_nc(ALLDATA* all)
+{
+	/*
+	 * !
+	 * ! ciao
+	 */
+	//DISCHARGE
+	//****************************************************************************************************************
+	//if(par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5 && strcmp(files[fQ] , string_novalue) != 0){}
+
+
+	//DATA POINT
+	//****************************************************************************************************************
+	//if(all->P->Dtplot_point->co[i_sim] > 1.E-5){
+	//if(par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
+	//if(par->Dtplot_point->co[i_sim] > 1.E-5){
+	//Print of pixel-output every times->n_pixel time step
+	//if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5){
 	//soil water pressure head (Psi)
 	//soil
 	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_P_cum,(void *)all->S->P, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
-		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 
 	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
 			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
@@ -304,6 +618,7 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
 			all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+
 	// glacier
 	/*all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacD_cum,(void *)all->G->G->Dzl, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
 				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
@@ -317,156 +632,156 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 	all->counter_point=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacW_cum,(void *)all->G->G->w_liq, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
 				all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
-				*/
+	 */
 
 	//BASIN DATA
 	//****************************************************************************************************************
 	//if(par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1){
-		//t_basin += par->Dt;
-		//if (fabs(t_basin - par->Dtplot_basin->co[i_sim])<1.E-5){
+	//t_basin += par->Dt;
+	//if (fabs(t_basin - par->Dtplot_basin->co[i_sim])<1.E-5){
 
 	// DISTRIBUTED
 	/**********************************************************************************************************/
 	if (all->P->point_sim!=1){
-	//soil properties
-	//soil water pressure head (Psi)
-	all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_P_cum,(void *)all->S->P, all->I->time+all->P->Dt,all->P->Dt,
-			all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
-			NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	// soil Temperature
-	all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_T_cum,(void *)all->S->T, all->I->time+all->P->Dt,all->P->Dt,
-			all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
-			NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	// soil water content (theta_w)
-	all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
-			all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
-			NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	//soil ice content (theta_i)
-	all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thi_cum,(void *)all->S->thice, all->I->time+all->P->Dt,all->P->Dt,
-			all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
-			NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	//soil water + ice pressure head (Psi_tot)
-	all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_Ptot_cum,(void *)all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
-			all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
-			NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//soil properties
+		//soil water pressure head (Psi)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_P_cum,(void *)all->S->P, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// soil Temperature
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_T_cum,(void *)all->S->T, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		// soil water content (theta_w)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//soil ice content (theta_i)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thi_cum,(void *)all->S->thice, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		//soil water + ice pressure head (Psi_tot)
+		all->counter_soil=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_Ptot_cum,(void *)all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
+				all->P->output_soil*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SOIL,NC_GEOTOP_Z_SOIL,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_soil,
+				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
 
-	//snow properties
-	// Snow depth
-	all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowD_cum,(void *)all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
+		//snow properties
+		// Snow depth
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowD_cum,(void *)all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
 				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
 				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	// snow temperature
-	all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
+		// snow temperature
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
 				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
 				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	// snow Ice content
-	all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowI_cum,(void *)all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
+		// snow Ice content
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowI_cum,(void *)all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
 				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
 				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	// snow Water content
-	all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
+		// snow Water content
+		all->counter_snow=ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
 				all->P->output_snow*3600, NC_GEOTOP_3D_MAP, NC_GEOTOP_TIME_FOR_SNOW,NC_GEOTOP_Z_SNOW,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, all->counter_snow,
 				NC_GEOTOP_NOREINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	//if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)<1.E-5){// print condition
+		//if(par->output_snow>0 && fmod(times->time+par->Dt,par->output_snow*3600.0)<1.E-5){// print condition
 
-	//glacier properties
-	//if(par->glaclayer_max>0 && par->output_glac>0 && fmod(times->time+par->Dt,par->output_glac*3600.0)<1.E-5){
+		//glacier properties
+		//if(par->glaclayer_max>0 && par->output_glac>0 && fmod(times->time+par->Dt,par->output_glac*3600.0)<1.E-5){
 
-	//SURFACE ENERGY BALANCE - RADIATION
-	/**********************************************************************************************************/
-	//if(par->output_surfenergy>0 && fmod(times->time+par->Dt,par->output_surfenergy*3600.0)<1.E-5){
-//	269: long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-	//2D surface energy map
+		//SURFACE ENERGY BALANCE - RADIATION
+		/**********************************************************************************************************/
+		//if(par->output_surfenergy>0 && fmod(times->time+par->Dt,par->output_surfenergy*3600.0)<1.E-5){
+		//	269: long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+		//2D surface energy map
 
 
-//	long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//			const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
+		//	long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+		//			const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
 
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT,NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y,NC_GEOTOP_NOVALUE,NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LWin_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswdown_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswbeam_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->nDt_shadow, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-			NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->nDt_sun, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswdown_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SEB_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->G_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->G_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
-					NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
-					NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT,NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y,NC_GEOTOP_NOVALUE,NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LWin_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SW_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswdown_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswbeam_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->nDt_shadow, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->nDt_sun, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rn_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->LW_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SW_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Rswdown_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->SEB_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->G_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->G_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->H_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_max, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->ET_min, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600, NC_GEOTOP_2D_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
+				NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,
+				NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, NULL);
 
-	// in case one wants to plot in a particular point the surface energy variables
-	all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600,
-			all->point_var_type, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY, NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NULL, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy,
-			NC_GEOTOP_UPDATE_COUNTER_TIME,NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
+		// in case one wants to plot in a particular point the surface energy variables
+		all->counter_surface_energy=ncgt_add_output_var_cumtime(all->ncid, NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy*3600,
+				all->point_var_type, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY, NC_GEOTOP_Z_GENERIC,NC_GEOTOP_POINT_DIM_GENERIC,NULL, NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy,
+				NC_GEOTOP_UPDATE_COUNTER_TIME,NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 
-//
+		//
 
 	}
 	//VEGETATION VARIABLES
@@ -486,4 +801,5 @@ void deallocate_output_nc(OUTPUT_NCDATA* outnc){
 
 }
 
+#endif
 #endif
