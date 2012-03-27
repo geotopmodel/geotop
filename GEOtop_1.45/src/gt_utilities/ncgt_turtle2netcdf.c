@@ -2045,7 +2045,7 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int
 }
 
 
-int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t,  char *suffix,
+int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  char *suffix,
 		const char *dimension_id, LONGMATRIX *rc){
 	/*!
 	 *\param dt - (DOUBLEMATRIX *) variable to be written in the NetCDF
@@ -2081,7 +2081,7 @@ int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int
 
 /* a set of nc function for HPC - added by Giuseppe Onorevoli on March 6, 2012 */
 
-int ncgt_put_doublevector_par(DOUBLEVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+int ncgt_put_doublevector_par(DOUBLEVECTOR *v, int ncid, WORKAREA *rankArea, const char *dimension){
 	/*!
 	 *
 	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
@@ -2129,13 +2129,13 @@ int ncgt_put_doublevector_par(DOUBLEVECTOR *v, int ncid, size_t start, size_t co
 	/* Write the pretend data to the file. Although netCDF supports
 	 * reading and writing subsets of data, in this case we write all
 	 * the data in one operation. */
-	status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 	return 0;
 }
 
 
-int ncgt_put_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+int ncgt_put_doublematrix_par(DOUBLEMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y){
 	/*!
 	 *
 	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
@@ -2198,12 +2198,12 @@ int ncgt_put_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t start, size_t co
 	/* Write the pretend data to the file. Although netCDF supports
 	 * reading and writing subsets of data, in this case we write all
 	 * the data in one operation. */
-	status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 	return 0;
 }
 
-int ncgt_put_var_textattributes_par(int ncid, size_t start, size_t count,const char *varname, const char *attribute_name, const char *attribute_text){
+int ncgt_put_var_textattributes_par(int ncid, WORKAREA *rankArea,const char *varname, const char *attribute_name, const char *attribute_text){
 	/*!
 	 *
 	 *\param ncid - (int) pointer to the netCDF file
@@ -2253,7 +2253,7 @@ int ncgt_put_var_textattributes_par(int ncid, size_t start, size_t count,const c
 }
 
 
-int ncgt_put_floatvector_par(FLOATVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+int ncgt_put_floatvector_par(FLOATVECTOR *v, int ncid, WORKAREA *rankArea, const char *dimension){
 	/*!
 	 *
 	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
@@ -2297,13 +2297,13 @@ int ncgt_put_floatvector_par(FLOATVECTOR *v, int ncid, size_t start, size_t coun
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_float(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_float(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
 
 	return 0;
 }
 
-int ncgt_put_intvector_par(INTVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+int ncgt_put_intvector_par(INTVECTOR *v, int ncid, WORKAREA *rankArea, const char *dimension){
 	/*!
 	 *
 	 *\param v - (INTVECTOR *) variable to be written in the NetCDF
@@ -2349,14 +2349,14 @@ int ncgt_put_intvector_par(INTVECTOR *v, int ncid, size_t start, size_t count, c
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_int(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_int(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
 
 	return 0;
 }
 
 
-int ncgt_put_longvector_par(LONGVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+int ncgt_put_longvector_par(LONGVECTOR *v, int ncid, WORKAREA *rankArea, const char *dimension){
 	/*!
 	 *
 	 *\param v - (LONGVECTOR *) variable to be written in the NetCDF
@@ -2408,14 +2408,14 @@ int ncgt_put_longvector_par(LONGVECTOR *v, int ncid, size_t start, size_t count,
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_long(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_long(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
 
 	return 0;
 }
 
 
-int ncgt_put_shortvector_par(SHORTVECTOR *v, int ncid, size_t start, size_t count, const char *dimension){
+int ncgt_put_shortvector_par(SHORTVECTOR *v, int ncid, WORKAREA *rankArea, const char *dimension){
 	/*!
 	 *\param v - (SHORTVECTOR *) variable to be written in the NetCDF
 	 *\param ncid - (int) pointer to the netCDF file
@@ -2461,7 +2461,7 @@ int ncgt_put_shortvector_par(SHORTVECTOR *v, int ncid, size_t start, size_t coun
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_short(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_short(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
 
 	return 0;
@@ -2469,7 +2469,7 @@ int ncgt_put_shortvector_par(SHORTVECTOR *v, int ncid, size_t start, size_t coun
 
 //CHARVECTOR TBC (unused in Geotop)
 
-int ncgt_put_floatmatrix_par(FLOATMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+int ncgt_put_floatmatrix_par(FLOATMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y){
 	/*!
 	 *\param m - (FLOATMATRIX *) variable to be written in the NetCDF
 	 *\param ncid - (int) pointer to the netCDF file
@@ -2527,13 +2527,13 @@ int ncgt_put_floatmatrix_par(FLOATMATRIX *m, int ncid, size_t start, size_t coun
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_float(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_float(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
 
 	return 0;
 }
 
-int ncgt_put_shortmatrix_par(SHORTMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+int ncgt_put_shortmatrix_par(SHORTMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y){
 	/*!
 	 *
 	 *\param m - (SHORTMATRIX *) variable to be written in the NetCDF
@@ -2592,14 +2592,14 @@ int ncgt_put_shortmatrix_par(SHORTMATRIX *m, int ncid, size_t start, size_t coun
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_short(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_short(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
 
 	return 0;
 }
 
 
-int ncgt_put_intmatrix_par(INTMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+int ncgt_put_intmatrix_par(INTMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y){
 	/*!
 	 *
 	 *\param m - (INTMATRIX *) variable to be written in the NetCDF
@@ -2658,14 +2658,14 @@ int ncgt_put_intmatrix_par(INTMATRIX *m, int ncid, size_t start, size_t count, c
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_int(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_int(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
 
 	return 0;
 }
 
 
-int ncgt_put_longmatrix_par(LONGMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y){
+int ncgt_put_longmatrix_par(LONGMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y){
 	/*!
 	 *\param m - (LONGMATRIX *) variable to be written in the NetCDF
 	 *\param ncid - (int) pointer to the netCDF file
@@ -2725,14 +2725,14 @@ int ncgt_put_longmatrix_par(LONGMATRIX *m, int ncid, size_t start, size_t count,
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_long(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_long(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
 
 	return 0;
 }
 
 
-int ncgt_put_doubletensor_par(DOUBLETENSOR *dt, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y, const char *dimension_z){
+int ncgt_put_doubletensor_par(DOUBLETENSOR *dt, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y, const char *dimension_z){
 	/*!
 	 *\param dt - (DOUBLETENSOR *) variable to be written in the NetCDF
 	 *\param ncid - (int) pointer to the netCDF file
@@ -2798,14 +2798,14 @@ int ncgt_put_doubletensor_par(DOUBLETENSOR *dt, int ncid, size_t start, size_t c
 	// status=nc_enddef(ncid);
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
-	status=nc_put_vara_double(ncid,dvar,start,count,&(dt->element[dt->nrl][dt->ncl][dt->ndl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(dt->element[dt->nrl][dt->ncl][dt->ndl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 	return 0;
 }
 
 
-int ncgt_put_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
+int ncgt_put_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
 	/*!
 	 *
 	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
@@ -2898,14 +2898,14 @@ int ncgt_put_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, size_t 
 	//start[1]=0;//m->nrl;//EV// y dimension
 	//start[2]=0;//m->ncl;//EV// y dimension
 
-	status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(m->element[m->nrl][m->ncl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 	return 0;
 }
 
 
-int ncgt_put_doublevector_vs_time_par(DOUBLEVECTOR *v, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x){
+int ncgt_put_doublevector_vs_time_par(DOUBLEVECTOR *v, long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  const char *dimension_x){
 	/*!
 	 *
 	 *\param v - (DOUBLEVECTOR *) variable to be written in the NetCDF
@@ -2982,14 +2982,14 @@ int ncgt_put_doublevector_vs_time_par(DOUBLEVECTOR *v, long k, int ncid, size_t 
 	//start[1]=0;
 
 	//status=nc_put_vara_double(ncid,dvar,start,count,&(m->element[m->nrl][m->ncl]));
-	status=nc_put_vara_double(ncid,dvar,start,count,&(v->element[v->nl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(v->element[v->nl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 	return 0;
 }
 
 
-int ncgt_put_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
+int ncgt_put_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
 {
 	/*!
 	 *
@@ -3084,7 +3084,7 @@ int ncgt_put_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t 
 	//start[2]=0;
 	//start[3]=0;
 
-	status=nc_put_vara_double(ncid,dvar,start,count,&(t->element[t->nrl][t->ncl][t->ndl]));
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&(t->element[t->nrl][t->ncl][t->ndl]));
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 	return 0;
@@ -3092,7 +3092,7 @@ int ncgt_put_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t 
 
 //SCALAR TYPES
 
-int nc_put_byte_par(signed char bval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_byte_par(signed char bval, int ncid, WORKAREA *rankArea,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3143,14 +3143,14 @@ int nc_put_byte_par(signed char bval, int ncid, size_t start, size_t count,const
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_schar(ncid,varid,start,count,&bval); //
+	status = nc_put_vara_schar(ncid,varid,rankArea->start,rankArea->count,&bval); //
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_schar");
 
 	return 0;
 }
 
 
-int nc_put_int_par(int ival, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_int_par(int ival, int ncid, WORKAREA *rankArea,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3201,14 +3201,14 @@ int nc_put_int_par(int ival, int ncid, size_t start, size_t count,const char *va
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_int(ncid,varid,start,count,&ival);
+	status = nc_put_vara_int(ncid,varid,rankArea->start,rankArea->count,&ival);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_int");
 
 	return 0;
 }
 
 
-int nc_put_short_par(short sval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_short_par(short sval, int ncid, WORKAREA *rankArea,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3259,14 +3259,14 @@ int nc_put_short_par(short sval, int ncid, size_t start, size_t count,const char
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_short(ncid,varid,start,count,&sval);
+	status = nc_put_vara_short(ncid,varid,rankArea->start,rankArea->count,&sval);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_short");
 
 	return 0;
 }
 
 
-int nc_put_float_par(float fval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_float_par(float fval, int ncid, WORKAREA *rankArea,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3317,14 +3317,14 @@ int nc_put_float_par(float fval, int ncid, size_t start, size_t count,const char
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_float(ncid,varid,start,count,&fval);
+	status = nc_put_vara_float(ncid,varid,rankArea->start,rankArea->count,&fval);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_float");
 
 	return 0;
 }
 
 // NC_DOUBLE
-int nc_put_double_par(double dval, int ncid, size_t start, size_t count,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_double_par(double dval, int ncid, WORKAREA *rankArea,const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3376,14 +3376,14 @@ int nc_put_double_par(double dval, int ncid, size_t start, size_t count,const ch
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_double(ncid,varid,start,count,&dval);
+	status = nc_put_vara_double(ncid,varid,rankArea->start,rankArea->count,&dval);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
 	return 0;
 }
 
 
-int nc_put_long_par(long lval, int ncid, size_t start, size_t count, const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
+int nc_put_long_par(long lval, int ncid, WORKAREA *rankArea, const char *varname, const char *units, const char *description,const char *standard_name,const char *long_name)
 {
 	/*!
 	 *
@@ -3434,13 +3434,13 @@ int nc_put_long_par(long lval, int ncid, size_t start, size_t count, const char 
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 
 	//put value
-	status = nc_put_vara_long(ncid,varid,start,count,&lval);
+	status = nc_put_vara_long(ncid,varid,rankArea->start,rankArea->count,&lval);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_long");
 
 	return 0;
 }
 
-int ncgt_put_rotate180_y_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y) {
+int ncgt_put_rotate180_y_doublematrix_par(DOUBLEMATRIX *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y) {
 	/*!
 	 *\param m - (DOUBLEMATRIX *) variable to be written in the NetCDF
 	 *\param ncid - (int) pointer to the netCDF file
@@ -3465,7 +3465,7 @@ int ncgt_put_rotate180_y_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t star
 
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doublematrix(m,ncid,start,count,dimension_x,dimension_y);
+	l=ncgt_put_doublematrix(m,ncid,rankArea->start,rankArea->count,dimension_x,dimension_y);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -3473,7 +3473,7 @@ int ncgt_put_rotate180_y_doublematrix_par(DOUBLEMATRIX *m, int ncid, size_t star
 	return l;
 }
 
-int ncgt_put_rotate180_y_doubletensor_par(DOUBLETENSOR *m, int ncid, size_t start, size_t count, const char *dimension_x, const char *dimension_y, const char *dimension_z) {
+int ncgt_put_rotate180_y_doubletensor_par(DOUBLETENSOR *m, int ncid, WORKAREA *rankArea, const char *dimension_x, const char *dimension_y, const char *dimension_z) {
 	/*!
 	 *
 	 *\param m - (DOUBLETENSOR *) variable to be written in the NetCDF
@@ -3499,7 +3499,7 @@ int ncgt_put_rotate180_y_doubletensor_par(DOUBLETENSOR *m, int ncid, size_t star
 
 	l=rotate180_y_doubletensor(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doubletensor(m,ncid,start,count,dimension_x,dimension_y,dimension_z);
+	l=ncgt_put_doubletensor(m,ncid,rankArea->start,rankArea->count,dimension_x,dimension_y,dimension_z);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly \n",function_name);
 	l=rotate180_y_doubletensor(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
@@ -3508,7 +3508,7 @@ int ncgt_put_rotate180_y_doubletensor_par(DOUBLETENSOR *m, int ncid, size_t star
 
 }
 
-int ncgt_put_rotate180_y_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
+int ncgt_put_rotate180_y_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  const char *dimension_x, const char *dimension_y){
 
 	/*!
 	 *
@@ -3540,7 +3540,7 @@ int ncgt_put_rotate180_y_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int n
 
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doublematrix_vs_time(m,k,ncid,start,count,dimension_t,dimension_x,dimension_y);
+	l=ncgt_put_doublematrix_vs_time(m,k,ncid,rankArea->start,rankArea->count,dimension_t,dimension_x,dimension_y);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doublematrix(m);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -3550,7 +3550,7 @@ int ncgt_put_rotate180_y_doublematrix_vs_time_par(DOUBLEMATRIX *m, long k, int n
 }
 
 
-int ncgt_put_rotate180_y_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, size_t start, size_t count, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
+int ncgt_put_rotate180_y_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  const char *dimension_x, const char *dimension_y, const char *dimension_z)
 {
 	/*!
 	 *
@@ -3582,7 +3582,7 @@ int ncgt_put_rotate180_y_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int n
 
 	l=rotate180_y_doubletensor(t);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly \n",function_name);
-	l=ncgt_put_doubletensor_vs_time(t,k,ncid,start,count,dimension_t,dimension_x,dimension_y,dimension_z);
+	l=ncgt_put_doubletensor_vs_time(t,k,ncid,rankArea->start,rankArea->count,dimension_t,dimension_x,dimension_y,dimension_z);
 	if (l!=0) printf("Error in %s: ncgt_put_doublematrix() did not work correctly  \n",function_name);
 	l=rotate180_y_doubletensor(t);
 	if (l!=0) printf("Error in %s: rotate180_y_doublematrix() did not work correctly  \n",function_name);
@@ -3591,7 +3591,7 @@ int ncgt_put_rotate180_y_doubletensor_vs_time_par(DOUBLETENSOR *t, long k, int n
 }
 
 
-void nc_add_variable_attr_missing_value_par(int ncid, size_t start, size_t count,const char *varname,double missing_value){
+void nc_add_variable_attr_missing_value_par(int ncid, WORKAREA *rankArea,const char *varname,double missing_value){
 	/*!
 	 *
 	 *\param ncid - (int) pointer to the netCDF file
@@ -3630,7 +3630,7 @@ void nc_add_variable_attr_missing_value_par(int ncid, size_t start, size_t count
 	// if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_enddef");ncid);
 }
 
-void nc_add_global_attr_missing_value_par(int ncid, size_t start, size_t count, double missing_value){
+void nc_add_global_attr_missing_value_par(int ncid, WORKAREA *rankArea, double missing_value){
 	/*!
 	 *
 	 * \param ncid - (int) pointer to the netCDF file
@@ -3660,7 +3660,7 @@ void nc_add_global_attr_missing_value_par(int ncid, size_t start, size_t count, 
 }
 
 
-void nc_add_global_attr_double_par(int ncid, size_t start, size_t count,char *attr_name,double attr_value){
+void nc_add_global_attr_double_par(int ncid, WORKAREA *rankArea,char *attr_name,double attr_value){
 	/*!
 	 * \param ncid - (int) pointer to the netCDF file
 	 * \param start - (size_t) index along each dimension to the first data values to be written
@@ -3688,7 +3688,7 @@ void nc_add_global_attr_double_par(int ncid, size_t start, size_t count,char *at
 }
 
 
-int ncgt_put_double_vs_time_par(double v, const char *var_name, long k, int ncid, size_t start, size_t count, const char *dimension_t){
+int ncgt_put_double_vs_time_par(double v, const char *var_name, long k, int ncid, WORKAREA *rankArea, const char *dimension_t){
 	/*!
 	 *\param v - (double) scalar variable
 	 *\param var_name - name of the scalar variable
@@ -3753,7 +3753,7 @@ int ncgt_put_double_vs_time_par(double v, const char *var_name, long k, int ncid
 	//The indices are relative to 0, so for example,the first data value of a variable would have index (0, 0, ... , 0).
 	//start[0]=k;
 
-	status=nc_put_vara_double(ncid,dvar,start,count,&v);
+	status=nc_put_vara_double(ncid,dvar,rankArea->start,rankArea->count,&v);
 	//int nc_put_vara_double(int ncid, int varid, const size_t start[],const size_t count[], const double *dp);
 	if (status!=NC_NOERR) ERROR_MESSAGE(status,function_name,"nc_put_vara_double");
 
@@ -3762,7 +3762,7 @@ int ncgt_put_double_vs_time_par(double v, const char *var_name, long k, int ncid
 }
 
 
-int ncgt_put_doublematrix_from_doubletensor_vs_time_par(DOUBLETENSOR *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t, char *suffix,
+int ncgt_put_doublematrix_from_doubletensor_vs_time_par(DOUBLETENSOR *dt,long k, int ncid, WORKAREA *rankArea, const char *dimension_t, char *suffix,
 		const char *dimension_id, const char *dimension_z,LONGMATRIX *rc){
 	/*!
 	 *
@@ -3804,7 +3804,7 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time_par(DOUBLETENSOR *dt,long k,
 }
 
 
-int ncgt_put_doublevector_from_doublematrix_vs_time_par(DOUBLEMATRIX *dt,long k, int ncid, size_t start, size_t count, const char *dimension_t,  char *suffix,
+int ncgt_put_doublevector_from_doublematrix_vs_time_par(DOUBLEMATRIX *dt,long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  char *suffix,
 		const char *dimension_id, LONGMATRIX *rc){
 	/*!
 	 *

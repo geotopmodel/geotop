@@ -83,6 +83,9 @@ void nc_get_global_attr_missing_value(int ncid,double *missing_value);
 void nc_get_global_attr_resolution(int ncid,double *resolution);
 
 void nc_get_global_value(int ncid,char *attr_name,double *attr_value);
+#ifdef USE_HPC
 
+
+#endif
 #endif
 #endif

@@ -298,7 +298,7 @@ long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, doubl
 
 #ifdef USE_HPC
 
-long ncgt_add_output_var_par(int ncid, size_t start, size_t count, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+long ncgt_add_output_var_par(int ncid, WORKAREA *rankArea, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
 		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
    	/* define the temporal counter*/
 	/*!
@@ -320,33 +320,33 @@ long ncgt_add_output_var_par(int ncid, size_t start, size_t count, void *m, doub
 	 * \param rc - (LONGMATRIX) matrix containing the rows and columns of the control points
 	 *
 	 */
-	ncgt_put_double_vs_time_par(time,dimension_time,counter,ncid,start,count,dimension_time);
+	ncgt_put_double_vs_time_par(time,dimension_time,counter,ncid,rankArea,dimension_time);
 	//char * function_name="ncgt_add_output_var";
 	switch (nlimdim) {
 	case NC_GEOTOP_0DIM_VAR: // TODO (e.g. discharge at the outlet)
 		break;
 	case NC_GEOTOP_2D_MAP:// 2D maps (Y,X)
 		if (rotate_y==1){
-			ncgt_put_rotate180_y_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,start,count,dimension_time,dimension_x,dimension_y);
+			ncgt_put_rotate180_y_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,rankArea,dimension_time,dimension_x,dimension_y);
 		} else {
-			ncgt_put_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,start,count,dimension_time,dimension_x,dimension_y);
+			ncgt_put_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,rankArea,dimension_time,dimension_x,dimension_y);
 		}
 		break;
 	case NC_GEOTOP_3D_MAP:// 3D maps (tensors)
 		if (rotate_y==1){
-			ncgt_put_rotate180_y_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,start,count,dimension_time,dimension_x,dimension_y,dimension_z);
+			ncgt_put_rotate180_y_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,rankArea,dimension_time,dimension_x,dimension_y,dimension_z);
 		} else {
-			ncgt_put_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,start,count,dimension_time,dimension_x,dimension_y,dimension_z);
+			ncgt_put_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,rankArea,dimension_time,dimension_x,dimension_y,dimension_z);
 		}
 		break;
 	case NC_GEOTOP_2D_MAP_IN_CONTROL_POINT:// option to print 2D variables in control points
 	case NC_GEOTOP_POINT_VAR:
-		ncgt_put_doublevector_from_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,start,count,dimension_time,NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, rc);
+		ncgt_put_doublevector_from_doublematrix_vs_time_par((DOUBLEMATRIX *)m,counter,ncid,rankArea,dimension_time,NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, rc);
 		break;
 
 	case NC_GEOTOP_3D_MAP_IN_CONTROL_POINT:// option to print 3D variables in control points
 	case NC_GEOTOP_Z_POINT_VAR:
-		ncgt_put_doublematrix_from_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,start,count,dimension_time,NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, dimension_z, rc);
+		ncgt_put_doublematrix_from_doubletensor_vs_time_par((DOUBLETENSOR *)m,counter,ncid,rankArea,dimension_time,NC_GEOTOP_SUFFIX_FOR_CONTROL_POINT, dimension_x, dimension_z, rc);
 		break;
 	/* rotate map and put to netCDF */
 	//	printf("\nsono qui1 a=%ld",a);//stop_execution();
@@ -362,7 +362,7 @@ long ncgt_add_output_var_par(int ncid, size_t start, size_t count, void *m, doub
 }
 
 
-long ncgt_add_output_var_cumtime_par(int ncid, size_t start, size_t count, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
+long ncgt_add_output_var_cumtime_par(int ncid, WORKAREA *rankArea, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
 		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
 	/*!
 	 *
@@ -391,14 +391,14 @@ long ncgt_add_output_var_cumtime_par(int ncid, size_t start, size_t count, void 
 	if(print_time_step>0 && fmod(time,print_time_step)<1.E-5){
 		if (m0==NULL) {
 			// prints m
-			counter_new=ncgt_add_output_var_par(ncid,start,count,m,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y,counter_new,
+			counter_new=ncgt_add_output_var_par(ncid,rankArea,m,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y,counter_new,
 			update,NC_GEOTOP_ROTATE_Y,NC_GEOTOP_NOVALUE,rc);
 		} else {
 			// prints m (instantaneous)
-			counter_new=ncgt_add_output_var_par(ncid,start,count,m0,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y, counter,
+			counter_new=ncgt_add_output_var_par(ncid,rankArea,m0,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y, counter,
 			NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
 			// prints m0 (cumulated) and updates counter
-			counter_new=ncgt_add_output_var_par(ncid,start,count,m,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y,counter_new,
+			counter_new=ncgt_add_output_var_par(ncid,rankArea,m,time,nlimdim,dimension_time,dimension_z,dimension_x,dimension_y,counter_new,
 						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc);
 			// set to zero m0 (cumulated)
 			if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, number_novalue);

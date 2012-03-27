@@ -21,7 +21,7 @@ using namespace MPI;
 
 
 //************************************************************************************************************************************
-void updateGhostcells(GCSTRUCT *start)
+void updateGhostcells(ALLDATA *all, GCSTRUCT *start)
 {
 	int sendtag, recvtag, sendcount, recvcount, startValue, stopValue, sendRank, recvRank;
 	MPI_Status status;

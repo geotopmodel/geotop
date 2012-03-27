@@ -362,7 +362,7 @@ void time_loop(ALLDATA *all)
 			else {
 #ifdef USE_HPC
 				write_output_nc(all, rankArea);
-				updateGhostcells(start);
+				updateGhostcells(all, start);
 #else
 				write_output_nc(all);
 #endif

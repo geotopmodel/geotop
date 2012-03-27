@@ -28,9 +28,12 @@ struct WORKAREA	//Struct containing local subdomain coords
 	int left;
 	int bottom;
 	int right;
-	size_t start[];
-	size_t count[];
-	size_t stride[];
+	int startr[];
+	int countr[];
+	int strider[];
+	int startw[];
+	int countw[];
+	int stridew[];
 };
 typedef struct WORKAREA;
 

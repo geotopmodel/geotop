@@ -96,6 +96,12 @@ void getpartitions(GCSTRUCT *start, WORKAREA *rankArea)
 			// definisce le dimensioni del sotto-dominio e completa i parametri necessari a dimensionare i sotto-domini in lettura e scrittura
 			Nr = abs(rankArea->top - rankArea->bottom);
 			Nc = abs(rankArea->left - rankArea->right);
+			// write block offsets
+			rankArea->countw[0]=rankArea->top;
+			rankArea->countw[1]=rankArea->right;
+			// write block dimensions
+			rankArea->countw[0]=Nr;
+			rankArea->countw[1]=Nc;
 			if (rankArea->top == 1) {
 				Nr = Nr + 1;
 				offsetNr = rankArea->top;
@@ -116,22 +122,19 @@ void getpartitions(GCSTRUCT *start, WORKAREA *rankArea)
 				Nc = Nc + 2;
 				offsetNc = rankArea->left;
 			}
+			// read blocks offsets
+			rankArea->startr[0]=Nc;
+			rankArea->startr[1]=Nr;
+			// read block dimensions
+			rankArea->startw[0]=offsetNc;
+			rankArea->startw[1]=offsetNr;
 
-			// qui vanno definite le dimensioni relative ai blocchi in lettura e scrittura
-			rankArea->count[0]=0;
-			rankArea->count[1]=0;
-			rankArea->count[2]=0;
-			rankArea->count[3]=0;
-
-			rankArea->start[0]=0;
-			rankArea->start[1]=0;
-			rankArea->start[2]=0;
-			rankArea->start[3]=0;
-
-			rankArea->stride[0]=0;
-			rankArea->stride[1]=0;
-			rankArea->stride[2]=0;
-			rankArea->stride[3]=0;
+			// sub-sampling steps (not used at the moment)
+			rankArea->strider[0]=0;
+			rankArea->strider[1]=0;
+			// sub-sampling steps (not used at the moment)
+			rankArea->stridew[0]=0;
+			rankArea->stridew[1]=0;
 
 		}
 
