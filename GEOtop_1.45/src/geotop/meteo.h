@@ -28,7 +28,10 @@
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"
+#ifdef USE_METEOIO
 #include "../MeteoIO_plug/meteoioplugin.h"
+#endif
+
 
 extern long number_novalue;
 //number_absent;

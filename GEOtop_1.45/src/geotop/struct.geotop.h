@@ -723,6 +723,55 @@ typedef struct {
 	
 } METEO;
 
+#ifdef USE_NETCDF
+
+typedef struct {
+	DOUBLETENSOR * soil_thw_cum; // cumulated version of S->th
+	DOUBLETENSOR * soil_thi_cum;// cumulated version of S->thice
+	DOUBLETENSOR * soil_T_cum;// cumulated version of S->T
+	DOUBLETENSOR * soil_P_cum;// cumulated version of S->P
+	DOUBLETENSOR * soil_Ptot_cum;// cumulated version of S->Ptot
+	// snow
+	DOUBLETENSOR* snowD_cum; // cumulated version of snow->S->Dzl
+	DOUBLETENSOR* snowT_cum; // cumulated version of snow->S->T
+	DOUBLETENSOR* snowI_cum; // cumulated version of snow->S->w_ice
+	DOUBLETENSOR* snowW_cum; // cumulated version of snow->S->w_liq
+	// glacier
+	DOUBLETENSOR* glacD_cum; // cumulated version of glac->G->Dzl
+	DOUBLETENSOR* glacT_cum; // cumulated version of glac->G->T
+	DOUBLETENSOR* glacI_cum; // cumulated version of glac->G->w_ice
+	DOUBLETENSOR* glacW_cum; // cumulated version of glac->G->w_liq
+	// surface variables
+//	DOUBLEMATRIX* egy_Rn_mean_cum;
+//	DOUBLEMATRIX* egy_LWin_mean_cum;
+//	DOUBLEMATRIX* egy_LW_mean_cum;
+//	DOUBLEMATRIX* egy_SW_mean_cum;
+//	DOUBLEMATRIX* egy_Rswdown_mean_cum;
+//	DOUBLEMATRIX* egy_Rswbeam_mean_cum;
+//	DOUBLEMATRIX* egy_nDt_shadow_cum;
+//	DOUBLEMATRIX* egy_nDt_sun_cum;
+//	DOUBLEMATRIX* egy_Rn_max_cum;
+//	DOUBLEMATRIX* egy_Rn_min_cum;
+//	DOUBLEMATRIX* egy_LW_max_cum;
+//	DOUBLEMATRIX* egy_LW_min_cum;
+//	DOUBLEMATRIX* egy_SW_max_cum;
+//	DOUBLEMATRIX* egy_Rswdown_max_cum;
+//	DOUBLEMATRIX* egy_SEB_mean_cum;
+//	DOUBLEMATRIX* egy_G_max_cum;
+//	DOUBLEMATRIX* egy_G_min_cum;
+//	DOUBLEMATRIX* egy_H_mean_cum;
+//	DOUBLEMATRIX* egy_H_max_cum;
+//	DOUBLEMATRIX* egy_H_min_cum;
+//	DOUBLEMATRIX* egy_ET_mean_cum;
+//	DOUBLEMATRIX* egy_ET_max_cum;
+//	DOUBLEMATRIX* egy_ET_min_cum;
+//	DOUBLEMATRIX* egy_Ts_mean_cum;
+//	DOUBLEMATRIX* egy_Ts_max_cum;
+//	DOUBLEMATRIX* egy_Ts_min_cum;
+
+} OUTPUT_NCDATA;
+
+#endif
 
 typedef struct {
 	SOIL *S;
@@ -735,6 +784,17 @@ typedef struct {
 	SNOW *N;
 	GLACIER *G;
 	METEO *M;
-	TIMES *I;	
+	TIMES *I;
+	#ifdef USE_NETCDF
+	int ncid; // pointer to netCDF archive file
+	long counter_snow; // counter for time print of snow
+	long counter_surface_energy; //counter for surface energy maps
+	long counter_soil;//counter for printing soil properties
+	long counter_glac;//counter for printing glacier properties
+	long counter_point; // counter for printing point data
+	int z_point_var_type;// variable type for z_point (e.g. temperature in depth in a point)
+	int point_var_type;// variable type (e.g. radiation in a point)
+	OUTPUT_NCDATA *outnc;
+#endif	
 }ALLDATA;
 #endif

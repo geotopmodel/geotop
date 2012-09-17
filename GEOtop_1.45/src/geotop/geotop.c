@@ -18,12 +18,17 @@
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
-    
-    
-    /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
+
+/*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
+
+#ifdef USE_HPC
+#include <mpi.h>
+#include "hpc.geotop.h"
+#endif
 
 #include <sys/stat.h>
 #include "struct.geotop.h"
+
 #include "input.h"
 #include "output.h"
 #include "times.h"
@@ -36,15 +41,17 @@
 #include "../libraries/ascii/tabs.h"
 #include "deallocate.h"
 
+#include "../gt_utilities/gt_utilities.h"
+#include "../gt_utilities/gt_symbols.h"
+#include "../gt_utilities/ncgt_output.h"
+
 #include <time.h>
+#include "output_nc.h"
+void time_loop(ALLDATA *all);
 
-void time_loop(ALLDATA *A);
-
-               
 /*----------   1. Global variables  ------------*/
 
 #include "keywords.h"	//contains the definition of char** keywords_num and char** keywords_char
-
 long number_novalue;
 long number_absent;
 char *string_novalue;
@@ -54,7 +61,7 @@ T_INIT *UV;
 char *logfile;
 char **files;
 
-long Nl,Nr,Nc;
+long Nl, Nr, Nc;
 double t_meteo, t_energy, t_water, t_sub, t_sup, t_blowingsnow, t_out;
 
 double **odpnt, **odp;
@@ -100,6 +107,32 @@ int main(int argc,char *argv[]){
 	cum_time = 0.;
 	elapsed_time_start = 0.;
    
+   #ifdef USE_HPC
+
+	MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+	MPI_comm comm;
+	MPI_info info;
+
+	std::cout << "Process " << getpid() << " is " << myrank << " of " << nprocs << " processes" << std::endl;
+
+	// linked list for parallel partition structure record
+	GCSTRUCT *start = new GCSTRUCT; // first element will NOT handle any info
+	start->next = NULL;
+	WORKAREA* rankArea = new WORKAREA;
+
+	getpartitions(start, rankarea);
+
+	// for debug only
+	if (cprocs != nprocs) {
+		std::cout << "The number of process (" << nprocs << ") is different from the one required (" << cprocs << ")" << std::endl;
+	} else {
+		std::cout << "The number of active processes (" << nprocs << ") is equal to the one calculated (" << cprocs << ")" << std::endl;
+	}
+
+#endif
+
 	/*dinamic allocations:*/
 	UV=(T_INIT *)malloc(sizeof(T_INIT));
 	if(!UV) t_error("UV was not allocated");
@@ -149,13 +182,40 @@ int main(int argc,char *argv[]){
 		t_sup=0.;
 		t_out=0.;
 		t_blowingsnow=0.;
-		
+
+#ifdef USE_NETCDF
+
+		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_NODEFINE,GEOT_VERBOSE);
+		adt->ncid=ncid;
+
+#endif		
 		
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
+#ifdef USE_HPC
+		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, rankArea);
+#else	
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
-		
+#endif
+	
+#ifdef USE_NETCDF
+#ifdef USE_HPC
+		set_output_nc(adt, rankArea);
+#else
+		set_output_nc(adt);
+#endif
+#endif
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
+#ifdef USE_HPC
+		time_loop(adt, start, rankArea);
+#else
 		time_loop(adt);
+#endif
+
+#ifdef USE_NETCDF
+
+		ncgt_close_geotop_archive(ncid);
+		deallocate_output_nc(adt->outnc);
+#endif
 		
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
@@ -173,7 +233,13 @@ int main(int argc,char *argv[]){
 
 
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
-void time_loop(ALLDATA *A){ 
+
+#ifdef USE_HPC
+void time_loop(ALLDATA *A, GCSTRUCT *start, WORKAREA *rankArea)
+#else
+void time_loop(ALLDATA *A)
+#endif
+{ 
 
 	clock_t tstart, tend;
 	short en=0, wt=0, out;
@@ -182,6 +248,37 @@ void time_loop(ALLDATA *A){
 	double Vout, Voutsub, Voutsup, Vbottom;
 	FILE *f;
 	
+	#ifdef USE_HPC
+	//Nr=top->Z0->nrh;
+	//Nc=top->Z0->nch;
+
+	// define start and count values to control dimension_x and dimension_y for parallel write
+	// better to place here ouside the loop
+	Nr = abs(rankArea->top - rankArea->bottom);
+	Nc = abs(rankArea->left - rankArea->right);
+	if (rankArea->top == 1) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top;
+	} else if (rankArea->bottom == top->Z0->nrh) {
+		Nr = Nr + 1;
+		offsetNr = rankArea->top - 1;
+	} else {
+		offsetNr = rankArea->top - 1;
+		Nr = Nr + 2;
+	}
+	if (rankArea->left == 1) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left;
+	} else if (rankArea->right == top->Z0->nch) {
+		Nc = Nc + 1;
+		offsetNc = rankArea->left - 1;
+	} else {
+		Nc = Nc + 2;
+		offsetNc = rankArea->left;
+	}
+#endif
+
+
 	//double mean;
 	
 	STATEVAR_3D *S, *G;
@@ -207,9 +304,38 @@ void time_loop(ALLDATA *A){
 	
 	time( &start_time );
 
+#ifdef USE_NETCDF
+	long nsim=1;
+	// TODO: check number of simulation issue
+#else
+	long nsim = A->P->init_date->nh;
+#endif
+#ifdef USE_NETCDF
+		long nrun=1;
+		// TODO: check number run issue
+#else
+		long nrun = A->P->run_times->co[i_sim];
+#endif
+
 	//periods
 	i_sim = i_sim0;
-	
+#ifdef USE_NETCDF
+		// printing time counter initialization
+		//TODO please revisit into details the initialization procedure for counters according to time coordinates
+		A->counter_surface_energy=0;
+		A->counter_snow=0;
+		A->counter_soil=0;
+		A->counter_glac=0;
+		A->counter_point=0;
+		if(A->P->point_sim!=1) { //distributed simulation
+			A->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
+			A->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
+		} else {// point simulation
+			A->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
+			A->point_var_type=NC_GEOTOP_POINT_VAR;
+		}
+#endif
+
 	do{
 	
 		//runs
@@ -349,8 +475,23 @@ void time_loop(ALLDATA *A){
 			}
 			
 			tstart=clock();
+#ifdef USE_NETCDF
+			if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
+				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
+				if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+			}
+			else {
+#ifdef USE_HPC
+				write_output_nc(all, rankArea);
+				updateGhostcells(all, start);
+#else
+				write_output_nc(A);
+#endif
+			}
+#else
 			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-			if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC->co, A->I->time+A->P->Dt);
+			if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+#endif
 			tend=clock();
 			t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 						

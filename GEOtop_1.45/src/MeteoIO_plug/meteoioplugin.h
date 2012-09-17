@@ -1,10 +1,14 @@
+#ifdef USE_METEOIO
 #ifndef __METEOIOPLUGIN_H__
 #define __METEOIOPLUGIN_H__
 
+
 #ifdef __cplusplus
+
 #include <MeteoIO.h> /* C++ header */
 #include <iostream>  /* C++ header */
 #include <vector>
+
 extern "C" {
 #endif
 
@@ -38,5 +42,5 @@ extern "C" {
 
 }
 #endif
-
+#endif
 #endif

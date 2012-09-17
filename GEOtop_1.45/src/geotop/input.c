@@ -21,8 +21,13 @@
 //***************************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
+#ifdef USE_HPC
+void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
+					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, WORKAREA *rankArea)
+#else
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
+#endif
  
 {
 	
@@ -40,8 +45,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	if(!argv[1]){
 		WORKING_DIRECTORY=get_workingdirectory();
-	}else{
+	} else if (argc==2) {
+    // modified by Emanuele Cordano on Aug 2011
 		WORKING_DIRECTORY=assign_string(argv[1]);
+	}	else {
+	// modified by Emanuele Cordano on Aug 2011
+	//	WORKING_DIRECTORY=assign_string(read_option_string(argc,argv,"-wpath",".",0)); // assign_string(argv[1]); // MODIFY HERE EC
+		WORKING_DIRECTORY=get_workingdirectory();
 	}
 	
 	//add "/" if it is missing
@@ -244,13 +254,16 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	met->line_interp_Bsnow_LR=0;	
 	
 	success = read_meteostations_file(met->imeteo_stations, met->st, files[fmetstlist], IT->meteostations_col_names, flog);
+	par->usemeteoio=0;
+	par->use_meteoio_meteodata=0;
+	par->use_meteoio_cloud=0;
+#ifdef USE_METEOIO
 	par->usemeteoio=1;
 	par->use_meteoio_meteodata=1;
 	par->use_meteoio_cloud=1;
-	if (par->usemeteoio == 1) {
-		meteoio_init();
-	}
-
+	//if(par->usemeteoio==1)
+	meteoio_init();
+#endif
 	for(i=1;i<=met->st->E->nh;i++){
 				
 		if (met->imeteo_stations->co[1] != number_novalue) {

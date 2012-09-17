@@ -56,24 +56,20 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 		if ( (long)met->LRv[i] == number_novalue) met->LRv[i] = met->LRd[i]; 
 	}
 	FILE *f,*f1;
-	if (par->use_meteoio_meteodata==1){
-		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
-	   if(par->point_sim == 1)
-		   {
-		   printf("Calling pointwise MeteoIO ");
-		   meteoio_interpolate_pointwise( par, JDbeg, met, wat);
-		   f = fopen("mio_hnw_1d_log.txt", "a");
-		   f1 = fopen("mio_TA_1d_log.txt", "a");
-		   }
-	   else
-	   	   {
+#ifdef USE_METEOIO
+//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
+   if(par->point_sim == 1){
+	   	   printf("Calling pointwise MeteoIO ");
+	   	   meteoio_interpolate_pointwise( par, JDbeg, met, wat);
+	   	   f = fopen("mio_hnw_1d_log.txt", "a");
+	   	   f1 = fopen("mio_TA_1d_log.txt", "a");
+	   }else{
 		   printf("Calling 2D grid MeteoIO ");
- 		   meteoio_interpolate(par, JDbeg, met, wat);
- 		   f = fopen("mio_hnw_2d_log.txt", "a");
- 		   f1 = fopen("mio_TA_2d_log.txt", "a");
-		   }
-
-	}else{
+		   meteoio_interpolate(par, JDbeg, met, wat);
+		   f = fopen("mio_hnw_2d_log.txt", "a");
+		   f1 = fopen("mio_TA_2d_log.txt", "a");
+	   }
+#else
 		//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
 		flog = fopen(logfile, "a");
 		Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
@@ -83,8 +79,7 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
 		f = fopen("geo_hnw_1d_log.txt", "a");
 		f1 = fopen("geo_TA_1d_log.txt", "a");
-		}
-
+#endif
 	int  ii, jj;
 
 

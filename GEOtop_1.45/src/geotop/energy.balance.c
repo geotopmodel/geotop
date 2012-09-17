@@ -90,10 +90,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SOIL_STATE *L
 		}
 	}
 	//call the function that interpolates the cloudiness
-	if (A->P->use_meteoio_cloud==1) {
-		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
-	}
+#ifdef USE_METEOIO
+//	if (A->P->use_meteoio_cloud==1) {
+	meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
+	meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+//	}
+#endif
 	// old GEOtop structure for cloudiness
 	A->M->tau_cloud=A->M->st->tau_cloud_meteoST->co[A->M->nstcloud];
 	A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST->co[A->M->nstcloud];
@@ -336,7 +338,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	*SWupabove_v=0.0;
 
 	// CURRENT CLOUDINESS
-	if(A->P->use_meteoio_cloud!=1){// GEOtop classic method
+#ifndef USE_METEOIO
+	//if(A->P->use_meteoio_cloud!=1){// GEOtop classic method
 		//if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
 		if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 			
@@ -345,8 +348,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
 		A->M->tau_cl_map->co[r][c]=A->M->tau_cloud;
 		A->M->tau_cl_av_map->co[r][c]=A->M->tau_cloud_av;
+//	}
 // TODO : <<
-	}else{// meteoIO is activated
+#else
+//	else{// meteoIO is activated
 		if( (long)A->M->tau_cl_av_map->co[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
 			A->M->tau_cl_av_map->co[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 		//printf("inside  meteoIO is activated 1st if");
@@ -358,8 +363,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			//printf("inside  meteoIO is activated 2nd if");
 				//	stop_execution();
 		}
-
-	}
+//	}
+#endif
 
 //print_doublematrix_elements(A->M->tau_cl_map,10);stop_execution();
 

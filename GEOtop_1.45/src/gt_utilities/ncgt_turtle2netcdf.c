@@ -2045,7 +2045,7 @@ int ncgt_put_doublematrix_from_doubletensor_vs_time(DOUBLETENSOR *dt,long k, int
 }
 
 
-int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, WORKAREA *rankArea, const char *dimension_t,  char *suffix,
+int ncgt_put_doublevector_from_doublematrix_vs_time(DOUBLEMATRIX *dt,long k, int ncid, const char *dimension_t,  char *suffix,
 		const char *dimension_id, LONGMATRIX *rc){
 	/*!
 	 *\param dt - (DOUBLEMATRIX *) variable to be written in the NetCDF
