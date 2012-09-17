@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -33,10 +33,10 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 378
+#define num_par_number 400
 //#define num_par_char 338
 //TODO: Hack
-#define num_par_char 340
+#define num_par_char 359
 //****************************************************
 // Fixed Parameters
 //****************************************************
@@ -114,9 +114,10 @@
 #define iSWd iSWb+1					/*diffuse SW*/
 #define itauC iSWd+1				//Cloud transmissivity in SWin
 #define iC	 itauC+1				//Cloudiness factor
-#define iLWi iC+1					/*incoming longwave*/
-#define iSWn iLWi+1					//net shortwave
-#define nmet iSWn+1
+#define iLWi iC+1					//Incoming longwave
+#define iSWn iLWi+1					//Net shortwave
+#define iTs iSWn+1					//Surface Temperature
+#define nmet iTs+1	
 
 //****************************************************
 //soil data
@@ -192,7 +193,7 @@
 #define jddecay0 jdcf+1
 #define jdexpveg jddecay0+1
 #define jdroot jdexpveg+1
-#define	jdrs jdroot+1
+#define jdrs jdroot+1
 #define jdvegprop jdrs
 
 //****************************************************
@@ -381,7 +382,17 @@
 #define fglzwriteend fglz+1					//o. glacier data
 
 #define fSCA fglzwriteend+1					//file giving the fraction of snow free areas and corresponding properties 
-#define fT fSCA+1					//o. temperature maps
+
+#define fTrun fSCA+1
+#define fwrun fTrun+1
+#define fdUrun fwrun+1	
+#define fSWErun fdUrun+1
+#define fTmaxrun fSWErun+1
+#define fTminrun fTmaxrun+1
+#define fwmaxrun fTminrun+1
+#define fwminrun fwmaxrun+1
+
+#define fT fwminrun+1					//o. temperature maps
 #define fTsup fT+1					//o. temperature maps
 #define fTav fTsup+1
 #define fTavsup fTav+1
@@ -454,6 +465,8 @@
 #define pRH pVdir+1					//p. relative humidity
 #define pD pRH+1					//p. snow depth
 #define pth pD+1					//p. water content of the most superficial layer
+
+
 #define rpsi pth+1					//recover file (f.) psi
 #define riceg rpsi+1				//r. soil ice content
 #define rTg riceg+1					//r. soil temperature
@@ -465,17 +478,27 @@
 #define rwli rDzi+1					//r. glacier liquid water contents
 #define rwii rwli+1					//r. glacier ice contents
 #define rTi rwii+1					//r. glacier temperatures
-#define rns rTi+1					//r. number of snow layers
-#define rni rns+1					//r. number of glacier layers
-#define rsnag rni+1			//r. snow age
+#define rns rTi+1						//r. number of snow layers
+#define rni rns+1						//r. number of glacier layers
+#define rsnag rni+1					//r. snow age
 #define rwcrn rsnag+1				//r. water stored on canopy
 #define rwcsn rwcrn+1
 #define rTv rwcsn+1
 #define rpsich rTv+1			
 #define ricegch rpsich+1			
-#define rTgch ricegch+1		
-#define rtime rTgch+1
-#define nfiles rtime+1					//number of files
+#define rTgch ricegch+1
+#define rTrun rTgch+1
+#define rwrun rTrun+1
+#define rdUrun rwrun+1	
+#define rSWErun rdUrun+1
+#define rTmaxrun rSWErun+1
+#define rTminrun rTmaxrun+1
+#define rwmaxrun rTminrun+1
+#define rwminrun rwmaxrun+1
+#define rtime rwminrun+1
+#define rsux rtime+1
+
+#define nfiles rsux+1					//number of files
 
 //****************************************************
 //Points
@@ -498,5 +521,6 @@
 #define ptMAXSWE ptHOR+1
 #define ptLAT ptMAXSWE+1
 #define ptLON ptLAT+1
-#define ptTOT ptLON
+#define ptBED ptLON+1
+#define ptTOT ptBED
 

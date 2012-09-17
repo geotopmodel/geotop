@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -71,7 +71,7 @@ typedef struct {
 	double swe0;
 	double Tsnow0;
 	double agesnow0;
-    double rhosnow0;
+    double rhosnow0;	
 	double rhoglac0;
 	double Dglac0;
 	double Tglac0;
@@ -81,7 +81,9 @@ typedef struct {
 	char **point_col_names;
 	char **lapserates_col_names;
 	char **meteostations_col_names;
-	DOUBLEMATRIX *LU;
+	DOUBLEMATRIX *bed;
+	DOUBLETENSOR *pa_bed;
+	DOUBLEVECTOR *init_water_table_depth;
 } INIT_TOOLS;
 
 
@@ -89,11 +91,11 @@ typedef struct {
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
 					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog);
+void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT, FILE *flog);
 
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog);
 
-void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog);
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog);
 
 DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope, DOUBLEMATRIX *LC, SOIL *sl, short point);
 
@@ -112,5 +114,7 @@ void copy_veg_state(STATE_VEG *from, STATE_VEG *to);
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
 
 void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
+
+short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed, FILE *flog);
 
 #endif

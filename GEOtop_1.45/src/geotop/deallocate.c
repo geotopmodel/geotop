@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -26,7 +26,7 @@
 
 void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times){
 	
-	long i,j,r,l;
+	long i,j,r,l,n;
 	
 	printf("Close files\n");
 	if(strcmp(files[fpointwriteend] , string_novalue) != 0) fclose(ffpoint);
@@ -41,7 +41,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	if(strcmp(files[ficezwriteend] , string_novalue) != 0) fclose(ffice);
 	
 	printf("Deallocating global variables\n"); 
-	if(par->state_pixel==1){
+	if(par->state_pixel == 1){
 		for (i=0; i<otot; i++) {
 			free(odpnt[i]);
 			free(odp[i]);
@@ -86,13 +86,15 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	/* Deallocation of struct SOIL "sl": */
 	printf("Deallocating soil\n");
 	free_doublematrix(sl->Ptot);
-	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0) free_doublematrix(sl->T_av_tensor);
-	if(strcmp(files[fliqav] , string_novalue) != 0) free_doublematrix(sl->thw_av_tensor);
-	if(strcmp(files[ficeav] , string_novalue) != 0) free_doublematrix(sl->thi_av_tensor);
-	//TODO: Hack
-	if(strcmp(files[fpnet] , string_novalue) != 0) free_doublevector(sl->Pnetcum);
-	if(strcmp(files[fevap] , string_novalue) != 0) free_doublevector(sl->ETcum);
+	if(par->output_soil_bin == 1){
+		if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0) free_doublematrix(sl->T_av_tensor);
+		if(strcmp(files[fliqav] , string_novalue) != 0) free_doublematrix(sl->thw_av_tensor);
+		if(strcmp(files[ficeav] , string_novalue) != 0) free_doublematrix(sl->thi_av_tensor);
+		//TODO: Hack
+		if(strcmp(files[fpnet] , string_novalue) != 0) free_doublevector(sl->Pnetcum);
+		if(strcmp(files[fevap] , string_novalue) != 0) free_doublevector(sl->ETcum);
 	//free_doublematrix(sl->T_av_tensor);
+	}
 	free_doublematrix(sl->th); 
 	free_longmatrix(sl->type);
 	free_doubletensor(sl->pa);
@@ -110,6 +112,17 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) free_doublematrix(sl->thizplot);
 		if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) free_doublematrix(sl->thizavplot);
 	}
+		if(strcmp(files[fTrun] , string_novalue) != 0) free_doublematrix(sl->Tzrun);
+		if(strcmp(files[fwrun] , string_novalue) != 0) free_doublematrix(sl->wzrun);
+		if(strcmp(files[fdUrun] , string_novalue) != 0) free_doublematrix(sl->dUzrun);
+		if(strcmp(files[fSWErun] , string_novalue) != 0) free_doublematrix(sl->SWErun);
+		if(strcmp(files[fTmaxrun] , string_novalue) != 0) free_doublematrix(sl->Tzmaxrun);
+		if(strcmp(files[fTminrun] , string_novalue) != 0) free_doublematrix(sl->Tzminrun);
+		if(strcmp(files[fwmaxrun] , string_novalue) != 0) free_doublematrix(sl->wzmaxrun);
+		if(strcmp(files[fwminrun] , string_novalue) != 0) free_doublematrix(sl->wzminrun);
+		
+
+	
 	free(sl);
 	
 	/* Deallocation of struct TOPO "top": */
@@ -147,7 +160,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	
 	free_longmatrix(top->lrc_cont);
 	
-	for(l=0;l<=Nl;l++){
+	n = Fminlong(par->Nl_spinup->co[par->init_date->nh],Nl);
+	for(l=0;l<=n;l++){
 		for(r=1;r<=Nr;r++){
 			free(top->i_cont[l][r]);
 		}
@@ -270,10 +284,14 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		}	
 		if(strcmp(files[fradLW] , string_novalue) != 0){
 			free_doublevector(egy->LW_mean);
+		}
+		if(strcmp(files[fradLW] , string_novalue) != 0 || strcmp(files[fradnet] , string_novalue) != 0){
 			free_doublevector(egy->LW);
-		}	
+		}
 		if(strcmp(files[fradSW] , string_novalue) != 0){
 			free_doublevector(egy->SW_mean);
+		}
+		if(strcmp(files[fradSW] , string_novalue) != 0 || strcmp(files[fradnet] , string_novalue) != 0){
 			free_doublevector(egy->SW);
 		}
 		if(strcmp(files[fradSWin] , string_novalue) != 0){
@@ -382,7 +400,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublevector(egy->soil_evap_layer_veg);
 	free_doublematrix(egy->Tgskin_surr);
 	free_doublematrix(egy->SWrefl_surr);	
-	
+		
 	free(egy);
 	
 	
@@ -575,6 +593,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_longvector(par->inf_snow_layers);
 	free_longvector(par->inf_glac_layers);
 	
+	free_longvector(par->Nl_spinup);
+	
 	free(par);
 	
 	/* Deallocation of struct FILENAMES "filenames": */
@@ -650,7 +670,7 @@ void deallocate_veg_state(STATE_VEG *V){
 void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, ENERGY *egy, METEO *met, WATER *wat){
 	
 	long i, j;
-	
+		
 	if(par->state_pixel == 1){
 		if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->Tzavplot,0.); 
 		if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->thzavplot,0.); 
@@ -673,6 +693,8 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
 		if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0) initialize_doublematrix(sl->T_av_tensor, 0.);
 		if(strcmp(files[ficeav] , string_novalue) != 0) initialize_doublematrix(sl->thi_av_tensor, 0.);
 		if(strcmp(files[fliqav] , string_novalue) != 0) initialize_doublematrix(sl->thw_av_tensor, 0.);
+		if(strcmp(files[fpnet] , string_novalue) != 0) initialize_doublevector(sl->Pnetcum, 0.);
+		if(strcmp(files[fevap] , string_novalue) != 0) initialize_doublevector(sl->ETcum, 0.);
 	}
 	
 	if(par->output_snow_bin == 1){
@@ -719,6 +741,7 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
 			initialize_doublevector(wat->PrSNW_mean, 0.);
 		}
 	}
+
 }
 
 /******************************************************************************************************************************************/

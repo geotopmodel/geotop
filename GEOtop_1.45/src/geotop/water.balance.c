@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -59,7 +59,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SOIL_STATE *L
 			fclose(flog);
 			return 1;
 		}
-		
+				
 		//surface flow: 2nd half of time step
 		start=clock();
 		supflow(Dt/2., adt->I->time, L->P->co[0], adt->W->h_sup->co, C->P->co[0], adt->C->h_sup->co, adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog);
@@ -69,7 +69,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SOIL_STATE *L
 	}else {//point simulations
 		
 		start = clock();
-		for (j=1; j<=adt->P->total_pixel; j++) {			
+		for (j=1; j<=adt->P->total_pixel; j++) {	
 			a = Richards1D(j, Dt, L, adt, flog, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 			if (a != 0){
 				fclose(flog);
@@ -125,19 +125,26 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SOIL_STATE *L
 
 short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *flog, double *loss, DOUBLEVECTOR *Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
 	
-	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu, hnew, hold;
-	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
-	double psi;
-	
+	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
+	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;	
 	long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
-	long n=(Nl+1)*adt->P->total_pixel;	
+	long n=adt->T->lrc_cont->nrh;	
 	long N=adt->W->H0->nh;
 	long cont_lambda_min=0;
 	short out, out2;	
 	int sux;
-	FILE *f;
 	
 	*Total_Pnet = 0.;
+	
+	/* initialize res0 */
+	res0[0]=0;
+	res0[1]=0;
+	res0[2]=0;
+	lambda[0]=0;
+	lambda[1]=0;
+	lambda[2]=0;
+	/* END  initialize res0 */ // ec 2012 08 24
+	
 	
 	/*
 	 Layer 0 is water on the surface. This allows a more robust description of infiltration processes.
@@ -161,23 +168,12 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			}
 			
 			//solution guess
-			psi = L->P->co[l][j];
+			if (adt->W->Pnet->co[r][c] > 0 && l == 0) {
+				adt->W->H1->co[i] = Fmax(0., L->P->co[l][j]) + (adt->W->Pnet->co[r][c]/cos(adt->T->slope->co[r][c]*Pi/180.)) + adt->T->Z->co[l][r][c];
+			}else {
+				adt->W->H1->co[i] = L->P->co[l][j] + adt->T->Z->co[l][r][c];
+			}
 
-			/*if (l==1 && adt->W->Pnet->co[r][c] > 0) {
-				sy = adt->S->type->co[r][c];
-				psimax = psisat_from(L->thi->co[l][j], l, adt->S->pa->co[sy]);
-				if (L->P->co[l][j] < psimax){
-					Kinf = k_from_psi(jKn, psimax, L->thi->co[l][j], L->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					Vinf = Fmin(adt->W->Pnet->co[r][c], Kinf*Dt);
-					theta = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l, adt->S->pa->co[sy], PsiMin);
-					psi = psi_from_theta(theta+Vinf/adt->S->pa->co[sy][jdz][l], L->thi->co[l][j], l, adt->S->pa->co[sy], PsiMin);
-					if (psi > psimax) psi=psimax;
-				}
-				psi = psimax;
-			}*/
-			
-			adt->W->H1->co[i] = psi + adt->T->Z->co[l][r][c];
-						
 		}else {
 			
 			l = adt->C->lch->co[i-n][1];
@@ -186,23 +182,12 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			c = adt->C->c->co[ch];
 			
 			//solution guess
-			psi = C->P->co[l][ch];
+			if (adt->W->Pnet->co[r][c] > 0 && l == 0) {
+				adt->W->H1->co[i] = Fmax(0., C->P->co[l][ch]) + (adt->W->Pnet->co[r][c]/cos(adt->T->slope->co[r][c]*Pi/180.)) + ( adt->T->Z->co[l][r][c] - adt->P->depr_channel );
+			}else {
+				adt->W->H1->co[i] = C->P->co[l][ch] + ( adt->T->Z->co[l][r][c] - adt->P->depr_channel );	
+			}
 			
-			/*if (l==1 && adt->W->Pnet->co[r][c] > 0) {
-				sy = adt->C->soil_type->co[ch];
-				psimax = psisat_from(C->thi->co[l][ch], l, adt->S->pa->co[sy]);
-				if (C->P->co[l][ch] < psimax){
-					Kinf = k_from_psi(jKn, psimax, C->thi->co[l][ch], C->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					Vinf = Fmin(adt->W->Pnet->co[r][c], Kinf*Dt);
-					theta = theta_from_psi(C->P->co[l][ch], C->thi->co[l][ch], l, adt->S->pa->co[sy], PsiMin);
-					psi = psi_from_theta(theta+Vinf/adt->S->pa->co[sy][jdz][l], C->thi->co[l][ch], l, adt->S->pa->co[sy], PsiMin);
-					if (psi > psimax) psi=psimax;
-				}
-				psi = psimax;
-			}*/
-			
-			adt->W->H1->co[i] = psi + ( adt->T->Z->co[l][r][c] - adt->P->depr_channel );	
-						
 		}
 	}
 	
@@ -248,10 +233,9 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 		sux = find_dfdH_3D(Dt, adt->W->df, adt, L, C, adt->W->H1, adt->W->Klat);	//it calcolates only df/dH, J = I*df/dH + K, K is calculated above
 		
 		//CONJUGATED GRADIENTS ALGORITHM
-		
 		iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC, tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp, adt->W->Lx);
 		if(iter==-1) return 1;	//does not converge 
-		
+
 		//non-monotonic line search (it is monotonic if M==1)
 		for(m=Fminlong(cont,MM); m>1; m--){
 			res_prev[m-1]=res_prev[m-2];
@@ -292,19 +276,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			}
 			
 			for(i=1; i<=N; i++){
-				
 				adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
-				
-				if(adt->W->H1->co[i] != adt->W->H1->co[i]) {
-					f = fopen(FailedRunFile, "w");
-					fprintf(f, "Simulation Period:%ld\n",i_sim);
-					fprintf(f, "Run Time:%ld\n",i_run);
-					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
-					fprintf(f, "Error: no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
-					fclose(f);
-					t_error("Fatal Error! Geotop is closed. See failing report.");	
-				}
-				
+				if(adt->W->H1->co[i] != adt->W->H1->co[i]) return 1;
 			}
 			
 			if(updateK == 1 && cont <= maxITER_rec_K) sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);		
@@ -317,6 +290,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			
 			out2=0;
 			
+			//printf("cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,*Total_Pnet);
+
 			if(res <= (1.0 - ni_wat*lambda[0]*(1.-mu))*res_av) out2=1;
 			if(lambda[0] <= adt->P->min_lambda_wat) cont_lambda_min++;
 			
@@ -330,8 +305,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			}
 						
 		}while(out2==0);	
-		//printf("cnt:%ld res:%e lambda:%e Dt:%f\n",cont,res,lambda[0],Dt);
-
+		
 		out=0;
 		//The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
 		if( res <= Fmin( epsilon , max_res_adm ) ) out=1;
@@ -359,7 +333,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 			bc = adt->T->BC_counter->co[r][c];
 			
 			L->P->co[l][j] = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
-			
+						
 			//update variables
 			if(l>0){
 				adt->S->th->co[l][j] = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l, adt->S->pa->co[sy], PsiMin);
@@ -463,7 +437,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *fl
 
 short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
-	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu;
+	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0.;
 	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
 	
 	long i, l, r=1, m, bc, sy, cont, cont2, iter;
@@ -475,6 +449,13 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, dou
 	
 	*Total_Pnet = 0.;
 	
+	res0[0]=0.;
+	res0[1]=0.;
+	res0[2]=0.;
+	lambda[0]=0.;
+	lambda[1]=0.;
+	lambda[2]=0.;	
+	
 	for(i=1; i<=N; i++){//layers
 		
 		l = i-1;
@@ -483,13 +464,17 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, dou
 			*Total_Pnet = *Total_Pnet + (adt->W->Pnet->co[r][c]/cos(Fmin(max_slope,adt->T->slope->co[r][c])*Pi/180.)) / (double)adt->P->total_pixel;
 		}
 		
-		//solution guess
-		adt->W->H1->co[i] = L->P->co[l][c] + adt->T->Z->co[l][r][c];
+		//solution guess		
+		if (adt->W->Pnet->co[r][c] > 0 && l == 0) {
+			adt->W->H1->co[i] = Fmax(0., L->P->co[l][c]) + (adt->W->Pnet->co[r][c]/cos(Fmin(max_slope,adt->T->slope->co[r][c])*Pi/180.)) + adt->T->Z->co[l][r][c];
+		}else {
+			adt->W->H1->co[i] = L->P->co[l][c] + adt->T->Z->co[l][r][c];
+		}
 		
 	}
 	
 	sux = find_matrix_K_1D(c, Dt, L, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt, adt->W->H1);
-	
+		
 	find_f_1D(c, Dt, L, adt->W->f, adt, adt->W->H1, adt->W->Klat, adt->W->Kbottom);
 	
 	product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B, adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);	
@@ -506,7 +491,6 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, dou
 	if( res <= Fmin( epsilon , max_res_adm ) ) out=1;
 	//Max iteration number
 	if( cont >= adt->P->MaxiterTol ) out=1;	
-	
 	
 	while (out==0) {
 		
@@ -648,7 +632,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, dou
 		}
 		
 		//volume lost at the bottom
-		if(l==Nl){
+		if(l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl)){
 			area = ds*ds;
 			*Vbottom = *Vbottom + area * adt->W->Kbottom->co[r][c] * 1.E-3 * Dt;
 		}
@@ -703,7 +687,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]), dn;
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp;
 	
 	for(i=1;i<=H->nh;i++){
 		
@@ -749,7 +733,15 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					dzn = adt->S->pa->co[sy][jdz][l+1];
 					dD = 0.5*dz + 0.5*dzn;
 					
-					psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
+					if( H->co[i] < H->co[I] ){	
+						//upward flux
+						kn = k_from_psi(jKn, H->co[I] - adt->T->Z->co[l+1][r][c], SL->thi->co[l+1][j], SL->T->co[l+1][j], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+					}else{	
+						//downward flow
+						kn = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+					}
+					
+					/*psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
 					ice = Arithmetic_Mean(dz, dzn, SL->thi->co[l][j], SL->thi->co[l+1][j]);
 					Temp = Arithmetic_Mean(dz, dzn, SL->T->co[l][j], SL->T->co[l+1][j]);
 					a = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][ja][l+1]);
@@ -758,7 +750,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					sat = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jsat][l+1]);
 					ss = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jss][l], adt->S->pa->co[sy][jss][l+1]);
 					k = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jKn][l], adt->S->pa->co[sy][jKn][l+1]);
-					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);*/
 					
 					kmax = k_from_psi( jKn,  psisat_from( SL->thi->co[l][j], l, adt->S->pa->co[sy]), SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
 					kmaxn = k_from_psi( jKn,  psisat_from( SL->thi->co[l+1][j], l+1, adt->S->pa->co[sy]), SL->thi->co[l+1][j], SL->T->co[l+1][j], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
@@ -802,7 +794,6 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					if( H->co[i] < H->co[I] ){	
 						//upward flux
 						kn = k_from_psi(jKn, H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-						
 					}else{	
 						//downward flow
 						kn = k_from_psi(jKn, psisat_from(SC->thi->co[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
@@ -813,7 +804,15 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					dzn = adt->S->pa->co[sy][jdz][l+1];
 					dD = 0.5*dz + 0.5*dzn;
 					
-					psi = Arithmetic_Mean(dz, dzn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel));
+					if( H->co[i] < H->co[I] ){	
+						//upward flux
+						kn = k_from_psi(jKn, H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+					}else{	
+						//downward flow
+						kn = k_from_psi(jKn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+					}			
+					
+					/*psi = Arithmetic_Mean(dz, dzn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel));
 					ice = Arithmetic_Mean(dz, dzn, SC->thi->co[l][ch], SC->thi->co[l+1][ch]);
 					Temp = Arithmetic_Mean(dz, dzn, SC->T->co[l][ch], SC->T->co[l+1][ch]);
 					a = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][ja][l+1]);
@@ -822,7 +821,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					sat = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jsat][l+1]);
 					ss = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jss][l], adt->S->pa->co[sy][jss][l+1]);
 					k = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jKn][l], adt->S->pa->co[sy][jKn][l+1]);
-					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);*/
 					
 					kmax = k_from_psi(jKn, psisat_from(SC->thi->co[l][ch], l, adt->S->pa->co[sy]), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
 					kmaxn = k_from_psi(jKn, psisat_from(SC->thi->co[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
@@ -863,7 +862,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 					
 					if(l>0){
 						
-						//Surface Flow
+						//Subsurface Flow
 						if (H->co[I] > H->co[i]) {
 							kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
 						}else {
@@ -879,7 +878,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 						
 					}else {
 						
-						//Subsurface Flow
+						//Surface Flow
 						if (H->co[I] > H->co[i]) {
 							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
 							dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*Pi/180.);
@@ -941,6 +940,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						
 					}
+					
 				}
 			}
 			
@@ -1080,9 +1080,9 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, DOUBLEVECTOR *H){
 	
 	long i, l, r=1, I, sy, cnt=0;
-	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
+	double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp, k;
 	
 	for(i=1;i<=H->nh;i++){
 		
@@ -1094,11 +1094,11 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEM
 		//vertical hydraulic conductivity
 		if(l>0){
 			dz = adt->S->pa->co[sy][jdz][l];
-			if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom->co[r][c] = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);		
+			if (l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl) && adt->P->free_drainage_bottom>0) Kbottom->co[r][c] = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);		
 		}
 		
 		//flux from cell below
-		if (l<Nl) {
+		if (l<Fminlong(adt->P->Nl_spinup->co[i_sim],Nl)) {
 			
 			I = i+1;
 			
@@ -1122,7 +1122,15 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEM
 				dzn = adt->S->pa->co[sy][jdz][l+1];
 				dD = 0.5*dz + 0.5*dzn;
 				
-				psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
+				if( H->co[i] < H->co[I] ){	
+					//upward flux
+					kn = k_from_psi(jKn, H->co[I] - adt->T->Z->co[l+1][r][c], L->thi->co[l+1][c], L->T->co[l+1][c], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+				}else{	
+					//downward flow
+					kn = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+				}
+				
+				/*psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
 				ice = Arithmetic_Mean(dz, dzn, L->thi->co[l][c], L->thi->co[l+1][c]);
 				Temp = Arithmetic_Mean(dz, dzn, L->T->co[l][c], L->T->co[l+1][c]);
 				a = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][ja][l], adt->S->pa->co[sy][ja][l+1]);
@@ -1131,7 +1139,7 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEM
 				sat = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jsat][l+1]);
 				ss = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jss][l], adt->S->pa->co[sy][jss][l+1]);
 				k = Arithmetic_Mean(dz, dzn, adt->S->pa->co[sy][jKn][l], adt->S->pa->co[sy][jKn][l+1]);
-				kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+				kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);*/
 				
 				kmax = k_from_psi( jKn,  psisat_from( L->thi->co[l][c], l, adt->S->pa->co[sy]), L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
 				kmaxn = k_from_psi( jKn,  psisat_from( L->thi->co[l+1][c], l+1, adt->S->pa->co[sy]), L->thi->co[l+1][c], L->T->co[l+1][c], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
@@ -1143,8 +1151,6 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEM
 			
 			cnt++;
 			Lx->co[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-			//printf("area:%e kn:%e dD:%e psi:%e k:%e Temp:%e \n",area,kn,dD,psi,k,Temp);
-			//printf("Lx %ld %e %e %ld %ld\n",cnt,-area*kn/dD,Lx->co[cnt],r,c);
 		}
 		
 		//LATERAL FLUXES
@@ -1414,7 +1420,7 @@ int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L, SOIL_STAT
 				f->co[i] += area*adt->C->ET->co[l][ch]/Dt;
 			}
 		}else {
-			f->co[i] += area*adt->W->Pnet->co[r][c]/Dt;
+			f->co[i] -= area*adt->W->Pnet->co[r][c]/Dt;
 		}
 		
 		
@@ -1459,7 +1465,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt, D
 		f->co[i] = (V1-V0)/Dt;
 				
 		//drainage at the bottom
-		if (l==Nl){
+		if (l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl)){
 			f->co[i] += area*Kbottom->co[r][c];
 		}		
 		
@@ -1557,13 +1563,13 @@ void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dh
 	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, Vmax, H;							     
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
-	
+		
 	do{
 		
 		tb=te;
 		dt=Dt;
 		
-		find_dt_max(par->max_courant_land, h, land, top, cnet, par, met, t, &dt);
+		find_dt_max(par->max_courant_land, h, land, top, cnet, par, met, t, &dt);		
 		cnt++;
 		
 		te=tb+dt;
@@ -1577,6 +1583,8 @@ void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dh
 			c = top->rc_cont->co[j][2];
 			
 			H = Fmax(0., h[j]) / cos(top->slope->co[r][c]*Pi/180.);
+			
+			//if (H>0) printf("j:%ld h:%f H:%f\n",j,h[j],H);
 			
 			dV[j] = 0.0;
 			
@@ -1608,7 +1616,7 @@ void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dh
 				}
 				
 				dV[j] = q*dt;
-				
+								
 			}
 		}
 		
@@ -1655,6 +1663,8 @@ void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dh
 		
 	}while(te<Dt);
 	
+	//printf("%f %f %f\n",Dt/cnt,Dt/cnt2,Dt/cnt3);
+	
 	
 }	
 
@@ -1681,7 +1691,7 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL
 		
 		if(H > par->min_hsup_land){
 			
-			if( Hch < -par->min_dhsup_land_channel ){	//free flow
+			if( Hch < -par->min_dhsup_land_channel_in ){	//free flow
 				
 				DH = H;
 				q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
@@ -1689,10 +1699,10 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL
 				
 				Vmax = Fmax(Vmax, 1.E-10);
 				q = Fmax(q, 1.E-30);
-				
+								
 				if(Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q; 
 				
-			}else if( H - Hch > par->min_dhsup_land_channel ){//submerged flow towards channel
+			}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
 				
 				DH = H - Hch;
 				q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
@@ -1700,13 +1710,13 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL
 				
 				Vmax = Fmax(Vmax, 1.E-10);
 				q = Fmax(q, 1.E-30);
-				
+								
 				if(Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q; 
 				
 			}
 		}
 		
-		if ( Hch - H > par->min_dhsup_land_channel ) {
+		if ( Hch - H > par->min_dhsup_land_channel_out ) {
 			
 			DH = Hch - H;
 			q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s
@@ -1741,7 +1751,7 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 		tb=te;
 		dt=Dt;
 		
-		find_dt_max_chla(par->max_courant_land, h, hch, top, cnet, par, t, &dt);
+		find_dt_max_chla(par->max_courant_land_channel, h, hch, top, cnet, par, t, &dt);		
 		*cnt = *cnt + 1;
 		
 		te=tb+dt;

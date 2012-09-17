@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -28,7 +28,6 @@
 
 #include <sys/stat.h>
 #include "struct.geotop.h"
-
 #include "input.h"
 #include "output.h"
 #include "times.h"
@@ -40,6 +39,7 @@
 #include "blowingsnow.h"
 #include "../libraries/ascii/tabs.h"
 #include "deallocate.h"
+#include "pedo.funct.h"
 
 #include "../gt_utilities/gt_utilities.h"
 #include "../gt_utilities/gt_symbols.h"
@@ -52,6 +52,7 @@ void time_loop(ALLDATA *all);
 /*----------   1. Global variables  ------------*/
 
 #include "keywords.h"	//contains the definition of char** keywords_num and char** keywords_char
+
 long number_novalue;
 long number_absent;
 char *string_novalue;
@@ -61,7 +62,7 @@ T_INIT *UV;
 char *logfile;
 char **files;
 
-long Nl, Nr, Nc;
+long Nl,Nr,Nc;
 double t_meteo, t_energy, t_water, t_sub, t_sup, t_blowingsnow, t_out;
 
 double **odpnt, **odp;
@@ -243,9 +244,9 @@ void time_loop(ALLDATA *A)
 
 	clock_t tstart, tend;
 	short en=0, wt=0, out;
-	long i;
-	double t, Dt, JD0, JDb, JDe, W;
-	double Vout, Voutsub, Voutsup, Vbottom;
+	long i, sy, r, c, j, l;
+	double t, Dt, JD0, JDb, JDe, W, th, th0;
+	double Vout, Voutsub, Voutsup, Vbottom, C0, C1;
 	FILE *f;
 	
 	#ifdef USE_HPC
@@ -281,7 +282,7 @@ void time_loop(ALLDATA *A)
 
 	//double mean;
 	
-	STATEVAR_3D *S, *G;
+	STATEVAR_3D *S=NULL, *G=NULL;
 	SOIL_STATE *L, *C;
 	STATE_VEG *V;
 	DOUBLEVECTOR *a, *Vsup_ch, *Vsub_ch;
@@ -340,145 +341,214 @@ void time_loop(ALLDATA *A)
 	
 		//runs
 		i_run = i_run0;//Run index
-		A->I->time = 0.0;//Initialize time	
+		A->I->time = A->P->delay_day_recover*86400.;//Initialize time	
+		A->P->delay_day_recover = 0.;
 		
 		do{
-						
-			//find time step from file or inpts
-			set_time_step(A->P, A->I);
+			
+			if( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim])*86400. - 1.E-5){
+				printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
+				f=fopen(logfile, "a");
+				fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
+				fclose(f);
 				
-			//time at the beginning of the time step
-			JD0 = A->P->init_date->co[i_sim]+A->I->time/secinday;			
-			
-			//time step variables
-			t = 0.;
-			Dt = A->P->Dt;
-			
-			//time step subdivisions
-			do{
-
-				JDb = A->P->init_date->co[i_sim]+(A->I->time+t)/secinday;
-
-				if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
-
-				//iterations
+				print_run_average(A->S, A->T, A->P);
+				
+				i_run++;
+				A->I->time = 0.0;//Initialize time
+				
+				A->M->line_interp_WEB_LR = 0;
+				A->M->line_interp_Bsnow_LR = 0;
+				for (i=1; i<=A->M->st->Z->nh; i++) {
+					A->M->line_interp_WEB[i-1] = 0;
+					A->M->line_interp_Bsnow[i-1] = 0;
+				}
+				
+				if(i_run <= nrun){
+					reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
+					init_run(A->S, A->P);
+				}
+				
+			}else {
+				
+				//find time step from file or inpts
+				set_time_step(A->P, A->I);
+				
+				//time at the beginning of the time step
+				JD0 = A->P->init_date->co[i_sim]+A->I->time/secinday;			
+				
+				//time step variables
+				t = 0.;
+				Dt = A->P->Dt;
+				
+				//time step subdivisions
 				do{
 					
-					JDe = A->P->init_date->co[i_sim]+(A->I->time+t+Dt)/secinday;
-
-					//copy state variables on 
-					copy_snowvar3D(A->N->S, S);
-					copy_doublevector(A->N->age, a);
-					if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
-					copy_soil_state(A->S->SS, L);
-					copy_soil_state(A->C->SS, C);
-					copy_veg_state(A->S->VS, V);	
+					JDb = A->P->init_date->co[i_sim]+(A->I->time+t)/secinday;
 					
-					//init
-					initialize_doublevector(Vsub_ch, 0.);
-					initialize_doublevector(Vsup_ch, 0.);			
-					Vout = 0.;
-					Voutsub = 0.;
-					Voutsup = 0.;
-					Vbottom = 0.;
+					if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
 					
-					//meteo
-					tstart=clock();
-					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
-					tend=clock();
-					t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-
-					if(A->P->en_balance == 1){
+					//iterations
+					do{
+						
+						JDe = A->P->init_date->co[i_sim]+(A->I->time+t+Dt)/secinday;
+						
+						//copy state variables on 
+						copy_snowvar3D(A->N->S, S);
+						copy_doublevector(A->N->age, a);
+						if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
+						copy_soil_state(A->S->SS, L);
+						copy_soil_state(A->C->SS, C);
+						copy_veg_state(A->S->VS, V);	
+						
+						//init
+						initialize_doublevector(Vsub_ch, 0.);
+						initialize_doublevector(Vsup_ch, 0.);			
+						Vout = 0.;
+						Voutsub = 0.;
+						Voutsup = 0.;
+						Vbottom = 0.;
+						
+						//meteo
 						tstart=clock();
-						en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W);
+						meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 						tend=clock();
-						t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-					}
+						t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+						
+						if(A->P->en_balance == 1){
+							tstart=clock();
+							en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W);
+							tend=clock();
+							t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+						}
+						
+						if(A->P->wat_balance == 1 && en == 0){
+							tstart=clock();
+							wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
+							tend=clock();
+							t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+						}
+						
+						if (en != 0 || wt != 0) {
+							
+							Dt *= 0.5;
+							out = 0;
+							
+							f = fopen(logfile, "a");
+							if (en != 0) {
+								fprintf(f,"Energy balance not converging\n");
+							}else {
+								fprintf(f,"Water balance not converging\n");
+							}
+							fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
+							fclose(f);
+							
+						}else {
+							out = 1;
+						}
+						
+					}while( out == 0 && Dt > A->P->min_Dt ); 
 					
-					if(A->P->wat_balance == 1 && en == 0){
-						tstart=clock();
-						wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
-						tend=clock();
-						t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-					}
+					/*if (en != 0 || wt != 0) {
+						f = fopen(FailedRunFile, "w");
+						fprintf(f, "Simulation Period:%ld\n",i_sim);
+						fprintf(f, "Run Time:%ld\n",i_run);
+						fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
+						
+						if (en != 0 && wt == 0) {
+							fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
+						}else if (en == 0 && wt != 0) {
+							fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
+						}else {
+							fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
+						}
+						
+						fclose(f);
+						t_error("Fatal Error! Geotop is closed. See failing report.");	
+					}*/
 					
 					if (en != 0 || wt != 0) {
-						
-						Dt *= 0.5;
-						out = 0;
+						//f = fopen(FailedRunFile, "w");
 						
 						f = fopen(logfile, "a");
-						if (en != 0) {
-							fprintf(f,"Energy balance not converging\n");
+						//fprintf(f, "Simulation Period:%ld\n",i_sim);
+						//fprintf(f, "Run Time:%ld\n",i_run);
+						//fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
+						
+						if (en != 0 && wt == 0) {
+							fprintf(f, "WARNING: Energy balance does not converge, Dt:%f\n",Dt);
+						}else if (en == 0 && wt != 0) {
+							fprintf(f, "WARNING: Water balance does not converge, Dt:%f\n",Dt);
 						}else {
-							fprintf(f,"Water balance not converging\n");
+							fprintf(f, "WARNING: Water and energy balance do not converge, Dt:%f\n",Dt);
 						}
-						fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
+						
 						fclose(f);
-						
-					}else {
-						out = 1;
+						//t_error("Fatal Error! Geotop is closed. See failing report.");	
 					}
 					
-				}while( out == 0 && Dt > A->P->min_Dt ); 
-				
-				if (en != 0 || wt != 0) {
-					f = fopen(FailedRunFile, "w");
-					fprintf(f, "Simulation Period:%ld\n",i_sim);
-					fprintf(f, "Run Time:%ld\n",i_run);
-					fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
+					t += Dt;
 					
-					if (en != 0 && wt == 0) {
-						fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
-					}else if (en == 0 && wt != 0) {
-						fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
-					}else {
-						fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
-					}
-
-					fclose(f);
-					t_error("Fatal Error! Geotop is closed. See failing report.");	
-				}
-						
-				t += Dt;
-							
-				//write state variables
-				copy_snowvar3D(S, A->N->S);
-				copy_doublevector(a, A->N->age);
-				if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
-				copy_soil_state(L, A->S->SS);
-				copy_soil_state(C, A->C->SS);
-				copy_veg_state(V, A->S->VS);
-				add_doublevector(Vsub_ch, A->C->Vsub);
-				add_doublevector(Vsup_ch, A->C->Vsup);	
-				A->C->Vout += Vout;
-				A->W->Voutbottom += Vbottom;
-				A->W->Voutlandsub += Voutsub;
-				A->W->Voutlandsup += Voutsup;
-
-				//record time step
-				odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin->co[i_sim]);
-				
-				//write output variables
-				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
-				
-				//reset Dt
-				if (Dt < A->P->Dt) Dt *= 2.;
+					if (A->P->state_pixel == 1 && A->P->dUzrun == 1) {
+						for (j=1; j<=A->P->rc->nrh; j++) {
+							for (l=1; l<=Nl; l++){
+								r = A->P->rc->co[j][1];
+								c = A->P->rc->co[j][2];
+								sy = A->S->type->co[r][c];
 								
-			}while(t < A->P->Dt);
-						
-			if(A->P->blowing_snow==1){
-				tstart=clock();
-				windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
-				tend=clock();
-				t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-			}
-			
-			tstart=clock();
+								th = theta_from_psi(A->S->SS->P->co[l][A->T->j_cont[r][c]], A->S->SS->thi->co[l][A->T->j_cont[r][c]], l, A->S->pa->co[sy], PsiMin);
+								if(th > A->S->pa->co[sy][jsat][l]-A->S->SS->thi->co[l][A->T->j_cont[r][c]]) th = A->S->pa->co[sy][jsat][l]-A->S->SS->thi->co[l][A->T->j_cont[r][c]];
+								C0 = A->S->pa->co[sy][jct][l]*(1.-A->S->pa->co[sy][jsat][l])*A->S->pa->co[sy][jdz][l] + c_ice*A->S->SS->thi->co[l][A->T->j_cont[r][c]] + c_liq*th;
+								th0 = th;
+								
+								th = theta_from_psi(L->P->co[l][A->T->j_cont[r][c]], L->thi->co[l][A->T->j_cont[r][c]], l, A->S->pa->co[sy], PsiMin);
+								if(th > A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]]) th = A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]];
+								C1 = A->S->pa->co[sy][jct][l]*(1.-A->S->pa->co[sy][jsat][l])*A->S->pa->co[sy][jdz][l] + c_ice*L->thi->co[l][A->T->j_cont[r][c]] + c_liq*th;
+								
+								A->S->dUzrun->co[j][l] += 1.E-6*( 0.5*(C0+C1)*(L->T->co[l][A->T->j_cont[r][c]] - A->S->SS->T->co[l][A->T->j_cont[r][c]]) + Lf*(th-th0)*A->S->pa->co[sy][jdz][l] );
+							}
+						}
+					}
+					
+					//write state variables
+					copy_snowvar3D(S, A->N->S);
+					copy_doublevector(a, A->N->age);
+					if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
+					copy_soil_state(L, A->S->SS);
+					copy_soil_state(C, A->C->SS);
+					copy_veg_state(V, A->S->VS);
+					add_doublevector(Vsub_ch, A->C->Vsub);
+					add_doublevector(Vsup_ch, A->C->Vsup);	
+					A->C->Vout += Vout;
+					A->W->Voutbottom += Vbottom;
+					A->W->Voutlandsub += Voutsub;
+					A->W->Voutlandsup += Voutsup;
+					
+					//printf("%f\n",A->I->time);
+					
+					//record time step
+					odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin->co[i_sim]);
+					
+					//write output variables
+					fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
+					
+					//reset Dt
+					if (Dt < A->P->Dt) Dt *= 2.;
+					
+				}while(t < A->P->Dt);
+				
+				if(A->P->blowing_snow==1){
+					tstart=clock();
+					windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
+					tend=clock();
+					t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+				}
+				
+				tstart=clock();			
 #ifdef USE_NETCDF
 			if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
 				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-				if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+				if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC->co, A->I->time+A->P->Dt);
 			}
 			else {
 #ifdef USE_HPC
@@ -490,45 +560,27 @@ void time_loop(ALLDATA *A)
 			}
 #else
 			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-			if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+			if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC->co, A->I->time+A->P->Dt);
 #endif
 			tend=clock();
 			t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 						
 			A->I->time += A->P->Dt;//Increase TIME	
 			
-			if( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim])*86400. - 1.E-5){
-				printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
-				f=fopen(logfile, "a");
-				fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
-				fclose(f);
-				
-				i_run++;
-				A->I->time = 0.0;//Initialize time
-				
-				A->P->init_date->co[i_sim0] -= A->P->delay_day_recover;	
-				A->P->delay_day_recover = 0.0;
-
-				A->M->line_interp_WEB_LR = 0;
-				A->M->line_interp_Bsnow_LR = 0;
-				for (i=1; i<=A->M->st->Z->nh; i++) {
-					A->M->line_interp_WEB[i-1] = 0;
-					A->M->line_interp_Bsnow[i-1] = 0;
-				}
-				
-				reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
-
-			}
+		}
+			
+	}while(i_run <= nrun);//end of time-cycle
 						
-		}while(i_run <= A->P->run_times->co[i_sim]);//end of time-cycle
+		if (A->P->newperiodinit != 0) end_period_1D(A->S, A->T, A->P);
+		if (i_sim < nsim) change_grid(i_sim, i_sim+1, A->P, A->T, A->L, A->W, A->C);
 		
 		reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
+		init_run(A->S, A->P);
 		
 		i_sim++;
 		i_run0 = 1;
 		
-	}while (i_sim <= A->P->init_date->nh);
-
+	}while (i_sim <= nsim);
 	
 	deallocate_statevar_3D(S);
 	if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);

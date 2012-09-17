@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -34,13 +34,13 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 			
 	//INTERPOLATION OF METEO VARIABLES
 	for(i=1;i<=met->st->Z->nh;i++){
-		if(par->linear_interpolation_meteo->co[i] == 1){
+		if(par->linear_interpolation_meteo->co[i] == 1){	
 			time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
 		}else {
 			time_interp_constant(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
 		}
 	}
-
+	
 	//LAPSE RATES
 	if(par->LRflag==1){
 		time_interp_linear(JD0, JDbeg, JDend, met->LRv, met->LRs, met->LRsnr, nlstot, 0, 0, &lineLR);
@@ -77,64 +77,65 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 			 par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co, met->RHgrid->co, met->Vgrid->co, 
 			 met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec], 
 			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
+		fclose(flog);
 		f = fopen("geo_hnw_1d_log.txt", "a");
 		f1 = fopen("geo_TA_1d_log.txt", "a");
 #endif
-	int  ii, jj;
-
-
-	if(par->point_sim == 1){
-		fprintf(f,"%f,",JDbeg);
-		for(ii=wat->PrecTot->nrl;ii<=wat->PrecTot->nrh;ii++){
-			for(jj=wat->PrecTot->ncl;jj<wat->PrecTot->nch;jj++){
-				fprintf(f,"%f,",wat->PrecTot->co[ii][jj]);
-//				if(wat->PrecTot->co[ii][jj]>0){
-//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,wat->PrecTot->co[ii][jj]);
-//					stop_execution();
+//	int  ii, jj;
+//
+//
+//	if(par->point_sim == 1){
+//		fprintf(f,"%f,",JDbeg);
+//		for(ii=wat->PrecTot->nrl;ii<=wat->PrecTot->nrh;ii++){
+//			for(jj=wat->PrecTot->ncl;jj<wat->PrecTot->nch;jj++){
+//				fprintf(f,"%f,",wat->PrecTot->co[ii][jj]);
+////				if(wat->PrecTot->co[ii][jj]>0){
+////					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,wat->PrecTot->co[ii][jj]);
+////					stop_execution();
+////				}
+//			}
+//		}
+//		fprintf(f,"%f\n",wat->PrecTot->co[wat->PrecTot->nrh][wat->PrecTot->nch]);
+//
+//		fprintf(f1,"%f,",JDbeg);
+//				for(ii=met->Tgrid->nrl;ii<=met->Tgrid->nrh;ii++){
+//					for(jj=met->Tgrid->ncl;jj<met->Tgrid->nch;jj++){
+//						fprintf(f1,"%f,",met->Tgrid->co[ii][jj]);
+//		//				if(met->Tgrid->co[ii][jj]>0){
+//		//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,met->Tgrid->co[ii][jj]);
+//		//					stop_execution();
+//		//				}
+//					}
 //				}
-			}
-		}
-		fprintf(f,"%f\n",wat->PrecTot->co[wat->PrecTot->nrh][wat->PrecTot->nch]);
-
-		fprintf(f1,"%f,",JDbeg);
-				for(ii=met->Tgrid->nrl;ii<=met->Tgrid->nrh;ii++){
-					for(jj=met->Tgrid->ncl;jj<met->Tgrid->nch;jj++){
-						fprintf(f1,"%f,",met->Tgrid->co[ii][jj]);
-		//				if(met->Tgrid->co[ii][jj]>0){
-		//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,met->Tgrid->co[ii][jj]);
-		//					stop_execution();
-		//				}
-					}
-				}
-				fprintf(f1,"%f\n",met->Tgrid->co[met->Tgrid->nrh][met->Tgrid->nch]);
-    }
-
-	if(par->point_sim == 0){
-	 long r,c;int i;
-	 for (i = 1; i <= par->chkpt->nrh; i++) {
-		  r=par->rc->co[i][1];
-		  c=par->rc->co[i][2];
-          //printf("%f \t %f",value, top->Z0->co[r][c]);  to print elev
-          fprintf(f,"%f ",met->Tgrid->co[r][c]);
-   	   }
-		fprintf(f,"\n");
-	}
-	fclose(f);
-	fclose(f1);
-
-	/*printf("\n TA \n");
-	print_doublematrix_elements(met->Tgrid,10);
-	printf("\n RH \n");
-	print_doublematrix_elements(met->RHgrid,10);
-	printf("\n P \n");
-	print_doublematrix_elements(met->Pgrid,10);
-	printf("\n Vdir \n");
-	print_doublematrix_elements(met->Vdir,10);
-	printf("\n Vgrid \n");
-	print_doublematrix_elements(met->Vgrid,10);
-	printf("\n HNW \n");
-	print_doublematrix_elements(wat->PrecTot,10);
-	//stop_execution();*/
+//				fprintf(f1,"%f\n",met->Tgrid->co[met->Tgrid->nrh][met->Tgrid->nch]);
+//    }
+//
+//	if(par->point_sim == 0){
+//	 long r,c;int i;
+//	 for (i = 1; i <= par->chkpt->nrh; i++) {
+//		  r=par->rc->co[i][1];
+//		  c=par->rc->co[i][2];
+//          //printf("%f \t %f",value, top->Z0->co[r][c]);  to print elev
+//          fprintf(f,"%f ",met->Tgrid->co[r][c]);
+//   	   }
+//		fprintf(f,"\n");
+//	}
+//	fclose(f);
+//	fclose(f1);
+//
+//	/*printf("\n TA \n");
+//	print_doublematrix_elements(met->Tgrid,10);
+//	printf("\n RH \n");
+//	print_doublematrix_elements(met->RHgrid,10);
+//	printf("\n P \n");
+//	print_doublematrix_elements(met->Pgrid,10);
+//	printf("\n Vdir \n");
+//	print_doublematrix_elements(met->Vdir,10);
+//	printf("\n Vgrid \n");
+//	print_doublematrix_elements(met->Vgrid,10);
+//	printf("\n HNW \n");
+//	print_doublematrix_elements(wat->PrecTot,10);
+//	//stop_execution();*/
 
 
 

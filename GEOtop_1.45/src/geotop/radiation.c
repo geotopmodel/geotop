@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -132,13 +132,17 @@ double TauatmCosinc(double JD, double *others){
 	double P = others[5];
 	double slope = others[6];
 	double aspect = others[7];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];
 	
-	double alpha, direction;
+	double height, dir;
 	
-	alpha = SolarHeight_(JD, others);
-	if (alpha>0) {
-		direction = SolarAzimuth_(JD, others);
-		return atm_transmittance(Fmax(alpha,asin(0.05)),P,RH,T)*Fmax(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(-aspect+direction));
+	height = SolarHeight_(JD, others);
+	if (height>0) {
+		dir = SolarAzimuth_(JD, others);
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo)*Fmax(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(-aspect+dir));
 	}else {
 		return 0.0;
 	}
@@ -160,12 +164,16 @@ double TauatmSinalpha(double JD, double *others){
 	double RH = others[3];
 	double T = others[4];
 	double P = others[5];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];
 	
-	double alpha;
+	double height;
 	
-	alpha = SolarHeight_(JD, others);
-	if (alpha>0) {
-		return atm_transmittance(Fmax(alpha,asin(0.05)),P,RH,T) * Fmax(sin(alpha), 0.05);
+	height = SolarHeight_(JD, others);
+	if (height>0) {
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);
 	}else {
 		return 0.0;
 	}
@@ -235,10 +243,15 @@ double Tauatm(double JD, double *others){
 	double RH = others[3];
 	double T = others[4];
 	double P = others[5];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];	
+	double height;
 	
-	double alpha = SolarHeight_(JD, others);
-	if (alpha < asin(0.05)) alpha = asin(0.05);
-	return atm_transmittance(alpha, P, RH, T);
+	height = SolarHeight_(JD, others);
+	if (height < asin(0.05)) height = asin(0.05);
+	return atm_transmittance(height, P, RH, T, Lozone, alpha, beta, albedo);
 }
 
 double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
@@ -252,6 +265,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
+	//long i;
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
@@ -315,8 +329,14 @@ double diff2glob(double a){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double atm_transmittance(double X, double P, double RH, double T){
+double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 		
+	//X = angle of the sun above the horizon [rad]
+	//P = pressure [mbar]
+	//RH = relative humidity [0-1]
+	//T = air temperature [C]
+	
+	/*
 	//from Mayers and Dale, Predicting Daily Insolation with Hourly Cloud Height and Coverage, 1983, pg 537, Journal of Climate and Applied Meteorology
 	double tau_sa;//Reyleigh scattering and gas absorption transmittance
 	double tau_w;//transmittance due to water vapor
@@ -330,9 +350,35 @@ double atm_transmittance(double X, double P, double RH, double T){
 	w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); 
 	tau_w = 1. - 0.077*pow(w*m, 0.3);
 	tau_a = pow(0.935, m);
-	
 	tau_atm = tau_sa*tau_w*tau_a;
-		
+	return(tau_atm);*/
+	
+	
+	//transmissivity under cloudless sky (Iqbal par. 7.5)
+	double mr, ma, w, U1, U3, tau_r, tau_o, tau_g, tau_w, tau_a, tau_aa, rho_a;
+	double tau_atm_n, tau_atm_dr, tau_atm_da, tau_atm_dm, tau_atm;
+	double w0 = 0.9;
+	double Fc = 0.84;
+	
+	mr = 1./(sin(X)+0.15*(pow((3.885+X*180.0/Pi),-1.253)));
+	ma = mr*P/Pa0;
+	w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
+	U1 = w*mr;
+	U3 = Lozone*mr;	
+	tau_r = exp(-.0903*pow(ma,.84)*(1.+ma-pow(ma,1.01)));
+	tau_o = 1. - (.1611*U3*pow(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
+	tau_g = exp(-.0127*pow(ma,.26));
+	tau_w = 1. - 2.4959*U1/(pow(1.+79.034*U1,.6828)+6.385*U1);
+	//tau_a from 7.4.11 Iqbal
+	tau_a = .12445*a - 0.0162 + (1.003 - .125*a) * exp(-b*ma*(1.089*a + .5123));
+	tau_aa = 1. - (1. - w0)*(1. - ma + pow(ma, 1.06))*(1. - tau_a);
+	rho_a = .0685 + (1. - Fc)*(1. - tau_a/tau_aa);
+	tau_atm_n = .9751 * tau_r * tau_o * tau_g * tau_w * tau_a;
+	tau_atm_dr = .79 * tau_o * tau_g * tau_w * tau_aa * .5 * (1.-tau_r) / (1. - ma + pow(ma, 1.02));
+	tau_atm_da = .79 * tau_o * tau_g * tau_w * tau_aa * Fc * (1.-tau_a/tau_aa) / (1. - ma + pow(ma, 1.02));
+	tau_atm_dm = (tau_atm_n + tau_atm_dr + tau_atm_da) * rho_g * rho_a / (1. - rho_g * rho_a);
+	tau_atm = tau_atm_n + tau_atm_dr + tau_atm_da + tau_atm_dm;
+	
 	return(tau_atm);
 
 }
@@ -342,7 +388,7 @@ double atm_transmittance(double X, double P, double RH, double T){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double taucloud, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
@@ -367,7 +413,8 @@ void longwave_radiation(short state, double pvap, double RH, double T, double ta
 		*eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+tk)));//Andreas and Ackley, 1982
 
 	}else if(state==7){
-		*eps_min = (0.23+0.484*pow((pvap*100.)/(T+tk),0.125));	//Konzelmann (1994)
+		*eps_min = (0.23+k1*pow((pvap*100.)/(T+tk),1./k2));	//Konzelmann (1994)
+		//printf("%f %f %f\n",k1,k2,*eps_min);
 		
 	}else if(state==8){
 		*eps_min = (1.-(1.+46.5*pvap/(T+tk))*exp(-pow(1.2+3.*46.5*pvap/(T+tk) , 0.5)));//Prata 1996
@@ -455,7 +502,8 @@ void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R, STATEVAR_
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta, double dh, double RH, double T,
-						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr){
+						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr,
+						   double Lozone, double alpha, double beta, double albedo){
 	
 	double *others;
 	double tau_atm;// atmosphere transmittance
@@ -466,13 +514,17 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	double tau = (double)number_novalue;
 	long j;
 			
-	others = (double*)malloc(6*sizeof(double));
+	others = (double*)malloc(12*sizeof(double));
 	others[0] = lat;
 	others[1] = Delta;
 	others[2] = dh;
 	others[3] = RH;
 	others[4] = T;
 	others[5] = P;
+	others[8] = Lozone;
+	others[9] = alpha;
+	others[10] = beta;
+	others[11] = albedo;
 	
 	tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
@@ -527,7 +579,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 /******************************************************************************************************************************************/
 
 double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met, double Delta, double E0, double Et, 
-							  double ST, double SWrefl_surr){
+							  double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo){
 
 	double P, RH, T, c;
 		
@@ -550,7 +602,8 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met, do
 	if((long)T == number_novalue || (long)T == number_absent) T=0.0;	
 		
 	c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta, (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/omega, RH,
-							   T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky->co[i], SWrefl_surr);
+							T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky->co[i], SWrefl_surr,
+							Lozone, alpha, beta, albedo);
 	
 	return c;
 }
@@ -574,7 +627,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 {
 	double horiz_H;// horizon elevation at a defined solar azimuth
 	double w;//weight
-	long i,iend,ibeg;
+	long i,iend=0,ibeg=0;
 	short shad; 
 	
 	/* compare the current solar azimuth with the horizon matrix */
@@ -630,7 +683,7 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction, SHORTMATRIX 
  *  revised by Stefano Endrizzi on May 2011.
  */
 {
-	long orix,oriy,k,l,kk,ll,r,c,rr,cc;
+	long orix,oriy=0,k,l,kk,ll,r,c,rr,cc;
 	double sx,sy,sz,xp,yp,x,y,zray,ztopo,q,z1,z2;
 	
 	long nk=Nr;//y
@@ -807,23 +860,22 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 
 
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
-							METEO *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr){
+							METEO *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr,
+							double Lozone, double alpha, double beta, double albedo){
 	
-	short SWdata;// flag indicating the type of SW data available
+	//SWdata = flag -> 0= no radiation data measured, 1=beam and diff measured, 2=global measured
+	short SWdata;
 	double tc;
 
 	short index_meteoST_SW;// index indicating which meteoStation measuring SW we are using
 	short index_meteoST_cloud;// index indicating which meteoStation measuring SW we are using
 	index_meteoST_SW=meteo_stat_num;
 	index_meteoST_cloud=meteo_stat_num;
-//	index_meteoST_SW=met->nstsrad;
-//	index_meteoST_cloud=met->nstcloud;
+	//	index_meteoST_SW=met->nstsrad;
+	//	index_meteoST_cloud=met->nstcloud;
 
-	//check SWdata flag:
-	//SWdata=0: no radiation data measured, SWdata=2: beam and diff measured, SWdata=1: global measured
-	if((long)met->var[index_meteoST_SW-1][iSWb]!=number_absent && (long)met->var[index_meteoST_SW-1][iSWd]!=number_absent){
-		if((long)met->var[index_meteoST_SW-1][iSWb]!=number_novalue && (long)met->var[index_meteoST_SW-1][iSWd]!=number_novalue){
-			// SWbeam and SWdiffuse both available
+	if((long)met->var[met->nstsrad-1][iSWb]!=number_absent && (long)met->var[met->nstsrad-1][iSWd]!=number_absent){
+		if((long)met->var[met->nstsrad-1][iSWb]!=number_novalue && (long)met->var[met->nstsrad-1][iSWd]!=number_novalue){
 			SWdata=2;
 		}else{
 			SWdata=0;
@@ -840,7 +892,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	}
 		
 	if(SWdata>0){
-		tc = find_tau_cloud_station(JDb, JDe, index_meteoST_SW, met, Delta, E0, Et, ST, SWrefl_surr);
+		tc = find_tau_cloud_station(JDb, JDe, index_meteoST_SW, met, Delta, E0, Et, ST, SWrefl_surr, Lozone, alpha, beta, albedo);
 		if ( (long)tc != number_novalue){
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;

@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -68,15 +68,15 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SOIL_STATE *L
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G, STATE_VEG *V, 
 						 DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin);
-	
-short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, 
-						 LAND *land, SOIL *sl, CHANNEL *cnet, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v, 
-						 double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
-						 double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, 
-						 double *H, double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1,
-						 double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, 
-						 double *decay, double *Locc, double *LWup_ab_v, long *lpb, TOPO *topog, double snowD);
 
+	
+short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, 
+						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
+						double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
+						double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, 
+						double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg, 
+						double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, double *dUsl, TOPO *topog, double snowD);
+	
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLETENSOR *ET, DOUBLEMATRIX *th);
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLEMATRIX *ET, DOUBLEMATRIX *th);

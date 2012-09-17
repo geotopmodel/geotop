@@ -2,13 +2,13 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
   
  If you have satisfactorily used the code, please acknowledge the authors.
@@ -35,11 +35,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	DOUBLEMATRIX *M;
 	INIT_TOOLS *IT;
 
-	short a, success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0;
+	short a, success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0, old=0;
 	long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
 	double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
-	char *temp, **temp2;	
-	
+	char *temp, *name, **temp2;	
+	char rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
 	
 	IT=(INIT_TOOLS *)malloc(sizeof(INIT_TOOLS));
 	
@@ -67,15 +67,15 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	printf("STATEMENT:\n");
 	printf("\n");	 
-	printf("GEOtop 1.225 'Moab' - 9 Mar 2012\n\n");	 
-	printf("Copyright (c), 2012 - Stefano Endrizzi \n\n");	 
-	printf("GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+	printf("GEOtop 1.225-9 'Moab' - 24 Aug 2012\n\n");	 
+	//printf("Copyright (c), 2012 - Stefano Endrizzi \n\n");	 
+	printf("GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
 	printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
- 	//printf("Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in GEOtop 1.225 'Moab'.\n");
+ 	//printf("Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in GEOtop 1.225-9 'Moab'.\n");
 	//printf("Riccardo Rigon is also acknowledged as first founder of the GEOtop model in 1997.\n");
-	//printf("Riccardo Rigon and his research group are acknowledged as GEOtop 1.225 'Moab' uses most of their modelling achievements.\n");
+	//printf("Riccardo Rigon and his research group are acknowledged as GEOtop 1.225-9 'Moab' uses most of their modelling achievements.\n");
 	//printf("John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-	//printf("Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in GEOtop 1.225 'Moab' are derived.\n");
+	//printf("Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in GEOtop 1.225-9 'Moab' are derived.\n");
 	//printf("However, the routine that distributes the meteo data in this GEOtop version is named Meteodistr and it significantly differs from Micromet.\n\n");
 	//printf("If you have satisfactorily used the code, please acknowledge the authors.\n");	
 	printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
@@ -83,15 +83,15 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	fprintf(flog,"STATEMENT:\n");
 	fprintf(flog,"\n");	 
-	fprintf(flog,"GEOtop 1.225 'Moab' - 9 Mar 2012\n\n");	 
-	fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");	 
-	fprintf(flog,"GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+	fprintf(flog,"GEOtop 1.225-9 'Moab' - 24 Aug 2012\n\n");	 
+	//fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");	 
+	fprintf(flog,"GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
 	fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-	//fprintf(flog,"Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in GEOtop 1.225 'Moab'.\n");
+	//fprintf(flog,"Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in GEOtop 1.225-9 'Moab'.\n");
 	//fprintf(flog,"Riccardo Rigon is also acknowledged as first founder of the GEOtop model in 1997.\n");
-	//fprintf(flog,"Riccardo Rigon and his research group are acknowledged as GEOtop 1.225 'Moab' uses most of their modelling achievements.\n");
+	//fprintf(flog,"Riccardo Rigon and his research group are acknowledged as GEOtop 1.225-9 'Moab' uses most of their modelling achievements.\n");
 	//fprintf(flog,"John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-	//fprintf(flog,"Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in GEOtop 1.225 'Moab' are derived.\n");
+	//fprintf(flog,"Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in GEOtop 1.225-9 'Moab' are derived.\n");
 	//fprintf(flog,"However, the routine that distributes the meteo data in this GEOtop version is named Meteodistr and it significantly differs from Micromet.\n\n");
 	//fprintf(flog,"If you have satisfactorily used the code, please acknowledge the authors.\n");	 	
 	fprintf(flog,"\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
@@ -100,12 +100,65 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	temp = join_strings(WORKING_DIRECTORY, program_name);
 	success = read_inpts_par(par, land, times, sl, met, IT, temp, flog); 
 	free(temp);
-	success = read_soil_parameters(files[fspar], IT->soil_col_names, sl, flog);
 	
+	//correct state pixel
+	par->Tzrun = 0;
+	par->wzrun = 0;
+	par->Tzmaxrun = 0;
+	par->Tzminrun = 0;
+	par->wzmaxrun = 0;
+	par->wzminrun = 0;	
+	par->dUzrun = 0;
+	par->SWErun = 0;	
+	
+	if(strcmp(files[fTrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzrun = 1;
+	}
+	if(strcmp(files[fwrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzrun = 1;
+	}
+	if(strcmp(files[fTmaxrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzmaxrun = 1;
+
+	}
+	if(strcmp(files[fwmaxrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzmaxrun = 1;
+	}
+	if(strcmp(files[fTminrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzminrun = 1;
+	}
+	if(strcmp(files[fwminrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzminrun = 1;
+	}
+	if(strcmp(files[fdUrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->dUzrun = 1;
+	}
+	if(strcmp(files[fSWErun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->SWErun = 1;
+	}
+	if (par->newperiodinit == 2 && (par->Tzrun == 0 || par->wzrun == 0)){
+		f = fopen(FailedRunFile, "w");
+		fprintf(f, "Error: You have to assign a name to the Tzrun and wzrun files\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");		
+	}	
+	
+	//soil parameters
+	success = read_soil_parameters(files[fspar], IT, sl, par->soil_type_bedr_default, flog);	
 	Nl=sl->pa->nch;	
 	
+	//pointlist files
 	success = read_point_file(files[fpointlist], IT->point_col_names, par, flog);
 	
+	//max time that the simulation is supposed to model
 	max_time = 0.;
 	for (i=1; i<=par->init_date->nh; i++) {
 		max_time += par->run_times->co[i]*(par->end_date->co[i] - par->init_date->co[i])*86400.;//seconds
@@ -161,25 +214,41 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	free(temp);	
 	
 	if (par->ContRecovery > 0 && par->recover == 0) {
-		if (existing_file_wext(files[rtime], textfile) == 1){
-			temp = join_strings(files[rtime], textfile);
-			matrix = read_txt_matrix_2(temp, 33, 44, 7, &num_lines);
+		
+		if (existing_file_woext(files[rsux]) != 1){
+			temp = join_strings(files[rsux], ".old");
+			if (existing_file_woext(temp) == 1) old = 1;
+			free(temp);
+		}
+
+		if (old == 1) {
+			name = join_strings(files[rtime], ".old");
+		}else {
+			name = assign_string(files[rtime]);
+		}
+		
+		if (existing_file_wext(name, textfile) == 1){
+			temp = join_strings(name, textfile);
+			matrix = read_txt_matrix_2(temp, 33, 44, 8, &num_lines);
 			par->delay_day_recover = matrix[0][1];
-			par->n_ContRecovery = (long)matrix[0][2];
 			i_run0 = (long)matrix[0][3];
 			i_sim0 = (long)matrix[0][4];
 			cum_time = matrix[0][5];
 			elapsed_time_start = matrix[0][6];
+			par->n_ContRecovery = (long)matrix[0][7]+1;
 			for (i=0; i<num_lines; i++) {
 				free(matrix[i]);
 			}
 			free(matrix);
 			free(temp);
 		}
+		
+		free(name);
 	}
 	
+	
+	
 	//Time indices	
-	par->init_date->co[i_sim0] += par->delay_day_recover;	
 	convert_JDfrom0_JDandYear(par->init_date->co[i_sim0], &JD, &year);
 	convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 		
@@ -188,7 +257,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	/****************************************************************************************************/
 	
 	if(par->point_sim!=1){  //distributed simulation
-		read_inputmaps(top, land, sl, par, flog);
+		read_inputmaps(top, land, sl, par, IT, flog);
 	}else{
 		read_optionsfile_point(par, top, land, sl, times, IT, flog);
 	}
@@ -289,7 +358,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			//read matrix
 			temp=namefile_i(files[fmet], ist);
 			met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
-
+			
 			if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
 				f = fopen(FailedRunFile, "w");
 				fprintf(f, "Error:: Date Column missing in file %s\n",temp);
@@ -307,7 +376,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
 				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
 					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1], 
-						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
+						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation,
+						par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
 				}
 			}
 						
@@ -366,13 +436,24 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			
 		}else {
 			
-			f = fopen(FailedRunFile, "w");
-			fprintf(f, "Error: File meteo not in the list, meteo data not read, not possible to continue\n");
-			fclose(f);
-			t_error("Fatal Error! Geotop is closed. See failing report (4).");
+			fprintf(flog, "Warning: File meteo not in the list, meteo data not read, used default values\n");
+			printf("Warning: File meteo not in the list, meteo data not read, used default values\n");
 
+			met->data[i-1] = (double**)malloc(2*sizeof(double*));
+			
+			for (n=1; n<=2; n++) {
+				met->data[i-1][n-1] = (double*)malloc(num_cols*sizeof(double));
+				for (j=1; j<=nmet; j++) {
+					met->data[i-1][n-1][j-1] = (double)number_absent;
+				}
+			}
+			
+			met->data[i-1][0][iJDfrom0] = 0.;
+			met->data[i-1][1][iJDfrom0] = 1.E10;
+			
 		}
 	}
+	
 		
 	//read LAPSE RATES FILE  
 	
@@ -508,6 +589,21 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	for(r=1;r<=met->st->E->nh;r++){
 		fprintf(flog,"%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",r,met->st->E->co[r],met->st->N->co[r],met->st->lat->co[r], met->st->lon->co[r],
 				met->st->Z->co[r],met->st->sky->co[r],met->st->ST->co[r],met->st->Vheight->co[r],met->st->Theight->co[r]);
+	}
+	
+	//FIND A STATION WITH SURFACE TEMPERATURE
+	met->nstTs=0;
+	do{
+		met->nstTs++;
+		a=0;
+		if( (long)met->data[met->nstTs-1][0][iTs]!=number_absent) a=1;
+	}while(met->nstTs<met->st->Z->nh && a==0);
+	if(a==0){
+		printf("WARNING: NO Surface temperature measurements available\n");
+		fprintf(flog,"WARNING: NO Surface temperature measurements available\n");
+	}else{
+		printf("Surface temperature measurements from station %ld\n",met->nstTs);
+		fprintf(flog,"Surface temperature measurements from station %ld\n",met->nstTs);
 	}
 	
 	/****************************************************************************************************/
@@ -699,56 +795,29 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	cnet->lch = new_longmatrix( (Nl+1)*i, 2);
 	initialize_longmatrix(cnet->lch, 0);
 	
-	lch3_cont(cnet->r->nh, cnet->ch3, cnet->lch);
+	lch3_cont(cnet->ch3, cnet->lch, Nl, par->total_channel);
 	
 	
-	/****************************************************************************************************/
-	//Calculates distance from the main channel
-	
-	/*DOUBLEMATRIX *M;
-	M=new_doublematrix(land->LC->nrh, land->LC->nch);
-	distance_from_channel2(M, top->pixel_type, cnet->r, cnet->c);
-	
-	long R=Nr;	
-	for (i=1; i<=cnet->r->nh; i++) {
-		if (cnet->r->co[i]<=R) R=cnet->r->co[i];
-	}
-	long C;
-	for(r=1;r<=Nr;r++){
-		C=Nc;
-		for (i=1; i<=cnet->r->nh; i++) {
-			if (r==cnet->r->co[i]) C=cnet->c->co[i];
-		}
-		for(c=1;c<=Nc;c++){
-			if((long)land->LC->co[r][c]!=number_novalue){
-				M->co[r][c]*=UV->U->co[1];
-				if(M->co[r][c]>45) M->co[r][c]=(double)number_novalue;
-				if(c>=C) M->co[r][c]=(double)number_novalue;
-				if(r<=R) M->co[r][c]=(double)number_novalue;
-			}
-		}
-	}
-	
-	temp=join_strings(WORKING_DIRECTORY, "dist_from_channel");
-	write_map(temp, 0, par->format_out, M, UV, number_novalue);
-	free(temp);
-	free_doublematrix(M);*/
-	
+	/****************************************************************************************************/	
 	//Cont for Richards 3D
-	//There are not channels
-	top->i_cont=(long ***)malloc((Nl+1)*sizeof(long**));
-	for(l=0;l<=Nl;l++){
+	
+	n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
+	
+	//3D
+	top->i_cont=(long ***)malloc((n+1)*sizeof(long**));
+	for(l=0;l<=n;l++){
 		top->i_cont[l]=(long **)malloc((Nr+1)*sizeof(long*));
 		for(r=1;r<=Nr;r++){
 			top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
 		}
 	}
 	
-	top->lrc_cont=new_longmatrix( (Nl+1)*par->total_pixel, 3);
+	top->lrc_cont=new_longmatrix( (n+1)*par->total_pixel, 3);
 	initialize_longmatrix(top->lrc_cont, 0);
 	
-	i_lrc_cont(land->LC, top->i_cont, top->lrc_cont);
+	i_lrc_cont(land->LC, top->i_cont, top->lrc_cont, n, Nr, Nc);
 	
+	//2D
 	top->j_cont=(long **)malloc((Nr+1)*sizeof(long*));
 	for (r=1; r<=Nr; r++) {
 		top->j_cont[r]=(long *)malloc((Nc+1)*sizeof(long));
@@ -760,8 +829,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	top->rc_cont=new_longmatrix(par->total_pixel, 2);
 	initialize_longmatrix(top->rc_cont, 0);
 	
-	j_rc_cont(land->LC, top->j_cont, top->rc_cont);
+	j_rc_cont(land->LC, top->j_cont, top->rc_cont, Nr, Nc);
 
+	//plotted points
 	if(par->state_pixel == 1){
 		par->jplot = new_longvector(par->total_pixel);
 		initialize_longvector(par->jplot, 0);
@@ -775,9 +845,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	}	
 	
 	//BEDROCK (adjusting soil properties)
-	par->bedrock = 0;	
-	if( strcmp(files[fbed] , string_novalue) != 0 ) set_bedrock(sl, cnet, par, top, land->LC, flog);	
-	free_doubletensor(sl->pa_bed);	
+	set_bedrock(IT, sl, cnet, par, top, land->LC, flog);	
 		
 	/****************************************************************************************************/
 	/*! Completing of the initialization of SOIL structure                               */
@@ -795,32 +863,36 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	sl->Ptot=new_doublematrix(Nl,par->total_pixel);
 	initialize_doublematrix(sl->Ptot,(double)number_novalue);
 
-	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0){
-		sl->T_av_tensor=new_doublematrix(Nl,par->total_pixel);
-		initialize_doublematrix(sl->T_av_tensor,0.);
-	}
-	
-	if(strcmp(files[ficeav] , string_novalue) != 0){
-		sl->thi_av_tensor=new_doublematrix(Nl,par->total_pixel);
-		initialize_doublematrix(sl->thi_av_tensor,0.);
-	}
-	if(strcmp(files[fliqav] , string_novalue) != 0){
-		sl->thw_av_tensor=new_doublematrix(Nl,par->total_pixel);
-		initialize_doublematrix(sl->thw_av_tensor,0.);
-	}
-//TODO: Hack
-	if(strcmp(files[fpnet] , string_novalue) != 0){
-		sl->Pnetcum=new_doublevector(par->total_pixel);
-		initialize_doublevector(sl->Pnetcum,0.);
-	}
-
-	if(strcmp(files[fevap] , string_novalue) != 0){
-		sl->ETcum=new_doublevector(par->total_pixel);
-		initialize_doublevector(sl->ETcum,0.);
-	}
-// end Hack
 	sl->ET=new_doubletensor(Nl,Nr,Nc);
 	initialize_doubletensor(sl->ET,0.);
+	
+	if(par->output_soil_bin == 1){
+		if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0){
+			sl->T_av_tensor=new_doublematrix(Nl,par->total_pixel);
+			initialize_doublematrix(sl->T_av_tensor,0.);
+		}
+		
+		if(strcmp(files[ficeav] , string_novalue) != 0){
+			sl->thi_av_tensor=new_doublematrix(Nl,par->total_pixel);
+			initialize_doublematrix(sl->thi_av_tensor,0.);
+		}
+		
+		if(strcmp(files[fliqav] , string_novalue) != 0){
+			sl->thw_av_tensor=new_doublematrix(Nl,par->total_pixel);
+			initialize_doublematrix(sl->thw_av_tensor,0.);
+		}
+		
+		if(strcmp(files[fpnet] , string_novalue) != 0){
+			sl->Pnetcum=new_doublevector(par->total_pixel);
+			initialize_doublevector(sl->Pnetcum,0.);
+		}	
+		
+		if(strcmp(files[fevap] , string_novalue) != 0){
+			sl->ETcum=new_doublevector(par->total_pixel);
+			initialize_doublevector(sl->ETcum,0.);
+		}			
+		
+	}
 						
 	if(existing_file(files[fwt0]) == 0){
 		
@@ -831,9 +903,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			
 			sy=sl->type->co[r][c];
 						
-			if ((long)sl->init_water_table_depth->co[sy] != number_novalue) {
+			if ((long)IT->init_water_table_depth->co[sy] != number_novalue) {
 				z = 0.;
-				sl->SS->P->co[0][i] = -sl->init_water_table_depth->co[sy]*cos(top->slope->co[r][c]*Pi/180.);
+				sl->SS->P->co[0][i] = -IT->init_water_table_depth->co[sy]*cos(top->slope->co[r][c]*Pi/180.);
 				for(l=1;l<=Nl;l++){
 					z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
 					sl->SS->P->co[l][i] = sl->SS->P->co[0][i] + z;
@@ -940,13 +1012,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	if(par->delay_day_recover > 0){
 		
-		assign_recovered_tensor_vector(par->recover, files[riceg], sl->SS->thi, top->rc_cont, par, land->LC, IT->LU);
-		assign_recovered_tensor_vector(par->recover, files[rTg], sl->SS->T, top->rc_cont, par, land->LC, IT->LU);
-		assign_recovered_tensor_vector(par->recover, files[rpsi], sl->SS->P, top->rc_cont, par, land->LC, IT->LU);
+		assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi, top->rc_cont, par, land->LC);
+		assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T, top->rc_cont, par, land->LC);
+		assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P, top->rc_cont, par, land->LC);
 		
-		assign_recovered_map_vector(par->recover, files[rwcrn], sl->VS->wrain, top->rc_cont, par, land->LC, IT->LU);
-		assign_recovered_map_vector(par->recover, files[rwcsn], sl->VS->wsnow, top->rc_cont, par, land->LC, IT->LU);
-		assign_recovered_map_vector(par->recover, files[rTv], sl->VS->Tv, top->rc_cont, par, land->LC, IT->LU);
+		assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain, top->rc_cont, par, land->LC);
+		assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow, top->rc_cont, par, land->LC);
+		assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv, top->rc_cont, par, land->LC);
 		
 	}
 
@@ -969,9 +1041,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		r=cnet->r->co[j];
 		c=cnet->c->co[j];
 		
-		cnet->SS->P->co[0][j] = sl->SS->P->co[0][top->j_cont[r][c]];
+		cnet->SS->P->co[0][j] = sl->SS->P->co[0][top->j_cont[r][c]] + par->depr_channel;
+		
 		for(l=1;l<=Nl;l++){
-			cnet->SS->P->co[l][j] = sl->Ptot->co[l][top->j_cont[r][c]];
+			cnet->SS->P->co[l][j] = sl->Ptot->co[l][top->j_cont[r][c]] + par->depr_channel;
 		}
 		
 		for(l=1;l<=Nl;l++){
@@ -1004,9 +1077,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	}
 	
 	if(par->delay_day_recover > 0 && par->total_channel > 0){
-		assign_recovered_tensor_channel(par->recover, files[rpsich], cnet->SS->P, cnet->r, cnet->c, top->Z0);
-		assign_recovered_tensor_channel(par->recover, files[ricegch], cnet->SS->thi, cnet->r, cnet->c, top->Z0);
-		assign_recovered_tensor_channel(par->recover, files[rTgch], cnet->SS->T, cnet->r, cnet->c, top->Z0);
+		assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P, cnet->r, cnet->c, top->Z0);
+		assign_recovered_tensor_channel(old, par->recover, files[ricegch], cnet->SS->thi, cnet->r, cnet->c, top->Z0);
+		assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T, cnet->r, cnet->c, top->Z0);
 		
 		for(i=1; i<=par->total_channel; i++){
 			for (l=1; l<=Nl; l++) {
@@ -1069,11 +1142,15 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		if(strcmp(files[fradLW] , string_novalue) != 0){
 			egy->LW_mean = new_doublevector(par->total_pixel);
 			initialize_doublevector(egy->LW_mean, 0.);
+		}
+		if(strcmp(files[fradLW] , string_novalue) != 0 || strcmp(files[fradnet] , string_novalue) != 0){
 			egy->LW = new_doublevector(par->total_pixel);
 		}
 		if(strcmp(files[fradSW] , string_novalue) != 0){
 			egy->SW_mean = new_doublevector(par->total_pixel);
 			initialize_doublevector(egy->SW_mean, 0.);
+		}
+		if(strcmp(files[fradSW] , string_novalue) != 0 || strcmp(files[fradnet] , string_novalue) != 0){
 			egy->SW = new_doublevector(par->total_pixel);
 		}
 		if(strcmp(files[fLE] , string_novalue) != 0){
@@ -1115,7 +1192,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		}
 	}
 	
-	egy->sun = (double*)malloc(8*sizeof(double));
+	egy->sun = (double*)malloc(12*sizeof(double));
 	
 	if(times->JD_plots->nh > 1){
 		if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
@@ -1244,7 +1321,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		
 	/* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
 	wat->PrecTot=new_doublematrix(Nr,Nc);
-	initialize_doublematrix(wat->PrecTot,0.0);
+	initialize_doublematrix(wat->PrecTot,par->IPrec_default);
 	
 	/* Initialization of the matrices with the output of total precipitation and interception:*/
 	if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0){
@@ -1518,19 +1595,18 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 
 	if(par->delay_day_recover > 0){
 		initialize_shortmatrix(snow->S->type, 2);
-		assign_recovered_map_long(par->recover, files[rns], snow->S->lnum, par, land->LC, IT->LU);
-		assign_recovered_map_vector(par->recover, files[rsnag], snow->age, top->rc_cont, par, land->LC, IT->LU);
-		assign_recovered_tensor(par->recover, files[rDzs], snow->S->Dzl, par, land->LC, IT->LU);
-		assign_recovered_tensor(par->recover, files[rwls], snow->S->w_liq, par, land->LC, IT->LU);
-		assign_recovered_tensor(par->recover, files[rwis], snow->S->w_ice, par, land->LC, IT->LU);
-		assign_recovered_tensor(par->recover, files[rTs], snow->S->T, par, land->LC, IT->LU);				
+		assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum, par, land->LC);
+		assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age, top->rc_cont, par, land->LC);
+		assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl, par, land->LC);
+		assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq, par, land->LC);
+		assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par, land->LC);
+		assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T, par, land->LC);				
 	}
 	
 	
 				
 	/****************************************************************************************************/
 	/*! Initialization of the struct "glac" (of the type GLACIER):*/
-	
 	/***************************************************************************************************/ 
 	/*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
 	if( par->point_sim!=1 && strcmp(files[fgl0] , string_novalue) != 0 && par->max_glac_layers==0){
@@ -1642,11 +1718,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		free_doublematrix(M);
 		
 		if(par->delay_day_recover > 0){
-			assign_recovered_map_long(par->recover, files[rni], glac->G->lnum, par, land->LC, IT->LU);
-			assign_recovered_tensor(par->recover, files[rDzi], glac->G->Dzl, par, land->LC, IT->LU);
-			assign_recovered_tensor(par->recover, files[rwli], glac->G->w_liq, par, land->LC, IT->LU);
-			assign_recovered_tensor(par->recover, files[rwii], glac->G->w_ice, par, land->LC, IT->LU);
-			assign_recovered_tensor(par->recover, files[rTi], glac->G->T, par, land->LC, IT->LU);
+			assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum, par, land->LC);
+			assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl, par, land->LC);
+			assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq, par, land->LC);
+			assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC);
+			assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T, par, land->LC);
 		}
 	}																				
 			
@@ -1656,15 +1732,15 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	// Filling up of the struct "met" (of the type METEO):
 		
 	met->Tgrid=new_doublematrix(Nr,Nc);
-	initialize_doublematrix(met->Tgrid, 5.);
+	initialize_doublematrix(met->Tgrid, par->Tair_default);
 	met->Pgrid=new_doublematrix(Nr,Nc);
 	initialize_doublematrix(met->Pgrid, Pa0);
 	met->RHgrid=new_doublematrix(Nr,Nc);
-	initialize_doublematrix(met->RHgrid, 0.7);
+	initialize_doublematrix(met->RHgrid, par->RH_default);
 	met->Vgrid=new_doublematrix(Nr,Nc);
-	initialize_doublematrix(met->Vgrid, par->Vmin);
+	initialize_doublematrix(met->Vgrid, par->V_default);
 	met->Vdir=new_doublematrix(Nr,Nc);
-	initialize_doublematrix(met->Vdir, 0.0);
+	initialize_doublematrix(met->Vdir, par->Vdir_default);
 		
 	if (par->output_meteo_bin == 1){
 		if(strcmp(files[fTa] , string_novalue) != 0){
@@ -1705,11 +1781,240 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	}
 	
 	/****************************************************************************************************/			
+	//SpinUp variables
 	
-	/*Free the struct allocated in this subroutine:*/		
-	//free_doublematrix(par->chkpt);
-	free_doublevector(sl->init_water_table_depth);
+	if(par->recover > 0) write_suffix(rec, par->recover, 4);
+	if(par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
+	
+	if(par->Tzrun == 1){
+		
+		sl->Tzrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->Tzrun, 0.);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fTrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTrun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}
+	
+	if(par->wzrun == 1){
+		sl->wzrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->wzrun, 0.);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fwrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwrun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}
+	
+	if(par->Tzmaxrun == 1){
+		sl->Tzmaxrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->Tzmaxrun, -1.E99);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fTmaxrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTmaxrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTmaxrun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}
+	
+	if(par->wzmaxrun == 1){
+		sl->wzmaxrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->wzmaxrun, -1.E99);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fwmaxrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwmaxrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwmaxrun], textfile);
+		}
 
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}
+	
+	if(par->Tzminrun == 1){
+		sl->Tzminrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->Tzminrun, 1.E99);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fTminrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTminrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTminrun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}
+	
+	if(par->wzminrun == 1){
+		sl->wzminrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->wzminrun, 1.E99);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fwminrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwminrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwminrun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);	
+	}
+	
+	if(par->dUzrun == 1){
+		sl->dUzrun = new_doublematrix(par->rc->nrh, Nl);
+		initialize_doublematrix(sl->dUzrun, 0.);
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fdUrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fdUrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fdUrun], textfile);
+		}
+
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point");
+		for (l=1; l<=Nl; l++) {
+			fprintf(f, ",l[%ld]",l);
+		}
+		fprintf(f, "\n");
+		free(name);
+		fclose(f);
+	}		
+	
+	if(par->SWErun == 1){
+		sl->SWErun = new_doublematrix(par->rc->nrh, 3);//mean,max,min
+		for (l=1; l<=par->rc->nrh; l++) {
+			sl->SWErun->co[l][1] = 0.;
+			sl->SWErun->co[l][2] = -1.E99;
+			sl->SWErun->co[l][3] = 1.E99;				
+		}
+		
+		if (par->recover>0) {
+			temp = join_strings(files[fSWErun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fSWErun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fSWErun], textfile);
+		}
+		
+		f = fopen(name, "w");
+		fprintf(f, "Period,Run,Point,SWEmean[mm],SWEmax[mm],SWEmin[mm]\n");
+		free(name);
+		fclose(f);
+	}				
+
+	if(par->delay_day_recover > 0){
+		if(par->Tzrun == 1) recover_run_averages(old, sl->Tzrun, files[rTrun], land->LC, top->rc_cont, par, Nl);
+		if(par->wzrun == 1) recover_run_averages(old, sl->wzrun, files[rwrun], land->LC, top->rc_cont, par, Nl);
+		if(par->Tzminrun == 1) recover_run_averages(old, sl->Tzminrun, files[rTminrun], land->LC, top->rc_cont, par, Nl);
+		if(par->wzminrun == 1) recover_run_averages(old, sl->wzminrun, files[rwminrun], land->LC, top->rc_cont, par, Nl);
+		if(par->Tzmaxrun == 1) recover_run_averages(old, sl->Tzmaxrun, files[rTmaxrun], land->LC, top->rc_cont, par, Nl);
+		if(par->wzmaxrun == 1) recover_run_averages(old, sl->wzmaxrun, files[rwmaxrun], land->LC, top->rc_cont, par, Nl);
+		if(par->dUzrun == 1) recover_run_averages(old, sl->dUzrun, files[rdUrun], land->LC, top->rc_cont, par, Nl);
+		if(par->SWErun == 1) recover_run_averages(old, sl->SWErun, files[rSWErun], land->LC, top->rc_cont, par, 3);
+	}
+
+	/****************************************************************************************************/			
+	
+	//Free the struct allocated in this subroutine:
+	//free_doublematrix(par->chkpt);
+	
+	free_doublevector(IT->init_water_table_depth);
+	free_doublematrix(IT->bed);
+	free_doubletensor(IT->pa_bed);
+	
 	for (i=0; i<nmet; i++) {
 		free(IT->met_col_names[i]);
 	}
@@ -1742,28 +2047,25 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	free(IT);
 	
+	n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
+
 	if (par->point_sim != 1) {
-
-		cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel);
+		cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel, par->total_channel, n);
 		top->Li = new_longvector(i);
 		top->Lp = new_longvector(j);
 		wat->Lx = new_doublevector(i);	
-		cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel);
-
+		cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel, par->total_channel, n);
 	}else {
-
-		i = Nl;
-		j = Nl + 1;
+		i = n;
+		j = n+1;
 		top->Li = new_longvector(i);
 		top->Lp = new_longvector(j);
 		wat->Lx = new_doublevector(i);	
-		
-		for (l=1; l<=Nl; l++) {
+		for (l=1; l<=n; l++) {
 			top->Li->co[l] = l+1;
 			top->Lp->co[l] = l;
 		}
-		top->Lp->co[l] = i;
-	
+		top->Lp->co[j] = i;
 	}
 
 	wat->H0 = new_doublevector(j);
@@ -1789,7 +2091,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
+void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT, FILE *flog){
 
 	long r, c, i, cont;					
 	DOUBLEMATRIX *M;
@@ -1897,7 +2199,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 
 			par->rc->co[i][1]=row(par->chkpt->co[i][ptY], top->Z0->nrh, UV, number_novalue);
 			par->rc->co[i][2]=col(par->chkpt->co[i][ptX], top->Z0->nch, UV, number_novalue);
-
+						
 			if (par->rc->co[i][1] == number_novalue || par->rc->co[i][2] == number_novalue) {
 				printf("Point #%4ld is out of the domain",i);
 				
@@ -1997,7 +2299,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 	
 	flag = file_exists(fslp, flog);
 	if(flag == 1){
-		top->slope=read_map(2, files[fslp], top->Z0, UV, (double)number_novalue);		//reads in degrees
+		top->slope=read_map(2, files[fslp], land->LC, UV, (double)number_novalue);		//reads in degrees
 	}else{
 		top->slope=find_max_slope(top->Z0, top->dzdE, top->dzdN, (double)number_novalue);
 	}
@@ -2011,7 +2313,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 	//ASPECT
 	flag = file_exists(fasp, flog);
 	if(flag == 1){
-		top->aspect=read_map(2, files[fasp], top->Z0, UV, (double)number_novalue);
+		top->aspect=read_map(2, files[fasp], land->LC, UV, (double)number_novalue);
 	}else{
 		top->aspect=find_aspect(top->Z0, top->dzdE, top->dzdN, (double)number_novalue);
 	}
@@ -2152,6 +2454,17 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 		top->BC_DepthFreeSurface = new_doublevector(1);	
 		initialize_doublevector(top->BC_DepthFreeSurface, (double)number_novalue);
 	}
+	
+	//bedrock
+	flag = file_exists(fbed, flog);
+	if(flag == 1){
+		IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
+	}else{
+		IT->bed=new_doublematrix(top->Z0->nrh, top->Z0->nch);
+		initialize_doublematrix(IT->bed, 1.E99);
+	}
+	if(flag>=0) write_map(files[fbed], 0, par->format_out, top->aspect, UV, number_novalue);
+
 
 }
 
@@ -2163,9 +2476,9 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog){
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog){
 
 	long i, r, c, num_lines;
-	DOUBLEMATRIX *Q, *P, *R, *S, *T, *Z, *LU;
+	DOUBLEMATRIX *Q=NULL, *P=NULL, *R=NULL, *S=NULL, *T=NULL, *Z=NULL, *LU=NULL; // ec 2012 08 22
 	SHORTMATRIX *curv;
-	short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_curv, flag, coordinates;
+	short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
 	char *temp;
 	double min, max;
 	FILE *f;
@@ -2460,6 +2773,40 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 		free_doublematrix(P);
 	}	
 	
+	//f2. bedrock file
+	read_bed=0;
+	for(i=1;i<=par->chkpt->nrh;i++){ 
+		if((long)par->chkpt->co[i][ptBED]==number_novalue) read_bed=1; 
+	}
+	if(read_bed==1 && coordinates==0) read_bed=0;
+	if(read_bed==1){
+		flag = file_exists(fbed, flog);	
+		if(flag == 1){				
+			if(read_dem==0){
+				Q=new_doublematrix(1,1);
+				P=read_map(0, files[fbed], Q, UV, (double)number_novalue);
+				free_doublematrix(Q);
+			}else{
+				P=read_map(1, files[fbed], Z, UV, (double)number_novalue);
+			}
+		}else{
+			printf("Warning: Bedrock depth file not present\n");
+			fprintf(flog,"Warning: Sky view factor file not present\n");
+			read_bed=0;
+		}
+	}
+	
+	if(read_bed==1){
+		for(i=1;i<=par->chkpt->nrh;i++){ 
+			if((long)par->chkpt->co[i][ptBED]==number_novalue){				
+				r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
+				c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
+				par->chkpt->co[i][ptBED]=P->co[r][c];
+			}
+		}
+		free_doublematrix(P);
+	}	
+	
 	//g.curvature
 	read_curv=0;
 	for(i=1;i<=par->chkpt->nrh;i++){ 
@@ -2578,12 +2925,6 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 		UV->V->co[1] = 1.;
 	}
 	
-	//m. set IT->LU
-	/*if(par->recover>0){
-		IT->LU=new_doublematrix(Z->nrh, Z->nch);
-		copy_doublematrix(LU, IT->LU);
-	}*/
-	
 	//n. deallocation
 	if(read_dem==1) free_doublematrix(Z);
 	if(read_lu==1) free_doublematrix(LU);
@@ -2626,6 +2967,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 	top->latitude=new_doublematrix(1,par->chkpt->nrh);
 	top->longitude=new_doublematrix(1,par->chkpt->nrh);
 	par->IDpoint=new_longvector(par->chkpt->nrh);
+	IT->bed=new_doublematrix(1,par->chkpt->nrh);
 	for(i=1;i<=par->chkpt->nrh;i++){
 		top->East->co[1][i]=par->chkpt->co[i][ptX];
 		top->North->co[1][i]=par->chkpt->co[i][ptY];
@@ -2674,6 +3016,9 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 		top->latitude->co[1][i]=par->chkpt->co[i][ptLAT];
 		top->longitude->co[1][i]=par->chkpt->co[i][ptLON];
 		par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
+		
+		IT->bed->co[1][i]=par->chkpt->co[i][ptBED];
+		if( (long)IT->bed->co[1][i] == number_novalue ) IT->bed->co[1][i] = 1.E99;
 	}
 		
 	//7. SET PAR
@@ -2735,110 +3080,111 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog){
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog){
 	
-	DOUBLEMATRIX *B;
 	DOUBLETENSOR *T;
 	DOUBLEVECTOR *WT;
 	long i, j, l, r, c, sy, synew;
 	double zlim, z;
+	short yes=0;
 	FILE *f;
 	
-	if(existing_file(files[fbed])==0){
-		f = fopen(FailedRunFile, "w");
-		fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",files[fbed]+1);
-		fclose(f);
-		t_error("Fatal Error! Geotop is closed. See failing report (18).");	
+	//check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything
+	z = 0.;
+	for (l=1; l<=Nl; l++) {
+		z += sl->pa->co[1][jdz][l];
 	}
-
-	printf("A bedrock depth map has been assigned and read from %s\n\n",files[fbed]);
-	fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",files[fbed]);
-
-	par->bedrock = 1;
-	B = read_map(2, files[fbed], LC, UV, (double)number_novalue);
+	for (i=1; i<=par->total_pixel; i++){
+		r = top->rc_cont->co[i][1];
+		c = top->rc_cont->co[i][2];
+		if (IT->bed->co[r][c] < z) yes = 1;
+	}
 	
-	if (sl->init_water_table_depth->nh != sl->pa->ndh){
-		f = fopen(FailedRunFile, "w");
-		fprintf(f, "Error:: Error in bedrock calculations");
-		fclose(f);
-		t_error("Fatal Error! Geotop is closed. See failing report (19).");	
-	}
-
-	//rewrite soil type
-	T=new_doubletensor(sl->pa->ndh, nsoilprop, Nl);
-	for(i=1;i<=sl->pa->ndh;i++){
-		for(j=1;j<=nsoilprop;j++){
-			for(l=1;l<=Nl;l++){		
-				T->co[i][j][l]=sl->pa->co[i][j][l];
-			}
-		}
-	}	
-	free_doubletensor(sl->pa);
-	sl->pa=new_doubletensor(par->total_pixel+par->total_channel, nsoilprop, Nl);
+	if (yes == 1){
 	
-	//rewrite initial water table depth
-	WT=new_doublevector(sl->init_water_table_depth->nh);
-	for(i=1;i<=sl->init_water_table_depth->nh;i++) {
-		WT->co[i]=sl->init_water_table_depth->co[i];
-	}
-	free_doublevector(sl->init_water_table_depth);
-	sl->init_water_table_depth=new_doublevector(par->total_pixel+par->total_channel);
-
-	//assign jdz (is needed later)
-	for(i=1;i<=sl->pa->ndh;i++){
-		for(l=1;l<=Nl;l++){		
-			sl->pa->co[i][jdz][l]=T->co[1][jdz][l];
+		//consistency check
+		if (IT->init_water_table_depth->nh != sl->pa->ndh){
+			f = fopen(FailedRunFile, "w");
+			fprintf(f, "Error:: Error in bedrock calculations");
+			fclose(f);
+			t_error("Fatal Error! Geotop is closed. See failing report (19).");	
 		}
-	}	
-
-	for (i=1; i<=par->total_pixel+par->total_channel; i++) {
 		
-		if (i<=par->total_pixel) {
-			r = top->rc_cont->co[i][1];
-			c = top->rc_cont->co[i][2];
-			sy = sl->type->co[r][c];
-			synew = i;
-			sl->type->co[r][c] = synew;
-			z = 0.0;
-		}else {
-			r = cnet->r->co[i-par->total_pixel];
-			c = cnet->c->co[i-par->total_pixel];
-			sy = cnet->soil_type->co[i-par->total_pixel];
-			synew = i;
-			cnet->soil_type->co[i-par->total_pixel] = synew;
-			z = par->depr_channel;
-		}
-
-		sl->init_water_table_depth->co[synew] = WT->co[sy];
-		
-		zlim = B->co[r][c];
-
-		for(l=1;l<=Nl;l++){			
-				
-			z += 0.5*sl->pa->co[synew][jdz][l];
-							
-			if(z <= zlim){
-					
-				for(j=1;j<=nsoilprop;j++){
-					sl->pa->co[synew][j][l] = T->co[sy][j][l];
+		//rewrite soil type
+		T=new_doubletensor(sl->pa->ndh, nsoilprop, Nl);
+		for(i=1;i<=sl->pa->ndh;i++){
+			for(j=1;j<=nsoilprop;j++){
+				for(l=1;l<=Nl;l++){		
+					T->co[i][j][l]=sl->pa->co[i][j][l];
 				}
-					
-			}else{
-					
-				for(j=1;j<=nsoilprop;j++){
-					sl->pa->co[synew][j][l] = sl->pa_bed->co[sy][j][l] ;
-				}				
-					
 			}
-				
-			z += 0.5*sl->pa->co[synew][jdz][l];
-				
+		}	
+		free_doubletensor(sl->pa);
+		sl->pa=new_doubletensor(par->total_pixel+par->total_channel, nsoilprop, Nl);
+		
+		//rewrite initial water table depth
+		WT=new_doublevector(IT->init_water_table_depth->nh);
+		for(i=1;i<=IT->init_water_table_depth->nh;i++) {
+			WT->co[i]=IT->init_water_table_depth->co[i];
 		}
-	}
+		free_doublevector(IT->init_water_table_depth);
+		IT->init_water_table_depth=new_doublevector(par->total_pixel+par->total_channel);
+		
+		//assign jdz (is needed later)
+		for(i=1;i<=sl->pa->ndh;i++){
+			for(l=1;l<=Nl;l++){		
+				sl->pa->co[i][jdz][l]=T->co[1][jdz][l];
+			}
+		}	
+		
+		for (i=1; i<=par->total_pixel+par->total_channel; i++) {
+			
+			if (i<=par->total_pixel) {
+				r = top->rc_cont->co[i][1];
+				c = top->rc_cont->co[i][2];
+				sy = sl->type->co[r][c];
+				synew = i;
+				sl->type->co[r][c] = synew;
+				z = 0.;
+			}else {
+				r = cnet->r->co[i-par->total_pixel];
+				c = cnet->c->co[i-par->total_pixel];
+				sy = cnet->soil_type->co[i-par->total_pixel];
+				synew = i;
+				cnet->soil_type->co[i-par->total_pixel] = synew;
+				z = par->depr_channel;
+			}
+			
+			IT->init_water_table_depth->co[synew] = WT->co[sy];
+			
+			zlim = IT->bed->co[r][c];
+			
+			for(l=1;l<=Nl;l++){			
 				
-	free_doubletensor(T);
-	free_doublematrix(B);
-	free_doublevector(WT);
+				z += 0.5*sl->pa->co[synew][jdz][l];
+				
+				if(z <= zlim){
+					
+					for(j=1;j<=nsoilprop;j++){
+						sl->pa->co[synew][j][l] = T->co[sy][j][l];
+					}
+					
+				}else{
+					
+					for(j=1;j<=nsoilprop;j++){
+						sl->pa->co[synew][j][l] = IT->pa_bed->co[sy][j][l] ;
+					}				
+					
+				}
+				
+				z += 0.5*sl->pa->co[synew][jdz][l];
+				
+			}
+		}
+		
+		free_doubletensor(T);
+		free_doublevector(WT);
+	}
 }
 
 /******************************************************************************************************************************************/
@@ -2849,7 +3195,7 @@ void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC,
 DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope, DOUBLEMATRIX *LC, SOIL *sl, short point){
 	
 	DOUBLETENSOR *Z;
-	double Zaverage, z, cosine;
+	double Zaverage=0., z, cosine;
 	long l, r, c, n, sy;
 	
 	if(point!=1){
@@ -3248,7 +3594,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 	beg = end;
 	end += 1;
 	path_rec_files = assignation_string(flog, beg, keywords_char, string_param);//path of recovery files
-		
+			
 	//deallocate keyword arrays	
 	for(i=0; i<num_par_char; i++){
 		free(string_param[i]);
@@ -3454,7 +3800,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 	}	
 	
 	//Recovery Files
-	for (j=rpsi; j<=rtime; j++) {
+	for (j=rpsi; j<=rsux; j++) {
 		if(strcmp(files[j], string_novalue) == 0){
 			free(files[j]);
 			if (j==rpsi) { files[j] = assign_string("SoilPressure");
@@ -3477,7 +3823,16 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 			}else if (j==rpsich) { files[j] = assign_string("SoilChannelPressure");
 			}else if (j==ricegch) { files[j] = assign_string("SoilChannelIceContent");
 			}else if (j==rTgch) { files[j] = assign_string("SoilChannelTemperature");
-			}else if (j==rtime) { files[j] = assign_string("RecoveryTime");				
+			}else if (j==rTrun) { files[j] = assign_string("RunMeanSoilTemperature");
+			}else if (j==rwrun) { files[j] = assign_string("RunMeanSoilTotWater");
+			}else if (j==rdUrun) { files[j] = assign_string("RunSoilInternalEnergy");
+			}else if (j==rSWErun) { files[j] = assign_string("RunMeanSWE");
+			}else if (j==rTmaxrun) { files[j] = assign_string("RunMaxSoilTemperature");
+			}else if (j==rTminrun) { files[j] = assign_string("RunMinSoilTemperature");
+			}else if (j==rwmaxrun) { files[j] = assign_string("RunMaxSoilTotWater");
+			}else if (j==rwminrun) { files[j] = assign_string("RunMinSoilTotWater");
+			}else if (j==rtime) { files[j] = assign_string("RecoveryTime");		
+			}else if (j==rsux) { files[j] = assign_string("SuccessfulRecovery");				
 			}
 		}
 	}
@@ -3488,7 +3843,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 		free(path_rec_files);
 		path_rec_files = join_strings(temp, "/");
 		free(temp);
-		for (i=rpsi; i<=rtime; i++) {
+		for (i=rpsi; i<=rsux; i++) {
 			temp = assign_string(files[i]);
 			free(files[i]);
 			files[i] = join_strings(path_rec_files, temp);
@@ -3551,12 +3906,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	//init date
 	cod = 1;
 	par->init_date = new_doublevector(num_param_components[cod]);
-	par->init_date->co[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 0., 1);
-	par->init_date->co[1] = convert_dateeur12_JDfrom0(par->init_date->co[1]);
-	for (i=2; i<=par->init_date->nh; i++) {
-		par->init_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, (double)number_novalue, 1);
+	for (i=1; i<=par->init_date->nh; i++) {
+		par->init_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 010119000000., 0);
 		par->init_date->co[i] = convert_dateeur12_JDfrom0(par->init_date->co[i]);
 	}
+	
+	//simulation time
+	cod = 398;
+	par->simulation_hours = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 1., 0);
 	
 	//end date
 	cod = 2;
@@ -3567,12 +3924,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 		printf("Error:: End date has a number of components different from Init Date");
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
-	
-	par->end_date->co[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 0., 1);
-	par->end_date->co[1] = convert_dateeur12_JDfrom0(par->end_date->co[1]);
-	for (i=2; i<=par->end_date->nh; i++) {
-		par->end_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, (double)number_novalue, 1);
-		par->end_date->co[i] = convert_dateeur12_JDfrom0(par->end_date->co[i]);
+		
+	for (i=1; i<=par->end_date->nh; i++) {
+		par->end_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, (double)number_novalue, 0);
+		if ((long)par->end_date->co[i] == number_novalue){
+			par->end_date->co[i] = par->init_date->co[i] + par->simulation_hours/24.;
+		}else {
+			par->end_date->co[i] = convert_dateeur12_JDfrom0(par->end_date->co[i]);
+		}		
 	}
 	
 	//run times
@@ -3696,13 +4055,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->TolCG = assignation_number(flog, 45, 0, keyword, num_param, num_param_components, 0.01, 0);
 	par->min_lambda_wat = assignation_number(flog, 46, 0, keyword, num_param, num_param_components, 1.E-7, 0);
 	par->max_times_min_lambda_wat = (long)assignation_number(flog, 47, 0, keyword, num_param, num_param_components, 0.0, 0);
-	par->exit_lambda_min_wat = (short)assignation_number(flog, 48, 0, keyword, num_param, num_param_components, 0., 0);
+	par->exit_lambda_min_wat = (short)assignation_number(flog, 48, 0, keyword, num_param, num_param_components, 1., 0);
 	par->min_Dt = assignation_number(flog, 49, 0, keyword, num_param, num_param_components, 10., 0);
-	
 	par->gamma_m = assignation_number(flog, 50, 0, keyword, num_param, num_param_components, 2./3., 0);
 	par->thres_hsup_1 = assignation_number(flog, 51, 0, keyword, num_param, num_param_components, 0., 0);
 	par->thres_hsup_2 = assignation_number(flog, 52, 0, keyword, num_param, num_param_components, 0., 0);
-
 	par->Ks_channel = assignation_number(flog, 53, 0, keyword, num_param, num_param_components, 20., 0);
 	par->thres_hchannel = assignation_number(flog, 54, 0, keyword, num_param, num_param_components, 50., 0);
 	par->w_dx = assignation_number(flog, 55, 0, keyword, num_param, num_param_components, 0.1, 0);
@@ -3711,7 +4068,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->max_courant_channel = assignation_number(flog, 58, 0, keyword, num_param, num_param_components, 0.1, 0);
 	par->min_hsup_land = assignation_number(flog, 59, 0, keyword, num_param, num_param_components, 1., 0);
 	par->min_hsup_channel = assignation_number(flog, 60, 0, keyword, num_param, num_param_components, 1., 0);
-	par->min_dhsup_land_channel = assignation_number(flog, 61, 0, keyword, num_param, num_param_components, 1., 0);
+	par->min_dhsup_land_channel_in = assignation_number(flog, 61, 0, keyword, num_param, num_param_components, 1., 0);
 	par->dtmin_sup = assignation_number(flog, 62, 0, keyword, num_param, num_param_components, 0.01, 0);
 	//former block 3
 	par->latitude = assignation_number(flog, 63, 0, keyword, num_param, num_param_components, 45., 0);
@@ -3726,7 +4083,6 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->max_times_min_lambda_en = (long)assignation_number(flog, 72, 0, keyword, num_param, num_param_components, 0.0, 0);
 	par->exit_lambda_min_en = (short)assignation_number(flog, 73, 0, keyword, num_param, num_param_components, 0., 0);
 	par->dem_rotation = assignation_number(flog, 74, 0, keyword, num_param, num_param_components, 0., 0);
-	
 	par->maxiter_canopy = (long)assignation_number(flog, 75, 0, keyword, num_param, num_param_components, 3., 0);
 	par->maxiter_Businger = (long)assignation_number(flog, 76, 0, keyword, num_param, num_param_components, 5., 0);
 	par->maxiter_Ts = (long)assignation_number(flog, 77, 0, keyword, num_param, num_param_components, 2., 0);
@@ -3949,10 +4305,10 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	if (par->nsoiltypes < 1) par->nsoiltypes = 1;
 	
 	cod = 166;
-	sl->init_water_table_depth = new_doublevector(par->nsoiltypes);
-	sl->init_water_table_depth->co[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 5000., 0);
+	itools->init_water_table_depth = new_doublevector(par->nsoiltypes);
+	itools->init_water_table_depth->co[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 5000., 0);
 	for (k=2; k<=par->nsoiltypes; k++) {
-		sl->init_water_table_depth->co[k] = assignation_number(flog, cod, k-1, keyword, num_param, num_param_components, sl->init_water_table_depth->co[k-1], 0);
+		itools->init_water_table_depth->co[k] = assignation_number(flog, cod, k-1, keyword, num_param, num_param_components, itools->init_water_table_depth->co[k-1], 0);
 	}
 	
 	//soil properties and discretization
@@ -4051,36 +4407,36 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 		for (i=1; i<=sl->pa->nch; i++) {
 			if ( (long)sl->pa->co[k][jpsi][i] == number_novalue) occurring = 1;
 		}
-		if (occurring == 0) sl->init_water_table_depth->co[k] = (double)number_novalue;
+		if (occurring == 0) itools->init_water_table_depth->co[k] = (double)number_novalue;
 	}
 	
 	cod = 185;
-	sl->pa_bed = new_doubletensor(1, nsoilprop, nsoillayers);
+	itools->pa_bed = new_doubletensor(1, nsoilprop, nsoillayers);
 	for (i=1; i<=nsoillayers; i++) {
-		sl->pa_bed->co[1][jdz][i] = sl->pa->co[1][jdz][i];
+		itools->pa_bed->co[1][jdz][i] = sl->pa->co[1][jdz][i];
 	}
 	for (j=1; j<=nsoilprop; j++) {
 		if(j != jdz){
-			sl->pa_bed->co[1][j][1] = assignation_number(flog, cod+j-2, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+			itools->pa_bed->co[1][j][1] = assignation_number(flog, cod+j-2, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
 		}
 	}
 	for (i=2; i<=nsoillayers; i++) {
 		for (j=1; j<=nsoilprop; j++) {
-			if(j != jdz) sl->pa_bed->co[1][j][i] = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, sl->pa_bed->co[1][j][i-1], 0);
+			if(j != jdz) itools->pa_bed->co[1][j][i] = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][j][i-1], 0);
 		}
 	}	
 	//field capacity (-0.333 bar) and wilting point (-15 bar)
 	for (i=1; i<=sl->pa->nch; i++){
-		if( (long)sl->pa_bed->co[1][jsat][i] != number_novalue && (long)sl->pa_bed->co[1][jres][i] != number_novalue && 
-			(long)sl->pa_bed->co[1][ja][i] != number_novalue && (long)sl->pa_bed->co[1][jns][i] != number_novalue &&
-			(long)sl->pa_bed->co[1][jss][i] ) {
-			if ( (long)sl->pa_bed->co[1][jfc][i] == number_novalue) {
-				sl->pa_bed->co[1][jfc][i] = teta_psi( (-1./3.)*1.E5/g, 0., sl->pa_bed->co[1][jsat][i], sl->pa_bed->co[1][jres][i], sl->pa_bed->co[1][ja][i], 
-										 sl->pa_bed->co[1][jns][i], 1.-1./sl->pa_bed->co[1][jns][i], PsiMin, sl->pa_bed->co[1][jss][i]);
+		if( (long)itools->pa_bed->co[1][jsat][i] != number_novalue && (long)itools->pa_bed->co[1][jres][i] != number_novalue && 
+			(long)itools->pa_bed->co[1][ja][i] != number_novalue && (long)itools->pa_bed->co[1][jns][i] != number_novalue &&
+			(long)itools->pa_bed->co[1][jss][i] ) {
+			if ( (long)itools->pa_bed->co[1][jfc][i] == number_novalue) {
+				itools->pa_bed->co[1][jfc][i] = teta_psi( (-1./3.)*1.E5/g, 0., itools->pa_bed->co[1][jsat][i], itools->pa_bed->co[1][jres][i], itools->pa_bed->co[1][ja][i], 
+										 itools->pa_bed->co[1][jns][i], 1.-1./itools->pa_bed->co[1][jns][i], PsiMin, itools->pa_bed->co[1][jss][i]);
 			}
-			if ( (long)sl->pa_bed->co[1][jwp][i] == number_novalue) {
-				sl->pa_bed->co[1][jwp][i] = teta_psi( -15.*1.E5/g, 0., sl->pa_bed->co[1][jsat][i], sl->pa_bed->co[1][jres][i], sl->pa_bed->co[1][ja][i], 
-										 sl->pa_bed->co[1][jns][i], 1.-1./sl->pa_bed->co[1][jns][i], PsiMin, sl->pa_bed->co[1][jss][i]);
+			if ( (long)itools->pa_bed->co[1][jwp][i] == number_novalue) {
+				itools->pa_bed->co[1][jwp][i] = teta_psi( -15.*1.E5/g, 0., itools->pa_bed->co[1][jsat][i], itools->pa_bed->co[1][jres][i], itools->pa_bed->co[1][ja][i], 
+										 itools->pa_bed->co[1][jns][i], 1.-1./itools->pa_bed->co[1][jns][i], PsiMin, itools->pa_bed->co[1][jss][i]);
 			}
 		}	
 	}
@@ -4097,7 +4453,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	}else {
 		nmeteo_stations = (long)assignation_number(flog, 200, 0, keyword, num_param, num_param_components, 1., 0);
 	}
-
+	
 	met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));	
 	if(!met->st) t_error("meteo_stations was not allocated"); 
 	met->st->E=new_doublevector(nmeteo_stations);
@@ -4435,4 +4791,286 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	
 	par->k_to_ksat = assignation_number(flog, 376, 0, keyword, num_param, num_param_components, 0., 0);
 	par->RunIfAnOldRunIsPresent = (short)assignation_number(flog, 377, 0, keyword, num_param, num_param_components, 1., 0);
+	
+	par->max_courant_land_channel = assignation_number(flog, 378, 0, keyword, num_param, num_param_components, 0.1, 0);
+	par->min_dhsup_land_channel_out = assignation_number(flog, 379, 0, keyword, num_param, num_param_components, 1., 0);
+	
+
+	cod = 381;
+	par->Nl_spinup = new_longvector(par->end_date->nh);
+	par->Nl_spinup->co[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 10000., 0);
+	for (i=2; i<=par->end_date->nh; i++) {
+		par->Nl_spinup->co[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, par->Nl_spinup->co[i-1], 0);
+	}
+	if(par->Nl_spinup->co[1]<10000. && par->point_sim!=1){
+		printf("You can use %s only if %s is set to 1\n",keyword[cod],keyword[12]);
+		fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[cod],keyword[12]);
+		t_error("Not possible to continue");
+	}
+
+	par->newperiodinit = (short)assignation_number(flog, 382, 0, keyword, num_param, num_param_components, 0., 0);
+	if(par->newperiodinit != 0 && par->point_sim != 1){
+		printf("You can use %s only if %s is set to 1\n",keyword[382],keyword[12]);
+		fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[382],keyword[12]);
+		t_error("Not possible to continue");
+	}
+	
+	par->k1 = assignation_number(flog, 383, 0, keyword, num_param, num_param_components, 0.484, 0);
+	par->k2 = assignation_number(flog, 384, 0, keyword, num_param, num_param_components, 8., 0);
+	par->Lozone = assignation_number(flog, 385, 0, keyword, num_param, num_param_components, 0.3, 0);
+	par->alpha_iqbal = assignation_number(flog, 386, 0, keyword, num_param, num_param_components, 1.3, 0);
+	par->beta_iqbal = assignation_number(flog, 387, 0, keyword, num_param, num_param_components, 0.1, 0);
+		
+	par->albedoSWin = (short)assignation_number(flog, 388, 0, keyword, num_param, num_param_components, 0., 0);
+	
+	par->micro = (short)assignation_number(flog, 389, 0, keyword, num_param, num_param_components, 1., 0);
+	par->EB = assignation_number(flog, 390, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	par->Cair = assignation_number(flog, 391, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	par->Tsup = assignation_number(flog, 392, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+
+	par->Tair_default = assignation_number(flog, 393, 0, keyword, num_param, num_param_components, 5., 0);
+	par->RH_default = assignation_number(flog, 394, 0, keyword, num_param, num_param_components, 70., 0)/100.;
+	par->V_default = assignation_number(flog, 395, 0, keyword, num_param, num_param_components, par->Vmin, 0);
+	par->Vdir_default = assignation_number(flog, 396, 0, keyword, num_param, num_param_components, 0., 0);
+	par->IPrec_default = assignation_number(flog, 397, 0, keyword, num_param, num_param_components, 0., 0);
+	
+	par->soil_type_bedr_default = (long)assignation_number(flog, 399, 0, keyword, num_param, num_param_components, 1., 0);
+	if(par->soil_type_bedr_default<1 || par->soil_type_bedr_default>par->nsoiltypes){
+		fprintf(flog, "Error:  soil_type_bedr_default lower than 0 or higher than soil types numbers");
+		printf("Error:  soil_type_bedr_default lower than 0 or higher than soil types numbers");
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
+	}
+
+}
+
+/***********************************************************/
+/***********************************************************/
+/***********************************************************/
+/***********************************************************/
+
+short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed, FILE *flog){
+
+	short ok;
+	long i, j, k, n, nlines, nlinesprev;
+	char *temp;
+	double **soildata;
+	DOUBLETENSOR *old_sl_par;
+	FILE *f;
+
+	//look if there is at least 1 soil file
+	i = 0;
+	ok = 0;
+	nlinesprev = -1;
+
+	do{
+
+		temp = namefile_i_we2(name, i+1);
+
+		if(existing_file_wext(temp, textfile)==1){
+			free(temp);
+			ok = 1;
+			temp = namefile_i(name, i+1);
+			nlines = count_lines(temp, 33, 44);
+			if (nlinesprev >= 0 && nlines != nlinesprev){
+				f = fopen(FailedRunFile, "w");
+				fprintf(f,"Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",temp,nlines,nlinesprev);
+				fprintf(f,"In GEOtop it is only possible to have the same number of layers in any soil parameter files\n");
+				fclose(f);
+				t_error("Fatal Error! Geotop is closed. See failing report.");
+			}
+			nlinesprev = nlines;
+		}else {
+			if (i==0 && strcmp(name, string_novalue) != 0) {
+				f = fopen(FailedRunFile, "w");
+				fprintf(f,"Error:: Soil file %s not existing.\n",name);
+				fclose(f);
+				t_error("Fatal Error! Geotop is closed. See failing report.");
+			}
+		}
+
+
+		free(temp);
+		i++;
+
+	}while (ok == 0 && i < sl->pa->ndh);
+
+	if (ok == 1){
+
+		//save sl->pa in a new doubletensor and deallocate
+		old_sl_par = new_doubletensor(sl->pa->ndh, sl->pa->nrh, sl->pa->nch);
+		for (i=1; i<=sl->pa->ndh; i++) {
+			for (n=1; n<=sl->pa->nrh; n++) {
+				for (j=1; j<=sl->pa->nch; j++) {
+					old_sl_par->co[i][n][j] = sl->pa->co[i][n][j];
+				}
+			}
+		}
+		free_doubletensor(sl->pa);
+
+		//reallocate
+		sl->pa = new_doubletensor(old_sl_par->ndh, old_sl_par->nrh, nlines);
+
+		for (i=1; i<=sl->pa->ndh; i++) {
+
+			//read files
+			temp = namefile_i_we2(name, i);
+
+			if(existing_file_wext(temp, textfile)==1){
+				free(temp);
+				temp = namefile_i(name, i);
+				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines, flog);
+			}else {
+				soildata = (double**)malloc(nlines*sizeof(double*));
+				for (j=0; j<nlines; j++) {
+					k = (long)nsoilprop;
+					soildata[j] = (double*)malloc(k*sizeof(double));
+					for (n=0; n<k; n++) {
+						soildata[j][n] = (double)number_absent;
+					}
+				}
+			}
+
+			free(temp);
+
+			//assign soildata to soil->pa
+			for (n=1; n<=nsoilprop; n++) {
+				for (j=1; j<=sl->pa->nch; j++) { //j is the layer index
+					sl->pa->co[i][n][j] = soildata[j-1][n-1];
+				}
+			}
+
+			//deallocate soildata
+			for (j=0; j<nlines; j++) {
+				free(soildata[j]);
+			}
+			free(soildata);
+
+			//fix layer thickness
+			n = jdz;
+			for (j=1; j<=sl->pa->nch; j++) { //j is the layer index
+				if ((long)sl->pa->co[i][n][j] != number_novalue && (long)sl->pa->co[i][n][j] != number_absent) {
+					if ( i > 1 && fabs( sl->pa->co[i][n][j] - sl->pa->co[i-1][n][j] ) > 1.E-5 )  {
+						f = fopen(FailedRunFile, "w");
+						fprintf(f,"Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.\n",i);
+						fprintf(f,"In GEOtop it is only possible to have the soil layer discretization in any soil parameter files.\n");
+						fclose(f);
+						t_error("Fatal Error! Geotop is closed. See failing report.");
+					}
+				}else if (i == 1) {
+					if (j <= old_sl_par->nch) {
+						sl->pa->co[i][n][j] = old_sl_par->co[i][n][j];
+					}else {
+						sl->pa->co[i][n][j] = sl->pa->co[i][n][j-1];
+					}
+				}else {
+					sl->pa->co[i][n][j] = sl->pa->co[i-1][n][j];
+				}
+			}
+
+			//all other variables
+			for (n=1; n<=nsoilprop; n++) {
+				if (n != jdz) {
+					for (j=1; j<=sl->pa->nch; j++) { //j is the layer index
+						if ((long)sl->pa->co[i][n][j] == number_novalue || (long)sl->pa->co[i][n][j] == number_absent) {
+							if (j <= old_sl_par->nch) {
+								sl->pa->co[i][n][j] = old_sl_par->co[i][n][j];
+							}else {
+								sl->pa->co[i][n][j] = sl->pa->co[i][n][j-1];
+							}
+						}
+					}
+				}
+			}
+
+			//field capacity and wilting point
+			for (j=1; j<=sl->pa->nch; j++){
+				if( (long)sl->pa->co[i][jfc][j] == number_novalue){
+					sl->pa->co[i][jfc][j] = teta_psi( (-1./3.)*1.E5/g, 0., sl->pa->co[i][jsat][j], sl->pa->co[i][jres][j], sl->pa->co[i][ja][j],
+													 sl->pa->co[i][jns][j], 1.-1./sl->pa->co[i][jns][j], PsiMin, sl->pa->co[i][jss][j]);
+				}
+
+				if( (long)sl->pa->co[i][jwp][j] == number_novalue){
+					sl->pa->co[i][jwp][j] = teta_psi( -15.*1.E5/g, 0., sl->pa->co[i][jsat][j], sl->pa->co[i][jres][j], sl->pa->co[i][ja][j],
+													 sl->pa->co[i][jns][j], 1.-1./sl->pa->co[i][jns][j], PsiMin, sl->pa->co[i][jss][j]);
+				}
+			}
+
+			//pressure
+			ok = 1;
+			for (j=1; j<=sl->pa->nch; j++){
+				if( (long)sl->pa->co[i][jpsi][j] == number_novalue) ok = 0;
+			}
+			if (ok == 1) IT->init_water_table_depth->co[i] = (double)number_novalue;
+		}
+
+		free_doubletensor(old_sl_par);
+
+	}
+
+	//write on the screen the soil paramater
+	fprintf(flog,"\n");
+	k = (long)nmet;
+	fprintf(flog,"Soil Layers: %ld\n",sl->pa->nch);
+	for (i=1; i<=sl->pa->ndh; i++) {
+		fprintf(flog,"-> Soil Type: %ld\n",i);
+		for (n=1; n<=nsoilprop; n++) {
+			fprintf(flog,"%s: ",keywords_char[k+n-1]);
+			for (j=1; j<=sl->pa->nch; j++) {
+				fprintf(flog,"%f(%.2e)",sl->pa->co[i][n][j],sl->pa->co[i][n][j]);
+				if(j<sl->pa->nch)fprintf(flog,", ");
+			}
+			fprintf(flog,"\n");
+		}
+	}
+
+	//bedrock
+	old_sl_par = new_doubletensor(1, IT->pa_bed->nrh, IT->pa_bed->nch);
+	for (n=1; n<=IT->pa_bed->nrh; n++) {
+		for (j=1; j<=IT->pa_bed->nch; j++) {
+			old_sl_par->co[1][n][j] = IT->pa_bed->co[1][n][j];
+		}
+	}
+	free_doubletensor(IT->pa_bed);
+
+	IT->pa_bed = new_doubletensor(sl->pa->ndh, sl->pa->nrh, sl->pa->nch);
+	for (i=1; i<=IT->pa_bed->ndh; i++) {
+		for (n=1; n<=IT->pa_bed->nrh; n++) {
+			if (n == jdz) {
+				for (j=1; j<=IT->pa_bed->nch; j++) {
+					IT->pa_bed->co[i][n][j] = sl->pa->co[1][n][j];
+				}
+			}else {
+				for (j=1; j<=IT->pa_bed->nch; j++) {
+					if (j <= old_sl_par->nch) {
+						IT->pa_bed->co[i][n][j] = old_sl_par->co[1][n][j];
+					}else {
+						IT->pa_bed->co[i][n][j] = IT->pa_bed->co[i][n][j-1];
+					}
+				}
+				for (j=1; j<=IT->pa_bed->nch; j++) {
+					if ( (long)IT->pa_bed->co[i][n][j] == number_novalue ) IT->pa_bed->co[i][n][j] = sl->pa->co[bed][n][j];
+				}
+			}
+		}
+	}
+	free_doubletensor(old_sl_par);
+
+	fprintf(flog,"\n");
+	k = (long)nmet;
+	fprintf(flog,"Soil Bedrock Layers: %ld\n",sl->pa->nch);
+	for (i=1; i<=IT->pa_bed->ndh; i++) {
+		fprintf(flog,"-> Soil Type: %ld\n",i);
+		for (n=1; n<=nsoilprop; n++) {
+			fprintf(flog,"%s: ",keywords_char[k+n-1]);
+			for (j=1; j<=sl->pa->nch; j++) {
+				fprintf(flog,"%f(%.2e)",IT->pa_bed->co[i][n][j],IT->pa_bed->co[i][n][j]);
+				if(j<sl->pa->nch)fprintf(flog,", ");
+			}
+			fprintf(flog,"\n");
+		}
+	}
+	fprintf(flog,"\n");
+
+	return 1;
+
 }

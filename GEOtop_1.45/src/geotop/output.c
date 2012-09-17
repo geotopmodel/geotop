@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.223 'Wallis' - 26 Jul 2011
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2011 - Stefano Endrizzi 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.223 'Wallis'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -31,7 +31,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				  
 {
 	/*internal auxiliary variables:*/
-	long i,j,r,c,l,m; /*counters*/
+	long i,j,r=0,c=0,l,m; /*counters*/
 	long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
 	char NNNNN[ ]={"NNNNN"};
 	char RRRRR[ ]={"RRRRR"};
@@ -39,11 +39,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	char NNNN[ ]={"NNNN"};
 	char rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
 	char *name, *temp1, *temp2, *s1, *s2;  
-	FILE *f, *flog;
+	FILE *f=NULL, *flog;
 	
 	//time variables
 	time_t stop_time;
-	double percent_done, remaining_time, total_time;
+	double percent_done=0., remaining_time, total_time;
 	short first_column;
 	double JD, JDfrom0;
 	long day, month, year, hour, minute;
@@ -137,10 +137,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 		}
 	}
 	
-	//DATA POINT
+
 	//****************************************************************************************************************
-	//****************************************************************************************************************	
-	
+	//****************************************************************************************************************
+
+	//DATA POINT
 	if(par->Dtplot_point->co[i_sim] > 1.E-5){
 		
 		t_point += par->Dt;
@@ -171,9 +172,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
 				
 				if (sl->SS->P->co[0][j] > 0){
-					D = -sl->SS->P->co[0][i] / cos(top->slope->co[r][c] * Pi/180.);
+					D = -sl->SS->P->co[0][j] / cos(top->slope->co[r][c] * Pi/180.);
 				}else {
-					D = find_watertabledepth_dw(i, sl->type->co[r][c], sl);
+					D = find_watertabledepth_dw(j, sl->type->co[r][c], sl);
 				}
 				odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
 			}
@@ -771,7 +772,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 		}
 	}
 	
-	
+		
 	//DISTRIBUTED OUTPUTS
 	//****************************************************************************************************************
 	//****************************************************************************************************************
@@ -828,9 +829,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	initialize_doublevector(V, (double)number_novalue);
 		
 	//soil properties
-	if(par->output_soil->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_soil->co[i_sim]*3600.0)<1.E-5){
+	if(par->output_soil->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_soil->co[i_sim]*3600.0)<1.E-5){
 		
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_soil->co[i_sim]*3600.0));
+		n_file=(long)((times->time+par->Dt)/(par->output_soil->co[i_sim]*3600.0));
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
 			s1 = join_strings(NNNNN, "");
@@ -1068,9 +1069,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	}
 	
 	//snow properties
-	if(par->output_snow->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_snow->co[i_sim]*3600.0)<1.E-5){
+	if(par->output_snow->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_snow->co[i_sim]*3600.0)<1.E-5){
 		
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_snow->co[i_sim]*3600.0));	
+		n_file=(long)((times->time+par->Dt)/(par->output_snow->co[i_sim]*3600.0));	
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
 			s1 = join_strings(NNNNN, "");
@@ -1172,9 +1173,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	}
 	
 	//glacier properties
-	if(par->max_glac_layers>0 && par->output_glac->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_glac->co[i_sim]*3600.0)<1.E-5){
+	if(par->max_glac_layers>0 && par->output_glac->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_glac->co[i_sim]*3600.0)<1.E-5){
 		
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_glac->co[i_sim]*3600.0));	
+		n_file=(long)((times->time+par->Dt)/(par->output_glac->co[i_sim]*3600.0));	
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
 			s1 = join_strings(NNNNN, "");
@@ -1238,9 +1239,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	//SURFACE ENERGY BALANCE	
 	
 	//RADIATION
-	if(par->output_surfenergy->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_surfenergy->co[i_sim]*3600.0)<1.E-5){
+	if(par->output_surfenergy->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_surfenergy->co[i_sim]*3600.0)<1.E-5){
 		
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_surfenergy->co[i_sim]*3600.0));	
+		n_file=(long)((times->time+par->Dt)/(par->output_surfenergy->co[i_sim]*3600.0));	
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
 			s1 = join_strings(NNNNN, "");
@@ -1351,8 +1352,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	}
 	
 	//vegetation variables	
-	if(par->output_vegetation->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_vegetation->co[i_sim]*3600.0)<1.E-5){
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_vegetation->co[i_sim]*3600.0));	
+	if(par->output_vegetation->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_vegetation->co[i_sim]*3600.0)<1.E-5){
+		n_file=(long)((times->time+par->Dt)/(par->output_vegetation->co[i_sim]*3600.0));	
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
 			s1 = join_strings(NNNNN, "");
@@ -1387,8 +1388,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 	}
 		
 	//METEO
-	if(par->output_meteo->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_meteo->co[i_sim]*3600.0)<1.E-5){
-		n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_meteo->co[i_sim]*3600.0));	
+	if(par->output_meteo->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_meteo->co[i_sim]*3600.0)<1.E-5){
+		n_file=(long)((times->time+par->Dt)/(par->output_meteo->co[i_sim]*3600.0));	
 		
 		write_suffix(NNNNN, n_file, 1);
 		if (par->run_times->co[i_sim] == 1) {
@@ -1587,7 +1588,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			
 		}else{
 						
-			if(times->time+par->Dt+par->delay_day_recover*86400. >= 86400.*par->saving_points->co[isavings+1]){
+			if(times->time+par->Dt >= par->saving_points->co[isavings+1]*86400.){
 				isavings+=1;
 				
 				printf("Writing recovering files, saving point number %ld\n",isavings);
@@ -1712,6 +1713,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 		
 	}
 	
+	//Continuous Recovery Option
 	if (par->ContRecovery > 0) {
 		t_rec += par->Dt;
 		
@@ -1726,12 +1728,17 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			
 			if(strcmp(files[rtime] , string_novalue) != 0){
 				name = join_strings(files[rtime], textfile);
+				if(existing_file_woext(name) == 1){
+					temp1 = join_strings(files[rtime], ".old");
+					temp2 = join_strings(temp1, textfile);
+					rename(name, temp2);
+					free(temp1);
+					free(temp2);
+				}
 				f = fopen(name, "w");
-				fprintf(f,"Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s]\n");
-				fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f",times->time+par->Dt+par->delay_day_recover*secinday,
-									   (times->time+par->Dt)/secinday+par->delay_day_recover,
-									   (long)(((times->time+par->Dt)/secinday+par->delay_day_recover)/par->ContRecovery),
-										i_run,i_sim,cum_time,elapsed_time);
+				fprintf(f,"Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s],last_recover\n");
+				fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f,%ld",times->time+par->Dt,(times->time+par->Dt)/secinday,
+					(long)(((times->time+par->Dt)/secinday)/par->ContRecovery),i_run,i_sim,cum_time,elapsed_time,par->n_ContRecovery);
 				fclose(f);
 				free(name);
 			}
@@ -1739,21 +1746,32 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			write_suffix(NNNN, 0, 0);
 			
 			for(l=0;l<=Nl;l++){
-				if(strcmp(files[rpsi] , string_novalue) != 0) write_tensorseries_vector(1, l, 0, files[rpsi], 0, par->format_out, sl->SS->P, UV, number_novalue, top->j_cont, Nr, Nc);
+				if(strcmp(files[rpsi] , string_novalue) != 0){
+					rename_tensorseries(1, l, 0, files[rpsi]);
+					write_tensorseries_vector(1, l, 0, files[rpsi], 0, par->format_out, sl->SS->P, UV, number_novalue, top->j_cont, Nr, Nc);
+				}
 				if(l>0){
-					if(strcmp(files[riceg] , string_novalue) != 0) write_tensorseries_vector(1, l, 0, files[riceg], 0, par->format_out, sl->SS->thi, UV, number_novalue, top->j_cont, Nr, Nc);
-					if(strcmp(files[rTg] , string_novalue) != 0) write_tensorseries_vector(1, l, 0, files[rTg], 0, par->format_out, sl->SS->T, UV, number_novalue, top->j_cont, Nr, Nc);
+					if(strcmp(files[riceg] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[riceg]);
+						write_tensorseries_vector(1, l, 0, files[riceg], 0, par->format_out, sl->SS->thi, UV, number_novalue, top->j_cont, Nr, Nc);
+					}
+					if(strcmp(files[rTg] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[rTg]);
+						write_tensorseries_vector(1, l, 0, files[rTg], 0, par->format_out, sl->SS->T, UV, number_novalue, top->j_cont, Nr, Nc);
+					}
 				}
 			}
 			
 			if(strcmp(files[rwcrn] , string_novalue) != 0){
 				name = join_strings(files[rwcrn],NNNN);
+				rename_map(name);
 				write_map_vector(name, 0, par->format_out, sl->VS->wrain, UV, number_novalue, top->j_cont, Nr, Nc);
 				free(name);
 			}
 			
 			if(strcmp(files[rwcsn] , string_novalue) != 0){
 				name = join_strings(files[rwcsn],NNNN);
+				rename_map(name);
 				write_map_vector(name, 0, par->format_out, sl->VS->wsnow, UV, number_novalue, top->j_cont, Nr, Nc);
 				free(name);
 			}
@@ -1763,27 +1781,42 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			}
 			
 			if(strcmp(files[rTv] , string_novalue) != 0){
-				name = join_strings(files[rTv],NNNN);
+				name = join_strings(files[rTv],NNNN);				
+				rename_map(name);
 				write_map_vector(name, 0, par->format_out, sl->VS->Tv, UV, number_novalue, top->j_cont, Nr, Nc);
 				free(name);
 			}	
 			
 			for(l=1;l<=par->max_snow_layers;l++){
-				if(strcmp(files[rDzs] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rDzs], 0, par->format_out, snow->S->Dzl, UV, number_novalue);
-				if(strcmp(files[rwls] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rwls], 0, par->format_out, snow->S->w_liq, UV, number_novalue);
-				if(strcmp(files[rwis] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rwis], 0, par->format_out, snow->S->w_ice, UV, number_novalue);
-				if(strcmp(files[rTs] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rTs], 0, par->format_out, snow->S->T, UV, number_novalue);
+				if(strcmp(files[rDzs] , string_novalue) != 0){
+					rename_tensorseries(1, l, 0, files[rDzs]);
+					write_tensorseries(1, l, 0, files[rDzs], 0, par->format_out, snow->S->Dzl, UV, number_novalue);
+				}
+				if(strcmp(files[rwls] , string_novalue) != 0){
+					rename_tensorseries(1, l, 0, files[rwls]);
+					write_tensorseries(1, l, 0, files[rwls], 0, par->format_out, snow->S->w_liq, UV, number_novalue);
+				}
+				if(strcmp(files[rwis] , string_novalue) != 0){
+					rename_tensorseries(1, l, 0, files[rwis]);
+					write_tensorseries(1, l, 0, files[rwis], 0, par->format_out, snow->S->w_ice, UV, number_novalue);
+				}
+				if(strcmp(files[rTs] , string_novalue) != 0){
+					rename_tensorseries(1, l, 0, files[rTs]);
+					write_tensorseries(1, l, 0, files[rTs], 0, par->format_out, snow->S->T, UV, number_novalue);
+				}
 			}
 			
 			if(strcmp(files[rsnag] , string_novalue) != 0){
 				name = join_strings(files[rsnag],NNNN);
+				rename_map(name);
 				write_map_vector(name, 0, par->format_out, snow->age, UV, number_novalue, top->j_cont, Nr, Nc);
 				free(name);
 			}
 			
 			if(strcmp(files[rns] , string_novalue) != 0){
-				M=copydouble_longmatrix(snow->S->lnum);
 				name = join_strings(files[rns], NNNN);
+				rename_map(name);
+				M=copydouble_longmatrix(snow->S->lnum);
 				write_map(name, 1, par->format_out, M, UV, number_novalue);
 				free_doublematrix(M);
 				free(name);
@@ -1791,15 +1824,28 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			
 			if(par->max_glac_layers>0){
 				for(l=1;l<=par->max_glac_layers;l++){
-					if(strcmp(files[rDzi] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rDzi], 0, par->format_out, glac->G->Dzl, UV, number_novalue);
-					if(strcmp(files[rwli] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rwli], 0, par->format_out, glac->G->w_liq, UV, number_novalue);
-					if(strcmp(files[rwii] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rwii], 0, par->format_out, glac->G->w_ice, UV, number_novalue);
-					if(strcmp(files[rTi] , string_novalue) != 0) write_tensorseries(1, l, 0, files[rTi], 0, par->format_out, glac->G->T, UV, number_novalue);
+					if(strcmp(files[rDzi] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[rDzi]);
+						write_tensorseries(1, l, 0, files[rDzi], 0, par->format_out, glac->G->Dzl, UV, number_novalue);
+					}
+					if(strcmp(files[rwli] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[rwli]);
+						write_tensorseries(1, l, 0, files[rwli], 0, par->format_out, glac->G->w_liq, UV, number_novalue);
+					}
+					if(strcmp(files[rwii] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[rwii]);
+						write_tensorseries(1, l, 0, files[rwii], 0, par->format_out, glac->G->w_ice, UV, number_novalue);
+					}
+					if(strcmp(files[rTi] , string_novalue) != 0){
+						rename_tensorseries(1, l, 0, files[rTi]);
+						write_tensorseries(1, l, 0, files[rTi], 0, par->format_out, glac->G->T, UV, number_novalue);
+					}
 				}
 				
 				if(strcmp(files[rni] , string_novalue) != 0){
-					M=copydouble_longmatrix(glac->G->lnum);
 					name = join_strings(files[rni], NNNN);
+					rename_map(name);				
+					M=copydouble_longmatrix(glac->G->lnum);
 					write_map(name, 1, par->format_out, M, UV, number_novalue);
 					free_doublematrix(M);
 					free(name);
@@ -1811,6 +1857,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				M=new_doublematrix0_(Nl, par->total_pixel);
 				initialize_doublematrix(M, 0.0);
 				for (l=0; l<=Nl; l++) {
+					rename_tensorseries(1, l, 0, files[rpsich]);
 					for (i=1; i<=par->total_channel; i++){
 						r = cnet->r->co[i];
 						c = cnet->c->co[i];
@@ -1825,6 +1872,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				M=new_doublematrix(Nl, par->total_pixel);
 				initialize_doublematrix(M, 0.0);
 				for (l=1; l<=Nl; l++) {
+					rename_tensorseries(1, l, 0, files[rTgch]);
 					for (i=1; i<=par->total_channel; i++){
 						r = cnet->r->co[i];
 						c = cnet->c->co[i];
@@ -1839,6 +1887,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				M=new_doublematrix(Nl, par->total_pixel);
 				initialize_doublematrix(M, 0.0);
 				for (l=1; l<=Nl; l++) {
+					rename_tensorseries(1, l, 0, files[ricegch]);
 					for (i=1; i<=par->total_channel; i++){
 						M->co[l][top->j_cont[r][c]] = cnet->SS->thi->co[l][i];
 					}
@@ -1846,6 +1895,26 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				}
 				free_doublematrix(M);
 			}
+			
+			if(par->Tzrun == 1 && strcmp(files[rTrun] , string_novalue) != 0) print_run_averages_for_recover(sl->Tzrun, files[rTrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->wzrun == 1 && strcmp(files[rTrun] , string_novalue) != 0) print_run_averages_for_recover(sl->wzrun, files[rwrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->Tzmaxrun == 1 && strcmp(files[rTmaxrun] , string_novalue) != 0) print_run_averages_for_recover(sl->Tzmaxrun, files[rTmaxrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->wzmaxrun == 1 && strcmp(files[rwmaxrun] , string_novalue) != 0) print_run_averages_for_recover(sl->wzmaxrun, files[rwmaxrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->Tzminrun == 1 && strcmp(files[rTminrun] , string_novalue) != 0) print_run_averages_for_recover(sl->Tzminrun, files[rTminrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->wzminrun == 1 && strcmp(files[rwminrun] , string_novalue) != 0) print_run_averages_for_recover(sl->wzminrun, files[rwminrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->dUzrun == 1 && strcmp(files[rdUrun] , string_novalue) != 0) print_run_averages_for_recover(sl->dUzrun, files[rdUrun], top->j_cont, par, Nl, Nr, Nc);
+			if(par->SWErun == 1 && strcmp(files[rSWErun] , string_novalue) != 0) print_run_averages_for_recover(sl->SWErun, files[rSWErun], top->j_cont, par, 3, Nr, Nc);
+
+			if(strcmp(files[rsux] , string_novalue) != 0){
+				if (existing_file_woext(files[rsux]) == 1){
+					temp1 = join_strings(files[rsux], ".old");
+					rename(files[rsux], temp1);
+					free(temp1);
+				}
+				f = fopen(files[rsux], "w");
+				fclose(f);
+			}
+
 		}
 	}
 		
@@ -3187,7 +3256,8 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type, s
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow, GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top, SOIL *sl){
 
-	long i, j,r,c;
+	long i, j, r=0, c=0;
+	double w;
 	
 	for (j=1; j<=par->total_pixel; j++) {
 		//TODO: Hack
@@ -3267,6 +3337,28 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow, GLACIER *
 					odpnt[i][par->jplot->co[j]-1] += odp[i][par->jplot->co[j]-1];
 				}
 			}
+			if (par->jplot->co[j] > 0){
+				for(i=1;i<=Nl;i++){
+					r = top->rc_cont->co[j][1];
+					c = top->rc_cont->co[j][2];
+					if(par->Tzrun == 1) sl->Tzrun->co[par->jplot->co[j]][i] += sl->SS->T->co[i][j] * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
+					if(par->Tzmaxrun == 1){if(sl->Tzmaxrun->co[par->jplot->co[j]][i] < sl->SS->T->co[i][j]) sl->Tzmaxrun->co[par->jplot->co[j]][i] = sl->SS->T->co[i][j];}
+					if(par->Tzminrun == 1){if(sl->Tzminrun->co[par->jplot->co[j]][i] > sl->SS->T->co[i][j]) sl->Tzminrun->co[par->jplot->co[j]][i] = sl->SS->T->co[i][j];}
+					if(par->wzrun == 1 || par->wzmaxrun == 1 || par->wzminrun == 1){
+						w = (sl->SS->thi->co[i][j] + sl->th->co[i][j]) * sl->pa->co[sl->type->co[r][c]][jdz][i];
+						if(par->wzrun == 1) sl->wzrun->co[par->jplot->co[j]][i] += w * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
+						if(par->wzmaxrun == 1){if(sl->wzmaxrun->co[par->jplot->co[j]][i] < w) sl->wzmaxrun->co[par->jplot->co[j]][i] = w;}
+						if(par->wzminrun == 1){if(sl->wzminrun->co[par->jplot->co[j]][i] > w) sl->wzminrun->co[par->jplot->co[j]][i] = w;}
+					}
+				}
+				if(par->SWErun == 1) {
+					w = get_SWE(r, c, snow->S->lnum, snow->S->w_ice, snow->S->w_liq);
+					sl->SWErun->co[par->jplot->co[j]][1] += w * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
+					if (sl->SWErun->co[par->jplot->co[j]][2]<w) sl->SWErun->co[par->jplot->co[j]][2]=w;
+					if (sl->SWErun->co[par->jplot->co[j]][3]>w) sl->SWErun->co[par->jplot->co[j]][3]=w;
+				}
+
+			}			
 		}
 	}
 	
@@ -3285,3 +3377,448 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow, GLACIER *
 //***************************************************************************************************************
 //***************************************************************************************************************
 
+void print_run_average(SOIL *sl, TOPO *top, PAR *par){
+	
+	long r,c,j,l,n;
+	FILE *f;
+	char *temp, *name;
+	char rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
+
+	n = Fminlong(par->Nl_spinup->co[i_sim],Nl);
+	
+	if(par->recover > 0) write_suffix(rec, par->recover, 4);
+	if(par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
+
+	if(par->Tzrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fTrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->Tzrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",sl->SS->T->co[l][top->j_cont[r][c]]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+	
+	
+	if(par->wzrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fwrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->wzrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",(sl->SS->thi->co[l][top->j_cont[r][c]]+sl->th->co[l][top->j_cont[r][c]])*sl->pa->co[sl->type->co[r][c]][jdz][l]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+		
+	
+	if(par->Tzmaxrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fTmaxrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTmaxrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTmaxrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->Tzmaxrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",sl->SS->T->co[l][top->j_cont[r][c]]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+	
+	
+	if(par->wzmaxrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fwmaxrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwmaxrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwmaxrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->wzmaxrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",(sl->SS->thi->co[l][top->j_cont[r][c]]+sl->th->co[l][top->j_cont[r][c]])*sl->pa->co[sl->type->co[r][c]][jdz][l]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+
+	
+	if(par->Tzminrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fTminrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fTminrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fTminrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->Tzminrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",sl->SS->T->co[l][top->j_cont[r][c]]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+
+	
+	if(par->wzminrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fwminrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fwminrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fwminrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=n; l++){
+				fprintf(f, ",%f",sl->wzminrun->co[j][l]);
+			}
+			for (l=n+1; l<=Nl; l++) {
+				r = par->rc->co[j][1];
+				c = par->rc->co[j][2];
+				fprintf(f, ",%f",(sl->SS->thi->co[l][top->j_cont[r][c]]+sl->th->co[l][top->j_cont[r][c]])*sl->pa->co[sl->type->co[r][c]][jdz][l]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+	
+
+	if(par->dUzrun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fdUrun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fdUrun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fdUrun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=Nl; l++){
+				fprintf(f, ",%f",sl->dUzrun->co[j][l]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+		
+	
+ 	if(par->SWErun == 1){
+		if (par->recover>0) {
+			temp = join_strings(files[fSWErun], rec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else if (par->n_ContRecovery>0) {
+			temp = join_strings(files[fSWErun], crec);
+			name = join_strings(temp, textfile);
+			free(temp);
+		}else {
+			name = join_strings(files[fSWErun], textfile);
+		}
+		f = fopen(name, "a");
+		for (j=1; j<=par->rc->nrh; j++) {
+			fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+			for (l=1; l<=3; l++){
+				fprintf(f, ",%f",sl->SWErun->co[j][l]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}	
+
+}
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+void init_run(SOIL *sl, PAR *par){
+	
+	long j, l;
+
+	if (par->state_pixel == 1) {
+								
+		for (j=1; j<=par->rc->nrh; j++) {
+			for (l=1; l<=Nl; l++){
+				if(par->Tzrun == 1) sl->Tzrun->co[j][l] = 0.;
+				if(par->wzrun == 1) sl->wzrun->co[j][l] = 0.;
+				if(par->dUzrun == 1) sl->dUzrun->co[j][l] = 0.;
+				if(par->Tzmaxrun == 1) sl->Tzmaxrun->co[j][l] = -1.E99;
+				if(par->Tzminrun == 1) sl->Tzminrun->co[j][l] = 1.E99;
+				if(par->wzmaxrun == 1) sl->wzmaxrun->co[j][l] = -1.E99;
+				if(par->wzminrun == 1) sl->wzminrun->co[j][l] = 1.E99;
+			}
+			if(par->SWErun == 1){
+				sl->SWErun->co[j][1] = 0.;
+				sl->SWErun->co[j][2] = -1.E99;				
+				sl->SWErun->co[j][3] = 1.E99;
+			}
+		}
+	}
+}
+				
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+void end_period_1D(SOIL *sl, TOPO *top, PAR *par){
+	
+	long j, l, sy, n, m;
+	double k, kn, thwn, thin, psin, Tn, T0n, z, T;
+	double Ptlow=0., thwlow=0., thilow=0., Tlow=0.;
+	FILE *f;
+	
+	n = Fminlong(par->Nl_spinup->co[i_sim],Nl);
+	
+	for (j=1; j<=par->total_pixel; j++) {
+		sy = sl->type->co[1][j];
+		
+		//spinned up soil portion (above) -> == 1 (instanatenous values) == 2 (averaged values)
+		if (par->newperiodinit == 2) {
+			for (l=1; l<=n; l++) {
+				sl->SS->T->co[l][j] = sl->Tzrun->co[j][l];
+				sl->Ptot->co[l][j] = psi_from_theta(sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l], 0., l, sl->pa->co[sy], PsiMin);
+				sl->SS->P->co[l][j] = Fmin(Psif(sl->Tzrun->co[j][l]),sl->Ptot->co[l][j]);
+				sl->th->co[l][j] = theta_from_psi(sl->SS->P->co[l][j], 0., l, sl->pa->co[sy], PsiMin);
+				sl->SS->thi->co[l][j] = sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l] - sl->th->co[l][j];
+			}
+			Tlow = sl->SS->T->co[n][j];
+			Ptlow = sl->Ptot->co[n][j];
+			thwlow = sl->th->co[n][j];
+			thilow = sl->SS->thi->co[n][j];
+		}else if (par->newperiodinit == 1) {
+			Tlow = sl->Tzrun->co[j][n];
+			Ptlow = psi_from_theta(sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n], 0., n, sl->pa->co[sy], PsiMin);
+			thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy], PsiMin);
+			thilow = sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n] - thwlow;
+		}
+
+		z = 0.;
+		for (l=1; l<=n; l++) {
+			z += sl->pa->co[sy][jdz][l];
+		}
+		
+		//non-spinned up soil portion (below) -> interpolation (== 1 or 2)
+		for (l=n+1; l<=Nl; l++) {
+			z += sl->pa->co[sy][jdz][l];
+			
+			//above the weir set equal to the value of the deepest node of the spinned up soil portion, below the weir assumed saturation
+			if(z<top->BC_DepthFreeSurface->co[j]){
+				sl->Ptot->co[l][j] = Ptlow;
+			}else {
+				sl->Ptot->co[l][j] = z - top->BC_DepthFreeSurface->co[j];
+			}
+	
+			//thermal conductivity of layer above
+			if (l-1 == n) {
+				k = k_thermal(thwlow, thilow, sl->pa->co[sy][jsat][l-1], sl->pa->co[sy][jkt][l-1]);
+				T = Tlow;
+			}else {
+				k = k_thermal(sl->th->co[l-1][j], sl->SS->thi->co[l-1][j], sl->pa->co[sy][jsat][l-1], sl->pa->co[sy][jkt][l-1]);
+				T = sl->SS->T->co[l-1][j];
+			}
+			
+			//iterative loop to calculate thermal conductivity of the layer l
+			m = 0;
+			Tn = T;//first guess
+			
+			do{
+				psin = Fmin(Psif(Tn), sl->Ptot->co[l][j]);
+				thwn = theta_from_psi(psin , 0., l, sl->pa->co[sy], PsiMin);
+				thin = theta_from_psi(sl->Ptot->co[l][j], 0., l, sl->pa->co[sy], PsiMin) - thwn;
+				kn = k_thermal(thwn, thin, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jkt][l]);
+				
+				T0n = Tn;
+				
+				Tn = T + par->Fboundary * 1.E-3 * (sl->pa->co[sy][jdz][l-1]/k + sl->pa->co[sy][jdz][l]/kn);
+				m++;
+				
+			}while(fabs(Tn-T0n)>0.0001 && m<100);
+			
+			if (m==100) {
+				f = fopen(FailedRunFile, "w");
+				fprintf(f, "No convergence in the initial condition in the new simulation period\n");
+				fclose(f);		
+				t_error("Fatal Error! Geotop is closed. See failing report.");
+			}
+						
+			sl->SS->T->co[l][j] = Tn;
+			sl->SS->P->co[l][j] = psin;
+			sl->th->co[l][j] = thwn;
+			sl->SS->thi->co[l][j] = thin;
+				
+		}
+		
+		//print	
+		/*for (l=1; l<=Nl; l++) {
+			printf("j:%ld l:%ld Pt:%f T:%f\n",j,l,sl->Ptot->co[l][j],sl->SS->T->co[l][j]);
+		}*/
+		
+	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet){
+	
+	long n_previous, n_next, l, r, i, j;
+	
+	n_previous = Fminlong(par->Nl_spinup->co[previous_sim],Nl);
+	n_next = Fminlong(par->Nl_spinup->co[next_sim],Nl);
+		
+	if (n_previous != n_next){
+		
+		//deallocate vectors with n_previous component
+		free_longmatrix(top->lrc_cont);
+		for(l=0;l<=n_previous;l++){
+			for(r=1;r<=Nr;r++){
+				free(top->i_cont[l][r]);
+			}
+			free(top->i_cont[l]);
+		}
+		free(top->i_cont);
+		
+		free_doublevector(wat->Lx);
+		free_longvector(top->Li);
+		free_longvector(top->Lp);
+		free_doublevector(wat->H0);
+		free_doublevector(wat->H1);
+		free_doublevector(wat->dH);
+		free_doublevector(wat->B);
+		free_doublevector(wat->df);				  
+		
+		//reallocate vectors with n_next components
+		top->i_cont=(long ***)malloc((n_next+1)*sizeof(long**));
+		for(l=0;l<=n_next;l++){
+			top->i_cont[l]=(long **)malloc((Nr+1)*sizeof(long*));
+			for(r=1;r<=Nr;r++){
+				top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
+			}
+		}
+		top->lrc_cont=new_longmatrix( (n_next+1)*par->total_pixel, 3);
+		initialize_longmatrix(top->lrc_cont, 0);
+		i_lrc_cont(land->LC, top->i_cont, top->lrc_cont, n_next, Nr, Nc);
+		
+		if (par->point_sim != 1) {
+			cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel, par->total_channel, n_next);
+			top->Li = new_longvector(i);
+			top->Lp = new_longvector(j);
+			wat->Lx = new_doublevector(i);	
+			cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel, par->total_channel, n_next);
+		}else {
+			i = n_next;
+			j = n_next+1;
+			top->Li = new_longvector(i);
+			top->Lp = new_longvector(j);
+			wat->Lx = new_doublevector(i);	
+			for (l=1; l<=n_next; l++) {
+				top->Li->co[l] = l+1;
+				top->Lp->co[l] = l;
+			}
+			top->Lp->co[j] = i;
+		}
+		
+		wat->H0 = new_doublevector(j);
+		wat->H1 = new_doublevector(j);
+		wat->dH = new_doublevector(j);
+		wat->B = new_doublevector(j);
+		wat->f = new_doublevector(j);
+		wat->df = new_doublevector(j);
+		
+	}
+		
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/

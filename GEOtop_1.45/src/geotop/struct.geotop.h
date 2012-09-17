@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -110,8 +110,6 @@ typedef struct {
 	DOUBLEMATRIX *Tgskin_surr;
 	DOUBLEMATRIX *SWrefl_surr;
 	
-	
-
 } ENERGY;
 
 /*---------------------------------------------------------------------------*/
@@ -136,9 +134,9 @@ typedef struct {
 
 typedef struct {
 	LONGMATRIX *type;
-	DOUBLEVECTOR *init_water_table_depth;
+	//DOUBLEVECTOR *init_water_table_depth;
 	DOUBLETENSOR *pa;
-	DOUBLETENSOR *pa_bed;
+	//DOUBLETENSOR *pa_bed;
 	DOUBLEMATRIX *T_av_tensor;
 	DOUBLEMATRIX *thw_av_tensor;
 	DOUBLEMATRIX *thi_av_tensor;
@@ -155,6 +153,16 @@ typedef struct {
 	DOUBLEMATRIX *thizavplot;
 	SOIL_STATE *SS;
 	STATE_VEG *VS;
+	
+	DOUBLEMATRIX *Tzrun;
+	DOUBLEMATRIX *wzrun;
+	DOUBLEMATRIX *dUzrun;
+	DOUBLEMATRIX *SWErun;
+
+	DOUBLEMATRIX *Tzmaxrun;
+	DOUBLEMATRIX *wzmaxrun;
+	DOUBLEMATRIX *Tzminrun;
+	DOUBLEMATRIX *wzminrun;
 //TODO: Hack
 	DOUBLEVECTOR *Pnetcum;
 	DOUBLEVECTOR *ETcum;
@@ -447,7 +455,7 @@ typedef struct {
 	long MaxiterCorr;
 	short UpdateK;
 	
-	short bedrock;
+	//short bedrock;
 	
 	double thres_hsup_1;
 	double thres_hsup_2;
@@ -508,6 +516,7 @@ typedef struct {
 		
 	long soil_type_land_default;
 	long soil_type_chan_default;
+	long soil_type_bedr_default;
 	
 	double MinIncrFactWithElev;
 	double MaxIncrFactWithElev;
@@ -516,9 +525,11 @@ typedef struct {
 	
 	double max_courant_land;
 	double max_courant_channel;
+	double max_courant_land_channel;
 	double min_hsup_land;
 	double min_hsup_channel;
-	double min_dhsup_land_channel;
+	double min_dhsup_land_channel_in;
+	double min_dhsup_land_channel_out;
 	double dtmin_sup;
 	
 	long nsoiltypes;
@@ -580,7 +591,42 @@ typedef struct {
 	
 	double k_to_ksat;
 	short RunIfAnOldRunIsPresent;
+	
+	LONGVECTOR *Nl_spinup;	
 		
+	short newperiodinit;
+	
+	short Tzrun;
+	short wzrun;
+	short dUzrun;
+	short SWErun;
+	
+	short Tzmaxrun;
+	short wzmaxrun;
+	short Tzminrun;
+	short wzminrun;
+	
+	double k1;
+	double k2;
+	double Lozone;
+	double alpha_iqbal;
+	double beta_iqbal;
+	
+	short albedoSWin;
+	short micro;
+	
+	double EB;
+	double Cair;
+	double Tsup;
+	
+	double Tair_default;
+	double RH_default;
+	double V_default;
+	double Vdir_default;
+	double IPrec_default;
+	
+	double simulation_hours;
+	
 } PAR;
 
 
@@ -704,9 +750,7 @@ typedef struct {
 	DOUBLEVECTOR *Vxplot;
 	DOUBLEVECTOR *Vyplot;
 	DOUBLEVECTOR *RHplot;
-	
-	
-	
+		
 	double V;
 		
 	DOUBLEMATRIX *Tday;	
@@ -715,7 +759,7 @@ typedef struct {
 	long nstsrad;// meteo station ID (1...n) to use for the SW radiation
 	long nstlrad;// meteo station ID (1...n) to use for the LW radiation
 	long nstcloud;// meteo station ID (1...n) to use for the cloudiness
-
+	long nstTs;
 	long numstsrad;// number of meteo stations measuring SW radiation
 	long numstcloud;// number of meteo stations measuring cloudiness
 	

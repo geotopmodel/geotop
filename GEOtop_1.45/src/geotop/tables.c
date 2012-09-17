@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
  Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -120,7 +120,8 @@ double find_watertabledepth_up(long i, long ty, SOIL *sl)
 	
 	n = nmax;
 	
-	if(sl->Ptot->co[n][i]<thresh){
+	if(sl->Ptot->co[n][i] < thresh){
+		
 		for(l=1;l<=n;l++){
 			table += sl->pa->co[ty][jdz][l];
 		}
@@ -130,7 +131,7 @@ double find_watertabledepth_up(long i, long ty, SOIL *sl)
 		do{
 			n--;
 			if(n==1) out=-1;
-			if(sl->Ptot->co[n+1][i]>=thresh && sl->Ptot->co[n][i]<thresh) out=1;
+			if(sl->Ptot->co[n+1][i] >= thresh && sl->Ptot->co[n][i] < thresh) out=1;
 		}while(out==0);
 		
 		if(out==1){
@@ -139,7 +140,9 @@ double find_watertabledepth_up(long i, long ty, SOIL *sl)
 				table += sl->pa->co[ty][jdz][l];
 			}
 			
-			table += ( 0.5*sl->pa->co[ty][jdz][n+1] - sl->Ptot->co[n+1][i]*0.5*(sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1])/(sl->Ptot->co[n+1][i]-sl->Ptot->co[n][i]) );
+			table += 0.5 * sl->pa->co[ty][jdz][n+1];
+			table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) * (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-sl->Ptot->co[n][i]);
+			
 		}
 	}
 	
@@ -163,12 +166,12 @@ double find_watertabledepth_dw(long i, long ty, SOIL *sl)
 	
 	n = 1;
 		
-	if(sl->Ptot->co[n][i]<thresh){
+	if(sl->Ptot->co[n][i] < thresh){
 		
 		do{
 			n++;
 			if(n==nmax) out=-1;
-			if(sl->Ptot->co[n][i]>=thresh && sl->Ptot->co[n-1][i]<thresh) out=1;
+			if(sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1;
 		}while(out==0);
 							
 		for(l=1;l<n;l++){
@@ -176,7 +179,7 @@ double find_watertabledepth_dw(long i, long ty, SOIL *sl)
 		}
 		
 		if (out==1){
-			table += ( 0.5*sl->pa->co[ty][jdz][n] - sl->Ptot->co[n][i]*0.5*(sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/(sl->Ptot->co[n][i]-sl->Ptot->co[n-1][i]) );
+			table += ( 0.5*sl->pa->co[ty][jdz][n] - (sl->Ptot->co[n][i]-thresh)*0.5*(sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/(sl->Ptot->co[n][i]-sl->Ptot->co[n-1][i]) );
 		}else {
 			table += sl->pa->co[ty][jdz][n];
 		}

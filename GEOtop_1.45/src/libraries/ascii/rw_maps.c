@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.223 'Wallis' - 26 Jul 2011
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2011 - Stefano Endrizzi 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.223 'Wallis'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -478,16 +478,37 @@ short existing_file_wext(char *name, char *extension){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+short existing_file_woext(char *name){
+	
+	//if the file exists gives 1, 0 if the file doesn't exist
+	
+	short a=0;
+	FILE *f;
+	
+	if( (f=fopen(name,"r"))!=NULL ){
+		a=1;
+		fclose(f);	
+	}
+		
+	return(a);
+	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value){
 
 //	a=0 non usa Mref, UVref output
 //	a=1 non esegue controllo non values, Mref e UVref input
 //	a=2 esegue controllo novalues, Mref e UVref input
 
-	DOUBLEMATRIX *M;
-	long r, c, nr, nc;
-	double *header, *m;
-	double Dxmap, Dymap, X0map, Y0map;
+	DOUBLEMATRIX *M=NULL;
+	long r=0, c=0, nr=0, nc=0;
+	double *header=NULL, *m=NULL;
+	double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
 	
 	if (a != 0 && a != 1 && a != 2) t_error("Value of flag not supported in the subroutine in read_map");
 	
@@ -510,6 +531,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 			
 		}else if(existing_file(filename)==3){	//esri ascii
 			m=read_esriascii(header, no_value, filename);
+			printf("%s\n",filename);
 			nr=(long)header[1];
 			nc=(long)header[0];				
 			Dxmap=header[4];
@@ -644,7 +666,7 @@ DOUBLEMATRIX *read_mapseries(long i, char *filename, DOUBLEMATRIX *Mref, T_INIT 
 DOUBLETENSOR *read_tensor(long nl, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value){
 	long l;	
 	DOUBLEMATRIX *M;
-	DOUBLETENSOR *T;
+	DOUBLETENSOR *T=NULL;
 			
 	if(nl<1) t_error("The dimension of the tensor must be greater than or equal to 1");
 	
@@ -670,7 +692,7 @@ DOUBLETENSOR *read_maptensor(long i, long lmax, char *filename, DOUBLEMATRIX *Mr
 
 	char SSSSLLLLL[ ]={"SSSSLLLLL"};
 	char *name;
-	DOUBLETENSOR *T;
+	DOUBLETENSOR *T=NULL;
 	DOUBLEMATRIX *M;
 	long l;
 	
@@ -773,7 +795,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 	
 	char SSSSLLLLL[ ]={"SSSSLLLLL"};
 	char SSSS[ ]={"SSSS"};		
-	char *name;
+	char *name=NULL;
 	long r, c;
 	DOUBLEMATRIX *M;
 		
@@ -817,7 +839,7 @@ void write_tensorseries_vector(short a, long l, long i, char *filename, short ty
 	
 	char SSSSLLLLL[ ]={"SSSSLLLLL"};
 	char SSSS[ ]={"SSSS"};		
-	char *name;
+	char *name=NULL;
 	long j, npoints=T->nch;
 	DOUBLEVECTOR *V;
 	
@@ -842,6 +864,68 @@ void write_tensorseries_vector(short a, long l, long i, char *filename, short ty
 	free_doublevector(V);
 	free(name);
 	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void rename_tensorseries(short a, long l, long i, char *filename){
+	
+	//	a=0 non include "l" nel suffisso
+	//	a=1 include "l" nel suffisso
+	//	l:layer
+	//	i:temporal step
+	
+	char SSSSLLLLL[ ]={"SSSSLLLLL"};
+	char SSSS[ ]={"SSSS"};		
+	char *name=NULL;
+	
+	if(a==0){
+		write_suffix(SSSS, i, 0);	
+		name=join_strings(filename,SSSS);				
+	}else if(a==1){
+		write_suffix(SSSSLLLLL, i, 0);	
+		write_suffix(SSSSLLLLL, l, 5);	
+		name=join_strings(filename,SSSSLLLLL);		
+	}else {
+		t_error("Value not admitted");
+	}
+	
+	rename_map(name);
+
+	free(name);
+	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void rename_map(char *filename){
+	
+	char *name, *namenw, *temp;
+
+	if(existing_file(filename) == 2){
+		name = join_strings(filename, ascii_grass);
+		temp = join_strings(filename, ".old");
+		namenw = join_strings(temp, ascii_grass);
+		rename(name, namenw);
+		free(namenw);
+		free(name);
+		free(temp);
+	}else if(existing_file(filename) == 3){
+		name = join_strings(filename, ascii_esri);
+		temp = join_strings(filename, ".old");
+		namenw = join_strings(temp, ascii_esri);
+		rename(name, namenw);
+		free(namenw);
+		free(name);
+		free(temp);
+	}
+
 }
 
 /******************************************************************************************************************************************/
