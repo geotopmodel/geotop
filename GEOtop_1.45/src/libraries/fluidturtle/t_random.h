@@ -1,26 +1,20 @@
+#ifndef T_RANDOM_H
+#define T_RANDOM_H
+#include "turtle.h"
+#include "const.h"
+
 /**
 
 Name: 
-
 Synopsis:
-
 Version: 1.0
-
 Description:
-
-
 Authors & Date: Riccardo Rigon, 1998
-
 FILE: LIBRARIES/BASICS/t_random.h, LIBRARIES/BASICS/random.c
-
 Inputs:   
-
 Return: 
-
 See Also: 
-
 Keywords: 
-
 Examples: 1.example.c, 2.example.c
 
 */
@@ -35,3 +29,5 @@ long rrand(long );
 */
 double uuvel(float vmed,float vvar);
 double gasdev(long *idum);
+
+#endif

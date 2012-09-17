@@ -2,27 +2,27 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
- 
+   
  _________________________
  
  Note on meteodistr.c - meteodistr.h
  
  Basic ideas of the routines distributing wind-precipitation-temperature-relative humidity are derived from the Micromet Fortran Code by Liston and Elder.
- 
+
  Reference:
  Liston, Glen E.; Elder, Kelly
  A meteorological distribution system for high-resolution terrestrial modeling (MicroMet)
@@ -35,25 +35,16 @@
 
 
 
-#include "constants.h"
-#include "struct.geotop.h"
 #include "meteodistr.h"
-#include "../libraries/fluidturtle/t_utilities.h"
-#include "../libraries/ascii/rw_maps.h"
-#include "meteo.h"
-
-extern long number_novalue, number_absent;
-extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void Micromet(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
+void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
 			  DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
-			  double slopewt, double curvewt, double windspd_min, double RH_min, double dn, short iobsint, 
+			  double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
 			  long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
 			  double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
 			  double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
@@ -63,30 +54,30 @@ void Micromet(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATR
 
 	ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate, f);
 	if(ok==0){
-		printf("No temperature measurements, used the value of the previous time step\n");
+		//printf("No temperature measurements, used the value of the previous time step\n");
 		fprintf(f,"No temperature measurements, used the value of the previous time step\n");
 	}
 	
 	ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate, f);
 	if(ok==0){
-		printf("No RH measurements, used the value of the previous time step\n");
+		//printf("No RH measurements, used the value of the previous time step\n");
 		fprintf(f,"No RH measurements, used the value of the previous time step\n");
 	}
 
 	ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2, curvature3, 
-			 curvature4, slope_az, terrain_slope, slopewt, curvewt, windspd_min, dn, topo, iobsint, f);
+			 curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint, f);
 	if(ok==0){
-		printf("No wind measurements, used the value of the previous time step\n");
+		//printf("No wind measurements, used the value of the previous time step\n");
 		fprintf(f,"No wind measurements, used the value of the previous time step\n");
 	}else if(ok==1){
-		printf("No wind direction measurements, used the value of the previous time step\n");
+		//printf("No wind direction measurements, used the value of the previous time step\n");
 		fprintf(f,"No wind direction measurements, used the value of the previous time step\n");
 	}
 		
 	ok = get_precipitation(dE, dN, E, N, met, Pcode, Tcode, Tdcode, prec_grid, dn, topo, iobsint, Prec_lapse_rate, maxfactorP, minfactorP,
 						   dew, Train, Tsnow, snow_corr_factor, rain_corr_factor);
 	if(ok==0){
-		printf("No precipitation measurements, considered it 0.0\n");
+		//printf("No precipitation measurements, considered it 0.0\n");
 		fprintf(f,"No precipitation measurements, considered it 0.0\n");
 	}
 	
@@ -132,7 +123,9 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, ME
 	
 	//Convert back the station data [C].
 	for(n=1;n<=met->st->Z->nh;n++){
-		met->var[n-1][Tcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - tk;
+		if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
+			met->var[n-1][Tcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - tk;
+		}
 	}
 	
 	return 1;
@@ -161,6 +154,7 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 	//Define the topographic reference surface.
 	topo_ref = 0.0;
 
+	
 	//Convert the station data to sea level values in [K].
 	for(n=1;n<=met->st->Z->nh;n++){
 		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
@@ -185,7 +179,9 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 	
 	//Convert back the station data [C].
 	for(n=1;n<=met->st->Z->nh;n++){
-		met->var[n-1][Tdcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - tk;
+		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
+			met->var[n-1][Tdcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - tk;
+		}
 	}	
 	
 	return 1;
@@ -197,9 +193,9 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt, double curvewt, DOUBLEMATRIX *curvature1,
-					DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, 
-					DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
+void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI, 
+					DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, 
+					DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
 
 	long r, c, nc=topo->nch, nr=topo->nrh;
 	double deg2rad=Pi/180.0,dirdiff,windwt;
@@ -210,6 +206,7 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 
 	//Compute the slope in the direction of the wind.
 	wind_slope=new_doublematrix(topo->nrh, topo->nch);
+	initialize_doublematrix(wind_slope, 0.);
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if(topo->co[r][c]!=undef){
@@ -222,24 +219,25 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 		
 	//curvature
 	wind_curv=new_doublematrix(topo->nrh, topo->nch);
+	initialize_doublematrix(wind_curv, 0.);
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if(topo->co[r][c]!=undef){
 				if ( (winddir_grid[r][c]>360.-22.5 || winddir_grid[r][c]<=     22.5 ) || 
 					 (winddir_grid[r][c]>180.-22.5 && winddir_grid[r][c]<=180.+22.5 ) ){
-					wind_curv->co[r][c] = curvature1->co[r][c];
+					wind_curv->co[r][c] = -curvature1->co[r][c];
 				
 				}else if( (winddir_grid[r][c]>90. -22.5 && winddir_grid[r][c]<=90. +22.5 ) || 
 						  (winddir_grid[r][c]>270.-22.5 && winddir_grid[r][c]<=270.+22.5 ) ){
-					wind_curv->co[r][c] = curvature2->co[r][c];
+					wind_curv->co[r][c] = -curvature2->co[r][c];
 					
 				}else if( (winddir_grid[r][c]>135.-22.5 && winddir_grid[r][c]<=135.+22.5 ) || 
 						  (winddir_grid[r][c]>315.-22.5 && winddir_grid[r][c]<=315.+22.5 ) ){
-					wind_curv->co[r][c] = curvature3->co[r][c];
+					wind_curv->co[r][c] = -curvature3->co[r][c];
 
 				}else if( (winddir_grid[r][c]>45. -22.5 && winddir_grid[r][c]<=45. +22.5 ) || 
 						  (winddir_grid[r][c]>225.-22.5 && winddir_grid[r][c]<=225.+22.5 ) ){
-					wind_curv->co[r][c] = curvature4->co[r][c];
+					wind_curv->co[r][c] = -curvature4->co[r][c];
 					
 				}					
 			}
@@ -254,10 +252,21 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 		for(c=1;c<=nc;c++){
 			if(topo->co[r][c]!=undef){
 		
-				//Compute the wind weighting factor.
-				windwt = 1.0 + slopewt * wind_slope->co[r][c] - curvewt * wind_curv->co[r][c];
-
 				//Generate the terrain-modified wind speed.
+				windwt = 1.0;
+				
+				if (wind_slope->co[r][c] < 0) {
+					windwt += slopewtD * wind_slope->co[r][c];
+				}else {
+					windwt += slopewtI * wind_slope->co[r][c];	
+				}
+
+				if (wind_curv->co[r][c] < 0) {
+					windwt += curvewtD * wind_curv->co[r][c];
+				}else {
+					windwt += curvewtI * wind_curv->co[r][c];	
+				}
+
 				windspd_grid[r][c] *= windwt;
 				
 				//Modify the wind direction according to Ryan (1977).  
@@ -284,8 +293,8 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met, long ucode, long vcode, long Vscode,
 			  double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
 			  DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, 
-			  double slopewt, double curvewt, double windspd_min, double dn, DOUBLEMATRIX *topo, short iobsint,
-			  FILE *f){
+			  double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn, 
+			  DOUBLEMATRIX *topo, short iobsint, FILE *f){
 
 // This program takes the station wind speed and direction, converts
 //   them to u and v components, interpolates u and v to a grid,
@@ -336,7 +345,8 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 		}
 				
 		//Modify the wind speed and direction according to simple wind-topography relationships.
-		topo_mod_winds(winddir_grid, windspd_grid, slopewt, curvewt, curvature1, curvature2, curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
+		topo_mod_winds(winddir_grid, windspd_grid, slopewtD, curvewtD, slopewtI, curvewtI, curvature1, curvature2, 
+					   curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
 	}
 	
 	free_doublematrix(u_grid);
@@ -461,21 +471,19 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef){
 
 	long r,c,nc=topo->nch,nr=topo->nrh;
-	double one_atmos,scale_ht;
-   
-	one_atmos = 1013.25;
-	scale_ht = 8500.0;
 
 	//Compute the average station pressure (in bar).
 	for(c=1;c<=nc;c++){
 		for(r=1;r<=nr;r++){
 			if(topo->co[r][c]!=undef){
-				sfc_pressure[r][c] = one_atmos * exp((- topo->co[r][c])/scale_ht);
+				sfc_pressure[r][c] = pressure(topo->co[r][c]);
 			}
 		}
 	}
 }
 
+
+	
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
@@ -625,7 +633,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 	double anum_2;      // for first and second passes
 
 	dvar=new_doublevector(nstns);
-
+	
 	// Compute the first and second pass values of the scaling parameter
 	//   and the maximum scanning radius used by the Barnes scheme.
 	//   Values above this maximum will use a 1/r**2 weighting.  Here I
@@ -767,7 +775,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 			
 			if (wtot1==0.0 || wtot2==0.0) printf("wts total zero\n");
 			
-			value_station[metcode][c-1] = ftot1/wtot1 + ftot2/wtot2;
+			value_station[c-1][metcode] = ftot1/wtot1 + ftot2/wtot2;
 			
 		}//end 666
 	}

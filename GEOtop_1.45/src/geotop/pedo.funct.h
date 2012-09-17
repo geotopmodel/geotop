@@ -2,34 +2,35 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+#ifndef PEDO_FUNCT_H
+#define PEDO_FUNCT_H
+
+#include "struct.geotop.h"
+#include "constants.h"
+
+extern char **files;
 
 double psi_teta(double w, double i, double s, double r, double a, double n, double m, double pmin, double st);
 double teta_psi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);
 double dteta_dpsi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);
 
-double T_max_dteta(double a, double n, double m);
-double P_max_dteta(double a, double n, double m);
-double d2theta(double P, double n, double m);
-double d3theta(double P, double n, double m);
-
-double K(double psi, double K_sat, double imp, double i, double s, double r, double a, double n, double m, double v, double pmin, double T);
-double dK_dtheta(double th, double K_sat, double imp, double i, double s, double r, double a, double n, double m, double v, double pmin, double T);
+double k_hydr_soil(double psi, double ksat, double imp, double i, double s, double r, double a, double n, double m, double v, double T, double ratio);
 
 double psi_saturation(double i, double s, double r, double a, double n, double m);
 
@@ -39,9 +40,10 @@ double Mean(short a, double D1, double D2, double K1, double K2);
 
 double Psif(double T);
 
-double theta_from_psi(double psi, long l, long r, long c, SOIL *sl, double pmin);
-double psi_from_theta(double th, long l, long r, long c, SOIL *sl, double pmin);
-double dtheta_dpsi_from_psi(double psi, long l, long r, long c, SOIL *sl, double pmin);
-double k_from_psi(long jK, double psi, long l, long r, long c, SOIL *sl, double imp);
-double psisat_from(long l, long r, long c, SOIL *sl);
+double theta_from_psi(double psi, double ice, long l, double **pa, double pmin);
+double psi_from_theta(double th, double ice, long l, double **pa, double pmin);
+double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa, double pmin);
+double k_from_psi(long jK, double psi, double ice, double T, long l, double **pa, double imp, double ratio);
+double psisat_from(double ice, long l, double **pa);
 
+#endif

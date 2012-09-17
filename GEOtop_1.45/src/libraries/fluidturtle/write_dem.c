@@ -1,19 +1,16 @@
-#include "turtle.h"
+
 
 #include "write_dem.h"
-
-#include "t_utilities.h"
-
-#include "t_datamanipulation.h"
-
-
+//#include "turtle.h"
+//#include "t_utilities.h"
+//
+//#include "t_datamanipulation.h"
 
 
 
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of short int to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -29,7 +26,6 @@
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void shortmatrix_dem(SHORTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
@@ -43,13 +39,11 @@ FILE *outputfile;
 extern char *WORKING_DIRECTORY;
 
 
-
 /* Writes output file */
 
 if(print==1){
 
 	outputname=join_strings(WORKING_DIRECTORY,outputname);
-
 	outputfile=t_fopen(outputname,"w");
 
 	fprintf(outputfile,"/** File %s */\n",outputname);
@@ -80,11 +74,9 @@ if(print==1){
 
 }
 
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of short int to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -100,7 +92,6 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void shortmatrix_dem3(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
 	char *outputname, char *comment,short print)
@@ -112,7 +103,6 @@ void shortmatrix_dem3(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -153,11 +143,9 @@ if(print==1){
 
 
 
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of long int to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -173,11 +161,9 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void longmatrix_dem(LONGMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -187,7 +173,6 @@ void longmatrix_dem(LONGMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -228,12 +213,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of int to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -249,11 +231,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void intmatrix_dem(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -263,7 +243,6 @@ void intmatrix_dem(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -304,12 +283,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of float to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -325,11 +301,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void floatmatrix_dem(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -343,7 +317,6 @@ FILE *outputfile;
 extern char *WORKING_DIRECTORY;
 
 //printf("i1qu\n");
-
 
 
 /* Writes output file */
@@ -384,12 +357,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of double to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -405,11 +375,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doublematrix_dem(DOUBLEMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -419,7 +387,6 @@ void doublematrix_dem(DOUBLEMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -463,7 +430,6 @@ t_fclose(outputfile);
 /** Writes a matrix of double to a DEM turtle file */
 
 
-
 /* Stampa un file  DEM in formato Fluidturtle
 
 	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
@@ -477,11 +443,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doublematrix_dem3(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -491,7 +455,6 @@ void doublematrix_dem3(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -532,12 +495,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of double to a turtle file */
-
 
 
 /* Stampa una matrice in un file in formato Fluidturtle
@@ -551,11 +511,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doublematrix_control(DOUBLEMATRIX *matrix,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -565,7 +523,6 @@ void doublematrix_control(DOUBLEMATRIX *matrix,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -597,11 +554,9 @@ if(print==1){
 }
 
 
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a vector of float to a turtle file */
-
 
 
 /* Stampa un vettore in formato Fluidturtle
@@ -617,11 +572,9 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void floatvector_dem(FLOATVECTOR *vector_dem,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -631,7 +584,6 @@ void floatvector_dem(FLOATVECTOR *vector_dem,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -664,12 +616,9 @@ if(print==1){
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a vector of double to a turtle file */
-
 
 
 /* Stampa un vettore in formato Fluidturtle
@@ -685,11 +634,9 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doublevector_dem(DOUBLEVECTOR *vector_dem,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -699,7 +646,6 @@ void doublevector_dem(DOUBLEVECTOR *vector_dem,
 FILE *outputfile;
 
 extern char *WORKING_DIRECTORY;
-
 
 
 /* Writes output file */
@@ -734,12 +680,9 @@ if(print==1){
 
 
 
-
-
 /**-------------------------------------------------------------------------*/
 
 /** Writes a layer of a 3D double tensor (i.e. a matrix) to a turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -757,11 +700,9 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doubletensor_dem(DOUBLETENSOR *tensor,long layer,DOUBLEVECTOR *U,
 
                       DOUBLEVECTOR *V,char *outputname,char *comment,short print)
-
 
 
 {
@@ -777,7 +718,6 @@ extern char *WORKING_DIRECTORY;
 DOUBLEMATRIX *matrix;
 
 
-
 /* Allocation and initialisation of matrix */
 
 matrix=new_doublematrix(tensor->nrh,tensor->nch);
@@ -791,7 +731,6 @@ for(r=1;r<=tensor->nrh;r++){
    }
 
 }
-
 
 
 /* Writes output file */
@@ -836,57 +775,15 @@ free_doublematrix(matrix);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of short int to a DEM turtle file */
-
-
-
 /* Stampa un file  DEM in formato Fluidturtle
-
    !!! non viene usata la WORKING_DIRECTORY !!!
-
 	Inputs:	matrix		matrice
-
 			U,V 		vettori di header del DEM
-
 			otputname 	nome del file di output
-
 			comment		eventuali commenti da scrivere nel file */
-
-
 
 void shortmatrix_dem2(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
@@ -897,7 +794,6 @@ void shortmatrix_dem2(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 /* Declaration variables */
 
 FILE *outputfile;
-
 
 
 /* Writes output file */
@@ -934,12 +830,9 @@ if(print==1){
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of long int to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -955,11 +848,9 @@ if(print==1){
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void longmatrix_dem2(LONGMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -967,7 +858,6 @@ void longmatrix_dem2(LONGMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 /* Declaration variables */
 
 FILE *outputfile;
-
 
 
 /* Writes output file */
@@ -1004,32 +894,18 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of int to a DEM turtle file */
-
-
-
 /* Stampa un file  DEM in formato Fluidturtle
-
    !!! non viene usata la WORKING_DIRECTORY !!!
-
    Inputs:	matrix		matrice
-
 			U,V 		vettori di header del DEM
-
 			otputname 	nome del file di output
-
 			comment		eventuali commenti da scrivere nel file */
-
-
-
 void intmatrix_dem2(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -1037,7 +913,6 @@ void intmatrix_dem2(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 /* Declaration variables */
 
 FILE *outputfile;
-
 
 
 /* Writes output file */
@@ -1074,12 +949,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of float to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -1095,11 +967,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void floatmatrix_dem2(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -1107,7 +977,6 @@ void floatmatrix_dem2(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 /* Declaration variables */
 
 FILE *outputfile;
-
 
 
 /* Writes output file */
@@ -1123,17 +992,13 @@ fprintf(outputfile,"index{3}\n");
 fprintf(outputfile,"1: float array pixels size  ");
 
 
-
 write_floatarray_elements(outputfile,U,600);
-
 
 
 fprintf(outputfile,"2: float array novalues ");
 
 
-
 write_floatarray_elements(outputfile,V,600);
-
 
 
 fprintf(outputfile,"3: float matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
@@ -1152,12 +1017,9 @@ t_fclose(outputfile);
 
 
 
-
-
 /**-----------------------------------------------------------------------*/
 
 /** Writes a matrix of double to a DEM turtle file */
-
 
 
 /* Stampa un file  DEM in formato Fluidturtle
@@ -1173,11 +1035,9 @@ t_fclose(outputfile);
 			comment		eventuali commenti da scrivere nel file */
 
 
-
 void doublematrix_dem2(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
 	char *outputname, char *comment,short print)
-
 
 
 {
@@ -1185,7 +1045,6 @@ void doublematrix_dem2(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 /* Declaration variables */
 
 FILE *outputfile;
-
 
 
 /* Writes output file */
@@ -1219,10 +1078,6 @@ t_fclose(outputfile);
 }
 
 }
-
-
-
-
 
 
 

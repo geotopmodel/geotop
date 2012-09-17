@@ -1,3 +1,9 @@
+#ifndef GEOMORPHOLOGY_H
+#define GEOMORPHOLOGY_H
+
+#define Pi 3.14159265358979
+#include "../fluidturtle/turtle.h"
+
 void find_slope(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef);
 DOUBLEMATRIX *find_max_slope(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef);
 DOUBLEMATRIX *find_aspect(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef);
@@ -9,9 +15,10 @@ short is_boundary(long r, long c, DOUBLEMATRIX *dem, long novalue);
 void find_min_max(DOUBLEMATRIX *M, long novalue, double *max, double *min);
 long row(double N, long nrows, T_INIT *UV, long novalue);
 long col(double E, long ncols, T_INIT *UV, long novalue);
+double topo_from_origin(double **topo, double E, double N, long ncols, long nrows, T_INIT *UV, long novalue);
 double interp_value(double E, double N, DOUBLEMATRIX *M, DOUBLEMATRIX *Z, T_INIT *UV, long novalue);
 
-
+#endif
 
 
 

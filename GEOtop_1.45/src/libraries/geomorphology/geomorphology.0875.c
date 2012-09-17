@@ -1,11 +1,5 @@
-#include "../fluidturtle/turtle.h"
+
 #include "geomorphology.0875.h"
-#include "../fluidturtle/t_datamanipulation.h"
-#include "../fluidturtle/t_random.h"
-#include "networks.h"
-
-#define	Pi 3.14159265358979			/* P greco */
-
 
 //***************************************************************************
 

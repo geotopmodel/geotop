@@ -1,3 +1,7 @@
+#ifndef SHADOWS_H
+#define SHADOWS_H
+#include "../fluidturtle/turtle.h"
+
 /*----------------------------------------------------------------------------------------------------------*/
 /*Used to calculate shadow matrix*/
 /*----------------------------------------------------------------------------------------------------------*/
@@ -20,3 +24,4 @@ void Orizzonte7(double delta,long quadrata,double beta,double alfa,DOUBLEMATRIX 
 void Orizzonte8(double delta,long quadrata,double beta,double alfa,DOUBLEMATRIX *Z0,
                 SHORTMATRIX *curv,SHORTMATRIX *shadow, double novalue);
 				
+#endif

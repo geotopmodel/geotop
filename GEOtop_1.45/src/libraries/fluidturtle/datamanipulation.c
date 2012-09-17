@@ -1,8 +1,8 @@
-#include "turtle.h"
+//#include "turtle.h"
 #include "t_datamanipulation.h"
-#include "t_alloc.h"
+//#include "t_alloc.h"
 //#include "t_statistics.h"
-#include "write_dem.h"
+//#include "write_dem.h"
 
 /*-------------------------------------------------------------------------------*/
 
@@ -1147,6 +1147,37 @@ void copy_doublevector(DOUBLEVECTOR *origin,DOUBLEVECTOR *destination)
 
 }
 
+/*--------------------------------------------------------------------------*/
+
+void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big)
+
+{
+	
+	long i;
+	
+	if(small==NULL || big==NULL || small->co==NULL || big->co==NULL){
+		
+		t_error("A vector was not allocated");
+		
+	} else if(small->isdynamic!=1 || big->isdynamic!=1 || small->nh <1 || big->nh <1  ){
+		
+		t_error("A vector was not allocated properly");
+		
+	}else if( small->nh != big->nh  ){
+		
+		t_error("The vector do not have the same dimensions");
+		
+	}
+	
+	for(i=1;i<=small->nh;i++){
+		
+		
+		big->co[i] += small->co[i];
+		
+		
+	}
+	
+}
 
 /*--------------------------------------------------------------------------*/
 void floatmatrix_element_multiplication(FLOATMATRIX* dist,FLOATMATRIX *ca)

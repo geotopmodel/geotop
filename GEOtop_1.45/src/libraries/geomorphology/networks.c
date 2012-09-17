@@ -1,16 +1,9 @@
-#include "../fluidturtle/turtle.h"
-#include "math.h"
+
 #include "networks.h"
-#include "../fluidturtle/t_utilities.h"
-#include "../fluidturtle/t_datamanipulation.h"
-#include "../fluidturtle/t_random.h"
 
-#define CILINDRICAL 0
 
-#define SQRT2  1.414213562373095
 double weight[12]={0,1,SQRT2,1,SQRT2,1,SQRT2,1,SQRT2,0,0,0};
- 
-short BOUNDARY=0;
+ short BOUNDARY=0;
 
 /*--------------------------------------------------------------------------*/ 
 
@@ -1652,10 +1645,10 @@ if(m->co[i][j]<9 && magn->co[i][j]>th){
 flow[0]=i;
 flow[1]=j;
 valore_prec=magn->co[flow[0]][flow[1]];
-/*viene memorizzato il valore di magn. del pixel in questione*/
-/*go_downstream(flow,m->co[flow[0]][flow[1]],m->nch);
-/*viene memorizzato il valore di magn. del pixel di drenaggio*/
-/*valore=magn->co[flow[0]][flow[1]];
+//viene memorizzato il valore di magn. del pixel in questione
+//go_downstream(flow,m->co[flow[0]][flow[1]],m->nch);
+//viene memorizzato il valore di magn. del pixel di drenaggio
+//valore=magn->co[flow[0]][flow[1]];
 if(valore_prec!=valore){
    omatrix->co[i][j]=imatrix->co[i][j];
    counter++;

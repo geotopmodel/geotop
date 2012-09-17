@@ -1,4 +1,4 @@
-#include "turtle.h"
+//#include "turtle.h"
 #include "linearalgebra.h"
 static float sqrarg;
 
@@ -495,7 +495,7 @@ void linbcg(long n, double b[], double x[], int itol, double tol,
 		else if (itol == 3 || itol == 4) {
 			zm1nrm=znrm;
 			znrm=snrm(n,z,itol);
-			if (fabs(zm1nrm-znrm) > EPS*znrm) {
+			if (fabs(zm1nrm-znrm) > EPS1*znrm) {
 				dxnrm=fabs(ak)*snrm(n,p,itol);
 				*err=znrm/fabs(zm1nrm-znrm)*dxnrm;
 			} else {
@@ -520,7 +520,7 @@ void linbcg(long n, double b[], double x[], int itol, double tol,
 	free_doublevector(ZZ);
 }
 
-/* DA NUMERICAL RECEPIS IN C. (Second Edition - Cambridge Univ. Press). pag 88
+//DA NUMERICAL RECEPIS IN C. (Second Edition - Cambridge Univ. Press). pag 88
 _________________________________________________________________________________
 =================================================================================
                           FUNZIONE      snrm                    

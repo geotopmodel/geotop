@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,16 +19,7 @@
  
  */
 
-#include "struct.geotop.h"
 #include "times.h"
-#include "constants.h"
-#include "meteo.h"
-#include "meteodata.h"
-
-extern long number_novalue, number_absent;
-extern char **files;
-extern long i_sim;
-
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 /*==================================================================================================================*/
@@ -51,10 +42,10 @@ void set_time_step(PAR *par, TIMES *times){
 		
 		JDold=JDnew;	
 		JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date->co[i_sim]);
-
+		
 		if(floor(JDold)!=floor(JDnew)){
-			meteo_interp2(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, max_cols_time_steps_file+1, 0, 
-						 par->init_date->co[i_sim]+times->time/86400., par->init_date->co[i_sim]+(times->time+par->Dt)/86400.);
+			time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, max_cols_time_steps_file+1, 0, 
+						 par->init_date->co[i_sim]+times->time/86400.);
 			posix=0;
 		}
 	}
@@ -98,9 +89,14 @@ short is_leap(long y){
 double convert_JDandYear_JDfrom0(double JD, long year){
 	
 	long days;
+	FILE *f;
 	
 	if (year < 0){
-		t_error("Error:: Not Possible to handle dates with year earlier than 0");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
+
 		days = 0;
 	}else if (year == 0) {
 		days = 1;//offset(01/01/0000 corrsepond to JDfrom0=1)
@@ -115,8 +111,14 @@ double convert_JDandYear_JDfrom0(double JD, long year){
 	
 void convert_JDfrom0_JDandYear(double JDfrom0, double *JD, long *year){
 	
+	FILE *f;
+	
 	if (JDfrom0 < 1) {
-		t_error("Error:: Not Possible to handle dates with year earlier than 0");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
+		
 	}else if (JDfrom0 < 367) {
 		*JD = JDfrom0 - 1.;
 		*year = 0;
@@ -140,9 +142,13 @@ double convert_JDfrom0_JD(double JDfrom0){
 	
 	double JD;
 	long year;
+	FILE *f;
 	
 	if (JDfrom0 < 1) {
-		t_error("Error:: Not Possible to handle dates with year earlier than 0");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 		JD = 0.0;
 	}else if (JDfrom0 < 367) {
 		JD = JDfrom0 - 1.;
@@ -222,6 +228,8 @@ double convert_daymonthyearhourmin_JD(long d, long m, long y, long h, long min){
 /*==================================================================================================================*/
 
 void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, long *year, long *hour, long *min){
+	
+	FILE *f;
 		
 	*day = floor(date/1.E10);
 	*month = floor(date/1.E8 - (*day)*1.E2);
@@ -230,9 +238,10 @@ void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, 
 	*min = floor(date/1.E0 - (*day)*1.E10 - (*month)*1.E8 - (*year)*1.E4 - (*hour)*1.E2);
 	
 	if (*day<1 || *day>31 || *month<1 || *month>12 || *year<1700 || *year>2900 || *hour<0 || *hour>23 || *min<0 || *min>59) {
-		printf("Error:: the date %12.0f cannot be read\n",date);
-		stop_execution();
-		t_error("Not Possible To Continue (8) ");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: the date %12.0f cannot be read\n",date);
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 }
 	

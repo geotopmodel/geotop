@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,20 +19,7 @@
  
  */
 
-#include "constants.h"
-//#include "keywords_file.h"
-#include "struct.geotop.h"
 #include "vegetation.h"
-#include "meteo.h"
-#include "turbulence.h"
-#include "radiation.h"
-
-extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
-extern char *logfile;
-extern long Nl, Nr, Nc;
-
-
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -101,12 +88,10 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 		DT=( -C*(T10-T00)/par->Dt + SWv + A*h1 + (1.0-A)*h0 ) / ( C/par->Dt - A*dhdT );
 		
 		if(DT!=DT){
-			f=fopen(logfile, "a");
-			fprintf(f,"ERROR NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c); 
+			f = fopen(FailedRunFile, "w");
+			fprintf(f,"Error:: NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c); 
 			fclose(f);
-			printf("ERROR NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c); 
-			stop_execution();
-			t_error("Not Possible To Continue");
+			t_error("Fatal Error! Geotop is closed. See failing report.");	
 		}
 			
 		Lobukhov0=(*Lobukhov);
@@ -188,12 +173,10 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 	turbulent_fluxes(*ruc, *ruc/beta, P, *Ts , Tg, *Qs, alpha*Qg, alpha*dQgdT, Hg, dHgdT, Eg, dEgdT);
 		
 	if(*Tv!=(*Tv)){
-		f=fopen(logfile, "a");
-		fprintf(f,"Tv no value %ld %ld\n",r,c);
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Tv no value %ld %ld\n",r,c);
 		fclose(f);
-		printf("Tv no value %ld %ld\n",r,c);
-		stop_execution();
-		t_error("Not Possible To Continue");
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 }		
 			
@@ -335,12 +318,10 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 	*Locc=Loc;
 
 	if(*h!=(*h)){
-		f=fopen(logfile, "a");
-		fprintf(f,"No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
 		fclose(f);
-		printf("No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
-		stop_execution();
-		t_error("Not Possible To Continue");
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 			
 }
@@ -506,6 +487,7 @@ void canopy_snow_interception(double snow_max_loading, double LSAI, double Psnow
 
 void update_roughness_veg(double hc, double snowD, double zmu, double zmt, double *z0_ris, double *d0_ris, double *hc_ris){
 	
+	FILE *f;
 	
 	*hc_ris=hc-snowD;//[mm]
 	*d0_ris=0.667*(*hc_ris);//[mm]
@@ -518,22 +500,31 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 	*hc_ris=(*hc_ris)*1.E-3;//[m]
 	
 	if(zmu<(*hc_ris)){
-		printf("Wind speed measurement height:%f m\n",zmu);
-		printf("Effective vegetation height:%f m\n",*hc_ris);
-		t_error("Temperatute must be measured above vegetation");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Wind speed measurement height:%f m\n",zmu);
+		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+		fprintf(f,"Wind Speed must be measured above vegetation");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 
 	if(zmt<(*hc_ris)){
-		printf("Temperature measurement height:%f m\n",zmu);
-		printf("Effective vegetation height:%f m\n",*hc_ris);
-		t_error("Temperatute must be measured above vegetation");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Temperature measurement height:%f m\n",zmt);
+		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+		fprintf(f,"Temperatute must be measured above vegetation");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 	
 	if(*hc_ris-(*d0_ris)<(*z0_ris)){
-		printf("Effective vegetation height:%f m\n",*hc_ris);
-		printf("Effective 0 displacement height:%f m\n",*d0_ris);
-		printf("Effective roughness length:%f m\n",*z0_ris);
-		t_error("It must be always Hcanopy-d0 >= z0");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+		fprintf(f,"Effective 0 displacement height:%f m\n",*d0_ris);
+		fprintf(f,"Effective roughness length:%f m\n",*z0_ris);
+		fprintf(f,"It must be always Hcanopy-d0 >= z0");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 
 }

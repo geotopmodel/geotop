@@ -2,32 +2,23 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.223 'Wallis' - 26 Jul 2011
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2011 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.223 'Wallis'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
-#include "../fluidturtle/turtle.h"
 #include "rw_maps.h"
-#include "import_ascii.h"
-#include "write_ascii.h"
-#include "extensions.h"
-#include "../fluidturtle/t_datamanipulation.h"
-#include "../fluidturtle/t_utilities.h"
-#include "../fluidturtle/tensor3D.h"
-
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -461,7 +452,7 @@ short existing_file(char *name){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short existing_file_text(char *name){
+short existing_file_wext(char *name, char *extension){
 
 	//if the file exists gives 1, 0 if the file doesn't exist
 
@@ -469,7 +460,7 @@ short existing_file_text(char *name){
 	FILE *f;
 	char *temp;
 	
-	temp=join_strings(name,textfile);
+	temp=join_strings(name,extension);
 
 	if( (f=fopen(temp,"r"))!=NULL ){
 		a=1;
@@ -586,8 +577,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 				if (a==2) {
 					if (M->co[r][c]==no_value && Mref->co[r][c]!=no_value){
 						printf("ERROR:: Problem reading map %s, it has novalue where the reference maps has value: %ld %ld ref:%f %f\n",filename,r,c,Mref->co[r][c],M->co[r][c]);
-						stop_execution();
-						t_error("Not Possible To Continue (9) ");
+						t_error("Fatal Error (9)");
 					}
 					if(M->co[r][c]!=no_value && Mref->co[r][c]==no_value) M->co[r][c]=no_value;
 				}
@@ -601,6 +591,31 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 	
 }
 	
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask, T_INIT *grid, double no_value, LONGMATRIX *rc){
+	
+	DOUBLEMATRIX *M;
+	DOUBLEVECTOR *V;
+	long i, n=rc->nrh;
+	
+	M = read_map(type, namefile, mask, grid, no_value);
+	
+	V = new_doublevector(n);
+	
+	for (i=1; i<=n; i++) {
+		V->co[i] = M->co[rc->co[i][1]][rc->co[i][2]];
+	}
+	
+	free_doublematrix(M);
+	
+	return V;
+	
+}
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -708,6 +723,30 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+void write_map_vector(char *filename, short type, short format, DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc){
+	
+	//	type=0  floating point
+	//	type=1  integer
+	
+	//	format=1 fluidturtle
+	//	format=2 grassascii
+	//	format=3 esriascii
+	
+	if(format==1){
+		t_error("The fluidturtle format is not support any more");
+	}else if(format==2){
+		write_grassascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+	}else if(format==3){
+		write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+	}
+	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 void write_mapseries(long i, char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV, long novalue){
 	
 	char SSSS[ ]={"SSSS"};	
@@ -746,63 +785,17 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 		write_suffix(SSSSLLLLL, l, 5);	
 		name=join_strings(filename,SSSSLLLLL);		
 	}else {
-		t_error("Value not adimitted");
-	}
-
- 
-	M=new_doublematrix(T->nrh,T->nch);
-	for(r=1;r<=T->nrh;r++){
-		for(c=1;c<=T->nch;c++){
-			M->co[r][c]=T->co[l][r][c];
-		}
-	}
-
-	write_map(name, type, format, M, UV, novalue);
-	
-	free_doublematrix(M);
-	free(name);
-
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
-
-//	a=0 non include "l" nel suffisso
-//	a=1 include "l" nel suffisso
-//	l:layer
-//	i:temporal step
-	
-	char SSSSLLLLL[ ]={"LLLLLNNNNN"};
-	char SSSS[ ]={"NNNN"};		
-	char *name;
-	long r, c;
-	DOUBLEMATRIX *M;
-		
-	if(a==0){
-		write_suffix(SSSS, i, 0);	
-		name=join_strings(filename,SSSS);				
-	}else if(a==1){
-		write_suffix(SSSSLLLLL, l, 1);	
-		write_suffix(SSSSLLLLL, i, 6);	
-		name=join_strings(filename,SSSSLLLLL);		
-	}else {
 		t_error("Value not admitted");
 	}
 
  
 	M=new_doublematrix(T->nrh,T->nch);
-	
-
 	for(r=1;r<=T->nrh;r++){
 		for(c=1;c<=T->nch;c++){
 			M->co[r][c]=T->co[l][r][c];
 		}
 	}
-	
+
 	write_map(name, type, format, M, UV, novalue);
 	
 	free_doublematrix(M);
@@ -815,11 +808,114 @@ void write_tensorseries_bis(short a, long l, long i, char *filename, short type,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
+void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc){
+	
+	//	a=0 non include "l" nel suffisso
+	//	a=1 include "l" nel suffisso
+	//	l:layer
+	//	i:temporal step
+	
+	char SSSSLLLLL[ ]={"SSSSLLLLL"};
+	char SSSS[ ]={"SSSS"};		
+	char *name;
+	long j, npoints=T->nch;
+	DOUBLEVECTOR *V;
+	
+	if(a==0){
+		write_suffix(SSSS, i, 0);	
+		name=join_strings(filename,SSSS);				
+	}else if(a==1){
+		write_suffix(SSSSLLLLL, i, 0);	
+		write_suffix(SSSSLLLLL, l, 5);	
+		name=join_strings(filename,SSSSLLLLL);		
+	}else {
+		t_error("Value not admitted");
+	}
+	
+	V=new_doublevector(npoints);
+	for(j=1;j<=npoints;j++){
+		V->co[j]=T->co[l][j];
+	}
+	
+	write_map_vector(name, type, format, V, UV, novalue, J, nr, nc);
+	
+	free_doublevector(V);
+	free(name);
+	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void write_tensorseries2(char *suf, long l, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
+	
+	char LLLLL[ ]={"LLLLL"};
+	char *temp1, *temp2;
+	long r, c;
+	DOUBLEMATRIX *M;
+		
+	temp1 = join_strings(LLLLL, suf);
+	write_suffix(temp1, l, 1);	
+ 
+	M = new_doublematrix(T->nrh,T->nch);
+
+	for(r=1; r<=T->nrh; r++){
+		for(c=1; c<=T->nch; c++){
+			M->co[r][c] = T->co[l][r][c];
+		}
+	}
+	
+	temp2 = join_strings(filename, temp1);
+	write_map(temp2, type, format, M, UV, novalue);
+	
+	free_doublematrix(M);
+	free(temp1);
+	free(temp2);
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc){
+	
+	char LLLLL[ ]={"LLLLL"};
+	char *temp1, *temp2;
+	long i, npoints=T->nch;
+	DOUBLEVECTOR *V;
+	
+	temp1 = join_strings(LLLLL, suf);
+	write_suffix(temp1, l, 1);	
+	
+	V = new_doublevector(npoints);
+	
+	for(i=1; i<=npoints; i++){
+		V->co[i] = T->co[l][i];
+	}
+	
+	temp2 = join_strings(filename, temp1);
+	write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
+	
+	free_doublevector(V);
+	free(temp1);
+	free(temp2);
+	
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
 
 	long l;
 	for(l=T->ndl;l<=T->ndh;l++){
-		write_tensorseries_bis(1, l, i, filename, type, format, T, UV, novalue);
+		write_tensorseries2(suffix, l, filename, type, format, T, UV, novalue);
 	}
 }
 
@@ -828,3 +924,15 @@ void write_tensorseries2(long i, char *filename, short type, short format, DOUBL
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc){
+	
+	long l;
+	for(l=T->nrl;l<=T->nrh;l++){
+		write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
+	}
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/

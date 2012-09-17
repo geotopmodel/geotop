@@ -1,8 +1,6 @@
-#include "turtle.h"
+//#include "turtle.h"
 #include "t_probability.h"
-#include "t_random.h"
-
-#define PI 3.141592654
+//#include "t_random.h"
 
 /*From the Numerical Recipes Second Ediction pag.287*/
 double expdev(long *idum)
@@ -40,7 +38,7 @@ if(xm<12.0){
      }
      do{
      	do{
-	     y=tan(PI*ran3(idum));
+	     y=tan(PIG*ran3(idum));
 	     em=sq*y+xm;
      	}while(em<0.0);
      	em=floor(em);
@@ -90,7 +88,7 @@ if(n<25){
     sq=sqrt(2.0*am*pc);
     do{
     	do{
-    	    angle=PI*ran3(idum);
+    	    angle=PIG*ran3(idum);
 	    y=tan(angle);
     	    em=sq*y+am;
     	} while(em < 0.0 || em>= (en+1.0));

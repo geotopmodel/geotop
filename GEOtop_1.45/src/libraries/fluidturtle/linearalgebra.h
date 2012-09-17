@@ -1,12 +1,16 @@
+#ifndef LINEARALGEBRA_H
+#define LINEARALGEBRA_H
+#include "turtle.h"
+#include "const.h"
 #define NRANSI
-#define THRESH 0
-#define ITOL 3
-#define TOL 0.00001
-#define ITMAX 1000
-#define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
-#define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
-#define EPS 1.0e-14
-#define TINY 1.0E-20
+//#define THRESH 0
+//#define ITOL 3
+//#define TOL 0.00001
+//#define ITMAX 1000
+//#define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
+//#define SWAP(a,b) tempr=(a);(a)=(b);(b)=tempr
+//#define EPS1 1.0e-14
+//#define TINY 1.0E-20
 
 /**
 
@@ -23,15 +27,10 @@ function at positive times, while the second half of the array contains the impu
 times, counting down from the highest element respns[m]. On input isign is +1 for convolution, -1 for deconvolution.
 The answer is returned in the first n componenets of ans. However, ans must be supplied in the calling program with 
 dimension [1..2*n], for consistency with twofft. n MUST be an integer power of two.
-   
 Authors & Date: Angelo Zacchia, Marco Pegoretti, 1998
-
 Inputs: data is a complex array of lenght n
-
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
-
 Notes: It is a modified version of the routine in Numerical Recipes, second edition
-
 */
 
 void convlv(FLOATVECTOR *data,unsigned long n,FLOATVECTOR *respns,unsigned long m,int isign,
@@ -43,21 +42,14 @@ void convlv(FLOATVECTOR *data,unsigned long n,FLOATVECTOR *respns,unsigned long 
 Name: four1
 
 Synopsis: void four1(FLOATVECTOR *data,unsigned long nn,int isign)
-
 Description: Replaces data[1..2*nn] by its discrete Fourier transform,if isign is input as 1;
 or replaces data[1..2*nn] by nn times its inverse discrete Fourier transform, if isign is input 
 as -1, data is a complex array of lenght nn or, equivalently, a real array of lenght 2*nn:
 nn MUST be an integer power of 2(this is not checked for).
-
 Authors & Date: Angelo Zacchia, Marco Pegoretti, 1998
-
 Inputs: data is a complex array of lenght n
-
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
-
 Notes: It is a modified version of the routine in Numerical Recipes, second edition
-
-
 */
 void four1(FLOATVECTOR *data,unsigned long nn,int isign);
 
@@ -75,17 +67,12 @@ function at positive times, while the second half of the array contains the impu
 times, counting down from the highest element respns[m]. On input isign is +1 for convolution, -1 for deconvolution.
 The answer is returned in the first n componenets of ans. However, ans must be supplied in the calling program with 
 dimension [1..2*n], for consistency with twofft. n MUST be an integer power of two.
-  
+
 Authors & Date: Angelo Zacchia, Marco Pegoretti, 1998
-
 Inputs: 
-
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
-
 Notes: It is a modified version of the routine in Numerical Recipes, second edition
-
-Examples: 
-
+Examples:
 References: Pegoretti, Marco, Geomodel, implementazione di un modello scalabile di deflusso
 e bilancio idrologico di bacino, 1997 
 
@@ -106,17 +93,11 @@ function at positive times, while the second half of the array contains the impu
 times, counting down from the highest element respns[m]. On input isign is +1 for convolution, -1 for deconvolution.
 The answer is returned in the first n componenets of ans. However, ans must be supplied in the calling program with 
 dimension [1..2*n], for consistency with twofft. n MUST be an integer power of two.
-   
 Authors & Date: Angelo Zacchia, Marco Pegoretti, 1998
-
 Inputs: data is a complex array of lenght n
-
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
-
 Notes: It is a modified version of the routine in Numerical Recipes, second edition
-
 Examples: 
-
 References: Pegoretti, Marco, Geomodel, implementazione di un modello scalabile di deflusso
 e bilancio idrologico di bacino, 1997 
 
@@ -152,14 +133,11 @@ void realft(FLOATVECTOR *data,unsigned long n,int isign);
 Name: twofft
 
 Synopsis: voidtwofft(FLOATVECTOR *data1,FLOATVECTOR *data2,FLOATVECTOR *fft1,FLOATVECTOR *fft2,unsigned long n); 
-
 Description: Given two real input array data1[1..2n] and data2[1..2n] this routine calls four1
 and return two complex output arrays, fft1[1..2n] and fft2[1..2n], each of complex lenght
 n, which contain the discrete Fourier transforms of the respective data arrays. n MUST
 be an integer power of 2
-   
 Authors & Date: For the Numerical Recipes,1998.
-
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
 
 */
@@ -170,13 +148,9 @@ void twofft(FLOATVECTOR *data1,FLOATVECTOR *data2,FLOATVECTOR *fft1,
 
 Name: ris_sistema
 
-
 Synopsis:
-
 void ris_sistema (double d[], double ds[], double di[], double b[], double x[], int n);
-
 Version:0.9
-
 Description: This solves the specified linear system. 
    Questa funzione innesca la soluzione del sistema lineare.
    Ha solo lo scopo di ricevere gli argomenti necessari dal programma 
@@ -198,29 +172,22 @@ Inputs:
 
 Return:   
 	Vengono restituiti gli elementi del vettore soluzione del sistema x[].
-   
    Tutti vettori sopra menzionati devono essere variabili globali, sono quindi
    dichiarati all'interno del programma principale. 
- 
-
  Authors & Date: Angelo Zacchia, June 1998
  
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
- 
+ */
 
-*/
 /* commentata per l'errore (dovuto ad una errata definizione di asolve):
 error: conflicting types for `asolve'
 void ris_sistema (double d[], double ds[], double di[], double b[], double x[], int n);
-
+*/
 
 /**
-
-
 Name: sprsin
 
 Synopsis:
-
 void sprsin(double **,int,float,long,double *,long *); 
 
 Description:
@@ -237,18 +204,10 @@ Inputs:
   - thresh, gli elementi della matrice minori di thresh non vengono
             letti;
   - nmax, la lunghezza dei vettori sa[] e ija[].  
-
 Return:
-
-
  Authors & Date: Angelo Zacchia, June 1998
- 
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
-
  References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press).
- 
- 
-
  */
 void sprsin(double **,int,float,long,double *,long *); 
 
@@ -269,39 +228,25 @@ Inputs:
    - x[]: elementi del vettore soluzione (in ingresso questo vettore deve contenere
      una soluzione di primo tentativo);
    - itol, tol, itmax: parametri gli definiti sopra.
-   
    Oltre alla soluzione la funzione calcola anche il numero di iterazione effetuate
    ( iter ) e l'errore commesso ( err ).
-   
-   
  Authors & Date: Angelo Zacchia, June 1998
- 
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
- 
-    References:  NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 86-88
-
+  References:  NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 86-88
      Bugs & limitations:
 
  */
 /* commentata per l'errore (dovuto ad una errata definizione di asolve):
 error: conflicting types for `asolve' 
 void linbcg(long, double *,double *, int, double, int, int *,double *,
-             double *, long *);  
-
+             double *, long *);  */
 
 /**                  
-
 Name:       vett_mat
-
 Version:
-
 Synopsis:
-
 Description:
-
   Questa funzione converte tre vettori in una matrice quadrata tridiagonale.
-   
-   
  Inputs:
     Bisogna passare alla funzione i puntatori agli elementi dei vettori
    - d elementi delle diagonale principale;
@@ -309,16 +254,11 @@ Description:
    - di elementi della diagonale inferiore;
    inoltre bisogna passare n, che e' la dimensione della matrice che
    si vuole generare.
-
- 
  Return:
     La funzione restituisce il puntatore alla matrice.
-
-   
   Authors & Date: Angelo Zacchia, June 1998
- 
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
- 
+
  */
    
 DOUBLEMATRIX *vett_mat (double *d,double *ds,double *di,int n);
@@ -329,25 +269,14 @@ DOUBLEMATRIX *vett_mat (double *d,double *ds,double *di,int n);
 Name:     snrm                    
 
 Version:
-
 Synopsis:   double snrm(long n, double sx[], int itol);
-
-
 Description:
-
 Questa funzione calcola la norma di un vettore con la modalita' specificata 
    dal parametro itol 
-   
  Authors & Date: Angelo Zacchia, June 1998
- 
 FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalgebra.h
- 
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 88
- 
 Bugs & limitations:
-
-
-
 */
 
 double snrm(long n, double sx[], int itol);
@@ -355,16 +284,11 @@ double snrm(long n, double sx[], int itol);
 
 /** 
 Name:  atimes                    
-
 Version:
-
 Synopsis:   
 void atimes(long n, double x[], double r[], int itrnsp,double sa[], long ija[]);
-
 Description:  
-
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 88
- 
 Notes:
 
 */
@@ -374,15 +298,9 @@ void atimes(long n, double x[], double r[], int itrnsp,double sa[], long ija[]);
 /**
 
 Name:  asolve 
-
 Version:
-
-Synopsis:   void asolve(long n, double b[], double x[], int itrnsp,double sa[], long ija[])
-
-
-Description:
-
-   
+Synopsis:   void asolve(long n, double b[], double x[], int itrnsp,double sa[], long ija[]
+Description: 
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 89
  
 
@@ -394,22 +312,13 @@ void asolve(long n, double b[], double x[],double sa[]);
 /**
 
 Name:  dsprsax
-
 Version:
-
 Synopsis:   void dsprsax(double sa[], long ija[], double x[], double b[], long n)
-
-
 Description:
 Questa funzione moltiplica una matrice, memoririzzata alla maniera di N.R.,
    per un vettore x[]. Il risultato e' un vettore b[].
-
-   
 Inputs:
-
 Return:   
-
- 
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 89
  
 
@@ -420,30 +329,16 @@ void dsprsax(double sa[], long ija[], double x[], double b[], long n);
 
 /**
 Name:  dsprstx 
-
-
 Synopsis:   void dsprsax(double sa[], long ija[], double x[], double b[], long n)
-
-
 Description:
 Questa funzione moltiplica la trasposta di una matrice, memoririzzata alla
    maniera di N.R., per un vettore x[]. Il risultato e' un vettore b[].
-
-   
 Inputs:
-
 Return:   
-
 Needs:
- 
 Related Routines:
- 
 See Also:
- 
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press). pag 80
- 
-
-
 */
 
 
@@ -451,25 +346,17 @@ void dsprstx(double sa[], long ija[], double x[], double b[], long n);
 
 /**
 Name:  integration
-
-
 Synopsis:   float integration(float (*func)(float), float a, float b, int n);
-
 Description:
 Questa funzione calcola l'integrale con il metodo dei trapezi
-
-   
 Inputs:
-
-Return:   
-
+Return:  
 Needs:
- 
 Related Routines:
- 
 See Also:
- 
 References: DA NUMERICAL RECIPES IN C. (Second Edition - Cambridge Univ. Press).
 pag 137
 */ 
 float integration ( float ( *fun )( float ) , float , float, int);
+
+#endif

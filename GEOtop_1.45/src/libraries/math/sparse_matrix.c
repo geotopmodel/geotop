@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 - Version 'Montebello' - 8 Nov 2010
+ GEOtop 1.223 'Wallis' - 26 Jul 2011
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2011 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145
+ This file is part of GEOtop 1.223 'Wallis'
  
- GEOtop 1.145 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,13 +19,7 @@
  
  */
 
-#include "../fluidturtle/turtle.h"
 #include "sparse_matrix.h"
-#include "../fluidturtle/t_utilities.h"
-#include "util_math.h"
-
-#define MAX_VALUE_DIAG 1e-8
-#define MAX_ITERATIONS 50
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -33,19 +27,6 @@
 /******************************************************************************************************************************************/
 
 int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, double dt, t_Matrix_element_with_voidp Matrix, void *data) {
-	/*
-	 *
-	 * \author Emanuele Cordano
-	 * \date May 2010
-	 *
-	 *\param diagonal (DOUBLEVECTOR *) - the diagonal doublevector of the matrix
-	 *\param Matrix (t_Matrix) - a matrix from which the diagonal is extracted
-	 *
-	 *\brief it saved the square root of diagonal of Matrix in a doublevector
-	 *
-	 *\return 0 in case of success , -1 otherwise
-	 *
-	 */
 
 	long i;
 	DOUBLEVECTOR *x_v;
@@ -74,7 +55,7 @@ int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, double dt, t_Matrix_e
 int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, double dt, t_Matrix_element_with_voidp Matrix, void *data) {
 	/*
 	 *
-	 * \author Emanuele Cordano,Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch
+	 * \author Emanuele Cordano,Stefano Endrizzi
 	 * \date May August 2009
 	 *
 	 *\param diagonal (DOUBLEVECTOR *) - the upper diagonal doublevector of the matrix
@@ -169,7 +150,7 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x, DOUBLEV
     	if (diag->co[j]<0.0) {
     		diag->co[j]=1.0;
     		printf("\n Error in jacobi_preconditioned_conjugate_gradient_search function: diagonal of the matrix (%lf) is negative at %ld \n",diag->co[j],j);
-    		stop_execution();
+    		t_error("Fatal Error");
     	}
 		
     }
@@ -247,8 +228,8 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x, DOUBLEV
 long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x, DOUBLEVECTOR *x0, 
 			  double dt, DOUBLEVECTOR *b, t_Matrix_element_with_voidp function, void *data){
 
-	/* \author Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch
-	   \date March 2010	
+	/* \author Stefano Endrizzi
+	   \date March 2011	
 	   from BI-CGSTAB: A FAST AND SMOOTHLY CONVERGING VARIANT OF BI-CG FOR THE SOLUTION OF NONSYMMETRIC LINEAR SYSTEMS
 	   by H. A. VAN DER VORST - SIAM J. ScI. STAT. COMPUT. Vol. 13, No. 2, pp. 631-644, March 1992
 	*/
@@ -1247,7 +1228,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
     }
 	
 	norm_r0 = norm_2(r0, r0->nl, r0->nh);
-	
+		
 	rho = 1.;
 	alpha = 1.;
 	omeg = 1.;
@@ -1331,11 +1312,11 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, DOUBLEVECTO
 	long i;
 	
 	product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
-	
+
 	for(i=1;i<=x->nh;i++){
 		out->co[i] = k * (out->co[i] + y->co[i]);
 	}
-	
+
 }
 
 /******************************************************************************************************************************************/

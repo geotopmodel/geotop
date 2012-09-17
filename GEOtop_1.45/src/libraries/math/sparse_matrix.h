@@ -1,23 +1,33 @@
-
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 - Version 'Montebello' - 8 Nov 2010
+ GEOtop 1.223 'Wallis' - 26 Jul 2011
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2011 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145
+ This file is part of GEOtop 1.223 'Wallis'
  
- GEOtop 1.145 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+#ifndef SPARSE_MATRIX_H
+#define SPARSE_MATRIX_H
+#include "../fluidturtle/turtle.h"
+
+#include "../fluidturtle/t_utilities.h"
+#include "util_math.h"
+
+#define MAX_VALUE_DIAG 1e-8
+#define MAX_ITERATIONS 50
+
+
 
 typedef double (*t_Matrix_element_with_voidp)(long i, DOUBLEVECTOR *eta, DOUBLEVECTOR *eta0, double dt, void *data);
 /****************************************************************************************************/
@@ -110,3 +120,5 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, DOUBLEVECTO
 
 /****************************************************************************************************/
 void product_using_only_lower_diagonal_part2(DOUBLEVECTOR *product, DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx);
+
+#endif

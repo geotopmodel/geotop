@@ -2,7 +2,7 @@
  
  PRAIRIE BLOWING SNOW MODEL CODE
  
- Code written by Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch by translating and adapting the idea behind the PBSM Fortran Code 
+ Code written by Stefano Endrizzi by translating and adapting the idea behind the PBSM Fortran Code 
  by John Pomeroy. The author does not guarantee the perfect conformance of this code with the Fortran one. 
  However, he asks to give credit to Pomeroy, 1993, when using it with satisfaction. 
  
@@ -11,20 +11,7 @@
  The Prairie Blowing Snow Model: characteristics, validation, operation
  Journal of Hydrology, 144 (1993) 165-192
  */
-
-#include "constants.h"
-#include "struct.geotop.h"
 #include "PBSM.h"
-#include "../libraries/math/util_math.h"
-
-extern T_INIT *UV;
-extern long Nl, Nr, Nc;
-extern char *WORKING_DIRECTORY;
-
-//global variables
-double T, Ustar, Z0, Zr;
-double k_atm, Diff, B, SvDens, Sigma;
-float C1, C2, C3, C4, C5;
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -34,7 +21,7 @@ float C1, C2, C3, C4, C5;
 //Prarie Blowing Snow Model - Pomeroy et al. (1993)
 
 void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V, double Ta, double RH, 
-		   double *Trans, double *Subl, double *Salt, FILE *flog){
+		   double *Trans, double *Subl, double *Salt, double Dsnow, double slope, FILE *flog){
 	
 	//     Modified Calculations for Mean Particle Mass in this version
 	//     program to calculate blowing snow horizontal flux, sublimation rate
@@ -52,7 +39,6 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 	double A, Alpha, C, DmDt, Es, F, F1, Hsalt, Lambda, Mpm, Mpr, Nsalt, Nuss, TQsalt, TQsum;
 	double RauTerm, Reyn, SBsalt, SBsum, SigmaZ, Ustar1, Usthr, Vs, Vsalt, Z, Zstb;
 	long i, k;
-	double U1, U2, U3, F2, F3;
 		
 	//  define constants for equations
 	
@@ -66,11 +52,11 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 	
 	//	coefficients
 	
-	C1 = 2.8;       //{2.3}
-	C2 = 1.6;
-	C3 = 4.2;       //{3.25} {e = 1/(C3*Ustar)}
-	C4 = -1.55;
-	C5 = -0.544;
+	CC1 = 2.8;       //{2.3}
+	CC2 = 1.6;
+	CC3 = 4.2;       //{3.25} {e = 1/(CC3*Ustar)}
+	CC4 = -1.55;
+	CC5 = -0.544;
 	
 	// Initialization
 	
@@ -105,54 +91,27 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 		
 		Ustar = 0.001;	//first guess
 		i=0;
-		Z0 = C2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;
+		Z0 = CC2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;//Liston 1998
 		F = (Ustar/ka) * log(zmeas/Z0) - V;
 		do{
 			Ustar1 = Ustar;
-			F1 = (1./ka) * log(zmeas/Z0) - (Ustar/ka) * (C2*0.07519/g) * Ustar / Z0;
+			F1 = (1./ka) * log(zmeas/Z0) - (Ustar/ka) * (CC2*0.07519/g) * Ustar / Z0;
 			k = 0;
 			do{
 				Ustar = Ustar1 - (F/F1)/pow(2., (double)k);
-				Z0 = C2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;
+				Z0 = CC2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;
 				k++;
 			}while (fabs((Ustar/ka) * log(zmeas/Z0) - V) > fabs(F) && k<10);
 			F = (Ustar/ka) * log(zmeas/Z0) - V;
 			i++;
 		}while (fabs(F)>1.E-3 && i<500);
 		
-		/*if(fabs(F)>1.E-3 || Ustar<0 || Ustar>V){
-			Ustar = V/10.;
-			fprintf(flog,"Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f\n",r,c,F,Ustar,V,Z0,Zstb);
-			printf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f\n",r,c,F,Ustar,V,Z0,Zstb);
-		}*/
-		
 		if(fabs(F)>1.E-3 || Ustar<0 || Ustar>V){
-			U1=0.001;
-			U2=V/2.;
-			F1=(U1/ka) * log(zmeas/(C2 * 0.07519 * pow(U1, 2.) / (2.*g) + Zstb)) - V;
-			F2=(U2/ka) * log(zmeas/(C2 * 0.07519 * pow(U2, 2.) / (2.*g) + Zstb)) - V;
-			if(F1*F2>0){
-				fprintf(flog,"F1:%e F2:%e %ld %ld V:%e U1:%e U2:%e Zstb:%e zm:%e z0:%e\n",F1,F2,r,c,V,U1,U2,Zstb,zmeas,C2 * 0.07519 * pow(U2, 2.) / (2.*g) + Zstb);
-				printf("F1:%e F2:%e %ld %ld V:%e U1:%e U2:%e Zstb:%e zm:%e z0:%e\n",F1,F2,r,c,V,U1,U2,Zstb,zmeas,C2 * 0.07519 * pow(U2, 2.) / (2.*g) + Zstb);
-				fprintf(flog,"Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f\n",r,c,F,Ustar,V,Z0,Zstb);
-				printf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f\n",r,c,F,Ustar,V,Z0,Zstb);
-				Ustar = V/10.;
-			}else{
-				printf("Bisection %ld %ld " ,r,c);
-				do{
-					U3=(U1+U2)/2.;
-					F3=(U3/ka) * log(zmeas/(C2 * 0.07519 * pow(U3, 2.) / (2.*g) + Zstb)) - V;
-					if(F2*F3>0){
-						U2=U3;
-					}else{
-						U1=U3;
-					}
-					printf("U1:%e U2:%e F1:%e F2:%e U3:%e F3:%e\n",U1,U2,F1,F2,U3,F3);
-				}while(fabs(F3)>1.E-3);
-				printf("F:%e\n",F3);
-				Ustar=U3;
-			}
-		}		
+			Ustar = V/5.;
+			fprintf(flog,"Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",r,c,F,Ustar,V,Z0,Zstb, slope, Dsnow);
+			printf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",r,c,F,Ustar,V,Z0,Zstb,slope, Dsnow);
+		}
+		
 		// define saltation parameters and calculate saltation
 		//  rate using 10/1987 MODEL OF BLOWING SNOW EQUATIONS}
 		
@@ -161,17 +120,19 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 		}else{
 			Usthr = 0.005 * exp(0.013 * rho_sn);
 		}
-						
+				
+		//printf("%ld %ld Ustar:%f rho_sn:%f Uth:%f\n",r,c,Ustar,rho_sn,Usthr);
+		
 		if(Ustar > Usthr){
 			
-			Nsalt = 2.*rho/(C2*C3*Ustar)*(RauTerm - pow(Usthr,2.0)/pow(Ustar,2.0)); //{Eq. 4.14 updated}
+			Nsalt = 2.*rho/(CC2*CC3*Ustar)*(RauTerm - pow(Usthr,2.0)/pow(Ustar,2.0)); //{Eq. 4.14 updated}
 			
 			if(Nsalt > 0){
 				
 				// {saltation transport}
 				
-				Hsalt = C2/(2.*g)*pow(Ustar,2.0);    //{Eq. 4.13}
-				TQsalt = C1*Usthr * Nsalt * Hsalt;//{Eq. 4.20}
+				Hsalt = CC2/(2.*g)*pow(Ustar,2.0);    //{Eq. 4.13}
+				TQsalt = CC1*Usthr * Nsalt * Hsalt;//{Eq. 4.20}
 								
 				// {calculate sublimation rate in the saltation layer}
 				
@@ -206,12 +167,12 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 				Zr = 0.05628 * Ustar;  //{Eq. 5.27}
 				Z = Zr;
 				
-				//Nz(Z)=Nz(Zr)*exp(C4*Zr^C5-C4*Z^C5)
+				//Nz(Z)=Nz(Zr)*exp(CC4*Zr^CC5-CC4*Z^CC5)
 				
 				i=0;
 				do{
-					F = 0.8*exp(C4*pow(Zr, C5) - C4*pow(Z, C5)) - Nsalt;
-					F1 = 0.8*exp(C4*pow(Zr, C5) - C4*pow(Z, C5))*(-C4*C5)*pow(Z, C5-1.);
+					F = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5)) - Nsalt;
+					F1 = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5))*(-CC4*CC5)*pow(Z, CC5-1.);
 					Z -= F/F1;
 					i++;
 				}while (fabs(F)>1.E-4 && i<10);
@@ -256,7 +217,7 @@ double suspension(double Z){
 	
 	double Nz, Uz, UstarZ;
 	
-	Nz = 0.8*exp(C4*pow(Zr, C5) - C4*pow(Z, C5));
+	Nz = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5));
 	UstarZ = Ustar * pow(1.2/(1.2 + Nz), 0.5);         //{Eq. 5.17a}
 	Uz = (UstarZ/ka) *log(Z/Z0);//{Eq. 4.17r}
 	
@@ -273,7 +234,7 @@ double sublimation(double Z){
 	
 	double Nz, Uz, UstarZ, Mpr, Alpha, SigmaZ, Omega, Vsusp, Reyn, Nuss, A, C, DmDt, Mpm, Vs;
 	
-	Nz = 0.8*exp(C4*pow(Zr, C5) - C4*pow(Z, C5));
+	Nz = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5));
 	UstarZ = Ustar * pow(1.2/(1.2 + Nz), 0.5);         //{Eq. 5.17a}
 	Uz = (UstarZ/ka) *log(Z/Z0);//{Eq. 4.17r}
 	

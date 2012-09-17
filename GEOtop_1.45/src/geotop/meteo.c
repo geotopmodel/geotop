@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,28 +19,14 @@
  
  */
 
-#include "constants.h"
-#include "struct.geotop.h"
 #include "meteo.h"
-#include "meteodata.h"
-#include "meteodistr.h"
-#include "../libraries/ascii/tabs.h"
-#include "times.h"
-#include "snow.h"
-//#include "../MeteoIO_plug/meteoioplugin.h"
-extern long number_novalue, number_absent;
-extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
-extern char *logfile;
-extern long Nl, Nr, Nc;
-extern long i_sim;
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR *par, double JDbeg, double JDend){
+void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR *par, double JD0, double JDbeg, double JDend){
 
 	long i,r,c,year,j;
 	double JD;
@@ -48,94 +34,120 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 			
 	//INTERPOLATION OF METEO VARIABLES
 	for(i=1;i<=met->st->Z->nh;i++){
-		meteo_interp(1, update, &(line[i-1]), met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, JDbeg, JDend);
+		if(par->linear_interpolation_meteo->co[i] == 1){
+			time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
+		}else {
+			time_interp_constant(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
+		}
 	}
 
 	//LAPSE RATES
 	if(par->LRflag==1){
-		meteo_interp(0, update, &lineLR, met->LRv, met->LRs, met->LRsnr, nlstot, 0, JDbeg, JDend);
+		time_interp_linear(JD0, JDbeg, JDend, met->LRv, met->LRs, met->LRsnr, nlstot, 0, 0, &lineLR);
 	}else {
 		convert_JDfrom0_JDandYear ( (JDbeg+JDend)/2. , &JD , &year);
 		for (i=0; i<nlstot; i++) {
 			j = floor( JD * met->LRcnc[i] / (365. + is_leap(year)) );
 			met->LRv[i] = met->LRc[i][j];
 		}
-	}	
+	}
 	
 	for (i=0; i<nlstot; i++) {
 		if ( (long)met->LRv[i] == number_novalue) met->LRv[i] = met->LRd[i]; 
 	}
-	
-	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
-	flog = fopen(logfile, "a");
-	
-	if (k>1) {
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-				if((long)top->Z0->co[r][c]!=number_novalue){
-					met->Tgrid->co[k][r][c] = met->Tgrid->co[1][r][c];
-					met->RHgrid->co[k][r][c] = met->RHgrid->co[1][r][c];
-					met->Vgrid->co[k][r][c] = met->Vgrid->co[1][r][c];
-					met->Vdir->co[k][r][c] = met->Vdir->co[1][r][c];
-				}
+	FILE *f,*f1;
+	if (par->use_meteoio_meteodata==1){
+		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
+	   if(par->point_sim == 1)
+		   {
+		   printf("Calling pointwise MeteoIO ");
+		   meteoio_interpolate_pointwise( par, JDbeg, met, wat);
+		   f = fopen("mio_hnw_1d_log.txt", "a");
+		   f1 = fopen("mio_TA_1d_log.txt", "a");
+		   }
+	   else
+	   	   {
+		   printf("Calling 2D grid MeteoIO ");
+ 		   meteoio_interpolate(par, JDbeg, met, wat);
+ 		   f = fopen("mio_hnw_2d_log.txt", "a");
+ 		   f1 = fopen("mio_TA_2d_log.txt", "a");
+		   }
+
+	}else{
+		//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
+		flog = fopen(logfile, "a");
+		Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
+			 top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn, 
+			 par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co, met->RHgrid->co, met->Vgrid->co, 
+			 met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec], 
+			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
+		f = fopen("geo_hnw_1d_log.txt", "a");
+		f1 = fopen("geo_TA_1d_log.txt", "a");
+		}
+
+	int  ii, jj;
+
+
+	if(par->point_sim == 1){
+		fprintf(f,"%f,",JDbeg);
+		for(ii=wat->PrecTot->nrl;ii<=wat->PrecTot->nrh;ii++){
+			for(jj=wat->PrecTot->ncl;jj<wat->PrecTot->nch;jj++){
+				fprintf(f,"%f,",wat->PrecTot->co[ii][jj]);
+//				if(wat->PrecTot->co[ii][jj]>0){
+//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,wat->PrecTot->co[ii][jj]);
+//					stop_execution();
+//				}
 			}
 		}
+		fprintf(f,"%f\n",wat->PrecTot->co[wat->PrecTot->nrh][wat->PrecTot->nch]);
+
+		fprintf(f1,"%f,",JDbeg);
+				for(ii=met->Tgrid->nrl;ii<=met->Tgrid->nrh;ii++){
+					for(jj=met->Tgrid->ncl;jj<met->Tgrid->nch;jj++){
+						fprintf(f1,"%f,",met->Tgrid->co[ii][jj]);
+		//				if(met->Tgrid->co[ii][jj]>0){
+		//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,met->Tgrid->co[ii][jj]);
+		//					stop_execution();
+		//				}
+					}
+				}
+				fprintf(f1,"%f\n",met->Tgrid->co[met->Tgrid->nrh][met->Tgrid->nch]);
+    }
+
+	if(par->point_sim == 0){
+	 long r,c;int i;
+	 for (i = 1; i <= par->chkpt->nrh; i++) {
+		  r=par->rc->co[i][1];
+		  c=par->rc->co[i][2];
+          //printf("%f \t %f",value, top->Z0->co[r][c]);  to print elev
+          fprintf(f,"%f ",met->Tgrid->co[r][c]);
+   	   }
+		fprintf(f,"\n");
 	}
-	//par->usemeteoio=0;
-	if (par->usemeteoio==1){
-#ifdef USE_METEOIO
-		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
-		meteoio_interpolate(UV, par, JDbeg, met, wat,k);
-#endif
-	}else{
-		Micromet(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
-			 top->curvature4, top->slope, top->aspect, met, par->slopewt, par->curvewt, par->Vmin, par->RHmin, par->dn, 
-			 par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPt, met->Tgrid->co[k], met->RHgrid->co[k], met->Vgrid->co[k], 
-			 met->Vdir->co[k], met->Pgrid->co[k], wat->PrecTot->co[k], met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec], 
-			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-	}
-	fclose(flog);
-#ifdef USE_METEOIO
-	DOUBLEMATRIX *test_print;
-	test_print=new_doublematrix(met->Tgrid->nrh,met->Tgrid->nch);
-	doubletens_to_doublemat(met->Tgrid,test_print, k);
-	printf("\n TA \n");
-	print_doublematrix_elements(test_print,10);
-	doubletens_to_doublemat(met->RHgrid,test_print,k);
+	fclose(f);
+	fclose(f1);
+
+	/*printf("\n TA \n");
+	print_doublematrix_elements(met->Tgrid,10);
 	printf("\n RH \n");
-	print_doublematrix_elements(test_print,10);
-	doubletens_to_doublemat(met->Pgrid,test_print,k);
+	print_doublematrix_elements(met->RHgrid,10);
 	printf("\n P \n");
-	print_doublematrix_elements(test_print,10);
-	doubletens_to_doublemat(met->Vdir,test_print,k);
+	print_doublematrix_elements(met->Pgrid,10);
 	printf("\n Vdir \n");
-	print_doublematrix_elements(test_print,10);
-	doubletens_to_doublemat(met->Vgrid,test_print,k);
+	print_doublematrix_elements(met->Vdir,10);
 	printf("\n Vgrid \n");
-	print_doublematrix_elements(test_print,10);
-	doubletens_to_doublemat(wat->PrecTot,test_print,k);
+	print_doublematrix_elements(met->Vgrid,10);
 	printf("\n HNW \n");
-	print_doublematrix_elements(test_print,10);
-	free_doublematrix(test_print);
-	//stop_execution();
-//-----------------------Test print--------------------------//
-//	printf("\n Inside meteo_distr \n");
-//    long r1,c1;
-//for (r1 = met->Tgrid->nrl; r1 <= met->Tgrid->nrh; r1++) {
-//			for (c1 = met->Tgrid->ncl; c1 <= met->Tgrid->nch; c1++) {
-//				printf("\nk=%ld,r=%ld,c=%ld, met->Vgrid->co[k][r][c]=%f",k,r1,c1,met->Vgrid->co[k][r1][c1]);
-//				printf("\nk=%ld,r=%ld,c=%ld, wat->PrecTot->co[k][r][c]=%f",k,r1,c1,wat->PrecTot->co[k][r1][c1]);
-//		}
-//		}
-//
-//	stop_execution();
-//---------------------------------------------------//
-#endif
+	print_doublematrix_elements(wat->PrecTot,10);
+	//stop_execution();*/
+
+
 
 	if(par->en_balance==0){
 		for(r=1;r<=Nr;r++){
 			for(c=1;c<=Nc;c++){
-				wat->Pnet->co[r][c] = wat->PrecTot->co[k][r][c]*(par->Dt/3600.0);	//from [mm/h] to [mm]
+				wat->Pnet->co[r][c] = par->raincorrfact*wat->PrecTot->co[r][c]*((JDend-JDbeg)*24.)*cos(top->slope->co[r][c]*Pi/180.);	//from [mm/h] to [mm]
+				if (par->point_sim==1) wat->Pnet->co[r][c] *= cos(top->slope->co[r][c]*Pi/180.);
 			}
 		}
 	}	
@@ -147,8 +159,9 @@ void meteo_distr(short update, long k, long *line, long lineLR, METEO *met, WATE
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double pressure(double Z, double Z0, double P0){
-	return P0*exp(-(Z-Z0)*0.00013);
+double pressure(double Z){
+	double scale_ht = 8500.0;
+	return Pa0 * exp(-3305./scale_ht);
 }
 
 /******************************************************************************************************************************************/
@@ -248,14 +261,14 @@ double VapPressurefromSpecHumidity(double Q, double P){
 
 double Tdew(double T, double RH, double Z){
 	double e, P;
-	P = pressure(Z, 0.0, Pa0);
+	P = pressure(Z);
 	e = SatVapPressure(T, P);
 	return TfromSatVapPressure(e*Fmin(RH,1.0), P);	
 }
 
 double RHfromTdew(double T, double Tdew, double Z){
 	double e, es, P, RH;
-	P = pressure(Z, 0.0, Pa0);
+	P = pressure(Z);
 	e = SatVapPressure(Tdew, P);
 	es = SatVapPressure(T, P);
 	RH = e/es;
@@ -280,4 +293,3 @@ double air_cp(double T){	//air specific heat at constant pressure [J/(kg K)] (Ga
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-

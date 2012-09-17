@@ -1,4 +1,11 @@
+#ifndef T_DATAMANIPULATION_H
+#define T_DATAMANIPULATION_H
+
 #define RATIO 1000
+#include "turtle.h"
+#include "t_alloc.h"
+#include "write_dem.h"
+#include "t_list.h"
 
 /**
  
@@ -59,11 +66,8 @@ FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/data
 void sortreal(DOUBLEVECTOR *);
 
 /**
- 
 Name: sort2realvectors
- 
 Version: 1.0
-
 Synopsis: void sort2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *);
 
 Description: sort a vector of double and accorsingly a second
@@ -73,13 +77,8 @@ presented in Numerical Recipes to which one could refer for reference.
 Inputs:  the input vector
 
 Examples:  APPLICATIONS/DATA_MANIPULATION/coupledfield_moments.c
-
-
 Authors & Date: Riccardo Rigon, October 1997. 
-
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
- 
-
 */
 
 void sort2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *);
@@ -92,27 +91,15 @@ Name: realpair_intodoublematrix, xyz_into_doublematrix
 Synopsis: void realpair_into_doublematrix(REALPAIR * head,DOUBLEMATRIX *indx )
       void xyz_into_doublematrix(XYZ * head,DOUBLEMATRIX *indx )
 
-
 Description: takes a linked list (of two or three elements) and transform
 it into a matrix of double of the appropriate dimensions
-
 Inputs: 1)  the linked list head; 2) the doublematrix pointer
-
-
-
 Examples: hystogram.c 
 
 See Also: 
-
 Authors & Date: Riccardo Rigon, October 1997. 
-
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
- 
-
 */
-
-
-
 
 void realpair_into_doublematrix(REALPAIR *,DOUBLEMATRIX *);
 void xyz_into_doublematrix(XYZ *,DOUBLEMATRIX *);
@@ -122,11 +109,9 @@ void xyz_into_doublematrix(XYZ *,DOUBLEMATRIX *);
 Name:  simplehystogram, loghystogram
 
 Version: 1.0
-
 Synopsis:
 DOUBLEMATRIX *simplehystogram(DOUBLEVECTOR *U,long N,long mn), 
 DOUBLEMATRIX *loghystogram(DOUBLEVECTOR *U,long N,long mn, long base)
-
 
 Description: Doing the hystogram of a set of data is more art than science. 
 It requires to discretize the domain of the sample data in  intervals suitable 
@@ -158,7 +143,6 @@ the highest limit of each bin interval
 
 Examples: hystogram.c 
 
-
 Authors & Date: Riccardo Rigon, October 1997. 
 
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
@@ -167,8 +151,6 @@ Notes: In the case of an exponential binning, the mean abscissa
 of the data is calculated with the aritmetic mean (it could be calculated as
 the geometric mean instead. Because  novalues is not specified novalues are not dropped
 from the data vector.
-
-
 */
 
 
@@ -180,24 +162,18 @@ DOUBLEMATRIX *exponentialhystogram(DOUBLEVECTOR *,long ,long , long);
 Name: initialize_
 
 Version: 1.0
-
 Synopsis: 
 void initialize_doublevector(DOUBLEVECTOR *,double );
 void initialize_longmatrix(LONGMATRIX *, long);
-
 
 Description:  It initialize the matrix or vector with  the specified value
 
 Inputs:  1) The pointer to the structure to initalize; 2) the value used for initialization
 
 Examples:  Variogram.c
-
-
 Authors & Date: Riccardo Rigon, October 1997. 
 
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
-
-
 */
 
 
@@ -215,9 +191,6 @@ void initialize_doublematrix(DOUBLEMATRIX *,double );
 
 
 /**
-
-
-
 Name: copy__matrix
 
 Synopsis: 
@@ -240,13 +213,7 @@ Description: copy a matrix into a  new one
 Authors & date: Riccardo Rigon, January 1998
 
 Inputs: 1- the destination matrix; 2- the origin matrix
-
-
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
-
-
-
-
 */
 
 
@@ -262,11 +229,9 @@ void copy_intvector(INTVECTOR *,INTVECTOR *);
 void copy_longvector(LONGVECTOR *,LONGVECTOR *);
 void copy_floatvector(FLOATVECTOR *,FLOATVECTOR *);
 void copy_doublevector(DOUBLEVECTOR *,DOUBLEVECTOR *);
+void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big);
 
 /**
-
-
-
 Name:  _element_multiplication
 
 Synopsis: 
@@ -280,7 +245,6 @@ void floatmatrix_element_multiplication(FLOATMATRIX* ,FLOATMATRIX *);
 void doublematrix_element_multiplication(DOUBLEMATRIX* ,DOUBLEMATRIX *);
 void longmatrix_element_multiplication(LONGMATRIX* ,LONGMATRIX *);
 
-
 Version: 0.1
 
 Description: multiplies each element of the first matrix (vector) 
@@ -288,18 +252,13 @@ with the correspondent element of the second. The result overwrite the first mat
 
 Authors & History: Riccardo Rigon, February 1998
 
-
 Inputs: the two matrixes or vectors to multiply
-
-
-
 References: 
 
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
 Notes: No control is made on the maximum or minimum value
 and calculation can  go out of range
-
 */
 void shortvector_element_multiplication(SHORTVECTOR* ,SHORTVECTOR *);
 void floatvector_element_multiplication(FLOATVECTOR* ,FLOATVECTOR *);
@@ -312,10 +271,8 @@ void doublematrix_element_multiplication(DOUBLEMATRIX* ,DOUBLEMATRIX *);
 void longmatrix_element_multiplication(LONGMATRIX* ,LONGMATRIX *);
 
 /**
- 
 Name: split, exponentialsplit
- 
-Synopsis: 
+ Synopsis:
 
 DOUBLEBIN *split(DOUBLEVECTOR *tobesplitted,long N ,double novalue);
 DOUBLEBIN *esponentialsplit(DOUBLEVECTOR *tobesplitted,long N ,double base,double novalue);
@@ -347,7 +304,6 @@ FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/data
 
 Needs: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics.h
 
-
 References: Fractal River Basins, I. Rodriguez-Iturbe and A. Rinaldo, C.U.P., 1997
 
 Notes: Probably there is not a correct cleaning on memory ... when trasforming
@@ -369,9 +325,6 @@ Synopsis:
 
 void	split2realvectors(DOUBLEVECTOR *FIRST,DOUBLEVECTOR *SECOND,DOUBLEBIN *ONE,DOUBLEBIN *TWO,long N,double novalue);
 void	esponentialsplit2realvectors(DOUBLEVECTOR *FIRST,DOUBLEVECTOR *SECOND,DOUBLEBIN *ONE,DOUBLEBIN *TWO,long N,double base, double  novalue);
-
-
-
 Description: They works as split or exponentialsplit on the first of two real vectors. The second one is
 splitted in the same position the first one is splitted. 
 
@@ -397,7 +350,6 @@ NOTES: Probably there is not a correct cleaning of memory ... when trasforming
 the vector into the bin the novalue part of the vector remains hidden. Instead of using a longpair
 list, it can be used a simpler type of linked list with only one value stored.
 Low testing.
-
 */
 
 double	split2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *,DOUBLEBIN *,DOUBLEBIN *,long,long,FLOATVECTOR *);
@@ -406,12 +358,9 @@ double    esponentialsplit2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *, DOUBLEBIN*
 /**-----------------------------------------------------------------------*/
 
 /**
- 
 Name: clean_floatmatrix
  
 Synopsis: void clean_floatmatrix(FLOATMATRIX *iv,FLOATMATRIX *ov,FLOATVECTOR *U,FLOATVECTOR *V);
-
-
 Description: sets to novalue1 those points in the first matrix that are marked as novalue2 in
 the second. A reasonable novalue is either smaller or larger than any other value in the matrix.
 In the first case, the first element of a novalue vector is <0. In the secon case it is >0. It is 0 if
@@ -422,10 +371,7 @@ the novalue of the first matrix; 4) the novalue of the second matrix;
 
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
-
 Authors & Date: Riccardo Rigon, March 1, 1998
-
-
 */
 
 void clean_floatmatrix(FLOATMATRIX *iv,FLOATMATRIX *ov,FLOATVECTOR *U,FLOATVECTOR *V);
@@ -433,8 +379,7 @@ void clean_floatmatrix(FLOATMATRIX *iv,FLOATMATRIX *ov,FLOATVECTOR *U,FLOATVECTO
 /**
  
 Name: shrink_doublematrix
- 
-Synopsis: DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
+ Synopsis: DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
 
 
 Description: eliminates from the first matrix (data) those elements set to novalues
@@ -448,13 +393,10 @@ Returns: the new "shrinked" matrix
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
 Examples: simple_interpolation.c
-
 Authors & Date: Riccardo Rigon, March 1, 1998
 
 References:
-
 Notes: Has been thought for matrixes with 2 columns
-
 */
 
 DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
@@ -462,9 +404,7 @@ DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
 /**
  
 Name: interpolating_function
- 
 Synopsis: DOUBLEMATRIX *interpolating_function(DOUBLEMATRIX *cleandata);
-
 
 Description: takes a set of X Y odered pairs and  produces the coefficient of the
 line passing trought two  sdiacent pairs. These are stored in a matrix of double
@@ -476,22 +416,16 @@ Return: a pointer to the matrix of the angular coefficient and intercept
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
 Examples: simple_interpolation.c
-
 See Also: interpolate
-
 Authors & Date: Riccardo Rigon, February, 1999
-
 References:  S. Wolfram, Mathematica 3.0, Cambridge University Press
-
-
 */
 
 DOUBLEMATRIX *interpolating_function(DOUBLEMATRIX *cleandata);
 
 /**
 Name: interpolate
- 
-Synopsis: double interpolate(double x,DOUBLEMATRIX *cleandata,DOUBLEMATRIX* W);
+ Synopsis: double interpolate(double x,DOUBLEMATRIX *cleandata,DOUBLEMATRIX* W);
 
 Description: linearly interpolate the values of a function at x based onthe data
 in cleandata and the regression coefficient in w
@@ -504,24 +438,17 @@ Return: the interpolated value
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
 Examples: simple_interpolation.c
-
 See Also: interpolating_function
-
 Authors & Date: Riccardo Rigon, February, 1999
-
 References:  S. Wolfram, Mathematica 3.0, Cambridge University Press
-
 Bugs & Limitations: Has been thought for functions not having vertical lines
-
 */
 double interpolate(double x,DOUBLEMATRIX *cleandata,DOUBLEMATRIX* W);
 
 
 /**
 Name: interpolate_floatmatrix
- 
-Synopsis: interpolate_floatmatrix(FLOATMATRIX *matrice, float dt, float istante, FLOATVECTOR *vettore);
-
+ Synopsis: interpolate_floatmatrix(FLOATMATRIX *matrice, float dt, float istante, FLOATVECTOR *vettore);
 Description: linearly interpolate at the instant "istante" the values of a temporal series spaced by "dt".
 		It is assumed that each row of a matrix of float contain a set of variables measured at the same time.
 
@@ -537,20 +464,15 @@ FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/data
 Examples: APPLICATIONS/HYDROLOGY/geotop/geotop.c
 
 See Also: interpolating_function
-
 Authors & Date: Giacomo Bertoldi, September, 2000
-
 References: 
-
 Bugs & Limitations:
 */
 void interpolate_floatmatrix(FLOATMATRIX *matrice, float dt, float istante, FLOATVECTOR *vettore);
 
 /**
 Name: interpolate_doublematrix
- 
-Synopsis: interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante, DOUBLEVECTOR *vettore);
-
+ Synopsis: interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante, DOUBLEVECTOR *vettore);
 Description: linearly interpolate at the instant "istante" the values of a temporal series spaced by "dt".
 		It is assumed that each row of a matrix of double contain a set of variables measured at the same time.
 
@@ -564,46 +486,31 @@ Return:1) 	vettore: a vector with the interpolated values in the instant "istant
 FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
 
 Examples: APPLICATIONS/HYDROLOGY/geotop/geotop.c
-
 See Also: interpolating_function
-
 Authors & Date: Giacomo Bertoldi, September, 2000
-
 References: 
-
 Bugs & Limitations:
 */
 void interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante, DOUBLEVECTOR *vettore);
 
 /**
-
-
 Name:   variance_doublematrix_column
 
 Synopsis:  
 double variance_doublematrix_column(DOUBLEMATRIX* net,long column,double mean);
-
-
 Version: 0.96
 
 Description: evaluate the variance of the set of data contained in the specified column 
 of the specified doublematrix. If the field mean is set to 0, it returns the second moment
-
-
 Authors &  Date: Riccardo Rigon, June 2000
-
 
 Inputs: 1) the pointer to the matrix to be analyzed; 2) the number of the column 
 to be analyzed; 3) the mean value used to evaluate the variance
-
-
 Return: 
 
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
 
 See Also: mean_doublematrix_column
-
-
 */
 
 double variance_doublematrix_column(DOUBLEMATRIX* net,long column,double mean);
@@ -612,55 +519,37 @@ double variance_doublematrix_column(DOUBLEMATRIX* net,long column,double mean);
 /**
 
 Name:   mean_doublematrix_column
-
 Synopsis:  
 double mean_doublematrix_column(DOUBLEMATRIX* net,long column);
-
-
 Version: 0.96
 
 Description: evaluate the mean of the set of data contained in the specified column 
 of the specified doublematrix. 
-
-
 Authors &  Date: Riccardo Rigon, June 2000
-
 
 Inputs: 1) the pointer to the matrix to be analyzed; 2) the number of the column 
 to be analyzed; 
-
-
 Return: 
 
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 See Also: variance_doublematrix_column
-
 */
 
 double mean_doublematrix_column(DOUBLEMATRIX* net,long column);
 
 /**
-
 Name:   approximate_2_multiple
 
 Synopsis:  
 double approximate_2_multiple(double number,double div);
 
 Version: 0.96
-
 Description: approximate the 'number' to the closest smaller multiple of  'div'
-
 Authors &  Date: Riccardo Rigon, January 2001
-
-
 Inputs: 1) the number to be approximated; 2) the  smallest unit; 
-
-
 Return: desired approximation
 
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 double approximate_2_multiple(double number,double div);
@@ -671,21 +560,13 @@ Name:   ricampiona
 
 Synopsis:  
 DOUBLEMATRIX *ricampiona(DOUBLEMATRIX *cleandata, float ti2, float dt2, long n2);
-
 Version: 0.96
-
 Description: Ricampiona una serie di dati da dt inferiori a dt superiori
-
 Authors &  Date: Giacomo Bertoldi, April 2001
-
-
 Inputs: 1) the number to be approximated; 2) the  smallest unit; 
 
-
 Return: desired approximation
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 DOUBLEMATRIX *ricampiona(DOUBLEMATRIX *cleandata, float ti2, float dt2, long n2, float dt1);
@@ -699,51 +580,30 @@ Synopsis:
   
 DOUBLEMATRIX *quickinterpolate(DOUBLEMATRIX *cleandata, short intervals);
 Version: 0.96
-
 Description: Interpolate a matrix, giving a matrix with less rows
-
 Authors &  Date: Giacomo Bertoldi, April 2001
-
-
 Inputs: 1)	cleandata: matrix to interpolate 
 		2)	intervals: number of intervals to aggregate
-
-
 Return: interpolated matrix
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 DOUBLEMATRIX *quickinterpolate(DOUBLEMATRIX *cleandata, short intervals);
 
-
 /**
-
 Name:   mean_function
-
 Synopsis:  
 double mean_function(DOUBLEMATRIX *data, long n);
-
-
 Version: 0.96
-
 Description: evaluate the mean of the set of data contained in  the specified doublematrix:
 the first column contain x - data,
 the second column contain y - data.
 The integral is evaluated with the trapezoidal rule.
-
 Authors &  Date: Giacomo Bertoldi, April 2001
-
-
 Inputs: 1) the pointer to the matrix to be analyzed;
 		1) the number of rows of the matrix
-
-
 Return: 
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 See Also: variance_doublematrix_column
 
 */
@@ -756,43 +616,26 @@ Name:   cleandata_matrix
 
 Synopsis:  
 DOUBLEMATRIX *cleandata_matrix(DOUBLEMATRIX *cleandata, FLOATVECTOR *V, SHORTMATRIX *control);
-
 Version: 0.96
-
 Description: Elimina i novalues in una serie di dati interpolando linearmente tra i valori validi
-
 Authors &  Date: Giacomo Bertoldi, April 2001
-
-
 Inputs: 1) cleandata: the matrix to clean; 2) V: the vector of novalues; 
 Outputs: 1) control: a matrix of the same size of cleandata with 1 for modified data, 0 for original data
-
 Return: cleaned matrix
-
 Bugs: not are allowed novalues in the first and the last row
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 DOUBLEMATRIX *cleandata_matrix(DOUBLEMATRIX *cleandata, FLOATVECTOR *V, SHORTMATRIX *control);
 
 /*-------- fill_data ------------------------------------------------------------------*/
-
 /**
-
 Name:   fill_data
-
 Synopsis:  
 void fill_data(DOUBLEMATRIX *cleandata,long j,long n_i,long n_f,double x_i,double x_f);
-
 Version: 0.96
-
 Description: Elimina i novalues in una serie di dati interpolando linearmente tra i valori validi
-
 Authors &  Date: Giacomo Bertoldi, April 2001
-
-
 Inputs: 1) cleandata: the matrix to clean; 
 	1) j: the colunm to clean
 	2) n_i: the row before the first bad value
@@ -801,12 +644,8 @@ Inputs: 1) cleandata: the matrix to clean;
 	5) x_i: the true value down
 Outputs: 1) cleandata: the matrix to clean;
 		2) control: a matrix of the same size of cleandata with 1 for modified data, 0 for original data
-
-
 Bugs: not are allowed novalues in the first and the last row
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 void fill_data(DOUBLEMATRIX *cleandata,SHORTMATRIX *control,long j,long n_i,long n_f,double x_i,double x_f);
@@ -819,25 +658,17 @@ Name:   aggregate
 
 Synopsis:  
 DOUBLEMATRIX *aggregate(DOUBLEMATRIX *data, long col)
-
 Version: 0.96
-
 Description: calculates the mean aggregating all data wich have the same value in the column col
-
 Authors &  Date: Giacomo Bertoldi, October 2003
-
-
  input: data: double matrix with original data
 		  col: the column with 
  return: double matrix aggregated data as mean values; 
    		   in the last column you have the number of aggregated element
-
-
 Bugs: not are allowed novalues in the first and the last row
-
 FIle: LIBRARIES/BASICSMATHSTAT/datamanipulation.c
-
 */
 
 DOUBLEMATRIX *aggregate(DOUBLEMATRIX *data, long col, float nv);
 
+#endif

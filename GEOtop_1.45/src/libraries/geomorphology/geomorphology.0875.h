@@ -1,3 +1,12 @@
+#ifndef GEOMORPHOLOGY_0875_H
+#define GEOMORPHOLOGY_0875_H
+#include "../fluidturtle/turtle.h"
+#include "../fluidturtle/t_datamanipulation.h"
+#include "../fluidturtle/t_random.h"
+#include "networks.h"
+
+#define	Pi 3.14159265358979			/* P greco */
+
 /* Calculation of the sky view factor for each pixels:
    Input:  - N         number of part in which you want divide the horizon
            - UV        format file with the dimension of pixel and the novalue
@@ -101,3 +110,4 @@ void distance_from_channel2(DOUBLEMATRIX *dist, SHORTMATRIX *ST, LONGVECTOR *rch
 
 void set_boundary_condition(DOUBLEMATRIX *Z, DOUBLEMATRIX *LC, short code, SHORTMATRIX *pixel_type, double novalue);
 
+#endif

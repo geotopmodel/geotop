@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,10 +19,7 @@
  
  */
 
-#include "struct.geotop.h"
-
-extern long Nl, Nr, Nc;
-extern long number_novalue;
+#include "indices.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -95,7 +92,7 @@ void lch3_cont(long n, long **ch3, LONGMATRIX *lch){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, short point){
+void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n){
 	
 	long j, jj, l, r, c;
 	long cnt=0, m=0;
@@ -124,23 +121,23 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLE
 		if (l<Nl) cnt ++;
 		
 		if (j<=N) {
-			if(l>0 && point!=1 && (long)LC->co[r-1][c]!=number_novalue){
+			if(l>0 && (long)LC->co[r-1][c]!=number_novalue){
 				if(i[l][r-1][c]>j) cnt ++;
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r+1][c]!=number_novalue){
+			if(l>0 && (long)LC->co[r+1][c]!=number_novalue){
 				if(i[l][r+1][c]>j) cnt ++;
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r][c-1]!=number_novalue){
+			if(l>0 && (long)LC->co[r][c-1]!=number_novalue){
 				if(i[l][r][c-1]>j) cnt ++;
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r][c+1]!=number_novalue){
+			if(l>0 && (long)LC->co[r][c+1]!=number_novalue){
 				if(i[l][r][c+1]>j) cnt ++;
 			}
 			
-			if(l>0 && point!=1 && cnet->ch->co[r][c]>0) cnt++;
+			if(l>0 && cnet->ch->co[r][c]>0) cnt++;
 		}
 	}
 	
@@ -154,7 +151,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLE
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, short point){
+void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n){
 	
 	//Ai = line index
 	//Ap = number of values for each row
@@ -190,35 +187,35 @@ void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li, CHANNEL *cnet, 
 		}
 		
 		if (j<=N) {
-			if(l>0 && point!=1 && (long)LC->co[r-1][c]!=number_novalue){
+			if(l>0 && (long)LC->co[r-1][c]!=number_novalue){
 				if(i[l][r-1][c]>j){
 					cnt++;
 					Li->co[cnt] = i[l][r-1][c];
 				}
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r+1][c]!=number_novalue){
+			if(l>0 && (long)LC->co[r+1][c]!=number_novalue){
 				if(i[l][r+1][c]>j){
 					cnt++;
 					Li->co[cnt] = i[l][r+1][c];
 				}
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r][c-1]!=number_novalue){
+			if(l>0 && (long)LC->co[r][c-1]!=number_novalue){
 				if(i[l][r][c-1]>j){
 					cnt++;
 					Li->co[cnt] = i[l][r][c-1];
 				}
 			}
 			
-			if(l>0 && point!=1 && (long)LC->co[r][c+1]!=number_novalue){
+			if(l>0 && (long)LC->co[r][c+1]!=number_novalue){
 				if(i[l][r][c+1]>j){
 					cnt++;
 					Li->co[cnt] = i[l][r][c+1];
 				}
 			}	
 			
-			if(l>0 && point!=1 && cnet->ch->co[r][c]>0){
+			if(l>0 && cnet->ch->co[r][c]>0){
 				cnt++;
 				Li->co[cnt] = N + cnet->ch3[l][cnet->ch->co[r][c]];
 			}

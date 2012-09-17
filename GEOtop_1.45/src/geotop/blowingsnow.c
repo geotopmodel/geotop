@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,28 +19,7 @@
  
  */
 
-#include "constants.h"
-#include "struct.geotop.h"
-#include "snow.h"
-#include "PBSM.h"
 #include "blowingsnow.h"
-#include "meteo.h"
-#include "vegetation.h"
-#include "energy.balance.h"
-#include "meteodata.h"
-
-extern long number_novalue, number_absent;
-
-extern T_INIT *UV;
-extern char *logfile;
-extern long Nl, Nr, Nc;
-extern char *WORKING_DIRECTORY;
-extern double **outdata_point;
-
-extern long i_sim;
-
-#define Dmin_for_blowingsnow 10.0
-#define Dtmin_for_blowingsnow 150.0
 
 //*****************************************************************************************************
 //*****************************************************************************************************
@@ -48,7 +27,7 @@ extern long i_sim;
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *top, PAR *par, double t0){
+void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top, PAR *par, double t0){
 	
 	long r, c, j, l;
 	static long line_interp;
@@ -60,6 +39,8 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 	double dErdt;
 	long ns;
 	FILE *f;
+	
+	//double U=0;
 	
 	f=fopen(logfile,"a");	
 		
@@ -77,16 +58,16 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 		if( t+Dt > par->Dt ) Dt = par->Dt - t;
 		Dt0 = Dt;
 		
-
-
 		//meteo distribution
-		meteo_distr(1, 1, met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top, par, 
-					par->init_date->co[i_sim]+(t0+t)/86400., par->init_date->co[i_sim]+(t0+t+Dt)/86400.);
+		meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top, par, par->init_date->co[i_sim]+t0/secinday, 
+					par->init_date->co[i_sim]+(t0+t)/secinday, par->init_date->co[i_sim]+(t0+t+Dt)/secinday);
 		
 		//vegetation
 		for(lux=1; lux<=par->n_landuses; lux++) {
-			if(par->vegflag->co[lux]==1) meteo_interp(0, 1, &line_interp, land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], 
-					jdvegprop+1, 0, par->init_date->co[i_sim]+(t0+t)/86400., par->init_date->co[i_sim]+(t0+t+Dt)/86400.);
+			if(par->vegflag->co[lux]==1){
+				time_interp_linear(par->init_date->co[i_sim]+t0/secinday, par->init_date->co[i_sim]+(t0+t)/secinday, par->init_date->co[i_sim]+(t0+t+Dt)/secinday,
+								   land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
+			}
 		}
 		
 		//loop for every pixel
@@ -95,8 +76,11 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 				if ( (long)land->LC->co[r][c]!=number_novalue) {
 										
 					D = DEPTH(r, c, snow->S->lnum, snow->S->Dzl);
+					wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
 					
-					if(D > Dmin_for_blowingsnow){
+					//U += met->Vgrid->co[r][c]/par->total_pixel;
+
+					if(wice > par->Wmin_BS){
 																														
 						//find canopy_height_over_snow
 						lu = (short)land->LC->co[r][c];
@@ -104,7 +88,6 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 						//zmeas = Fmax(0.1, met->st->Vheight->co[1]-1.E-3*D);
 						zmeas = met->st->Vheight->co[1];	
 						
-		
 						for(j=1;j<=jdvegprop;j++){
 							if( (long)land->vegparv[lu-1][j-1+1] != number_novalue ){
 								land->vegpar->co[j] = land->vegparv[lu-1][j-1+1];
@@ -127,20 +110,23 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 						//rearrange snow layers						
 						ns = snow->S->lnum->co[r][c];
 						sux = copy_statevar_from3D_to1D(r, c, snow->S, snow->S_for_BS);
+												
 						if ( snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM ) {
 							l=ns;
 							do{
-								l--;		
+								l--;
 								sux = set_snowice_min(par->alpha_snow, r, c, snow->S_for_BS, ns, l, par->Wice_PBSM);
 							}while ( l > 1 && snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM );
 						}
 						
 						//find equilibrium snow trasport
 						rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] + snow->S_for_BS->w_liq->co[ns]) / (1.E-3*snow->S_for_BS->Dzl->co[ns]);
+												
 						Pbsm (r, c, PBSM_fetch, land->ty->co[lu][jN], 1.E-3*land->ty->co[lu][jdv], canopy_height_over_snow, rho_snow_surface, zmeas,
-							  met->Vgrid->co[1][r][c], met->Tgrid->co[1][r][c], met->RHgrid->co[1][r][c], &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]),
-							  &(snow->Qsalt->co[r][c]), f);
-																	
+							  met->Vgrid->co[r][c], met->Tgrid->co[r][c], met->RHgrid->co[r][c], &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]),
+							  &(snow->Qsalt->co[r][c]), D, top->slope->co[r][c], f);
+				
+	
 					}else{
 						
 						snow->Qtrans->co[r][c] = 0.0;
@@ -151,29 +137,27 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 				}
 			}
 		}
-								
+					
 		set_inhomogeneous_fetch(snow, met, land, par, top, &yes);
 		
 		if(yes==1){
 			for (r=1; r<=Nr; r++) {
 				for (c=1; c<=Nc; c++) {
 					if ( (long)land->LC->co[r][c]!=number_novalue) {
-						D = DEPTH(r, c, snow->S->lnum, snow->S->Dzl);
 						wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
-						if(D > Dmin_for_blowingsnow && wice > par->Wice_PBSM){
-							dErdt = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.)) - snow->Nabla2_Qtrans->co[r][c];
-							ns = snow->S->lnum->co[r][c];
-							if( ns > 0 ){
-								if(dErdt*Dt > 0.99*par->Wice_PBSM) Dt=Fmax(Dtmin_for_blowingsnow,0.99*par->Wice_PBSM/dErdt);
-							}
+						dErdt = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.)) - snow->Nabla2_Qtrans->co[r][c];
+
+						if( snow->S->lnum->co[r][c] > 0 ){
+							if(dErdt*Dt > 0.99*wice) Dt=0.99*wice/dErdt;
 						}
+						
 					}
 				}
 			}
 			
 			Dt=Fmin(Dt,Dt0);
 			set_windtrans_snow(Dt, t0+t, snow, met, land, par, f);
-			print_windtrans_snow(Dt, snow, par, met, land->LC);
+			print_windtrans_snow(Dt, snow, par, top, met, land->LC);
 		}
 		
 		t += Dt;
@@ -189,7 +173,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LANDCOVER *land, TOPO *t
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, TOPO *top, short *yes){
+void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par, TOPO *top, short *yes){
 
 	long i, r, c, num_change, r0, c0;
 	double dx, dy, F1, F2;
@@ -215,6 +199,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 			}
 		}
 	}
+	
 				
 	//if there is blowing snow 
 	if( Qtrans>0 ){
@@ -232,8 +217,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 			
 			//find west-east component
 			for(c=1;c<=Nc;c++){
-				snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[1][r][c]*Pi/180.)));
-				snow->Qsub_x->co[r][c]=fabs(snow->Qsub->co[r][c]*(-sin(met->Vdir->co[1][r][c]*Pi/180.)));
+				snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.)));
+				snow->Qsub_x->co[r][c]=fabs(snow->Qsub->co[r][c]*(-sin(met->Vdir->co[r][c]*Pi/180.)));
 			}
 			
 			//find when there is a wind direction inversion
@@ -249,7 +234,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 				c=c0;
 				do{
 					c++;
-				}while( (-sin(met->Vdir->co[1][r][c]*Pi/180.))*(-sin(met->Vdir->co[1][r][c0]*Pi/180.))>0 && c<Nc );
+				}while( (-sin(met->Vdir->co[r][c]*Pi/180.))*(-sin(met->Vdir->co[r][c0]*Pi/180.))>0 && c<Nc );
 				
 				num_change++;				
 				c0=c;				
@@ -259,8 +244,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 			
 			for(i=1;i<num_change;i++){
 				//east wind
-				if( (-sin(met->Vdir->co[1][r][snow->change_dir_wind->co[i]]*Pi/180.)) > 0 ){	
-					//if(snow->change_dir_wind->co[i]!=1) snow->Qtrans_x->co[r][snow->change_dir_wind->co[i]]=0.0;
+				if( (-sin(met->Vdir->co[r][snow->change_dir_wind->co[i]]*Pi/180.)) > 0 ){	
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i]!=1) snow->Qtrans_x->co[r][snow->change_dir_wind->co[i]]=0.0;
 					snow->Qtrans_x->co[r][snow->change_dir_wind->co[i]]=0.0;
 					for(c=snow->change_dir_wind->co[i]+1;c<=snow->change_dir_wind->co[i+1];c++){
 						if(snow->change_dir_wind->co[i+1]==Nc || (snow->change_dir_wind->co[i+1]!=Nc && c<snow->change_dir_wind->co[i+1])){						
@@ -282,7 +267,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 					
 				//west wind	
 				}else{	
-					//if(snow->change_dir_wind->co[i+1]!=Nc) snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;	
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i+1]!=Nc) snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;	
 					snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;	
 					for(c=snow->change_dir_wind->co[i+1]-1;c>=snow->change_dir_wind->co[i];c--){
 						if(snow->change_dir_wind->co[i+1]==Nc || (snow->change_dir_wind->co[i+1]!=Nc && c<snow->change_dir_wind->co[i+1]-1)){
@@ -317,8 +302,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 			
 			//find south-north component
 			for(r=1;r<=Nr;r++){
-				snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[1][r][c]*Pi/180.)));
-				snow->Qsub_y->co[r][c]=fabs(snow->Qsub->co[r][c]*(-cos(met->Vdir->co[1][r][c]*Pi/180.)));
+				snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)));
+				snow->Qsub_y->co[r][c]=fabs(snow->Qsub->co[r][c]*(-cos(met->Vdir->co[r][c]*Pi/180.)));
 			}
 			
 			//find when there is a wind direction inversion
@@ -334,7 +319,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 				r=r0;
 				do{
 					r++;
-				}while( (-cos(met->Vdir->co[1][r][c]*Pi/180.))*(-cos(met->Vdir->co[1][r0][c]*Pi/180.))>0 && r<Nr );
+				}while( (-cos(met->Vdir->co[r][c]*Pi/180.))*(-cos(met->Vdir->co[r0][c]*Pi/180.))>0 && r<Nr );
 				
 				num_change++;				
 				r0=r;				
@@ -344,8 +329,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 			
 			for(i=1;i<num_change;i++){
 				//south wind
-				if( (-cos(met->Vdir->co[1][snow->change_dir_wind->co[i]][c]*Pi/180.)) < 0 ){
-					//if(snow->change_dir_wind->co[i]!=1) snow->Qtrans_y->co[snow->change_dir_wind->co[i]][c]=0.0;					
+				if( (-cos(met->Vdir->co[snow->change_dir_wind->co[i]][c]*Pi/180.)) < 0 ){
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i]!=1) snow->Qtrans_y->co[snow->change_dir_wind->co[i]][c]=0.0;					
 					snow->Qtrans_y->co[snow->change_dir_wind->co[i]][c]=0.0;					
 					for(r=snow->change_dir_wind->co[i]+1;r<=snow->change_dir_wind->co[i+1];r++){
 						if(snow->change_dir_wind->co[i+1]==Nr || (snow->change_dir_wind->co[i+1]!=Nr && r<snow->change_dir_wind->co[i+1])){
@@ -367,7 +352,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 					
 				//north wind	
 				}else{
-					//if(snow->change_dir_wind->co[i+1]!=Nr) snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;		
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i+1]!=Nr) snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;		
 					snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;		
 					for(r=snow->change_dir_wind->co[i+1]-1;r>=snow->change_dir_wind->co[i];r--){
 						if(snow->change_dir_wind->co[i+1]==Nr || (snow->change_dir_wind->co[i+1]!=Nr && r<snow->change_dir_wind->co[i+1]-1)){
@@ -415,7 +400,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, 
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *land, PAR *par, FILE *f){
+void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LAND *land, PAR *par, FILE *f){
 	
 	long i, l, r, c, ns;
 	double Qsub, DW, DWl, Wtrans_tot=0.0, Wsubl_tot=0.0, Utot=0.0;
@@ -426,14 +411,6 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *
 
 	//snow compaction for effect of wind	
 	double CR;
-	/*double U;
-	float A1 = 0.0013;//m^-1
-	float A2 = 0.021;//m3 kg^-1
-	float B = 0.08;//K^-1
-	float C = 0.10;
-	float E1 = 5.0;//m s^1
-	float E2 = 15.0;//m s^1
-	float E3 = 0.2;//s m^1*/
 	double overburden;
 	float A4 = 7.81E-3;//m kg^-1
 	float D4 = 0.0884;//m2 N-1	
@@ -449,7 +426,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *
 				
 				Wsubl_tot += Dt*Qsub/(double)par->total_pixel;
 				Wtrans_tot += Dt*snow->Nabla2_Qtrans->co[r][c]/(double)par->total_pixel;
-				Utot += met->Vgrid->co[1][r][c]/(double)par->total_pixel;
+				Utot += met->Vgrid->co[r][c]/(double)par->total_pixel;
 					
 				DW = Dt*(snow->Nabla2_Qtrans->co[r][c] - Qsub);	
 
@@ -501,7 +478,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *
 							
 						snow->S->w_ice->co[1][r][c]+=DW;
 						snow->S->Dzl->co[1][r][c]+=1.0E+3*DW/rho_wind_transported_snow;
-						snow->S->T->co[1][r][c]=Fmin(-1.,met->Tgrid->co[1][r][c]);
+						snow->S->T->co[1][r][c]=Fmin(-1.,met->Tgrid->co[r][c]);
 						
 					}
 					
@@ -509,31 +486,29 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *
 
 				//from Liston(2007) - wind packing factor
 				if(snow->Qtrans->co[r][c]>1.E-10){
-					
-					/*if(met->Vgrid->co[r][c] >= 5){
-						U = E1 + E2 * (1. - exp(-E3*(met->Vgrid->co[r][c] - 5. )));
-					}else {
-						U = 1.;
-					}
-					ns = snow->lnum->co[r][c];
-					rho = snow->w_ice->co[ns][r][c] / (1.E-3*snow->Dzl->co[ns][r][c]);
-					CR = -C * A1 * U * exp(-B*(Tfreezing-snow->T->co[ns][r][c])) * exp(-A2*rho);					
-					snow->Dzl->co[ns][r][c] *= exp(CR*Dt);*/
-						
+											
 					overburden = 0.0;
 					for (l=snow->S->lnum->co[r][c]; l>=1; l--) {
+
 						overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
+
 						//compactation at the surface (10%/hour if U8=8m/s U8t=4m/s => Qsalt=3.555342e-03 kg/m/s)
 						CR = -A4 * snow->Qsalt->co[r][c];
 						//decrease due to oberburden
-						if(l < snow->S->lnum->co[r][c] || l == 1) CR *= exp( -D4*g*overburden );					
-						overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
+						CR *= exp( -D4*g*overburden );		
 						
+
 						snow->S->Dzl->co[l][r][c] *= exp(CR*Dt);
+						
+						if (snow->S->w_ice->co[l][r][c]/(rho_w*snow->S->Dzl->co[l][r][c]*1.E-3) > par->snow_maxpor) {
+							snow->S->Dzl->co[l][r][c] = 1.E3*snow->S->w_ice->co[l][r][c]/(rho_w*par->snow_maxpor);
+						}
+						
+						overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
 					}
 				}
 
-				snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[1][r][c], par->snowlayer_inf, par->Dmin, par->Dmax, 1.E10, t, f);
+				snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[r][c], par->inf_snow_layers, par->max_weq_snow, 1.E10, f);
 
 			}
 		}
@@ -549,40 +524,31 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LANDCOVER *
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, METEO *met, DOUBLEMATRIX *LC){
+void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top, METEO *met, DOUBLEMATRIX *LC){
 
 	long i, r, c;
 	double Qsub;
 	
-	for(r=1;r<=Nr;r++){
-		for (c=1; c<=Nc; c++) {
-			if (LC->co[r][c] != number_novalue) {
-				
-				Qsub = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));
+	for(i=1; i<=par->total_pixel; i++){
+		
+		r = top->rc_cont->co[i][1];
+		c = top->rc_cont->co[i][2];
+		
+		Qsub = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));
 								
-				if(par->output_snow>0){
-					snow->Wtrans_plot->co[r][c] += Dt*snow->Nabla2_Qtrans->co[r][c];			
-					snow->Wsubl_plot->co[r][c] += Dt*Qsub;
-					
-					/*snow->Qtrans_eq_plot->co[r][c] += snow->Qtrans->co[r][c];
-					snow->Qtrans_plot->co[r][c] += sqrt(pow(snow->Qtrans_x->co[r][c], 2.)+pow(snow->Qtrans_y->co[r][c], 2.));
-					snow->Qsub_eq_plot->co[r][c] += snow->Qsub->co[r][c];
-					snow->Qsub_plot->co[r][c] += sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));*/
-				}
-				
-				if(par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1){
-					for(i=1;i<=par->rc->nrh;i++){
-						if(r==par->rc->co[i][1] && c==par->rc->co[i][2]){
-							outdata_point[oblowingsnowtrans][i-1] -= Dt*snow->Nabla2_Qtrans->co[r][c];
-							outdata_point[oblowingsnowsubl][i-1] += Dt*Qsub;
-						}
-					}
-				}
-				
-			}
+		if(par->output_snow->co[i_sim]>0){
+			snow->Wtrans_plot->co[r][c] += Dt*snow->Nabla2_Qtrans->co[r][c];			
+			snow->Wsubl_plot->co[r][c] += Dt*Qsub;
 		}
+		
+		if(par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1 && par->jplot->co[i] > 0){
+			odp[oblowingsnowtrans][par->jplot->co[i]-1] -= Dt*snow->Nabla2_Qtrans->co[r][c];
+			odp[oblowingsnowsubl][par->jplot->co[i]-1] += Dt*Qsub;
+		}
+		
 	}
 }
+
 
 //*****************************************************************************************************
 //*****************************************************************************************************

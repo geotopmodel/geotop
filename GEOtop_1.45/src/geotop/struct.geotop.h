@@ -2,22 +2,24 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+#ifndef STRUCT_GEOTOP_H
+#define STRUCT_GEOTOP_H
  #include "../libraries/fluidturtle/turtle.h"
  #include "../libraries/fluidturtle/t_datamanipulation.h"
  #include "../libraries/fluidturtle/t_utilities.h"
@@ -28,60 +30,66 @@
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-    DOUBLEMATRIX *Rn_mean; 
-	DOUBLEMATRIX *Rn_max;
-	DOUBLEMATRIX *Rn_min;   
-	DOUBLEMATRIX *LWin_mean;
-	DOUBLEMATRIX *LW_mean;
-	DOUBLEMATRIX *LW_max;
-	DOUBLEMATRIX *LW_min;	
-	DOUBLEMATRIX *SW_mean;	
-	DOUBLEMATRIX *SW_max;			
-    DOUBLEMATRIX *ET_mean; 
-	DOUBLEMATRIX *ET_max;
-	DOUBLEMATRIX *ET_min;
-    DOUBLEMATRIX *H_mean; 
-	DOUBLEMATRIX *H_max;
-	DOUBLEMATRIX *H_min;    
-    DOUBLEMATRIX *SEB_mean; 
-	DOUBLEMATRIX *G_max;
-	DOUBLEMATRIX *G_min;
-	DOUBLEMATRIX *G_snowsoil;	
-    DOUBLEMATRIX *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
-	DOUBLEMATRIX *Ts_max;
-	DOUBLEMATRIX *Ts_min;
-	DOUBLEMATRIX *Rswdown_mean;
-	DOUBLEMATRIX *Rswdown_max;
+    DOUBLEVECTOR *Rn_mean; 
+	DOUBLEVECTOR *LWin_mean;
+	DOUBLEVECTOR *LW_mean;
+	DOUBLEVECTOR *SW_mean;	
+    DOUBLEVECTOR *ET_mean; 
+    DOUBLEVECTOR *H_mean; 
+    DOUBLEVECTOR *SEB_mean; 
+    DOUBLEVECTOR *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+	DOUBLEVECTOR *Rswdown_mean;
+	DOUBLEVECTOR *Rswbeam_mean;
+	LONGVECTOR *nDt_shadow;
+	LONGVECTOR *nDt_sun;
 	
-	DOUBLEMATRIX *Rswbeam_mean;
-	LONGMATRIX *nDt_shadow;
-	LONGMATRIX *nDt_sun;
+	DOUBLEVECTOR *Rn;
+	DOUBLEVECTOR *LWin;
+	DOUBLEVECTOR *LW;
+	DOUBLEVECTOR *SW;
+	DOUBLEVECTOR *LE;
+	DOUBLEVECTOR *H;
+	DOUBLEVECTOR *G;
+	DOUBLEVECTOR *Ts;
+	DOUBLEVECTOR *SWin;
+	DOUBLEVECTOR *SWinb;
+	SHORTVECTOR *shad;
 	
-	DOUBLEMATRIX *Hgplot;
-	DOUBLEMATRIX *LEgplot;
-	DOUBLEMATRIX *Hvplot;
-	DOUBLEMATRIX *LEvplot;	
-	
-	DOUBLEMATRIX *SWinplot;
-	DOUBLEMATRIX *SWgplot;
-	DOUBLEMATRIX *SWvplot;
-	
-	DOUBLEMATRIX *LWinplot;
-	DOUBLEMATRIX *LWgplot;
-	DOUBLEMATRIX *LWvplot;
-	
-	DOUBLEMATRIX *Tgplot;
-	DOUBLEMATRIX *Tvplot;
-	DOUBLEMATRIX *Tsplot;	
+	DOUBLEVECTOR *Hgplot;
+	DOUBLEVECTOR *LEgplot;
+	DOUBLEVECTOR *Hvplot;
+	DOUBLEVECTOR *LEvplot;	
+	DOUBLEVECTOR *SWinplot;
+	DOUBLEVECTOR *SWgplot;
+	DOUBLEVECTOR *SWvplot;	
+	DOUBLEVECTOR *LWinplot;
+	DOUBLEVECTOR *LWgplot;
+	DOUBLEVECTOR *LWvplot;
+	DOUBLEVECTOR *Tgplot;
+	DOUBLEVECTOR *Tsplot;	
+	DOUBLEVECTOR *Tvplot;
+
+	DOUBLEVECTOR *Hgp;
+	DOUBLEVECTOR *LEgp;
+	DOUBLEVECTOR *Hvp;
+	DOUBLEVECTOR *LEvp;	
+	DOUBLEVECTOR *SWinp;
+	DOUBLEVECTOR *SWgp;
+	DOUBLEVECTOR *SWvp;	
+	DOUBLEVECTOR *LWinp;
+	DOUBLEVECTOR *LWgp;
+	DOUBLEVECTOR *LWvp;
+	DOUBLEVECTOR *Tgp;
+	DOUBLEVECTOR *Tsp;	
 	
 	double *sun;
-	DOUBLEVECTOR *hsun;
-	DOUBLEVECTOR *sinhsun;
-	DOUBLEVECTOR *dsun;
+	double hsun;
+	double sinhsun;
+	double dsun;
 
-	DOUBLEVECTOR *Dlay;
-	DOUBLEVECTOR *wliq;
-	DOUBLEVECTOR *wice;
+	DOUBLEVECTOR *Dlayer;
+	DOUBLEVECTOR *liq;
+	DOUBLEVECTOR *ice;
 	DOUBLEVECTOR *Temp; 
 	DOUBLEVECTOR *deltaw;
 	DOUBLEVECTOR *SWlayer;
@@ -99,45 +107,62 @@ typedef struct {
 	DOUBLEVECTOR *soil_evap_layer_bare;
 	DOUBLEVECTOR *soil_evap_layer_veg;
 	
-	DOUBLEMATRIX *Tgskin;
-
-	DOUBLEMATRIX *Tgskinsurr;
-	DOUBLEMATRIX *Asurr;
+	DOUBLEMATRIX *Tgskin_surr;
+	DOUBLEMATRIX *SWrefl_surr;
+	
+	
 
 } ENERGY;
 
+/*---------------------------------------------------------------------------*/
+
+typedef struct {
+	DOUBLEMATRIX *P;
+	DOUBLEMATRIX *thi;
+	DOUBLEMATRIX *T;
+} SOIL_STATE;
 
 /*---------------------------------------------------------------------------*/
-typedef struct {
 
+typedef struct {
+	
+	DOUBLEVECTOR *Tv;
+	DOUBLEVECTOR *wrain;       /*intercepted precipitation in mm*/
+    DOUBLEVECTOR *wsnow;       /*intercepted precipitation in mm*/
+	
+} STATE_VEG;
+
+/*---------------------------------------------------------------------------*/
+
+typedef struct {
 	LONGMATRIX *type;
-	DOUBLEVECTOR *init_water_table_height;
+	DOUBLEVECTOR *init_water_table_depth;
 	DOUBLETENSOR *pa;
 	DOUBLETENSOR *pa_bed;
-	DOUBLETENSOR *P;
-	DOUBLETENSOR *Ptot;
-	DOUBLETENSOR *T;
-	DOUBLETENSOR *T_av_tensor;
-	DOUBLETENSOR *thice;
-	DOUBLETENSOR *th;
-	DOUBLEMATRIX *Jinf;
-	DOUBLEMATRIX *Tv;
-	SHORTMATRIX *bc;
+	DOUBLEMATRIX *T_av_tensor;
+	DOUBLEMATRIX *thw_av_tensor;
+	DOUBLEMATRIX *thi_av_tensor;
+	DOUBLEMATRIX *Ptot;
+	DOUBLEMATRIX *th;
 	DOUBLETENSOR *ET;
-	
 	DOUBLEMATRIX *Tzplot;
 	DOUBLEMATRIX *Tzavplot;
 	DOUBLEMATRIX *Ptotzplot;
 	DOUBLEMATRIX *Pzplot;
 	DOUBLEMATRIX *thzplot;
 	DOUBLEMATRIX *thzavplot;
-	DOUBLEMATRIX *thicezplot;
-	DOUBLEMATRIX *thicezavplot;
-	
-	
+	DOUBLEMATRIX *thizplot;
+	DOUBLEMATRIX *thizavplot;
+	SOIL_STATE *SS;
+	STATE_VEG *VS;
+//TODO: Hack
+	DOUBLEVECTOR *Pnetcum;
+	DOUBLEVECTOR *ETcum;
+	//TODO: end Hack
 } SOIL;
 
 
+	
 /*---------------------------------------------------------------------------*/
 typedef struct {
     DOUBLEMATRIX *Z0;         //elevetions of each pixel (DEM)
@@ -175,8 +200,8 @@ typedef struct {
 	//LONGVECTOR *Up;
 	//LONGVECTOR *Ui;
 	
-	LONGMATRIX *Rdown;
-	LONGMATRIX *Cdown;
+	LONGMATRIX *Jdown;
+	DOUBLEMATRIX *Qdown;
 	
 	SHORTMATRIX *is_on_border;
 	
@@ -184,9 +209,8 @@ typedef struct {
 	DOUBLEMATRIX *North;
 	
 	LONGMATRIX *BC_counter;
-	DOUBLEVECTOR *BC_LatDistance;
 	DOUBLEVECTOR *BC_DepthFreeSurface;
-	
+		
 	DOUBLEMATRIX *dzdE;
 	DOUBLEMATRIX *dzdN;
 	
@@ -199,6 +223,7 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 typedef struct {
     DOUBLEMATRIX *LC;            //land cover (wood,lake,town,...) for each pixel*/
+	DOUBLEMATRIX *delay;
 	SHORTMATRIX *shadow;		  //=1 if shadow, =0 if not*/
 	DOUBLEMATRIX *ty;
 	
@@ -209,69 +234,56 @@ typedef struct {
 	
 	DOUBLEMATRIX *root_fraction;
 	
-} LANDCOVER;/*all this data are calculated on the basis of land use data and some other par*/
+} LAND;/*all this data are calculated on the basis of land use data and some other par*/
 
 
 /*---------------------------------------------------------------------------*/
+
+
 typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                   R=number of rows of the basin,C=number of columns in the basin*/
     LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
     LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
 	LONGMATRIX *ch;
-	
 	LONGVECTOR *ch_down;
-	
 	DOUBLEVECTOR *Vsup;
 	DOUBLEVECTOR *Vsub;	
-	//DOUBLEVECTOR *Vsup_cum;
-	//DOUBLEVECTOR *Vsub_cum;	
-	
 	DOUBLEVECTOR *h_sup;
-	
 	DOUBLEVECTOR *length;
-	
 	double Vout;
-	
 	long **ch3;
 	LONGMATRIX *lch;
-	
 	LONGVECTOR *soil_type;
-	DOUBLEMATRIX *P;
 	DOUBLEMATRIX *th;
-	DOUBLEMATRIX *thice;
-	DOUBLEMATRIX *T;
 	DOUBLEMATRIX *ET;
-	DOUBLEVECTOR *Tgskin;
-			
+	DOUBLEVECTOR *Kbottom;
+	SOIL_STATE *SS;
 } CHANNEL;
 
 
 
 
 /*---------------------------------------------------------------------------*/
+
 typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
                    R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-    DOUBLETENSOR *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
+    DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
     DOUBLEMATRIX *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
-    DOUBLEMATRIX *wcan_rain;       /*intercepted precipitation in mm*/
-    DOUBLEMATRIX *wcan_snow;       /*intercepted precipitation in mm*/
 
-    DOUBLEMATRIX *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-    DOUBLEMATRIX *PrSNW_mean;
+    DOUBLEVECTOR *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    DOUBLEVECTOR *PrSNW_mean;
+	DOUBLEVECTOR *Pt;
+	DOUBLEVECTOR *Ps;
 
-	DOUBLEMATRIX *h_sup;
+	DOUBLEVECTOR *h_sup;
 		
 	DOUBLEMATRIX *error;
-		
-	//UMFPACK_REAL_TRIPLET *Jtriplet;
-	//UMFPACK_REAL_MATRIX *Jmatrix;	
 	
 	DOUBLEVECTOR *Lx;
 	DOUBLEVECTOR *Ux;
 
-	DOUBLEVECTOR *P0;
 	DOUBLEVECTOR *H0;
 	DOUBLEVECTOR *H1;
 	DOUBLEVECTOR *dH;
@@ -279,10 +291,12 @@ typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=nu
 	DOUBLEVECTOR *f;
 	DOUBLEVECTOR *df;
 	DOUBLEMATRIX *Klat;
+	DOUBLEMATRIX *Kbottom;
 	
-	double Voutland;
+	double Voutlandsub;
+	double Voutlandsup;
+	double Voutbottom;
 	
-		
 } WATER;
 
 
@@ -295,6 +309,7 @@ typedef struct {
 	double **Dt_matrix;
 	long numlinesDt_matrix;
 	double *Dt_vector;
+
 } TIMES;
 
 
@@ -315,15 +330,16 @@ typedef struct {
     long total_pixel;    /*The number of the valid pixel of the whole basin*/
 	long total_channel;
 	double total_area;
- 	long snowlayer_max;
-	long snowlayer_inf;
-	DOUBLEVECTOR *Dmin;
-	DOUBLEVECTOR *Dmax;
+	
+	double max_weq_snow;
+	long max_snow_layers;
+	LONGVECTOR *inf_snow_layers;
+
+	double max_weq_glac;
+	long max_glac_layers;
+	LONGVECTOR *inf_glac_layers;
+	
 	double Sr_glac;
-	long glaclayer_max;
-	long glaclayer_inf;
-	DOUBLEVECTOR *Dmin_glac;
-	DOUBLEVECTOR *Dmax_glac;
 
 	short state_turb;
 	short state_lwrad;	
@@ -333,16 +349,22 @@ typedef struct {
 
 	double epsilon_snow;
 	
-	double output_soil;
-	double output_snow;
-	double output_glac;
-	double output_surfenergy;
-	double output_vegetation;
-	double output_meteo;
+	DOUBLEVECTOR *output_soil;
+	DOUBLEVECTOR *output_snow;
+	DOUBLEVECTOR *output_glac;
+	DOUBLEVECTOR *output_surfenergy;
+	DOUBLEVECTOR *output_vegetation;
+	DOUBLEVECTOR *output_meteo;
+	
+	short output_soil_bin;
+	short output_snow_bin;
+	short output_glac_bin;
+	short output_surfenergy_bin;
+	short output_meteo_bin;
 	
 	DOUBLEMATRIX *chkpt;
 	LONGMATRIX *rc;
-	short state_px_coord;
+	LONGVECTOR *jplot;
 		
 	short recover;
 
@@ -357,11 +379,10 @@ typedef struct {
 	short sky;
 	
 	DOUBLEVECTOR *saving_points;
-	
-	//double Vis; //visibility in km (>5 km)
-	//double Lozone; //thickness of the stratospheric ozone layer (in cm normal conditions)
-	
-	short point_sim;/* =0 distributed simulation, =1 point simulation (the parameter files are different in the two cases) */
+	double ContRecovery;
+	long n_ContRecovery;
+		
+	short point_sim;
 			
 	double snow_maxpor;
 	double snow_density_cutoff;
@@ -375,7 +396,6 @@ typedef struct {
 	double z0_snow;
 	long n_landuses;
 		
-	short meteodistr;
 	short blowing_snow;
 	
 	LONGVECTOR *r_points;
@@ -386,24 +406,7 @@ typedef struct {
 		    	
 	short wat_balance;
 	short en_balance;
-	
-	short distr_stat;
-	
-	double Dpsi;
-	double dtmin;
-	
-	double PsiInf;
-	double TolPsiInf;
-	
-	double q1;
-	double q2;
-
-	double ***transect;
-	double **vtrans;
-	
-	LONGVECTOR *cont_trans;
-	LONGVECTOR *ibeg;
-	
+				
 	long nLC;	
 	
 	double fetch_up;
@@ -413,13 +416,17 @@ typedef struct {
 	double dn;
 	double slopewt;
 	double curvewt;	
+	double slopewtI;
+	double curvewtI;	
+	double slopewtD;
+	double curvewtD;	
 	
 	short LRflag;
 	
 	SHORTVECTOR *vegflag;
 	
-	short harm_or_arit_mean_normal;
-	short harm_or_arit_mean_parallel;
+	//short harm_or_arit_mean_normal;
+	//short harm_or_arit_mean_parallel;
 	
 	long MaxiterTol;
 	double MaxErrWb;
@@ -444,6 +451,7 @@ typedef struct {
 	
 	double thres_hsup_1;
 	double thres_hsup_2;
+
 	double thres_hchannel;
 	
 	double w_dx;
@@ -488,11 +496,11 @@ typedef struct {
 	
 	double delay_day_recover;
 	
-	short default_point;
-	short default_basin;
-	short default_snow;
-	short default_glac;
-	short default_soil;
+	short all_point;
+	short all_basin;
+	short all_snow;
+	short all_glac;
+	short all_soil;
 	
 	double Wice_PBSM;
 	
@@ -510,6 +518,7 @@ typedef struct {
 	double max_courant_channel;
 	double min_hsup_land;
 	double min_hsup_channel;
+	double min_dhsup_land_channel;
 	double dtmin_sup;
 	
 	long nsoiltypes;
@@ -519,13 +528,58 @@ typedef struct {
 	double min_lambda_en;
 	long max_times_min_lambda_en;
 	short exit_lambda_min_en;
-	long max_times_halving_time_step_en;
 	
 	double min_lambda_wat;
 	long max_times_min_lambda_wat;
 	short exit_lambda_min_wat;	
-	long max_times_halving_time_step_wat;
+	
+	double free_drainage_bottom;
+	double free_drainage_lateral;
+	
+	short surroundings;
+	
+	DOUBLEVECTOR *soil_plot_depths;
+	DOUBLEVECTOR *snow_plot_depths;
+	DOUBLEVECTOR *glac_plot_depths;
+	
+	short ric_cloud;
+	short vap_as_RH;
+	short vap_as_Td;
+	long ndivdaycloud;
+	short cast_shadow;
+	short wind_as_dir;
+	short wind_as_xy;
+	
+	double snow_aging_vis;
+	double snow_aging_nir;
+	
+	double DepthFreeSurface;
+		
+	short prec_as_intensity;
+	
+	SHORTVECTOR *linear_interpolation_meteo;
+	
+	short output_vertical_distances;
+	
+	short upwindblowingsnow;
+	
+	double Wmin_BS;
+	double SWE_top;
+	double SWE_bottom;
+	double GWE_top;
+	double GWE_bottom;
+	
+	double min_Dt;
+	double dem_rotation;
 	short usemeteoio;// flag indicating whether MeteoIO library is used
+	short use_meteoio_cloud;
+	short use_meteoio_meteodata;
+	
+	short qin;
+	short flag1D;
+	
+	double k_to_ksat;
+	short RunIfAnOldRunIsPresent;
 		
 } PAR;
 
@@ -552,19 +606,15 @@ typedef struct {
 } STATEVAR_1D;
 
 typedef struct {
-	
 	STATEVAR_3D *S;
 	STATEVAR_1D *S_for_BS;
-	
-	DOUBLEMATRIX *nondimens_age;
-	DOUBLEMATRIX *dimens_age;	
-	DOUBLEMATRIX *max;
-	DOUBLEMATRIX *average;	
-	DOUBLEMATRIX *MELTED;
-	DOUBLEMATRIX *SUBL;
-	DOUBLEMATRIX *t_snow;
-		
-	DOUBLEMATRIX *rho_newsnow;
+	DOUBLEVECTOR *age;	
+	DOUBLEVECTOR *MELTED;
+	DOUBLEVECTOR *melted;
+	DOUBLEVECTOR *SUBL;
+	DOUBLEVECTOR *subl;
+	DOUBLEVECTOR *t_snow;
+	SHORTVECTOR *yes;
 	DOUBLEMATRIX *Qsub;
 	DOUBLEMATRIX *Qsub_x;
 	DOUBLEMATRIX *Qsub_y;
@@ -575,24 +625,16 @@ typedef struct {
 	DOUBLEMATRIX *Qtrans_y;	
 	DOUBLEMATRIX *Wsubl_plot;
 	DOUBLEMATRIX *Wtrans_plot;
-	/*DOUBLEMATRIX *Qtrans_plot;
-	DOUBLEMATRIX *Qtrans_eq_plot;
-	DOUBLEMATRIX *Qsub_plot;
-	DOUBLEMATRIX *Qsub_eq_plot;*/
-	DOUBLEMATRIX *ListonSWE;
-	DOUBLEMATRIX *softSWE;
-	DOUBLEMATRIX *softSWE1;	
-	DOUBLEMATRIX *Dplot;	
+	DOUBLEVECTOR *Dplot;	
 	LONGVECTOR *change_dir_wind;
-	
 } SNOW;
 
 typedef struct { 
-	
 	STATEVAR_3D *G;
-	
-	DOUBLEMATRIX *MELTED;
-	DOUBLEMATRIX *SUBL;	
+	DOUBLEVECTOR *MELTED;
+	DOUBLEVECTOR *melted;
+	DOUBLEVECTOR *SUBL;
+	DOUBLEVECTOR *subl;
 } GLACIER;
 
 typedef struct{
@@ -605,6 +647,11 @@ typedef struct{
 	DOUBLEVECTOR *ST;
 	DOUBLEVECTOR *Vheight;
 	DOUBLEVECTOR *Theight;
+	DOUBLEVECTOR *tau_cloud_av_meteoST;// vector containing the tau_cloud_av at each meteo stations measuring SW radiation
+	DOUBLEVECTOR *tau_cloud_meteoST;// vector containing the tau_cloud at each meteo stations measuring SW radiation
+	SHORTVECTOR *tau_cloud_av_yes_meteoST;// flag indicating whether the tau_cloud_av at each meteo stations is available
+	SHORTVECTOR *tau_cloud_yes_meteoST;// flag indicating whether the tau_cloud at each meteo stations is available
+	SHORTVECTOR *flag_SW_meteoST;// flag vector saying whether a meteo station accounts for SW radiation (0: no SW, 1: SW available)
 } METEO_STATIONS;
 
 
@@ -623,102 +670,64 @@ typedef struct {
 	
 	double **LRs;	//matrix read from the external value
 	long LRsnr;		//number of lines of the matrix
-	double *LRv;	//vector of interpolatedvalues (used by meteodistr)
+	double *LRv;	//vector of interpolated values
 	double **LRc;	//cyclic values from the parameter file (one vector for each LR variable)
 	long *LRcnc;	//number of components of the vector (for each component)
 	double *LRd;	//vector of default values
 	
-	DOUBLEVECTOR *tau_cloud;
-	DOUBLEVECTOR *tau_cloud_av;
-	SHORTVECTOR *tau_cloud_yes;
-	SHORTVECTOR *tau_cloud_av_yes;
+	double **qins;
+	double *qinv;
+	long qinsnr;
+	long qinline;
 	
-	DOUBLETENSOR *Tgrid;
-	DOUBLETENSOR *Pgrid;
-	DOUBLETENSOR *Vgrid;
-	DOUBLETENSOR *Vdir;
-	DOUBLETENSOR *RHgrid;
+	double tau_cloud;// tau_cloud for the chosen meteo station used to derive cloud
+	double tau_cloud_av;// tau_cloud for the chosen meteo station used to derive cloud
+	short tau_cloud_yes;
+	short tau_cloud_av_yes;
+	DOUBLEMATRIX* tau_cl_map;// matrix containing the tau_cloud for each grid point
+	DOUBLEMATRIX* tau_cl_av_map;// matrix containing the tau_cloud_av for each grid point
+	SHORTMATRIX* tau_cl_map_yes;// boolean matrix saying whether the grid point has tau_cl value
+	SHORTMATRIX* tau_cl_av_map_yes;// boolean matrix saying whether the grid point has tau_cl_av value
+
+	DOUBLEMATRIX *Tgrid;
+	DOUBLEMATRIX *Pgrid;
+	DOUBLEMATRIX *Vgrid;
+	DOUBLEMATRIX *Vdir;
+	DOUBLEMATRIX *RHgrid;
 	
-	DOUBLEMATRIX *Vspdmean;
-	DOUBLEMATRIX *Vdirmean;
-	DOUBLEMATRIX *RHmean;
+	DOUBLEVECTOR *Tamean;
+	DOUBLEVECTOR *Vspdmean;
+	DOUBLEVECTOR *Vdirmean;
+	DOUBLEVECTOR *RHmean;
 	
-	DOUBLEMATRIX *Ta_mean;
-	DOUBLEMATRIX *Ta_max;
-	DOUBLEMATRIX *Ta_min;	
+	DOUBLEVECTOR *Taplot;
+	DOUBLEVECTOR *Vxplot;
+	DOUBLEVECTOR *Vyplot;
+	DOUBLEVECTOR *RHplot;
 	
-	DOUBLEMATRIX *Taplot;
-	DOUBLEMATRIX *Vspdplot;
-	DOUBLEMATRIX *Vdirplot;
-	DOUBLEMATRIX *RHplot;
+	
 	
 	double V;
 		
 	DOUBLEMATRIX *Tday;	
 	DOUBLEMATRIX *Tvar;
 		
-	long nstsrad;
-	long nstlrad;
-	long nstcloud;
+	long nstsrad;// meteo station ID (1...n) to use for the SW radiation
+	long nstlrad;// meteo station ID (1...n) to use for the LW radiation
+	long nstcloud;// meteo station ID (1...n) to use for the cloudiness
+
+	long numstsrad;// number of meteo stations measuring SW radiation
+	long numstcloud;// number of meteo stations measuring cloudiness
 	
 	LONGVECTOR *imeteo_stations;
 	
 } METEO;
 
-#ifdef USE_NETCDF
-
-typedef struct {
-	DOUBLETENSOR * soil_thw_cum; // cumulated version of S->th
-	DOUBLETENSOR * soil_thi_cum;// cumulated version of S->thice
-	DOUBLETENSOR * soil_T_cum;// cumulated version of S->T
-	DOUBLETENSOR * soil_P_cum;// cumulated version of S->P
-	DOUBLETENSOR * soil_Ptot_cum;// cumulated version of S->Ptot
-	// snow
-	DOUBLETENSOR* snowD_cum; // cumulated version of snow->S->Dzl
-	DOUBLETENSOR* snowT_cum; // cumulated version of snow->S->T
-	DOUBLETENSOR* snowI_cum; // cumulated version of snow->S->w_ice
-	DOUBLETENSOR* snowW_cum; // cumulated version of snow->S->w_liq
-	// glacier
-	DOUBLETENSOR* glacD_cum; // cumulated version of glac->G->Dzl
-	DOUBLETENSOR* glacT_cum; // cumulated version of glac->G->T
-	DOUBLETENSOR* glacI_cum; // cumulated version of glac->G->w_ice
-	DOUBLETENSOR* glacW_cum; // cumulated version of glac->G->w_liq
-	// surface variables
-//	DOUBLEMATRIX* egy_Rn_mean_cum;
-//	DOUBLEMATRIX* egy_LWin_mean_cum;
-//	DOUBLEMATRIX* egy_LW_mean_cum;
-//	DOUBLEMATRIX* egy_SW_mean_cum;
-//	DOUBLEMATRIX* egy_Rswdown_mean_cum;
-//	DOUBLEMATRIX* egy_Rswbeam_mean_cum;
-//	DOUBLEMATRIX* egy_nDt_shadow_cum;
-//	DOUBLEMATRIX* egy_nDt_sun_cum;
-//	DOUBLEMATRIX* egy_Rn_max_cum;
-//	DOUBLEMATRIX* egy_Rn_min_cum;
-//	DOUBLEMATRIX* egy_LW_max_cum;
-//	DOUBLEMATRIX* egy_LW_min_cum;
-//	DOUBLEMATRIX* egy_SW_max_cum;
-//	DOUBLEMATRIX* egy_Rswdown_max_cum;
-//	DOUBLEMATRIX* egy_SEB_mean_cum;
-//	DOUBLEMATRIX* egy_G_max_cum;
-//	DOUBLEMATRIX* egy_G_min_cum;
-//	DOUBLEMATRIX* egy_H_mean_cum;
-//	DOUBLEMATRIX* egy_H_max_cum;
-//	DOUBLEMATRIX* egy_H_min_cum;
-//	DOUBLEMATRIX* egy_ET_mean_cum;
-//	DOUBLEMATRIX* egy_ET_max_cum;
-//	DOUBLEMATRIX* egy_ET_min_cum;
-//	DOUBLEMATRIX* egy_Ts_mean_cum;
-//	DOUBLEMATRIX* egy_Ts_max_cum;
-//	DOUBLEMATRIX* egy_Ts_min_cum;
-
-} OUTPUT_NCDATA;
-
-#endif
 
 typedef struct {
 	SOIL *S;
 	WATER *W;
-	LANDCOVER *L;
+	LAND *L;
 	PAR *P;
 	TOPO *T;
 	CHANNEL *C;
@@ -726,44 +735,6 @@ typedef struct {
 	SNOW *N;
 	GLACIER *G;
 	METEO *M;
-	TIMES *I;
-#ifdef USE_NETCDF
-	int ncid; // pointer to netCDF archive file
-	long counter_snow; // counter for time print of snow
-	long counter_surface_energy; //counter for surface energy maps
-	long counter_soil;//counter for printing soil properties
-	long counter_glac;//counter for printing glacier properties
-	long counter_point; // counter for printing point data
-	int z_point_var_type;// variable type for z_point (e.g. temperature in depth in a point)
-	int point_var_type;// variable type (e.g. radiation in a point)
-	OUTPUT_NCDATA *outnc;
-#endif
+	TIMES *I;	
 }ALLDATA;
-
-/*
-#ifdef USE_HPC
-struct GCSTRUCT	//Struct containing subdomain ghost-cells adjacency data for MPI SEND/RECV commands
-{
-	int rank;
-	char calltype[4];
-	int top;
-	int left;	
-	int bottom;	
-	int right;	
-	struct GCSTRUCT *next;
-};
-typedef struct GCSTRUCT;
-
-struct WORKAREA	//Struct containing local subdomain coords
-{
-	int rank;
-	int top;
-	int left;	
-	int bottom;	
-	int right;
-};
-typedef struct WORKAREA;
-MPI_comm comm;
-MPI_info info;
 #endif
-*/

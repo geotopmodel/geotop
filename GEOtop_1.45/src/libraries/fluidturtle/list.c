@@ -1,7 +1,7 @@
-#include "turtle.h"
-#include "t_datamanipulation.h"
-#include "t_random.h"
-
+//#include "turtle.h"
+//#include "t_datamanipulation.h"
+//#include "t_random.h"
+#include "t_list.h"
 #define MAX_NAME 256
 
 /*--------------------------------------------------------------------------*/ 
@@ -755,7 +755,7 @@ if(utmp>=length) t_error("wrong random number");
 linktmp=point2longpair(pointer,utmp);
 return linktmp;
 }
-/*--------------------------------------------------------------------------*/ 
+*/
 /* commentata per  warning: integer overflow in expression
 REALPAIR * select_realpair_randomly(REALPAIR * pointer)
  
@@ -772,9 +772,9 @@ linktmp=point2realpair(pointer,utmp);
 return linktmp;
 }
 
-/*--------------------------------------------------------------------------*/ 
+//
 
-/* commentata per  warning: integer overflow in expression
+// commentata per  warning: integer overflow in expression
 IX * select_ix_randomly(IX * pointer)
  
 {
@@ -791,7 +791,7 @@ return linktmp;
 }
 
 
-/*--------------------------------------------------------------------------*/ 
+*/
 
 /* commentata per  warning: integer overflow in expression
 IJX * select_ijx_randomly(IJX * pointer)
@@ -809,7 +809,7 @@ linktmp=point2ijx(pointer,utmp);
 return linktmp;
 }
 
-/*--------------------------------------------------------------------------*/ 
+*/
 /* commentata per  warning: integer overflow in expression
 XYZ * select_xyz_randomly(XYZ * pointer)
  
@@ -828,8 +828,8 @@ return linktmp;
 }
 
 
-/* Recursive deletion of a list */
-/*--------------------------------------------------------------------------*/ 
+
+*/
 
 void delete_longpair_list(LONGPAIR * head)
 {

@@ -1,17 +1,16 @@
-
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -32,9 +31,22 @@
  
  */
 
-void Micromet(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
+#ifndef METEODISTR_H
+#define METEODISTR_H
+#include "constants.h"
+#include "struct.geotop.h"
+#include "../libraries/fluidturtle/t_utilities.h"
+#include "../libraries/ascii/rw_maps.h"
+#include "meteo.h"
+
+extern long number_novalue, number_absent;
+extern T_INIT *UV;
+extern char *WORKING_DIRECTORY;
+
+
+void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
 			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
-			double slopewt, double curvewt, double windspd_min, double RH_min, double dn, short iobsint, 
+			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
 			long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
 			double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
 			double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP, 
@@ -46,14 +58,15 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, ME
 short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid, 
 			double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
 	
-void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt, double curvewt, DOUBLEMATRIX *curvature1,
-			DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
-			DOUBLEMATRIX *topo, double undef);
+void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
+			DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, 
+			DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef);
 	
 short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
 			double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
 			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, 
-			double slopewt, double curvewt, double windspd_min, double dn, DOUBLEMATRIX *topo, short iobsint, FILE *f);
+			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn, 
+			DOUBLEMATRIX *topo, short iobsint, FILE *f);
 	
 short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
 			long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, 
@@ -71,3 +84,4 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *
 void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall, DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, 
 			   DOUBLEVECTOR *var, double dn, double undef, double **grid, double **value_station, long metcode);
 	
+#endif

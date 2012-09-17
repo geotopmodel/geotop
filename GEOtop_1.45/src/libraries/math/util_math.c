@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 - Version 'Montebello' - 8 Nov 2010
+ GEOtop 1.223 'Wallis' - 26 Jul 2011
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2011 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145
+ This file is part of GEOtop 1.223 'Wallis'
  
- GEOtop 1.145 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -19,11 +19,8 @@
  
  */
 
-#include "../fluidturtle/turtle.h"
-#include "util_math.h"
-#include "../fluidturtle/t_utilities.h"
-#include "../../geotop/constants.h"
 
+#include "util_math.h"
 /*----------------------------------------------------------------------------------------------------------*/
 
 short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf, DOUBLEVECTOR *diag, DOUBLEVECTOR *diag_sup, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
@@ -49,9 +46,9 @@ for(j=2;j<=nx;j++){
 	gam->co[j]=diag_sup->co[j-1]/bet;
 	bet=diag->co[j]-diag_inf->co[j-1]*gam->co[j];
 	if(bet==0.0){
-		printf("type=%d r=%ld c=%ld\n",a,r,c);
-		printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
-		printf("Error 2 in tridiag");
+		//printf("type=%d r=%ld c=%ld\n",a,r,c);
+		//printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
+		//printf("Error 2 in tridiag\n");
 		return 0;
 	}
 	e->co[j]=(b->co[j]-diag_inf->co[j-1]*e->co[j-1])/bet;
@@ -71,12 +68,11 @@ return 1;
 /*----------------------------------------------------------------------------------------------------------*/
 
 
-void tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, DOUBLEVECTOR *d, DOUBLEVECTOR *ud, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
+short tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, DOUBLEVECTOR *d, DOUBLEVECTOR *ud, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
 
 //solve A(ld,d,ud) * e + b = 0
 
 {
-	
 	long j;
 	double bet;
 	DOUBLEVECTOR *gam;
@@ -85,8 +81,9 @@ void tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, D
 		
 	bet = d->co[nbeg];
 	if(bet == 0.0){
-		printf("type=%d r=%ld c=%ld\n",a,r,c);
-		t_error("Error 1 in tridiag");
+		return 1;
+		//printf("type=%d r=%ld c=%ld\n",a,r,c);
+		//t_error("Error 1 in tridiag");
 	}	
 	e->co[nbeg] = -b->co[nbeg]/bet;
 	
@@ -95,9 +92,10 @@ void tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, D
 		gam->co[j] = ud->co[j-1]/bet;
 		bet = d->co[j]-ld->co[j-1]*gam->co[j];
 		if(bet == 0.0){
-			printf("type=%d r=%ld c=%ld\n",a,r,c);
-			printf("l=%ld d(l)=%f ld(l-1)=%f ud(l-1)=%f\n",j,d->co[j],ld->co[j-1],ud->co[j-1]);
-			t_error("Error 2 in tridiag");
+			return 1;
+			//printf("type=%d r=%ld c=%ld\n",a,r,c);
+			//printf("l=%ld d(l)=%f ld(l-1)=%f ud(l-1)=%f\n",j,d->co[j],ld->co[j-1],ud->co[j-1]);
+			//t_error("Error 2 in tridiag");
 		}
 		e->co[j] = (-b->co[j]-ld->co[j-1]*e->co[j-1])/bet;
 	}
@@ -108,6 +106,8 @@ void tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, D
 	}
 	
 	free_doublevector(gam);
+	
+	return 0;
 	
 }
 

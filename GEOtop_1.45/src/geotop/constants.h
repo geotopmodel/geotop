@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -31,11 +31,12 @@
 // Keywords related
 //****************************************************
 
-#define max_charstring 1000
-#define max_numvect 200
-#define num_par_number 343
-#define num_par_char 323
-
+#define max_charstring 200000
+#define max_numvect 200000
+#define num_par_number 378
+//#define num_par_char 338
+//TODO: Hack
+#define num_par_char 340
 //****************************************************
 // Fixed Parameters
 //****************************************************
@@ -52,6 +53,7 @@
 #define thmax 0.5					//Newton method parameter 
 #define Tol_h_mount 2.0 
 #define Tol_h_flat 12.0
+#define max_slope 89.999
 
 //STANDARD LAPSE RATES: For the sign, remember that the Lapse Rate gives how a variable decrease with height 
 #define LapseRateTair 6.5			//Lapse rate for Tair [C/m]
@@ -98,16 +100,16 @@
 
 #define iDate12	0					//Date12 : DDMMYYYYhhmm
 #define iJDfrom0 iDate12+1			//Julian Day from year 0
-#define iPt iJDfrom0+1				/*Precipitation*/
-#define iWs iPt+1					//Total wind speed
+#define iPrecInt iJDfrom0+1				/*Precipitation*/
+#define iPrec iPrecInt+1
+#define iWs iPrec+1					//Total wind speed
 #define iWdir iWs+1					//Wind direction
 #define iWsx iWdir+1				/*Wind speed from west, to east*/
 #define iWsy iWsx+1					/*Wind speed from south, to north*/
 #define iRh iWsy+1					/*Relative humidity*/
 #define iT iRh+1					/*Air temperature*/
 #define iTdew iT+1					/*Air dew temperature*/
-#define iPs iTdew+1					/*Air Pressure*/
-#define iSW iPs+1					/*global shortwave radiation*/
+#define iSW iTdew+1					/*global shortwave radiation*/
 #define iSWb iSW+1					/*direct SW*/
 #define iSWd iSWb+1					/*diffuse SW*/
 #define itauC iSWd+1				//Cloud transmissivity in SWin
@@ -254,7 +256,7 @@
 #define oLobukcan  oLobuk+1 //        (Locc)/(double)n;			
 #define outop     oLobukcan+1 //     (u_top)/(double)n;
 #define odecay     outop+1 //     (decay)/(double)n;
-#define oSWup   odecay+1 //       SWup_above_v/(double)n;
+#define oSWup   odecay+1 //       SWupabove_v/(double)n;
 #define oLWup     oSWup+1 //     LWup_above_v/(double)n;
 #define oHup    oLWup+1 //      (H+fc*Hv)/(double)n;
 #define oLEup   oHup+1 //       (LE+fc*LEv)/(double)n;
@@ -272,9 +274,11 @@
 #define oglacT oglacdens+1
 #define omrglac   oglacT+1 //       Mr_glac*par->Dt;	//[mm]
 #define osrglac   omrglac+1 //       Sr_glac*par->Dt;	//[mm]
-#define othawed  osrglac+1 // thawed soil depth [mm]
-#define owtable  othawed+1 // water table depth [mm]
-#define otot owtable+1 // TOTAL NUMBER
+#define othawedup  osrglac+1 // thawed soil depth [mm]
+#define othaweddw  othawedup+1 // thawed soil depth [mm]
+#define owtableup  othaweddw+1 // water table depth [mm]
+#define owtabledw  owtableup+1 // water table depth [mm]
+#define otot owtabledw+1 // TOTAL NUMBER
 
 //****************************************************
 //BASIN OUTPUT
@@ -289,7 +293,8 @@
 #define ooprecsnow ooprecrain+1
 #define oorainover ooprecsnow+1										
 #define oosnowover oorainover+1
-#define ooTa oosnowover+1															
+#define oopnet oosnowover+1
+#define ooTa oopnet+1															
 #define ooTg ooTa+1
 #define ooTv ooTg+1			
 #define ooevapsur ooTv+1															
@@ -305,7 +310,8 @@
 #define ooSWin ooLWv+1
 #define ooLWin ooSWin+1
 #define oomasserror ooLWin+1
-#define ootot oomasserror+1 // TOTAL NUMBER
+#define ootimestep oomasserror+1
+#define ootot ootimestep+1 // TOTAL NUMBER
 
 //****************************************************
 //Files
@@ -320,17 +326,21 @@
 #define fpointlist fhormet+1
 #define fhorpoint fpointlist+1				//horizon of points for which the simulation is run 1D (point_sim==1)
 #define fvegpar fhorpoint+1				//vegetation parameter
-#define fdem fvegpar+1				//digital elevation model (m)
+#define fqin fvegpar+1
+#define fdem fqin+1					//digital elevation model (m)
 #define flu fdem+1					//land use
 #define fsoil flu+1					//soil type map
-#define fsky fsoil+1				//sky view factor
+#define fdelay fsoil+1
+#define fsky fdelay+1				//sky view factor
 #define fslp fsky+1					//slope
 #define fnet fslp+1				//channel network
 #define fasp fnet+1					//aspect (0 north, then clockwise)
 #define fcurv fasp+1				//curvature
 #define fbed fcurv+1					//bedrock topography (m)
-#define fsn0 fbed+1					//initial snow depth (mm)
-#define fsnag0 fsn0+1				//initial snow age (days)
+#define fwt0 fbed+1
+#define fsn0 fwt0+1					//initial snow depth (mm)
+#define fswe0 fsn0+1
+#define fsnag0 fswe0+1				//initial snow age (days)
 #define fgl0 fsnag0+1				//initial glacier depth (mm)
 #define fQ fgl0+1					//(o.) output discharge file
 
@@ -377,18 +387,30 @@
 #define fTavsup fTav+1
 #define fliq fTavsup+1				//o. water content maps
 #define fliqsup fliq+1				//o. water content in the soil at the surface
-#define fice fliqsup+1				//o. ice content maps
+#define fliqav fliqsup+1
+#define fice fliqav+1				//o. ice content maps
 #define ficesup fice+1				//o. ice content maps
-#define fhsup ficesup+1				//o. water over the surface (mm) maps
-#define frad fhsup+1				//o. radiation maps
-#define fG frad+1					//o. surface heat flux maps
+#define ficeav ficesup+1
+#define fhsupland ficeav+1				//o. water over the surface (mm) maps
+#define fhsupch fhsupland+1				//o. water over the surface (mm) maps
+
+#define fradnet fhsupch+1				//o. radiation maps
+#define fradLWin fradnet+1
+#define fradLW fradLWin+1
+#define fradSW fradLW+1
+#define fradSWin fradSW+1
+#define fradSWinbeam fradSWin+1
+#define fshadow fradSWinbeam+1
+
+#define fG fshadow+1				//o. surface heat flux maps
 #define fH fG+1						//o. sensible heat flux maps
 #define fLE fH+1					//o. latent heat flux maps
 #define fTs fLE+1					//o. surface temperature maps
 #define fprec fTs+1					//o. precipitation maps
 #define fcint fprec+1				//o. precipitation intercepted by canopy maps
-#define fpsi fcint+1				//o. psi maps
-#define fsnowdepth fpsi+1			//o. snow maps
+#define fpsiliq fcint+1				//o. psi maps
+#define fpsitot fpsiliq+1
+#define fsnowdepth fpsitot+1			//o. snow maps
 #define fglacdepth fsnowdepth+1		//o. glacier maps
 #define fsnowmelt fglacdepth+1		//o. snow melted maps
 #define fsnowsubl fsnowmelt+1		//o. snow sublimated maps
@@ -401,11 +423,16 @@
 #define fswe frh+1					//o. snow density maps
 #define fgwe fswe+1					//o. glacier ice density maps
 #define fsndur fgwe+1				//o. snow duration maps (hrs)
-#define fsnav fsndur+1				//o. averaged snow depth 
-#define fthawed fsnav+1				//thawed soil depth
-#define fwtable fthawed+1			//water table depth
-#define fftable fwtable+1			//frost table depth
-#define pG fftable+1
+#define fthawed_up fsndur+1				//thawed soil depth
+#define fthawed_dw fthawed_up+1
+#define fwtable_up fthawed_dw+1
+#define fwtable_dw fwtable_up+1			//water table depth
+//TODO Hack
+#define fpnet fwtable_dw+1
+#define fevap fpnet+1
+//#define pG fwtable_dw+1
+// end
+#define pG fevap+1
 #define pH pG+1
 #define pLE pH+1
 #define pHg pLE+1					//specific day map plots(p.) sensible heat flux
@@ -440,16 +467,15 @@
 #define rTi rwii+1					//r. glacier temperatures
 #define rns rTi+1					//r. number of snow layers
 #define rni rns+1					//r. number of glacier layers
-#define rsnag_nondim rni+1			//r. snow age
-#define rsnag_dim rsnag_nondim+1
-#define rhsup rsnag_dim+1			//r. water over the surface 
-#define rwcrn rhsup+1				//r. water stored on canopy
+#define rsnag rni+1			//r. snow age
+#define rwcrn rsnag+1				//r. water stored on canopy
 #define rwcsn rwcrn+1
 #define rTv rwcsn+1
 #define rpsich rTv+1			
 #define ricegch rpsich+1			
-#define rTgch ricegch+1			
-#define nfiles rTgch+1					//number of files
+#define rTgch ricegch+1		
+#define rtime rTgch+1
+#define nfiles rtime+1					//number of files
 
 //****************************************************
 //Points
@@ -467,8 +493,7 @@
 #define ptCWE ptCNS+1
 #define ptCNwSe ptCWE+1
 #define ptCNeSw ptCNwSe+1
-#define ptDrDIST ptCNeSw+1
-#define ptDrDEPTH ptDrDIST+1
+#define ptDrDEPTH ptCNeSw+1
 #define ptHOR ptDrDEPTH+1
 #define ptMAXSWE ptHOR+1
 #define ptLAT ptMAXSWE+1

@@ -1,3 +1,8 @@
+#ifndef T_ALLOC_H
+#define T_ALLOC_H
+
+#include "turtle.h"
+
 float *vector(long nl,long nh);
 int *ivector(long nl, long nh);
 long  *lvector(long nl, long nh) ;
@@ -110,7 +115,9 @@ LONGMATRIX *new_longmatrix( long,long);
 
 DOUBLEMATRIX *new_doublematrix( long,long);
 
-DOUBLEMATRIX *new_doublematrix0(long ,long );
+DOUBLEMATRIX *new_doublematrix0_(long ,long );
+
+DOUBLEMATRIX *new_doublematrix_0(long ,long );
 
 INTBIN *new_intbin(LONGVECTOR *);
 
@@ -150,25 +157,17 @@ void free_intmatrix( INTMATRIX *);
 void free_longmatrix( LONGMATRIX *);
 void free_floatmatrix( FLOATMATRIX *);
 void free_doublematrix( DOUBLEMATRIX *);
-
 void free_intbin( INTBIN *);
 void free_stringbin( STRINGBIN *);
 void free_shortbin( SHORTBIN *);
 void free_longbin(  LONGBIN *);
 void free_doublebin( DOUBLEBIN *);
-
 Authors  & date: Paolo D'Odorico, Riccardo Rigon 1996-1997
-
 FILE: LIBRARIES/BASICS/t_alloc.h, LIBRARIES/BASICS/alloc.c
-
 Inputs: the name of the structure to be deallocated
-
 Return: void
-
 Related Routines: free, malloc
-
 Keywords: Dynamic memory allocation, Pointers.
-
 Examples: 1.example.c, 2.example.c
 
 
@@ -211,25 +210,16 @@ void free_charmatrix(char **m,long nrl,long ncl);
 /**
 
 Name:  free_header
-
 Version: 1.0
-
 Synopsis:  void free_header(HEADER )
-
 General information:
 This section includes the deallocation routines
 for blocks and header. Types HEADER are allocated by read_header.
-
 Authors & Date: Riccardo Rigon 1996-1997
-
 FILE: LIBRARIES/BASICS/t_alloc.h, LIBRARIES/BASICS/alloc.c
-
 Inputs: the name of the structure to be deallocated
-
 Return: void
-
 Examples: 1.example.c, 2.example.c
-
 Keywords: Dynamic memory allocation, Pointers.
 
 */
@@ -250,3 +240,4 @@ void free_doubletensor( DOUBLETENSOR *m);
 
 double **dmatrix(long nrl, long nrh, long ncl,long nch);
 double *dvector(long nl, long nh);
+#endif

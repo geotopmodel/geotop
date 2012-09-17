@@ -2,23 +2,31 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.223 'Wallis' - 26 Jul 2011
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2011 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.223 'Wallis'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
-
+#ifndef RW_MAPS_H
+#define RW_MAPS_H
+#include "../fluidturtle/turtle.h"
+#include "import_ascii.h"
+#include "write_ascii.h"
+#include "extensions.h"
+#include "../fluidturtle/t_datamanipulation.h"
+#include "../fluidturtle/t_utilities.h"
+#include "../fluidturtle/tensor3D.h"
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 //BASE subroutines
@@ -60,7 +68,7 @@ void assignnovalue(DOUBLEMATRIX *destination, DOUBLEMATRIX *origin, double noval
 void write_suffix(char *suffix, long i, short start);
 
 short existing_file(char *name);
-short existing_file_text(char *name);
+short existing_file_wext(char *name, char *extension);
 
 char *namefile_i(char *name, long i);
 char *namefile_i_we(char *name, long i);
@@ -73,6 +81,8 @@ char *namefile_i_we2(char *name, long i);
 //------------------------------------------------------------------------------------------------------
 
 DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value);
+
+DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask, T_INIT *grid, double no_value, LONGMATRIX *rc);
 
 DOUBLEMATRIX *read_mapseries(long i, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value);
 
@@ -88,11 +98,19 @@ DOUBLETENSOR *read_maptensor(long i, long lmax, char *filename, DOUBLEMATRIX *Mr
 
 void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV, long novalue);
 
+void write_map_vector(char *filename, short type, short format, DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
+
 void write_mapseries(long i, char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV, long novalue);
 
 void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
 
-void write_tensorseries_bis(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
+void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
 
-void write_tensorseries2(long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
+void write_tensorseries2(char *suf, long l, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
 
+void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
+
+void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
+
+void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
+#endif

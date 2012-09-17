@@ -2,34 +2,23 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.145 'Montebello' - 8 Nov 2010
+ GEOtop 1.225 'Moab' - 9 Mar 2012
  
- Copyright (c), 2010 - Stefano Endrizzi - Geographical Institute, University of Zurich, Switzerland - stefano.endrizzi@geo.uzh.ch 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.145 'Montebello'
+ This file is part of GEOtop 1.225 'Moab'
  
- GEOtop 1.145 'Montebello' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.145 'Montebello' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
-
-#include "constants.h"
-#include "struct.geotop.h"
 #include "turbulence.h"
-#include "meteo.h"
-
-extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
-extern char *logfile;
-extern long Nl, Nr, Nc;
-
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -39,6 +28,8 @@ void aero_resistance(double zmu, double zmt, double z0, double d0, double z0_z0t
 					 double Q, double P, double gmT, double *Lobukhov, double *rm, double *rh, double *rv, short state_turb, 
 					 short MO, long maxiter){
 
+	FILE *f;
+	
 	//calculates resistences
 	
 	//double p=pow((1000.0/P),(0.286*(1-0.23*Qa)));
@@ -47,7 +38,10 @@ void aero_resistance(double zmu, double zmt, double z0, double d0, double z0_z0t
 
 	if(state_turb==0){
 		//Lewis(zmu, zmt, d0, z0, z0_z0t, Tpa, Tp, v, rm, rh, rv, rep);
-		t_error("state_turb == 0 not possible, check option file");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: state_turb == 0 not possible, check option file\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 		
 	}else if(state_turb==1){
 		Businger(MO, zmu, zmt, d0, z0, v, 0.5*T+0.5*Ta, T-Ta, Q-Qa, z0_z0t, rm, rh, rv, Lobukhov, maxiter);	
@@ -149,11 +143,6 @@ void Lewis(double zmu, double zmt, double d0, double z0, double z0_z0t, double T
 	double z0t, f, Rib;
 	double Chn, bh, c1h, c2h, c3h, c4h, Chx, ch, Fh;
 	double Cmn, bm, c1m, c2m, c3m, c4m, Cmx, cm, Fm;
-
-	//check
-	/*if(zmt-zmu>0.5 || zmt-zmu<-0.5){
-		t_error("If you use Louis' scheme, wind and temperature should be measured approximately at the same elevation on the ground");
-	}*/
 
 	//roughness
 	if(z0_z0t==0.0){	//rigid surface
@@ -265,6 +254,7 @@ double cz(double zmeas, double z0, double d0, double L, double (* unstab)(double
 double CZ(short state, double zmeas, double z0, double d0, double L, double (*Psi)(double z)){
 
 	double c;
+	FILE *f;
 
 	if(state==1){			//both instability and stability considered
 		c=cz(zmeas,z0,d0,L,(Psi),(*PsiStab));
@@ -275,7 +265,10 @@ double CZ(short state, double zmeas, double z0, double d0, double L, double (*Ps
 	}else if(state==4){		//both instability and stability not considered
 		c=cz(zmeas,z0,d0,L,(*Zero),(*Zero));
 	}else{
-		t_error("Value not admitted in CV");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Value of state turbulence not admitted\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 		c = 0.0;
 	}
 
@@ -399,19 +392,16 @@ void Businger(short a, double zmu, double zmt, double d0, double z0, double v, d
 	}while(fabs(100*T_star+100*u_star+1000*Q_star-tol)>0.01 && cont<=maxiter);
 	
 	if(d0>zmu || d0>zmt){
-		f=fopen(logfile,"a");
-		fprintf(f,"ERROR: Displacement height greater than measurement elevations");
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Displacement height greater than measurement elevations\n");
 		fclose(f);
-		printf("ERROR: Displacement height greater than measurement elevations");
-		stop_execution();
-		t_error("Not Possible To Continue");
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 	if(zmu<=z0 || zmt<=z0t || zmt<=z0q){
-		f=fopen(logfile,"a");
-		fprintf(f,"ERROR: Elevation of sensors lower than roughness length: zmu=%f zmt=%f z0=%f z0t=%f\n",zmu,zmt,z0,z0t);
+		f = fopen(FailedRunFile, "w");
+		fprintf(f,"Error:: Elevation of sensors lower than roughness length: zmu=%f zmt=%f z0=%f z0t=%f\n",zmu,zmt,z0,z0t);
 		fclose(f);
-		stop_execution();
-		t_error("Not Possible To Continue");
+		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 
 	*rm=cm*cm/(ka*ka*v);
@@ -534,7 +524,6 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha, double *b
 															
 			*beta = ( soil[jsat][1] - theta[1] ) + ( theta[1] - soil[jres][1] ) * F  - ( soil[jsat][1] - theta[1] ) / ( 1. + B );
 			*alpha = ( ( theta[1] - soil[jres][1] ) * F + ( soil[jsat][1] - theta[1] ) * A / ( Qgsat * (1. + B ) ) ) / (*beta);
-			
 			
 		}
 

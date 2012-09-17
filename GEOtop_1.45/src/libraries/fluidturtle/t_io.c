@@ -1,7 +1,7 @@
-#include "turtle.h"
-#include "t_utilities.h"
-#include "tensor3D.h"
-
+//#include "turtle.h"
+//#include "t_utilities.h"
+//#include "tensor3D.h"
+#include "t_io.h"
 char *WORKING_DIRECTORY='\0';
 
 /*WORKING_POSITION=SEEK_SET;*/
@@ -3020,8 +3020,6 @@ char *get_workingdirectory(void )
     istream=fopen(pathfile,"r");    
     if(istream){
 		
-		stop_execution();
-
 		i=0;
 		a=0;
 		do{
@@ -10247,21 +10245,8 @@ if (V==NULL || V->co==NULL || V->isdynamic !=1){
 	
 
 		fprintf(outputfile,"%c}\n",V->co[i]);
-
-	
-
 }
-
-
-
 putchar('\n');
-
-
-
-
-
-
-
 }
 
 
@@ -10269,59 +10254,19 @@ putchar('\n');
 /**-----------------------------------------------------------------------*/
 
 void write_stringsarray_elements(FILE *outputfile,STRINGBIN *V)
-
-
-
 {
-
-
-
 long i;
-
-
-
-
-
 putchar(' ');
-
-
-
 if (V==NULL || V->co==NULL || V->isdynamic !=1){
-
 	t_error("The vector was not allocated properly");
-
 } else {
-
-    
-
     fprintf(outputfile,"{");
-
-    
-
 	for(i=(V->index)->nl;i<(V->index)->nh;i++){
-
 			fprintf(outputfile,"%s,\n",V->co[i]);
-
 	}
-
-	
-
 		fprintf(outputfile,"%s}\n",V->co[i]);
-
-	
-
 }
-
-
-
 putchar('\n');
-
-
-
-
-
-
-
 }
 
 
@@ -10334,37 +10279,13 @@ putchar('\n');
 
 
 void print_header(HEADER *H)
-
-
-
 {
-
-
-
 extern t_keywords T_KEYWORDS;
-
-	
-
 if(H != NULL){
-
-	        printf("\nBlock number: %ld.\nType:  %s %s %s\nName: %s\n",\
-
-	              H->number, \
-
-	              T_KEYWORDS.gender[H->gender],\
-
-	              T_KEYWORDS.type[H->type], \
-
-	              T_KEYWORDS.category[H->category],\
-
-	              H->name);
-
+	        printf("\nBlock number: %ld.\nType:  %s %s %s\nName: %s\n",H->number,  T_KEYWORDS.gender[H->gender], T_KEYWORDS.type[H->type], T_KEYWORDS.category[H->category], H->name);
 }else {
-
 	printf("\nWarning::This header was not allocated\n");
-
 }
-
 }
 
 
@@ -10372,77 +10293,20 @@ if(H != NULL){
 /**-----------------------------------------------------------------------*/
 
 void write_header_header(FILE *outputfile,HEADER *H)
-
-
-
 {
-
-
-
 long i;
-
-
-
 if(outputfile==NULL || H==NULL || H->name==NULL  ){
-
-
-
 	t_error("An attempt was made to write on a not opened file or a NULL vector");
-
-
-
 }else {
-
-
-
-	
-
-	fprintf(outputfile,"%ld: %s %s %s %s ",\
-
-	              H->number, \
-
-	              T_KEYWORDS.gender[H->gender],\
-
-	              T_KEYWORDS.type[H->type], \
-
-	              T_KEYWORDS.category[H->category],\
-
-	              H->name);
-
-	 
-
+	fprintf(outputfile,"%ld: %s %s %s %s ",H->number,T_KEYWORDS.gender[H->gender],T_KEYWORDS.type[H->type], T_KEYWORDS.category[H->category], H->name);
 	 if(H->dimensions[0]!=0 && H->dimensions[0] < 3){
-
-		
-
 		fprintf(outputfile,"%s",T_KEYWORDS.delimiter[1]);
-
-		
-
 		for(i=1;i<H->dimensions[0];i++){
-
-		
-
 				fprintf(outputfile,"%ld,",H->dimensions[i]);	
-
-			
-
 		}	 
-
-		
-
 		fprintf(outputfile,"%ld%s\n",H->dimensions[i],T_KEYWORDS.delimiter[2]);		   
-
-	 
-
 	 }
-
-	        
-
  }
-
-
-
 }
 
 
@@ -10456,57 +10320,21 @@ if(outputfile==NULL || H==NULL || H->name==NULL  ){
 /**-----------------------------------------------------------------------*/
 
 void write_turtle(FILE * outputfile,char *creator, char *inputs)
-
-
-
 {
-
-
-
-
-
 if(outputfile==NULL){
-
-
-
 	t_error("An attempt was made towrite on a not opened file");
-
-
-
 } else if(inputs ==NULL && creator==NULL) {
-
-
 	fprintf(outputfile,"%3s %21s created on %s at %s %2s \n",\
-
 	 "/**","This_is_a_turtle_file",__DATE__,__TIME__,"*/");
-
-
 } else if(inputs ==NULL) {
-
-
 	fprintf(outputfile,"%3s %21s created on %s at %s by %s %2s\n",\
-
 	 "/**","This_is_a_turtle_file",__DATE__,__TIME__,creator,"*/");
-
-
 } else if(creator==NULL) {
-
-
-	fprintf(outputfile,"%3s %21s created on %s at %s\n inputs processed: %s %2s\n",\
-
-	 "/**","This_is_a_turtle_file",__DATE__,__TIME__,inputs,"*/");
-
-
-
+	fprintf(outputfile,"%3s %21s created on %s at %s\n inputs processed: %s %2s\n","/**","This_is_a_turtle_file",__DATE__,__TIME__,inputs,"*/");
 } else {
-
 	 fprintf(outputfile,"%3s %21s created on %s at %s  by %s \n inputs processed :%s %s\n",\
-
 	 "/**","This_is_a_turtle_file",__DATE__,__TIME__,creator,inputs,"*/");
-
-	
 }
-
 }
 
 
@@ -10514,123 +10342,40 @@ if(outputfile==NULL){
 /**-----------------------------------------------------------------------*/
 
 void write_comment(FILE * outputfile,const char *comment, long columns)
-
-
-
 {
-
-
-
-
-
 const char  opening[5]="/** ",closing[4]=" */";
-
 long i,j,len;
-
-
-
 if(outputfile==NULL){
-
-
-
 	t_error("An attempt was made to write on a not opened file");
-
-
-
 } else if(comment!=NULL) {
-
-   
-
    len=strlen(comment);
-
-    
-
     /* buffer=(char *)malloc((columns+1+NR_END)*sizeof(char)); */
-
     putc('\n',outputfile);
-
     fprintf(outputfile,"%s",opening);
-
 	j=5;
-
 	for(i=0;i<len;i++){
-
-		
-
 		if( j< columns){
-
-		            
-
 		            if(  comment[i]!='\n' && comment[i]!='\t'){
-
 						putc(comment[i],outputfile);
-
 						} else {
-
-						
-
 						putc(' ',outputfile);
-
 						}
-
-		
-
 					j++;
-
-				
-
 			}
-
-				
-
-		
-
 		if(j == columns && !isspace(comment[i-1])){
-
-		
-
 			putc('-',outputfile);
-
-			
-
 			putc('\n',outputfile); 
-
-			
-
 			j=0;
-
-		
-
 		}
-
-		
-
-		
-
 	}
-
-	
-
 	if( j+2 < columns){
-
 		fprintf(outputfile,closing);
-
     } else {
-
     	putc('\n',outputfile);
-
     	fprintf(outputfile,closing);
-
     }
-
-    
-
     putc('\n',outputfile);
-
 } 
-
-
-
 }
 
 
@@ -10645,9 +10390,6 @@ long tmp=0,count=0;
 
 const char ascii[2]="a",binary[2]="b";
 long i,j,k;
-
-
-
 if(input==NULL){
 	t_error("The input file was not opened properly");
 }else if (m==NULL || m->co==NULL || (m->isdynamic)!=1){
@@ -10836,11 +10578,7 @@ if(h.category!=5 || h.type!=6)
   	   	   		free_header(EXTERNAL_HEADER);
  	   			OPENYES=0;
 				} 
-
         	} 	
-
-        			   
-
    }
 
    
@@ -10863,13 +10601,7 @@ return C;
 
 
 void read_tensorheader(FILE *inputfile,HEADER *h)
-
-
 {
-
-
-
-
 char curl;
 
 const char ocurl='{', ccurl='}';

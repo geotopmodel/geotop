@@ -1,6 +1,6 @@
-#include  "turtle.h"
+//#include  "turtle.h"
 #include  "tensor3D.h"
-/* Note that depth is the first indices and that the indices were pernutated
+/* Note that depth is the first indices and that the indices were perutated
 with respect to NR */
 
 /*-----------------------------------------------------------------------*/
@@ -35,8 +35,7 @@ double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 		t[i]=t[i-1]+ncol;
 		t[i][ncl]=t[i-1][ncl]+ncol*ndep;
 		for(j=ncl+1;j<=nch;j++) t[i][j]=t[i][j-1]+ndep;
-	}
-	
+	}	
 	/* return pointer to array of pointers to rows */
 	return t;
 }
@@ -46,38 +45,24 @@ double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 
 
 DOUBLETENSOR *new_doubletensor(long ndh,long nrh,long nch)
-
-
 {
-
-DOUBLETENSOR *m;
-
-		  m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
-		  if (!m) t_error("allocation failure in new_doubletensor()");
-		  m->isdynamic=isDynamic;
-		  m->nrl=NL;
-		  m->nrh=nrh;
-		  m->ncl=NL;
-		  m->nch=nch;
-		  m->ndl=NL;
-		  m->ndh=ndh;
-
-
-		  m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
-
-
-		  return m;
-
-
+	DOUBLETENSOR *m;
+	m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
+	if (!m) t_error("allocation failure in new_doubletensor()");
+	m->isdynamic=isDynamic;
+	m->nrl=NL;
+	m->nrh=nrh;
+	m->ncl=NL;
+	m->nch=nch;
+	m->ndl=NL;
+	m->ndh=ndh;
+	m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
+	return m;
 }
 
 DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
-
-
 {
-	
-	DOUBLETENSOR *m;
-	
+	DOUBLETENSOR *m;	
 	m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
 	if (!m) t_error("allocation failure in new_doubletensor()");
 	m->isdynamic=isDynamic;
@@ -87,42 +72,10 @@ DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
 	m->nch=nch;
 	m->ndl=0;
 	m->ndh=ndh;
-	
-	
 	m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
-	
-	
 	return m;
-	
-	
 }
 
-
-DOUBLETENSOR *new_doubletensor_flexlayer(long ndl,long ndh,long nrh,long nch)
-
-
-{
-
-	DOUBLETENSOR *m;
-
-	m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
-	if (!m) t_error("allocation failure in new_doubletensor()");
-	m->isdynamic=isDynamic;
-	m->nrl=NL;
-	m->nrh=nrh;
-	m->ncl=NL;
-	m->nch=nch;
-	m->ndl=ndl;
-	m->ndh=ndh;
-
-
-	m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
-
-
-	return m;
-
-
-}
 
 /*-----------------------------------------------------------------------*/
 
@@ -141,8 +94,6 @@ void free_d3tensor(double ***t, long nrl, long ncl, long ndl)
 void free_doubletensor( DOUBLETENSOR *m)
 
 {
-
-
 		  if(m==NULL || m->co==NULL){
 			  	t_error("This matrix was never allocated");
 		}else if(m->isdynamic==1){
@@ -155,10 +106,7 @@ void free_doubletensor( DOUBLETENSOR *m)
 
 		  }else{
 			printf("\nWarning::An attemp was made to free a non dynamic tensor\n");
-
 		  }
-
-
 }
 
 
@@ -189,23 +137,15 @@ if(L!=NULL){
 
 
 void copy_doubletensor(DOUBLETENSOR *origin,DOUBLETENSOR *destination)
-
+// added by Emanuele e Matteo for netCDF
 {
-
   long i,j, l;
-
   if(origin==NULL || destination==NULL || origin->co==NULL || destination->co==NULL){
-
     t_error("A tensor was not allocated");
-
   } else if(origin->isdynamic!=1 || destination->isdynamic!=1 || origin->ndh <1 || destination->ndh <1 || origin->nrh <1 || destination->nrh <1 ||  origin->nch <1 || destination->nch <1 ){
-
     t_error("A tensor was not allocated properly");
-
   }else if( origin->nrh != destination->nrh ||  origin->nch != destination->nch ||  origin->ndh != destination->ndh ){
-
     t_error("The tensors do not have the same dimensions");
-
   }
 
   for(i=1;i<=origin->nrh;i++){
@@ -215,9 +155,27 @@ void copy_doubletensor(DOUBLETENSOR *origin,DOUBLETENSOR *destination)
     	}
     }
   }
-
 }
 
+
+
+
+DOUBLETENSOR *new_doubletensor_flexlayer(long ndl,long ndh,long nrh,long nch)
+// added by Emanuele e Matteo for netCDF
+{
+	DOUBLETENSOR *m;
+	m=(DOUBLETENSOR *)malloc(sizeof(DOUBLETENSOR));
+	if (!m) t_error("allocation failure in new_doubletensor()");
+	m->isdynamic=isDynamic;
+	m->nrl=NL;
+	m->nrh=nrh;
+	m->ncl=NL;
+	m->nch=nch;
+	m->ndl=ndl;
+	m->ndh=ndh;
+	m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
+	return m;
+}
 
 
 
