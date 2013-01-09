@@ -1423,7 +1423,7 @@ DOUBLEBIN *split(DOUBLEVECTOR *U,long N,FLOATVECTOR *novalue)
 
 {
 
-  double delta,min,max;
+  double delta,min=0,max=0;
   long i,count,count1,minposition,maxposition,bin_vuoti,num_max;
   DOUBLEBIN *l;
   LONGPAIR *head,*bins;
@@ -1586,8 +1586,8 @@ DOUBLEBIN *esponentialsplit(DOUBLEVECTOR *U,long N,double base,FLOATVECTOR* nova
 
 {
 
-  double min,max,logdelta,logbase,logmin;
-  long i,count,count1,minposition,maxposition,bin_vuoti,num_max;
+  double min=0,max=0,logdelta,logbase,logmin;
+  long i,count,count1,minposition=0,maxposition,bin_vuoti,num_max;
   DOUBLEBIN *l;
   LONGPAIR *head,*bins;
   /*char ch;
@@ -1752,7 +1752,7 @@ double split2realvectors(DOUBLEVECTOR *U,DOUBLEVECTOR *T,DOUBLEBIN *l,DOUBLEBIN 
 
 {
 
-  double delta,min,max;
+  double delta=0,min=0,max=0;
   long i,count,count1,minposition,maxposition,bin_vuoti;
   LONGPAIR *head,*bins;
 
@@ -1922,7 +1922,7 @@ double esponentialsplit2realvectors(DOUBLEVECTOR *U,DOUBLEVECTOR *W, DOUBLEBIN* 
 
 {
 
-  double min,max,logdelta,logbase,logmin;
+  double min=0,max=0,logdelta=0,logbase,logmin;
   long i,j,count,count1,minposition,maxposition,bin_vuoti;
   LONGPAIR *head,*bins;
   short mode;

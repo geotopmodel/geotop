@@ -95,12 +95,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SOIL_STATE *L
 		}
 	}
 	//call the function that interpolates the cloudiness
-#ifdef USE_METEOIO
-//	if (A->P->use_meteoio_cloud==1) {
-	meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-	meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
-//	}
-#endif
+//#ifdef USE_METEOIO
+	if (A->P->use_meteoio_cloud==1) {
+		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
+		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+	}
+//#endif
 	// old GEOtop structure for cloudiness
 	A->M->tau_cloud=A->M->st->tau_cloud_meteoST->co[A->M->nstcloud];
 	A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST->co[A->M->nstcloud];
@@ -194,7 +194,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	double ic=0., wa, rho=0.;
 	long lpb;
 
-	FILE  *LWinFLog;
+	FILE  *LWinFLog, *file;
 										
 	//initialization of cumulated water volumes and set soil ancillary state vars
 		
@@ -344,8 +344,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	*SWupabove_v=0.0;
 
 	// CURRENT CLOUDINESS
-#ifndef USE_METEOIO
-	//if(A->P->use_meteoio_cloud!=1){// GEOtop classic method
+	if(A->P->use_meteoio_cloud!=1){// GEOtop classic method
 		//if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
 		if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 			
@@ -354,10 +353,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
 		A->M->tau_cl_map->co[r][c]=A->M->tau_cloud;
 		A->M->tau_cl_av_map->co[r][c]=A->M->tau_cloud_av;
-//	}
+	}
 // TODO : <<
-#else
-//	else{// meteoIO is activated
+	else{// meteoIO is activated
+//#ifdef USE_METEOIO
 		if( (long)A->M->tau_cl_av_map->co[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
 			A->M->tau_cl_av_map->co[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 		//printf("inside  meteoIO is activated 1st if");
@@ -369,8 +368,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			//printf("inside  meteoIO is activated 2nd if");
 				//	stop_execution();
 		}
-//	}
-#endif
+//#endif
+	}
+
 
 //albedo	
 	if(snowD>0){
@@ -851,20 +851,20 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		return 0;
 			
 	}else {
-		f = fopen(logfile, "a");
-		fprintf(f,"PointEnergyBalance not converging. surfacemelting=%d, time=%f, Dt=%f, i=%ld, j=%ld, r=%ld, c=%ld, elev=%f, aspect=%f, slope=%f, soil type=%d, land cover=%d "
-				"snowD=%f, ns=%ld, ng=%ld, zmu=%f, zmT=%f, z0s=%f, d0s=%f, rz0s=%f,z0v=%f, d0v=%f, rz0v=%f,"
-				"hveg=%f, WindPoint=%f, AirTPoint=%f, Qa=%f, AirPPoint=%f, LapseRateAirT=%f, eps=%f, fc=%f, LSAI=%f, decaycoeff0=%f, Wcrn=%f,\n "
-				"Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
-				"LEv=%f, Etrans=%f, Ts=%f, Qs=%f, Hadv=%f, Hg0=%f, Hg1=%f, Eg0=%f, Eg1=%f, Qv=%f, Qg=%f,"
-				"Lobukhov=%f, rh=%f, rv=%f, rb=%f, rc=%f, ruc=%f, u_top=%f, decay=%f, Locc=%f, LWupabove_v=%f, lpb=%ld\n",
-				surface, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, A->T->Z0->co[r][c],A->T->aspect->co[r][c], A->T->slope->co[r][c], (int)A->L->ty->co[r][c],(int)A->L->LC->co[r][c],
-				snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
-				hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], (V->wrain->co[j]),
-				max_wcan_rain, (V->wsnow->co[j]), max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
-				LEv, Etrans, Ts, Qs, Hadv, Hg0, Hg1, Eg0, Eg1, Qv, Qg,
-				Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
-		fclose(f);
+//		file = fopen(logfile, "a");
+//		fprintf(file,"PointEnergyBalance not converging. surfacemelting=%d, time=%f, Dt=%f, i=%ld, j=%ld, r=%ld, c=%ld, elev=%f, aspect=%f, slope=%f, soil type=%d, land cover=%d "
+//				"snowD=%f, ns=%ld, ng=%ld, zmu=%f, zmT=%f, z0s=%f, d0s=%f, rz0s=%f,z0v=%f, d0v=%f, rz0v=%f,"
+//				"hveg=%f, WindPoint=%f, AirTPoint=%f, Qa=%f, AirPPoint=%f, LapseRateAirT=%f, eps=%f, fc=%f, LSAI=%f, decaycoeff0=%f, Wcrn=%f,\n "
+//				"Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
+//				"LEv=%f, Etrans=%f, Ts=%f, Qs=%f, Hadv=%f, Hg0=%f, Hg1=%f, Eg0=%f, Eg1=%f, Qv=%f, Qg=%f,"
+//				"Lobukhov=%f, rh=%f, rv=%f, rb=%f, rc=%f, ruc=%f, u_top=%f, decay=%f, Locc=%f, LWupabove_v=%f, lpb=%ld\n",
+//				surface, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, A->T->Z0->co[r][c],A->T->aspect->co[r][c], A->T->slope->co[r][c], (int)A->L->ty->co[r][c],(int)A->L->LC->co[r][c],
+//				snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
+//				hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], (V->wrain->co[j]),
+//				max_wcan_rain, (V->wsnow->co[j]), max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
+//				LEv, Etrans, Ts, Qs, Hadv, Hg0, Hg1, Eg0, Eg1, Qv, Qg,
+//				Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
+//		fclose(file);
 
 		return 1;
 		

@@ -1,4 +1,4 @@
-#ifdef USE_METEOIO
+//#ifdef USE_METEOIO
 #include "meteoioplugin.h"
 #include "../geotop/times.h"
 #include <sstream>
@@ -854,4 +854,4 @@ extern "C" void meteoio_interpolate_cloudiness(T_INIT* UV, PAR* par,
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
 }
-#endif
+//#endif

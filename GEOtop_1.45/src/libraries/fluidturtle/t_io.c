@@ -3011,7 +3011,7 @@ char *get_workingdirectory(void )
 {
 
     //char buffer[64*FILENAME_MAX];
-	char *bf,*pathfile="$WorkingPath";
+	char *bf=NULL,*pathfile="$WorkingPath";
     //long len;
 	long i;
 	short a;
@@ -3253,7 +3253,7 @@ char *get_strings(char *working_directory,char *program)
 
 STRINGBIN *read_filenames(char *working_directory,char *program, char *extension, char *position){
 	
-	STRINGBIN *strg;
+	STRINGBIN *strg=NULL;
 	FILE *istream;
 	long i,pos=-1;
 	
@@ -3278,7 +3278,7 @@ STRINGBIN *read_filenames(char *working_directory,char *program, char *extension
 /**-----------------------------------------------------------------------*/
 DOUBLEVECTOR *read_parameters(char *working_directory,char *program, char *extension, char *position){
 	
-	DOUBLEVECTOR *v;
+	DOUBLEVECTOR *v=NULL;
 	FILE *istream;
 	long pos=-1;
 	
@@ -4749,7 +4749,7 @@ LONGVECTOR *read_longarray(FILE *inputfile,short print)
 
 
 
-char curl,ch;
+char curl='\0',ch='\0';
 
 const char ocurl='{', ccurl='}';
 
@@ -4758,9 +4758,9 @@ const char ocurl='{', ccurl='}';
 HEADER h;
 
 	//long buffer_index=0;
-	long buffer_size=0,i, jj;
+	long buffer_size=0,i=0, jj;
 	//long blocksnumber=0;
-long *numbers;
+long *numbers=NULL;
 
 LONGVECTOR *vec=NULL;
 
@@ -5071,16 +5071,16 @@ FLOATVECTOR *read_floatarray(FILE *inputfile,short print)
 
 
 
-char curl,ch;
+char curl='\0',ch='\0';
 
 const char ocurl='{', ccurl='}';
 
 //short ind=1;
 
 	//long buffer_index=0;
-	long buffer_size=0,i, jj;
+	long buffer_size=0,i=0,jj;
 //long blocksnumber=0;
-float *numbers;
+float *numbers=NULL;
 
 FLOATVECTOR *vec=NULL;
 
@@ -5395,16 +5395,16 @@ DOUBLEVECTOR *read_doublearray(FILE *inputfile,short print)
 
 
 
-char curl,ch;
+char curl='\0',ch='\0';
 
 const char ocurl='{', ccurl='}';
 
 //short ind=1;
 
 	//long buffer_index=0;
-	long buffer_size=0,i, jj;
+	long buffer_size=0,i=0, jj;
 //long blocksnumber=0;
-double *numbers;
+double *numbers=NULL;
 
 DOUBLEVECTOR *vec=NULL;
 
@@ -5705,14 +5705,13 @@ SHORTVECTOR *read_shortarray(FILE *inputfile,short print)
 
 {
 
-
-char curl,ch;
+char curl='\0',ch='\0';
 const char ocurl='{', ccurl='}';
 //short ind=1;
 //long buffer_index=0;
-long buffer_size=0,i, jj;
+long buffer_size=0,i=0, jj;
 //long blocksnumber=;
-short *numbers;
+short *numbers=NULL;
 SHORTVECTOR *vec=NULL;
 HEADER h;
 
@@ -5831,9 +5830,9 @@ long strings_size=0,char_counter=0,strings_counter=0;
 	long numbers_size=0;
 	//long number_index=0,blocksnumber=0,strings_index=0;
 
-char *strings,ch;
+char *strings=NULL,ch;
 
-long *numbers,iu,ju,sum=0;
+long *numbers=NULL,iu,ju,sum=0;
 
 
 HEADER h;
@@ -6265,7 +6264,7 @@ void justread_longarray(FILE *inputfile,LONGVECTOR *vec,short print)
 
 {
 
-char curl,ch;
+char curl='\0',ch='\0';
 const char ocurl='{', ccurl='}';
 HEADER h;
 long i;
@@ -6318,8 +6317,7 @@ skip_whitespaces(inputfile);
 void justread_floatarray(FILE *inputfile,FLOATVECTOR *vec,short print)
 
 {
-
-char curl,ch;
+char curl='\0',ch='\0';
 const char ocurl='{', ccurl='}';
 HEADER h;
 long i;
@@ -6431,7 +6429,7 @@ void justread_chararray(FILE *inputfile,CHARVECTOR *vec,short print)
 
 {
 
-char curl,ch;
+char curl='0',ch='0'; // ec 2012 08 22
 const char ocurl='{', ccurl='}';
 HEADER h;
 long i;
@@ -6717,7 +6715,7 @@ CHARVECTOR *read_charvector(FILE *inputfile,char *mode,short print)
 
 char ch;
 HEADER h;
-CHARVECTOR *C;
+CHARVECTOR *C=NULL;
 long u;
 
 
@@ -6939,7 +6937,7 @@ SHORTVECTOR* read_shortvector(FILE *inputfile,char *mode, short print)
 
 char ch;
 HEADER h;
-SHORTVECTOR *C;
+SHORTVECTOR *C=NULL;
 long u;
 
 	
@@ -7167,7 +7165,7 @@ INTVECTOR* read_intvector(FILE *inputfile,char *mode,short print)
 
 char ch;
 HEADER h;
-INTVECTOR *C;
+INTVECTOR *C=NULL;
 long u;
 
 	
@@ -7393,7 +7391,7 @@ LONGVECTOR *read_longvector(FILE *inputfile,char *mode, short print)
 
 char ch;
 HEADER h;
-LONGVECTOR *C;
+LONGVECTOR *C=NULL;
 long u;
 
 	
@@ -7634,7 +7632,7 @@ FLOATVECTOR *read_floatvector(FILE *inputfile,char *mode, short print)
 
 char ch;
 HEADER h;
-FLOATVECTOR *C;
+FLOATVECTOR *C=NULL;
 long u;
 
 	
@@ -7866,7 +7864,7 @@ DOUBLEVECTOR *read_doublevector(FILE *inputfile,char *mode, short print)
 
 char ch;
 HEADER h;
-DOUBLEVECTOR *C;
+DOUBLEVECTOR *C=NULL;
 long u;
 
 	
@@ -8099,7 +8097,7 @@ SHORTMATRIX* read_shortmatrix(FILE *inputfile, char *mode, short print)
 
 char ch;
 HEADER h;
-SHORTMATRIX *C;
+SHORTMATRIX *C=NULL;
 long u;
 
 	
@@ -8343,7 +8341,7 @@ INTMATRIX *read_intmatrix(FILE *inputfile, char *mode,short print)
 
 char ch;
 HEADER h;
-INTMATRIX *C;
+INTMATRIX *C=NULL;
 long u;
 
 	
@@ -8581,7 +8579,7 @@ LONGMATRIX  *read_longmatrix(FILE *inputfile, char *mode, short print)
 
 char ch;
 HEADER h;
-LONGMATRIX *C;
+LONGMATRIX *C=NULL;
 long u;
 
 	
@@ -8814,7 +8812,7 @@ FLOATMATRIX *read_floatmatrix(FILE *inputfile, char *mode,short print)
 
 char ch;
 HEADER h;
-FLOATMATRIX * C;
+FLOATMATRIX *C=NULL;
 long u;	
 
 if(inputfile==NULL){
@@ -8887,7 +8885,7 @@ DOUBLEMATRIX *read_doublematrix(FILE *inputfile, char *mode,short print)
 
 char ch;
 HEADER h;
-DOUBLEMATRIX *C;
+DOUBLEMATRIX *C=NULL;
 long u;
 
 if(inputfile==NULL){
@@ -8978,7 +8976,7 @@ INTBIN *read_intbin(FILE *inputfile, char *mode,short print)
 
 
 char ch;
-INTBIN* C;
+INTBIN* C=NULL;
 LONGVECTOR *P;
 long u;
 
@@ -9197,7 +9195,7 @@ SHORTBIN * read_shortbin(FILE *inputfile, char *mode,short print)
 
 char ch;
 LONGVECTOR *P;
-SHORTBIN *C;
+SHORTBIN *C=NULL;
 long u;
 
 	
@@ -9420,7 +9418,7 @@ LONGBIN *read_longbin(FILE *inputfile, char *mode, short print)
 
 char ch;
 LONGVECTOR *P;
-LONGBIN *C;
+LONGBIN *C=NULL;
 long u;
 
 	
@@ -9644,7 +9642,7 @@ DOUBLEBIN *read_doublebin(FILE *inputfile, char *mode,short print)
 
 char ch;
 LONGVECTOR *P;
-DOUBLEBIN *C;
+DOUBLEBIN *C=NULL;
 long u;
 
 
@@ -10245,7 +10243,13 @@ if (V==NULL || V->co==NULL || V->isdynamic !=1){
 	
 
 		fprintf(outputfile,"%c}\n",V->co[i]);
+
+	
+
 }
+
+
+
 putchar('\n');
 }
 

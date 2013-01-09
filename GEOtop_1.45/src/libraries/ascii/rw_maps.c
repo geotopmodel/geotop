@@ -548,7 +548,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 		
 		free(header);
 		if(a==1 || a==2){
-			//Check header	
+			//Check header
 			if(Dxmap!=UVref->U->co[2]){
 				printf("Dx in %s file is different from Dx in DTM file! \n",filename);
 				t_error("Inconsistent map");
@@ -561,7 +561,7 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVre
 				printf("X0 in %s file is different from X0 in DTM file! \n",filename);
 				t_error("Inconsistent map");
 			}
-			if(Y0map!=UVref->U->co[3]){	
+			if(Y0map!=UVref->U->co[3]){
 				printf("Y0 in %s file is different from Y0 in DTM file! \n",filename);
 				t_error("Inconsistent map");
 			}

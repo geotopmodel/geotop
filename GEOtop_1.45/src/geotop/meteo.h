@@ -28,9 +28,9 @@
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"
-#ifdef USE_METEOIO
+//#ifdef USE_METEOIO
 #include "../MeteoIO_plug/meteoioplugin.h"
-#endif
+//#endif
 
 
 extern long number_novalue;

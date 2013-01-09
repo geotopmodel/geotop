@@ -35,7 +35,8 @@ double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 		t[i]=t[i-1]+ncol;
 		t[i][ncl]=t[i-1][ncl]+ncol*ndep;
 		for(j=ncl+1;j<=nch;j++) t[i][j]=t[i][j-1]+ndep;
-	}	
+	}
+	
 	/* return pointer to array of pointers to rows */
 	return t;
 }

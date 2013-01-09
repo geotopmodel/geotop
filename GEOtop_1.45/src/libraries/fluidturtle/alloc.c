@@ -735,45 +735,50 @@ void free_floatmatrix( FLOATMATRIX *m)
 }/*-----------------------------------------------------------------------*/
 void free_longmatrix( LONGMATRIX *m)
 {
-		   if(m==NULL || m->co==NULL){
-		  		t_error("This matrix was never allocated");
-		    }else if(m->isdynamic==1){
-			free_lmatrix(m->co,NL,NL);
-			m->isdynamic=m->nrl=m->ncl=m->nrh=m->nch=-1;
-			free(m);
-			return;
-		  }else{
-			printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
-		  }
+	if(m==NULL || m->co==NULL){
+		t_error("This matrix was never allocated");
+	}else if(m->isdynamic==1){
+		free_lmatrix(m->co,NL,NL);
+		m->isdynamic=m->nrl=m->ncl=m->nrh=m->nch=-1;
+		free(m);
+		return;
+	}else{
+		printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
+	}
 }
 /*-----------------------------------------------------------------------*/
-void free_doublematrix( DOUBLEMATRIX *m){		  if(m==NULL || m->co==NULL){
-		  	t_error("This matrix was never allocated");
-		  }else if(m->isdynamic==1){
-			free_dmatrix(m->co,m->nrl,m->ncl);
-			m->isdynamic=m->nrl=m->ncl=m->nrh=m->nch=-1;
-			free(m);
-			return;
-		  }else{
-			printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
-		  }
-}/*-----------------------------------------------------------------------*/
+void free_doublematrix( DOUBLEMATRIX *m)
+{
+	if(m==NULL || m->co==NULL){
+		t_error("This matrix was never allocated");
+	}else if(m->isdynamic==1){
+		free_dmatrix(m->co,m->nrl,m->ncl);
+		m->isdynamic=m->nrl=m->ncl=m->nrh=m->nch=-1;
+		free(m);
+		return;
+	}else{
+		printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
+	}
+}
+/*-----------------------------------------------------------------------*/
 void free_intbin( INTBIN *l)
 {
-	if(l==NULL || l->co==NULL || l->co[1]==NULL){	printf("\nWarning::Cannot de-allocate a null intbin\n");}else if(l->index==NULL || (l->index)->nl!=1 || (l->index)->nl > (l->index)->nh || \
-		(l->index)->isdynamic!=1){
-				t_error("Wrong index in intbin");
-} else if(l->isdynamic==1){
-	
-	free((FREE_ARG) (l->co[1]+1-NR_END));
-	free((FREE_ARG) (l->co+1-NR_END));
-	free_longvector(l->index);
-	free(l);
-	return;
-}else{
-	printf("\nWarning::An attemp was made to free a non dynamic variable\n");
+	if(l==NULL || l->co==NULL || l->co[1]==NULL){	
+		printf("\nWarning::Cannot de-allocate a null intbin\n");
+	}else if(l->index==NULL || (l->index)->nl!=1 || (l->index)->nl > (l->index)->nh || (l->index)->isdynamic!=1){
+		t_error("Wrong index in intbin");
+	} else if(l->isdynamic==1){
+		free((FREE_ARG) (l->co[1]+1-NR_END));
+		free((FREE_ARG) (l->co+1-NR_END));
+		free_longvector(l->index);
+		free(l);
+		return;
+	}else{
+		printf("\nWarning::An attemp was made to free a non dynamic variable\n");
+	}
 }
-}/*-----------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------*/
 void free_shortbin( SHORTBIN *l)
 {
 	
@@ -837,7 +842,9 @@ void free_stringbin( STRINGBIN *l)
 	}else if(l->index==NULL || (l->index)->nl!=1 || (l->index)->nl > (l->index)->nh || (l->index)->isdynamic!=1){
 		t_error("Wrong index in stringcontainer");
 	} else if(l->isdynamic==1){
-		free((FREE_ARG) (l->co[1]+1-NR_END));	free((FREE_ARG) (l->co+1-NR_END));	free_longvector(l->index);
+		free((FREE_ARG) (l->co[1]+1-NR_END));
+		free((FREE_ARG) (l->co+1-NR_END));
+		free_longvector(l->index);
 		free(l);
 	return;
 	}else{

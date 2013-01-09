@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.223 'Wallis' - 26 Jul 2011
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2011 - Stefano Endrizzi 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.223 'Wallis'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -33,6 +33,12 @@ DOUBLEVECTOR *gam;
 
 gam=new_doublevector(nx);
 
+/*for (j=1; j<=nx; j++) {
+	printf("d[%ld]=%e\n",j,diag->co[j]);
+}	
+for (j=1; j<nx; j++) {
+	printf("d[%ld]=%e %e\n",j,diag_inf->co[j],diag_sup->co[j]);
+}*/
 if(diag->co[1]==0.0){
 	printf("type=%d r=%ld c=%ld\n",a,r,c);
 	t_error("Error 1 in tridiag");
@@ -46,9 +52,9 @@ for(j=2;j<=nx;j++){
 	gam->co[j]=diag_sup->co[j-1]/bet;
 	bet=diag->co[j]-diag_inf->co[j-1]*gam->co[j];
 	if(bet==0.0){
-		//printf("type=%d r=%ld c=%ld\n",a,r,c);
-		//printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
-		//printf("Error 2 in tridiag\n");
+		/*printf("type=%d r=%ld c=%ld\n",a,r,c);
+		printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
+		printf("Error 2 in tridiag\n");*/
 		return 0;
 	}
 	e->co[j]=(b->co[j]-diag_inf->co[j-1]*e->co[j-1])/bet;

@@ -1,4 +1,4 @@
-#ifdef USE_METEOIO
+//#ifdef USE_METEOIO
 #ifndef __METEOIOPLUGIN_H__
 #define __METEOIOPLUGIN_H__
 
@@ -43,4 +43,4 @@ extern "C" {
 }
 #endif
 #endif
-#endif
+//#endif

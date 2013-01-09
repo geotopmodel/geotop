@@ -326,13 +326,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	par->usemeteoio=0;
 	par->use_meteoio_meteodata=0;
 	par->use_meteoio_cloud=0;
-#ifdef USE_METEOIO
+//#ifdef USE_METEOIO
 	par->usemeteoio=1;
 	par->use_meteoio_meteodata=1;
 	par->use_meteoio_cloud=1;
-	//if(par->usemeteoio==1)
-	meteoio_init();
-#endif
+	if(par->usemeteoio==1) meteoio_init();
+//#endif
 	for(i=1;i<=met->st->E->nh;i++){
 				
 		if (met->imeteo_stations->co[1] != number_novalue) {

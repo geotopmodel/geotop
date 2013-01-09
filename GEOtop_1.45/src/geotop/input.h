@@ -47,9 +47,9 @@
 #ifdef USE_HPC
 #include "hpc.geotop.h"
 #endif
-#ifdef USE_METEOIO
+//#ifdef USE_METEOIO
 #include "../MeteoIO_plug/meteoioplugin.h"
-#endif
+//#endif
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 

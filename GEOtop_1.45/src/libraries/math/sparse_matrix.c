@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.223 'Wallis' - 26 Jul 2011
+ GEOtop 1.225-9 'Moab' - 24 Aug 2012
  
- Copyright (c), 2011 - Stefano Endrizzi 
+ Copyright (c), 2012 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.223 'Wallis'
+ This file is part of GEOtop 1.225-9 'Moab'
  
- GEOtop 1.223 'Wallis' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 1.225-9 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.223 'Wallis' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 1.225-9 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -1103,11 +1103,16 @@ void product_using_only_strict_lower_diagonal_part(DOUBLEVECTOR *product, DOUBLE
 	
 	c = 1;
 	for(i=1;i<=Li->nh;i++){
+		
 		r = Li->co[i];
 		
 		if(r > c){
 			product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+			//printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
 			product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+			//printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
 		}else if(r < c){
 			printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,Lp->co[x->nh],x->nh);
 			t_error("matrix is not L");
@@ -1201,7 +1206,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 	
 	DOUBLEVECTOR *r0, *r, *p, *v, *s, *t, *diag, *udiag, *yy, *z;
 	double rho, rho1, alpha, omeg, beta, norm_r0;
-	long i=0, j;
+	long i=0, j, maxiter;
 	short sux;
 	
 	r0 = new_doublevector(x->nh);
@@ -1233,7 +1238,10 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 	alpha = 1.;
 	omeg = 1.;
 	
-	while ( i<=x->nh && norm_2(r, r->nl, r->nh) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
+	maxiter = (long)(x->nh/100.);
+	if (maxiter < 100) maxiter = 100;
+	
+	while ( i<=maxiter && norm_2(r, r->nl, r->nh) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
 		
 		rho1 = product(r0, r);
 		
@@ -1283,7 +1291,6 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 				
 	}
 	
-	
 	free_doublevector(r0);
 	free_doublevector(r);
 	free_doublevector(p);
@@ -1314,6 +1321,7 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, DOUBLEVECTO
 	product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
 
 	for(i=1;i<=x->nh;i++){
+		//printf("-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out->co[i],y->co[i],k * (out->co[i] + y->co[i]));
 		out->co[i] = k * (out->co[i] + y->co[i]);
 	}
 

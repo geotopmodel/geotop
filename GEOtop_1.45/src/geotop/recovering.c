@@ -112,7 +112,7 @@ void assign_recovered_map_long(short old, long n, char *name, LONGMATRIX *assign
 	}
 	
 	free_doublematrix(M);
-	free(temp);	
+	free(temp);
 }
 
 /******************************************************************************************************************************************/

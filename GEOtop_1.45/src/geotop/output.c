@@ -31,7 +31,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				  
 {
 	/*internal auxiliary variables:*/
-	long i,j,r=0,c=0,l,m; /*counters*/
+	long i,j, jj,r=0,c=0,l,m; /*counters*/
+
 	long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
 	char NNNNN[ ]={"NNNNN"};
 	char RRRRR[ ]={"RRRRR"};
@@ -193,7 +194,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 					write_suffix(NNNN, par->IDpoint->co[i], 0);
 					r=par->rc->co[i][1];
 					c=par->rc->co[i][2];
-					j=top->j_cont[r][c];
+					jj=top->j_cont[r][c];
 					
 					if (par->output_vertical_distances == 1) {
 						cosslope = cos( Fmin(max_slope, top->slope->co[r][c]) * Pi/180. );
@@ -203,13 +204,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 										
 					//soil data
 					for(l=1;l<=Nl;l++){
-						if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][j];
-						if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][j];
-						if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot->co[i][l] = sl->th->co[l][j];
-						if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot->co[i][l] = sl->SS->thi->co[l][j];
+						if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][jj];
+						if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][jj];
+						if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot->co[i][l] = sl->th->co[l][jj];
+						if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot->co[i][l] = sl->SS->thi->co[l][jj];
 					}			
 					for(l=0;l<=Nl;l++){
-						if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][j];
+						if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][jj];
 					}
 					
 					//snow data

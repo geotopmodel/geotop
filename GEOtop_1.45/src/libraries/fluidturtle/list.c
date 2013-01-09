@@ -982,7 +982,7 @@ This rotate the list n times
 LONGPAIR *  rotate(LONGPAIR * head,int n)
 {
 
-LONGPAIR * tmp=head,*back;
+LONGPAIR * tmp=head,*back=NULL;
 int m=0;
 
 if(n==0) {

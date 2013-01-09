@@ -309,13 +309,15 @@ void time_loop(ALLDATA *A)
 	long nsim=1;
 	// TODO: check number of simulation issue
 #else
-	long nsim = A->P->init_date->nh;
+	//long nsim = A->P->init_date->nh;//TODO: MATTEO: ho forzato perche', una volta finita la simulazione, reiniziava di nuovo
+	long nsim = 1;
 #endif
 #ifdef USE_NETCDF
 		long nrun=1;
 		// TODO: check number run issue
 #else
-		long nrun = A->P->run_times->co[i_sim];
+		//long nrun = A->P->run_times->co[i_sim];
+		long nrun = 1;//TODO: MATTEO: ho forzato perche' una volta finita la simulazione, reiniziava di nuovo
 #endif
 
 	//periods
