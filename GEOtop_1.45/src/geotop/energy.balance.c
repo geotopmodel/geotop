@@ -211,7 +211,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		
 	}else{
 		j = i - A->P->total_channel;		
-		A->W->Pnet->co[r][c] = 0.0;		
+		A->W->Pnet->co[r][c] = 0.0;
+		A->W->HN->co[r][c] = 0.0;// TODO: mattiu
 		lu = (short)A->L->LC->co[r][c];
 		sy = A->S->type->co[r][c];
 		
@@ -661,7 +662,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 																				
 			//NET PRECIPITATION
 			A->W->Pnet->co[r][c] += (Melt_snow + Melt_glac + Prain);
-					
+			//NEW SNOW (mattiu) TODO
+			A->W->HN->co[r][c] += Psnow*rho_w/rho_newlyfallensnow(Vpoint, Tpoint, Tfreezing);
 			//VEGETATION
 			if( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 ){
 						

@@ -1317,6 +1317,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	/* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm):*/
 	wat->Pnet=new_doublematrix(Nr,Nc);
 	initialize_doublematrix(wat->Pnet,0.0);
+
+	/* Initialization of wat->HN (new snow precipitation in mm):*/
+	wat->HN=new_doublematrix(Nr,Nc);
+	initialize_doublematrix(wat->HN,0.0);
 		
 	/* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
 	wat->PrecTot=new_doublematrix(Nr,Nc);
@@ -1478,6 +1482,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		if(strcmp(files[fsndur] , string_novalue) != 0){
 			snow->t_snow=new_doublevector(par->total_pixel);
 			initialize_doublevector(snow->t_snow,0.);
+			snow->yes=new_shortvector(par->total_pixel);
+		}
+		if(strcmp(files[fHN] , string_novalue) != 0){//TODO (mattiu)
+			snow->HNcum=new_doublevector(par->total_pixel);
+			initialize_doublevector(snow->HNcum,0.);
 			snow->yes=new_shortvector(par->total_pixel);
 		}
 	}

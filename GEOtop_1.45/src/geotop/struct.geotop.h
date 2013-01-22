@@ -279,7 +279,7 @@ typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=nu
     DOUBLEMATRIX *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
-
+    DOUBLEMATRIX *HN;//TODO mattiu: HACK map of new snow (precipitation as snow)
     DOUBLEVECTOR *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
     DOUBLEVECTOR *PrSNW_mean;
 	DOUBLEVECTOR *Pt;
@@ -657,6 +657,7 @@ typedef struct {
 	DOUBLEVECTOR *age;	
 	DOUBLEVECTOR *MELTED;
 	DOUBLEVECTOR *melted;
+	DOUBLEVECTOR *HNcum;//TODO (mattiu)
 	DOUBLEVECTOR *SUBL;
 	DOUBLEVECTOR *subl;
 	DOUBLEVECTOR *t_snow;

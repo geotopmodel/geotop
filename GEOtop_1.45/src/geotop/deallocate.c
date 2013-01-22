@@ -221,6 +221,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	printf("Deallocating water\n"); 
 	free_doublematrix(wat->PrecTot);
 	free_doublematrix(wat->Pnet);
+	free_doublematrix(wat->HN);//TODO (mattiu)
 
 	if (par->output_meteo_bin == 1 && strcmp(files[fprec] , string_novalue) != 0){
 		free_doublevector(wat->PrTOT_mean);
@@ -434,6 +435,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	if(par->output_snow_bin == 1){
 		if(strcmp(files[fsndur] , string_novalue) != 0){
 			free_doublevector(snow->t_snow);
+			free_shortvector(snow->yes);
+		}
+		if(strcmp(files[fHN] , string_novalue) != 0){//mattiu
+			free_doublevector(snow->HNcum);
 			free_shortvector(snow->yes);
 		}
 		if(strcmp(files[fsnowmelt] , string_novalue) != 0){

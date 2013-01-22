@@ -36,7 +36,8 @@
 #define num_par_number 400
 //#define num_par_char 338
 //TODO: Hack
-#define num_par_char 359
+//#define num_par_char 359
+#define num_par_char 360//mattiu
 //****************************************************
 // Fixed Parameters
 //****************************************************
@@ -439,7 +440,8 @@
 #define fwtable_up fthawed_dw+1
 #define fwtable_dw fwtable_up+1			//water table depth
 //TODO Hack
-#define fpnet fwtable_dw+1
+#define fHN fwtable_dw+1//mattiu
+#define fpnet fHN+1
 #define fevap fpnet+1
 //#define pG fwtable_dw+1
 // end

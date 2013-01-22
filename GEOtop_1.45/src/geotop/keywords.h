@@ -652,8 +652,9 @@ char *keywords_char[num_par_char] = {
 	"ThawedSoilDepthMapFile", 
 	"ThawedSoilDepthFromAboveMapFile", 
 	"WaterTableDepthMapFile", 
-	"WaterTableDepthFromAboveMapFile", 
+	"WaterTableDepthFromAboveMapFile",
 	//TODO: Hack
+	"HNMapFile",
 	"NetPrecipitationFile",
 	"EvapotranspirationFromSoilFile",
 	// end

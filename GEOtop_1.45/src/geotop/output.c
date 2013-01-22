@@ -1101,6 +1101,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 			free(temp1);
 		}
 		
+		if(strcmp(files[fHN] , string_novalue) != 0){//TODO (mattiu)
+			temp1=join_strings(files[fHN],s2);
+			write_map_vector(temp1, 0, par->format_out, snow->HNcum, UV, number_novalue, top->j_cont, Nr, Nc);
+			initialize_doublevector(snow->HNcum, 0.);
+			free(temp1);
+		}
+
 		if(strcmp(files[fsnowmelt] , string_novalue) != 0){
 			temp1=join_strings(files[fsnowmelt],s2);
 			write_map_vector(temp1, 0, par->format_out, snow->MELTED, UV, number_novalue, top->j_cont, Nr, Nc);
@@ -3271,6 +3278,11 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow, GLACIER *
 					sl->ETcum->co[j] += sl->ET->co[i][r][c];
 				}
 			}
+		}
+		if(par->output_snow->co[i_sim]>0){//(mattiu)
+			r = top->rc_cont->co[j][1];
+			c = top->rc_cont->co[j][2];
+			if(strcmp(files[fHN] , string_novalue) != 0) snow->HNcum->co[j] += wat->HN->co[r][c];
 		}
 		// end Hack
 		if(par->output_snow->co[i_sim]>0){
