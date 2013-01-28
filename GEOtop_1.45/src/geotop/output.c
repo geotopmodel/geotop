@@ -282,7 +282,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 								first_column = 0;
 							}
 							if (opnt[j] >= 0) {
+								printf("\nt_point=%f j=%ld, opnt[%ld]=%ld, %02.0f/%02.0f/%04.0f %02.0f:%02.0f\n",t_point,j,j,opnt[j],(float)day,(float)month,(float)year,(float)hour,(float)minute);//TODO
 								if (opnt[j] == odate12) {
+									printf("\npar->recover=%d, par->n_ContRecovery=%ld, name=%s\n",par->recover,par->n_ContRecovery, name);
+									printf("%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,(float)year,(float)hour,(float)minute);//stop_execution();
 									fprintf(f,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,(float)year,(float)hour,(float)minute);		
 								}else if (opnt[j] == oJDfrom0) {
 									fprintf(f, "%f",JDfrom0);
