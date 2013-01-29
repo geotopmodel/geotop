@@ -5,7 +5,7 @@
 
 #ifdef __cplusplus
 
-#include <MeteoIO.h> /* C++ header */
+#include <meteoio/MeteoIO.h> /* C++ header */
 #include <iostream>  /* C++ header */
 #include <vector>
 
