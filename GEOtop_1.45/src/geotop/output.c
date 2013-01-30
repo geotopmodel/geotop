@@ -2006,8 +2006,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fpointwriteend], textfile);
 			}
 			
-			if (ffpoint == NULL)
-				ffpoint=fopen(name,"w");
+			ffpoint=fopen(name,"w");
 			first_column=1;
 			for(j=0;j<nopnt;j++){
 				if(first_column==0){
@@ -2039,8 +2038,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fsnzwriteend], textfile);
 			}
 			
-			if (ffsnow == NULL)
-				ffsnow=fopen(name,"w");
+			ffsnow=fopen(name,"w");
 			
 			if ((long)par->snow_plot_depths->co[1] != number_novalue) {
 				m = par->snow_plot_depths->nh;
@@ -2092,8 +2090,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 					name = join_strings(files[fpointwriteend], textfile);
 				}
 				
-				if (ffglac == NULL)
-					ffglac=t_fopen(name,"w");
+				ffglac=t_fopen(name,"w");
 
 				if ((long)par->glac_plot_depths->co[1] != number_novalue) {
 					m = par->glac_plot_depths->nh;
@@ -2163,8 +2160,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fTzavwriteend], textfile);
 			}
 			
-			if (ffTav == NULL)
-				ffTav=fopen(name,"w");		
+			ffTav=fopen(name,"w");		
 			write_soil_header(ffTav, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2183,8 +2179,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fpsiztotwriteend], textfile);
 			}
 			
-			if (ffpsitot == NULL)
-				ffpsitot=fopen(name,"w");		
+			ffpsitot=fopen(name,"w");		
 			write_soil_header(ffpsitot, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2203,8 +2198,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fpsizwriteend], textfile);
 			}
 
-			if (ffpsi == NULL)
-				ffpsi=fopen(name,"w");		
+			ffpsi=fopen(name,"w");		
 			write_soil_header(ffpsi, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2223,8 +2217,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fliqzwriteend], textfile);
 			}
 			
-			if (ffliq == NULL)
-				ffliq=fopen(name,"w");		
+			ffliq=fopen(name,"w");		
 			write_soil_header(ffliq, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2243,8 +2236,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fliqzavwriteend], textfile);
 			}
 
-			if (ffliqav == NULL)
-				ffliqav=fopen(name,"w");		
+			ffliqav=fopen(name,"w");		
 			write_soil_header(ffliqav, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2263,8 +2255,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[ficezwriteend], textfile);
 			}
 
-			if (ffice == NULL)
-				ffice=fopen(name,"w");				
+			ffice=fopen(name,"w");				
 			write_soil_header(ffice, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2283,8 +2274,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[ficezavwriteend], textfile);
 			}
 			
-			if (fficeav == NULL)
-				fficeav=fopen(name,"w");		
+			fficeav=fopen(name,"w");		
 			write_soil_header(fficeav, par->soil_plot_depths, sl->pa->co[1][jdz]);
 			free(name);
 		}
@@ -2736,8 +2726,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				name = join_strings(files[fbaswriteend], textfile);
 			}
 			
-			if (ffbas == NULL)
-				ffbas=fopen(name,"w");
+			ffbas=fopen(name,"w");
 			
 			first_column=1;
 			for(j=0;j<nobsn;j++){
