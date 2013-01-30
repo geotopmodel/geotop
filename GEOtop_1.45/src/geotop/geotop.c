@@ -83,7 +83,7 @@ char **hglc;
 long *osl, nosl;
 char **hsl;
 
-FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
+FILE *ffbas=NULL, *ffpoint=NULL, *ffT=NULL, *ffTav=NULL, *ffpsi=NULL, *ffpsitot=NULL, *ffliq=NULL, *ffliqav=NULL, *ffice=NULL, *fficeav=NULL, *ffsnow=NULL, *ffglac=NULL;
 
 long i_sim, i_run, i_sim0, i_run0;
 
