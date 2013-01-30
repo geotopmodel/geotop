@@ -894,7 +894,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 	
 	short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin = 0, sux, dirichlet = 0, neumann = 0, micro_sempl = 0, micro;
 	long sur, sy, l, m, cont=0, cont2, n, cont_lambda_min=0;
-	double EB=0., dEB_dT=0., dH_dT, dE_dT, EB0, Tg, Tg0, psim0, psi0, Qg0=0., Tv0=0., dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
+	double EB=0., dEB_dT=0., dH_dT=0., dE_dT=0., EB0=0., Tg=0., Tg0=0., psim0=0., psi0=0., Qg0=0., Tv0=0., dWcsn=0.0, dWcrn=0.0, rh_g=0., rv_g=0.;
 	double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0., kub1=0., thi=0., thin, thw=0., thwn, sat=0., satn, kt=0., ktn;
 	FILE *f;
 
@@ -944,7 +944,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 			egy->Tstar->co[l]=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
 		}		
 	}else {
-		sy = sl->type->co[r][c];		
+		sy = sl->type->co[r][c];
+		printf("psi0: %f\n", SL->P->co[0][j]);
 		psi0 = SL->P->co[0][j];
 		for(l=1;l<=Nl;l++){
 			//water content to be modified at each iteration
