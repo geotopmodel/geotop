@@ -945,7 +945,6 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 		}		
 	}else {
 		sy = sl->type->co[r][c];
-		printf("psi0: %f\n", SL->P->co[0][j]);
 		psi0 = SL->P->co[0][j];
 		for(l=1;l<=Nl;l++){
 			//water content to be modified at each iteration
