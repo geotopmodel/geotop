@@ -273,7 +273,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 						
 						free(temp1);
 						
-						f=fopen(name,"a");				
+						f=fopen(name,"a");
+
+						if (f == NULL) {
+							fprintf(stderr, "Could not open file '%s' for appending data. Reason: %s\n", name, strerror(errno));
+							stop_execution();
+						}
+
 						first_column=1;
 						for (j=0; j<nopnt; j++) {
 							if(first_column==0){

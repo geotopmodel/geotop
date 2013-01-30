@@ -39,7 +39,7 @@
 #include "water.balance.h"
 
 
-
+#include <errno.h>
 #include <time.h>
 
 extern long number_novalue, number_absent;
