@@ -123,8 +123,6 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 //   	   }
 //		fprintf(f,"\n");
 //	}
-//	fclose(f);
-//	fclose(f1);
 //
 //	/*printf("\n TA \n");
 //	print_doublematrix_elements(met->Tgrid,10);
@@ -140,7 +138,8 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 //	print_doublematrix_elements(wat->PrecTot,10);
 //	//stop_execution();*/
 
-
+	fclose(f);
+	fclose(f1);
 
 	if(par->en_balance==0){
 		for(r=1;r<=Nr;r++){
