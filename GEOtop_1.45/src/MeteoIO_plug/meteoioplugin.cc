@@ -773,7 +773,7 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 	//	stations->offset=new_longvector(nrOfStations);// offset column
 
 	for (unsigned int ii = 1; ii <= nrOfStations; ii++) { //HACK
-		std::cout << "[I] MeteoIO station " << ii << ":\n" << vecStation[ii - 1]
+		std::cout << "[I] MeteoIO station " << ii << ":\n" << vecStation[ii - 1].toString()
 				<< std::endl;
 
 		stations->E->co[ii] = vecStation[ii - 1].position.getEasting();
