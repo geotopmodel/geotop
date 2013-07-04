@@ -2,7 +2,7 @@
 /* STATEMENT:
  
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 1.225-15 - 20 Jun 2013
+ Geotop 
  
  Copyright (c), 2013 - Stefano Endrizzi 
  
@@ -39,6 +39,8 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
+
+#include "config.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -78,6 +80,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	if(!argv[1]){
 		WORKING_DIRECTORY=get_workingdirectory();
 	}else{
+        if(!strcmp(argv[1], "--version")){
+            printf("GEOtop version %s\n", VERSION);
+            exit(0);
+        }
 		WORKING_DIRECTORY=assign_string(argv[1]);
 	}
 	
@@ -94,9 +100,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	printf("STATEMENT:\n");
 	printf("\n");	 
-	printf("Geotop 1.225-15 - 20 Jun 2013\n\n");	 
+	printf("Geotop %s \n\n", VERSION);
 	//printf("Copyright (c), 2013 - Stefano Endrizzi \n\n");	 
-	printf("Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+	printf("Geotop %s is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n", VERSION);
 	printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
  	//printf("Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 1.225-15.\n");
 	//printf("Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
@@ -110,9 +116,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	fprintf(flog,"STATEMENT:\n");
 	fprintf(flog,"\n");	 
-	fprintf(flog,"Geotop 1.225-15 - 20 Jun 2013\n\n");	 
+	fprintf(flog,"Geotop %s \n\n", VERSION);
 	//fprintf(flog,"Copyright (c), 2013 - Stefano Endrizzi \n\n");	 
-	fprintf(flog,"Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+	fprintf(flog,"Geotop %s is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n", VERSION);
 	fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
 	//fprintf(flog,"Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 1.225-15.\n");
 	//fprintf(flog,"Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
