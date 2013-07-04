@@ -26,7 +26,17 @@ AC_PROG_INSTALL
 #
 # GNU LibTool provides a portable way to build libraries.  AutoMake
 # knows how to use it; you just need to activate it.
-LT_INIT
+LT_INIT([static])
+
+
+AC_ARG_WITH([static-geotop],
+    [AS_HELP_STRING([--with-static-geotop=yes|no],
+            [Compile a static executable.])],
+    [with_static_geotop=yes],
+    [])
+# The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
+AM_CONDITIONAL([WITH_STATIC_GEOTOP], [test "_$with_static_geotop" = '_yes'])
+
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h string.h])

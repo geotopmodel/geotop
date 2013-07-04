@@ -1,1 +1,1 @@
-SUBDIRS = geotop libraries
+SUBDIRS = libraries geotop
