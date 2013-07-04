@@ -1,3 +1,0 @@
-Year, Julian day, dTair/dz [C/km], dTdew/dz [C/km], dprecipitation/dz [mm/km]
-1991, 0.0, -6.5, -2.0, 0.0
-2000, 0.0, -6.5, -2.0, 0.0
