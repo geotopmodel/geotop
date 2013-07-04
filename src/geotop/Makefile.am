@@ -16,8 +16,8 @@ AM_CFLAGS =
 #              -L$(top_srcdir)/src/libraries/fluidturtle \
 #              -L$(top_srcdir)/src/libraries/geomorphology
 
-AM_LDADD = $(top_srcdir)/src/libraries/ascii/libascii.la \
-           $(top_srcdir)/src/libraries/math/libmath.la \
-           $(top_srcdir)/src/libraries/fluidturtle/libfluidturtle.la \
-           $(top_srcdir)/src/libraries/geomorphology/libgeomorphology.la
+geotop_LDADD = $(top_srcdir)/src/libraries/ascii/libascii.la \
+               $(top_srcdir)/src/libraries/math/libmath.la \
+               $(top_srcdir)/src/libraries/fluidturtle/libfluidturtle.la \
+               $(top_srcdir)/src/libraries/geomorphology/libgeomorphology.la
 
