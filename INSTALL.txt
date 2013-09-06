@@ -1,0 +1,80 @@
+Installing GEOtop with NetCDF support on Windows
+======================================
+
+1. Prerequisites
+-----------------------
+
+1.1 Install QSvn or equivalent
+Download and install a SVN Tool such as QSVN: http://www.anrichter.net/projects/qsvn/wiki/download
+
+
+1.2 Install CMake GUI
+Download and Install the latest CMake GUI: http://www.cmake.org/files/v2.8/cmake-2.8.9-win32-x86.exe
+
+
+1.3 Install MinGW
+http://www.mingw.org/
+
+Install the MinGW Shell (called MSYS) as well!
+
+Add the MinGW bin path to your PATH environment variable.
+
+
+1.4 Install MeteoIO
+The subversion path to meteoio is: http://slfsmm.indefero.net/svn/slfsmm/meteoio
+Checkout the latest version with QSvn or your preferred subversion tool
+
+Start CMake GUI and point to the source code directory of meteoio (e.g. D:\meteoio\trunk) and also 
+to the directory where you wish for the binaries to be built (e.g. D:\meteoio\trunk\lib)
+
+Click configure and choose MinGW Makefiles. Click Generate. The MinGW Makefile is now generated in the 
+directory you specified for your binaries to built in. Start MinGW Shell and navigate to the directory:
+
+e.g. cd D:\meteoio\trunk\lib
+
+type "mingw32-make.exe install"
+
+Add the meteoio lib path to your PATH environment variable.
+
+
+1.5 NetCDF
+
+Download the pre-built Win32 binary version of the NetCDF dynamic (.dll) libraries 4.2 or higher 
+with support for NetCDF-4 and HDF5 from
+http://www.unidata.ucar.edu/software/netcdf/win_netcdf/
+
+Direct link: http://www.unidata.ucar.edu/software/netcdf/win_netcdf/nc4_32_dll.zip
+
+Extract and move folder to C:\Program Files\netcdf-4.2.1.1
+
+Add the netcdf bin path to your PATH environment variable.
+
+
+1.6 HDF4 software
+
+The pre-built binaries for NetCDF 4.2 and higher require the SZIP library to be present. Please install
+the HDF4 software package as pre-built shared libraries which includes the szip.dll. Download and 
+run the installer:
+
+http://www.hdfgroup.org/release4/obtain.html
+
+Direct link: http://www.hdfgroup.org/ftp/HDF/HDF_Current/bin/windows/HDF4.2.8-win732-vs10shared.zip
+
+
+2. Compiling GEOtop
+-------------------------------
+
+Checkout the latest version of GEOtop from the SVN. 
+
+Start MinGW Shell and navigate to the source code directory of GEOtop (e.g. D:\GEOtop_4)
+
+Edit the file Makefile.win and change the paths for the variables CPP, METEOIODIR and NETCDFDIR to 
+reflect your installation.
+
+Type "mingw32-make.exe -f Makefile.win netcdf" in the shell. Once compiled you should have a GEOtop_4.exe 
+file in your source directory.
+
+Add the source directory with the GEOtop_4.exe binary in it to your PATH variable. That way you can run 
+GEOtop from any directory on your command line. 
+
+
