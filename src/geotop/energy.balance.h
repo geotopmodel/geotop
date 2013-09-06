@@ -26,7 +26,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 						 DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin);
 	
 short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, 
-						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
+						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, TOPO *top, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
 						double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
 						double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, 
 						double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg, 
@@ -50,7 +50,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 				  double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, 
 				  double *Eg1, double *Lobukhov, double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, 
 				  double *rv_g, double *Qg, double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, 
-				  DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg);
+				  DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg, double sky);
 
 void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT, double z0s, 
 									double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR,
@@ -60,11 +60,11 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, 
 									double *Eg1, double *Lobukhov, double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, 
 									double *rv_g, double *Qg, double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, 
-									DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg, short flagTmin, long cont);
+									DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg, double sky, short flagTmin, long cont);
 
 double k_thermal(short snow, short a, double th_liq, double th_ice, double th_sat, double k_solid);
 
-double flux(long i, long icol, double **met, double k, double est);
+double flux(long i, long icol, double **met, double k, double add, double est);
 
 void check_errors(long r, long c, long n, DOUBLEVECTOR *adi, DOUBLEVECTOR *ad, DOUBLEVECTOR *ads, DOUBLEVECTOR *b, DOUBLEVECTOR *e, double *T, SHORTVECTOR *mf);
 

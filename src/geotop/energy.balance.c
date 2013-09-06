@@ -407,6 +407,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c], 
 						A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 	
+	SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
+	SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0, (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
+	
 	SWin=SWbeam+SWdiff;
 		
 	//update snow albedo
@@ -452,7 +455,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	}
 			
 	//correct in case of reading data
-	SW=flux(A->M->nstsrad, iSWn, A->M->var, 1.0, SW);
+	SW=flux(A->M->nstsrad, iSWn, A->M->var, 1.0, 0.0, SW);
 			
 	//Extinction coefficient for SW in the snow layers
 	rad_snow_absorption(r, c, A->E->SWlayer, SW, S);			
@@ -466,11 +469,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	}			
 	
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]);
+	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint);
+	//printf("%f %f %f\n",LWin,A->T->sky->co[r][c],Tpoint);
 	
 	//if incoming LW data are available, they are used (priority)
-	LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
-			
+	LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, 0.0, LWin);
+	//printf("..%f %f %f\n",LWin,A->T->sky->co[r][c],Tpoint);
+				
 	//roughness lengths
 	update_roughness_soil(A->L->ty->co[lu][jz0], 0.0, 0.0, snowD, A->L->ty->co[lu][jz0thressoil], A->P->z0_snow, &z0, &d0, &z0_z0t);
 	if(fc>0) update_roughness_veg(A->L->vegpar->co[jdHveg], snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);							
@@ -568,7 +573,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 						
 		//ENERGY BALANCE	
 		sux=SolvePointEnergyBalance(surface, Tdirichlet, A->P->EB, A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, 
-									A->S, A->C, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], 
+									A->S, A->C, A->T, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], 
 									eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow, 
 									SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov, 
 									&rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb, &dUsl);	
@@ -852,7 +857,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 /******************************************************************************************************************************************/
 
 short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, 
-						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
+						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, TOPO *top, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
 						double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
 						double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, 
 						double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg, 
@@ -960,11 +965,11 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 				 decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, egy->THETA->co, sl->pa->co[sy], land->ty->co[lu], 
 				 land->root_fraction->co[lu], par, egy->soil_transp_layer, SWin, LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
 				 &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-				 egy->Temp->co, egy->soil_evap_layer_bare, egy->soil_evap_layer_bare);
+				 egy->Temp->co, egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, top->sky->co[r][c]);
 	
 		if(micro == 1){
 			EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
-			dEB_dT = -eps*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;
+			dEB_dT = -eps*top->sky->co[r][c]*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;//changed
 		}
 	}
 	
@@ -1252,11 +1257,11 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 												   sl->pa->co[sy], land->ty->co[lu], land->root_fraction->co[lu], par, egy->soil_transp_layer, SWin,
 												   LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, 
 												   Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v, egy->Temp->co, 
-												   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, flagTmin, cont);
+												   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, top->sky->co[r][c], flagTmin, cont);
 					
 					if(micro == 1){
 						EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
-						dEB_dT = -eps*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;
+						dEB_dT = -eps*top->sky->co[r][c]*dSB_dT(Tg) - dH_dT - latent(Tg,Levap(Tg))*dE_dT;//changed
 					}
 					
 				}
@@ -1620,7 +1625,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 				  double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, 
 				  double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, double *rv_g, double *Qg, 
 				  double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, DOUBLEVECTOR *soil_evap_layer_bare,
-				  DOUBLEVECTOR *soil_evap_layer_veg){
+				  DOUBLEVECTOR *soil_evap_layer_veg, double sky){
 	
 	
 	double Hg, dHg_dT, Eg, dEg_dT, LWg, LWup;
@@ -1688,7 +1693,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 		*dH_dT+=(1.0-fc)*dHg_dT;		
 		*dE_dT+=(1.0-fc)*dEg_dT;	
 		
-		*LW+=(1.0-fc)*( e*(LWin-SB(Tg)) );
+		*LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );//changed
 		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
 		
 		*Hg0=Hg;
@@ -1782,7 +1787,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, 
 									double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, double *rv_g, double *Qg, 
 									double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, DOUBLEVECTOR *soil_evap_layer_bare,
-									DOUBLEVECTOR *soil_evap_layer_veg, short flagTmin, long cont){
+									DOUBLEVECTOR *soil_evap_layer_veg, double sky, short flagTmin, long cont){
 	
 	
 	double Hg, dHg_dT, Eg, dEg_dT, LWg, LWup;
@@ -1818,9 +1823,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 		*dH_dT+=(1.0-fc)*dHg_dT;
 		*dE_dT+=(1.0-fc)*dEg_dT;
 		
-		*LW+=(1.0-fc)*( e*(LWin-SB(Tg)) );
-		//printf("LWin:%f Tg:%f Lwout:%f e:%f\n",LWin,Tg,SB(Tg),e);
-		
+		*LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );//changed		
 		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
 		
 		*Hg0=Hg;
@@ -1952,11 +1955,17 @@ double k_thermal(short snow, short a, double th_liq, double th_ice, double th_sa
 /******************************************************************************************************************************************/
 
 
-double flux(long i, long icol, double **met, double k, double est){
+double flux(long i, long icol, double **met, double k, double add, double est){
 	
-	double F=k*met[i-1][icol];
+	double F=met[i-1][icol];
 	
-	if((long)F==number_absent || (long)F==number_novalue) F=est;
+	if((long)F==number_absent || (long)F==number_novalue){
+		F=est;
+	}else {
+		F*=k;
+		F+=add;
+	}
+
 	
 	return(F);
 }
