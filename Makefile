@@ -67,4 +67,5 @@ tests: geotop
 	nosetests -v
 
 clean:
-	rm -rf *.o *~ $(OBJ) tests/test_sample_run/*/output_*/*
+	rm -rf *.o *~ $(OBJ)
+	rm -rf tests/test_sample_run/*/output_*/* tests/test_sample_run/*/_SUCCESSFUL_RUN* tests/test_sample_run/*/geotop.log
