@@ -485,8 +485,7 @@
 	}		
 	
 //	for(i=0;i<met->st->Z->nh;i++){
-	for(i=0;i<met->st->Z.size();i++){
-		
+	for(i=0;i<long(met->st->Z.size()-1);i++){
 //		for(j=0;j<met->numlines[i];j++){
 //			free(met->data[i][j]);
 //		}
@@ -497,7 +496,7 @@
 		}
 		free(met->horizon[i]);
 	}
-	
+
 	free(met->data);
 	free(met->numlines);
 	free(met->horizon);

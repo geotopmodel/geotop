@@ -81,9 +81,9 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	
 double diff2glob(double a);
 
-double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g);
+double atm_transmittance(double X, double P, double RH, double T);
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min);
+void longwave_radiation(short state, double pvap, double RH, double T, double taucloud, double *eps, double *eps_max, double *eps_min);
 
 double SB(double T);
 
@@ -93,13 +93,12 @@ double dSB_dT(double T);
   void rad_snow_absorption(long r, long c, GeoVector<double>& frac, double R, Statevar3D *snow);
 
 double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta, double dh, double RH, double T,
-		   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr,
-		   double Lozone, double alpha, double beta, double albedo);
+						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr);
 
 //double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met, const std::vector<mio::MeteoData>& vec_meteo,
 //						double Delta, double E0, double Et, double ST, double SWrefl_surr);
 double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
-		double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo);
+						double Delta, double E0, double Et, double ST, double SWrefl_surr);
 
 short shadows_point(double **hor_height, long hor_lines, double alpha, double azimuth, double tol_mount, double tol_flat);
 
@@ -112,8 +111,8 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 //					   METEO *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta, double E0,
 //					   double Et, double ST, double A);
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
-		   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
-		   double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo);
+					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta, double E0,
+					   double Et, double ST, double A);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate);
 #endif

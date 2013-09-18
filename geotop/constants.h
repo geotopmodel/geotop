@@ -35,8 +35,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 400 // was 378
-#define num_par_char 359// was 338
+#define num_par_number 378
+#define num_par_char 338
 
 //****************************************************
 // Fixed Parameters
@@ -124,8 +124,7 @@ namespace GTConst {
 #define iC	 itauC+1				//Cloudiness factor
 #define iLWi iC+1					/*incoming longwave*/
 #define iSWn iLWi+1					//net shortwave
-#define iTs iSWn+1					//Surface Temperature
-#define nmet iTs+1
+#define nmet iSWn+1
 
 //****************************************************
 //soil data
@@ -390,17 +389,7 @@ namespace GTConst {
 #define fglzwriteend fglz+1					//o. glacier data
 
 #define fSCA fglzwriteend+1					//file giving the fraction of snow free areas and corresponding properties 
-
-#define fTrun fSCA+1
-#define fwrun fTrun+1
-#define fdUrun fwrun+1	
-#define fSWErun fdUrun+1
-#define fTmaxrun fSWErun+1
-#define fTminrun fTmaxrun+1
-#define fwmaxrun fTminrun+1
-#define fwminrun fwmaxrun+1
-
-#define fT fwminrun+1					//o. temperature maps
+#define fT fSCA+1					//o. temperature maps
 #define fTsup fT+1					//o. temperature maps
 #define fTav fTsup+1
 #define fTavsup fTav+1
@@ -446,12 +435,7 @@ namespace GTConst {
 #define fthawed_dw fthawed_up+1
 #define fwtable_up fthawed_dw+1
 #define fwtable_dw fwtable_up+1			//water table depth
-//TODO Hack
-#define fpnet fwtable_dw+1
-#define fevap fpnet+1
-//#define pG fwtable_dw+1
-// end
-#define pG fevap+1
+#define pG fwtable_dw+1
 #define pH pG+1
 #define pLE pH+1
 #define pHg pLE+1					//specific day map plots(p.) sensible heat flux
@@ -492,18 +476,9 @@ namespace GTConst {
 #define rTv rwcsn+1
 #define rpsich rTv+1			
 #define ricegch rpsich+1			
-#define rTgch ricegch+1
-#define rTrun rTgch+1
-#define rwrun rTrun+1
-#define rdUrun rwrun+1	
-#define rSWErun rdUrun+1
-#define rTmaxrun rSWErun+1
-#define rTminrun rTmaxrun+1
-#define rwmaxrun rTminrun+1
-#define rwminrun rwmaxrun+1	
-#define rtime rwminrun+1
-#define rsux rtime+1
-#define nfiles rsux+1					//number of files
+#define rTgch ricegch+1		
+#define rtime rTgch+1
+#define nfiles rtime+1					//number of files
 
 //****************************************************
 //Points
@@ -526,8 +501,7 @@ namespace GTConst {
 #define ptMAXSWE ptHOR+1
 #define ptLAT ptMAXSWE+1
 #define ptLON ptLAT+1
-#define ptBED ptLON+1
-#define ptTOT ptBED
+#define ptTOT ptLON
 
 #endif
 

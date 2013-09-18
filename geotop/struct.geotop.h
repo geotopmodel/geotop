@@ -254,21 +254,6 @@ public:
 	SoilState *SS;
 //	STATE_VEG *VS;
 	StateVeg *VS;
-	
-	GeoMatrix<double> Tzrun;
-	GeoMatrix<double> wzrun;
-	GeoMatrix<double> dUzrun;
-	GeoMatrix<double> SWErun;
-
-	GeoMatrix<double> Tzmaxrun;
-	GeoMatrix<double>  wzmaxrun;
-	GeoMatrix<double> Tzminrun;
-	GeoMatrix<double> wzminrun;
-//TODO: Hack
-	GeoMatrix<double> Pnetcum;
-	GeoMatrix<double> ETcum;
-	//TODO: end Hack
-	
 };
 //	} SOIL;
 
@@ -801,41 +786,6 @@ public:
 	
 	double k_to_ksat;
 	short RunIfAnOldRunIsPresent;
-	
-	GeoVector<long> Nl_spinup;	
-		
-	short newperiodinit;
-	
-	short Tzrun;
-	short wzrun;
-	short dUzrun;
-	short SWErun;
-	
-	short Tzmaxrun;
-	short wzmaxrun;
-	short Tzminrun;
-	short wzminrun;
-	
-	double k1;
-	double k2;
-	double Lozone;
-	double alpha_iqbal;
-	double beta_iqbal;
-	
-	short albedoSWin;
-	short micro;
-	
-	double EB;
-	double Cair;
-	double Tsup;
-	
-	double Tair_default;
-	double RH_default;
-	double V_default;
-	double Vdir_default;
-	double IPrec_default;
-	
-	double simulation_hours;
 };
 //} PAR;
 
@@ -1049,11 +999,6 @@ class Meteo {
 	long nstcloud;		// meteo station ID (1...n) to use for the cloudiness
 	long numstcloud;	// number of meteo stations measuring cloudiness
 	
-	//long nstsrad;// meteo station ID (1...n) to use for the SW radiation
-	//long nstlrad;// meteo station ID (1...n) to use for the LW radiation
-	long nstTs;
-	//long numstsrad;// number of meteo stations measuring SW radiation
-
 //	LONGVECTOR *imeteo_stations;
 	GeoVector<long> imeteo_stations;
 	};
