@@ -90,8 +90,9 @@ class TestValidRun(object):
         os.chdir(directory)
 
         # Run geotop
-        output = subprocess.check_output(
-            [GEOTOP, '.'], stderr=subprocess.STDOUT)
+        command = subprocess.Popen(
+            [GEOTOP, '.'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (stdout, stderr) = command.communicate()
 
         # Check that _SUCCESSFUL_RUN file exists)
         assert os.path.isfile(os.path.join(directory, '_SUCCESSFUL_RUN'))
