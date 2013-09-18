@@ -53,7 +53,6 @@ int mkdirp(const char *pathname, mode_t mode)
 {
     /* From http://niallohiggins.com/2009/01/08/mkpath-mkdir-p-alike-in-c-for-unix/ */
     char parent[PATH_MAX], *p;
-    struct stat sb;
 
     /* make a parent directory path */
     strncpy(parent, pathname, sizeof(parent));
@@ -65,19 +64,20 @@ int mkdirp(const char *pathname, mode_t mode)
     if(p != parent && mkdirp(parent, mode) != 0)
         return -1;
 
-    stat(pathname, &sb);
-    if(!S_ISDIR(sb.st_mode)){
-        /* pathname is NOT a directory! */
-        return -1;
-    }
-
     /* make this one if parent has been made */
     if(mkdir(pathname, mode) == 0)
         return 0;
 
     /* if it already exists that is fine */
-    if(errno == EEXIST)
+    if(errno == EEXIST){
+        struct stat sb;
+        stat(pathname, &sb);
+        if(!S_ISDIR(sb.st_mode)){
+            /* pathname is NOT a directory! */
+            return -1;
+        }
         return 0;
+    }
     return -1;
 }
 
