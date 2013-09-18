@@ -79,7 +79,7 @@ class TestValidRun(object):
         same files. Future implementations will also allow a numeric
         tolerance on the values, if needed.
         """
-        assert_true(filecmp.cmp(fpath_ok, fpath_new))
+        assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
 
     def _test_template(self, directory):
         """
