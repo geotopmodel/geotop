@@ -105,6 +105,9 @@ class TestValidRun(object):
         assert_is_file(os.path.join(directory, '_SUCCESSFUL_RUN'))
 
         resultdir = os.path.join(directory, 'results')
+        if not os.path.isdir(resultdir):
+            # No `results` directory. Assume it's OK.
+            return
 
         # For each directory inside ``results``...
         for outputdir in os.listdir(resultdir):
