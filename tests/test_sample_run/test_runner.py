@@ -77,11 +77,13 @@ class TestValidRun(object):
         """
         assert filecmp.cmp(fpath_ok, fpath_new)
 
-    def _test_template(self, directory): """ This template function
-        will run geotop on a specific test directory, check if the
-        `_SUCCESSFUL_RUN` is created, and check that all the files
-        stored in ``results`` have been created by the simulation and
-        compare them.  """
+    def _test_template(self, directory):
+        """
+        This template function will run geotop on a specific test
+        directory, check if the `_SUCCESSFUL_RUN` is created, and
+        check that all the files stored in ``results`` have been
+        created by the simulation and compare them.
+        """
 
         # Change the current working directory, because
         # ``geotop.inpts`` files usually have relative paths.
@@ -110,7 +112,7 @@ class TestValidRun(object):
                 self.compare_files(fpath_ok, fpath_new)
 
     def test_generator(self):
-        for d in TESTS:
+        for d in os.listdir(TESTDIR):
             path = os.path.join(TESTDIR, d)
             if os.path.isdir(path) and os.path.isfile(
                     os.path.join(path, 'geotop.inpts')):
