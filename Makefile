@@ -61,5 +61,10 @@ netcdf: CPPFLAGS = -g -DUSE_NETCDF
 netcdf: $(OBJ) $(NETCDFOBJ)
 	$(CPP) -o $(BINS) $(OBJ) $(NETCDFOBJ) -rdynamic -lm -lstdc++ -lmeteoio -ldl -lnetcdf
 
+.PHONY: tests
+
+tests: geotop
+	nosetests -v
+
 clean:
 	rm -rf *.o *~ $(OBJ)
