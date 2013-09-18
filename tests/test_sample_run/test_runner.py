@@ -54,7 +54,10 @@ import shutil
 import sys
 import tempfile
 
-import unittest
+from nose.tools import assert_equal, assert_true
+
+def assert_is_file(fname, msg=None):
+    assert os.path.isfile(fname), msg or "%s is not a file" % fname
 
 # Directory containing this file
 TESTDIR = os.path.abspath(os.path.dirname(__file__))
@@ -62,6 +65,7 @@ TESTDIR = os.path.abspath(os.path.dirname(__file__))
 # Path to the geotop binary
 GEOTOP = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '../../GEOtop_4'))
+
 
 class TestValidRun(object):
     def setUp(self):
@@ -75,7 +79,7 @@ class TestValidRun(object):
         same files. Future implementations will also allow a numeric
         tolerance on the values, if needed.
         """
-        assert filecmp.cmp(fpath_ok, fpath_new)
+        assert_true(filecmp.cmp(fpath_ok, fpath_new))
 
     def _test_template(self, directory):
         """
@@ -89,13 +93,16 @@ class TestValidRun(object):
         # ``geotop.inpts`` files usually have relative paths.
         os.chdir(directory)
 
+        assert_is_file(GEOTOP)
+
         # Run geotop
         command = subprocess.Popen(
             [GEOTOP, '.'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (stdout, stderr) = command.communicate()
+        assert_equal(command.returncode, 0, msg=stderr)
 
         # Check that _SUCCESSFUL_RUN file exists)
-        assert os.path.isfile(os.path.join(directory, '_SUCCESSFUL_RUN'))
+        assert_is_file(os.path.join(directory, '_SUCCESSFUL_RUN'))
 
         resultdir = os.path.join(directory, 'results')
 
@@ -108,7 +115,7 @@ class TestValidRun(object):
                 # fpath_new is the corresponding file just produced by geotop
                 fpath_new = os.path.join(directory, outputdir, fname)
                 # fpath_new has to exists and...
-                assert os.path.isfile(fpath_new)
+                assert_is_file(fpath_new)
                 # ...it has to be equal to the file in ``results``
                 self.compare_files(fpath_ok, fpath_new)
 
