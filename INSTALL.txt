@@ -36,6 +36,9 @@ type "mingw32-make.exe install"
 
 Add the meteoio lib path to your PATH environment variable.
 
+Please note that the tests in the `tests` directory are supposed to
+pass *only if MeteoIO version 2.4.0 or greater is used* (corresponding
+to SVN revision r1165 or greater)
 
 1.5 NetCDF
 
