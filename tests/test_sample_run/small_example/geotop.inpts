@@ -2,8 +2,8 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 15/10/2011 12:00
-EndDateDDMMYYYYhhmm =  24/10/2011 12:00
+InitDateDDMMYYYYhhmm = 20/10/2011 12:00
+EndDateDDMMYYYYhhmm =  29/10/2011 12:00
 EnergyBalance = 1
 WaterBalance=0
 PointSim=0
@@ -17,16 +17,15 @@ Longitude= 11.7
 !*******************************
 !****** METEO STATIONS *********
 !*******************************
-NumberOfMeteoStations =2
-! Auronzo, Domegge
-MeteoStationCoordinateX=641960,643962
-MeteoStationCoordinateY=5008572,5010006
-MeteoStationElevation=1200,1220
-MeteoStationLatitude=46.55628,46.46098
-MeteoStationLongitude=12.42590,12.41032
+NumberOfMeteoStations =3
+MeteoStationCoordinateX=641960,643962,644544
+MeteoStationCoordinateY=5008572,5010006,5006496
+MeteoStationElevation=1200,1450,990
+MeteoStationLatitude=46.55628,46.46098,46.450
+MeteoStationLongitude=12.42590,12.41032,12.417
 MeteoStationStandardTime=1
-MeteoStationWindVelocitySensorHeight=2,2
-MeteoStationTemperatureSensorHeight=5,5
+MeteoStationWindVelocitySensorHeight=2,2,2
+MeteoStationTemperatureSensorHeight=5,5,5
 
 MeteoFile = "meteo/meteo"
 
