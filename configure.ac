@@ -36,11 +36,45 @@ AC_ARG_WITH([static-geotop],
     [with_static_geotop=yes],
     [])
 
+## Configure meteoio ##
 AC_ARG_WITH([meteoio],
     [AS_HELP_STRING([--with-meteoio],
         [location of the MeteoIO library])],
-    [METEOIO_CPPFLAGS="-I$withval" METEOIO_LDFLAGS="-L$withval/lib/" METEOIO_LIBS="-lmeteoio"],
-    [METEOIO_CPPFLAGS="-I/usr/local/include/meteoio/" METEOIO_LIBS="-lmeteoio"])
+    [METEOIO_CPPFLAGS="-I$withval" METEOIO_LDFLAGS="-L$withval/lib/"],
+    [METEOIO_CPPFLAGS="-I/usr/local/include/meteoio/"])
+
+AC_CHECK_FILE($with_meteoio/lib/libmeteoio.a,
+        [HAVE_STATIC_LIBMETEOIO=1],
+        [HAVE_STATIC_LIBMETEOIO=0],
+)
+
+AC_CHECK_FILE($with_meteoio/lib/libmeteoio.a,
+        [HAVE_STATIC_LIBMETEOIO=1],
+        [HAVE_STATIC_LIBMETEOIO=0],
+)
+
+# Configure meteoio linker flags
+METEOIO_LIBS="-lmeteoio"
+
+# There *has* to be a more-autoconf way to check if
+# --with-static-geotop _and_ if HAVE_STATIC_LIBMETEOIO=0
+if test x$with_static_geotop = xyes; then
+   if test $HAVE_STATIC_LIBMETEOIO = 0; then
+     AC_MSG_ERROR([Missing MeteoIO static library. Specify the correct path with `--with-meteoio` and ensure that MeteoIO has been compiled with STATIC library support])
+   else
+      METEOIO_LIBS="$with_meteoio/lib/libmeteoio.a"
+      # Very ugly hack to find libproj!
+      for path in /usr/lib /usr/local/lib /opt/local/lib
+      do
+          if test -f $path/libproj.a; then
+            METEOIO_LIBS+=" $path/libproj.a"
+            break
+          fi
+      done
+      METEOIO_LIBS+=" -lpthread"
+   fi
+fi
+
 AC_SUBST([METEOIO_CPPFLAGS])
 AC_SUBST([METEOIO_LDFLAGS])
 AC_SUBST([METEOIO_LIBS])
@@ -72,7 +106,7 @@ if test $FOUND_METEOIO != 1; then
     AC_MSG_NOTICE([])
     AC_MSG_NOTICE([The MeteoIO library was not found!])
     AC_MSG_NOTICE([])
-    AC_MSG_ERROR([ MeteoIO library is an essential dependency : cannot build and stop here !])
+    AC_MSG_ERROR([ Please provide the path to the MeteoIO installation using `--with-meteoio` and re-run the configure script.])
 fi
 
 #### END checking of MeteoIO ####
