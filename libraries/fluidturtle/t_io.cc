@@ -110,7 +110,6 @@ if(-1 == ret){
     fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
     exit(1);
 }
-free(basedir);
 
 if((fp=fopen(name,mode))==NULL){
 	printf("%s",name);    
