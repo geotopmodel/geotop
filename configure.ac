@@ -70,5 +70,6 @@ AC_CONFIG_FILES([Makefile
                  wrf/Makefile
                  netCDF/Makefile
                  meteoio_plugin/Makefile
+                 tests/test_sample_run/test_runner.py
                  ])
 AC_OUTPUT
