@@ -867,6 +867,9 @@ void write_esriascii_vector(string name, short type, const GeoVector<double>& DT
 	//	type=0  floating point
 	//	type=1  integer
 
+    char *basedir;
+    int ret = 0;
+
 	FILE *f;
 	long r,c;
 //	char *temp;
@@ -881,7 +884,16 @@ void write_esriascii_vector(string name, short type, const GeoVector<double>& DT
 
 //	temp = join_strings(name ,ascii_esri);
 	temp = name +ascii_esri;
+
+    basedir = dirname(strdup(temp.c_str()));
+    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    if(-1 == ret){
+        t_error("write_esriascii_vector(): Unable to create parent directories of file" + temp);
+    }
 	f=fopen(temp.c_str(),"w");
+    if(NULL == f){
+        t_error("write_esriascii_vector(): Unable to open file `" + temp + "` in write mode.");
+    }
 
 	fprintf(f,"ncols         %ld\n",nc);
 	fprintf(f,"nrows         %ld\n",nr);
