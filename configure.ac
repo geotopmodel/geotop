@@ -35,6 +35,15 @@ AC_ARG_WITH([static-geotop],
             [Compile a static executable.])],
     [with_static_geotop=yes],
     [])
+
+AC_ARG_WITH([meteoio],
+    [AS_HELP_STRING([--with-meteoio],
+        [location of the MeteoIO library])],
+    [METEOIO_CFLAGS="-I$withval" METEOIO_LIBS="-L$withval/lib -lmeteoio"],
+    [METEOIO_CFLAGS="-I/usr/local/include/meteoio" METEOIO_LIBS="-lmeteoio"])
+AC_SUBST([METEOIO_CFLAGS])
+AC_SUBST([METEOIO_LIBS])
+    
 # The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
 AM_CONDITIONAL([WITH_STATIC_GEOTOP], [test "_$with_static_geotop" = '_yes'])
 
