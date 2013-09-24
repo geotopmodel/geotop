@@ -64,7 +64,7 @@ TESTDIR = os.path.abspath(os.path.dirname(__file__))
 
 # Path to the geotop binary
 GEOTOP = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '../../GEOtop_4'))
+    os.path.dirname(__file__), '../../geotop/geotop'))
 
 
 class TestValidRun(object):

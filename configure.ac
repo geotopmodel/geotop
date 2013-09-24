@@ -39,9 +39,9 @@ AC_ARG_WITH([static-geotop],
 AC_ARG_WITH([meteoio],
     [AS_HELP_STRING([--with-meteoio],
         [location of the MeteoIO library])],
-    [METEOIO_CFLAGS="-I$withval" METEOIO_LIBS="-L$withval/lib -lmeteoio"],
-    [METEOIO_CFLAGS="-I/usr/local/include/meteoio" METEOIO_LIBS="-lmeteoio"])
-AC_SUBST([METEOIO_CFLAGS])
+    [METEOIO_CPPFLAGS="-I$withval" METEOIO_LIBS="-L$withval/lib -lmeteoio"],
+    [METEOIO_CPPFLAGS="-I/usr/local/include/meteoio" METEOIO_LIBS="-lmeteoio"])
+AC_SUBST([METEOIO_CPPFLAGS])
 AC_SUBST([METEOIO_LIBS])
     
 # The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
@@ -66,6 +66,9 @@ AC_CONFIG_FILES([Makefile
                  geotop/Makefile
                  libraries/Makefile
                  libraries/ascii/Makefile
-                 libraries/fluidturtle//Makefile
+                 libraries/fluidturtle/Makefile
+                 wrf/Makefile
+                 netCDF/Makefile
+                 meteoio_plugin/Makefile
                  ])
 AC_OUTPUT
