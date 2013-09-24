@@ -192,7 +192,8 @@ HeatEqMaxIter=700
 
 DtPlotPoint = 1
 PointOutputFile = "output_tabs/point"
-!SnowProfileFile = "output_tabs/snow"
+SnowProfileFile = "output_tabs/snow"
+SoilTempProfileFile="output_tabs/soiltemp"
 DatePoint=1
 SnowDepthPoint=2
 SWEPoint=3

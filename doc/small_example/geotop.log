@@ -801,7 +801,7 @@ SoilIceContentProfileFile = none
 SoilIceContentProfileFileWriteEnd = none
 SoilAveragedIceContentProfileFile = none
 SoilAveragedIceContentProfileFileWriteEnd = none
-SnowProfileFile = none
+SnowProfileFile = output_tabs/snow
 SnowProfileFileWriteEnd = none
 GlacierProfileFile = none
 GlacierProfileFileWriteEnd = none
@@ -1143,5 +1143,3 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 1,641960.000000,5008572.000000,46.556280,12.425900,1200.000000,1.000000,1.000000,2.000000,5.000000
 2,643962.000000,5010006.000000,46.460980,12.410320,1220.000000,1.000000,1.000000,2.000000,5.000000
 Channel pixels: 0
-Soil water evaporates from the first 1 layers
-Soil water transpires from the first 4 layers
