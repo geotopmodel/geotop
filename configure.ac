@@ -39,11 +39,45 @@ AC_ARG_WITH([static-geotop],
 AC_ARG_WITH([meteoio],
     [AS_HELP_STRING([--with-meteoio],
         [location of the MeteoIO library])],
-    [METEOIO_CPPFLAGS="-I$withval" METEOIO_LIBS="-L$withval/lib -lmeteoio"],
-    [METEOIO_CPPFLAGS="-I/usr/local/include/meteoio" METEOIO_LIBS="-lmeteoio"])
+    [METEOIO_CPPFLAGS="-I$withval" METEOIO_LDFLAGS="-L$withval/lib/" METEOIO_LIBS="-lmeteoio"],
+    [METEOIO_CPPFLAGS="-I/usr/local/include/meteoio/" METEOIO_LIBS="-lmeteoio"])
 AC_SUBST([METEOIO_CPPFLAGS])
+AC_SUBST([METEOIO_LDFLAGS])
 AC_SUBST([METEOIO_LIBS])
-    
+
+CPPFLAGS+=" $METEOIO_CPPFLAGS"
+LDFLAGS+=" $METEOIO_LDFLAGS"
+
+#### Check MeteoIO library ####
+# save old values for compiling
+OLD_LIBS="$LIBS"
+LIBS+=" $METEOIO_LIBS"
+
+# Set language
+AC_LANG([C++])
+# Test if we can compile a program
+AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM([[#include <meteoio/MeteoIO.h>
+    ]],
+        [[mio::getLibVersion();]])],
+    [AC_MSG_RESULT([yes])
+        FOUND_METEOIO=1;],
+    [AC_MSG_RESULT([no])
+        FOUND_METEOIO=0;])
+
+# reset original *FLAGS
+LIBS="$OLD_LIBS"
+
+if test $FOUND_METEOIO != 1; then
+    AC_MSG_NOTICE([])
+    AC_MSG_NOTICE([The MeteoIO library was not found!])
+    AC_MSG_NOTICE([])
+    AC_MSG_ERROR([ MeteoIO library is an essential dependency : cannot build and stop here !])
+fi
+
+#### END checking of MeteoIO ####
+
+
 # The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
 AM_CONDITIONAL([WITH_STATIC_GEOTOP], [test "_$with_static_geotop" = '_yes'])
 
