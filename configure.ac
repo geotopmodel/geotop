@@ -41,7 +41,7 @@ AC_ARG_WITH([meteoio],
     [AS_HELP_STRING([--with-meteoio],
         [location of the MeteoIO library])],
     [METEOIO_CPPFLAGS="-I$withval/include" METEOIO_LDFLAGS="-L$withval/lib/"],
-    [METEOIO_CPPFLAGS="-I/usr/local/"])
+    [])
 
 AC_CHECK_FILE($with_meteoio/lib/libmeteoio.a,
         [HAVE_STATIC_LIBMETEOIO=1],
