@@ -1,2 +1,0 @@
-Date12[DDMMYYYYhhmm],snow_depth[mm],snow_water_equivalent[mm],Tair[C],Tsurface[C],Surface_Energy_balance[W/m2],Soil_heat_flux[W/m2],SWin[W/m2],SWbeam[W/m2],SWdiff[W/m2],LWin[W/m2]
-15/10/2011 13:00,0.000000,0.000000,8.886427,22.543330,176.253324,176.253324,575.744492,474.892839,100.851653,256.168359
