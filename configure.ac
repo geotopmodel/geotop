@@ -9,7 +9,7 @@ AC_PREREQ([2.65])
 # software name, version, contact address
 AC_INIT([geotop],[1.2.10],[stefano.end@gmail.com])
 # if this file does not exist, `configure` was invoked in the wrong directory
-AC_CONFIG_SRCDIR([src/geotop/geotop.c])
+AC_CONFIG_SRCDIR([geotop/geotop.cc])
 # directories (relative to top-level) to look into for AutoConf/AutoMake files
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux])
@@ -19,6 +19,7 @@ AM_INIT_AUTOMAKE([1.10])
 AC_CONFIG_HEADERS([config.h])
 
 AC_PROG_CC
+AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
 
