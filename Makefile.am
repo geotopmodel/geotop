@@ -1,5 +1,5 @@
 # recursively process `Makefile.am` in these subdirectories
-SUBDIRS = libraries wrf netCDF meteoio_plugin geotop
+SUBDIRS = libraries netCDF meteoio_plugin geotop
 
 .PHONY: tests
 
