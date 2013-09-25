@@ -25,134 +25,67 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
+#ifdef USE_INTERNAL_METEODISTR
 //void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR *par, double JD0, double JDbeg, double JDend){
-//
-//	long i,r,c,year,j;
-//	double JD;
-//	FILE *flog;
-//
-//	//INTERPOLATION OF METEO VARIABLES
-//	for(i=1;i<=met->st->Z->nh;i++){
-//		if(par->linear_interpolation_meteo->co[i] == 1){
-//			time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
-//		}else {
-//			time_interp_constant(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
-//		}
-//	}
-//
-//	//LAPSE RATES
-//	if(par->LRflag==1){
-//		time_interp_linear(JD0, JDbeg, JDend, met->LRv, met->LRs, met->LRsnr, nlstot, 0, 0, &lineLR);
-//	}else {
-//		convert_JDfrom0_JDandYear ( (JDbeg+JDend)/2. , &JD , &year);
-//		for (i=0; i<nlstot; i++) {
-//			j = floor( JD * met->LRcnc[i] / (365. + is_leap(year)) );
-//			met->LRv[i] = met->LRc[i][j];
-//		}
-//	}
-//
-//	for (i=0; i<nlstot; i++) {
-//		if ( (long)met->LRv[i] == number_novalue) met->LRv[i] = met->LRd[i];
-//	}
-//	FILE *f,*f1;
-//	if (par->use_meteoio_meteodata==1){
-//		//printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
-//	   if(par->point_sim == 1)
-//		   {
-//		   printf("Calling pointwise MeteoIO ");
-//		   meteoio_interpolate_pointwise( par, JDbeg, met, wat);
-//		   f = fopen("mio_hnw_1d_log.txt", "a");
-//		   f1 = fopen("mio_TA_1d_log.txt", "a");
-//		   }
-//	   else
-//	   	   {
-//		   printf("Calling 2D grid MeteoIO ");
-// 		   meteoio_interpolate(par, JDbeg, met, wat);
-// 		   f = fopen("mio_hnw_2d_log.txt", "a");
-// 		   f1 = fopen("mio_TA_2d_log.txt", "a");
-//		   }
-//
-//	}else{
-//		//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
-//		flog = fopen(logfile, "a");
-////		Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
-////			 top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
-////			 par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co, met->RHgrid->co, met->Vgrid->co,
-////			 met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
-////			 par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-//		f = fopen("geo_hnw_1d_log.txt", "a");
-//		f1 = fopen("geo_TA_1d_log.txt", "a");
-//		}
-//
-//	int  ii, jj;
-//
-//
-//	if(par->point_sim == 1){
-//		fprintf(f,"%f,",JDbeg);
-//		for(ii=wat->PrecTot->nrl;ii<=wat->PrecTot->nrh;ii++){
-//			for(jj=wat->PrecTot->ncl;jj<wat->PrecTot->nch;jj++){
-//				fprintf(f,"%f,",wat->PrecTot->co[ii][jj]);
-////				if(wat->PrecTot->co[ii][jj]>0){
-////					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,wat->PrecTot->co[ii][jj]);
-////					stop_execution();
-////				}
-//			}
-//		}
-//		fprintf(f,"%f\n",wat->PrecTot->co[wat->PrecTot->nrh][wat->PrecTot->nch]);
-//
-//		fprintf(f1,"%f,",JDbeg);
-//				for(ii=met->Tgrid->nrl;ii<=met->Tgrid->nrh;ii++){
-//					for(jj=met->Tgrid->ncl;jj<met->Tgrid->nch;jj++){
-//						fprintf(f1,"%f,",met->Tgrid->co[ii][jj]);
-//		//				if(met->Tgrid->co[ii][jj]>0){
-//		//					printf("JDbeg=%f, r=%d, c=%d, wat-PrecTot[r][c]=%f \n",JDbeg, ii,jj,met->Tgrid->co[ii][jj]);
-//		//					stop_execution();
-//		//				}
-//					}
-//				}
-//				fprintf(f1,"%f\n",met->Tgrid->co[met->Tgrid->nrh][met->Tgrid->nch]);
-//    }
-//
-//	if(par->point_sim == 0){
-//	 long r,c;int i;
-//	 for (i = 1; i <= par->chkpt->nrh; i++) {
-//		  r=par->rc->co[i][1];
-//		  c=par->rc->co[i][2];
-//          //printf("%f \t %f",value, top->Z0->co[r][c]);  to print elev
-//          fprintf(f,"%f ",met->Tgrid->co[r][c]);
-//   	   }
-//		fprintf(f,"\n");
-//	}
-//	fclose(f);
-//	fclose(f1);
-//
-//	/*printf("\n TA \n");
-//	print_doublematrix_elements(met->Tgrid,10);
-//	printf("\n RH \n");
-//	print_doublematrix_elements(met->RHgrid,10);
-//	printf("\n P \n");
-//	print_doublematrix_elements(met->Pgrid,10);
-//	printf("\n Vdir \n");
-//	print_doublematrix_elements(met->Vdir,10);
-//	printf("\n Vgrid \n");
-//	print_doublematrix_elements(met->Vgrid,10);
-//	printf("\n HNW \n");
-//	print_doublematrix_elements(wat->PrecTot,10);
-//	//stop_execution();*/
-//
-//
-//
-//	if(par->en_balance==0){
-//		for(r=1;r<=Nr;r++){
-//			for(c=1;c<=Nc;c++){
-//				wat->Pnet->co[r][c] = par->raincorrfact*wat->PrecTot->co[r][c]*((JDend-JDbeg)*24.)*cos(top->slope->co[r][c]*Pi/180.);	//from [mm/h] to [mm]
-//				if (par->point_sim==1) wat->Pnet->co[r][c] *= cos(top->slope->co[r][c]*Pi/180.);
-//			}
-//		}
-//	}
-//}
+void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par *par, double JD0, double JDbeg, double JDend){
 
+	long i,r,c,year,j;
+	double JD;
+	FILE *flog;	
+			
+
+	
+	//INTERPOLATION OF METEO VARIABLES
+	//for(i=1;i<=met->st->Z->nh;i++){
+	for (i=1; i<met->st->Z.size(); i++){
+		if(par->linear_interpolation_meteo[i] == 1){
+			time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
+			//time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1], A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
+		}else {
+			time_interp_constant(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
+		}
+	}
+	
+	//LAPSE RATES
+	if(par->LRflag==1){
+		time_interp_linear(JD0, JDbeg, JDend, met->LRv, met->LRs, met->LRsnr, nlstot, 0, 0, &lineLR);
+	}else {
+		convert_JDfrom0_JDandYear ( (JDbeg+JDend)/2. , &JD , &year);
+		for (i=0; i<nlstot; i++) {
+			j = floor( JD * met->LRcnc[i] / (365. + is_leap(year)) );
+			met->LRv[i] = met->LRc[i][j];
+		}
+	}	
+	
+	for (i=0; i<nlstot; i++) {
+		if ( (long)met->LRv[i] == number_novalue) met->LRv[i] = met->LRd[i]; 
+	}
+	
+	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS	
+	//flog = fopen(logfile, "a");
+	flog = fopen(logfile.c_str(), "a");
+//	Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
+//			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
+//			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co, met->RHgrid->co, met->Vgrid->co,
+//			met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
+//			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
+	Meteodistr(UV->U[2], UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
+			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
+			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, &(met->Tgrid), &(met->RHgrid), &(met->Vgrid),
+			&(met->Vdir), &(met->Pgrid), &(wat->PrecTot), met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
+			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
+	fclose(flog);
+		
+	if(par->en_balance==0){
+		for(r=1;r<=Nr;r++){
+			for(c=1;c<=Nc;c++){
+				wat->Pnet[r][c] = par->raincorrfact*wat->PrecTot[r][c]*((JDend-JDbeg)*24.)*cos(top->slope[r][c]*GTConst::Pi/180.);	//from [mm/h] to [mm]
+				if (par->point_sim==1) wat->Pnet[r][c] *= cos(top->slope[r][c]*GTConst::Pi/180.);
+			}
+		}
+	}	
+}
+#endif
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

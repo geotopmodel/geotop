@@ -379,8 +379,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					
 				//	meteo
 					tstart=clock();
-			//		meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 
+#ifndef USE_INTERNAL_METEODISTR
 					std::vector<mio::MeteoData> vec_meteo;
 
 					Date d1;
@@ -388,20 +388,20 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					iomanager.getMeteoData(d1, vec_meteo);
 
 					A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date[i_sim]), A);
-
-					if (A->P->use_meteoio_meteodata==1){
 					//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
-						 if(A->P->point_sim == 1){
-							printf("Calling pointwise MeteoIO ");
-							meteoio_interpolate_pointwise( A->P, JDb, A->M, A->W);
+
+					if(A->P->point_sim == 1){
+						printf("Calling pointwise MeteoIO ");
+						meteoio_interpolate_pointwise( A->P, JDb, A->M, A->W);
 						//	f = fopen("mio_hnw_1d_log.txt", "a");
-							 }
-							else{
-							printf("Calling 2D grid MeteoIO ");
-							meteoio_interpolate(A->P, JDb, A->M, A->W);
+					}else{
+						printf("Calling 2D grid MeteoIO ");
+						meteoio_interpolate(A->P, JDb, A->M, A->W);
 						//	f = fopen("mio_hnw_2d_log.txt", "a");
-							}
 						}
+#else
+					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
+#endif
 
 					tend=clock();
 					t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;

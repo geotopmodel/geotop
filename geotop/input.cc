@@ -205,12 +205,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 	// ##################################################################################################################################
 	// ##################################################################################################################################
-	par->usemeteoio=1;
-	par->use_meteoio_meteodata=1;
+	par->use_meteoio_cloud = false;
+#ifndef USE_INTERNAL_METEODISTR
+	//par->use_meteoio_meteodata=1;
 	par->use_meteoio_cloud = true;
-	if (par->usemeteoio == 1) {
-		meteoio_init(iomanager);
-	}
+	meteoio_init(iomanager);
+#endif
 	// ##################################################################################################################################
 	// ##################################################################################################################################
 	
@@ -310,99 +310,120 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		// ##################################################################################################################################
 		// #####################Probably the next lines should not be necessary if we use meteoIO   #####################################
 		// ##################################################################################################################################
+#ifdef USE_INTERNAL_METEODISTR
+		met->var=(double**)malloc(met->st->E.size()*sizeof(double*));
+		met->line_interp_WEB=(long*)malloc(met->st->E.size()*sizeof(long));
+		met->line_interp_Bsnow=(long*)malloc(met->st->E.size()*sizeof(long));
+		met->line_interp_WEB_LR=0;
+		met->line_interp_Bsnow_LR=0;
+		//initialize
+		met->line_interp_WEB[i-1] = 0;
+		met->line_interp_Bsnow[i-1] = 0;
 
-//		//initialize
-//		met->line_interp_WEB[i-1] = 0;
-//		met->line_interp_Bsnow[i-1] = 0;
-//		//filename
-//		if (strcmp(files[fmet], string_novalue) != 0){
-//
-//			//read matrix
-//			temp=namefile_i(files[fmet], ist);
-//			met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
-//
-//			if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
-//				f = fopen(FailedRunFile, "w");
-//				fprintf(f, "Error:: Date Column missing in file %s\n",temp);
-//				fclose(f);
-//				t_error("Fatal Error! Geotop is closed. See failing report (2).");
-//			}
-//			met->numlines[i-1] = num_lines;
-//
-//			//fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-//			added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i], met->numlines[i-1], iDate12, iJDfrom0);
-//
-//			check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
-//
-//			//find clouds
-//			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
-//				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
-//					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
-//						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
-//				}
-//			}
-//
-//			//calcululate Wx and Wy if Wspeed and direction are given
-//			if (par->wind_as_xy == 1) {
-//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-//			}
-//
-//			//calcululate Wspeed and direction if Wx and Wy are given
-//			if (par->wind_as_dir == 1) {
-//				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
-//			}
-//
-//			//find Tdew
-//			if(par->vap_as_Td == 1){
-//			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-//			}
-//
-//			//find RH
-//			if(par->vap_as_RH == 1){
-//				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
-//			}
-//
-//			//find Prec Intensity
-//			if ( par->linear_interpolation_meteo->co[i] == 1 && (long)met->data[i-1][0][iPrec] != number_absent) {
-//				f = fopen(FailedRunFile, "w");
-//				fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",i);
-//				fprintf(f,"If you want to use precipitation as volume, you cannot set keyword LinearInterpolation at 1.\n");
-//				fclose(f);
-//				t_error("Fatal Error! Geotop is closed. See failing report (3).");
-//			}
-//
-//			if(par->prec_as_intensity == 1){
-//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-//			}
-//
-//			//rewrite completed files
-//			rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
-//
-//			//calcululate Wx and Wy if Wspeed and direction are given
-//			if (par->wind_as_xy != 1) {
-//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-//			}
-//
-//			//find Prec Intensity
-//			if(par->prec_as_intensity != 1){
-//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-//			}
-//
-//			//find Tdew
-//			if(par->vap_as_Td != 1){
-//				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-//			}
-//
-//			free(temp);
-//
-//		}else {
-//
-//			f = fopen(FailedRunFile, "w");
-//			fprintf(f, "Error: File meteo not in the list, meteo data not read, not possible to continue\n");
-//			fclose(f);
-//			t_error("Fatal Error! Geotop is closed. See failing report (4).");
-//
-//		}
+		//allocate var
+		met->var[i-1] = (double*)malloc(num_cols*sizeof(double));
+
+		//filename
+		if (strcmp(files[fmet], string_novalue) != 0){
+
+			//read matrix
+			temp=namefile_i(files[fmet], ist);
+			met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
+
+			if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
+				f = fopen(FailedRunFile, "w");
+				fprintf(f, "Error:: Date Column missing in file %s\n",temp);
+				fclose(f);
+				t_error("Fatal Error! Geotop is closed. See failing report (2).");
+			}
+			met->numlines[i-1] = num_lines;
+
+			//fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
+			added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i], met->numlines[i-1], iDate12, iJDfrom0);
+
+			check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
+
+			//find clouds
+			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
+				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
+					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
+						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
+						//par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
+				}
+			}
+
+			//calcululate Wx and Wy if Wspeed and direction are given
+			if (par->wind_as_xy == 1) {
+				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+			}
+
+			//calcululate Wspeed and direction if Wx and Wy are given
+			if (par->wind_as_dir == 1) {
+				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
+			}
+
+			//find Tdew
+			if(par->vap_as_Td == 1){
+			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+			}
+
+			//find RH
+			if(par->vap_as_RH == 1){
+				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
+			}
+
+			//find Prec Intensity
+			if ( par->linear_interpolation_meteo->co[i] == 1 && (long)met->data[i-1][0][iPrec] != number_absent) {
+				f = fopen(FailedRunFile, "w");
+				fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",i);
+				fprintf(f,"If you want to use precipitation as volume, you cannot set keyword LinearInterpolation at 1.\n");
+				fclose(f);
+				t_error("Fatal Error! Geotop is closed. See failing report (3).");
+			}
+
+			if(par->prec_as_intensity == 1){
+				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+			}
+
+			//rewrite completed files
+			rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
+
+			//calcululate Wx and Wy if Wspeed and direction are given
+			if (par->wind_as_xy != 1) {
+				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+			}
+
+			//find Prec Intensity
+			if(par->prec_as_intensity != 1){
+				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+			}
+
+			//find Tdew
+			if(par->vap_as_Td != 1){
+				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+			}
+
+			free(temp);
+
+		}else {
+
+			fprintf(flog, "Warning: File meteo not in the list, meteo data not read, used default values\n");
+			printf("Warning: File meteo not in the list, meteo data not read, used default values\n");
+
+			met->data[i-1] = (double**)malloc(2*sizeof(double*));
+
+			for (n=1; n<=2; n++) {
+				met->data[i-1][n-1] = (double*)malloc(num_cols*sizeof(double));
+				for (j=1; j<=nmet; j++) {
+					met->data[i-1][n-1][j-1] = (double)number_absent;
+				}
+			}
+
+			met->data[i-1][0][iJDfrom0] = 0.;
+			met->data[i-1][1][iJDfrom0] = 1.E10;
+
+		}
+#endif
 	}
 		
 	//read LAPSE RATES FILE  

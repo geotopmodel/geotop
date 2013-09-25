@@ -935,7 +935,14 @@ class Meteo {
 	long *numlines;
 	double ***horizon;
 	long *horizonlines;
-	
+
+//#ifdef USE_INTERNAL_METEODISTR
+	double **var;
+	long *line_interp_WEB;
+	long *line_interp_Bsnow;
+	long line_interp_WEB_LR;
+	long line_interp_Bsnow_LR;
+//#endif
 	double **LRs;	//matrix read from the external value
 	long LRsnr;		//number of lines of the matrix
 	double *LRv;	//vector of interpolated values
