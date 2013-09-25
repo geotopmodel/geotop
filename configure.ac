@@ -29,11 +29,18 @@ AC_PROG_INSTALL
 # knows how to use it; you just need to activate it.
 LT_INIT([static])
 
-
+## Option to compile geotop statically ##
 AC_ARG_WITH([static-geotop],
     [AS_HELP_STRING([--with-static-geotop=yes|no],
             [Compile a static executable.])],
     [with_static_geotop=yes],
+    [])
+
+## Use internal interpolation or MeteoIO one ##
+AC_ARG_WITH([internal-meteodistr],
+    [AS_HELP_STRING([--with-internal-meteodistr],
+        [Use internal meteo interpolation, routine instead of using MeteoIO])],
+    [AC_DEFINE([USE_INTERNAL_METEODISTR], [1], [Decide which interpolation to use])],
     [])
 
 ## Configure meteoio ##
