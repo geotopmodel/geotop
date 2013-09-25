@@ -59,5 +59,6 @@ AC_CONFIG_FILES([Makefile
                  src/libraries/ascii/Makefile
                  src/libraries/math/Makefile
                  src/libraries/fluidturtle//Makefile
-                 src/libraries/geomorphology/Makefile])
+                 src/libraries/geomorphology/Makefile
+                 tests/test_sample_run/test_runner.py])
 AC_OUTPUT
