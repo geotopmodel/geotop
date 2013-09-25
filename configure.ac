@@ -50,6 +50,11 @@ AC_ARG_ENABLE([netcdf],
     [AC_DEFINE([USE_NETCDF], [1], [Use NetCDF])],
     [])
 
+## If netcdf is enabled, check if it's actually available
+AS_IF([test "x$enable_netcdf" = "xyes"],
+    [AC_CHECK_LIB([netcdf], [nc_inq_libvers],
+        [], [AC_MSG_ERROR([No NetCDF library found])])])
+## end netcdf check
 
 ## Configure meteoio ##
 AC_ARG_WITH([meteoio],
