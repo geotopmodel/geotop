@@ -37,11 +37,19 @@ AC_ARG_WITH([static-geotop],
     [])
 
 ## Use internal interpolation or MeteoIO one ##
-AC_ARG_WITH([internal-meteodistr],
-    [AS_HELP_STRING([--with-internal-meteodistr],
+AC_ARG_ENABLE([internal-meteodistr],
+    [AS_HELP_STRING([--enable-internal-meteodistr],
         [Use internal meteo interpolation, routine instead of using MeteoIO])],
     [AC_DEFINE([USE_INTERNAL_METEODISTR], [1], [Decide which interpolation to use])],
     [])
+
+## Enable NetCDF ##
+AC_ARG_ENABLE([netcdf],
+    [AS_HELP_STRING([--enable-netcdf],
+        [Use NetCDF for ...?])],
+    [AC_DEFINE([USE_NETCDF], [1], [Use NetCDF])],
+    [])
+
 
 ## Configure meteoio ##
 AC_ARG_WITH([meteoio],

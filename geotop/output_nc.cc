@@ -47,6 +47,9 @@ extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
 
 extern long i_sim, i_run;*/
+
+#include "config.h"
+
 #ifdef USE_NETCDF
 
 #include "output_nc.h"

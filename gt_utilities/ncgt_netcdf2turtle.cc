@@ -4,6 +4,7 @@
  */
 
 
+#include "config.h"
 
 #ifdef USE_NETCDF
 
