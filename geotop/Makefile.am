@@ -15,10 +15,12 @@ endif
 
 geotop_LDADD = $(top_srcdir)/libraries/ascii/libascii.la \
                $(top_srcdir)/libraries/fluidturtle/libfluidturtle.la \
-               $(top_srcdir)/wrf/libwrfio.la \
-               $(top_srcdir)/netCDF/libnetcdfio.la \
+               # $(top_srcdir)/wrf/libwrfio.la \
                $(top_srcdir)/meteoio_plugin/libmeteoioplugin.la \
 	           -lm $(METEOIO_LIBS)
 
+if INCLUDE_NETCDF_SUBDIR
+  geotop_LDADD += $(top_srcdir)/netCDF/libnetcdfio.la
+endif
 
 #geotop_LIBTOOLFLAGS = -static

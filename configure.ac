@@ -50,6 +50,8 @@ AC_ARG_ENABLE([netcdf],
     [AC_DEFINE([USE_NETCDF], [1], [Use NetCDF])],
     [])
 
+AM_CONDITIONAL([INCLUDE_NETCDF_SUBDIR], test "x$enable_netcdf" = "xyes")
+
 ## If netcdf is enabled, check if it's actually available
 AS_IF([test "x$enable_netcdf" = "xyes"],
     [AC_CHECK_LIB([netcdf], [nc_inq_libvers],
