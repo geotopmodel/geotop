@@ -24,7 +24,7 @@
 #include "constants.h"
 #include "struct.geotop.h"
 #include "meteodata.h"
-//#include "meteodistr.h"
+#include "meteodistr.h"
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"

@@ -35,53 +35,85 @@
 #define METEODISTR_H
 #include "constants.h"
 #include "struct.geotop.h"
-#include "t_utilities.h"
-#include "rw_maps.h"
+#include "radiation.h"
+//#include "t_utilities.h"
+#include "../libraries/ascii/rw_maps.h"
 #include "meteo.h"
 
 extern long number_novalue, number_absent;
-extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
 
-void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
-			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
+//extern T_INIT *UV;
+extern TInit *UV;
+//extern char *WORKING_DIRECTORY;
+extern std::string WORKING_DIRECTORY;
+
+
+//void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+//			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
+//			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+//			long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid,
+//			double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid,
+//			double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
+//			short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f);
+void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
+		GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
 			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
-			long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
-			double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
+			long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
+			GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
 			double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP, 
 			short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f);
 	
-short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn, 
-			DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
+//short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn,
+//			DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
+short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tcode, GeoMatrix<double>& Tair_grid, double dn,
+			GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f);
 	
-short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid, 
-			double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
+//short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
+//			double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
+short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tdcode, GeoMatrix<double>& RH_grid,
+		GeoMatrix<double>& Tair_grid, double RH_min, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f);
 	
-void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-			DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, 
-			DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef);
+//void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
+//			DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az,
+//			DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef);
+void topo_mod_winds(GeoMatrix<double>& winddir_grid, GeoMatrix<double>& windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
+		GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2, GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& slope_az,
+		GeoMatrix<double>& terrain_slope, GeoMatrix<double>& topo, double undef);
 	
-short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
-			double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
-			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, 
+//short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
+//			double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+//			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
+//			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
+//			DOUBLEMATRIX *topo, short iobsint, FILE *f);
+short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long ucode, long vcode, long Vscode,
+		GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
+			GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& slope_az, GeoMatrix<double>& terrain_slope,
 			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn, 
-			DOUBLEMATRIX *topo, short iobsint, FILE *f);
+			GeoMatrix<double>& topo, short iobsint, FILE *f);
 	
-short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
-			long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, 
+//short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
+//			long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
+//			double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor);
+short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Pcode, long Tcode,
+			long Tdcode, GeoMatrix<double>& prec_grid, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate,
 			double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor);
 	
-void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef);
+//void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef);
+void get_pressure(GeoMatrix<double>& topo, GeoMatrix<double>& sfc_pressure, double undef);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate);
 
-short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst, DOUBLEVECTOR *Yst, 
-			double **value, long metcod, double **grid, double dn0, short iobsint);
+//short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst, DOUBLEVECTOR *Yst,
+//			double **value, long metcod, double **grid, double dn0, short iobsint);
+short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpoint, GeoMatrix<double>& Ypoint, GeoVector<double>& Xst, GeoVector<double>& Yst,
+		double** value, long metcod, GeoMatrix<double>& grid, double dn0, short iobsint);
 
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *dn);
 
-void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall, DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, 
-			   DOUBLEVECTOR *var, double dn, double undef, double **grid, double **value_station, long metcode);
+//void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall, DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn,
+//			   DOUBLEVECTOR *var, double dn, double undef, double **grid, double **value_station, long metcode);
+void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint, GeoVector<double>& xstnall, GeoVector<double>& ystnall, GeoVector<double>& xstn, GeoVector<double>& ystn,
+		GeoVector<double>& var, double dn, double undef, GeoMatrix<double>& grid, double **value_station, long metcode);
 	
 #endif
 #endif

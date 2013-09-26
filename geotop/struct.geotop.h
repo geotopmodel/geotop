@@ -1005,6 +1005,7 @@ class Meteo {
 
 	long nstcloud;		// meteo station ID (1...n) to use for the cloudiness
 	long numstcloud;	// number of meteo stations measuring cloudiness
+	long nstsrad;
 	
 //	LONGVECTOR *imeteo_stations;
 	GeoVector<long> imeteo_stations;

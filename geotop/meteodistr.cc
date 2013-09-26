@@ -43,14 +43,20 @@
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
-				DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
-				double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
-				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
-				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
-				double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
-				short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
-	
+//void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+//				DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
+//				double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+//				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid,
+//				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid,
+//				double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
+//				short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
+void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
+		GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
+		double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+		long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
+		GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
+		double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
+		short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
 	short ok;
 	
 	ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate, f);
@@ -92,9 +98,11 @@ void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMA
 //***************************************************************************************************************
 
 
-short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn, 
-					  DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f){
-	
+//short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn,
+//					  DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f){
+short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tcode, GeoMatrix<double>& Tair_grid, double dn,
+				GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f){
+
 	double topo_ref;
 	long n, r, c;
 	short ok;
@@ -103,29 +111,30 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, ME
 	topo_ref = 0.0;
 	
 	//Convert the station data to sea level values in [K].
-	for(n=1;n<=met->st->Z->nh;n++){
+	for(n=1;n<=met->st->Z.size();n++){
 		if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
-			met->var[n-1][Tcode] = temperature(topo_ref, met->st->Z->co[n], met->var[n-1][Tcode], lapse_rate) + tk;
+			met->var[n-1][Tcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tcode], lapse_rate) + GTConst::tk;
 		}
 	}
 	
 	//Use the barnes oi scheme to interpolate the station data to the grid.
-	ok = interpolate_meteo(1, dE, dN, E, N, met->st->E, met->st->N, met->var, Tcode, Tair_grid, dn, iobsint);
+	ok = interpolate_meteo(		1, 			   dE, 		  dN, 					 E, 						N, 					met->st->E, 			met->st->N, 	  met->var, 	  Tcode, 				Tair_grid, 		dn, 		iobsint);
+		//interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpoint, GeoMatrix<double>& Ypoint, GeoVector<double>& Xst, GeoVector<double>& Yst, double ** value, long metcod, GeoMatrix<double>& grid, double dn0, short iobsint);
 	if(ok==0) return ok;
 	
 	//Convert these grid values back to the actual gridded elevations [C].
-    for(r=1;r<=topo->nrh;r++){
-		for(c=1;c<=topo->nch;c++){
-			if((long)topo->co[r][c]!=number_novalue){
-				Tair_grid[r][c] = temperature(topo->co[r][c], topo_ref, Tair_grid[r][c], lapse_rate) - tk;
+    for(r=1;r<=topo.getRows();r++){//top->Z0.getRows(),top->Z0.getCols()
+		for(c=1;c<=topo.getCols();c++){
+			if((long)topo[r][c]!=number_novalue){
+				Tair_grid[r][c] = temperature(topo[r][c], topo_ref, Tair_grid[r][c], lapse_rate) - GTConst::tk;
 			}
 		}
 	}
 	
 	//Convert back the station data [C].
-	for(n=1;n<=met->st->Z->nh;n++){
+	for(n=1;n<=met->st->Z.size();n++){
 		if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
-			met->var[n-1][Tcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - tk;
+			met->var[n-1][Tcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - GTConst::tk;
 		}
 	}
 	
@@ -138,9 +147,11 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, ME
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid, 
-							double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
-							FILE *f){
+//short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
+//			double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
+//			FILE *f){
+short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tdcode, GeoMatrix<double>& RH_grid,
+			GeoMatrix<double>& Tair_grid, double RH_min, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f){
 	
 	// First convert stn relative humidity to dew-point temperature.  Use
 	//   the Td lapse rate to take the stn Td to sea level.  Interpolate
@@ -157,9 +168,9 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 	
 	
 	//Convert the station data to sea level values in [K].
-	for(n=1;n<=met->st->Z->nh;n++){
+	for(n=1;n<=met->st->Z.size();n++){
 		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
-			met->var[n-1][Tdcode] = temperature(topo_ref, met->st->Z->co[n], met->var[n-1][Tdcode], lapse_rate) + tk;
+			met->var[n-1][Tdcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tdcode], lapse_rate) + GTConst::tk;
 		}
 	}
 	
@@ -168,20 +179,20 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 	if(ok==0) return 0;	
 	
 	//Convert these grid values back to the actual gridded elevations, and convert to RH
-    for(r=1;r<=topo->nrh;r++){
-		for(c=1;c<=topo->nch;c++){
-			if((long)topo->co[r][c]!=number_novalue){
-				RH_grid[r][c] = temperature(topo->co[r][c], topo_ref, RH_grid[r][c], lapse_rate) - tk;
-				RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], topo->co[r][c]);
+    for(r=1;r<=topo.getRows();r++){
+		for(c=1;c<=topo.getCols();c++){
+			if((long)topo[r][c]!=number_novalue){
+				RH_grid[r][c] = temperature(topo[r][c], topo_ref, RH_grid[r][c], lapse_rate) - GTConst::tk;
+				RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], topo[r][c]);
 				if(RH_grid[r][c] < RH_min/100.) RH_grid[r][c] = RH_min/100.;
 			}
 		}
 	}
 	
 	//Convert back the station data [C].
-	for(n=1;n<=met->st->Z->nh;n++){
+	for(n=1;n<=met->st->Z.size();n++){
 		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
-			met->var[n-1][Tdcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - tk;
+			met->var[n-1][Tdcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - GTConst::tk;
 		}
 	}	
 	
@@ -194,51 +205,59 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI, 
-					DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, 
-					DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
+//void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
+//					DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
+//					DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
+void topo_mod_winds(GeoMatrix<double>& winddir_grid, GeoMatrix<double>& windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
+			GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2, GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4,
+			GeoMatrix<double>& slope_az,GeoMatrix<double>& terrain_slope, GeoMatrix<double>& topo, double undef){
 	
-	long r, c, nc=topo->nch, nr=topo->nrh;
-	double deg2rad=Pi/180.0,dirdiff,windwt;
+	//long r, c, nc=topo->nch, nr=topo->nrh;
+	long r, c, nc=topo.getCols(), nr=topo.getRows();
+	double deg2rad=GTConst::Pi/180.0,dirdiff,windwt;
 	
-	DOUBLEMATRIX *wind_slope, *wind_curv;
+	//DOUBLEMATRIX *wind_slope, *wind_curv;
+	GeoMatrix<double> wind_slope, wind_curv;
 	
 	//Compute the wind modification factor which is a function of topography and wind direction following Liston and Sturm (1998).
 	
 	//Compute the slope in the direction of the wind.
-	wind_slope=new_doublematrix(topo->nrh, topo->nch);
-	initialize_doublematrix(wind_slope, 0.);
+//	wind_slope=new_doublematrix(topo->nrh, topo->nch);
+//	initialize_doublematrix(wind_slope, 0.);
+	wind_slope.resize(topo.getRows()+1,topo.getCols()+1,0);
+
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
-			if(topo->co[r][c]!=undef){
-				wind_slope->co[r][c] = tan(deg2rad * terrain_slope->co[r][c] * cos(deg2rad * (winddir_grid[r][c] - slope_az->co[r][c])));
-				if(wind_slope->co[r][c]>1) wind_slope->co[r][c]=1.;
-				if(wind_slope->co[r][c]<-1) wind_slope->co[r][c]=-1.;				
+			if(topo[r][c]!=undef){
+				wind_slope[r][c] = tan(deg2rad * terrain_slope[r][c] * cos(deg2rad * (winddir_grid[r][c] - slope_az[r][c])));
+				if(wind_slope[r][c]>1) wind_slope[r][c]=1.;
+				if(wind_slope[r][c]<-1) wind_slope[r][c]=-1.;
 			}
 		}
 	}
 	
 	//curvature
-	wind_curv=new_doublematrix(topo->nrh, topo->nch);
-	initialize_doublematrix(wind_curv, 0.);
+//	wind_curv=new_doublematrix(topo->nrh, topo->nch);
+//	initialize_doublematrix(wind_curv, 0.);
+	wind_curv.resize(topo.getRows()+1,topo.getCols()+1,0);
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
-			if(topo->co[r][c]!=undef){
+			if(topo[r][c]!=undef){
 				if ( (winddir_grid[r][c]>360.-22.5 || winddir_grid[r][c]<=     22.5 ) || 
 					(winddir_grid[r][c]>180.-22.5 && winddir_grid[r][c]<=180.+22.5 ) ){
-					wind_curv->co[r][c] = -curvature1->co[r][c];
+					wind_curv[r][c] = -curvature1[r][c];
 					
 				}else if( (winddir_grid[r][c]>90. -22.5 && winddir_grid[r][c]<=90. +22.5 ) || 
 						 (winddir_grid[r][c]>270.-22.5 && winddir_grid[r][c]<=270.+22.5 ) ){
-					wind_curv->co[r][c] = -curvature2->co[r][c];
+					wind_curv[r][c] = -curvature2[r][c];
 					
 				}else if( (winddir_grid[r][c]>135.-22.5 && winddir_grid[r][c]<=135.+22.5 ) || 
 						 (winddir_grid[r][c]>315.-22.5 && winddir_grid[r][c]<=315.+22.5 ) ){
-					wind_curv->co[r][c] = -curvature3->co[r][c];
+					wind_curv[r][c] = -curvature3[r][c];
 					
 				}else if( (winddir_grid[r][c]>45. -22.5 && winddir_grid[r][c]<=45. +22.5 ) || 
 						 (winddir_grid[r][c]>225.-22.5 && winddir_grid[r][c]<=225.+22.5 ) ){
-					wind_curv->co[r][c] = -curvature4->co[r][c];
+					wind_curv[r][c] = -curvature4[r][c];
 					
 				}					
 			}
@@ -251,28 +270,28 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 	
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
-			if(topo->co[r][c]!=undef){
+			if(topo[r][c]!=undef){
 				
 				//Generate the terrain-modified wind speed.
 				windwt = 1.0;
 				
-				if (wind_slope->co[r][c] < 0) {
-					windwt += slopewtD * wind_slope->co[r][c];
+				if (wind_slope[r][c] < 0) {
+					windwt += slopewtD * wind_slope[r][c];
 				}else {
-					windwt += slopewtI * wind_slope->co[r][c];	
+					windwt += slopewtI * wind_slope[r][c];
 				}
 				
-				if (wind_curv->co[r][c] < 0) {
-					windwt += curvewtD * wind_curv->co[r][c];
+				if (wind_curv[r][c] < 0) {
+					windwt += curvewtD * wind_curv[r][c];
 				}else {
-					windwt += curvewtI * wind_curv->co[r][c];	
+					windwt += curvewtI * wind_curv[r][c];
 				}
 				
 				windspd_grid[r][c] *= windwt;
 				
 				//Modify the wind direction according to Ryan (1977).  
-				dirdiff = slope_az->co[r][c] - winddir_grid[r][c];
-				winddir_grid[r][c] = winddir_grid[r][c] - 22.5 * Fmin(fabs(wind_slope->co[r][c]),1.) * sin(deg2rad * (2.0 * dirdiff));
+				dirdiff = slope_az[r][c] - winddir_grid[r][c];
+				winddir_grid[r][c] = winddir_grid[r][c] - 22.5 * Fmin(fabs(wind_slope[r][c]),1.) * sin(deg2rad * (2.0 * dirdiff));
 				if(winddir_grid[r][c]>360.0){
 					winddir_grid[r][c] = winddir_grid[r][c] - 360.0;
 				}else if (winddir_grid[r][c]<0.0){
@@ -283,19 +302,24 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewt
 		}
 	}
 	
-	free_doublematrix(wind_slope);
-	free_doublematrix(wind_curv);
+	//free_doublematrix(wind_slope);
+	//free_doublematrix(wind_curv);
 }
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met, long ucode, long vcode, long Vscode,
-			   double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
-			   DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, 
-			   double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn, 
-			   DOUBLEMATRIX *topo, short iobsint, FILE *f){
+//short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met, long ucode, long vcode, long Vscode,
+//			   double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+//			   DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
+//			   double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
+//			   DOUBLEMATRIX *topo, short iobsint, FILE *f){
+short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long ucode, long vcode, long Vscode,
+			GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
+			GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& slope_az, GeoMatrix<double>& terrain_slope,
+			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
+			GeoMatrix<double>& topo, short iobsint, FILE *f){
 	
 	// This program takes the station wind speed and direction, converts
 	//   them to u and v components, interpolates u and v to a grid,
@@ -308,27 +332,31 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 	//   between u-v and speed-dir is done because of the problems
 	//   with interpolating over the 360/0 direction line.)
 	
-	DOUBLEMATRIX *u_grid, *v_grid;
-	long r, c, nc=topo->nch, nr=topo->nrh;
-	double rad2deg=180.0/Pi;
+	//DOUBLEMATRIX *u_grid, *v_grid;
+	GeoMatrix<double> u_grid, v_grid;
+	//long r, c, nc=topo->nch, nr=topo->nrh;
+	long r, c, nc=topo.getCols(), nr=topo.getRows();
+	double rad2deg=180.0/GTConst::Pi;
 	short oku, okv, ok;
 	
 	//Use the barnes oi scheme to interpolate the station data to
 	//the grid.
 	//U component.
-	u_grid=new_doublematrix(nr,nc);
-	oku = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, ucode, u_grid->co, dn, iobsint);
+	//u_grid=new_doublematrix(nr,nc);
+	u_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
+	oku = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, ucode, u_grid, dn, iobsint);
 	
 	//V component.
-	v_grid=new_doublematrix(nr,nc);	
-	okv = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, vcode, v_grid->co, dn, iobsint);
+	//v_grid=new_doublematrix(nr,nc);
+	v_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
+	okv = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, vcode, v_grid, dn, iobsint);
 	
 	if(oku == 0 || okv == 0){
 		//There is not availability of U and V, just consider wind speed as a scalar
 		ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Vscode, windspd_grid, dn, iobsint);
 		if(ok==0){
-			free_doublematrix(u_grid);
-			free_doublematrix(v_grid);	
+			//free_doublematrix(u_grid);
+			//free_doublematrix(v_grid);
 			return ok;
 		}
 		
@@ -337,10 +365,10 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 		//Convert these u and v components to speed and directions.
 		for(r=1;r<=nr;r++){
 			for(c=1;c<=nc;c++){
-				if((long)topo->co[r][c]!=number_novalue){
-					winddir_grid[r][c] = 270.0 - rad2deg*atan2(v_grid->co[r][c],u_grid->co[r][c]);
+				if((long)topo[r][c]!=number_novalue){
+					winddir_grid[r][c] = 270.0 - rad2deg*atan2(v_grid[r][c],u_grid[r][c]);
 					if (winddir_grid[r][c]>=360.0) winddir_grid[r][c] -= 360.0;
-					windspd_grid[r][c] = pow(pow(u_grid->co[r][c], 2.0) + pow(v_grid->co[r][c], 2.0), 0.5);
+					windspd_grid[r][c] = pow(pow(u_grid[r][c], 2.0) + pow(v_grid[r][c], 2.0), 0.5);
 				}
 			}
 		}
@@ -350,8 +378,8 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 					   curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
 	}
 	
-	free_doublematrix(u_grid);
-	free_doublematrix(v_grid);	
+	//free_doublematrix(u_grid);
+	//free_doublematrix(v_grid);
 	
 	//Avoid problems of zero (low) winds (for example, turbulence
 	//theory, log wind profile, etc., says that we must have some
@@ -359,7 +387,7 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 	//very small).
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
-			if((long)topo->co[r][c]!=number_novalue){
+			if((long)topo[r][c]!=number_novalue){
 				if (windspd_grid[r][c]<windspd_min) windspd_grid[r][c] = windspd_min;
 			}
 		}
@@ -373,10 +401,12 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
-						long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate, 
-						double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor){
-	
+//short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
+//				long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
+//				double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor){
+short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Pcode, long Tcode,
+				long Tdcode, GeoMatrix<double>& prec_grid, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate,
+				double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor){
 	// Interpolate the observed precipitation values to the grid.  Also
 	//   interpolate the station elevations to a reference surface.  Use
 	//   a precipitation "lapse rate", or adjustment factor to define
@@ -391,20 +421,22 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 	//   daily meteorological variables over large regions of complex
 	//   terrain.  J. Hydrology, 190, 214-251.
 	
-	long n, r, c, nc=topo->nch, nr=topo->nrh, cnt=0;
+	//long n, r, c, nc=topo->nch, nr=topo->nrh, cnt=0;
+	long n, r, c, nc=topo.getCols(), nr=topo.getRows(), cnt=0;
 	double alfa, prec, f, rain, snow;	
-	DOUBLEMATRIX *topo_ref_grid;
+	//DOUBLEMATRIX *topo_ref_grid;
+	GeoMatrix<double> topo_ref_grid;
 	short ok;
 	
 	
 	// Use the barnes oi scheme to interpolate the station elevation data
 	//   to the grid, so that it can be used as a topographic reference
 	//   surface.
-	for(n=1;n<=met->st->Z->nh;n++){
+	for(n=1;n<=met->st->Z.size();n++){
 		if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
 			prec = met->var[n-1][Pcode];
-			met->var[n-1][Pcode] = met->st->Z->co[n];			
-			met->st->Z->co[n] = prec;
+			met->var[n-1][Pcode] = met->st->Z[n];
+			met->st->Z[n] = prec;
 			cnt++;
 		}			
 	}
@@ -415,13 +447,14 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 		
 	}else {
 		
-		topo_ref_grid=new_doublematrix(nr,nc);
-		ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Pcode, topo_ref_grid->co, dn, iobsint);	
+		//topo_ref_grid=new_doublematrix(nr,nc);
+		topo_ref_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
+		ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Pcode, topo_ref_grid, dn, iobsint);
 		
-		for(n=1;n<=met->st->Z->nh;n++){
+		for(n=1;n<=met->st->Z.size();n++){
 			if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
-				prec = met->st->Z->co[n];
-				met->st->Z->co[n] = met->var[n-1][Pcode];		
+				prec = met->st->Z[n];
+				met->st->Z[n] = met->var[n-1][Pcode];
 				if (dew == 1) {
 					part_snow(prec, &rain, &snow, met->var[n-1][Tdcode], Train, Tsnow);
 				}else {
@@ -439,8 +472,8 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 		//	Convert the gridded station data to the actual gridded elevations.
 		for(c=1;c<=nc;c++){
 			for(r=1;r<=nr;r++){
-				if(topo->co[r][c]!= number_novalue){          
-					alfa = 1.E-3*lapse_rate * (topo->co[r][c] - topo_ref_grid->co[r][c]);
+				if(topo[r][c]!= number_novalue){
+					alfa = 1.E-3*lapse_rate * (topo[r][c] - topo_ref_grid[r][c]);
 					if(alfa < -1. + 1.E-6) alfa = -1. + 1.E-6;
 					f = (1.0 - alfa)/(1.0 + alfa);
 					if(f > max) f = max; 
@@ -450,7 +483,7 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 			}
 		}
 		
-		free_doublematrix(topo_ref_grid);
+		//free_doublematrix(topo_ref_grid);
 		
 		return ok;
 	}
@@ -461,15 +494,17 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef){
+//void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef){
+void get_pressure(GeoMatrix<double>& topo, GeoMatrix<double>& sfc_pressure, double undef){
 	
-	long r,c,nc=topo->nch,nr=topo->nrh;
+	//long r,c,nc=topo->nch,nr=topo->nrh;
+	long r,c,nc=topo.getCols(),nr=topo.getRows();
 	
 	//Compute the average station pressure (in bar).
 	for(c=1;c<=nc;c++){
 		for(r=1;r<=nr;r++){
-			if(topo->co[r][c]!=undef){
-				sfc_pressure[r][c] = pressure(topo->co[r][c]);
+			if(topo[r][c]!=undef){
+				sfc_pressure[r][c] = pressure(topo[r][c]);
 			}
 		}
 	}
@@ -477,77 +512,41 @@ void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef){
 
 
 
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
-
-double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate){
-	
-	double fcloud, Z_ref, press_ratio, f_max, one_minus_RHe, f_1, Td, Td_700, Tair_700, rh_700;
-	
-	//Assume that 700 mb is equivalent to 3000 m in a standard atmosphere.
-	Z_ref = 3000.0;
-	
-	//Define the ratio of 700 mb level pressure to the surface pressure (~1000 mb).
-	press_ratio = 0.7;
-	
-	//Assume dx = 80.0 km, for Walcek (1994).
-	
-	//Walcek coefficients.
-	f_max = 78.0 + 80.0/15.5;
-	one_minus_RHe = 0.196 + (0.76-80.0/2834.0) * (1.0 - press_ratio);
-	f_1 = f_max * (press_ratio - 0.1) / 0.6 / 100.0;
-	
-	//Convert the gridded topo-surface RH to Td.
-	Td = Tdew(Tair, Fmax(0.1, RH), Z);
-	
-	//Convert the topo-surface temperature values to 700 mb values.
-	Td_700 = temperature(Z_ref, Z, Td, Td_lapse_rate);
-	Tair_700 = temperature(Z_ref, Z, Tair, T_lapse_rate);
-	
-	//Convert each Td to a gridded relative humidity (0-1).
-    rh_700 = RHfromTdew(Tair_700, Td_700, Z);
-	
-	//Use this RH at 700 mb to define the cloud fraction (0-1).
-	fcloud = f_1 * exp((rh_700 - 1.0)/one_minus_RHe);
-	fcloud = Fmin(1.0, fcloud);
-	fcloud = Fmax(0.0, fcloud);
-	
-	return(fcloud);
-	
-}
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst, 
-						DOUBLEVECTOR *Yst, double **value, long metcod, double **grid, double dn0, short iobsint){
-	
+//short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst,
+//			DOUBLEVECTOR *Yst, double **value, long metcod, double **grid, double dn0, short iobsint){
+short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpoint, GeoMatrix<double>& Ypoint, GeoVector<double>& Xst, GeoVector<double>& Yst,
+		double** value, long metcod, GeoMatrix<double>& grid, double dn0, short iobsint){
+
 	long r,c,n,nstn;
 	double dn;
-	DOUBLEVECTOR *var, *xst, *yst;
+	//DOUBLEVECTOR *var, *xst, *yst;
 	
 	nstn=0;
-	for(n=1;n<=Xst->nh;n++){
+	for(n=1;n<=Xst.size();n++){
 		if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue) nstn++;
 	}
 	
 	if(nstn==0) return 0;
 	
-	var=new_doublevector(nstn);
-	xst=new_doublevector(nstn);
-	yst=new_doublevector(nstn);
-	
+//	var=new_doublevector(nstn);
+//	xst=new_doublevector(nstn);
+//	yst=new_doublevector(nstn);
+	GeoVector<double> var; var.resize(nstn+1,0);
+	GeoVector<double> xst; xst.resize(nstn+1,0);
+	GeoVector<double> yst; yst.resize(nstn+1,0);
 	nstn=0;
-	for(n=1;n<=Xst->nh;n++){
+	for(n=1;n<=Xst.size();n++){
 		if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue){
 			nstn++;
-			var->co[nstn]=value[n-1][metcod];
-			xst->co[nstn]=Xst->co[n];
-			yst->co[nstn]=Yst->co[n];
+			var[nstn]=value[n-1][metcod];
+			xst[nstn]=Xst[n];
+			yst[nstn]=Yst[n];
 		}
 	}
 	
@@ -555,20 +554,21 @@ short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, 
 		if(iobsint==1){
 			dn=dn0;
 		}else{
-			get_dn(Xpoint->nch, Xpoint->nrh, dX, dY, nstn, &dn);
+			//get_dn(Xpoint->nch, Xpoint->nrh, dX, dY, nstn, &dn);
+			get_dn(Xpoint.getCols(), Xpoint.getRows(), dX, dY, nstn, &dn);
 		}
 		barnes_oi(flag, Xpoint, Ypoint, Xst, Yst, xst, yst, var, dn, (double)number_novalue, grid, value, metcod);
 	}else{
-		for(r=1;r<=Xpoint->nrh;r++){
-			for(c=1;c<=Xpoint->nch;c++){
-				grid[r][c]=var->co[nstn];
+		for(r=1;r<=Xpoint.getRows();r++){
+			for(c=1;c<=Xpoint.getCols();c++){
+				grid[r][c]=var[nstn];
 			}
 		}
 	}
 	
-	free_doublevector(var);
-	free_doublevector(xst);
-	free_doublevector(yst);
+//	free_doublevector(var);
+//	free_doublevector(xst);
+//	free_doublevector(yst);
 	
 	return nstn;
 }
@@ -578,6 +578,7 @@ short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
+//void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *dn){
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *dn){
 	
 	//real dn_max           ! the max obs spacing, dn_r
@@ -598,14 +599,20 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall, 
-			   DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, DOUBLEVECTOR *var, double dn, double undef,
-			   double **grid, double **value_station, long metcode){
+//void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall,
+//		DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, DOUBLEVECTOR *var, double dn, double undef,
+//		double **grid, double **value_station, long metcode){
+void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint, GeoVector<double>& xstnall, GeoVector<double>& ystnall,
+		GeoVector<double>& xstn, GeoVector<double>& ystn, GeoVector<double>& var, double dn, double undef,
+		GeoMatrix<double>& grid, double **value_station, long metcode){
 	
 	long r, c, mm, nn;
-	long nr=xpoint->nrh, nc=xpoint->nch;
-	long nstns=xstn->nh;
-	long nstnsall=xstnall->nh;
+	//long nr=xpoint->nrh, nc=xpoint->nch;
+	long nr=xpoint.getRows(), nc=xpoint.getCols();
+	//long nstns=xstn->nh;
+	long nstns=xstn.size();
+	//long nstnsall=xstnall->nh;
+	long nstnsall=xstnall.size();
 	
 	double gamma=0.2;
 	
@@ -633,7 +640,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 	//   have assumed a gamma value of 0.2.
 	
 	// First-round values, Eqn (13).
-	xkappa_1 = 5.052 * pow(2.0*dn/Pi, 2.0);
+	xkappa_1 = 5.052 * pow(2.0*dn/GTConst::Pi, 2.0);
 	
 	// Define the maximum scanning radius to have weight defined by
 	//   wt = 1.0 x 10**(-30) = exp(-rmax_1/xkappa_1)
@@ -649,15 +656,17 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 	// Scan each input data point and construct estimated error, dvar, at that point.
 	for(nn=1;nn<=nstns;nn++){	//222
 		
-		xa = xstn->co[nn];
-		ya = ystn->co[nn];
+//		xa = xstn->co[nn];
+		xa = xstn[nn];
+//		ya = ystn->co[nn];
+		ya = ystn[nn];
 		wtot1 = 0.0;
 		ftot1 = 0.0;
 		
 		for(mm=1;mm<=nstns;mm++){	//111
 			
-			xb = xstn->co[mm];
-			yb = ystn->co[mm];
+			xb = xstn[mm];
+			yb = ystn[mm];
 			dsq = pow(xb - xa, 2.0) + pow(yb - ya, 2.0);
 			
 			if(dsq<=rmax_1){
@@ -668,12 +677,12 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 			}
 			
 			wtot1 = wtot1 + w1;
-			ftot1 = ftot1 + w1 * var->co[mm];
+			ftot1 = ftot1 + w1 * var[mm];
 		} //end 111
 		
 		if(wtot1==0.0) printf("stn wt totals zero\n");
 		
-		dvar->co[nn]= var->co[nn] - ftot1/wtot1;
+		dvar->co[nn]= var[nn] - ftot1/wtot1;
 		
 	} //end 222
 	
@@ -684,8 +693,8 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 	for(c=1;c<=nc;c++){ //666
 		for(r=1;r<=nr;r++){	//555
 			
-			xg = xpoint->co[r][c];
-			yg = ypoint->co[r][c];
+			xg = xpoint[r][c];
+			yg = ypoint[r][c];
 			
 			// Scan each input data point.
 			ftot1 = 0.0;
@@ -695,8 +704,8 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 			
 			for(nn=1;nn<=nstns;nn++){	//333
 				
-				xa = xstn->co[nn];
-				ya = ystn->co[nn];
+				xa = xstn[nn];
+				ya = ystn[nn];
 				dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
 				
 				if (dsq<=rmax_2){
@@ -714,7 +723,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 				
 				wtot1 = wtot1 + w1;
 				wtot2 = wtot2 + w2;
-				ftot1 = ftot1 + w1 * var->co[nn];
+				ftot1 = ftot1 + w1 * var[nn];
 				ftot2 = ftot2 + w2 * dvar->co[nn];
 				
 			} //end 333
@@ -731,8 +740,8 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 		
 		for(c=1;c<=nstnsall;c++){ //666
 			
-			xg = xstnall->co[c];
-			yg = ystnall->co[c];
+			xg = xstnall[c];
+			yg = ystnall[c];
 			
 			// Scan each input data point.
 			ftot1 = 0.0;
@@ -742,8 +751,8 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 			
 			for(nn=1;nn<=nstns;nn++){	//333
 				
-				xa = xstn->co[nn];
-				ya = ystn->co[nn];
+				xa = xstn[nn];
+				ya = ystn[nn];
 				dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
 				
 				if (dsq<=rmax_2){
@@ -761,7 +770,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVEC
 				
 				wtot1 = wtot1 + w1;
 				wtot2 = wtot2 + w2;
-				ftot1 = ftot1 + w1 * var->co[nn];
+				ftot1 = ftot1 + w1 * var[nn];
 				ftot2 = ftot2 + w2 * dvar->co[nn];
 				
 			} //end 333

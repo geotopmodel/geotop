@@ -209,8 +209,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #ifndef USE_INTERNAL_METEODISTR
 	//par->use_meteoio_meteodata=1;
 	par->use_meteoio_cloud = true;
-	meteoio_init(iomanager);
 #endif
+meteoio_init(iomanager);
 	// ##################################################################################################################################
 	// ##################################################################################################################################
 	
@@ -331,79 +331,79 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 			met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
 
 			if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
-				f = fopen(FailedRunFile, "w");
-				fprintf(f, "Error:: Date Column missing in file %s\n",temp);
+				f = fopen(FailedRunFile.c_str(), "w");
+				fprintf(f, "Error:: Date Column missing in file %s\n",temp.c_str());
 				fclose(f);
 				t_error("Fatal Error! Geotop is closed. See failing report (2).");
 			}
 			met->numlines[i-1] = num_lines;
 
 			//fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-			added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i], met->numlines[i-1], iDate12, iJDfrom0);
+			added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
 
 			check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
 			//find clouds
-			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
-				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
-					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
-						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
-						//par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
-				}
-			}
+//			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
+//				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
+//					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
+//						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
+//						//par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
+//				}
+//			}
 
 			//calcululate Wx and Wy if Wspeed and direction are given
-			if (par->wind_as_xy == 1) {
-				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-			}
+//			if (par->wind_as_xy == 1) {
+//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+//			}
 
 			//calcululate Wspeed and direction if Wx and Wy are given
-			if (par->wind_as_dir == 1) {
-				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
-			}
+//			if (par->wind_as_dir == 1) {
+//				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
+//			}
 
 			//find Tdew
-			if(par->vap_as_Td == 1){
-			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-			}
+//			if(par->vap_as_Td == 1){
+//			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+//			}
 
 			//find RH
-			if(par->vap_as_RH == 1){
-				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
-			}
+//			if(par->vap_as_RH == 1){
+//				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
+//			}
 
 			//find Prec Intensity
-			if ( par->linear_interpolation_meteo->co[i] == 1 && (long)met->data[i-1][0][iPrec] != number_absent) {
-				f = fopen(FailedRunFile, "w");
+			if ( par->linear_interpolation_meteo[i] == 1 && (long)met->data[i-1][0][iPrec] != number_absent) {
+				f = fopen(FailedRunFile.c_str(), "w");
 				fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",i);
 				fprintf(f,"If you want to use precipitation as volume, you cannot set keyword LinearInterpolation at 1.\n");
 				fclose(f);
 				t_error("Fatal Error! Geotop is closed. See failing report (3).");
 			}
 
-			if(par->prec_as_intensity == 1){
-				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-			}
+//			if(par->prec_as_intensity == 1){
+//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+//			}
 
 			//rewrite completed files
-			rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
+			//rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp.c_str(), added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
 
 			//calcululate Wx and Wy if Wspeed and direction are given
-			if (par->wind_as_xy != 1) {
-				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-			}
+//			if (par->wind_as_xy != 1) {
+//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+//			}
 
 			//find Prec Intensity
-			if(par->prec_as_intensity != 1){
-				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-			}
+//			if(par->prec_as_intensity != 1){
+//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+//			}
 
 			//find Tdew
-			if(par->vap_as_Td != 1){
-				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-			}
+//			if(par->vap_as_Td != 1){
+//				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+//			}
 
-			free(temp);
+			//free(temp);
 
 		}else {
 
@@ -464,6 +464,21 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	
 	
 //	FIND A STATION WITH SHORTWAVE RADIATION DATA
+#ifdef USE_INTERNAL_METEODISTR
+	met->nstsrad=0;
+		do{
+			met->nstsrad++;
+			a=0;
+			if( (long)met->data[met->nstsrad-1][0][iSW]!=number_absent || ((long)met->data[met->nstsrad-1][0][iSWb]!=number_absent && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent ) ) a=1;
+		}while(met->nstsrad<met->st->Z.size() && a==0);
+		if(a==0){
+			printf("WARNING: NO shortwave radiation measurements available\n");
+			fprintf(flog,"WARNING: NO shortwave radiation measurements available\n");
+		}else{
+			printf("Shortwave radiation measurements from station %ld\n",met->nstsrad);
+			fprintf(flog,"Shortwave radiation measurements from station %ld\n",met->nstsrad);
+		}
+#endif
 //	met->tau_cl_map=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 //	initialize_doublematrix(met->tau_cl_map, (double)number_novalue);
 	met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),(double)number_novalue);

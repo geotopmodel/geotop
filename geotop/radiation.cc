@@ -594,6 +594,38 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 	return c;
 }
 
+//double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Meteo *met,
+//						double Delta, double E0, double Et, double ST, double SWrefl_surr)
+
+double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Meteo *met, double Delta, double E0, double Et,
+							  double ST, double SWrefl_surr)//, double Lozone, double alpha, double beta, double albedo){
+{
+	double P, RH, T, c;
+
+	//pressure [mbar]
+	P=pressure(met->st->Z[i]);
+
+	//relative humidity
+	if((long)met->var[i-1][iRh] != number_novalue && (long)met->var[i-1][iRh] != number_absent){
+		RH=met->var[i-1][iRh]/100.;
+	}else {
+		if ( (long)met->var[i-1][iT] != number_absent && (long)met->var[i-1][iT] != number_novalue && (long)met->var[i-1][iTdew] != number_absent && (long)met->var[i-1][iTdew] != number_novalue){
+			RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z[i]);
+		}else {
+			RH=0.4;
+		}
+	}
+	if(RH<0.01) RH=0.01;
+
+	T=met->var[i-1][iT];
+	if((long)T == number_novalue || (long)T == number_absent) T=0.0;
+
+	c = cloud_transmittance(JDbeg, JDend, met->st->lat[i]*GTConst::Pi/180., Delta, (met->st->lon[i]*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
+							T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky[i], SWrefl_surr);//,Lozone, alpha, beta, albedo);
+
+	return c;
+}
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -940,6 +972,68 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	*/
 }
 
+void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr){
+		//TODO HACK matteo: to add: double Lozone, double alpha, double beta, double albedo){
+
+	//SWdata = flag -> 0= no radiation data measured, 1=beam and diff measured, 2=global measured
+	short SWdata;
+	double tc;
+
+	if((long)met->var[met->nstsrad-1][iSWb]!=number_absent && (long)met->var[met->nstsrad-1][iSWd]!=number_absent){
+		if((long)met->var[met->nstsrad-1][iSWb]!=number_novalue && (long)met->var[met->nstsrad-1][iSWd]!=number_novalue){
+			SWdata=2;
+		}else{
+			SWdata=0;
+		}
+	}else if((long)met->var[met->nstsrad-1][iSW]!=number_absent){
+		if((long)met->var[met->nstsrad-1][iSW]!=number_novalue){
+			SWdata=1;
+		}else{
+			SWdata=0;
+		}
+	}else{
+		SWdata=0;
+	}
+
+	if(SWdata>0){
+		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr);//, Lozone, alpha, beta, albedo);
+		if ( (long)tc != number_novalue){
+			*tau_cloud_yes = 1;
+			*tau_cloud = tc;
+		}else {
+			*tau_cloud_yes = 0;
+		}
+	}else{
+		*tau_cloud_yes = 0;
+	}
+
+	if( (long)met->var[met->nstcloud-1][iC]!=number_absent && (long)met->var[met->nstcloud-1][iC]!=number_novalue ){
+
+		tc = met->var[met->nstcloud-1][iC];
+
+		*tau_cloud_av_yes = 1;
+		tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
+		if(tc > 1) tc = 1.;
+		if(tc < 0) tc = 0.;
+		*tau_cloud_av = tc;
+
+	}else if( (long)met->var[met->nstcloud-1][itauC]!=number_absent && (long)met->var[met->nstcloud-1][itauC]!=number_novalue ){
+
+		tc = met->var[met->nstcloud-1][itauC];
+
+		*tau_cloud_av_yes = 1;
+		if(tc > 1) tc = 1.;
+		if(tc < 0) tc = 0.;
+		*tau_cloud_av = tc;
+
+	}else{
+
+		*tau_cloud_av_yes = 0;
+
+	}
+
+}
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 //*****************************************************************************************************************

@@ -104,86 +104,86 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void time_interp_constant(double t0, double tbeg, double tend, double *out, double **data, long nlines, long ncols, long col_date, short flag, long *istart)
-//
-//{
-//
-//	short a0=0, abeg=0, aend=0;
-//	long i0, ibeg, iend, i, j;
-//	double t, add;
-//
-//	i0   = find_line_data(flag, t0, *istart, data, col_date, nlines, &a0);
-//	ibeg = find_line_data(flag, tbeg, i0, data, col_date, nlines, &abeg);
-//	iend = find_line_data(flag, tend, ibeg, data, col_date, nlines, &aend);
-//
-//	//printf("istart:%ld ibeg:%ld iend:%ld %f %f %d %d\n",*istart,ibeg,iend,tbeg,tend,abeg,aend);
-//
-//	for (i=0; i<ncols; i++) {
-//
-//		if ( (long)data[0][i] == number_absent) {
-//
-//			out[i] = (double)number_absent;
-//
-//		}else if (abeg == 1 && aend == 1) {
-//
-//			out[i] = 0.;
-//
-//			j = ibeg;
-//
-//			while ( (long)out[i] != number_novalue && j < iend) {
-//				t = time_in_JDfrom0(flag, j+1, col_date, data);
-//				add = integrate_meas_constant_beh(flag, t, j+1, data, i, col_date);
-//				//printf("j:%ld t:%f int:%f va:%f\n",j,t,add,data[j+1][i]);
-//				j++;
-//
-//				if ((long)add != number_novalue) {
-//					out[i] += add;
-//				}else {
-//					out[i] = (double)number_novalue;
-//				}
-//			}
-//
-//			if ( (long)out[i] != number_novalue) {
-//				add = -integrate_meas_constant_beh(flag, tbeg, ibeg+1, data, i, col_date);
-//				//printf(":j:%ld t:%f int:%f va:%f\n",ibeg,tbeg,add);
-//
-//				if ((long)add != number_novalue) {
-//					out[i] += add;
-//				}else {
-//					out[i] = (double)number_novalue;
-//				}
-//			}
-//
-//			if ( (long)out[i] != number_novalue) {
-//				add = integrate_meas_constant_beh(flag, tend, iend+1, data, i, col_date);
-//				//printf("::j:%ld t:%f int:%f va:%f\n",iend,tend,add,data[iend+1][i]);
-//
-//				if ((long)add != number_novalue) {
-//					out[i] += add;
-//				}else {
-//					out[i] = (double)number_novalue;
-//				}
-//
-//			}
-//
-//			if ( (long)out[i] != number_novalue) {
-//				out[i] /= (tend	- tbeg);
-//			}
-//
-//			//printf("i:%ld out:%f\n\n",i,out[i]);
-//
-//		}else {
-//
-//			out[i] = (double)number_novalue;
-//
-//			printf("<-i:%ld out:%f\n\n",i,out[i]);
-//
-//		}
-//
-//	}
-//
-//	*istart = i0;
-//}
+void time_interp_constant(double t0, double tbeg, double tend, double *out, double **data, long nlines, long ncols, long col_date, short flag, long *istart)
+
+{
+
+	short a0=0, abeg=0, aend=0;
+	long i0, ibeg, iend, i, j;
+	double t, add;
+
+	i0   = find_line_data(flag, t0, *istart, data, col_date, nlines, &a0);
+	ibeg = find_line_data(flag, tbeg, i0, data, col_date, nlines, &abeg);
+	iend = find_line_data(flag, tend, ibeg, data, col_date, nlines, &aend);
+
+	//printf("istart:%ld ibeg:%ld iend:%ld %f %f %d %d\n",*istart,ibeg,iend,tbeg,tend,abeg,aend);
+
+	for (i=0; i<ncols; i++) {
+
+		if ( (long)data[0][i] == number_absent) {
+
+			out[i] = (double)number_absent;
+
+		}else if (abeg == 1 && aend == 1) {
+
+			out[i] = 0.;
+
+			j = ibeg;
+
+			while ( (long)out[i] != number_novalue && j < iend) {
+				t = time_in_JDfrom0(flag, j+1, col_date, data);
+				add = integrate_meas_constant_beh(flag, t, j+1, data, i, col_date);
+				//printf("j:%ld t:%f int:%f va:%f\n",j,t,add,data[j+1][i]);
+				j++;
+
+				if ((long)add != number_novalue) {
+					out[i] += add;
+				}else {
+					out[i] = (double)number_novalue;
+				}
+			}
+
+			if ( (long)out[i] != number_novalue) {
+				add = -integrate_meas_constant_beh(flag, tbeg, ibeg+1, data, i, col_date);
+				//printf(":j:%ld t:%f int:%f va:%f\n",ibeg,tbeg,add);
+
+				if ((long)add != number_novalue) {
+					out[i] += add;
+				}else {
+					out[i] = (double)number_novalue;
+				}
+			}
+
+			if ( (long)out[i] != number_novalue) {
+				add = integrate_meas_constant_beh(flag, tend, iend+1, data, i, col_date);
+				//printf("::j:%ld t:%f int:%f va:%f\n",iend,tend,add,data[iend+1][i]);
+
+				if ((long)add != number_novalue) {
+					out[i] += add;
+				}else {
+					out[i] = (double)number_novalue;
+				}
+
+			}
+
+			if ( (long)out[i] != number_novalue) {
+				out[i] /= (tend	- tbeg);
+			}
+
+			//printf("i:%ld out:%f\n\n",i,out[i]);
+
+		}else {
+
+			out[i] = (double)number_novalue;
+
+			printf("<-i:%ld out:%f\n\n",i,out[i]);
+
+		}
+
+	}
+
+	*istart = i0;
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

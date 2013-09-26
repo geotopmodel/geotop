@@ -496,7 +496,10 @@
 		}
 		free(met->horizon[i]);
 	}
-
+#ifdef USE_INTERNAL_METEODISTR
+	free(met->var[i]);
+	free(met->var);
+#endif
 	free(met->data);
 	free(met->numlines);
 	free(met->horizon);

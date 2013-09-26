@@ -380,13 +380,13 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				//	meteo
 					tstart=clock();
 
-#ifndef USE_INTERNAL_METEODISTR
-					std::vector<mio::MeteoData> vec_meteo;
 
+					std::vector<mio::MeteoData> vec_meteo;
 					Date d1;
 					d1.setMatlabDate(JDb, TZ); // GEOtop use matlab offset of julian date
 					iomanager.getMeteoData(d1, vec_meteo);
 
+#ifndef USE_INTERNAL_METEODISTR
 					A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date[i_sim]), A);
 					//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
 
@@ -408,7 +408,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 					if(A->P->en_balance == 1){
 						tstart=clock();
+
 						en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
+
 						tend=clock();
 						t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}

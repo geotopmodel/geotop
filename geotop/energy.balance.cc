@@ -98,8 +98,12 @@
 	//	if (A->M->st->flag_SW_meteoST->co[i]==1){// if that meteo station measures cloudiness
 		if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		//	find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST->co[i]), &(A->M->st->tau_cloud_av_meteoST->co[i]), &(A->M->st->tau_cloud_yes_meteoST->co[i]), &(A->M->st->tau_cloud_av_yes_meteoST->co[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+#ifndef USE_INTERNAL_METEODISTR
 			find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
-		}
+#else
+			find_actual_cloudiness_meteodistr(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+#endif
+			}
 	}
 	//call the function that interpolates the cloudiness
 	if (A->P->use_meteoio_cloud) {

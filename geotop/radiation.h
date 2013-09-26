@@ -99,7 +99,8 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 //						double Delta, double E0, double Et, double ST, double SWrefl_surr);
 double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
 						double Delta, double E0, double Et, double ST, double SWrefl_surr);
-
+double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Meteo *met, double Delta, double E0, double Et,
+							  double ST, double SWrefl_surr);//, double Lozone, double alpha, double beta, double albedo)
 short shadows_point(double **hor_height, long hor_lines, double alpha, double azimuth, double tol_mount, double tol_flat);
 
 //void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction, SHORTMATRIX *SH);
@@ -115,4 +116,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 					   double Et, double ST, double A);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate);
+
+void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr);
 #endif
