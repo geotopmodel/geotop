@@ -106,7 +106,9 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 	double topo_ref;
 	long n, r, c;
 	short ok;
-	
+	long nr=topo.getRows()-1;
+	long nc=topo.getCols()-1;
+	long nstation=met->st->Z.size()-1;
 	//Define the topographic reference surface.
 	topo_ref = 0.0;
 	
@@ -123,8 +125,8 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 	if(ok==0) return ok;
 	
 	//Convert these grid values back to the actual gridded elevations [C].
-    for(r=1;r<=topo.getRows();r++){//top->Z0.getRows(),top->Z0.getCols()
-		for(c=1;c<=topo.getCols();c++){
+    for(r=1;r<=nr;r++){//top->Z0.getRows(),top->Z0.getCols()
+		for(c=1;c<=nc;c++){
 			if((long)topo[r][c]!=number_novalue){
 				Tair_grid[r][c] = temperature(topo[r][c], topo_ref, Tair_grid[r][c], lapse_rate) - GTConst::tk;
 			}
@@ -132,7 +134,7 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 	}
 	
 	//Convert back the station data [C].
-	for(n=1;n<=met->st->Z.size();n++){
+	for(n=1;n<=nstation;n++){
 		if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
 			met->var[n-1][Tcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - GTConst::tk;
 		}
@@ -162,13 +164,15 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 	double topo_ref;
 	long n, r, c;
 	short ok;
-	
+	long nr=topo.getRows()-1;
+	long nc=topo.getCols()-1;
+	long nstation=met->st->Z.size()-1;
 	//Define the topographic reference surface.
 	topo_ref = 0.0;
 	
 	
 	//Convert the station data to sea level values in [K].
-	for(n=1;n<=met->st->Z.size();n++){
+	for(n=1;n<=nstation;n++){
 		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
 			met->var[n-1][Tdcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tdcode], lapse_rate) + GTConst::tk;
 		}
@@ -179,8 +183,8 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 	if(ok==0) return 0;	
 	
 	//Convert these grid values back to the actual gridded elevations, and convert to RH
-    for(r=1;r<=topo.getRows();r++){
-		for(c=1;c<=topo.getCols();c++){
+    for(r=1;r<=nr;r++){
+		for(c=1;c<=nc;c++){
 			if((long)topo[r][c]!=number_novalue){
 				RH_grid[r][c] = temperature(topo[r][c], topo_ref, RH_grid[r][c], lapse_rate) - GTConst::tk;
 				RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], topo[r][c]);
@@ -190,7 +194,7 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 	}
 	
 	//Convert back the station data [C].
-	for(n=1;n<=met->st->Z.size();n++){
+	for(n=1;n<=nstation;n++){
 		if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
 			met->var[n-1][Tdcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - GTConst::tk;
 		}
@@ -335,7 +339,7 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
 	//DOUBLEMATRIX *u_grid, *v_grid;
 	GeoMatrix<double> u_grid, v_grid;
 	//long r, c, nc=topo->nch, nr=topo->nrh;
-	long r, c, nc=topo.getCols(), nr=topo.getRows();
+	long r, c, nc=topo.getCols()-1, nr=topo.getRows()-1;
 	double rad2deg=180.0/GTConst::Pi;
 	short oku, okv, ok;
 	
@@ -422,7 +426,8 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
 	//   terrain.  J. Hydrology, 190, 214-251.
 	
 	//long n, r, c, nc=topo->nch, nr=topo->nrh, cnt=0;
-	long n, r, c, nc=topo.getCols(), nr=topo.getRows(), cnt=0;
+	long n, r, c, nc=topo.getCols()-1, nr=topo.getRows()-1, cnt=0;
+	long nstation=met->st->Z.size()-1;
 	double alfa, prec, f, rain, snow;	
 	//DOUBLEMATRIX *topo_ref_grid;
 	GeoMatrix<double> topo_ref_grid;
@@ -432,7 +437,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
 	// Use the barnes oi scheme to interpolate the station elevation data
 	//   to the grid, so that it can be used as a topographic reference
 	//   surface.
-	for(n=1;n<=met->st->Z.size();n++){
+	for(n=1;n<=nstation;n++){
 		if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
 			prec = met->var[n-1][Pcode];
 			met->var[n-1][Pcode] = met->st->Z[n];
@@ -451,7 +456,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
 		topo_ref_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
 		ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Pcode, topo_ref_grid, dn, iobsint);
 		
-		for(n=1;n<=met->st->Z.size();n++){
+		for(n=1;n<=nstation;n++){
 			if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
 				prec = met->st->Z[n];
 				met->st->Z[n] = met->var[n-1][Pcode];
@@ -498,7 +503,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
 void get_pressure(GeoMatrix<double>& topo, GeoMatrix<double>& sfc_pressure, double undef){
 	
 	//long r,c,nc=topo->nch,nr=topo->nrh;
-	long r,c,nc=topo.getCols(),nr=topo.getRows();
+	long r,c,nc=topo.getCols()-1,nr=topo.getRows()-1;
 	
 	//Compute the average station pressure (in bar).
 	for(c=1;c<=nc;c++){
@@ -528,7 +533,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 	//DOUBLEVECTOR *var, *xst, *yst;
 	
 	nstn=0;
-	for(n=1;n<=Xst.size();n++){
+	for(n=1;n< Xst.size();n++){
 		if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue) nstn++;
 	}
 	
@@ -541,7 +546,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 	GeoVector<double> xst; xst.resize(nstn+1,0);
 	GeoVector<double> yst; yst.resize(nstn+1,0);
 	nstn=0;
-	for(n=1;n<=Xst.size();n++){
+	for(n=1;n<Xst.size();n++){
 		if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue){
 			nstn++;
 			var[nstn]=value[n-1][metcod];
@@ -608,11 +613,11 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 	
 	long r, c, mm, nn;
 	//long nr=xpoint->nrh, nc=xpoint->nch;
-	long nr=xpoint.getRows(), nc=xpoint.getCols();
+	long nr=xpoint.getRows()-1, nc=xpoint.getCols()-1;
 	//long nstns=xstn->nh;
 	long nstns=xstn.size();
 	//long nstnsall=xstnall->nh;
-	long nstnsall=xstnall.size();
+	long nstnsall=xstnall.size()-1;
 	
 	double gamma=0.2;
 	
