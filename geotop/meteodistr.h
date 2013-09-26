@@ -30,7 +30,7 @@
  However this code is significantly different from the above mentioned-code. 
  
  */
-#ifdef USE_INTERNAL_METEODISTR
+
 #ifndef METEODISTR_H
 #define METEODISTR_H
 #include "constants.h"
@@ -116,4 +116,4 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 		GeoVector<double>& var, double dn, double undef, GeoMatrix<double>& grid, double **value_station, long metcode);
 	
 #endif
-#endif
+

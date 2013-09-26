@@ -28,7 +28,7 @@ OBJ		= 	$(SCRSPATH1)/blowingsnow.o $(SCRSPATH1)/channels.o\
 			$(SCRSPATH1)/radiation.o $(SCRSPATH1)/recovering.o\
 			$(SCRSPATH1)/snow.o $(SCRSPATH1)/tables.o\
 			$(SCRSPATH1)/times.o $(SCRSPATH1)/turbulence.o\
-			$(SCRSPATH1)/vegetation.o\
+			$(SCRSPATH1)/vegetation.o $(SCRSPATH1)/meteodistr.o\
 			$(LIBPATH1)/t_alloc.o $(LIBPATH1)/t_io.o\
 			$(LIBPATH1)/tensors3D.o \
 			$(LIBPATH2)/rw_maps.o $(LIBPATH2)/tabs.o\
@@ -42,9 +42,10 @@ HPATH2	= $(LIBPATH2)
 HPATH3  = $(LIBPATH3)
 HPATH0  = $(SCRSPATH1)
 INCMETEOIO = /usr/local/include/meteoio
+INCNETCDF =  /Users/matteo/local/include
 
 CPPFLAGS = -g 
-INCLUDE = -I$(HPATH1) -I$(HPATH2) -I$(HPATH3) -I$(HPATH4) -I$(HPATH5) -I$(HPATH0) -I$(INCMETEOIO)
+INCLUDE = -I$(HPATH1) -I$(HPATH2) -I$(HPATH3) -I$(HPATH4) -I$(HPATH5) -I$(HPATH0) -I$(INCMETEOIO) -I$(INCNETCDF)
 
 DEBUG   = -g -Wall
 CPP	= g++
@@ -61,6 +62,9 @@ netcdf: CPPFLAGS = -g -DUSE_NETCDF
 netcdf: $(OBJ) $(NETCDFOBJ)
 	$(CPP) -o $(BINS) $(OBJ) $(NETCDFOBJ) -rdynamic -lm -lstdc++ -lmeteoio -ldl -lnetcdf
 
+meteodistr : CPPFLAGS = -g -DUSE_INTERNAL_METEODISTR
+meteodistr: $(OBJ)
+	$(CPP) -o $(BINS) $(OBJ) -rdynamic -lm -lstdc++ -lmeteoio -ldl 
 .PHONY: tests
 
 tests: geotop
