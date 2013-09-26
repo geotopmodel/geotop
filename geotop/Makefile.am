@@ -1,6 +1,6 @@
 bin_PROGRAMS = geotop
 
-geotop_SOURCES = blowingsnow.cc channels.cc clouds.cc deallocate.cc energy.balance.cc geotop.cc indices.cc input.cc meteo.cc meteodata.cc output.cc output_nc.cc parameters.cc PBSM.cc pedo.funct.cc pure_gt.cc radiation.cc recovering.cc snow.cc tables.cc times.cc turbulence.cc vegetation.cc water.balance.cc 
+geotop_SOURCES = blowingsnow.cc channels.cc clouds.cc deallocate.cc energy.balance.cc geotop.cc indices.cc input.cc meteo.cc meteodata.cc meteodistr.cc output.cc output_nc.cc parameters.cc PBSM.cc pedo.funct.cc pure_gt.cc radiation.cc recovering.cc snow.cc tables.cc times.cc turbulence.cc vegetation.cc water.balance.cc 
 
 AM_CPPFLAGS = -I$(srcdir) \
               -I$(top_srcdir)/libraries/ascii \
