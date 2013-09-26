@@ -295,7 +295,14 @@ meteoio_init(iomanager);
 	success = read_meteostations_file(met->imeteo_stations, met->st, files[fmetstlist], IT->meteostations_col_names, flog);
 
 //	for(i=1;i<=met->st->E->nh;i++){
-	for(size_t i=1;i<met->st->E.size();i++){
+#ifdef USE_INTERNAL_METEODISTR
+    met->var=(double**)malloc((met->st->E.size()-1)*sizeof(double*));
+    met->line_interp_WEB=(long*)malloc(met->st->E.size()*sizeof(long));
+    met->line_interp_Bsnow=(long*)malloc(met->st->E.size()*sizeof(long));
+    met->line_interp_WEB_LR=0;
+    met->line_interp_Bsnow_LR=0;
+#endif
+	for(size_t i=1; i < met->st->E.size(); i++){
 	//	if (met->imeteo_stations->co[1] != number_novalue) {
 		if (met->imeteo_stations[1] != number_novalue) {
 		//	ist = met->imeteo_stations->co[i];
@@ -312,11 +319,6 @@ meteoio_init(iomanager);
 		// #####################Probably the next lines should not be necessary if we use meteoIO   #####################################
 		// ##################################################################################################################################
 #ifdef USE_INTERNAL_METEODISTR
-		met->var=(double**)malloc(met->st->E.size()*sizeof(double*));
-		met->line_interp_WEB=(long*)malloc(met->st->E.size()*sizeof(long));
-		met->line_interp_Bsnow=(long*)malloc(met->st->E.size()*sizeof(long));
-		met->line_interp_WEB_LR=0;
-		met->line_interp_Bsnow_LR=0;
 		//initialize
 		met->line_interp_WEB[i-1] = 0;
 		met->line_interp_Bsnow[i-1] = 0;

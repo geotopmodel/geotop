@@ -111,7 +111,7 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 	topo_ref = 0.0;
 	
 	//Convert the station data to sea level values in [K].
-	for(n=1;n<=met->st->Z.size();n++){
+	for(n=1;n<met->st->Z.size();n++){
 		if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
 			met->var[n-1][Tcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tcode], lapse_rate) + GTConst::tk;
 		}
