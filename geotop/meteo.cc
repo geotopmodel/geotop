@@ -18,6 +18,7 @@
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+#include "config.h"
 
 #include "meteo.h"
 

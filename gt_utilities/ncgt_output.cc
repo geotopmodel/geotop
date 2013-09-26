@@ -1,3 +1,5 @@
+#include "config.h"
+
 #ifdef USE_NETCDF
 
 #include "ncgt_output.h"

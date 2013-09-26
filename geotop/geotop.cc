@@ -22,6 +22,8 @@
     
     /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
 
+#include "config.h"
+
 #include <sys/stat.h>
 #include "struct.geotop.h"
 #include "input.h"
@@ -118,6 +120,16 @@ int main(int argc,char *argv[]){
 	string cfgfile = "io_it.ini";
 //	printf("argc=%d, argv[0]=%s argv[1]=%s argv[2]=%s argv[3]=%s argv[4]=%s",argc,argv[0],argv[1],argv[2],argv[3],argv[4]);stop_execution();
 //	if (argc > 1) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
+    /* ANTONIO: This is just crazy. We have *two* incompatible way of
+       calling geotop, and part of the command line parsing is done
+       later on, in ncgt_open_from_option_string(), but only if
+       USE_NETCDF is defined, so if its not defined some of the
+       command line options are just silently ignored !
+
+       We should use getopt() to parse command line arguments, store
+       ignored command line options and pass them to
+       ncgt_open_from_option_string().
+    */
 	if (argc == 2) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
 	else if (argc > 2) cfgfile = string(argv[2]) + "/" + cfgfile;
 	Config cfg(cfgfile);
@@ -197,7 +209,7 @@ int main(int argc,char *argv[]){
 		t_out=0.;
 		t_blowingsnow=0.;
 
-#ifdef USE_NETCDF		
+#ifdef USE_NETCDF
 		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_DEFINE,GEOT_VERBOSE);
 		adt->ncid=ncid;
 

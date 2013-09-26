@@ -21,6 +21,8 @@
  You should have received a copy of the GNU Lesser General Public License
  along with MeteoIO.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "config.h"
+
 #ifdef USE_NETCDF
 #include "wrfIO.h"
 
@@ -324,7 +326,7 @@ void wrfIO::ncvar2D_to_GridArray2D(const unsigned int varid, Array2D<double>& m)
 	double pres[lengthp_y][lengthp_x];
 	//cout << endl << "Trying to read directly into grid: " << endl;
 	m.resize(lengthp_x, lengthp_y, NOVALUE);
-	unsigned int xx=0, yy=0, ii, jj;
+	size_t xx=0, yy=0, ii, jj;
 	m.size(xx, yy);
 	//cout << "Grid: " << xx << " x " << yy << endl;
 	static size_t start[] = {0, 0};
@@ -346,7 +348,7 @@ void wrfIO::ncvar3D_to_GridArray2D(const unsigned int k, const unsigned int vari
 	double pres[lengthp_time][lengthp_y][lengthp_x];
 	//cout << endl << "Trying to read directly into grid: " << endl;
 	m.resize(lengthp_x, lengthp_y, NOVALUE);
-	unsigned int xx=0, yy=0;
+	size_t xx=0, yy=0;
 	m.size(xx, yy);
 	//cout << "Grid: " << xx << " x " << yy << endl;
 	static size_t start[] = {k,0, 0};
@@ -374,7 +376,7 @@ void wrfIO::ncvar4D_to_GridArray2D(const unsigned int k, const unsigned int laye
 	double pres[lengthp_time][lengthp_z_soil][lengthp_y][lengthp_x];
 	//cout << endl << "Trying to read directly into grid: " << endl;
 	m.resize(lengthp_x, lengthp_y, NOVALUE);
-	unsigned int xx=0, yy=0;
+	size_t xx=0, yy=0;
 	m.size(xx, yy);
 	//cout << "Grid: " << xx << " x " << yy << endl;
 	static size_t start[] = {k,layer_num,0, 0};

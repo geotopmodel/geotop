@@ -1,3 +1,5 @@
+#include "config.h"
+
 #ifdef USE_NETCDF
 /* Turtle_NetCdf CONTAINS FUNCTIONS TO INPORT/EXPORT FUIDTURLE STRUCT OF DATA IN NETcdf FILES AS VARIABLES
 Turtle_NetCdf Version 0.9375 KMackenzie

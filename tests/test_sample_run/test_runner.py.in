@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
-# @(#)test_runner.py
+# @(#)test_runner2.py.in
 #
 #
 # Copyright (C) 2013, GC3, University of Zurich. All rights reserved.
@@ -60,11 +60,10 @@ def assert_is_file(fname, msg=None):
     assert os.path.isfile(fname), msg or "%s is not a file" % fname
 
 # Directory containing this file
-TESTDIR = os.path.abspath(os.path.dirname(__file__))
+TESTDIR = "@abs_top_builddir@/tests/test_sample_run"
 
 # Path to the geotop binary
-GEOTOP = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '../../GEOtop_4'))
+GEOTOP = "@abs_top_builddir@/geotop/geotop"
 
 
 class TestValidRun(object):
