@@ -217,7 +217,7 @@ void topo_mod_winds(GeoMatrix<double>& winddir_grid, GeoMatrix<double>& windspd_
 			GeoMatrix<double>& slope_az,GeoMatrix<double>& terrain_slope, GeoMatrix<double>& topo, double undef){
 	
 	//long r, c, nc=topo->nch, nr=topo->nrh;
-	long r, c, nc=topo.getCols(), nr=topo.getRows();
+	long r, c, nc=topo.getCols()-1, nr=topo.getRows()-1;
 	double deg2rad=GTConst::Pi/180.0,dirdiff,windwt;
 	
 	//DOUBLEMATRIX *wind_slope, *wind_curv;

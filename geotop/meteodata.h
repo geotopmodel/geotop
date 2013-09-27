@@ -46,8 +46,8 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
 short fixing_dates(long imeteo, double **data, double ST, double STstat, long nlines, long date12col, long JDfrom0col);
 short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWx, char *HeaderWy);
 short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir);
-short fill_Tdew(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin);
-short fill_RH(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH);
+short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin);
+short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH);
 short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, char *HeaderPrecInt);
 void check_times(long imeteo, double **data, long nlines, long JDfrom0);
 void rewrite_meteo_files(double **meteo, long meteolines, char **header, char *name, short added_JD, short added_wind_xy, short added_wind_dir, 

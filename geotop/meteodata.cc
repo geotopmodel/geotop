@@ -519,154 +519,154 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat, long nl
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWx, char *HeaderWy){
-//
-//	long i;
-//
-//	//if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
-//	if ( (long)data[0][Wspeed] != number_absent && (long)data[0][Wdir] != number_absent && ( (long)data[0][Wx] == number_absent || (long)data[0][Wy] == number_absent ) ) {
-//		for (i=0; i<nlines; i++) {
-//			if ( (long)data[i][Wspeed] != number_novalue && (long)data[i][Wdir] != number_novalue ) {
-//				data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * Pi / 180.);
-//				data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * Pi / 180.);
-//			}else {
-//				data[i][Wx] = (double)number_novalue;
-//				data[i][Wy] = (double)number_novalue;
-//			}
-//
-//			if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
-//				data[i][Wspeed] = (double)number_absent;
-//				data[i][Wdir] = (double)number_absent;
-//			}
-//		}
-//		if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
-//			return 1;
-//		}else {
-//			return 0;
-//		}
-//	}else {
-//		return 0;
-//	}
-//
-//}
+short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWx, char *HeaderWy){
+
+	long i;
+
+	//if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
+	if ( (long)data[0][Wspeed] != number_absent && (long)data[0][Wdir] != number_absent && ( (long)data[0][Wx] == number_absent || (long)data[0][Wy] == number_absent ) ) {
+		for (i=0; i<nlines; i++) {
+			if ( (long)data[i][Wspeed] != number_novalue && (long)data[i][Wdir] != number_novalue ) {
+				data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * GTConst::Pi / 180.);
+				data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * GTConst::Pi / 180.);
+			}else {
+				data[i][Wx] = (double)number_novalue;
+				data[i][Wy] = (double)number_novalue;
+			}
+
+			if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
+				data[i][Wspeed] = (double)number_absent;
+				data[i][Wdir] = (double)number_absent;
+			}
+		}
+		if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
+			return 1;
+		}else {
+			return 0;
+		}
+	}else {
+		return 0;
+	}
+
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir){
-//
-//	long i;
-//	double a;
-//
-//	//if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
-//	if ( (long)data[0][Wx] != number_absent && (long)data[0][Wy] != number_absent && ( (long)data[0][Wspeed] == number_absent || (long)data[0][Wdir] == number_absent ) ) {
-//		for (i=0; i<nlines; i++) {
-//			if ( (long)data[i][Wx] != number_novalue && (long)data[i][Wy] != number_novalue ) {
-//
-//				data[i][Wspeed] = sqrt(pow(data[i][Wx], 2.)+pow(data[i][Wy], 2.));
-//
-//				if (fabs(data[i][Wy]) < 1.E-10 ) {
-//					a = Pi/2.;
-//				}else {
-//					a = atan(fabs(data[i][Wx]/data[i][Wy]));
-//				}
-//
-//				if (data[i][Wx] <= 0 && data[i][Wy] <= 0 ) {
-//					data[i][Wdir] = a*180./Pi;
-//				}else if (data[i][Wx] <= 0 && data[i][Wy] >= 0 ) {
-//					data[i][Wdir] = a*180./Pi + 90.;
-//				}else if (data[i][Wx] >= 0 && data[i][Wy] >= 0 ) {
-//					data[i][Wdir] = a*180./Pi + 180.;
-//				}else {
-//					data[i][Wdir] = a*180./Pi + 270.;
-//				}
-//
-//			}else {
-//
-//				data[i][Wspeed] = (double)number_novalue;
-//				data[i][Wdir] = (double)number_novalue;
-//
-//			}
-//
-//			if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
-//				data[i][Wx] = (double)number_absent;
-//				data[i][Wy] = (double)number_absent;
-//			}
-//		}
-//		if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
-//			return 1;
-//		}else {
-//			return 0;
-//		}
-//	}else {
-//		return 0;
-//	}
-//
-//}
+short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir){
+
+	long i;
+	double a;
+
+	//if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
+	if ( (long)data[0][Wx] != number_absent && (long)data[0][Wy] != number_absent && ( (long)data[0][Wspeed] == number_absent || (long)data[0][Wdir] == number_absent ) ) {
+		for (i=0; i<nlines; i++) {
+			if ( (long)data[i][Wx] != number_novalue && (long)data[i][Wy] != number_novalue ) {
+
+				data[i][Wspeed] = sqrt(pow(data[i][Wx], 2.)+pow(data[i][Wy], 2.));
+
+				if (fabs(data[i][Wy]) < 1.E-10 ) {
+					a = GTConst::Pi/2.;
+				}else {
+					a = atan(fabs(data[i][Wx]/data[i][Wy]));
+				}
+
+				if (data[i][Wx] <= 0 && data[i][Wy] <= 0 ) {
+					data[i][Wdir] = a*180./GTConst::Pi;
+				}else if (data[i][Wx] <= 0 && data[i][Wy] >= 0 ) {
+					data[i][Wdir] = a*180./GTConst::Pi + 90.;
+				}else if (data[i][Wx] >= 0 && data[i][Wy] >= 0 ) {
+					data[i][Wdir] = a*180./GTConst::Pi + 180.;
+				}else {
+					data[i][Wdir] = a*180./GTConst::Pi + 270.;
+				}
+
+			}else {
+
+				data[i][Wspeed] = (double)number_novalue;
+				data[i][Wdir] = (double)number_novalue;
+
+			}
+
+			if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
+				data[i][Wx] = (double)number_absent;
+				data[i][Wy] = (double)number_absent;
+			}
+		}
+		if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
+			return 1;
+		}else {
+			return 0;
+		}
+	}else {
+		return 0;
+	}
+
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short fill_Tdew(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin){
-//
-//	long i;
-//
-//	if ( (long)data[0][RH] != number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] == number_absent ) {
-//		for (i=0; i<nlines; i++) {
-//			if ( (long)data[i][RH] != number_novalue && (long)data[i][Tair] != number_novalue ) {
-//				data[i][Tairdew] = Tdew(data[i][Tair], Fmax(RHmin, data[i][RH])/100., Z->co[imeteo]);
-//			}else {
-//				data[i][Tairdew] = (double)number_novalue;
-//			}
-//
-//			if (strcmp(HeaderTdew, string_novalue) != 0) {
-//				data[i][RH] = (double)number_absent;
-//			}
-//		}
-//		if (strcmp(HeaderTdew, string_novalue) != 0) {
-//			return 1;
-//		}else {
-//			return 0;
-//		}
-//	}else {
-//		return 0;
-//	}
-//}
+short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin){
+
+	long i;
+
+	if ( (long)data[0][RH] != number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] == number_absent ) {
+		for (i=0; i<nlines; i++) {
+			if ( (long)data[i][RH] != number_novalue && (long)data[i][Tair] != number_novalue ) {
+				data[i][Tairdew] = Tdew(data[i][Tair], Fmax(RHmin, data[i][RH])/100., Z[imeteo]);
+			}else {
+				data[i][Tairdew] = (double)number_novalue;
+			}
+
+			if (strcmp(HeaderTdew, string_novalue) != 0) {
+				data[i][RH] = (double)number_absent;
+			}
+		}
+		if (strcmp(HeaderTdew, string_novalue) != 0) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}else {
+		return 0;
+	}
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short fill_RH(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH){
-//
-//	long i;
-//
-//	if ( (long)data[0][RH] == number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] != number_absent ) {
-//		for (i=0; i<nlines; i++) {
-//			if ( (long)data[i][Tairdew] != number_novalue && (long)data[i][Tair] != number_novalue ) {
-//				data[i][RH] = 100.*RHfromTdew(data[i][Tair], data[i][Tairdew], Z->co[imeteo]);
-//			}else {
-//				data[i][RH] = (double)number_novalue;
-//			}
-//
-//			if (strcmp(HeaderRH, string_novalue) != 0) {
-//				data[i][Tairdew] = (double)number_absent;
-//			}
-//		}
-//		if (strcmp(HeaderRH, string_novalue) != 0) {
-//			return 1;
-//		}else {
-//			return 0;
-//		}
-//	}else {
-//		return 0;
-//	}
-//}
+short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH){
+
+	long i;
+
+	if ( (long)data[0][RH] == number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] != number_absent ) {
+		for (i=0; i<nlines; i++) {
+			if ( (long)data[i][Tairdew] != number_novalue && (long)data[i][Tair] != number_novalue ) {
+				data[i][RH] = 100.*RHfromTdew(data[i][Tair], data[i][Tairdew], Z[imeteo]);
+			}else {
+				data[i][RH] = (double)number_novalue;
+			}
+
+			if (strcmp(HeaderRH, string_novalue) != 0) {
+				data[i][Tairdew] = (double)number_absent;
+			}
+		}
+		if (strcmp(HeaderRH, string_novalue) != 0) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}else {
+		return 0;
+	}
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

@@ -356,24 +356,24 @@ meteoio_init(iomanager);
 //			}
 
 			//calcululate Wx and Wy if Wspeed and direction are given
-//			if (par->wind_as_xy == 1) {
-//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-//			}
+			if (par->wind_as_xy == 1) {
+				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+			}
 
 			//calcululate Wspeed and direction if Wx and Wy are given
-//			if (par->wind_as_dir == 1) {
-//				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
-//			}
+			if (par->wind_as_dir == 1) {
+				added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
+			}
 
-			//find Tdew
-//			if(par->vap_as_Td == 1){
-//			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-//			}
+			// find Tdew
+			if(par->vap_as_Td == 1){
+			   added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+			}
 
-			//find RH
-//			if(par->vap_as_RH == 1){
-//				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
-//			}
+			// find RH
+			if(par->vap_as_RH == 1){
+				added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
+			}
 
 			//find Prec Intensity
 			if ( par->linear_interpolation_meteo[i] == 1 && (long)met->data[i-1][0][iPrec] != number_absent) {
@@ -392,9 +392,9 @@ meteoio_init(iomanager);
 			//rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp.c_str(), added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
 
 			//calcululate Wx and Wy if Wspeed and direction are given
-//			if (par->wind_as_xy != 1) {
-//				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
-//			}
+			if (par->wind_as_xy != 1) {
+				added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+			}
 
 			//find Prec Intensity
 //			if(par->prec_as_intensity != 1){
@@ -402,9 +402,9 @@ meteoio_init(iomanager);
 //			}
 
 			//find Tdew
-//			if(par->vap_as_Td != 1){
-//				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
-//			}
+			if(par->vap_as_Td != 1){
+				added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+			}
 
 			//free(temp);
 
