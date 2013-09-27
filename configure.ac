@@ -18,11 +18,6 @@ AM_INIT_AUTOMAKE([1.10])
 # all defined C macros (HAVE_*) will be saved to this file
 AC_CONFIG_HEADERS([config.h])
 
-AC_PROG_CC
-AC_PROG_CXX
-AM_PROG_CC_C_O
-AC_PROG_INSTALL
-
 ## Initialize GNU LibTool
 #
 # GNU LibTool provides a portable way to build libraries.  AutoMake
@@ -31,10 +26,37 @@ LT_INIT([static])
 
 ## Option to compile geotop statically ##
 AC_ARG_WITH([static-geotop],
-    [AS_HELP_STRING([--with-static-geotop=yes|no],
-            [Compile a static executable.])],
+    [AS_HELP_STRING([--with-static-geotop],
+            [Compile a static executable.] Default: no)],
     [with_static_geotop=yes],
     [])
+
+## Enable debug compilation ##
+AC_ARG_ENABLE(debug,
+AS_HELP_STRING([--enable-debug],
+               [enable debugging, setting -g3 and -O0. Default: no]),
+[case "${enableval}" in
+             yes) debug=true;;
+             no)  debug=false ;;
+             *)   AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+esac],
+[debug=false])
+
+# This test has to run *before* AC_PROC_CC
+if test x"$debug" = x"true"; then
+   AC_DEFINE([DEBUG], [1], [Enable debug compilation])
+   CFLAGS=${CFLAGS:="-g3 -O0"}
+   CXXFLAGS=${CXXFLAGS:="-g3 -O0"}
+fi
+
+AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
+## end debug compilation option ##
+
+AC_PROG_CC
+AC_PROG_CXX
+AM_PROG_CC_C_O
+AC_PROG_INSTALL
+
 
 ## Use internal interpolation or MeteoIO one ##
 AC_ARG_ENABLE([internal-meteodistr],
