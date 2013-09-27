@@ -99,26 +99,28 @@
 		if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		//	find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST->co[i]), &(A->M->st->tau_cloud_av_meteoST->co[i]), &(A->M->st->tau_cloud_yes_meteoST->co[i]), &(A->M->st->tau_cloud_av_yes_meteoST->co[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
 #ifndef USE_INTERNAL_METEODISTR
-			find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+		find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+		//call the function that interpolates the cloudiness
+		if (A->P->use_meteoio_cloud) {
+		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
+		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+		}
+//	old GEOtop structure for cloudiness
+//		A->M->tau_cloud=A->M->st->tau_cloud_meteoST->co[A->M->nstcloud];
+		A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];
+//		A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST->co[A->M->nstcloud];
+		A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
+//		A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST->co[A->M->nstcloud];
+		A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
+//		A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST->co[A->M->nstcloud];
+		A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
+
 #else
-			find_actual_cloudiness_meteodistr(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+			//find_actual_cloudiness_meteodistr(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+			find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 #endif
 			}
 	}
-	//call the function that interpolates the cloudiness
-	if (A->P->use_meteoio_cloud) {
-		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-		meteoio_interpolate_cloudiness(UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
-	}
-//	old GEOtop structure for cloudiness
-//	A->M->tau_cloud=A->M->st->tau_cloud_meteoST->co[A->M->nstcloud];
-	A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];
-//	A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST->co[A->M->nstcloud];
-	A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
-//	A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST->co[A->M->nstcloud];
-	A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
-//	A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST->co[A->M->nstcloud];
-	A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
 
 //	POINT ENERGY BALANCE
 	for (i=1; i<= A->P->total_channel+A->P->total_pixel; i++) {
@@ -259,7 +261,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //	RHpoint=A->M->RHgrid->co[r][c];
 	RHpoint=A->M->RHgrid[r][c];
 //	Vpoint=A->M->Vgrid->co[r][c];
-	Vpoint=A->M->Vgrid[r][c];
+	Vpoint=A->M->Vgrid[r][c];//printf("\nr=%ld,c=%ld,Tpoint=%f, Ppoint=%f, RHpoint=%f, Vpoint=%f",r,c,Tpoint,Ppoint,RHpoint,Vpoint);getchar();
 //	TODO: add tau_cloud_av_point=A->M->tau_cl_av_map->co[r][c];
 //	Precpoint=A->W->PrecTot->co[r][c];
 	Precpoint=A->W->PrecTot[r][c];
@@ -440,7 +442,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->M->tau_cl_map[r][c]=A->M->tau_cloud;
 	//	A->M->tau_cl_av_map->co[r][c]=A->M->tau_cloud_av;
 		A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
-
+		//printf("nnnnn A->M->tau_cloud=%f,A->M->tau_cl_map[r][c]=%f, A->P->use_meteoio_cloud=%d, A->M->tau_cloud_yes=%d",A->M->tau_cloud,A->M->tau_cl_map[r][c],A->P->use_meteoio_cloud,A->M->tau_cloud_yes);getchar();
 	}else{// meteoIO is activated
 	//	if( (long)A->M->tau_cl_av_map->co[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
 		if( (long)A->M->tau_cl_av_map[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
@@ -484,7 +486,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	A->E->sun[6] = A->T->slope[r][c]*GTConst::Pi/180.;
 //	A->E->sun[7] = A->T->aspect->co[r][c]*GTConst::Pi/180.;
 	A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
-		
 //	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
 //			 A->M->tau_cl_map->co[r][c], A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c], A->E->SWrefl_surr[r][c],
@@ -527,7 +528,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	//shortwave absorbed by soil (when vegetation is not present)
 	SW += (1.0-fc)*( SWdiff*(1.0-0.5*avis_d-0.5*anir_d) + SWbeam*(1.0-0.5*avis_b-0.5*anir_b) );
 	*SWupabove_v += (1.0-fc)*( SWdiff*(0.5*avis_d+0.5*anir_d) + SWbeam*(0.5*avis_b+0.5*anir_b) );
-			
 	//shortwave radiation absorbed by canopy 
 	if(fc>0){
 		if(A->E->hsun>0){
@@ -574,10 +574,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	//printf("iSWn: %d    iLWi: %d\n", iSWn, iLWi);
 	//HACK: EGGER: the next line is superfluous for now, we're not reading iSWn:
 	//SW=flux(1, iSWn, A->M->var, 1.0, SW);
-			
 	//Extinction coefficient for SW in the snow layers
 	rad_snow_absorption(r, c, A->E->SWlayer, SW, S);			
-			
+
 	//LONGWAVE RADIATION
 	//soil-snow emissivity
 	if(snowD>10){
@@ -1369,13 +1368,13 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 		if(l<=ns+1) egy->Fenergy[l] -= egy->SWlayer[l];
 
 	}
-	
+
 //	top boundary condition
 //	egy->Fenergy->co[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
 	egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
 //	egy->Fenergy->co[sur] -= egy->SWlayer->co[0];
 	egy->Fenergy[sur] -= egy->SWlayer[0];
-		
+
 	//bottom boundary condition (treated as sink)
 	kbb1 = k_thermal(thw, thi, sat, kt);
 	kbb0 = kbb1;
@@ -1392,7 +1391,7 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 	
 	//calculate the norm
 	res = norm_2(egy->Fenergy, sur, n);
-	
+
 
 	do{
 				
@@ -1457,7 +1456,6 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 			egy->udFenergy[l] = (1.-GTConst::KNe)*egy->Kth1[l];
 
 		}
-		
 		//Solve tridiagonal system
 		sux = tridiag2(1, r, c, sur, n, egy->udFenergy, egy->dFenergy, egy->udFenergy, egy->Fenergy, egy->Newton_dir);	
 				
@@ -1507,12 +1505,10 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 				lambda[0] = minimize_merit_function(res0[0], lambda[1], res0[1], lambda[2], res0[2]);
 				
 			}
-			
 			for(l=sur;l<=n;l++){ 
 				
 				//egy->Temp->co[l] = egy->T1->co[l] + lambda[0] * egy->Newton_dir->co[l];
 				  egy->Temp[l] = egy->T1[l] + lambda[0] * egy->Newton_dir[l];
-
 				//soil
 				if(l > ns+ng){
 					m=l-ns-ng;
@@ -1569,7 +1565,7 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 			if(Tg<Tmin_surface_below_which_surfenergy_balance_recalculated) flagTmin++;
 			
 			if(cont < num_iter_after_which_surfenergy_balance_not_recalculated || flagTmin>0){
-				
+
 				//update egy->THETA taking into account evaporation (if there is not snow)
 				if(ns+ng == 0){
 					
