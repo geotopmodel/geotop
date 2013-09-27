@@ -673,41 +673,41 @@ short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, lon
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, char *HeaderPrecInt){
-//
-//	long i;
-//
-//	if ( (long)data[0][Prec] != number_absent && (long)data[0][PrecInt] == number_absent ) {
-//
-//		data[0][PrecInt] = (double)number_novalue;
-//
-//		for (i=1; i<nlines; i++) {
-//			if ( (long)data[i][Prec] != number_novalue) {
-//				data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]);//[mm/d]
-//				data[i][PrecInt] /= 24.;//[mm/h]
-//				//printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
-//			}else{
-//				data[i][PrecInt] = (double)number_novalue;
-//			}
-//
-//			if (strcmp(HeaderPrecInt, string_novalue) != 0) {
-//				data[i][Prec] = (double)number_absent;
-//			}
-//
-//		}
-//
-//		if (strcmp(HeaderPrecInt, string_novalue) != 0) {
-//			return 1;
-//		}else {
-//			return 0;
-//		}
-//
-//	}else {
-//
-//		return 0;
-//
-//	}
-//}
+short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, char *HeaderPrecInt){
+
+	long i;
+
+	if ( (long)data[0][Prec] != number_absent && (long)data[0][PrecInt] == number_absent ) {
+
+		data[0][PrecInt] = (double)number_novalue;
+
+		for (i=1; i<nlines; i++) {
+			if ( (long)data[i][Prec] != number_novalue) {
+				data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]);//[mm/d]
+				data[i][PrecInt] /= 24.;//[mm/h]
+				//printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
+			}else{
+				data[i][PrecInt] = (double)number_novalue;
+			}
+
+			if (strcmp(HeaderPrecInt, string_novalue) != 0) {
+				data[i][Prec] = (double)number_absent;
+			}
+
+		}
+
+		if (strcmp(HeaderPrecInt, string_novalue) != 0) {
+			return 1;
+		}else {
+			return 0;
+		}
+
+	}else {
+
+		return 0;
+
+	}
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

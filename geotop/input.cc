@@ -347,13 +347,13 @@ meteoio_init(iomanager);
 			check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
 			//find clouds
-//			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
-//				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
-//					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
-//						met->st->lat->co[i], met->st->lon->co[i], par->ST, met->st->Z->co[i], met->st->sky->co[i], 0.0, par->ndivdaycloud, par->dem_rotation);
-//						//par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
-//				}
-//			}
+			if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
+				if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
+					added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
+						met->st->lat[i], met->st->lon[i], par->ST, met->st->Z[i], met->st->sky[i], 0.0, par->ndivdaycloud, par->dem_rotation);
+						//par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
+				}
+			}
 
 			//calcululate Wx and Wy if Wspeed and direction are given
 			if (par->wind_as_xy == 1) {
@@ -384,9 +384,9 @@ meteoio_init(iomanager);
 				t_error("Fatal Error! Geotop is closed. See failing report (3).");
 			}
 
-//			if(par->prec_as_intensity == 1){
-//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-//			}
+			if(par->prec_as_intensity == 1){
+				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+			}
 
 			//rewrite completed files
 			//rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp.c_str(), added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
@@ -397,9 +397,9 @@ meteoio_init(iomanager);
 			}
 
 			//find Prec Intensity
-//			if(par->prec_as_intensity != 1){
-//				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
-//			}
+			if(par->prec_as_intensity != 1){
+				added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+			}
 
 			//find Tdew
 			if(par->vap_as_Td != 1){

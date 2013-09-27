@@ -26,33 +26,33 @@
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 //lat and lon in [deg]
-//short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat,
-//									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation){
-//
-//	double *cloudtrans;
-//	long n;
-//
-//	//if there are radiation data, and no cloudiness
-//	if ( (long)meteo[0][iSW] != number_absent || ( (long)meteo[0][iSWb] != number_absent && (long)meteo[0][iSWd] != number_absent ) ){
-//
-//		cloudtrans = (double*)malloc(meteolines*sizeof(double));
-//		cloudiness(meteo, meteolines, horizon, horizonlines, lat*Pi/180., lon*Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation);
-//
-//		for (n=0; n<meteolines; n++) {
-//			meteo[n][itauC] = cloudtrans[n];
-//		}
-//
-//		free(cloudtrans);
-//		return 1;
-//
-//	}else {
-//
-//		return 0;
-//
-//	}
-//
-//
-//}
+short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat,
+									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation){
+
+	double *cloudtrans;
+	long n;
+
+	//if there are radiation data, and no cloudiness
+	if ( (long)meteo[0][iSW] != number_absent || ( (long)meteo[0][iSWb] != number_absent && (long)meteo[0][iSWd] != number_absent ) ){
+
+		cloudtrans = (double*)malloc(meteolines*sizeof(double));
+		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation);
+
+		for (n=0; n<meteolines; n++) {
+			meteo[n][itauC] = cloudtrans[n];
+		}
+
+		free(cloudtrans);
+		return 1;
+
+	}else {
+
+		return 0;
+
+	}
+
+
+}
 	
 //*****************************************************************************************************************
 //*****************************************************************************************************************

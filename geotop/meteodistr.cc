@@ -73,6 +73,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
 	
 	ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2, curvature3, 
 				  curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint, f);
+
 	if(ok==0){
 		//printf("No wind measurements, used the value of the previous time step\n");
 		fprintf(f,"No wind measurements, used the value of the previous time step\n");
@@ -367,16 +368,19 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
 	}else {
 		ok = 2;
 		//Convert these u and v components to speed and directions.
+        // Inside this loop, the u_grid and/or v_grid values will blow.
+        // The value of windsp_grid is fine before the loop, and it explodes after.
 		for(r=1;r<=nr;r++){
 			for(c=1;c<=nc;c++){
 				if((long)topo[r][c]!=number_novalue){
 					winddir_grid[r][c] = 270.0 - rad2deg*atan2(v_grid[r][c],u_grid[r][c]);
-					if (winddir_grid[r][c]>=360.0) winddir_grid[r][c] -= 360.0;
-					windspd_grid[r][c] = pow(pow(u_grid[r][c], 2.0) + pow(v_grid[r][c], 2.0), 0.5);
+					if (winddir_grid[r][c]>=360.0) 
+                        winddir_grid[r][c] -= 360.0;
+					windspd_grid[r][c] = sqrt(u_grid[r][c] * u_grid[r][c] + v_grid[r][c] * v_grid[r][c]);
 				}
 			}
 		}
-		
+
 		//Modify the wind speed and direction according to simple wind-topography relationships.
 		topo_mod_winds(winddir_grid, windspd_grid, slopewtD, curvewtD, slopewtI, curvewtI, curvature1, curvature2, 
 					   curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
@@ -392,7 +396,8 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
 	for(r=1;r<=nr;r++){
 		for(c=1;c<=nc;c++){
 			if((long)topo[r][c]!=number_novalue){
-				if (windspd_grid[r][c]<windspd_min) windspd_grid[r][c] = windspd_min;
+				if (windspd_grid[r][c]<windspd_min)
+                    windspd_grid[r][c] = windspd_min;
 			}
 		}
 	}
@@ -690,6 +695,10 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 		dvar->co[nn]= var[nn] - ftot1/wtot1;
 		
 	} //end 222
+    printf("In barnes_oi(%d)\n", flag);
+	for(nn=1; nn<=nstns; nn++)
+        if(dvar->co[nn] < -0.1)
+            printf("dvar[%ld] = %f != 0\n", nn, dvar->co[nn]);
 	
 	// Grid-prediction loop.  Generate the estimate using first set of
 	//   weights, and correct using error estimates, dvar, and second
@@ -730,12 +739,17 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 				wtot2 = wtot2 + w2;
 				ftot1 = ftot1 + w1 * var[nn];
 				ftot2 = ftot2 + w2 * dvar->co[nn];
-				
+                if(dvar->co[nn] < -0.1)
+                    printf("dvar->co[%ld] = %f != 0\n", dvar->co[nn], nn);
 			} //end 333
 			
 			if (wtot1==0.0 || wtot2==0.0) printf("wts total zero\n");
 			
 			grid[r][c] = ftot1/wtot1 + ftot2/wtot2;
+            if(grid[r][c] > 10000){
+                    double x = grid[r][c];
+                    printf("grid[r][c] too big: %f\n", x);
+                }
 			
 		}//end 555
 	}//end 666

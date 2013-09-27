@@ -413,10 +413,18 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 						}
 #else
 					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
-					long ii,jj;for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Tgrid[%ld][%ld]=%f ",ii,jj,A->M->Tgrid[jj][jj]);}printf("\n");};
-					printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("RHgrid[%ld][%ld]=%f ",ii,jj,A->M->RHgrid[jj][jj]);}printf("\n");};
-					printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Pgrid[%ld][%ld]=%f ",ii,jj,A->M->Pgrid[jj][jj]);}printf("\n");};
-					printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Vgrid[%ld][%ld]=%f ",ii,jj,A->M->Vgrid[jj][jj]);}printf("\n");};
+					long ii,jj;
+                    // for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Tgrid[%ld][%ld]=%f ",ii,jj,A->M->Tgrid[jj][jj]);}printf("\n");};
+					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("RHgrid[%ld][%ld]=%f ",ii,jj,A->M->RHgrid[jj][jj]);}printf("\n");};
+					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Pgrid[%ld][%ld]=%f ",ii,jj,A->M->Pgrid[jj][jj]);}printf("\n");};
+					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Vgrid[%ld][%ld]=%f ",ii,jj,A->M->Vgrid[jj][jj]);}printf("\n");};
+                    std::cout<< "AFTER" <<  std::endl;
+                    for(ii=1; ii<=Nr; ii++){
+                        for(jj=1; jj<=Nc; jj++){
+                            std::cout << "Vgrid[" << ii << "][" << jj << "]=" << A->M->Vgrid[jj][jj] << " ";
+                        }
+                        std::cout << std::endl;
+                    }
 					getchar();
 #endif
 					tend=clock();
