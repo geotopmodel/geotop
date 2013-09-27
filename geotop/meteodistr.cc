@@ -620,7 +620,7 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 	//long nr=xpoint->nrh, nc=xpoint->nch;
 	long nr=xpoint.getRows()-1, nc=xpoint.getCols()-1;
 	//long nstns=xstn->nh;
-	long nstns=xstn.size();
+	long nstns=xstn.size()-1;
 	//long nstnsall=xstnall->nh;
 	long nstnsall=xstnall.size()-1;
 	
@@ -633,7 +633,9 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 	double dsq;         //delx**2 + dely**2
 	double xa,ya;       //x, y coords of current station
 	double xb,yb;       //x, y coords of current station
-	DOUBLEVECTOR *dvar;			//estimated error
+	// DOUBLEVECTOR *dvar;			//estimated error
+    double *dvar;
+    dvar = (double *)calloc(nstns+1, sizeof(double));
 	
 	double xkappa_1;    // Gauss constant for first pass
 	double xkappa_2;    // Gauss constant for second pass
@@ -642,7 +644,7 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 	double anum_1;      // numerator, beyond scanning radius,
 	double anum_2;      // for first and second passes
 	
-	dvar=new_doublevector(nstns);
+	// dvar=new_doublevector(nstns);
 	
 	// Compute the first and second pass values of the scaling parameter
 	//   and the maximum scanning radius used by the Barnes scheme.
@@ -692,13 +694,9 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 		
 		if(wtot1==0.0) printf("stn wt totals zero\n");
 		
-		dvar->co[nn]= var[nn] - ftot1/wtot1;
+		dvar[nn]= var[nn] - ftot1/wtot1;
 		
 	} //end 222
-    printf("In barnes_oi(%d)\n", flag);
-	for(nn=1; nn<=nstns; nn++)
-        if(dvar->co[nn] < -0.1)
-            printf("dvar[%ld] = %f != 0\n", nn, dvar->co[nn]);
 	
 	// Grid-prediction loop.  Generate the estimate using first set of
 	//   weights, and correct using error estimates, dvar, and second
@@ -738,18 +736,12 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 				wtot1 = wtot1 + w1;
 				wtot2 = wtot2 + w2;
 				ftot1 = ftot1 + w1 * var[nn];
-				ftot2 = ftot2 + w2 * dvar->co[nn];
-                if(dvar->co[nn] < -0.1)
-                    printf("dvar->co[%ld] = %f != 0\n", dvar->co[nn], nn);
+				ftot2 = ftot2 + w2 * dvar[nn];
 			} //end 333
 			
 			if (wtot1==0.0 || wtot2==0.0) printf("wts total zero\n");
 			
 			grid[r][c] = ftot1/wtot1 + ftot2/wtot2;
-            if(grid[r][c] > 10000){
-                    double x = grid[r][c];
-                    printf("grid[r][c] too big: %f\n", x);
-                }
 			
 		}//end 555
 	}//end 666
@@ -790,7 +782,7 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 				wtot1 = wtot1 + w1;
 				wtot2 = wtot2 + w2;
 				ftot1 = ftot1 + w1 * var[nn];
-				ftot2 = ftot2 + w2 * dvar->co[nn];
+				ftot2 = ftot2 + w2 * dvar[nn];
 				
 			} //end 333
 			
@@ -800,7 +792,7 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
 			
 		}//end 666
 	}
-	
+    free(dvar);
 }
 
 //***************************************************************************************************************

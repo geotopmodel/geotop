@@ -418,14 +418,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("RHgrid[%ld][%ld]=%f ",ii,jj,A->M->RHgrid[jj][jj]);}printf("\n");};
 					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Pgrid[%ld][%ld]=%f ",ii,jj,A->M->Pgrid[jj][jj]);}printf("\n");};
 					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Vgrid[%ld][%ld]=%f ",ii,jj,A->M->Vgrid[jj][jj]);}printf("\n");};
-                    std::cout<< "AFTER" <<  std::endl;
-                    for(ii=1; ii<=Nr; ii++){
-                        for(jj=1; jj<=Nc; jj++){
-                            std::cout << "Vgrid[" << ii << "][" << jj << "]=" << A->M->Vgrid[jj][jj] << " ";
-                        }
-                        std::cout << std::endl;
-                    }
-					getchar();
+
 #endif
 					tend=clock();
 					t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
