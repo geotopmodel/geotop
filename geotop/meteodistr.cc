@@ -536,7 +536,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 	long r,c,n,nstn;
 	double dn;
 	//DOUBLEVECTOR *var, *xst, *yst;
-	
+	long nr=Xpoint.getRows()-1, nc=Xpoint.getCols()-1;
 	nstn=0;
 	for(n=1;n< Xst.size();n++){
 		if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue) nstn++;
@@ -565,12 +565,12 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 			dn=dn0;
 		}else{
 			//get_dn(Xpoint->nch, Xpoint->nrh, dX, dY, nstn, &dn);
-			get_dn(Xpoint.getCols(), Xpoint.getRows(), dX, dY, nstn, &dn);
+			get_dn(nc, nr, dX, dY, nstn, &dn);
 		}
 		barnes_oi(flag, Xpoint, Ypoint, Xst, Yst, xst, yst, var, dn, (double)number_novalue, grid, value, metcod);
 	}else{
-		for(r=1;r<=Xpoint.getRows();r++){
-			for(c=1;c<=Xpoint.getCols();c++){
+		for(r=1;r<=nr;r++){
+			for(c=1;c<=nc;c++){
 				grid[r][c]=var[nstn];
 			}
 		}
