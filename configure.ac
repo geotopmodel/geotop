@@ -65,6 +65,14 @@ AC_ARG_ENABLE([internal-meteodistr],
     [AC_DEFINE([USE_INTERNAL_METEODISTR], [1], [Decide which interpolation to use])],
     [])
 
+if test x"$enable_internal_meteodistr" = x"yes"
+then
+    METEODISTR_RESULTS_DIR=results.meteodistr
+else
+    METEODISTR_RESULTS_DIR=results
+fi
+AC_SUBST([METEODISTR_RESULTS_DIR])
+
 ## Enable NetCDF ##
 AC_ARG_ENABLE([netcdf],
     [AS_HELP_STRING([--enable-netcdf],
