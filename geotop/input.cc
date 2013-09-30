@@ -3818,7 +3818,8 @@ double peat_thickness(double dist_from_channel){
 	//convert keyword listed on top of the file in lower case
 	n = (long)num_par_number;
 //	keywords_num_lower_case = (char**)malloc(n*sizeof(char*));
-	std::string keywords_num_lower_case[n];
+	//std::string keywords_num_lower_case[n];
+	std::vector<std::string> keywords_num_lower_case(n);
 
 	for (i=0; i<n; i++) {
 	//printf("%ld,%s\n",i,keywords_num[i]);
@@ -3830,7 +3831,8 @@ double peat_thickness(double dist_from_channel){
 	
 	n = (long)num_par_char;
 //	keywords_char_lower_case = (char**)malloc(n*sizeof(char*));
-	std::string keywords_char_lower_case[n];
+	//std::string keywords_char_lower_case[n];
+	std::vector<std::string> keywords_char_lower_case(n);
 	for (i=0; i<n; i++) {
 		//printf("%ld,%s\n",i,keywords_char[i]);
 	//	keywords_char_lower_case[i] = assign_string(keywords_char[i]);
