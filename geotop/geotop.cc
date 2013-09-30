@@ -49,7 +49,7 @@
 #include "output_nc.h"
 #endif
 #include <time.h>
-using namespace mio;
+
 using namespace std;
 
 //void time_loop(ALLDATA *A, mio::IOManager& iomanager);
@@ -132,9 +132,9 @@ int main(int argc,char *argv[]){
     */
 	if (argc == 2) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
 	else if (argc > 2) cfgfile = string(argv[2]) + "/" + cfgfile;
-	Config cfg(cfgfile);
+	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", ".");
-	IOManager iomanager(cfg);
+	mio::IOManager iomanager(cfg);
 	
 	//assign novalues
 	number_novalue = -9999;
@@ -394,7 +394,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 
 					std::vector<mio::MeteoData> vec_meteo;
-					Date d1;
+					mio::Date d1;
 					d1.setMatlabDate(JDb, TZ); // GEOtop use matlab offset of julian date
 					iomanager.getMeteoData(d1, vec_meteo);
 
