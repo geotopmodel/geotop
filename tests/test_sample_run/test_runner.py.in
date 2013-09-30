@@ -87,6 +87,8 @@ class TestValidRun(object):
         'LWin[W/m2]'                      : 67,
     }
 
+    map_delta = 0.0
+
     def setUp(self):
         os.chdir(TESTDIR)
 
@@ -95,9 +97,14 @@ class TestValidRun(object):
         Call self.compare_files_using_delta() if we do know the format
         of the file, and self.compare_files_exactly if fpath_ok otherwise.
         """
-        if pandas and re.match('.*/point[0-9]+.txt', fpath_ok):
+        if not pandas:
+            return self.compare_files_exactly(fpath_ok, fpath_new)
+        if re.match('.*/point[0-9]+.txt', fpath_ok):
             return self.compare_files_using_delta(fpath_ok, fpath_new)
-        return self.compare_files_exactly(fpath_ok, fpath_new)
+        elif re.match('.*.asc', fpath_ok):
+            return self.compare_map_files(fpath_ok, fpath_new)
+        else:
+            return self.compare_files_exactly(fpath_ok, fpath_new)
 
     def compare_files_exactly(self, fpath_ok, fpath_new):
         """
@@ -127,6 +134,26 @@ class TestValidRun(object):
             else:
                 # Check that all the fields are equal
                 assert_true((data_ok[field] == data_new[field]).all())
+
+    def compare_map_files(self, fpath_ok, fpath_new):
+        """
+        Compare the data in two files and check if they are *almost*
+        equal, depending on a delta which depends on the field name.
+        """
+        data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None)
+        data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None)
+        assert_equal(data_ok.shape, data_new.shape)
+        for column in data_ok:
+            try:
+                diff = data_ok[column] - data_new[column]
+            except (ValueError, TypeError):
+                return self.compare_files_exactly(fpath_ok, fpath_new)
+            assert_true(
+            (abs(diff) <= self.map_delta).all(),
+            msg="File %s: %d fields in column %d are bigger than predefined delta: "
+            "%f" % (fpath_new, (abs(diff) > self.map_delta).sum(),
+                    column, self.map_delta)
+            )
 
     def _test_template(self, directory):
         """
@@ -165,6 +192,7 @@ class TestValidRun(object):
                 # fpath_new is the corresponding file just produced by geotop
                 fpath_new = os.path.join(directory, outputdir, fname)
                 # fpath_new has to exists and...
+                if not os.path.isfile(fpath_new): continue
                 assert_is_file(fpath_new)
                 # ...it has to be equal to the file in ``results``
                 self.compare_files(fpath_ok, fpath_new)
