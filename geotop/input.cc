@@ -17,8 +17,7 @@
 #include "config.h"
 #include "input.h"
 
-using namespace std;
-using namespace mio;
+using namespace std ;
 
 //***************************************************************************************************************
 //***************************************************************************************************************
@@ -135,7 +134,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	//Continuous Recovering
 	if (par->RunIfAnOldRunIsPresent != 1) {
 		
-		if (IOUtils::fileExists(SuccessfulRunFile)) {
+		if (mio::IOUtils::fileExists(SuccessfulRunFile)) {
 		//	temp = join_strings(SuccessfulRunFile, ".old");
 			temp = SuccessfulRunFile + ".old";
 			rename(SuccessfulRunFile.c_str(), temp.c_str());
@@ -149,7 +148,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 			fclose(f);
 			t_error("Fatal Error! Geotop is closed. See failing report.");
 		}
-		if (IOUtils::fileExists(string(FailedRunFile))) {
+		if (mio::IOUtils::fileExists(string(FailedRunFile))) {
 		//	temp = join_strings(SuccessfulRunFile, ".old");
 			temp = SuccessfulRunFile + ".old";
 			rename(SuccessfulRunFile.c_str(), temp.c_str());
@@ -175,7 +174,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //	free(temp);
 	
 	if (par->ContRecovery > 0 && par->recover == 0) {
-		if (IOUtils::fileExists(string(files[rtime]) + string(textfile))) {
+		if (mio::IOUtils::fileExists(string(files[rtime]) + string(textfile))) {
 		//	temp = join_strings(files[rtime], textfile);
 			temp = files[rtime] + string(textfile);
 			matrix = read_txt_matrix_2(temp, 33, 44, 7, &num_lines);
@@ -433,7 +432,7 @@ meteoio_init(iomanager);
 	
 	if(strcmp(files[fLRs] , string_novalue) != 0){   //s stands for string
 		
-		if (!IOUtils::fileExists(string(files[fLRs]) + string(textfile))) 
+		if (!mio::IOUtils::fileExists(string(files[fLRs]) + string(textfile))) 
 			printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file, remove its name and keywords from input file\n");
 	//	temp = join_strings(files[fLRs], textfile);
 		temp = files[fLRs] + string(textfile);
@@ -625,7 +624,7 @@ meteoio_init(iomanager);
 
 			temp = namefile_i_we2(files[fvegpar], i);
 						
-			if (IOUtils::fileExists(string(temp) + string(textfile))) {				
+			if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {				
 				printf("There is a specific vegetation parameter file for land cover type = %ld\n",i);
 			//	free(temp);
 				temp = namefile_i(files[fvegpar], i);
@@ -884,7 +883,7 @@ meteoio_init(iomanager);
 //	initialize_doubletensor(sl->ET,0.);
 	sl->ET.resize(Nl+1,Nr+1,Nc+1,0.);
 						
-	if (!IOUtils::fileExists(string(files[fwt0]) + string(ascii_esri))){
+	if (!mio::IOUtils::fileExists(string(files[fwt0]) + string(ascii_esri))){
 		
 		for (i=1; i<=par->total_pixel; i++) {
 
@@ -3432,7 +3431,7 @@ meteoio_init(iomanager);
 	double zlim, z;
 	FILE *f;
 	
-	if (!IOUtils::fileExists(string(files[fbed]) + string(ascii_esri))) {
+	if (!mio::IOUtils::fileExists(string(files[fbed]) + string(ascii_esri))) {
 		f = fopen(FailedRunFile.c_str(), "w");
 		fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",files[fbed]+1);
 		fclose(f);
@@ -3653,7 +3652,7 @@ short file_exists(short key, FILE *flog){
 		fprintf(flog,"not present in file list\n");		
 		return (-1);
 	}else{
-		bool is_present = IOUtils::fileExists(string(files[key]) + string(ascii_esri));
+		bool is_present = mio::IOUtils::fileExists(string(files[key]) + string(ascii_esri));
 
 		if (is_present) { 
 			printf("EXISTING in format %d\n", 3);
@@ -3826,7 +3825,7 @@ double peat_thickness(double dist_from_channel){
 	//	keywords_num_lower_case[i] = assign_string(keywords_num[i]);
 		keywords_num_lower_case[i] = keywords_num[i];
 	//	convert_string_in_lower_case(keywords_num_lower_case[i]);
-		IOUtils::toLower(keywords_num_lower_case[i]);
+		mio::IOUtils::toLower(keywords_num_lower_case[i]);
 	}
 	
 	n = (long)num_par_char;
@@ -3838,7 +3837,7 @@ double peat_thickness(double dist_from_channel){
 	//	keywords_char_lower_case[i] = assign_string(keywords_char[i]);
 		keywords_char_lower_case[i] = keywords_char[i];
 	//	convert_string_in_lower_case(keywords_char_lower_case[i]);
-		IOUtils::toLower(keywords_char_lower_case[i]);
+		mio::IOUtils::toLower(keywords_char_lower_case[i]);
 	}
 	
 	//Allocation	

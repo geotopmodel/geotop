@@ -20,7 +20,6 @@
 
 #include "parameters.h"
 
-using namespace mio;
 using namespace std;
 
 /***********************************************************/
@@ -185,7 +184,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 		
 		temp = namefile_i_we2(name, i+1);
 		
-		if (IOUtils::fileExists(string(temp) + string(textfile))) {
+		if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
 			free(temp);
 			ok = 1;
 			temp = namefile_i(name, i+1);
@@ -239,7 +238,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 			//read files
 			temp = namefile_i_we2(name, i);
 			
-			if (IOUtils::fileExists(string(temp) + string(textfile))) {
+			if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
 				free(temp);
 				temp = namefile_i(name, i);
 				soildata = read_txt_matrix(temp, 33, 44, key_header, nsoilprop, &nlines, flog);
@@ -467,7 +466,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 	long nlines, n, j;
 	char *temp;
 
-	if (IOUtils::fileExists(string(name) + string(textfile))) {
+	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
 		temp = join_strings(name, textfile);
 	//	points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines, flog);
 		points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt.getCols()-1, &nlines, flog);
@@ -544,7 +543,7 @@ short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, char *
 	long nlines, n, j, k;
 	char *temp;
 		
-	if (IOUtils::fileExists(string(name) + string(textfile))) {
+	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
 		temp = join_strings(name, textfile);
 		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
 		free(temp);
