@@ -190,8 +190,8 @@ HeatEqMaxIter=700
 !=============================================================================
 
 DtPlotPoint = 1
+
 PointOutputFile = "output_tabs/point"
-!SnowProfileFile = "output_tabs/snow"
 DatePoint=1
 SnowDepthPoint=2
 SWEPoint=3
@@ -204,9 +204,14 @@ SWbeamPoint=9
 SWdiffPoint=10
 LWinPoint=11
 
+SoilTempProfileFile="output_tabs/soiltemp"
+SnowTempProfileFile="output_tabs/snowtemp"
+SnowLiqContentProfileFile="output_tabs/snowliq"
+SnowIceContentProfileFile="output_tabs/snowice"
+SnowDepthLayersFile="output_tabs/snowly"
 
 !SWEMapFile= "output_maps/SWE"
-!SnowDepthMapFile = "output_maps/snowdepth"
+SnowDepthMapFile = "output_maps/snowdepth"
 FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
 !NetShortwaveRadiationMapFile = "output_maps/Rn"
 !DischargeFile = "output_tabs/discharge"
@@ -216,8 +221,7 @@ OutputSnowMaps = 1
 OutputSoilMaps=1
 !OutputSurfEBALMaps=1
 SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-SoilTempProfileFile="output_maps/soiltemp"
+
 
 SoilAll=1
 SoilAveragedTempTensorFile = "output_maps/T"
