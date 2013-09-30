@@ -23,6 +23,12 @@
 #include "write_ascii.h"
 #include "extensions.h"
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string.h>
+#include <libgen.h>
+#include <stdio.h>
+
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
@@ -34,9 +40,17 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV, lon
 
 	FILE *f;
 	char *temp;
+    char *basedir = dirname(strdup(name));
 	long r,c;
+    int ret;
 
 	temp = join_strings(name,ascii_grass);
+
+    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    if(-1 == ret){
+        fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+        exit(1);
+    }
 	f=fopen(temp,"w");	
 	
 	fprintf(f,"north:%f\n",UV->U->co[3]+DTM->nrh*UV->U->co[1]);
@@ -78,9 +92,17 @@ void write_grassascii_vector(char *name, short type, DOUBLEVECTOR *DTM, long **j
 	
 	FILE *f;
 	char *temp;
+    char *basedir = dirname(strdup(name));
 	long r,c;
-	
+    int ret;
+
 	temp = join_strings(name,ascii_grass);
+
+    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    if(-1 == ret){
+        fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+        exit(1);
+    }
 	f=fopen(temp,"w");
 	
 	fprintf(f,"north:%f\n",UV->U->co[3]+nr*UV->U->co[1]);
@@ -123,6 +145,8 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV, long
 	FILE *f;
 	long r,c;
 	char *temp;
+    char *basedir = dirname(strdup(name));
+    int ret;
 
 	if(UV->U->co[1]!=UV->U->co[2]){
 		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U->co[2],UV->U->co[1]);
@@ -130,6 +154,12 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV, long
 	}
 
 	temp = join_strings(name,ascii_esri);
+
+    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    if(-1 == ret){
+        fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+        exit(1);
+    }
 	f=fopen(temp,"w");
 	
 	fprintf(f,"ncols         %ld\n",DTM->nch);
@@ -171,13 +201,21 @@ void write_esriascii_vector(char *name, short type, DOUBLEVECTOR *DTM, long **j,
 	FILE *f;
 	long r,c;
 	char *temp;
-	
+    char *basedir = dirname(strdup(name));
+    int ret;
+
 	if(UV->U->co[1]!=UV->U->co[2]){
 		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U->co[2],UV->U->co[1]);
 		t_error("Fatal error");
 	}
 	
 	temp = join_strings(name,ascii_esri);
+
+    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    if(-1 == ret){
+        fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+        exit(1);
+    }    
 	f=fopen(temp,"w");
 		
 	fprintf(f,"ncols         %ld\n",nc);
