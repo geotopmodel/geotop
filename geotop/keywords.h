@@ -22,724 +22,726 @@
 
 //char *keywords_num[num_par_number] = {"TimeStepEnergyAndWater",
 
-std::string keywords_num[] = {"TimeStepEnergyAndWater",
-		"InitDateDDMMYYYYhhmm",
-		"EndDateDDMMYYYYhhmm",
-		"NumSimulationTimes",
-		"StandardTimeSimulation",
-		"DtPlotDischarge",
-		"DtPlotPoint",
-		"DtPlotBasin",
-		"NumLowPassFilterOnDemForAll",
-		"NumLowPassFilterOnDemForCurv",
-		"FlagSkyViewFactor",
-		"FormatOutputMaps",
-		"PointSim",
-		"RecoverSim",
-		"NumLandCoverTypes",
-		"SoilRoughness",
-		"ThresSnowSoilRough",
-		"VegHeight",
-		"ThresSnowVegUp",
-		"ThresSnowVegDown",
-		"LSAI",
-		"CanopyFraction",
-		"DecayCoeffCanopy",
-		"VegSnowBurying",
-		"RootDepth",
-		"MinStomatalRes",
-		"VegReflectVis",
-		"VegReflNIR",
-		"VegTransVis",
-		"VegTransNIR",
-		"LeafAngles",
-		"CanDensSurface",
-		"SoilAlbVisDry",
-		"SoilAlbNIRDry",
-		"SoilAlbVisWet",
-		"SoilAlbNIRWet",
-		"SoilEmissiv",
-		"SurFlowResLand",
-		"RoughElemXUnitArea",
-		"RoughElemDiam",
-		"FrozenSoilHydrCondReduction",
-		"FreeDrainageAtBottom",
-		"FreeDrainageAtLateralBorder",
-		"RichardTol",
-		"RichardMaxIter",
-		"RichardInitForc",
-		"MinLambdaWater",
-		"MaxTimesMinLambdaWater",
-		"ExitMinLambdaWater",
-		"MinTimeStep",
-		"SurFlowResExp",
-		"ThresWaterDepthLandInf",
-		"ThresWaterDepthLandSup",
-		"SurFlowResChannel",
-		"ThresWaterDepthChannel",
-		"RatioChannelWidthPixelWidth",
-		"ChannelDepression",
-		"MaxCourantSupFlowLand",
-		"MaxCourantSupFlowChannel",
-		"MinSupWaterDepthLand",
-		"MinSupWaterDepthChannel",
-		"MinDiffSupWaterDepthLandChannel",
-		"MinTimeStepSupFlow",
-		"Latitude",
-		"Longitude",
-		"Vmin" ,
-		"RHmin" ,
-		"AlphaSnow",
-		"HighestNodeCorrespondsToLayer",
-		"HeatEqTol",
-		"HeatEqMaxIter",
-		"MinLambdaEnergy",
-		"MaxTimesMinLambdaEnergy",
-		"ExitMinLambdaEnergy",
-		"DEMRotationAngle",
-		"CanopyMaxIter",
-		"BusingerMaxIter",
-		"TsMaxIter" ,
-		"LocMaxIter" ,
-		"CanopyStabCorrection" ,
-		"Iobsint" ,
-		"Dn" ,
-		"SlopeWeight" ,
-		"CurvatureWeight" ,
-		"SlopeWeightD" ,
-		"CurvatureWeightD" ,
-		"SlopeWeightI" ,
-		"CurvatureWeightI" ,
-		"ZeroTempAmplitDepth",
-		"ZeroTempAmplitTemp",
-		"BottomBoundaryHeatFlux",
-		"InitSWE" ,
-		"InitSnowDensity" ,
-		"InitSnowTemp" ,
-		"InitSnowAge" ,
-		"ThresTempRain" ,
-		"ThresTempSnow" ,
-		"DewTempOrNormTemp" ,
-		"AlbExtParSnow" ,
-		"FreshSnowReflVis" ,
-		"FreshSnowReflNIR" ,
-		"IrriducibleWatSatSnow" ,
-		"SnowEmissiv" ,
-		"SnowRoughness" ,
-		"SnowCorrFactor" ,
-		"RainCorrFactor" ,
-		"MaxSnowPorosity" ,
-		"DrySnowDefRate",
-		"SnowDensityCutoff",
-		"WetSnowDefRate",
-		"SnowViscosity",
-		"FetchUp",
-		"FetchDown",
-		"BlowingSnowSoftLayerIceContent",
-		"TimeStepBlowingSnow",
-		"SnowSMIN",
-		"SnowSMAX",
-		"SnowCURV",
-		"MaxWaterEqSnowLayerContent",
-		"MaxSnowLayersMiddle",
-		"SWEbottom",
-		"SWEtop",
-		"InitGlacierDepth",
-		"InitGlacierDensity",
-		"InitGlacierTemp",
-		"IrriducibleWatSatGlacier",
-		"MaxWaterEqGlacLayerContent",
-		"MaxGlacLayersMiddle",
-		"GWEbottom",
-		"GWEtop",
-		"LWinParameterization",
-		"MoninObukhov",
-		"Surroundings",
-		"WaterBalance",
-		"EnergyBalance",
-		"BlowingSnow",
-		"MinIceContentForBlowingSnow",
-		"PointID",
-		"CoordinatePointX",
-		"CoordinatePointY",
-		"PointElevation",
-		"PointLandCoverType",
-		"PointSoilType",
-		"PointSlope",
-		"PointAspect",
-		"PointSkyViewFactor",
-		"PointCurvatureNorthSouthDirection",
-		"PointCurvatureWestEastDirection",
-		"PointCurvatureNorthwestSoutheastDirection",
-		"PointCurvatureNortheastSouthwestDirection",
-		"PointDepthFreeSurface",
-		"PointHorizon",
-		"PointMaxSWE",
-		"PointLatitude",
-		"PointLongitude",
-		"NONE",
-		"SavingPoints",
-		"OutputSoilMaps",
-		"OutputSnowMaps",
-		"OutputGlacierMaps",
-		"OutputSurfEBALMaps",
-		"OutputVegetationMaps",
-		"OutputMeteoMaps",
-		"SpecialPlotBegin",
-		"SpecialPlotEnd",
-		"SoilLayerTypes",
-		"InitWaterTableDepth",
-		"DefaultSoilTypeLand",
-		"DefaultSoilTypeChannel",
-		"SoilLayerThicknesses",
-		"SoilLayerNumber",
-		"InitSoilPressure",
-		"InitSoilTemp",
-		"NormalHydrConductivity",
-		"LateralHydrConductivity",
-		"ThetaRes",
-		"WiltingPoint",
-		"FieldCapacity",
-		"ThetaSat",
-		"AlphaVanGenuchten",
-		"NVanGenuchten",
-		"VMualem",
-		"ThermalConductivitySoilSolids",
-		"ThermalCapacitySoilSolids",
-		"SpecificStorativity",
-		"InitSoilPressureBedrock",
-		"InitSoilTempBedrock",
-		"NormalHydrConductivityBedrock",
-		"LateralHydrConductivityBedrock",
-		"ThetaResBedrock",
-		"WiltingPointBedrock",
-		"FieldCapacityBedrock",
-		"ThetaSatBedrock",
-		"AlphaVanGenuchtenBedrock",
-		"NVanGenuchtenBedrock",
-		"VMualemBedrock",
-		"ThermalConductivitySoilSolidsBedrock",
-		"ThermalCapacitySoilSolidsBedrock",
-		"SpecificStorativityBedrock",
-		"MeteoStationsID",
-		"NumberOfMeteoStations",
-		"MeteoStationCoordinateX",
-		"MeteoStationCoordinateY",
-		"MeteoStationLatitude",
-		"MeteoStationLongitude",
-		"MeteoStationElevation",
-		"MeteoStationSkyViewFactor",
-		"MeteoStationStandardTime",
-		"MeteoStationWindVelocitySensorHeight",
-		"MeteoStationTemperatureSensorHeight",
-		"LapseRateTemp",
-		"LapseRateDewTemp",
-		"LapseRatePrec",
-		"MinPrecIncreaseFactorWithElev",
-		"MaxPrecDecreaseFactorWithElev",
-		"DatePoint",
-		"JulianDayFromYear0Point",
-		"TimeFromStartPoint",
-		"PeriodPoint",
-		"RunPoint",
-		"IDPointPoint",
-		"PsnowPoint",
-		"PrainPoint",
-		"PsnowNetPoint",
-		"PrainNetPoint",
-		"PrainOnSnowPoint",
-		"WindSpeedPoint",
-		"WindDirPoint",
-		"RHPoint",
-		"AirPressPoint",
-		"AirTempPoint",
-		"TDewPoint",
-		"TsurfPoint",
-		"TvegPoint",
-		"TCanopyAirPoint",
-		"SurfaceEBPoint",
-		"SoilHeatFluxPoint",
-		"SWinPoint",
-		"SWbeamPoint",
-		"SWdiffPoint",
-		"LWinPoint",
-		"LWinMinPoint",
-		"LWinMaxPoint",
-		"SWNetPoint",
-		"LWNetPoint",
-		"HPoint",
-		"LEPoint",
-		"CanopyFractionPoint",
-		"LSAIPoint",
-		"z0vegPoint",
-		"d0vegPoint",
-		"EstoredCanopyPoint",
-		"SWvPoint",
-		"LWvPoint",
-		"HvPoint",
-		"LEvPoint",
-		"HgUnvegPoint",
-		"LEgUnvegPoint",
-		"HgVegPoint",
-		"LEgVegPoint",
-		"EvapSurfacePoint",
-		"TraspCanopyPoint",
-		"WaterOnCanopyPoint",
-		"SnowOnCanopyPoint",
-		"QVegPoint",
-		"QSurfPoint",
-		"QAirPoint",
-		"QCanopyAirPoint",
-		"LObukhovPoint",
-		"LObukhovCanopyPoint",
-		"WindSpeedTopCanopyPoint",
-		"DecayKCanopyPoint",
-		"SWupPoint",
-		"LWupPoint",
-		"HupPoint",
-		"LEupPoint",
-		"SnowDepthPoint",
-		"SWEPoint",
-		"SnowDensityPoint",
-		"SnowTempPoint",
-		"SnowMeltedPoint",
-		"SnowSublPoint",
-		"SWEBlownPoint",
-		"SWESublBlownPoint",
-		"GlacDepthPoint",
-		"GWEPoint",
-		"GlacDensityPoint",
-		"GlacTempPoint",
-		"GlacMeltedPoint",
-		"GlacSublPoint",
-		"LowestThawedSoilDepthPoint",
-		"HighestThawedSoilDepthPoint",
-		"LowestWaterTableDepthPoint",
-		"HighestWaterTableDepthPoint",
-		"PointAll",
-		"DateBasin",
-		"JulianDayFromYear0Basin",
-		"TimeFromStartBasin",
-		"PeriodBasin",
-		"RunBasin",
-		"PRainNetBasin",
-		"PSnowNetBasin",
-		"PRainBasin",
-		"PSnowBasin",
-		"PNetBasin",
-		"AirTempBasin",
-		"TSurfBasin",
-		"TvegBasin",
-		"EvapSurfaceBasin",
-		"TraspCanopyBasin",
-		"LEBasin",
-		"HBasin",
-		"SWNetBasin",
-		"LWNetBasin",
-		"LEvBasin",
-		"HvBasin",
-		"SWvBasin",
-		"LWvBasin",
-		"SWinBasin",
-		"LWinBasin",
-		"MassErrorBasin",
-		"MeanTimeStep",
-		"BasinAll",
-		"DateSnow",
-		"JulianDayFromYear0Snow",
-		"TimeFromStartSnow",
-		"PeriodSnow",
-		"RunSnow",
-		"IDPointSnow",
-		"TempSnow",
-		"IceContentSnow",
-		"WatContentSnow",
-		"DepthSnow",
-		"NONE",
-		"NONE",
-		"SnowAll",
-		"DateGlac",
-		"JulianDayFromYear0Glac",
-		"TimeFromStartGlac",
-		"PeriodGlac",
-		"RunGlac",
-		"IDPointGlac",
-		"TempGlac",
-		"IceContentGlac",
-		"WatContentGlac",
-		"DepthGlac",
-		"NONE",
-		"NONE",
-		"GlacAll",
-		"DateSoil",
-		"JulianDayFromYear0Soil",
-		"TimeFromStartSoil",
-		"PeriodSoil",
-		"RunSoil",
-		"IDPointSoil",
-		"SoilAll",
-		"SoilPlotDepths",
-		"SnowPlotDepths",
-		"GlacPlotDepths",
-		"RicalculateCloudiness",
-		"DewTemperatureAsRH",
-		"RHAsDewTemperature",
-		"NumberDayIntervalsToCalculateCloudiness",
-		"CalculateCastShadow",
-		"WindAsSpeedAndDirection",
-		"WindAsWindXAndWindY",
-		"SnowAgingCoeffVis",
-		"SnowAgingCoeffNIR",
-		"DepthFreeSurfaceAtTheBoundary",
-		"PrecAsIntensity",
-		"LinearInterpolation",
-		"OutputDepthsVertical",
-		"UpwindBorderBlowingSnow",
-		"UpdateHydraulicConductivity",
-		"ContinuousRecovery",
-		"ActualOrProjectedArea",
-		"MinRatioKactualToKSat",
-		"RunIfAnOldRunIsPresent"}; // noori;
+std::string keywords_num[] = {
+    "TimeStepEnergyAndWater",                              /*   0 */
+    "InitDateDDMMYYYYhhmm",                                /*   1 */  
+    "EndDateDDMMYYYYhhmm",                                 /*   2 */  
+    "NumSimulationTimes",                                  /*   3 */  
+    "StandardTimeSimulation",                              /*   4 */  
+    "DtPlotDischarge",                                     /*   5 */  
+    "DtPlotPoint",                                         /*   6 */  
+    "DtPlotBasin",                                         /*   7 */  
+    "NumLowPassFilterOnDemForAll",                         /*   8 */  
+    "NumLowPassFilterOnDemForCurv",                        /*   9 */  
+    "FlagSkyViewFactor",                                   /*  10 */ 
+    "FormatOutputMaps",                                    /*  11 */ 
+    "PointSim",                                            /*  12 */ 
+    "RecoverSim",                                          /*  13 */ 
+    "NumLandCoverTypes",                                   /*  14 */ 
+    "SoilRoughness",                                       /*  15 */ 
+    "ThresSnowSoilRough",                                  /*  16 */ 
+    "VegHeight",                                           /*  17 */ 
+    "ThresSnowVegUp",                                      /*  18 */ 
+    "ThresSnowVegDown",                                    /*  19 */ 
+    "LSAI",                                                /*  20 */ 
+    "CanopyFraction",                                      /*  21 */ 
+    "DecayCoeffCanopy",                                    /*  22 */ 
+    "VegSnowBurying",                                      /*  23 */ 
+    "RootDepth",                                           /*  24 */ 
+    "MinStomatalRes",                                      /*  25 */ 
+    "VegReflectVis",                                       /*  26 */ 
+    "VegReflNIR",                                          /*  27 */ 
+    "VegTransVis",                                         /*  28 */ 
+    "VegTransNIR",                                         /*  29 */ 
+    "LeafAngles",                                          /*  30 */ 
+    "CanDensSurface",                                      /*  31 */ 
+    "SoilAlbVisDry",                                       /*  32 */ 
+    "SoilAlbNIRDry",                                       /*  33 */ 
+    "SoilAlbVisWet",                                       /*  34 */ 
+    "SoilAlbNIRWet",                                       /*  35 */ 
+    "SoilEmissiv",                                         /*  36 */ 
+    "SurFlowResLand",                                      /*  37 */ 
+    "RoughElemXUnitArea",                                  /*  38 */ 
+    "RoughElemDiam",                                       /*  39 */ 
+    "FrozenSoilHydrCondReduction",                         /*  40 */ 
+    "FreeDrainageAtBottom",                                /*  41 */ 
+    "FreeDrainageAtLateralBorder",                         /*  42 */ 
+    "RichardTol",                                          /*  43 */ 
+    "RichardMaxIter",                                      /*  44 */ 
+    "RichardInitForc",                                     /*  45 */ 
+    "MinLambdaWater",                                      /*  46 */ 
+    "MaxTimesMinLambdaWater",                              /*  47 */ 
+    "ExitMinLambdaWater",                                  /*  48 */ 
+    "MinTimeStep",                                         /*  49 */ 
+    "SurFlowResExp",                                       /*  50 */ 
+    "ThresWaterDepthLandInf",                              /*  51 */ 
+    "ThresWaterDepthLandSup",                              /*  52 */ 
+    "SurFlowResChannel",                                   /*  53 */ 
+    "ThresWaterDepthChannel",                              /*  54 */ 
+    "RatioChannelWidthPixelWidth",                         /*  55 */ 
+    "ChannelDepression",                                   /*  56 */ 
+    "MaxCourantSupFlowLand",                               /*  57 */ 
+    "MaxCourantSupFlowChannel",                            /*  58 */ 
+    "MinSupWaterDepthLand",                                /*  59 */ 
+    "MinSupWaterDepthChannel",                             /*  60 */ 
+    "MinDiffSupWaterDepthLandChannel",                     /*  61 */ 
+    "MinTimeStepSupFlow",                                  /*  62 */ 
+    "Latitude",                                            /*  63 */ 
+    "Longitude",                                           /*  64 */ 
+    "Vmin" ,                                               /*  65 */ 
+    "RHmin" ,                                              /*  66 */ 
+    "AlphaSnow",                                           /*  67 */ 
+    "HighestNodeCorrespondsToLayer",                       /*  68 */ 
+    "HeatEqTol",                                           /*  69 */ 
+    "HeatEqMaxIter",                                       /*  70 */ 
+    "MinLambdaEnergy",                                     /*  71 */ 
+    "MaxTimesMinLambdaEnergy",                             /*  72 */ 
+    "ExitMinLambdaEnergy",                                 /*  73 */ 
+    "DEMRotationAngle",                                    /*  74 */ 
+    "CanopyMaxIter",                                       /*  75 */ 
+    "BusingerMaxIter",                                     /*  76 */ 
+    "TsMaxIter" ,                                          /*  77 */ 
+    "LocMaxIter" ,                                         /*  78 */ 
+    "CanopyStabCorrection" ,                               /*  79 */ 
+    "Iobsint" ,                                            /*  80 */ 
+    "Dn" ,                                                 /*  81 */ 
+    "SlopeWeight" ,                                        /*  82 */ 
+    "CurvatureWeight" ,                                    /*  83 */ 
+    "SlopeWeightD" ,                                       /*  84 */ 
+    "CurvatureWeightD" ,                                   /*  85 */ 
+    "SlopeWeightI" ,                                       /*  86 */ 
+    "CurvatureWeightI" ,                                   /*  87 */ 
+    "ZeroTempAmplitDepth",                                 /*  88 */ 
+    "ZeroTempAmplitTemp",                                  /*  89 */ 
+    "BottomBoundaryHeatFlux",                              /*  90 */ 
+    "InitSWE" ,                                            /*  91 */ 
+    "InitSnowDensity" ,                                    /*  92 */ 
+    "InitSnowTemp" ,                                       /*  93 */ 
+    "InitSnowAge" ,                                        /*  94 */ 
+    "ThresTempRain" ,                                      /*  95 */ 
+    "ThresTempSnow" ,                                      /*  96 */ 
+    "DewTempOrNormTemp" ,                                  /*  97 */ 
+    "AlbExtParSnow" ,                                      /*  98 */ 
+    "FreshSnowReflVis" ,                                   /*  99 */ 
+    "FreshSnowReflNIR" ,                                   /* 100 */
+    "IrriducibleWatSatSnow" ,                              /* 101 */
+    "SnowEmissiv" ,                                        /* 102 */
+    "SnowRoughness" ,                                      /* 103 */
+    "SnowCorrFactor" ,                                     /* 104 */
+    "RainCorrFactor" ,                                     /* 105 */
+    "MaxSnowPorosity" ,                                    /* 106 */
+    "DrySnowDefRate",                                      /* 107 */
+    "SnowDensityCutoff",                                   /* 108 */
+    "WetSnowDefRate",                                      /* 109 */
+    "SnowViscosity",                                       /* 110 */
+    "FetchUp",                                             /* 111 */
+    "FetchDown",                                           /* 112 */
+    "BlowingSnowSoftLayerIceContent",                      /* 113 */
+    "TimeStepBlowingSnow",                                 /* 114 */
+    "SnowSMIN",                                            /* 115 */
+    "SnowSMAX",                                            /* 116 */
+    "SnowCURV",                                            /* 117 */
+    "MaxWaterEqSnowLayerContent",                          /* 118 */
+    "MaxSnowLayersMiddle",                                 /* 119 */
+    "SWEbottom",                                           /* 120 */
+    "SWEtop",                                              /* 121 */
+    "InitGlacierDepth",                                    /* 122 */
+    "InitGlacierDensity",                                  /* 123 */
+    "InitGlacierTemp",                                     /* 124 */
+    "IrriducibleWatSatGlacier",                            /* 125 */
+    "MaxWaterEqGlacLayerContent",                          /* 126 */
+    "MaxGlacLayersMiddle",                                 /* 127 */
+    "GWEbottom",                                           /* 128 */
+    "GWEtop",                                              /* 129 */
+    "LWinParameterization",                                /* 130 */
+    "MoninObukhov",                                        /* 131 */
+    "Surroundings",                                        /* 132 */
+    "WaterBalance",                                        /* 133 */
+    "EnergyBalance",                                       /* 134 */
+    "BlowingSnow",                                         /* 135 */
+    "MinIceContentForBlowingSnow",                         /* 136 */
+    "PointID",                                             /* 137 */
+    "CoordinatePointX",                                    /* 138 */
+    "CoordinatePointY",                                    /* 139 */
+    "PointElevation",                                      /* 140 */
+    "PointLandCoverType",                                  /* 141 */
+    "PointSoilType",                                       /* 142 */
+    "PointSlope",                                          /* 143 */
+    "PointAspect",                                         /* 144 */
+    "PointSkyViewFactor",                                  /* 145 */
+    "PointCurvatureNorthSouthDirection",                   /* 146 */
+    "PointCurvatureWestEastDirection",                     /* 147 */
+    "PointCurvatureNorthwestSoutheastDirection",           /* 148 */
+    "PointCurvatureNortheastSouthwestDirection",           /* 149 */
+    "PointDepthFreeSurface",                               /* 150 */
+    "PointHorizon",                                        /* 151 */
+    "PointMaxSWE",                                         /* 152 */
+    "PointLatitude",                                       /* 153 */
+    "PointLongitude",                                      /* 154 */
+    "NONE",                                                /* 155 */
+    "SavingPoints",                                        /* 156 */
+    "OutputSoilMaps",                                      /* 157 */
+    "OutputSnowMaps",                                      /* 158 */
+    "OutputGlacierMaps",                                   /* 159 */
+    "OutputSurfEBALMaps",                                  /* 160 */
+    "OutputVegetationMaps",                                /* 161 */
+    "OutputMeteoMaps",                                     /* 162 */
+    "SpecialPlotBegin",                                    /* 163 */
+    "SpecialPlotEnd",                                      /* 164 */
+    "SoilLayerTypes",                                      /* 165 */
+    "InitWaterTableDepth",                                 /* 166 */
+    "DefaultSoilTypeLand",                                 /* 167 */
+    "DefaultSoilTypeChannel",                              /* 168 */
+    "SoilLayerThicknesses",                                /* 169 */
+    "SoilLayerNumber",                                     /* 170 */
+    "InitSoilPressure",                                    /* 171 */
+    "InitSoilTemp",                                        /* 172 */
+    "NormalHydrConductivity",                              /* 173 */
+    "LateralHydrConductivity",                             /* 174 */
+    "ThetaRes",                                            /* 175 */
+    "WiltingPoint",                                        /* 176 */
+    "FieldCapacity",                                       /* 177 */
+    "ThetaSat",                                            /* 178 */
+    "AlphaVanGenuchten",                                   /* 179 */
+    "NVanGenuchten",                                       /* 180 */
+    "VMualem",                                             /* 181 */
+    "ThermalConductivitySoilSolids",                       /* 182 */
+    "ThermalCapacitySoilSolids",                           /* 183 */
+    "SpecificStorativity",                                 /* 184 */
+    "InitSoilPressureBedrock",                             /* 185 */
+    "InitSoilTempBedrock",                                 /* 186 */
+    "NormalHydrConductivityBedrock",                       /* 187 */
+    "LateralHydrConductivityBedrock",                      /* 188 */
+    "ThetaResBedrock",                                     /* 189 */
+    "WiltingPointBedrock",                                 /* 190 */
+    "FieldCapacityBedrock",                                /* 191 */
+    "ThetaSatBedrock",                                     /* 192 */
+    "AlphaVanGenuchtenBedrock",                            /* 193 */
+    "NVanGenuchtenBedrock",                                /* 194 */
+    "VMualemBedrock",                                      /* 195 */
+    "ThermalConductivitySoilSolidsBedrock",                /* 196 */
+    "ThermalCapacitySoilSolidsBedrock",                    /* 197 */
+    "SpecificStorativityBedrock",                          /* 198 */
+    "MeteoStationsID",                                     /* 199 */
+    "NumberOfMeteoStations",                               /* 200 */
+    "MeteoStationCoordinateX",                             /* 201 */
+    "MeteoStationCoordinateY",                             /* 202 */
+    "MeteoStationLatitude",                                /* 203 */
+    "MeteoStationLongitude",                               /* 204 */
+    "MeteoStationElevation",                               /* 205 */
+    "MeteoStationSkyViewFactor",                           /* 206 */
+    "MeteoStationStandardTime",                            /* 207 */
+    "MeteoStationWindVelocitySensorHeight",                /* 208 */
+    "MeteoStationTemperatureSensorHeight",                 /* 209 */
+    "LapseRateTemp",                                       /* 210 */
+    "LapseRateDewTemp",                                    /* 211 */
+    "LapseRatePrec",                                       /* 212 */
+    "MinPrecIncreaseFactorWithElev",                       /* 213 */
+    "MaxPrecDecreaseFactorWithElev",                       /* 214 */
+    "DatePoint",                                           /* 215 */
+    "JulianDayFromYear0Point",                             /* 216 */
+    "TimeFromStartPoint",                                  /* 217 */
+    "PeriodPoint",                                         /* 218 */
+    "RunPoint",                                            /* 219 */
+    "IDPointPoint",                                        /* 220 */
+    "PsnowPoint",                                          /* 221 */
+    "PrainPoint",                                          /* 222 */
+    "PsnowNetPoint",                                       /* 223 */
+    "PrainNetPoint",                                       /* 224 */
+    "PrainOnSnowPoint",                                    /* 225 */
+    "WindSpeedPoint",                                      /* 226 */
+    "WindDirPoint",                                        /* 227 */
+    "RHPoint",                                             /* 228 */
+    "AirPressPoint",                                       /* 229 */
+    "AirTempPoint",                                        /* 230 */
+    "TDewPoint",                                           /* 231 */
+    "TsurfPoint",                                          /* 232 */
+    "TvegPoint",                                           /* 233 */
+    "TCanopyAirPoint",                                     /* 234 */
+    "SurfaceEBPoint",                                      /* 235 */
+    "SoilHeatFluxPoint",                                   /* 236 */
+    "SWinPoint",                                           /* 237 */
+    "SWbeamPoint",                                         /* 238 */
+    "SWdiffPoint",                                         /* 239 */
+    "LWinPoint",                                           /* 240 */
+    "LWinMinPoint",                                        /* 241 */
+    "LWinMaxPoint",                                        /* 242 */
+    "SWNetPoint",                                          /* 243 */
+    "LWNetPoint",                                          /* 244 */
+    "HPoint",                                              /* 245 */
+    "LEPoint",                                             /* 246 */
+    "CanopyFractionPoint",                                 /* 247 */
+    "LSAIPoint",                                           /* 248 */
+    "z0vegPoint",                                          /* 249 */
+    "d0vegPoint",                                          /* 250 */
+    "EstoredCanopyPoint",                                  /* 251 */
+    "SWvPoint",                                            /* 252 */
+    "LWvPoint",                                            /* 253 */
+    "HvPoint",                                             /* 254 */
+    "LEvPoint",                                            /* 255 */
+    "HgUnvegPoint",                                        /* 256 */
+    "LEgUnvegPoint",                                       /* 257 */
+    "HgVegPoint",                                          /* 258 */
+    "LEgVegPoint",                                         /* 259 */
+    "EvapSurfacePoint",                                    /* 260 */
+    "TraspCanopyPoint",                                    /* 261 */
+    "WaterOnCanopyPoint",                                  /* 262 */
+    "SnowOnCanopyPoint",                                   /* 263 */
+    "QVegPoint",                                           /* 264 */
+    "QSurfPoint",                                          /* 265 */
+    "QAirPoint",                                           /* 266 */
+    "QCanopyAirPoint",                                     /* 267 */
+    "LObukhovPoint",                                       /* 268 */
+    "LObukhovCanopyPoint",                                 /* 269 */
+    "WindSpeedTopCanopyPoint",                             /* 270 */
+    "DecayKCanopyPoint",                                   /* 271 */
+    "SWupPoint",                                           /* 272 */
+    "LWupPoint",                                           /* 273 */
+    "HupPoint",                                            /* 274 */
+    "LEupPoint",                                           /* 275 */
+    "SnowDepthPoint",                                      /* 276 */
+    "SWEPoint",                                            /* 277 */
+    "SnowDensityPoint",                                    /* 278 */
+    "SnowTempPoint",                                       /* 279 */
+    "SnowMeltedPoint",                                     /* 280 */
+    "SnowSublPoint",                                       /* 281 */
+    "SWEBlownPoint",                                       /* 282 */
+    "SWESublBlownPoint",                                   /* 283 */
+    "GlacDepthPoint",                                      /* 284 */
+    "GWEPoint",                                            /* 285 */
+    "GlacDensityPoint",                                    /* 286 */
+    "GlacTempPoint",                                       /* 287 */
+    "GlacMeltedPoint",                                     /* 288 */
+    "GlacSublPoint",                                       /* 289 */
+    "LowestThawedSoilDepthPoint",                          /* 290 */
+    "HighestThawedSoilDepthPoint",                         /* 291 */
+    "LowestWaterTableDepthPoint",                          /* 292 */
+    "HighestWaterTableDepthPoint",                         /* 293 */
+    "PointAll",                                            /* 294 */
+    "DateBasin",                                           /* 295 */
+    "JulianDayFromYear0Basin",                             /* 296 */
+    "TimeFromStartBasin",                                  /* 297 */
+    "PeriodBasin",                                         /* 298 */
+    "RunBasin",                                            /* 299 */
+    "PRainNetBasin",                                       /* 300 */
+    "PSnowNetBasin",                                       /* 301 */
+    "PRainBasin",                                          /* 302 */
+    "PSnowBasin",                                          /* 303 */
+    "PNetBasin",                                           /* 304 */
+    "AirTempBasin",                                        /* 305 */
+    "TSurfBasin",                                          /* 306 */
+    "TvegBasin",                                           /* 307 */
+    "EvapSurfaceBasin",                                    /* 308 */
+    "TraspCanopyBasin",                                    /* 309 */
+    "LEBasin",                                             /* 310 */
+    "HBasin",                                              /* 311 */
+    "SWNetBasin",                                          /* 312 */
+    "LWNetBasin",                                          /* 313 */
+    "LEvBasin",                                            /* 314 */
+    "HvBasin",                                             /* 315 */
+    "SWvBasin",                                            /* 316 */
+    "LWvBasin",                                            /* 317 */
+    "SWinBasin",                                           /* 318 */
+    "LWinBasin",                                           /* 319 */
+    "MassErrorBasin",                                      /* 320 */
+    "MeanTimeStep",                                        /* 321 */
+    "BasinAll",                                            /* 322 */
+    "DateSnow",                                            /* 323 */
+    "JulianDayFromYear0Snow",                              /* 324 */
+    "TimeFromStartSnow",                                   /* 325 */
+    "PeriodSnow",                                          /* 326 */
+    "RunSnow",                                             /* 327 */
+    "IDPointSnow",                                         /* 328 */
+    "TempSnow",                                            /* 329 */
+    "IceContentSnow",                                      /* 330 */
+    "WatContentSnow",                                      /* 331 */
+    "DepthSnow",                                           /* 332 */
+    "NONE",                                                /* 333 */
+    "NONE",                                                /* 334 */
+    "SnowAll",                                             /* 335 */
+    "DateGlac",                                            /* 336 */
+    "JulianDayFromYear0Glac",                              /* 337 */
+    "TimeFromStartGlac",                                   /* 338 */
+    "PeriodGlac",                                          /* 339 */
+    "RunGlac",                                             /* 340 */
+    "IDPointGlac",                                         /* 341 */
+    "TempGlac",                                            /* 342 */
+    "IceContentGlac",                                      /* 343 */
+    "WatContentGlac",                                      /* 344 */
+    "DepthGlac",                                           /* 345 */
+    "NONE",                                                /* 346 */
+    "NONE",                                                /* 347 */
+    "GlacAll",                                             /* 348 */
+    "DateSoil",                                            /* 349 */
+    "JulianDayFromYear0Soil",                              /* 350 */
+    "TimeFromStartSoil",                                   /* 351 */
+    "PeriodSoil",                                          /* 352 */
+    "RunSoil",                                             /* 353 */
+    "IDPointSoil",                                         /* 354 */
+    "SoilAll",                                             /* 355 */
+    "SoilPlotDepths",                                      /* 356 */
+    "SnowPlotDepths",                                      /* 357 */
+    "GlacPlotDepths",                                      /* 358 */
+    "RicalculateCloudiness",                               /* 359 */
+    "DewTemperatureAsRH",                                  /* 360 */
+    "RHAsDewTemperature",                                  /* 361 */
+    "NumberDayIntervalsToCalculateCloudiness",             /* 362 */
+    "CalculateCastShadow",                                 /* 363 */
+    "WindAsSpeedAndDirection",                             /* 364 */
+    "WindAsWindXAndWindY",                                 /* 365 */
+    "SnowAgingCoeffVis",                                   /* 366 */
+    "SnowAgingCoeffNIR",                                   /* 367 */
+    "DepthFreeSurfaceAtTheBoundary",                       /* 368 */
+    "PrecAsIntensity",                                     /* 369 */
+    "LinearInterpolation",                                 /* 370 */
+    "OutputDepthsVertical",                                /* 371 */
+    "UpwindBorderBlowingSnow",                             /* 372 */
+    "UpdateHydraulicConductivity",                         /* 373 */
+    "ContinuousRecovery",                                  /* 374 */
+    "ActualOrProjectedArea",                               /* 375 */
+    "MinRatioKactualToKSat",                               /* 376 */
+    "RunIfAnOldRunIsPresent"                               /* 377 */ 
+}; // noori;
 
 
-//char *keywords_char[num_par_char] = {
-std::string  keywords_char[] = {
-	"HeaderDateDDMMYYYYhhmmMeteo",
-	"HeaderJulianDayfrom0Meteo",
-	"HeaderIPrec",
-	"HeaderPrec",	
-	"HeaderWindVelocity",
-	"HeaderWindDirection", 
-	"HeaderWindX",
-	"HeaderWindY",
-	"HeaderRH", 
-	"HeaderAirTemp",
-	"HeaderDewTemp",
-	"HeaderSWglobal",
-	"HeaderSWdirect", 
-	"HeaderSWdiffuse", 
-	"HeaderCloudSWTransmissivity", 
-	"HeaderCloudFactor",
-	"HeaderLWin",
-	"HeaderSWnet", 
-	"HeaderSoilDz",
-	"HeaderSoilInitPres",
-	"HeaderSoilInitTemp",
-	"HeaderNormalHydrConductivity", 
-	"HeaderLateralHydrConductivity", 
-	"HeaderThetaRes",
-	"HeaderWiltingPoint", 
-	"HeaderFieldCapacity",
-	"HeaderThetaSat",
-	"HeaderAlpha", 
-	"HeaderN", 
-	"HeaderV",
-	"HeaderKthSoilSolids",
-	"HeaderCthSoilSolids",
-	"HeaderSpecificStorativity",
-	"HeaderHorizonAngle",
-	"HeaderHorizonHeight" ,
-	"TimeStepsFile",
-	"SoilParFile", 
-	"MeteoFile",
-	"MeteoStationsListFile",
-	"LapseRateFile", 
-	"HorizonMeteoStationFile",
-	"PointFile",
-	"HorizonPointFile",
-	"TimeDependentVegetationParameterFile", 
-	"TimeDependentIncomingDischargeFile", 
-	"DemFile", 
-	"LandCoverMapFile",
-	"SoilMapFile",
-	"DaysDelayMapFile",
-	"SkyViewFactorMapFile", 
-	"SlopeMapFile", 
-	"RiverNetwork", 
-	"AspectMapFile",
-	"CurvaturesMapFile", 
-	"BedrockDepthMapFile",
-	"InitWaterTableDepthMapFile",
-	"InitSnowDepthMapFile",
-	"InitSWEMapFile", 
-	"InitSnowAgeMapFile", 
-	"InitGlacierDepthMapFile",
-	"DischargeFile", 
-	"BasinOutputFile",
-	"BasinOutputFileWriteEnd",
-	"PointOutputFile",
-	"PointOutputFileWriteEnd",
-	"SoilTempProfileFile",
-	"SoilTempProfileFileWriteEnd",
-	"SoilAveragedTempProfileFile", 
-	"SoilAveragedTempProfileFileWriteEnd", 
-	"SoilLiqWaterPressProfileFile",
-	"SoilLiqWaterPressProfileFileWriteEnd",
-	"SoilTotWaterPressProfileFile",
-	"SoilTotWaterPressProfileFileWriteEnd",
-	"SoilLiqContentProfileFile",
-	"SoilLiqContentProfileFileWriteEnd",
-	"SoilAveragedLiqContentProfileFile", 
-	"SoilAveragedLiqContentProfileFileWriteEnd",
-	"SoilIceContentProfileFile", 
-	"SoilIceContentProfileFileWriteEnd",
-	"SoilAveragedIceContentProfileFile",
-	"SoilAveragedIceContentProfileFileWriteEnd",
-	"SnowProfileFile",
-	"SnowProfileFileWriteEnd", 
-	"GlacierProfileFile",
-	"GlacierProfileFileWriteEnd",
-	"SnowCoveredAreaFile",
-	"SoilTempTensorFile",
-	"FirstSoilLayerTempMapFile", 
-	"SoilAveragedTempTensorFile",
-	"FirstSoilLayerAveragedTempMapFile", 
-	"SoilLiqContentTensorFile", 
-	"FirstSoilLayerLiqContentMapFile",
-	"SoilAveragedLiqContentTensorFile", 
-	"SoilIceContentTensorFile", 
-	"FirstSoilLayerIceContentMapFile",
-	"SoilAveragedIceContentTensorFile", 
-	"LandSurfaceWaterDepthMapFile",
-	"ChannelSurfaceWaterDepthMapFile", 
-	"NetRadiationMapFile",
-	"InLongwaveRadiationMapFile", 
-	"NetLongwaveRadiationMapFile", 
-	"NetShortwaveRadiationMapFile",
-	"InShortwaveRadiationMapFile",
-	"DirectInShortwaveRadiationMapFile",
-	"ShadowFractionTimeMapFile", 
-	"SurfaceHeatFluxMapFile", 
-	"SurfaceSensibleHeatFluxMapFile", 
-	"SurfaceLatentHeatFluxMapFile",
-	"SurfaceTempMapFile", 
-	"PrecipitationMapFile", 
-	"CanopyInterceptedWaterMapFile",
-	"SoilLiqWaterPressTensorFile",
-	"SoilTotWaterPressTensorFile",
-	"SnowDepthMapFile", 
-	"GlacierDepthMapFile",
-	"SnowMeltedMapFile",
-	"SnowSublMapFile", 
-	"GlacierMeltedMapFile", 
-	"GlacierSublimatedMapFile", 
-	"AirTempMapFile",
-	"WindSpeedMapFile",
-	"WindDirMapFile", 
-	"RelHumMapFile",
-	"SWEMapFile", 
-	"GlacierWaterEqMapFile",
-	"SnowDurationMapFile", 
-	"ThawedSoilDepthMapFile", 
-	"ThawedSoilDepthFromAboveMapFile", 
-	"WaterTableDepthMapFile", 
-	"WaterTableDepthFromAboveMapFile", 
-	"SpecificPlotSurfaceHeatFluxMapFile",
-	"SpecificPlotTotalSensibleHeatFluxMapFile", 
-	"SpecificPlotTotalLatentHeatFluxMapFile", 
-	"SpecificPlotSurfaceSensibleHeatFluxMapFile", 
-	"SpecificPlotSurfaceLatentHeatFluxMapFile",
-	"SpecificPlotVegSensibleHeatFluxMapFile", 
-	"SpecificPlotVegLatentHeatFluxMapFile", 
-	"SpecificPlotIncomingShortwaveRadMapFile", 
-	"SpecificPlotNetSurfaceShortwaveRadMapFile", 
-	"SpecificPlotNetVegShortwaveRadMapFile", 
-	"SpecificPlotIncomingLongwaveRadMapFile", 
-	"SpecificPlotNetSurfaceLongwaveRadMapFile", 
-	"SpecificPlotNetVegLongwaveRadMapFile", 
-	"SpecificPlotCanopyAirTempMapFile", 
-	"SpecificPlotSurfaceTempMapFile", 
-	"SpecificPlotVegTempMapFile", 
-	"SpecificPlotAboveVegAirTempMapFile", 
-	"SpecificPlotWindSpeedMapFile", 
-	"SpecificPlotWindDirMapFile", 
-	"SpecificPlotRelHumMapFile", 
-	"SpecificPlotSnowDepthMapFile", 
-	"SpecificPlotSurfaceWaterContentMapFile", 
-	"RecoverSoilWatPres",
-	"RecoverSoilIceCont", 
-	"RecoverSoilTemp", 
-	"RecoverSnowLayerThick",
-	"RecoverSnowLiqMass",
-	"RecoverSnowIceMass", 
-	"RecoverSnowTemp", 
-	"RecoverGlacierLayerThick",
-	"RecoverGlacierLiqMass", 
-	"RecoverGlacierIceMass",
-	"RecoverGlacierTemp", 
-	"RecoverSnowLayerNumber", 
-	"RecoverGlacierLayerNumber", 
-	"RecoverNonDimensionalSnowAge",
-	"RecoverLiqWaterOnCanopy",
-	"RecoverSnowOnCanopy", 
-	"RecoverVegTemp", 
-	"RecoverSoilWatPresChannel",
-	"RecoverSoilIceContChannel",
-	"RecoverSoilTempChannel",
-	"RecoverTime",
-	"HeaderDatePoint",
-	"HeaderJulianDayFromYear0Point",
-	"HeaderTimeFromStartPoint",
-	"HeaderPeriodPoint",
-	"HeaderRunPoint",
-	"HeaderIDPointPoint",
-	"HeaderPsnowPoint",
-	"HeaderPrainPoint",
-	"HeaderPsnowNetPoint",
-	"HeaderPrainNetPoint",
-	"HeaderPrainOnSnowPoint",
-	"HeaderWindSpeedPoint",
-	"HeaderWindDirPoint",
-	"HeaderRHPoint",
-	"HeaderAirPressPoint",
-	"HeaderAirTempPoint",
-	"HeaderTDewPoint",
-	"HeaderTsurfPoint",
-	"HeaderTvegPoint",
-	"HeaderTCanopyAirPoint",
-	"HeaderSurfaceEBPoint",
-	"HeaderSoilHeatFluxPoint",
-	"HeaderSWinPoint",
-	"HeaderSWbeamPoint",
-	"HeaderSWdiffPoint",
-	"HeaderLWinPoint",
-	"HeaderLWinMinPoint",
-	"HeaderLWinMaxPoint",
-	"HeaderSWNetPoint",
-	"HeaderLWNetPoint",
-	"HeaderHPoint",
-	"HeaderLEPoint",
-	"HeaderCanopyFractionPoint",
-	"HeaderLSAIPoint",
-	"Headerz0vegPoint",
-	"Headerd0vegPoint",
-	"HeaderEstoredCanopyPoint",
-	"HeaderSWvPoint",
-	"HeaderLWvPoint",
-	"HeaderHvPoint",
-	"HeaderLEvPoint",
-	"HeaderHgUnvegPoint",
-	"HeaderLEgUnvegPoint",
-	"HeaderHgVegPoint",
-	"HeaderLEgVegPoint",
-	"HeaderEvapSurfacePoint",
-	"HeaderTraspCanopyPoint",
-	"HeaderWaterOnCanopyPoint",
-	"HeaderSnowOnCanopyPoint",
-	"HeaderQVegPoint",
-	"HeaderQSurfPoint",
-	"HeaderQAirPoint",
-	"HeaderQCanopyAirPoint",
-	"HeaderLObukhovPoint",
-	"HeaderLObukhovCanopyPoint",
-	"HeaderWindSpeedTopCanopyPoint",
-	"HeaderDecayKCanopyPoint",
-	"HeaderSWupPoint",
-	"HeaderLWupPoint",
-	"HeaderHupPoint",
-	"HeaderLEupPoint",
-	"HeaderSnowDepthPoint",
-	"HeaderSWEPoint",
-	"HeaderSnowDensityPoint",
-	"HeaderSnowTempPoint",
-	"HeaderSnowMeltedPoint",
-	"HeaderSnowSublPoint",
-	"HeaderSWEBlownPoint",
-	"HeaderSWESublBlownPoint",
-	"HeaderGlacDepthPoint",
-	"HeaderGWEPoint",
-	"HeaderGlacDensityPoint",
-	"HeaderGlacTempPoint",
-	"HeaderGlacMeltedPoint",
-	"HeaderGlacSublPoint",
-	"HeaderLowestThawedSoilDepthPoint",
-	"HeaderHighestThawedSoilDepthPoint",
-	"HeaderLowestWaterTableDepthPoint",
-	"HeaderHighestWaterTableDepthPoint",	
-	"HeaderDateBasin",
-	"HeaderJulianDayFromYear0Basin",
-	"HeaderTimeFromStartBasin",
-	"HeaderPeriodBasin",
-	"HeaderRunBasin",
-	"HeaderPRainNetBasin",
-	"HeaderPSnowNetBasin",
-	"HeaderPRainBasin",
-	"HeaderPSnowBasin",
-	"HeaderPNetBasin",
-	"HeaderAirTempBasin",
-	"HeaderTSurfBasin",
-	"HeaderTvegBasin",
-	"HeaderEvapSurfaceBasin",
-	"HeaderTraspCanopyBasin",
-	"HeaderLEBasin",
-	"HeaderHBasin",
-	"HeaderSWNetBasin",
-	"HeaderLWNetBasin",
-	"HeaderLEvBasin",
-	"HeaderHvBasin",
-	"HeaderSWvBasin",
-	"HeaderLWvBasin",
-	"HeaderSWinBasin",
-	"HeaderLWinBasin",
-	"HeaderMeanTimeStep",
-	"HeaderTimeStepAverage",
-	"HeaderDateSnow",
-	"HeaderJulianDayFromYear0Snow",
-	"HeaderTimeFromStartSnow",
-	"HeaderPeriodSnow",
-	"HeaderRunSnow",
-	"HeaderIDPointSnow",
-	"HeaderTempSnow",
-	"HeaderIceContentSnow",
-	"HeaderWatContentSnow",
-	"HeaderDepthSnow",
-	"HeaderDateGlac",
-	"HeaderJulianDayFromYear0Glac",
-	"HeaderTimeFromStartGlac",
-	"HeaderPeriodGlac",
-	"HeaderRunGlac",
-	"HeaderIDPointGlac",
-	"HeaderTempGlac",
-	"HeaderIceContentGlac",
-	"HeaderWatContentGlac",
-	"HeaderDepthGlac",
-	"HeaderDateSoil",
-	"HeaderJulianDayFromYear0Soil",
-	"HeaderTimeFromStartSoil",
-	"HeaderPeriodSoil",
-	"HeaderRunSoil",
-	"HeaderIDPointSoil",
-	"HeaderPointID",
-	"HeaderCoordinatePointX",
-	"HeaderCoordinatePointY",
-	"HeaderPointElevation",
-	"HeaderPointLandCoverType",
-	"HeaderPointSoilType",
-	"HeaderPointSlope",
-	"HeaderPointAspect",
-	"HeaderPointSkyViewFactor",
-	"HeaderPointCurvatureNorthSouthDirection",
-	"HeaderPointCurvatureWestEastDirection",
-	"HeaderPointCurvatureNorthwestSoutheastDirection",
-	"HeaderPointCurvatureNortheastSouthwestDirection",
-	"HeaderPointDepthFreeSurface",
-	"HeaderPointHorizon",
-	"HeaderPointMaxSWE",
-	"HeaderPointLatitude",
-	"HeaderPointLongitude",
-	"HeaderDateDDMMYYYYhhmmLapseRates",
-	"HeaderLapseRateTemp",
-	"HeaderLapseRateDewTemp",
-	"HeaderLapseRatePrec",
-	"HeaderIDMeteoStation",
-	"HeaderMeteoStationCoordinateX",
-	"HeaderMeteoStationCoordinateY",
-	"HeaderMeteoStationLatitude",
-	"HeaderMeteoStationLongitude",
-	"HeaderMeteoStationElevation",
-	"HeaderMeteoStationSkyViewFactor",
-	"HeaderMeteoStationStandardTime",
-	"SuccessfulRunFile",
-	"FailedRunFile",
-	"SubfolderRecoveryFiles"};
-
+//char *keywords_char[num_par_char] = {                    
+std::string  keywords_char[] = {                           
+    "HeaderDateDDMMYYYYhhmmMeteo",                         /*   0 */
+    "HeaderJulianDayfrom0Meteo",                           /*   1 */
+    "HeaderIPrec",                                         /*   2 */
+    "HeaderPrec",                                          /*   3 */
+    "HeaderWindVelocity",                                  /*   4 */
+    "HeaderWindDirection",                                 /*   5 */
+    "HeaderWindX",                                         /*   6 */
+    "HeaderWindY",                                         /*   7 */
+    "HeaderRH",                                            /*   8 */
+    "HeaderAirTemp",                                       /*   9 */
+    "HeaderDewTemp",                                       /*  10 */
+    "HeaderSWglobal",                                      /*  11 */
+    "HeaderSWdirect",                                      /*  12 */
+    "HeaderSWdiffuse",                                     /*  13 */
+    "HeaderCloudSWTransmissivity",                         /*  14 */
+    "HeaderCloudFactor",                                   /*  15 */
+    "HeaderLWin",                                          /*  16 */
+    "HeaderSWnet",                                         /*  17 */
+    "HeaderSoilDz",                                        /*  18 */
+    "HeaderSoilInitPres",                                  /*  19 */
+    "HeaderSoilInitTemp",                                  /*  20 */
+    "HeaderNormalHydrConductivity",                        /*  21 */
+    "HeaderLateralHydrConductivity",                       /*  22 */
+    "HeaderThetaRes",                                      /*  23 */
+    "HeaderWiltingPoint",                                  /*  24 */
+    "HeaderFieldCapacity",                                 /*  25 */
+    "HeaderThetaSat",                                      /*  26 */
+    "HeaderAlpha",                                         /*  27 */
+    "HeaderN",                                             /*  28 */
+    "HeaderV",                                             /*  29 */
+    "HeaderKthSoilSolids",                                 /*  30 */
+    "HeaderCthSoilSolids",                                 /*  31 */
+    "HeaderSpecificStorativity",                           /*  32 */
+    "HeaderHorizonAngle",                                  /*  33 */
+    "HeaderHorizonHeight" ,                                /*  34 */
+    "TimeStepsFile",                                       /*  35 */
+    "SoilParFile",                                         /*  36 */
+    "MeteoFile",                                           /*  37 */
+    "MeteoStationsListFile",                               /*  38 */
+    "LapseRateFile",                                       /*  39 */
+    "HorizonMeteoStationFile",                             /*  40 */
+    "PointFile",                                           /*  41 */
+    "HorizonPointFile",                                    /*  42 */
+    "TimeDependentVegetationParameterFile",                /*  43 */
+    "TimeDependentIncomingDischargeFile",                  /*  44 */
+    "DemFile",                                             /*  45 */
+    "LandCoverMapFile",                                    /*  46 */
+    "SoilMapFile",                                         /*  47 */
+    "DaysDelayMapFile",                                    /*  48 */
+    "SkyViewFactorMapFile",                                /*  49 */
+    "SlopeMapFile",                                        /*  50 */
+    "RiverNetwork",                                        /*  51 */
+    "AspectMapFile",                                       /*  52 */
+    "CurvaturesMapFile",                                   /*  53 */
+    "BedrockDepthMapFile",                                 /*  54 */
+    "InitWaterTableDepthMapFile",                          /*  55 */
+    "InitSnowDepthMapFile",                                /*  56 */
+    "InitSWEMapFile",                                      /*  57 */
+    "InitSnowAgeMapFile",                                  /*  58 */
+    "InitGlacierDepthMapFile",                             /*  59 */
+    "DischargeFile",                                       /*  60 */
+    "BasinOutputFile",                                     /*  61 */
+    "BasinOutputFileWriteEnd",                             /*  62 */
+    "PointOutputFile",                                     /*  63 */
+    "PointOutputFileWriteEnd",                             /*  64 */
+    "SoilTempProfileFile",                                 /*  65 */
+    "SoilTempProfileFileWriteEnd",                         /*  66 */
+    "SoilAveragedTempProfileFile",                         /*  67 */
+    "SoilAveragedTempProfileFileWriteEnd",                 /*  68 */
+    "SoilLiqWaterPressProfileFile",                        /*  69 */
+    "SoilLiqWaterPressProfileFileWriteEnd",                /*  70 */
+    "SoilTotWaterPressProfileFile",                        /*  71 */
+    "SoilTotWaterPressProfileFileWriteEnd",                /*  72 */
+    "SoilLiqContentProfileFile",                           /*  73 */
+    "SoilLiqContentProfileFileWriteEnd",                   /*  74 */
+    "SoilAveragedLiqContentProfileFile",                   /*  75 */
+    "SoilAveragedLiqContentProfileFileWriteEnd",           /*  76 */
+    "SoilIceContentProfileFile",                           /*  77 */
+    "SoilIceContentProfileFileWriteEnd",                   /*  78 */
+    "SoilAveragedIceContentProfileFile",                   /*  79 */
+    "SoilAveragedIceContentProfileFileWriteEnd",           /*  80 */
+    "SnowProfileFile",                                     /*  81 */
+    "SnowProfileFileWriteEnd",                             /*  82 */
+    "GlacierProfileFile",                                  /*  83 */
+    "GlacierProfileFileWriteEnd",                          /*  84 */
+    "SnowCoveredAreaFile",                                 /*  85 */
+    "SoilTempTensorFile",                                  /*  86 */
+    "FirstSoilLayerTempMapFile",                           /*  87 */
+    "SoilAveragedTempTensorFile",                          /*  88 */
+    "FirstSoilLayerAveragedTempMapFile",                   /*  89 */
+    "SoilLiqContentTensorFile",                            /*  90 */
+    "FirstSoilLayerLiqContentMapFile",                     /*  91 */
+    "SoilAveragedLiqContentTensorFile",                    /*  92 */
+    "SoilIceContentTensorFile",                            /*  93 */
+    "FirstSoilLayerIceContentMapFile",                     /*  94 */
+    "SoilAveragedIceContentTensorFile",                    /*  95 */
+    "LandSurfaceWaterDepthMapFile",                        /*  96 */
+    "ChannelSurfaceWaterDepthMapFile",                     /*  97 */
+    "NetRadiationMapFile",                                 /*  98 */
+    "InLongwaveRadiationMapFile",                          /*  99 */
+    "NetLongwaveRadiationMapFile",                         /* 100 */
+    "NetShortwaveRadiationMapFile",                        /* 101 */
+    "InShortwaveRadiationMapFile",                         /* 102 */
+    "DirectInShortwaveRadiationMapFile",                   /* 103 */
+    "ShadowFractionTimeMapFile",                           /* 104 */
+    "SurfaceHeatFluxMapFile",                              /* 105 */
+    "SurfaceSensibleHeatFluxMapFile",                      /* 106 */
+    "SurfaceLatentHeatFluxMapFile",                        /* 107 */
+    "SurfaceTempMapFile",                                  /* 108 */
+    "PrecipitationMapFile",                                /* 109 */
+    "CanopyInterceptedWaterMapFile",                       /* 110 */
+    "SoilLiqWaterPressTensorFile",                         /* 111 */
+    "SoilTotWaterPressTensorFile",                         /* 112 */
+    "SnowDepthMapFile",                                    /* 113 */
+    "GlacierDepthMapFile",                                 /* 114 */
+    "SnowMeltedMapFile",                                   /* 115 */
+    "SnowSublMapFile",                                     /* 116 */
+    "GlacierMeltedMapFile",                                /* 117 */
+    "GlacierSublimatedMapFile",                            /* 118 */
+    "AirTempMapFile",                                      /* 119 */
+    "WindSpeedMapFile",                                    /* 120 */
+    "WindDirMapFile",                                      /* 121 */
+    "RelHumMapFile",                                       /* 122 */
+    "SWEMapFile",                                          /* 123 */
+    "GlacierWaterEqMapFile",                               /* 124 */
+    "SnowDurationMapFile",                                 /* 125 */
+    "ThawedSoilDepthMapFile",                              /* 126 */
+    "ThawedSoilDepthFromAboveMapFile",                     /* 127 */
+    "WaterTableDepthMapFile",                              /* 128 */
+    "WaterTableDepthFromAboveMapFile",                     /* 129 */
+    "SpecificPlotSurfaceHeatFluxMapFile",                  /* 130 */
+    "SpecificPlotTotalSensibleHeatFluxMapFile",            /* 131 */
+    "SpecificPlotTotalLatentHeatFluxMapFile",              /* 132 */
+    "SpecificPlotSurfaceSensibleHeatFluxMapFile",          /* 133 */
+    "SpecificPlotSurfaceLatentHeatFluxMapFile",            /* 134 */
+    "SpecificPlotVegSensibleHeatFluxMapFile",              /* 135 */
+    "SpecificPlotVegLatentHeatFluxMapFile",                /* 136 */
+    "SpecificPlotIncomingShortwaveRadMapFile",             /* 137 */
+    "SpecificPlotNetSurfaceShortwaveRadMapFile",           /* 138 */
+    "SpecificPlotNetVegShortwaveRadMapFile",               /* 139 */
+    "SpecificPlotIncomingLongwaveRadMapFile",              /* 140 */
+    "SpecificPlotNetSurfaceLongwaveRadMapFile",            /* 141 */
+    "SpecificPlotNetVegLongwaveRadMapFile",                /* 142 */
+    "SpecificPlotCanopyAirTempMapFile",                    /* 143 */
+    "SpecificPlotSurfaceTempMapFile",                      /* 144 */
+    "SpecificPlotVegTempMapFile",                          /* 145 */
+    "SpecificPlotAboveVegAirTempMapFile",                  /* 146 */
+    "SpecificPlotWindSpeedMapFile",                        /* 147 */
+    "SpecificPlotWindDirMapFile",                          /* 148 */
+    "SpecificPlotRelHumMapFile",                           /* 149 */
+    "SpecificPlotSnowDepthMapFile",                        /* 150 */
+    "SpecificPlotSurfaceWaterContentMapFile",              /* 151 */
+    "RecoverSoilWatPres",                                  /* 152 */
+    "RecoverSoilIceCont",                                  /* 153 */
+    "RecoverSoilTemp",                                     /* 154 */
+    "RecoverSnowLayerThick",                               /* 155 */
+    "RecoverSnowLiqMass",                                  /* 156 */
+    "RecoverSnowIceMass",                                  /* 157 */
+    "RecoverSnowTemp",                                     /* 158 */
+    "RecoverGlacierLayerThick",                            /* 159 */
+    "RecoverGlacierLiqMass",                               /* 160 */
+    "RecoverGlacierIceMass",                               /* 161 */
+    "RecoverGlacierTemp",                                  /* 162 */
+    "RecoverSnowLayerNumber",                              /* 163 */
+    "RecoverGlacierLayerNumber",                           /* 164 */
+    "RecoverNonDimensionalSnowAge",                        /* 165 */
+    "RecoverLiqWaterOnCanopy",                             /* 166 */
+    "RecoverSnowOnCanopy",                                 /* 167 */
+    "RecoverVegTemp",                                      /* 168 */
+    "RecoverSoilWatPresChannel",                           /* 169 */
+    "RecoverSoilIceContChannel",                           /* 170 */
+    "RecoverSoilTempChannel",                              /* 171 */
+    "RecoverTime",                                         /* 172 */
+    "HeaderDatePoint",                                     /* 173 */
+    "HeaderJulianDayFromYear0Point",                       /* 174 */
+    "HeaderTimeFromStartPoint",                            /* 175 */
+    "HeaderPeriodPoint",                                   /* 176 */
+    "HeaderRunPoint",                                      /* 177 */
+    "HeaderIDPointPoint",                                  /* 178 */
+    "HeaderPsnowPoint",                                    /* 179 */
+    "HeaderPrainPoint",                                    /* 180 */
+    "HeaderPsnowNetPoint",                                 /* 181 */
+    "HeaderPrainNetPoint",                                 /* 182 */
+    "HeaderPrainOnSnowPoint",                              /* 183 */
+    "HeaderWindSpeedPoint",                                /* 184 */
+    "HeaderWindDirPoint",                                  /* 185 */
+    "HeaderRHPoint",                                       /* 186 */
+    "HeaderAirPressPoint",                                 /* 187 */
+    "HeaderAirTempPoint",                                  /* 188 */
+    "HeaderTDewPoint",                                     /* 189 */
+    "HeaderTsurfPoint",                                    /* 190 */
+    "HeaderTvegPoint",                                     /* 191 */
+    "HeaderTCanopyAirPoint",                               /* 192 */
+    "HeaderSurfaceEBPoint",                                /* 193 */
+    "HeaderSoilHeatFluxPoint",                             /* 194 */
+    "HeaderSWinPoint",                                     /* 195 */
+    "HeaderSWbeamPoint",                                   /* 196 */
+    "HeaderSWdiffPoint",                                   /* 197 */
+    "HeaderLWinPoint",                                     /* 198 */
+    "HeaderLWinMinPoint",                                  /* 199 */
+    "HeaderLWinMaxPoint",                                  /* 200 */
+    "HeaderSWNetPoint",                                    /* 201 */
+    "HeaderLWNetPoint",                                    /* 202 */
+    "HeaderHPoint",                                        /* 203 */
+    "HeaderLEPoint",                                       /* 204 */
+    "HeaderCanopyFractionPoint",                           /* 205 */
+    "HeaderLSAIPoint",                                     /* 206 */
+    "Headerz0vegPoint",                                    /* 207 */
+    "Headerd0vegPoint",                                    /* 208 */
+    "HeaderEstoredCanopyPoint",                            /* 209 */
+    "HeaderSWvPoint",                                      /* 210 */
+    "HeaderLWvPoint",                                      /* 211 */
+    "HeaderHvPoint",                                       /* 212 */
+    "HeaderLEvPoint",                                      /* 213 */
+    "HeaderHgUnvegPoint",                                  /* 214 */
+    "HeaderLEgUnvegPoint",                                 /* 215 */
+    "HeaderHgVegPoint",                                    /* 216 */
+    "HeaderLEgVegPoint",                                   /* 217 */
+    "HeaderEvapSurfacePoint",                              /* 218 */
+    "HeaderTraspCanopyPoint",                              /* 219 */
+    "HeaderWaterOnCanopyPoint",                            /* 220 */
+    "HeaderSnowOnCanopyPoint",                             /* 221 */
+    "HeaderQVegPoint",                                     /* 222 */
+    "HeaderQSurfPoint",                                    /* 223 */
+    "HeaderQAirPoint",                                     /* 224 */
+    "HeaderQCanopyAirPoint",                               /* 225 */
+    "HeaderLObukhovPoint",                                 /* 226 */
+    "HeaderLObukhovCanopyPoint",                           /* 227 */
+    "HeaderWindSpeedTopCanopyPoint",                       /* 228 */
+    "HeaderDecayKCanopyPoint",                             /* 229 */
+    "HeaderSWupPoint",                                     /* 230 */
+    "HeaderLWupPoint",                                     /* 231 */
+    "HeaderHupPoint",                                      /* 232 */
+    "HeaderLEupPoint",                                     /* 233 */
+    "HeaderSnowDepthPoint",                                /* 234 */
+    "HeaderSWEPoint",                                      /* 235 */
+    "HeaderSnowDensityPoint",                              /* 236 */
+    "HeaderSnowTempPoint",                                 /* 237 */
+    "HeaderSnowMeltedPoint",                               /* 238 */
+    "HeaderSnowSublPoint",                                 /* 239 */
+    "HeaderSWEBlownPoint",                                 /* 240 */
+    "HeaderSWESublBlownPoint",                             /* 241 */
+    "HeaderGlacDepthPoint",                                /* 242 */
+    "HeaderGWEPoint",                                      /* 243 */
+    "HeaderGlacDensityPoint",                              /* 244 */
+    "HeaderGlacTempPoint",                                 /* 245 */
+    "HeaderGlacMeltedPoint",                               /* 246 */
+    "HeaderGlacSublPoint",                                 /* 247 */
+    "HeaderLowestThawedSoilDepthPoint",                    /* 248 */
+    "HeaderHighestThawedSoilDepthPoint",                   /* 249 */
+    "HeaderLowestWaterTableDepthPoint",                    /* 250 */
+    "HeaderHighestWaterTableDepthPoint",                   /* 251 */
+    "HeaderDateBasin",                                     /* 252 */
+    "HeaderJulianDayFromYear0Basin",                       /* 253 */
+    "HeaderTimeFromStartBasin",                            /* 254 */
+    "HeaderPeriodBasin",                                   /* 255 */
+    "HeaderRunBasin",                                      /* 256 */
+    "HeaderPRainNetBasin",                                 /* 257 */
+    "HeaderPSnowNetBasin",                                 /* 258 */
+    "HeaderPRainBasin",                                    /* 259 */
+    "HeaderPSnowBasin",                                    /* 260 */
+    "HeaderPNetBasin",                                     /* 261 */
+    "HeaderAirTempBasin",                                  /* 262 */
+    "HeaderTSurfBasin",                                    /* 263 */
+    "HeaderTvegBasin",                                     /* 264 */
+    "HeaderEvapSurfaceBasin",                              /* 265 */
+    "HeaderTraspCanopyBasin",                              /* 266 */
+    "HeaderLEBasin",                                       /* 267 */
+    "HeaderHBasin",                                        /* 268 */
+    "HeaderSWNetBasin",                                    /* 269 */
+    "HeaderLWNetBasin",                                    /* 270 */
+    "HeaderLEvBasin",                                      /* 271 */
+    "HeaderHvBasin",                                       /* 272 */
+    "HeaderSWvBasin",                                      /* 273 */
+    "HeaderLWvBasin",                                      /* 274 */
+    "HeaderSWinBasin",                                     /* 275 */
+    "HeaderLWinBasin",                                     /* 276 */
+    "HeaderMeanTimeStep",                                  /* 277 */
+    "HeaderTimeStepAverage",                               /* 278 */
+    "HeaderDateSnow",                                      /* 279 */
+    "HeaderJulianDayFromYear0Snow",                        /* 280 */
+    "HeaderTimeFromStartSnow",                             /* 281 */
+    "HeaderPeriodSnow",                                    /* 282 */
+    "HeaderRunSnow",                                       /* 283 */
+    "HeaderIDPointSnow",                                   /* 284 */
+    "HeaderTempSnow",                                      /* 285 */
+    "HeaderIceContentSnow",                                /* 286 */
+    "HeaderWatContentSnow",                                /* 287 */
+    "HeaderDepthSnow",                                     /* 288 */
+    "HeaderDateGlac",                                      /* 289 */
+    "HeaderJulianDayFromYear0Glac",                        /* 290 */
+    "HeaderTimeFromStartGlac",                             /* 291 */
+    "HeaderPeriodGlac",                                    /* 292 */
+    "HeaderRunGlac",                                       /* 293 */
+    "HeaderIDPointGlac",                                   /* 294 */
+    "HeaderTempGlac",                                      /* 295 */
+    "HeaderIceContentGlac",                                /* 296 */
+    "HeaderWatContentGlac",                                /* 297 */
+    "HeaderDepthGlac",                                     /* 298 */
+    "HeaderDateSoil",                                      /* 299 */
+    "HeaderJulianDayFromYear0Soil",                        /* 300 */
+    "HeaderTimeFromStartSoil",                             /* 301 */
+    "HeaderPeriodSoil",                                    /* 302 */
+    "HeaderRunSoil",                                       /* 303 */
+    "HeaderIDPointSoil",                                   /* 304 */
+    "HeaderPointID",                                       /* 305 */
+    "HeaderCoordinatePointX",                              /* 306 */
+    "HeaderCoordinatePointY",                              /* 307 */
+    "HeaderPointElevation",                                /* 308 */
+    "HeaderPointLandCoverType",                            /* 309 */
+    "HeaderPointSoilType",                                 /* 310 */
+    "HeaderPointSlope",                                    /* 311 */
+    "HeaderPointAspect",                                   /* 312 */
+    "HeaderPointSkyViewFactor",                            /* 313 */
+    "HeaderPointCurvatureNorthSouthDirection",             /* 314 */
+    "HeaderPointCurvatureWestEastDirection",               /* 315 */
+    "HeaderPointCurvatureNorthwestSoutheastDirection",     /* 316 */
+    "HeaderPointCurvatureNortheastSouthwestDirection",     /* 317 */
+    "HeaderPointDepthFreeSurface",                         /* 318 */
+    "HeaderPointHorizon",                                  /* 319 */
+    "HeaderPointMaxSWE",                                   /* 320 */
+    "HeaderPointLatitude",                                 /* 321 */
+    "HeaderPointLongitude",                                /* 322 */
+    "HeaderDateDDMMYYYYhhmmLapseRates",                    /* 323 */
+    "HeaderLapseRateTemp",                                 /* 324 */
+    "HeaderLapseRateDewTemp",                              /* 325 */
+    "HeaderLapseRatePrec",                                 /* 326 */
+    "HeaderIDMeteoStation",                                /* 327 */
+    "HeaderMeteoStationCoordinateX",                       /* 328 */
+    "HeaderMeteoStationCoordinateY",                       /* 329 */
+    "HeaderMeteoStationLatitude",                          /* 330 */
+    "HeaderMeteoStationLongitude",                         /* 331 */
+    "HeaderMeteoStationElevation",                         /* 332 */
+    "HeaderMeteoStationSkyViewFactor",                     /* 333 */
+    "HeaderMeteoStationStandardTime",                      /* 334 */
+    "SuccessfulRunFile",                                   /* 335 */
+    "FailedRunFile",                                       /* 336 */
+    "SubfolderRecoveryFiles"                               /* 337 */
+};
