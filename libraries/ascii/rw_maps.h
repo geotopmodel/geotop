@@ -147,8 +147,9 @@ void initmatrix(double val, DOUBLEMATRIX *destination, DOUBLEMATRIX *origin, dou
 void initmatrix(double val, GeoMatrix<double>& destination, GeoMatrix<double>& origin, double novalue);
 
 /* ===========copied data from extensions.h==========*/
-#define ascii_grass ".grass"
-#define ascii_esri ".asc"
-#define textfile ".txt"
+
+char const * const ascii_grass = ".grass" ;
+char const * const ascii_esri = ".asc" ;
+char const * const textfile = ".txt" ;
 
 #endif

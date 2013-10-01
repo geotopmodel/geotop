@@ -141,12 +141,14 @@ if(stream==NULL){
 
 }
 
-char *get_workingdirectory(void )
+char * get_workingdirectory(void )
 
 {
 
     //char buffer[64*FILENAME_MAX];
-	char *bf,*pathfile="$WorkingPath";
+    char * bf = "$WorkingPath";
+    char const * const pathfile="$WorkingPath";
+
     //long len;
 	long i;
 	short a;
@@ -164,7 +166,7 @@ char *get_workingdirectory(void )
 				bf = (char *)realloc(bf,(i+1)*sizeof(char));
 			}
 			bf[i]=fgetc(istream);
-			if(bf[i]==10 || bf[i]==-1){
+            if(bf[i]==10 || bf[i]==EOF ){ // if newline or EOF
 				a=1;
 				bf[i]=0;
 			}
@@ -195,7 +197,7 @@ char *get_workingdirectory(void )
 
 /**-------------------------------------------------------------------------*/
 
-char *join_strings(char *first, char *second)
+char *join_strings(char const * const first, char const * const second)
 
 {
 
