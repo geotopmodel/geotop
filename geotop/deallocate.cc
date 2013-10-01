@@ -87,10 +87,15 @@
 	/* Deallocation of struct SOIL "sl": */
 	printf("Deallocating soil\n");
 //	free_doublematrix(sl->Ptot);
+
+    //commenting the following statements, since they have no body
+    /*
 	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0);// free_doublematrix(sl->T_av_tensor);
 	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0);// free_doublematrix(sl->T_av_tensor);
 	if(strcmp(files[fliqav] , string_novalue) != 0);// free_doublematrix(sl->thw_av_tensor);
 	if(strcmp(files[ficeav] , string_novalue) != 0);// free_doublematrix(sl->thi_av_tensor);
+    */
+
 //	free_doublematrix(sl->T_av_tensor);
 //	free_doublematrix(sl->th);
 //	free_longmatrix(sl->type);
@@ -99,6 +104,8 @@
 //	deallocate_soil_state(sl->SS);
 //	deallocate_veg_state(sl->VS);
 	
+    //commenting the following statements, since they have no body
+    /*
 	if(par->state_pixel == 1){
 		if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->Tzplot);
 		if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) ;//free_doublematrix(sl->Tzavplot);
@@ -109,6 +116,8 @@
 		if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->thizplot);
 		if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) ;//free_doublematrix(sl->thizavplot);
 	}
+    */
+
 	//free(sl);
 	
 	/* Deallocation of struct TOPO "top": */

@@ -342,7 +342,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 	fprintf(flog,"\n");
 	k = (long)nmet;
 	//fprintf(flog,"Soil Layers: %ld\n",sl->pa->nch);
-	fprintf(flog,"Soil Layers: %ld\n",sl->pa.getCh()-1);
+    fprintf(flog,"Soil Layers: %ud\n",sl->pa.getCh()-1);
 	//for (i=1; i<=sl->pa->ndh; i++) {
 	for (i=1; i<sl->pa.getDh(); i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
@@ -418,7 +418,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 	fprintf(flog,"\n");
 	k = (long)nmet;
 	//fprintf(flog,"Soil Bedrock Layers: %ld\n",sl->pa->nch);
-	fprintf(flog,"Soil Bedrock Layers: %ld\n",sl->pa.getCh()-1);
+    fprintf(flog,"Soil Bedrock Layers: %ud\n",sl->pa.getCh()-1);
 	/*
 	for (i=1; i<=sl->pa_bed->ndh; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);

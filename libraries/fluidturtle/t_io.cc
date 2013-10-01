@@ -146,6 +146,8 @@ char * get_workingdirectory(void )
 {
 
     //char buffer[64*FILENAME_MAX];
+
+    //FIXME: rewrite this function in order to use c++ std::ifstream and std::string
     char * bf = "$WorkingPath";
     char const * const pathfile="$WorkingPath";
 
@@ -198,21 +200,6 @@ char * get_workingdirectory(void )
 /**-------------------------------------------------------------------------*/
 
 char *join_strings(char const * const first, char const * const second)
-
-{
-
-	char *string;
-	int len=strlen(first)+strlen(second)+2;
-
-	string=(char*)malloc(len*sizeof(char));
-	string=strcpy(string,first);
-	string=strcat(string,second);
-
-	return string;
-}
-
-//overloaded function
-char *join_strings(const char *first, char *second)
 
 {
 

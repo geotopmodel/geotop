@@ -672,7 +672,7 @@ double **read_txt_matrix_2(std::string filename, long comment_char, long sep_cha
 }
 
 
-char *assign_string(char *a){
+char * const assign_string(char const * const a){
 	char *b;
 	int n = 1+strlen(a);
 	b = (char*)malloc(n*sizeof(char));
