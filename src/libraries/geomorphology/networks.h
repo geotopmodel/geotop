@@ -237,11 +237,11 @@ FILE:  LIBRARIES/GEOMORPHOLOGYLIB/networks.c,   LIBRARIES/GEOMORPHOLOGYLIB/netwo
 References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 
 
-
-
 */
-/* commented because the Warning: variable 'work' is not initialized before being used
-void randomflow(long ,long , SHORTMATRIX *);
+
+
+// commented because the Warning: variable 'work' is not initialized before being used
+//void randomflow(long ,long , SHORTMATRIX *);
 
 /**
 

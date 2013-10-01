@@ -755,7 +755,9 @@ if(utmp>=length) t_error("wrong random number");
 linktmp=point2longpair(pointer,utmp);
 return linktmp;
 }
-/*--------------------------------------------------------------------------*/ 
+*/
+
+/*--------------------------------------------------------------------------*/
 /* commentata per  warning: integer overflow in expression
 REALPAIR * select_realpair_randomly(REALPAIR * pointer)
  
@@ -771,6 +773,7 @@ if(utmp>=length) t_error("wrong random number");
 linktmp=point2realpair(pointer,utmp); 
 return linktmp;
 }
+*/
 
 /*--------------------------------------------------------------------------*/ 
 
@@ -789,6 +792,7 @@ if(utmp>=length) t_error("wrong random number");
 linktmp=point2ix(pointer,utmp); 
 return linktmp;
 }
+*/
 
 
 /*--------------------------------------------------------------------------*/ 
@@ -808,6 +812,7 @@ if(utmp>=length) t_error("wrong random number");
 linktmp=point2ijx(pointer,utmp); 
 return linktmp;
 }
+*/
 
 /*--------------------------------------------------------------------------*/ 
 /* commentata per  warning: integer overflow in expression
@@ -826,7 +831,7 @@ linktmp=point2measure(pointer,utmp);
 return linktmp;
 
 }
-
+*/
 
 /* Recursive deletion of a list */
 /*--------------------------------------------------------------------------*/ 

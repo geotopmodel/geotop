@@ -29,7 +29,9 @@ void convlv(FLOATVECTOR *data,unsigned long n,FLOATVECTOR *respns,unsigned long 
 			ans->co[i-1]=(fft->co[i-1]*(dum=ans->co[i-1])-fft->co[i]*ans->co[i])/no2*delta_time;
 			ans->co[i]=(fft->co[i]*dum+fft->co[i-1]*ans->co[i])/no2*delta_time;
 		} else if (isign == -1) {
-			if ((mag2=SQR(ans->co[i-1])+SQR(ans->co[i])) == 0.0)
+            mag2 = SQR(ans->co[i-1]) ;
+            mag2 = mag2 + SQR(ans->co[i]) ;
+            if ( mag2 == 0.0 )
 				t_error("Deconvolving at response zero in convlv");
 			ans->co[i-1]=(fft->co[i-1]*(dum=ans->co[i-1])+fft->co[i]*ans->co[i])/mag2/no2;
 			ans->co[i]=(fft->co[i]*dum-fft->co[i-1]*ans->co[i])/mag2/no2;
@@ -519,6 +521,7 @@ void linbcg(long n, double b[], double x[], int itol, double tol,
 	free_doublevector(Z);
 	free_doublevector(ZZ);
 }
+*/
 
 /* DA NUMERICAL RECEPIS IN C. (Second Edition - Cambridge Univ. Press). pag 88
 _________________________________________________________________________________
@@ -526,6 +529,7 @@ ________________________________________________________________________________
                           FUNZIONE      snrm                    
 _________________________________________________________________________________
 */
+
 /* Questa funzione calcola la norma di un vettore con la modalita' specificata 
    dal parametro itol */
 
