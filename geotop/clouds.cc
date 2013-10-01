@@ -20,6 +20,7 @@
  */
 
 #include "clouds.h"
+#include "config.h"
 
 //*****************************************************************************************************************
 //*****************************************************************************************************************
@@ -238,9 +239,17 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 	convert_JDandYear_daymonthhourmin(JD, y, &d, &m, &h, &mi);
 	alpha = SolarHeight(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega);
 	tau_atm = atm_transmittance(alpha, P, RH, T);
-	fprintf(f,"%02.f/%02.f/%04.f %02.f:%02.f,%f,%f,%f,%f,%f,%f,%f\n",(float)d, (float)m, (float)y, (float)h,(float)mi,
-			alpha*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
-			Fmax(sin(alpha), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(alpha),0.05)*tau_atm,tau_atm,tau_cloud);
+
+    #ifdef USE_DOUBLE_PRECISION_OUTPUT
+        fprintf(f,"%02.12g/%02.12g/%04.12g %02.12g:%02.12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",(float)d, (float)m, (float)y, (float)h,(float)mi,
+                alpha*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
+                Fmax(sin(alpha), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(alpha),0.05)*tau_atm,tau_atm,tau_cloud);
+    #else
+        fprintf(f,"%02.f/%02.f/%04.f %02.f:%02.f,%f,%f,%f,%f,%f,%f,%f\n",(float)d, (float)m, (float)y, (float)h,(float)mi,
+                alpha*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
+                Fmax(sin(alpha), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(alpha),0.05)*tau_atm,tau_atm,tau_cloud);
+    #endif
+
 	fclose(f);	
 //	free(temp);
 	return tau_cloud;

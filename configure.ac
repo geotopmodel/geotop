@@ -88,6 +88,15 @@ AS_IF([test "x$enable_netcdf" = "xyes"],
         [], [AC_MSG_ERROR([No NetCDF library found])])])
 ## end netcdf check
 
+## option for printing with 12 bit of precision
+AC_ARG_ENABLE([print-doubleprec],
+    [AS_HELP_STRING([--enable-print-doubleprec],
+        [enable printing with 12 significant cyphers])],
+    [AC_DEFINE([USE_DOUBLE_PRECISION_OUTPUT], [1], [enable printing with more precision])],
+    [])
+## end option for printing with 12 bit of precision
+
+
 ## Configure meteoio ##
 AC_ARG_WITH([meteoio],
     [AS_HELP_STRING([--with-meteoio],
