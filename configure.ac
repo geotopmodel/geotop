@@ -73,6 +73,9 @@ else
 fi
 AC_SUBST([METEODISTR_RESULTS_DIR])
 
+GEOTOP_PROGRAM_PATH=geotop/geotop
+AC_SUBST([GEOTOP_PROGRAM_PATH])
+
 ## Enable NetCDF ##
 AC_ARG_ENABLE([netcdf],
     [AS_HELP_STRING([--enable-netcdf],
