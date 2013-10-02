@@ -344,6 +344,15 @@ double diff2glob(double a){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+/* Antonio + Stefano E.: The function `atm_transmittance` has been
+   changed back from a previous modifcation in order to ease the
+   merging between Trento and UZH branches. The old code is in
+   `atm_transmittance_iqbal`.
+
+   In the future, it would be better to add a keyword in order to
+   allow the user to decide which one of the two functions must be
+   used.
+*/
 double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 		
 	//X = angle of the sun above the horizon [rad]
@@ -353,6 +362,7 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	
 	/*
 	//from Mayers and Dale, Predicting Daily Insolation with Hourly Cloud Height and Coverage, 1983, pg 537, Journal of Climate and Applied Meteorology
+    */
 	double tau_sa;//Reyleigh scattering and gas absorption transmittance
 	double tau_w;//transmittance due to water vapor
 	double tau_a;//transmittance due to aerosol
@@ -366,8 +376,10 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	tau_w = 1. - 0.077*pow(w*m, 0.3);
 	tau_a = pow(0.935, m);
 	tau_atm = tau_sa*tau_w*tau_a;
-	return(tau_atm);*/
-	
+	return(tau_atm);
+}
+
+double atm_transmittance_iqbal(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 	
 	//transmissivity under cloudless sky (Iqbal par. 7.5)
 	double mr, ma, w, U1, U3, tau_r, tau_o, tau_g, tau_w, tau_a, tau_aa, rho_a;
@@ -379,7 +391,7 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	ma = mr*P/Pa0;
 	w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
 	U1 = w*mr;
-	U3 = Lozone*mr;	
+	U3 = Lozone*mr;
 	tau_r = exp(-.0903*pow(ma,.84)*(1.+ma-pow(ma,1.01)));
 	tau_o = 1. - (.1611*U3*pow(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
 	tau_g = exp(-.0127*pow(ma,.26));

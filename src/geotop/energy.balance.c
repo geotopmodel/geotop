@@ -469,12 +469,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	}			
 	
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint);
-	//printf("%f %f %f\n",LWin,A->T->sky->co[r][c],Tpoint);
+	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]);
 	
 	//if incoming LW data are available, they are used (priority)
 	LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, 0.0, LWin);
-	//printf("..%f %f %f\n",LWin,A->T->sky->co[r][c],Tpoint);
 				
 	//roughness lengths
 	update_roughness_soil(A->L->ty->co[lu][jz0], 0.0, 0.0, snowD, A->L->ty->co[lu][jz0thressoil], A->P->z0_snow, &z0, &d0, &z0_z0t);
