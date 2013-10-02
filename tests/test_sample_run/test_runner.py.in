@@ -74,7 +74,7 @@ def assert_is_file(fname, msg=None):
 TESTDIR = "@abs_top_builddir@/tests/test_sample_run"
 
 # Path to the geotop binary
-GEOTOP = "@abs_top_builddir@/src/geotop/geotop"
+GEOTOP = "@abs_top_builddir@/@GEOTOP_PROGRAM_PATH@"
 RESULTDIR = "@METEODISTR_RESULTS_DIR@"
 
 def compare_files_exactly(fpath_ok, fpath_new, delta):
