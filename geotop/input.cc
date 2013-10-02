@@ -481,6 +481,40 @@ meteoio_init(iomanager);
 			fprintf(flog,"Shortwave radiation measurements from station %ld\n",met->nstsrad);
 		}
 #endif
+
+#ifdef USE_INTERNAL_METEODISTR
+	//FIND A STATION WITH CLOUD DATA
+	met->nstcloud=0;
+	do{
+		met->nstcloud++;
+		a=0;
+		if( (long)met->data[met->nstcloud-1][0][iC]!=number_absent || (long)met->data[met->nstcloud-1][0][itauC]!=number_absent ) a=1;
+	}while(met->nstcloud<met->st->Z.size()-1 && a==0);
+	if(a==0){
+		printf("WARNING: NO cloudiness measurements available\n");
+		fprintf(flog,"WARNING: NO cloudiness measurements available\n");
+	}else{
+		printf("Cloudiness measurements from station %ld\n",met->nstcloud);
+		fprintf(flog,"Cloudiness measurements from station %ld\n",met->nstcloud);
+	}
+	
+	//FIND A STATION WITH LONGWAVE RADIATION DATA
+	met->nstlrad=0;
+	do{
+		met->nstlrad++;
+		a=0;
+		if( (long)met->data[met->nstlrad-1][0][iLWi]!=number_absent) a=1;
+	}while(met->nstlrad<met->st->Z.size()-1 && a==0);
+	if(a==0){
+		printf("WARNING: NO longwave radiation measurements available\n");
+		fprintf(flog,"WARNING: NO longwave radiation measurements available\n");
+	}else{
+		printf("Longwave radiation measurements from station %ld\n",met->nstlrad);
+		fprintf(flog,"Longwave radiation measurements from station %ld\n",met->nstlrad);
+	}
+
+#endif
+
 //	met->tau_cl_map=new_doublematrix(top->Z0->nrh,top->Z0->nch);
 //	initialize_doublematrix(met->tau_cl_map, (double)number_novalue);
 	met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),(double)number_novalue);

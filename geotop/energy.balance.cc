@@ -22,6 +22,7 @@
 
 //Author: Stefano Endrizzi
 //Contents: Energy balance (and also mass balance for snow and glacier)
+#include "config.h"
 #include "energy.balance.h"
 
 /******************************************************************************************************************************************/
