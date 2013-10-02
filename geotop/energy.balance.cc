@@ -95,11 +95,11 @@
 	//was: find_actual_cloudiness(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
 
 //	for (i=1; i<=A->M->st->Z->nh; i++){// for all meteo stations
+#ifndef USE_INTERNAL_METEODISTR
 	for (i=1; i<A->M->st->Z.size(); i++){// for all meteo stations
 	//	if (A->M->st->flag_SW_meteoST->co[i]==1){// if that meteo station measures cloudiness
 		if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		//	find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST->co[i]), &(A->M->st->tau_cloud_av_meteoST->co[i]), &(A->M->st->tau_cloud_yes_meteoST->co[i]), &(A->M->st->tau_cloud_av_yes_meteoST->co[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
-#ifndef USE_INTERNAL_METEODISTR
 		find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
 		//call the function that interpolates the cloudiness
 		if (A->P->use_meteoio_cloud) {
@@ -115,13 +115,13 @@
 		A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
 //		A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST->co[A->M->nstcloud];
 		A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
-
+		}
+	}
 #else
 			//find_actual_cloudiness_meteodistr(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 			find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), i, A->M, 			JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 #endif
-			}
-	}
+
 
 //	POINT ENERGY BALANCE
 	for (i=1; i<= A->P->total_channel+A->P->total_pixel; i++) {
@@ -491,7 +491,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //			 A->M->tau_cl_map->co[r][c], A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c], A->E->SWrefl_surr[r][c],
 			 A->M->tau_cl_map[r][c], A->L->shadow[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
-
+//	printf("\nJDb=%f, JDe=%f, A->E->sinhsun=%f, E0=%f, A->T->sky[%ld][%ld]=%f, A->E->SWrefl_surr[r][c]=%f,A->M->tau_cl_map[r][c]=%f, A->L->shadow[r][c]=%d",
+//			JDb, 	JDe, 	A->E->sinhsun, 	E0, 	r,c,A->T->sky[r][c],   A->E->SWrefl_surr[r][c],   A->M->tau_cl_map[r][c], 	 A->L->shadow[r][c]);
+//	printf("\ntau_cloud=%f, SWbeam=%f, SWdiff=%f, cosinc=%f, tauatm_sinhsun=%f, SWb_yes=%d",A->M->tau_cloud,SWbeam,SWdiff,cosinc,tauatm_sinhsun,SWb_yes);
 	SWin=SWbeam+SWdiff;
 
 	//albedo
@@ -591,7 +593,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
 //	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
 	LWin=A->T->sky[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
-	
+	//printf("\nLWin=%f",LWin);
 	//if incoming LW data are available, they are used (priority)
 	//HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
 	//LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
