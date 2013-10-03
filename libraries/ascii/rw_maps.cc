@@ -605,9 +605,9 @@ void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, TInit *UV, lo
 	f=fopen(temp,"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %ud\n",DTM.getCols());
+    fprintf(f,"ncols         %u\n",DTM.getCols());
 //	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %ud\n",DTM.getRows());
+    fprintf(f,"nrows         %u\n",DTM.getRows());
 	fprintf(f,"xllcorner     %f\n",UV->U[4]);
 	fprintf(f,"yllcorner     %f\n",UV->U[3]);
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
@@ -662,9 +662,9 @@ void write_esriascii(string name, short type, GeoMatrix<long>& DTM, TInit *UV, l
 	f=fopen(temp.c_str(),"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %ud\n",DTM.getCols());
+    fprintf(f,"ncols         %u\n",DTM.getCols());
 //	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %ud\n",DTM.getRows());
+    fprintf(f,"nrows         %u\n",DTM.getRows());
 	fprintf(f,"xllcorner     %f\n",UV->U[4]);
 	fprintf(f,"yllcorner     %f\n",UV->U[3]);
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
@@ -720,9 +720,9 @@ void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, TInit *UV, 
 	f=fopen(temp,"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %ud\n",DTM.getCols()-1);
+    fprintf(f,"ncols         %u\n",DTM.getCols()-1);
 //	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %ud\n",DTM.getRows()-1);
+    fprintf(f,"nrows         %u\n",DTM.getRows()-1);
 	fprintf(f,"xllcorner     %f\n",UV->U[4]);
 	fprintf(f,"yllcorner     %f\n",UV->U[3]);
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
@@ -778,9 +778,9 @@ void write_esriascii(string name, short type, GeoMatrix<double>& DTM, TInit *UV,
 	f=fopen(temp.c_str(),"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %ud\n",DTM.getCols()-1);
+    fprintf(f,"ncols         %u\n",DTM.getCols()-1);
 //	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %ud\n",DTM.getRows()-1);
+    fprintf(f,"nrows         %u\n",DTM.getRows()-1);
 	fprintf(f,"xllcorner     %f\n",UV->U[4]);
 	fprintf(f,"yllcorner     %f\n",UV->U[3]);
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
