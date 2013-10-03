@@ -311,7 +311,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 #endif
-    for(size_t i=1; i < met->st->E.size(); i++){
+    long num_met_stat=met->st->E.size()-1;
+    for(size_t i=1; i <= num_met_stat; i++){
         //	if (met->imeteo_stations->co[1] != number_novalue) {
         if (met->imeteo_stations[1] != number_novalue) {
             //	ist = met->imeteo_stations->co[i];
@@ -486,7 +487,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //			printf("met->data[met->nstsrad-1][0][iSWb]=%ld",(long)met->data[met->nstsrad-1][0][iSWb]);
 //			printf("met->data[met->nstsrad-1][0][iSWd]=%ld",(long)met->data[met->nstsrad-1][0][iSWd]);
         if( (long)met->data[met->nstsrad-1][0][iSW]!=number_absent || ((long)met->data[met->nstsrad-1][0][iSWb]!=number_absent && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent ) ) a=1;
-    }while(met->nstsrad<met->st->Z.size() && a==0);
+		}while(met->nstsrad< num_met_stat && a==0);
     if(a==0){
         printf("WARNING: NO shortwave radiation measurements available\n");
         fprintf(flog,"WARNING: NO shortwave radiation measurements available\n");
