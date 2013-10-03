@@ -37,7 +37,11 @@ AC_ARG_WITH([static-geotop],
 # The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
 AM_CONDITIONAL([WITH_STATIC_GEOTOP], [test "_$with_static_geotop" = '_yes'])
 
+METEODISTR_RESULTS_DIR=results.meteodistr
+AC_SUBST([METEODISTR_RESULTS_DIR])
 
+GEOTOP_PROGRAM_PATH=src/geotop/geotop
+AC_SUBST([GEOTOP_PROGRAM_PATH])
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h string.h])
 

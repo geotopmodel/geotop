@@ -404,7 +404,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	A->E->sun[7] = A->T->aspect->co[r][c]*Pi/180.;
 	if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
 	
-	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c], 
+	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
 						A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 	
 	SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
@@ -469,7 +469,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	}			
 	
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]);
+	LWin = A->T->sky->co[r][c]*epsa*SB(Tpoint);
+    /* Note: the longwave radiation coming from the surrounding
+     * terrain is computed in LW instead of LWin.
+
+     This is different from previous code and from the `Trento` branch...
+
+       + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]); 
+    */
 	
 	//if incoming LW data are available, they are used (priority)
 	LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, 0.0, LWin);
