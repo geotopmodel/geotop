@@ -92,8 +92,8 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
     Compare the data in two files and check if they are *almost*
     equal, depending on a delta which depends on the field name.
     """
-    data_ok = pandas.read_csv(fpath_ok)
-    data_new = pandas.read_csv(fpath_new)
+    data_ok = pandas.read_csv(fpath_ok, na_values=['nan', '-nan']).fillna(0)
+    data_new = pandas.read_csv(fpath_new, na_values=['nan', '-nan']).fillna(0)
     # get the correct delta value/dictionary
 
     # check fields one by one
@@ -101,25 +101,26 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
         if field in deltas:
             assert_true(
                 (abs(data_ok[field] - data_new[field]) <= deltas[field]).all(),
-                msg="Field %s in file %s is too different: %d fields differ "
+                msg="Field '%s' in file %s is too different: %d rows differ "
                 "more than %f from the correct ones (maxdiff=%f)." % (
                     field, fpath_new, (abs(data_ok[field] - data_new[field]) > deltas[field]).sum(),
                     deltas[field], abs(data_ok[field] - data_new[field]).max()))
         else:
             # Check that all the fields are equal
-            assert_true((data_ok[field] == data_new[field]).all())
+            assert_true((data_ok[field] == data_new[field]).all(),
+                        msg="Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new))
 
 def compare_map_files(fpath_ok, fpath_new, deltas):
     """
     Compare the data in two files and check if they are *almost*
     equal, depending on a delta which depends on the field name.
     """
-    data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None)
-    data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None)
+    data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
+    data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
     assert_equal(data_ok.shape, data_new.shape)
     # get the correct delta value/dictionary
     try:
-        diff = (data_ok - data_new).apply(abs)
+        diff = (data_ok - data_new).apply(abs).fillna(0)
     except (ValueError, TypeError):
         return compare_files_exactly(fpath_ok, fpath_new, None)
     assert_true(
@@ -132,21 +133,30 @@ class TestValidRun(object):
     cmp_functions = [
         (r'(.*/)?point_info_[0-9]{4}.txt', compare_files_exactly, None),
         (r'(.*/)?.*[0-9]{4}.txt', compare_tab_files, {
-            'snow_depth[mm]'                  : 0.0,
-            'snow_water_equivalent[mm]'       : 0.0,
+            'snow_depth[mm]'                  : 3.0,
+            'snow_water_equivalent[mm]'       : 0.4,
             'Tair[C]'                         : 0.0,
             'Relative_Humidity[-]'            : 0.0,
-            'Tsurface[C]'                     : 0.0,
-            'Surface_Energy_balance[W/m2]'    : 0.0,
-            'Soil_heat_flux[W/m2]'            : 0.0,
-            'SWin[W/m2]'                      : 0.0,
+            'Tsurface[C]'                     : 3.2,
+            'Surface_Energy_balance[W/m2]'   : 28.0,
+            'Soil_heat_flux[W/m2]'           : 36.0,
+            'SWin[W/m2]'                      : 0.6,
             'SWbeam[W/m2]'                    : 0.0,
-            'SWdiff[W/m2]'                    : 0.0,
-            'LWnet[W/m2]'                     : 0.0,
-            'SWnet[W/m2]'                     : 0.0,
+            'SWdiff[W/m2]'                    : 0.6,
+            'LWnet[W/m2]'                    : 42.0,
+            'LWin[W/m2]'                    : 265.0,
+            'SWnet[W/m2]'                    : 18.0,
+            'Run'                             : 1.1,
+            '140.000000 '                     : 7.0,
+            '530.000000 '                     : 2.0,
+            '1780.000000  '                   : 1.0,
             }),
-        (r'(.*/)?SWEN.*.asc', compare_map_files, 7.0),
-        (r'.*.asc', compare_map_files, 0.0),
+        (r'(.*/)?SWEN.*.asc', compare_map_files, 8.5),
+        (r'(.*/)?SWEDENSITYN.*.asc', compare_map_files, 6000.0),
+        (r'(.*/)?MMGSTN.*.asc', compare_map_files, 7.4),
+        (r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
+        (r'(.*/)?snowdepthN.*.asc', compare_map_files, 93.0),
+        (r'(.*/)?.*.asc', compare_map_files, 0.0),
     ]
 
     def setUp(self):
