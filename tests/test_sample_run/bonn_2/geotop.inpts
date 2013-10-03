@@ -27,6 +27,15 @@ MeteoFile = "in/met"
 HeaderDateDDMMYYYYhhmmMeteo = "date"
 HeaderIPrec = "Prec"
 
+NumberOfMeteoStations =1
+MeteoStationCoordinateX=0
+MeteoStationCoordinateY=0
+MeteoStationElevation=3000
+MeteoStationLatitude=46.55628
+MeteoStationLongitude=12.42590
+MeteoStationStandardTime=1
+
+
 !=======================================
 ! SOIL
 !=======================================
