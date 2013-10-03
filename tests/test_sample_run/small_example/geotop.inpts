@@ -2,8 +2,8 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 19/02/2012 12:00
-EndDateDDMMYYYYhhmm =  28/02/2012 12:00
+InitDateDDMMYYYYhhmm = 20/10/2011 12:00
+EndDateDDMMYYYYhhmm =  29/10/2011 12:00
 EnergyBalance = 1
 WaterBalance=0
 PointSim=0
@@ -190,24 +190,37 @@ HeatEqMaxIter=700
 !=============================================================================
 
 DtPlotPoint = 1
-PointOutputFile = "output_tabs/point"
-SnowProfileFile = "output_tabs/snow"
-SoilTempProfileFile="output_tabs/soiltemp"
-DatePoint=1
-SnowDepthPoint=2
-SWEPoint=3
-AirTempPoint=4
-TsurfPoint=5
-SurfaceEBPoint=6
-SoilHeatFluxPoint=7
-SWinPoint=8
-SWbeamPoint=9
-SWdiffPoint=10
-LWinPoint=11
 
+PointOutputFile = "output_tabs/point"
+DatePoint=1
+JulianDayFromYear0Point=2
+SnowDepthPoint=3
+SWEPoint=4
+AirTempPoint=5
+TsurfPoint=6
+SurfaceEBPoint=7
+SoilHeatFluxPoint=8
+SWinPoint=9
+SWbeamPoint=10
+SWdiffPoint=11
+LWinPoint=12
+RHPoint=13
+TDewPoint=14
+WindSpeedPoint=15
+! Print LW = LWin - LWout because from matteo and master LWin is computed differently, but the difference must be the same
+LWNetPoint=16
+! same for SW = SWin - (1-Albedo)SWout
+SWNetPoint=17
+
+SoilTempProfileFile="output_tabs/soiltemp"
+SnowTempProfileFile="output_tabs/snowtemp"
+SnowLiqContentProfileFile="output_tabs/snowliq"
+SnowIceContentProfileFile="output_tabs/snowice"
+SnowDepthLayersFile="output_tabs/snowly"
+SnowAll=1
 
 !SWEMapFile= "output_maps/SWE"
-!SnowDepthMapFile = "output_maps/snowdepth"
+SnowDepthMapFile = "output_maps/snowdepth"
 FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
 !NetShortwaveRadiationMapFile = "output_maps/Rn"
 !DischargeFile = "output_tabs/discharge"
@@ -217,8 +230,7 @@ OutputSnowMaps = 1
 OutputSoilMaps=1
 !OutputSurfEBALMaps=1
 SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-SoilTempProfileFile="output_maps/soiltemp"
+
 
 SoilAll=1
 SoilAveragedTempTensorFile = "output_maps/T"

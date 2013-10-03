@@ -1023,7 +1023,7 @@ void find_aspect(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<dou
 	long nr=topo.getRows();
 //	DOUBLEMATRIX *M;
 //	M=new_doublematrix(nr, nc);
-
+	M.resize(nr,nc,-9999.0);
 //	for(r=1;r<=nr;r++){
 	for(r=1;r<nr;r++){
 	//	for(c=1;c<=nc;c++){

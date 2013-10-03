@@ -481,6 +481,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     do{
         met->nstsrad++;
         a=0;
+//			printf("met->nstsrad-1=%ld",met->nstsrad-1);
+//			printf("met->data[met->nstsrad-1][0][iSW]=%ld",(long)met->data[met->nstsrad-1][0][iSW]);
+//			printf("met->data[met->nstsrad-1][0][iSWb]=%ld",(long)met->data[met->nstsrad-1][0][iSWb]);
+//			printf("met->data[met->nstsrad-1][0][iSWd]=%ld",(long)met->data[met->nstsrad-1][0][iSWd]);
         if( (long)met->data[met->nstsrad-1][0][iSW]!=number_absent || ((long)met->data[met->nstsrad-1][0][iSWb]!=number_absent && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent ) ) a=1;
     }while(met->nstsrad<met->st->Z.size() && a==0);
     if(a==0){
@@ -2538,7 +2542,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
         //	top->aspect=find_aspect(top->Z0, top->dzdE, top->dzdN, (double)number_novalue);
         find_aspect(top->Z0, top->dzdE, top->dzdN, (double)number_novalue,top->aspect);
     }
-    //if(flag >= 0) write_map(files[fasp], 0, par->format_out, top->aspect, UV, number_novalue);
+	if(flag >= 0) write_map(files[fasp], 0, par->format_out, top->aspect, UV, number_novalue);
 
 
     /****************************************************************************************************/

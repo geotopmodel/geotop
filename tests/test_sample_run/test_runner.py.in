@@ -60,7 +60,12 @@ try:
 except ImportError:
     pandas = None
 
+if pandas:
+    import warnings
+    warnings.simplefilter(action = "ignore", category = FutureWarning)
+
 from nose.tools import assert_equal, assert_true
+from nose.plugins.skip import SkipTest
 
 def assert_is_file(fname, msg=None):
     assert os.path.isfile(fname), msg or "%s is not a file" % fname
@@ -69,25 +74,90 @@ def assert_is_file(fname, msg=None):
 TESTDIR = "@abs_top_builddir@/tests/test_sample_run"
 
 # Path to the geotop binary
-GEOTOP = "@abs_top_builddir@/geotop/geotop"
+GEOTOP = "@abs_top_builddir@/@GEOTOP_PROGRAM_PATH@"
 RESULTDIR = "@METEODISTR_RESULTS_DIR@"
 
-class TestValidRun(object):
-    deltas = {
-        # 'Date12[DDMMYYYYhhmm]'            : 0,
-        'snow_depth[mm]'                  : 5,
-        'snow_water_equivalent[mm]'       : 5,
-        'Tair[C]'                         : 9,
-        'Tsurface[C]'                     : 20,
-        'Surface_Energy_balance[W/m2]'    : 182,
-        'Soil_heat_flux[W/m2]'            : 182,
-        'SWin[W/m2]'                      : 365,
-        'SWbeam[W/m2]'                    : 429,
-        'SWdiff[W/m2]'                    : 148,
-        'LWin[W/m2]'                      : 67,
-    }
+def compare_files_exactly(fpath_ok, fpath_new, delta):
+    """
+    Compare the *content* of two files.
 
-    map_delta = 0.0
+    Current implementation only check that they are *exactly* the
+    same files. Future implementations will also allow a numeric
+    tolerance on the values, if needed.
+    """
+    assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
+
+def compare_tab_files(fpath_ok, fpath_new, deltas):
+    """
+    Compare the data in two files and check if they are *almost*
+    equal, depending on a delta which depends on the field name.
+    """
+    data_ok = pandas.read_csv(fpath_ok, na_values=['nan', '-nan']).fillna(0)
+    data_new = pandas.read_csv(fpath_new, na_values=['nan', '-nan']).fillna(0)
+    # get the correct delta value/dictionary
+
+    # check fields one by one
+    for field in data_ok:
+        if field in deltas:
+            assert_true(
+                (abs(data_ok[field] - data_new[field]) <= deltas[field]).all(),
+                msg="Field '%s' in file %s is too different: %d rows differ "
+                "more than %f from the correct ones (maxdiff=%f)." % (
+                    field, fpath_new, (abs(data_ok[field] - data_new[field]) > deltas[field]).sum(),
+                    deltas[field], abs(data_ok[field] - data_new[field]).max()))
+        else:
+            # Check that all the fields are equal
+            assert_true((data_ok[field] == data_new[field]).all(),
+                        msg="Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new))
+
+def compare_map_files(fpath_ok, fpath_new, deltas):
+    """
+    Compare the data in two files and check if they are *almost*
+    equal, depending on a delta which depends on the field name.
+    """
+    data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
+    data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
+    assert_equal(data_ok.shape, data_new.shape)
+    # get the correct delta value/dictionary
+    try:
+        diff = (data_ok - data_new).apply(abs).fillna(0)
+    except (ValueError, TypeError):
+        return compare_files_exactly(fpath_ok, fpath_new, None)
+    assert_true(
+        (diff <= deltas).all().all(),
+        msg="File %s: %d fields are bigger than predefined delta: "
+        "%f > %f" % (fpath_new, (diff > deltas).count().sum(), diff.max().max(), deltas)
+    )
+
+class TestValidRun(object):
+    cmp_functions = [
+        (r'(.*/)?point_info_[0-9]{4}.txt', compare_files_exactly, None),
+        (r'(.*/)?.*[0-9]{4}.txt', compare_tab_files, {
+            'snow_depth[mm]'                  : 3.0,
+            'snow_water_equivalent[mm]'       : 0.4,
+            'Tair[C]'                         : 0.0,
+            'Relative_Humidity[-]'            : 0.0,
+            'Tsurface[C]'                     : 3.2,
+            'Surface_Energy_balance[W/m2]'   : 28.0,
+            'Soil_heat_flux[W/m2]'           : 36.0,
+            'SWin[W/m2]'                      : 0.6,
+            'SWbeam[W/m2]'                    : 0.0,
+            'SWdiff[W/m2]'                    : 0.6,
+            'LWnet[W/m2]'                    : 42.0,
+            'LWin[W/m2]'                    : 265.0,
+            'SWnet[W/m2]'                    : 18.0,
+            'Run'                             : 1.1,
+            '140.000000 '                     : 7.0,
+            '530.000000 '                     : 2.0,
+            '1780.000000  '                   : 1.0,
+            }),
+        (r'(.*/)?SWEN.*.asc', compare_map_files, 8.5),
+        (r'(.*/)?SWEDENSITYN.*.asc', compare_map_files, 6000.0),
+        (r'(.*/)?MMGSTN.*.asc', compare_map_files, 7.4),
+        (r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
+        (r'(.*/)?snowdepthN.*.asc', compare_map_files, 93.0),
+        (r'(.*/)?.*.asc', compare_map_files, 0.0),
+    ]
 
     def setUp(self):
         os.chdir(TESTDIR)
@@ -98,62 +168,12 @@ class TestValidRun(object):
         of the file, and self.compare_files_exactly if fpath_ok otherwise.
         """
         if not pandas:
-            return self.compare_files_exactly(fpath_ok, fpath_new)
-        if re.match('.*/point[0-9]+.txt', fpath_ok):
-            return self.compare_files_using_delta(fpath_ok, fpath_new)
-        elif re.match('.*.asc', fpath_ok):
-            return self.compare_map_files(fpath_ok, fpath_new)
-        else:
-            return self.compare_files_exactly(fpath_ok, fpath_new)
+            return compare_files_exactly(fpath_ok, fpath_new, None)
 
-    def compare_files_exactly(self, fpath_ok, fpath_new):
-        """
-        Compare the *content* of two files.
-
-        Current implementation only check that they are *exactly* the
-        same files. Future implementations will also allow a numeric
-        tolerance on the values, if needed.
-        """
-        assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
-
-    def compare_files_using_delta(self, fpath_ok, fpath_new):
-        """
-        Compare the data in two files and check if they are *almost*
-        equal, depending on a delta which depends on the field name.
-        """
-        data_ok = pandas.read_csv(fpath_ok)
-        data_new = pandas.read_csv(fpath_new)
-        for field in data_ok:
-            if field in self.deltas:
-                assert_true(
-                    (abs(data_ok[field] - data_new[field]) <= self.deltas[field]).all(),
-                    msg="Field %s in file %s is too different: %d fields differ "
-                    "more than %f from the correct ones (maxdiff=%f)." % (
-                        field, fpath_new, (abs(data_ok[field] - data_new[field]) > self.deltas[field]).sum(),
-                        self.deltas[field], abs(data_ok[field] - data_new[field]).max()))
-            else:
-                # Check that all the fields are equal
-                assert_true((data_ok[field] == data_new[field]).all())
-
-    def compare_map_files(self, fpath_ok, fpath_new):
-        """
-        Compare the data in two files and check if they are *almost*
-        equal, depending on a delta which depends on the field name.
-        """
-        data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None)
-        data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None)
-        assert_equal(data_ok.shape, data_new.shape)
-        for column in data_ok:
-            try:
-                diff = data_ok[column] - data_new[column]
-            except (ValueError, TypeError):
-                return self.compare_files_exactly(fpath_ok, fpath_new)
-            assert_true(
-            (abs(diff) <= self.map_delta).all(),
-            msg="File %s: %d fields in column %d are bigger than predefined delta: "
-            "%f" % (fpath_new, (abs(diff) > self.map_delta).sum(),
-                    column, self.map_delta)
-            )
+        for (regexp, func, delta) in self.cmp_functions:
+            if re.match(regexp, fpath_ok):
+                return func(fpath_ok, fpath_new, delta)
+        return compare_files_exactly(fpath_ok, fpath_new, None)
 
     def _test_template(self, directory):
         """
@@ -162,7 +182,10 @@ class TestValidRun(object):
         check that all the files stored in ``results`` have been
         created by the simulation and compare them.
         """
-
+        if os.path.isfile(os.path.join(directory, 'DISABLE_TEST_RUNNER')):
+            raise SkipTest(
+                "Skipping test `%s` because 'DISABLE_TEST_RUNNER' file is "
+                "present" % os.path.basename(directory))
         # Change the current working directory, because
         # ``geotop.inpts`` files usually have relative paths.
         os.chdir(directory)
@@ -181,7 +204,8 @@ class TestValidRun(object):
         resultdir = os.path.join(directory, RESULTDIR)
         if not os.path.isdir(resultdir):
             # No `results` directory. Assume it's OK.
-            return
+            raise SkipTest("Skipping test because no resultdir `%s` is "
+                           "present" % resultdir)
 
         # For each directory inside ``results``...
         for outputdir in os.listdir(resultdir):
@@ -200,8 +224,8 @@ class TestValidRun(object):
     def test_generator(self):
         for d in os.listdir(TESTDIR):
             path = os.path.join(TESTDIR, d)
-            if os.path.isdir(path) and os.path.isfile(
-                    os.path.join(path, 'geotop.inpts')):
+            if os.path.isdir(path) and \
+              os.path.isfile(os.path.join(path, 'geotop.inpts')):
                 yield self._test_template, path
 
 if __name__ == "__main__":
