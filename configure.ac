@@ -45,8 +45,11 @@ esac],
 # This test has to run *before* AC_PROC_CC
 if test x"$debug" = x"true"; then
    AC_DEFINE([DEBUG], [1], [Enable debug compilation])
-   CFLAGS=${CFLAGS:="-g3 -O0"}
-   CXXFLAGS=${CXXFLAGS:="-g3 -O0"}
+   CFLAGS=${CFLAGS:="-Wpedantic -Wall -g3 -O0"}
+   CXXFLAGS=${CXXFLAGS:="-Wpedantic -Wall -g3 -O0"}
+else
+   CFLAGS=${CFLAGS:="-Wpedantic -Wall"}
+   CXXFLAGS=${CXXFLAGS:="-Wpedantic -Wall"}
 fi
 
 AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")

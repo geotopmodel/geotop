@@ -1370,7 +1370,7 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 //int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat){
 int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 	
-	long i, l, r, c, j, sy, ch, bc;
+    long l, r, c, j, sy, ch, bc;
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, psi1, ice=0.0;
 //	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
@@ -1492,7 +1492,7 @@ int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, S
 //int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *df, ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat){
   int find_dfdH_1D(long c, double Dt, SoilState *L, GeoVector<double>& df, AllData *adt, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 
-	long i, r=1, l, sy, bc;
+    long r=1, l, sy, bc;
 	double dz, dn, dD, psi1, ice=0.0;
 //	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
@@ -1556,7 +1556,7 @@ int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, S
 //int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l, DOUBLEVECTOR *Kbottom_ch){
 int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, const GeoVector<double>& Kbottom_ch){
 	
-	long i, l, r, c, j, sy, ch, bc;
+    long l, r, c, j, sy, ch, bc;
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
 //	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
@@ -1728,7 +1728,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 //int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom){
 int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *adt, const GeoVector<double>& H, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom){
 	
-	long i, l, r=1, sy, bc;
+    long l, r=1, sy, bc;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
 //	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);

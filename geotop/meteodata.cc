@@ -384,8 +384,8 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
 
     FILE *f;
     long j;
-    double **hor;
-    char *temp;
+    double **hor = NULL;
+    char *temp = NULL ;
     short fileyes;
 
     //check is the file exists
@@ -453,7 +453,7 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
         fclose(f);
         free(temp);
 
-    } else if(fileyes==1){
+    } else if(fileyes == 1) {
 
         if(a==0){
             fprintf(flog,"\nHorizon file FOUND for point type #%ld\n",i);

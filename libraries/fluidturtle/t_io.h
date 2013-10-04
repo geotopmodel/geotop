@@ -13,19 +13,14 @@ char *join_strings(char const * const first, char const * const second) ;
 //char *join_strings(const char *, char *);
 
 /**
-Names: get_workingdirectory
-Synopsis: char *get_workingdirectory(void );
-Version: 1.0
-Description: It asks for the working directory, i.e. the directory where inputs data are stored.
-This directory can be alternatively specified in a file $WorkingPaths to be found in the executable directory
-(for Windows or Mac systems where it is useful. In Unix systems it can be also the directory from where
-the program containing this routine is called) FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
-
-Inputs: void
-Return:  a pointer to the resulting string (the working directory )
-*/
-
-char *get_workingdirectory(void );
+  * @brief It asks for the working directory, i.e. the directory where inputs data are stored.
+  * This directory can be alternatively specified in a file $WorkingPaths to be found in the executable directory
+  * (for Windows or Mac systems where it is useful. In Unix systems it can be also the directory from where
+  * the program containing this routine is called) FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
+  *
+  * @return the resulting string (the working directory )
+  */
+std::string get_workingdirectory();
 
 /*================functions copied from datamanipulation.c===========*/
 

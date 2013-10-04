@@ -9,6 +9,7 @@
 #include <libgen.h>
 #include <limits.h>
 #include <stdio.h>
+#include <iostream>
 
 //char *WORKING_DIRECTORY='\0';
 std::string WORKING_DIRECTORY;
@@ -141,61 +142,82 @@ if(stream==NULL){
 
 }
 
-char * get_workingdirectory(void )
+/*
+TODO: removeme
+char *get_workingdirectory(void )
 
 {
 
     //char buffer[64*FILENAME_MAX];
-
-    //FIXME: rewrite this function in order to use c++ std::ifstream and std::string
-    char * bf = "$WorkingPath";
-    char const * const pathfile="$WorkingPath";
-
+    char *bf=NULL,*pathfile="$WorkingPath";
     //long len;
-	long i;
-	short a;
+    long i;
+    short a;
     FILE *istream;
 
     istream=fopen(pathfile,"r");
     if(istream){
 
-		i=0;
-		a=0;
-		do{
-			if(i==0){
-				bf = (char *) malloc(sizeof(char));
-			}else{
-				bf = (char *)realloc(bf,(i+1)*sizeof(char));
-			}
-			bf[i]=fgetc(istream);
-            if(bf[i]==10 || bf[i]==EOF ){ // if newline or EOF
-				a=1;
-				bf[i]=0;
-			}
-			i+=1;
-		}while(a==0);
+        i=0;
+        a=0;
+        do{
+            if(i==0){
+                bf = (char *) malloc(sizeof(char));
+            }else{
+                bf = (char *)realloc(bf,(i+1)*sizeof(char));
+            }
+            bf[i]=fgetc(istream);
+            if(bf[i]==10 || bf[i]==-1){
+                a=1;
+                bf[i]=0;
+            }
+            i+=1;
+        }while(a==0);
 
-		fclose(istream);
+        fclose(istream);
 
     }else{
 
-		/*printf("ENTER THE WORKING DIRECTORY PATH:\n");
-		scanf("%s",&buffer);
-		len=64*FILENAME_MAX;
+//		printf("ENTER THE WORKING DIRECTORY PATH:\n");
+//		scanf("%s",&buffer);
+//		len=64*FILENAME_MAX;
+//
+//    	if(len > (64*FILENAME_MAX)){
+//			t_error("Maximum path length exceeded");
+//		} else {
+//			bf=(char *)malloc(len*sizeof(char));
+//		}
+//
+//		strcpy(bf,buffer);
 
-    	if(len > (64*FILENAME_MAX)){
-			t_error("Maximum path length exceeded");
-		} else {
-			bf=(char *)malloc(len*sizeof(char));
-		}
-
-		strcpy(bf,buffer);	*/
-
-		t_error("You have to specify aworking directory when you run the executable");
-	}
-	return bf;
+        t_error("You have to specify aworking directory when you run the executable");
+    }
+    return bf;
 }
+*/
 
+std::string get_workingdirectory()
+{
+    std::string retString ;
+    char const * const pathfile = getenv("WorkingPath");
+
+    if(pathfile == NULL)
+    {
+        t_error("You neet to export the WorkingPath environment variable before to run the program");
+        return retString ;
+    }
+
+    std::ifstream inputFile ;
+    inputFile.open (pathfile, std::ifstream::in);
+    std::getline (inputFile, retString);
+
+    if( retString == "" )
+    {
+        t_error(std::string("no valid path found on file: ") + pathfile);
+    }
+
+    return retString;
+}
 
 /**-------------------------------------------------------------------------*/
 
@@ -784,7 +806,7 @@ if (m==NULL || m->co==NULL || m->isdynamic !=1){
 //void multipass_topofilter(long ntimes, DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n){
 void multipass_topofilter(long ntimes, GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, long n){
 
-	long i, r, c;
+    long i ;
 //	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
 

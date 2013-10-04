@@ -99,7 +99,7 @@ namespace GTConst {
     const double  D00 = 21.7;					//molecular diffusivity of water vapor, 21.7 mm2/s
     const double  secinday =86400.0;			//seconds in one day
     const int nl = 1; 							//TODO: noori- we use this constant temporarily as a replacement of the fluidturtle vector's ln
-};
+}
 
 
 //****************************************************
