@@ -5,7 +5,7 @@
 ## Preamble - used to set up meta paths, meta-information, etc.
 #
 # require a minimum version of AutoConf
-AC_PREREQ([2.65])
+AC_PREREQ([2.63])
 # software name, version, contact address
 AC_INIT([geotop],[1.2.10],[stefano.end@gmail.com])
 # if this file does not exist, `configure` was invoked in the wrong directory
