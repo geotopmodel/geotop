@@ -340,8 +340,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	//meteo data
 	met->data=(double***)malloc(met->st->E->nh*sizeof(double**));
+	memset(met->data, 0, met->st->E->nh*sizeof(double**));
 	//number of line of meteo data
 	met->numlines=(long*)malloc(met->st->E->nh*sizeof(long));
+	memset(met->numlines, 0, met->st->E->nh*sizeof(long));
 	//meteo variables for the current instant
 	met->var=(double**)malloc(met->st->E->nh*sizeof(double*));
 	//horizon for meteo stations
@@ -463,10 +465,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			printf("Warning: File meteo not in the list, meteo data not read, used default values\n");
 
 			met->data[i-1] = (double**)malloc(2*sizeof(double*));
+			memset(met->data[i-1], 0, 2*sizeof(double*));
+			met->numlines[i-1] = 2;
 			
 			for (n=1; n<=2; n++) {
 				met->data[i-1][n-1] = (double*)malloc(num_cols*sizeof(double));
-				for (j=1; j<=nmet; j++) {
+				for (j=1; j<=num_cols; j++) {
 					met->data[i-1][n-1][j-1] = (double)number_absent;
 				}
 			}
