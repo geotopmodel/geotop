@@ -45,11 +45,11 @@ esac],
 # This test has to run *before* AC_PROC_CC
 if test x"$debug" = x"true"; then
    AC_DEFINE([DEBUG], [1], [Enable debug compilation])
-   CFLAGS=${CFLAGS:="-Wpedantic -Wall -g3 -O0"}
-   CXXFLAGS=${CXXFLAGS:="-Wpedantic -Wall -g3 -O0"}
+   CFLAGS=${CFLAGS:="-Wextra -Wpedantic -Wall -g3 -O0"}
+   CXXFLAGS=${CXXFLAGS:="-Wextra -Wpedantic -Wall -g3 -O0"}
 else
-   CFLAGS=${CFLAGS:="-Wpedantic -Wall"}
-   CXXFLAGS=${CXXFLAGS:="-Wpedantic -Wall"}
+   CFLAGS=${CFLAGS:="-Wextra -Wpedantic -Wall -O2"}
+   CXXFLAGS=${CXXFLAGS:="-Wextra -Wpedantic -Wall -O2"}
 fi
 
 AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
@@ -101,7 +101,6 @@ AC_ARG_ENABLE([print-doubleprec],
     [AC_DEFINE([USE_DOUBLE_PRECISION_OUTPUT], [1], [enable printing with more precision])],
     [])
 ## end option for printing with 12 bit of precision
-
 
 ## Configure meteoio ##
 AC_ARG_WITH([meteoio],
@@ -177,7 +176,6 @@ if test $FOUND_METEOIO != 1; then
 fi
 
 #### END checking of MeteoIO ####
-
 
 # The `AM_CONDITIONAL` macro makes the results of the test available into `Makefile.am`
 AM_CONDITIONAL([WITH_STATIC_GEOTOP], [test "_$with_static_geotop" = '_yes'])
