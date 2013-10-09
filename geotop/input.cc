@@ -41,7 +41,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     InitTools *IT;
 
     size_t a;
-    short success ;
+    short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0;
     long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
     //	char *temp, **temp2;
@@ -354,7 +354,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             met->numlines[i-1] = num_lines;
 
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-            added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
+            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
