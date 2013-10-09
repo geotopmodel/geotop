@@ -43,12 +43,12 @@ class NotATabFile(Exception):
 def p_verbose(text, newline=True):
     if verbose:
         print text,
-    if newline: print
+        if newline: print
 
 def p_quiet(text, newline=True):
     if not quiet:
         print text,
-    if newline: print
+        if newline: print
 
 def indent(text, tabs=6):
     lines = [" "*tabs + i for i in str(text).split('\n')]
