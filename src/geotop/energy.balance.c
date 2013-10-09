@@ -469,15 +469,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	}			
 	
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-	LWin = A->T->sky->co[r][c]*epsa*SB(Tpoint);
-    /* Note: the longwave radiation coming from the surrounding
-     * terrain is computed in LW instead of LWin.
 
-     This is different from previous code and from the `Trento` branch...
+    LWin = A->T->sky->co[r][c]*epsa*SB(Tpoint);
+    if(A->P->surroundings == 1){
+        /* LWin corrected with temperature of surrounding terrain,
+         * calculated as averaged. */
+        LWin += (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]); 
+    }
 
-       + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c]); 
-    */
-	
 	//if incoming LW data are available, they are used (priority)
 	LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, 0.0, LWin);
 				
@@ -1698,8 +1697,17 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 		*dH_dT+=(1.0-fc)*dHg_dT;		
 		*dE_dT+=(1.0-fc)*dEg_dT;	
 		
-		*LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );//changed
-		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        if(par->surroundings == 1){
+            /* LWin corrected with temperature of surrounding terrain,
+             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
+            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
+
+            /* FIXME: This should be corrected as well */
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }else{
+            *LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }
 		
 		*Hg0=Hg;
 		*Eg0=Eg;		
@@ -1794,7 +1802,13 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, DOUBLEVECTOR *soil_evap_layer_bare,
 									DOUBLEVECTOR *soil_evap_layer_veg, double sky, short flagTmin, long cont){
 	
-	
+
+    /* FIXME: This function is more or less equal to EnergyFluxes()
+     * but it does not recompute the turbolence. We should modify
+     * EnergyFluxes() to accept a parameter in order to avoid code
+     * duplicateion, or to create a different function with the
+     * common code. */
+
 	double Hg, dHg_dT, Eg, dEg_dT, LWg, LWup;
 	double dQgdT;
 	double dLWvdT,LWv_old;
@@ -1828,8 +1842,17 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 		*dH_dT+=(1.0-fc)*dHg_dT;
 		*dE_dT+=(1.0-fc)*dEg_dT;
 		
-		*LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );//changed		
-		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        if(par->surroundings == 1){
+            /* LWin corrected with temperature of surrounding terrain,
+             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
+            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
+
+            /* FIXME: This should be corrected as well */
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }else{
+            *LW += (1.0-fc)*( e*(LWin-sky*SB(Tg)) );
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }
 		
 		*Hg0=Hg;
 		*Eg0=Eg;		
