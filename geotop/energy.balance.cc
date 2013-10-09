@@ -592,7 +592,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->M->tau_cl_av_map->co[r][c], &epsa, &epsa_max, &epsa_min);
 	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
 //	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
-	LWin=A->T->sky[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+	LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+    if(A->P->surroundings == 1){
+        /* LWin corrected with temperature of surrounding terrain,
+         * calculated as averaged. */
+        LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+    }
+
 	//printf("\nLWin=%f",LWin);
 	//if incoming LW data are available, they are used (priority)
 	//HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
@@ -1623,7 +1629,7 @@ short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i,
 										 sl->pa, sy, land->ty, lu, land->root_fraction, par, egy->soil_transp_layer, SWin,
 											   LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv[j]), Qv, Ts, Qs, Hg0, Hg1,
 											   Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v, &(egy->Temp[0]),
-											   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, flagTmin, cont);
+											   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, topog->sky[r][c], flagTmin, cont);
 				EB = *LW - (*H) - Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E) + Eadd;
 				dEB_dT = -eps*dSB_dT(Tg) - dH_dT - Turbulence::latent(Tg, Turbulence::Levap(Tg))*dE_dT;
 				
@@ -2099,8 +2105,17 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 		*dH_dT+=(1.0-fc)*dHg_dT;		
 		*dE_dT+=(1.0-fc)*dEg_dT;	
 		
-		*LW+=(1.0-fc)*( e*(LWin-SB(Tg)) );
-		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        if(par->surroundings == 1){
+            /* LWin corrected with temperature of surrounding terrain,
+             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
+            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
+
+            /* FIXME: This should be corrected as well */
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }else{
+            *LW += (1.0-fc)*( e*(LWin-point_sky*SB(Tg)) );
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }
 		
 		*Hg0=Hg;
 		*Eg0=Eg;		
@@ -2210,7 +2225,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, 
 									double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, double *rv_g, double *Qg, 
 									double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, GeoVector<double>& soil_evap_layer_bare,
-								    GeoVector<double>& soil_evap_layer_veg, short flagTmin, long cont){
+								    GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont){
 
 
 	double Hg, dHg_dT, Eg, dEg_dT, LWg, LWup;
@@ -2248,8 +2263,17 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 		*dH_dT+=(1.0-fc)*dHg_dT;
 		*dE_dT+=(1.0-fc)*dEg_dT;
 		
-		*LW+=(1.0-fc)*( e*LWin-SB(Tg) );
-		*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        if(par->surroundings == 1){
+            /* LWin corrected with temperature of surrounding terrain,
+             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
+            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
+
+            /* FIXME: This should be corrected as well */
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }else{
+            *LW += (1.0-fc)*( e*(LWin-point_sky*SB(Tg)) );
+            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
+        }
 		
 		*Hg0=Hg;
 		*Eg0=Eg;		
