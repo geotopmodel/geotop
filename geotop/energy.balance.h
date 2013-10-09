@@ -149,7 +149,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, 
 									double *Eg1, double *Lobukhov, double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, 
 									double *rv_g, double *Qg, double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, 
-									GeoVector<double>& soil_evap_layer_bare, GeoVector<double>& soil_evap_layer_veg, short flagTmin, long cont);
+									GeoVector<double>& soil_evap_layer_bare, GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont);
 
 
 double k_thermal(double th_liq, double th_ice, double th_sat, double k_solid);

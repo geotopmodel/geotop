@@ -221,7 +221,7 @@ OutputSoilMaps=1
 !OutputSurfEBALMaps=1
 SWEMapFile= "output_maps/SWE"
 SnowDepthMapFile = "output_maps/snowdepth"
-SoilTempProfileFile="output_tabs/soiltemp"
+SoilTempProfileFile="output_maps/soiltemp"
 
 
 !=============================================================================

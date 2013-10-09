@@ -199,6 +199,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     convert_JDfrom0_JDandYear(par->init_date[i_sim0], &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
+	i_run = i_run0;//Run index
+		
     /****************************************************************************************************/
     /*! Reading of the Input files:                                                                     */
     /****************************************************************************************************/
