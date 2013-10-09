@@ -12,7 +12,7 @@
 
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 01/02/2012 00:00
-EndDateDDMMYYYYhhmm =  01/03/2012 00:00
+EndDateDDMMYYYYhhmm =  02/02/2012 00:00
 
 ! Catchment centroid (for Sun position) 
 Latitude	=	46.75604 
@@ -52,8 +52,8 @@ NumberOfMeteoStations = 1
 MeteoStationCoordinateX = 0
 MeteoStationCoordinateY = 0
 MeteoStationElevation = 0
-MeteoStationWindVelocitySensorHeight = 10,10,10,10,10,10,10
-MeteoStationTemperatureSensorHeight = 10,10,10,10,10,10,10
+MeteoStationWindVelocitySensorHeight = 10
+MeteoStationTemperatureSensorHeight = 10
 
 !======================================= 
 ! METEO HAEDERS 
@@ -291,41 +291,41 @@ SoilAll = 1
 
 ! Maps
 
-!SoilAveragedTempTensorFile = "maps/T"
-!SurfaceTempMapFile = "maps/Ts"
+!SoilAveragedTempTensorFile = "output_maps/T"
+!SurfaceTempMapFile = "output_maps/Ts"
 
-!SoilLiqContentTensorFile = "maps/thetaliq"
-SoilLiqWaterPressTensorFile="maps/psiliq"
-!IceLiqContentTensorFile = "maps/thetaice"
+!SoilLiqContentTensorFile = "output_maps/thetaliq"
+SoilLiqWaterPressTensorFile="output_maps/psiliq"
+!IceLiqContentTensorFile = "output_maps/thetaice"
 
-!LandSurfaceWaterDepthMapFile = "maps/hsup"
-!WaterTableDepthMapFile = "maps/watertable"
+!LandSurfaceWaterDepthMapFile = "output_maps/hsup"
+!WaterTableDepthMapFile = "output_maps/watertable"
 
-!SWEMapFile = "maps/SWE"
-!SnowDepthMapFile = "maps/snowdepth"
+!SWEMapFile = "output_maps/SWE"
+!SnowDepthMapFile = "output_maps/snowdepth"
 
-! SnowDurationMapFile = "maps/snowdur"
-!SnowMeltedMapFile= "maps/snowmelt"
+! SnowDurationMapFile = "output_maps/snowdur"
+!SnowMeltedMapFile= "output_maps/snowmelt"
 
-! NetRadiationMapFile = "maps/Rn" ! gives segmentation fault
-!InShortwaveRadiationMapFile = "maps/Rswin"
-!SurfaceHeatFluxMapFile = "maps/EB"
-!SurfaceSensibleHeatFluxMapFile = "maps/H"
-!SurfaceLatentHeatFluxMapFile = "maps/LE"
+! NetRadiationMapFile = "output_maps/Rn" ! gives segmentation fault
+!InShortwaveRadiationMapFile = "output_maps/Rswin"
+!SurfaceHeatFluxMapFile = "output_maps/EB"
+!SurfaceSensibleHeatFluxMapFile = "output_maps/H"
+!SurfaceLatentHeatFluxMapFile = "output_maps/LE"
 
 
 
-PrecipitationMapFile = "maps/Prec"
-NetPrecipitationFile = "maps/Pnet"
-!EvapotranspirationFromSoilFile = "maps/ET"
+PrecipitationMapFile = "output_maps/Prec"
+NetPrecipitationFile = "output_maps/Pnet"
+!EvapotranspirationFromSoilFile = "output_maps/ET"
 
-!AirTempMapFile = "maps/Ta"
+!AirTempMapFile = "output_maps/Ta"
 
-!GlacierDepthMapFile = "maps/glacdepth"
-!GlacierWaterEqMapFile = "maps/GWE"
-!GlacierMeltedMapFile = "maps/glacmelt"
+!GlacierDepthMapFile = "output_maps/glacdepth"
+!GlacierWaterEqMapFile = "output_maps/GWE"
+!GlacierMeltedMapFile = "output_maps/glacmelt"
 
-! ChannelSurfaceWaterDepthMapFile = "maps/ch"
+! ChannelSurfaceWaterDepthMapFile = "output_maps/ch"
 
 
 !=============================================================================
