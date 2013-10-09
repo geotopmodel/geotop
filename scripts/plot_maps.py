@@ -23,20 +23,41 @@
 __docformat__ = 'reStructuredText'
 
 import os
+import re
 import sys
 
 import matplotlib.pylab as plt
 import numpy as np
 
-def read_file(fname):
+class InvalidFormat(Exception):
+    pass
+
+def read_dem_file(fname):
     with open(fname) as fd:
-        ncols = int(fd.readline().split()[-1])
-        nrows = int(fd.readline().split()[-1])
-        xllcorner = fd.readline().split()[-1]
-        yllcorner = fd.readline().split()[-1]
-        cellsize = fd.readline().split()[-1]
-        NODATA_value = float(fd.readline().split()[-1])
+        line = fd.readline()
+        m = re.match(' *ncols +([0-9]+)', line)
+        if not m: raise InvalidFormat("Missing or incorrect `ncols` line")
+        ncols = int(m.group(1))
+
+        line = fd.readline()
+        m = re.match(' *nrows +([0-9]+)', line)
+        if not m: raise InvalidFormat("Missing or incorrect `nrows` line")
+        nrows = int(m.group(1))
+
+        # Ignore following 3 lines
+        fd.readline()
+        fd.readline()
+        fd.readline()
+
+        line = fd.readline()
+        m = re.match(' *NODATA_value +([^ ]+)', line)
+        if not m: raise InvalidFormat("Missing `NODATA_value` line")
+        try:
+            NODATA_value = float(m.group(1))
+        except ValueError as ex:
+            raise InvalidFormat("Invalid format for `NODATA_vlaue`: %s" % ex)
         data = np.fromfile(fd, sep=' ')
+
     data.shape = (nrows, ncols)
     data = np.where(data == NODATA_value, np.nan, data)
     return data
@@ -64,7 +85,11 @@ def rename_file(fname, ext):
     return None
 
 def plot_map_file(fname):
-    data = read_file(fname)
+    try:
+        data = read_dem_file(fname)
+    except InvalidFormat as ex:
+        print "ERROR parsing file: %s" % ex
+        return False
     plt.clf()
     plt.imshow(data)
     plt.colorbar()
