@@ -40,13 +40,15 @@ verbose = False
 class NotATabFile(Exception):
     pass
 
-def p_verbose(text):
+def p_verbose(text, newline=True):
     if verbose:
-        print text
+        print text,
+    if newline: print
 
-def p_quiet(text):
+def p_quiet(text, newline=True):
     if not quiet:
-        print text
+        print text,
+    if newline: print
 
 def indent(text, tabs=6):
     lines = [" "*tabs + i for i in str(text).split('\n')]
@@ -69,7 +71,7 @@ def compare_tab_files(f1, f2):
     # check fields one by one
     equals = True
     for field in data_ok:
-        p_quiet("  -> field '%s': " % field,)
+        p_quiet("  field '%s': " % field, newline=False)
         if data_ok[field].dtype == pandas.np.dtype('O'):
             if (data_ok[field] == data_new[field]).all():
                 p_quiet(" OK")
@@ -90,24 +92,24 @@ def compare_map_files(f1, f2):
     data_ok = pandas.read_csv(f1, sep=' ', skiprows=6, header=None)
     data_new = pandas.read_csv(f2, sep=' ', skiprows=6, header=None)
     if data_ok.shape != data_new.shape:
-        p_quiet("  => FAIL")
+        p_quiet("FAIL")
         return False
     try:
         diff = (data_ok - data_new).apply(abs)
     except (ValueError, TypeError):
         if not filecmp.cmp(f1, f2):
-            p_quiet("  => FAIL")
+            p_quiet("FAIL")
             return False
     if (diff == 0).all().all():
-        p_quiet("  => OK")
+        p_quiet("OK")
         return True
     else:
-        p_quiet("  => FAIL")
+        p_quiet("FAIL")
         p_verbose(indent(diff.describe(), tabs=4))
         return False
 
 def compare_files(f1, f2):
-    p_quiet("\nComparing '%s' and '%s'" % (f1, f2))
+    p_quiet("Comparing '%s' and '%s':" % (f1, f2), newline=False)
     try:
         return compare_tab_files(f1, f2)
     except NotATabFile:
