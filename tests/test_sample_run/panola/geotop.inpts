@@ -268,23 +268,23 @@ BedrockDepthMapFile="bedrock_depth"
 ! Output files
 
 ! Tabs 
-DischargeFile = "tabs/discharge"
+DischargeFile = "output_tabs/discharge"
 
-PointOutputFile = "tabs/point" 
+PointOutputFile = "output_tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "tabs/snow"
+SnowProfileFile = "output_tabs/snow"
 SnowAll = 1
 
-SnowCoveredAreaFile = "tabs/snowcover"
+SnowCoveredAreaFile = "output_tabs/snowcover"
 
-BasinOutputFile = "tabs/basin" 
+BasinOutputFile = "output_tabs/basin" 
 
 BasinAll = 1
 
-SoilAveragedTempProfileFile = "tabs/soilTz" 
-SoilLiqContentProfileFile = "tabs/thetaliq" 
-SoilIceContentProfileFile = "tabs/thetaice" 
+SoilAveragedTempProfileFile = "output_tabs/soilTz" 
+SoilLiqContentProfileFile = "output_tabs/thetaliq" 
+SoilIceContentProfileFile = "output_tabs/thetaice" 
 SoilAll = 1
 
 
