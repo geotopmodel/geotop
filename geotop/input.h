@@ -41,6 +41,7 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
+#include "keywords.h"
 #ifdef USE_NETCDF
 //#include "../gt_utilities/gt_utilities.h"
 #include "../netCDF/read_command_line.h"
@@ -65,8 +66,6 @@ extern long Nl, Nr, Nc;
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
 extern long *oglc, noglc, *osl, nosl;
 extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-//extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
-extern std::string keywords_num[], keywords_char[];
 //extern char *SuccessfulRunFile, *FailedRunFile;
 extern std::string SuccessfulRunFile;
 extern std::string FailedRunFile;

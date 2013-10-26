@@ -21,6 +21,7 @@
 #include "snow.h"
 #include "../libraries/ascii/init.h"
 #include "water.balance.h"
+#include "keywords.h"
 
 
 #include <time.h>
@@ -41,8 +42,6 @@ extern double **outdata_point, *outdata_basin;
 extern long *outputpoint, noutputpoint, *outputbasin, noutputbasin, *outputsnow, noutputsnow;
 extern long *outputglac, noutputglac, *outputsoil, noutputsoil;
 extern char **headerpoint, **headerbasin, **headersnow, **headerglac, **headersoil;
-
-extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
 
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
 

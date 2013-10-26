@@ -57,53 +57,7 @@ using namespace std;
 
                
 /*----------   1. Global variables  ------------*/
-
-#include "keywords.h"	//contains the definition of char** keywords_num and char** keywords_char
-
-const double TZ = 1.;
-
-long number_novalue;
-long number_absent;
-char *string_novalue;
-
-// T_INIT *UV;
-TInit *UV;
-
-//char *logfile;
-string logfile;
-char **files;
-
-long Nl,Nr,Nc;
-double t_meteo, t_energy, t_water, t_sub, t_sup, t_blowingsnow, t_out;
-
-double **odpnt, **odp;
-long *opnt, nopnt;
-short *ipnt, *ibsn;
-char **hpnt;
-
-double *odbsn, *odb;
-long *obsn, nobsn;
-char **hbsn;
-
-long *osnw, nosnw;
-char **hsnw;
-
-long *oglc, noglc;
-char **hglc;
-
-long *osl, nosl;
-char **hsl;
-
-FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
-
-long i_sim, i_run, i_sim0, i_run0;
-
-//char *SuccessfulRunFile, *FailedRunFile;
-
-string SuccessfulRunFile, FailedRunFile;
-
-time_t start_time; 
-double elapsed_time, elapsed_time_start, cum_time, max_time;
+// defined and declared into geotop.cc
 
 /*----------   2.  Begin of main and declaration of its variables (several structs)   ----------*/
 

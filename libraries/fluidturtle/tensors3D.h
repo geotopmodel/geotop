@@ -5,8 +5,8 @@
 #include "tensors3D.h"
 #include "../../geotop/constants.h"
 #include <vector>
-#include "../../geotop/struct.geotop.h"
-#include "../../geotop/datastructs.h"
+//#include "../../geotop/struct.geotop.h"
+//#include "../../geotop/datastructs.h"
 
 void initialize_doubletensor(DOUBLETENSOR *L,double sign);
 void copy_doubletensor(DOUBLETENSOR *origin,DOUBLETENSOR *destination);

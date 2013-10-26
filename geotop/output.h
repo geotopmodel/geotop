@@ -31,6 +31,7 @@
 #include "input.h"
 #include "../libraries/ascii/tabs.h"
 #include "vegetation.h"
+#include "keywords.h"
 #include "tables.h"
 #include "snow.h"
 
@@ -57,9 +58,6 @@ extern double **odpnt, **odp, *odbsn, *odb;
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
 extern long *oglc, noglc, *osl, nosl;
 extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-
-//extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
-extern std::string keywords_num[],keywords_char[] ;
 
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
 

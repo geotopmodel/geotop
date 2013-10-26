@@ -5,10 +5,9 @@
 #include <iostream>  /* C++ header */
 #include <vector>
 
-#include "../libraries/ascii/tabs.h"
 #include "../geotop/constants.h"
-#include "../geotop/struct.geotop.h"
-#include "../geotop/meteo.h"
+#include "../geotop/geotop_common.h"
+#include "../geotop/part_snow.h"
 
 #define PI 3.14159265358979
 

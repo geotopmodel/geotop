@@ -6,7 +6,7 @@
 using namespace std;
 using namespace mio;
 extern long i_sim;
-const double TZ = 1.;
+//const double TZ = 1.;
 extern long number_novalue;
 
 IOManager* io;
