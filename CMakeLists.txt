@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 
+#default compiler flags
+SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
+SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wpedantic -Wall -O2" CACHE STRING "" )
+SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wpedantic -Wall -O2" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wpedantic -Wall -g3 -O0" CACHE STRING "" )
+SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wpedantic -Wall -g3 -O0" CACHE STRING "" )
+
 project("geotop")
 
 # config.h variables
@@ -178,7 +185,6 @@ SET(PACKAGE_VERSION "1.2.10")
 SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 configure_file (${CMAKE_CURRENT_LIST_DIR}/config_cmake.h.in ${CMAKE_CURRENT_LIST_DIR}/config.h)
-
 
 SUBDIRS(
 	geotop
