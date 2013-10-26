@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
+
 project("geotop")
 
+# config.h variables
 SET(PACKAGE "geotop")
 SET(PACKAGE_VERSION "1.2.10")
 SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
@@ -18,12 +20,12 @@ find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
 SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+# when building, don't use the install RPATH already
+# (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
 # add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-# when building, don't use the install RPATH already
-# (but later on when installing)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
 IF (BUILD_STATIC)
 	SET( LINKING_MODE STATIC)
@@ -104,13 +106,21 @@ SET( NETCDF_INCLUDE_PATH ${CMAKE_CURRENT_LIST_DIR}/netCDF)
 
 # geotop
 SET( GEOTOP_LIBRARIES
-    "geotopL" )
+    "geotopAll" )
 SET( GEOTOP_LIBRARY_PATH ${CMAKE_CURRENT_LIST_DIR}/geotop)
 SET( GEOTOP_INCLUDE_PATH ${CMAKE_CURRENT_LIST_DIR}/geotop)
 
 # geotopMeteo
+SET( GEOTOP_OUT_POSTPROC_LIBRARIES
+    "geotopOutPostProcessing" )
+
+# geotopMeteo
 SET( GEOTOP_METEO_LIBRARIES
     "geotopMeteo" )
+
+# geotopMeteo
+SET( GEOTOP_WATER_BALANCE_LIBRARIES
+    "geotopWaterBalance" )
 
 # geotopPartSnow
 SET( GEOTOP_PART_SNOW_LIBRARIES
@@ -150,7 +160,25 @@ link_directories(
 	${WRF_LIBRARY_PATH}
 )
 
+# generate test program
+## test_runner.py variables
+SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_LIST_DIR}/geotop/geotop" )
+SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_LIST_DIR}/tests/test_sample_run")
+IF(ENABLE_INTERNAL_METEODISTR)
+    SET ( METEODISTR_RESULTS_DIR results.meteodistr )
+ELSE(ENABLE_INTERNAL_METEODISTR)
+    SET ( METEODISTR_RESULTS_DIR results )
+ENDIF(ENABLE_INTERNAL_METEODISTR)
+configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
+
+# generate config include file
+## config.h variables
+SET(PACKAGE "geotop")
+SET(PACKAGE_VERSION "1.2.10")
+SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
+SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 configure_file (${CMAKE_CURRENT_LIST_DIR}/config_cmake.h.in ${CMAKE_CURRENT_LIST_DIR}/config.h)
+
 
 SUBDIRS(
 	geotop

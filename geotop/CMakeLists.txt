@@ -24,11 +24,26 @@ ENDIF(COMMAND CMAKE_POLICY)
 			meteodata.h
 			times.cc
 			times.h
+
+			snow.cc
+			snow.h
+			turbulence.cc
+			turbulence.h
+			radiation.cc
+			radiation.h
+			vegetation.cc
+			vegetation.h
+			clouds.cc
+			clouds.h
+
+			pedo.funct.cc
+			pedo.funct.h
 		   )
 
 	ADD_LIBRARY(geotopCommon ${LINKING_MODE}
 			constants.h
 			datastructs.h
+			struct.geotop.h
 			geotop_common.cc
 			geotop_common.h
 			keywords.h
@@ -38,21 +53,15 @@ ENDIF(COMMAND CMAKE_POLICY)
 	ADD_LIBRARY(geotopEnergyBalance ${LINKING_MODE}
 			energy.balance.cc
 			energy.balance.h
-			turbulence.cc
-			turbulence.h
-			snow.cc
-			snow.h
-			radiation.cc
-			radiation.h
-			pedo.funct.cc
-			pedo.funct.h
-			vegetation.cc
-			vegetation.h
-			clouds.cc
-			clouds.h
 		   )
 
-	ADD_LIBRARY(geotopL ${LINKING_MODE}
+
+	ADD_LIBRARY(geotopWaterBalance ${LINKING_MODE}
+			water.balance.cc
+			water.balance.h
+	)
+
+	ADD_LIBRARY(geotopAll ${LINKING_MODE}
 
 			PBSM.cc
 			PBSM.h
@@ -60,16 +69,10 @@ ENDIF(COMMAND CMAKE_POLICY)
 			blowingsnow.h
 			channels.cc
 			channels.h
-			deallocate.cc
-			deallocate.h
-			energy.balance.h
 			indices.cc
 			indices.h
 			input.cc
 			input.h
-			output.cc
-			output.h
-			output_nc.cc
 	output_nc.h
 	parameters.cc
 	parameters.h
@@ -77,21 +80,29 @@ ENDIF(COMMAND CMAKE_POLICY)
 	pure_gt.h
 	recovering.cc
 	recovering.h
-	struct.geotop.h
-	tables.cc
-	tables.h
-	water.balance.cc
-	water.balance.h
+	)
+
+
+	ADD_LIBRARY(geotopOutPostProcessing ${LINKING_MODE}
+			tables.cc
+			tables.h
+			output.cc
+			output_nc.cc
+			output.h
+			deallocate.cc
+			deallocate.h
 	)
 
 	TARGET_LINK_LIBRARIES(geotopCommon
 			${FLUIDTURTLE_LIBRARIES}
-#${ASCII_LIBRARIES}
-#${METEOIO_PLUGIN_INCLUDE_PATH}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_PART_SNOW_LIBRARIES}
 			${GEOTOP_COMMON_LIBRARIES}
+			)
+
+	TARGET_LINK_LIBRARIES(${GEOTOP_OUT_POSTPROC_LIBRARIES}
+			${GEOTOP_METEO_LIBRARIES}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_METEO_LIBRARIES}
@@ -99,12 +110,18 @@ ENDIF(COMMAND CMAKE_POLICY)
 			${ASCII_LIBRARIES}
 			)
 
+	TARGET_LINK_LIBRARIES(${GEOTOP_WATER_BALANCE_LIBRARIES}
+			${GEOTOP_METEO_LIBRARIES}
+			)
+
 	TARGET_LINK_LIBRARIES(${GEOTOP_ENERGY_BALANCE_LIBRARIES}
 			${GEOTOP_METEO_LIBRARIES}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_LIBRARIES}
+			${GEOTOP_OUT_POSTPROC_LIBRARIES}
 			${GEOTOP_ENERGY_BALANCE_LIBRARIES}
+			${GEOTOP_WATER_BALANCE_LIBRARIES}
 			)
 
 	TARGET_LINK_LIBRARIES(geotop
