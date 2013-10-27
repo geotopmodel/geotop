@@ -34,7 +34,7 @@
 #include "tables.h"
 #include "blowingsnow.h"
 #include "meteodata.h"
-#include "../meteoio_plugin/meteoioplugin.h"
+//#include "../meteoio_plugin/meteoioplugin.h"
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 

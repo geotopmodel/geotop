@@ -3,7 +3,7 @@
 #include "turtle.h"
 #include "tensors3D.h"
 #include <vector>
-#include "../../geotop/datastructs.h"
+//#include "../../geotop/datastructs.h"
 
 int mkdirp(const char *pathname, mode_t mode);
 

@@ -62,8 +62,7 @@ ENDIF(COMMAND CMAKE_POLICY)
 	)
 
 	ADD_LIBRARY(geotopAll ${LINKING_MODE}
-
-			PBSM.cc
+            PBSM.cc
 			PBSM.h
 			blowingsnow.cc
 			blowingsnow.h
@@ -73,13 +72,13 @@ ENDIF(COMMAND CMAKE_POLICY)
 			indices.h
 			input.cc
 			input.h
-	output_nc.h
-	parameters.cc
-	parameters.h
-	pure_gt.cc
-	pure_gt.h
-	recovering.cc
-	recovering.h
+            output_nc.h
+            parameters.cc
+            parameters.h
+            pure_gt.cc
+            pure_gt.h
+            recovering.cc
+            recovering.h
 	)
 
 

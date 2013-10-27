@@ -21,7 +21,7 @@
 #ifndef RECOVERING_H
 #define RECOVERING_H
 #include "struct.geotop.h"
-#include "../meteoio_plugin/meteoioplugin.h"
+//#include "../meteoio_plugin/meteoioplugin.h"
 #include <string>
 #include "../libraries/ascii/rw_maps.h"
 

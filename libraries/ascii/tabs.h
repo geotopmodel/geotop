@@ -11,7 +11,7 @@
 #include "tabs.h"
 #include "../fluidturtle/turtle.h"
 
-#include "../../geotop/constants.h"
+//#include "../../geotop/constants.h"
 
 #define max_components 200
 #define max_string_length 200

@@ -26,10 +26,10 @@
 #include "struct.geotop.h"
 #include "meteodata.h"
 #include "meteodistr.h"
-#include "../libraries/ascii/tabs.h"
+//#include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"
-#include "../meteoio_plugin/meteoioplugin.h"
+//#include "../meteoio_plugin/meteoioplugin.h"
 
 extern long number_novalue;
 //number_absent;

@@ -23,6 +23,8 @@ SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant c
 
 SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, routine instead of using MeteoIO" FORCE)
 
+SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
+
 find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
@@ -69,7 +71,9 @@ IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)
 ENDIF(ENABLE_INTERNAL_METEODISTR)
 
-
+IF (USE_NETCDF)
+	add_definitions(-DUSE_NETCDF)
+ENDIF (USE_NETCDF)
 
 #add_definitions(
 #    "-std=c++11"
