@@ -521,7 +521,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     if(snowD>0){
         //	if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T->co[ns][r][c], Dt, &(snowage->co[j]));
-        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, &(snowage[j]));
+        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, 10.0 /* A->P->minP_torestore_A */, &(snowage[j]));
         //	avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage->co[j], cosinc, (*Fzen));
         avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
         //	avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage->co[j], cosinc, (&Turbulence::Zero));

@@ -521,7 +521,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
 #else
                                         //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
-                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
+                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -541,7 +541,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
 #else
                                         //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
-                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
+                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -561,7 +561,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
 #else
                                         //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
-                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -643,7 +643,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
 #else
                                         //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
-                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
+                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -663,7 +663,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
 #else
                                         //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
-                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
+                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -683,7 +683,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
 #else
                                         //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
-                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -691,7 +691,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         fprintf(ffsnow, "%12g",snow->S->w_liq[l][r][c]);
 #else
                                         //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
-                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 3*m + par->max_snow_layers) {
@@ -791,7 +791,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
 #else
                                             //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
-                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
+                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -811,7 +811,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice));
 #else
                                             //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_ice));
-                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice));
+                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -831,7 +831,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq));
 #else
                                             //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_liq));
-                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq));
+                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -913,7 +913,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(ffglac, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
 #else
                                             //	fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
-                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
+                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -933,7 +933,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(ffglac, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice));
 #else
                                             //	fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_ice));
-                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice));
+                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -953,7 +953,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                             fprintf(ffglac, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq));
 #else
                                             //	fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_liq));
-                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq));
+                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
