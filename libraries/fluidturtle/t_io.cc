@@ -1459,7 +1459,7 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 		}else if(r < c){
 		//	printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,Lp->co[x->nh],x->nh);
 			printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
-			t_error("matrix is not L");
+            t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
 	//	if(i<Li->nh){
@@ -1727,7 +1727,7 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 		}else if(r < c){
 			//printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li->nh,Lp[x->nh],x->nh);
 			printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
-			t_error("matrix is not L");
+            t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
 	//	if(i<Li->nh){
