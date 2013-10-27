@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
-SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wpedantic -Wall -O2" CACHE STRING "" )
-SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wpedantic -Wall -O2" CACHE STRING "" )
-SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wpedantic -Wall -g3 -O0" CACHE STRING "" )
-SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wpedantic -Wall -g3 -O0" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
+SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
+SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 
 project("geotop")
 
@@ -175,12 +175,14 @@ link_directories(
 ## test_runner.py variables
 SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_LIST_DIR}/geotop/geotop" )
 SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_LIST_DIR}/tests/test_sample_run")
+SET ( GEOTOP_TEST_INTEGRATION_DIR "${CMAKE_CURRENT_LIST_DIR}/test_integration/test_sample_run")
 IF(ENABLE_INTERNAL_METEODISTR)
     SET ( METEODISTR_RESULTS_DIR results.meteodistr )
 ELSE(ENABLE_INTERNAL_METEODISTR)
     SET ( METEODISTR_RESULTS_DIR results )
 ENDIF(ENABLE_INTERNAL_METEODISTR)
 configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
+configure_file (${GEOTOP_TEST_INTEGRATION_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_INTEGRATION_DIR}/test_runner.py)
 
 # generate config include file
 ## config.h variables

@@ -1437,17 +1437,17 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 
 //void product_using_only_strict_lower_diagonal_part(DOUBLEVECTOR *product, DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
 void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<long>& Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
-	long c, r, i;
+	long c, r ;
 
 //	for(i=1;i<=x->nh;i++){
-	for(i=1;i<=x.size();i++){
+	for(size_t i=1;i<=x.size();i++){
 	//	product->co[i] = 0.0;
 		product[i] = 0.0;
 	}
 
 	c = 1;
 //	for(i=1;i<=Li->nh;i++){
-	for(i=1;i<=Li.size();i++){
+	for(size_t i=1;i<=Li.size();i++){
 	//	r = Li->co[i];
 		r = Li[i];
 
