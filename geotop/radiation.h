@@ -81,7 +81,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	
 double diff2glob(double a);
 
-double atm_transmittance(double X, double P, double RH, double T);
+double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g);
 
 void longwave_radiation(short state, double pvap, double RH, double T, double taucloud, double *eps, double *eps_max, double *eps_min);
 

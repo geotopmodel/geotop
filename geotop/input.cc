@@ -361,9 +361,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             //find clouds
             if(strcmp(IT->met_col_names[itauC], string_novalue) != 0){
                 if((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1){
-                    added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1],
-                            met->st->lat[i], met->st->lon[i], par->ST, met->st->Z[i], met->st->sky[i], 0.0, par->ndivdaycloud, par->dem_rotation);
-                    //par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
+			added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1], 
+			    met->st->lat[i], met->st->lon[i], par->ST, met->st->Z[i], met->st->sky[i], 0.0, par->ndivdaycloud, par->dem_rotation,
+			    par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
                 }
             }
 

@@ -740,11 +740,8 @@ public:
 	
 	short surroundings;
 	
-//	DOUBLEVECTOR *soil_plot_depths;
 	GeoVector<double> soil_plot_depths;
-//	DOUBLEVECTOR *snow_plot_depths;
 	GeoVector<double> snow_plot_depths;
-//	DOUBLEVECTOR *glac_plot_depths;
 	GeoVector<double> glac_plot_depths;
 	
 	short ric_cloud;
@@ -786,6 +783,10 @@ public:
 	
 	double k_to_ksat;
 	short RunIfAnOldRunIsPresent;
+
+	double Lozone;
+	double alpha_iqbal;
+	double beta_iqbal;
 };
 //} PAR;
 

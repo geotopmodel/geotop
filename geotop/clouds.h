@@ -32,15 +32,15 @@ extern long number_novalue, number_absent;
 //extern char *WORKING_DIRECTORY;
 extern std::string WORKING_DIRECTORY;
 
-short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, 
-									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation);
+short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, double ST, double Z, double sky,
+									  double SWrefl_surr, long ndivday, double rotation, double Lozone, double alpha, double beta, double albedo);
 
-void cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, 
-				double ST, double Z, double sky, double SWrefl_surr, double *cloudtrans, long ndivday, double rotation);
+void cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, 
+				double *cloudtrans, long ndivday, double rotation, double Lozone, double alpha, double beta, double albedo);
 
-double find_cloudiness(long n, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation);
+double find_cloudiness(long n, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation, double Lozone, double alpha, double beta, double albedo);
 
-double average_cloudiness(long n0, long n1, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double average_cloudiness, double rotation);
+double average_cloudiness(long n0, long n1, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation, double Lozone, double alpha, double beta, double albedo);
 
 void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines, double **horizon, long horizonlines, 
 				 double lat, double lon, double ST, double rotation);

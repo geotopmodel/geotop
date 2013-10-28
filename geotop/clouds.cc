@@ -1,23 +1,24 @@
 
 /* STATEMENT:
  
- GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ Geotop 1.225-15 - 20 Jun 2013
  
- Copyright (c), 2012 - Stefano Endrizzi 
+ Copyright (c), 2013 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of Geotop 1.225-15
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ Geotop 1.225-15  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
+ Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+
 
 #include "clouds.h"
 #include "config.h"
@@ -28,7 +29,8 @@
 //*****************************************************************************************************************
 //lat and lon in [deg]
 short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat,
-									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation){
+									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation,
+									 double Lozone, double alpha, double beta, double albedo){
 
 	double *cloudtrans;
 	long n;
@@ -37,7 +39,7 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 	if ( (long)meteo[0][iSW] != number_absent || ( (long)meteo[0][iSWb] != number_absent && (long)meteo[0][iSWd] != number_absent ) ){
 
 		cloudtrans = (double*)malloc(meteolines*sizeof(double));
-		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation);
+		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta, albedo);
 
 		for (n=0; n<meteolines; n++) {
 			meteo[n][itauC] = cloudtrans[n];
@@ -61,7 +63,8 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 //*****************************************************************************************************************
 
 void cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, 
-				double ST, double Z, double sky, double SWrefl_surr, double *cloudtrans, long ndivday, double rotation){
+				double ST, double Z, double sky, double SWrefl_surr, double *cloudtrans, long ndivday, double rotation,
+				double Lozone, double alpha, double beta, double albedo){
 	/*!
 	 * This function calculates the average cloudiness of a dataset of meteo variables recorded in a meteo station where the Short Wave radiation is measured.
 	 * The day is considered to be the composed by: daylight (time where the sun is present) and night. The start of the daylight is given by moment (meteo line)
@@ -79,7 +82,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	double E0;
 	double Et;
 	double Delta;
-	double alpha; // solar elevation angle
+	double height_sun; // solar elevation angle
 	double direction;// solar azimuth angle
 	long n00;//line at which the computation begins
 	long n0;// line of the meteo file at which the sun rises
@@ -91,7 +94,6 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	std::string temp;
 	
 	//file header
-//	temp = join_strings(WORKING_DIRECTORY,filecloud);
 	temp = WORKING_DIRECTORY + filecloud;
 	f = fopen(temp.c_str(),"w");
 	fprintf(f,"Date,SolarHeight[deg],SolarAzimuth[deg],SinSolarHeight,SWinMeasured[W/m2],SWinClearSky[W/m2],AtmTransmissivity,CloudTransmissivity\n");
@@ -119,7 +121,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 		
 		for(k=1;k<=ndivday;k++){
 			// find the average cloudiness during the daylight (between the line ndiv[k-1] and ndiv[k])
-			tc = average_cloudiness(ndiv[k-1], ndiv[k], meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation);
+			tc = average_cloudiness(ndiv[k-1], ndiv[k], meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
 			
 			//cloudiness at night (from n00<=n<n0)
 			if (k==1) {
@@ -146,13 +148,13 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	
 	n = n00;
 	sun(meteo[n][iJDfrom0], &E0, &Et, &Delta);
-	alpha = SolarHeight(meteo[n][iJDfrom0], lat, Delta, (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
+	height_sun = SolarHeight(meteo[n][iJDfrom0], lat, Delta, (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
 	direction = SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::Pi/180.;
 	if (direction < 0) direction += 2*GTConst::Pi;
 	if (direction > 2*GTConst::Pi) direction -= 2*GTConst::Pi;
 
-	if( shadows_point(horizon, horizonlines, alpha*180./GTConst::Pi, direction*180./GTConst::Pi, GTConst::Tol_h_mount, GTConst::Tol_h_flat) == 0){
-		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation);
+	if( shadows_point(horizon, horizonlines, height_sun*180./GTConst::Pi, direction*180./GTConst::Pi, GTConst::Tol_h_mount, GTConst::Tol_h_flat) == 0){
+		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
 	}else {
 		tc = (double)number_novalue;
 	}
@@ -166,7 +168,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 
-double find_cloudiness(long n, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation){
+double find_cloudiness(long n, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation, double Lozone, double alpha, double beta, double albedo){
 	/*!
 	 * This function calculates the cloudiness of a meteo station at a time "n" which corresponds to a line in the meteo file.
 	 * According to "n", the julian day is calculated and consequently the solar parameters (elevation, azimuth).
@@ -185,7 +187,7 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 	double P; // expected pressure at elevation Z
 	double RH;
 	double T;
-	double alpha;
+	double height_sun;
 	double tau_atm;
 	long d, m, y, h, mi;
 	FILE *f;
@@ -237,17 +239,17 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 	f = fopen(temp.c_str(),"a");
 	convert_JDfrom0_JDandYear(meteo[n][iJDfrom0], &JD, &y);
 	convert_JDandYear_daymonthhourmin(JD, y, &d, &m, &h, &mi);
-	alpha = SolarHeight(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega);
-	tau_atm = atm_transmittance(alpha, P, RH, T);
+	height_sun = SolarHeight(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega);
+	tau_atm = atm_transmittance(height_sun, P, RH, T, Lozone, alpha, beta, albedo);
 
     #ifdef USE_DOUBLE_PRECISION_OUTPUT
         fprintf(f,"%02.12g/%02.12g/%04.12g %02.12g:%02.12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",(float)d, (float)m, (float)y, (float)h,(float)mi,
-                alpha*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
-                Fmax(sin(alpha), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(alpha),0.05)*tau_atm,tau_atm,tau_cloud);
+                height_sun*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
+                Fmax(sin(height_sun), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(height_sun),0.05)*tau_atm,tau_atm,tau_cloud);
     #else
         fprintf(f,"%02.f/%02.f/%04.f %02.f:%02.f,%f,%f,%f,%f,%f,%f,%f\n",(float)d, (float)m, (float)y, (float)h,(float)mi,
-                alpha*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
-                Fmax(sin(alpha), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(alpha),0.05)*tau_atm,tau_atm,tau_cloud);
+                height_sun*180./GTConst::Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega)) * 180./GTConst::Pi,
+                Fmax(sin(height_sun), 0.05), meteo[n][iSW], GTConst::Isc*E0*Fmax(sin(height_sun),0.05)*tau_atm,tau_atm,tau_cloud);
     #endif
 
 	fclose(f);	
@@ -261,7 +263,7 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 
-double average_cloudiness(long n0, long n1, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation){
+double average_cloudiness(long n0, long n1, double **meteo, long meteolines, double lat, double lon, double ST, double Z, double sky, double SWrefl_surr, double rotation, double Lozone, double alpha, double beta, double albedo){
 	/*! finds the average cloudiness between two times:
 	 * n0: first time corresponding to a line in the meteofile
 	 * n1: second time corresponding to a line in the meteofile*/
@@ -270,7 +272,7 @@ double average_cloudiness(long n0, long n1, double **meteo, long meteolines, dou
 	short is_novalue=0;
 		
 	for(n=n0;n<n1;n++){
-		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation);
+		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
 		if( (long)tc == number_novalue){
 			is_novalue = 1;
 		}else {
@@ -288,7 +290,10 @@ double average_cloudiness(long n0, long n1, double **meteo, long meteolines, dou
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 //*****************************************************************************************************************
-
+//nist line at which the computation begins
+//n0 line at sunrise
+//n1 line at sunset
+//lat and lon in [rad]
 void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines, double **horizon, long horizonlines, 
 				 double lat, double lon, double ST, double rotation){
 	/* !

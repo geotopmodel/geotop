@@ -135,13 +135,17 @@ double TauatmCosinc(double JD, double *others){
 	double P = others[5];
 	double slope = others[6];
 	double aspect = others[7];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];
 	
-	double alpha, direction;
+	double height, dir;
 	
-	alpha = SolarHeight_(JD, others);
-	if (alpha>0) {
-		direction = SolarAzimuth_(JD, others);
-		return atm_transmittance(Fmax(alpha,asin(0.05)),P,RH,T)*Fmax(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(-aspect+direction));
+	height = SolarHeight_(JD, others);
+	if (height>0) {
+		dir = SolarAzimuth_(JD, others);
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo)*Fmax(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(-aspect+dir));
 	}else {
 		return 0.0;
 	}
@@ -163,12 +167,16 @@ double TauatmSinalpha(double JD, double *others){
 	double RH = others[3];
 	double T = others[4];
 	double P = others[5];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];
 	
-	double alpha;
+	double height;
 	
-	alpha = SolarHeight_(JD, others);
-	if (alpha>0) {
-		return atm_transmittance(Fmax(alpha,asin(0.05)),P,RH,T) * Fmax(sin(alpha), 0.05);
+	height = SolarHeight_(JD, others);
+	if (height>0) {
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);
 	}else {
 		return 0.0;
 	}
@@ -238,10 +246,15 @@ double Tauatm(double JD, double *others){
 	double RH = others[3];
 	double T = others[4];
 	double P = others[5];
+	double Lozone = others[8];
+	double alpha = others[9];
+	double beta = others[10];
+	double albedo = others[11];	
+	double height;
 	
-	double alpha = SolarHeight_(JD, others);
-	if (alpha < asin(0.05)) alpha = asin(0.05);
-	return atm_transmittance(alpha, P, RH, T);
+	height = SolarHeight_(JD, others);
+	if (height < asin(0.05)) height = asin(0.05);
+	return atm_transmittance(height, P, RH, T, Lozone, alpha, beta, albedo);
 }
 
 double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
@@ -318,9 +331,25 @@ double diff2glob(double a){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double atm_transmittance(double X, double P, double RH, double T){
+/* Antonio + Stefano E.: The function `atm_transmittance` has been
+   changed back from a previous modifcation in order to ease the
+   merging between Trento and UZH branches. The old code is in
+   `atm_transmittance_iqbal`.
+
+   In the future, it would be better to add a keyword in order to
+   allow the user to decide which one of the two functions must be
+   used.
+*/
+double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 		
+	//X = angle of the sun above the horizon [rad]
+	//P = pressure [mbar]
+	//RH = relative humidity [0-1]
+	//T = air temperature [C]
+	
+	/*
 	//from Mayers and Dale, Predicting Daily Insolation with Hourly Cloud Height and Coverage, 1983, pg 537, Journal of Climate and Applied Meteorology
+    */
 	double tau_sa;//Reyleigh scattering and gas absorption transmittance
 	double tau_w;//transmittance due to water vapor
 	double tau_a;//transmittance due to aerosol
@@ -330,14 +359,11 @@ double atm_transmittance(double X, double P, double RH, double T){
 	
 	m = 35. * pow( 1224.*pow(sin(X), 2.) + 1. , -0.5 );
 	tau_sa = 1.021 - 0.084 * pow(m*(0.000949*P + 0.051), 0.5);
-	w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk);
+	w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk); 
 	tau_w = 1. - 0.077*pow(w*m, 0.3);
 	tau_a = pow(0.935, m);
-	
 	tau_atm = tau_sa*tau_w*tau_a;
-		
 	return(tau_atm);
-
 }
 
 /******************************************************************************************************************************************/
