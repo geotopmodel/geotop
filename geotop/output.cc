@@ -22,6 +22,7 @@
 #include <string>
 #include "output.h"
 #include "config.h"
+#include "constants.h"
 
 using namespace std;
 
@@ -448,9 +449,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //Snow
-                    if(strcmp(files[fsnz] , string_novalue) != 0){
+                    if(strcmp(files[fsatz] , string_novalue) != 0){
 
-                        temp1=join_strings(files[fsnz],NNNN);
+                        temp1=join_strings(files[fsatz],NNNN);
 
                         if (par->recover>0) {
                             //	temp2 = join_strings(temp1, rec);
@@ -595,7 +596,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         //	free(name);
                     }
 
-                    if(strcmp(files[fsnzwriteend] , string_novalue) != 0){
+                    if(strcmp(files[fsnTzwriteend] , string_novalue) != 0){
                         //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
                         if ((long)par->snow_plot_depths[1] != number_novalue) {
                             //	m = par->snow_plot_depths->nh;
@@ -2646,21 +2647,21 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             //	free(name);
         }
 
-        if(strcmp(files[fsnzwriteend] , string_novalue) != 0){
+        if(strcmp(files[fsnTzwriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                temp = join_strings(files[fsnzwriteend], rec);
+                temp = join_strings(files[fsnTzwriteend], rec);
                 //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                temp = join_strings(files[fsnzwriteend], crec);
+                temp = join_strings(files[fsnTzwriteend], crec);
                 //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else {
                 //	name = join_strings(files[fsnzwriteend], textfile);
-                name = files[fsnzwriteend] + string(textfile) ;
+                name = files[fsnTzwriteend] + string(textfile) ;
             }
 
             ffsnow=fopen(name.c_str(),"w");
@@ -3110,10 +3111,10 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 //	free(name);
             }
 
-            if(strcmp(files[fsnz] , string_novalue) != 0){
+            if(strcmp(files[fsatz] , string_novalue) != 0){
 
                 //	temp=join_strings(files[fsnz],NNNN);
-                temp= files[fsnz] + string(NNNN);
+                temp= files[fsatz] + string(NNNN);
 
                 if (par->recover>0) {
                     //	temp2 = join_strings(temp, rec);

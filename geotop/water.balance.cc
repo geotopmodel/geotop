@@ -2044,7 +2044,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		
 		if(H > par->min_hsup_land){
 			
-			if( Hch < -par->min_dhsup_land_channel ){	//free flow
+			if( Hch < -par->min_dhsup_land_channel_in ){	//free flow
 				
 				DH = H;
 			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
@@ -2057,7 +2057,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 				
 				if(Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q; 
 				
-			}else if( H - Hch > par->min_dhsup_land_channel ){//submerged flow towards channel
+			}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
 				
 				DH = H - Hch;
 			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
@@ -2072,7 +2072,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			}
 		}
 		
-		if ( Hch - H > par->min_dhsup_land_channel ) {
+		if ( Hch - H > par->min_dhsup_land_channel_out ) {
 			
 			DH = Hch - H;
 		//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s

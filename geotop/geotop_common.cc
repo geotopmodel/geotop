@@ -62,7 +62,11 @@ FILE *ffliq = NULL ;
 FILE *ffliqav = NULL ;
 FILE *ffice = NULL ;
 FILE *fficeav = NULL ;
+FILE *ffsnowT = NULL ;
+FILE *ffsnowl = NULL ;
 FILE *ffsnow = NULL ;
+FILE *ffsnowi = NULL ;
+FILE *ffsnowd = NULL ;
 FILE *ffglac = NULL ;
 
 long i_sim = 0 ;

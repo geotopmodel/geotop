@@ -1,21 +1,23 @@
 
 /* STATEMENT:
 
- GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
-
- Copyright (c), 2012 - Stefano Endrizzi
+ Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ Geotop 1.225-15 - 20 Jun 2013
  
- This file is part of GEOtop 1.225 'Moab'
+ Copyright (c), 2013 - Stefano Endrizzi 
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ This file is part of Geotop 1.225-15
+ 
+ Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
-
+  
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
+ 
 #include "config.h"
 #include "input.h"
+#include "parameters.h"
 
 using namespace std ;
 
@@ -101,7 +103,58 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     temp = WORKING_DIRECTORY + program_name;
     success = read_inpts_par(par, land, times, sl, met, IT, temp, flog);
     //	free(temp);
-    success = read_soil_parameters(files[fspar], IT->soil_col_names, sl, flog);
+
+	//correct state pixel
+	par->Tzrun = 0;
+	par->wzrun = 0;
+	par->Tzmaxrun = 0;
+	par->Tzminrun = 0;
+	par->wzmaxrun = 0;
+	par->wzminrun = 0;	
+	par->dUzrun = 0;
+	par->SWErun = 0;	
+	
+	if(strcmp(files[fTrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzrun = 1;
+	}
+	if(strcmp(files[fwrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzrun = 1;
+	}
+	if(strcmp(files[fTmaxrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzmaxrun = 1;
+
+	}
+	if(strcmp(files[fwmaxrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzmaxrun = 1;
+	}
+	if(strcmp(files[fTminrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->Tzminrun = 1;
+	}
+	if(strcmp(files[fwminrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->wzminrun = 1;
+	}
+	if(strcmp(files[fdUrun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->dUzrun = 1;
+	}
+	if(strcmp(files[fSWErun] , string_novalue) != 0){
+		if(par->point_sim == 1) par->state_pixel = 1;
+		if(par->state_pixel == 1) par->SWErun = 1;
+	}
+	if (par->newperiodinit == 2 && (par->Tzrun == 0 || par->wzrun == 0)){
+		f = fopen(FailedRunFile.c_str(), "w");
+		fprintf(f, "Error: You have to assign a name to the Tzrun and wzrun files\n");
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report.");		
+	}	
+
+    success = read_soil_parameters(files[fspar], IT, sl, par->soil_type_bedr_default, flog);	
 
     //Nl=sl->pa->nch;
     Nl = sl->pa.getCh() - 1;
@@ -960,10 +1013,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             sy=sl->type[r][c];
 
             //	if ((long)sl->init_water_table_depth->co[sy] != number_novalue) {
-            if ((long)sl->init_water_table_depth[sy] != number_novalue) {
+            if ((long)IT->init_water_table_depth[sy] != number_novalue) {
                 z = 0.;
                 //	sl->SS->P->co[0][i] = -sl->init_water_table_depth->co[sy]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
-                sl->SS->P[0][i] = -sl->init_water_table_depth[sy]*cos(top->slope[r][c]*GTConst::Pi/180.);
+                sl->SS->P[0][i] = -IT->init_water_table_depth[sy]*cos(top->slope[r][c]*GTConst::Pi/180.);
 
                 for(l=1;l<=Nl;l++){
                     //	z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
@@ -987,7 +1040,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         meteoio_readMap(string(files[fwt0]), M);
 
         for (i=1; i<=par->total_pixel; i++) {
-
             //	r = top->rc_cont->co[i][1];
             r = top->rc_cont[i][1];
             //	c = top->rc_cont->co[i][2];
@@ -3819,7 +3871,6 @@ double peat_thickness(double dist_from_channel){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void initialize_soil_state(SOIL_STATE *S, long n, long nl){
 void initialize_soil_state(SoilState *S, long n, long nl){
 
     //	S->T = new_doublematrix(nl, n);
@@ -3842,24 +3893,17 @@ void initialize_soil_state(SoilState *S, long n, long nl){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to){
 void copy_soil_state(SoilState *from, SoilState *to){
 
     long l,i;
-    //	long nl=from->T->nrh,n=from->T->nch;
     long nl=from->T.getRows(), n=from->T.getCols();
 
-    //	for (i=1; i<=n; i++) {
     for (i=1; i<n; i++) {
         //	to->P->co[0][i] = from->P->co[0][i];
         to->P[0][i] = from->P[0][i];
-        //	for (l=1; l<=nl; l++) {
         for (l=1; l<nl; l++) {
-            //	to->P->co[l][i] = from->P->co[l][i];
             to->P[l][i] = from->P[l][i];
-            //	to->T->co[l][i] = from->T->co[l][i];
             to->T[l][i] = from->T[l][i];
-            //	to->thi->co[l][i] = from->thi->co[l][i];
             to->thi[l][i] = from->thi[l][i];
         }
     }
@@ -3870,9 +3914,7 @@ void copy_soil_state(SoilState *from, SoilState *to){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void initialize_veg_state(STATE_VEG *V, long n){
 void initialize_veg_state(StateVeg *V, long n){
-
     //	V->Tv = new_doublevector(n);
     //	initialize_doublevector(V->Tv, 0.);
     V->Tv.resize(n+1,0.0);
@@ -3891,17 +3933,12 @@ void initialize_veg_state(StateVeg *V, long n){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void copy_veg_state(STATE_VEG *from, STATE_VEG *to){
 void copy_veg_state(StateVeg *from, StateVeg *to){
 
-    //	long i, n=from->Tv->nh;
     long i, n=from->Tv.size();
     for (i=1; i<n; i++) {
-        //	to->Tv->co[i] = from->Tv->co[i];
         to->Tv[i] = from->Tv[i];
-        //	to->wrain->co[i] = from->wrain->co[i];
         to->wrain[i] = from->wrain[i];
-        //	to->wsnow->co[i] = from->wsnow->co[i];
         to->wsnow[i] = from->wsnow[i];
     }
 }
@@ -3912,7 +3949,7 @@ void copy_veg_state(StateVeg *from, StateVeg *to){
 /******************************************************************************************************************************************/
 
 //short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog){
-short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog){
+short read_inpts_par_old_matteo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog){
 
     //variables
     FILE *f;
@@ -4422,7 +4459,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 /***********************************************************/
 
 //void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog){
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, string keyword[], FILE *flog){
+void assign_numeric_parameters_old_matteo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, string keyword[], FILE *flog){
 
 
     short occurring;
@@ -4695,7 +4732,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     par->max_courant_channel = assignation_number(flog, 58, 0, keyword, num_param, num_param_components, 0.1, 0);
     par->min_hsup_land = assignation_number(flog, 59, 0, keyword, num_param, num_param_components, 1., 0);
     par->min_hsup_channel = assignation_number(flog, 60, 0, keyword, num_param, num_param_components, 1., 0);
-    par->min_dhsup_land_channel = assignation_number(flog, 61, 0, keyword, num_param, num_param_components, 1., 0);
+    par->min_dhsup_land_channel_in = assignation_number(flog, 61, 0, keyword, num_param, num_param_components, 1., 0);
     par->dtmin_sup = assignation_number(flog, 62, 0, keyword, num_param, num_param_components, 0.01, 0);
     //former block 3
     par->latitude = assignation_number(flog, 63, 0, keyword, num_param, num_param_components, 45., 0);

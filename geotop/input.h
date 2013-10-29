@@ -22,7 +22,6 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include "struct.geotop.h"
-#include "parameters.h"
 //#include "../libraries/geomorphology/geomorphology.0875.h"
 //#include "../libraries/geomorphology/geomorphology.h"
 #include "pedo.funct.h"
@@ -73,9 +72,8 @@ extern std::string FailedRunFile;
 extern long i_sim0, i_run0;
 extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 
-//typedef struct {
-class InitTools{
-public:
+typedef struct __INIT_TOOLS__
+{
 	double swe0;
 	double Tsnow0;
 	double agesnow0;
@@ -89,11 +87,18 @@ public:
 	char **point_col_names;
 	char **lapserates_col_names;
 	char **meteostations_col_names;
+//TODO: remove LU
 //	DOUBLEMATRIX *LU;
 	GeoMatrix<double> LU;
-};
-//	} INIT_TOOLS;
 
+//	DOUBLEMATRIX *bed;
+	GeoMatrix<double> bed;
+//	DOUBLETENSOR *pa_bed;
+	GeoTensor<double> pa_bed ;
+//	DOUBLEVECTOR *init_water_table_depth;
+	GeoVector<double> init_water_table_depth;
+
+} InitTools;
 
 
 //void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
@@ -133,11 +138,11 @@ void copy_veg_state(StateVeg *from, StateVeg *to);
 
 
 //short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
-  short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog);
+  short read_inpts_par_old_mateo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog);
 
 //void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
 //  void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
-  void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog);
+  void assign_numeric_parameters_old_matteo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog);
 
 
 #endif

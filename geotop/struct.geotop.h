@@ -709,6 +709,7 @@ public:
 		
 	long soil_type_land_default;
 	long soil_type_chan_default;
+	long soil_type_bedr_default;
 	
 	double MinIncrFactWithElev;
 	double MaxIncrFactWithElev;
@@ -717,9 +718,11 @@ public:
 	
 	double max_courant_land;
 	double max_courant_channel;
+	double max_courant_land_channel;
 	double min_hsup_land;
 	double min_hsup_channel;
-	double min_dhsup_land_channel;
+	double min_dhsup_land_channel_in;
+	double min_dhsup_land_channel_out;
 	double dtmin_sup;
 	
 	long nsoiltypes;
@@ -784,9 +787,49 @@ public:
 	double k_to_ksat;
 	short RunIfAnOldRunIsPresent;
 
+	GeoVector<long> Nl_spinup ;
+
+	short newperiodinit;
+	
+	short Tzrun;
+	short wzrun;
+	short dUzrun;
+	short SWErun;
+	
+	short Tzmaxrun;
+	short wzmaxrun;
+	short Tzminrun;
+	short wzminrun;
+	
+	double k1;
+	double k2;
 	double Lozone;
 	double alpha_iqbal;
 	double beta_iqbal;
+	
+	short albedoSWin;
+	short micro;
+	
+	double EB;
+	double Cair;
+	double Tsup;
+	
+	double Tair_default;
+	double RH_default;
+	double V_default;
+	double Vdir_default;
+	double IPrec_default;
+	
+	double simulation_hours;
+	
+	double minP_torestore_A;
+	short snow_conductivity;
+	short snow_wind_compaction_1D;
+	short snow_plot;
+	
+	short DDchannel;
+	short DDland;
+
 };
 //} PAR;
 

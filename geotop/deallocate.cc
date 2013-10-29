@@ -19,6 +19,8 @@
  
  */
 #include "deallocate.h"
+#include "geotop_common.h"
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -31,7 +33,10 @@
 	
 	printf("Close files\n");
 	if(strcmp(files[fpointwriteend] , string_novalue) != 0) fclose(ffpoint);
-	if(strcmp(files[fsnzwriteend] , string_novalue) != 0) fclose(ffsnow);
+	if(strcmp(files[fsnTzwriteend] , string_novalue) != 0) fclose(ffsnowT);
+	if(strcmp(files[fsnlzwriteend] , string_novalue) != 0) fclose(ffsnowl);
+	if(strcmp(files[fsnizwriteend] , string_novalue) != 0) fclose(ffsnowi);
+	if(strcmp(files[fsndzwriteend] , string_novalue) != 0) fclose(ffsnowd);	
 	if(strcmp(files[fglzwriteend] , string_novalue) != 0) fclose(ffglac);
 	if(strcmp(files[fbaswriteend] , string_novalue) != 0) fclose(ffbas);
 	if(strcmp(files[fTzwriteend] , string_novalue) != 0) fclose(ffT);
@@ -65,7 +70,8 @@
 	free(hbsn);
 	free(obsn);
 	free(ibsn);
-	
+
+/*
 	for (j=0; j<10; j++) {
 		free(hsnw[j]);
 		free(hglc[j]);
@@ -81,7 +87,8 @@
 	}
 	free(hsl);
 	free(osl);
-	
+*/
+ 
 //	free(WORKING_DIRECTORY);
 	
 	/* Deallocation of struct SOIL "sl": */
@@ -569,7 +576,7 @@
 	//free_doublevector(par->end_date);
 	//free_longvector(par->run_times);
 	
-	if (par->point_sim == 1) //free_doublematrix(par->maxSWE);
+	//if (par->point_sim == 1) //free_doublematrix(par->maxSWE);
 	
 	//free_shortvector(par->plot_discharge_with_Dt_integration);
 	//free_shortvector(par->plot_point_with_Dt_integration);

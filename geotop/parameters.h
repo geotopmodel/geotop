@@ -29,6 +29,7 @@
 #include "../libraries/ascii/rw_maps.h"
 #include "times.h"
 #include "pedo.funct.h"
+#include "input.h"
 #include <meteoio/MeteoIO.h>
 #include <string>
 
@@ -51,10 +52,9 @@ extern std::string keywords_num[], keywords_char[];
 extern std::string SuccessfulRunFile;
 extern std::string FailedRunFile;
 
-//short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
+short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog) ;
 
-//void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
-
+void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog) ;
 
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, char **keyword);
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, std::string keyword[]);
@@ -67,7 +67,7 @@ char *assignation_string(FILE *f, long i, char **keyword, char **string_param);
 char *assignation_string(FILE *f, long i, std::string keyword[], char **string_param);
 
 //short read_soil_parameters(char *name, char **key_header, SOIL *sl, FILE *flog);
-short read_soil_parameters(char *name, char **key_header, Soil *sl, FILE *flog);
+short read_soil_parameters(char *name, InitTools *IT, Soil *sl, long bed, FILE *flog);
 
 //short read_point_file(char *name, char **key_header, PAR *par, FILE *flog);
 short read_point_file(char *name, char **key_header, Par *par, FILE *flog);

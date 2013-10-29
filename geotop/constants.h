@@ -1,19 +1,19 @@
 
 /* STATEMENT:
  
- GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 1.225 'Moab' - 9 Mar 2012
+ Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ Geotop 1.225-15 - 20 Jun 2013
  
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2013 - Stefano Endrizzi 
  
- This file is part of GEOtop 1.225 'Moab'
+ This file is part of Geotop 1.225-15
  
- GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 1.225 'Moab' is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ Geotop 1.225-15  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
+ Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
  
  If you have satisfactorily used the code, please acknowledge the authors.
  
@@ -35,8 +35,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 378
-#define num_par_char 338
+#define num_par_number 405
+#define num_par_char 366
 
 //****************************************************
 // Fixed Parameters
@@ -44,9 +44,9 @@
 
 namespace GTConst {
 
-	const double KNe = 0.0;       //Euler method parameter for heat equation (0.5 = Crank Nicholson, 0 = Backward Euler)
-	const double LSAIthres = 0.1; //Minimum LSAI
-	const double z_evap = 100.;   //soil depth responsable for soil evaporation [mm]
+    const double KNe = 0.0;       //Euler method parameter for heat equation (0.5 = Crank Nicholson, 0 = Backward Euler)
+    const double LSAIthres = 0.1; //Minimum LSAI
+    const double z_evap = 100.;   //soil depth responsable for soil evaporation [mm]
     const double z_transp = 10000.; //soil depth responsable for canopy transpiration [mm]
     const double min_tau_cloud = 0.1;
     const double RelativeErrorRichards = 1.E-10;
@@ -59,7 +59,6 @@ namespace GTConst {
     const double max_slope= 89.999;
 
     //STANDARD LAPSE RATES: For the sign, remember that the Lapse Rate gives how a variable decrease with height
-
     const double LapseRateTair = 6.5;			//Lapse rate for Tair [C/m]
     const double LapseRateTdew = 2.5;			//Lapse rate for Tdew [C/m]
     const double LapseRatePrec = 0.0;			//Lapse rate for Precipitation [1/m]
@@ -108,23 +107,24 @@ namespace GTConst {
 
 #define iDate12	0					//Date12 : DDMMYYYYhhmm
 #define iJDfrom0 iDate12+1			//Julian Day from year 0
-#define iPrecInt iJDfrom0+1				/*Precipitation*/
+#define iPrecInt iJDfrom0+1				//Precipitation
 #define iPrec iPrecInt+1
 #define iWs iPrec+1					//Total wind speed
 #define iWdir iWs+1					//Wind direction
-#define iWsx iWdir+1				/*Wind speed from west, to east*/
-#define iWsy iWsx+1					/*Wind speed from south, to north*/
-#define iRh iWsy+1					/*Relative humidity*/
-#define iT iRh+1					/*Air temperature*/
-#define iTdew iT+1					/*Air dew temperature*/
-#define iSW iTdew+1					/*global shortwave radiation*/
-#define iSWb iSW+1					/*direct SW*/
-#define iSWd iSWb+1					/*diffuse SW*/
+#define iWsx iWdir+1				//Wind speed from west, to east
+#define iWsy iWsx+1					//Wind speed from south, to north
+#define iRh iWsy+1					//Relative humidity
+#define iT iRh+1					//Air temperature
+#define iTdew iT+1					//Air dew temperature
+#define iSW iTdew+1					//Global shortwave radiation
+#define iSWb iSW+1					//Direct SW
+#define iSWd iSWb+1					//Diffuse SW
 #define itauC iSWd+1				//Cloud transmissivity in SWin
 #define iC	 itauC+1				//Cloudiness factor
-#define iLWi iC+1					/*incoming longwave*/
-#define iSWn iLWi+1					//net shortwave
-#define nmet iSWn+1
+#define iLWi iC+1					//Incoming longwave
+#define iSWn iLWi+1					//Net shortwave
+#define iTs iSWn+1					//Surface Temperature
+#define nmet iTs+1	
 
 //****************************************************
 //soil data
@@ -382,14 +382,33 @@ namespace GTConst {
 #define ficezav ficezwriteend+1				//o. ice content profiles
 #define ficezavwriteend ficezav+1
 
-#define fsnz ficezavwriteend+1				//o. snow data
-#define fsnzwriteend fsnz+1				//o. snow data
+#define fsatz ficezavwriteend+1
 
-#define fglz fsnzwriteend+1					//o. glacier data
+#define fsnTz fsatz+1				//o. snow data
+#define fsnlz fsnTz+1		
+#define fsniz fsnlz+1		
+#define fsndz fsniz+1		
+
+#define fsnTzwriteend fsndz+1				//o. snow data
+#define fsnlzwriteend fsnTzwriteend+1		
+#define fsnizwriteend fsnlzwriteend+1		
+#define fsndzwriteend fsnizwriteend+1		
+
+#define fglz fsndzwriteend+1					//o. glacier data
 #define fglzwriteend fglz+1					//o. glacier data
 
 #define fSCA fglzwriteend+1					//file giving the fraction of snow free areas and corresponding properties 
-#define fT fSCA+1					//o. temperature maps
+
+#define fTrun fSCA+1
+#define fwrun fTrun+1
+#define fdUrun fwrun+1	
+#define fSWErun fdUrun+1
+#define fTmaxrun fSWErun+1
+#define fTminrun fTmaxrun+1
+#define fwmaxrun fTminrun+1
+#define fwminrun fwmaxrun+1
+
+#define fT fwminrun+1					//o. temperature maps
 #define fTsup fT+1					//o. temperature maps
 #define fTav fTsup+1
 #define fTavsup fTav+1
@@ -435,7 +454,10 @@ namespace GTConst {
 #define fthawed_dw fthawed_up+1
 #define fwtable_up fthawed_dw+1
 #define fwtable_dw fwtable_up+1			//water table depth
-#define pG fwtable_dw+1
+#define fpnet fwtable_dw+1
+#define fevap fpnet+1
+
+#define pG fevap+1
 #define pH pG+1
 #define pLE pH+1
 #define pHg pLE+1					//specific day map plots(p.) sensible heat flux
@@ -457,6 +479,8 @@ namespace GTConst {
 #define pRH pVdir+1					//p. relative humidity
 #define pD pRH+1					//p. snow depth
 #define pth pD+1					//p. water content of the most superficial layer
+
+
 #define rpsi pth+1					//recover file (f.) psi
 #define riceg rpsi+1				//r. soil ice content
 #define rTg riceg+1					//r. soil temperature
@@ -477,8 +501,18 @@ namespace GTConst {
 #define rpsich rTv+1			
 #define ricegch rpsich+1			
 #define rTgch ricegch+1		
-#define rtime rTgch+1
-#define nfiles rtime+1					//number of files
+#define rTrun rTgch+1
+#define rwrun rTrun+1
+#define rdUrun rwrun+1	
+#define rSWErun rdUrun+1
+#define rTmaxrun rSWErun+1
+#define rTminrun rTmaxrun+1
+#define rwmaxrun rTminrun+1
+#define rwminrun rwmaxrun+1
+#define rtime rwminrun+1
+#define rsux rtime+1
+
+#define nfiles rsux+1					//number of files
 
 //****************************************************
 //Points
@@ -501,7 +535,7 @@ namespace GTConst {
 #define ptMAXSWE ptHOR+1
 #define ptLAT ptMAXSWE+1
 #define ptLON ptLAT+1
-#define ptTOT ptLON
-
+#define ptBED ptLON+1
+#define ptTOT ptBED
 #endif
 

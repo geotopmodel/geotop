@@ -70,6 +70,10 @@ extern FILE *ffliqav ;
 extern FILE *ffice ;
 extern FILE *fficeav ;
 extern FILE *ffsnow ;
+extern FILE *ffsnowT ;
+extern FILE *ffsnowl ;
+extern FILE *ffsnowi ;
+extern FILE *ffsnowd ;
 extern FILE *ffglac ;
 
 extern long i_sim ;
