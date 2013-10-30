@@ -107,6 +107,10 @@ int main(int argc,char *argv[]){
 	MM2=0.;
 	MMR=0.;
 	MMo=0.;
+
+	//TODO: removeme
+	FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "w");
+	fclose(SolvePointEnergyBalance_LOG_FILE);
    
 	/*dinamic allocations:*/
 	UV=(T_INIT *)malloc(sizeof(T_INIT));

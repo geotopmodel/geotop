@@ -211,6 +211,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	double ic=0., wa, rho=0.;
 	long lpb;
 										
+	//TODO: removeme
+	FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "a");
+
 	//initialization of cumulated water volumes and set soil ancillary state vars
 		
 	if (i <= A->P->total_channel) {
@@ -576,12 +579,29 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->E->Temp->co[0] = A->E->Temp->co[1];
 						
 		//ENERGY BALANCE	
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+		for(size_t i = 1 ; i < A->E->T0->nh ; i++)
+		{
+			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[i]);
+		}
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
+
 		sux=SolvePointEnergyBalance(surface, Tdirichlet, A->P->EB, A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, 
 									A->S, A->C, A->T, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], 
 									eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow, 
 									SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov, 
 									&rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb, &dUsl);	
 		
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+		for(size_t i = 1 ; i < A->E->T0->nh ; i++)
+		{
+			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[i]);
+		}
+		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
 
 	}while (sux < 0);
 			
@@ -840,6 +860,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			}
 		}
 			
+		fclose(SolvePointEnergyBalance_LOG_FILE);
 		return 0;
 			
 	}else {
