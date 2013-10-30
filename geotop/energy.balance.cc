@@ -1236,13 +1236,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //						 double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, TOPO *topog, double snowD){
 
 
-short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i, long j, long r, long c, SoilState *SL, SoilState *SC, StateVeg *V, Energy *egy, Land *land, Soil *sl,
-                              Channel *cnet, Par *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v, double d0v, double rz0v,
-                              double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, double decaycoeff0, double *Wcrn,
-                              double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, double *LWv, double *Hv,
-                              double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg,
-                              double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, Topo *topog, double snowD){
 
+short SolvePointEnergyBalance(const short surfacemelting, const double t, const double Dt, const long i, const long j, const long r, const long c, SoilState * SL, SoilState *SC,
+						StateVeg *V, Energy *egy, Land *land, Soil *sl, Channel *cnet, Par *par, const long ns, const long ng, const double zmu, const double zmT,
+						const double z0s, const double d0s, const double rz0s,const double z0v, const double d0v, const double rz0v, const double hveg, const double v,
+						const double Ta, const double Qa, const double P, const double LR, const double eps, const double fc, const double LSAI,
+						const double decaycoeff0, double *Wcrn, const double Wcrnmax, double *Wcsn, const double Wcsnmax, const double SWin, const double LWin,
+						const double SWv, double *LW, double *H, double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, 
+						const double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv,
+						double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, Topo * topog, const double snowD)
+{
 
     //	short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin=0, sux;
     short iter_close, iter_close2, lu=land->LC[r][c], flagTmin=0, sux;
