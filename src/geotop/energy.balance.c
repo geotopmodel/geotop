@@ -213,6 +213,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 										
 	//TODO: removeme
 	FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "a");
+	size_t lIndex = 0 ;
 
 	//initialization of cumulated water volumes and set soil ancillary state vars
 		
@@ -582,9 +583,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
 				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-		for(size_t i = 1 ; i < A->E->T0->nh ; i++)
+		for(lIndex = 1 ; lIndex < A->E->T0->nh ; lIndex++)
 		{
-			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[i]);
+			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[lIndex]);
 		}
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
 
@@ -597,9 +598,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
 				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-		for(size_t i = 1 ; i < A->E->T0->nh ; i++)
+		for(lIndex = 1 ; lIndex < A->E->T0->nh ; lIndex++)
 		{
-			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[i]);
+			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[lIndex]);
 		}
 		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
 
