@@ -85,13 +85,21 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //						 double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top,
 //						 double *decay, double *Locc, double *LWup_ab_v, long *lpb, TOPO *topog, double snowD);
 
-short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i, long j, long r, long c, SoilState *SL, SoilState *SC, StateVeg *V, Energy *egy,
-						 Land *land, Soil *sl, Channel *cnet, Par *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v,
-						 double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
-						 double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, 
-						 double *H, double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1,
-						 double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, 
-						 double *decay, double *Locc, double *LWup_ab_v, long *lpb, Topo *topog, double snowD);
+//short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i, long j, long r, long c, SoilState *SL, SoilState *SC, StateVeg *V, Energy *egy,
+//						 Land *land, Soil *sl, Channel *cnet, Par *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v,
+//						 double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI,
+//						 double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW,
+//						 double *H, double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1,
+//						 double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top,
+//						 double *decay, double *Locc, double *LWup_ab_v, long *lpb, Topo *topog, double snowD);
+
+short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SoilState *SL,
+						SoilState *SC, StateVeg *V, Energy *egy, Land *land, Soil *sl, Channel *cnet, Topo *top, Par *par, long ns, long ng, double zmu, double zmT, double z0s,
+						double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc,
+						double LSAI, double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H,
+						double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1,
+						double *Qv, double *Qg, double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc,
+						double *LWup_ab_v, long *lpb, double *dUsl, double snowD);
 
 //void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, double **pa, SOIL_STATE *S, DOUBLETENSOR *ET, DOUBLEMATRIX *th);
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th);
@@ -152,7 +160,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 									GeoVector<double>& soil_evap_layer_bare, GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont);
 
 
-double k_thermal(double th_liq, double th_ice, double th_sat, double k_solid);
+//double k_thermal(double th_liq, double th_ice, double th_sat, double k_solid);
+double k_thermal(short snow, short a, double th_liq, double th_ice, double th_sat, double k_solid);
 
 double flux(long i, long icol, double **met, double k, double est);
 

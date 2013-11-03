@@ -786,6 +786,12 @@ public:
 	
 	double k_to_ksat;
 	short RunIfAnOldRunIsPresent;
+
+	double EB;
+	double Cair;
+	short micro;
+	double Tsup;
+	short snow_conductivity;
 };
 //} PAR;
 

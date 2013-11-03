@@ -123,9 +123,9 @@ namespace GTConst {
 #define itauC iSWd+1				//Cloud transmissivity in SWin
 #define iC	 itauC+1				//Cloudiness factor
 #define iLWi iC+1					/*incoming longwave*/
-#define iSWn iLWi+1					//net shortwave
-#define nmet iSWn+1
-
+#define iSWn iLWi+1					//Net shortwave
+#define iTs iSWn+1					//Surface Temperature
+#define nmet iTs+1
 //****************************************************
 //soil data
 //****************************************************
