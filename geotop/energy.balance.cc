@@ -199,12 +199,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     long l, j, ns, ng=0;
     double SWin, SW, SWbeam, SWdiff, SWv_vis, SWv_nir, SWg_vis, SWg_nir, cosinc, avis_b, avis_d, anir_b, anir_d;
     double SWupabove_v_vis, SWupabove_v_nir;
-    double avis_ground, anir_ground;
-    short SWb_yes;
+    double avis_ground=0., anir_ground=0.;
+    short SWb_yes=0;
     double tauatm_sinhsun;
     double LWin, LW, LWv, epsa, eps, epsa_min, epsa_max, LWupabove_v;
     double H, LE, E, Hv, LEv, Etrans, Hg0, Eg0, Hg1, Eg1, Hadv=0.0;
-    double surfEB, GEF;
+    double surfEB = 0.0, GEF = 0.0, dUsl = 0.0;
     double snowD, RainOnSnow=0., fsnow, fsnownew, fsnowcan, Melt_snow=0., Evap_snow=0., Melt_glac=0., Evap_glac=0., Evap_soil=0.;
     double k_snowred, maxSWE, k;
     double Prain_over, Psnow_over, Prain=0.0, Psnow=0.0, drip_rain, drip_snow, max_wcan_rain = 0., max_wcan_snow = 0., theta_sup;
@@ -216,115 +216,55 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     long sy;
     short lu;
     short sux, surface;	//(1=yes, 0=no)
-    double ic, wa, rho;
+    double ic=0., wa, rho=0.;
     long lpb;
 
     //TODO: removeme
-    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "a");
+    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
 
     //initialization of cumulated water volumes and set soil ancillary state vars
     if (i <= A->P->total_channel) {
         j = i;
+	lu = (short)A->L->LC[r][c];
+	sy = A->C->soil_type[j];
         for (l=1; l<=Nl; l++) {
-            //	A->C->ET->co[l][j] = 0.0;
             A->C->ET[l][j] = 0.0;
-
-            //	lu = (short)A->L->LC->co[r][c];
-            lu = (short)A->L->LC[r][c];
-            //	sy = A->C->soil_type->co[j];
-            sy = A->C->soil_type[j];
-
-            //	A->C->th->co[l][j] = theta_from_psi(C->P->co[l][j], C->thi->co[l][j], l, A->S->pa[sy], GTConst::PsiMin);
             A->C->th[l][j] = theta_from_psi(C->P[l][j], C->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
-            //	A->C->th->co[l][j] = Fmin( A->C->th->co[l][j] , A->S->pa[sy][jsat][l]-C->thi->co[l][j] );
             A->C->th[l][j] = Fmin( A->C->th[l][j] , A->S->pa[sy][jsat][l]-C->thi[l][j] );
-
         }
 
     }else{
         j = i - A->P->total_channel;
-        //	A->W->Pnet->co[r][c] = 0.0;
         A->W->Pnet[r][c] = 0.0;
+	lu = (short)A->L->LC[r][c];
+	sy = A->S->type[r][c];
+
         for (l=1; l<=Nl; l++) {
-            //	A->S->ET->co[l][r][c] = 0.0;
             A->S->ET[l][r][c] = 0.0;
-
-            //	lu = (short)A->L->LC->co[r][c];
-            lu = (short)A->L->LC[r][c];
-            //	sy = A->S->type->co[r][c];
-            sy = A->S->type[r][c];
-
-            //	A->S->th->co[l][j] = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l, A->S->pa[sy], GTConst::PsiMin);
             A->S->th[l][j] = theta_from_psi(L->P[l][j], L->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
-            //	A->S->th->co[l][j] = Fmin( A->S->th->co[l][j] , A->S->pa[sy][jsat][l]-L->thi->co[l][j] );
             A->S->th[l][j] = Fmin( A->S->th[l][j] , A->S->pa[sy][jsat][l]-L->thi[l][j] );
-
         }
+
     }
 
+
     //METEO
-    //	Tpoint=A->M->Tgrid->co[r][c];
     Tpoint=A->M->Tgrid[r][c];
-    //	Ppoint=A->M->Pgrid->co[r][c];
     Ppoint=A->M->Pgrid[r][c];
-    //	RHpoint=A->M->RHgrid->co[r][c];
     RHpoint=A->M->RHgrid[r][c];
-    //	Vpoint=A->M->Vgrid->co[r][c];
-    Vpoint=A->M->Vgrid[r][c];//printf("\nr=%ld,c=%ld,Tpoint=%f, Ppoint=%f, RHpoint=%f, Vpoint=%f",r,c,Tpoint,Ppoint,RHpoint,Vpoint);getchar();
-    //	TODO: add tau_cloud_av_point=A->M->tau_cl_av_map->co[r][c];
-    //	Precpoint=A->W->PrecTot->co[r][c];
+    Vpoint=A->M->Vgrid[r][c];
+
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
-    //	Precpoint*=cos(A->T->slope->co[r][c]*GTConst::Pi/180.);
     Precpoint*=cos(A->T->slope[r][c]*GTConst::Pi/180.);
     //another cosine correction applied for point simulations (due to area proejection)
-    //	if(A->P->point_sim==1 && A->P->flag1D==0) Precpoint*=cos(A->T->slope->co[r][c]*GTConst::Pi/180.);
     if(A->P->point_sim==1 && A->P->flag1D==0) Precpoint*=cos(A->T->slope[r][c]*GTConst::Pi/180.);
+
+	//TODO: integrate Tdirichlet
 
     //SNOW
     snowD=DEPTH(r, c, S->lnum, S->Dzl);
-    //	ns=S->lnum->co[r][c];
     ns=S->lnum[r][c];
-
-    //	//vegetation parameters
-    //	if (i>A->P->total_channel) {
-    //
-    //		for(l=1;l<=jdvegprop;l++){
-    //			if( (long)A->L->vegparv[lu-1][l] != number_novalue ){
-    //				A->L->vegpar->co[l] = A->L->vegparv[lu-1][l];
-    //				if(l==jdroot) root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa[1][jdz], A->L->root_fraction->co[lu]);
-    //			}else{
-    //				A->L->vegpar->co[l] = A->L->ty->co[lu][l+jHveg-1];
-    //			}
-    //		}
-    //
-    //		if(snowD > A->L->vegpar->co[jdz0thresveg]){
-    //			fsnow=1.0;
-    //		}else if(snowD > A->L->vegpar->co[jdz0thresveg2]){
-    //			fsnow=(snowD-A->L->vegpar->co[jdz0thresveg2])/(A->L->vegpar->co[jdz0thresveg]-A->L->vegpar->co[jdz0thresveg2]);
-    //		}else{
-    //			fsnow=0.0;
-    //		}
-    //
-    //		fc = A->L->vegpar->co[jdcf] * pow(1.0-fsnow,A->L->vegpar->co[jdexpveg]);
-    //
-    //		//control if LSAI is too low (in order to prevent numerical problems)
-    //		if(A->L->vegpar->co[jdLSAI]<GTConst::LSAIthres) fc=0.0;
-    //
-    //		//glacier
-    //		if(A->P->max_glac_layers>0){
-    //			ng=G->lnum->co[r][c];
-    //			if(ng>0){
-    //				A->L->vegpar->co[jdLSAI]=0.0;
-    //				fc=0.0;
-    //			}
-    //		}
-    //	}else {
-    //
-    //		initialize_doublevector(A->L->vegpar, 0.0);
-    //		fc = 0.0;
-    //	}
-
 
     //vegetation parameters
     if (i>A->P->total_channel) {
@@ -332,10 +272,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         for(l=1;l<=jdvegprop;l++){
             if( (long)A->L->vegparv[lu-1][l] != number_novalue ){
                 A->L->vegpar[l] = A->L->vegparv[lu-1][l];
-                //	if(l==jdroot) root(A->L->root_fraction->nch, A->L->vegpar[jdroot], 0.0, A->S->pa[1][jdz], A->L->root_fraction->co[lu]);
                 if(l==jdroot) root(A->L->root_fraction.getCols(), A->L->vegpar[jdroot], 0.0, A->S->pa, A->L->root_fraction, lu);
             }else{
-                //	A->L->vegpar[l] = A->L->ty->co[lu][l+jHveg-1];
                 A->L->vegpar[l] = A->L->ty[lu][l+jHveg-1];
             }
         }
@@ -350,30 +288,29 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
         fc = A->L->vegpar[jdcf] * pow(1.0-fsnow,A->L->vegpar[jdexpveg]);
 
-        //	control if LSAI is too low (in order to prevent numerical problems)
+        //control if LSAI is too low (in order to prevent numerical problems)
         if(A->L->vegpar[jdLSAI]<GTConst::LSAIthres) fc=0.0;
 
-        //	glacier
+        //glacier
         if(A->P->max_glac_layers>0){
-            //	ng=G->lnum->co[r][c];
             ng=G->lnum[r][c];
             if(ng>0){
                 A->L->vegpar[jdLSAI]=0.0;
                 fc=0.0;
             }
         }
-    }else {
-        A->L->vegpar.resize(A->L->vegpar.size(),0.0);
-        fc = 0.0;
-    }
 
+    }else {
+
+        A->L->vegpar.resize(A->L->vegpar.size() + 1, 0.0);
+        fc = 0.0;
+
+    }
 
     //	METEOROLOGICAL COMPUTATIONS
 
-    //	temperature and wind velocity measurement heights
-    //	zmeas_u=A->M->st->Vheight->co[1];
+    //temperature and wind velocity measurement heights
     zmeas_u=A->M->st->Vheight[1];
-    //	zmeas_T=A->M->st->Theight->co[1];
     zmeas_T=A->M->st->Theight[1];
 
     //RAIN AND SNOW PRECIPITATION [mm]
@@ -394,12 +331,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }
 
     //Adjusting snow precipitation in case of steep slope (contribution by Stephan Gruber)
-    //	if (A->P->snow_curv > 0 && A->T->slope->co[r][c] > A->P->snow_smin){
     if (A->P->snow_curv > 0 && A->T->slope[r][c] > A->P->snow_smin){
-        //	if (A->T->slope->co[r][c] <= A->P->snow_smax){
         if (A->T->slope[r][c] <= A->P->snow_smax){
-            //	k_snowred = ( exp(-pow(A->T->slope->co[r][c] - A->P->snow_smin, 2.)/A->P->snow_curv) -
-            //						 exp(-pow(A->P->snow_smax, 2.)/A->P->snow_curv) );
             k_snowred = ( exp(-pow(A->T->slope[r][c] - A->P->snow_smin, 2.)/A->P->snow_curv) -
                           exp(-pow(A->P->snow_smax, 2.)/A->P->snow_curv) );
         }else{
@@ -413,13 +346,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Psnow=(1.-fc)*Psnow_over;
 
     if(fc>0){
-        //		canopy_rain_interception(ratio_max_storage_RAIN_over_canopy_to_LSAI, A->L->vegpar->co[jdLSAI], Prain_over, &max_wcan_rain,
-        //								 &(V->wrain->co[j]), &drip_rain);
         canopy_rain_interception(ratio_max_storage_RAIN_over_canopy_to_LSAI, A->L->vegpar[jdLSAI], Prain_over, &max_wcan_rain,
                                  &(V->wrain[j]), &drip_rain);
-
-        //		canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI, A->L->vegpar->co[jdLSAI], Psnow_over, V->Tv->co[j],
-        //								 Vpoint, Dt, &max_wcan_snow, &(V->wsnow->co[j]), &drip_snow);
         canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI, A->L->vegpar[jdLSAI], Psnow_over, V->Tv[j],
                                  Vpoint, Dt, &max_wcan_snow, &(V->wsnow[j]), &drip_snow);
 
@@ -433,7 +361,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         if(V->wsnow[j]<0) printf("Error 1 wcansnow:%f %ld %ld\n",V->wsnow[j],r,c);
 #endif
 
-        //	if(V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
         if(V->wsnow[j]<0) V->wsnow[j]=0.0;
     }
 
@@ -445,126 +372,99 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     // CURRENT CLOUDINESS
     if(!A->P->use_meteoio_cloud) { // GEOtop classic method
         //	if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
-        //	if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
         if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 
-        //	in case of shortwave data not available
+        //in case of shortwave data not available
         if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;
 
-        //	A->M->tau_cl_map->co[r][c]=A->M->tau_cloud;
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
-        //	A->M->tau_cl_av_map->co[r][c]=A->M->tau_cloud_av;
         A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
-        //printf("nnnnn A->M->tau_cloud=%f,A->M->tau_cl_map[r][c]=%f, A->P->use_meteoio_cloud=%d, A->M->tau_cloud_yes=%d",A->M->tau_cloud,A->M->tau_cl_map[r][c],A->P->use_meteoio_cloud,A->M->tau_cloud_yes);getchar();
     }else{// meteoIO is activated
-        //	if( (long)A->M->tau_cl_av_map->co[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
         if( (long)A->M->tau_cl_av_map[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
-            //	A->M->tau_cl_av_map->co[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
             A->M->tau_cl_av_map[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
         }
-        //	in case of shortwave data not available
-        //	if((long)A->M->tau_cl_map->co[r][c]== number_novalue) {
         if((long)A->M->tau_cl_map[r][c]== number_novalue) {
-            //	A->M->tau_cl_map->co[r][c] = A->M->tau_cl_av_map->co[r][c];
             A->M->tau_cl_map[r][c] = A->M->tau_cl_av_map[r][c];
         }
 
     }
 
-    //print_doublematrix_elements(A->M->tau_cl_map,10);stop_execution();
+    //albedo
+    if(snowD>0){
+        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, 10.0 /* A->P->minP_torestore_A */, &(snowage[j]));
+        avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (&Turbulence::Zero));
+	avis_b=avis_d;//approx
+        anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (&Turbulence::Zero));
+	anir_b=anir_d;//approx
+    }else{
+	    if (i<=A->P->total_channel) {
+		    theta_sup = A->C->th[1][j];
+	    }else {
+		    theta_sup = A->S->th[1][j];
+	    }
+	    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+	    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+	    avis_b=avis_ground;
+	    avis_d=avis_ground;
+	    anir_b=anir_ground;
+	    anir_d=anir_ground;
+    }
 
     //calculation of SWin
     if(A->P->point_sim==1){
-        //	A->E->sun[0] = A->T->latitude->co[r][c]*GTConst::Pi/180.;
         A->E->sun[0] = A->T->latitude[r][c]*GTConst::Pi/180.;
-        //	A->E->sun[2] = (A->T->longitude->co[r][c]*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
         A->E->sun[2] = (A->T->longitude[r][c]*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
         if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
         if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb);
-        //	if(A->P->cast_shadow==1) A->L->shadow->co[r][c]=shadows_point(A->T->horizon_height[A->T->horizon_point->co[r][c]-1],
-        //												A->T->horizon_numlines[A->T->horizon_point->co[r][c]-1], A->E->hsun*180./GTConst::Pi,
-        //												A->E->dsun*180/GTConst::Pi, 0., 0.);
         if(A->P->cast_shadow==1) A->L->shadow[r][c]=shadows_point(A->T->horizon_height[A->T->horizon_point[r][c]-1],
-                A->T->horizon_numlines[A->T->horizon_point[r][c]-1], A->E->hsun*180./GTConst::Pi,
-                A->E->dsun*180/GTConst::Pi, 0., 0.);
+			A->T->horizon_numlines[A->T->horizon_point[r][c]-1], A->E->hsun*180./GTConst::Pi,
+			A->E->dsun*180/GTConst::Pi, 0., 0.);
     }
 
     A->E->sun[3] = RHpoint;
     A->E->sun[4] = Tpoint;
     A->E->sun[5] = Ppoint;
-    //	A->E->sun[6] = A->T->slope->co[r][c]*GTConst::Pi/180.;
     A->E->sun[6] = A->T->slope[r][c]*GTConst::Pi/180.;
-    //	A->E->sun[7] = A->T->aspect->co[r][c]*GTConst::Pi/180.;
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
-    //	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
-    //			 A->M->tau_cl_map->co[r][c], A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
-    shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c], A->E->SWrefl_surr[r][c],
-                        A->M->tau_cl_map[r][c], A->L->shadow[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
-//	printf("\nJDb=%f, JDe=%f, A->E->sinhsun=%f, E0=%f, A->T->sky[%ld][%ld]=%f, A->E->SWrefl_surr[r][c]=%f,A->M->tau_cl_map[r][c]=%f, A->L->shadow[r][c]=%d",
-//			JDb, 	JDe, 	A->E->sinhsun, 	E0, 	r,c,A->T->sky[r][c],   A->E->SWrefl_surr[r][c],   A->M->tau_cl_map[r][c], 	 A->L->shadow[r][c]);
-//	printf("\ntau_cloud=%f, SWbeam=%f, SWdiff=%f, cosinc=%f, tauatm_sinhsun=%f, SWb_yes=%d",A->M->tau_cloud,SWbeam,SWdiff,cosinc,tauatm_sinhsun,SWb_yes);
+    // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
+
+    shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
+		    A->E->SWrefl_surr[r][c],
+                        A->M->tau_cl_map[r][c], A->L->shadow[r][c],
+			&SWbeam, &SWdiff, &cosinc,
+			&tauatm_sinhsun, &SWb_yes);
+
+    //TODO: merge it #SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
+    //TODO: merge it #SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0, (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
+
     SWin=SWbeam+SWdiff;
 
     //albedo
-    if (i<=A->P->total_channel) {
-        //	theta_sup = A->C->th->co[1][j];
-        theta_sup = A->C->th[1][j];
-    }else {
-        //	theta_sup = A->S->th->co[1][j];
-        theta_sup = A->S->th[1][j];
-    }
-
-    //	avis_ground = find_albedo(A->L->ty->co[lu][ja_vis_dry], A->L->ty->co[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-    //	anir_ground = find_albedo(A->L->ty->co[lu][ja_nir_dry], A->L->ty->co[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-
-    if(snowD>0){
-        //	if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T->co[ns][r][c], Dt, &(snowage->co[j]));
-        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, 10.0 /* A->P->minP_torestore_A */, &(snowage[j]));
-        //	avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage->co[j], cosinc, (*Fzen));
-        avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
-        //	avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage->co[j], cosinc, (&Turbulence::Zero));
-        avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (&Turbulence::Zero));
-        //	anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage->co[j], cosinc, (*Fzen));
-        anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
-        //	anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage->co[j], cosinc, (&Turbulence::Zero));
-        anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (&Turbulence::Zero));
-    }else{
-        avis_b=avis_ground;
-        avis_d=avis_ground;
-        anir_b=anir_ground;
-        anir_d=anir_ground;
-    }
+   if(snowD>0){
+	   avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
+	   anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
+   }
 
     //shortwave absorbed by soil (when vegetation is not present)
     SW += (1.0-fc)*( SWdiff*(1.0-0.5*avis_d-0.5*anir_d) + SWbeam*(1.0-0.5*avis_b-0.5*anir_b) );
     *SWupabove_v += (1.0-fc)*( SWdiff*(0.5*avis_d+0.5*anir_d) + SWbeam*(0.5*avis_b+0.5*anir_b) );
+
     //shortwave radiation absorbed by canopy
     if(fc>0){
         if(A->E->hsun>0){
-            //	if(V->wsnow->co[j]<0) printf("Error wcansnow:%f %ld %ld\n",V->wsnow->co[j],r,c);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             if(V->wsnow[j]<0) printf("Error wcansnow:%12g %ld %ld\n",V->wsnow[j],r,c);
 #else
             if(V->wsnow[j]<0) printf("Error wcansnow:%f %ld %ld\n",V->wsnow[j],r,c);
 #endif
 
-            //	if(V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
             if(V->wsnow[j]<0) V->wsnow[j]=0.0;
-            //	fsnowcan=pow(V->wsnow->co[j]/max_wcan_snow, 2./3.);
             fsnowcan=pow(V->wsnow[j]/max_wcan_snow, 2./3.);
-            //	shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_vis, GTConst::Bsnd_vis, GTConst::Bsnb_vis, avis_d, avis_b, A->L->ty->co[lu][jvCh],
-            //						 A->L->ty->co[lu][jvR_vis], A->L->ty->co[lu][jvT_vis], A->L->vegpar->co[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
             shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_vis, GTConst::Bsnd_vis, GTConst::Bsnb_vis, avis_d, avis_b, A->L->ty[lu][jvCh],
                                  A->L->ty[lu][jvR_vis], A->L->ty[lu][jvT_vis], A->L->vegpar[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
-
-            //	shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_nir, GTConst::Bsnd_nir, GTConst::Bsnb_nir, anir_d, anir_b, A->L->ty->co[lu][jvCh],
-            //						 A->L->ty->co[lu][jvR_nir], A->L->ty->co[lu][jvT_nir], A->L->vegpar->co[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
-
             shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_nir, GTConst::Bsnd_nir, GTConst::Bsnb_nir, anir_d, anir_b, A->L->ty[lu][jvCh],
                                  A->L->ty[lu][jvR_nir], A->L->ty[lu][jvT_nir], A->L->vegpar[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
 
@@ -593,6 +493,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     //correct in case of reading data
     //printf("iSWn: %d    iLWi: %d\n", iSWn, iLWi);
     //HACK: EGGER: the next line is superfluous for now, we're not reading iSWn:
+    //TODO: merge it #	SW=flux(A->M->nstsrad, iSWn, A->M->var, 1.0, 0.0, SW);
     //SW=flux(1, iSWn, A->M->var, 1.0, SW);
     //Extinction coefficient for SW in the snow layers
     rad_snow_absorption(r, c, A->E->SWlayer, SW, S);
@@ -602,14 +503,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     if(snowD>10){
         eps=A->P->epsilon_snow;
     }else{
-        //	eps=A->L->ty->co[lu][jemg];
         eps=A->L->ty[lu][jemg];
     }
 
-    //	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->M->tau_cl_av_map->co[r][c], &epsa, &epsa_max, &epsa_min);
     longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
-    //	LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
-	LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+
+    LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
     if(A->P->surroundings == 1){
         /* LWin corrected with temperature of surrounding terrain,
          * calculated as averaged. */
@@ -618,51 +517,34 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     //if incoming LW data are available, they are used (priority)
     //HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
-    //LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
+    //TODO: merge it #LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
 
     //roughness lengths
-    //	update_roughness_soil(A->L->ty->co[lu][jz0], 0.0, 0.0, snowD, A->L->ty->co[lu][jz0thressoil], A->P->z0_snow, &z0, &d0, &z0_z0t);
     update_roughness_soil(A->L->ty[lu][jz0], 0.0, 0.0, snowD, A->L->ty[lu][jz0thressoil], A->P->z0_snow, &z0, &d0, &z0_z0t);
-    //	if(fc>0) update_roughness_veg(A->L->vegpar->co[jdHveg], snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);
     if(fc>0) update_roughness_veg(A->L->vegpar[jdHveg], snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);
+
     //variables used in the point_surface_balance
     for(l=1;l<=Nl+ns+ng;l++){
         if(l<=ns){	//snow
-            //	A->E->Dlayer->co[l] = 1.E-3*S->Dzl->co[ns+1-l][r][c];
             A->E->Dlayer[l] = 1.E-3*S->Dzl[ns+1-l][r][c];
-            //	A->E->liq->co[l] = S->w_liq->co[ns+1-l][r][c];
             A->E->liq[l] = S->w_liq[ns+1-l][r][c];
-            //	A->E->ice->co[l] = S->w_ice->co[ns+1-l][r][c];
             A->E->ice[l] = S->w_ice[ns+1-l][r][c];
-            //	A->E->Temp->co[l] = S->T->co[ns+1-l][r][c];
             A->E->Temp[l] = S->T[ns+1-l][r][c];
         }else if(l<=ns+ng){   //glacier
-            //	A->E->Dlayer->co[l] = 1.E-3*G->Dzl->co[ns+ng+1-l][r][c];
             A->E->Dlayer[l] = 1.E-3*G->Dzl[ns+ng+1-l][r][c];
-            //	A->E->liq->co[l] = G->w_liq->co[ns+ng+1-l][r][c];
             A->E->liq[l] = G->w_liq[ns+ng+1-l][r][c];
-            //	A->E->ice->co[l] = G->w_ice->co[ns+ng+1-l][r][c];
             A->E->ice[l] = G->w_ice[ns+ng+1-l][r][c];
-            //	A->E->Temp->co[l] =  G->T->co[ns+ng+1-l][r][c];
             A->E->Temp[l] =  G->T[ns+ng+1-l][r][c];
         }else{	//soil
             if (i<=A->P->total_channel) {
-                //	A->E->Dlayer->co[l] = 1.E-3*A->S->pa[sy][jdz][l-ns-ng];
                 A->E->Dlayer[l] = 1.E-3*A->S->pa[sy][jdz][l-ns-ng];
-                //	A->E->liq->co[l] = A->C->th->co[l-ns-ng][j]*A->E->Dlayer->co[l]*GTConst::rho_w;
                 A->E->liq[l] = A->C->th[l-ns-ng][j]*A->E->Dlayer[l]*GTConst::rho_w;
-                //	A->E->ice->co[l] = C->thi->co[l-ns-ng][j]*A->E->Dlayer->co[l]*GTConst::rho_w;
                 A->E->ice[l] = C->thi[l-ns-ng][j]*A->E->Dlayer[l]*GTConst::rho_w;
-                //	A->E->Temp->co[l] = C->T->co[l-ns-ng][j];
                 A->E->Temp[l] = C->T[l-ns-ng][j];
             }else {
-                //	A->E->Dlayer->co[l] = 1.E-3*A->S->pa[sy][jdz][l-ns-ng];
                 A->E->Dlayer[l] = 1.E-3*A->S->pa[sy][jdz][l-ns-ng];
-                //	A->E->liq->co[l] = A->S->th->co[l-ns-ng][j]*A->E->Dlayer->co[l]*GTConst::rho_w;
                 A->E->liq[l] = A->S->th[l-ns-ng][j]*A->E->Dlayer[l]*GTConst::rho_w;
-                //	A->E->ice->co[l] = L->thi->co[l-ns-ng][j]*A->E->Dlayer->co[l]*GTConst::rho_w;
                 A->E->ice[l] = L->thi[l-ns-ng][j]*A->E->Dlayer[l]*GTConst::rho_w;
-                //	A->E->Temp->co[l] = L->T->co[l-ns-ng][j];
                 A->E->Temp[l] = L->T[l-ns-ng][j];
             }
         }
@@ -707,60 +589,43 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             //just one snow layer and glacier layers == 0
         }else if (sux == -6){
 
-            //	ic = A->E->ice->co[1];
             ic = A->E->ice[1];
-            //	wa = A->E->liq->co[1];
             wa = A->E->liq[1];
-            //	rho = ic / A->E->Dlayer->co[1];
             rho = ic / A->E->Dlayer[1];
             for (l=2; l<=1+Nl; l++) {
-                //	A->E->ice->co[l-1] = A->E->ice->co[l];
                 A->E->ice[l-1] = A->E->ice[l];
-                //	A->E->liq->co[l-1] = A->E->liq->co[l];
                 A->E->liq[l-1] = A->E->liq[l];
-                //	A->E->Temp->co[l-1] = A->E->Temp->co[l];
                 A->E->Temp[l-1] = A->E->Temp[l];
-                //	A->E->Dlayer->co[l-1] = A->E->Dlayer->co[l];
                 A->E->Dlayer[l-1] = A->E->Dlayer[l];
             }
             ns --;
-            //	A->E->Dlayer->co[1] *= ( 1. + ic / (A->E->ice->co[1]+A->E->liq->co[1]) );
             A->E->Dlayer[1] *= ( 1. + ic / (A->E->ice[1]+A->E->liq[1]) );
-            //	A->E->ice->co[1] += ic;
             A->E->ice[1] += ic;
             if (i<=A->P->total_channel) {
-                //	C->thi->co[1][j] = A->E->ice->co[1]/(A->E->Dlayer->co[1]*GTConst::rho_w);
                 C->thi[1][j] = A->E->ice[1]/(A->E->Dlayer[1]*GTConst::rho_w);
-                //	A->C->th->co[1][j] = A->E->liq->co[1]/(A->E->Dlayer->co[1]*GTConst::rho_w);
                 A->C->th[1][j] = A->E->liq[1]/(A->E->Dlayer[1]*GTConst::rho_w);
             }else {
-                //	L->thi->co[1][j] = A->E->ice->co[1]/(A->E->Dlayer->co[1]*GTConst::rho_w);
                 L->thi[1][j] = A->E->ice[1]/(A->E->Dlayer[1]*GTConst::rho_w);
-                //	A->S->th->co[1][j] = A->E->liq->co[1]/(A->E->Dlayer->co[1]*GTConst::rho_w);
                 A->S->th[1][j] = A->E->liq[1]/(A->E->Dlayer[1]*GTConst::rho_w);
             }
 
         }
 
         //skin temperature
-        //	A->E->Temp->co[0] = A->E->Temp->co[1];
         A->E->Temp[0] = A->E->Temp[1];
 
         //ENERGY BALANCE
-        //		sux=SolvePointEnergyBalance(surface, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, A->S, A->C, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg,
-        //							   Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], &(V->wrain->co[j]),
-        //							   max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs,
-        //							   Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov, &rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb, A->T, snowD);
-
-        fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-               r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-        for(size_t lIndex = 1 ; lIndex < A->E->T0.size() ; lIndex++)
+        if(r == 5 && c == 2)
         {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+                    r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+            for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+            {
+                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+            }
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
         }
-        fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
-
         sux=SolvePointEnergyBalance(surface, JDb-A->P->init_date[i_sim], Dt, i, j, r, c, L,
                                     C, V, A->E, A->L, A->S, A->C, A->P, ns,
                                     ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
@@ -768,17 +633,19 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                                     fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], &(V->wrain[j]), max_wcan_rain, &(V->wsnow[j]), max_wcan_snow, SWin,
                                     LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv,
                                     &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1,
-                                    &Qv, &Qg, &Lobukhov, &rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb, A->T, snowD);
-
-        fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-               r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-        fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-        for(size_t lIndex = 1 ; lIndex < A->E->T0.size() ; lIndex++)
+                                    &Qv, &Qg, &Lobukhov, &rh, &rv, &rb, &rc, &ruc, &u_top,
+				    &decaycoeff, &Locc, &LWupabove_v, &lpb, A->T, snowD);
+        if(r==5 && c == 2)
         {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+                    r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+            for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+            {
+                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+            }
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
         }
-        fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
-
     }while (sux < 0);
 
     if (sux == 0 ) 	{

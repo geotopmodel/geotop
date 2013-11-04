@@ -72,7 +72,7 @@ int main(int argc,char *argv[]){
 	FILE *f;
 
     //TODO: removeme
-    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "w");
+    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "w");
     fclose(SolvePointEnergyBalance_LOG_FILE);
     
 	string cfgfile = "io_it.ini";
