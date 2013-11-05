@@ -196,7 +196,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
                          GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin){
 
-    long l, j, ns, ng=0;
+    long l=0, j=0, ns=0, ng=0;
     double SWin, SW, SWbeam, SWdiff, SWv_vis, SWv_nir, SWg_vis, SWg_nir, cosinc, avis_b, avis_d, anir_b, anir_d;
     double SWupabove_v_vis, SWupabove_v_nir;
     double avis_ground=0., anir_ground=0.;
@@ -372,10 +372,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     // CURRENT CLOUDINESS
     if(!A->P->use_meteoio_cloud) { // GEOtop classic method
         //	if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
-        if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
+        if(A->M->tau_cloud_av_yes==0)
+		A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 
         //in case of shortwave data not available
-        if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;
+        if(A->M->tau_cloud_yes==0)
+		A->M->tau_cloud = A->M->tau_cloud_av;
 
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
         A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
@@ -427,6 +429,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[3] = RHpoint;
     A->E->sun[4] = Tpoint;
     A->E->sun[5] = Ppoint;
+    double a_t_slope___ = A->T->slope[r][c] ;
+    double a_t_aspect___ = A->T->aspect[r][c] ; //FIXME: DIFFERENCES ARE HERE!!
+    double pigreco___ = GTConst::Pi ;
     A->E->sun[6] = A->T->slope[r][c]*GTConst::Pi/180.;
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
@@ -442,7 +447,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     SWin=SWbeam+SWdiff;
 
-    //albedo
+    //update snow albedo
    if(snowD>0){
 	   avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
 	   anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
@@ -617,12 +622,19 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         //ENERGY BALANCE
         if(r == 5 && c == 2)
         {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
                     r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+	    /*
+	       fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+	       for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+	       {
+	       fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+	       }
+	    */
+	    fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
+            for(size_t lIndex = 0 ; lIndex <= Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
             {
-                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
             }
             fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
         }
@@ -630,29 +642,38 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                                     C, V, A->E, A->L, A->S, A->C, A->P, ns,
                                     ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                     1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps,
-                                    fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], &(V->wrain[j]), max_wcan_rain, &(V->wsnow[j]), max_wcan_snow, SWin,
-                                    LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv,
+                                    fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], &(V->wrain[j]), max_wcan_rain, &(V->wsnow[j]), max_wcan_snow,
+				    SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv,
                                     &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1,
                                     &Qv, &Qg, &Lobukhov, &rh, &rv, &rb, &rc, &ruc, &u_top,
 				    &decaycoeff, &Locc, &LWupabove_v, &lpb, A->T, snowD);
+
         if(r==5 && c == 2)
         {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
+            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
                     r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+	    /*
+	       fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
+	       for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
+	       {
+	       fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+	       }
+	     */
+	    fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
+            for(size_t lIndex = 0 ; lIndex <= Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
             {
-                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
+                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
             }
             fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
         }
+
     }while (sux < 0);
 
     if (sux == 0 ) 	{
 
         //skin temperature
-        //	*Tgskin = A->E->Temp->co[A->P->nsurface];
         *Tgskin = A->E->Temp[A->P->nsurface];
+
 
         if(i<=A->P->total_channel){
 
@@ -1095,15 +1116,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short SolvePointEnergyBalance(short surfacemelting, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, SOIL_STATE *SC, STATE_VEG *V, Energy *egy, LAND *land, SOIL *sl,
-//						 CHANNEL *cnet, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, double rz0s, double z0v, double d0v, double rz0v,
-//						 double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, double decaycoeff0, double *Wcrn,
-//						 double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, double *LWv, double *Hv,
-//						 double *LEv, double *Etrans, double *Ts, double *Qs, double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg,
-//						 double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, TOPO *topog, double snowD){
-
-
-
 short SolvePointEnergyBalance(const short surfacemelting, const double t, const double Dt, const long i, const long j, const long r, const long c, SoilState * SL, SoilState *SC,
 						StateVeg *V, Energy *egy, Land *land, Soil *sl, Channel *cnet, Par *par, const long ns, const long ng, const double zmu, const double zmT,
 						const double z0s, const double d0s, const double rz0s,const double z0v, const double d0v, const double rz0v, const double hveg, const double v,
@@ -1114,13 +1126,14 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
 						double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, Topo * topog, const double snowD)
 {
 
-    //	short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin=0, sux;
     short iter_close, iter_close2, lu=land->LC[r][c], flagTmin=0, sux;
 
     long sur, sy, l, m, cont=0, cont2, n=Nl+ns+ng, cont_lambda_min=0;
     double dH_dT, dE_dT, EB, dEB_dT, EB0, Tg, Tg0, psim0, psi0, Qg0, Tv0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
     double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, thi, thin, thw, thwn, sat, satn, kt, ktn;
     FILE *f;
+
+    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
 
     //Surface conditions
     sur = par->nsurface;
@@ -1217,29 +1230,25 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
             &(egy->Temp[0]), egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, topog->Z0[r][c], topog->slope[r][c], topog->aspect[r][c],topog->sky[r][c], land->LC[r][c], sl->type[r][c], snowD);
 
 
-    EB = *LW - (*H) - Turbulence::latent(Tg,Turbulence::Levap(Tg))*(*E) + Eadd;
-    dEB_dT = -eps*dSB_dT(Tg) - dH_dT - Turbulence::latent(Tg, Turbulence::Levap(Tg))*dE_dT;
+    double egyswlayer___ =  egy->SWlayer[0];
+    double turbulence___ =   Turbulence::latent(Tg,Turbulence::Levap(Tg)) ;
+    EB = *LW - (*H) - Turbulence::latent(Tg,Turbulence::Levap(Tg))*(*E) + Eadd + egy->SWlayer[0];
+    dEB_dT = -eps*topog->sky[r][c]*dSB_dT(Tg) - dH_dT - Turbulence::latent(Tg, Turbulence::Levap(Tg))*dE_dT; //ADDED top->sky[r][c] term
 
     EB0 = EB;
 
     //Calculate -F(x0), given that the system to solve is F'(x0) * (x-x0) = -F(x0)
-
     //F(T) = diag(egy->Fenergy(T)) + K(T)*T
 
     for(l=sur;l<=n;l++){
-        //	egy->Fenergy->co[l] = 0.0;
         egy->Fenergy[l] = 0.0;
-        //	if(l>0)egy->deltaw->co[l] = 0.0;
         if(l>0)egy->deltaw[l] = 0.0;
     }
 
     for(l=1;l<=n;l++){
 
-        //	conductive M-matrix (lower diagonal part of this M-matrix is stored in a vector)
-
-        //	thw = (egy->liq->co[l]+egy->deltaw->co[l])/(GTConst::rho_w*egy->Dlayer->co[l]);
+        //conductive M-matrix (lower diagonal part of this M-matrix is stored in a vector)
         thw = (egy->liq[l]+egy->deltaw[l])/(GTConst::rho_w*egy->Dlayer[l]);
-        //	thi = (egy->ice->co[l]-egy->deltaw->co[l])/(GTConst::rho_i*egy->Dlayer->co[l]);
         thi = (egy->ice[l]-egy->deltaw[l])/(GTConst::rho_i*egy->Dlayer[l]);
 
         if (l > ns+ng) {
@@ -1282,37 +1291,32 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
             //	egy->Kth1->co[l-1] = - k_thermal(thw, thi, sat, kt) / ( egy->Dlayer->co[l]/2. );
             egy->Kth1[l-1] = - k_thermal(thw, thi, sat, kt) / ( egy->Dlayer[l]/2. );
         }
-        //	egy->Kth0->co[l-1] = egy->Kth1->co[l-1];
+
         egy->Kth0[l-1] = egy->Kth1[l-1];
 
-        //	diagonal part of F due to heat capacity and boundary condition (except conduction)
-        //	C0 = calc_C(l, ns+ng, 0.0, egy->ice->co, egy->liq->co, egy->deltaw->co, egy->Dlayer->co, sl->pa[sy]);
+        //diagonal part of F due to heat capacity and boundary condition (except conduction)
         C0 = calc_C(l, ns+ng, 0.0, &(egy->ice[0]), &(egy->liq[0]), &(egy->deltaw[0]), &(egy->Dlayer[0]), sl->pa, sy);
-        //	C1 = calc_C(l, ns+ng, 1.0, egy->ice->co, egy->liq->co, egy->deltaw->co, egy->Dlayer->co, sl->pa[sy]);
         C1 = calc_C(l, ns+ng, 1.0, &(egy->ice[0]), &(egy->liq[0]), &(egy->deltaw[0]), &(egy->Dlayer[0]), sl->pa, sy);
-        //	if(l<=ns+ng && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
         if(l<=ns+ng && egy->ice[l]-egy->deltaw[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
-        //	egy->Fenergy->co[l] += ( GTConst::Lf*egy->deltaw->co[l] + C1*egy->Dlayer->co[l]*egy->Temp->co[l] - C0*egy->Dlayer->co[l]*egy->T0->co[l] ) / Dt;
         egy->Fenergy[l] += ( GTConst::Lf*egy->deltaw[l] + C1*egy->Dlayer[l]*egy->Temp[l] - C0*egy->Dlayer[l]*egy->T0[l] ) / Dt;
 
-        //	shortwave radiation penetrating under the surface
-        //	if(l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
+        //shortwave radiation penetrating under the surface
         if(l<=ns+1) egy->Fenergy[l] -= egy->SWlayer[l];
 
     }
 
-    //	top boundary condition
-    //	egy->Fenergy->co[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
+    //top boundary condition
+    if(r==5 && c==2)
+	    printf("DEBUG_PRINT: BEFORE: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
     egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
-    //	egy->Fenergy->co[sur] -= egy->SWlayer->co[0];
-    egy->Fenergy[sur] -= egy->SWlayer[0];
+    //TODO: removed 4/11/2013 egy->Fenergy[sur] -= egy->SWlayer[0];
+    if(r==5 && c==2)
+	    printf("DEBUG_PRINT: AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
 
     //bottom boundary condition (treated as sink)
     kbb1 = k_thermal(thw, thi, sat, kt);
     kbb0 = kbb1;
-    //	egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-GTConst::KNe)*kbb1 + (par->Tboundary-egy->T0->co[n])*GTConst::KNe*kbb0 ) / (egy->Dlayer->co[n]/2.+par->Zboundary);
     egy->Fenergy[n] -= ( (par->Tboundary-egy->Temp[n])*(1.-GTConst::KNe)*kbb1 + (par->Tboundary-egy->T0[n])*GTConst::KNe*kbb0 ) / (egy->Dlayer[n]/2.+par->Zboundary);
-    //	egy->Fenergy->co[n] -= par->Fboundary;
     egy->Fenergy[n] -= par->Fboundary;
 
     //include conduction in F(x0)
@@ -1553,8 +1557,8 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
                         LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv[j]), Qv, Ts, Qs, Hg0, Hg1,
                         Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v, &(egy->Temp[0]),
 											   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, topog->sky[r][c], flagTmin, cont);
-                EB = *LW - (*H) - Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E) + Eadd;
-                dEB_dT = -eps*dSB_dT(Tg) - dH_dT - Turbulence::latent(Tg, Turbulence::Levap(Tg))*dE_dT;
+                EB = *LW - (*H) - Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E) + Eadd + egy->SWlayer[0];
+                dEB_dT = -eps*topog->sky[r][c]*dSB_dT(Tg) - dH_dT - Turbulence::latent(Tg, Turbulence::Levap(Tg))*dE_dT; //ADDED top->sky[r][c] term to match uzh exact results
 
             }
 
@@ -1634,7 +1638,7 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
             //	egy->Fenergy->co[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
             egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
             //	egy->Fenergy->co[sur] -= egy->SWlayer->co[0];
-            egy->Fenergy[sur] -= egy->SWlayer[0];
+            //TODO: remove 04/11/2013: egy->Fenergy[sur] -= egy->SWlayer[0];
 
             //bottom boundary condition (treated as sink)
             kbb1 = k_thermal(thw, thi, sat, kt);
@@ -1648,7 +1652,11 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
             //	update_F_energy(sur, n, egy->Fenergy, GTConst::KNe, egy->Kth0, egy->T0->co);
             update_F_energy(sur, n, egy->Fenergy, GTConst::KNe, egy->Kth0, &(egy->T0[0]));
             res = norm_2(egy->Fenergy, sur, n);
-
+	    if(r == 5 && c == 2)
+	    {
+		    fprintf(SolvePointEnergyBalance_LOG_FILE, "RES - r(%ld),c(%ld) : %.12g\n", r, c, res);
+		    fprintf(SolvePointEnergyBalance_LOG_FILE, "Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp[sur],egy->Temp[1],EB,egy->SWlayer[0],Ta,Tg,*LW,(*H),0,egy->deltaw[1],egy->liq[1]+egy->deltaw[1],egy->ice[1]-egy->deltaw[1]);
+	    }
             //	printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f %f %f LW:%.2f H:%.2f ET:%.2f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp->co[sur],egy->Temp->co[1],EB,egy->SWlayer->co[0],egy->SWlayer->co[1],egy->SWlayer->co[2],*LW,(*H),Turbulence::latent(Tg,Levap(Tg))*(*E),egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
 
             if(res <= res_av*(1.0 - ni_en*lambda[0])) iter_close2=1;
@@ -1668,6 +1676,7 @@ short SolvePointEnergyBalance(const short surfacemelting, const double t, const 
         if(cont>=par->maxiter_energy) iter_close=1;
 
     }while(iter_close!=1);
+	fclose(SolvePointEnergyBalance_LOG_FILE);
 
     //if there is no convergence, go out of the loop
     if(res > par->tol_energy){

@@ -1515,35 +1515,35 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	egy->liq = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->liq.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->ice = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->ice.resize( Nl + par->max_snow_layers + par->max_glac_layers );
+    egy->ice.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->Temp = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->Temp.resize( Nl + par->max_snow_layers + par->max_glac_layers );
+    egy->Temp.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->deltaw = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->deltaw.resize( Nl + par->max_snow_layers + par->max_glac_layers );
+    egy->deltaw.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
 
     //	egy->SWlayer = new_doublevector0( par->max_snow_layers + 1 );
-    egy->SWlayer.resize(par->max_snow_layers);
+    egy->SWlayer.resize(par->max_snow_layers+1+1);
 
     //	egy->soil_transp_layer = new_doublevector(land->root_fraction->nch);
     //	initialize_doublevector(egy->soil_transp_layer, 0.);
-    egy->soil_transp_layer.resize(land->root_fraction.getCols());
+    egy->soil_transp_layer.resize(land->root_fraction.getCols()+1);
 
     //	egy->dFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->dFenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->dFenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->udFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1);
-    egy->udFenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers );
+    egy->udFenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->Kth0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1 );
-    egy->Kth0.resize(Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->Kth0.resize(Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->Kth1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1);
-    egy->Kth1.resize( Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->Kth1.resize( Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->Fenergy=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->Fenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers );
+    egy->Fenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->Newton_dir=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->Newton_dir.resize(Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->Newton_dir.resize(Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->T0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->T0.resize( Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->T0.resize( Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->T1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-    egy->T1.resize( Nl + par->max_snow_layers + par->max_glac_layers);
+    egy->T1.resize( Nl + par->max_snow_layers + par->max_glac_layers+1);
     //	egy->Tstar=new_doublevector(Nl); //soil temperature at which freezing begins
     egy->Tstar.resize(Nl+1);
     //	egy->THETA=new_doublevector(Nl);	//water content (updated in the iterations)
@@ -1571,7 +1571,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	fprintf(flog,"Soil water evaporates from the first %ld layers\n",egy->soil_evap_layer_bare->nh);
     fprintf(flog,"Soil water evaporates from the first %ld layers\n",egy->soil_evap_layer_bare.size()-1);
     //	fprintf(flog,"Soil water transpires from the first %ld layers\n",egy->soil_transp_layer->nh);
-    fprintf(flog,"Soil water transpires from the first %ld layers\n",egy->soil_transp_layer.size());
+    fprintf(flog,"Soil water transpires from the first %ld layers\n",egy->soil_transp_layer.size()-1);
 
     /****************************************************************************************************/
     /*! Completing of the struct "water" (of the type WATER) */

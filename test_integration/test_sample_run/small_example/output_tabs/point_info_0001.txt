@@ -32,7 +32,7 @@
  Kh_sat of layer 2 [mm/s]: 0.000000
  Kh_sat of layer 3 [mm/s]: 0.000000
  Terrain elevation [m]: 950.000000
- Sky view factor [-]: 1.000000
+ Sky view factor [-]: 0.500000
  The pixel-type is 0 
  Aspect [deg] [0=Nord, clockwise]: 144.000000 
  Mean slope of the pixel [deg]: 4.920000 
