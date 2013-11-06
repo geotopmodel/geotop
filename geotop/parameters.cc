@@ -1794,7 +1794,16 @@ i = 0;
             for (j=1; j<sl->pa.getCh(); j++){
                 if( (long)sl->pa[i][jpsi][j] == number_novalue) ok = 0;
             }
-	    if (ok == 1) IT->init_water_table_depth[i] = (double)number_novalue;
+
+
+            if (ok == 1 )
+            {
+                if (IT->init_water_table_depth.size() <= i ) {
+
+			IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
+                }
+                IT->init_water_table_depth[i] = (double)number_novalue;
+            }
         }
 
 		//free_doubletensor(old_sl_par);

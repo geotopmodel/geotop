@@ -1404,7 +1404,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-    egy->sun = (double*)malloc(8*sizeof(double));
+    egy->sun = (double*)malloc(12*sizeof(double));
 
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
