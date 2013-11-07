@@ -49,6 +49,7 @@
 #include "output_nc.h"
 #endif
 #include <time.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -88,10 +89,35 @@ int main(int argc,char *argv[]){
        ignored command line options and pass them to
        ncgt_open_from_option_string().
     */
-	if (argc == 2) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
-	else if (argc > 2) cfgfile = string(argv[2]) + "/" + cfgfile;
+
+    std::string lDataPath ;
+	if (argc >= 2)
+    {
+        lDataPath = argv[1] ;
+    } else {
+        lDataPath = get_workingdirectory() ;
+    }
+    
+    if(lDataPath == "" )
+    {
+        std::cerr << "Error: data path is empty" << std::endl ;
+        exit (200) ;
+    }
+
+    chdir(lDataPath.c_str());
+    char * lCwdStr = getwd(NULL);
+    if (lCwdStr == NULL)
+    {
+        std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
+        exit (201) ;
+    }
+    std::string lFullPath(lCwdStr) ;
+    free(lCwdStr);
+    WORKING_DIRECTORY = lFullPath ;
+    cfgfile = WORKING_DIRECTORY + "/" + cfgfile;
+    
 	mio::Config cfg(cfgfile);
-	cfg.addKey("GRID2DPATH", "Input", ".");
+	cfg.addKey("GRID2DPATH", "Input", "");
 	mio::IOManager iomanager(cfg);
 	
 	//assign novalues
