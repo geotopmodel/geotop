@@ -18,6 +18,7 @@
 #include "config.h"
 #include "input.h"
 #include "parameters.h"
+#include <unistd.h>
 
 using namespace std ;
 
@@ -53,7 +54,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	IT=(INIT_TOOLS *)malloc(sizeof(INIT_TOOLS));
     IT = new InitTools();
 
-    if(!argv[1]){
+    if (WORKING_DIRECTORY != "")
+    {
+        
+    } else if(!argv[1]){
         WORKING_DIRECTORY=get_workingdirectory();
     }else if (argc==2){
         // modified by Emanuele Cordano on Aug 2011
@@ -265,6 +269,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //par->use_meteoio_meteodata=1;
     par->use_meteoio_cloud = true;
 #endif
+
     meteoio_init(iomanager);
     // ##################################################################################################################################
     // ##################################################################################################################################
@@ -1404,7 +1409,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-    egy->sun = (double*)malloc(8*sizeof(double));
+    egy->sun = (double*)malloc(12*sizeof(double));
 
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){

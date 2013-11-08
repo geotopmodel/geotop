@@ -402,7 +402,7 @@ double atm_transmittance_iqbal(double X, double P, double RH, double T, double L
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double taucloud, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
@@ -427,7 +427,7 @@ void longwave_radiation(short state, double pvap, double RH, double T, double ta
 		*eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+GTConst::tk)));//Andreas and Ackley, 1982
 
 	}else if(state==7){
-		*eps_min = (0.23+0.484*pow((pvap*100.)/(T+GTConst::tk),0.125));	//Konzelmann (1994)
+		*eps_min = (0.23+k1*pow((pvap*100.)/(T+GTConst::tk),1./k2));	//Konzelmann (1994)
 		
 	}else if(state==8){
 		*eps_min = (1.-(1.+46.5*pvap/(T+GTConst::tk))*exp(-pow(1.2+3.*46.5*pvap/(T+GTConst::tk) , 0.5)));//Prata 1996
@@ -529,19 +529,23 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	double *others;
 	double tau_atm;// atmosphere transmittance
 	double tau_atm_sin_alpha;
-	double sin_alpha;// solar elevationa ngle
+	double sin_alpha;// solar elevationa angle
 	double kd;
 	double kd0;
 	double tau = (double)number_novalue;
 	long j;
 			
-	others = (double*)malloc(6*sizeof(double));
+	others = (double*)malloc(12*sizeof(double));
 	others[0] = lat;
 	others[1] = Delta;
 	others[2] = dh;
 	others[3] = RH;
 	others[4] = T;
 	others[5] = P;
+//	others[8] = Lozone;
+//	others[9] = alpha;
+//	others[10] = beta;
+//	others[11] = albedo;
 	
 	tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
