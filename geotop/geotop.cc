@@ -50,11 +50,11 @@
 #endif
 #include <time.h>
 #include <unistd.h>
+#include <errno.h>
 
 using namespace std;
 
-//void time_loop(ALLDATA *A, mio::IOManager& iomanager);
-  void time_loop(AllData *A, mio::IOManager& iomanager);
+void time_loop(AllData *A, mio::IOManager& iomanager);
 
                
 /*----------   1. Global variables  ------------*/
@@ -68,17 +68,20 @@ int main(int argc,char *argv[]){
 	double elapsed;
 	start = clock();
 	
-//	ALLDATA *adt;
 	AllData *adt;
 	FILE *f;
 
     //TODO: removeme
+#ifdef DEBUG
     FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "w");
     fclose(SolvePointEnergyBalance_LOG_FILE);
     
+#endif 
+	
 	string cfgfile = "io_it.ini";
 //	printf("argc=%d, argv[0]=%s argv[1]=%s argv[2]=%s argv[3]=%s argv[4]=%s",argc,argv[0],argv[1],argv[2],argv[3],argv[4]);stop_execution();
 //	if (argc > 1) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
+	
     /* ANTONIO: This is just crazy. We have *two* incompatible way of
        calling geotop, and part of the command line parsing is done
        later on, in ncgt_open_from_option_string(), but only if
@@ -206,11 +209,13 @@ int main(int argc,char *argv[]){
 		set_output_nc(adt);
 #endif
 		time_loop(adt, iomanager);
+
 #ifdef USE_NETCDF
 
 		ncgt_close_geotop_archive(ncid);
 		deallocate_output_nc(adt->outnc);
 #endif	
+
 		end = clock();
 		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 
