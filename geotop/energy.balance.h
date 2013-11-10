@@ -86,7 +86,7 @@ short SolvePointEnergyBalance(const short surfacemelting, double Tgd, double EBd
 						const double decaycoeff0, double *Wcrn, const double Wcrnmax, double *Wcsn, const double Wcsnmax, const double SWin, const double LWin,
 						const double SWv, double *LW, double *H, double *E, double *LWv, double *Hv, double *LEv, double *Etrans, double *Ts, double *Qs, 
 						const double Eadd, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Qv, double *Qg, double *Lob, double *rh, double *rv,
-						double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb,  const double snowD);
+						double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb,  double *dUsl);
 
 
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th);
