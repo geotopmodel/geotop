@@ -344,6 +344,9 @@ short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
 
  ^-^
 (0 0)
-  V
+  v
+(   )
+ V V
+ m m
 
 */
