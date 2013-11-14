@@ -116,6 +116,7 @@ typedef struct {
 	DOUBLEMATRIX *P;
 	DOUBLEMATRIX *thi;
 	DOUBLEMATRIX *T;
+	DOUBLEMATRIX *C;
 } SOIL_STATE;
 
 /*---------------------------------------------------------------------------*/
@@ -303,18 +304,6 @@ typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=nu
 	double Voutbottom;
 	
 } WATER;
-
-
-typedef struct{
-	double conc;
-	double mass_new;
-	double mass_old;
-	double Q_x;
-	double Q_y;
-	double Q_z;
-	double V;
-} TRANSPORT;	//by Flo
-
 
 /*---------------------------------------------------------------------------*/
 typedef struct {

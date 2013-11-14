@@ -4,383 +4,338 @@
 #include "sparse_matrix.h"
 #include "util_math.h"
 #include "transport.model.h"
-//#include "water.balance.h"
 #include "meteodata.h"
 #include <time.h>
 
-// warum short???
-short transport_model(double Dt, DOUBLEVECTOR *H, ALLDATA *adt){
+extern long Nl, Nr, Nc; //max l, max r, max c
+extern T_INIT *UV;	//dem information
 
-	long d, i, l, r, c, ch, Nl=1, sy;
-	long n=(Nl+1)*adt->P->total_pixel;
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
 
-	long il[6] = {0, 1,  0, 0,  0, 0};
-	long ir[6] = {0, 0, -1, 1,  0, 0};
-	long ic[6] = {0, 0,  0, 0, -1, 1};
-
-	double area, ds, dz;
-
-printf("hallo\n\n");
-
-		//VERTICAL FLUXES
+double Dt_transport_model(double Courant, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
+	
+	long d; //direction index
+	long i; //cell index
+	long j; //neighbouring cell index
+	long l, r, c;	//layer,row,column
+	long ch;	//channel index
+	long n=(Nl+1)*adt->P->total_pixel;	//number of land cells
+	long cnt=0; //counter
+	
+	//directional vectors
+	long il[7] = {0, 1,  0, 0,  0, 0, 0};
+	long ir[7] = {0, 0, -1, 1,  0, 0, 0};
+	long ic[7] = {0, 0,  0, 0, -1, 1, 0};
+	
+	double adv,diff;//advective and diffusive fluxes
+	double advc;
+	
+	double Dt=1.E99;
+	
+	//i goes from 1 to n+nch, where n is the number of land cells and nch the number of channel cells
+	for (i=1; i<=H->nh; i++) {
+		
 		if( i<=n){//land
 			
 			l=adt->T->lrc_cont->co[i][1];
 			r=adt->T->lrc_cont->co[i][2];
 			c=adt->T->lrc_cont->co[i][3];
-			sy=adt->S->type->co[r][c];
-			
 			ch=adt->C->ch->co[r][c];
-			area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
-			if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-			if (l>0) {dz = adt->S->pa->co[sy][jdz][l];}
-			else {dz = 0;}
-
-
-
+			
 		}else{//channel
 			
 			l=adt->C->lch->co[i-n][1];
 			ch=adt->C->lch->co[i-n][2];
 			r=adt->C->r->co[ch];
 			c=adt->C->c->co[ch];
-			sy=adt->C->soil_type->co[ch];
-			area=adt->C->length->co[ch] * adt->P->w_dx * ds;
 			
-			//vertical hydraulic conductivity
-			if (l>0) {dz = adt->S->pa->co[sy][jdz][l];}
-			else {dz = 0;}
-		}
-
-
-/*
-			//flux from cell below
-			if (l<Nl) {
-				
-				I = i+1;
-				
-				if(l==0){	//overland flow
-					
-					dzn = adt->S->pa->co[sy][jdz][l+1];
-					dD = 0.5*dzn;
-					
-					if( H->co[i] < H->co[I] ){	
-						//upward flux
-						kn = k_from_psi(jKn, H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					}else{	
-						//downward flow
-						kn = k_from_psi(jKn, psisat_from(SC->thi->co[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					}
-					
-				}else{	//subsurface flow
-					
-					dzn = adt->S->pa->co[sy][jdz][l+1];
-					dD = 0.5*dz + 0.5*dzn;
-					
-					if( H->co[i] < H->co[I] ){	
-						//upward flux
-						kn = k_from_psi(jKn, H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					}else{	
-						//downward flow
-						kn = k_from_psi(jKn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					}			
-					
-					
-					kmax = k_from_psi(jKn, psisat_from(SC->thi->co[l][ch], l, adt->S->pa->co[sy]), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					kmaxn = k_from_psi(jKn, psisat_from(SC->thi->co[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					kmaxn = Fmin(kmax, kmaxn);
-					
-					kn = Fmin(kn, kmaxn);
-					
-				}
-				
-				cnt++;
-				Lx->co[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-			}
 		}
 		
-		//LATERAL FLUXES
-		if (i<=n){
+		/*we check the neighbouring cell in 5 different directions (direction up is excluded because we are looking
+		 only to the lower diagonal part of the matrix*/
+		
+		for (d=1; d<=6; d++) {
 			
-			//lateral hydraulic conductivity
-			if(l>0){
-				k = k_from_psi(jKl, H->co[i] - adt->T->Z->co[l][r][c], SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-				kmax = k_from_psi(jKl, psisat_from(SL->thi->co[l][j], l, adt->S->pa->co[sy]), SL->thi->co[l][l], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-				if(adt->T->BC_counter->co[r][c]>0){
-					if(adt->T->pixel_type->co[r][c] == 1 || adt->T->pixel_type->co[r][c] == 2 || adt->T->pixel_type->co[r][c] == 11 || adt->T->pixel_type->co[r][c] == 12) Klat->co[adt->T->BC_counter->co[r][c]][l] = k;
-				}
-			}
-			
-			//4 neighbouring cells
-			R = r-1;
-			C = c;
-			//1.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
-					
-					I = adt->T->i_cont[l][R][C];	
-					syn = adt->S->type->co[R][C];
-					J = adt->T->j_cont[R][C];
-					
-					dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
-					dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
-					
-					if(l>0){
-						
-						//Subsurface Flow
-						if (H->co[I] > H->co[i]) {
-							kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						}else {
-							kn = k;
-						}
-						
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						kmaxn = Fmin(kmax, kmaxn);
-						kn = Fmin(kn, kmaxn);
-												
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}else {
-						
-						//Surface Flow
-						if (H->co[I] > H->co[i]) {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*Pi/180.);
-						}else {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*Pi/180.);
-						}
-						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
+			//the neighbouring cell must be within the control volume
+			if (r+ir[d]>=1 && r+ir[d]<=Nr && c+ic[d]>=1 && c+ic[d]<=Nc && l+il[d]>=0 && l+il[d]<=Nl) {
+				
+				if(d<=5){//look for neighbouring land cell
+					j = adt->T->i_cont[l+il[d]][r+ir[d]][c+ic[d]];
+				}else {//look for neighbouring channel cell
+					if (ch>0) {//there is actually a neighbouring channel cell
+						j = n + adt->C->ch3[l][ch];
+					}else {//there is NO neighbouring channel cell
+						j = i;
 					}
 				}
-			}
-			
-			R = r+1;
-			C = c;
-			dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			//2.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
+				
+				//we consider here only the lower diagonal
+				if (j > i) {
 					
-					I = adt->T->i_cont[l][R][C];	
-					syn = adt->S->type->co[R][C];
-					J = adt->T->j_cont[R][C];
-					
-					dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
-					dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
-					
-					if(l>0){
-						if (H->co[I] > H->co[i]) {
-							kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						}else {
-							kn = k;
+					/*in the channel lateral transport in the soil is not considered
+					 (i>n) it is a channel, then there is transport only in vertical direction
+					 or (i<=n) it is not a channel, so there is transport in any direction (1 to 5)
+					 if the pixel has a channel, we have to consider the exchange land-channel (d==6), which occurs for l>0*/
+					if ( (i>n && d==1) || (i<=n && d<=5) || (i<=n && d==6 && l>0 && ch>0) ) {
+						
+						//counter is updated, counter is the correspondent position in the Kij matrix
+						cnt++; 
+						
+						//if l==0 concentration is not defined, but we have to increase cnt, otherwise the matrixes are not consistent
+						if(l>0){
+							
+							//ADVECTION
+							//K is in [m2/s]
+							//H is in [mm]
+							//adv is in [m3/s]
+							//M is in [kg]
+							//C is in [kg/m3]
+							adv = K->co[cnt] * 1.E-3*(H->co[i]-H->co[j]);
+							
+							if(adv >= 0){ //advection from j to i
+								advc = Dt * (adv * C->co[j]);
+							}else { //advection from i to j
+								advc = Dt * (adv * C->co[i]);
+							}
+							
+							//DIFFUSION-DISPERSION
+							diff = D->co[cnt] * (C->co[j] - C->co[i]);
+							
+							//case 1
+							//advection and diffusion in different direction
+							if (adv >= 0 && diff<0){
+								
+								//case 1a
+								if (fabs(advc) >= fabs(diff)) {
+									if(Dt < Courant * M->co[j] / (fabs(advc)-fabs(diff))) Dt = Courant * M->co[j] / (fabs(advc)-fabs(diff));
+								//case 1b
+								}else {
+									if(Dt < Courant * M->co[i] / (fabs(advc)-fabs(diff))) Dt = Courant * M->co[i] / (fabs(advc)-fabs(diff));
+								}
+								
+
 						}
-						
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						kmaxn = Fmin(kmax, kmaxn);
-						kn = Fmin(kn, kmaxn);
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}else {
-						
-						if (H->co[I] > H->co[i]) {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*Pi/180.);
-						}else {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*Pi/180.);
-						}
-						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}
-					
+					}					
 				}
 			}
-			
-			R = r;
-			C = c-1;
-			dn = ds/cos(0.5*atan(adt->T->dzdN->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			//3.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
-					
-					I = adt->T->i_cont[l][R][C];	
-					syn = adt->S->type->co[R][C];
-					J = adt->T->j_cont[R][C];
-					
-					dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
-					dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
-					
-					if(l>0){
-						if (H->co[I] > H->co[i]) {
-							kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						}else {
-							kn = k;
-						}
-						
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						kmaxn = Fmin(kmax, kmaxn);
-						kn = Fmin(kn, kmaxn);
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}else {
-						
-						if (H->co[I] > H->co[i]) {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*Pi/180.);
-						}else {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*Pi/180.);
-						}
-						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}
-				}
-			}
-			
-			R = r;
-			C = c+1;
-			dn = ds/cos(0.5*atan(adt->T->dzdN->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			//4.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
-					
-					I = adt->T->i_cont[l][R][C];	
-					syn = adt->S->type->co[R][C];
-					J = adt->T->j_cont[R][C];
-					
-					dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
-					dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
-					
-					if(l>0){
-						if (H->co[I] > H->co[i]) {
-							kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						}else {
-							kn = k;
-						}
-						
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-						kmaxn = Fmin(kmax, kmaxn);
-						kn = Fmin(kn, kmaxn);
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}else {
-						
-						if (H->co[I] > H->co[i]) {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*Pi/180.);
-						}else {
-							kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*Pi/180.);
-						}
-						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
-						
-						cnt++;
-						Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						
-					}
-				}
-			}
-			
-			//exchange with channels
-			if (l>0 && adt->C->ch->co[r][c] > 0) {
-				
-				ch = adt->C->ch->co[r][c];
-				syn = adt->C->soil_type->co[ch];
-				I = n + adt->C->ch3[l][ch];
-				
-				if (H->co[I] > H->co[i]) {
-					kn = k_from_psi(jKl, H->co[I] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-				}else {
-					kn = k;
-				}
-				
-				kmaxn = k_from_psi(jKl, psisat_from(SC->thi->co[l][ch], l, adt->S->pa->co[syn]), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);	
-				kmaxn = Fmin(kmax, kmaxn);
-				kn = Fmin(kn, kmaxn);
-				
-				//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]	
-				//Area[m2] = 2 * channel length * layer thickness = 2 * length[m] * dz[mm] * 1.E-3[m/mm]
-				//dD[mm] = 0.25 * ds * (1+w_dx)
-				dD = find_3Ddistance(ds * (1.0 + adt->P->w_dx) / 4.0, 1.E-3*adt->P->depr_channel) * 1.E3;//[mm]
-				
-				cnt++;
-				Lx->co[cnt] = -(2.*adt->C->length->co[adt->C->ch->co[r][c]]*1.E-3*dz)*kn/dD;						
-				
-			}
-		}	
-	}										
-	
-*/	
+		}
+	}
 	
 	return 0;
-	
 }
 
 
 
+
+
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
 /*
-        for (iy = 0; iy < ny; iy++){
-            for (ix = 0; ix < nx; ix++){
-	            for (iz = 0; iz < nz
-	                if ( a.Q_x(iy,ix,iz,it_inner) > 0 )
-	                    a.dm_x(iy,ix,iz,it_inner) = a.m_inner(iy,ix,iz,it_inner) / a.V_inner(iy,ix,iz,it_inner) * a.Q_x(iy,ix,iz,it_inner) * a.dt_inner ;
-	                else
-	                    a.dm_x(iy,ix,iz,it_inner) = a.m_inner(iy,ix+1,iz,it_inner) / a.V_inner(iy,ix+1,iz,it_inner) * a.Q_x(iy,ix,iz,it_inner) * a.dt_inner ;
-		    end
-                end
-            }
-        }
-        
-        for iy = 1 : a.ny - 1
-            for ix = 1 : a.nx
-	            for iz = 1 : a.nz
-	                if ( a.Q_y(iy,ix,iz,it_inner) > 0 )
-	                    a.dm_y(iy,ix,iz,it_inner) = a.m_inner(iy,ix,iz,it_inner) / a.V_inner(iy,ix,iz,it_inner) * a.Q_y(iy,ix,iz,it_inner) * a.dt_inner ;
-	                else
-	                    a.dm_y(iy,ix,iz,it_inner) = a.m_inner(iy+1,ix,iz,it_inner) / a.V_inner(iy+1,ix,iz,it_inner) * a.Q_y(iy,ix,iz,it_inner) * a.dt_inner ;
-	                end
-                end
-            end
-        end
-        
-        for iy = 1 : a.ny
-            for ix = 1 : a.nx
-	            for iz = 1 : a.nz - 1
-	                if ( a.Q_z(iy,ix,iz,it_inner) > 0 )
-	                    a.dm_z(iy,ix,iz,it_inner) = a.m_inner(iy,ix,iz,it_inner) / a.V_inner(iy,ix,iz,it_inner) * a.Q_y(iy,ix,iz,it_inner) * a.dt_inner ;
-	                else
-	                    a.dm_z(iy,ix,iz,it_inner) = a.m_inner(iy,ix,iz+1,it_inner) / a.V_inner(iy,ix,iz+1,it_inner) * a.Q_y(iy,ix,iz,it_inner) * a.dt_inner ;
-	                end
-                end
-            end
-        end
-
-        a.dm(2:a.ny-1,2:a.nx-1,it_inner) = a.dm_x(2:a.ny-1,1:a.nx-2,2:a.nz-1,it_inner) - a.dm_x(2:a.ny-1,2:a.nx-1,2:a.nz-1,it_inner) + ...
-                                           a.dm_y(1:a.ny-2,2:a.nx-1,2:a.nz-1,it_inner) - a.dm_y(2:a.ny-1,2:a.nx-1,2:a.nz-1,it_inner) + ...
-                                           a.dm_z(2:a.ny-1,2:a.nx-1,1:a.nz-2,it_inner) - a.dm_z(2:a.ny-1,2:a.nx-1,2:a.nz-1,it_inner) + ...
-                                           a.input_concentration(2:a.ny-1,2:a.nx-1,it) .* a.precipitation(2:a.ny-1,2:a.nx-1,it) * a.dx * a.dy * 					   a.dt_inner ; // nodal mass change is calculated
-
+ Dt = time step [s]
+ M = tracer mass [kg], it is modified by this routine
+ C = tracer concentration [kg/m3], input
+ H = total head [mm], input
+ K = matrix of (-area*k/d) [m2/s], input
+ D = diffusion-dispersion matrix (area*diff/d) [m3/s], input
 */
+
+short transport_model(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
+	
+	long d; //direction index
+	long i; //cell index
+	long j; //neighbouring cell index
+	long l, r, c;	//layer,row,column
+	long ch;	//channel index
+	long n=(Nl+1)*adt->P->total_pixel;	//number of land cells
+	long cnt=0; //counter
+	
+	//directional vectors
+	long il[7] = {0, 1,  0, 0,  0, 0, 0};
+	long ir[7] = {0, 0, -1, 1,  0, 0, 0};
+	long ic[7] = {0, 0,  0, 0, -1, 1, 0};
+	
+	double adv,diff;//advective and diffusive fluxes
+		
+	//i goes from 1 to n+nch, where n is the number of land cells and nch the number of channel cells
+	for (i=1; i<=H->nh; i++) {
+				
+		if( i<=n){//land
+			
+			l=adt->T->lrc_cont->co[i][1];
+			r=adt->T->lrc_cont->co[i][2];
+			c=adt->T->lrc_cont->co[i][3];
+			ch=adt->C->ch->co[r][c];
+						
+		}else{//channel
+			
+			l=adt->C->lch->co[i-n][1];
+			ch=adt->C->lch->co[i-n][2];
+			r=adt->C->r->co[ch];
+			c=adt->C->c->co[ch];
+		
+		}
+		
+		/*we check the neighbouring cell in 5 different directions (direction up is excluded because we are looking
+		 only to the lower diagonal part of the matrix*/
+		
+		for (d=1; d<=6; d++) {
+			
+			//the neighbouring cell must be within the control volume
+			if (r+ir[d]>=1 && r+ir[d]<=Nr && c+ic[d]>=1 && c+ic[d]<=Nc && l+il[d]>=0 && l+il[d]<=Nl) {
+				
+				if(d<=5){//look for neighbouring land cell
+					j = adt->T->i_cont[l+il[d]][r+ir[d]][c+ic[d]];
+				}else {//look for neighbouring channel cell
+					if (ch>0) {//there is actually a neighbouring channel cell
+						j = n + adt->C->ch3[l][ch];
+					}else {//there is NO neighbouring channel cell
+						j = i;
+					}
+				}
+
+				//we consider here only the lower diagonal
+				if (j > i) {
+					
+					/*in the channel lateral transport in the soil is not considered
+					 (i>n) it is a channel, then there is transport only in vertical direction
+					 or (i<=n) it is not a channel, so there is transport in any direction (1 to 5)
+					 if the pixel has a channel, we have to consider the exchange land-channel (d==6), which occurs for l>0*/
+					if ( (i>n && d==1) || (i<=n && d<=5) || (i<=n && d==6 && l>0 && ch>0) ) {
+						
+						//counter is updated, counter is the correspondent position in the Kij matrix
+						cnt++; 
+						
+						//if l==0 concentration is not defined, but we have to increase cnt, otherwise the matrixes are not consistent
+						if(l>0){
+							
+							//ADVECTION
+							//K is in [m2/s]
+							//H is in [mm]
+							//adv is in [m3/s]
+							//M is in [kg]
+							//C is in [kg/m3]
+							adv = K->co[cnt] * 1.E-3*(H->co[i]-H->co[j]);
+							
+							if(adv >= 0){ //advection from j to i
+								M->co[i] += Dt * (adv * C->co[j]);
+								M->co[j] -= Dt * (adv * C->co[j]);
+							}else { //advection from i to j
+								M->co[i] += Dt * (adv * C->co[i]);
+								M->co[j] -= Dt * (adv * C->co[i]); 
+							}
+							
+							//DIFFUSION-DISPERSION
+							diff = D->co[cnt] * (C->co[j] - C->co[i]);
+							
+							M->co[i] += Dt * diff;
+							M->co[j] -= Dt * diff;
+						}
+					}					
+				}
+			}
+		}
+	}
+	
+	return 0;
+}
+
+
+	
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
+//Conversion from Mland, Mchannel -> V
+
+short C_conversion_matrices_to_vector(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
+	
+	long i; //cell index
+	long j; //surface index
+	long n=(Nl+1)*adt->P->total_pixel;	//number of land cells
+	long l, r, c;	//layer,row,column
+	
+	for(i=1; i<=V->nh; i++){
+		
+		if (i<=n) { //land
+			
+			l = adt->T->lrc_cont->co[i][1];
+			
+			r = adt->T->lrc_cont->co[i][2];
+			c = adt->T->lrc_cont->co[i][3];
+			j = adt->T->j_cont[r][c];
+			
+			if (l==0) {
+				V->co[i] = 0.;
+			}else {
+				V->co[i] = Mland->co[l][j];
+			}
+			
+		}else {  //channel
+			
+			l = adt->C->lch->co[i-n][1];
+			j = adt->C->lch->co[i-n][2];
+			
+			if (l==0) {
+				V->co[i] = 0.;
+			}else {
+				V->co[i] = Mchannel->co[l][j];
+			}
+		}
+	}
+}
+
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
+//Conversion from V -> Mland, Mchannel
+
+short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
+	
+	long i; //cell index
+	long j; //surface index
+	long n=(Nl+1)*adt->P->total_pixel;	//number of land cells
+	long l, r, c;	//layer,row,column
+	
+	for(i=1; i<=V->nh; i++){
+		
+		if (i<=n) { //land
+			
+			l = adt->T->lrc_cont->co[i][1];
+			
+			r = adt->T->lrc_cont->co[i][2];
+			c = adt->T->lrc_cont->co[i][3];
+			j = adt->T->j_cont[r][c];
+			
+			if (l>0) Mland->co[l][j] = V->co[i];
+
+		}else {  //channel
+			
+			l = adt->C->lch->co[i-n][1];
+			j = adt->C->lch->co[i-n][2];
+			
+			if (l>0) Mchannel->co[l][j] = V->co[i];
+
+		}
+	}
+}
+
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
 

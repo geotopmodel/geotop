@@ -326,7 +326,7 @@ void time_loop(ALLDATA *A){
 
 						if(A->P->wat_balance == 1 && wt==0 && en == 0){
 							tstart=clock();
-							tr = transport_model(Dt, A);
+							tr = transport_model(Dt, A->W->H1, A);
 							tend=clock();
 							t_transport+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 						}	//by Flo
