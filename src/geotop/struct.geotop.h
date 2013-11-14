@@ -305,6 +305,17 @@ typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=nu
 } WATER;
 
 
+typedef struct{
+	double conc;
+	double mass_new;
+	double mass_old;
+	double Q_x;
+	double Q_y;
+	double Q_z;
+	double V;
+} TRANSPORT;	//by Flo
+
+
 /*---------------------------------------------------------------------------*/
 typedef struct {
 	
@@ -411,6 +422,7 @@ typedef struct {
 		    	
 	short wat_balance;
 	short en_balance;
+	short transport_model;	//by Flo
 				
 	long nLC;	
 	
@@ -695,7 +707,6 @@ typedef struct{
 	DOUBLEVECTOR *Theight;
 } METEO_STATIONS;
 
-
 typedef struct {
 	METEO_STATIONS *st;
 	
@@ -760,6 +771,7 @@ typedef struct {
 typedef struct {
 	SOIL *S;
 	WATER *W;
+	TRANSPORT *Tr;	//by Flo
 	LAND *L;
 	PAR *P;
 	TOPO *T;
@@ -769,4 +781,4 @@ typedef struct {
 	GLACIER *G;
 	METEO *M;
 	TIMES *I;	
-}ALLDATA;
+} ALLDATA;

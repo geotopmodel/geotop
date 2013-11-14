@@ -59,7 +59,7 @@ extern double elapsed_time_start, cum_time, max_time;
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet, 
-					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
+					PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, TRANSPORT *transport)	//transport by Flo
  
 {
 	
@@ -1294,6 +1294,19 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	wat->h_sup=new_doublevector(par->total_pixel);
 	initialize_doublevector(wat->h_sup, 0.);
+
+
+	/****************************************************************************************************/
+	/*! Completing of the struct "transport" (of the type TRANSPORT) */	//by Flo
+	transport->conc=0.;
+	transport->mass_new=0.;
+	transport->mass_old=0.;
+
+	transport->Q_x=0.;
+	transport->Q_y=0.;
+	transport->Q_z=0.;
+	transport->V=0.;
+
 		
 	/****************************************************************************************************/
 	/*! Initialization of the struct "snow" (of the type SNOW):*/

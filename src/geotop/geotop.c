@@ -31,6 +31,7 @@
 #include "energy.balance.h"
 #include "meteo.h"
 #include "water.balance.h"
+#include "transport.model.h"	//by Flo
 #include "snow.h"
 #include "blowingsnow.h"
 #include "tabs.h"
@@ -56,7 +57,7 @@ char *logfile;
 char **files;
 
 long Nl,Nr,Nc;
-double t_meteo, t_energy, t_water, t_sub, t_sup, t_blowingsnow, t_out;
+double t_meteo, t_energy, t_water, t_transport, t_sub, t_sup, t_blowingsnow, t_out;	//t_transport by Flo
 
 double **odpnt, **odp;
 long *opnt, nopnt;
@@ -132,6 +133,9 @@ int main(int argc,char *argv[]){
 		adt->W=(WATER *)malloc(sizeof(WATER));
 		if(!(adt->W)) t_error("water was not allocated");
 		
+		adt->Tr=(TRANSPORT *)malloc(sizeof(TRANSPORT));
+		if(!(adt->Tr)) t_error("transport was not allocated");	//by Flo
+		
 		adt->P=(PAR *)malloc(sizeof(PAR));
 		if(!(adt->P)) t_error("par was not allocated");
 		
@@ -153,6 +157,7 @@ int main(int argc,char *argv[]){
 		t_meteo=0.;
 		t_energy=0.; 
 		t_water=0.;
+		t_transport=0.;	//by Flo
 		t_sub=0.;
 		t_sup=0.;
 		t_out=0.;
@@ -160,13 +165,14 @@ int main(int argc,char *argv[]){
 		
 		
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
-		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
+//		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
+		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, adt->Tr);//Tr by Flo
 		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 		time_loop(adt);
 		
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
-		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
+		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I, adt->Tr);
 		free(adt);
 
 	}
@@ -184,7 +190,7 @@ int main(int argc,char *argv[]){
 void time_loop(ALLDATA *A){ 
 
 	clock_t tstart, tend;
-	short en=0, wt=0, out;
+	short en=0, wt=0, tr=0, out;	//tr by Flo
 	long i, sy, r, c, j, l;
 	double t, Dt, JD0, JDb, JDe, W, th, th0;
 	double Vout, Voutsub, Voutsup, Vbottom, C0, C1;
@@ -318,7 +324,16 @@ void time_loop(ALLDATA *A){
 						}
 
 
-						if (en != 0 || wt != 0) {
+						if(A->P->wat_balance == 1 && wt==0 && en == 0){
+							tstart=clock();
+							tr = transport_model(Dt, A);
+							tend=clock();
+							t_transport+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+						}	//by Flo
+
+
+
+						if (en != 0 || wt != 0 || tr != 0 ) {	//tr by Flo
 							
 							if(Dt > A->P->min_Dt) Dt *= 0.5;
 							out = 0;
@@ -326,11 +341,14 @@ void time_loop(ALLDATA *A){
 							f = fopen(logfile, "a");
 							if (en != 0) {
 								fprintf(f,"Energy balance not converging\n");
-							}else {
+							}else if (wt != 0) {
 								fprintf(f,"Water balance not converging\n");
 							}
+							else {
+								fprintf(f,"Transport not converging\n");
 							fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
 							fclose(f);
+							}	//by Flo
 							
 						}else {
 							out = 1;
@@ -366,12 +384,14 @@ void time_loop(ALLDATA *A){
 						//fprintf(f, "Run Time:%ld\n",i_run);
 						//fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
 						
-						if (en != 0 && wt == 0) {
+						if (en != 0 && wt == 0 && tr == 0) {
 							fprintf(f, "WARNING: Energy balance does not converge, Dt:%f\n",Dt);
-						}else if (en == 0 && wt != 0) {
+						}else if (en == 0 && wt != 0 && tr == 0) {
 							fprintf(f, "WARNING: Water balance does not converge, Dt:%f\n",Dt);
+						}else if (en == 0 && wt == 0 && tr != 0) {
+							fprintf(f, "WARNING: Transport does not converge, Dt:%f\n",Dt);
 						}else {
-							fprintf(f, "WARNING: Water and energy balance do not converge, Dt:%f\n",Dt);
+							fprintf(f, "WARNING: Water balance, energy balance or transport do not converge, Dt:%f\n",Dt);
 						}
 						
 						fclose(f);
@@ -436,7 +456,7 @@ void time_loop(ALLDATA *A){
 				}
 
 				tstart=clock();
-				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
+				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M, A->Tr);	//Tr by Flo
 				tend=clock();
 				t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 				

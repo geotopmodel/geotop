@@ -33,8 +33,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 405
-#define num_par_char 366
+#define num_par_number 406	// +1 by Flo
+#define num_par_char 368	// +2 by Flo
 
 //****************************************************
 // Fixed Parameters
@@ -92,6 +92,19 @@
 #define Rwv 461.495					//Specific gas constant for water vapor, 461.495 J/(kg·K)
 #define D00 21.7					//molecular diffusivity of water vapor, 21.7 mm2/s
 #define	secinday 86400.0			//seconds in one day
+
+
+//****************************************************
+// Transport calculation constants, by Flo
+//****************************************************
+#define R_D 311.52e-6					//SMOW for deuterium
+#define R_18O 2000.5e-6					//SMOW for 18O Stump: 2005.5 +- 0.45 e-6
+
+#define alpha_L 1e0					//dispersivities longitudial and transversal
+#define alpha_T 1e-1
+#define D_m 1e-9					//molecular diffusion coeffizient
+#define tau_sub 0.5					//toruosity
+
 
 //****************************************************
 //Meteo data

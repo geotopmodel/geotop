@@ -423,7 +423,8 @@ char *keywords_num[num_par_number] = {
     "SnowThermalConductivityPar",                          /* 401 */
     "WindCompaction1D",                                    /* 402 */
     "DDChannel",                                           /* 403 */
-    "DDLand"                                               /* 404 */
+    "DDLand",                                              /* 404 */
+    "TransportModel"					   /* 405 */	//by Flo
 };
 
 char *keywords_char[num_par_char] = {                       
@@ -792,5 +793,7 @@ char *keywords_char[num_par_char] = {
     "HeaderMeteoStationStandardTime",                      /* 362 */
     "SuccessfulRunFile",                                   /* 363 */
     "FailedRunFile",                                       /* 364 */
-    "SubfolderRecoveryFiles"                               /* 365 */
+    "SubfolderRecoveryFiles",                              /* 365 */
+    "HeaderConcentration",				   /* 366 */	// by Flo
+    "ConcentrationFile"					   /* 367 */	// by Flo
 };

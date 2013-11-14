@@ -50,7 +50,7 @@ extern T_INIT *UV;
 extern char **files, *logfile;
 extern long Nl, Nr, Nc;
 
-extern double t_meteo, t_energy, t_water, t_sub, t_sup, t_out, t_blowingsnow;
+extern double t_meteo, t_energy, t_water, t_transport, t_sub, t_sup, t_out, t_blowingsnow;
 
 extern double **odpnt, **odp, *odbsn, *odb;
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
@@ -71,7 +71,7 @@ extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met)
+void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met, TRANSPORT *transport)	//transport by Flo
 				  
 {
 	/*internal auxiliary variables:*/
@@ -656,7 +656,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				   day,month,year,hour,(float)minute,JD,(long)(floor(times->time/86400))+1,
 				   percent_done);
 			
-			printf(" t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n",t_meteo,t_energy,t_blowingsnow,t_water,t_sub,t_sup,t_out);
+			printf(" t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_transport:%6.2f s, t_out:%6.2f s\n",t_meteo,t_energy,t_blowingsnow,t_water,t_sub,t_sup,t_transport,t_out);
 			printf(" SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
 				   odbsn[ooSW],odbsn[ooLW],odbsn[ooH],odbsn[ooLE],odbsn[oopnet],odbsn[oorainover],
 				   odbsn[oosnowover],odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim],mass_error_tot,odbsn[ootimestep]);
