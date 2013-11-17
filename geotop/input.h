@@ -137,12 +137,4 @@ void initialize_veg_state(StateVeg *V, long n);
 void copy_veg_state(StateVeg *from, StateVeg *to);
 
 
-//short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename, FILE *flog);
-  short read_inpts_par_old_mateo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog);
-
-//void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
-//  void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, char **keyword, FILE *flog);
-  void assign_numeric_parameters_old_matteo(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog);
-
-
 #endif
