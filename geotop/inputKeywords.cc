@@ -48,7 +48,7 @@ public:
     void actionKey(char const * const pBegin, char const * const pEnd) const
     {
         std::string lKey = std::string(pBegin, pEnd) ;
-        std::cout << "actionKey: " << lKey << std::endl ;
+        //std::cout << "actionKey: " << lKey << std::endl ;
         mKey->assign( lKey ) ;
     };
     
@@ -56,7 +56,7 @@ public:
     {
         std::string lValue = std::string(pBegin, pEnd) ;
         
-        std::cout << "actionValueString: " << lValue << std::endl;
+        //std::cout << "actionValueString: " << lValue << std::endl;
         
         if( mKey->compare ("") != 0 )
         {
@@ -71,7 +71,7 @@ public:
     {
         std::string lValue = std::string(pBegin, pEnd) ;
      
-        std::cout << "actionValueDate: " << lValue << std::endl;
+        //std::cout << "actionValueDate: " << lValue << std::endl;
         
         if( mKey->compare ("") != 0 )
         {
@@ -84,7 +84,7 @@ public:
     
     void actionValueDouble(const double pValue) const
     {
-        std::cout << "actionValueDouble: " << pValue << std::endl;
+        //std::cout << "actionValueDouble: " << pValue << std::endl;
         
         if( mKey->compare ("") != 0 )
         {
@@ -117,7 +117,7 @@ public:
         }
         mKey->assign( "" ) ;
         
-        std::cout << "actionValueDoubleArray Size: " << lDoubleArray.size() << std::endl;
+        //std::cout << "actionValueDoubleArray Size: " << lDoubleArray.size() << std::endl;
     };
     
     /** @internal
@@ -197,7 +197,7 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     }
     else
     {
-        std::cout << "parsing failed: stopped at '" << lParserInfo.stop << "'" << std::endl;
+        std::cout << "Error: parsing failed, stopped at '" << lParserInfo.stop << "'" << std::endl;
     }
 }
 
