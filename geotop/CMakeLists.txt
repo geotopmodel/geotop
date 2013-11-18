@@ -40,6 +40,11 @@ ENDIF(COMMAND CMAKE_POLICY)
 			pedo.funct.h
 		   )
 
+	ADD_LIBRARY(inputKeywords ${LINKING_MODE}
+			inputKeywords.cc
+			inputKeywords.h
+		   )
+
 	ADD_LIBRARY(geotopCommon ${LINKING_MODE}
 			constants.h
 			datastructs.h
@@ -115,6 +120,14 @@ ENDIF(COMMAND CMAKE_POLICY)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_ENERGY_BALANCE_LIBRARIES}
 			${GEOTOP_METEO_LIBRARIES}
+			)
+
+	TARGET_LINK_LIBRARIES(${INPUT_KEYWORDS_LIBRARIES}
+            ${Boost_FILESYSTEM_LIBRARY}
+            ${Boost_THREAD_LIBRARY}
+            ${Boost_SYSTEM_LIBRARY}
+            ${Boost_IOSTREAMS_LIBRARY}
+            ${Boost_REGEX_LIBRARY}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_LIBRARIES}

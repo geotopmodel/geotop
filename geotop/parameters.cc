@@ -1504,21 +1504,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 /***********************************************************/
 /***********************************************************/
 
-char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, char **keyword){
-	
-	long i;
-	char **a;
-	
-	a = (char**)malloc((end-beg)*sizeof(char*));
-		
-	for (i=0; i<end-beg; i++) {
-		a[i] = assignation_string(f, i+beg, keyword, string_param);
-	}
-	
-	return(a);
-	
-}
-
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, string keyword[]){
 
 	long i;
@@ -1539,38 +1524,11 @@ char **assign_string_parameter(FILE *f, long beg, long end, char **string_param,
 /***********************************************************/
 /***********************************************************/
 
-double assignation_number(FILE *f, long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value, short code_error){
-	
-	double a;
-		
-	if (j < num_param_components[i]) {
-		a = num_param[i][j];
-	}else {
-		a = (double)number_novalue;
-	}
-	
-	if((long)a == number_novalue){		
-		if (code_error==0) {
-			a = default_value;
-			fprintf(f,"%s[%ld] = %e (default) \n", keyword[i], j+1, a);
-		}else{
-			f = fopen(FailedRunFile.c_str(), "w");
-			fprintf(f, "%s[%ld] not assigned\n", keyword[i], j+1);
-			fclose(f);
-			t_error("Fatal Error!");	
-		}
-	}else{
-		fprintf(f,"%s[%ld] = %e \n", keyword[i], j+1, a);
-	}
-	
-	return a;
-}	
-
 // overloaded function
 double assignation_number(FILE *f, long i, long j, string keyword[], double **num_param, long *num_param_components, double default_value, short code_error){
 
 	double a;
-
+    
 	if (j < num_param_components[i]) {
 		a = num_param[i][j];
 	}else {
@@ -1590,6 +1548,8 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 	}else{
 		fprintf(f,"%s[%ld] = %e \n", keyword[i].c_str(), j+1, a);
 	}
+    
+    std::cout << "DEBUG_KEYWORDS assignation_number: name(" << keyword[i] << "),Value(" << a << "),i(" << i << "),j(" << j << "),num_param_components(" << *num_param_components << "),default(" << default_value << ")" << std::endl ;
 
 	return a;
 }
@@ -1600,23 +1560,6 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 /***********************************************************/
 /***********************************************************/
 
-char *assignation_string(FILE *f, long i, char **keyword, char **string_param){
-	
-	char *a;
-	long j, dimstring = strlen(string_param[i]);
-		
-	a = (char*)malloc((dimstring+1)*sizeof(char));
-	
-	for (j=0; j<dimstring; j++) {
-		a[j] = string_param[i][j];
-	}
-	a[dimstring] = 0;
-	
-	fprintf(f,"%s = %s\n", keyword[i], a);
-	
-	return(a);
-}
-//overloaded function
 char *assignation_string(FILE *f, long i, string keyword[], char **string_param){
 
 	char *a;
@@ -1629,6 +1572,7 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 	}
 	a[dimstring] = 0;
 
+    std::cout << "DEBUG_KEYWORDS assignation_string: name(" << keyword[i] << "),Value("<< a << "),i(" << i << "),string_param[i](" << string_param[i] << ")" << std::endl ;
 	fprintf(f,"%s = %s\n", keyword[i].c_str(), a);
 
 	return(a);

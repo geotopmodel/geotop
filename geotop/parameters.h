@@ -56,14 +56,10 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 
 void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog) ;
 
-char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, char **keyword);
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, std::string keyword[]);
-
-double assignation_number(FILE *f, long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value, short code_error);
 
 double assignation_number(FILE *f, long i, long j, std::string keyword[], double **num_param, long *num_param_components, double default_value, short code_error);
 
-char *assignation_string(FILE *f, long i, char **keyword, char **string_param);
 char *assignation_string(FILE *f, long i, std::string keyword[], char **string_param);
 
 //short read_soil_parameters(char *name, char **key_header, SOIL *sl, FILE *flog);
