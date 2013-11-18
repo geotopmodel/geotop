@@ -103,7 +103,7 @@ namespace geotop
                     std::cerr << "Error: runtime typechecking failed for item: " << pName << std::endl ;
                     return false;
                 }
-
+                
                 (*mValueMap)[lName] = pValue ;
 
                 return true ;

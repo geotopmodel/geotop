@@ -80,7 +80,10 @@ int main(int argc, char *argv[])
     lConfigStore.parse(lInputFilePath.string()) ;
 
     std::vector<double> lDecayCoeffCanopyOrig ;
-    lDecayCoeffCanopyOrig += 0,2.5,0,2,5,0,4,4,2.5 ;
+    lDecayCoeffCanopyOrig += 1.2,3.4,5.6,7.8,9,10,11,12,13.14 ;
+    
+    lConfigStore.set("DecayCoeffCanopy", lDecayCoeffCanopyOrig) ;
+    
     std::vector<double> lDecayCoeffCanopy ;
     lConfigStore.get("DecayCoeffCanopy", lDecayCoeffCanopy) ;
     if(not std::equal ( lDecayCoeffCanopyOrig.begin(), lDecayCoeffCanopyOrig.end(), lDecayCoeffCanopy.begin() )) {

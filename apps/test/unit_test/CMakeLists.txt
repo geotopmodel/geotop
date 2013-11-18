@@ -10,11 +10,7 @@ ADD_EXECUTABLE(utest
 	)
 
 TARGET_LINK_LIBRARIES(utest
-	
+	${Boost_SYSTEM_LIBRARY}
+	${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 	${INPUT_KEYWORDS_LIBRARIES}
 	)
-
-#LIBS += -lpthread
-#LIBS += -lboost_unit_test_framework-mt
-#LIBS += -lboost_thread-mt
-#LIBS += -lboost_system-mt
