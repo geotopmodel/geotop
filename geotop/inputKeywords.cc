@@ -182,7 +182,7 @@ geotop::input::ConfigStore::ConfigStore()
 }
 
 bool geotop::input::ConfigStore::parse(const std::string pFileName) {
-    std::ifstream fs(pFileName);
+    std::ifstream fs(pFileName.c_str());
     std::ostringstream ss;
     ss << fs.rdbuf();
     
@@ -198,7 +198,10 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     else
     {
         std::cout << "Error: parsing failed, stopped at '" << lParserInfo.stop << "'" << std::endl;
+	return false ;
     }
+
+    return true ;
 }
 
 /** @internal
