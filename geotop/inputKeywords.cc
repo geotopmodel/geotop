@@ -9,9 +9,7 @@
 
 #include <inputKeywords.h>
 #include <boost/spirit.hpp>
-#include <boost/spirit/include/qi_real.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_eol.hpp>
+#include <boost/foreach.hpp>
 #include <boost/algorithm/string/erase.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/lexical_cast.hpp>
