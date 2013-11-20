@@ -302,7 +302,12 @@ typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=nu
 	double Voutlandsub;
 	double Voutlandsup;
 	double Voutbottom;
-	
+
+	DOUBLEVECTOR *M;	//by Flo
+	DOUBLEVECTOR *C;
+	DOUBLEVECTOR *H;
+	DOUBLEVECTOR *K;
+	DOUBLEVECTOR *D;
 } WATER;
 
 /*---------------------------------------------------------------------------*/

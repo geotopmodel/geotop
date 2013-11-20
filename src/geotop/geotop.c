@@ -394,6 +394,7 @@ void time_loop(ALLDATA *A){
 						}else {
 							fprintf(f, "WARNING: Water balance, energy balance or transport do not converge, Dt:%f\n",Dt);
 						}
+						printf(f, "WARNING: Water balance, energy balance or transport do not converge, Dt:%f\n",Dt);
 						
 						fclose(f);
 						//t_error("Fatal Error! Geotop is closed. See failing report.");	

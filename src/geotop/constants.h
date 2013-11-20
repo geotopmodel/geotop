@@ -63,25 +63,25 @@
 // Constants
 //****************************************************
 
-#define omega 0.261799388			/* Earth Rotation Velocity [rad/h] */
+#define omega 0.261799388				/* Earth Rotation Velocity [rad/h] */
 #define Isc 1367					/* Solar Constant  [W/m2] */
 #define Pa0	1013.25					/* Mean atmospheric at sea level [mbar] */
 #define rho_w 1000					/* density of water [kg/m3] */
 #define rho_i 917					/* density of ice [kg/m3] */
-#define Lf 333700.00				/* latent heat of fusion [J/kg] */
-#define Ls 2834700.00				/* latent heat of sublimation [J/kg] */
+#define Lf 333700.00					/* latent heat of fusion [J/kg] */
+#define Ls 2834700.00					/* latent heat of sublimation [J/kg] */
 #define g 9.81						/* gravity acceleration [m/s2] */
 #define Pi 3.14159265358979			
 #define tk 273.15					/* =0 Deg in Kelvin*/
 #define k_liq 0.567					/* thermal conductivity of water [W m^-1 K^-1]*/
 #define k_ice 2.290					/* thermal conductivity of water [W m^-1 K^-1]*/
 #define k_air 0.023					/* thermal conductivity of air   [W m^-1 K^-1]*/
-#define c_liq 4188.0				/* heat capacity of water		[J/(kg*K)]*/
-#define c_ice 2117.0				/* heat capacity of ice		[J/(kg*K)]*/
-#define c_can 2700.0				/* heat capacity of canopy [J/(kg*K)]*/
-#define Tfreezing 0.0E1				/* freezing temperature [Celsius]*/
+#define c_liq 4188.0					/* heat capacity of water		[J/(kg*K)]*/
+#define c_ice 2117.0					/* heat capacity of ice		[J/(kg*K)]*/
+#define c_can 2700.0					/* heat capacity of canopy [J/(kg*K)]*/
+#define Tfreezing 0.0E1					/* freezing temperature [Celsius]*/
 #define ka 0.41						/* Von Karman constant */
-#define mu_l 0.001787				/* Dynamic viscosity of water at 0 degrees Celsius*/
+#define mu_l 0.001787					/* Dynamic viscosity of water at 0 degrees Celsius*/
 #define wsn_vis 0.8					//snow on canopy: scattering parameters
 #define wsn_nir 0.4
 #define Bsnd_vis 0.5
@@ -91,7 +91,7 @@
 #define Cd 0.61						//discharge coefficient of the weir model
 #define Rwv 461.495					//Specific gas constant for water vapor, 461.495 J/(kg·K)
 #define D00 21.7					//molecular diffusivity of water vapor, 21.7 mm2/s
-#define	secinday 86400.0			//seconds in one day
+#define	secinday 86400.0				//seconds in one day
 
 
 //****************************************************
@@ -104,6 +104,7 @@
 #define alpha_T 1e-1
 #define D_m 1e-9					//molecular diffusion coeffizient
 #define tau_sub 0.5					//toruosity
+//#define Courant 0.8					//stability parameter for explicit transport
 
 
 //****************************************************
@@ -111,12 +112,12 @@
 //****************************************************
 
 #define iDate12	0					//Date12 : DDMMYYYYhhmm
-#define iJDfrom0 iDate12+1			//Julian Day from year 0
+#define iJDfrom0 iDate12+1				//Julian Day from year 0
 #define iPrecInt iJDfrom0+1				//Precipitation
 #define iPrec iPrecInt+1
 #define iWs iPrec+1					//Total wind speed
 #define iWdir iWs+1					//Wind direction
-#define iWsx iWdir+1				//Wind speed from west, to east
+#define iWsx iWdir+1					//Wind speed from west, to east
 #define iWsy iWsx+1					//Wind speed from south, to north
 #define iRh iWsy+1					//Relative humidity
 #define iT iRh+1					//Air temperature
@@ -124,7 +125,7 @@
 #define iSW iTdew+1					//Global shortwave radiation
 #define iSWb iSW+1					//Direct SW
 #define iSWd iSWb+1					//Diffuse SW
-#define itauC iSWd+1				//Cloud transmissivity in SWin
+#define itauC iSWd+1					//Cloud transmissivity in SWin
 #define iC	 itauC+1				//Cloudiness factor
 #define iLWi iC+1					//Incoming longwave
 #define iSWn iLWi+1					//Net shortwave

@@ -16,25 +16,27 @@ extern T_INIT *UV;	//dem information
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-
 short transport_model(double Dt, ALLDATA *adt){
-/*
-	if (Dt>Dt_transport_model(Courant, M, C, H, K, D, adt){
+
+	if ( Dt > Dt_transport_model(0.8, adt->W->M, adt->W->C, adt->W->H, adt->W->K, adt->W->D, adt)){
+//		printf("\n\nreduce timestep please\n\n");
 		return 1;
 	}else{
-		calculate_new_concentrations(Dt, M, C, H, K, D, adt);
+//		calculate_new_concentrations(Dt, M, C, H, K, D, adt);
 		return 0;
 	}
-*/
 
-//printf("\n\nHallo ich bin das Transport Modell\n\n");
-
-return 0;
 
 }
 
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
 double Dt_transport_model(double Courant, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
-	return 1.; //comment
+	return 3000.;
 }
 
 void calculate_new_concentrations(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){}
