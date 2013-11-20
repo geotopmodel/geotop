@@ -28,14 +28,14 @@
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-    DOUBLEVECTOR *Rn_mean; 
+    	DOUBLEVECTOR *Rn_mean; 
 	DOUBLEVECTOR *LWin_mean;
 	DOUBLEVECTOR *LW_mean;
 	DOUBLEVECTOR *SW_mean;	
-    DOUBLEVECTOR *ET_mean; 
-    DOUBLEVECTOR *H_mean; 
-    DOUBLEVECTOR *SEB_mean; 
-    DOUBLEVECTOR *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+    	DOUBLEVECTOR *ET_mean; 
+    	DOUBLEVECTOR *H_mean; 
+    	DOUBLEVECTOR *SEB_mean; 
+    	DOUBLEVECTOR *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
 	DOUBLEVECTOR *Rswdown_mean;
 	DOUBLEVECTOR *Rswbeam_mean;
 	LONGVECTOR *nDt_shadow;
@@ -124,8 +124,8 @@ typedef struct {
 typedef struct {
 	
 	DOUBLEVECTOR *Tv;
-	DOUBLEVECTOR *wrain;       /*intercepted precipitation in mm*/
-    DOUBLEVECTOR *wsnow;       /*intercepted precipitation in mm*/
+	DOUBLEVECTOR *wrain;		/*intercepted precipitation in mm*/
+    	DOUBLEVECTOR *wsnow;       	/*intercepted precipitation in mm*/
 	
 } STATE_VEG;
 
@@ -171,19 +171,19 @@ typedef struct {
 	
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
+    	DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
 	DOUBLETENSOR *Z;
 
-    DOUBLEMATRIX *sky;        //view factor (of the sky) for each pixel
-    SHORTMATRIX *pixel_type; 
+    	DOUBLEMATRIX *sky;        //view factor (of the sky) for each pixel
+    	SHORTMATRIX *pixel_type; 
 	
 	//SHORTMATRIX *DD;		  //Drainage Directions for each pixel; ex matr_ev->slope*/
 	//LONGMATRIX *DDup;
 	//LONGVECTOR *DDdown;
-    //DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
+    	//DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
 	
-    DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/
-    DOUBLEMATRIX *slope;     /*slope of the pixels; ex: matr_ev->slope*/
+    	DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/
+    	DOUBLEMATRIX *slope;     /*slope of the pixels; ex: matr_ev->slope*/
 	
 	DOUBLEMATRIX *curvature1;
 	DOUBLEMATRIX *curvature2;
@@ -228,9 +228,9 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    DOUBLEMATRIX *LC;            //land cover for each pixel
+    DOUBLEMATRIX *LC;            	//land cover for each pixel
 	DOUBLEMATRIX *delay;
-	SHORTMATRIX *shadow;		  //=1 if shadow, =0 if not
+	SHORTMATRIX *shadow;		//=1 if shadow, =0 if not
 	DOUBLEMATRIX *ty;
 	
 	double ***vegpars;
@@ -240,7 +240,7 @@ typedef struct {
 	
 	DOUBLEMATRIX *root_fraction;
 	
-} LAND;/*all this data are calculated on the basis of land use data and some other par*/
+} LAND;		/*all this data are calculated on the basis of land use data and some other par*/
 
 
 /*---------------------------------------------------------------------------*/
@@ -248,8 +248,8 @@ typedef struct {
 
 typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                   R=number of rows of the basin,C=number of columns in the basin*/
-    LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
-    LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
+    	LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
+    	LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
 	LONGMATRIX *ch;
 	LONGVECTOR *ch_down;
 	DOUBLEVECTOR *Vsup;
@@ -273,13 +273,13 @@ typedef struct {/*nch=number of channel-pixel,ns=number of virtual stretches of 
 
 typedef struct { /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
                    R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-    DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
-    DOUBLEMATRIX *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+    	DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
+    	DOUBLEMATRIX *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
 
-    DOUBLEVECTOR *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-    DOUBLEVECTOR *PrSNW_mean;
+    	DOUBLEVECTOR *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    	DOUBLEVECTOR *PrSNW_mean;
 	DOUBLEVECTOR *Pt;
 	DOUBLEVECTOR *Ps;
 
@@ -320,19 +320,19 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    double Dt;      /*Dt=the integration time interval [s]*/
+    	double Dt;      	/*Dt=the integration time interval [s]*/
 	double ST;
-    short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
-    short monin_obukhov;  
-    double gamma_m;   /*Exponent of the law of uniform motion on the surface*/
-    double T_rain;    /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
-    double T_snow;    /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
-    double aep;       /*ALBEDO EXTINCTION PARAMETER [m]*/
-    double avo;       /*NEW SNOW VISIBLE BAND REFLECTANCE*/
-    double airo;      /*NEW NEAR INFRARED BAND REFLECTANCE*/
-    double Sr;		  /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-    double rho_ice;     /*Ice density [kg/mc]*/
-    long total_pixel;    /*The number of the valid pixel of the whole basin*/
+    	short print;         	/*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
+    	short monin_obukhov;  
+    	double gamma_m;   	/*Exponent of the law of uniform motion on the surface*/
+    	double T_rain;    	/*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
+    	double T_snow;    	/*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
+    	double aep;       	/*ALBEDO EXTINCTION PARAMETER [m]*/
+    	double avo;       	/*NEW SNOW VISIBLE BAND REFLECTANCE*/
+    	double airo;      	/*NEW NEAR INFRARED BAND REFLECTANCE*/
+    	double Sr;		/*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
+    	double rho_ice;     	/*Ice density [kg/mc]*/
+    	long total_pixel;    	/*The number of the valid pixel of the whole basin*/
 	long total_channel;
 	double total_area;
 	
@@ -411,7 +411,7 @@ typedef struct {
 		    	
 	short wat_balance;
 	short en_balance;
-	short transport_model;	//by Flo
+	short transport_model;	//by Flo, to-do, not used yet...
 				
 	long nLC;	
 	
@@ -479,7 +479,7 @@ typedef struct {
 	SHORTVECTOR *plot_point_with_Dt_integration;
 	SHORTVECTOR *plot_basin_with_Dt_integration;
 	
-    DOUBLEVECTOR *Dtplot_point;  
+    	DOUBLEVECTOR *Dtplot_point;  
 	DOUBLEVECTOR *Dtplot_basin;
 	DOUBLEVECTOR *Dtplot_discharge;
 	
@@ -635,7 +635,7 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 typedef struct {
 	SHORTMATRIX  *type;
-	LONGMATRIX	 *lnum;
+	LONGMATRIX *lnum;
 	DOUBLETENSOR *Dzl;
 	DOUBLETENSOR *w_liq;
 	DOUBLETENSOR *w_ice;
@@ -710,7 +710,7 @@ typedef struct {
 	long line_interp_Bsnow_LR;
 	
 	double **LRs;	//matrix read from the external value
-	long LRsnr;		//number of lines of the matrix
+	long LRsnr;	//number of lines of the matrix
 	double *LRv;	//vector of interpolatedvalues
 	double **LRc;	//cyclic values from the parameter file (one vector for each LR variable)
 	long *LRcnc;	//number of components of the vector (for each component)
@@ -771,3 +771,4 @@ typedef struct {
 	METEO *M;
 	TIMES *I;	
 } ALLDATA;
+

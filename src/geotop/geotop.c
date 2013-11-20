@@ -330,7 +330,6 @@ void time_loop(ALLDATA *A){
 							tr = transport_model(Dt, A);
 							tend=clock();
 							t_transport+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-printf("\n\n\nHallo Test\n\n\n");
 						}	//by Flo
 
 
