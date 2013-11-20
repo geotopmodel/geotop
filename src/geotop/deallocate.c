@@ -43,7 +43,8 @@ extern T_INIT *UV;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times, TRANSPORT *transport){	//transport by Flo
+//void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times, TRANSPORT *transport){	//transport by Flo
+void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times){
 	
 	long i,j,r,l,n;
 	
@@ -266,8 +267,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free(wat);
 	
 	/* Deallocation of struct TRANSPORT "transport": */
-	printf("Deallocating transport\n"); 
-	free(transport);
+//	printf("Deallocating transport\n"); 
+//	free(transport);
 	
 	/* Deallocation of struct CHANNEL "channel": */
 	printf("Deallocating channel network\n"); 

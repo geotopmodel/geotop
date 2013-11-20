@@ -19,7 +19,8 @@
  
  */
 
-void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times, TRANSPORT *transport);	//transport by Flo
+//void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times, TRANSPORT *transport);	//transport by Flo
+void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);
 void dealloc_meteostations(METEO_STATIONS *st);
 void deallocate_soil_state(SOIL_STATE *S);
 void deallocate_veg_state(STATE_VEG *V);

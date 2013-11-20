@@ -133,8 +133,8 @@ int main(int argc,char *argv[]){
 		adt->W=(WATER *)malloc(sizeof(WATER));
 		if(!(adt->W)) t_error("water was not allocated");
 		
-		adt->Tr=(TRANSPORT *)malloc(sizeof(TRANSPORT));
-		if(!(adt->Tr)) t_error("transport was not allocated");	//by Flo
+//		adt->Tr=(TRANSPORT *)malloc(sizeof(TRANSPORT));
+//		if(!(adt->Tr)) t_error("transport was not allocated");	//by Flo
 		
 		adt->P=(PAR *)malloc(sizeof(PAR));
 		if(!(adt->P)) t_error("par was not allocated");
@@ -165,14 +165,15 @@ int main(int argc,char *argv[]){
 		
 		
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
-//		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
-		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, adt->Tr);//Tr by Flo
+//		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, adt->Tr);//Tr by Flo
+		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 		time_loop(adt);
 		
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
-		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I, adt->Tr);
+//		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I, adt->Tr);//Tr by Flo
+		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 		free(adt);
 
 	}
@@ -326,9 +327,10 @@ void time_loop(ALLDATA *A){
 
 						if(A->P->wat_balance == 1 && wt==0 && en == 0){
 							tstart=clock();
-							tr = transport_model(Dt, A->W->H1, A);
+							tr = transport_model(Dt, A);
 							tend=clock();
 							t_transport+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+printf("\n\n\nHallo Test\n\n\n");
 						}	//by Flo
 
 
@@ -344,11 +346,11 @@ void time_loop(ALLDATA *A){
 							}else if (wt != 0) {
 								fprintf(f,"Water balance not converging\n");
 							}
-							else {
+							else if (tr != 0){
 								fprintf(f,"Transport not converging\n");
+							}	//by Flo
 							fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
 							fclose(f);
-							}	//by Flo
 							
 						}else {
 							out = 1;
@@ -376,7 +378,7 @@ void time_loop(ALLDATA *A){
 						t_error("Fatal Error! Geotop is closed. See failing report.");	
 					}*/
 					
-					if (en != 0 || wt != 0) {
+					if (en != 0 || wt != 0 || tr != 0) {
 						//f = fopen(FailedRunFile, "w");
 						
 						f = fopen(logfile, "a");
@@ -456,7 +458,8 @@ void time_loop(ALLDATA *A){
 				}
 
 				tstart=clock();
-				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M, A->Tr);	//Tr by Flo
+//				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M, A->Tr);	//Tr by Flo
+				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
 				tend=clock();
 				t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 				

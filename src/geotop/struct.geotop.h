@@ -760,7 +760,7 @@ typedef struct {
 typedef struct {
 	SOIL *S;
 	WATER *W;
-	TRANSPORT *Tr;	//by Flo
+//	TRANSPORT *Tr;	//by Flo
 	LAND *L;
 	PAR *P;
 	TOPO *T;

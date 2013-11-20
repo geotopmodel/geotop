@@ -16,6 +16,29 @@ extern T_INIT *UV;	//dem information
 //*****************************************************************************************************
 //*****************************************************************************************************
 
+
+short transport_model(double Dt, ALLDATA *adt){
+/*
+	if (Dt>Dt_transport_model(Courant, M, C, H, K, D, adt){
+		return 1;
+	}else{
+		calculate_new_concentrations(Dt, M, C, H, K, D, adt);
+		return 0;
+	}
+*/
+
+printf("Hallo ich bin das Transport Modell");
+return 0;
+
+}
+
+
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+//*****************************************************************************************************
+
 double Dt_transport_model(double Courant, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
 	
 	long d; //direction index
@@ -125,7 +148,7 @@ double Dt_transport_model(double Courant, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUB
 		}
 	}
 	
-	return 0;
+	return Dt;
 }
 
 
@@ -147,7 +170,7 @@ double Dt_transport_model(double Courant, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUB
  D = diffusion-dispersion matrix (area*diff/d) [m3/s], input
 */
 
-short transport_model(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
+void calculate_new_concentrations(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR *H, DOUBLEVECTOR *K, DOUBLEVECTOR *D, ALLDATA *adt){
 	
 	long d; //direction index
 	long i; //cell index
@@ -244,7 +267,6 @@ short transport_model(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR 
 		}
 	}
 	
-	return 0;
 }
 
 
@@ -256,8 +278,7 @@ short transport_model(double Dt, DOUBLEVECTOR *M, DOUBLEVECTOR *C, DOUBLEVECTOR 
 //*****************************************************************************************************
 
 //Conversion from Mland, Mchannel -> V
-
-short C_conversion_matrices_to_vector(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
+void C_conversion_matrices_to_vector(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
 	
 	long i; //cell index
 	long j; //surface index
@@ -269,7 +290,6 @@ short C_conversion_matrices_to_vector(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
 		if (i<=n) { //land
 			
 			l = adt->T->lrc_cont->co[i][1];
-			
 			r = adt->T->lrc_cont->co[i][2];
 			c = adt->T->lrc_cont->co[i][3];
 			j = adt->T->j_cont[r][c];
@@ -301,8 +321,7 @@ short C_conversion_matrices_to_vector(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
 //*****************************************************************************************************
 
 //Conversion from V -> Mland, Mchannel
-
-short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
+void C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUBLEMATRIX *Mchannel, ALLDATA *adt){
 	
 	long i; //cell index
 	long j; //surface index
@@ -314,19 +333,18 @@ short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
 		if (i<=n) { //land
 			
 			l = adt->T->lrc_cont->co[i][1];
-			
 			r = adt->T->lrc_cont->co[i][2];
 			c = adt->T->lrc_cont->co[i][3];
 			j = adt->T->j_cont[r][c];
 			
-			if (l>0) Mland->co[l][j] = V->co[i];
+			if (l>0) {Mland->co[l][j] = V->co[i];}
 
 		}else {  //channel
 			
 			l = adt->C->lch->co[i-n][1];
 			j = adt->C->lch->co[i-n][2];
 			
-			if (l>0) Mchannel->co[l][j] = V->co[i];
+			if (l>0) {Mchannel->co[l][j] = V->co[i];}
 
 		}
 	}
@@ -338,9 +356,8 @@ short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-
-
 /*
+
 
  ^-^
 (0 0)
@@ -349,4 +366,6 @@ short C_conversion_vector_to_matrices(DOUBLEVECTOR *V, DOUBLEMATRIX *Mland, DOUB
  V V
  m m
 
+
 */
+

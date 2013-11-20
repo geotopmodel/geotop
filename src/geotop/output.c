@@ -71,7 +71,8 @@ extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met, TRANSPORT *transport)	//transport by Flo
+//void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met, TRANSPORT *transport)	//transport by Flo
+void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac, METEO *met)
 				  
 {
 	/*internal auxiliary variables:*/
