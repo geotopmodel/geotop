@@ -1,0 +1,3277 @@
+STATEMENT:
+
+Geotop 1.225-15 - 20 Jun 2013
+
+Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: Flo/
+
+TimeStepEnergyAndWater[1] = 3.600000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.052013e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.005201e+11 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 1.000000e+00 
+DtPlotDischarge[1] = 1.000000e+00 
+DtPlotPoint[1] = 1.000000e+00 
+DtPlotBasin[1] = 2.400000e+01 
+NumLowPassFilterOnDemForAll[1] = 2.000000e+00 
+NumLowPassFilterOnDemForCurv[1] = 2.000000e+01 
+FlagSkyViewFactor[1] = 1.000000e+00 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 0.000000e+00 (default) 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 9.000000e+00 
+SoilRoughness[1] = 1.000000e+02 
+ThresSnowSoilRough[1] = 1.000000e+02 
+VegHeight[1] = 0.000000e+00 
+ThresSnowVegUp[1] = 5.000000e+01 
+ThresSnowVegDown[1] = 1.000000e+01 
+LSAI[1] = 0.000000e+00 
+CanopyFraction[1] = 0.000000e+00 
+DecayCoeffCanopy[1] = 2.500000e+00 
+VegSnowBurying[1] = 1.000000e+00 
+RootDepth[1] = 0.000000e+00 
+MinStomatalRes[1] = 6.000000e+01 
+VegReflectVis[1] = 1.000000e-01 
+VegReflNIR[1] = 5.800000e-01 
+VegTransVis[1] = 5.000000e-02 
+VegTransNIR[1] = 2.500000e-01 
+LeafAngles[1] = 0.000000e+00 
+CanDensSurface[1] = 5.000000e-01 
+SoilAlbVisDry[1] = 1.500000e-01 
+SoilAlbNIRDry[1] = 2.500000e-01 
+SoilAlbVisWet[1] = 1.500000e-01 
+SoilAlbNIRWet[1] = 2.500000e-01 
+SoilEmissiv[1] = 9.600000e-01 
+SurFlowResLand[1] = 5.000000e-01 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+SoilRoughness[2] = 1.000000e+02 (default) 
+ThresSnowSoilRough[2] = 1.000000e+02 (default) 
+VegHeight[2] = 0.000000e+00 
+ThresSnowVegUp[2] = 5.000000e+01 (default) 
+ThresSnowVegDown[2] = 1.000000e+01 (default) 
+LSAI[2] = 0.000000e+00 
+CanopyFraction[2] = 0.000000e+00 
+DecayCoeffCanopy[2] = 2.500000e+00 (default) 
+VegSnowBurying[2] = 1.000000e+00 (default) 
+RootDepth[2] = 0.000000e+00 
+MinStomatalRes[2] = 6.000000e+01 (default) 
+VegReflectVis[2] = 1.000000e-01 (default) 
+VegReflNIR[2] = 5.800000e-01 (default) 
+VegTransVis[2] = 5.000000e-02 (default) 
+VegTransNIR[2] = 2.500000e-01 (default) 
+LeafAngles[2] = 0.000000e+00 (default) 
+CanDensSurface[2] = 5.000000e-01 (default) 
+SoilAlbVisDry[2] = 1.500000e-01 (default) 
+SoilAlbNIRDry[2] = 2.500000e-01 (default) 
+SoilAlbVisWet[2] = 1.500000e-01 (default) 
+SoilAlbNIRWet[2] = 2.500000e-01 (default) 
+SoilEmissiv[2] = 9.600000e-01 (default) 
+SurFlowResLand[2] = 5.000000e-01 (default) 
+RoughElemXUnitArea[2] = 0.000000e+00 (default) 
+RoughElemDiam[2] = 5.000000e+01 (default) 
+SoilRoughness[3] = 1.000000e+02 (default) 
+ThresSnowSoilRough[3] = 1.000000e+02 (default) 
+VegHeight[3] = 8.000000e+03 
+ThresSnowVegUp[3] = 5.000000e+01 (default) 
+ThresSnowVegDown[3] = 1.000000e+01 (default) 
+LSAI[3] = 4.000000e+00 
+CanopyFraction[3] = 1.000000e+00 
+DecayCoeffCanopy[3] = 2.500000e+00 (default) 
+VegSnowBurying[3] = 1.000000e+00 (default) 
+RootDepth[3] = 5.000000e+02 
+MinStomatalRes[3] = 6.000000e+01 (default) 
+VegReflectVis[3] = 1.000000e-01 (default) 
+VegReflNIR[3] = 5.800000e-01 (default) 
+VegTransVis[3] = 5.000000e-02 (default) 
+VegTransNIR[3] = 2.500000e-01 (default) 
+LeafAngles[3] = 0.000000e+00 (default) 
+CanDensSurface[3] = 5.000000e-01 (default) 
+SoilAlbVisDry[3] = 1.500000e-01 (default) 
+SoilAlbNIRDry[3] = 2.500000e-01 (default) 
+SoilAlbVisWet[3] = 1.500000e-01 (default) 
+SoilAlbNIRWet[3] = 2.500000e-01 (default) 
+SoilEmissiv[3] = 9.600000e-01 (default) 
+SurFlowResLand[3] = 5.000000e-01 (default) 
+RoughElemXUnitArea[3] = 0.000000e+00 (default) 
+RoughElemDiam[3] = 5.000000e+01 (default) 
+SoilRoughness[4] = 1.000000e+02 (default) 
+ThresSnowSoilRough[4] = 1.000000e+02 (default) 
+VegHeight[4] = 2.000000e+02 
+ThresSnowVegUp[4] = 5.000000e+01 (default) 
+ThresSnowVegDown[4] = 1.000000e+01 (default) 
+LSAI[4] = 2.000000e+00 
+CanopyFraction[4] = 1.000000e+00 
+DecayCoeffCanopy[4] = 2.500000e+00 (default) 
+VegSnowBurying[4] = 1.000000e+00 (default) 
+RootDepth[4] = 2.000000e+02 
+MinStomatalRes[4] = 6.000000e+01 (default) 
+VegReflectVis[4] = 1.000000e-01 (default) 
+VegReflNIR[4] = 5.800000e-01 (default) 
+VegTransVis[4] = 5.000000e-02 (default) 
+VegTransNIR[4] = 2.500000e-01 (default) 
+LeafAngles[4] = 0.000000e+00 (default) 
+CanDensSurface[4] = 5.000000e-01 (default) 
+SoilAlbVisDry[4] = 1.500000e-01 (default) 
+SoilAlbNIRDry[4] = 2.500000e-01 (default) 
+SoilAlbVisWet[4] = 1.500000e-01 (default) 
+SoilAlbNIRWet[4] = 2.500000e-01 (default) 
+SoilEmissiv[4] = 9.600000e-01 (default) 
+SurFlowResLand[4] = 5.000000e-01 (default) 
+RoughElemXUnitArea[4] = 0.000000e+00 (default) 
+RoughElemDiam[4] = 5.000000e+01 (default) 
+SoilRoughness[5] = 1.000000e+02 (default) 
+ThresSnowSoilRough[5] = 1.000000e+02 (default) 
+VegHeight[5] = 0.000000e+00 
+ThresSnowVegUp[5] = 5.000000e+01 (default) 
+ThresSnowVegDown[5] = 1.000000e+01 (default) 
+LSAI[5] = 0.000000e+00 
+CanopyFraction[5] = 0.000000e+00 
+DecayCoeffCanopy[5] = 2.500000e+00 (default) 
+VegSnowBurying[5] = 1.000000e+00 (default) 
+RootDepth[5] = 0.000000e+00 
+MinStomatalRes[5] = 6.000000e+01 (default) 
+VegReflectVis[5] = 1.000000e-01 (default) 
+VegReflNIR[5] = 5.800000e-01 (default) 
+VegTransVis[5] = 5.000000e-02 (default) 
+VegTransNIR[5] = 2.500000e-01 (default) 
+LeafAngles[5] = 0.000000e+00 (default) 
+CanDensSurface[5] = 5.000000e-01 (default) 
+SoilAlbVisDry[5] = 1.500000e-01 (default) 
+SoilAlbNIRDry[5] = 2.500000e-01 (default) 
+SoilAlbVisWet[5] = 1.500000e-01 (default) 
+SoilAlbNIRWet[5] = 2.500000e-01 (default) 
+SoilEmissiv[5] = 9.600000e-01 (default) 
+SurFlowResLand[5] = 5.000000e-01 (default) 
+RoughElemXUnitArea[5] = 0.000000e+00 (default) 
+RoughElemDiam[5] = 5.000000e+01 (default) 
+SoilRoughness[6] = 1.000000e+02 (default) 
+ThresSnowSoilRough[6] = 1.000000e+02 (default) 
+VegHeight[6] = 0.000000e+00 
+ThresSnowVegUp[6] = 5.000000e+01 (default) 
+ThresSnowVegDown[6] = 1.000000e+01 (default) 
+LSAI[6] = 0.000000e+00 
+CanopyFraction[6] = 0.000000e+00 
+DecayCoeffCanopy[6] = 2.500000e+00 (default) 
+VegSnowBurying[6] = 1.000000e+00 (default) 
+RootDepth[6] = 0.000000e+00 
+MinStomatalRes[6] = 6.000000e+01 (default) 
+VegReflectVis[6] = 1.000000e-01 (default) 
+VegReflNIR[6] = 5.800000e-01 (default) 
+VegTransVis[6] = 5.000000e-02 (default) 
+VegTransNIR[6] = 2.500000e-01 (default) 
+LeafAngles[6] = 0.000000e+00 (default) 
+CanDensSurface[6] = 5.000000e-01 (default) 
+SoilAlbVisDry[6] = 1.500000e-01 (default) 
+SoilAlbNIRDry[6] = 2.500000e-01 (default) 
+SoilAlbVisWet[6] = 1.500000e-01 (default) 
+SoilAlbNIRWet[6] = 2.500000e-01 (default) 
+SoilEmissiv[6] = 9.600000e-01 (default) 
+SurFlowResLand[6] = 5.000000e-01 (default) 
+RoughElemXUnitArea[6] = 0.000000e+00 (default) 
+RoughElemDiam[6] = 5.000000e+01 (default) 
+SoilRoughness[7] = 1.000000e+02 (default) 
+ThresSnowSoilRough[7] = 1.000000e+02 (default) 
+VegHeight[7] = 0.000000e+00 
+ThresSnowVegUp[7] = 5.000000e+01 (default) 
+ThresSnowVegDown[7] = 1.000000e+01 (default) 
+LSAI[7] = 0.000000e+00 
+CanopyFraction[7] = 0.000000e+00 
+DecayCoeffCanopy[7] = 2.500000e+00 (default) 
+VegSnowBurying[7] = 1.000000e+00 (default) 
+RootDepth[7] = 0.000000e+00 
+MinStomatalRes[7] = 6.000000e+01 (default) 
+VegReflectVis[7] = 1.000000e-01 (default) 
+VegReflNIR[7] = 5.800000e-01 (default) 
+VegTransVis[7] = 5.000000e-02 (default) 
+VegTransNIR[7] = 2.500000e-01 (default) 
+LeafAngles[7] = 0.000000e+00 (default) 
+CanDensSurface[7] = 5.000000e-01 (default) 
+SoilAlbVisDry[7] = 1.500000e-01 (default) 
+SoilAlbNIRDry[7] = 2.500000e-01 (default) 
+SoilAlbVisWet[7] = 1.500000e-01 (default) 
+SoilAlbNIRWet[7] = 2.500000e-01 (default) 
+SoilEmissiv[7] = 9.600000e-01 (default) 
+SurFlowResLand[7] = 5.000000e-01 (default) 
+RoughElemXUnitArea[7] = 0.000000e+00 (default) 
+RoughElemDiam[7] = 5.000000e+01 (default) 
+SoilRoughness[8] = 1.000000e+02 (default) 
+ThresSnowSoilRough[8] = 1.000000e+02 (default) 
+VegHeight[8] = 0.000000e+00 
+ThresSnowVegUp[8] = 5.000000e+01 (default) 
+ThresSnowVegDown[8] = 1.000000e+01 (default) 
+LSAI[8] = 0.000000e+00 
+CanopyFraction[8] = 0.000000e+00 
+DecayCoeffCanopy[8] = 2.500000e+00 (default) 
+VegSnowBurying[8] = 1.000000e+00 (default) 
+RootDepth[8] = 0.000000e+00 
+MinStomatalRes[8] = 6.000000e+01 (default) 
+VegReflectVis[8] = 1.000000e-01 (default) 
+VegReflNIR[8] = 5.800000e-01 (default) 
+VegTransVis[8] = 5.000000e-02 (default) 
+VegTransNIR[8] = 2.500000e-01 (default) 
+LeafAngles[8] = 0.000000e+00 (default) 
+CanDensSurface[8] = 5.000000e-01 (default) 
+SoilAlbVisDry[8] = 1.500000e-01 (default) 
+SoilAlbNIRDry[8] = 2.500000e-01 (default) 
+SoilAlbVisWet[8] = 1.500000e-01 (default) 
+SoilAlbNIRWet[8] = 2.500000e-01 (default) 
+SoilEmissiv[8] = 9.600000e-01 (default) 
+SurFlowResLand[8] = 5.000000e-01 (default) 
+RoughElemXUnitArea[8] = 0.000000e+00 (default) 
+RoughElemDiam[8] = 5.000000e+01 (default) 
+SoilRoughness[9] = 1.000000e+02 (default) 
+ThresSnowSoilRough[9] = 1.000000e+02 (default) 
+VegHeight[9] = 0.000000e+00 
+ThresSnowVegUp[9] = 5.000000e+01 (default) 
+ThresSnowVegDown[9] = 1.000000e+01 (default) 
+LSAI[9] = 0.000000e+00 
+CanopyFraction[9] = 0.000000e+00 
+DecayCoeffCanopy[9] = 2.500000e+00 (default) 
+VegSnowBurying[9] = 1.000000e+00 (default) 
+RootDepth[9] = 0.000000e+00 
+MinStomatalRes[9] = 6.000000e+01 (default) 
+VegReflectVis[9] = 1.000000e-01 (default) 
+VegReflNIR[9] = 5.800000e-01 (default) 
+VegTransVis[9] = 5.000000e-02 (default) 
+VegTransNIR[9] = 2.500000e-01 (default) 
+LeafAngles[9] = 0.000000e+00 (default) 
+CanDensSurface[9] = 5.000000e-01 (default) 
+SoilAlbVisDry[9] = 1.500000e-01 (default) 
+SoilAlbNIRDry[9] = 2.500000e-01 (default) 
+SoilAlbVisWet[9] = 1.500000e-01 (default) 
+SoilAlbNIRWet[9] = 2.500000e-01 (default) 
+SoilEmissiv[9] = 9.600000e-01 (default) 
+SurFlowResLand[9] = 5.000000e-01 (default) 
+RoughElemXUnitArea[9] = 0.000000e+00 (default) 
+RoughElemDiam[9] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 (default) 
+RichardTol[1] = 1.000000e-07 
+RichardMaxIter[1] = 1.200000e+02 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.670000e-01 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 
+ChannelDepression[1] = 2.000000e+03 
+MaxCourantSupFlowLand[1] = 1.000000e-01 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 
+MinSupWaterDepthLand[1] = 1.000000e+00 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 5.000000e+01 
+MinTimeStepSupFlow[1] = 1.000000e+00 
+Latitude[1] = 4.675000e+01 
+Longitude[1] = 1.070000e+01 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-04 
+HeatEqMaxIter[1] = 2.000000e+02 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 
+BusingerMaxIter[1] = 3.000000e+00 
+TsMaxIter[1] = 3.000000e+00 
+LocMaxIter[1] = 3.000000e+00 
+CanopyStabCorrection[1] = 1.000000e+00 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 1.000000e+00 
+CurvatureWeight[1] = 1.000000e+02 
+SlopeWeightD[1] = 1.000000e+00 (default) 
+CurvatureWeightD[1] = 1.000000e+02 (default) 
+SlopeWeightI[1] = 1.000000e+00 (default) 
+CurvatureWeightI[1] = 1.000000e+02 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 1.000000e+01 (default) 
+FreshSnowReflVis[1] = 9.100000e-01 
+FreshSnowReflNIR[1] = 6.800000e-01 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 3.600000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 1.000000e+01 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 2.000000e+00 (default) 
+SWEbottom[1] = 2.000000e+01 (default) 
+SWEtop[1] = 2.000000e+01 (default) 
+Max snow layer number: 10, of which 4 at the bottom, 2 in the middle, and 4 at the top.
+Infinite Snow layer numbers are numbers: 5 6 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 7.000000e+02 
+InitGlacierTemp[1] = -5.000000e+00 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 7.000000e+00 
+MoninObukhov[1] = 2.000000e+00 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 1.000000e+00 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = 6.045000e+05 
+CoordinatePointY[1] = 5.002000e+06 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 2.400000e+01 
+OutputSnowMaps[1] = 2.400000e+01 
+OutputGlacierMaps[1] = 2.400000e+01 
+OutputSurfEBALMaps[1] = 2.400000e+01 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 2.400000e+01 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 (default) 
+InitWaterTableDepth[1] = 2.000000e+03 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = 3.000000e+01 
+SoilLayerThicknesses[2] = 1.000000e+02 
+SoilLayerThicknesses[3] = 2.000000e+02 
+SoilLayerThicknesses[4] = 5.000000e+02 
+SoilLayerThicknesses[5] = 1.200000e+03 
+SoilLayerThicknesses[6] = 3.000000e+03 
+SoilLayerThicknesses[7] = 5.000000e+03 
+SoilLayerThicknesses[8] = 1.200000e+04 
+SoilLayerThicknesses[9] = 2.500000e+04 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 5.000000e-01 
+NormalHydrConductivity[1] = 1.000000e-01 
+LateralHydrConductivity[1] = 2.500000e-03 
+ThetaRes[1] = 8.000000e-02 
+WiltingPoint[1] = 1.500000e-01 
+FieldCapacity[1] = 3.000000e-01 
+ThetaSat[1] = 5.000000e-01 
+AlphaVanGenuchten[1] = 4.000000e-03 
+NVanGenuchten[1] = 1.300000e+00 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 
+ThermalCapacitySoilSolids[1] = 2.300000e+06 
+SpecificStorativity[1] = 1.000000e-05 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 5.000000e-01 (default) 
+NormalHydrConductivity[2] = 1.000000e-01 
+LateralHydrConductivity[2] = 2.500000e-03 
+ThetaRes[2] = 8.000000e-02 (default) 
+WiltingPoint[2] = 1.500000e-01 (default) 
+FieldCapacity[2] = 3.000000e-01 (default) 
+ThetaSat[2] = 5.000000e-01 (default) 
+AlphaVanGenuchten[2] = 4.000000e-03 (default) 
+NVanGenuchten[2] = 1.300000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 2.300000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-05 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 5.000000e-01 (default) 
+NormalHydrConductivity[3] = 5.000000e-02 
+LateralHydrConductivity[3] = 1.250000e-03 
+ThetaRes[3] = 8.000000e-02 (default) 
+WiltingPoint[3] = 1.500000e-01 (default) 
+FieldCapacity[3] = 3.000000e-01 (default) 
+ThetaSat[3] = 5.000000e-01 (default) 
+AlphaVanGenuchten[3] = 4.000000e-03 (default) 
+NVanGenuchten[3] = 1.300000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 2.300000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-05 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 5.000000e-01 (default) 
+NormalHydrConductivity[4] = 1.000000e-02 
+LateralHydrConductivity[4] = 5.000000e-04 
+ThetaRes[4] = 8.000000e-02 (default) 
+WiltingPoint[4] = 1.500000e-01 (default) 
+FieldCapacity[4] = 3.000000e-01 (default) 
+ThetaSat[4] = 5.000000e-01 (default) 
+AlphaVanGenuchten[4] = 4.000000e-03 (default) 
+NVanGenuchten[4] = 1.300000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 2.300000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-05 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 5.000000e-01 (default) 
+NormalHydrConductivity[5] = 5.000000e-03 
+LateralHydrConductivity[5] = 2.500000e-04 
+ThetaRes[5] = 8.000000e-02 (default) 
+WiltingPoint[5] = 1.500000e-01 (default) 
+FieldCapacity[5] = 3.000000e-01 (default) 
+ThetaSat[5] = 5.000000e-01 (default) 
+AlphaVanGenuchten[5] = 4.000000e-03 (default) 
+NVanGenuchten[5] = 1.300000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 2.300000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-05 (default) 
+InitSoilPressure[6] = -9.999000e+03 (default) 
+InitSoilTemp[6] = 5.000000e-01 (default) 
+NormalHydrConductivity[6] = 1.000000e-03 
+LateralHydrConductivity[6] = 1.250000e-04 
+ThetaRes[6] = 8.000000e-02 (default) 
+WiltingPoint[6] = 1.500000e-01 (default) 
+FieldCapacity[6] = 3.000000e-01 (default) 
+ThetaSat[6] = 5.000000e-01 (default) 
+AlphaVanGenuchten[6] = 4.000000e-03 (default) 
+NVanGenuchten[6] = 1.300000e+00 (default) 
+VMualem[6] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[6] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[6] = 2.300000e+06 (default) 
+SpecificStorativity[6] = 1.000000e-05 (default) 
+InitSoilPressure[7] = -9.999000e+03 (default) 
+InitSoilTemp[7] = 5.000000e-01 (default) 
+NormalHydrConductivity[7] = 5.000000e-04 
+LateralHydrConductivity[7] = 5.000000e-05 
+ThetaRes[7] = 8.000000e-02 (default) 
+WiltingPoint[7] = 1.500000e-01 (default) 
+FieldCapacity[7] = 3.000000e-01 (default) 
+ThetaSat[7] = 5.000000e-01 (default) 
+AlphaVanGenuchten[7] = 4.000000e-03 (default) 
+NVanGenuchten[7] = 1.300000e+00 (default) 
+VMualem[7] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[7] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[7] = 2.300000e+06 (default) 
+SpecificStorativity[7] = 1.000000e-05 (default) 
+InitSoilPressure[8] = -9.999000e+03 (default) 
+InitSoilTemp[8] = 5.000000e-01 (default) 
+NormalHydrConductivity[8] = 1.000000e-04 
+LateralHydrConductivity[8] = 2.500000e-05 
+ThetaRes[8] = 8.000000e-02 (default) 
+WiltingPoint[8] = 1.500000e-01 (default) 
+FieldCapacity[8] = 3.000000e-01 (default) 
+ThetaSat[8] = 5.000000e-01 (default) 
+AlphaVanGenuchten[8] = 4.000000e-03 (default) 
+NVanGenuchten[8] = 1.300000e+00 (default) 
+VMualem[8] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[8] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[8] = 2.300000e+06 (default) 
+SpecificStorativity[8] = 1.000000e-05 (default) 
+InitSoilPressure[9] = -9.999000e+03 (default) 
+InitSoilTemp[9] = 5.000000e-01 (default) 
+NormalHydrConductivity[9] = 1.000000e-04 
+LateralHydrConductivity[9] = 2.500000e-05 
+ThetaRes[9] = 8.000000e-02 (default) 
+WiltingPoint[9] = 1.500000e-01 (default) 
+FieldCapacity[9] = 3.000000e-01 (default) 
+ThetaSat[9] = 5.000000e-01 (default) 
+AlphaVanGenuchten[9] = 4.000000e-03 (default) 
+NVanGenuchten[9] = 1.300000e+00 (default) 
+VMualem[9] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[9] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[9] = 2.300000e+06 (default) 
+SpecificStorativity[9] = 1.000000e-05 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[6] = -9.999000e+03 (default) 
+InitSoilTempBedrock[6] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+ThetaResBedrock[6] = -9.999000e+03 (default) 
+WiltingPointBedrock[6] = -9.999000e+03 (default) 
+FieldCapacityBedrock[6] = -9.999000e+03 (default) 
+ThetaSatBedrock[6] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+VMualemBedrock[6] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[6] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[7] = -9.999000e+03 (default) 
+InitSoilTempBedrock[7] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+ThetaResBedrock[7] = -9.999000e+03 (default) 
+WiltingPointBedrock[7] = -9.999000e+03 (default) 
+FieldCapacityBedrock[7] = -9.999000e+03 (default) 
+ThetaSatBedrock[7] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+VMualemBedrock[7] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[7] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[8] = -9.999000e+03 (default) 
+InitSoilTempBedrock[8] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+ThetaResBedrock[8] = -9.999000e+03 (default) 
+WiltingPointBedrock[8] = -9.999000e+03 (default) 
+FieldCapacityBedrock[8] = -9.999000e+03 (default) 
+ThetaSatBedrock[8] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+VMualemBedrock[8] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[8] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[9] = -9.999000e+03 (default) 
+InitSoilTempBedrock[9] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+ThetaResBedrock[9] = -9.999000e+03 (default) 
+WiltingPointBedrock[9] = -9.999000e+03 (default) 
+FieldCapacityBedrock[9] = -9.999000e+03 (default) 
+ThetaSatBedrock[9] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+VMualemBedrock[9] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[9] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 
+MeteoStationCoordinateX[1] = 6.010000e+05 
+MeteoStationCoordinateY[1] = 5.001000e+06 
+MeteoStationLatitude[1] = 4.675000e+01 (default) 
+MeteoStationLongitude[1] = 1.070000e+01 (default) 
+MeteoStationElevation[1] = 1.998000e+03 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 (default) 
+MeteoStationWindVelocitySensorHeight[1] = 1.000000e+01 
+MeteoStationTemperatureSensorHeight[1] = 1.000000e+01 
+LapseRateTemp[1] = 9.800000e+00 
+LapseRateDewTemp[1] = 2.500000e+00 
+LapseRatePrec[1] = -3.000000e-01 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 0.000000e+00 (default) 
+DatePoint[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Point[1] = -1.000000e+00 (default) 
+TimeFromStartPoint[1] = -1.000000e+00 (default) 
+PeriodPoint[1] = -1.000000e+00 (default) 
+RunPoint[1] = -1.000000e+00 (default) 
+IDPointPoint[1] = -1.000000e+00 (default) 
+PsnowPoint[1] = -1.000000e+00 (default) 
+PrainPoint[1] = -1.000000e+00 (default) 
+PsnowNetPoint[1] = -1.000000e+00 (default) 
+PrainNetPoint[1] = -1.000000e+00 (default) 
+PrainOnSnowPoint[1] = -1.000000e+00 (default) 
+WindSpeedPoint[1] = -1.000000e+00 (default) 
+WindDirPoint[1] = -1.000000e+00 (default) 
+RHPoint[1] = -1.000000e+00 (default) 
+AirPressPoint[1] = -1.000000e+00 (default) 
+AirTempPoint[1] = -1.000000e+00 (default) 
+TDewPoint[1] = -1.000000e+00 (default) 
+TsurfPoint[1] = -1.000000e+00 (default) 
+TvegPoint[1] = -1.000000e+00 (default) 
+TCanopyAirPoint[1] = -1.000000e+00 (default) 
+SurfaceEBPoint[1] = -1.000000e+00 (default) 
+SoilHeatFluxPoint[1] = -1.000000e+00 (default) 
+SWinPoint[1] = -1.000000e+00 (default) 
+SWbeamPoint[1] = -1.000000e+00 (default) 
+SWdiffPoint[1] = -1.000000e+00 (default) 
+LWinPoint[1] = -1.000000e+00 (default) 
+LWinMinPoint[1] = -1.000000e+00 (default) 
+LWinMaxPoint[1] = -1.000000e+00 (default) 
+SWNetPoint[1] = -1.000000e+00 (default) 
+LWNetPoint[1] = -1.000000e+00 (default) 
+HPoint[1] = -1.000000e+00 (default) 
+LEPoint[1] = -1.000000e+00 (default) 
+CanopyFractionPoint[1] = -1.000000e+00 (default) 
+LSAIPoint[1] = -1.000000e+00 (default) 
+z0vegPoint[1] = -1.000000e+00 (default) 
+d0vegPoint[1] = -1.000000e+00 (default) 
+EstoredCanopyPoint[1] = -1.000000e+00 (default) 
+SWvPoint[1] = -1.000000e+00 (default) 
+LWvPoint[1] = -1.000000e+00 (default) 
+HvPoint[1] = -1.000000e+00 (default) 
+LEvPoint[1] = -1.000000e+00 (default) 
+HgUnvegPoint[1] = -1.000000e+00 (default) 
+LEgUnvegPoint[1] = -1.000000e+00 (default) 
+HgVegPoint[1] = -1.000000e+00 (default) 
+LEgVegPoint[1] = -1.000000e+00 (default) 
+EvapSurfacePoint[1] = -1.000000e+00 (default) 
+TraspCanopyPoint[1] = -1.000000e+00 (default) 
+WaterOnCanopyPoint[1] = -1.000000e+00 (default) 
+SnowOnCanopyPoint[1] = -1.000000e+00 (default) 
+QVegPoint[1] = -1.000000e+00 (default) 
+QSurfPoint[1] = -1.000000e+00 (default) 
+QAirPoint[1] = -1.000000e+00 (default) 
+QCanopyAirPoint[1] = -1.000000e+00 (default) 
+LObukhovPoint[1] = -1.000000e+00 (default) 
+LObukhovCanopyPoint[1] = -1.000000e+00 (default) 
+WindSpeedTopCanopyPoint[1] = -1.000000e+00 (default) 
+DecayKCanopyPoint[1] = -1.000000e+00 (default) 
+SWupPoint[1] = -1.000000e+00 (default) 
+LWupPoint[1] = -1.000000e+00 (default) 
+HupPoint[1] = -1.000000e+00 (default) 
+LEupPoint[1] = -1.000000e+00 (default) 
+SnowDepthPoint[1] = -1.000000e+00 (default) 
+SWEPoint[1] = -1.000000e+00 (default) 
+SnowDensityPoint[1] = -1.000000e+00 (default) 
+SnowTempPoint[1] = -1.000000e+00 (default) 
+SnowMeltedPoint[1] = -1.000000e+00 (default) 
+SnowSublPoint[1] = -1.000000e+00 (default) 
+SWEBlownPoint[1] = -1.000000e+00 (default) 
+SWESublBlownPoint[1] = -1.000000e+00 (default) 
+GlacDepthPoint[1] = -1.000000e+00 (default) 
+GWEPoint[1] = -1.000000e+00 (default) 
+GlacDensityPoint[1] = -1.000000e+00 (default) 
+GlacTempPoint[1] = -1.000000e+00 (default) 
+GlacMeltedPoint[1] = -1.000000e+00 (default) 
+GlacSublPoint[1] = -1.000000e+00 (default) 
+LowestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+HighestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+LowestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+HighestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+BasinAll[1] = 0.000000e+00 (default) 
+DateBasin[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Basin[1] = -1.000000e+00 (default) 
+TimeFromStartBasin[1] = -1.000000e+00 (default) 
+PeriodBasin[1] = -1.000000e+00 (default) 
+RunBasin[1] = -1.000000e+00 (default) 
+PRainNetBasin[1] = -1.000000e+00 (default) 
+PSnowNetBasin[1] = -1.000000e+00 (default) 
+PRainBasin[1] = -1.000000e+00 (default) 
+PSnowBasin[1] = -1.000000e+00 (default) 
+PNetBasin[1] = -1.000000e+00 (default) 
+AirTempBasin[1] = -1.000000e+00 (default) 
+TSurfBasin[1] = -1.000000e+00 (default) 
+TvegBasin[1] = -1.000000e+00 (default) 
+EvapSurfaceBasin[1] = -1.000000e+00 (default) 
+TraspCanopyBasin[1] = -1.000000e+00 (default) 
+LEBasin[1] = -1.000000e+00 (default) 
+HBasin[1] = -1.000000e+00 (default) 
+SWNetBasin[1] = -1.000000e+00 (default) 
+LWNetBasin[1] = -1.000000e+00 (default) 
+LEvBasin[1] = -1.000000e+00 (default) 
+HvBasin[1] = -1.000000e+00 (default) 
+SWvBasin[1] = -1.000000e+00 (default) 
+LWvBasin[1] = -1.000000e+00 (default) 
+SWinBasin[1] = -1.000000e+00 (default) 
+LWinBasin[1] = -1.000000e+00 (default) 
+MassErrorBasin[1] = -1.000000e+00 (default) 
+MeanTimeStep[1] = -1.000000e+00 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 0.000000e+00 (default) 
+DateSoil[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Soil[1] = -1.000000e+00 (default) 
+TimeFromStartSoil[1] = -1.000000e+00 (default) 
+PeriodSoil[1] = -1.000000e+00 (default) 
+RunSoil[1] = -1.000000e+00 (default) 
+IDPointSoil[1] = -1.000000e+00 (default) 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = Date
+HeaderJulianDayfrom0Meteo = JDfrom0
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = none
+HeaderWindDirection = none
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = none
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = none
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = none
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderSoilDz = none
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = none
+HeaderLateralHydrConductivity = none
+HeaderThetaRes = none
+HeaderWiltingPoint = none
+HeaderFieldCapacity = none
+HeaderThetaSat = none
+HeaderAlpha = none
+HeaderN = none
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = none
+HeaderHorizonAngle = none
+HeaderHorizonHeight = none
+TimeStepsFile = none
+SoilParFile = none
+MeteoFile = meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = none
+PointFile = none
+HorizonPointFile = none
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = dem
+LandCoverMapFile = none
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = none
+RiverNetwork = net
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = tabs/discharge
+BasinOutputFile = none
+BasinOutputFileWriteEnd = none
+PointOutputFile = none
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = none
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = maps/watertable
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = none
+HeaderCoordinatePointX = none
+HeaderCoordinatePointY = none
+HeaderPointElevation = none
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = none
+HeaderPointAspect = none
+HeaderPointSkyViewFactor = none
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = none
+
+Soil Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 30.000000(3.00e+01), 100.000000(1.00e+02), 200.000000(2.00e+02), 500.000000(5.00e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 25000.000000(2.50e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderNormalHydrConductivity: 0.100000(1.00e-01), 0.100000(1.00e-01), 0.050000(5.00e-02), 0.010000(1.00e-02), 0.005000(5.00e-03), 0.001000(1.00e-03), 0.000500(5.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderLateralHydrConductivity: 0.002500(2.50e-03), 0.002500(2.50e-03), 0.001250(1.25e-03), 0.000500(5.00e-04), 0.000250(2.50e-04), 0.000125(1.25e-04), 0.000050(5.00e-05), 0.000025(2.50e-05), 0.000025(2.50e-05)
+HeaderThetaRes: 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02)
+HeaderWiltingPoint: 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01)
+HeaderFieldCapacity: 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01)
+HeaderThetaSat: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
+
+Soil Bedrock Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 30.000000(3.00e+01), 100.000000(1.00e+02), 200.000000(2.00e+02), 500.000000(5.00e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 25000.000000(2.50e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderNormalHydrConductivity: 0.100000(1.00e-01), 0.100000(1.00e-01), 0.050000(5.00e-02), 0.010000(1.00e-02), 0.005000(5.00e-03), 0.001000(1.00e-03), 0.000500(5.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderLateralHydrConductivity: 0.002500(2.50e-03), 0.002500(2.50e-03), 0.001250(1.25e-03), 0.000500(5.00e-04), 0.000250(2.50e-04), 0.000125(1.25e-04), 0.000050(5.00e-05), 0.000025(2.50e-05), 0.000025(2.50e-05)
+HeaderThetaRes: 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02)
+HeaderWiltingPoint: 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01)
+HeaderFieldCapacity: 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01)
+HeaderThetaSat: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00), 1.300000(1.30e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
+
+Attempting to read 'DemFile' in the file 'Flo/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
+Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file 'none': not present in file list
+Slope Min:0.000000 (0.000000 deg) Max:0.002000 (0.114591 deg) 
+Attempting to read 'AspectMapFile' in the file 'none': not present in file list
+Curvature N-S Min:-0.000000  Max:0.000000 
+Curvature W-E Min:-0.000001  Max:0.000001 
+Curvature NW-SE Min:-0.000001  Max:0.000001 
+Curvature NE-SW Min:-0.000001  Max:0.000001 
+Attempting to read 'RiverNetwork' in the file 'Flo/net': EXISTING in format 3
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+Valid pixels: 63
+Number of nodes: 630
+Novalue pixels: 36
+Basin area: 15.750000 km2
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file Flo/meteo0001.txt assigned to Date
+Column 2 in file Flo/meteo0001.txt assigned to JDfrom0
+Column 3 in file Flo/meteo0001.txt assigned to Iprec
+Column 4 in file Flo/meteo0001.txt assigned to AirT
+WARNING: NO shortwave radiation measurements available
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+Channel pixels: 7
+Soil water evaporates from the first 2 layers
+Soil water transpires from the first 7 layers
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 1:00 0.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 2:00 0.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 3:00 1.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 4:00 1.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 5:00 2.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 6:00 2.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 7:00 3.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 8:00 3.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 9:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 10:00 4.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 11:00 5.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 12:00 5.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 13:00 6.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 14:00 6.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 15:00 6.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 16:00 7.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 17:00 7.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 18:00 8.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 19:00 8.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 20:00 9.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 21:00 9.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 22:00 10.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/5/2013 23:00 10.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 0:00 11.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+2/5/2013 0:00 JD:121.000000 (1^ simulation day) 11.11% completed! 
+ t_meteo:  0.00 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.43 s, t_sub:  0.43 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.167838e-11 mm/h 
+ Tot Error Richards=7.602812e-10 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 1:00 11.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 2:00 12.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 3:00 12.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 4:00 12.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 5:00 13.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 6:00 13.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 7:00 14.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 8:00 14.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 9:00 15.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 10:00 15.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 11:00 16.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 12:00 16.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 13:00 17.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 14:00 17.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 15:00 18.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 16:00 18.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 17:00 18.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 18:00 19.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 19:00 19.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 20:00 20.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 21:00 20.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 22:00 21.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+2/5/2013 23:00 21.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 0:00 22.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+3/5/2013 0:00 JD:122.000000 (2^ simulation day) 22.22% completed! 
+ t_meteo:  0.00 s, t_energy:  0.42 s, t_blowingsnow:  0.00 s, t_water:  0.76 s, t_sub:  0.74 s, t_sup:  0.02 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.582224e-11 mm/h 
+ Tot Error Richards=1.140015e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 1:00 22.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 2:00 23.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 3:00 23.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 4:00 24.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 5:00 24.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 6:00 25.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 7:00 25.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 8:00 25.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 9:00 26.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 10:00 26.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 11:00 27.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 12:00 27.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 13:00 28.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 14:00 28.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 15:00 29.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 16:00 29.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 17:00 30.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 18:00 30.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 19:00 31.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 20:00 31.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 21:00 31.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 22:00 32.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+3/5/2013 23:00 32.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 0:00 33.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+4/5/2013 0:00 JD:123.000000 (3^ simulation day) 33.33% completed! 
+ t_meteo:  0.00 s, t_energy:  0.60 s, t_blowingsnow:  0.00 s, t_water:  1.00 s, t_sub:  0.94 s, t_sup:  0.05 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.748397e-11 mm/h 
+ Tot Error Richards=1.559630e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 1:00 33.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 2:00 34.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 3:00 34.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 4:00 35.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 5:00 35.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 6:00 36.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 7:00 36.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 8:00 37.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 9:00 37.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 10:00 37.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 11:00 38.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 12:00 38.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 13:00 39.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 14:00 39.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 15:00 40.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 16:00 40.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 17:00 41.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 18:00 41.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 19:00 42.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 20:00 42.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 21:00 43.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 22:00 43.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+4/5/2013 23:00 43.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 0:00 44.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+5/5/2013 0:00 JD:124.000000 (4^ simulation day) 44.44% completed! 
+ t_meteo:  0.01 s, t_energy:  0.71 s, t_blowingsnow:  0.00 s, t_water:  1.35 s, t_sub:  1.22 s, t_sup:  0.12 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.253702e-11 mm/h 
+ Tot Error Richards=2.100519e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 1:00 44.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 2:00 45.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 3:00 45.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 4:00 46.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 5:00 46.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 6:00 47.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 7:00 47.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 8:00 48.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 9:00 48.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 10:00 49.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 11:00 49.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 12:00 50.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 13:00 50.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 14:00 50.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 15:00 51.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 16:00 51.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 17:00 52.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 18:00 52.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 19:00 53.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 20:00 53.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 21:00 54.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 22:00 54.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+5/5/2013 23:00 55.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 0:00 55.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+6/5/2013 0:00 JD:125.000000 (5^ simulation day) 55.56% completed! 
+ t_meteo:  0.01 s, t_energy:  0.94 s, t_blowingsnow:  0.00 s, t_water:  1.61 s, t_sub:  1.38 s, t_sup:  0.22 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.502135e-11 mm/h 
+ Tot Error Richards=2.701031e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 1:00 56.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 2:00 56.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 3:00 56.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 4:00 57.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 5:00 57.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 6:00 58.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 7:00 58.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 8:00 59.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 9:00 59.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 10:00 60.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 11:00 60.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 12:00 61.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 13:00 61.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 14:00 62.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 15:00 62.50% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 16:00 62.96% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 17:00 63.43% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 18:00 63.89% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 19:00 64.35% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 20:00 64.81% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 21:00 65.28% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 22:00 65.74% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+6/5/2013 23:00 66.20% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 0:00 66.67% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+7/5/2013 0:00 JD:126.000000 (6^ simulation day) 66.67% completed! 
+ t_meteo:  0.01 s, t_energy:  1.21 s, t_blowingsnow:  0.00 s, t_water:  1.89 s, t_sub:  1.54 s, t_sup:  0.34 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.483892e-11 mm/h 
+ Tot Error Richards=3.297165e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 1:00 67.13% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 2:00 67.59% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 3:00 68.06% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 4:00 68.52% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 5:00 68.98% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 6:00 69.44% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 7:00 69.91% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 8:00 70.37% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 9:00 70.83% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 10:00 71.30% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 11:00 71.76% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 12:00 72.22% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 13:00 72.69% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 14:00 73.15% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 15:00 73.61% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 16:00 74.07% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 17:00 74.54% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 18:00 75.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 19:00 75.46% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 20:00 75.93% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 21:00 76.39% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 22:00 76.85% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+7/5/2013 23:00 77.31% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 0:00 77.78% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+8/5/2013 0:00 JD:127.000000 (7^ simulation day) 77.78% completed! 
+ t_meteo:  0.02 s, t_energy:  1.44 s, t_blowingsnow:  0.00 s, t_water:  2.21 s, t_sub:  1.70 s, t_sup:  0.50 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.384326e-11 mm/h 
+ Tot Error Richards=3.869403e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 1:00 78.24% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 2:00 78.70% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 3:00 79.17% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 4:00 79.63% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 5:00 80.09% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 6:00 80.56% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 7:00 81.02% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 8:00 81.48% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 9:00 81.94% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 10:00 82.41% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 11:00 82.87% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 12:00 83.33% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 13:00 83.80% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 14:00 84.26% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 15:00 84.72% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 16:00 85.19% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 17:00 85.65% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 18:00 86.11% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 19:00 86.57% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 20:00 87.04% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 21:00 87.50% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 22:00 87.96% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+8/5/2013 23:00 88.43% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 0:00 88.89% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+9/5/2013 0:00 JD:128.000000 (8^ simulation day) 88.89% completed! 
+ t_meteo:  0.02 s, t_energy:  1.61 s, t_blowingsnow:  0.00 s, t_water:  2.62 s, t_sub:  1.87 s, t_sup:  0.74 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.290968e-11 mm/h 
+ Tot Error Richards=4.419236e-09 mm Mean Time Step=1800.000000 s
+
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 1:00 89.35% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 2:00 89.81% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 3:00 90.28% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 4:00 90.74% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 5:00 91.20% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 6:00 91.67% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 7:00 92.13% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 8:00 92.59% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 9:00 93.06% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 10:00 93.52% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 11:00 93.98% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 12:00 94.44% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 13:00 94.91% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 14:00 95.37% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 15:00 95.83% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 16:00 96.30% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 17:00 96.76% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 18:00 97.22% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 19:00 97.69% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 20:00 98.15% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 21:00 98.61% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 22:00 99.07% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+9/5/2013 23:00 99.54% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+Transport not converging
+Reducing time step to 1800.000000 s, t:0.000000 s
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+10/5/2013 0:00 100.00% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+10/5/2013 0:00 JD:129.000000 (9^ simulation day) 100.00% completed! 
+ t_meteo:  0.02 s, t_energy:  1.80 s, t_blowingsnow:  0.00 s, t_water:  2.99 s, t_sub:  2.09 s, t_sup:  0.89 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=239.57 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.134546e-11 mm/h 
+ Tot Error Richards=4.931527e-09 mm Mean Time Step=1800.000000 s
+
+Number of times the simulation #1 has been run: 1
