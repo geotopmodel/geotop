@@ -16,6 +16,7 @@
 #include <boost/program_options/value_semantic.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include <boost/program_options/version.hpp>
+#include <iomanip>
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include <fstream>
@@ -91,6 +92,10 @@ int main(int argc, char *argv[])
     } else {
         std::cout << "Info: DecayCoeffCanopy : OK" << std::endl ;
     }
+
+    double lInitDateDDMMYYYYhhmm ;
+    lConfigStore.get("InitDateDDMMYYYYhhmm", lInitDateDDMMYYYYhhmm) ;
+    std::cout << "InitDateDDMMYYYYhhmm: " << std::setprecision(12) << lInitDateDDMMYYYYhhmm << std::endl ;
 
     return 0 ;
 }

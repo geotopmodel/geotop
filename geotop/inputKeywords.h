@@ -24,6 +24,10 @@ namespace geotop
 {
     namespace input
     {
+        
+        const std::string gStringNoValue ="none";
+        const double gDoubleNoValue = -9999;
+        
         /** @brief Configuration file parser and storage class
          */
         class ConfigStore
@@ -83,7 +87,7 @@ namespace geotop
              *      False will be returned also if type of the return parameters passed is not
              *      compatible with the type of the parameter to be modifyed.
              */
-            template <typename T> bool set(const std::string pName, const T &pValue) {
+            template <typename T> bool set(const std::string pName, const T const&pValue) {
                 
                 std::string lName ( pName );
                 boost::algorithm::to_lower(lName);
@@ -103,7 +107,7 @@ namespace geotop
                     std::cerr << "Error: runtime typechecking failed for item: " << pName << std::endl ;
                     return false;
                 }
-                
+
                 (*mValueMap)[lName] = pValue ;
 
                 return true ;

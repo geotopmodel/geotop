@@ -17,12 +17,30 @@
 #include <boost/bind.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/assign/std/vector.hpp>
+#include <boost/date_time/period.hpp>
+
+#include <boost/date_time/local_time/local_time.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/date.hpp>
+#include <boost/date_time/date_facet.hpp>
+#include <boost/date_time/time_parsing.hpp>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
 using namespace boost::assign;
+
+/** @internal
+ * @brief convert a string to a double
+ */
+bool stringToDouble(std::string const& pString, double &pValue)
+{
+    std::istringstream lStringStream(pString);
+    if (!(lStringStream >> pValue))
+        return false ;
+    return true ;
+}
 
 /** @internal
  * @brief configuration file parsing class, this class
@@ -47,7 +65,9 @@ public:
     {
         std::string lKey = std::string(pBegin, pEnd) ;
         //std::cout << "actionKey: " << lKey << std::endl ;
-        mKey->assign( lKey ) ;
+        std::string lLowercaseKey ( lKey );
+        boost::algorithm::to_lower(lLowercaseKey);
+        mKey->assign( lLowercaseKey ) ;
     };
     
     void actionValueString(char const * const pBegin, char const * const pEnd) const
@@ -70,10 +90,28 @@ public:
         std::string lValue = std::string(pBegin, pEnd) ;
      
         //std::cout << "actionValueDate: " << lValue << std::endl;
+
+        std::stringstream lStringStream;
+        lStringStream.imbue(std::locale(lStringStream.getloc(), new boost::posix_time::time_input_facet("%d/%m/%Y %H:%M")));
+        lStringStream.exceptions(std::ios_base::failbit);
+        lStringStream << lValue;
+        boost::posix_time::ptime lDate(boost::date_time::not_a_date_time) ;
+        lStringStream >> lDate ;
+
+        std::stringstream lOutStringStream;
+        lOutStringStream.imbue(std::locale(lStringStream.getloc(), new boost::posix_time::time_facet("%d%m%Y%H%M")));
+        lOutStringStream << lDate ;
         
+        double lDoubleEncodedDate = geotop::input::gDoubleNoValue ;
+        if ( not stringToDouble(lOutStringStream.str(), lDoubleEncodedDate) )
+        {
+            std::cerr << "Error: unable to convert string to double: " << lOutStringStream.str() << std::endl ;
+            return ;
+        }
+
         if( mKey->compare ("") != 0 )
         {
-            (*mMap)[*mKey] = lValue;
+            (*mMap)[*mKey] = lDoubleEncodedDate;
         } else {
             std::cerr << "Error: actionValueDate : no key was pushed for the value, value will be discarded" << std::endl ;
         }
@@ -210,737 +248,737 @@ void geotop::input::ConfigStore::init()
     mValueMap->clear() ;
     
     //BEGIN INITIALIZATION OF STRING PARAMETERS
-    initValue("SpecificPlotSurfaceSensibleHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotSurfaceSensibleHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverGlacierLayerThick", std::string("none")) ;
+    initValue("RecoverGlacierLayerThick", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeteoStationLongitude", std::string("none")) ;
+    initValue("HeaderMeteoStationLongitude", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("NetLongwaveRadiationMapFile", std::string("none")) ;
+    initValue("NetLongwaveRadiationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("GlacierProfileFileWriteEnd", std::string("none")) ;
+    initValue("GlacierProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEBasin", std::string("none")) ;
+    initValue("HeaderLEBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeteoStationElevation", std::string("none")) ;
+    initValue("HeaderMeteoStationElevation", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowOnCanopy", std::string("none")) ;
+    initValue("RecoverSnowOnCanopy", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedTempProfileFile", std::string("none")) ;
+    initValue("SoilAveragedTempProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWbeamPoint", std::string("none")) ;
+    initValue("HeaderSWbeamPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("Headerz0vegPoint", std::string("none")) ;
+    initValue("Headerz0vegPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderSWglobal", std::string("Swglob")) ;
     
-    initValue("HeaderLWinPoint", std::string("none")) ;
+    initValue("HeaderLWinPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWvBasin", std::string("none")) ;
+    initValue("HeaderLWvBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWatContentSnow", std::string("none")) ;
+    initValue("HeaderWatContentSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointLandCoverType", std::string("none")) ;
+    initValue("HeaderPointLandCoverType", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEvPoint", std::string("none")) ;
+    initValue("HeaderLEvPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEvBasin", std::string("none")) ;
+    initValue("HeaderLEvBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SubfolderRecoveryFiles", std::string("rec")) ;
     
-    initValue("RecoverRunSoilMaximumTemperatureFile", std::string("none")) ;
+    initValue("RecoverRunSoilMaximumTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedLiqContentProfileFile", std::string("none")) ;
+    initValue("SoilAveragedLiqContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SuccessfulRunFile", std::string("none")) ;
+    initValue("SuccessfulRunFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverVegTemp", std::string("none")) ;
+    initValue("RecoverVegTemp", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEPoint", std::string("none")) ;
+    initValue("HeaderLEPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderCoordinatePointY", std::string("Ywgs")) ;
     
     initValue("HeaderCoordinatePointX", std::string("Xwgs")) ;
     
-    initValue("HeaderDateGlac", std::string("none")) ;
+    initValue("HeaderDateGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPeriodGlac", std::string("none")) ;
+    initValue("HeaderPeriodGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotVegTempMapFile", std::string("none")) ;
+    initValue("SpecificPlotVegTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderN", std::string("n")) ;
     
-    initValue("HeaderV", std::string("none")) ;
+    initValue("HeaderV", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("NetRadiationMapFile", std::string("output_maps/RadNet")) ;
     
-    initValue("PointOutputFileWriteEnd", std::string("none")) ;
+    initValue("PointOutputFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderCanopyFractionPoint", std::string("none")) ;
+    initValue("HeaderCanopyFractionPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderRunSnow", std::string("none")) ;
+    initValue("HeaderRunSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLapseRateTemp", std::string("none")) ;
+    initValue("HeaderLapseRateTemp", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderHorizonAngle", std::string("azimuth")) ;
     
-    initValue("HeaderLWNetPoint", std::string("none")) ;
+    initValue("HeaderLWNetPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeteoStationLatitude", std::string("none")) ;
+    initValue("HeaderMeteoStationLatitude", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIceContentSnow", std::string("none")) ;
+    initValue("HeaderIceContentSnow", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderSoilDz", std::string("Dz")) ;
     
-    initValue("EvapotranspirationFromSoilMapFile", std::string("none")) ;
+    initValue("EvapotranspirationFromSoilMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWdirect", std::string("none")) ;
+    initValue("HeaderSWdirect", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("AspectMapFile", std::string("input_maps/aspect")) ;
     
-    initValue("GlacierMeltedMapFile", std::string("none")) ;
+    initValue("GlacierMeltedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTimeFromStartSoil", std::string("none")) ;
+    initValue("HeaderTimeFromStartSoil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowCoveredAreaFile", std::string("none")) ;
+    initValue("SnowCoveredAreaFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWESublBlownPoint", std::string("none")) ;
+    initValue("HeaderSWESublBlownPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotSurfaceLatentHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotSurfaceLatentHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SoilTempProfileFile", std::string("output_tabs/soiltemp")) ;
     
-    initValue("HeaderSnowTempPoint", std::string("none")) ;
+    initValue("HeaderSnowTempPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilTemp", std::string("none")) ;
+    initValue("RecoverSoilTemp", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("NetPrecipitationMapFile", std::string("none")) ;
+    initValue("NetPrecipitationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SurfaceHeatFluxMapFile", std::string("none")) ;
+    initValue("SurfaceHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHPoint", std::string("none")) ;
+    initValue("HeaderHPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPeriodPoint", std::string("none")) ;
+    initValue("HeaderPeriodPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedIceContentTensorFile", std::string("none")) ;
+    initValue("SoilAveragedIceContentTensorFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDateDDMMYYYYhhmmLapseRates", std::string("none")) ;
+    initValue("HeaderDateDDMMYYYYhhmmLapseRates", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("AirTempMapFile", std::string("none")) ;
+    initValue("AirTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointLatitude", std::string("none")) ;
+    initValue("HeaderPointLatitude", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTSurfBasin", std::string("none")) ;
+    initValue("HeaderTSurfBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("MeteoStationsListFile", std::string("none")) ;
+    initValue("MeteoStationsListFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotSurfaceWaterContentMapFile", std::string("none")) ;
+    initValue("SpecificPlotSurfaceWaterContentMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("CanopyInterceptedWaterMapFile", std::string("none")) ;
+    initValue("CanopyInterceptedWaterMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLapseRateDewTemp", std::string("none")) ;
+    initValue("HeaderLapseRateDewTemp", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSurfaceTemperature", std::string("none")) ;
+    initValue("HeaderSurfaceTemperature", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilLiqWaterPressProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilLiqWaterPressProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeteoStationCoordinateY", std::string("none")) ;
+    initValue("HeaderMeteoStationCoordinateY", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilAveragedSnowWaterEquivalentFile", std::string("none")) ;
+    initValue("RecoverRunSoilAveragedSnowWaterEquivalentFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowLiqMass", std::string("none")) ;
+    initValue("RecoverSnowLiqMass", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEgUnvegPoint", std::string("none")) ;
+    initValue("HeaderLEgUnvegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedIceContentProfileFile", std::string("none")) ;
+    initValue("SoilAveragedIceContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWupPoint", std::string("none")) ;
+    initValue("HeaderLWupPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("InitWaterTableDepthMapFile", std::string("none")) ;
+    initValue("InitWaterTableDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTvegBasin", std::string("none")) ;
+    initValue("HeaderTvegBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("LandCoverMapFile", std::string("input_maps/landcover")) ;
     
-    initValue("LapseRateFile", std::string("none")) ;
+    initValue("LapseRateFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilMinimumTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RecoverRunSoilMinimumTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("WindSpeedMapFile", std::string("none")) ;
+    initValue("WindSpeedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayFromYear0Glac", std::string("none")) ;
+    initValue("HeaderJulianDayFromYear0Glac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowTemp", std::string("none")) ;
+    initValue("RecoverSnowTemp", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("InLongwaveRadiationMapFile", std::string("output_maps/LWin")) ;
     
-    initValue("GlacierProfileFile", std::string("none")) ;
+    initValue("GlacierProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderAirPressPoint", std::string("none")) ;
+    initValue("HeaderAirPressPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLapseRatePrec", std::string("none")) ;
+    initValue("HeaderLapseRatePrec", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointCurvatureWestEastDirection", std::string("none")) ;
+    initValue("HeaderPointCurvatureWestEastDirection", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWinBasin", std::string("none")) ;
+    initValue("HeaderSWinBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SkyViewFactorMapFile", std::string("input_maps/sky")) ;
     
-    initValue("HeaderIDPointPoint", std::string("none")) ;
+    initValue("HeaderIDPointPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotIncomingShortwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotIncomingShortwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowLiqContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SnowLiqContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderEvapSurfaceBasin", std::string("none")) ;
+    initValue("HeaderEvapSurfaceBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEupPoint", std::string("none")) ;
+    initValue("HeaderLEupPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTraspCanopyPoint", std::string("none")) ;
+    initValue("HeaderTraspCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SurfaceSensibleHeatFluxMapFile", std::string("none")) ;
+    initValue("SurfaceSensibleHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDepthSnow", std::string("none")) ;
+    initValue("HeaderDepthSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWvBasin", std::string("none")) ;
+    initValue("HeaderSWvBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWvPoint", std::string("none")) ;
+    initValue("HeaderSWvPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGlacDensityPoint", std::string("none")) ;
+    initValue("HeaderGlacDensityPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPeriodBasin", std::string("none")) ;
+    initValue("HeaderPeriodBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPRainBasin", std::string("none")) ;
+    initValue("HeaderPRainBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderWindVelocity", std::string("WindSp")) ;
     
-    initValue("LandSurfaceWaterDepthMapFile", std::string("none")) ;
+    initValue("LandSurfaceWaterDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("PointOutputFile", std::string("output_tabs/point")) ;
     
-    initValue("HeaderSurfaceEBPoint", std::string("none")) ;
+    initValue("HeaderSurfaceEBPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilSaturationRatioProfileFile", std::string("none")) ;
+    initValue("SoilSaturationRatioProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDecayKCanopyPoint", std::string("none")) ;
+    initValue("HeaderDecayKCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilTempTensorFile", std::string("none")) ;
+    initValue("SoilTempTensorFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTCanopyAirPoint", std::string("none")) ;
+    initValue("HeaderTCanopyAirPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointSoilType", std::string("none")) ;
+    initValue("HeaderPointSoilType", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTempGlac", std::string("none")) ;
+    initValue("HeaderTempGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotVegSensibleHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotVegSensibleHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotVegLatentHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotVegLatentHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverGlacierTemp", std::string("none")) ;
+    initValue("RecoverGlacierTemp", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWupPoint", std::string("none")) ;
+    initValue("HeaderSWupPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderLateralHydrConductivity", std::string("Kh")) ;
     
-    initValue("HeaderSoilInitTemp", std::string("none")) ;
+    initValue("HeaderSoilInitTemp", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("DemFile", std::string("input_maps/pit")) ;
     
-    initValue("RecoverRunSoilMinimumTemperatureFile", std::string("none")) ;
+    initValue("RecoverRunSoilMinimumTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotCanopyAirTempMapFile", std::string("none")) ;
+    initValue("SpecificPlotCanopyAirTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderCloudSWTransmissivity", std::string("CloudTrans")) ;
     
-    initValue("SoilAveragedLiqContentTensorFile", std::string("none")) ;
+    initValue("SoilAveragedLiqContentTensorFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilTotWaterPressProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilTotWaterPressProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWNetBasin", std::string("none")) ;
+    initValue("HeaderSWNetBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderNormalHydrConductivity", std::string("Kv")) ;
     
     initValue("HeaderWindDirection", std::string("WindDir")) ;
     
-    initValue("HeaderDateSnow", std::string("none")) ;
+    initValue("HeaderDateSnow", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderIPrec", std::string("Iprec")) ;
     
-    initValue("InitSnowDepthMapFile", std::string("none")) ;
+    initValue("InitSnowDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLObukhovPoint", std::string("none")) ;
+    initValue("HeaderLObukhovPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("InitGlacierDepthMapFile", std::string("none")) ;
+    initValue("InitGlacierDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeanTimeStep", std::string("none")) ;
+    initValue("HeaderMeanTimeStep", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilLiqWaterPressProfileFile", std::string("none")) ;
+    initValue("SoilLiqWaterPressProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotTotalSensibleHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotTotalSensibleHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayfrom0Meteo", std::string("none")) ;
+    initValue("HeaderJulianDayfrom0Meteo", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderCloudFactor", std::string("none")) ;
+    initValue("HeaderCloudFactor", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointMaxSWE", std::string("none")) ;
+    initValue("HeaderPointMaxSWE", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("WaterTableDepthFromAboveMapFile", std::string("none")) ;
+    initValue("WaterTableDepthFromAboveMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWEPoint", std::string("none")) ;
+    initValue("HeaderSWEPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPSnowBasin", std::string("none")) ;
+    initValue("HeaderPSnowBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotWindDirMapFile", std::string("none")) ;
+    initValue("SpecificPlotWindDirMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilAveragedTemperatureFile", std::string("none")) ;
+    initValue("RecoverRunSoilAveragedTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointLongitude", std::string("none")) ;
+    initValue("HeaderPointLongitude", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDewTemp", std::string("none")) ;
+    initValue("HeaderDewTemp", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("BedrockDepthMapFile", std::string("none")) ;
+    initValue("BedrockDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilMinimumTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RunSoilMinimumTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPeriodSnow", std::string("none")) ;
+    initValue("HeaderPeriodSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSnowMeltedPoint", std::string("none")) ;
+    initValue("HeaderSnowMeltedPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowIceMass", std::string("none")) ;
+    initValue("RecoverSnowIceMass", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayFromYear0Snow", std::string("none")) ;
+    initValue("HeaderJulianDayFromYear0Snow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("InitSnowAgeMapFile", std::string("none")) ;
+    initValue("InitSnowAgeMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWindSpeedTopCanopyPoint", std::string("none")) ;
+    initValue("HeaderWindSpeedTopCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SoilLiqWaterPressTensorFile", std::string("output_maps/psiz")) ;
     
-    initValue("RecoverGlacierLayerNumber", std::string("none")) ;
+    initValue("RecoverGlacierLayerNumber", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderThetaRes", std::string("res")) ;
     
     initValue("HorizonMeteoStationFile", std::string("hor_meteo/horizon")) ;
     
-    initValue("HeaderLWinBasin", std::string("none")) ;
+    initValue("HeaderLWinBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilAveragedInternalEnergyFile", std::string("none")) ;
+    initValue("RecoverRunSoilAveragedInternalEnergyFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderEstoredCanopyPoint", std::string("none")) ;
+    initValue("HeaderEstoredCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWEBlownPoint", std::string("none")) ;
+    initValue("HeaderSWEBlownPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSnowSublPoint", std::string("none")) ;
+    initValue("HeaderSnowSublPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("InitSWEMapFile", std::string("none")) ;
+    initValue("InitSWEMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilMaximumTemperatureFile", std::string("none")) ;
+    initValue("RunSoilMaximumTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPrainPoint", std::string("none")) ;
+    initValue("HeaderPrainPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGlacDepthPoint", std::string("none")) ;
+    initValue("HeaderGlacDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("DaysDelayMapFile", std::string("none")) ;
+    initValue("DaysDelayMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("TimeDependentIncomingDischargeFile", std::string("none")) ;
+    initValue("TimeDependentIncomingDischargeFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWdiffuse", std::string("none")) ;
+    initValue("HeaderSWdiffuse", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("FirstSoilLayerIceContentMapFile", std::string("none")) ;
+    initValue("FirstSoilLayerIceContentMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("FailedRunFile", std::string("none")) ;
+    initValue("FailedRunFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilIceContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilIceContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotWindSpeedMapFile", std::string("none")) ;
+    initValue("SpecificPlotWindSpeedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWinMaxPoint", std::string("none")) ;
+    initValue("HeaderLWinMaxPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderAirTempBasin", std::string("none")) ;
+    initValue("HeaderAirTempBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("InShortwaveRadiationMapFile", std::string("output_maps/SWin")) ;
     
-    initValue("HeaderHighestWaterTableDepthPoint", std::string("none")) ;
+    initValue("HeaderHighestWaterTableDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTimeFromStartSnow", std::string("none")) ;
+    initValue("HeaderTimeFromStartSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("ChannelSurfaceWaterDepthMapFile", std::string("none")) ;
+    initValue("ChannelSurfaceWaterDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPsnowPoint", std::string("none")) ;
+    initValue("HeaderPsnowPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderCthSoilSolids", std::string("none")) ;
+    initValue("HeaderCthSoilSolids", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHighestThawedSoilDepthPoint", std::string("none")) ;
+    initValue("HeaderHighestThawedSoilDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowIceContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SnowIceContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPSnowNetBasin", std::string("none")) ;
+    initValue("HeaderPSnowNetBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSoilInitPres", std::string("none")) ;
+    initValue("HeaderSoilInitPres", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderRunPoint", std::string("none")) ;
+    initValue("HeaderRunPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SWEMapFile", std::string("output_maps/SWE")) ;
     
-    initValue("HeaderHupPoint", std::string("none")) ;
+    initValue("HeaderHupPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("WaterTableDepthMapFile", std::string("none")) ;
+    initValue("WaterTableDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGlacMeltedPoint", std::string("none")) ;
+    initValue("HeaderGlacMeltedPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointSlope", std::string("none")) ;
+    initValue("HeaderPointSlope", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTempSnow", std::string("none")) ;
+    initValue("HeaderTempSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("WindDirMapFile", std::string("none")) ;
+    initValue("WindDirMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTimeStepAverage", std::string("none")) ;
+    initValue("HeaderTimeStepAverage", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("PrecipitationMapFile", std::string("none")) ;
+    initValue("PrecipitationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLEgVegPoint", std::string("none")) ;
+    initValue("HeaderLEgVegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWiltingPoint", std::string("none")) ;
+    initValue("HeaderWiltingPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilIceContChannel", std::string("none")) ;
+    initValue("RecoverSoilIceContChannel", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWinPoint", std::string("none")) ;
+    initValue("HeaderSWinPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderDateDDMMYYYYhhmmMeteo", std::string("Date")) ;
     
-    initValue("DirectInShortwaveRadiationMapFile", std::string("none")) ;
+    initValue("DirectInShortwaveRadiationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWindSpeedPoint", std::string("none")) ;
+    initValue("HeaderWindSpeedPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("PointFile", std::string("ListPoints")) ;
     
-    initValue("RecoverTime", std::string("none")) ;
+    initValue("RecoverTime", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotSnowDepthMapFile", std::string("none")) ;
+    initValue("SpecificPlotSnowDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilAveragedTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RunSoilAveragedTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowDurationMapFile", std::string("none")) ;
+    initValue("SnowDurationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SurfaceTempMapFile", std::string("none")) ;
+    initValue("SurfaceTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLSAIPoint", std::string("none")) ;
+    initValue("HeaderLSAIPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilAveragedInternalEnergyFile", std::string("none")) ;
+    initValue("RunSoilAveragedInternalEnergyFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderQSurfPoint", std::string("none")) ;
+    initValue("HeaderQSurfPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWindDirPoint", std::string("none")) ;
+    initValue("HeaderWindDirPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPrainOnSnowPoint", std::string("none")) ;
+    initValue("HeaderPrainOnSnowPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilIceContentProfileFile", std::string("none")) ;
+    initValue("SoilIceContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilTotWaterPressTensorFile", std::string("none")) ;
+    initValue("SoilTotWaterPressTensorFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWaterOnCanopyPoint", std::string("none")) ;
+    initValue("HeaderWaterOnCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilLiqContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilLiqContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderAirTempPoint", std::string("none")) ;
+    initValue("HeaderAirTempPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotNetVegShortwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotNetVegShortwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilTempProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilTempProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotNetSurfaceShortwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotNetSurfaceShortwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilWatPres", std::string("none")) ;
+    initValue("RecoverSoilWatPres", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotSurfaceHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotSurfaceHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWNetBasin", std::string("none")) ;
+    initValue("HeaderLWNetBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderPointID", std::string("ID")) ;
     
     initValue("SnowTempProfileFile", std::string("output_tabs/snowtemp")) ;
     
-    initValue("SpecificPlotSurfaceTempMapFile", std::string("none")) ;
+    initValue("SpecificPlotSurfaceTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWatContentGlac", std::string("none")) ;
+    initValue("HeaderWatContentGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilMinimumTemperatureFile", std::string("none")) ;
+    initValue("RunSoilMinimumTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SoilMapFile", std::string("input_maps/soiltype")) ;
     
-    initValue("ShadowFractionTimeMapFile", std::string("none")) ;
+    initValue("ShadowFractionTimeMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("GlacierDepthMapFile", std::string("none")) ;
+    initValue("GlacierDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("BasinOutputFile", std::string("none")) ;
+    initValue("BasinOutputFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilTempChannel", std::string("none")) ;
+    initValue("RecoverSoilTempChannel", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("FirstSoilLayerTempMapFile", std::string("none")) ;
+    initValue("FirstSoilLayerTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSnowOnCanopyPoint", std::string("none")) ;
+    initValue("HeaderSnowOnCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilWatPresChannel", std::string("none")) ;
+    initValue("RecoverSoilWatPresChannel", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIDMeteoStation", std::string("none")) ;
+    initValue("HeaderIDMeteoStation", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTDewPoint", std::string("none")) ;
+    initValue("HeaderTDewPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowLayerNumber", std::string("none")) ;
+    initValue("RecoverSnowLayerNumber", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SurfaceLatentHeatFluxMapFile", std::string("none")) ;
+    initValue("SurfaceLatentHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGWEPoint", std::string("none")) ;
+    initValue("HeaderGWEPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointCurvatureNorthwestSoutheastDirection", std::string("none")) ;
+    initValue("HeaderPointCurvatureNorthwestSoutheastDirection", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWnet", std::string("none")) ;
+    initValue("HeaderSWnet", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotNetVegLongwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotNetVegLongwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("ThawedSoilDepthFromAboveMapFile", std::string("none")) ;
+    initValue("ThawedSoilDepthFromAboveMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SnowLiqContentProfileFile", std::string("output_tabs/snowliq")) ;
     
-    initValue("HeaderHgUnvegPoint", std::string("none")) ;
+    initValue("HeaderHgUnvegPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SnowDepthLayersFile", std::string("output_tabs/snowly")) ;
     
-    initValue("SpecificPlotIncomingLongwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotIncomingLongwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHBasin", std::string("none")) ;
+    initValue("HeaderHBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderRH", std::string("RH")) ;
     
     initValue("SoilAveragedTempTensorFile", std::string("output_maps/T")) ;
     
-    initValue("SoilTotWaterPressProfileFile", std::string("none")) ;
+    initValue("SoilTotWaterPressProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("GlacierWaterEqMapFile", std::string("none")) ;
+    initValue("GlacierWaterEqMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("FirstSoilLayerLiqContentMapFile", std::string("none")) ;
+    initValue("FirstSoilLayerLiqContentMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointHorizon", std::string("none")) ;
+    initValue("HeaderPointHorizon", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverGlacierLiqMass", std::string("none")) ;
+    initValue("RecoverGlacierLiqMass", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SlopeMapFile", std::string("input_maps/slope")) ;
     
-    initValue("HeaderMeteoStationSkyViewFactor", std::string("none")) ;
+    initValue("HeaderMeteoStationSkyViewFactor", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RelHumMapFile", std::string("none")) ;
+    initValue("RelHumMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("GlacierSublimatedMapFile", std::string("none")) ;
+    initValue("GlacierSublimatedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotAboveVegAirTempMapFile", std::string("none")) ;
+    initValue("SpecificPlotAboveVegAirTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("TimeDependentVegetationParameterFile", std::string("none")) ;
+    initValue("TimeDependentVegetationParameterFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilMaximumTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RunSoilMaximumTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderMeteoStationStandardTime", std::string("none")) ;
+    initValue("HeaderMeteoStationStandardTime", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPrainNetPoint", std::string("none")) ;
+    initValue("HeaderPrainNetPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLowestThawedSoilDepthPoint", std::string("none")) ;
+    initValue("HeaderLowestThawedSoilDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTimeFromStartBasin", std::string("none")) ;
+    initValue("HeaderTimeFromStartBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilAveragedTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RecoverRunSoilAveragedTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSnowDensityPoint", std::string("none")) ;
+    initValue("HeaderSnowDensityPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPrec", std::string("none")) ;
+    initValue("HeaderPrec", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderQVegPoint", std::string("none")) ;
+    initValue("HeaderQVegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIDPointGlac", std::string("none")) ;
+    initValue("HeaderIDPointGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTsurfPoint", std::string("none")) ;
+    initValue("HeaderTsurfPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("TimeStepsFile", std::string("none")) ;
+    initValue("TimeStepsFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("ThawedSoilDepthMapFile", std::string("none")) ;
+    initValue("ThawedSoilDepthMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayFromYear0Soil", std::string("none")) ;
+    initValue("HeaderJulianDayFromYear0Soil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLObukhovCanopyPoint", std::string("none")) ;
+    initValue("HeaderLObukhovCanopyPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayFromYear0Basin", std::string("none")) ;
+    initValue("HeaderJulianDayFromYear0Basin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTimeFromStartPoint", std::string("none")) ;
+    initValue("HeaderTimeFromStartPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSnowLayerThick", std::string("none")) ;
+    initValue("RecoverSnowLayerThick", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIDPointSnow", std::string("none")) ;
+    initValue("HeaderIDPointSnow", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointCurvatureNorthSouthDirection", std::string("none")) ;
+    initValue("HeaderPointCurvatureNorthSouthDirection", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HorizonPointFile", std::string("hor_points/horizon")) ;
     
-    initValue("HeaderTimeFromStartGlac", std::string("none")) ;
+    initValue("HeaderTimeFromStartGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SuccessfulRecoveryFile", std::string("none")) ;
+    initValue("SuccessfulRecoveryFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("FirstSoilLayerAveragedTempMapFile", std::string("output_maps/MMGST")) ;
     
-    initValue("HeaderRunGlac", std::string("none")) ;
+    initValue("HeaderRunGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowSublMapFile", std::string("none")) ;
+    initValue("SnowSublMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SnowDepthMapFile", std::string("output_maps/snowdepth")) ;
     
-    initValue("SpecificPlotRelHumMapFile", std::string("none")) ;
+    initValue("SpecificPlotRelHumMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointSkyViewFactor", std::string("none")) ;
+    initValue("HeaderPointSkyViewFactor", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("MeteoFile", std::string("meteo/meteo")) ;
     
-    initValue("HeaderPointElevation", std::string("none")) ;
+    initValue("HeaderPointElevation", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("BasinOutputFileWriteEnd", std::string("none")) ;
+    initValue("BasinOutputFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWin", std::string("none")) ;
+    initValue("HeaderLWin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedLiqContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilAveragedLiqContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTraspCanopyBasin", std::string("none")) ;
+    initValue("HeaderTraspCanopyBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilAveragedSnowWaterEquivalentFile", std::string("none")) ;
+    initValue("RunSoilAveragedSnowWaterEquivalentFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWinMinPoint", std::string("none")) ;
+    initValue("HeaderLWinMinPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHvPoint", std::string("none")) ;
+    initValue("HeaderHvPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWindX", std::string("none")) ;
+    initValue("HeaderWindX", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderQCanopyAirPoint", std::string("none")) ;
+    initValue("HeaderQCanopyAirPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDepthGlac", std::string("none")) ;
+    initValue("HeaderDepthGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointBedrockDepth", std::string("none")) ;
+    initValue("HeaderPointBedrockDepth", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderFieldCapacity", std::string("fc")) ;
     
-    initValue("HeaderQAirPoint", std::string("none")) ;
+    initValue("HeaderQAirPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SnowIceContentProfileFile", std::string("output_tabs/snowice")) ;
     
-    initValue("HeaderRunBasin", std::string("none")) ;
+    initValue("HeaderRunBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("NetShortwaveRadiationMapFile", std::string("none")) ;
+    initValue("NetShortwaveRadiationMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointCurvatureNortheastSouthwestDirection", std::string("none")) ;
+    initValue("HeaderPointCurvatureNortheastSouthwestDirection", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSoilHeatFluxPoint", std::string("none")) ;
+    initValue("HeaderSoilHeatFluxPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotNetSurfaceLongwaveRadMapFile", std::string("none")) ;
+    initValue("SpecificPlotNetSurfaceLongwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderSpecificStorativity", std::string("SS")) ;
     
     initValue("HeaderAlpha", std::string("a")) ;
     
-    initValue("HeaderMeteoStationCoordinateX", std::string("none")) ;
+    initValue("HeaderMeteoStationCoordinateX", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointDepthFreeSurface", std::string("none")) ;
+    initValue("HeaderPointDepthFreeSurface", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSnowDepthPoint", std::string("none")) ;
+    initValue("HeaderSnowDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIDPointSoil", std::string("none")) ;
+    initValue("HeaderIDPointSoil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("CurvaturesMapFile", std::string("none")) ;
+    initValue("CurvaturesMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderJulianDayFromYear0Point", std::string("none")) ;
+    initValue("HeaderJulianDayFromYear0Point", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPRainNetBasin", std::string("none")) ;
+    initValue("HeaderPRainNetBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverRunSoilMaximumTotalSoilMoistureFile", std::string("none")) ;
+    initValue("RecoverRunSoilMaximumTotalSoilMoistureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPsnowNetPoint", std::string("none")) ;
+    initValue("HeaderPsnowNetPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWNetPoint", std::string("none")) ;
+    initValue("HeaderSWNetPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderIceContentGlac", std::string("none")) ;
+    initValue("HeaderIceContentGlac", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderTvegPoint", std::string("none")) ;
+    initValue("HeaderTvegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowMeltedMapFile", std::string("none")) ;
+    initValue("SnowMeltedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGlacTempPoint", std::string("none")) ;
+    initValue("HeaderGlacTempPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderAirTemp", std::string("AirT")) ;
     
-    initValue("RecoverLiqWaterOnCanopy", std::string("none")) ;
+    initValue("RecoverLiqWaterOnCanopy", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("DischargeFile", std::string("none")) ;
+    initValue("DischargeFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverSoilIceCont", std::string("none")) ;
+    initValue("RecoverSoilIceCont", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHgVegPoint", std::string("none")) ;
+    initValue("HeaderHgVegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPeriodSoil", std::string("none")) ;
+    initValue("HeaderPeriodSoil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilLiqContentProfileFile", std::string("none")) ;
+    initValue("SoilLiqContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderRunSoil", std::string("none")) ;
+    initValue("HeaderRunSoil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDateSoil", std::string("none")) ;
+    initValue("HeaderDateSoil", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderHvBasin", std::string("none")) ;
+    initValue("HeaderHvBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("Headerd0vegPoint", std::string("none")) ;
+    initValue("Headerd0vegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SpecificPlotTotalLatentHeatFluxMapFile", std::string("none")) ;
+    initValue("SpecificPlotTotalLatentHeatFluxMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SoilLiqContentTensorFile", std::string("output_maps/thetaliq")) ;
     
-    initValue("RecoverGlacierIceMass", std::string("none")) ;
+    initValue("RecoverGlacierIceMass", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderThetaSat", std::string("sat")) ;
     
-    initValue("SoilAveragedIceContentProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilAveragedIceContentProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderLWvPoint", std::string("none")) ;
+    initValue("HeaderLWvPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderKthSoilSolids", std::string("none")) ;
+    initValue("HeaderKthSoilSolids", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RecoverNonDimensionalSnowAge", std::string("none")) ;
+    initValue("RecoverNonDimensionalSnowAge", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RunSoilAveragedTemperatureFile", std::string("none")) ;
+    initValue("RunSoilAveragedTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWdiffPoint", std::string("none")) ;
+    initValue("HeaderSWdiffPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("RiverNetwork", std::string("none")) ;
+    initValue("RiverNetwork", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderWindY", std::string("none")) ;
+    initValue("HeaderWindY", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDateBasin", std::string("none")) ;
+    initValue("HeaderDateBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPNetBasin", std::string("none")) ;
+    initValue("HeaderPNetBasin", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderHorizonHeight", std::string("horizon_ele")) ;
     
-    initValue("HeaderLowestWaterTableDepthPoint", std::string("none")) ;
+    initValue("HeaderLowestWaterTableDepthPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilIceContentTensorFile", std::string("none")) ;
+    initValue("SoilIceContentTensorFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderPointAspect", std::string("none")) ;
+    initValue("HeaderPointAspect", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilAveragedTempProfileFileWriteEnd", std::string("none")) ;
+    initValue("SoilAveragedTempProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderGlacSublPoint", std::string("none")) ;
+    initValue("HeaderGlacSublPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderDatePoint", std::string("none")) ;
+    initValue("HeaderDatePoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderEvapSurfacePoint", std::string("none")) ;
+    initValue("HeaderEvapSurfacePoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowTempProfileFileWriteEnd", std::string("none")) ;
+    initValue("SnowTempProfileFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderRHPoint", std::string("none")) ;
+    initValue("HeaderRHPoint", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SoilParFile", std::string("soil/soil")) ;
     
-    initValue("SnowDepthLayersFileWriteEnd", std::string("none")) ;
+    initValue("SnowDepthLayersFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     //END INITIALIZATION OF STRING PARAMETERS
     
     //BEGIN INITIALIZATION OF NUMERIC PARAMETERS
@@ -993,7 +1031,9 @@ void geotop::input::ConfigStore::init()
     initValue("InitSnowTemp", double(0)) ;
     
     std::vector<double> lNVanGenuchtenBedrock ;
-    lNVanGenuchtenBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lNVanGenuchtenBedrock += geotop::input::gDoubleNoValue,
+        geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,
+        geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("NVanGenuchtenBedrock", lNVanGenuchtenBedrock) ;
     
     initValue("SoilHeatFluxPoint", double(8)) ;
@@ -1019,7 +1059,7 @@ void geotop::input::ConfigStore::init()
     initValue("TimeStepBlowingSnow", double(3600)) ;
     
     std::vector<double> lNormalHydrConductivityBedrock ;
-    lNormalHydrConductivityBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lNormalHydrConductivityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("NormalHydrConductivityBedrock", lNormalHydrConductivityBedrock) ;
     
     initValue("NumLowPassFilterOnDemForCurv", double(0)) ;
@@ -1047,7 +1087,7 @@ void geotop::input::ConfigStore::init()
     initValue("VegSnowBurying", lVegSnowBurying) ;
     
     std::vector<double> lGlacPlotDepths ;
-    lGlacPlotDepths += -9999,-9999 ;
+    lGlacPlotDepths += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("GlacPlotDepths", lGlacPlotDepths) ;
     
     initValue("NumLandCoverTypes", double(8)) ;
@@ -1064,7 +1104,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("SWbeamPoint", double(10)) ;
     
-    initValue("SurfaceEnergyFlux", double(-9999)) ;
+    initValue("SurfaceEnergyFlux", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("DrySnowDefRate", double(1)) ;
     
@@ -1077,7 +1117,7 @@ void geotop::input::ConfigStore::init()
     initValue("RicalculateCloudiness", double(0)) ;
     
     std::vector<double> lSoilPlotDepths ;
-    lSoilPlotDepths += -9999,-9999 ;
+    lSoilPlotDepths += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("SoilPlotDepths", lSoilPlotDepths) ;
     
     initValue("BaseIPrec", double(0)) ;
@@ -1102,7 +1142,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HPoint", double(-1)) ;
     
-    initValue("SoilLayerThicknesses", double(-9999)) ;
+    initValue("SoilLayerThicknesses", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("SnowCorrFactor", double(1.3)) ;
     
@@ -1146,7 +1186,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("SnowDepthPoint", double(3)) ;
     
-    initValue("MeteoStationsID", double(-9999)) ;
+    initValue("MeteoStationsID", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("QSurfPoint", double(-1)) ;
     
@@ -1161,7 +1201,7 @@ void geotop::input::ConfigStore::init()
     initValue("GlacAll", double(0)) ;
     
     std::vector<double> lSnowPlotDepths ;
-    lSnowPlotDepths += -9999,-9999 ;
+    lSnowPlotDepths += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("SnowPlotDepths", lSnowPlotDepths) ;
     
     initValue("RichardTol", double(1e-06)) ;
@@ -1181,7 +1221,7 @@ void geotop::input::ConfigStore::init()
     initValue("MoninObukhov", double(1)) ;
     
     std::vector<double> lSpecificStorativityBedrock ;
-    lSpecificStorativityBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lSpecificStorativityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("SpecificStorativityBedrock", lSpecificStorativityBedrock) ;
     
     initValue("DtPlotDischarge", double(0)) ;
@@ -1191,7 +1231,7 @@ void geotop::input::ConfigStore::init()
     initValue("VMualem", lVMualem) ;
     
     std::vector<double> lWiltingPointBedrock ;
-    lWiltingPointBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lWiltingPointBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("WiltingPointBedrock", lWiltingPointBedrock) ;
     
     initValue("Longitude", double(11.7)) ;
@@ -1241,7 +1281,7 @@ void geotop::input::ConfigStore::init()
     initValue("DEMRotationAngle", double(0)) ;
     
     std::vector<double> lMeteoStationStandardTime ;
-    lMeteoStationStandardTime += 1,1,1 ;
+    lMeteoStationStandardTime += 0 ;
     initValue("MeteoStationStandardTime", lMeteoStationStandardTime) ;
     
     std::vector<double> lSavingPoints ;
@@ -1267,11 +1307,11 @@ void geotop::input::ConfigStore::init()
     initValue("ThresWaterDepthLandSup", double(0)) ;
     
     std::vector<double> lMeteoStationCoordinateY ;
-    lMeteoStationCoordinateY += 5.00857e+06,5.01001e+06,5.0065e+06 ;
+    lMeteoStationCoordinateY += geotop::input::gDoubleNoValue ;
     initValue("MeteoStationCoordinateY", lMeteoStationCoordinateY) ;
     
     std::vector<double> lMeteoStationCoordinateX ;
-    lMeteoStationCoordinateX += 641960,643962,644544 ;
+    lMeteoStationCoordinateX += geotop::input::gDoubleNoValue ;
     initValue("MeteoStationCoordinateX", lMeteoStationCoordinateX) ;
     
     initValue("MeanTimeStep", double(-1)) ;
@@ -1285,13 +1325,13 @@ void geotop::input::ConfigStore::init()
     initValue("WetSnowDefRate", double(1.5)) ;
     
     std::vector<double> lMeteoStationLatitude ;
-    lMeteoStationLatitude += 46.5563,46.461,46.45 ;
+    lMeteoStationLatitude += 46.3 ;
     initValue("MeteoStationLatitude", lMeteoStationLatitude) ;
     
     initValue("MinSupWaterDepthLand", double(1)) ;
     
     std::vector<double> lFieldCapacity ;
-    lFieldCapacity += -9999,-9999,-9999,-9999,-9999 ;
+    lFieldCapacity += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("FieldCapacity", lFieldCapacity) ;
     
     initValue("StandardTimeSimulation", double(0)) ;
@@ -1304,7 +1344,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("GlacMeltedPoint", double(-1)) ;
     
-    initValue("SurfaceTemperature", double(-9999)) ;
+    initValue("SurfaceTemperature", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("WaterOnCanopyPoint", double(-1)) ;
     
@@ -1361,7 +1401,7 @@ void geotop::input::ConfigStore::init()
     initValue("ThermalConductivitySoilSolids", lThermalConductivitySoilSolids) ;
     
     std::vector<double> lMeteoStationElevation ;
-    lMeteoStationElevation += 1200,1450,990 ;
+    lMeteoStationElevation += 0 ;
     initValue("MeteoStationElevation", lMeteoStationElevation) ;
     
     std::vector<double> lSoilAlbNIRDry ;
@@ -1370,23 +1410,24 @@ void geotop::input::ConfigStore::init()
     
     initValue("BaseRelativeHumidity", double(70)) ;
     
-    initValue("InitDateDDMMYYYYhhmm", double(2.0102e+11)) ;
+    initValue("InitDateDDMMYYYYhhmm", double(010119000000.)) ;
+    initValue("EndDateDDMMYYYYhhmm", double(010119000000.)) ;
+
     initValue("CurvatureWeightI", double(0)) ;
     
     initValue("HBasin", double(-1)) ;
     
     std::vector<double> lVMualemBedrock ;
-    lVMualemBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lVMualemBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("VMualemBedrock", lVMualemBedrock) ;
     
-    initValue("EndDateDDMMYYYYhhmm", double(2.9102e+11)) ;
     initValue("QAirPoint", double(-1)) ;
     
     initValue("PsnowPoint", double(-1)) ;
     
     initValue("CurvatureWeightD", double(0)) ;
     
-    initValue("NumberOfMeteoStations", double(3)) ;
+    initValue("NumberOfMeteoStations", double(1)) ;
     
     initValue("TvegBasin", double(-1)) ;
     
@@ -1397,16 +1438,16 @@ void geotop::input::ConfigStore::init()
     initValue("UpwindBorderBlowingSnow", double(0)) ;
     
     std::vector<double> lThetaResBedrock ;
-    lThetaResBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lThetaResBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("ThetaResBedrock", lThetaResBedrock) ;
     
     std::vector<double> lAlphaVanGenuchtenBedrock ;
-    lAlphaVanGenuchtenBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lAlphaVanGenuchtenBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("AlphaVanGenuchtenBedrock", lAlphaVanGenuchtenBedrock) ;
     
-    initValue("CoordinatePointX", double(-9999)) ;
+    initValue("CoordinatePointX", double(geotop::input::gDoubleNoValue)) ;
     
-    initValue("CoordinatePointY", double(-9999)) ;
+    initValue("CoordinatePointY", double(geotop::input::gDoubleNoValue)) ;
     
     std::vector<double> lVegReflectVis ;
     lVegReflectVis += 0,0.15,0,0.15,0,0.12,0.09,0.15 ;
@@ -1487,13 +1528,14 @@ void geotop::input::ConfigStore::init()
     initValue("InitSnowAge", double(0)) ;
     
     std::vector<double> lMeteoStationLongitude ;
-    lMeteoStationLongitude += 12.4259,12.4103,12.417 ;
+    lMeteoStationLongitude += 11.7 ;
     initValue("MeteoStationLongitude", lMeteoStationLongitude) ;
+
     
     initValue("AirTempPoint", double(5)) ;
     
     std::vector<double> lWiltingPoint ;
-    lWiltingPoint += -9999,-9999,-9999,-9999,-9999 ;
+    lWiltingPoint += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("WiltingPoint", lWiltingPoint) ;
     
     initValue("AngstromBeta", double(0.1)) ;
@@ -1505,7 +1547,7 @@ void geotop::input::ConfigStore::init()
     initValue("DatePoint", double(1)) ;
     
     std::vector<double> lThetaSatBedrock ;
-    lThetaSatBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lThetaSatBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("ThetaSatBedrock", lThetaSatBedrock) ;
     
     initValue("BaseWindSpeed", double(0.5)) ;
@@ -1519,7 +1561,7 @@ void geotop::input::ConfigStore::init()
     initValue("SlopeWeightI", double(0)) ;
     
     std::vector<double> lInitSoilPressureBedrock ;
-    lInitSoilPressureBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lInitSoilPressureBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("InitSoilPressureBedrock", lInitSoilPressureBedrock) ;
     
     std::vector<double> lRoughElemXUnitArea ;
@@ -1527,14 +1569,14 @@ void geotop::input::ConfigStore::init()
     initValue("RoughElemXUnitArea", lRoughElemXUnitArea) ;
     
     std::vector<double> lThermalCapacitySoilSolidsBedrock ;
-    lThermalCapacitySoilSolidsBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lThermalCapacitySoilSolidsBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("ThermalCapacitySoilSolidsBedrock", lThermalCapacitySoilSolidsBedrock) ;
     
     initValue("LWvBasin", double(-1)) ;
     
     initValue("MinLambdaWater", double(1e-07)) ;
     
-    initValue("ConvectiveHeatTransferCoefficient", double(-9999)) ;
+    initValue("ConvectiveHeatTransferCoefficient", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("BusingerMaxIter", double(5)) ;
     
@@ -1570,7 +1612,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("PsnowNetPoint", double(-1)) ;
     
-    initValue("PointID", double(-9999)) ;
+    initValue("PointID", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("SWupPoint", double(-1)) ;
     
@@ -1609,10 +1651,10 @@ void geotop::input::ConfigStore::init()
     initValue("ConsiderMicrometeorology", double(1)) ;
     
     std::vector<double> lLateralHydrConductivityBedrock ;
-    lLateralHydrConductivityBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lLateralHydrConductivityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("LateralHydrConductivityBedrock", lLateralHydrConductivityBedrock) ;
     
-    initValue("LapseRateDewTemp", double(-9999)) ;
+    initValue("LapseRateDewTemp", double(geotop::input::gDoubleNoValue)) ;
     
     initValue("SWEbottom", double(20)) ;
     
@@ -1627,7 +1669,7 @@ void geotop::input::ConfigStore::init()
     initValue("MinTimeStepSupFlow", double(0.01)) ;
     
     std::vector<double> lMeteoStationSkyViewFactor ;
-    lMeteoStationSkyViewFactor += 1,1,1 ;
+    lMeteoStationSkyViewFactor += 1 ;
     initValue("MeteoStationSkyViewFactor", lMeteoStationSkyViewFactor) ;
     
     initValue("PSnowNetBasin", double(-1)) ;
@@ -1649,7 +1691,7 @@ void geotop::input::ConfigStore::init()
     initValue("SWvPoint", double(-1)) ;
     
     std::vector<double> lInitSoilTempBedrock ;
-    lInitSoilTempBedrock += -9999,-9999,-9999,-9999,-9999 ;
+    lInitSoilTempBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("InitSoilTempBedrock", lInitSoilTempBedrock) ;
     
     std::vector<double> lSoilAlbVisDry ;
@@ -1725,7 +1767,7 @@ void geotop::input::ConfigStore::init()
     initValue("RatioChannelWidthPixelWidth", double(0.1)) ;
     
     std::vector<double> lThermalConductivitySoilSolidsBedrock ;
-    lThermalConductivitySoilSolidsBedrock += -9999,-9999,-9999,-9999,-9999 ; 
+    lThermalConductivitySoilSolidsBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ; 
     initValue("ThermalConductivitySoilSolidsBedrock", lThermalConductivitySoilSolidsBedrock) ; 
     
     initValue("LSAIPoint", double(-1)) ;
@@ -1741,7 +1783,7 @@ void geotop::input::ConfigStore::init()
     initValue("PeriodBasin", double(-1)) ;
     
     std::vector<double> lFieldCapacityBedrock ;
-    lFieldCapacityBedrock += -9999,-9999,-9999,-9999,-9999 ; 
+    lFieldCapacityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ; 
     initValue("FieldCapacityBedrock", lFieldCapacityBedrock) ; 
     
     initValue("RunPoint", double(-1)) ;
@@ -1793,10 +1835,10 @@ void geotop::input::ConfigStore::init()
     initValue("MaxWaterEqGlacLayerContent", double(5)) ;
     
     std::vector<double> lInitSoilPressure ;
-    lInitSoilPressure += -9999,-9999,-9999,-9999,-9999 ; 
+    lInitSoilPressure += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ; 
     initValue("InitSoilPressure", lInitSoilPressure) ; 
     
-    initValue("SurFlowResExp", double(0.666667)) ;
+    initValue("SurFlowResExp", double(0.666666666667)) ;
     
     initValue("MinPrecIncreaseFactorWithElev", double(0.1)) ;
     //END INITIALIZATION OF NUMERIC PARAMETERS

@@ -20,6 +20,7 @@
 
 #include "parameters.h"
 #include "constants.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -1548,8 +1549,9 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 	}else{
 		fprintf(f,"%s[%ld] = %e \n", keyword[i].c_str(), j+1, a);
 	}
-    
-    std::cout << "DEBUG_KEYWORDS assignation_number: name(" << keyword[i] << "),Value(" << a << "),i(" << i << "),j(" << j << "),num_param_components(" << *num_param_components << "),default(" << default_value << ")" << std::endl ;
+
+    //TODO: removeme
+    //std::cout << "DEBUG_KEYWORDS assignation_number: name(" << keyword[i] << "),Value(" << std::setprecision(12) << a << "),i(" << i << "),j(" << j << "),num_param_components(" << *num_param_components << "),default(" << std::setprecision(12) << default_value << ")" << std::endl ;
 
 	return a;
 }
@@ -1572,7 +1574,8 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 	}
 	a[dimstring] = 0;
 
-    std::cout << "DEBUG_KEYWORDS assignation_string: name(" << keyword[i] << "),Value("<< a << "),i(" << i << "),string_param[i](" << string_param[i] << ")" << std::endl ;
+    //TODO: removeme
+    //std::cout << "DEBUG_KEYWORDS assignation_string: name(" << keyword[i] << "),Value("<< a << "),i(" << i << "),string_param[i](" << string_param[i] << ")" << std::endl ;
 	fprintf(f,"%s = %s\n", keyword[i].c_str(), a);
 
 	return(a);
