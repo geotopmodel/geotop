@@ -87,7 +87,7 @@ namespace geotop
              *      False will be returned also if type of the return parameters passed is not
              *      compatible with the type of the parameter to be modifyed.
              */
-            template <typename T> bool set(const std::string pName, const T const&pValue) {
+            template <typename T> bool set(const std::string pName, const T &pValue) {
                 
                 std::string lName ( pName );
                 boost::algorithm::to_lower(lName);
