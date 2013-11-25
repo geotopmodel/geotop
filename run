@@ -1,5 +1,2 @@
-cd src/geotop/
-./geotop Flo
-cd ..
-cd ..
+src/geotop/geotop InputFlo
 

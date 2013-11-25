@@ -1,5 +1,4 @@
 clear
-rm ../src/geotop/Flo/*.*
 gcc create_input.c -o create_input
 ./create_input
 rm create_input

@@ -325,7 +325,7 @@ void time_loop(ALLDATA *A){
 						}
 
 
-						if(A->P->wat_balance == 1 && wt==0 && en == 0){
+						if(A->P->wat_balance == 1 && wt==0 && en == 0){//should use A->P->transport_model instead
 							tstart=clock();
 							tr = transport_model(Dt, A);
 							tend=clock();
@@ -344,8 +344,7 @@ void time_loop(ALLDATA *A){
 								fprintf(f,"Energy balance not converging\n");
 							}else if (wt != 0) {
 								fprintf(f,"Water balance not converging\n");
-							}
-							else if (tr != 0){
+							}else if (tr != 0){
 								fprintf(f,"Transport not converging\n");
 							}	//by Flo
 							fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);

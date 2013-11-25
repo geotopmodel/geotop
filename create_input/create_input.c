@@ -23,7 +23,7 @@ days_in_month[10]=30; // November
 days_in_month[11]=31; // Dezember
 
 
-f=fopen("../src/geotop/Flo/dem.asc","w");
+f=fopen("../InputFlo/dem.asc","w");
 fprintf(f,"ncols %i\nnrows %i\nxllcorner %f\nyllcorner %f\ncellsize %f\nNODATA_value %f\n",nc,nr,xll,yll,ds,no_data);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -33,7 +33,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-f=fopen("../src/geotop/Flo/net.asc","w");
+f=fopen("../InputFlo/net.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -45,7 +45,7 @@ for (r=1; r<=nr; r++){
 fclose(f);
 
 /*
-f=fopen("../src/geotop/src/geotop/surface.asc","w");
+f=fopen("../InputFlo/surface.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -56,18 +56,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-f=fopen("../src/geotop/Flo/subsurface.asc","w");
-fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
-for (r=1; r<=nr; r++){
-	for (c=1; c<=nc; c++){
-		if (r>5 && c<4){fprintf(f,"%f\t",0.001);}
-		else {fprintf(f,"%f\t",0.0001);}
-	}
-	fprintf(f,"\n");
-}
-fclose(f);
-
-f=fopen("../src/geotop/Flo/landcover.asc","w");
+f=fopen("../InputFlo/landcover.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -78,8 +67,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-
-f=fopen("../src/geotop/Flo/watertable.asc","w");
+f=fopen("../InputFlo/watertable.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -90,8 +78,7 @@ for (r=1; r<=nr; r++){
 fclose(f);
 */
 
-
-f=fopen("../src/geotop/Flo/meteo0001.txt","w");
+f=fopen("../InputFlo/meteo0001.txt","w");
 fprintf(f,"Date,JDfrom0,Iprec,AirT,Conc\n");
 for (y=2012; y<=2013; y++){
 	for (m=1; m<=12; m++){
@@ -117,12 +104,11 @@ for (y=2012; y<=2013; y++){
 						else {fprintf(f,"%i/%i/%i %i:00,%f,",d,m,y,h,jd);}
 					}
 				}
-//				fprintf(f,"%f,%f\n",prec,conc);
 				fprintf(f,"%f,%f,%f\n",prec,temp,conc);
-				if (jd>735384.999999+20.0-2.0/24.0){prec=0.0; temp=10.0;}
-				if (jd>735384.999999+40.0-2.0/24.0){prec=5.0; temp=30.0;}
-				if (jd>735384.999999+60.0-2.0/24.0){prec=0.0; temp=10.0;}
-				if (jd>735384.999999+80.0-2.0/24.0){prec=2.5; temp=30.0;}
+				if (jd>735384.999999+ 20.0-2.0/24.0){prec=0.0; temp=10.0;}
+				if (jd>735384.999999+ 40.0-2.0/24.0){prec=5.0; temp=30.0;}
+				if (jd>735384.999999+ 60.0-2.0/24.0){prec=0.0; temp=10.0;}
+				if (jd>735384.999999+ 80.0-2.0/24.0){prec=2.5; temp=30.0;}
 				if (jd>735384.999999+100.0-2.0/24.0){prec=0.0; temp=10.0;}
 				jd=jd+1.0/24.0;
 			}
@@ -132,9 +118,9 @@ for (y=2012; y<=2013; y++){
 fclose(f);
 
 
-f=fopen("../src/geotop/Flo/geotop.inpts","w");
+f=fopen("../InputFlo/geotop.inpts","w");
 fprintf(f,"!=======================================\n");
-fprintf(f,"! INPUT FOR GEOTOP V.1_2259\n");
+fprintf(f,"! INPUT FOR GEOTOP V2.0\n");
 fprintf(f,"! atrifical input\n");
 fprintf(f,"!=======================================\n\n\n");
 
@@ -302,7 +288,7 @@ fprintf(f,"InitGlacierDensity\t\t\t=\t700\n");
 fprintf(f,"InitGlacierTemp\t\t\t\t=\t-5\n");
 fprintf(f,"NumMaxGlacierLayers\t\t\t=\t3\n");
 fprintf(f,"MinLayerThicknessGlacier\t\t=\t4000,100,10\n");
-fprintf(f,"MaxLayerThicknessGlacier\t\t=\t1.E10,8000,100\n\n\n");
+fprintf(f,"MaxLayerThicknessGlacier\t\t=\t1.10,8000,100\n\n\n");
 
 
 fprintf(f,"!=======================================\n");
@@ -356,7 +342,7 @@ fprintf(f,"DischargeFile\t\t\t\t=\t\"tabs/discharge\"\n");
 fprintf(f,"ConcentrationFile\t\t\t=\t\"tabs/concentration\"\n\n");
 
 fprintf(f,"! Maps\n");
-fprintf(f,"WaterTableDepthMapFile\t\t\t=\t\"maps/watertable\"\n\n");
+//fprintf(f,"WaterTableDepthMapFile\t\t\t=\t\"maps/watertable\"\n\n");
 
 
 fclose(f);

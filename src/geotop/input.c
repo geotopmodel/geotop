@@ -1299,16 +1299,23 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 
 
 	/****************************************************************************************************/
-	/*! Completing of the struct "transport" (of the type TRANSPORT) */	//by Flo
-/*	transport->conc=0.;
-	transport->mass_new=0.;
-	transport->mass_old=0.;
+	//by Flo, for transport model
+	/****************************************************************************************************/
+	wat->M=new_doublevector(par->total_pixel);
+	initialize_doublevector(wat->M, 1.e-5);
+	
+	wat->C=new_doublevector(par->total_pixel);
+	initialize_doublevector(wat->C, 1.e-5);
+	
+	wat->H=new_doublevector(par->total_pixel);
+	initialize_doublevector(wat->H, 1.e-5);
+	
+	wat->K=new_doublevector(par->total_pixel);
+	initialize_doublevector(wat->K, 1.e-5);
+	
+	wat->D=new_doublevector(par->total_pixel);
+	initialize_doublevector(wat->D, 1.e-5);
 
-	transport->Q_x=0.;
-	transport->Q_y=0.;
-	transport->Q_z=0.;
-	transport->V=0.;
-*/
 		
 	/****************************************************************************************************/
 	/*! Initialization of the struct "snow" (of the type SNOW):*/
