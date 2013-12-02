@@ -1,6 +1,0 @@
-clear
-rm ../input/BGL/meteo0001.txt
-gcc create_input_BGL.c -o create_input_BGL
-./create_input_BGL
-rm create_input_BGL
-

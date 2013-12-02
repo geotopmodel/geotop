@@ -794,6 +794,6 @@ char *keywords_char[num_par_char] = {
     "SuccessfulRunFile",                                   /* 363 */
     "FailedRunFile",                                       /* 364 */
     "SubfolderRecoveryFiles",                              /* 365 */
-    "HeaderConcentration",				   /* 366 */	// by Flo
-    "ConcentrationFile"					   /* 367 */	// by Flo
+    "HeaderConcentration",				   /* 366 */	// by Flo, inside the meteo file
+    "ConcentrationFile"					   /* 367 */	// by Flo, output file
 };

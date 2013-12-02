@@ -1,5 +1,5 @@
 !=======================================
-! INPUT FOR GEOTOP V.1_2259
+! INPUT FOR GEOTOP V2.0
 ! atrifical input
 !=======================================
 
@@ -20,7 +20,7 @@ StandardTimeSimulation			=	1
 ! Simulation settings
 WaterBalance				=	1
 EnergyBalance				=	1
-Transport				=	1
+TransportModel				=	1
 
 ! Output timeseries Dt in hours
 DtPlotDischarge				=	1
@@ -157,7 +157,7 @@ InitGlacierDensity			=	700
 InitGlacierTemp				=	-5
 NumMaxGlacierLayers			=	3
 MinLayerThicknessGlacier		=	4000,100,10
-MaxLayerThicknessGlacier		=	1.E10,8000,100
+MaxLayerThicknessGlacier		=	1.10,8000,100
 
 
 !=======================================
@@ -210,5 +210,3 @@ DischargeFile				=	"tabs/discharge"
 ConcentrationFile			=	"tabs/concentration"
 
 ! Maps
-WaterTableDepthMapFile			=	"maps/watertable"
-

@@ -23,7 +23,7 @@ days_in_month[10]=30; // November
 days_in_month[11]=31; // Dezember
 
 
-f=fopen("../InputFlo/dem.asc","w");
+f=fopen("dem.asc","w");
 fprintf(f,"ncols %i\nnrows %i\nxllcorner %f\nyllcorner %f\ncellsize %f\nNODATA_value %f\n",nc,nr,xll,yll,ds,no_data);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -33,7 +33,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-f=fopen("../InputFlo/net.asc","w");
+f=fopen("net.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -45,7 +45,7 @@ for (r=1; r<=nr; r++){
 fclose(f);
 
 /*
-f=fopen("../InputFlo/surface.asc","w");
+f=fopen("surface.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -56,7 +56,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-f=fopen("../InputFlo/landcover.asc","w");
+f=fopen("landcover.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -67,7 +67,7 @@ for (r=1; r<=nr; r++){
 }
 fclose(f);
 
-f=fopen("../InputFlo/watertable.asc","w");
+f=fopen("watertable.asc","w");
 fprintf(f,"ncols\t\t%i\nnrows\t\t%i\nxllcorner\t600000.0\nyllcorner\t5000000.0\ncellsize\t%f\nNODATA_value\t-9999.0\n",nc,nr,ds);
 for (r=1; r<=nr; r++){
 	for (c=1; c<=nc; c++){
@@ -78,7 +78,7 @@ for (r=1; r<=nr; r++){
 fclose(f);
 */
 
-f=fopen("../InputFlo/meteo0001.txt","w");
+f=fopen("meteo0001.txt","w");
 fprintf(f,"Date,JDfrom0,Iprec,AirT,Conc\n");
 for (y=2012; y<=2013; y++){
 	for (m=1; m<=12; m++){
@@ -118,7 +118,7 @@ for (y=2012; y<=2013; y++){
 fclose(f);
 
 
-f=fopen("../InputFlo/geotop.inpts","w");
+f=fopen("geotop.inpts","w");
 fprintf(f,"!=======================================\n");
 fprintf(f,"! INPUT FOR GEOTOP V2.0\n");
 fprintf(f,"! atrifical input\n");
@@ -141,7 +141,7 @@ fprintf(f,"StandardTimeSimulation\t\t\t=\t1\n\n");
 fprintf(f,"! Simulation settings\n");
 fprintf(f,"WaterBalance\t\t\t\t=\t1\n");
 fprintf(f,"EnergyBalance\t\t\t\t=\t1\n");
-fprintf(f,"Transport\t\t\t\t=\t1\n\n");
+fprintf(f,"TransportModel\t\t\t\t=\t1\n\n");
 
 fprintf(f,"! Output timeseries Dt in hours\n");
 fprintf(f,"DtPlotDischarge\t\t\t\t=\t1\n");
