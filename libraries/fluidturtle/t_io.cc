@@ -203,7 +203,7 @@ std::string get_workingdirectory()
 
     if(pathfile == NULL)
     {
-        t_error("You neet to export the WorkingPath environment variable before to run the program");
+        t_error("You need to export the WorkingPath environment variable before to run the program");
         return retString ;
     }
 
@@ -1416,9 +1416,14 @@ void find_max_slope(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<
 }
 
 
+
+// These routines coming from sparse_matrix_library.. S.C. 07.12.2013
+
+
 //------------------------
 //void product_matrix_using_lower_part_by_vector_plus_vector(double k, DOUBLEVECTOR *out, DOUBLEVECTOR *y, DOUBLEVECTOR *x,
 //														   LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+
 void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<double>& out, const GeoVector<double>& y, const GeoVector<double>& x,
 										const GeoVector<long>&  Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
 
@@ -1435,40 +1440,42 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 	}
 }
 
+
+
 //void product_using_only_strict_lower_diagonal_part(DOUBLEVECTOR *product, DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+
 void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<long>& Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
 	long c, r ;
 
-//	for(i=1;i<=x->nh;i++){
-	for(size_t i=1;i<=x.size();i++){
-	//	product->co[i] = 0.0;
-		product[i] = 0.0;
+	for(size_t i=1;i<=x.size();i++)
+	{
+	  product[i] = 0.0;
 	}
-
+	
 	c = 1;
-//	for(i=1;i<=Li->nh;i++){
-	for(size_t i=1;i<=Li.size();i++){
-	//	r = Li->co[i];
+	for(size_t i=1;i<Li.size();i++){
+		
 		r = Li[i];
 
 		if(r > c){
-		//	product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+            printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
 			product[c] += Lx[i] * (x[r] - x[c]);
-		//	product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
 			product[r] += Lx[i] * (x[c] - x[r]);
+			
 		}else if(r < c){
-		//	printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,Lp->co[x->nh],x->nh);
+
 			printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
             t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
-	//	if(i<Li->nh){
+
 		if(i<Li.size()){
-		//	while(i >= Lp->co[c]) c++;
 			while(i >= Lp[c]) c++;
 		}
 	}
 }
+
+
 
 //long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 //									DOUBLEVECTOR *b, DOUBLEVECTOR *y, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){

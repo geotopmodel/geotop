@@ -162,16 +162,13 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 		
 		if (i<=n) {
 			
-		//	l = adt->T->lrc_cont->co[i][1];
-			l = adt->T->lrc_cont[i][1];
-		//	r = adt->T->lrc_cont->co[i][2];
-			r = adt->T->lrc_cont[i][2];
-		//	c = adt->T->lrc_cont->co[i][3];
+			l = adt->T->lrc_cont[i][1];		
+			r = adt->T->lrc_cont[i][2];	
 			c = adt->T->lrc_cont[i][3];
 			j = adt->T->j_cont[r][c];
 			
 			//precipitation
-		//	if (l == 0 && adt->W->Pnet->co[r][c] > 0) {
+
 			if (l == 0 && adt->W->Pnet[r][c] > 0) {
 			//	*Total_Pnet = *Total_Pnet + (adt->W->Pnet->co[r][c]/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
 				*Total_Pnet = *Total_Pnet + (adt->W->Pnet[r][c]/cos(adt->T->slope[r][c]*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
@@ -256,9 +253,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 		cont++;
 		
 		for(i=1; i<=N; i++){
-		//	adt->W->H0->co[i] = adt->W->H1->co[i];
+		;
 			adt->W->H0[i] = adt->W->H1[i];
-		//	adt->W->dH->co[i] = 0.;
 			adt->W->dH[i] = 0.;
 		}
 				
@@ -358,7 +354,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				}
 			}
 						
-		}while(out2==0);	
+		}while(out2==0);
+		
 		//printf("cnt:%ld res:%e lambda:%e Dt:%f\n",cont,res,lambda[0],Dt);
 
 		out=0;
@@ -1215,6 +1212,7 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 						
 						cnt++;
 					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 					}
 				}

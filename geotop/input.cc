@@ -87,8 +87,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     printf("STATEMENT:\n");
     printf("\n");
-    printf("GEOtop 1.225 'Moab' - 9 Mar 2012\n\n");
+    printf("GEOtop 1.225 'MOAB' - 9 Mar 2012\n\n");
     printf("Copyright (c), 2012 - Stefano Endrizzi \n\n");
+    printf("TN -EXACT version (tmp)");
     printf("GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
     printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
     printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY.c_str());
@@ -876,7 +877,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     cnet->lch.resize( ((Nl+1)*i)+1, 2+1 , 0);
 
     //	lch3_cont(cnet->r->nh, cnet->ch3, cnet->lch);
-    lch3_cont(cnet->r.size(), cnet->ch3, cnet->lch);
+    lch3_cont(cnet->ch3, cnet->lch,Nl,par->total_channel);
 
 
     /****************************************************************************************************/
@@ -1562,6 +1563,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         //z += sl->pa->co[1][jdz][l];
         z += sl->pa(1,jdz,l);
     }while(l<Nl && z < GTConst::z_evap);
+	
     //	egy->soil_evap_layer_bare = new_doublevector(l);
     //	initialize_doublevector(egy->soil_evap_layer_bare, 0.);
     egy->soil_evap_layer_bare.resize(l+1,0.0);
@@ -2234,6 +2236,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     if (par->point_sim != 1) {
 
         cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel);
+		
         //	top->Li = new_longvector(i);
         top->Li.resize(i+1);
         //	top->Lp = new_longvector(j);

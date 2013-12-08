@@ -249,40 +249,37 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 	
 	//double mean;
 	
-//	STATEVAR_3D *S, *G;
 	Statevar3D *S, *G;
-//	SOIL_STATE *L, *C;
 	SoilState *L, *C;
-//	STATE_VEG *V;
 	StateVeg *V;
-//	DOUBLEVECTOR *a, *Vsup_ch, *Vsub_ch;
+
 	GeoVector<double> a, Vsup_ch, Vsub_ch ;
 	
 
-//	S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
+
 	S=new Statevar3D();
 	allocate_and_initialize_statevar_3D(S, (double)number_novalue, A->P->max_snow_layers, Nr, Nc);
 	if(A->P->max_glac_layers>0){
-	//	G=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
 		G=new Statevar3D();
 		allocate_and_initialize_statevar_3D(G, (double)number_novalue, A->P->max_glac_layers, Nr, Nc);
 	}
-//	L=(SOIL_STATE *)malloc(sizeof(SOIL_STATE));
+
 	L= new SoilState();
 	initialize_soil_state(L, A->P->total_pixel, Nl);
-//	C=(SOIL_STATE *)malloc(sizeof(SOIL_STATE));
+
+	// this should be for channel (SC 08.12.2013)
+	
 	C= new SoilState();
-//	initialize_soil_state(C, A->C->r->nh, Nl);
 	initialize_soil_state(C, A->C->r.size(), Nl);
-//	V=(STATE_VEG *)malloc(sizeof(STATE_VEG));
+
+	
 	V=new StateVeg();
 	initialize_veg_state(V, A->P->total_pixel);
 
-//	a=new_doublevector(A->P->total_pixel);
+    // to carefully check sizes.. 	 (SC 08.12.2013)
+	
 	a.resize(A->P->total_pixel+1);
-//	Vsub_ch=new_doublevector(A->C->r->nh);
 	Vsub_ch.resize(A->C->r.size());
-//	Vsup_ch=new_doublevector(A->C->r->nh);
 	Vsup_ch.resize(A->C->r.size());
 	
 	time( &start_time );
@@ -302,21 +299,21 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 	//periods
 	i_sim = i_sim0;
 #ifdef USE_NETCDF
-		// printing time counter initialization
-		//TODO please revisit into details the initialization procedure for counters according to time coordinates
-		A->counter_surface_energy=0;
-		A->counter_snow=0;
-		A->counter_soil=0;
-		A->counter_glac=0;
-		A->counter_point=0;
-		if(A->P->point_sim!=1) { //distributed simulation
-			A->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
-			A->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
-			A->unstruct_point_var_type=NC_GEOTOP_UNSTRUCT_MAP_IN_CONTROL_POINT;
-			A->unstruct_z_point_var_type=NC_GEOTOP_Z_UNSTRUCT_MAP_IN_CONTROL_POINT;
-		} else {// point simulation
-			A->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
-			A->point_var_type=NC_GEOTOP_POINT_VAR;
+	// printing time counter initialization
+	//TODO please revisit into details the initialization procedure for counters according to time coordinates
+	A->counter_surface_energy=0;
+	A->counter_snow=0;
+	A->counter_soil=0;
+	A->counter_glac=0;
+	A->counter_point=0;
+	if(A->P->point_sim!=1) { //distributed simulation
+		A->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
+		A->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
+		A->unstruct_point_var_type=NC_GEOTOP_UNSTRUCT_MAP_IN_CONTROL_POINT;
+		A->unstruct_z_point_var_type=NC_GEOTOP_Z_UNSTRUCT_MAP_IN_CONTROL_POINT;
+	} else {// point simulation
+		A->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
+		A->point_var_type=NC_GEOTOP_POINT_VAR;
 		}
 #endif
 	do {
@@ -331,7 +328,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			set_time_step(A->P, A->I);
 				
 			//time at the beginning of the time step
-		//	JD0 = A->P->init_date->co[i_sim]+A->I->time/GTConst::secinday;
+		
 			JD0 = A->P->init_date[i_sim]+A->I->time/GTConst::secinday;
 			
 			//time step variables
@@ -341,7 +338,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			//time step subdivisions
 			do{
 
-			//	JDb = A->P->init_date->co[i_sim]+(A->I->time+t)/GTConst::secinday;
+			
 				JDb = A->P->init_date[i_sim]+(A->I->time+t)/GTConst::secinday;
 
 				if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
@@ -349,7 +346,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				//iterations
 				do{
 					
-				//	JDe = A->P->init_date->co[i_sim]+(A->I->time+t+Dt)/GTConst::secinday;
+				
 					JDe = A->P->init_date[i_sim]+(A->I->time+t+Dt)/GTConst::secinday;
 
 				//	copy state variables on
@@ -379,8 +376,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					Vbottom = 0.;
 					
 				//	meteo
+					
 					tstart=clock();
-
 
 					mio::Date d1;
 					d1.setMatlabDate(JDb, TZ); // GEOtop use matlab offset of julian date
@@ -404,16 +401,12 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 						}
 #else
 					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
-					long ii,jj;
-                    // for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Tgrid[%ld][%ld]=%f ",ii,jj,A->M->Tgrid[jj][jj]);}printf("\n");};
-					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("RHgrid[%ld][%ld]=%f ",ii,jj,A->M->RHgrid[jj][jj]);}printf("\n");};
-					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Pgrid[%ld][%ld]=%f ",ii,jj,A->M->Pgrid[jj][jj]);}printf("\n");};
-					// printf("\n");for(ii=1; ii<=Nr; ii++){for(jj=1; jj<=Nc; jj++){printf("Vgrid[%ld][%ld]=%f ",ii,jj,A->M->Vgrid[jj][jj]);}printf("\n");};
-
 #endif
 					tend=clock();
 					t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
+					
+					
 					if(A->P->en_balance == 1){
 						tstart=clock();
 
@@ -432,7 +425,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 					if (en != 0 || wt != 0) {
 						
-						Dt *= 0.5;
+						 // Dt *= 0.5;
+						if(Dt > A->P->min_Dt) Dt *= 0.5;
 						out = 0;
 						
 						f = fopen(logfile.c_str(), "a");
@@ -447,6 +441,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					}else {
 						out = 1;
 					}
+					
+					printf("Dt:%f min:%f\n",Dt,A->P->min_Dt); 
+					
 					
 				}while( out == 0 && Dt > A->P->min_Dt ); 
 				
