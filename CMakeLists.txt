@@ -21,6 +21,8 @@ SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 
+SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
+
 SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, routine instead of using MeteoIO" FORCE)
 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
@@ -63,6 +65,10 @@ ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 IF (PRINT_DOUBLE_PRECISION)
 	add_definitions(-DUSE_DOUBLE_PRECISION_OUTPUT)
 ENDIF (PRINT_DOUBLE_PRECISION)
+
+IF (VERBOSE)
+	add_definitions(-DVERBOSE)
+ENDIF (VERBOSE)
 
 IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)

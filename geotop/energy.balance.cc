@@ -220,7 +220,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     //TODO: removeme
 	
-#ifdef DEBUG 	
+#ifdef VERBOSE
     FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
 #endif 
 	
@@ -653,7 +653,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
         //ENERGY BALANCE
 // DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
-#ifdef DEBUG
+#ifdef VERBOSE
         if(r == 5 && c == 2)
         {
             fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
@@ -692,8 +692,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		
 		
 // DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
-#ifdef DEBUG
- 		
+#ifdef VERBOSE
 
         if(r==5 && c == 2)
         {
@@ -1092,7 +1091,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
         }
 
-#ifdef DEBUG
+#ifdef VERBOSE
         fclose(SolvePointEnergyBalance_LOG_FILE);
 #endif 
         return 0;
@@ -1128,7 +1127,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
 #endif
 
-#ifdef DEBUG
+#ifdef VERBOSE
         fclose(SolvePointEnergyBalance_LOG_FILE);
 #endif 		
         fclose(f);
@@ -1188,7 +1187,7 @@ short SolvePointEnergyBalance(
 	
     FILE *f;
 
-#ifdef DEBUG	
+#ifdef VERBOSE
     FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
 #endif 
 	
@@ -1411,7 +1410,7 @@ short SolvePointEnergyBalance(
 		
     }
 
-#ifdef DEBUG 
+#ifdef VERBOSE
     printf("DEBUG_PRINT: NS(%ld)\n", ns);
 	
     //top boundary condition
@@ -1420,7 +1419,7 @@ short SolvePointEnergyBalance(
 #endif 
     egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
     //TODO: removed 4/11/2013 egy->Fenergy[sur] -= egy->SWlayer[0];
-#ifdef DEBUG	
+#ifdef VERBOSE
     if(r==5 && c==2)
 	    printf("DEBUG_PRINT: AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
 #endif 
@@ -1758,7 +1757,7 @@ short SolvePointEnergyBalance(
 			update_F_energy(sur, n, egy->Fenergy, 1.-GTConst::KNe, egy->Kth1, &(egy->Temp[0]));
 		   update_F_energy(sur, n, egy->Fenergy, GTConst::KNe, egy->Kth0, &(egy->T0[0]));
             res = norm_2(egy->Fenergy, sur, n);
-#ifdef DEBUG			
+#ifdef VERBOSE
 	    if(r == 5 && c == 2)
 	    {
 		    fprintf(SolvePointEnergyBalance_LOG_FILE, "RES - r(%ld),c(%ld) : %.12g\n", r, c, res);
@@ -1783,9 +1782,10 @@ short SolvePointEnergyBalance(
         if(cont>=par->maxiter_energy) iter_close=1;
 
     } while(iter_close!=1);
-		
-	fclose(SolvePointEnergyBalance_LOG_FILE);
 
+#ifdef VERBOSE
+	fclose(SolvePointEnergyBalance_LOG_FILE);
+#endif
     //if there is no convergence, go out of the loop
     if(res > par->tol_energy){
         if (ns > 1 && surfacemelting == 0) {
