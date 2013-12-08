@@ -2064,7 +2064,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     /**********************************************************************************************************/
 
     //	if(times->JD_plots->nh > 1 && times->iplot<=times->JD_plots->nh){
-    if(times->JD_plots.size() > 1 && times->iplot<=times->JD_plots.size()){
+    if(times->JD_plots.size() > 1 && times->iplot<times->JD_plots.size()){
 
         i=times->iplot;
         j=2*i-1;
@@ -3954,7 +3954,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
     //	if ((long)n->co[1] != number_novalue) {
     if ((long)n[1] != number_novalue) {
         //	for (l=1; l<=n->nh; l++) {
-        for (l=1; l<=n.size(); l++) {
+        for (l=1; l<n.size(); l++) {
             //	fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, var));
             fprintf(f, ",%f",interpolate_soil(lmin, n[l]*cosslope, Nl, dz, var, row));
         }
@@ -3995,7 +3995,7 @@ void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<doub
     //	if ((long)n->co[1] != number_novalue) {
     if ((long)n[1] != number_novalue) {
         //	for (l=1; l<=n->nh; l++) {
-        for (l=1; l<=n.size(); l++) {
+        for (l=1; l<n.size(); l++) {
             //	fprintf(f, ",%f",n->co[l]);
             fprintf(f, ",%f",n[l]);
         }

@@ -96,7 +96,7 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 	}while(r>0);
 	
 //	for(i=1;i<=cnet->r->nh;i++){
-	for(i=1;i<=cnet->r.size();i++){
+	for(i=1;i<cnet->r.size();i++){
 	//	r = cnet->r->co[i];
 		r = cnet->r[i];
 	//	c = cnet->c->co[i];

@@ -1099,6 +1099,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }else {
         f = fopen(logfile.c_str(), "a");
  
+#ifdef VERBOSE
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
         fprintf(f,"PointEnergyBalance not converging. surfacemelting=%d, time=%12g, Dt=%12g, i=%ld, j=%ld, r=%ld, c=%ld, elev=%12g, aspect=%12g, slope=%12g, soil type=%d, land cover=%d "
                 "snowD=%12g, ns=%ld, ng=%ld, zmu=%12g, zmT=%12g, z0s=%12g, d0s=%12g, rz0s=%12g,z0v=%12g, d0v=%12g, rz0v=%12g,"
@@ -1125,7 +1126,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
                 LEv, Etrans, Ts, Qs, Hadv, Hg0, Hg1, Eg0, Eg1, Qv, Qg,
                 Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //VERBOSE
 
 #ifdef VERBOSE
         fclose(SolvePointEnergyBalance_LOG_FILE);
@@ -2479,7 +2481,9 @@ double k_thermal(short snow, short a, double th_liq, double th_ice, double th_sa
 	if (snow==0 || (a!=2 && a!=3)) {
 		k = pow ( (1.-th_sat)*sqrt(k_solid) + th_liq*sqrt(GTConst::k_liq) + th_ice*sqrt(GTConst::k_ice) + (th_sat-th_liq-th_ice)*sqrt(GTConst::k_air) , 2. ) ;
 		if(k != k) {
+#ifdef VERBOSE
 			printf ("DEBUG_PRINT: th_sat(%.12g) th_liq(%.12g) th_ice(%.12g)\n", th_sat, th_liq, th_ice);
+#endif
 		}	
 	}else {
 
@@ -2682,6 +2686,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, Energy *E
     E->Dlayer[1] = D1;
 
     for (l=Nl; l>=1; l--) {
+#ifdef VERBOSE
         if(E->ice[l] != E->ice[l])
         {
             printf("PRINT_DEBUG: %.12g", E->ice[l]);
@@ -2690,6 +2695,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, Energy *E
         {
             printf("PRINT_DEBUG: %.12g", E->liq[l]);
         }
+#endif
         E->ice[l+1] = E->ice[l];
         E->liq[l+1] = E->liq[l];
         E->deltaw[l+1] = E->deltaw[l];
@@ -2712,9 +2718,11 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, Energy *E
 
     E->ice[2] -= ic;
 	
+#ifdef VERBOSE
 	for(l=1;l<=Nl+1;l++){
 		printf("SUX-6 l:%ld ice:%f liq:%f dw:%f D:%f T:%f D1:%f ic:%f wa:%f \n",l,E->ice[l],E->liq[l],E->deltaw[l],E->Dlayer[l],E->Temp[l],D1,ic,wa);
 	}
+#endif
 
 }
 

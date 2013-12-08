@@ -119,7 +119,9 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 	N = n*(Nl+1);
 	M = m*(Nl+1);
 	
+#ifdef VERBOSE
 	printf("cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
+#endif
 	
 	for(j=1; j<=N+M; j++){
 		
@@ -166,7 +168,9 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 	
 	*tot = cnt;
 	*totdiag = N+M;
+#ifdef VERBOSE
 	printf(" nonzero_values_matrix2 cnt:%ld totdiag:%ld  \n",cnt,*totdiag);	
+#endif
 	
 	
 }
@@ -192,7 +196,10 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	N = n*(Nl+1);
 	M = m*(Nl+1);
 	
+#ifdef VERBOSE
 	printf("cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
+#endif
+
 	for(j=1; j<=N+M; j++){
 		
 		if (j<=N) {
@@ -260,7 +267,9 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 		
 		Lp[j] = cnt;
 		
+#ifdef VERBOSE
 	printf(" nonzero_values_matrix3 j:%ld cnt:%ld Li:%ld l:%ld r:%ld c:%ld ch:%ld \n",j,cnt,Li[cnt],l,r,c,cnet->ch[r][c]);
+#endif
 	}
 	
 	

@@ -442,7 +442,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 						out = 1;
 					}
 					
+#ifdef VERBOSE
 					printf("Dt:%f min:%f\n",Dt,A->P->min_Dt); 
+#endif
 					
 					
 				}while( out == 0 && Dt > A->P->min_Dt ); 

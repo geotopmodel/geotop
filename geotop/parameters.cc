@@ -1906,7 +1906,7 @@ short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, char *
 		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
 		free(temp);
 				
-		for (j=1; j<=i.size(); j++) {
+		for (j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {
 				if ((long)M[n-1][0] == i[j]) {
 					for (k=1; k<8; k++) {

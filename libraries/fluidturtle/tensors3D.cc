@@ -279,6 +279,7 @@ short tridiag2(short a, long r, long c, long nbeg, long nend, const GeoVector<do
 
 	//free_doublevector(gam);
 
+#ifdef VERBOSE
 	printf("DEBUG_PRINT: nbeg(%ld),nend(%ld)\n", nbeg, nend);
 	printf("DEBUG_PRINT: ld(");
 	for(lIndex = 0 ; lIndex < ld.size() ; lIndex ++)
@@ -304,6 +305,7 @@ short tridiag2(short a, long r, long c, long nbeg, long nend, const GeoVector<do
 		printf("(%lu:%.12g)",lIndex, e[lIndex]);
 	}
 	printf(")\n");
+#endif
 	return 0;
 }
 

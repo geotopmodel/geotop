@@ -1456,13 +1456,16 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 		r = Li[i];
 
 		if(r > c){
+#ifdef VERBOSE
             printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
+#endif
 			product[c] += Lx[i] * (x[r] - x[c]);
 			product[r] += Lx[i] * (x[c] - x[r]);
 			
 		}else if(r < c){
-
+#ifdef VERBOSE
 			printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
+#endif
             t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
