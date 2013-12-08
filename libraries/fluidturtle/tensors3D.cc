@@ -332,7 +332,7 @@ double norm_2(const GeoVector<double>& V, long nbeg, long nend){
 	long l;
 	double N=0.0;
 
-	for(l=nbeg;l<=nend;l++){
+	for(l=nbeg;l<nend;l++){
 		//N+=pow(V->co[l],2.0);
 		  N+=pow(V[l],2.0);
 	}

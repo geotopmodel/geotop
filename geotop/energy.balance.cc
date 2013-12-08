@@ -1954,7 +1954,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Ener
     for (l=1; l<=Nl; l++) {
 
         //	canopy transpiration
-        //	if(l <= egy->soil_transp_layer->nh) ET->co[l][ch] += fc*egy->soil_transp_layer->co[l]*Dt;
+        //	if(l < egy->soil_transp_layer->nh) ET->co[l][ch] += fc*egy->soil_transp_layer->co[l]*Dt;
         if(l <= egy->soil_transp_layer.size()) ET[l][ch] += fc*egy->soil_transp_layer[l]*Dt;
 
         //	soil evaporation

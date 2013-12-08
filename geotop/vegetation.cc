@@ -332,7 +332,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 	
 	*Etrans=E-(*Esubl);
 //	for(l=1;l<=soil_transp_layer->nh;l++){
-	for(l=1;l<=soil_transp_layer.size();l++){
+	for(l=1;l<soil_transp_layer.size();l++){
 	//	soil_transp_layer->co[l] = soil_transp_layer->co[l] * (*Etrans);
 		soil_transp_layer[l] = soil_transp_layer[l] * (*Etrans);
 	}
@@ -628,7 +628,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	
 	*f=0.0;
 	//for(l=1;l<=fl->nh;l++){
-	for(l=1;l<=fl.size();l++){
+	for(l=1;l<fl.size();l++){
 		//water content [Wigmosta et al., (1994); Feddes et al.(1978)]
 		if (theta[l] >= soil[sy][jfc][l]){
 		//	fl->co[l] = 1.0;
@@ -662,7 +662,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	}
 	
 //	for(l=1;l<=fl->nh;l++){
-		for(l=1;l<=fl.size();l++){
+		for(l=1;l<fl.size();l++){
 		// if(*f!=0) fl->co[l]/=(*f);
 		   if(*f!=0) fl[l]/=(*f);
 	}

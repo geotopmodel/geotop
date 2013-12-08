@@ -1258,14 +1258,14 @@ void find_slope(double deltax, double deltay, GeoMatrix<double>& topo, GeoMatrix
 
 	long r,c,R1,C1,R2,C2;
 //	long nc=topo->nch;
-	long nc=topo.getCols()-1;
+	long nc=topo.getCols() - 1;
 //	long nr=topo->nrh;
-	long nr=topo.getRows()-1;
+	long nr=topo.getRows() - 1;
 	double a, delta;
 
 	// Find dzdx.
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
+	for(r=1;r<nr;r++){
+		for(c=1;c<nc;c++){
 		//	if((long)topo->co[r][c]!=undef){
 			if((long)topo[r][c]!=undef){
 
@@ -1433,9 +1433,7 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 
 	product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
 
-//	for(i=1;i<=x->nh;i++){
-	for(i=1;i<=x.size();i++){
-	//	out->co[i] = k * (out->co[i] + y->co[i]);
+	for(i=1;i<x.size();i++){
 		out[i] = k * (out[i] + y[i]);
 	}
 }
@@ -1447,7 +1445,7 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<long>& Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
 	long c, r ;
 
-	for(size_t i=1;i<=x.size();i++)
+	for(size_t i=1;i<x.size();i++)
 	{
 	  product[i] = 0.0;
 	}
@@ -1470,7 +1468,7 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 
 
 		if(i<Li.size()){
-			while(i >= Lp[c]) c++;
+			while(i > Lp[c]) c++;
 		}
 	}
 }
@@ -1493,25 +1491,25 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 	short sux;
 
 	//r0 = new_doublevector(x->nh);
-	r0.resize(x.size());
+	r0.resize(x.size() + 1);
 	//r = new_doublevector(x->nh);
-	r.resize(x.size());
+	r.resize(x.size() + 1);
 	//p = new_doublevector(x->nh);
-	p.resize(x.size());
+	p.resize(x.size() + 1);
 	//v = new_doublevector(x->nh);
-	v.resize(x.size());
+	v.resize(x.size() + 1);
 	//s = new_doublevector(x->nh);
-	s.resize(x.size());
+	s.resize(x.size() + 1);
 	//t = new_doublevector(x->nh);
-	t.resize(x.size());
+	t.resize(x.size() + 1);
 	//diag = new_doublevector(x->nh);
-	diag.resize(x.size());
+	diag.resize(x.size() + 1);
 	//udiag = new_doublevector(x->nh-1);
-	udiag.resize(x.size()-1);
+	udiag.resize(x.size() + 1);
 	//yy = new_doublevector(x->nh);
-	yy.resize(x.size());
+	yy.resize(x.size() + 1);
 	//z = new_doublevector(x->nh);
-	z.resize(x.size());
+	z.resize(x.size() + 1);
 
 	get_diag_strict_lower_matrix_plus_identity_by_vector(diag, udiag, y, Li, Lp, Lx);
 
@@ -1521,7 +1519,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 	//stop_execution();
 
     //for (j=x->nl;j<=x->nh;j++ ) {
-	for (j=GTConst::nl;j<=x.size();j++ ) {
+	for (j=GTConst::nl;j<x.size();j++ ) {
    		//r->co[j] = b->co[j];
     	r[j] = b[j];
 		//r0->co[j] = r->co[j];
@@ -1540,7 +1538,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 	omeg = 1.;
 
   //while ( i<=x->nh && norm_2(r, r->nl, r->nh) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
-	while ( i<=x.size() && norm_2(r, GTConst::nl, r.size()) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
+	while ( i<x.size() && norm_2(r, GTConst::nl, r.size()) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
 		rho1 = product(r0, r);
 
 		beta = (rho1/rho)*(alpha/omeg);
@@ -1548,7 +1546,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 		rho = rho1;
 
 	//	for (j=x->nl;j<=x->nh;j++ ) {
-		for (j=GTConst::nl;j<=x.size();j++ ) {
+		for (j=GTConst::nl;j<x.size();j++ ) {
 			//p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
 			p[j] = r[j] + beta*(p[j] - omeg*v[j]);
 		}
@@ -1562,7 +1560,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 		alpha = rho/product(r0, v);
 
 	//  for (j=x->nl;j<=x->nh;j++ ) {
-		for (j=GTConst::nl;j<=x.size();j++ ) {
+		for (j=GTConst::nl;j<x.size();j++ ) {
 			//s->co[j] = r->co[j] - alpha*v->co[j];
 			s[j] = r[j] - alpha*v[j];
 		}
@@ -1578,7 +1576,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 			omeg = product(t, s)/product(t, t);
 
 		//	for (j=x->nl;j<=x->nh;j++ ) {
-			for (j=GTConst::nl;j<=x.size();j++ ) {
+			for (j=GTConst::nl;j<x.size();j++ ) {
 			 // x->co[j] += (alpha*yy->co[j] + omeg*z->co[j]);
 				x[j] += (alpha*yy[j] + omeg*z[j]);
 			 //	r->co[j] = s->co[j] - omeg*t->co[j];
@@ -1588,7 +1586,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 		}else{
 
 		//	for (j=x->nl;j<=x->nh;j++ ) {
-			for (j=GTConst::nl;j<=x.size();j++ ) {
+			for (j=GTConst::nl;j<x.size();j++ ) {
 			//	x->co[j] += alpha*yy->co[j];
 				x[j] += alpha*yy[j];
 			//	r->co[j] = s->co[j];
@@ -1676,7 +1674,7 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 
 
 //	for(i=1;i<=diag->nh;i++){
-	for(i=1;i<=diag.size();i++){
+	for(i=1;i<diag.size();i++){
 	//	diag->co[i] = y->co[i];
 		diag[i] = y[i];
 	//	if(i<diag->nh) udiag->co[i] = 0.;
@@ -1685,7 +1683,7 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 
 	c = 1;
 //	for(i=1;i<=Li->nh;i++){
-	for(i=1;i<=Li.size();i++){
+	for(i=1;i<Li.size();i++){
 	//	r = Li->co[i];
 		r = Li[i];
 
@@ -1699,7 +1697,7 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 	//	if(i<Li->nh){
 		if(i<Li.size()){
 		//	while(i >= Lp->co[c]) c++;
-			while(i >= Lp[c]) c++;
+			while(i > Lp[c]) c++;
 		}
 	}
 }
@@ -1715,14 +1713,14 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 	//calculate (A+Iy)*x, A described by its strict lower diagonal part
 
 //	for(i=1;i<=x->nh;i++){
-	for(i=1;i<=x.size();i++){
+	for(i=1;i<x.size();i++){
 	//  product->co[i] = y->co[i] * x->co[i];
 		product[i] = y[i] * x[i];
 	}
 
 	c = 1;
 //	for(i=1;i<=Li->nh;i++){
-	for(i=1;i<=Li.size();i++){
+	for(i=1;i<Li.size();i++){
 	//	r = Li->co[i];
 		r = Li[i];
 
@@ -1740,7 +1738,7 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 	//	if(i<Li->nh){
 		if(i<Li.size()){
 		//	while(i >= Lp->co[c]) c++;
-			while(i >= Lp[c]) c++;
+			while(i > Lp[c]) c++;
 		}
 	}
 }
@@ -1750,9 +1748,9 @@ double product(const GeoVector<double>& a, const GeoVector<double>& b){
 
 	double p=0.;
 //  long i,n=a->nh;
-	long i,n=a.size();
+	long i ;
 
-	for(i=1;i<=n;i++){
+	for(i=1;i<a.size();i++){
 		//p += a->co[i] * b->co[i];
 		p += a[i] * b[i];
 	}

@@ -1918,7 +1918,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                             a = 0;
 
                             //	for (i=1; i<=par->inf_snow_layers->nh; i++) {
-                            for (size_t i=1; i<=par->inf_snow_layers.size(); i++) {
+                            for (size_t i=1; i<par->inf_snow_layers.size(); i++) {
                                 //	if (n == abs(par->inf_snow_layers->co[i])) a = 1;
                                 if (n == abs(par->inf_snow_layers[i])) a = 1;
                             }

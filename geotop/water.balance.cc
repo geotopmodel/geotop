@@ -252,7 +252,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 		
 		cont++;
 		
-		for(i=1; i<=N; i++){
+		for(i=1; i<N; i++){
 		;
 			adt->W->H0[i] = adt->W->H1[i];
 			adt->W->dH[i] = 0.;
@@ -314,7 +314,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				
 			}
 			
-			for(i=1; i<=N; i++){
+			for(i=1; i<N; i++){
 				
 			//	adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
 				adt->W->H1[i] = adt->W->H0[i] + lambda[0] * adt->W->dH[i];
@@ -372,7 +372,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	*loss = norm_1(adt->W->B, 1, N)*Dt/adt->P->total_area;
 
 	//assign updated state variables	
-	for(i=1; i<=N; i++){
+	for(i=1; i<N; i++){
 		
 		if (i<=n) {//land
 			
@@ -1272,7 +1272,7 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 	double psi, ice, a, ns, res, sat, ss, Temp;
 	
 //	for(i=1;i<=H->nh;i++){
-	for(i=1;i<=H.size();i++){
+	for(i=1;i<H.size();i++){
 		
 		//VERTICAL FLUXES
 		l = i-1;	
@@ -1375,7 +1375,7 @@ int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, S
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
-	for(size_t i=1;i<=H.size();i++){
+	for(size_t i=1;i<H.size();i++){
 		
 		//df->co[i] = 0.;
 		df[i] = 0.;
@@ -1496,7 +1496,7 @@ int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, S
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
-	for(size_t i=1;i<=H.size();i++){
+	for(size_t i=1;i<H.size();i++){
 		
 	//	df->co[i] = 0.;
 		df[i] = 0.;
@@ -1561,7 +1561,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
-	for(size_t i=1;i<=H.size();i++){
+	for(size_t i=1;i<H.size();i++){
 		
 		if (i<=n) {
 		//	l=adt->T->lrc_cont->co[i][1];
@@ -1732,7 +1732,7 @@ int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *ad
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
-	for(size_t i=1;i<=H.size();i++){
+	for(size_t i=1;i<H.size();i++){
 		
 		l = i-1;	
 	//	sy=adt->S->type->co[r][c];
