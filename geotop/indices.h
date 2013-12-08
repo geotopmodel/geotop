@@ -33,7 +33,7 @@ void j_rc_cont(DOUBLEMATRIX *LC, long **j, LONGMATRIX *rc);
 void j_rc_cont(GeoMatrix<double>& LC, long **j, GeoMatrix<long>& rc);
 
 //void lch3_cont(long n, long **ch3, LONGMATRIX *lch);
-void lch3_cont(long n, long **ch3, GeoMatrix<long>& lch);
+void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch);
 
 //void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n);
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n);
