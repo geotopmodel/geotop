@@ -108,14 +108,14 @@ int main(int argc,char *argv[]){
     }
 
     chdir(lDataPath.c_str());
-    char * lCwdStr = getwd(NULL);
-    if (lCwdStr == NULL)
+    char lCWD[8192] ;
+    char * lCwdStr = getcwd(lCWD, sizeof(lCWD));
+    if (lCWD == NULL)
     {
         std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
         exit (201) ;
     }
     std::string lFullPath(lCwdStr) ;
-    free(lCwdStr);
     WORKING_DIRECTORY = lFullPath ;
     cfgfile = WORKING_DIRECTORY + "/" + cfgfile;
     
