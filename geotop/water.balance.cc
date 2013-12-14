@@ -24,6 +24,7 @@
 using namespace std;
 
 
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -41,6 +42,15 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 	long j;
 	short a;
 	
+	// this below used only for checks..
+	double mm1, mm2, mmo;
+	
+	double MM1, MM2, MMR=0.0, MMo=0.0, MS1, MS2;
+	double m1=0., m2=0., mo=0.;
+	double ds, area, dz;
+	long r, c, l, sy;
+	
+	
 	flog = fopen(logfile.c_str(), "a");
 	
 	if(adt->P->qin==1){
@@ -51,14 +61,50 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		
 		//surface flow: 1st half of time step
 		start=clock();
-	//	supflow(Dt/2., adt->I->time, L->P->co[0], adt->W->h_sup->co, C->P->co[0], adt->C->h_sup->co, adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog);
-		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog);
+
+		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
+		
+		
 		end=clock();
+
+#ifdef VERBOSE		
+		// this below for debugging: could be removed at later stage.. SC 
+		MMo += mmo;
+		MS1 = mm1;
+		MS2 = mm2;	
+		MM1 = 0.;
+		MM2 = 0.;
+		printf("water-balance: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
+#endif 				
+		
 		t_sup += (end-start)/(double)CLOCKS_PER_SEC;	
 		
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
+
+		
+		ds=sqrt(UV->U[1]*UV->U[2]);
+		for (j=1; j<adt->W->H1.size(); j++) {
+			l=adt->T->lrc_cont[j][1];
+			r=adt->T->lrc_cont[j][2];
+			c=adt->T->lrc_cont[j][3];
+			sy=adt->S->type[r][c];
+			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+			if(l==0){
+				m1 += area * 1.E-3*Fmax(0.0, L->P[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+			}else {
+				dz = adt->S->pa[sy][jdz][l];		
+				m1 += area*1.E-3*dz * theta_from_psi(L->P[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa, sy, GTConst::PsiMin);
+				
+			}
+			if(l==0) mo += area * 1.E-3 * adt->W->Pnet[r][c];
+		}
+		
+		
+		
+		
 		a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+		
 		end=clock();
 		t_sub += (end-start)/(double)CLOCKS_PER_SEC;
 		if (a != 0){
@@ -66,12 +112,45 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 			return 1;
 		}
 		
+		ds=sqrt(UV->U[1]*UV->U[2]);
+		for (j=1; j<adt->W->H1.size(); j++) {
+			l=adt->T->lrc_cont[j][1];
+			r=adt->T->lrc_cont[j][2];
+			c=adt->T->lrc_cont[j][3];
+			sy=adt->S->type[r][c];
+			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+			if(l==0){
+				m2 += area * 1.E-3*Fmax(0.0, L->P[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+			}else {
+				dz = adt->S->pa[sy][jdz][l];		
+				m2 += area*1.E-3*dz * theta_from_psi(L->P[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa, sy, GTConst::PsiMin);
+			}
+		}
+		
+#ifdef VERBOSE		
+		printf("water-balance SUB: m1:%e m2:%e mo:%e dm:%e\n",m1,m2,mo,fabs(m1+mo-m2));
+#endif 		
+		MM1 = m1;
+		MM2 = m2;
+		MMR += mo;
+		
+
+		
 		//surface flow: 2nd half of time step
 		start=clock();
-	//	supflow(Dt/2., adt->I->time, L->P->co[0], adt->W->h_sup->co, C->P->co[0], adt->C->h_sup->co, adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog);
-		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog);
+
+		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
 
 		end=clock();
+		
+		MMo += mmo;
+		MS1 = mm1;
+		MS2 = mm2;
+		
+#ifdef VERBOSE	
+		printf("water-balance after 2nd half: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
+#endif 	
+		
 		t_sup += (end-start)/(double)CLOCKS_PER_SEC;	
 		
 	}else {//point simulations
@@ -83,7 +162,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 				fclose(flog);
 				return 1;
 			}			
-		//	if( L->P->co[0][j] > 0 ) L->P->co[0][j] = Fmin( L->P->co[0][j], Fmax(0.,-adt->T->BC_DepthFreeSurface->co[j])*cos(adt->T->slope->co[1][j]*GTConst::Pi/180.) );
+		
 			if( L->P[0][j] > 0 ) L->P[0][j] = Fmin( L->P[0][j], Fmax(0.,-adt->T->BC_DepthFreeSurface[j])*cos(adt->T->slope[1][j]*GTConst::Pi/180.) );
 		}
 		end=clock();
@@ -132,17 +211,16 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
  K is described storing only its strict lower component (strict = without diagonal) with the 3 vectors Li, Lp, Lx (in the same way as UFMPACK) */
 
 
-//short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *flog, double *loss, DOUBLEVECTOR *Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
+
 short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
 	
-	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu, hnew, hold;
-//	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
+
+	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
 	double ds=sqrt(UV->U[1]*UV->U[2]), area, dz, dn, dD;
 	double psi;
 	
 	long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
 	long n=(Nl+1)*adt->P->total_pixel;	
-	//long N=adt->W->H0->nh;
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
 	short out, out2;	
@@ -150,6 +228,17 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	FILE *f;
 	
 	*Total_Pnet = 0.;
+	
+	/* initialize res0 */
+	res0[0]=0;
+	res0[1]=0;
+	res0[2]=0;
+	lambda[0]=0;
+	lambda[1]=0;
+	lambda[2]=0;
+	/* END  initialize res0 */ // ec 2012 08 24
+	
+	
 	
 	/*
 	 Layer 0 is water on the surface. This allows a more robust description of infiltration processes.
@@ -170,63 +259,41 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			//precipitation
 
 			if (l == 0 && adt->W->Pnet[r][c] > 0) {
-			//	*Total_Pnet = *Total_Pnet + (adt->W->Pnet->co[r][c]/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
 				*Total_Pnet = *Total_Pnet + (adt->W->Pnet[r][c]/cos(adt->T->slope[r][c]*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
 			}
 			
 			//solution guess
-		//	psi = L->P->co[l][j];
-			psi = L->P[l][j];
-
-			/*if (l==1 && adt->W->Pnet->co[r][c] > 0) {
-				sy = adt->S->type->co[r][c];
-				psimax = psisat_from(L->thi->co[l][j], l, adt->S->pa->co[sy]);
-				if (L->P->co[l][j] < psimax){
-					Kinf = k_from_psi(jKn, psimax, L->thi->co[l][j], L->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					Vinf = Fmin(adt->W->Pnet->co[r][c], Kinf*Dt);
-					theta = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l, adt->S->pa->co[sy], PsiMin);
-					psi = psi_from_theta(theta+Vinf/adt->S->pa->co[sy][jdz][l], L->thi->co[l][j], l, adt->S->pa->co[sy], PsiMin);
-					if (psi > psimax) psi=psimax;
-				}
-				psi = psimax;
-			}*/
 			
-		//	adt->W->H1->co[i] = psi + adt->T->Z->co[l][r][c];
-			adt->W->H1[i] = psi + adt->T->Z[l][r][c];
+			if (adt->W->Pnet[r][c] > 0 && l == 0) {
+				adt->W->H1[i] = Fmax(0., L->P[l][j]) + (adt->W->Pnet[r][c]/cos(adt->T->slope[r][c]*GTConst::Pi/180.)) + adt->T->Z[l][r][c];
+			}else {
+				adt->W->H1[i] = L->P[l][j] + adt->T->Z[l][r][c];
+			}
+			
 						
 		}else {
 			
-		//	l = adt->C->lch->co[i-n][1];
 			l = adt->C->lch[i-n][1];
-		//	ch = adt->C->lch->co[i-n][2];
 			ch = adt->C->lch[i-n][2];
-		//	r = adt->C->r->co[ch];
 			r = adt->C->r[ch];
-		//	c = adt->C->c->co[ch];
 			c = adt->C->c[ch];
 			
 			//solution guess
-		//	psi = C->P->co[l][ch];
-			psi = C->P[l][ch];
 			
-			/*if (l==1 && adt->W->Pnet->co[r][c] > 0) {
-				sy = adt->C->soil_type->co[ch];
-				psimax = psisat_from(C->thi->co[l][ch], l, adt->S->pa->co[sy]);
-				if (C->P->co[l][ch] < psimax){
-					Kinf = k_from_psi(jKn, psimax, C->thi->co[l][ch], C->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-					Vinf = Fmin(adt->W->Pnet->co[r][c], Kinf*Dt);
-					theta = theta_from_psi(C->P->co[l][ch], C->thi->co[l][ch], l, adt->S->pa->co[sy], PsiMin);
-					psi = psi_from_theta(theta+Vinf/adt->S->pa->co[sy][jdz][l], C->thi->co[l][ch], l, adt->S->pa->co[sy], PsiMin);
-					if (psi > psimax) psi=psimax;
-				}
-				psi = psimax;
-			}*/
+			if (adt->W->Pnet[r][c] > 0 && l == 0) {
+				adt->W->H1[i] = Fmax(0., C->P[l][ch]) + (adt->W->Pnet[r][c]/cos(adt->T->slope[r][c]*GTConst::Pi/180.)) + ( adt->T->Z[l][r][c] - adt->P->depr_channel );
+			}else {
+				adt->W->H1[i] = C->P[l][ch] + ( adt->T->Z[l][r][c] - adt->P->depr_channel );	
+			}
 			
-		//	adt->W->H1->co[i] = psi + ( adt->T->Z->co[l][r][c] - adt->P->depr_channel );
-			adt->W->H1[i] = psi + ( adt->T->Z[l][r][c] - adt->P->depr_channel );
-						
+		 						
 		}
+		
+ //	  printf("H1 guess %ld,%f\n", i, adt->W->H1[i]);		
 	}
+
+	printf("Richard3D: Pnet: %f\n",*Total_Pnet);
+
 	
 	sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);
 	
@@ -235,6 +302,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B, adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);	
 	
 	res = norm_inf(adt->W->B, 1, N);
+	printf("Richard3D: res: %f\n",res);
 	
 	res00 = res; //initial norm of the residual
 	epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00 , sqrt((double)N) );
@@ -253,7 +321,6 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 		cont++;
 		
 		for(i=1; i<N; i++){
-		;
 			adt->W->H0[i] = adt->W->H1[i];
 			adt->W->dH[i] = 0.;
 		}
@@ -316,10 +383,9 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			
 			for(i=1; i<N; i++){
 				
-			//	adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
+		
 				adt->W->H1[i] = adt->W->H0[i] + lambda[0] * adt->W->dH[i];
 				
-			//	if(adt->W->H1->co[i] != adt->W->H1->co[i]) {
 				if(adt->W->H1[i] != adt->W->H1[i]) {
 					f = fopen(FailedRunFile.c_str(), "w");
 					fprintf(f, "Simulation Period:%ld\n",i_sim);
@@ -342,6 +408,9 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			
 			out2=0;
 			
+			printf(" Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,*Total_Pnet);
+
+			
 			if(res <= (1.0 - ni_wat*lambda[0]*(1.-mu))*res_av) out2=1;
 			if(lambda[0] <= adt->P->min_lambda_wat) cont_lambda_min++;
 			
@@ -356,7 +425,6 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 						
 		}while(out2==0);
 		
-		//printf("cnt:%ld res:%e lambda:%e Dt:%f\n",cont,res,lambda[0],Dt);
 
 		out=0;
 		//The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
@@ -376,40 +444,27 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 		
 		if (i<=n) {//land
 			
-		//	l = adt->T->lrc_cont->co[i][1];
 			l = adt->T->lrc_cont[i][1];
-		//	r = adt->T->lrc_cont->co[i][2];
 			r = adt->T->lrc_cont[i][2];
-		//	c = adt->T->lrc_cont->co[i][3];
 			c = adt->T->lrc_cont[i][3];
 			j = adt->T->j_cont[r][c];
-		//	sy = adt->S->type->co[r][c];
 			sy = adt->S->type[r][c];
-		//	ch = adt->C->ch->co[r][c];
 			ch = adt->C->ch[r][c];
-		//	bc = adt->T->BC_counter->co[r][c];
 			bc = adt->T->BC_counter[r][c];
 			
-		//	L->P->co[l][j] = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
 			L->P[l][j] = adt->W->H1[i] - adt->T->Z[l][r][c];
 			
 			//update variables
 			if(l>0){
-			//	adt->S->th->co[l][j] = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l, adt->S->pa->co[sy], GTConst::PsiMin);
 				adt->S->th[l][j] = theta_from_psi(L->P[l][j], L->thi[l][j], l, adt->S->pa, sy, GTConst::PsiMin);
-			//	adt->S->Ptot->co[l][j] = psi_from_theta(adt->S->th->co[l][j]+L->thi->co[l][j], 0., l, adt->S->pa->co[sy], GTConst::PsiMin);
 				adt->S->Ptot[l][j] = psi_from_theta(adt->S->th[l][j]+L->thi[l][j], 0., l, adt->S->pa, sy, GTConst::PsiMin);
-			//	adt->S->th->co[l][j] = Fmin( adt->S->th->co[l][j] , adt->S->pa->co[sy][jsat][l]-L->thi->co[l][j] );
 				adt->S->th[l][j] = Fmin( adt->S->th[l][j] , adt->S->pa(sy,jsat,l) - L->thi[l][j] );
 			}
 			
 			//volume lost at the bottom
 			if(l==Nl){
-			//	area = ds*ds/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 				area = ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-			//	if (ch>0) area -= adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 				if (ch>0) area -= adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-			//	*Vbottom = *Vbottom + area * adt->W->Kbottom->co[r][c] * 1.E-3 * Dt;
 				*Vbottom = *Vbottom + area * adt->W->Kbottom[r][c] * 1.E-3 * Dt;
 			}
 			
@@ -418,51 +473,41 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				
 				if (l>0) {
 					
-				//	if (adt->T->pixel_type->co[r][c] == 1) {
+				
 					if (adt->T->pixel_type[r][c] == 1) {
 					//	The depth of the free surface is multiplied by cosine since Z's are the layer depths in vertical direction
-					//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && adt->W->H1->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
+					
 						if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && adt->W->H1[i] - adt->T->Z[l][r][c] > 0 ) {
 							
 							dz = adt->S->pa(sy,jdz,l);//[mm]						
 							
-						//	if ((long)adt->L->LC->co[r+1][c]==number_novalue || (long)adt->L->LC->co[r-1][c]==number_novalue) {
 							if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
-							//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN->co[r][c]));//mm
+						
 								dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
-							//	dn = ds / cos(atan(adt->T->dzdE->co[r][c]));//m
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 							}else {
-							//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE->co[r][c]));
 								dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE[r][c]));
-							//	dn = ds / cos(atan(adt->T->dzdN->co[r][c]));//m
 								dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
 							}
 							
-						//	*Vlatsub = *Vlatsub + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat->co[bc][l]*adt->P->free_drainage_lateral*(adt->W->H1->co[i] - adt->T->Z->co[l][r][c]) / dD;
 							*Vlatsub = *Vlatsub + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat[bc][l]*adt->P->free_drainage_lateral*(adt->W->H1[i] - adt->T->Z[l][r][c]) / dD;
 							
 						}
 						
-				//	}else if (adt->T->pixel_type->co[r][c] == 2) {
+				
 					}else if (adt->T->pixel_type[r][c] == 2) {
 						
-					//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) ) {
 						if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) {
 							
-							//dz = adt->S->pa->co[sy][jdz][l];//[mm]						
 							dz = adt->S->pa(sy,jdz,l);//[mm]
 							
-						//	if ((long)adt->L->LC->co[r+1][c]==number_novalue || (long)adt->L->LC->co[r-1][c]==number_novalue) {
-							if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
-							//	dn = ds / cos(atan(adt->T->dzdE->co[r][c]));//m
+						
+							if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {							
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
-							}else {
-							//	dn = ds / cos(atan(adt->T->dzdN->co[r][c]));//m
+							}else {							
 								dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
 							}
 							
-						//	*Vlatsub = *Vlatsub + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat->co[bc][l]*adt->P->free_drainage_lateral;
 							*Vlatsub = *Vlatsub + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat[bc][l]*adt->P->free_drainage_lateral;
 						}
 					}
@@ -472,46 +517,34 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			
 		}else {//channel
 			
-		//	l = adt->C->lch->co[i-n][1];
-			l = adt->C->lch[i-n][1];
-		//	ch = adt->C->lch->co[i-n][2];
-			ch = adt->C->lch[i-n][2];
-		//	r = adt->C->r->co[ch];
-			r = adt->C->r[ch];
-		//	c = adt->C->c->co[ch];
-			c = adt->C->c[ch];
-		//	sy = adt->C->soil_type->co[ch];
+		
+			l = adt->C->lch[i-n][1];	
+			ch = adt->C->lch[i-n][2];		
+			r = adt->C->r[ch];	
+			c = adt->C->c[ch];		
 			sy = adt->C->soil_type[ch];
 			
 			if (l==0){
 				//hold and hnew are normal
-			//	hold = Fmax(0., C->P->co[l][ch]) / cos(adt->T->slope->co[r][c] * GTConst::Pi/180.);
 				hold = Fmax(0., C->P[l][ch]) / cos(adt->T->slope[r][c] * GTConst::Pi/180.);
 			}
 			
 			//depr channel is defined vertical
-		//	C->P->co[l][ch] = adt->W->H1->co[i] - ( adt->T->Z->co[l][r][c] - adt->P->depr_channel );
 			C->P[l][ch] = adt->W->H1[i] - ( adt->T->Z[l][r][c] - adt->P->depr_channel );
 			
 			if(l>0){
-			//	adt->C->th->co[l][ch] = theta_from_psi(C->P->co[l][ch], C->thi->co[l][ch], l, adt->S->pa->co[sy], GTConst::PsiMin);
 				adt->C->th[l][ch] = theta_from_psi(C->P[l][ch], C->thi[l][ch], l, adt->S->pa, sy, GTConst::PsiMin);
-			//	adt->C->th->co[l][ch] = Fmin( adt->C->th->co[l][ch] , adt->S->pa->co[sy][jsat][l]-C->thi->co[l][ch] );
 				adt->C->th[l][ch] = Fmin( adt->C->th[l][ch] , adt->S->pa(sy,jsat,l) - C->thi[l][ch] );
 			}
 			
 			if (l==0){
 			//	hold and hnew are normal
-			//	hnew = Fmax(0., C->P[l][ch]) / cos(adt->T->slope->co[r][c] * GTConst::Pi/180.);
 				hnew = Fmax(0., C->P[l][ch]) / cos(adt->T->slope[r][c] * GTConst::Pi/180.);
-			//	Vsub->co[ch] += 1.E-3 * ( hnew - hold ) * adt->C->length->co[ch] * adt->P->w_dx * ds;
 				Vsub[ch] += 1.E-3 * ( hnew - hold ) * adt->C->length[ch] * adt->P->w_dx * ds;
 			}
 			
 			if(l==Nl){
-			//	area = adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 				area = adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-			//	*Vbottom = *Vbottom + area * adt->C->Kbottom->co[ch] * 1.E-3 * Dt;
 				*Vbottom = *Vbottom + area * adt->C->Kbottom[ch] * 1.E-3 * Dt;
 			}
 		}
@@ -783,45 +816,36 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2){
 /******************************************************************************************************************************************/
 //cnt is the counter of Li Lp Lx (lower diagonal without diagonal)
 
-//int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l, DOUBLEVECTOR *Kbottom_ch, ALLDATA *adt, DOUBLEVECTOR *H){
+
+
 int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, GeoVector<double>& Kbottom_ch, AllData *adt, const GeoVector<double>& H){
 	
 	size_t i;
 	long l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]), dn;
 	double area, ds=sqrt(UV->U[1]*UV->U[2]), dn;
 	double psi, ice, a, ns, res, sat, ss, Temp;
 	
-//	for(i=1;i<=H->nh;i++){
+
 	for(i=1;i<H.size();i++){
-		
 		//VERTICAL FLUXES
 		if( i<=n){//land
 			
-		//	l=adt->T->lrc_cont->co[i][1];
+
 			l=adt->T->lrc_cont[i][1];
-		//	r=adt->T->lrc_cont->co[i][2];
 			r=adt->T->lrc_cont[i][2];
-		//	c=adt->T->lrc_cont->co[i][3];
 			c=adt->T->lrc_cont[i][3];
 			j=adt->T->j_cont[r][c];
-		//	sy=adt->S->type->co[r][c];
 			sy=adt->S->type[r][c];
 			
-		//	ch=adt->C->ch->co[r][c];
 			ch=adt->C->ch[r][c];
-		//	area=ds*ds/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-		//	if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 			if (ch>0) area-=adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 			
 		//	vertical hydraulic conductivity
-			if(l>0){
-				//dz = adt->S->pa->co[sy][jdz][l];
+			if(l>0){				
 				dz = adt->S->pa(sy,jdz,l);
-			//	if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_l->co[r][c] = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], SL->thi->co[l][c], SL->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat	);
 				if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_l[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][c], SL->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat	);
 			}
 			
@@ -832,18 +856,16 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				
 				if(l==0){	//overland flow
 					
-					//dzn = adt->S->pa->co[sy][jdz][l+1];
+				
 					dzn = adt->S->pa(sy,jdz,l+1);
 					dD = 0.5*dzn;
 					
-				//	if( H->co[i] < H->co[I] ){
+				
 					if( H[i] < H[I] ){
 						//upward flux
-					//	kn = k_from_psi(jKn, H->co[I] - adt->T->Z->co[l+1][r][c], SL->thi->co[l+1][j], SL->T->co[l+1][j], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 						kn = k_from_psi(jKn, H[I] - adt->T->Z[l+1][r][c], SL->thi[l+1][j], SL->T[l+1][j], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 					}else{	
 						//downward flow
-					//	kn = k_from_psi(jKn, psisat_from(SL->thi[l+1][j], l+1, adt->S->pa->co[sy]), SL->thi[l+1][j], SL->T->co[l+1][j], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 						kn = k_from_psi(jKn, psisat_from(SL->thi[l+1][j], l+1, adt->S->pa, sy), SL->thi[l+1][j], SL->T[l+1][j], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 					}
 					
@@ -852,10 +874,16 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 					dzn = adt->S->pa[sy][jdz][l+1];
 					dD = 0.5*dz + 0.5*dzn;
 					
-				//	psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
-					psi = Arithmetic_Mean(dz, dzn, H[i] - adt->T->Z[l][r][c], H[I] - adt->T->Z[l+1][r][c]);
+					if( H[i] < H[I] ){	
+						//upward flux
+						kn = k_from_psi(jKn, H[I] - adt->T->Z[l+1][r][c], SL->thi[l+1][j], SL->T[l+1][j], l+1, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
+					}else{	
+						//downward flow
+						kn = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][j], SL->T[l][j], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);	
+					}
+					
+					/*psi = Arithmetic_Mean(dz, dzn, H[i] - adt->T->Z[l][r][c], H[I] - adt->T->Z[l+1][r][c]);
 					ice = Arithmetic_Mean(dz, dzn, SL->thi[l][j], SL->thi[l+1][j]);
-				//	Temp = Arithmetic_Mean(dz, dzn, SL->T->co[l][j], SL->T->co[l+1][j]);
 					Temp = Arithmetic_Mean(dz, dzn, SL->T[l][j], SL->T[l+1][j]);
 					a = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][ja][l], adt->S->pa[sy][ja][l+1]);
 					ns = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jns][l], adt->S->pa[sy][jns][l+1]);
@@ -863,11 +891,10 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 					sat = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jsat][l], adt->S->pa[sy][jsat][l+1]);
 					ss = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jss][l], adt->S->pa[sy][jss][l+1]);
 					k = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jKn][l], adt->S->pa[sy][jKn][l+1]);
-					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);*/
 					
-				//	kmax = k_from_psi( jKn,  psisat_from( SL->thi[l][j], l, adt->S->pa->co[sy]), SL->thi[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+				
 					kmax = k_from_psi( jKn,  psisat_from( SL->thi[l][j], l, adt->S->pa, sy), SL->thi[l][j], SL->T[l][j], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-				//	kmaxn = k_from_psi( jKn,  psisat_from( SL->thi[l+1][j], l+1, adt->S->pa->co[sy]), SL->thi[l+1][j], SL->T->co[l+1][j], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 					kmaxn = k_from_psi( jKn,  psisat_from( SL->thi[l+1][j], l+1, adt->S->pa, sy), SL->thi[l+1][j], SL->T[l+1][j], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 					kmaxn = Fmin(kmax, kmaxn);
 					
@@ -876,31 +903,26 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				}
 				
 				cnt++;
-			//	Lx->co[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-				//cout << "H.size()=" << H.size() << "  " << "Lx.size() = " << Lx.size() << "   cnt=" << cnt << endl;
+			
+				cout << "find3D H.size()=" << H.size()-1 << "  " << "Lx.size() = " << Lx.size()-1 << "   cnt=" << cnt  << endl;
+				printf("find_3D kmax,kmaxn,kn,%f,%f,%f\n",kmax,kmaxn,kn);
 				Lx[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+		        cout << "find3D Lx[cnt]=" << Lx[cnt] << endl;
 			}
 			
 		}else{//channel
 			
-		//	l=adt->C->lch->co[i-n][1];
 			l=adt->C->lch[i-n][1];
-		//	ch=adt->C->lch->co[i-n][2];
 			ch=adt->C->lch[i-n][2];
-		//	r=adt->C->r->co[ch];
 			r=adt->C->r[ch];
-		//	c=adt->C->c->co[ch];
 			c=adt->C->c[ch];
-		//	sy=adt->C->soil_type->co[ch];
 			sy=adt->C->soil_type[ch];
 			
-		//	area=adt->C->length->co[ch] * adt->P->w_dx * ds;
 			area=adt->C->length[ch] * adt->P->w_dx * ds;
 			
 			//vertical hydraulic conductivity
 			if(l>0){
 				dz = adt->S->pa[sy][jdz][l];
-			//	if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_ch->co[ch] = k_from_psi(jKn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 				if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_ch[ch] = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 			}
 			
@@ -917,12 +939,12 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				//	if( H->co[i] < H->co[I] ){
 					if( H[i] < H[I] ){
 						//upward flux
-					//	kn = k_from_psi(jKn, H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel), SC->thi->co[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+					
 						kn = k_from_psi(jKn, H[I] - (adt->T->Z[l+1][r][c]-adt->P->depr_channel), SC->thi[l+1][ch], SC->T[l+1][ch], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 						
 					}else{	
 						//downward flow
-					//	kn = k_from_psi(jKn, psisat_from(SC->thi->co[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+					
 						kn = k_from_psi(jKn, psisat_from(SC->thi[l+1][ch], l+1, adt->S->pa, sy), SC->thi[l+1][ch], SC->T[l+1][ch], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 					}
 					
@@ -931,22 +953,19 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 					dzn = adt->S->pa[sy][jdz][l+1];
 					dD = 0.5*dz + 0.5*dzn;
 					
-				//	psi = Arithmetic_Mean(dz, dzn, H->co[i] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), H->co[I] - (adt->T->Z->co[l+1][r][c]-adt->P->depr_channel));
-					psi = Arithmetic_Mean(dz, dzn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), H[I] - (adt->T->Z[l+1][r][c]-adt->P->depr_channel));
-					ice = Arithmetic_Mean(dz, dzn, SC->thi[l][ch], SC->thi[l+1][ch]);
-				//	Temp = Arithmetic_Mean(dz, dzn, SC->T->co[l][ch], SC->T->co[l+1][ch]);
-					Temp = Arithmetic_Mean(dz, dzn, SC->T[l][ch], SC->T[l+1][ch]);
-					a = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][ja][l], adt->S->pa[sy][ja][l+1]);
-					ns = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jns][l], adt->S->pa[sy][jns][l+1]);
-					res = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jres][l], adt->S->pa[sy][jres][l+1]);
-					sat = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jsat][l], adt->S->pa[sy][jsat][l+1]);
-					ss = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jss][l], adt->S->pa[sy][jss][l+1]);
-					k = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jKn][l], adt->S->pa[sy][jKn][l+1]);
-					kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+					if( H[i] < H[I] ){	
+						//upward flux
+						kn = k_from_psi(jKn, H[I] - (adt->T->Z[l+1][r][c]-adt->P->depr_channel), SC->thi[l+1][ch], SC->T[l+1][ch], l+1, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
+					}else{	
+						//downward flow
+						kn = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
+					}
 					
-				//	kmax = k_from_psi(jKn, psisat_from(SC->thi[l][ch], l, adt->S->pa->co[sy]), SC->thi[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+				//	
+					
+				
 					kmax = k_from_psi(jKn, psisat_from(SC->thi[l][ch], l, adt->S->pa, sy), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-				//	kmaxn = k_from_psi(jKn, psisat_from(SC->thi[l+1][ch], l+1, adt->S->pa->co[sy]), SC->thi[l+1][ch], SC->T->co[l+1][ch], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+				
 					kmaxn = k_from_psi(jKn, psisat_from(SC->thi[l+1][ch], l+1, adt->S->pa, sy), SC->thi[l+1][ch], SC->T[l+1][ch], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 					kmaxn = Fmin(kmax, kmaxn);
 					
@@ -955,22 +974,23 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				}
 				
 				cnt++;
-			//	Lx->co[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+			
 				Lx[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 			}
 		}
 		
 		//LATERAL FLUXES
+//		printf("i, l ,r , c %ld,%ld,%ld,%ld\n",i,);
+	
 		if (i<=n){
 			
 			//lateral hydraulic conductivity
 			if(l>0){
-			//	k = k_from_psi(jKl, H->co[i] - adt->T->Z->co[l][r][c], SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
-				k = k_from_psi(jKl, H[i] - adt->T->Z[l][r][c], SL->thi[l][j], SL->T[l][j], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-			//	kmax = k_from_psi(jKl, psisat_from(SL->thi->co[l][j], l, adt->S->pa->co[sy]), SL->thi->co[l][l], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
-				kmax = k_from_psi(jKl, psisat_from(SL->thi[l][j], l, adt->S->pa, sy), SL->thi[l][l], SL->T[l][j], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-			//	if (adt->T->pixel_type->co[r][c] == 1 || adt->T->pixel_type->co[r][c] == 2) Klat->co[adt->T->BC_counter->co[r][c]][l] = k;
-				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 2) Klat[adt->T->BC_counter[r][c]][l] = k;
+				k = k_from_psi(jKl, H[i] - adt->T->Z[l][r][c], SL->thi[l][j], SL->T[l][j], l, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
+				kmax = k_from_psi(jKl, psisat_from(SL->thi[l][j], l, adt->S->pa,sy), SL->thi[l][l], SL->T[l][j], l, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
+				if(adt->T->BC_counter[r][c]>0){
+					if(adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 2 || adt->T->pixel_type[r][c] == 11 || adt->T->pixel_type[r][c] == 12) Klat[adt->T->BC_counter[r][c]][l] = k;
+				}
 			}
 			
 			//4 neighbouring cells
@@ -978,300 +998,241 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			C = c;
 			//1.
 			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-			//	if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
+				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
-				//	syn = adt->S->type->co[R][C];
 					syn = adt->S->type[R][C];
 					J = adt->T->j_cont[R][C];
 					
-				//	dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
 					dD = find_3Ddistance(ds, adt->T->Z0[r][c]-adt->T->Z0[R][C]) * 1.E3;//[mm]
-				//	dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
 					dn = ds/cos(0.5*atan(adt->T->dzdE[r][c])+0.5*atan(adt->T->dzdE[R][C]));//[m]
 					
 					if(l>0){
 						
-						//Surface Flow
-					//	if (H->co[I] > H->co[i]) {
+						//Subsurface Flow
 						if (H[I] > H[i]) {
-						//	kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						}else {
 							kn = k;
 						}
 						
-					//	kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa, syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa,syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						kmaxn = Fmin(kmax, kmaxn);
 						kn = Fmin(kn, kmaxn);
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						
 					}else {
 						
-						//Subsurface Flow
-					//	if (H->co[I] > H->co[i]) {
-						if (H[I] > H[i]) {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*GTConst::Pi/180.);
-							dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
-						}else {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-							dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-						}
+						//Surface Flow
+						//if (H[I] > H[i]) {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
+						//}else {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+						//}
 						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
+						//if (dz < adt->P->thres_hsup_1) kn = 0.;
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						Lx[cnt] = 0. ; // -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 					}
 				}
 			}
 			
 			R = r+1;
 			C = c;
-		//	dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			dn = ds/cos(0.5*atan(adt->T->dzdE[r][c])+0.5*atan(adt->T->dzdE[R][C]));
+
 			//2.
 			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-			//	if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
+				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
-				//	syn = adt->S->type->co[R][C];
 					syn = adt->S->type[R][C];
 					J = adt->T->j_cont[R][C];
 					
-				//	dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
 					dD = find_3Ddistance(ds, adt->T->Z0[r][c]-adt->T->Z0[R][C]) * 1.E3;//[mm]
-				//	dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
 					dn = ds/cos(0.5*atan(adt->T->dzdE[r][c])+0.5*atan(adt->T->dzdE[R][C]));//[m]
 					
 					if(l>0){
-					//	if (H->co[I] > H->co[i]) {
 						if (H[I] > H[i]) {
-						//	kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						}else {
 							kn = k;
 						}
 						
-					//	kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa, syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa,syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);	
 						kmaxn = Fmin(kmax, kmaxn);
 						kn = Fmin(kn, kmaxn);
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 					}else {
 						
-					//	if (H->co[I] > H->co[i]) {
-						if (H[I] > H[i]) {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*GTConst::Pi/180.);
-							dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
-						}else {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-							dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-						}
+						//if (H[I] > H[i]) {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
+						//}else {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+						//}
 						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
+						//if (dz < adt->P->thres_hsup_1) kn = 0.;
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						Lx[cnt] = 0. ;//-(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 					}
+					
 				}
 			}
 			
 			R = r;
 			C = c-1;
-		//	dn = ds/cos(0.5*atan(adt->T->dzdN->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			dn = ds/cos(0.5*atan(adt->T->dzdN[r][c])+0.5*atan(adt->T->dzdE[R][C]));
+
 			//3.
 			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-			//	if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
+				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
-				//	syn = adt->S->type->co[R][C];
 					syn = adt->S->type[R][C];
 					J = adt->T->j_cont[R][C];
 					
-				//	dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
 					dD = find_3Ddistance(ds, adt->T->Z0[r][c]-adt->T->Z0[R][C]) * 1.E3;//[mm]
-				//	dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
 					dn = ds/cos(0.5*atan(adt->T->dzdE[r][c])+0.5*atan(adt->T->dzdE[R][C]));//[m]
 					
 					if(l>0){
-					//	if (H->co[I] > H->co[i]) {
 						if (H[I] > H[i]) {
-						//	kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						}else {
 							kn = k;
 						}
 						
-					//	kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa, syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa,syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						kmaxn = Fmin(kmax, kmaxn);
 						kn = Fmin(kn, kmaxn);
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						
 					}else {
 						
-					//	if (H->co[I] > H->co[i]) {
-						if (H[I] > H[i]) {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*GTConst::Pi/180.);
-							dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
-						}else {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-							dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-						}
+						//if (H[I] > H[i]) {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
+						//}else {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+						//}
 						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
+						//if (dz < adt->P->thres_hsup_1) kn = 0.;
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						Lx[cnt] = 0. ; //-(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 					}
 				}
 			}
 			
 			R = r;
 			C = c+1;
-		//	dn = ds/cos(0.5*atan(adt->T->dzdN->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));
-			dn = ds/cos(0.5*atan(adt->T->dzdN[r][c])+0.5*atan(adt->T->dzdE[R][C]));
 			//4.
 			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-			//	if((long)adt->L->LC->co[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){
+				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
-				//	syn = adt->S->type->co[R][C];
 					syn = adt->S->type[R][C];
 					J = adt->T->j_cont[R][C];
 					
-				//	dD = find_3Ddistance(ds, adt->T->Z0->co[r][c]-adt->T->Z0->co[R][C]) * 1.E3;//[mm]
 					dD = find_3Ddistance(ds, adt->T->Z0[r][c]-adt->T->Z0[R][C]) * 1.E3;//[mm]
-				//	dn = ds/cos(0.5*atan(adt->T->dzdE->co[r][c])+0.5*atan(adt->T->dzdE->co[R][C]));//[m]
 					dn = ds/cos(0.5*atan(adt->T->dzdE[r][c])+0.5*atan(adt->T->dzdE[R][C]));//[m]
 					
 					if(l>0){
-					//	if (H->co[I] > H->co[i]) {
 						if (H[I] > H[i]) {
-						//	kn = k_from_psi(jKl, H->co[I] - adt->T->Z->co[l][R][C], SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+							kn = k_from_psi(jKl, H[I] - adt->T->Z[l][R][C], SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						}else {
 							kn = k;
 						}
 						
-					//	kmaxn = k_from_psi(jKl, psisat_from(SL->thi->co[l][J], l, adt->S->pa->co[syn]), SL->thi->co[l][J], SL->T->co[l][J], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa, syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+						kmaxn = k_from_psi(jKl, psisat_from(SL->thi[l][J], l, adt->S->pa,syn), SL->thi[l][J], SL->T[l][J], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 						kmaxn = Fmin(kmax, kmaxn);
 						kn = Fmin(kn, kmaxn);
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						
 					}else {
 						
-					//	if (H->co[I] > H->co[i]) {
-						if (H[I] > H[i]) {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[I] - adt->T->Z->co[l][R][C]) / cos(adt->T->slope->co[R][C]*GTConst::Pi/180.);
-							dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
-						}else {
-						//	kn = adt->L->ty->co[(long)adt->L->LC->co[R][C]][jcm];
-							kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
-						//	dz = Fmax(0., H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-							dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-						}
-						
-						if (dz < adt->P->thres_hsup_1) kn = 0.;
+						//if (H[I] > H[i]) {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[I] - adt->T->Z[l][R][C]) / cos(adt->T->slope[R][C]*GTConst::Pi/180.);
+						//}else {
+						//	kn = adt->L->ty[(long)adt->L->LC[R][C]][jcm];
+						//	dz = Fmax(0., H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
+						//}
+						//
+						//if (dz < adt->P->thres_hsup_1) kn = 0.;
 						
 						cnt++;
-					//	Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
+						Lx[cnt] = 0.0 ;//-(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 						
-						Lx[cnt] = -(dn*1.E-3*dz)*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 					}
 				}
 			}
 			
 			//exchange with channels
-		//	if (l>0 && adt->C->ch->co[r][c] > 0) {
 			if (l>0 && adt->C->ch[r][c] > 0) {
 				
-			//	ch = adt->C->ch->co[r][c];
 				ch = adt->C->ch[r][c];
-			//	syn = adt->C->soil_type->co[ch];
 				syn = adt->C->soil_type[ch];
 				I = n + adt->C->ch3[l][ch];
 				
-			//	if (H->co[I] > H->co[i]) {
 				if (H[I] > H[i]) {
-				//	kn = k_from_psi(jKl, H->co[I] - (adt->T->Z->co[l][r][c]-adt->P->depr_channel), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-					kn = k_from_psi(jKl, H[I] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+					kn = k_from_psi(jKl, H[I] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 				}else {
 					kn = k;
 				}
 				
-			//	kmaxn = k_from_psi(jKl, psisat_from(SC->thi->co[l][ch], l, adt->S->pa->co[syn]), SC->thi->co[l][ch], SC->T->co[l][ch], l, adt->S->pa->co[syn], adt->P->imp, adt->P->k_to_ksat);
-				kmaxn = k_from_psi(jKl, psisat_from(SC->thi[l][ch], l, adt->S->pa, syn), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, syn, adt->P->imp, adt->P->k_to_ksat);
+				kmaxn = k_from_psi(jKl, psisat_from(SC->thi[l][ch], l, adt->S->pa,syn), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa,syn, adt->P->imp, adt->P->k_to_ksat);	
 				kmaxn = Fmin(kmax, kmaxn);
 				kn = Fmin(kn, kmaxn);
 				
-			//	Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-			//	Area[m2] = 2 * channel length * layer thickness = 2 * length[m] * dz[mm] * 1.E-3[m/mm]
-			//	dD[mm] = 0.25 * ds * (1+w_dx)
+				//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]	
+				//Area[m2] = 2 * channel length * layer thickness = 2 * length[m] * dz[mm] * 1.E-3[m/mm]
+				//dD[mm] = 0.25 * ds * (1+w_dx)
 				dD = find_3Ddistance(ds * (1.0 + adt->P->w_dx) / 4.0, 1.E-3*adt->P->depr_channel) * 1.E3;//[mm]
 				
 				cnt++;
-			//	Lx->co[cnt] = -(2.*adt->C->length->co[adt->C->ch->co[r][c]]*1.E-3*dz)*kn/dD;
-				Lx[cnt] = -(2.*adt->C->length[adt->C->ch[r][c]]*1.E-3*dz)*kn/dD;
+				Lx[cnt] = -(2.*adt->C->length[adt->C->ch[r][c]]*1.E-3*dz)*kn/dD;						
+				
 			}
-		}	
-	}										
+			
+			cout << "find3D: Lx[cnt]=" << Lx[cnt] << endl;
+
+		}
+		
+	}									
 	
 	
 	return 0;
 	
 }
-
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, DOUBLEVECTOR *H){
-int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H){
+int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H)
+	{
 	long i, l, r=1, I, sy, cnt=0;
 	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	double psi, ice, a, ns, res, sat, ss, Temp;
 	
-//	for(i=1;i<=H->nh;i++){
 	for(i=1;i<H.size();i++){
 		
 		//VERTICAL FLUXES
@@ -1366,121 +1327,84 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 /******************************************************************************************************************************************/
 
 //int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat){
-int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
+
+int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 	
-    long l, r, c, j, sy, ch, bc;
+	long i, l, r, c, j, sy, ch, bc;
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, psi1, ice=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
-//	for(i=1;i<=H->nh;i++){
-	for(size_t i=1;i<H.size();i++){
+	for(i=1;i<H.size();i++){
 		
-		//df->co[i] = 0.;
 		df[i] = 0.;
 		
 		if (i<=n) {
-		//	l=adt->T->lrc_cont->co[i][1];
 			l=adt->T->lrc_cont[i][1];
-		//	r=adt->T->lrc_cont->co[i][2];
 			r=adt->T->lrc_cont[i][2];
-		//	c=adt->T->lrc_cont->co[i][3];
 			c=adt->T->lrc_cont[i][3];
 			j=adt->T->j_cont[r][c];
-		//	sy=adt->S->type->co[r][c];
 			sy=adt->S->type[r][c];
-		//	bc=adt->T->BC_counter->co[r][c];
 			bc=adt->T->BC_counter[r][c];
-		//	ch=adt->C->ch->co[r][c];
 			ch=adt->C->ch[r][c];
-		//	area=ds*ds/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-		//	if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 			if (ch>0) area-=adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-		//	psi1 = H->co[i] - adt->T->Z->co[l][r][c];
 			psi1 = H[i] - adt->T->Z[l][r][c];
-		//	if(l>0) ice = L->thi->co[l][j];
 			if(l>0) ice = L->thi[l][j];
 			
 		}else {
-		//	l=adt->C->lch->co[i-n][1];
 			l=adt->C->lch[i-n][1];
-		//	ch=adt->C->lch->co[i-n][2];
 			ch=adt->C->lch[i-n][2];
-		//	r=adt->C->r->co[ch];
 			r=adt->C->r[ch];
-		//	c=adt->C->c->co[ch];
 			c=adt->C->c[ch];
-		//	sy=adt->C->soil_type->co[ch];
 			sy=adt->C->soil_type[ch];
 			bc=0;
-		//	area=adt->C->length->co[ch] * adt->P->w_dx * ds;
 			area=adt->C->length[ch] * adt->P->w_dx * ds;
-		//	psi1 = H->co[i] - (adt->T->Z->co[l][r][c] - adt->P->depr_channel);
 			psi1 = H[i] - (adt->T->Z[l][r][c] - adt->P->depr_channel);
-		//	if(l>0) ice = C->thi->co[l][ch];
 			if(l>0) ice = C->thi[l][ch];
 		}
 		
 		//hydraulic capacity (diagonal term) = (dV/dH)/(Ah*Dt)
 		if(l==0){
-		//	if(psi1>0) df->co[i] += ( area / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) ) / Dt;
 			if(psi1>0) df[i] += ( area / cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) / Dt;
 			
 		}else{
 			dz = adt->S->pa[sy][jdz][l];
-		//	df->co[i] += dtheta_dpsi_from_psi(psi1, ice, l, adt->S->pa->co[sy], GTConst::PsiMin) * area * dz / Dt;
-			df[i] += dtheta_dpsi_from_psi(psi1, ice, l, adt->S->pa, sy, GTConst::PsiMin) * area * dz / Dt;
+			df[i] += dtheta_dpsi_from_psi(psi1, ice, l, adt->S->pa,sy, GTConst::PsiMin) * area * dz / Dt;
+			
 		}
 		
 		//lateral drainage at the border
 		if (bc>0){
 			
 			if (l>0) {
-			//	if (adt->T->pixel_type->co[r][c] == 1) {
-				if (adt->T->pixel_type[r][c] == 1) {
-				//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && H->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
+				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11) {
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
-					//	if ((long)adt->L->LC->co[r+1][c]==number_novalue || (long)adt->L->LC->co[r-1][c]==number_novalue) {
 						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
-						//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN->co[r][c]));//mm
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
-						//	dn = ds / cos(atan(adt->T->dzdE->co[r][c]));//m
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
-						//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE->co[r][c]));
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE[r][c]));
-						//	dn = ds / cos(atan(adt->T->dzdN->co[r][c]));//m
 							dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
 						}
 						
 						dz = adt->S->pa[sy][jdz][l];//[mm]
-					//	df->co[i] += (dn*dz*1.E-3) * Klat->co[bc][l]*adt->P->free_drainage_lateral / dD;
 						df[i] += (dn*dz*1.E-3) * Klat[bc][l]*adt->P->free_drainage_lateral / dD;
+						
 					}
-				}
-				
-			}else {
-				
-			//	if (H->co[i] - adt->T->Z->co[l][r][c] > 0){
-				if (H[i] - adt->T->Z[l][r][c] > 0){
-				//	dz = (H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-					dz = (H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-					// q = ds*Cd*(2/3) * dz * sqrt(2g*1E-3*dz)  in [m2 * mm / s]
-					// dq/dH = ( ds*Cd*(2/3) * sqrt(2g*1E-3*dz) + ds*Cd*(2/3) * dz * 2g*1E-3 * (1/2) / sqrt(2g*1E-3*dz) ) * dz/dH
-					// dz/dH = 1 / cos(adt->T->slope->co[r][c]*Pi/180.)
-
-				  //  df->co[i] += ds*GTConst::Cd*(2./3.) * ( sqrt(2.*GTConst::GRAVITY*1.E-3*dz) + dz * 2.*GTConst::GRAVITY*1.E-3 * (1/2) / sqrt(2.*GTConst::GRAVITY*1.E-3*dz) ) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-					  df[i] += ds*GTConst::Cd*(2./3.) * ( sqrt(2.*GTConst::GRAVITY*1.E-3*dz) + dz * 2.*GTConst::GRAVITY*1.E-3 * (1/2) / sqrt(2.*GTConst::GRAVITY*1.E-3*dz) ) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
 				}
 				
 			}
 		}
+		
 	}
 	
 	return 0;
 }
+
+	
+	
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1552,69 +1476,51 @@ int find_dfdH_3D(double Dt, GeoVector<double>& df, AllData *adt, SoilState *L, S
 /******************************************************************************************************************************************/
 
 //int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l, DOUBLEVECTOR *Kbottom_ch){
+
 int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, const GeoVector<double>& Kbottom_ch){
+
+	
+	
 	
     long l, r, c, j, sy, ch, bc;
 	long n=(Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+
 	double area, ds=sqrt(UV->U[1]*UV->U[2]);
 	
-//	for(i=1;i<=H->nh;i++){
 	for(size_t i=1;i<H.size();i++){
 		
 		if (i<=n) {
-		//	l=adt->T->lrc_cont->co[i][1];
+
 			l=adt->T->lrc_cont[i][1];
-		//	r=adt->T->lrc_cont->co[i][2];
 			r=adt->T->lrc_cont[i][2];
-		//	c=adt->T->lrc_cont->co[i][3];
 			c=adt->T->lrc_cont[i][3];
 			j=adt->T->j_cont[r][c];
-		//	sy=adt->S->type->co[r][c];
 			sy=adt->S->type[r][c];
-		//	bc=adt->T->BC_counter->co[r][c];
 			bc=adt->T->BC_counter[r][c];
-		//	ch=adt->C->ch->co[r][c];
 			ch=adt->C->ch[r][c];
-		//	area=ds*ds/cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-		//	if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 			if (ch>0) area-=adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-		//	psi0 = L->P->co[l][j];
 			psi0 = L->P[l][j];
-		//	psi1 = H->co[i] - adt->T->Z->co[l][r][c];
 			psi1 = H[i] - adt->T->Z[l][r][c];
-		//	if(l>0) ice = L->thi->co[l][j];
 			if(l>0) ice = L->thi[l][j];
 			
 		}else {
-		//	l=adt->C->lch->co[i-n][1];
 			l=adt->C->lch[i-n][1];
-		//	ch=adt->C->lch->co[i-n][2];
 			ch=adt->C->lch[i-n][2];
-		//	r=adt->C->r->co[ch];
 			r=adt->C->r[ch];
-		//	c=adt->C->c->co[ch];
 			c=adt->C->c[ch];
-		//	sy=adt->C->soil_type->co[ch];
 			sy=adt->C->soil_type[ch];
 			bc=0;
-		//	area=adt->C->length->co[ch] * adt->P->w_dx * ds;
 			area=adt->C->length[ch] * adt->P->w_dx * ds;
-		//	psi0 = C->P->co[l][ch];
 			psi0 = C->P[l][ch];
-		//	psi1 = H->co[i] - (adt->T->Z->co[l][r][c] - adt->P->depr_channel);
 			psi1 = H[i] - (adt->T->Z[l][r][c] - adt->P->depr_channel);
-		//	if(l>0) ice = C->thi->co[l][ch];
 			if(l>0) ice = C->thi[l][ch];
 		}
 		
 		//hydraulic capacity (diagonal term)
 		if(l==0){
-		//	V1 = area * Fmax(0.0, psi1) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 			V1 = area * Fmax(0.0, psi1) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-		//	V0 = area * Fmax(0.0, psi0) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
 			V0 = area * Fmax(0.0, psi0) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
 		}else{
 			dz = adt->S->pa[sy][jdz][l];		
@@ -1622,101 +1528,75 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 			V0 = area*dz * theta_from_psi(psi0, ice, l, adt->S->pa, sy, GTConst::PsiMin);
 		}
 		
-	//	f->co[i] = (V1-V0)/Dt;
 		f[i] = (V1-V0)/Dt;
-		
+	
 		//drainage at the bottom
 		if (l==Nl){
 			if (i<=n) {
-			//	f->co[i] += area*Kbottom_l->co[r][c];
 				f[i] += area*Kbottom_l[r][c];
 			}else {
-			//	f->co[i] += area*Kbottom_ch->co[ch];
 				f[i] += area*Kbottom_ch[ch];
 			}
 		}
-		
 		//lateral drainage at the border
 		if (bc>0) {
 			
 			if (l>0) {
-			//	if (adt->T->pixel_type->co[r][c] == 1) {
-				if (adt->T->pixel_type[r][c] == 1) {
-				//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && H->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
-					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
-					//	if ((long)adt->L->LC->co[r+1][c]==number_novalue || (long)adt->L->LC->co[r-1][c]==number_novalue) {
+				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11){
+					if (adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ){
 						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
-						//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN->co[r][c]));//mm
+						
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
-						//	dn = ds / cos(atan(adt->T->dzdE->co[r][c]));//m
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
-						//	dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE->co[r][c]));
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdE[r][c]));
-						//	dn = ds / cos(atan(adt->T->dzdN->co[r][c]));//m
 							dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
 						}
 						
 						dz = adt->S->pa[sy][jdz][l];//[mm]
-					//	f->co[i] += (dn*dz*1.E-3) * Klat->co[bc][l]*adt->P->free_drainage_lateral*(H->co[i] - adt->T->Z->co[l][r][c]) / dD;
+	
 						f[i] += (dn*dz*1.E-3) * Klat[bc][l]*adt->P->free_drainage_lateral*(H[i] - adt->T->Z[l][r][c]) / dD;
 					}
 					
-			//	}else if (adt->T->pixel_type->co[r][c] == 2) {
-				}else if (adt->T->pixel_type[r][c] == 2) {
-				//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) ) {
+				}else if (adt->T->pixel_type[r][c] == 2 || adt->T->pixel_type[r][c] == 12) {
+				
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) {
-					//	if ((long)adt->L->LC->co[r+1][c]==number_novalue || (long)adt->L->LC->co[r-1][c]==number_novalue) {
+			
 						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
-						//	dn = ds / cos(atan(adt->T->dzdE->co[r][c]));//m
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
-						//	dn = ds / cos(atan(adt->T->dzdN->co[r][c]));//m
+					
 							dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
 						}
 						
 						dz = adt->S->pa[sy][jdz][l];//[mm]
-					//	f->co[i] += (dn*dz*1.E-3) * Klat->co[bc][l]*adt->P->free_drainage_lateral;
 						f[i] += (dn*dz*1.E-3) * Klat[bc][l]*adt->P->free_drainage_lateral;
 					}
 				}
 				
-			}else {
-				
-			//	if (H->co[i] - adt->T->Z->co[l][r][c] > 0){
-				if (H[i] - adt->T->Z[l][r][c] > 0){
-				//	dz = (H->co[i] - adt->T->Z->co[l][r][c]) / cos(adt->T->slope->co[r][c]*GTConst::Pi/180.);
-					dz = (H[i] - adt->T->Z[l][r][c]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-
-					// q = ds*Cd*(2/3) * dz * sqrt(2g*1E-3*dz)  in [m2 * mm / s]
-					// dq/dH = ( ds*Cd*(2/3) * sqrt(2g*1E-3*dz) + ds*Cd*(2/3) * dz * 2g*1E-3 * (1/2) / sqrt(2g*1E-3*dz) ) * dz/dH
-					// dz/dH = 1 / cos(adt->T->slope->co[r][c]*Pi/180.)
-
-					// f->co[i] += (1.E-3*dz*ds) * GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*dz)*1.E3;
-					   f[i] += (1.E-3*dz*ds) * GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*dz)*1.E3;
-				}
-				
 			}
+				
 		}
-		
 		//evaporation and precipitation
 		if(l>0){
 			if(i<=n){
-			//	f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
 				f[i] += area*adt->S->ET[l][r][c]/Dt;
 			}else {
-			//	ch=adt->C->ch->co[r][c];
 				ch=adt->C->ch[r][c];
-			//	f->co[i] += area*adt->C->ET->co[l][ch]/Dt;
 				f[i] += area*adt->C->ET[l][ch]/Dt;
 			}
 		}else {
-		//	f->co[i] += area*adt->W->Pnet->co[r][c]/Dt;
-			f[i] += area*adt->W->Pnet[r][c]/Dt;
+					f[i] -= area*adt->W->Pnet[r][c]/Dt;
 		}
+ // 	printf("ff[%ld]=,%f \n",i,f[i]);	
 	}
+	
 	return 0;
+	
+/// this is ok... SC 14.12.2013... 
+
 }
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1814,39 +1694,46 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 /******************************************************************************************************************************************/
 
 //void find_dt_max(double Courant, double *h, LAND *land, TOPO *top, CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt){
+
+
   void find_dt_max(double Courant, GeoMatrix<double>& h, Land *land, Topo *top, Channel *cnet, Par *par, Meteo *met, double t, double *dt){
 
-//	double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, Vmax, H;
+    // t parameter is NOT used ??? 
 	double q, ds=sqrt(UV->U[1]*UV->U[2]), area, Vmax, H;
 	short d;
 	long r, c, j, ch;
 	
 	for (j=1; j<=par->total_pixel; j++) {
 		
-	//	r = top->rc_cont->co[j][1];
 		r = top->rc_cont[j][1];
-	//	c = top->rc_cont->co[j][2];
 		c = top->rc_cont[j][2];
 		
-	//	H = Fmax(0.0 , h[j]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
-		H = Fmax(0.0 , h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
+
+		H = Fmax(0.0 , h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
 		
 		if(H > par->min_hsup_land){
 			
-		//	draining_land(1., j, top, land, par, h, top->Jdown->co[j], top->Qdown->co[j]);
+		//  to fix the following: (SC 10.12.2013)
+		//	if(DD==1){
+		//		draining_land(1., j, top, land, par, cnet, h, top->Jdown->co[j], top->Qdown->co[j]);
+		//	}else {
+		//		draining_land(0., j, top, land, par, cnet, h, top->Jdown->co[j], top->Qdown->co[j]);
+		//	}
+			
 			draining_land(1., j, top, land, par, h, top->Jdown, top->Qdown, j);
 			
-		//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.);
+		
 			area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.);
-		//	ch = cnet->ch->co[r][c];
+			
 			ch = cnet->ch[r][c];
-		//	if (ch>0) area -= cnet->length->co[ch] * par->w_dx * ds; //area of the pixel[m2]
+		
 			if (ch>0) area -= cnet->length[ch] * par->w_dx * ds; //area of the pixel[m2]
+			
 			Vmax = area * 1.E-3 * H;
 			
 			q = 0.;
 			for (d=1; d<=4; d++) {
-			//	q += top->Qdown->co[j][d];	//outgoing discharge
+			
 				q += top->Qdown[j][d];	//outgoing discharge
 			}
 						
@@ -1871,15 +1758,28 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 //			 PAR *par, METEO *met, DOUBLEVECTOR *Vsup, double *Voutnet, double *Voutland, FILE *flog)
 
 void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
-			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog)
+			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo )
 
 {
 	
 	long d, r, c, j, R, C, ch;                                    
-//	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, Vmax, H;
 	double ds=sqrt(UV->U[1]*UV->U[2]), area, Vmax, H;
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
+	
+	double m1=0.,m2=0.,mo=0.;
+	
+
+	for (j=1; j<=par->total_pixel; j++) {
+		r = top->rc_cont[j][1];
+		c = top->rc_cont[j][2];
+		H = Fmax(0., h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);
+		area = ds*ds;
+		area /= cos(top->slope[r][c]*GTConst::Pi/180.);
+		m1 += H*1.E-3*area;
+	}
+	
+	printf("supflow: te %ld\n",te);
 	
 	do{
 		
@@ -1896,29 +1796,24 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		}		
 		
 		for (j=1; j<=par->total_pixel; j++) {
-		//	r = top->rc_cont->co[j][1];
-			r = top->rc_cont[j][1];
-		//	c = top->rc_cont->co[j][2];
+			r = top->rc_cont[j][1];	
 			c = top->rc_cont[j][2];
 			
-		//	H = Fmax(0., h[j]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);
 			H = Fmax(0., h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);
 			
 			dV[j] = 0.0;
 			
 			if(H > 0){
 				
-			//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.);
+
 				area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.);
-			//	ch = cnet->ch->co[r][c];
 				ch = cnet->ch[r][c];
-			//	if (ch>0) area -= cnet->length->co[ch] * par->w_dx * ds; //area of the pixel[m2]
 				if (ch>0) area -= cnet->length[ch] * par->w_dx * ds; //area of the pixel[m2]
+				
 				Vmax = area * 1.E-3 * H;
 				
 				q = 0.;
 				for (d=1; d<=4; d++) {
-				//	q += top->Qdown->co[j][d];
 					q += top->Qdown[j][d];
 				}
 				
@@ -1926,18 +1821,18 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 					q0 = q;
 					q = Vmax/dt;
 					for (d=1; d<=4; d++) {
-					//	top->Qdown->co[j][d] *= (q/q0);
 						top->Qdown[j][d] *= (q/q0);
 					}
 				}
 				
 				for (d=1; d<=4; d++) {
-				//	if (top->BC_counter->co[r][c] > 0 && (top->pixel_type->co[r][c] == 1 || top->pixel_type->co[r][c] == 2)){
-					if (top->BC_counter[r][c] > 0 && (top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2)){
-					//	*Voutland = *Voutland + top->Qdown->co[j][d]*dt;
+					if(top->Jdown[j][d]==0 ){
+					    if (top->BC_counter[r][c] > 0 && (top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2 || top->pixel_type[r][c] == 11 || top->pixel_type[r][c] == 12)){
+					
 						*Voutland = *Voutland + top->Qdown[j][d]*dt;
+						mo += top->Qdown[j][d]*dt;
+					    }
 					}
-				//	if (q > 0) top->Qdown->co[j][d] /= q;
 					if (q > 0) top->Qdown[j][d] /= q;
 				}
 				
@@ -1946,56 +1841,46 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			}
 		}
 		
-		for (j=1; j<=par->total_pixel; j++) {
-		//	r = top->rc_cont->co[j][1];
+		for (j=1; j<=par->total_pixel; j++) {	
 			r = top->rc_cont[j][1];
-		//	c = top->rc_cont->co[j][2];
 			c = top->rc_cont[j][2];
 			
-		//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.);
 			area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.);
-		//	ch = cnet->ch->co[r][c];
 			ch = cnet->ch[r][c];
-		//	if (ch>0) area -= cnet->length->co[ch] * par->w_dx * ds; //area of the pixel[m2]
 			if (ch>0) area -= cnet->length[ch] * par->w_dx * ds; //area of the pixel[m2]
 			
-		//	h[j] -= (1.E3*dV[j]/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
+		
 			h(0,j) -= (1.E3*dV[j]/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 			
-		//	if (top->BC_counter->co[r][c] > 0 && top->pixel_type->co[r][c] == -1) {
+		 
 			if (top->BC_counter[r][c] > 0 && top->pixel_type[r][c] == -1) {
-			//	if(h[j] > 0){
+
 				if(h(0,j) > 0){
-				//	h[j] += (1.E3*met->qinv[1]*ds*Dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
+									
 					h(0,j) += (1.E3*met->qinv[1]*ds*Dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				}else{
-				//	if( met->qinv[1]*ds > 0) h[j] = (1.E3*met->qinv[1]*ds*Dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 					if( met->qinv[1]*ds > 0) h(0,j) = (1.E3*met->qinv[1]*ds*Dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				}
 			}
 			
 			for (d=1; d<=4; d++) {
-			//	if(top->Jdown->co[j][d]>0){
+		
 				if(top->Jdown[j][d]>0){
 					
-				//	R = top->rc_cont->co[top->Jdown->co[j][d]][1];
+				
 					R = top->rc_cont[top->Jdown[j][d]][1];
-				//	C = top->rc_cont->co[top->Jdown->co[j][d]][2];
 					C = top->rc_cont[top->Jdown[j][d]][2];
-					
-				//	area = ds*ds/cos(top->slope->co[R][C]*GTConst::Pi/180.);
+								
 					area = ds*ds/cos(top->slope[R][C]*GTConst::Pi/180.);
-				//	ch = cnet->ch->co[R][C];
 					ch = cnet->ch[R][C];
-				//	if (ch>0) area -= cnet->length->co[ch] * par->w_dx * ds; //area of the pixel[m2]
+					
 					if (ch>0) area -= cnet->length[ch] * par->w_dx * ds; //area of the pixel[m2]
 
-				//	if(h[top->Jdown->co[j][d]]>0){
+				
 					if(h(0,top->Jdown[j][d])>0){
-					//	h[top->Jdown->co[j][d]] += (1.E3*dV[j]*top->Qdown->co[j][d]/area) * cos(top->slope->co[R][C]*GTConst::Pi/180.);
+					
 						h(0,top->Jdown[j][d]) += (1.E3*dV[j]*top->Qdown[j][d]/area) * cos(top->slope[R][C]*GTConst::Pi/180.);
 					}else{
-					//	if( dV[j]*top->Qdown->co[j][d] > 0) h[top->Jdown->co[j][d]] = (1.E3*dV[j]*top->Qdown->co[j][d]/area) * cos(top->slope->co[R][C]*GTConst::Pi/180.);
 						if( dV[j]*top->Qdown[j][d] > 0) h(0,top->Jdown[j][d]) = (1.E3*dV[j]*top->Qdown[j][d]/area) * cos(top->slope[R][C]*GTConst::Pi/180.);
 					}
 					
@@ -2007,6 +1892,27 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, flog, &cnt3);
 		
 	}while(te<Dt);
+
+	
+	// this below control lines... to be removed later
+	
+    printf("sup-flow: %f %f %f\n",Dt/cnt,Dt/cnt2,Dt/cnt3);
+	
+	for (j=1; j<=par->total_pixel; j++) {
+		r = top->rc_cont[j][1];
+		c = top->rc_cont[j][2];
+		H = Fmax(0., h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);
+		area = ds*ds;
+		area /= cos(top->slope[r][c]*GTConst::Pi/180.);
+		m2 += H*1.E-3*area;
+	}	
+	
+	*mm1 = m1;
+	*mm2 = m2;
+	*mmo = mo;
+	
+	printf("SUP: m1:%e m2:%e mo:%e dm:%e\n",m1,m2,mo,fabs(m1-mo-m2));
+	
 	
 	
 }	
@@ -2299,9 +2205,8 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f, long *cnt)
-  void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt)
+  void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
 
-{
 	long r,c,ch,R,C;                                    
 	double ds, dn, dD;
 	double Ks;											  // the Strickler's coefficent
@@ -2535,7 +2440,8 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void draining_channel(double alpha, long ch, DOUBLEMATRIX *Z, double *h, CHANNEL *cnet, long *CH){
-  void draining_channel(double alpha, long ch, GeoMatrix<double>& Z, GeoMatrix<double>& h, Channel *cnet, long *CH){
+	
+void draining_channel(double alpha, long ch, GeoMatrix<double>& Z, GeoMatrix<double>& h, Channel *cnet, long *CH){
 	
 	long d, r, c;
 	double elev, elev1;

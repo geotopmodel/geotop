@@ -318,7 +318,6 @@ double norm_inf(const GeoVector<double>& V, long nbeg, long nend){
 	double N=0.0;
 
 	for(l=nbeg;l<=nend;l++){
-	//	if (fabs(V->co[l])> N) N = fabs(V->co[l]);
 		if (fabs(V[l])> N) N = fabs(V[l]);
 	}
 
@@ -328,14 +327,13 @@ double norm_inf(const GeoVector<double>& V, long nbeg, long nend){
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-//double norm_2(DOUBLEVECTOR *V, long nbeg, long nend){
+
 double norm_2(const GeoVector<double>& V, long nbeg, long nend){
 
 	long l;
 	double N=0.0;
 
 	for(l=nbeg;l<nend;l++){
-		//N+=pow(V->co[l],2.0);
 		  N+=pow(V[l],2.0);
 	}
 	N=sqrt(N);

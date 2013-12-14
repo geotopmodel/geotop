@@ -76,6 +76,7 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2);
 int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, GeoVector<double>& Kbottom_ch, AllData *adt, const GeoVector<double>& H);
 
 //int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, DOUBLEVECTOR *H);
+
 int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H);
 
 //int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat);
@@ -100,8 +101,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
 //void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet,
 //			 PAR *par, METEO *met, DOUBLEVECTOR *Vsup, double *Voutnet, double *Voutland, FILE *flog);
-  void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
-			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog);
+  void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo);
 
 //void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog, long *cnt);
   void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt);

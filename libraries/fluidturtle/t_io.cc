@@ -1416,16 +1416,12 @@ void find_max_slope(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<
 }
 
 
-
+/////////////////////////////////////////////////////////////////////////////
 // These routines coming from sparse_matrix_library.. S.C. 07.12.2013
+/////////////////////////////////////////////////////////////////////////////
 
 
-//------------------------
-//void product_matrix_using_lower_part_by_vector_plus_vector(double k, DOUBLEVECTOR *out, DOUBLEVECTOR *y, DOUBLEVECTOR *x,
-//														   LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
-
-void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<double>& out, const GeoVector<double>& y, const GeoVector<double>& x,
-										const GeoVector<long>&  Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
+void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<double>& out, const GeoVector<double>& y, const GeoVector<double>& x, const GeoVector<long>&  Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
 
 	//calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 
@@ -1434,13 +1430,16 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 	product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
 
 	for(i=1;i<x.size();i++){
+#ifdef VERBOSE		
+		printf("product_matrix_using_lower_part_by_vector_plus_vector-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out[i],y[i],k * (out[i] + y[i]));
+#endif		
 		out[i] = k * (out[i] + y[i]);
 	}
 }
 
 
 
-//void product_using_only_strict_lower_diagonal_part(DOUBLEVECTOR *product, DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+//======
 
 void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<long>& Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
 	long c, r ;
@@ -1456,121 +1455,129 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 		r = Li[i];
 
 		if(r > c){
-#ifdef VERBOSE
-            printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
-#endif
+
+
 			product[c] += Lx[i] * (x[r] - x[c]);
 			product[r] += Lx[i] * (x[c] - x[r]);
 			
+#ifdef VERBOSE				
+		//printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product[c],i,Lx[i],r,x[r],c,x[c],Lx[i] * (x[r] - x[c]));
+		//printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product[r],i,Lx[i],c,x[c],r,x[r],Lx[i] * (x[c] - x[r]));
+#endif		   
+			
 		}else if(r < c){
 #ifdef VERBOSE
-			printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
+			printf("product_using_only_strict_lower_diagonal_part r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()-1],x.size());
 #endif
-            t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
+            t_error("product_using_only_strict_lower_diagonal_part:matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
 
 		if(i<Li.size()){
-			while(i > Lp[c]) c++;
+			while(i >= Lp[c]) c++;
 		}
 	}
 }
 
 
 
-//long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
-//									DOUBLEVECTOR *b, DOUBLEVECTOR *y, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+//====================================
+
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double tol_min, double tol_max, GeoVector<double>& x,
-									const GeoVector<double>& b, GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
+	const GeoVector<double>& b, GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
 
 
 	//solve sistem (A+Iy)*x = B, find x
 	//A M-matrix described by its lower diagonal part
 
-	//DOUBLEVECTOR *r0, *r, *p, *v, *s, *t, *diag, *udiag, *yy, *z;
+
 	GeoVector<double> r0, r, p, v, s, t, diag, udiag, yy, z;
 	double rho, rho1, alpha, omeg, beta, norm_r0;
-	long i=0, j;
+	long i=0, j, maxiter;
 	short sux;
 
-	//r0 = new_doublevector(x->nh);
-	r0.resize(x.size() + 1);
-	//r = new_doublevector(x->nh);
-	r.resize(x.size() + 1);
-	//p = new_doublevector(x->nh);
-	p.resize(x.size() + 1);
-	//v = new_doublevector(x->nh);
-	v.resize(x.size() + 1);
-	//s = new_doublevector(x->nh);
-	s.resize(x.size() + 1);
-	//t = new_doublevector(x->nh);
-	t.resize(x.size() + 1);
-	//diag = new_doublevector(x->nh);
-	diag.resize(x.size() + 1);
-	//udiag = new_doublevector(x->nh-1);
-	udiag.resize(x.size() + 1);
-	//yy = new_doublevector(x->nh);
-	yy.resize(x.size() + 1);
-	//z = new_doublevector(x->nh);
-	z.resize(x.size() + 1);
 
+	/*r0.resize(x.size() + 1);
+	r.resize(x.size() + 1);
+	p.resize(x.size() + 1);
+	v.resize(x.size() + 1);
+	s.resize(x.size() + 1);
+	t.resize(x.size() + 1);
+	diag.resize(x.size() + 1);
+	udiag.resize(x.size() + 1);
+	yy.resize(x.size() + 1);
+	z.resize(x.size() + 1);*/
+
+	r0.resize(x.size());
+	r.resize(x.size());
+	p.resize(x.size());
+	v.resize(x.size());
+	s.resize(x.size());
+	t.resize(x.size());
+	diag.resize(x.size());
+	udiag.resize(x.size() -1 );
+	yy.resize(x.size());
+	z.resize(x.size());
+	
+	
+	
 	get_diag_strict_lower_matrix_plus_identity_by_vector(diag, udiag, y, Li, Lp, Lx);
 
 	//product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(r, x, y, Li, Lp, Lx);
 
-	//printf("==== >> x->nl=%ld x->nh=%ld ",x->nl,x->nh);
+	///printf("==== >> x->nl=%ld x->nh=%ld ",x->nl,x->nh);
 	//stop_execution();
 
-    //for (j=x->nl;j<=x->nh;j++ ) {
+	
 	for (j=GTConst::nl;j<x.size();j++ ) {
-   		//r->co[j] = b->co[j];
+   		
     	r[j] = b[j];
-		//r0->co[j] = r->co[j];
 		r0[j] = r[j];
-		//p->co[j] = 0.;
 		p[j] = 0.;
-		//v->co[j] = 0.;
 		v[j] = 0.;
     }
 
-	//norm_r0 = norm_2(r0, r0->nl, r0->nh);
+
 	norm_r0 = norm_2(r0, GTConst::nl, r0.size());
+
+	printf("BiCGSTAB_strict norm_r0: %f\n",norm_r0);
+
 
 	rho = 1.;
 	alpha = 1.;
 	omeg = 1.;
 
-  //while ( i<=x->nh && norm_2(r, r->nl, r->nh) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
-	while ( i<x.size() && norm_2(r, GTConst::nl, r.size()) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
+	maxiter = (long)(x.size()/100.); 
+	if (maxiter < 100) maxiter = 100;
+	
+  
+	while ( i<maxiter && norm_2(r, GTConst::nl, r.size()) > Fmax( tol_min , Fmin( tol_max , tol_rel*norm_r0) ) ) {
+		
 		rho1 = product(r0, r);
 
 		beta = (rho1/rho)*(alpha/omeg);
 
 		rho = rho1;
 
-	//	for (j=x->nl;j<=x->nh;j++ ) {
+	
 		for (j=GTConst::nl;j<x.size();j++ ) {
-			//p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
+			
 			p[j] = r[j] + beta*(p[j] - omeg*v[j]);
 		}
 
-		//sux=tridiag(0, 0, 0, x->nh, udiag, diag, udiag, p, yy);
 		sux=tridiag(0, 0, 0, x.size(), udiag, diag, udiag, p, yy);
+		
 		if(sux==0) return(-1);
 
 		product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(v, yy, y, Li, Lp, Lx);
 
 		alpha = rho/product(r0, v);
 
-	//  for (j=x->nl;j<=x->nh;j++ ) {
 		for (j=GTConst::nl;j<x.size();j++ ) {
-			//s->co[j] = r->co[j] - alpha*v->co[j];
 			s[j] = r[j] - alpha*v[j];
 		}
 
-	//	if(norm_2(s,s->nl,s->nh)>1.E-10){
 		if(norm_2(s,GTConst::nl,s.size())>1.E-10){
-		//	sux=tridiag(0, 0, 0, x->nh, udiag, diag, udiag, s, z);
 			sux=tridiag(0, 0, 0, x.size(), udiag, diag, udiag, s, z);
 			if(sux==0) return(-1);
 
@@ -1578,24 +1585,21 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 
 			omeg = product(t, s)/product(t, t);
 
-		//	for (j=x->nl;j<=x->nh;j++ ) {
 			for (j=GTConst::nl;j<x.size();j++ ) {
-			 // x->co[j] += (alpha*yy->co[j] + omeg*z->co[j]);
+
 				x[j] += (alpha*yy[j] + omeg*z[j]);
-			 //	r->co[j] = s->co[j] - omeg*t->co[j];
 				r[j] = s[j] - omeg*t[j];
 			}
 
 		}else{
 
-		//	for (j=x->nl;j<=x->nh;j++ ) {
+
 			for (j=GTConst::nl;j<x.size();j++ ) {
-			//	x->co[j] += alpha*yy->co[j];
 				x[j] += alpha*yy[j];
-			//	r->co[j] = s->co[j];
 				r[j] = s[j];
 			}
 		}
+		
 		i++;
 	}
 
@@ -1615,48 +1619,45 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 }
 
 
-//short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf, DOUBLEVECTOR *diag, DOUBLEVECTOR *diag_sup, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
+
+//===============================
+
 short tridiag(short a, long r, long c, long nx, const GeoVector<double>& diag_inf, const GeoVector<double>& diag, const GeoVector<double>& diag_sup, const GeoVector<double>& b, GeoVector<double>& e)
 {
 
 long j;
 double bet;
-//DOUBLEVECTOR *gam;
+
 GeoVector<double> gam;
 
-//	gam=new_doublevector(nx);
-	gam.resize(nx+1);
 
-//if(diag->co[1]==0.0){
+	gam.resize(nx);
+
+	
 if(diag[1]==0.0){
 	printf("type=%d r=%ld c=%ld\n",a,r,c);
 	t_error("Error 1 in tridiag");
 }
 
-//	bet=diag->co[1];
+
 	bet=diag[1];
-//	e->co[1]=b->co[1]/bet;
 	e[1]=b[1]/bet;
 
-//Decomposition and forward substitution
-for(j=2;j<=nx;j++){
-//	gam->co[j]=diag_sup->co[j-1]/bet;
+for(j=2;j<nx;j++){
 	gam[j]=diag_sup[j-1]/bet;
-//	bet=diag->co[j]-diag_inf->co[j-1]*gam->co[j];
 	bet=diag[j]-diag_inf[j-1]*gam[j];
 	if(bet==0.0){
-		//printf("type=%d r=%ld c=%ld\n",a,r,c);
-		//printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
-		//printf("Error 2 in tridiag\n");
+		printf("type=%d r=%ld c=%ld\n",a,r,c);
+		printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag[j],diag_inf[j-1],diag_sup[j-1]);
+		printf("Error 2 in tridiag\n");
 		return 0;
 	}
-//	e->co[j]=(b->co[j]-diag_inf->co[j-1]*e->co[j-1])/bet;
+
 	e[j]=(b[j]-diag_inf[j-1]*e[j-1])/bet;
 }
 
 //Backsubstitution
-for(j=(nx-1);j>=1;j--){
-//	e->co[j]-=gam->co[j+1]*e->co[j+1];
+for(j=(nx-2);j>=1;j--){
 	e[j]-=gam[j+1]*e[j+1];
 }
 
@@ -1667,46 +1668,41 @@ return 1;
 }
 
 //void get_diag_strict_lower_matrix_plus_identity_by_vector(DOUBLEVECTOR *diag, DOUBLEVECTOR *udiag, DOUBLEVECTOR *y,
-//												   LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
-void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& diag,  GeoVector<double>& udiag, const GeoVector<double>& y,
-													const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
+//	LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+
+
+
+void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& diag,  GeoVector<double>& udiag, const GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
 
 
 	long i, r, c;
+	
 	//find diagonal and upper diagonal of matrix A+Iy, where A is described by its strict lower diagonal part
 
-
-//	for(i=1;i<=diag->nh;i++){
 	for(i=1;i<diag.size();i++){
-	//	diag->co[i] = y->co[i];
 		diag[i] = y[i];
-	//	if(i<diag->nh) udiag->co[i] = 0.;
-		if(i<diag.size()) udiag[i] = 0.;
+		if(i<diag.size()-1) udiag[i] = 0.;
 	}
 
 	c = 1;
-//	for(i=1;i<=Li->nh;i++){
 	for(i=1;i<Li.size();i++){
-	//	r = Li->co[i];
 		r = Li[i];
 
-	//	diag->co[c] -= Lx->co[i];
 		diag[c] -= Lx[i];
-	//	diag->co[r] -= Lx->co[i];
 		diag[r] -= Lx[i];
-
-	//	if(r == c+1) udiag->co[c] = Lx->co[i];
+		
 		if(r == c+1) udiag[c] = Lx[i];
-	//	if(i<Li->nh){
-		if(i<Li.size()){
-		//	while(i >= Lp->co[c]) c++;
-			while(i > Lp[c]) c++;
+		if(i<Li.size()-1){
+			while(i >= Lp[c]) c++;
 		}
 	}
 }
 
+
+
 //void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(DOUBLEVECTOR *product, DOUBLEVECTOR *x, DOUBLEVECTOR *y,
 //																	LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
+
 
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<double>& y,
 																	const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
@@ -1722,50 +1718,35 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 	}
 
 	c = 1;
-//	for(i=1;i<=Li->nh;i++){
+
 	for(i=1;i<Li.size();i++){
-	//	r = Li->co[i];
 		r = Li[i];
 
 		if(r > c){
-			//product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
-			product[c] += Lx[i] * (x[r] - x[c]);
-			//product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
-			product[r] += Lx[i] * (x[c] - x[r]);
+			printf("product_using_only_strict_lower_diagonal_part: r:%ld c:%ld i:%ld Lx:%f x->co[c]:%f xi->co[r]: %f\n",r,c,i,Lx[i],x[c],x[r]);
+
+						product[c] += Lx[i] * (x[r] - x[c]);
+						product[r] += Lx[i] * (x[c] - x[r]);
 		}else if(r < c){
-			//printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li->nh,Lp[x->nh],x->nh);
-			printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
-            t_error("matrix is not L, see function: " + std::string(__FUNCTION__));
+				printf(" product_using_only_strict_lower_diagonal_part_plus_identity_by_vector r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
+            t_error("product_using_only_strict_lower_diagonal_part_plus_identity_by_vector: matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
-	//	if(i<Li->nh){
 		if(i<Li.size()){
-		//	while(i >= Lp->co[c]) c++;
-			while(i > Lp[c]) c++;
+			while(i >= Lp[c]) c++;
 		}
 	}
 }
 
-//double product(DOUBLEVECTOR *a, DOUBLEVECTOR *b){
 double product(const GeoVector<double>& a, const GeoVector<double>& b){
 
 	double p=0.;
-//  long i,n=a->nh;
+
 	long i ;
 
 	for(i=1;i<a.size();i++){
-		//p += a->co[i] * b->co[i];
 		p += a[i] * b[i];
 	}
 
 	return(p);
 }
-/*
-char *copy_stringnames(const char *origin){
-	char *dest;
-	//dest=origin;
-	dest=(char *)malloc((size_t)(strlen(origin)+4)*sizeof(char));
-	strcpy(dest,origin);
-	return dest;
-}
-*/
