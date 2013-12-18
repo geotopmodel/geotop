@@ -133,58 +133,56 @@ int main(int argc,char *argv[]){
 	elapsed_time_start = 0.;
    
 	/*dinamic allocations:*/
-//	UV=(T_INIT *)malloc(sizeof(T_INIT));
+
+	
 	UV=new TInit();
 	if(!UV) t_error("UV was not allocated");
  
-//	adt=(ALLDATA *)malloc(sizeof(ALLDATA));
 	adt=new AllData();
 
 	if(!adt){
 		t_error("adt was not allocated");
 	}else {
 		
-	//	adt->I=(TIMES *)malloc(sizeof(TIMES));
+	
 		adt->I=new Times();
 		if(!(adt->I)) t_error("times was not allocated");	
 		
-	//	adt->T=(TOPO *)malloc(sizeof(TOPO));
+	
 		adt->T=new Topo();
 		if(!(adt->T)) t_error("top was not allocated");
 
-	//	adt->S=(SOIL *)malloc(sizeof(SOIL));
+
 		adt->S=new Soil();
 		if(!(adt->S)) t_error("sl was not allocated");
 		
-	//	adt->L=(LAND *)malloc(sizeof(LAND));
+	
 		adt->L=new Land();
 		if(!(adt->L)) t_error("land was not allocated");
 		
-	//	adt->W=(WATER *)malloc(sizeof(WATER));
+	
 		adt->W=new Water();
 		if(!(adt->W)) t_error("water was not allocated");
 		
-	//	adt->P=(PAR *)malloc(sizeof(PAR));
-		adt->P=new Par();
+			adt->P=new Par();
 		if(!(adt->P)) t_error("par was not allocated");
 		
-	//	adt->C=(CHANNEL *)malloc(sizeof(CHANNEL));
+	
 		adt->C=new Channel();
 		if(!(adt->C)) t_error("channel was not allocated");
 		
-	//	adt->E=(ENERGY *)malloc(sizeof(ENERGY));
+	
 		adt->E = new Energy();
 		if(!(adt->E)) t_error("egy was not allocated");
 		
-	//	adt->N=(SNOW *)malloc(sizeof(SNOW));
+	
 		adt->N=new Snow();
 		if(!(adt->N)) t_error("snow was not allocated");	
 		
-	//	adt->G=(GLACIER *)malloc(sizeof(GLACIER));
+	
 		adt->G = new Glacier();
 		if(!(adt->G)) t_error("glac was not allocated"); 
 		
-	//	adt->M=(METEO *)malloc(sizeof(METEO));
 		adt->M=new Meteo();
 		if(!(adt->M)) t_error("met was not allocated"); 
 		
@@ -202,6 +200,7 @@ int main(int argc,char *argv[]){
 
 #endif	
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
+		
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
 		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
@@ -223,6 +222,7 @@ int main(int argc,char *argv[]){
 	
 
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
+
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 		free(adt);
 
@@ -238,6 +238,7 @@ int main(int argc,char *argv[]){
 
 
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
+
 void time_loop(AllData *A, mio::IOManager& iomanager){
 
 	clock_t tstart, tend;
@@ -443,7 +444,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					}
 					
 #ifdef VERBOSE
-					printf("Dt:%f min:%f\n",Dt,A->P->min_Dt); 
+					printf("time-loop: Dt:%f min:%f\n",Dt,A->P->min_Dt); 
 #endif
 					
 					
@@ -581,7 +582,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 //	deallocate_soil_state(C);
 //	deallocate_veg_state(V);
 //	free_doublevector(a);
-//	free_doublevector(Vsub_ch);
+	//	free_doublevector(Vsub_ch);
 //	free_doublevector(Vsup_ch);
 
 }
