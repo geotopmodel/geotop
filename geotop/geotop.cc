@@ -488,10 +488,10 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 			//	add_doublevector(Vsub_ch, A->C->Vsub);
 			// 	TODO:Noori- we use std::transform  instead of  add_doublevector() method, need to check if they behave the same
-				std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), A->C->Vsub.data.begin(),plus<double>());
+				std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), A->C->Vsub.data.end(),plus<double>());
 			//	add_doublevector(Vsup_ch, A->C->Vsup);
 			// 	TODO:Noori- we use std::transform  instead of  add_doublevector() method, need to check if they behave the same
-				std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), A->C->Vsup.data.begin(),plus<double>());
+				std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), A->C->Vsup.data.end(),plus<double>());
 				A->C->Vout += Vout;
 				A->W->Voutbottom += Vbottom;
 				A->W->Voutlandsub += Voutsub;
