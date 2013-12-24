@@ -83,7 +83,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		start = clock();
 
 		
-		ds=sqrt(UV->U[1]*UV->U[2]);
+		/* ds=sqrt(UV->U[1]*UV->U[2]);
 		for (j=1; j<adt->W->H1.size(); j++) {
 			l=adt->T->lrc_cont[j][1];
 			r=adt->T->lrc_cont[j][2];
@@ -98,7 +98,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 				
 			}
 			if(l==0) mo += area * 1.E-3 * adt->W->Pnet[r][c];
-		}
+		}*/
 		
 		
 		
@@ -112,7 +112,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 			return 1;
 		}
 		
-		ds=sqrt(UV->U[1]*UV->U[2]);
+		/*ds=sqrt(UV->U[1]*UV->U[2]);
 		for (j=1; j<adt->W->H1.size(); j++) {
 			l=adt->T->lrc_cont[j][1];
 			r=adt->T->lrc_cont[j][2];
@@ -132,7 +132,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 #endif 		
 		MM1 = m1;
 		MM2 = m2;
-		MMR += mo;
+		MMR += mo;*/
 		
 
 		
@@ -1923,21 +1923,19 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt){
+
+
   void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
 	
-//	double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, areach, Vmax, H, Hch, DH;
 	double q, ds=sqrt(UV->U[1]*UV->U[2]), area, areach, Vmax, H, Hch, DH;
 	long r, c, ch;
 	
 	for (ch=1; ch<=par->total_channel; ch++) {
 		
-	//	r = cnet->r->co[ch];
 		r = cnet->r[ch];
-	//	c = cnet->c->co[ch];
 		c = cnet->c[ch];
-		
-	//	H = Fmax(0.0 , h[ch]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
 		H = Fmax(0.0 , h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
+		
 	//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.) - cnet->length->co[ch] * par->w_dx * ds;
 		area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
 		
@@ -2002,6 +2000,8 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog, long *cnt){
+// piccola divergenza con codice c in questa routine.. 
+
   void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
 	
 	long ch, r, c;
@@ -2125,58 +2125,51 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt){
+
+
   void find_dt_max_channel(short DDcomplex, double Courant, GeoMatrix<double>& h, Topo *top, Channel *cnet, Par *par, Land *land, double t, double *dt){
 	
 	long r, c, ch, R, C;		
 	double Ks, q, Vmax, i, H, dn, dD, ds;
 	
-//	ds = sqrt(UV->U->co[1]*UV->U->co[2]);
 	ds = sqrt(UV->U[1]*UV->U[2]);
 	dn = par->w_dx*ds;
 	
 	for(ch=1;ch<=par->total_channel;ch++){
 		
 	//	if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down->co[ch]));
-		if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down[ch]));
+	//	if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down[ch]));
 
-	//	r = cnet->r->co[ch];
 		r = cnet->r[ch];
-	//	c = cnet->c->co[ch];
 		c = cnet->c[ch];
-	//	H = Fmax(0., h[ch]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);
 		H = Fmax(0., h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);
 		
 		if(H > par->min_hsup_channel){
 			
-		//	if(DDcomplex==1) draining_channel(1., ch, top->Z0, h, cnet, &(cnet->ch_down->co[ch]));
-			if(DDcomplex==1) draining_channel(1., ch, top->Z0, h, cnet, &(cnet->ch_down[ch]));
-			
-		//	Vmax = 1.E-3*H*dn*cnet->length->co[ch];	//m3
+				draining_channel(1., ch, top->Z0, h, cnet, &(cnet->ch_down[ch]));
+
+
+	
 			Vmax = 1.E-3*H*dn*cnet->length[ch];	//m3
 			
-		//	if(top->is_on_border->co[r][c] == 1 && cnet->ch_down->co[ch]==ch){//outlet section
 			if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
 
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*dn;	//[m3/s]
 				
 			}else{
 				
-			//	R = cnet->r->co[cnet->ch_down->co[ch]];
+			
 				R = cnet->r[cnet->ch_down[ch]];
-			//	C = cnet->c->co[cnet->ch_down->co[ch]];
 				C = cnet->c[cnet->ch_down[ch]];
 				
 				if( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) ){
-				//	dD = find_3Ddistance(ds*sqrt(2.), top->Z0->co[r][c] - top->Z0->co[R][C]);
 					dD = find_3Ddistance(ds*sqrt(2.), top->Z0[r][c] - top->Z0[R][C]);
 				}else {
-				//	dD = find_3Ddistance(ds, top->Z0->co[r][c] - top->Z0->co[R][C]);
 					dD = find_3Ddistance(ds, top->Z0[r][c] - top->Z0[R][C]);
 				}
 				
 				Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 				
-			//	i = ( (top->Z0->co[r][c] - top->Z0->co[R][C] ) + 1.E-3*(Fmax(0.0, h[ch]) - Fmax(0.0, h[cnet->ch_down->co[ch]])) ) / dD;
 				i = ( (top->Z0[r][c] - top->Z0[R][C] ) + 1.E-3*(Fmax(0.0, h(0,ch)) - Fmax(0.0, h(0,cnet->ch_down[ch]))) ) / dD;
 				
 				if(i<0) i=0.;
@@ -2192,8 +2185,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			
 		}else{
 			
-		//	if(DDcomplex==1) cnet->ch_down->co[ch] = ch;
-			if(DDcomplex==1) cnet->ch_down[ch] = ch;
+			cnet->ch_down[ch] = ch;
 			
 		}
 	}
@@ -2205,6 +2197,9 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f, long *cnt)
+
+
+
   void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
 
 	long r,c,ch,R,C;                                    

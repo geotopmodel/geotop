@@ -1326,90 +1326,59 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     /****************************************************************************************************/
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
-
+    // revision performed on 24.12.2013// 
+	
     if(par->output_surfenergy_bin == 1){
         if(strcmp(files[fradnet] , string_novalue) != 0){
 		    egy->Rn_mean.resize(par->total_pixel+1,0.0);
             egy->Rn.resize(par->total_pixel+1,0.0);
         }
         if(strcmp(files[fradLWin] , string_novalue) != 0){
-            //	egy->LWin_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LWin_mean, 0.);
             egy->LWin_mean.resize(par->total_pixel+1, 0.0);
-            //	egy->LWin = new_doublevector(par->total_pixel);
             egy->LWin.resize(par->total_pixel+1);
         }
         if(strcmp(files[fradLW] , string_novalue) != 0){
-            //	egy->LW_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LW_mean, 0.);
             egy->LW_mean.resize(par->total_pixel+1,0.0);
-            //	egy->LW = new_doublevector(par->total_pixel);
             egy->LW.resize(par->total_pixel+1);
         }
         if(strcmp(files[fradSW] , string_novalue) != 0){
-            //	egy->SW_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->SW_mean, 0.);
             egy->SW_mean.resize(par->total_pixel+1,0.0);
-            //	egy->SW = new_doublevector(par->total_pixel);
             egy->SW.resize(par->total_pixel+1);
         }
         if(strcmp(files[fLE] , string_novalue) != 0){
-            //	egy->ET_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->ET_mean, 0.);
             egy->ET_mean.resize(par->total_pixel+1,0.0);
-            //	egy->LE = new_doublevector(par->total_pixel);
             egy->LE.resize(par->total_pixel+1);
         }
         if(strcmp(files[fH] , string_novalue) != 0){
-            //	egy->H_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->H_mean, 0.);
             egy->H_mean.resize(par->total_pixel+1,0.0);
-            //	egy->H = new_doublevector(par->total_pixel);
             egy->H.resize(par->total_pixel+1);
         }
         if(strcmp(files[fG] , string_novalue) != 0){
-            //	egy->SEB_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->SEB_mean, 0.);
             egy->SEB_mean.resize(par->total_pixel+1,0.0);
-            //	egy->G = new_doublevector(par->total_pixel);
             egy->G.resize(par->total_pixel+1);
         }
         if(strcmp(files[fTs] , string_novalue) != 0){
-            //	egy->Ts_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Ts_mean, 0.);
             egy->Ts_mean.resize(par->total_pixel+1,0.0);
-            //	egy->Ts = new_doublevector(par->total_pixel);
             egy->Ts.resize(par->total_pixel+1);
         }
         if(strcmp(files[fradSWin] , string_novalue) != 0){
-            //	egy->Rswdown_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Rswdown_mean, 0.);
             egy->Rswdown_mean.resize(par->total_pixel+1,0.0);
-            //	egy->SWin = new_doublevector(par->total_pixel);
             egy->SWin.resize(par->total_pixel+1);
         }
         if(strcmp(files[fradSWinbeam] , string_novalue) != 0){
-            //	egy->Rswbeam_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Rswbeam_mean, 0.);
             egy->Rswbeam_mean.resize(par->total_pixel+1,0.0);
-            //	egy->SWinb = new_doublevector(par->total_pixel);
             egy->SWinb.resize(par->total_pixel+1);
         }
         if(strcmp(files[fshadow] , string_novalue) != 0){
-            //	egy->nDt_shadow=new_longvector(par->total_pixel);
-            //	initialize_longvector(egy->nDt_shadow,0);
             egy->nDt_shadow.resize(par->total_pixel+1,0.0);
-            //	egy->nDt_sun=new_longvector(par->total_pixel);
-            //	initialize_longvector(egy->nDt_sun,0);
             egy->nDt_sun.resize(par->total_pixel+1,0.0);
-            //	egy->shad=new_shortvector(par->total_pixel);
             egy->shad.resize(par->total_pixel+1,0.0);
         }
     }
 
     egy->sun = (double*)malloc(12*sizeof(double));
 
-	// di sopra tutti a posto  /// 
+
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
         if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
@@ -1506,24 +1475,17 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 
     //vectors used in energy_balance()
+	
     egy->Tgskin_surr.resize(Nr+1, Nc+1, 0.0);
-
-    //	initialize_doublematrix(egy->SWrefl_surr, 0.);
     egy->SWrefl_surr.resize(Nr+1, Nc+1, 0.0);
-
     egy->Dlayer.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     egy->liq.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     egy->ice.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     egy->Temp.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->deltaw = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->deltaw.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
-
-    //	egy->SWlayer = new_doublevector0( par->max_snow_layers + 1 );
     egy->SWlayer.resize(par->max_snow_layers+1+1);
 
-    //	egy->soil_transp_layer = new_doublevector(land->root_fraction->nch);
-    //	initialize_doublevector(egy->soil_transp_layer, 0.);
-	//  tolto +1 dalla linea qua sotto 
+    //  tolto +1 dalla linea qua sotto 24.12.2013 S.C.&S.E. 
     egy->soil_transp_layer.resize(land->root_fraction.getCols());
 
     //	egy->dFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );

@@ -610,6 +610,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	
 	//CANOPY TRANSPIRATION (parameters from Best (1998))
 	//solar radiation [Best, (1998); Dolman et al., 1991]
+	
 	fS=SWin/(SWin+250.0)*1.25;
 	
 	//pressure deficit [Best, (1998); Dickinson et al., 1991]
