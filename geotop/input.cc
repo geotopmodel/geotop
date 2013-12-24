@@ -1329,10 +1329,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     if(par->output_surfenergy_bin == 1){
         if(strcmp(files[fradnet] , string_novalue) != 0){
-            //	egy->Rn_mean = new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Rn_mean, 0.);
-            egy->Rn_mean.resize(par->total_pixel+1,0.0);
-            //	egy->Rn = new_doublevector(par->total_pixel);
+		    egy->Rn_mean.resize(par->total_pixel+1,0.0);
             egy->Rn.resize(par->total_pixel+1,0.0);
         }
         if(strcmp(files[fradLWin] , string_novalue) != 0){
@@ -1412,6 +1409,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     egy->sun = (double*)malloc(12*sizeof(double));
 
+	// di sopra tutti a posto  /// 
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
         if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
@@ -1508,21 +1506,14 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 
     //vectors used in energy_balance()
-    //	egy->Tgskin_surr = new_doublematrix(Nr, Nc);
-    //	initialize_doublematrix(egy->Tgskin_surr, 0.);
     egy->Tgskin_surr.resize(Nr+1, Nc+1, 0.0);
 
-    //	egy->SWrefl_surr = new_doublematrix(Nr, Nc);
     //	initialize_doublematrix(egy->SWrefl_surr, 0.);
     egy->SWrefl_surr.resize(Nr+1, Nc+1, 0.0);
 
-    //	egy->Dlayer = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->Dlayer.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->liq = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->liq.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->ice = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->ice.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->Temp = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->Temp.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
     //	egy->deltaw = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->deltaw.resize( Nl + par->max_snow_layers + par->max_glac_layers +1);
@@ -1532,7 +1523,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //	egy->soil_transp_layer = new_doublevector(land->root_fraction->nch);
     //	initialize_doublevector(egy->soil_transp_layer, 0.);
-    egy->soil_transp_layer.resize(land->root_fraction.getCols()+1);
+	//  tolto +1 dalla linea qua sotto 
+    egy->soil_transp_layer.resize(land->root_fraction.getCols());
 
     //	egy->dFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->dFenergy.resize( Nl + par->max_snow_layers + par->max_glac_layers+1);

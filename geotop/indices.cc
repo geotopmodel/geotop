@@ -183,6 +183,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 //void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n){
 
 
+
 void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n){
 	//Ai = line index
 	//Ap = number of values for each row
@@ -191,7 +192,11 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	long m=0;
 	long N, M;
 	
-	if (cnet->r[1] > 0) m = cnet->r.size();
+//  note: if we have channel (m) should be one element less than r.size()  
+//  to double check with/without channel 
+//  S.C. 24.12.2013
+	
+	if (cnet->r[1] > 0) m = cnet->r.size()-1;
 	
 	N = n*(Nl+1);
 	M = m*(Nl+1);
