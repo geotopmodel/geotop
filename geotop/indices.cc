@@ -88,7 +88,7 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch){
 	long cont=0;
 	long l, ch;
 	
-	for (ch=1; ch<nch; ch++) {
+	for (ch=1; ch<=nch; ch++) {
 		for (l=0; l<=Nl; l++) {
 			cont++;
 			ch3[l][ch]=cont;
@@ -146,22 +146,18 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 				if(i[l][r-1][c]>j) cnt ++;
 			}
 			
-		//	if(l>0 && (long)LC->co[r+1][c]!=number_novalue){
 			if((long)LC[r+1][c]!=number_novalue){
 				if(i[l][r+1][c]>j) cnt ++;
 			}
 			
-		//	if(l>0 && (long)LC->co[r][c-1]!=number_novalue){
 			if((long)LC[r][c-1]!=number_novalue){
 				if(i[l][r][c-1]>j) cnt ++;
 			}
 			
-		//	if(l>0 && (long)LC->co[r][c+1]!=number_novalue){
 			if((long)LC[r][c+1]!=number_novalue){
 				if(i[l][r][c+1]>j) cnt ++;
 			}
 			
-		//	if(l>0 && cnet->ch->co[r][c]>0) cnt++;
 			if(l>0 && cnet->ch[r][c]>0) cnt++;
 		}
 	}
@@ -185,8 +181,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 
 
 void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n){
-	//Ai = line index
-	//Ap = number of values for each row
+
 	long j,jj,l,r,c;
 	long cnt = 0;
 	long m=0;
