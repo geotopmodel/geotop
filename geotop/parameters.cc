@@ -838,23 +838,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	land->ty[1][jHveg] = assignation_number(flog, 17, 0, keyword, num_param, num_param_components, 1000., 0);
 	land->ty[1][jz0thresveg] = assignation_number(flog, 18, 0, keyword, num_param, num_param_components, land->ty[1][jHveg], 0);
 	land->ty[1][jz0thresveg2] = assignation_number(flog, 19, 0, keyword, num_param, num_param_components, land->ty[1][jz0thresveg], 0);
-#else
-    lConfParamGetResult = lConfigStore->get("SoilRoughness", lDoubleTempVector) ;
-	land->ty[1][jz0] = lDoubleTempVector[0] ;
-    
-    lConfParamGetResult = lConfigStore->get("ThresSnowSoilRough", lDoubleTempVector) ;
-	land->ty[1][jz0thressoil] = lDoubleTempVector[0] ;
-
-    lConfParamGetResult = lConfigStore->get("VegHeight", lDoubleTempVector) ;
-    land->ty[1][jHveg] = lDoubleTempVector[0] ;
-
-    lConfParamGetResult = lConfigStore->get("ThresSnowVegUp", lDoubleTempVector) ;
-    land->ty[1][jz0thresveg] = lDoubleTempVector[0] ;
-
-    lConfParamGetResult = lConfigStore->get("ThresSnowVegDown", lDoubleTempVector) ;
-    land->ty[1][jz0thresveg2] = lDoubleTempVector[0] ;
-#endif
-    
 	land->ty[1][jLSAI] = assignation_number(flog, 20, 0, keyword, num_param, num_param_components, 1., 0);
 	land->ty[1][jcf] = assignation_number(flog, 21, 0, keyword, num_param, num_param_components, 0., 0);
 	land->ty[1][jdecay0] = assignation_number(flog, 22, 0, keyword, num_param, num_param_components, 2.5, 0);
@@ -875,13 +858,99 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	land->ty[1][jcm] = assignation_number(flog, 37, 0, keyword, num_param, num_param_components, 0.5, 0);
 	land->ty[1][jN] = assignation_number(flog, 38, 0, keyword, num_param, num_param_components, 0., 0);
 	land->ty[1][jdv] = assignation_number(flog, 39, 0, keyword, num_param, num_param_components, 50., 0);
-		
+#else
+    lConfParamGetResult = lConfigStore->get("SoilRoughness", lDoubleTempVector) ;
+	land->ty[1][jz0] = lDoubleTempVector[0] ;
+    
+    lConfParamGetResult = lConfigStore->get("ThresSnowSoilRough", lDoubleTempVector) ;
+	land->ty[1][jz0thressoil] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegHeight", lDoubleTempVector) ;
+    land->ty[1][jHveg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("ThresSnowVegUp", lDoubleTempVector) ;
+    land->ty[1][jz0thresveg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("ThresSnowVegDown", lDoubleTempVector) ;
+    land->ty[1][jz0thresveg2] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("LSAI", lDoubleTempVector) ;
+	land->ty[1][jLSAI] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("CanopyFraction", lDoubleTempVector) ;
+    land->ty[1][jcf] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("DecayCoeffCanopy", lDoubleTempVector) ;
+    land->ty[1][jdecay0] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegSnowBurying", lDoubleTempVector) ;
+    land->ty[1][jexpveg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("RootDepth", lDoubleTempVector) ;
+    land->ty[1][jroot] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("MinStomatalRes", lDoubleTempVector) ;
+    land->ty[1][jrs] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegReflectVis", lDoubleTempVector) ;
+    land->ty[1][jvR_vis] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegReflNIR", lDoubleTempVector) ;
+    land->ty[1][jvR_nir] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegTransVis", lDoubleTempVector) ;
+    land->ty[1][jvT_vis] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegTransNIR", lDoubleTempVector) ;
+    land->ty[1][jvT_nir] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("LeafAngles", lDoubleTempVector) ;
+    land->ty[1][jvCh] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("CanDensSurface", lDoubleTempVector) ;
+    land->ty[1][jcd] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SoilAlbVisDry", lDoubleTempVector) ;
+    land->ty[1][ja_vis_dry] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SoilAlbNIRDry", lDoubleTempVector) ;
+    land->ty[1][ja_nir_dry] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SoilAlbVisWet", lDoubleTempVector) ;
+    land->ty[1][ja_vis_sat] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SoilAlbNIRWet", lDoubleTempVector) ;
+    land->ty[1][ja_nir_sat] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SoilEmissiv", lDoubleTempVector) ;
+    land->ty[1][jemg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("SurFlowResLand", lDoubleTempVector) ;
+    land->ty[1][jcm] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("RoughElemXUnitArea", lDoubleTempVector) ;
+    land->ty[1][jN] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("RoughElemDiam", lDoubleTempVector) ;
+    land->ty[1][jdv] = lDoubleTempVector[0] ;
+#endif
+
+#ifdef STAGING_FOR_REMOVING
 	for (size_t i=2; i<=par->n_landuses; i++) {
 		for (size_t j=1; j<=nlandprop; j++) {
 			land->ty[i][j] = assignation_number(flog, 15+j-1, i-1, keyword, num_param, num_param_components, land->ty[i-1][j], 0);
 		}
 	}
-	
+#else
+    //TODO: to be integrated
+	for (size_t i=2; i<=par->n_landuses; i++) {
+		for (size_t j=1; j<=nlandprop; j++) {
+			land->ty[i][j] = assignation_number(flog, 15+j-1, i-1, keyword, num_param, num_param_components, land->ty[i-1][j], 0);
+		}
+	}
+#endif
+
+#ifdef STAGING_FOR_REMOVING
 	//former block 2
 	par->imp = assignation_number(flog, 40, 0, keyword, num_param, num_param_components, 7., 0);
 	par->free_drainage_bottom = assignation_number(flog, 41, 0, keyword, num_param, num_param_components, 0., 0);
@@ -908,6 +977,84 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->min_hsup_channel = assignation_number(flog, 60, 0, keyword, num_param, num_param_components, 1., 0);
 	par->min_dhsup_land_channel_in = assignation_number(flog, 61, 0, keyword, num_param, num_param_components, 1., 0);
 	par->dtmin_sup = assignation_number(flog, 62, 0, keyword, num_param, num_param_components, 0.01, 0);
+#else
+	//former block 2
+    
+    lConfParamGetResult = lConfigStore->get("FrozenSoilHydrCondReduction", lDoubleTempValue) ;                         /*  40 */
+	par->imp = lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("FreeDrainageAtBottom", lDoubleTempValue) ;                                /*  41 */
+    par->free_drainage_bottom = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FreeDrainageAtLateralBorder", lDoubleTempValue) ;                         /*  42 */
+    par->free_drainage_lateral = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("RichardTol", lDoubleTempValue) ;                                          /*  43 */
+    par->TolVWb = lDoubleTempValue ;
+
+	par->RelTolVWb = GTConst::RelativeErrorRichards;
+	par->MaxErrWb = 1.E99;
+
+    lConfParamGetResult = lConfigStore->get("RichardMaxIter", lDoubleTempValue) ;                                      /*  44 */
+    par->MaxiterTol = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("RichardInitForc", lDoubleTempValue) ;                                     /*  45 */
+	par->TolCG = lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("MinLambdaWater", lDoubleTempValue) ;                                      /*  46 */
+    par->min_lambda_wat = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxTimesMinLambdaWater", lDoubleTempValue) ;                              /*  47 */
+    par->max_times_min_lambda_wat = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ExitMinLambdaWater", lDoubleTempValue) ;                                  /*  48 */
+    par->exit_lambda_min_wat = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinTimeStep", lDoubleTempValue) ;                                         /*  49 */
+    par->min_Dt = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SurFlowResExp", lDoubleTempValue) ;                                       /*  50 */
+    par->gamma_m = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ThresWaterDepthLandInf", lDoubleTempValue) ;                              /*  51 */
+    par->thres_hsup_1 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ThresWaterDepthLandSup", lDoubleTempValue) ;                              /*  52 */
+    par->thres_hsup_2 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SurFlowResChannel", lDoubleTempValue) ;                                   /*  53 */
+    par->Ks_channel = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ThresWaterDepthChannel", lDoubleTempValue) ;                              /*  54 */
+    par->thres_hchannel = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("RatioChannelWidthPixelWidth", lDoubleTempValue) ;                         /*  55 */
+    par->w_dx = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ChannelDepression", lDoubleTempValue) ;                                   /*  56 */
+    par->depr_channel = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxCourantSupFlowLand", lDoubleTempValue) ;                               /*  57 */
+    par->max_courant_land = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxCourantSupFlowChannel", lDoubleTempValue) ;                            /*  58 */
+    par->max_courant_channel = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinSupWaterDepthLand", lDoubleTempValue) ;                                /*  59 */
+    par->min_hsup_land = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinSupWaterDepthChannel", lDoubleTempValue) ;                             /*  60 */
+    par->min_hsup_channel = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinDiffSupWaterDepthLandChannel", lDoubleTempValue) ;                     /*  61 */
+    par->min_dhsup_land_channel_in = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinTimeStepSupFlow", lDoubleTempValue) ;                                  /*  62 */
+	par->dtmin_sup = lDoubleTempValue ;
+    
+#endif
+
+#ifdef STAGING_FOR_REMOVING
 	//former block 3
 	par->latitude = assignation_number(flog, 63, 0, keyword, num_param, num_param_components, 45., 0);
 	par->longitude = assignation_number(flog, 64, 0, keyword, num_param, num_param_components, 0., 0);
@@ -937,6 +1084,94 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->Zboundary = assignation_number(flog, 88, 0, keyword, num_param, num_param_components, 1.E20, 0);
 	par->Tboundary = assignation_number(flog, 89, 0, keyword, num_param, num_param_components, 20., 0);
 	par->Fboundary = assignation_number(flog, 90, 0, keyword, num_param, num_param_components, 0., 0);
+#else
+    //former block 3
+    lConfParamGetResult = lConfigStore->get("Latitude", lDoubleTempValue) ;                                            /*  63 */
+    par->latitude = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("Longitude", lDoubleTempValue) ;                                           /*  64 */
+    par->longitude = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("Vmin" , lDoubleTempValue) ;                                               /*  65 */
+    par->Vmin = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("RHmin" , lDoubleTempValue) ;                                              /*  66 */
+    par->RHmin = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("AlphaSnow", lDoubleTempValue) ;                                           /*  67 */
+    par->alpha_snow = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("HighestNodeCorrespondsToLayer", lDoubleTempValue) ;                       /*  68 */
+    par->nsurface = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("HeatEqTol", lDoubleTempValue) ;                                           /*  69 */
+    par->tol_energy = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("HeatEqMaxIter", lDoubleTempValue) ;                                       /*  70 */
+    par->maxiter_energy = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinLambdaEnergy", lDoubleTempValue) ;                                     /*  71 */
+    par->min_lambda_en = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxTimesMinLambdaEnergy", lDoubleTempValue) ;                             /*  72 */
+    par->max_times_min_lambda_en = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ExitMinLambdaEnergy", lDoubleTempValue) ;                                 /*  73 */
+    par->exit_lambda_min_en = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("DEMRotationAngle", lDoubleTempValue) ;                                    /*  74 */
+    par->dem_rotation = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("CanopyMaxIter", lDoubleTempValue) ;                                       /*  75 */
+    par->maxiter_canopy = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("BusingerMaxIter", lDoubleTempValue) ;                                     /*  76 */
+    par->maxiter_Businger = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("TsMaxIter" , lDoubleTempValue) ;                                          /*  77 */
+    par->maxiter_Ts = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("LocMaxIter" , lDoubleTempValue) ;                                         /*  78 */
+    par->maxiter_Loc = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("CanopyStabCorrection" , lDoubleTempValue) ;                               /*  79 */
+    par->stabcorr_incanopy = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("Iobsint" , lDoubleTempValue) ;                                            /*  80 */
+    par->iobsint = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("Dn" , lDoubleTempValue) ;                                                 /*  81 */
+    par->dn = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SlopeWeight" , lDoubleTempValue) ;                                        /*  82 */
+    par->slopewt = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("CurvatureWeight" , lDoubleTempValue) ;                                    /*  83 */
+    par->curvewt = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SlopeWeightD" , lDoubleTempValue) ;                                       /*  84 */
+    par->slopewtD = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("CurvatureWeightD" , lDoubleTempValue) ;                                   /*  85 */
+    par->curvewtD = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SlopeWeightI" , lDoubleTempValue) ;                                       /*  86 */
+    par->slopewtI = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("CurvatureWeightI" , lDoubleTempValue) ;                                   /*  87 */
+    par->curvewtI = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ZeroTempAmplitDepth", lDoubleTempValue) ;                                 /*  88 */
+    par->Zboundary = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ZeroTempAmplitTemp", lDoubleTempValue) ;                                  /*  89 */
+    par->Tboundary = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("BottomBoundaryHeatFlux", lDoubleTempValue) ;                              /*  90 */
+	par->Fboundary = lDoubleTempValue ;
+#endif
+
+#ifdef STAGING_FOR_REMOVING
 	//former block 4
 	itools->swe0 = assignation_number(flog, 91, 0, keyword, num_param, num_param_components, 0., 0);
 	itools->rhosnow0 = assignation_number(flog, 92, 0, keyword, num_param, num_param_components, 200., 0);
@@ -969,6 +1204,96 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	//former blocks 5/6
 	par->max_weq_snow = assignation_number(flog, 118, 0, keyword, num_param, num_param_components, 5., 0);
 	par->max_snow_layers = (long)assignation_number(flog, 119, 0, keyword, num_param, num_param_components, 10., 0);
+#else
+    //former block 4
+    lConfParamGetResult = lConfigStore->get("InitSWE", lDoubleTempValue) ;                                            /*  91 */
+    itools->swe0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("InitSnowDensity", lDoubleTempValue) ;                                    /*  92 */
+    itools->rhosnow0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("InitSnowTemp", lDoubleTempValue) ;                                       /*  93 */
+    itools->Tsnow0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("InitSnowAge", lDoubleTempValue) ;                                        /*  94 */
+    itools->agesnow0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ThresTempRain", lDoubleTempValue) ;                                      /*  95 */
+    par->T_rain = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("ThresTempSnow", lDoubleTempValue) ;                                      /*  96 */
+    par->T_snow = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("DewTempOrNormTemp", lDoubleTempValue) ;                                  /*  97 */
+    par->dew = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("AlbExtParSnow", lDoubleTempValue) ;                                      /*  98 */
+    par->aep = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FreshSnowReflVis", lDoubleTempValue) ;                                   /*  99 */
+    par->avo = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FreshSnowReflNIR", lDoubleTempValue) ;                                   /* 100 */
+    par->airo = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("IrriducibleWatSatSnow", lDoubleTempValue) ;                              /* 101 */
+    par->Sr = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowEmissiv", lDoubleTempValue) ;                                        /* 102 */
+    par->epsilon_snow = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowRoughness", lDoubleTempValue) ;                                      /* 103 */
+    par->z0_snow = 0.001*lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowCorrFactor", lDoubleTempValue) ;                                     /* 104 */
+    par->snowcorrfact = lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("RainCorrFactor", lDoubleTempValue) ;                                     /* 105 */
+    par->raincorrfact = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxSnowPorosity", lDoubleTempValue) ;                                    /* 106 */
+    par->snow_maxpor = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("DrySnowDefRate", lDoubleTempValue) ;                                      /* 107 */
+	par->drysnowdef_rate = lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("SnowDensityCutoff", lDoubleTempValue) ;                                   /* 108 */
+    par->snow_density_cutoff = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("WetSnowDefRate", lDoubleTempValue) ;                                      /* 109 */
+    par->wetsnowdef_rate = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowViscosity", lDoubleTempValue) ;                                       /* 110 */
+    par->snow_viscosity = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FetchUp", lDoubleTempValue) ;                                             /* 111 */
+    par->fetch_up = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FetchDown", lDoubleTempValue) ;                                           /* 112 */
+    par->fetch_down = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("BlowingSnowSoftLayerIceContent", lDoubleTempValue) ;                      /* 113 */
+    par->Wice_PBSM = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("TimeStepBlowingSnow", lDoubleTempValue) ;                                 /* 114 */
+    par->Dt_PBSM = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowSMIN", lDoubleTempValue) ;                                            /* 115 */
+    par->snow_smin = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowSMAX", lDoubleTempValue) ;                                            /* 116 */
+    par->snow_smax = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("SnowCURV", lDoubleTempValue) ;                                            /* 117 */
+	par->snow_curv = lDoubleTempValue ;
+	
+	//former blocks 5/6
+    lConfParamGetResult = lConfigStore->get("MaxWaterEqSnowLayerContent", lDoubleTempValue) ;                          /* 118 */
+	par->max_weq_snow = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxSnowLayersMiddle", lDoubleTempValue) ;                                 /* 119 */
+	par->max_snow_layers = (long)lDoubleTempValue ;
+#endif
 	
 	cod = 120;
 	par->max_weq_snow = assignation_number(flog, 118, 0, keyword, num_param, num_param_components, 5., 0);
