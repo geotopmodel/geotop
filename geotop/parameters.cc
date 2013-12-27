@@ -1204,6 +1204,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	//former blocks 5/6
 	par->max_weq_snow = assignation_number(flog, 118, 0, keyword, num_param, num_param_components, 5., 0);
 	par->max_snow_layers = (long)assignation_number(flog, 119, 0, keyword, num_param, num_param_components, 10., 0);
+
+	cod = 120;
 #else
     //former block 4
     lConfParamGetResult = lConfigStore->get("InitSWE", lDoubleTempValue) ;                                            /*  91 */
@@ -1294,17 +1296,24 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     lConfParamGetResult = lConfigStore->get("MaxSnowLayersMiddle", lDoubleTempValue) ;                                 /* 119 */
 	par->max_snow_layers = (long)lDoubleTempValue ;
 #endif
-	
-	cod = 120;
-	par->max_weq_snow = assignation_number(flog, 118, 0, keyword, num_param, num_param_components, 5., 0);
-	n = (long)assignation_number(flog, 119, 0, keyword, num_param, num_param_components, 2., 0);
+    
+	n = par->max_snow_layers ;
 	if(n < 1){
 		fprintf(flog,"Error:: %s must be 1 or larger\n",keyword[119].c_str());
 		printf("Error:: %s must be 1 or larger\n",keyword[119].c_str());
 		t_error("Fatal Error! Geotop is closed.");	
-	}	
+	}
+
+#ifdef STAGING_FOR_REMOVING
 	par->SWE_bottom = assignation_number(flog, 120, 0, keyword, num_param, num_param_components, 20., 0);
 	par->SWE_top = assignation_number(flog, 121, 0, keyword, num_param, num_param_components, 20., 0);
+#else
+    lConfParamGetResult = lConfigStore->get("SWEbottom", lDoubleTempValue) ;                                 /* 120 */
+	par->SWE_bottom = lDoubleTempValue ;
+    lConfParamGetResult = lConfigStore->get("SWEtop", lDoubleTempValue) ;                                 /* 121 */
+	par->SWE_top = lDoubleTempValue ;
+#endif
+    
 	par->max_snow_layers = (long)floor(par->SWE_bottom/par->max_weq_snow) + (long)floor(par->SWE_top/par->max_weq_snow) + n;
 	par->inf_snow_layers.resize(n + 1, 0);
 	fprintf(flog,"Max snow layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",par->max_snow_layers,floor(par->SWE_bottom/par->max_weq_snow),n,floor(par->SWE_top/par->max_weq_snow));
@@ -1315,6 +1324,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 	fprintf(flog,"\n");
 	
+#ifdef STAGING_FOR_REMOVING
 	//former block 7
 	itools->Dglac0 = assignation_number(flog, 122, 0, keyword, num_param, num_param_components, 0., 0);
 	itools->rhoglac0 = assignation_number(flog, 123, 0, keyword, num_param, num_param_components, 800., 0);
@@ -1327,7 +1337,34 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	
 	par->GWE_bottom = assignation_number(flog, 128, 0, keyword, num_param, num_param_components, 0., 0);
 	par->GWE_top = assignation_number(flog, 129, 0, keyword, num_param, num_param_components, 0., 0);
-	
+#else
+	//former block 7
+    lConfParamGetResult = lConfigStore->get("InitGlacierDepth", lDoubleTempValue) ;                                    /* 122 */
+    itools->Dglac0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("InitGlacierDensity", lDoubleTempValue) ;                                  /* 123 */
+    itools->rhoglac0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("InitGlacierTemp", lDoubleTempValue) ;                                     /* 124 */
+    itools->Tglac0 = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("IrriducibleWatSatGlacier", lDoubleTempValue) ;                            /* 125 */
+    par->Sr_glac = lDoubleTempValue ;
+
+    //former block 8
+    lConfParamGetResult = lConfigStore->get("MaxWaterEqGlacLayerContent", lDoubleTempValue) ;                          /* 126 */
+    par->max_weq_glac = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MaxGlacLayersMiddle", lDoubleTempValue) ;                                 /* 127 */
+    n = (long)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("GWEbottom", lDoubleTempValue) ;                                           /* 128 */
+    par->GWE_bottom = lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("GWEtop", lDoubleTempValue) ;                                              /* 129 */
+	par->GWE_top = lDoubleTempValue ;
+#endif
+    
 	if(n < 1 && (par->GWE_bottom > 0 || par->GWE_top > 0)){
 		fprintf(flog,"Error:: %s must be 1 or larger\n",keyword[127].c_str());
 		printf("Error:: %s must be 1 or larger\n",keyword[127].c_str());
@@ -1343,9 +1380,11 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		fprintf(flog, "%ld ",par->inf_glac_layers[i]);
 	}
 	fprintf(flog,"\n");
-	
+
+    par->state_turb = 1;
+
+#ifdef STAGING_FOR_REMOVING
 	//former block 9
-	par->state_turb = 1;
 	par->state_lwrad = (short)assignation_number(flog, 130, 0, keyword, num_param, num_param_components, 9., 0);
 	par->monin_obukhov = (short)assignation_number(flog, 131, 0, keyword, num_param, num_param_components, 1., 0);
 	par->surroundings = (short)assignation_number(flog, 132, 0, keyword, num_param, num_param_components, 0., 0);
@@ -1356,6 +1395,30 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->blowing_snow = (short)assignation_number(flog, 135, 0, keyword, num_param, num_param_components, 0., 0);
 	
 	par->Wmin_BS = assignation_number(flog, 136, 0, keyword, num_param, num_param_components, 8., 0);
+#else
+	//former block 9
+    lConfParamGetResult = lConfigStore->get("LWinParameterization", lDoubleTempValue) ;                                /* 130 */
+    par->state_lwrad = (short)lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("MoninObukhov", lDoubleTempValue) ;                                        /* 131 */
+    par->monin_obukhov = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("Surroundings", lDoubleTempValue) ;                                        /* 132 */
+    par->surroundings = (short)lDoubleTempValue ;
+
+    //distributed option file
+    lConfParamGetResult = lConfigStore->get("WaterBalance", lDoubleTempValue) ;                                        /* 133 */
+    par->wat_balance = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("EnergyBalance", lDoubleTempValue) ;                                       /* 134 */
+    par->en_balance = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("BlowingSnow", lDoubleTempValue) ;                                         /* 135 */
+    par->blowing_snow = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("MinIceContentForBlowingSnow", lDoubleTempValue) ;                         /* 136 */
+	par->Wmin_BS = lDoubleTempValue ;
+#endif
 
 	cod = 137;
 	npoints = 0;

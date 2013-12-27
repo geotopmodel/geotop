@@ -1176,9 +1176,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("ZeroTempAmplitDepth", double(1e+20)) ;
     
-    std::vector<double> lMaxSnowLayersMiddle ;
-    lMaxSnowLayersMiddle += 5,5 ;
-    initValue("MaxSnowLayersMiddle", lMaxSnowLayersMiddle) ;
+    initValue("MaxSnowLayersMiddle", double(10)) ;
     
     initValue("AirTempBasin", double(-1)) ;
     
@@ -1488,10 +1486,8 @@ void geotop::input::ConfigStore::init()
     initValue("TimeFromStartPoint", double(-1)) ;
     
     initValue("CurvatureWeight", double(0)) ;
-    
-    std::vector<double> lMaxWaterEqSnowLayerContent ;
-    lMaxWaterEqSnowLayerContent += 10,10 ;
-    initValue("MaxWaterEqSnowLayerContent", lMaxWaterEqSnowLayerContent) ;
+
+    initValue("MaxWaterEqSnowLayerContent", double(5)) ;
     
     initValue("SoilAll", double(1)) ;
     
