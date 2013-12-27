@@ -1016,7 +1016,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("OutputDepthsVertical", double(0)) ;
     
-    initValue("OutputVegetationMaps", double(0)) ;
+    std::vector<double> lOutputVegetationMaps ;
+    lOutputVegetationMaps += 0 ;
+    initValue("OutputVegetationMaps", lOutputVegetationMaps) ;
     
     initValue("ExitMinLambdaEnergy", double(0)) ;
     
@@ -1084,7 +1086,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("JulianDayFromYear0Glac", double(-1)) ;
     
-    initValue("OutputGlacierMaps", double(0)) ;
+    std::vector<double> lOutputGlacierMaps ;
+    lOutputGlacierMaps += 0 ;
+    initValue("OutputGlacierMaps", lOutputGlacierMaps) ;
     
     std::vector<double> lThetaSat ;
     lThetaSat += 0.5,0.5,0.5,0.5,0.5 ;
@@ -1215,8 +1219,10 @@ void geotop::input::ConfigStore::init()
     initValue("WindCompaction1D", double(0)) ;
     
     initValue("InitGlacierDepth", double(0)) ;
-    
-    initValue("OutputSnowMaps", double(1)) ;
+
+    std::vector<double> lOutputSnowMaps ;
+    lOutputSnowMaps += 1 ;
+    initValue("OutputSnowMaps",lOutputSnowMaps) ;
     
     initValue("SoilLayerNumber", double(5)) ;
     
@@ -1521,7 +1527,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("MinPrecToRestoreFreshSnowAlbedo", double(10)) ;
     
-    initValue("OutputMeteoMaps", double(0)) ;
+    std::vector<double> lOutputMeteoMaps ;
+    lOutputMeteoMaps += 0 ;
+    initValue("OutputMeteoMaps", lOutputMeteoMaps) ;
     
     initValue("Vmin", double(0.5)) ;
     
@@ -1786,7 +1794,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("FreshSnowReflVis", double(0.95)) ;
     
-    initValue("OutputSurfEBALMaps", double(0)) ;
+    std::vector<double> lOutputSurfEBALMaps ;
+    lOutputSurfEBALMaps += 0 ;
+    initValue("OutputSurfEBALMaps", lOutputSurfEBALMaps) ;
     
     initValue("PointAll", double(0)) ;
     
