@@ -539,6 +539,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	long cod, codn, k, n, m, nsoillayers, nmeteo_stations, npoints;
 	double a, minDt=1.E99;
 
+    std::vector<double> lDoubleTempVector ;
+    double lDoubleTempValue ;
+    bool lConfParamGetResult ;
+
 	fprintf(flog,"\n");
 	
 	par->print=0;
@@ -568,7 +572,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 #else
     std::vector<double> lTimeStepEnergyAndWater ;
-    bool lParamGetResult = lConfigStore->get("TimeStepEnergyAndWater", lTimeStepEnergyAndWater) ;
+    lConfParamGetResult = lConfigStore->get("TimeStepEnergyAndWater", lTimeStepEnergyAndWater) ;
 
 	n = (long)GTConst::max_cols_time_steps_file + 1;
 	times->Dt_vector=(double *)malloc(n*sizeof(double));
@@ -666,7 +670,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 #else
     std::vector<double> lNumSimulationTimes ;
-    lParamGetResult = lConfigStore->get("NumSimulationTimes", lNumSimulationTimes) ;
+    lConfParamGetResult = lConfigStore->get("NumSimulationTimes", lNumSimulationTimes) ;
 
 	par->run_times.resize(par->init_date.size() + 1, 0);
 	par->run_times[1] = (long)lNumSimulationTimes[0] ;
@@ -684,7 +688,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->ST = assignation_number(flog, 4, 0, keyword, num_param, num_param_components, 0., 0);
 #else
     double lStandardTimeSimulation ;
-    lParamGetResult = lConfigStore->get("StandardTimeSimulation", lStandardTimeSimulation) ;
+    lConfParamGetResult = lConfigStore->get("StandardTimeSimulation", lStandardTimeSimulation) ;
 	par->ST = lStandardTimeSimulation ;
 #endif
 
@@ -698,7 +702,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 #else
     std::vector<double> lDtPlotDischarge ;
-    lParamGetResult = lConfigStore->get("DtPlotDischarge", lDtPlotDischarge) ;
+    lConfParamGetResult = lConfigStore->get("DtPlotDischarge", lDtPlotDischarge) ;
     size_t lDtPlotDischargeSize = lDtPlotDischarge.size() ;
 	par->Dtplot_discharge[1] = lDtPlotDischarge[0] ;
 	for (size_t i=2; i<par->init_date.size(); i++) {
@@ -732,7 +736,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 #else
     std::vector<double> lDtPlotPoint ;
-    lParamGetResult = lConfigStore->get("DtPlotPoint", lDtPlotPoint) ;
+    lConfParamGetResult = lConfigStore->get("DtPlotPoint", lDtPlotPoint) ;
 
     size_t lDtPlotPointSize = lDtPlotPoint.size() ;
 	par->Dtplot_point[1] = lDtPlotPoint[0] ;
@@ -767,7 +771,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 #else
     std::vector<double> lDtPlotBasin ;
-    lParamGetResult = lConfigStore->get("DtPlotBasin", lDtPlotBasin) ;
+    lConfParamGetResult = lConfigStore->get("DtPlotBasin", lDtPlotBasin) ;
     
 	par->Dtplot_basin[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 0., 0);
 	for (size_t i=2; i<par->init_date.size(); i++) {
@@ -791,7 +795,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		}
 		if(par->Dtplot_basin[i] > 1.E-5) par->state_basin = 1;
 	}
-	
+
+#ifdef STAGING_FOR_REMOVING
 	par->lowpass = (long)assignation_number(flog, 8, 0, keyword, num_param, num_param_components, 0., 0);
 	par->lowpass_curvatures = (long)assignation_number(flog, 9, 0, keyword, num_param, num_param_components, 0., 0);
 	par->sky = (short)assignation_number(flog, 10, 0, keyword, num_param, num_param_components, 0., 0);
@@ -801,14 +806,55 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
     //land cover types
 	par->n_landuses = (long)assignation_number(flog, 14, 0, keyword, num_param, num_param_components, 1., 0);
+#else
+    lConfParamGetResult = lConfigStore->get("NumLowPassFilterOnDemForAll", lDoubleTempValue) ;
+	par->lowpass = (long)lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("NumLowPassFilterOnDemForCurv", lDoubleTempValue);
+	par->lowpass_curvatures = (long)lDoubleTempValue ; ;
+    
+    lConfParamGetResult = lConfigStore->get("FlagSkyViewFactor", lDoubleTempValue) ;
+	par->sky = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("FormatOutputMaps", lDoubleTempValue) ;
+	par->format_out = (short)lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("PointSim", lDoubleTempValue) ;
+	par->point_sim = (short)lDoubleTempValue ;
+
+    lConfParamGetResult = lConfigStore->get("RecoverSim", lDoubleTempValue) ;
+	par->recover = (short)lDoubleTempValue ;
+    
+    lConfParamGetResult = lConfigStore->get("NumLandCoverTypes", lDoubleTempValue) ;
+    //land cover types
+	par->n_landuses = (long)lDoubleTempValue ;
+#endif
 	
 	land->ty.resize(par->n_landuses + 1, nlandprop + 1, 0);
-	
+
+#ifdef STAGING_FOR_REMOVING
 	land->ty[1][jz0] = assignation_number(flog, 15, 0, keyword, num_param, num_param_components, 10., 0);
 	land->ty[1][jz0thressoil] = assignation_number(flog, 16, 0, keyword, num_param, num_param_components, land->ty[1][jz0], 0);
 	land->ty[1][jHveg] = assignation_number(flog, 17, 0, keyword, num_param, num_param_components, 1000., 0);
 	land->ty[1][jz0thresveg] = assignation_number(flog, 18, 0, keyword, num_param, num_param_components, land->ty[1][jHveg], 0);
 	land->ty[1][jz0thresveg2] = assignation_number(flog, 19, 0, keyword, num_param, num_param_components, land->ty[1][jz0thresveg], 0);
+#else
+    lConfParamGetResult = lConfigStore->get("SoilRoughness", lDoubleTempVector) ;
+	land->ty[1][jz0] = lDoubleTempVector[0] ;
+    
+    lConfParamGetResult = lConfigStore->get("ThresSnowSoilRough", lDoubleTempVector) ;
+	land->ty[1][jz0thressoil] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("VegHeight", lDoubleTempVector) ;
+    land->ty[1][jHveg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("ThresSnowVegUp", lDoubleTempVector) ;
+    land->ty[1][jz0thresveg] = lDoubleTempVector[0] ;
+
+    lConfParamGetResult = lConfigStore->get("ThresSnowVegDown", lDoubleTempVector) ;
+    land->ty[1][jz0thresveg2] = lDoubleTempVector[0] ;
+#endif
+    
 	land->ty[1][jLSAI] = assignation_number(flog, 20, 0, keyword, num_param, num_param_components, 1., 0);
 	land->ty[1][jcf] = assignation_number(flog, 21, 0, keyword, num_param, num_param_components, 0., 0);
 	land->ty[1][jdecay0] = assignation_number(flog, 22, 0, keyword, num_param, num_param_components, 2.5, 0);

@@ -1098,7 +1098,7 @@ void geotop::input::ConfigStore::init()
     lGlacPlotDepths += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("GlacPlotDepths", lGlacPlotDepths) ;
     
-    initValue("NumLandCoverTypes", double(8)) ;
+    initValue("NumLandCoverTypes", double(1)) ;
     
     initValue("SnowDensityPoint", double(-1)) ;
     
@@ -1720,7 +1720,7 @@ void geotop::input::ConfigStore::init()
     lRootDepth += 0,30,0,30,0,2000,2000,300 ;
     initValue("RootDepth", lRootDepth) ;
     
-    initValue("RecoverSim", double(1)) ;
+    initValue("RecoverSim", double(0)) ;
     
     initValue("SurfaceEBPoint", double(7)) ;
     
