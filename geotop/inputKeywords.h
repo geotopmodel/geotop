@@ -14,6 +14,7 @@
 #include <boost/any.hpp>
 #include <boost/assign/std/vector.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/signals2/mutex.hpp>
 #include <map>
 #include <algorithm>
 #include <iterator>
@@ -29,6 +30,8 @@ namespace geotop
         const double gDoubleNoValue = -9999;
         
         /** @brief Configuration file parser and storage class
+         *  do not use this class directly, use the singleton
+         *  instance create by the factory class
          */
         class ConfigStore
         {
@@ -141,6 +144,19 @@ namespace geotop
             boost::shared_ptr<std::map<std::string, boost::any> > mValueMap ;
         };
         
+        
+        /** @internal
+         * @brief ConfigStore singleton factory class
+         */
+        class ConfigStoreSingletonFactory {
+        public:
+            static boost::shared_ptr<ConfigStore> getInstance() ;
+
+        private:
+            static boost::shared_ptr<ConfigStore> mInstance ;
+            static boost::signals2::mutex  mMutex ;
+        };
+
     } // namespace input
 } // namespace geotop
 

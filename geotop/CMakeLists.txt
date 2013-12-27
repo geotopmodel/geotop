@@ -1,21 +1,20 @@
 PROJECT(geotop)
 
-	IF(COMMAND CMAKE_POLICY)
+IF(COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0003 NEW)
 ENDIF(COMMAND CMAKE_POLICY)
-
 
 
 	ADD_EXECUTABLE(geotop
 			geotop.cc
 		      )
 
-	ADD_LIBRARY(geotopPartSnow ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_PART_SNOW_LIBRARIES} ${LINKING_MODE}
 			part_snow.h
 			part_snow.cc
 		   )
 
-	ADD_LIBRARY(geotopMeteo ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_METEO_LIBRARIES} ${LINKING_MODE}
 			meteo.h
 			meteo.cc
 			meteodistr.cc
@@ -40,12 +39,12 @@ ENDIF(COMMAND CMAKE_POLICY)
 			pedo.funct.h
 		   )
 
-	ADD_LIBRARY(inputKeywords ${LINKING_MODE}
+	ADD_LIBRARY(${INPUT_KEYWORDS_LIBRARIES} ${LINKING_MODE}
 			inputKeywords.cc
 			inputKeywords.h
 		   )
 
-	ADD_LIBRARY(geotopCommon ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_COMMON_LIBRARIES} ${LINKING_MODE}
 			constants.h
 			datastructs.h
 			struct.geotop.h
@@ -55,18 +54,18 @@ ENDIF(COMMAND CMAKE_POLICY)
 			keywords.cc
 		   )
 
-	ADD_LIBRARY(geotopEnergyBalance ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_ENERGY_BALANCE_LIBRARIES} ${LINKING_MODE}
 			energy.balance.cc
 			energy.balance.h
 		   )
 
 
-	ADD_LIBRARY(geotopWaterBalance ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_WATER_BALANCE_LIBRARIES} ${LINKING_MODE}
 			water.balance.cc
 			water.balance.h
 	)
 
-	ADD_LIBRARY(geotopAll ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_LIBRARIES} ${LINKING_MODE}
             PBSM.cc
 			PBSM.h
 			blowingsnow.cc
@@ -86,7 +85,6 @@ ENDIF(COMMAND CMAKE_POLICY)
             recovering.h
 	)
 
-
 	ADD_LIBRARY(geotopOutPostProcessing ${LINKING_MODE}
 			tables.cc
 			tables.h
@@ -97,7 +95,7 @@ ENDIF(COMMAND CMAKE_POLICY)
 			deallocate.h
 	)
 
-	TARGET_LINK_LIBRARIES(geotopCommon
+	TARGET_LINK_LIBRARIES(${GEOTOP_COMMON_LIBRARIES}
 			${FLUIDTURTLE_LIBRARIES}
 			)
 
@@ -131,6 +129,7 @@ ENDIF(COMMAND CMAKE_POLICY)
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_LIBRARIES}
+            ${INPUT_KEYWORDS_LIBRARIES}
 			${GEOTOP_OUT_POSTPROC_LIBRARIES}
 			${GEOTOP_ENERGY_BALANCE_LIBRARIES}
 			${GEOTOP_WATER_BALANCE_LIBRARIES}

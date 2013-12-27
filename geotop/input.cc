@@ -19,6 +19,7 @@
 #include "input.h"
 #include "parameters.h"
 #include <unistd.h>
+#include <inputKeywords.h>
 
 using namespace std ;
 
@@ -106,6 +107,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //reads the parameters in __control_parameters
     //	temp = join_strings(WORKING_DIRECTORY, program_name);
     temp = WORKING_DIRECTORY + program_name;
+    
+    boost::shared_ptr<geotop::input::ConfigStore> lConfigStore = geotop::input::ConfigStoreSingletonFactory::getInstance() ;
+    const std::string lFilePath (temp) ;
+    bool lParsingRes = lConfigStore->parse(lFilePath) ;
+    if(not lParsingRes)
+    {
+        t_error("Fatal Error! Unable to parse configuration file: " + lFilePath);
+    }
+
     success = read_inpts_par(par, land, times, sl, met, IT, temp, flog);
     //	free(temp);
 

@@ -124,7 +124,15 @@ public:
         
         if( mKey->compare ("") != 0 )
         {
-            (*mMap)[*mKey] = pValue;
+            boost::any lAny = (*mMap)[*mKey] ;
+            if(lAny.type() == typeid(std::vector<double>))
+            {
+                std::vector<double> lValue ;
+                lValue.push_back(pValue) ;
+                (*mMap)[*mKey] = lValue;
+            } else {
+                (*mMap)[*mKey] = pValue;
+            }
         } else {
             std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
         }
@@ -1224,7 +1232,9 @@ void geotop::input::ConfigStore::init()
     lSpecificStorativityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("SpecificStorativityBedrock", lSpecificStorativityBedrock) ;
     
-    initValue("DtPlotDischarge", double(0)) ;
+    std::vector<double> lDtPlotDischarge ;
+    lDtPlotDischarge += 0 ;
+    initValue("DtPlotDischarge", lDtPlotDischarge) ;
     
     std::vector<double> lVMualem ;
     lVMualem += 0.5,0.5,0.5,0.5,0.5 ;
@@ -1247,9 +1257,11 @@ void geotop::input::ConfigStore::init()
     initValue("ThetaRes", lThetaRes) ;
     
     initValue("AlbExtParSnow", double(10)) ;
-    
-    initValue("NumSimulationTimes", double(1)) ;
-    
+
+    std::vector<double> lNumSimulationTimes ;
+    lNumSimulationTimes += 1;
+    initValue("NumSimulationTimes", lNumSimulationTimes) ;
+
     std::vector<double> lThresSnowVegDown ;
     lThresSnowVegDown += 0,200,0,200,0,1900,1900,800 ;
     initValue("ThresSnowVegDown", lThresSnowVegDown) ;
@@ -1316,7 +1328,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("MeanTimeStep", double(-1)) ;
     
-    initValue("TimeStepEnergyAndWater", double(3600)) ;
+    std::vector<double> lTimeStepEnergyAndWater ;
+    lTimeStepEnergyAndWater += 3600 ;
+    initValue("TimeStepEnergyAndWater", lTimeStepEnergyAndWater) ;
     
     std::vector<double> lSoilRoughness ;
     lSoilRoughness += 10,10,10,10,10,10,10,10 ;
@@ -1432,8 +1446,10 @@ void geotop::input::ConfigStore::init()
     initValue("TvegBasin", double(-1)) ;
     
     initValue("GlacTempPoint", double(-1)) ;
-    
-    initValue("DtPlotBasin", double(0)) ;
+
+    std::vector<double> lDtPlotBasin ;
+    lDtPlotBasin += 0;
+    initValue("DtPlotBasin", lDtPlotBasin) ;
     
     initValue("UpwindBorderBlowingSnow", double(0)) ;
     
@@ -1704,7 +1720,7 @@ void geotop::input::ConfigStore::init()
     lRootDepth += 0,30,0,30,0,2000,2000,300 ;
     initValue("RootDepth", lRootDepth) ;
     
-    initValue("RecoverSim", double(0)) ;
+    initValue("RecoverSim", double(1)) ;
     
     initValue("SurfaceEBPoint", double(7)) ;
     
@@ -1791,8 +1807,10 @@ void geotop::input::ConfigStore::init()
     initValue("MaxCourantSupFlowLand", double(0.1)) ;
     
     initValue("LowestWaterTableDepthPoint", double(-1)) ;
-    
-    initValue("DtPlotPoint", double(1)) ;
+
+    std::vector<double> lDtPlotPoint ;
+    lDtPlotPoint += 1 ;
+    initValue("DtPlotPoint", lDtPlotPoint) ;
     
     std::vector<double> lSpecificStorativity ;
     lSpecificStorativity += 1e-07,1e-07,1e-07,1e-07,1e-07 ; 
@@ -1848,3 +1866,18 @@ geotop::input::ConfigStore::~ConfigStore()
 {
     
 }
+
+boost::shared_ptr<geotop::input::ConfigStore> geotop::input::ConfigStoreSingletonFactory::getInstance() {
+    if ( ! mInstance ) {
+        mMutex.lock ();
+        if ( ! mInstance ) {
+            boost::shared_ptr<geotop::input::ConfigStore> lTemp ( new geotop::input::ConfigStore() );
+            mInstance = lTemp ;
+        }
+        mMutex.unlock ();
+    }
+    return mInstance;
+}
+
+boost::shared_ptr<geotop::input::ConfigStore> geotop::input::ConfigStoreSingletonFactory::mInstance ;
+boost::signals2::mutex geotop::input::ConfigStoreSingletonFactory::mMutex ;

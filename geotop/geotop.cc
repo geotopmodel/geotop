@@ -52,6 +52,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include <inputKeywords.h>
+
 using namespace std;
 
 void time_loop(AllData *A, mio::IOManager& iomanager);
