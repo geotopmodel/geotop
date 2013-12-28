@@ -25,27 +25,19 @@
 #include <string>
 #include "../libraries/ascii/rw_maps.h"
 
-//extern T_INIT *UV;
 extern TInit *UV;
 extern long number_novalue;
-//void assign_recovered_map(long n, char *name, DOUBLEMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
-void assign_recovered_map(long n, char *name, DOUBLEMATRIX *assign, Par *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
+void assign_recovered_map(long n, std::string name, DOUBLEMATRIX *assign, Par *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
 
-//void assign_recovered_map_vector(long n, char *name, DOUBLEVECTOR *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
-void assign_recovered_map_vector(long n, char *name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_map_vector(long n, std::string name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
 
-//void assign_recovered_map_long(long n, char *name, LONGMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
-void assign_recovered_map_long(long n, char *name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>&  Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_map_long(long n, std::string name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>&  Zdistr, GeoMatrix<double>& Zpoint);
 
 
-//void assign_recovered_tensor(long n, char *name, DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
-void assign_recovered_tensor(long n, char *name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_tensor(long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
 
-//void assign_recovered_tensor_vector(long n, char *name, DOUBLEMATRIX *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
-void assign_recovered_tensor_vector(long n, char *name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
 
-
-//void assign_recovered_tensor_channel(long n, char *name, DOUBLEMATRIX *assign, LONGVECTOR *r, LONGVECTOR *c, DOUBLEMATRIX *Zdistr);
-void assign_recovered_tensor_channel(long n, char *name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr);
+void assign_recovered_tensor_channel(long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr);
 
 #endif

@@ -72,12 +72,11 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void assign_recovered_map_vector(long n, char *name, DOUBLEVECTOR *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-  void assign_recovered_map_vector(long n, char *name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+  void assign_recovered_map_vector(long n, std::string name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 	long i, r, c;
 //	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
-	char *temp;
+    std::string temp;
 	
 	temp = namefile_i_we2(name, n);
 	
@@ -104,7 +103,6 @@ using namespace std;
 	}*/
 	
 //	free_doublematrix(M);
-	free(temp);	
 }
 
 
@@ -113,14 +111,13 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void assign_recovered_map_long(long n, char *name, LONGMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-  void assign_recovered_map_long(long n, char *name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+  void assign_recovered_map_long(long n, std::string name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 
  	long r, c;
  	//long i;
  //	DOUBLEMATRIX *M;
  	GeoMatrix<double> M;
- 	char *temp;
+      std::string temp;
 
  	temp = namefile_i_we2(name, n);
 
@@ -146,7 +143,6 @@ using namespace std;
  	}*/
 
  //	free_doublematrix(M);
- 	free(temp);
  }
 
 
@@ -155,13 +151,13 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
   //void assign_recovered_tensor(long n, char *name, DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-    void assign_recovered_tensor(long n, char *name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+    void assign_recovered_tensor(long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 
   	long r, c, l;
 //  DOUBLEMATRIX *M;
   	GeoMatrix<double> M;
 
-  	char *temp1, *temp2;
+        std::string temp1, temp2;
 
 // 	for (l=assign->ndl; l<=assign->ndh; l++) {
  	for (l=1; l<assign.getDh(); l++) {  //TODO: assign->ndl  is replaced by 1, need to check!
@@ -191,9 +187,6 @@ using namespace std;
   		}*/
 
   	//	free_doublematrix(M);
-  		free(temp2);
-  		free(temp1);
-
   	}
   }
 
@@ -204,12 +197,12 @@ using namespace std;
 /******************************************************************************************************************************************/
 
 //void assign_recovered_tensor_vector(long n, char *name, DOUBLEMATRIX *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-  void assign_recovered_tensor_vector(long n, char *name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 
     	long r, c, i, l;
     //	DOUBLEMATRIX *M;
     	GeoMatrix<double> M;
-    	char *temp1, *temp2;
+    std::string temp1, temp2;
 
     //	for (l=assign->nrl; l<=assign->nrh; l++) {
     	for (l=0; l<assign.getRows(); l++) {
@@ -219,7 +212,7 @@ using namespace std;
 
     		//	if(par->point_sim == 0){
     		//	M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
-    			meteoio_readMap(string(temp2), M);
+    			meteoio_readMap(temp2, M);
     		//	for (i=1; i<=rc->nrh; i++) {
     			for (i=1; i<rc.getRows(); i++) {
     			//	r = rc->co[i][1];
@@ -240,9 +233,6 @@ using namespace std;
     		}*/
 
     	//	free_doublematrix(M);
-    		free(temp2);
-    		free(temp1);
-
     	}
     }
 
@@ -254,12 +244,12 @@ using namespace std;
 
 
    // void assign_recovered_tensor_channel(long n, char *name, DOUBLEMATRIX *assign, LONGVECTOR *r, LONGVECTOR *c, DOUBLEMATRIX *Zdistr){
-   void assign_recovered_tensor_channel(long n, char *name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr){
+   void assign_recovered_tensor_channel(long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr){
 
    	long ch, l;
 //  DOUBLEMATRIX *M;
    	GeoMatrix<double> M;
-   	char *temp1, *temp2;
+       std::string temp1, temp2;
 
 // 	for (l=assign->nrl; l<=assign->nrh; l++) {
  	for (l=0; l<assign.getRows(); l++) {
@@ -268,7 +258,7 @@ using namespace std;
    		temp2 = namefile_i_we(temp1, l);
 
    		//M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
-   		meteoio_readMap(string(temp2), M);
+   		meteoio_readMap(temp2, M);
 
    	//	for (ch=1; ch<=r->nh; ch++) {
    		for (ch=1; ch<r.size(); ch++) {
@@ -277,9 +267,6 @@ using namespace std;
    		}
 
    	//	free_doublematrix(M);
-   		free(temp2);
-   		free(temp1);
-
    	}
    }
 

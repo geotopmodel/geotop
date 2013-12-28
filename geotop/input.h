@@ -55,10 +55,8 @@ extern char *string_novalue;
 
 //extern T_INIT *UV;
 extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
 extern std::string WORKING_DIRECTORY;
-//extern char **files, *logfile;
-extern char **files;
+extern std::vector<std::string> files;
 extern std::string logfile;
 
 extern long Nl, Nr, Nc;

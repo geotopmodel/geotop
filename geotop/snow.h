@@ -37,7 +37,7 @@ extern TInit *UV;
 //extern char *WORKING_DIRECTORY;
 extern std::string WORKING_DIRECTORY;
 
-extern char **files;
+extern std::vector<std::string> files;
 extern long Nl, Nr, Nc;
 extern long i_sim;
 //extern char *FailedRunFile;

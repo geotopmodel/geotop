@@ -380,29 +380,28 @@ long find_station(long metvar, long nstat, double **var){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_lines, FILE *flog){
+double **read_horizon(short a, long i, std::string name, char **ColDescr, long *num_lines, FILE *flog){
 
     FILE *f;
     long j;
     double **hor = NULL;
-    char *temp = NULL ;
+    std::string temp ;
     short fileyes;
 
     //check is the file exists
-    if(strcmp(name , string_novalue) != 0){
+    if(name != string_novalue){
         fileyes=1;
     }else{
         fileyes=-1;
     }
     if(fileyes==1){
-        temp=namefile_i(name,i);
-        f=fopen(temp,"r");
+        temp = namefile_i(name,i);
+        f=fopen(temp.c_str(),"r");
         if(f==NULL){
             fileyes=0;
         }else{
             fclose(f);
         }
-        free(temp);
     }
 
     //different cases
@@ -435,7 +434,8 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
         }
 
         temp=namefile_i(name,i);
-        f=fopen(temp,"w");
+
+        f=fopen(temp.c_str(),"w");
         fprintf(f,"! Horizon file for met station or point #%ld \n",i);
         fprintf(f,"! All measures in degrees\n");
         fprintf(f,"\n");
@@ -451,7 +451,6 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
         }
 
         fclose(f);
-        free(temp);
 
     } else if(fileyes == 1) {
 
@@ -465,11 +464,10 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
 
         temp = namefile_i(name,i);
         hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines, flog);
-        free(temp);
 
         if ( (long)hor[0][0] == number_absent || (long)hor[0][1] == number_absent) {
             f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Error:: In the file %s the columns %s and/or %s are missing\n",temp,ColDescr[0],ColDescr[1]);
+            fprintf(f, "Error:: In the file %s the columns %s and/or %s are missing\n",temp.c_str(),ColDescr[0],ColDescr[1]);
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -743,16 +741,17 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0){
 /******************************************************************************************************************************************/
 
 
-void rewrite_meteo_files(double **meteo, long meteolines, char **header, char *name, short added_JD, short added_wind_xy, short added_wind_dir, 
+void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
                          short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
 
-    char *newname;
+    std::string newname;
     short first_column, write;
     long i, n, d, m, y, h, mi;
     FILE *f;
 
-    newname = join_strings(name, ".old");
-    f=fopen(newname,"r");
+    newname = name ;
+    newname += ".old" ;
+    f=fopen(newname.c_str(),"r");
     if (f == NULL){
         write = 1;
     }else {
@@ -763,9 +762,9 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, char *n
     if (added_cloudiness != 1 && added_wind_xy != 1 && added_wind_dir != 1 && added_JD != 1 && added_Tdew != 1 && added_RH != 1 && added_Pint != 1) write = 0;
 
     if (write == 1) {
-        rename(name, newname);
+        rename(name.c_str(), newname.c_str());
 
-        f = fopen(name, "w");
+        f = fopen(name.c_str(), "w");
 
         first_column = 1;
         for (i=0; i<nmet; i++) {
@@ -821,8 +820,6 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, char *n
 
         fclose(f);
     }
-
-    free(newname);
 }
 
 /******************************************************************************************************************************************/

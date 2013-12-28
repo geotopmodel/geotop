@@ -507,7 +507,6 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 }
 
 
-//long count_lines(char *meteo_file_name, long comment_char, long sep_char){
   long count_lines(std::string meteo_file_name, long comment_char, long sep_char){
 	FILE *f;
 	char **header;
@@ -517,7 +516,7 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 	
 	f = fopen(meteo_file_name.c_str(), "r");
 	if (f==NULL){
-		printf("File %s not existing\n",meteo_file_name.c_str());
+		printf("File -0- %s not existing\n",meteo_file_name.c_str());
 		t_error("Fatal Error (10)");
 	}
 	
@@ -606,7 +605,7 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 	
 	f = fopen(filename.c_str(), "r");
 	if (f==NULL){
-		printf("File %s not existing\n",filename.c_str());
+		printf("File -1- %s not existing\n",filename.c_str());
 		t_error("Fatale Error (11)");
 	}
 	Header = ReadHeader(f, filename, &ncols);
@@ -654,7 +653,7 @@ double **read_txt_matrix_2(std::string filename, long comment_char, long sep_cha
 	
 	f = fopen(filename.c_str(), "r");
 	if (f==NULL){
-		printf("File %s not existing\n",filename.c_str());
+		printf("File -2- %s not existing\n",filename.c_str());
 		t_error("Fatale Error (13)");
 	}	
 	

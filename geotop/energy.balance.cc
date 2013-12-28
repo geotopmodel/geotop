@@ -839,10 +839,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             
             if(A->P->output_snow[i_sim]>0){
                 
-                if(strcmp(files[fsnowmelt] , string_novalue) != 0) A->N->melted[j] = Melt_snow;
+                if(files[fsnowmelt] != string_novalue) A->N->melted[j] = Melt_snow;
                 
-                if(strcmp(files[fsnowsubl] , string_novalue) != 0) A->N->subl[j] = Evap_snow;
-                if(strcmp(files[fsndur] , string_novalue) != 0){
+                if(files[fsnowsubl] != string_novalue) A->N->subl[j] = Evap_snow;
+                if(files[fsndur] != string_novalue){
                     if(snowD>0){
                         
                         A->N->yes[j] = 1;
@@ -856,39 +856,39 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             
             if(A->P->max_glac_layers>0 && A->P->output_glac[i_sim]>0){
                 
-                if(strcmp(files[fglacmelt] , string_novalue) != 0) A->G->melted[j] = Melt_glac;
+                if(files[fglacmelt] != string_novalue) A->G->melted[j] = Melt_glac;
                 
-                if(strcmp(files[fglacsubl] , string_novalue) != 0) A->G->subl[j] = Evap_glac;
+                if(files[fglacsubl] != string_novalue) A->G->subl[j] = Evap_glac;
             }
 
             
             if(A->P->output_surfenergy[i_sim]>0){
                 
-                if(strcmp(files[fradnet] , string_novalue) != 0) A->E->Rn[j] = (SW+LW);
+                if(files[fradnet] != string_novalue) A->E->Rn[j] = (SW+LW);
                 
-                if(strcmp(files[fradLWin] , string_novalue) != 0) A->E->LWin[j] = LWin;
+                if(files[fradLWin] != string_novalue) A->E->LWin[j] = LWin;
                 
-                if(strcmp(files[fradLW] , string_novalue) != 0) A->E->LW[j] = LW;
+                if(files[fradLW] != string_novalue) A->E->LW[j] = LW;
                 
-                if(strcmp(files[fradSW] , string_novalue) != 0)  A->E->SW[j] = SW;
+                if(files[fradSW] != string_novalue)  A->E->SW[j] = SW;
                 
-                if(strcmp(files[fradSWin] , string_novalue) != 0) A->E->SWin[j] = SWin;
+                if(files[fradSWin] != string_novalue) A->E->SWin[j] = SWin;
                 
-                if(strcmp(files[fradSWinbeam] , string_novalue) != 0) A->E->SWinb[j] = SWbeam;
+                if(files[fradSWinbeam] != string_novalue) A->E->SWinb[j] = SWbeam;
                 
-                if(strcmp(files[fshadow] , string_novalue) != 0) A->E->shad[j] = SWb_yes;
+                if(files[fshadow] != string_novalue) A->E->shad[j] = SWb_yes;
                 
-                if(strcmp(files[fG] , string_novalue) != 0) A->E->G[j] = surfEB;
+                if(files[fG] != string_novalue) A->E->G[j] = surfEB;
                 
-                if(strcmp(files[fH] , string_novalue) != 0)  A->E->H[j] = H;
+                if(files[fH] != string_novalue)  A->E->H[j] = H;
                 
-                if(strcmp(files[fLE] , string_novalue) != 0)  A->E->LE[j] = LE;
+                if(files[fLE] != string_novalue)  A->E->LE[j] = LE;
                 
-                if(strcmp(files[fTs] , string_novalue) != 0) A->E->Ts[j] = (*Tgskin);
+                if(files[fTs] != string_novalue) A->E->Ts[j] = (*Tgskin);
             }
 
             if(A->P->output_meteo[i_sim]>0){
-                if(strcmp(files[fprec] , string_novalue) != 0){
+                if(files[fprec] != string_novalue){
                     
 					A->W->Pt[j] = Precpoint;
 
@@ -900,29 +900,29 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			if(A->I->JD_plots.size() > 1 && W>0)
 			{
 				
-				if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0) A->E->Hgp[j] = W*H;
+				if(files[pH] != string_novalue || files[pHg] != string_novalue || files[pG] != string_novalue) A->E->Hgp[j] = W*H;
 				
-				if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHv] , string_novalue) != 0) A->E->Hvp[j] = W*fc*Hv;
+				if(files[pH] != string_novalue || files[pHv] != string_novalue) A->E->Hvp[j] = W*fc*Hv;
 				
-				if(strcmp(files[pLE] , string_novalue) != 0 || strcmp(files[pLEg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0) A->E->LEgp[j] = W*LE;
+				if(files[pLE] != string_novalue || files[pLEg] != string_novalue || files[pG] != string_novalue) A->E->LEgp[j] = W*LE;
 				
-				if(strcmp(files[pLE] , string_novalue) != 0 || strcmp(files[pLEv] , string_novalue) != 0) A->E->LEvp[j] = W*fc*LEv;
+				if(files[pLE] != string_novalue || files[pLEv] != string_novalue) A->E->LEvp[j] = W*fc*LEv;
                 
-				if(strcmp(files[pSWin] , string_novalue) != 0) A->E->SWinp[j] = W*SWin;
+				if(files[pSWin] != string_novalue) A->E->SWinp[j] = W*SWin;
 				
-				if(strcmp(files[pSWg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0) A->E->SWgp[j] = W*SW;
+				if(files[pSWg] != string_novalue || files[pG] != string_novalue) A->E->SWgp[j] = W*SW;
 				
-				if(strcmp(files[pSWv] , string_novalue) != 0) A->E->SWvp[j] = W*fc*(SWv_vis+SWv_nir);
+				if(files[pSWv] != string_novalue) A->E->SWvp[j] = W*fc*(SWv_vis+SWv_nir);
 				
-				if(strcmp(files[pLWin] , string_novalue) != 0) A->E->LWinp[j] = W*LWin;
+				if(files[pLWin] != string_novalue) A->E->LWinp[j] = W*LWin;
 				
-				if(strcmp(files[pLWg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0) A->E->LWgp[j] = W*LW;
+				if(files[pLWg] != string_novalue || files[pG] != string_novalue) A->E->LWgp[j] = W*LW;
 				
-				if(strcmp(files[pLWv] , string_novalue) != 0) A->E->LWvp[j] = W*fc*LWv;
+				if(files[pLWv] != string_novalue) A->E->LWvp[j] = W*fc*LWv;
 				
-				if(strcmp(files[pTs] , string_novalue) != 0) A->E->Tsp[j] = W*Ts;
+				if(files[pTs] != string_novalue) A->E->Tsp[j] = W*Ts;
 				
-				if(strcmp(files[pTg] , string_novalue) != 0) A->E->Tgp[j] = W*(*Tgskin);
+				if(files[pTg] != string_novalue) A->E->Tgp[j] = W*(*Tgskin);
 				
             }
 			

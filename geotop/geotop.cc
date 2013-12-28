@@ -1,4 +1,3 @@
-
 /* STATEMENT:
  water_balance
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
@@ -491,10 +490,10 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 			//	add_doublevector(Vsub_ch, A->C->Vsub);
 			// 	TODO:Noori- we use std::transform  instead of  add_doublevector() method, need to check if they behave the same
-				std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), A->C->Vsub.data.end(),plus<double>());
+				std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), Vsub_ch.data.begin(),plus<double>());
 			//	add_doublevector(Vsup_ch, A->C->Vsup);
 			// 	TODO:Noori- we use std::transform  instead of  add_doublevector() method, need to check if they behave the same
-				std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), A->C->Vsup.data.end(),plus<double>());
+				std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), Vsup_ch.data.begin(),plus<double>());
 				A->C->Vout += Vout;
 				A->W->Voutbottom += Vbottom;
 				A->W->Voutlandsub += Voutsub;
@@ -533,7 +532,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 #else
 			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
 		//	if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC->co, A->I->time+A->P->Dt);
-			if(strcmp(files[fSCA] , string_novalue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+			if(files[fSCA] != string_novalue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
 #endif
 			tend=clock();
 			t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;

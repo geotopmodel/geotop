@@ -35,8 +35,7 @@ extern long number_novalue, number_absent;
 
 //extern T_INIT *UV;
 extern TInit *UV;
-extern char **files;
-//extern char *logfile;
+extern std::vector<std::string> files;
 extern std::string logfile;
 
 extern long Nl, Nr, Nc;
