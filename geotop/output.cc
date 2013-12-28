@@ -31,7 +31,8 @@ using namespace std;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, LAND *land, SOIL *sl, Energy *egy, SNOW *snow, GLACIER *glac, METEO *met)
+
+
 void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, Land *land, Soil *sl, Energy *egy, Snow *snow, Glacier *glac, Meteo *met)
 
 {
@@ -84,8 +85,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     write_suffix(RRRRR, i_run, 1);
 
     //Time indices
-    //	JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt, par->init_date->co[i_sim]);
-    JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt, par->init_date[i_sim]);
+	JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt, par->init_date[i_sim]);
     convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
@@ -94,25 +94,19 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    //if(par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5 && strcmp(files[fQ] , string_novalue) != 0){
     if(par->state_discharge == 1 && par->Dtplot_discharge[i_sim] > 1.E-5 && strcmp(files[fQ] , string_novalue) != 0){
         t_discharge += par->Dt;
 
-        //	if (fabs(t_discharge - par->Dtplot_discharge->co[i_sim]) < 1.E-5){
         if (fabs(t_discharge - par->Dtplot_discharge[i_sim]) < 1.E-5){
             Vchannel = 0.;
             Vsub = 0.;
             Vsup = 0.;
             for(l=1;l<=par->total_channel;l++){
-                //	r = cnet->r->co[l];
+			
                 r = cnet->r[l];
-                //	c = cnet->c->co[l];
                 c = cnet->c[l];
-                //	Vchannel += 1.E-3 * Fmax(cnet->SS->P->co[0][l], 0.) / cos(top->slope->co[r][c]*GTConst::Pi/180.) * UV->U->co[1] * par->w_dx * cnet->length->co[l];
                 Vchannel += 1.E-3 * Fmax(cnet->SS->P[0][l], 0.) / cos(top->slope[r][c]*GTConst::Pi/180.) * UV->U[1] * par->w_dx * cnet->length[l];
-                //	Vsub += cnet->Vsub->co[l];
                 Vsub += cnet->Vsub[l];
-                //	Vsup += cnet->Vsup->co[l];
                 Vsup += cnet->Vsup[l];
             }
 
@@ -121,16 +115,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             if (par->recover>0) {
                 temp1 = join_strings(files[fQ], rec);
-                //	name = join_strings(temp1, textfile);
                 name = temp1+ textfile;
-                //	free(temp1);
             }else if (par->n_ContRecovery>0) {
                 temp1 = join_strings(files[fQ], crec);
-                //	name = join_strings(temp1, textfile);
                 name = temp1+ textfile;
-                //	free(temp1);
             }else {
-                //	name = join_strings(files[fQ], textfile);
                 name = files[fQ] + string(textfile) ;
             }
 
@@ -139,19 +128,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f,",%12g,%12g,%12g",(times->time+par->Dt)/GTConst::secinday,JDfrom0,JD);
-            //			fprintf(f,",%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",cnet->Vout/(double)par->Dtplot_discharge->co[i_sim],Vsup/(double)par->Dtplot_discharge->co[i_sim],
-            //					Vsub/(double)par->Dtplot_discharge->co[i_sim],Vchannel,wat->Voutlandsup/(double)par->Dtplot_discharge->co[i_sim],
-            //					wat->Voutlandsub/(double)par->Dtplot_discharge->co[i_sim],wat->Voutbottom/(double)par->Dtplot_discharge->co[i_sim]);
-
             fprintf(f,",%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",cnet->Vout/(double)par->Dtplot_discharge[i_sim],Vsup/(double)par->Dtplot_discharge[i_sim],
                     Vsub/(double)par->Dtplot_discharge[i_sim],Vchannel,wat->Voutlandsup/(double)par->Dtplot_discharge[i_sim],
                     wat->Voutlandsub/(double)par->Dtplot_discharge[i_sim],wat->Voutbottom/(double)par->Dtplot_discharge[i_sim]);
 #else
             fprintf(f,",%f,%f,%f",(times->time+par->Dt)/GTConst::secinday,JDfrom0,JD);
-            //			fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",cnet->Vout/(double)par->Dtplot_discharge->co[i_sim],Vsup/(double)par->Dtplot_discharge->co[i_sim],
-            //					Vsub/(double)par->Dtplot_discharge->co[i_sim],Vchannel,wat->Voutlandsup/(double)par->Dtplot_discharge->co[i_sim],
-            //					wat->Voutlandsub/(double)par->Dtplot_discharge->co[i_sim],wat->Voutbottom/(double)par->Dtplot_discharge->co[i_sim]);
-
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",cnet->Vout/(double)par->Dtplot_discharge[i_sim],Vsup/(double)par->Dtplot_discharge[i_sim],
                     Vsub/(double)par->Dtplot_discharge[i_sim],Vchannel,wat->Voutlandsup/(double)par->Dtplot_discharge[i_sim],
                     wat->Voutlandsub/(double)par->Dtplot_discharge[i_sim],wat->Voutbottom/(double)par->Dtplot_discharge[i_sim]);
@@ -162,9 +143,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             t_discharge = 0.0;
 
-            //	initialize_doublevector(cnet->Vsub, 0.);
             cnet->Vsub.resize(cnet->Vsub.size(),0.);
-            //	initialize_doublevector(cnet->Vsup, 0.);
             cnet->Vsup.resize(cnet->Vsup.size(),0.);
 
             cnet->Vout = 0.;
@@ -187,56 +166,40 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         if(par->state_pixel == 1){
 
-            //	for(i=1;i<=par->rc->nrh;i++){
+        
             for(i=1;i<par->rc.getRows();i++){
 
-                //	r=par->rc->co[i][1];
+                
                 r=par->rc[i][1];
-                //	c=par->rc->co[i][2];
                 c=par->rc[i][2];
                 j=top->j_cont[r][c];
 
                 for(l=1;l<=Nl;l++){
-                    //	if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot->co[i][l] += sl->SS->T->co[l][j]*(par->Dt/par->Dtplot_point->co[i_sim]);
                     if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot[i][l] += sl->SS->T[l][j]*(par->Dt/par->Dtplot_point[i_sim]);
-                    //	if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot->co[i][l] += sl->th->co[l][j]*(par->Dt/par->Dtplot_point->co[i_sim]);
+                    
                     if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot[i][l] += sl->th[l][j]*(par->Dt/par->Dtplot_point[i_sim]);
-                    //	if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot->co[i][l] += sl->SS->thi->co[l][j]*(par->Dt/par->Dtplot_point->co[i_sim]);
+                   
                     if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot[i][l] += sl->SS->thi[l][j]*(par->Dt/par->Dtplot_point[i_sim]);
                 }
 
-                //	D = find_activelayerdepth_up(j, sl->type->co[r][c], sl);
+                
                 D = find_activelayerdepth_up(j, sl->type[r][c], sl);
-                //	odpnt[othawedup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
                 odpnt[othawedup][i-1] += D * (par->Dt/par->Dtplot_point[i_sim]);
 
-                //	D = find_activelayerdepth_dw(j, sl->type->co[r][c], sl);
+                
                 D = find_activelayerdepth_dw(j, sl->type[r][c], sl);
-                //	odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
                 odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point[i_sim]);
 
-                //	D = find_watertabledepth_up(j, sl->type->co[r][c], sl);
+                
                 D = find_watertabledepth_up(j, sl->type[r][c], sl);
-                //	if (D < 1.E-5 && sl->SS->P->co[0][j] > 0) D = -sl->SS->P->co[0][j] / cos(top->slope->co[r][c] * GTConst::Pi/180.);
-                if (D < 1.E-5 && sl->SS->P[0][j] > 0) D = -sl->SS->P[0][j] / cos(top->slope[r][c] * GTConst::Pi/180.);
-                //	odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
                 odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point[i_sim]);
 
-                //	if (sl->SS->P->co[0][j] > 0){
-                if (sl->SS->P[0][j] > 0){
-                    //	D = -sl->SS->P->co[0][i] / cos(top->slope->co[r][c] * GTConst::Pi/180.);
-                    D = -sl->SS->P[0][i] / cos(top->slope[r][c] * GTConst::Pi/180.);
-                }else {
-                    //	D = find_watertabledepth_dw(i, sl->type->co[r][c], sl);
-                    D = find_watertabledepth_dw(i, sl->type[r][c], sl);
-                }
-                //	odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+				D = find_watertabledepth_dw(i, sl->type[r][c], sl);
                 odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point[i_sim]);
             }
         }
 
         //	Print of pixel-output every times->n_pixel time step
-        //	if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5){
         if (fabs(t_point - par->Dtplot_point[i_sim])<1.E-5){
 
             if(par->state_pixel == 1){
@@ -244,19 +207,17 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 if (par->recover > 0) write_suffix(rec, par->recover, 4);
                 if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-                //	for(i=1;i<=par->rc->nrh;i++){
                 for(i=1;i<par->rc.getRows();i++){
 
-                    //	write_suffix(NNNN, par->IDpoint->co[i], 0);
                     write_suffix(NNNN, par->IDpoint[i], 0);
-                    //	r=par->rc->co[i][1];
                     r=par->rc[i][1];
-                    //	c=par->rc->co[i][2];
                     c=par->rc[i][2];
                     j=top->j_cont[r][c];
+					
+					// sy = sl->type->co[r][c];
 
                     if (par->output_vertical_distances == 1) {
-                        //	cosslope = cos( Fmin(GTConst::max_slope, top->slope->co[r][c]) * GTConst::Pi/180. );
+					
                         cosslope = cos( Fmin(GTConst::max_slope, top->slope[r][c]) * GTConst::Pi/180. );
                     }else {
                         cosslope = 1.;
@@ -264,33 +225,24 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                     //	soil data
                     for(l=1;l<=Nl;l++){
-                        //	if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][j];
                         if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot[i][l] = sl->SS->T[l][j];
-                        //	if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][j];
                         if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot[i][l] = sl->Ptot[l][j];
-                        //	if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot->co[i][l] = sl->th->co[l][j];
                         if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot[i][l] = sl->th[l][j];
-                        //	if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot->co[i][l] = sl->SS->thi->co[l][j];
                         if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot[i][l] = sl->SS->thi[l][j];
                     }
                     for(l=0;l<=Nl;l++){
-                        //	if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][j];
-                        if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot[i][l] = sl->SS->P[l][j];
+                         if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot[i][l] = sl->SS->P[l][j];
                     }
 
                     //	snow data
-                    //	if(snow->S->lnum->co[r][c]>0){
+
                     if(snow->S->lnum[r][c]>0){
                         odpnt[osnowdepth][i-1] = 0.0;
                         odpnt[oSWE][i-1] = 0.0;
                         odpnt[osnowT][i-1] = 0.0;
-                        //	for(l=1;l<=snow->S->lnum->co[r][c];l++){
                         for(l=1;l<=snow->S->lnum[r][c];l++){
-                            //	odpnt[osnowdepth][i-1] += snow->S->Dzl->co[l][r][c];
                             odpnt[osnowdepth][i-1] += snow->S->Dzl[l][r][c];
-                            //	odpnt[oSWE][i-1] += 1.0E+3*(snow->S->w_liq->co[l][r][c]+snow->S->w_ice->co[l][r][c])/GTConst::rho_w;
                             odpnt[oSWE][i-1] += 1.0E+3*(snow->S->w_liq[l][r][c]+snow->S->w_ice[l][r][c])/GTConst::rho_w;
-                            //	odpnt[osnowT][i-1] += snow->S->T->co[l][r][c]*snow->S->Dzl->co[l][r][c];
                             odpnt[osnowT][i-1] += snow->S->T[l][r][c]*snow->S->Dzl[l][r][c];
                         }
                         odpnt[osnowdens][i-1] = odpnt[oSWE][i-1]*GTConst::rho_w/odpnt[osnowdepth][i-1];
@@ -304,18 +256,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                     //glacier data
                     if(par->max_glac_layers>0){
-                        //	if(glac->G->lnum->co[r][c]>0){
                         if(glac->G->lnum[r][c]>0){
                             odpnt[oglacdepth][i-1] = 0.0;
                             odpnt[oGWE][i-1] = 0.0;
                             odpnt[oglacT][i-1] = 0.0;
-                            //	for(l=1;l<=glac->G->lnum->co[r][c];l++){
                             for(l=1;l<=glac->G->lnum[r][c];l++){
-                                //	odpnt[oglacdepth][i-1] += glac->G->Dzl->co[l][r][c];
                                 odpnt[oglacdepth][i-1] += glac->G->Dzl[l][r][c];
-                                //	odpnt[oGWE][i-1] += 1.0E+3*(glac->G->w_liq->co[l][r][c]+glac->G->w_ice->co[l][r][c])/GTConst::rho_w;
+								
                                 odpnt[oGWE][i-1] += 1.0E+3*(glac->G->w_liq[l][r][c]+glac->G->w_ice[l][r][c])/GTConst::rho_w;
-                                //	odpnt[oglacT][i-1] += glac->G->T->co[l][r][c]*glac->G->Dzl->co[l][r][c];
                                 odpnt[oglacT][i-1] += glac->G->T[l][r][c]*glac->G->Dzl[l][r][c];
                             }
                             odpnt[oglacdens][i-1] = odpnt[oGWE][i-1]*GTConst::rho_w/odpnt[oglacdepth][i-1];
@@ -335,23 +283,15 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         temp1=join_strings(files[fpoint],NNNN);
 
                         if (par->recover>0) {
-                            //	temp2 = join_strings(temp1, rec);
-                            temp2 = temp1+ rec;
-                            //	name = join_strings(temp2, textfile);
+                            temp2 = temp1 + rec;
                             name = temp2+ textfile;
-                            //	free(temp2);
                         }else if (par->n_ContRecovery>0) {
-                            //	temp2 = join_strings(temp1, crec);
-                            temp2 = temp1+ crec;
-                            //	name = join_strings(temp2, textfile);
-                            name = temp2+ textfile;
-                            //	free(temp2);
+							temp2 = temp1+ crec;
+							name = temp2+ textfile;
                         }else {
-                            //	name = join_strings(temp1, textfile);
                             name = temp1+ textfile;
                         }
 
-                        //	free(temp1);
 
                         f=fopen(name.c_str() ,"a");
                         first_column=1;
@@ -372,10 +312,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (opnt[j] == odaysfromstart) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(f, "%12g",JDfrom0-par->init_date->co[i_sim]);
                                     fprintf(f, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                    //	fprintf(f, "%f",JDfrom0-par->init_date->co[i_sim]);
                                     fprintf(f, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                 }else if (opnt[j] == operiod) {
@@ -383,7 +321,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }else if (opnt[j] == orun) {
                                     fprintf(f, "%ld",i_run);
                                 }else if (opnt[j] == opoint) {
-                                    //	fprintf(f, "%ld",par->IDpoint->co[i]);
                                     fprintf(f, "%ld",par->IDpoint[i]);
                                 }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -398,7 +335,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         }
                         fprintf(f,"\n");
                         fclose(f);
-                        //	free(name);
                     }
 
                     if(strcmp(files[fpointwriteend] , string_novalue) != 0){
@@ -421,10 +357,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (opnt[j] == odaysfromstart) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(ffpoint, "%12g",JDfrom0-par->init_date->co[i_sim]);
                                     fprintf(ffpoint, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                    //	fprintf(ffpoint, "%f",JDfrom0-par->init_date->co[i_sim]);
                                     fprintf(ffpoint, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                 }else if (opnt[j] == operiod) {
@@ -432,7 +366,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }else if (opnt[j] == orun) {
                                     fprintf(ffpoint, "%ld",i_run);
                                 }else if (opnt[j] == opoint) {
-                                    //fprintf(ffpoint, "%ld",par->IDpoint->co[i]);
                                     fprintf(ffpoint, "%ld",par->IDpoint[i]);
                                 }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -454,29 +387,25 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         temp1=join_strings(files[fsatz],NNNN);
 
                         if (par->recover>0) {
-                            //	temp2 = join_strings(temp1, rec);
+                            
                             temp2 = temp1 + rec;
-                            //	name = join_strings(temp2, textfile);
-                            name = temp2 + textfile;
-                            //	free(temp2);
+							name = temp2 + textfile;
+						
                         }else if (par->n_ContRecovery>0) {
-                            //	temp2 = join_strings(temp1, crec);
+                            
                             temp2 = temp1 + crec;
-                            //	name = join_strings(temp2, textfile);
                             name = temp2 + textfile;
-                            //	free(temp2);
+                           
                         }else {
-                            //	name = join_strings(temp1, textfile);
+							
                             name = temp1 + textfile;
                         }
 
-                        //	free(temp1);
 
                         f=fopen(name.c_str() ,"a");
 
-                        //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                        
                         if ((long)par->snow_plot_depths[1] != number_novalue) {
-                            //	m = par->snow_plot_depths->nh;
                             m = par->snow_plot_depths.size();
                         }else {
                             m = par->max_snow_layers;
@@ -500,10 +429,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (osnw[j] == 2) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(f, "%12g",JDfrom0-par->init_date->co[i_sim]);
+                                  
                                     fprintf(f, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                    //	fprintf(f, "%f",JDfrom0-par->init_date->co[i_sim]);
+                                  
                                     fprintf(f, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                 }else if (osnw[j] == 3) {
@@ -511,75 +440,70 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }else if (osnw[j] == 4) {
                                     fprintf(f, "%ld",i_run);
                                 }else if (osnw[j] == 5) {
-                                    //	fprintf(f, "%ld",par->IDpoint->co[i]);
                                     fprintf(f, "%ld",par->IDpoint[i]);
                                 }else if (osnw[j] <= 5 + 1*m) {
                                     l = osnw[j] - 5 - 0*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
-                                    if ((long)par->snow_plot_depths[1] != number_novalue) {
+						            if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
 #else
-                                        //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
                                         fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",snow->S->T->co[l][r][c]);
+                                      
                                         fprintf(f, "%12g",snow->S->T[l][r][c]);
 #else
-                                        //	fprintf(f, "%f",snow->S->T->co[l][r][c]);
+				
                                         fprintf(f, "%f",snow->S->T[l][r][c]);
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 2*m) {
                                     l = osnw[j] - 5 - 1*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                                   
                                     if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
+                                        
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
 #else
-                                        //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
+                                      
                                         fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",snow->S->w_ice->co[l][r][c]);
+                                       
                                         fprintf(f, "%12g",snow->S->w_ice[l][r][c]);
 #else
-                                        //	fprintf(f, "%f",snow->S->w_ice->co[l][r][c]);
+                                       
                                         fprintf(f, "%f",snow->S->w_ice[l][r][c]);
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 3*m) {
                                     l = osnw[j] - 5 - 2*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
                                     if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        
                                         fprintf(f, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
 #else
-                                        //	fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
+                                      
                                         fprintf(f, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",snow->S->w_liq->co[l][r][c]);
+                                        
                                         fprintf(f, "%12g",snow->S->w_liq[l][r][c]);
 #else
-                                        //	fprintf(f, "%f",snow->S->w_liq->co[l][r][c]);
+                                      
                                         fprintf(f, "%f",snow->S->w_liq[l][r][c]);
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 3*m + par->max_snow_layers) {
                                     l = osnw[j] - 5 - 3*m;
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(f, "%12g",snow->S->Dzl->co[l][r][c]);
+                                 
                                     fprintf(f, "%12g",snow->S->Dzl[l][r][c]);
 #else
-                                    //	fprintf(f, "%f",snow->S->Dzl->co[l][r][c]);
+                                   
                                     fprintf(f, "%f",snow->S->Dzl[l][r][c]);
 #endif
                                 }
@@ -593,13 +517,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         }
                         fprintf(f,"\n");
                         fclose(f);
-                        //	free(name);
+                       
                     }
 
                     if(strcmp(files[fsnTzwriteend] , string_novalue) != 0){
-                        //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                       
                         if ((long)par->snow_plot_depths[1] != number_novalue) {
-                            //	m = par->snow_plot_depths->nh;
                             m = par->snow_plot_depths.size();
                         }else {
                             m = par->max_snow_layers;
@@ -622,10 +545,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (osnw[j] == 2) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(ffsnow, "%12g",JDfrom0-par->init_date->co[i_sim]);
                                     fprintf(ffsnow, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                    //	fprintf(ffsnow, "%f",JDfrom0-par->init_date->co[i_sim]);
+								
                                     fprintf(ffsnow, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                 }else if (osnw[j] == 3) {
@@ -633,75 +555,72 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }else if (osnw[j] == 4) {
                                     fprintf(ffsnow, "%ld",i_run);
                                 }else if (osnw[j] == 5) {
-                                    //	fprintf(ffsnow, "%ld",par->IDpoint->co[i]);
+                                    
                                     fprintf(ffsnow, "%ld",par->IDpoint[i]);
                                 }else if (osnw[j] <= 5 + 1*m) {
                                     l = osnw[j] - 5 - 0*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                                    
                                     if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
+                                       
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T));
 #else
-                                        //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->T));
+                                       
                                         fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",snow->S->T->co[l][r][c]);
+                                       
                                         fprintf(ffsnow, "%12g",snow->S->T[l][r][c]);
 #else
-                                        //	fprintf(ffsnow, "%f",snow->S->T->co[l][r][c]);
+                                      
                                         fprintf(ffsnow, "%f",snow->S->T[l][r][c]);
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 2*m) {
                                     l = osnw[j] - 5 - 1*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                                 
                                     if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
+                                       
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice));
 #else
-                                        //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_ice));
+                                      
                                         fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",snow->S->w_ice->co[l][r][c]);
-                                        fprintf(ffsnow, "%12g",snow->S->w_ice[l][r][c]);
+									    fprintf(ffsnow, "%12g",snow->S->w_ice[l][r][c]);
 #else
-                                        //	fprintf(ffsnow, "%f",snow->S->w_ice->co[l][r][c]);
+									
                                         fprintf(ffsnow, "%f",snow->S->w_ice[l][r][c]);
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 3*m) {
                                     l = osnw[j] - 5 - 2*m;
-                                    //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
+                                    
                                     if ((long)par->snow_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        
                                         fprintf(ffsnow, "%12g",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq));
 #else
-                                        //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
+                                        
                                         fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffsnow, "%12g",snow->S->w_liq->co[l][r][c]);
+                                        
                                         fprintf(ffsnow, "%12g",snow->S->w_liq[l][r][c]);
 #else
-                                        //	fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths->co[l]*cosslope, snow->S->lnum->co[r][c], snow->S->Dzl, snow->S->w_liq));
+                                       
                                         fprintf(ffsnow, "%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
 #endif
                                     }
                                 }else if (osnw[j] <= 5 + 3*m + par->max_snow_layers) {
                                     l = osnw[j] - 5 - 3*m;
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    //	fprintf(ffsnow, "%12g",snow->S->Dzl->co[l][r][c]);
                                     fprintf(ffsnow, "%12g",snow->S->Dzl[l][r][c]);
 #else
-                                    //	fprintf(ffsnow, "%f",snow->S->Dzl->co[l][r][c]);
                                     fprintf(ffsnow, "%f",snow->S->Dzl[l][r][c]);
 #endif
                                 }
@@ -724,19 +643,17 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                             temp1=join_strings(files[fglz],NNNN);
 
                             if (par->recover>0) {
-                                //	temp2 = join_strings(temp1, rec);
-                                temp2 = temp1 + rec;
-                                //	name = join_strings(temp2, textfile);
+                                
+                                temp2 = temp1 + rec;							
                                 name = temp2 + textfile;
-                                //	free(temp2);
-                            }else if (par->n_ContRecovery>0) {
-                                //	temp2 = join_strings(temp1, crec);
+								
+							  }else if (par->n_ContRecovery>0) {
+
                                 temp2 = temp1 + crec;
-                                //	name = join_strings(temp2, textfile);
                                 name = temp2 + textfile;
-                                //	free(temp2);
+
                             }else {
-                                //	name = join_strings(temp1, textfile);
+
                                 name = temp1 + textfile;
                             }
 
@@ -744,9 +661,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                             f=fopen(name.c_str() ,"a");
 
-                            //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
+                            
                             if ((long)par->glac_plot_depths[1] != number_novalue) {
-                                //	m = par->glac_plot_depths->nh;
+								
                                 m = par->glac_plot_depths.size();
                             }else {
                                 m = par->max_glac_layers;
@@ -770,10 +687,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                     }else if (oglc[j] == 2) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",JDfrom0-par->init_date->co[i_sim]);
                                         fprintf(f, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                        //	fprintf(f, "%f",JDfrom0-par->init_date->co[i_sim]);
+
                                         fprintf(f, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                     }else if (oglc[j] == 3) {
@@ -781,75 +697,58 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     }else if (oglc[j] == 4) {
                                         fprintf(f, "%ld",i_run);
                                     }else if (oglc[j] == 5) {
-                                        //	fprintf(f, "%ld",par->IDpoint->co[i]);
+
                                         fprintf(f, "%ld",par->IDpoint[i]);
                                     }else if (oglc[j] <= 5 + 1*m) {
                                         l = oglc[j] - 5 - 0*m;
-                                        //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
                                         if ((long)par->glac_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
 #else
-                                            //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
-                                            fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
+                                          fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g", glac->G->T->co[l][r][c]);
                                             fprintf(f, "%12g", glac->G->T[l][r][c]);
 #else
-                                            //	fprintf(f, "%f", glac->G->T->co[l][r][c]);
                                             fprintf(f, "%f", glac->G->T[l][r][c]);
 #endif
                                         }
                                     }else if (oglc[j] <= 5 + 2*m) {
                                         l = oglc[j] - 5 - 1*m;
-                                        //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
-                                        if ((long)par->glac_plot_depths[1] != number_novalue) {
+                                         if ((long)par->glac_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_ice));
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice));
 #else
-                                            //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_ice));
                                             fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g",glac->G->w_ice->co[l][r][c]);
                                             fprintf(f, "%12g",glac->G->w_ice[l][r][c]);
 #else
-                                            //	fprintf(f, "%f",glac->G->w_ice->co[l][r][c]);
                                             fprintf(f, "%f",glac->G->w_ice[l][r][c]);
 #endif
                                         }
                                     }else if (oglc[j] <= 5 + 3*m) {
                                         l = oglc[j] - 5 - 2*m;
-                                        //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
                                         if ((long)par->glac_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_liq));
                                             fprintf(f, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq));
 #else
-                                            //	fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->w_liq));
                                             fprintf(f, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(f, "%12g",glac->G->w_liq->co[l][r][c]);
                                             fprintf(f, "%12g",glac->G->w_liq[l][r][c]);
 #else
-                                            //	fprintf(f, "%f",glac->G->w_liq->co[l][r][c]);
                                             fprintf(f, "%f",glac->G->w_liq[l][r][c]);
 #endif
                                         }
                                     }else if (oglc[j] <= 5 + 3*m + par->max_glac_layers) {
                                         l = oglc[j] - 5 - 3*m;
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(f, "%12g",glac->G->Dzl->co[l][r][c]);
                                         fprintf(f, "%f",glac->G->Dzl[l][r][c]);
 #else
-                                        //	fprintf(f, "%12g",glac->G->Dzl->co[l][r][c]);
                                         fprintf(f, "%f",glac->G->Dzl[l][r][c]);
 #endif
                                     }
@@ -863,13 +762,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                             }
                             fprintf(f,"\n");
                             fclose(f);
-                            //	free(name);
                         }
 
                         if(strcmp(files[fglzwriteend] , string_novalue) != 0){
-                            //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
                             if ((long)par->glac_plot_depths[1] != number_novalue) {
-                                //	m = par->glac_plot_depths->nh;
                                 m = par->glac_plot_depths.size();
                             }else {
                                 m = par->max_glac_layers;
@@ -892,10 +788,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                     }else if (oglc[j] == 2) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffglac, "%12g",JDfrom0-par->init_date->co[i_sim]);
                                         fprintf(ffglac, "%12g",JDfrom0-par->init_date[i_sim]);
 #else
-                                        //	fprintf(ffglac, "%f",JDfrom0-par->init_date->co[i_sim]);
                                         fprintf(ffglac, "%f",JDfrom0-par->init_date[i_sim]);
 #endif
                                     }else if (oglc[j] == 3) {
@@ -903,25 +797,19 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     }else if (oglc[j] == 4) {
                                         fprintf(ffglac, "%ld",i_run);
                                     }else if (oglc[j] == 5) {
-                                        //	fprintf(ffglac, "%ld",par->IDpoint->co[i]);
                                         fprintf(ffglac, "%ld",par->IDpoint[i]);
                                     }else if (oglc[j] <= 5 + 1*m) {
                                         l = oglc[j] - 5 - 0*m;
-                                        //	if ((long)par->glac_plot_depths->co[1] != number_novalue) {
                                         if ((long)par->glac_plot_depths[1] != number_novalue) {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(ffglac, "%12g",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
                                             fprintf(ffglac, "%12g",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T));
 #else
-                                            //	fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths->co[l]*cosslope, glac->G->lnum->co[r][c], glac->G->Dzl, glac->G->T));
-                                            fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
+                                          fprintf(ffglac, "%f",interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(ffglac, "%12g", glac->G->T->co[l][r][c]);
-                                            fprintf(ffglac, "%12g", glac->G->T[l][r][c]);
+											fprintf(ffglac, "%12g", glac->G->T[l][r][c]);
 #else
-                                            //	fprintf(ffglac, "%f", glac->G->T->co[l][r][c]);
                                             fprintf(ffglac, "%f", glac->G->T[l][r][c]);
 #endif
                                         }
@@ -958,20 +846,20 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                         }else {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            //	fprintf(ffglac, "%12g",glac->G->w_liq->co[l][r][c]);
+                                  
                                             fprintf(ffglac, "%12g",glac->G->w_liq[l][r][c]);
 #else
-                                            //	fprintf(ffglac, "%f",glac->G->w_liq->co[l][r][c]);
+                                          
                                             fprintf(ffglac, "%f",glac->G->w_liq[l][r][c]);
 #endif
                                         }
                                     }else if (oglc[j] <= 5 + 3*m + par->max_glac_layers) {
                                         l = oglc[j] - 5 - 3*m;
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        //	fprintf(ffglac, "%12g",glac->G->Dzl->co[l][r][c]);
+                                      
                                         fprintf(ffglac, "%12g",glac->G->Dzl[l][r][c]);
 #else
-                                        //	fprintf(ffglac, "%f",glac->G->Dzl->co[l][r][c]);
+                                     
                                         fprintf(ffglac, "%f",glac->G->Dzl[l][r][c]);
 #endif
                                     }
@@ -989,8 +877,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //sl output
-                    //	write_soil_output(i, par->IDpoint->co[i], par->init_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
+
                     write_soil_output(i, par->IDpoint[i], par->init_date[i_sim], JDfrom0, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
+					
+					//snow output : this to enable at later stage (SC: 26.12.2013)
+//					write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[i_sim], par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);	
+					
+					
                     //	initialize
                     for(j=0;j<otot;j++) { odpnt[j][i-1]=0.0; }
 
@@ -1035,7 +928,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //BASIN DATA
     //****************************************************************************************************************
     //****************************************************************************************************************
-    //	if(par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1){
+   
     if(par->Dtplot_basin[i_sim] > 1.E-5 && par->state_basin == 1){
 
         t_basin += par->Dt;
@@ -1466,14 +1359,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         //calculate active layer depth
         if( strcmp(files[fthawed_up] , string_novalue) != 0 ){
             for(i=1; i<=par->total_pixel; i++){
-                //	r = top->rc_cont->co[i][1];
-                r = top->rc_cont[i][1];
-                //	c = top->rc_cont->co[i][2];
+				r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
-                //	V->co[i] = find_activelayerdepth_up(i, sl->type->co[r][c], sl);   //normal
                 V[i] = find_activelayerdepth_up(i, sl->type[r][c], sl);   //normal
             }
-            //	temp1=join_strings(files[fthawed_up],s2);
             temp1= files[fthawed_up] + s2;
             write_map_vector(temp1, 0, par->format_out, V, UV, number_novalue, top->j_cont, Nr, Nc);
             //	free(temp1);
@@ -1481,14 +1370,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         if( strcmp(files[fthawed_dw] , string_novalue) != 0 ){
             for(i=1; i<=par->total_pixel; i++){
-                //	r = top->rc_cont->co[i][1];
                 r = top->rc_cont[i][1];
-                //	c = top->rc_cont->co[i][2];
                 c = top->rc_cont[i][2];
-                //	V->co[i] = find_activelayerdepth_dw(i, sl->type->co[r][c], sl);   //normal
                 V[i] = find_activelayerdepth_dw(i, sl->type[r][c], sl);   //normal
             }
-            //	temp1=join_strings(files[fthawed_dw],s2);
             temp1= files[fthawed_dw] + s2 ;
             write_map_vector(temp1, 0, par->format_out, V, UV, number_novalue, top->j_cont, Nr, Nc);
             //	free(temp1);
@@ -1497,15 +1382,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         //WATER OVER THE SURFACE
         if( strcmp(files[fhsupland] , string_novalue) != 0 ){
             for(i=1; i<=par->total_pixel; i++){
-                //	r = top->rc_cont->co[i][1]
                 r = top->rc_cont[i][1];
-                //	c = top->rc_cont->co[i][2];
                 c = top->rc_cont[i][2];
-                //	V->co[i] = Fmax(0, sl->SS->P->co[0][i]) / cos(top->slope->co[r][c] * GTConst::Pi/180.);
                 V[i] = Fmax(0, sl->SS->P[0][i]) / cos(top->slope[r][c] * GTConst::Pi/180.);
             }
 
-            //	temp1 = join_strings(files[fhsupland], s2);
             temp1 = files[fhsupland] + s2 ;
             write_map_vector(temp1, 0, par->format_out, V, UV, number_novalue, top->j_cont, Nr, Nc);
             //	free(temp1);
@@ -1513,21 +1394,15 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         if( strcmp(files[fhsupch] , string_novalue) != 0 ){
             for(i=1; i<=par->total_pixel; i++){
-                //	r = top->rc_cont->co[i][1];
                 r = top->rc_cont[i][1];
-                //	c = top->rc_cont->co[i][2];
                 c = top->rc_cont[i][2];
-                //	if (cnet->ch->co[r][c]!=0) {
                 if (cnet->ch[r][c]!=0) {
-                    //	V->co[i] = cnet->SS->P->co[0][cnet->ch->co[r][c]] / cos(top->slope->co[r][c] * GTConst::Pi/180.);
                     V[i] = cnet->SS->P[0][cnet->ch[r][c]] / cos(top->slope[r][c] * GTConst::Pi/180.);
                 }else {
-                    //	V->co[i] = (double)number_novalue;
                     V[i] = (double)number_novalue;
                 }
             }
 
-            //	temp1 = join_strings(files[fhsupch], s2);
             temp1 = files[fhsupch] + s2;
             write_map_vector(temp1, 0, par->format_out, V, UV, number_novalue, top->j_cont, Nr, Nc);
             //	free(temp1);
@@ -1537,25 +1412,17 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //snow properties
-    //	if(par->output_snow->co[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_snow->co[i_sim]*3600.0)<1.E-5){
     if(par->output_snow[i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_snow[i_sim]*3600.0)<1.E-5){
-        //	n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_snow->co[i_sim]*3600.0));
         n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_snow[i_sim]*3600.0));
         write_suffix(NNNNN, n_file, 1);
-        //	if (par->run_times->co[i_sim] == 1) {
         if (par->run_times[i_sim] == 1) {
-            //	s1 = join_strings(NNNNN, "");
             s1 = NNNNN + string("");
         }else {
-            //	s1 = join_strings(NNNNN, RRRRR);
             s1 = NNNNN + string(RRRRR);
         }
-        //	if (par->init_date->nh == 1) {
         if (par->init_date.size()-1 == 1) {
-            //	s2 = join_strings(s1, "");
             s2 = s1 + "" ;
         }else {
-            //	s2 = join_strings(s1, SSSSS);
             s2 = s1 + SSSSS ;
         }
         //	free(s1);
@@ -2550,17 +2417,19 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 //***************************************************************************************************************
 
 //void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LAND *land, SOIL *sl, Energy *egy, SNOW *snow, GLACIER *glac){
+
+
+
+
 void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top, Land *land, Soil *sl, Energy *egy, Snow *snow, Glacier *glac){
 
     /*internal auxiliary variables:*/
     long i,l,m,j,r,c;
-    //	char *name,*temp,*temp2,NNNN[ ]={"NNNN"},rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
+    
     char NNNN[ ]={"NNNN"},rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
     string name, temp, temp2;
-
     long sy;
     short lu, first_column;
-    //	DOUBLEVECTOR *root_fraction;
     GeoVector<double> root_fraction;
     FILE *f;
 
@@ -2570,18 +2439,12 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     //DISCHARGE
     if (par->state_discharge == 1 && strcmp(files[fQ] , string_novalue) != 0){
         if (par->recover>0) {
-            //	temp = join_strings(files[fQ], rec);
             temp = files[fQ] + string(rec);
-            //	name = join_strings(temp, textfile);
             name = temp + textfile;
-            //	free(temp);
         }else if (par->n_ContRecovery>0) {
             temp = join_strings(files[fQ], crec);
-            //	name = join_strings(temp, textfile);
             name = temp + textfile;
-            //	free(temp);
         }else {
-            //	name = join_strings(files[fQ], textfile);
             name = files[fQ] + string(textfile) ;
         }
 
@@ -2599,11 +2462,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         odpnt=(double**)malloc(m*sizeof(double*));
         odp=(double**)malloc(m*sizeof(double*));
         for (i=0; i<otot; i++) {
-            //	odpnt[i]=(double*)malloc(par->rc->nrh*sizeof(double));
             odpnt[i]=(double*)malloc(par->rc.getRows()*sizeof(double));
-            //	odp[i]=(double*)malloc(par->rc->nrh*sizeof(double));
             odp[i]=(double*)malloc(par->rc.getRows()*sizeof(double));
-            //	for (j=0; j<par->rc->nrh; j++) {
+// to check: is this -1 below needed ? SC26.12.2013
             for (j=0; j<par->rc.getRows()-1; j++) {
                 odpnt[i][j] = 0.;
                 odp[i][j] = 0.;
@@ -2613,19 +2474,12 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fpointwriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fpointwriteend], rec);
                 temp = files[fpointwriteend] + string(rec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
-                //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fpointwriteend], crec);
                 temp = files[fpointwriteend]+ string(crec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
-                //	free(temp);
-            }else {
-                //	name = join_strings(files[fpointwriteend], textfile);
+            }else {;
                 name = files[fpointwriteend] + string(textfile);
             }
 
@@ -2644,8 +2498,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
             }
             fprintf(ffpoint,"\n");
-            //	free(name);
-        }
+                 }
 
         if(strcmp(files[fsnTzwriteend] , string_novalue) != 0){
 
@@ -2804,19 +2657,14 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fTzavwriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fTzavwriteend], rec);
                 temp = files[fTzavwriteend] + string(rec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fTzavwriteend], crec);
                 temp = files[fTzavwriteend] + string(crec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else {
-                //	name = join_strings(files[fTzavwriteend], textfile);
                 name = files[fTzavwriteend]+ string(textfile);
             }
 
@@ -2828,19 +2676,14 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fpsiztotwriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fpsiztotwriteend], rec);
                 temp = files[fpsiztotwriteend] + string(rec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fpsiztotwriteend], crec);
-                temp = files[fpsiztotwriteend] + string(crec);
-                //	name = join_strings(temp, textfile);
-                name = temp + textfile;
+				temp = files[fpsiztotwriteend] + string(crec);
+				name = temp + textfile;
                 //	free(temp);
             }else {
-                //	name = join_strings(files[fpsiztotwriteend], textfile);
                 name = files[fpsiztotwriteend]+ string(textfile);
             }
 
@@ -2852,19 +2695,14 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fpsizwriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fpsizwriteend], rec);
-                temp = files[fpsizwriteend] + string(rec);
-                //	name = join_strings(temp, textfile);
-                name = temp + textfile;
+				temp = files[fpsizwriteend] + string(rec);
+				name = temp + textfile;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fpsizwriteend], crec);
                 temp = files[fpsizwriteend] + string(crec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else {
-                //	name = join_strings(files[fpsizwriteend], textfile);
                 name = files[fpsizwriteend]+ string(textfile);
             }
 
@@ -2969,39 +2807,29 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             //	free(name);
         }
 
-        //	root_fraction=new_doublevector(Nl);
+        // is this ok ? Nl +1 ?? 
+		
         root_fraction.resize(Nl+1);
 
 
         //DATA POINTS
-        //	for(i=1;i<=par->rc->nrh;i++){
+        
         for(i=1;i<par->rc.getRows();i++){
 
-            //	write_suffix(NNNN, par->IDpoint->co[i], 0);
-            write_suffix(NNNN, par->IDpoint[i], 0);
-            //	r=par->rc->co[i][1];
+			write_suffix(NNNN, par->IDpoint[i], 0);
             r=par->rc[i][1];
-            //	c=par->rc->co[i][2];
             c=par->rc[i][2];
-            //	sy=sl->type->co[r][c];
             sy=sl->type[r][c];
-            //	lu=(short)land->LC->co[r][c];
             lu=(short)land->LC[r][c];
 
             if(strcmp(files[fpoint] , string_novalue) != 0 && par->point_sim != 1){
-                //	name=join_strings(files[fpoint],"_info_");
                 name=files[fpoint]+string("_info_");
-                //	temp=join_strings(name,NNNN);
                 temp = name + NNNN;
-                //	temp2 = join_strings(temp,textfile);
                 temp2 = temp + textfile;
                 f=t_fopen(temp2.c_str(),"w");
 
-                //	fprintf(f," The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n",par->chkpt->co[i][ptX],par->chkpt->co[i][ptY],r,c);
                 fprintf(f," The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n",par->chkpt[i][ptX],par->chkpt[i][ptY],r,c);
-                //	fprintf(f," Elevation above sea level: %10.3f m\n",top->Z0->co[r][c]);
                 fprintf(f," Elevation above sea level: %10.3f m\n",top->Z0[r][c]);
-                //	fprintf(f," Gauckler-Strickler [m^1/3/s]: %f\n",land->ty->co[lu][jcm]);
                 fprintf(f," Gauckler-Strickler [m^1/3/s]: %f\n",land->ty[lu][jcm]);
                 for(l=1;l<=Nl;l++){
                     fprintf(f," Residual water content[-] of the layer %ld: %f\n",l,sl->pa[sy][jres][l]);
@@ -3034,31 +2862,20 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,sl->pa[sy][jKl][l]);
                 }
 
-                //	fprintf(f," Terrain elevation [m]: %f\n",top->Z0->co[r][c]);
                 fprintf(f," Terrain elevation [m]: %f\n",top->Z0[r][c]);
-                //	fprintf(f," Sky view factor [-]: %f\n",top->sky->co[r][c]);
                 fprintf(f," Sky view factor [-]: %f\n",top->sky[r][c]);
-                //	fprintf(f," The pixel-type is %d \n",top->pixel_type->co[r][c]);
                 fprintf(f," The pixel-type is %d \n",top->pixel_type[r][c]);
-                //	fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]);
-                fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect[r][c]);
-                //	fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slope->co[r][c]);
+				fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect[r][c]);
                 fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slope[r][c]);
-                //	fprintf(f," Land use number is %d \n",(short)land->LC->co[r][c]);
                 fprintf(f," Land use number is %d \n",(short)land->LC[r][c]);
 
                 for(l=1;l<=Nl;l++){
-                    //	fprintf(f," The root fraction [-] of layer %ld: %f\n",l,land->root_fraction->co[lu][l]);
                     fprintf(f," The root fraction [-] of layer %ld: %f\n",l,land->root_fraction[lu][l]);
                 }
 
-                //	fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",land->ty->co[lu][jcf]);
                 fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",land->ty[lu][jcf]);
-                //	fprintf(f," Leaf and Stem Area Index [-]: %f \n",land->ty->co[lu][jLSAI]);
                 fprintf(f," Leaf and Stem Area Index [-]: %f \n",land->ty[lu][jLSAI]);
-                //	fprintf(f," Momentum roughness length z0soil [m]: %f \n",land->ty->co[lu][jz0]);
                 fprintf(f," Momentum roughness length z0soil [m]: %f \n",land->ty[lu][jz0]);
-                //	fprintf(f," Vegetation height [m]: %f \n",land->ty->co[lu][jHveg]);
                 fprintf(f," Vegetation height [m]: %f \n",land->ty[lu][jHveg]);
 
                 fprintf(f," \n");
@@ -3113,29 +2930,20 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
             if(strcmp(files[fsatz] , string_novalue) != 0){
 
-                //	temp=join_strings(files[fsnz],NNNN);
                 temp= files[fsatz] + string(NNNN);
 
                 if (par->recover>0) {
-                    //	temp2 = join_strings(temp, rec);
                     temp2 = temp + rec;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile;
-                    //	free(temp2);
                 }else if (par->n_ContRecovery>0) {
-                    //	temp2 = join_strings(temp, crec);
                     temp2 = temp + crec;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile;
                     //	free(temp2);
                 }else {
-                    //	name = join_strings(temp, textfile);
                     name = temp + textfile;
                 }
 
-                //	free(temp);
 
-                //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
                 if ((long)par->snow_plot_depths[1] != number_novalue) {
                     //	m = par->snow_plot_depths->nh;
                     m = par->snow_plot_depths.size();
@@ -3156,9 +2964,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     }else if (osnw[j] >= 6 && osnw[j] < 6+3*m) {
                         l = (long)fmod( (double)osnw[j]-6., (double)m ) + 1;
                         n = floor( ( (double)osnw[j]-6.) / (double)m ) + 6;
-                        //	if ((long)par->snow_plot_depths->co[1] != number_novalue) {
-                        if ((long)par->snow_plot_depths[1] != number_novalue) {
-                            //	fprintf(f, "%s(%f)",hsnw[n],par->snow_plot_depths->co[l]);
+                         if ((long)par->snow_plot_depths[1] != number_novalue) {
                             fprintf(f, "%s(%f)",hsnw[n],par->snow_plot_depths[l]);
                         }else {
                             fprintf(f, "%s(%ld)",hsnw[n],l);
@@ -3173,7 +2979,6 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
                 fprintf(f,"\n");
                 t_fclose(f);
-                //	free(name);
             }
 
             if(par->max_glac_layers>0){
@@ -3245,23 +3050,17 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
             if(strcmp(files[fTz] , string_novalue) != 0){
 
-                //	temp=join_strings(files[fTz],NNNN);
                 temp=files[fTz] +string(NNNN);
 
                 if (par->recover>0) {
-                    //	temp2 = join_strings(temp, rec);
                     temp2 = temp + rec ;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile ;
                     //	free(temp2);
                 }else if (par->n_ContRecovery>0) {
-                    //	temp2 = join_strings(temp, crec);
                     temp2 = temp + crec ;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile;
                     //	free(temp2);
                 }else {
-                    //	name = join_strings(temp, textfile);
                     name = temp + textfile;
                 }
 
@@ -3275,23 +3074,17 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
             if(strcmp(files[fTzav] , string_novalue) != 0){
 
-                //	temp=join_strings(files[fTzav],NNNN);
                 temp= files[fTzav] +string(NNNN);
 
                 if (par->recover>0) {
-                    //	temp2 = join_strings(temp, rec);
-                    temp2 = temp + rec ;
-                    //	name = join_strings(temp2, textfile);
-                    name = temp2 + textfile ;
+					temp2 = temp + rec ;
+					name = temp2 + textfile ;
                     //	free(temp2);
                 }else if (par->n_ContRecovery>0) {
-                    //	temp2 = join_strings(temp, crec);
                     temp2 = temp + crec ;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile ;
                     //	free(temp2);
                 }else {
-                    //	name = join_strings(temp, textfile);
                     name = temp + textfile ;
                 }
 
@@ -3305,23 +3098,17 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
             if(strcmp(files[fpsiztot] , string_novalue) != 0){
 
-                //	temp=join_strings(files[fpsiztot],NNNN);
                 temp= files[fpsiztot] +string(NNNN);
 
                 if (par->recover>0) {
-                    //	temp2 = join_strings(temp, rec);
                     temp2 = temp + rec;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile ;
                     //	free(temp2);
                 }else if (par->n_ContRecovery>0) {
-                    //	temp2 = join_strings(temp, crec);
                     temp2 = temp + crec ;
-                    //	name = join_strings(temp2, textfile);
                     name = temp2 + textfile ;
                     //	free(temp2);
                 }else {
-                    //	name = join_strings(temp, textfile);
                     name = temp + textfile;
                 }
 
@@ -3502,20 +3289,16 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fbaswriteend] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fbaswriteend], rec);
-                temp = files[fbaswriteend] + string(rec);
-                //	name = join_strings(temp, textfile);
+                
+                temp = files[fbaswriteend] + string(rec);                
                 name = temp + textfile ;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fbaswriteend], crec);
                 temp = files[fbaswriteend] + string(crec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile;
                 //	free(temp);
             }else {
-                //	name = join_strings(files[fbaswriteend], textfile);
-                name = files[fbaswriteend]+ string(textfile);
+			    name = files[fbaswriteend]+ string(textfile);
             }
 
             ffbas=fopen(name.c_str(),"w");
@@ -3540,19 +3323,16 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(strcmp(files[fbas] , string_novalue) != 0){
 
             if (par->recover>0) {
-                //	temp = join_strings(files[fbas], rec);
+                
                 temp = files[fbas] + string(rec);
-                //	name = join_strings(temp, textfile);
                 name = temp + textfile ;
                 //	free(temp);
             }else if (par->n_ContRecovery>0) {
-                //	temp = join_strings(files[fbas], crec);
+               
                 temp = files[fbas] + string(crec);
-                //	name = join_strings(temp, textfile);
-                name = temp + textfile ;
+				name = temp + textfile ;
                 //	free(temp);
             }else {
-                //	name = join_strings(files[fbas], textfile);
                 name = files[fbas] + string(textfile);
             }
 
@@ -3583,19 +3363,14 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     if(par->point_sim!=1 && strcmp(files[fSCA] , string_novalue) != 0){
 
         if (par->recover>0) {
-            //	temp = join_strings(files[fSCA], rec);
             temp = files[fSCA] + string(rec);
-            //	name = join_strings(temp, textfile);
             name = temp + textfile ;
             //	free(temp);
         }else if (par->n_ContRecovery>0) {
-            //	temp = join_strings(files[fSCA], crec);
             temp = files[fSCA] + string(crec);
-            //	name = join_strings(temp, textfile);
             name = temp + textfile ;
             //	free(temp);
         }else {
-            //	name = join_strings(files[fSCA], textfile);
             name = files[fSCA] + string(textfile);
         }
 
@@ -3614,10 +3389,8 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//	void write_soil_output(long i, long iname, double init_date, double JDfrom0, double JD, long day, long month, long year, long hour, long minute, DOUBLEVECTOR *n, Soil *sl, Par *par, double psimin, double cosslope){
 void write_soil_output(long i, long iname, double init_date, double JDfrom0, double JD, long day, long month, long year, long hour, long minute, const GeoVector<double>& n, Soil *sl, Par *par, double psimin, double cosslope){
 
-    //  char *name,*temp,*temp2,NNNN[ ]={"NNNN"};
     char NNNN[ ]={"NNNN"};
     string name, temp, temp2;
 
@@ -3632,28 +3405,21 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
 
     if(strcmp(files[fTz] , string_novalue) != 0){
 
-        //	temp=join_strings(files[fTz],NNNN);
         temp= files[fTz] + string(NNNN);
 
         if (par->recover>0) {
-            //	temp2 = join_strings(temp, rec);
             temp2 = temp + rec ;
-            //	name = join_strings(temp2, textfile);
             name = temp2 + textfile;
             //	free(temp2);
         }else if (par->n_ContRecovery>0) {
-            //	temp2 = join_strings(temp, crec);
             temp2 = temp + crec ;
-            //	name = join_strings(temp2, textfile);
             name = temp2 + textfile;
             //	free(temp2);
         }else {
-            //	name = join_strings(temp, textfile);
             name = temp + textfile ;
         }
 
         f=fopen(name.c_str(),"a");
-        //	write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzplot->co[i], n, sl->pa[1][jdz], cosslope);
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzplot, i, n, sl->pa, cosslope);
         fclose(f);
         //	free(name);
@@ -3661,7 +3427,6 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     }
 
     if(strcmp(files[fTzwriteend] , string_novalue) != 0){
-        //	write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzplot->co[i], n, sl->pa[1][jdz], cosslope);
         write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzplot, i, n, sl->pa, cosslope);
     }
 
@@ -4035,7 +3800,9 @@ void plot(char *name, long i_plot, const GeoVector<double>& V, short format, lon
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q){
+// to check this function...
+
+double interpolate_soil3(long lmin, double h, long max, double *Dz, double *Q){
 
     double q, z, z0=0.;
     long l;
@@ -4087,15 +3854,11 @@ double interpolate_soil(long lmin, double h, long max, const GeoTensor<double>& 
 
         if (l == lmin){
             z = z0;
-            //if (l>0) z += Dz[l]/2.;
             if (l>0) z += Dz(1,jdz,l)/2.;
         }else if (l <= max) {
-            //z = z0 + Dz[l]/2;
-            //if (l>1) z += Dz[l-1]/2.;
             z = z0 + Dz(1,jdz,l)/2;
             if (l>1) z += Dz(1,jdz,l-1)/2.;
         }else {
-            //z = z0 + Dz[max]/2.;
             z = z0 + Dz(1,jdz,max)/2.;
         }
 
@@ -4125,7 +3888,7 @@ double interpolate_soil(long lmin, double h, long max, const GeoTensor<double>& 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long i){
+
 double interpolate_soil2(long lmin, double h, long max, const GeoTensor<double>& Dz, GeoMatrix<double>& Q, long i){
 
     double q, z, z0=0.;
@@ -4138,27 +3901,20 @@ double interpolate_soil2(long lmin, double h, long max, const GeoTensor<double>&
 
         if (l == lmin){
             z = z0;
-            //if (l>0) z += Dz[1][jdz][l]/2.;
             if (l>0) z += Dz(1,jdz,l)/2.;
         }else if (l <= max) {
-            //z = z0 + Dz[l]/2.;
             z = z0 + Dz(1,jdz,l)/2.;
-            //if (l>1) z += Dz[1][jdz][l-1]/2.;
             if (l>1) z += Dz(1,jdz,l-1)/2.;
         }else {
-            //z = z0 + Dz[1][jdz][max]/2.;
             z = z0 + Dz(1,jdz,max)/2.;
         }
 
         if(h < z && h >= z0){
             if (l == lmin) {
-                //	q = Q->co[l][i];
                 q = Q[l][i];
             }else if (l <= max) {
-                //	q = ( Q->co[l-1][i] * (z-h) + Q->co[l][i] * (h-z0) ) / (z - z0);
                 q = ( Q[l-1][i] * (z-h) + Q[l][i] * (h-z0) ) / (z - z0);
             }else {
-                //	q = Q->co[max][i];
                 q = Q[max][i];
             }
         }
@@ -4219,36 +3975,26 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type, s
 void write_tensorseries_soil(long lmin, string suf, char *filename, short type, short format, GeoMatrix<double>& T, const GeoVector<double>& n, long **J, GeoMatrix<long>& RC, GeoTensor<double>& dz, GeoMatrix<double>& slope, short vertical){
 
     char LLLLL[ ]={"LLLLL"};
-    //	char *temp1, *temp2;
+
     string temp1, temp2;
-    //	long i, l, npoints=T->nch;
     long i, l, npoints=T.getCols();
     double cosslope=1.;
-    //	DOUBLEVECTOR *V;
     GeoVector<double> V(npoints);
 
-    //	for(l=1; l<=n->nh; l++){
     for(l=1; l<n.size(); l++){
-        //	temp1 = join_strings(LLLLL, suf);
         temp1 = LLLLL + suf;
         write_suffix(temp1, l, 1);
 
-        //for(i=1; i<=npoints; i++){
+		// n< or n,= ??? SC.26.12.2013
+		
         for(i=1; i<npoints; i++){
-            //	if (vertical == 1) cosslope = cos( Fmin(GTConst::max_slope, slope->co[RC->co[i][1]][RC->co[i][2]]) * GTConst::Pi/180. );
             if (vertical == 1) cosslope = cos( Fmin(GTConst::max_slope, slope[RC[i][1]][RC[i][2]]) * GTConst::Pi/180. );
-            //	V->co[i] = interpolate_soil2(lmin, n->co[l]*cosslope, Nl, dz, T, i);
             V[i] = interpolate_soil2(lmin, n[l]*cosslope, Nl, dz, T, i);
         }
 
-        //	temp2 = join_strings(filename, temp1);
         temp2 = filename + temp1;
-        //	write_map_vector(temp2, type, format, V, UV, number_novalue, J, slope->nrh, slope->nch);
         write_map_vector(temp2, type, format, V, UV, number_novalue, J, slope.getRows()-1, slope.getCols()-1);
 
-        //	free_doublevector(V);
-        //	free(temp1);
-        //	free(temp2);
     }
 }
 
