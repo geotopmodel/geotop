@@ -76,8 +76,8 @@ void copydoublematrix_const(double c0, GeoMatrix<double>& Mref,GeoMatrix<double>
 //----------------------
 
 void write_suffix(std::string &suffix, long i, short start){
-    std::strstream lStream ;
-    lStream << std::setw(4) << std::setfill('0') << i << '\0';
+    std::stringstream lStream ;
+    lStream << std::setw(4) << std::setfill('0') << i ;
     std::string lString = lStream.str();
     suffix.replace(start, lString.size(), lString);
 }
