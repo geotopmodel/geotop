@@ -124,7 +124,15 @@ public:
         
         if( mKey->compare ("") != 0 )
         {
-            (*mMap)[*mKey] = pValue;
+            boost::any lAny = (*mMap)[*mKey] ;
+            if(lAny.type() == typeid(std::vector<double>))
+            {
+                std::vector<double> lValue ;
+                lValue.push_back(pValue) ;
+                (*mMap)[*mKey] = lValue;
+            } else {
+                (*mMap)[*mKey] = pValue;
+            }
         } else {
             std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
         }
@@ -1008,7 +1016,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("OutputDepthsVertical", double(0)) ;
     
-    initValue("OutputVegetationMaps", double(0)) ;
+    std::vector<double> lOutputVegetationMaps ;
+    lOutputVegetationMaps += 0 ;
+    initValue("OutputVegetationMaps", lOutputVegetationMaps) ;
     
     initValue("ExitMinLambdaEnergy", double(0)) ;
     
@@ -1076,7 +1086,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("JulianDayFromYear0Glac", double(-1)) ;
     
-    initValue("OutputGlacierMaps", double(0)) ;
+    std::vector<double> lOutputGlacierMaps ;
+    lOutputGlacierMaps += 0 ;
+    initValue("OutputGlacierMaps", lOutputGlacierMaps) ;
     
     std::vector<double> lThetaSat ;
     lThetaSat += 0.5,0.5,0.5,0.5,0.5 ;
@@ -1090,7 +1102,7 @@ void geotop::input::ConfigStore::init()
     lGlacPlotDepths += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("GlacPlotDepths", lGlacPlotDepths) ;
     
-    initValue("NumLandCoverTypes", double(8)) ;
+    initValue("NumLandCoverTypes", double(1)) ;
     
     initValue("SnowDensityPoint", double(-1)) ;
     
@@ -1168,9 +1180,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("ZeroTempAmplitDepth", double(1e+20)) ;
     
-    std::vector<double> lMaxSnowLayersMiddle ;
-    lMaxSnowLayersMiddle += 5,5 ;
-    initValue("MaxSnowLayersMiddle", lMaxSnowLayersMiddle) ;
+    initValue("MaxSnowLayersMiddle", double(10)) ;
     
     initValue("AirTempBasin", double(-1)) ;
     
@@ -1209,8 +1219,10 @@ void geotop::input::ConfigStore::init()
     initValue("WindCompaction1D", double(0)) ;
     
     initValue("InitGlacierDepth", double(0)) ;
-    
-    initValue("OutputSnowMaps", double(1)) ;
+
+    std::vector<double> lOutputSnowMaps ;
+    lOutputSnowMaps += 1 ;
+    initValue("OutputSnowMaps",lOutputSnowMaps) ;
     
     initValue("SoilLayerNumber", double(5)) ;
     
@@ -1224,7 +1236,9 @@ void geotop::input::ConfigStore::init()
     lSpecificStorativityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("SpecificStorativityBedrock", lSpecificStorativityBedrock) ;
     
-    initValue("DtPlotDischarge", double(0)) ;
+    std::vector<double> lDtPlotDischarge ;
+    lDtPlotDischarge += 0 ;
+    initValue("DtPlotDischarge", lDtPlotDischarge) ;
     
     std::vector<double> lVMualem ;
     lVMualem += 0.5,0.5,0.5,0.5,0.5 ;
@@ -1247,9 +1261,11 @@ void geotop::input::ConfigStore::init()
     initValue("ThetaRes", lThetaRes) ;
     
     initValue("AlbExtParSnow", double(10)) ;
-    
-    initValue("NumSimulationTimes", double(1)) ;
-    
+
+    std::vector<double> lNumSimulationTimes ;
+    lNumSimulationTimes += 1;
+    initValue("NumSimulationTimes", lNumSimulationTimes) ;
+
     std::vector<double> lThresSnowVegDown ;
     lThresSnowVegDown += 0,200,0,200,0,1900,1900,800 ;
     initValue("ThresSnowVegDown", lThresSnowVegDown) ;
@@ -1316,7 +1332,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("MeanTimeStep", double(-1)) ;
     
-    initValue("TimeStepEnergyAndWater", double(3600)) ;
+    std::vector<double> lTimeStepEnergyAndWater ;
+    lTimeStepEnergyAndWater += 3600 ;
+    initValue("TimeStepEnergyAndWater", lTimeStepEnergyAndWater) ;
     
     std::vector<double> lSoilRoughness ;
     lSoilRoughness += 10,10,10,10,10,10,10,10 ;
@@ -1432,8 +1450,10 @@ void geotop::input::ConfigStore::init()
     initValue("TvegBasin", double(-1)) ;
     
     initValue("GlacTempPoint", double(-1)) ;
-    
-    initValue("DtPlotBasin", double(0)) ;
+
+    std::vector<double> lDtPlotBasin ;
+    lDtPlotBasin += 0;
+    initValue("DtPlotBasin", lDtPlotBasin) ;
     
     initValue("UpwindBorderBlowingSnow", double(0)) ;
     
@@ -1472,10 +1492,8 @@ void geotop::input::ConfigStore::init()
     initValue("TimeFromStartPoint", double(-1)) ;
     
     initValue("CurvatureWeight", double(0)) ;
-    
-    std::vector<double> lMaxWaterEqSnowLayerContent ;
-    lMaxWaterEqSnowLayerContent += 10,10 ;
-    initValue("MaxWaterEqSnowLayerContent", lMaxWaterEqSnowLayerContent) ;
+
+    initValue("MaxWaterEqSnowLayerContent", double(5)) ;
     
     initValue("SoilAll", double(1)) ;
     
@@ -1509,7 +1527,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("MinPrecToRestoreFreshSnowAlbedo", double(10)) ;
     
-    initValue("OutputMeteoMaps", double(0)) ;
+    std::vector<double> lOutputMeteoMaps ;
+    lOutputMeteoMaps += 0 ;
+    initValue("OutputMeteoMaps", lOutputMeteoMaps) ;
     
     initValue("Vmin", double(0.5)) ;
     
@@ -1774,7 +1794,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("FreshSnowReflVis", double(0.95)) ;
     
-    initValue("OutputSurfEBALMaps", double(0)) ;
+    std::vector<double> lOutputSurfEBALMaps ;
+    lOutputSurfEBALMaps += 0 ;
+    initValue("OutputSurfEBALMaps", lOutputSurfEBALMaps) ;
     
     initValue("PointAll", double(0)) ;
     
@@ -1791,8 +1813,10 @@ void geotop::input::ConfigStore::init()
     initValue("MaxCourantSupFlowLand", double(0.1)) ;
     
     initValue("LowestWaterTableDepthPoint", double(-1)) ;
-    
-    initValue("DtPlotPoint", double(1)) ;
+
+    std::vector<double> lDtPlotPoint ;
+    lDtPlotPoint += 1 ;
+    initValue("DtPlotPoint", lDtPlotPoint) ;
     
     std::vector<double> lSpecificStorativity ;
     lSpecificStorativity += 1e-07,1e-07,1e-07,1e-07,1e-07 ; 
@@ -1848,3 +1872,18 @@ geotop::input::ConfigStore::~ConfigStore()
 {
     
 }
+
+boost::shared_ptr<geotop::input::ConfigStore> geotop::input::ConfigStoreSingletonFactory::getInstance() {
+    if ( ! mInstance ) {
+        mMutex.lock ();
+        if ( ! mInstance ) {
+            boost::shared_ptr<geotop::input::ConfigStore> lTemp ( new geotop::input::ConfigStore() );
+            mInstance = lTemp ;
+        }
+        mMutex.unlock ();
+    }
+    return mInstance;
+}
+
+boost::shared_ptr<geotop::input::ConfigStore> geotop::input::ConfigStoreSingletonFactory::mInstance ;
+boost::signals2::mutex geotop::input::ConfigStoreSingletonFactory::mMutex ;
