@@ -1120,7 +1120,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("DrySnowDefRate", double(1)) ;
     
-    initValue("OutputSoilMaps", double(1)) ;
+    std::vector<double> lOutputSoilMaps ;
+    lOutputSoilMaps += 1 ;
+    initValue("OutputSoilMaps", lOutputSoilMaps) ;
     
     initValue("InitWaterTableDepth", double(1000)) ;
     

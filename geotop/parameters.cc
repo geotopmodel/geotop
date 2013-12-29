@@ -55,8 +55,8 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	
 	short endoffile, ok;
 	
-	char *temp;
-	char *path_rec_files;
+    std::string temp;
+    std::string path_rec_files;
 	
 	char **keywords_num_lower_case, **keywords_char_lower_case;
 	
@@ -211,7 +211,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	itools->horizon_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char); 
 	beg = end;
 	end += nfiles;
-	files = assign_string_parameter(flog, beg, end, string_param, keywords_char);
+	files = assign_string_parameter_v(flog, beg, end, string_param, keywords_char);
 	beg = end;
 	end += otot;
 	hpnt = assign_string_parameter(flog, beg, end, string_param, keywords_char);
@@ -240,22 +240,18 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	beg = end;
 	end += 1;
 	temp = assignation_string(flog, beg, keywords_char, string_param);
-	if (strcmp(string_novalue,temp) == 0) {
-		free(temp);
-		temp = assign_string("_SUCCESSFUL_RUN");
+	if (strcmp(string_novalue,temp.c_str()) == 0) {
+		temp = "_SUCCESSFUL_RUN";
 	}
 	SuccessfulRunFile = WORKING_DIRECTORY + temp ;
-	free(temp);
 			
 	beg = end;
 	end += 1;
 	temp = assignation_string(flog, beg, keywords_char, string_param);
-	if (strcmp(string_novalue,temp) == 0) {
-		free(temp);
-		temp = assign_string("_FAILED_RUN");
+	if (strcmp(string_novalue,temp.c_str()) == 0) {
+		temp = "_FAILED_RUN";
 	}	
 	FailedRunFile = WORKING_DIRECTORY + temp;
-	free(temp);
 	
 	beg = end;
 	end += 1;
@@ -463,8 +459,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	
 	//Recovery Files
 	for (j=rpsi; j<=rsux; j++) {
-		if(strcmp(files[j], string_novalue) == 0){
-			free(files[j]);
+		if(files[j] == string_novalue){
 			if (j==rpsi) { files[j] = assign_string("SoilPressure");
 			}else if (j==riceg) { files[j] = assign_string("SoilIceContent");
 			}else if (j==rTg) { files[j] = assign_string("SoilTemperature");
@@ -500,27 +495,20 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	}
 
 	//add path to recovery files
-	if(strcmp(path_rec_files, string_novalue) != 0){
-		temp = assign_string(path_rec_files);
-		free(path_rec_files);
-		path_rec_files = join_strings(temp, "/");
-		free(temp);
+	if(path_rec_files != string_novalue){
+		temp = path_rec_files;
+		path_rec_files = temp + std::string("/");
 		for (i=rpsi; i<=rsux; i++) {
-			temp = assign_string(files[i]);
-			free(files[i]);
-			files[i] = join_strings(path_rec_files, temp);
-			free(temp);
+			temp = files[i];
+			files[i] = path_rec_files + temp;
 		}
 	}
-	free(path_rec_files);
 
 	//add working path to the file name
 	for (i=0; i<nfiles; i++) {
-		if (strcmp(files[i], string_novalue) != 0) {
-			temp = assign_string(files[i]);
-			free(files[i]);
-			files[i] = join_strings(WORKING_DIRECTORY.c_str(), std::string(temp).c_str());
-			free(temp);
+		if (files[i] != string_novalue) {
+			temp = files[i];
+			files[i] = WORKING_DIRECTORY + std::string(temp);
 		}
 	}
 
@@ -1476,8 +1464,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->output_vegetation.resize(par->init_date.size() + 1, 0);
 	par->output_meteo.resize(par->init_date.size() + 1, 0);
 
-#define STAGING_FOR_REMOVING 1
-
 #ifdef STAGING_FOR_REMOVING
 	cod = 157;
 	par->output_soil[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 0., 0);
@@ -1514,7 +1500,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->output_snow[i] = lValue ;
 	}
 #endif
-
+    
 #ifdef STAGING_FOR_REMOVING
 	cod = 159;
 	par->output_glac[1] = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 0., 0);
@@ -1532,6 +1518,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->output_glac[i] = lValue ;
 	}
 #endif
+    
 
 #ifdef STAGING_FOR_REMOVING
 	cod = 160;
@@ -1586,7 +1573,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->output_meteo[i] = lValue ;
 	}
 #endif
-
+    
 	par->output_soil_bin = 0;
 	par->output_snow_bin = 0;
 	par->output_glac_bin = 0;
@@ -2209,6 +2196,18 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
+std::vector<std::string> assign_string_parameter_v(FILE *f, long beg, long end, char **string_param, string keyword[]){
+    
+	long i;
+	std::vector<std::string> a;
+
+	for (i=0; i<end-beg; i++) {
+        std::string lString = assignation_string(f, i+beg, keyword, string_param) ;
+        a.push_back(lString);
+	}
+    
+	return(a);
+}
 
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, string keyword[]){
 
@@ -2218,7 +2217,8 @@ char **assign_string_parameter(FILE *f, long beg, long end, char **string_param,
 	a = (char**)malloc((end-beg)*sizeof(char*));
 
 	for (i=0; i<end-beg; i++) {
-		a[i] = assignation_string(f, i+beg, keyword, string_param);
+        std::string lString = assignation_string(f, i+beg, keyword, string_param);
+        a[i] = strdup(lString.c_str()) ;
 	}
 
 	return(a);
@@ -2267,22 +2267,18 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 /***********************************************************/
 /***********************************************************/
 
-char *assignation_string(FILE *f, long i, string keyword[], char **string_param){
+std::string assignation_string(FILE *f, long i, string keyword[], char **string_param){
 
-	char *a;
+    std::string a;
 	long j, dimstring = strlen(string_param[i]);
 
-	a = (char*)malloc((dimstring+1)*sizeof(char));
-
 	for (j=0; j<dimstring; j++) {
-		a[j] = string_param[i][j];
+		a.push_back(string_param[i][j]);
 	}
-	a[dimstring] = 0;
 
     //TODO: removeme
     //std::cout << "DEBUG_KEYWORDS assignation_string: name(" << keyword[i] << "),Value("<< a << "),i(" << i << "),string_param[i](" << string_param[i] << ")" << std::endl ;
-	fprintf(f,"%s = %s\n", keyword[i].c_str(), a);
-
+	fprintf(f,"%s = %s\n", keyword[i].c_str(), a.c_str());
 	return(a);
 }
 
@@ -2292,11 +2288,11 @@ char *assignation_string(FILE *f, long i, string keyword[], char **string_param)
 /***********************************************************/
 /***********************************************************/
 
-  short read_soil_parameters(char *name, InitTools *IT, Soil *sl, long bed, FILE *flog){
+short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog){
 	
 	short ok;
 	long i, j, k, n, nlines, nlinesprev;
-	char *temp;
+    std::string temp;
 	double **soildata;
     GeoTensor<double> old_sl_par;
     FILE *f ;
@@ -2311,29 +2307,27 @@ i = 0;
 		temp = namefile_i_we2(name, i+1);
 		
 		if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
-			free(temp);
 			ok = 1;
 			temp = namefile_i(name, i+1);
 			nlines = count_lines(temp, 33, 44);
+            
 			if (nlinesprev >= 0 && nlines != nlinesprev){
 				f = fopen(FailedRunFile.c_str(), "w");
-				fprintf(f,"Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",temp,nlines,nlinesprev);
+				fprintf(f,"Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",temp.c_str(), nlines, nlinesprev);
 				fprintf(f,"In GEOtop it is only possible to have the same number of layers in any soil parameter files\n");
 				fclose(f);
 				t_error("Fatal Error! GEOtop is closed. See failing report.");
 			}
 			nlinesprev = nlines;
 		}else {
-			if (i==0 && strcmp(name, string_novalue) != 0) {
+			if (i==0 && name != string_novalue) {
 				f = fopen(FailedRunFile.c_str(), "w");
-				fprintf(f,"Error:: Soil file %s not existing.\n",name);
+				fprintf(f,"Error:: Soil file %s not existing.\n", name.c_str());
 				fclose(f);
 				t_error("Fatal Error! GEOtop is closed. See failing report.");	
 			}
 		}
-
 			
-		free(temp);
 		i++;
 		
 	} while(ok == 0 && i < sl->pa.getDh()-1);
@@ -2360,7 +2354,6 @@ i = 0;
 			temp = namefile_i_we2(name, i);
 			
 			if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
-				free(temp);
 				temp = namefile_i(name, i);
 				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines, flog);
 			}else {
@@ -2373,8 +2366,6 @@ i = 0;
 					}
 				}
 			}
-
-			free(temp);
 			
 			//assign soildata to soil->pa
 			for (n=1; n<=nsoilprop; n++) {
@@ -2535,18 +2526,17 @@ i = 0;
 /***********************************************************/
 /***********************************************************/		
 
-  short read_point_file(char *name, char **key_header, Par *par, FILE *flog){
+short read_point_file(std::string name, char **key_header, Par *par, FILE *flog){
 
 	GeoMatrix<double>  chkpt2;
 	double **points;
 	long nlines, n, j;
-	char *temp;
+      std::string temp;
 
 	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
-		temp = join_strings(name, textfile);
-		printf("%s\n",temp);
+		temp = name + std::string(textfile);
+		printf("%s\n",temp.c_str());
 		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines, flog);
-		free(temp);
 				
 		chkpt2.resize(par->chkpt.getRows() + 1, par->chkpt.getCols() + 1);
 
@@ -2601,15 +2591,14 @@ i = 0;
 /***********************************************************/		
 	
 //short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name, char **key_header, FILE *flog){
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, char *name, char **key_header, FILE *flog){
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, char **key_header, FILE *flog){
 	double **M;
 	long nlines, n, j, k;
-	char *temp;
+    std::string temp;
 		
-	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
-		temp = join_strings(name, textfile);
+	if (mio::IOUtils::fileExists(name + string(textfile))) {
+		temp = name + textfile ;
 		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
-		free(temp);
 				
 		for (j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {

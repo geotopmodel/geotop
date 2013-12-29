@@ -1,4 +1,6 @@
 #include <geotop_common.h>
+#include <vector>
+#include <string>
 
 const double TZ = 1;
 
@@ -6,12 +8,10 @@ long number_novalue;
 long number_absent;
 char *string_novalue;
 
-// T_INIT *UV;
 TInit *UV;
 
-//char *logfile;
 std::string logfile;
-char **files;
+std::vector<std::string> files;
 
 long Nl = 0 ;
 long Nr = 0 ;

@@ -83,7 +83,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     //	logfile = join_strings(WORKING_DIRECTORY, logfile_name);
-    logfile = join_strings(WORKING_DIRECTORY.c_str(), logfile_name);
+    logfile = WORKING_DIRECTORY + logfile_name;
     flog = fopen(logfile.c_str(), "w");
 
     printf("STATEMENT:\n");
@@ -129,36 +129,36 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	par->dUzrun = 0;
 	par->SWErun = 0;	
 	
-	if(strcmp(files[fTrun] , string_novalue) != 0){
+	if(files[fTrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->Tzrun = 1;
 	}
-	if(strcmp(files[fwrun] , string_novalue) != 0){
+	if(files[fwrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->wzrun = 1;
 	}
-	if(strcmp(files[fTmaxrun] , string_novalue) != 0){
+	if(files[fTmaxrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->Tzmaxrun = 1;
 
 	}
-	if(strcmp(files[fwmaxrun] , string_novalue) != 0){
+	if(files[fwmaxrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->wzmaxrun = 1;
 	}
-	if(strcmp(files[fTminrun] , string_novalue) != 0){
+	if(files[fTminrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->Tzminrun = 1;
 	}
-	if(strcmp(files[fwminrun] , string_novalue) != 0){
+	if(files[fwminrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->wzminrun = 1;
 	}
-	if(strcmp(files[fdUrun] , string_novalue) != 0){
+	if(files[fdUrun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->dUzrun = 1;
 	}
-	if(strcmp(files[fSWErun] , string_novalue) != 0){
+	if(files[fSWErun] != string_novalue){
 		if(par->point_sim == 1) par->state_pixel = 1;
 		if(par->state_pixel == 1) par->SWErun = 1;
 	}
@@ -169,7 +169,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		t_error("Fatal Error! Geotop is closed. See failing report.");		
 	}	
 
-    success = read_soil_parameters(files[fspar], IT, sl, par->soil_type_bedr_default, flog);	
+    success = read_soil_parameters(files[fspar], IT, sl, par->soil_type_bedr_default, flog);
 
     //Nl=sl->pa->nch;
     Nl = sl->pa.getCh() - 1;
@@ -391,7 +391,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }else {
             ist = i;
         }
-
+        
         //	read horizon
         met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines, flog);
         met->horizonlines[i-1] = num_lines;
@@ -408,10 +408,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         met->var[i-1] = (double*)malloc(num_cols*sizeof(double));
 
         //filename
-        if (strcmp(files[fmet], string_novalue) != 0){
+        if (files[fmet] != string_novalue){
 
             //read matrix
             temp=namefile_i(files[fmet], ist);
+
             met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
 
             if ((long)met->data[i-1][0][iDate12] == number_absent && (long)met->data[i-1][0][iJDfrom0] == number_absent) {
@@ -512,7 +513,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //read LAPSE RATES FILE
 
-    if(strcmp(files[fLRs] , string_novalue) != 0){   //s stands for string
+    if(files[fLRs] != string_novalue){   //s stands for string
 
         if (!mio::IOUtils::fileExists(string(files[fLRs]) + string(textfile)))
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file, remove its name and keywords from input file\n");
@@ -678,7 +679,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->qinv[0] = 0.;
     met->qinv[1] = 0.;
 
-    if(strcmp(files[fqin] , string_novalue) != 0){
+    if(files[fqin] != string_novalue){
         //	temp = join_strings(files[fqin], textfile);
         temp = files[fqin] + string(textfile);
         temp2 = (char **)malloc(2*sizeof(char*));
@@ -696,7 +697,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }else{
         par->qin = 0;
     }
-
 
     /****************************************************************************************************/
     /*! Completing the several time-indipendent input variables with the data of input-files:           */
@@ -748,7 +748,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	time dependent vegetation parameters
     for(i=1;i<=par->n_landuses;i++){
 
-        if (strcmp(files[fvegpar] , string_novalue) != 0) {   //s stands for string
+        if (files[fvegpar] != string_novalue) {   //s stands for string
 
             temp = namefile_i_we2(files[fvegpar], i);
 
@@ -806,7 +806,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //******************************************
     //file with time steps
 
-    if(strcmp(files[ftsteps] , string_novalue) != 0){
+    if(files[ftsteps] != string_novalue){
 
         //	temp=join_strings(files[ftsteps],textfile);
         temp= files[ftsteps] + string(textfile);
@@ -971,7 +971,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //BEDROCK (adjusting soil properties)
     par->bedrock = 0;
-    if( strcmp(files[fbed] , string_novalue) != 0 ) set_bedrock(sl, cnet, par, top, land->LC, flog);
+    if( files[fbed] != string_novalue) set_bedrock(sl, cnet, par, top, land->LC, flog);
     //free_doubletensor(sl->pa_bed);
 
     /****************************************************************************************************/
@@ -994,19 +994,19 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	initialize_doublematrix(sl->Ptot,(double)number_novalue);
     sl->Ptot.resize(Nl+1,par->total_pixel+1,(double)number_novalue);
 
-    if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0){
+    if(files[fTav] != string_novalue || files[fTavsup] != string_novalue){
         //	sl->T_av_tensor=new_doublematrix(Nl,par->total_pixel);
         //	initialize_doublematrix(sl->T_av_tensor,0.);
         sl->T_av_tensor.resize(Nl+1,par->total_pixel+1,0.0);
     }
 
-    if(strcmp(files[ficeav] , string_novalue) != 0){
+    if(files[ficeav] != string_novalue){
         //	sl->thi_av_tensor=new_doublematrix(Nl,par->total_pixel);
         //	initialize_doublematrix(sl->thi_av_tensor,0.);
         sl->thi_av_tensor.resize(Nl+1,par->total_pixel+1,0.0);
     }
 
-    if(strcmp(files[fliqav] , string_novalue) != 0){
+    if(files[fliqav] != string_novalue){
         //		sl->thw_av_tensor=new_doublematrix(Nl,par->total_pixel);
         //		initialize_doublematrix(sl->thw_av_tensor,0.);
         sl->thw_av_tensor.resize(Nl+1,par->total_pixel+1,0.0);
@@ -1138,22 +1138,14 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 
     if(par->state_pixel == 1){
-        //	if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot = new_doublematrix_0(par->rc->nrh, Nl);
-        if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot.resize(par->rc.getRows(), Nl+1);  //   new_doublematrix_0()
-        //	if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) sl->thzplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot.resize(par->rc.getRows(), Nl+1);
-        //	if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot = new_doublematrix(par->rc->nrh, Nl);
-        if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fTz] != string_novalue || files[fTzwriteend] != string_novalue) sl->Tzplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fTzav] != string_novalue || files[fTzavwriteend] != string_novalue) sl->Tzavplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fpsiztot] != string_novalue || files[fpsiztotwriteend] != string_novalue) sl->Ptotzplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fpsiz] != string_novalue || files[fpsizwriteend] != string_novalue) sl->Pzplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fliqz] != string_novalue || files[fliqzwriteend] != string_novalue) sl->thzplot.resize(par->rc.getRows(), Nl+1);
+        if(files[fliqzav] != string_novalue || files[fliqzavwriteend] != string_novalue) sl->thzavplot.resize(par->rc.getRows(), Nl+1);
+        if(files[ficez] != string_novalue || files[ficezwriteend] != string_novalue) sl->thizplot.resize(par->rc.getRows(), Nl+1);
+        if(files[ficezav] != string_novalue || files[ficezavwriteend] != string_novalue) sl->thizavplot.resize(par->rc.getRows(), Nl+1);
 
         //	for (i=1; i<=par->rc->nrh; i++) {
         for (i=1; i<par->rc.getRows(); i++) {
@@ -1163,22 +1155,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             c = top->rc_cont[i][2];
             j = top->j_cont[r][c];
             for(l=1;l<=Nl;l++){
-                //	if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][j];
-                if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot[i][l] = sl->SS->T[l][j];
-                //	if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot->co[i][l] = sl->SS->T->co[l][j];
-                if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot[i][l] = sl->SS->T[l][j];
-                //	if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot->co[i][l] = sl->th->co[l][j];
-                if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) sl->thzavplot[i][l] = sl->th[l][j];
-                //	if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot->co[i][l] = sl->SS->thi->co[l][j];
-                if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) sl->thizplot[i][l] = sl->SS->thi[l][j];
-                //	if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot->co[i][l] = sl->SS->thi->co[l][j];
-                if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) sl->thizavplot[i][l] = sl->SS->thi[l][j];
-                //	if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][j];
-                if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot[i][l] = sl->Ptot[l][j];
+                if(files[fTz] != string_novalue || files[fTzwriteend] != string_novalue) sl->Tzplot[i][l] = sl->SS->T[l][j];
+                if(files[fTzav] != string_novalue || files[fTzavwriteend] != string_novalue) sl->Tzavplot[i][l] = sl->SS->T[l][j];
+                if(files[fliqzav] != string_novalue || files[fliqzavwriteend] != string_novalue) sl->thzavplot[i][l] = sl->th[l][j];
+                if(files[ficez] != string_novalue || files[ficezwriteend] != string_novalue) sl->thizplot[i][l] = sl->SS->thi[l][j];
+                if(files[ficezav] != string_novalue || files[ficezavwriteend] != string_novalue) sl->thizavplot[i][l] = sl->SS->thi[l][j];
+                if(files[fpsiztot] != string_novalue || files[fpsiztotwriteend] != string_novalue) sl->Ptotzplot[i][l] = sl->Ptot[l][j];
             }
             for(l=0;l<=Nl;l++) {
-                //	if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][j];
-                if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot[i][l] = sl->SS->P[l][j];
+                if(files[fpsiz] != string_novalue || files[fpsizwriteend] != string_novalue) sl->Pzplot[i][l] = sl->SS->P[l][j];
             }
         }
 
@@ -1339,47 +1324,47 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     // revision performed on 24.12.2013// 
 	
     if(par->output_surfenergy_bin == 1){
-        if(strcmp(files[fradnet] , string_novalue) != 0){
+        if(files[fradnet] != string_novalue){
 		    egy->Rn_mean.resize(par->total_pixel+1,0.0);
             egy->Rn.resize(par->total_pixel+1,0.0);
         }
-        if(strcmp(files[fradLWin] , string_novalue) != 0){
+        if(files[fradLWin] != string_novalue){
             egy->LWin_mean.resize(par->total_pixel+1, 0.0);
             egy->LWin.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fradLW] , string_novalue) != 0){
+        if(files[fradLW] != string_novalue){
             egy->LW_mean.resize(par->total_pixel+1,0.0);
             egy->LW.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fradSW] , string_novalue) != 0){
+        if(files[fradSW] != string_novalue){
             egy->SW_mean.resize(par->total_pixel+1,0.0);
             egy->SW.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fLE] , string_novalue) != 0){
+        if(files[fLE] != string_novalue){
             egy->ET_mean.resize(par->total_pixel+1,0.0);
             egy->LE.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fH] , string_novalue) != 0){
+        if(files[fH] != string_novalue){
             egy->H_mean.resize(par->total_pixel+1,0.0);
             egy->H.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fG] , string_novalue) != 0){
+        if(files[fG] != string_novalue){
             egy->SEB_mean.resize(par->total_pixel+1,0.0);
             egy->G.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fTs] , string_novalue) != 0){
+        if(files[fTs] != string_novalue){
             egy->Ts_mean.resize(par->total_pixel+1,0.0);
             egy->Ts.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fradSWin] , string_novalue) != 0){
+        if(files[fradSWin] != string_novalue){
             egy->Rswdown_mean.resize(par->total_pixel+1,0.0);
             egy->SWin.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fradSWinbeam] , string_novalue) != 0){
+        if(files[fradSWinbeam] != string_novalue){
             egy->Rswbeam_mean.resize(par->total_pixel+1,0.0);
             egy->SWinb.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fshadow] , string_novalue) != 0){
+        if(files[fshadow] != string_novalue){
             egy->nDt_shadow.resize(par->total_pixel+1,0.0);
             egy->nDt_sun.resize(par->total_pixel+1,0.0);
             egy->shad.resize(par->total_pixel+1,0.0);
@@ -1391,7 +1376,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
-        if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
+        if(files[pH] != string_novalue || files[pHg] != string_novalue || files[pG] != string_novalue){
             //	egy->Hgplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->Hgplot, 0.);
             egy->Hgplot.resize(par->total_pixel+1,0.0);
@@ -1399,84 +1384,84 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             egy->Hgp.resize(par->total_pixel+1);
 
         }
-        if(strcmp(files[pH] , string_novalue) != 0 || strcmp(files[pHv] , string_novalue) != 0){
+        if(files[pH] != string_novalue || files[pHv] != string_novalue){
             //	egy->Hvplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->Hvplot, 0.);
             egy->Hvplot.resize(par->total_pixel+1,0.0);
             //	egy->Hvp=new_doublevector(par->total_pixel);
             egy->Hvp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pLE] , string_novalue) != 0 || strcmp(files[pLEg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
+        if(files[pLE] != string_novalue || files[pLEg] != string_novalue || files[pG] != string_novalue){
             //	egy->LEgplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->LEgplot, 0.);
             egy->LEgplot.resize(par->total_pixel+1,0.0);
             //	egy->LEgp=new_doublevector(par->total_pixel);
             egy->LEgp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pLE] , string_novalue) != 0 || strcmp(files[pLEv] , string_novalue) != 0){
+        if(files[pLE] != string_novalue || files[pLEv] != string_novalue){
             //	egy->LEvplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->LEvplot, 0.);
             egy->LEvplot.resize(par->total_pixel+1,0.0);
             //	egy->LEvp=new_doublevector(par->total_pixel);
             egy->LEvp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pSWin] , string_novalue) != 0){
+        if(files[pSWin] != string_novalue){
             //	egy->SWinplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->SWinplot, 0.);
             egy->SWinplot.resize(par->total_pixel+1,0.0);
             //	egy->SWinp=new_doublevector(par->total_pixel);
             egy->SWinp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pSWg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
+        if(files[pSWg] != string_novalue || files[pG] != string_novalue){
             //	egy->SWgplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->SWgplot, 0.);
             //	egy->SWgp=new_doublevector(par->total_pixel);
             egy->SWgplot.resize(par->total_pixel+1,0.0);
             egy->SWgp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pSWv] , string_novalue) != 0){
+        if(files[pSWv] != string_novalue){
             //	egy->SWvplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->SWvplot, 0.);
             egy->SWvplot.resize(par->total_pixel+1,0.0);
             //	egy->SWvp=new_doublevector(par->total_pixel);
             egy->SWvp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pLWin] , string_novalue) != 0){
+        if(files[pLWin] != string_novalue){
             //	egy->LWinplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->LWinplot, 0.);
             egy->LWinplot.resize(par->total_pixel+1,0.0);
             //	egy->LWinp=new_doublevector(par->total_pixel);
             egy->LWinp.resize(par->total_pixel);
         }
-        if(strcmp(files[pLWg] , string_novalue) != 0 || strcmp(files[pG] , string_novalue) != 0){
+        if(files[pLWg] != string_novalue || files[pG] != string_novalue){
             //	egy->LWgplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->LWgplot, 0.);
             egy->LWgplot.resize(par->total_pixel+1,0.0);
             //	egy->LWgp=new_doublevector(par->total_pixel);
             egy->LWgp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pLWv] , string_novalue) != 0){
+        if(files[pLWv] != string_novalue){
             //	egy->LWvplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->LWvplot, 0.);
             egy->LWvplot.resize(par->total_pixel+1,0.0);
             //	egy->LWvp=new_doublevector(par->total_pixel);
             egy->LWvp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pTs] , string_novalue) != 0){
+        if(files[pTs] != string_novalue){
             //	egy->Tsplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->Tsplot, 0.);
             egy->Tsplot.resize(par->total_pixel+1,0.0);
             //	egy->Tsp=new_doublevector(par->total_pixel);
             egy->Tsp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pTg] , string_novalue) != 0){
+        if(files[pTg] != string_novalue){
             //	egy->Tgplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->Tgplot, 0.);
             egy->Tgplot.resize(par->total_pixel+1,0.0);
             //	egy->Tgp=new_doublevector(par->total_pixel);
             egy->Tgp.resize(par->total_pixel+1);
         }
-        if(strcmp(files[pTv] , string_novalue) != 0){
+        if(files[pTv] != string_novalue){
             //	egy->Tvplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(egy->Tvplot, 0.);
             egy->Tvplot.resize(par->total_pixel+1,0.0);
@@ -1562,7 +1547,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     wat->PrecTot.resize(Nr+1,Nc+1,0.0);
 
     /* Initialization of the matrices with the output of total precipitation and interception:*/
-    if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0){
+    if (par->output_meteo_bin == 1 && files[fprec] != string_novalue){
         //	wat->PrTOT_mean=new_doublevector(par->total_pixel);
         //	initialize_doublevector(wat->PrTOT_mean, 0.);
         wat->PrTOT_mean.resize(par->total_pixel+1,0.0);
@@ -1590,8 +1575,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     allocate_and_initialize_statevar_3D(snow->S, (double)number_novalue, par->max_snow_layers, Nr, Nc);
 
     //initial snow depth
-    if( strcmp(files[fsn0] , string_novalue) != 0 && strcmp(files[fswe0] , string_novalue) != 0 ){
-        printf("Initial condition on snow depth from file %s\n",files[fsn0]);
+    if( files[fsn0] != string_novalue && files[fswe0] != string_novalue ){
+        printf("Initial condition on snow depth from file %s\n",files[fsn0].c_str());
         //	M=read_map(2, files[fsn0], land->LC, UV, (double)number_novalue);
         meteoio_readMap(string(files[fsn0]), M);
 
@@ -1603,7 +1588,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
         //	free_doublematrix(M);
 
-        printf("Initial condition on snow water equivalent from file %s\n",files[fswe0]);
+        printf("Initial condition on snow water equivalent from file %s\n",files[fswe0].c_str());
         //	M=read_map(2, files[fswe0], land->LC, UV, (double)number_novalue);
         meteoio_readMap(string(files[fswe0]), M);
 
@@ -1615,8 +1600,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
         //	free_doublematrix(M);
 
-    }else if( strcmp(files[fsn0] , string_novalue) != 0 ){
-        printf("Initial condition on snow depth from file %s\n",files[fsn0]);
+    }else if( files[fsn0] != string_novalue ){
+        printf("Initial condition on snow depth from file %s\n",files[fsn0].c_str());
         //	M=read_map(2, files[fsn0], land->LC, UV, (double)number_novalue);
         meteoio_readMap(string(files[fsn0]), M);
 
@@ -1635,8 +1620,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             }
         }
 
-    }else if( strcmp(files[fswe0] , string_novalue) != 0 ){
-        printf("Initial condition on snow water equivalent from file %s\n",files[fswe0]);
+    }else if( files[fswe0] != string_novalue ){
+        printf("Initial condition on snow water equivalent from file %s\n",files[fswe0].c_str());
         //	M=read_map(2, files[fswe0], land->LC, UV, (double)number_novalue);
         meteoio_readMap(string(files[fswe0]), M);
         for (r=1; r<=Nr; r++) {
@@ -1670,8 +1655,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 
     //Optional reading of snow age in the whole basin
-    if( strcmp(files[fsnag0] , string_novalue) != 0 ){
-        printf("Snow age initial condition from file %s\n",files[fsnag0]+1);
+    if( files[fsnag0] != string_novalue ){
+        printf("Snow age initial condition from file %s\n",files[fsnag0 + 1].c_str());
         snow->age = read_map_vector(2, files[fsnag0], land->LC, UV, (double)number_novalue, top->rc_cont);
     }else{
         //	snow->age = new_doublevector(par->total_pixel);
@@ -1682,7 +1667,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
-        if(strcmp(files[pD] , string_novalue) != 0) {
+        if(files[pD] != string_novalue) {
             //	snow->Dplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(snow->Dplot, 0.);
             snow->Dplot.resize(par->total_pixel+1,0.0);
@@ -1752,21 +1737,21 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     if(par->output_snow_bin == 1){
-        if(strcmp(files[fsnowmelt] , string_novalue) != 0){
+        if(files[fsnowmelt] != string_novalue){
             //	snow->MELTED=new_doublevector(par->total_pixel);
             //	initialize_doublevector(snow->MELTED,0.);
             snow->MELTED.resize(par->total_pixel+1,0.0);
             //	snow->melted=new_doublevector(par->total_pixel);
             snow->melted.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fsnowsubl] , string_novalue) != 0){
+        if(files[fsnowsubl] != string_novalue){
             //	snow->SUBL=new_doublevector(par->total_pixel);
             //	initialize_doublevector(snow->SUBL,0.);
             snow->SUBL.resize(par->total_pixel+1,0.0);
             //	snow->subl=new_doublevector(par->total_pixel);
             snow->subl.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fsndur] , string_novalue) != 0){
+        if(files[fsndur] != string_novalue){
             //	snow->t_snow=new_doublevector(par->total_pixel);
             //	initialize_doublevector(snow->t_snow,0.);
             snow->t_snow.resize(par->total_pixel+1,0.0);
@@ -1944,7 +1929,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     /***************************************************************************************************/
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
-    if( par->point_sim!=1 && strcmp(files[fgl0] , string_novalue) != 0 && par->max_glac_layers==0){
+    if( par->point_sim!=1 && files[fgl0] != string_novalue && par->max_glac_layers==0){
         printf("Warning: Glacier map present, but glacier represented with 0 layers\n");
         fprintf(flog,"Warning: Glacier map present, but glacier represented with 0 layers\n");
     }
@@ -1957,9 +1942,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum, Dzl. w_liq, w_ice, T and print matrices are defined, according to the respective flags
     if(par->max_glac_layers>0){
 
-        if( par->point_sim!=1 && strcmp(files[fgl0] , string_novalue) != 0 ){
-            printf("Glacier initial condition from file %s\n",files[fgl0]+1);
-            fprintf(flog,"Glacier initial condition from file %s\n",files[fgl0]+1);
+        if( par->point_sim!=1 && files[fgl0] != string_novalue ){
+            printf("Glacier initial condition from file %s\n",files[fgl0+1].c_str());
+            fprintf(flog,"Glacier initial condition from file %s\n",files[fgl0+1].c_str());
             //M=read_map(2, files[fgl0], land->LC, UV, (double)number_novalue);
             meteoio_readMap(string(files[fgl0]), M);
         }else{
@@ -1972,14 +1957,14 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         allocate_and_initialize_statevar_3D(glac->G, (double)number_novalue, par->max_glac_layers, Nr, Nc);
 
         if(par->output_glac_bin == 1){
-            if(strcmp(files[fglacmelt] , string_novalue) != 0){
+            if(files[fglacmelt] != string_novalue){
                 //	glac->MELTED=new_doublevector(par->total_pixel);
                 //	initialize_doublevector(glac->MELTED,0.);
                 glac->MELTED.resize(par->total_pixel+1,0.0);
                 //	glac->melted=new_doublevector(par->total_pixel);
                 glac->melted.resize(par->total_pixel+1);
             }
-            if(strcmp(files[fglacsubl] , string_novalue) != 0){
+            if(files[fglacsubl] != string_novalue){
                 //	glac->SUBL=new_doublevector(par->total_pixel);
                 //	initialize_doublevector(glac->SUBL, 0.);
                 glac->SUBL.resize(par->total_pixel+1,0.0);
@@ -2112,22 +2097,22 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->Vdir.resize(Nr+1,Nc+1,0.0);
 
     if (par->output_meteo_bin == 1){
-        if(strcmp(files[fTa] , string_novalue) != 0){
+        if(files[fTa] != string_novalue){
             //	met->Tamean=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->Tamean, 0.);
             met->Tamean.resize(par->total_pixel+1);
         }
-        if(strcmp(files[fwspd] , string_novalue) != 0){
+        if(files[fwspd] != string_novalue){
             //	met->Vspdmean=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->Vspdmean, 0.);
             met->Vspdmean.resize(par->total_pixel+1,0.0);
         }
-        if(strcmp(files[fwdir] , string_novalue) != 0){
+        if(files[fwdir] != string_novalue){
             //	met->Vdirmean=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->Vdirmean, 0.);
             met->Vdirmean.resize(par->total_pixel+1,0.0);
         }
-        if(strcmp(files[frh] , string_novalue) != 0){
+        if(files[frh] != string_novalue){
             //	met->RHmean=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->RHmean, 0.);
             met->RHmean.resize(par->total_pixel+1,0.0);
@@ -2138,17 +2123,17 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //plot output
     //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
-        if(strcmp(files[pTa] , string_novalue) != 0){
+        if(files[pTa] != string_novalue){
             //	met->Taplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->Taplot, 0.);
             met->Taplot.resize(par->total_pixel+1,0.0);
         }
-        if(strcmp(files[pRH] , string_novalue) != 0){
+        if(files[pRH] != string_novalue){
             //	met->RHplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->RHplot, 0.);
             met->RHplot.resize(par->total_pixel+1,0.0);
         }
-        if(strcmp(files[pVspd] , string_novalue) != 0 || strcmp(files[pVdir] , string_novalue) != 0){
+        if(files[pVspd] != string_novalue || files[pVdir] != string_novalue){
             //	met->Vxplot=new_doublevector(par->total_pixel);
             //	initialize_doublevector(met->Vxplot, 0.);
             met->Vxplot.resize(par->total_pixel+1,0.0);
@@ -2592,7 +2577,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     curvature(UV->U[1], UV->U[2], M, top->curvature1, top->curvature2, top->curvature3, top->curvature4, (double)number_novalue);
     //	free_doublematrix(M);
 
-    if(strcmp(files[fcurv] , string_novalue) != 0){
+    if(files[fcurv] != string_novalue){
         //	temp = join_strings(files[fcurv], "N-S");
         temp = files[fcurv] + string("N-S");
         write_map(temp, 0, par->format_out, top->curvature1, UV, number_novalue);
@@ -2828,8 +2813,8 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     if(read_dem==1){
         flag = file_exists(fdem, flog);
         if(flag == 1){
-            printf("Warning: Dem file %s present\n",files[fdem]+1);
-            fprintf(flog,"Warning: Dem file %s present\n",files[fdem]+1);
+            printf("Warning: Dem file %s present\n",files[fdem+1].c_str());
+            fprintf(flog,"Warning: Dem file %s present\n",files[fdem+1].c_str());
 
             //	Q=new_doublematrix(1,1);
             //	Z=read_map(0, files[fdem], Q, UV, (double)number_novalue); //topography
@@ -3191,7 +3176,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             curvature(UV->U[1], UV->U[2], Q, P, R, S, T, (double)number_novalue);
             //	free_doublematrix(Q);
 
-            if(strcmp(files[fcurv],string_novalue) != 0){
+            if(files[fcurv] != string_novalue){
                 //	temp = join_strings(files[fcurv], "N-S");
                 temp = files[fcurv] + string("N-S");
                 write_map(temp, 0, par->format_out, P, UV, number_novalue);
@@ -3587,13 +3572,13 @@ void set_bedrock(Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>
 
     if (!mio::IOUtils::fileExists(string(files[fbed]) + string(ascii_esri))) {
         f = fopen(FailedRunFile.c_str(), "w");
-        fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",files[fbed]+1);
+        fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",files[fbed+1].c_str());
         fclose(f);
         t_error("Fatal Error! Geotop is closed. See failing report (18).");
     }
 
-    printf("A bedrock depth map has been assigned and read from %s\n\n",files[fbed]);
-    fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",files[fbed]);
+    printf("A bedrock depth map has been assigned and read from %s\n\n",files[fbed].c_str());
+    fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",files[fbed].c_str());
 
     par->bedrock = 1;
     //	B = read_map(2, files[fbed], LC, UV, (double)number_novalue);
@@ -3798,10 +3783,10 @@ short file_exists(short key, FILE *flog){
     //keyword but does not exist -> 0
     //keyword and exists -> 1
 
-    printf("Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),files[key]);
-    fprintf(flog,"Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),files[key]);
+    printf("Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),files[key].c_str());
+    fprintf(flog,"Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),files[key].c_str());
 
-    if(strcmp(files[key] , string_novalue) == 0){
+    if(files[key] == string_novalue){
         printf("not present in file list\n");
         fprintf(flog,"not present in file list\n");
         return (-1);

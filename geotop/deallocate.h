@@ -25,7 +25,7 @@
 #include "snow.h"
 //#include "../libraries/ascii/init.h"
 
-extern char **files;
+extern std::vector<std::string> files;
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
 extern double **odpnt, **odp, *odbsn, *odb;
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;

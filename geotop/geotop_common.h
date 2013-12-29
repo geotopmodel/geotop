@@ -19,7 +19,7 @@ extern TInit *UV;
 
 //char *logfile;
 extern std::string logfile;
-extern char **files;
+extern std::vector<std::string> files;
 
 extern long Nl ;
 extern long Nr ;

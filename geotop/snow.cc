@@ -1076,7 +1076,8 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t){
 	
 	FILE *f;
 	
-	char rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
+    std::string rec = "_recNNNN" ;
+    std::string crec = "_crecNNNN" ;
 	std::string name, temp;
 
 	JDfrom0 = convert_tfromstart_JDfrom0(t, par->init_date[i_sim]);
@@ -1116,18 +1117,21 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t){
 	}else{
 		SCA=0.0;
 	}
-	
+
 	if (par->recover > 0) write_suffix(rec, par->recover, 4);
 	if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
 	if (par->recover>0) {
-		temp = join_strings(files[fSCA], rec);
+		temp = files[fSCA] ;
+        temp += rec;
 		name = temp + textfile;
 	}else if (par->n_ContRecovery>0) {
-		temp = join_strings(files[fSCA], crec);
+		temp = files[fSCA] ;
+        temp += crec;
 		name = temp + textfile ;
 	}else {
-		name = join_strings(files[fSCA], textfile);
+		name = files[fSCA] ;
+        name += textfile;
 	}
 
 	f=fopen(name.c_str() ,"a");

@@ -1,4 +1,5 @@
 #include "rw_maps.h"
+#include <strstream>
 
 using namespace std;
 
@@ -74,133 +75,55 @@ void copydoublematrix_const(double c0, GeoMatrix<double>& Mref,GeoMatrix<double>
 }
 //----------------------
 
-void write_suffix(char *suffix, long i, short start){
-
-	short m=0, c=0, d=0, u=0;
-	
-	if(i>=0 && i<=9){
-		m=0;
-		c=0;
-		d=0;
-		u=i;
-	}else if(i<=99){
-		m=0;
-		c=0;
-		d=(short)(i/10.0);
-		u=i-10.0*d;
-	}else if(i<=999){
-		m=0;
-		c=(short)(i/100.0);
-		d=(short)((i-100.0*c)/10.0);
-		u=i-100.0*c-10*d;
-	}else if(i<=9999){
-		m=(short)(i/1000.0);
-		c=(short)((i-1000.0*m)/100.0);
-		d=(short)((i-1000.0*m-100.0*c)/10.0);
-		u=i-1000*m-100.0*c-10*d;
-	}else{
-		t_error("Number too high");
-	}
-	
-	m+=48;
-	c+=48;
-	d+=48;
-	u+=48;
-
-	suffix[start]=m;
-	suffix[start+1]=c;
-	suffix[start+2]=d;
-	suffix[start+3]=u;
-	
-}
-//overloaded function
-void write_suffix(string suffix, long i, short start){
-
-	short m=0, c=0, d=0, u=0;
-
-	if(i>=0 && i<=9){
-		m=0;
-		c=0;
-		d=0;
-		u=i;
-	}else if(i<=99){
-		m=0;
-		c=0;
-		d=(short)(i/10.0);
-		u=i-10.0*d;
-	}else if(i<=999){
-		m=0;
-		c=(short)(i/100.0);
-		d=(short)((i-100.0*c)/10.0);
-		u=i-100.0*c-10*d;
-	}else if(i<=9999){
-		m=(short)(i/1000.0);
-		c=(short)((i-1000.0*m)/100.0);
-		d=(short)((i-1000.0*m-100.0*c)/10.0);
-		u=i-1000*m-100.0*c-10*d;
-	}else{
-		t_error("Number too high");
-	}
-
-	m+=48;
-	c+=48;
-	d+=48;
-	u+=48;
-
-	suffix[start]=m;
-	suffix[start+1]=c;
-	suffix[start+2]=d;
-	suffix[start+3]=u;
-
+void write_suffix(std::string &suffix, long i, short start){
+    std::stringstream lStream ;
+    lStream << std::setw(4) << std::setfill('0') << i ;
+    std::string lString = lStream.str();
+    suffix.replace(start, lString.size(), lString);
 }
 
-char *namefile_i(char *name, long i){
+std::string namefile_i(std::string name, long i){
 
-	char SSSS[ ]={"SSSS"};
-	char *name_out;
-	char *temp;
-	
+    std::string SSSS = "SSSS" ;
+    std::string name_out;
+    
 	write_suffix(SSSS, i, 0);
-	
-	temp=join_strings(name,SSSS);
-	name_out=join_strings(temp,textfile);
-	free(temp);
-	
-	return(name_out);
-	
+
+	name_out = name + SSSS + textfile ;
+
+	return name_out;
 }
 
 
-char *namefile_i_we(char *name, long i){
+std::string namefile_i_we(std::string name, long i){
 
-	char SSSS[ ]={"LSSSS"};
-	char *name_out;
+    std::string SSSS = "LSSSS" ;
+    std::string name_out;
 	
 	write_suffix(SSSS, i, 1);
 	
-	name_out=join_strings(name,SSSS);
+	name_out = name + SSSS;
 		
-	return(name_out);
-	
+	return name_out;
 }	
 
 
-char *namefile_i_we2(char *name, long i){
+std::string namefile_i_we2(std::string name, long i){
 
-	char SSSS[ ]={"SSSS"};
-	char *name_out;
+    std::string SSSS = "SSSS" ;
+    std::string name_out;
 	
 	write_suffix(SSSS, i, 0);
 	
-	name_out=join_strings(name,SSSS);
+	name_out = name + SSSS;
 		
-	return(name_out);
+	return name_out ;
 	
 }	
 
 // TODO: Noori - supposed to return a pointer
 //DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask, T_INIT *grid, double no_value, LONGMATRIX *rc){
-  GeoVector<double> read_map_vector(short type, char *namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc){
+  GeoVector<double> read_map_vector(short type, std::string namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc){
 	
 //	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
@@ -229,7 +152,7 @@ char *namefile_i_we2(char *name, long i){
 
 
 //void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV, long novalue){
-void write_map(char *filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue){
+void write_map(std::string filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue){
 
 //	type=0  floating point
 //	type=1  integer
@@ -248,52 +171,9 @@ void write_map(char *filename, short type, short format, GeoMatrix<double>& M, T
 	}
 
 }
-// overloaded function
-void write_map(string filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue){
-
-//	type=0  floating point
-//	type=1  integer
-
-//	format=1 fluidturtle
-//	format=2 grassascii
-//	format=3 esriascii
-
-	if(format==1){
-		t_error("The fluidturtle format is not support any more");
-	}else if(format==2){
-		//write_grassascii(filename, type, M, UV, novalue);
-		t_error("The Grass Ascii format not supported any more");
-	}else if(format==3){
-		write_esriascii(filename, type, M, UV, novalue);
-	}
-
-}
-
-
 
 //void write_map(char *filename, short type, short format, LONGMATRIX *M, T_INIT *UV, long novalue){
-void write_map(char *filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue){
-
-//	type=0  floating point
-//	type=1  integer
-
-//	format=1 fluidturtle
-//	format=2 grassascii
-//	format=3 esriascii
-
-	if(format==1){
-		t_error("The fluidturtle format is not support any more");
-	}else if(format==2){
-		//write_grassascii(filename, type, M, UV, novalue);
-		t_error("The Grass Ascii format not supported any more");
-	}else if(format==3){
-		write_esriascii(filename, type, M, UV, novalue);
-	}
-
-}
-
-//overloaded function
-void write_map(string filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue){
+void write_map(std::string filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue){
 
 //	type=0  floating point
 //	type=1  integer
@@ -336,7 +216,7 @@ void write_map_vector(char *filename, short type, short format, const GeoVector<
 */
 
 //void write_map_vector(char *filename, short type, short format, DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc){
-void write_map_vector(string filename, short type, short format, const GeoVector<double>& V, TInit *UV, long novalue, long **j, long nr, long nc){
+void write_map_vector(std::string filename, short type, short format, const GeoVector<double>& V, TInit *UV, long novalue, long **j, long nr, long nc){
 	//	type=0  floating point
 	//	type=1  integer
 
@@ -356,28 +236,29 @@ void write_map_vector(string filename, short type, short format, const GeoVector
 }
 
 //------------------------------------
-//void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, GeoTensor<double>& T, TInit *UV, long novalue){
+void write_tensorseries(short a, long l, long i, std::string filename, short type, short format, GeoTensor<double>& T, TInit *UV, long novalue){
 
 //	a=0 non include "l" nel suffisso
 //	a=1 include "l" nel suffisso
 //	l:layer
 //	i:temporal step
 	
-	char SSSSLLLLL[ ]={"SSSSLLLLL"};
-	char SSSS[ ]={"SSSS"};		
-	char *name;
+    std::string SSSSLLLLL = "SSSSLLLLL" ;
+	std::string SSSS =  "SSSS" ;
+    std::string name;
 	long r, c;
 //	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
 		
 	if(a==0){
 		write_suffix(SSSS, i, 0);	
-		name=join_strings(filename,SSSS);				
+		name = filename ;
+        name += SSSS ;
 	}else if(a==1){
 		write_suffix(SSSSLLLLL, i, 0);	
 		write_suffix(SSSSLLLLL, l, 5);	
-		name=join_strings(filename,SSSSLLLLL);		
+		name = filename;
+        name += SSSSLLLLL;
 	}else {
 		t_error("Value not admitted");
 	}
@@ -397,21 +278,21 @@ void write_tensorseries(short a, long l, long i, char *filename, short type, sho
 	write_map(name, type, format, M, UV, novalue);
 	
 //	free_doublematrix(M);
-	free(name);
+//	free(name);
 
 }
 
 
 //void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc) {
-void write_tensorseries_vector(short a, long l, long i, string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
+void write_tensorseries_vector(short a, long l, long i, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
 	
 	//	a=0 non include "l" nel suffisso
 	//	a=1 include "l" nel suffisso
 	//	l:layer
 	//	i:temporal step
 	
-	char SSSSLLLLL[ ]={"SSSSLLLLL"};
-	char SSSS[ ]={"SSSS"};		
+    std::string SSSSLLLLL = "SSSSLLLLL" ;
+    std::string SSSS = "SSSS" ;
 //	char *name;
 	string name;
 //	long j, npoints=T->nch;
@@ -422,7 +303,7 @@ void write_tensorseries_vector(short a, long l, long i, string filename, short t
 	if(a==0){
 		write_suffix(SSSS, i, 0);	
 	//	name=join_strings(filename,SSSS);
-		name= filename+ SSSS;
+		name= filename + SSSS;
 	}else if(a==1){
 		write_suffix(SSSSLLLLL, i, 0);	
 		write_suffix(SSSSLLLLL, l, 5);	
@@ -450,16 +331,16 @@ void write_tensorseries_vector(short a, long l, long i, string filename, short t
 
 //---------------------------------------------
 
-void write_tensorseries2(char *suf, long l, char *filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue){
+void write_tensorseries2(std::string suf, long l, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue){
 	
-	char LLLLL[ ]={"LLLLL"};
-	char *temp1, *temp2;
+    std::string LLLLL = "LLLLL" ;
+    std::string temp1, temp2;
 	long r, c;
 //	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
 		
-	temp1 = join_strings(LLLLL, suf);
-	write_suffix(temp1, l, 1);	
+	temp1 = LLLLL + suf ;
+	write_suffix(temp1, l, 1);
  
 //	M = new_doublematrix(T->nrh,T->nch);
 	M.resize(T->nrh+1,T->nch+1);
@@ -471,84 +352,38 @@ void write_tensorseries2(char *suf, long l, char *filename, short type, short fo
 		}
 	}
 	
-	temp2 = join_strings(filename, temp1);
-	write_map(temp2, type, format, M, UV, novalue);
+	temp2 = filename + temp1 ;
+	write_map(temp2.c_str(), type, format, M, UV, novalue);
 	
 //	free_doublematrix(M);
-	free(temp1);
-	free(temp2);
 
 }
 
-//void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc){
-void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
+void write_tensorseries2_vector(std::string suf, long l, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
 	
-	char LLLLL[ ]={"LLLLL"};
-//	char  *temp1,*temp2;
-	string temp1, temp2;
-//	long i, npoints=T->nch;
+    std::string LLLLL = "LLLLL" ;
+    std::string temp1, temp2;
 	long i, npoints=T.getCols();
-//	DOUBLEVECTOR *V;
 	GeoVector<double> V;
 	
-	temp1 = join_strings(LLLLL, suf);
-	write_suffix(temp1, l, 1);	
-	
-	//V = new_doublevector(npoints);
-	V.resize(npoints+1);
-	
-	for(i=1; i<=npoints; i++){
-	//	V->co[i] = T->co[l][i];
-		V[i] = T[l][i];
-	}
-	
-//	temp2 = join_strings(filename, temp1);
-	temp2 = filename + temp1;
-	write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
-	
-	//free_doublevector(V);
-//	free(temp1);
-//	free(temp2);
-	
-}
-
-//overloaded function
-void write_tensorseries2_vector(string suf, long l, string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
-
-	char LLLLL[ ]={"LLLLL"};
-//	char *temp1, *temp2;
-	string temp1, temp2;
-//	long i, npoints=T->nch;
-	long i, npoints=T.getCols();
-//	DOUBLEVECTOR *V;
-	GeoVector<double> V;
-
-//	temp1 = join_strings(LLLLL, suf);
-	temp1 = LLLLL + suf;
+	temp1 = LLLLL + suf ;
 	write_suffix(temp1, l, 1);
-
-	//V = new_doublevector(npoints);
+	
 	V.resize(npoints+1);
-
+	
 	for(i=1; i<npoints; i++){
-	//	V->co[i] = T->co[l][i];
 		V[i] = T[l][i];
 	}
-
-//	temp2 = join_strings(filename, temp1);
+	
 	temp2 = filename + temp1;
 	write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
-
-	//free_doublevector(V);
-//	free(temp1);
-//	free(temp2);
-
+		
 }
 
 
 //---------------
 //void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue){
-void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue){
+void write_tensorseries3(std::string suffix, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue){
 
 	long l;
 	for(l=T->ndl;l<=T->ndh;l++){
@@ -558,17 +393,7 @@ void write_tensorseries3(char *suffix, char *filename, short type, short format,
 
 //--------------------------
 //void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc){
-void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
-
-	long l;
-	// TODO: need check nrl
-//	for(l=T->nrl;l<=T->nrh;l++){
-	for(l=1;l<=T.getRows();l++){
-		write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
-	}
-}
-//overloaded function
-void write_tensorseries3_vector(string suffix, string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
+void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc){
 
 	long l;
 	// TODO: need check nrl
@@ -579,20 +404,19 @@ void write_tensorseries3_vector(string suffix, string filename, short type, shor
 }
 
 
-
 /*===================================================================================*/
 /*===================functions copied from the file write_ascii.c====================*/
 /*===================================================================================*/
 
 //void write_esriascii(char *name, short type, LONGMATRIX *DTM, T_INIT *UV, long novalue){
-void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue){
+void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue){
 
 //	type=0  floating point
 //	type=1  integer
 
 	FILE *f;
 	long r,c;
-	char *temp;
+    std::string temp;
 
 //	if(UV->U->co[1]!=UV->U->co[2]){
 	if(UV->U[1]!=UV->U[2]){
@@ -601,13 +425,13 @@ void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, TInit *UV, lo
 		t_error("Fatal error");
 	}
 
-	temp = join_strings(name,ascii_esri);
-	f=fopen(temp,"w");
+	temp = name + ascii_esri ;
+	f=fopen(temp.c_str(),"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %u\n",DTM.getCols());
+    fprintf(f,"ncols         %u\n",DTM.getCols()-1);
 //	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %u\n",DTM.getRows());
+    fprintf(f,"nrows         %u\n",DTM.getRows()-1);
 	fprintf(f,"xllcorner     %f\n",UV->U[4]);
 	fprintf(f,"yllcorner     %f\n",UV->U[3]);
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
@@ -637,77 +461,18 @@ void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, TInit *UV, lo
 	}
 	fprintf(f,"\n");// added by Matteo to avoid warnings when reading with R
 	fclose(f);
-	free(temp);
 }
-//overloaded function
-void write_esriascii(string name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue){
-
-//	type=0  floating point
-//	type=1  integer
-
-	FILE *f;
-	long r,c;
-//	char *temp;
-	string temp;
-
-//	if(UV->U->co[1]!=UV->U->co[2]){
-	if(UV->U[1]!=UV->U[2]){
-	//	printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U->co[2],UV->U->co[1]);
-		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
-		t_error("Fatal error");
-	}
-
-//	temp = join_strings(name,ascii_esri);
-	temp = name+ascii_esri;
-	f=fopen(temp.c_str(),"w");
-
-//	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %u\n",DTM.getCols());
-//	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %u\n",DTM.getRows());
-	fprintf(f,"xllcorner     %f\n",UV->U[4]);
-	fprintf(f,"yllcorner     %f\n",UV->U[3]);
-	fprintf(f,"cellsize      %f\n",UV->U[1]);
-	fprintf(f,"NODATA_value  %ld.0\n",novalue);
-
-//	for(r=1;r<=DTM->nrh;r++){
-	for(r=1;r<=DTM.getRows()-1;r++){
-	//	for(c=1;c<=DTM->nch;c++){
-		for(c=1;c<=DTM.getCols()-1;c++){
-		//	if((long)DTM->co[r][c]==novalue){
-			if((long)DTM[r][c]==novalue){
-				fprintf(f,"%ld.0",novalue);
-			}else{
-				if(type==1){
-				//	fprintf(f,"%ld",(long)(DTM->co[r][c]));
-					fprintf(f,"%ld",(long)(DTM[r][c]));
-				}else{
-				//	fprintf(f,"%f",DTM->co[r][c]);
-                    fprintf(f,"%ld",DTM[r][c]);
-				}
-			}
-		//	if(c<DTM->nch) fprintf(f," ");
-			if(c<DTM.getCols()) fprintf(f," ");
-		}
-	//	if(r<DTM->nrh) fprintf(f,"\n");
-		if(r<DTM.getRows()) fprintf(f,"\n");
-	}
-	fprintf(f,"\n");// added by Matteo to avoid warnings when reading with R
-	fclose(f);
-//	free(temp);
-}
-
 
 
 //void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV, long novalue){
-void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue){
+void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue){
 
 //	type=0  floating point
 //	type=1  integer
 
 	FILE *f;
 	long r,c;
-	char *temp;
+    std::string temp;
 
 //	if(UV->U->co[1]!=UV->U->co[2]){
 	if(UV->U[1]!=UV->U[2]){
@@ -716,8 +481,9 @@ void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, TInit *UV, 
 		t_error("Fatal error");
 	}
 
-	temp = join_strings(name,ascii_esri);
-	f=fopen(temp,"w");
+	temp = name ;
+    temp += ascii_esri;
+	f=fopen(temp.c_str(),"w");
 
 //	fprintf(f,"ncols         %ld\n",DTM->nch);
     fprintf(f,"ncols         %u\n",DTM.getCols()-1);
@@ -752,67 +518,7 @@ void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, TInit *UV, 
 	}
 	fprintf(f,"\n");// added by Matteo to avoid warnings when reading with R
 	fclose(f);
-	free(temp);
 }
-
-//overloaded function
-void write_esriascii(string name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue){
-
-//	type=0  floating point
-//	type=1  integer
-
-	FILE *f;
-	long r,c;
-//	char *temp;
-	string temp;
-
-//	if(UV->U->co[1]!=UV->U->co[2]){
-	if(UV->U[1]!=UV->U[2]){
-	//	printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U->co[2],UV->U->co[1]);
-		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
-		t_error("Fatal error");
-	}
-
-//	temp = join_strings(name,ascii_esri);
-	temp = name + ascii_esri;
-	f=fopen(temp.c_str(),"w");
-
-//	fprintf(f,"ncols         %ld\n",DTM->nch);
-    fprintf(f,"ncols         %u\n",DTM.getCols()-1);
-//	fprintf(f,"nrows         %ld\n",DTM->nrh);
-    fprintf(f,"nrows         %u\n",DTM.getRows()-1);
-	fprintf(f,"xllcorner     %f\n",UV->U[4]);
-	fprintf(f,"yllcorner     %f\n",UV->U[3]);
-	fprintf(f,"cellsize      %f\n",UV->U[1]);
-	fprintf(f,"NODATA_value  %ld.0\n",novalue);
-
-//	for(r=1;r<=DTM->nrh;r++){
-	for(r=1;r<DTM.getRows();r++){
-	//	for(c=1;c<=DTM->nch;c++){
-		for(c=1;c<DTM.getCols();c++){
-		//	if((long)DTM->co[r][c]==novalue){
-			if((long)DTM[r][c]==novalue){
-				fprintf(f,"%ld.0",novalue);
-			}else{
-				if(type==1){
-				//	fprintf(f,"%ld",(long)(DTM->co[r][c]));
-					fprintf(f,"%ld",(long)(DTM[r][c]));
-				}else{
-				//	fprintf(f,"%f",DTM->co[r][c]);
-					fprintf(f,"%.3f",DTM[r][c]);   // %.3f <|--- the 3 is how many decimal places to print.
-				}
-			}
-		//	if(c<DTM->nch) fprintf(f," ");
-			if(c<DTM.getCols()) fprintf(f," ");
-		}
-	//	if(r<DTM->nrh) fprintf(f,"\n");
-		if(r<DTM.getRows()) fprintf(f,"\n");
-	}
-	fprintf(f,"\n");// added by Matteo to avoid warnings when reading with R
-	fclose(f);
-//	free(temp);
-}
-
 
 //===============
 
@@ -823,7 +529,7 @@ void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM
 
 	FILE *f;
 	long r,c;
-	char *temp;
+    std::string temp;
 
 //	if(UV->U->co[1]!=UV->U->co[2]){
 	if(UV->U[1]!=UV->U[2]){
@@ -832,8 +538,9 @@ void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM
 		t_error("Fatal error");
 	}
 
-	temp = join_strings(name,ascii_esri);
-	f=fopen(temp,"w");
+	temp = name ;
+    temp += ascii_esri;
+	f=fopen(temp.c_str(),"w");
 
 	fprintf(f,"ncols         %ld\n",nc);
 	fprintf(f,"nrows         %ld\n",nr);
@@ -860,7 +567,6 @@ void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM
 		if(r<nr) fprintf(f,"\n");
 	}
 	fclose(f);
-	free(temp);
 }
 
 void write_esriascii_vector(string name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue){
@@ -885,8 +591,10 @@ void write_esriascii_vector(string name, short type, const GeoVector<double>& DT
 //	temp = join_strings(name ,ascii_esri);
 	temp = name +ascii_esri;
 
-    basedir = dirname(strdup(temp.c_str()));
+    char * lStrBase = strdup(temp.c_str()) ;
+    basedir = dirname(lStrBase);
     ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    free(lStrBase) ;
     if(-1 == ret){
         t_error("write_esriascii_vector(): Unable to create parent directories of file" + temp);
     }
@@ -937,8 +645,14 @@ void error_message(short format, long n, long n1, long n2, long n3, char *name)
 
 {
 	if(n==n1 || n==n2 || n==n3){
-		if(format==1) printf("File %s incompleted, end of file or end of line reached",join_strings(name,ascii_grass));
-		if(format==2) printf("File %s incompleted, end of file or end of line reached",join_strings(name,ascii_esri));
+        std::string lFile0 = name ;
+        lFile0 += ascii_grass ;
+
+        std::string lFile1 = name ;
+        lFile1 += ascii_esri ;
+
+		if(format==1) printf("File -3- %s incompleted, end of file or end of line reached",lFile0.c_str());
+		if(format==2) printf("File -4- %s incompleted, end of file or end of line reached",lFile1.c_str());
 		t_error("Fatal error");
 	}
 }

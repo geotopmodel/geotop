@@ -23,8 +23,10 @@
 
 #include "struct.geotop.h"
 #include "constants.h"
+#include <vector>
+#include <string>
 
-extern char **files;
+extern std::vector<std::string> files;
 
 double psi_teta(double w, double i, double s, double r, double a, double n, double m, double pmin, double st);
 double teta_psi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);

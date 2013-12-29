@@ -32,7 +32,7 @@
 #include "meteodata.h"
 
 extern long number_novalue, number_absent;
-extern char **files;
+extern std::vector<std::string> files;
 extern long i_sim;
 //extern char *FailedRunFile;
 extern std::string FailedRunFile;

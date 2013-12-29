@@ -47,7 +47,7 @@ extern std::string WORKING_DIRECTORY;
 //extern T_INIT *UV;
 extern TInit *UV;
 //extern char **files, *logfile;
-extern char **files;
+extern std::vector<std::string> files;
 extern std::string logfile;
 
 extern long Nl, Nr, Nc;
@@ -86,7 +86,7 @@ extern double elapsed_time, elapsed_time_start, cum_time, max_time;
   void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<double>& dz);
 
 //void plot(char *name, long i_plot, DOUBLEVECTOR *V, short format, long **J);
-  void plot(char *name, long i_plot, const GeoVector<double>& V, short format, long **J);
+void plot(std::string name, long i_plot, const GeoVector<double>& V, short format, long **J);
 
 //double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
   double interpolate_soil(long lmin, double h, long max, const GeoTensor<double>& Dz, const GeoMatrix<double>& Q, const long& row);
@@ -94,9 +94,7 @@ extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 //double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long i);
   double interpolate_soil2(long lmin, double h, long max, const GeoTensor<double>& Dz, GeoMatrix<double>& Q, long i);
 
-//void write_tensorseries_soil(long lmin, char *suf, char *filename, short type, short format, DOUBLEMATRIX *T, DOUBLEVECTOR *n, long **J, LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);
-  void write_tensorseries_soil(long lmin, char *suf, char *filename, short type, short format, GeoMatrix<double>& T, const GeoVector<double>& n, long **J, GeoMatrix<long>& RC, GeoTensor<double>& dz, GeoMatrix<double>& slope, short vertical);
-  void write_tensorseries_soil(long lmin, std::string suf, char *filename, short type, short format, GeoMatrix<double>& T, const GeoVector<double>& n, long **J, GeoMatrix<long>& RC, GeoTensor<double>& dz, GeoMatrix<double>& slope, short vertical);
+void write_tensorseries_soil(long lmin, std::string suf, std::string filename, short type, short format, GeoMatrix<double>& T, const GeoVector<double>& n, long **J, GeoMatrix<long>& RC, GeoTensor<double>& dz, GeoMatrix<double>& slope, short vertical);
 //void fill_output_vectors(double Dt, double W, Energy *egy, SNOW *snow, GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top);
   void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *glac, Water *wat, Meteo *met, Par *par, Times *time, Topo *top);
 

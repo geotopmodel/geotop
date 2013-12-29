@@ -9,7 +9,7 @@ int mkdirp(const char *pathname, mode_t mode);
 
 FILE *t_fopen(const char * ,const char *);FILE *t_fclose(FILE * stream);
 //char * join_strings(char *,char *);
-char *join_strings(char const * const first, char const * const second) ;
+//char *join_strings(char const * const first, char const * const second) ;
 //char *join_strings(const char *, char *);
 
 /**

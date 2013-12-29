@@ -39,7 +39,7 @@ extern char *string_novalue;
 //extern char *WORKING_DIRECTORY;
 extern std::string WORKING_DIRECTORY;
 
-extern char **files;
+extern std::vector<std::string> files;
 
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw, *oglc, noglc, *osl, nosl;
 extern short *ipnt, *ibsn;
@@ -57,18 +57,19 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog) ;
 
 char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, std::string keyword[]);
+std::vector<std::string> assign_string_parameter_v(FILE *f, long beg, long end, char **string_param, std::string keyword[]) ;
 
 double assignation_number(FILE *f, long i, long j, std::string keyword[], double **num_param, long *num_param_components, double default_value, short code_error);
 
-char *assignation_string(FILE *f, long i, std::string keyword[], char **string_param);
+std::string assignation_string(FILE *f, long i, std::string keyword[], char **string_param);
 
 //short read_soil_parameters(char *name, char **key_header, SOIL *sl, FILE *flog);
-short read_soil_parameters(char *name, InitTools *IT, Soil *sl, long bed, FILE *flog);
+short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog);
 
 //short read_point_file(char *name, char **key_header, PAR *par, FILE *flog);
-short read_point_file(char *name, char **key_header, Par *par, FILE *flog);
+short read_point_file(std::string name, char **key_header, Par *par, FILE *flog);
 
 //short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name, char **key_header, FILE *flog);
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, char *name, char **key_header, FILE *flog);
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, char **key_header, FILE *flog);
 
 #endif

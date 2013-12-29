@@ -103,7 +103,10 @@ FILE *t_fopen(const char *name,const char *mode)
 
 //char newname[256];
 FILE *fp=NULL;
-char *basedir = dirname(strdup(name));
+
+char *lBasePtr = strdup(name) ;
+char *basedir = dirname(lBasePtr);
+free(lBasePtr) ;
 int ret = 0;
     
 ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -221,6 +224,7 @@ std::string get_workingdirectory()
 
 /**-------------------------------------------------------------------------*/
 
+/*
 char *join_strings(char const * const first, char const * const second)
 
 {
@@ -234,6 +238,7 @@ char *join_strings(char const * const first, char const * const second)
 
 	return string;
 }
+*/
 
 /*================functions copied from datamanipulation.c===========*/
 

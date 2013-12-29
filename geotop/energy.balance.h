@@ -51,7 +51,7 @@ extern long nopnt, *opnt;
 extern long i_sim, i_run;
 //extern char *FailedRunFile;
 extern std::string FailedRunFile;
-extern char **files;
+extern std::vector<std::string> files;
 
 #define MM 1
 #define ni_en 1.E-4

@@ -41,15 +41,14 @@ void copydoublematrix_const(double c0, GeoMatrix<double>& Mref,GeoMatrix<double>
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-void write_suffix(char *suffix, long i, short start);
-void write_suffix(std::string suffix, long i, short start);
+void write_suffix(std::string &suffix, long i, short start);
 
 //short existing_file(char *name);
 //short existing_file_wext(char *name, char *extension);
 
-char *namefile_i(char *name, long i);
-char *namefile_i_we(char *name, long i);
-char *namefile_i_we2(char *name, long i);
+std::string namefile_i(std::string name, long i);
+std::string namefile_i_we(std::string name, long i);
+std::string namefile_i_we2(std::string name, long i);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ char *namefile_i_we2(char *name, long i);
 
 //DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value);
 //DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask, T_INIT *grid, double no_value, LONGMATRIX *rc);
-GeoVector<double> read_map_vector(short type, char *namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc);
+GeoVector<double> read_map_vector(short type, std::string namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
@@ -67,59 +66,32 @@ GeoVector<double> read_map_vector(short type, char *namefile, GeoMatrix<double>&
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-//void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, T_INIT *UV, long novalue);
-void write_map(char *filename, short type, short format, DOUBLEMATRIX *M, TInit *UV, long novalue);
-//void write_map(char *filename, short type, short format, GeoMatrix<double>& M, T_INIT *UV, long novalue);
-void write_map(char *filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue);
+void write_map(std::string filename, short type, short format, DOUBLEMATRIX *M, TInit *UV, long novalue);
 void write_map(std::string filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue);
-//void write_map(char *filename, short type, short format, GeoMatrix<long>& M, T_INIT *UV, long novalue);
-void write_map(char *filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue);
 void write_map(std::string filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue);
 
-//void write_map_vector(char *filename, short type, short format, DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
-void write_map_vector(char *filename, short type, short format, const GeoVector<double>& V, TInit *UV, long novalue, long **j, long nr, long nc);
 void write_map_vector(std::string filename, short type, short format, const GeoVector<double>& V, TInit *UV, long novalue, long **j, long nr, long nc);
 
-//void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
-//void write_tensorseries(short a, long l, long i, char *filename, short type, short format, GeoTensor<double>& T, T_INIT *UV, long novalue);
-void write_tensorseries(short a, long l, long i, char *filename, short type, short format, GeoTensor<double>& T, TInit *UV, long novalue);
+void write_tensorseries(short a, long l, long i, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
+void write_tensorseries(short a, long l, long i, std::string filename, short type, short format, GeoTensor<double>& T, TInit *UV, long novalue);
 
-//void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
-//void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, DOUBLEMATRIX *T, TInit *UV, long novalue, long **J, long nr, long nc);
-//void write_tensorseries_vector(short a, long l, long i, char *filename, short type, short format, GeoMatrix<double>& T, T_INIT *UV, long novalue, long **J, long nr, long nc);
 void write_tensorseries_vector(short a, long l, long i, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc);
-//void write_tensorseries2(char *suf, long l, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
-void write_tensorseries2(char *suf, long l, char *filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
-//void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
-void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, DOUBLEMATRIX *T, TInit *UV, long novalue, long **J, long nr, long nc);
-//void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, GeoMatrix<double>& T, T_INIT *UV, long novalue, long **J, long nr, long nc);
-void write_tensorseries2_vector(char *suf, long l, char *filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc);
+void write_tensorseries2(std::string suf, long l, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
+void write_tensorseries2_vector(std::string suf, long l, std::string filename, short type, short format, DOUBLEMATRIX *T, TInit *UV, long novalue, long **J, long nr, long nc);
 void write_tensorseries2_vector(std::string suf, long l, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc);
 
-//void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
-void write_tensorseries3(char *suffix, char *filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
-//void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr, long nc);
-void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, DOUBLEMATRIX *T, TInit *UV, long novalue, long **J, long nr, long nc);
-//void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, GeoMatrix<double>& T, T_INIT *UV, long novalue, long **J, long nr, long nc);
-void write_tensorseries3_vector(char *suffix, char *filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc);
+void write_tensorseries3(std::string suffix, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue);
+void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, DOUBLEMATRIX *T, TInit *UV, long novalue, long **J, long nr, long nc);
 void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc);
 
 
 /*===================================================================================*/
 /*===================functions copied from the file write_ascii.c====================*/
 /*===================================================================================*/
-//void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV, long novalue);
-void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, TInit *UV, long novalue);
-//void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, T_INIT *UV, long novalue);
-void write_esriascii(char *name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue);
+void write_esriascii(std::string name, short type, DOUBLEMATRIX *DTM, TInit *UV, long novalue);
 void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue);
-//void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, T_INIT *UV, long novalue);
-void write_esriascii(char *name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue);
 void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue);
-//void write_esriascii_vector(char *name, short type, DOUBLEVECTOR *DTM, long **j, long nr, long nc, T_INIT *UV, long novalue);
-  void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue);
-  void write_esriascii_vector(std::string name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue);
+void write_esriascii_vector(std::string name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue);
 /*==================================coppied functions from import_ascii.c============*/
 
 #define max_figures 30
