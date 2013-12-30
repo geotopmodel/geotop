@@ -821,8 +821,8 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2){
 int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, GeoVector<double>& Kbottom_ch, AllData *adt, const GeoVector<double>& H){
 	
 	size_t i;
-	long l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
-	long n=(Nl+1)*adt->P->total_pixel;
+	size_t l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
+	size_t n=(Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(UV->U[1]*UV->U[2]), dn;
 	double psi, ice, a, ns, res, sat, ss, Temp;

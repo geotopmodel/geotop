@@ -23,7 +23,7 @@ SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant c
 
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 
-SET(STAGING_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
+SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
 
 SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, routine instead of using MeteoIO" FORCE)
 
@@ -72,9 +72,9 @@ IF (VERBOSE)
 	add_definitions(-DVERBOSE)
 ENDIF (VERBOSE)
 
-IF (STAGING_FOR_REMOVING)
-	add_definitions(-DSTAGING_FOR_REMOVING)
-ENDIF (STAGING_FOR_REMOVING)
+IF (STAGED_FOR_REMOVING)
+	add_definitions(-DSTAGED_FOR_REMOVING)
+ENDIF (STAGED_FOR_REMOVING)
 
 IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)

@@ -1022,7 +1022,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("ExitMinLambdaEnergy", double(0)) ;
     
-    initValue("SpinUpLayerBottom", double(10000)) ;
+    std::vector<double> lSpinUpLayerBottom ;
+    lSpinUpLayerBottom += 10000 ;
+    initValue("SpinUpLayerBottom", lSpinUpLayerBottom) ;
     
     initValue("FreeDrainageAtLateralBorder", double(1)) ;
     
@@ -1107,7 +1109,7 @@ void geotop::input::ConfigStore::init()
     initValue("SnowDensityPoint", double(-1)) ;
     
     std::vector<double> lLinearInterpolation ;
-    lLinearInterpolation += 0,0,0 ;
+    lLinearInterpolation += 0 ;
     initValue("LinearInterpolation", lLinearInterpolation) ;
     
     initValue("PointSim", double(0)) ;
@@ -1123,8 +1125,10 @@ void geotop::input::ConfigStore::init()
     std::vector<double> lOutputSoilMaps ;
     lOutputSoilMaps += 1 ;
     initValue("OutputSoilMaps", lOutputSoilMaps) ;
-    
-    initValue("InitWaterTableDepth", double(1000)) ;
+
+    std::vector<double> lInitWaterTableDepth ;
+    lInitWaterTableDepth += 5000.0 ;
+    initValue("InitWaterTableDepth", lInitWaterTableDepth) ;
     
     initValue("Lozone", double(0.3)) ;
     
@@ -1197,12 +1201,16 @@ void geotop::input::ConfigStore::init()
     initValue("SWinPoint", double(9)) ;
     
     initValue("SnowDepthPoint", double(3)) ;
-    
-    initValue("MeteoStationsID", double(geotop::input::gDoubleNoValue)) ;
-    
+
+    std::vector<double> lMeteoStationsID ;
+    lMeteoStationsID += double(geotop::input::gDoubleNoValue) ;
+    initValue("MeteoStationsID", lMeteoStationsID) ;
+
     initValue("QSurfPoint", double(-1)) ;
     
-    initValue("MeteoStationWindVelocitySensorHeight", double(2)) ;
+    std::vector<double> lMeteoStationWindVelocitySensorHeight ;
+    lMeteoStationWindVelocitySensorHeight += 10 ;
+    initValue("MeteoStationWindVelocitySensorHeight", lMeteoStationWindVelocitySensorHeight) ;
     
     initValue("ThresTempRain", double(3)) ;
     
@@ -1676,7 +1684,9 @@ void geotop::input::ConfigStore::init()
     lLateralHydrConductivityBedrock += geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue,geotop::input::gDoubleNoValue ;
     initValue("LateralHydrConductivityBedrock", lLateralHydrConductivityBedrock) ;
     
-    initValue("LapseRateDewTemp", double(geotop::input::gDoubleNoValue)) ;
+    std::vector<double> lLapseRateDewTemp ;
+    lLapseRateDewTemp += geotop::input::gDoubleNoValue ;
+    initValue("LapseRateDewTemp", lLapseRateDewTemp) ;
     
     initValue("SWEbottom", double(20)) ;
     
@@ -1702,7 +1712,9 @@ void geotop::input::ConfigStore::init()
     
     initValue("MaxTimesMinLambdaEnergy", double(0)) ;
     
-    initValue("LapseRateTemp", double(6.5)) ;
+    std::vector<double> lLapseRateTemp ;
+    lLapseRateTemp += 6.5 ;
+    initValue("LapseRateTemp", lLapseRateTemp) ;
     
     initValue("AngstromAlpha", double(1.3)) ;
     
@@ -1752,15 +1764,17 @@ void geotop::input::ConfigStore::init()
     
     initValue("RainCorrFactor", double(1)) ;
     
-    std::vector<double> lSnowAll ;
-    lSnowAll += 1,1 ;
-    initValue("SnowAll", lSnowAll) ; 
+    initValue("SnowAll", double(1)) ;
     
-    initValue("LapseRatePrec", double(-0.2)) ;
+    std::vector<double> lLapseRatePrec ;
+    lLapseRatePrec += -0.2 ;
+    initValue("LapseRatePrec", lLapseRatePrec) ;
     
     initValue("InitGlacierTemp", double(-3)) ;
     
-    initValue("MeteoStationTemperatureSensorHeight", double(5)) ;
+    std::vector<double> lMeteoStationTemperatureSensorHeight ;
+    lMeteoStationTemperatureSensorHeight += 2 ;
+    initValue("MeteoStationTemperatureSensorHeight", lMeteoStationTemperatureSensorHeight) ;
     
     std::vector<double> lVegReflNIR ;
     lVegReflNIR += 0,0.4,0,0.4,0,0.43,0.36,0.4 ; 
