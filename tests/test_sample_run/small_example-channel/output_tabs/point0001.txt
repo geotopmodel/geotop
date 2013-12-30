@@ -1,0 +1,2 @@
+Date12[DDMMYYYYhhmm],JulianDayFromYear0[days],snow_depth[mm],snow_water_equivalent[mm],Tair[C],Tsurface[C],Surface_Energy_balance[W/m2],Soil_heat_flux[W/m2],SWin[W/m2],SWbeam[W/m2],SWdiff[W/m2],LWin[W/m2],Relative_Humidity[-],Tdew[C],Wind_speed[m/s],LWnet[W/m2],SWnet[W/m2]
+19/02/2012 13:00,734918.541667,0.000000,0.000000,5.212064,15.026786,101.351769,101.351769,184.065643,63.307966,120.757677,145.517764,0.452985,-5.664836,0.555539,-49.501254,158.891272
