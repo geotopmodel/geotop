@@ -585,7 +585,7 @@ public:
 	double longitude;
 	
 	double z0_snow;
-	long n_landuses;
+	size_t n_landuses;
 		
 	short blowing_snow;
 	
