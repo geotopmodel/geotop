@@ -24,6 +24,7 @@
 #include <inputKeywords.h>
 
 using namespace std;
+using namespace boost::assign ;
 
 /***********************************************************/
 /***********************************************************/
@@ -155,7 +156,8 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	long beg=0, end=0;
 
     boost::shared_ptr<geotop::input::ConfigStore> lConfigStore = geotop::input::ConfigStoreSingletonFactory::getInstance() ;
-    
+
+#ifdef STAGED_FOR_REMOVING
 	//convert keyword listed on top of the file in lower case
 	n = (long)num_par_number;
 	keywords_num_lower_case = (char**)malloc(n*sizeof(char*));
@@ -164,7 +166,8 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 		keywords_num_lower_case[i] = assign_string(keywords_num[i].c_str());
 		convert_string_in_lower_case(keywords_num_lower_case[i]);
 	}
-	
+#endif
+
 	n = (long)num_par_char;
 	keywords_char_lower_case = (char**)malloc(n*sizeof(char*));
 	for (i=0; i<n; i++) {
@@ -256,7 +259,11 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	free(number_comp_read);
 	
 	//assign parameter
+#ifdef STAGED_FOR_REMOVING
 	assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, keywords_num, flog);
+#else
+	assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, flog);    
+#endif
 
 	//deallocate keyword arrays
 	for(i=0; i<num_par_number; i++){
@@ -613,10 +620,17 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
-
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog){
+#ifdef STAGED_FOR_REMOVING
+void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog)
+#else
+void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, FILE *flog)
+#endif
+{
 	short occurring;
-	size_t cod, codn, k, n, m, nsoillayers, nmeteo_stations, npoints;
+#ifdef STAGED_FOR_REMOVING
+	size_t cod, codn ;
+#endif
+    size_t k, n, m, nsoillayers, nmeteo_stations, npoints;
 	double a;
     double minDt=1.E99;
 
@@ -675,18 +689,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	cod = 398;
 	par->simulation_hours = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 1., 0);
 #else
-    //TODO: to be integrated
 	//init date
-	cod = 1;
-	par->init_date.resize(num_param_components[cod] + 1, 0);
+        std::vector<double> lInitDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "InitDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
+    par->init_date.resize(lInitDateDDMMYYYYhhmm.size() + 1 , 0);
 	for (size_t i=1; i<par->init_date.size(); i++) {
-		par->init_date[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 010119000000., 0);
+		par->init_date[i] = lInitDateDDMMYYYYhhmm[i-1];
 		par->init_date[i] = convert_dateeur12_JDfrom0(par->init_date[i]);
 	}
 	
 	//simulation time
-	cod = 398;
-	par->simulation_hours = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, 1., 0);
+    par->simulation_hours = getDoubleValueWithDefault(lConfigStore, "SimulationHours", geotop::input::gDoubleNoValue, false) ;
 #endif
 
 #ifdef STAGED_FOR_REMOVING
@@ -709,11 +721,11 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		}		
 	}
 #else
-    //TODO: to be integrated
 	//end date
-	cod = 2;
+    std::vector<double> lEndDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "EndDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
+    
     //	par->end_date = new_doublevector(num_param_components[cod]);
-    par->end_date.resize(num_param_components[cod] + 1, 0) ;
+    par->end_date.resize(lEndDateDDMMYYYYhhmm.size() + 1, 0) ;
 	if (par->end_date.size() != par->init_date.size()){
 		fprintf(flog, "Error:: End date has a number of components different from Init Date");
 		printf("Error:: End date has a number of components different from Init Date");
@@ -721,7 +733,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
     
 	for (size_t i=1; i<par->end_date.size(); i++) {
-		par->end_date[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+		par->end_date[i] = lEndDateDDMMYYYYhhmm[i-1];
 		if ((long)par->end_date[i] == geotop::input::gDoubleNoValue){
 			par->end_date[i] = par->init_date[i] + par->simulation_hours/24.;
 		}else {
@@ -885,90 +897,133 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	land->ty[1][jN] = assignation_number(flog, 38, 0, keyword, num_param, num_param_components, 0., 0);
 	land->ty[1][jdv] = assignation_number(flog, 39, 0, keyword, num_param, num_param_components, 50., 0);
 #else
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilRoughness", geotop::input::gDoubleNoValue, false, 0, false) ;
-	land->ty[1][jz0] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilRoughness", 10., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jz0] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowSoilRough", geotop::input::gDoubleNoValue, false, 0, false) ;
-	land->ty[1][jz0thressoil] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowSoilRough", land->ty[1][jz0], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jz0thressoil] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegHeight", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jHveg] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegHeight", 1000., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jHveg] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowVegUp", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jz0thresveg] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowVegUp", land->ty[1][jHveg], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jz0thresveg] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowVegDown", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jz0thresveg2] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "ThresSnowVegDown", land->ty[1][jz0thresveg], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jz0thresveg2] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "LSAI", geotop::input::gDoubleNoValue, false, 0, false) ;
-	land->ty[1][jLSAI] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "LSAI", 1., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jLSAI] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "CanopyFraction", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jcf] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "CanopyFraction", 0., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jcf] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "DecayCoeffCanopy", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jdecay0] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "DecayCoeffCanopy", 2.5, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jdecay0] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegSnowBurying", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jexpveg] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegSnowBurying", 1., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jexpveg] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RootDepth", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jroot] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RootDepth", 300., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jroot] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MinStomatalRes", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jrs] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MinStomatalRes", 60., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jrs] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegReflectVis", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jvR_vis] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegReflectVis", 0.2, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jvR_vis] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegReflNIR", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jvR_nir] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegReflNIR", 0.2, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jvR_nir] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegTransVis", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jvT_vis] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegTransVis", 0.2, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jvT_vis] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegTransNIR", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jvT_nir] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "VegTransNIR", 0.2, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jvT_nir] = lDoubleTempVector[i-1];
+    }
+    
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "LeafAngles", 0., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jvCh] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "LeafAngles", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jvCh] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "CanDensSurface", 2., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jcd] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "CanDensSurface", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jcd] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbVisDry", 0.2, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][ja_vis_dry] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbVisDry", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][ja_vis_dry] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbNIRDry", land->ty[1][ja_vis_dry], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][ja_nir_dry] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbNIRDry", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][ja_nir_dry] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbVisWet", land->ty[1][ja_vis_dry], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][ja_vis_sat] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbVisWet", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][ja_vis_sat] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbNIRWet", land->ty[1][ja_nir_dry], true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][ja_nir_sat] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilAlbNIRWet", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][ja_nir_sat] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilEmissiv", 0.96, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jemg] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilEmissiv", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jemg] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SurFlowResLand", 0.5, true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jcm] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SurFlowResLand", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jcm] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RoughElemXUnitArea", 0., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jN] = lDoubleTempVector[i-1];
+    }
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RoughElemXUnitArea", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jN] = lDoubleTempVector[0] ;
-
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RoughElemDiam", geotop::input::gDoubleNoValue, false, 0, false) ;
-    land->ty[1][jdv] = lDoubleTempVector[0] ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "RoughElemDiam", 50., true, par->n_landuses, false) ;
+	for (size_t i=1; i<land->ty.getNx(); i++) {
+        land->ty[i][jdv] = lDoubleTempVector[i-1];
+    }
 #endif
 
 #ifdef STAGED_FOR_REMOVING
-	for (size_t i=2; i<=par->n_landuses; i++) {
-		for (size_t j=1; j<=nlandprop; j++) {
-			land->ty[i][j] = assignation_number(flog, 15+j-1, i-1, keyword, num_param, num_param_components, land->ty[i-1][j], 0);
-		}
-	}
-#else
-    //TODO: to be integrated
 	for (size_t i=2; i<=par->n_landuses; i++) {
 		for (size_t j=1; j<=nlandprop; j++) {
 			land->ty[i][j] = assignation_number(flog, 15+j-1, i-1, keyword, num_param, num_param_components, land->ty[i-1][j], 0);
@@ -1167,13 +1222,22 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->max_weq_snow = getDoubleValueWithDefault(lConfigStore, "MaxWaterEqSnowLayerContent", geotop::input::gDoubleNoValue, false) ; ;
 	par->max_snow_layers = (long)getDoubleValueWithDefault(lConfigStore, "MaxSnowLayersMiddle", geotop::input::gDoubleNoValue, false) ; ;
 #endif
-    
+
+#ifdef STAGED_FOR_REMOVING
 	n = par->max_snow_layers ;
 	if(n < 1){
 		fprintf(flog,"Error:: %s must be 1 or larger\n",keyword[119].c_str());
 		printf("Error:: %s must be 1 or larger\n",keyword[119].c_str());
-		t_error("Fatal Error! Geotop is closed.");	
+		t_error("Fatal Error! Geotop is closed.");
 	}
+#else
+	n = par->max_snow_layers ;
+	if(n < 1){
+		fprintf(flog,"Error:: MaxSnowLayersMiddle must be 1 or larger\n");
+		printf("Error:: MaxSnowLayersMiddle must be 1 or larger\n");
+		t_error("Fatal Error! Geotop is closed.");
+	}
+#endif
 
 #ifdef STAGED_FOR_REMOVING
 	par->SWE_bottom = assignation_number(flog, 120, 0, keyword, num_param, num_param_components, 20., 0);
@@ -1221,12 +1285,20 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->GWE_top = getDoubleValueWithDefault(lConfigStore, "GWEtop", geotop::input::gDoubleNoValue, false) ;
 #endif
     
+#ifdef STAGED_FOR_REMOVING
 	if(n < 1 && (par->GWE_bottom > 0 || par->GWE_top > 0)){
 		fprintf(flog,"Error:: %s must be 1 or larger\n",keyword[127].c_str());
 		printf("Error:: %s must be 1 or larger\n",keyword[127].c_str());
+		t_error("Fatal Error! Geotop is closed.");
+	}
+#else
+	if(n < 1 && (par->GWE_bottom > 0 || par->GWE_top > 0)){
+		fprintf(flog,"Error:: MaxGlacLayersMiddle must be 1 or larger\n");
+		printf("Error:: MaxGlacLayersMiddle must be 1 or larger\n");
 		t_error("Fatal Error! Geotop is closed.");	
 	}
-	
+#endif
+
 	par->max_glac_layers = (long)floor(par->GWE_bottom/par->max_weq_glac) + (long)floor(par->GWE_top/par->max_weq_glac) + n;
 	par->inf_glac_layers.resize(n + 1, 0);
 	fprintf(flog,"Max glac layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",par->max_glac_layers,floor(par->GWE_bottom/par->max_weq_glac),n,floor(par->GWE_top/par->max_weq_glac));
@@ -1268,22 +1340,38 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	cod = 137;
 	npoints = 0;
 	for (size_t j=1; j<=16; j++) {
-		if (npoints < num_param_components[cod + j-1]) npoints = num_param_components[cod + j-1];
-	}
-#else
-    //TODO: to be integrated
-	cod = 137;
-	npoints = 0;
-	for (size_t j=1; j<=16; j++) {
-		if (npoints < num_param_components[cod + j-1]) npoints = num_param_components[cod + j-1];
+		if (npoints < num_param_components[cod + j-1]) {
+            npoints = num_param_components[cod + j-1];
+        }
 	}
 #endif
 
+#ifdef STAGED_FOR_REMOVING
 	if (par->point_sim == 1) {
 		par->chkpt.resize(npoints + 1, ptTOT + 1, 0);
 	}else {
 		par->chkpt.resize(npoints + 1, 3 + 1, 0);
 	}
+#else
+    std::vector<std::string> lKeywordString ;
+    lKeywordString += "PointID", "CoordinatePointX", "CoordinatePointY" ;
+	if (par->point_sim == 1) {
+        lKeywordString += "PointElevation", "PointLandCoverType", "PointSoilType",
+        "PointSlope", "PointAspect", "PointSkyViewFactor", "PointCurvatureNorthSouthDirection", "PointCurvatureWestEastDirection",
+        "PointCurvatureNorthwestSoutheastDirection", "PointCurvatureNortheastSouthwestDirection",
+        "PointDepthFreeSurface", "PointHorizon", "PointMaxSWE", "PointLatitude", "PointLongitude" ;
+	}
+
+    npoints = 0 ;
+    for (size_t j=1; j<par->chkpt.getCols(); j++) {
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, false, 0, true) ;
+		if (npoints < lDoubleTempVector.size()) {
+            npoints = lDoubleTempVector.size();
+        }
+        
+	}
+    par->chkpt.resize(npoints + 1, lKeywordString.size() + 1, 0);
+#endif
     
 #ifdef STAGED_FOR_REMOVING
 	for (size_t i=1; i<par->chkpt.getRows(); i++) {
@@ -1292,10 +1380,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		}
 	}
 #else
-    //TODO: to be integrated
-	for (size_t i=1; i<par->chkpt.getRows(); i++) {
-		for (size_t j=1; j<par->chkpt.getCols(); j++) {
-			par->chkpt[i][j] = assignation_number(flog, cod + j-1, i-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+    for (size_t j=1; j<par->chkpt.getCols(); j++) {
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, false, 0, true) ;
+        for (size_t i=1; i<par->chkpt.getRows(); i++) {
+			par->chkpt[i][j] = lDoubleTempVector[i-1] ;
 		}
 	}
 #endif
@@ -1307,11 +1395,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->saving_points[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 0., 0);
 	}
 #else
-    //TODO: to be integrated
-	cod = 156;
-	par->saving_points.resize(num_param_components[cod] + 1,0);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SavingPoints", geotop::input::gDoubleNoValue, false, 0, false) ;
+	par->saving_points.resize(lDoubleTempVector.size() + 1, 0);
 	for (size_t i=1; i<par->saving_points.size(); i++) {
-		par->saving_points[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 0., 0);
+		par->saving_points[i] = lDoubleTempVector[i-1];
 	}
 #endif
 			
@@ -1441,20 +1528,20 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		}
 	}
 #else
-    //TODO: to be integrated
-	cod = 163;
-	codn = 164;
-	
-	if(num_param_components[cod] != num_param_components[codn]){
-		fprintf(flog, "Error:: Number of components of parameters %s and %s must be equal\n",keyword[cod].c_str(),keyword[codn].c_str());
-		printf("Error:: Number of components of parameters %s and %s must be equal\n",keyword[cod].c_str(),keyword[codn].c_str());
+    std::vector<double> lSpecialPlotBegin = getDoubleVectorValueWithDefault(lConfigStore, "SpecialPlotBegin", geotop::input::gDoubleNoValue, false, 0, false) ;
+    std::vector<double> lSpecialPlotEnd = getDoubleVectorValueWithDefault(lConfigStore, "SpecialPlotEnd", geotop::input::gDoubleNoValue, false, 0, false) ;
+
+    if(lSpecialPlotBegin.size() != lSpecialPlotEnd.size()){
+		fprintf(flog, "Error:: Number of components of parameters SpecialPlotBegin and SpecialPlotEnd must be equal\n");
+		printf("Error:: Number of components of parameters SpecialPlotBegin and SpecialPlotEnd must be equal\n");
 		t_error("Fatal Error! Geotop is closed. See failing report.");
 	}
-    
-	times->JD_plots.resize(num_param_components[cod] + num_param_components[codn] + 1, 0) ;
-	for (size_t i=1; i<(long)(times->JD_plots.size()/2.); i++) {
-		times->JD_plots[2*i-1] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, 0., 0);
-		times->JD_plots[2*i  ] = assignation_number(flog, codn, i-1, keyword, num_param, num_param_components, 0., 0);
+
+    times->JD_plots.resize(lSpecialPlotBegin.size() + lSpecialPlotEnd.size() + 1, 0) ;
+
+    for (size_t i=1; i<(size_t)(times->JD_plots.size()/2.); i++) {
+		times->JD_plots[2*i-1] = lSpecialPlotBegin[i-1];
+		times->JD_plots[2*i  ] = lSpecialPlotEnd[i-1];
 	}
 	if (times->JD_plots.size() == 3 && times->JD_plots[1] < 1.E-5 && times->JD_plots[2] < 1.E-5) {
         //		free_doublevector(times->JD_plots);
@@ -1520,11 +1607,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 #ifdef STAGED_FOR_REMOVING
 	cod = 169;
 	a = assignation_number(flog, cod, 0, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
-#else
-    a = getDoubleValueWithDefault(lConfigStore, "SoilLayerThicknesses", geotop::input::gDoubleNoValue, true) ;
-#endif
-
-#ifdef STAGED_FOR_REMOVING
+    
 	//there is a specific layer discretization
 	if ( (long)a != geotop::input::gDoubleNoValue && num_param_components[cod] > 1) {
 		
@@ -1549,22 +1632,24 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 	}
 #else
-    //TODO: to be integrated
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilLayerThicknesses", geotop::input::gDoubleNoValue, true, 0, true) ;
+    a = lDoubleTempVector[0] ;
+    
 	//there is a specific layer discretization
-	if ( (long)a != geotop::input::gDoubleNoValue && num_param_components[cod] > 1) {
+	if ( (long)a != geotop::input::gDoubleNoValue && lDoubleTempVector.size() > 1) {
 		
-		nsoillayers = num_param_components[cod];
-		sl->pa.resize(par->nsoiltypes, nsoilprop, nsoillayers) ;
+		nsoillayers = lDoubleTempVector.size();
+		sl->pa.resize(par->nsoiltypes + 1, nsoilprop + 1, nsoillayers + 1) ;
 		
-		sl->pa[1][jdz][1] = a;
-		for (size_t i=2; i<=sl->pa.getCh(); i++) {
-			sl->pa[1][jdz][i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, sl->pa[1][jdz][i-1], 0);
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilLayerThicknesses", a, true, nsoillayers, true) ;
+		for (size_t i=1; i<sl->pa.getCh(); i++) {
+			sl->pa[1][jdz][i] = lDoubleTempVector[i-1] ;
 		}
         
 	}else {
 		
 		if((long)a==geotop::input::gDoubleNoValue) a=100.;
-		nsoillayers = (long)assignation_number(flog, 170, 0, keyword, num_param, num_param_components, 5., 0);
+		nsoillayers = (long)getDoubleValueWithDefault(lConfigStore, "SoilLayerNumber", geotop::input::gDoubleNoValue, false) ;
 		
         sl->pa.resize(par->nsoiltypes + 1, nsoilprop + 1, nsoillayers + 1);
         
@@ -1616,37 +1701,21 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
             sl->pa(1,j,i) = assignation_number(flog, 171 + j-2, i-1, keyword, num_param, num_param_components, sl->pa(1,j,i-1), 0);
 		}
 	}
-
-	//field capacity (-0.333 bar) and wilting point (-15 bar)
-	for (size_t i=1; i<sl->pa.getCh(); i++){
-		if( (long)sl->pa(1,jfc,i) == geotop::input::gDoubleNoValue){
-			sl->pa[1][jfc][i] = teta_psi( (-1./3.)*1.E5/GTConst::GRAVITY, 0., sl->pa(1,jsat,i), sl->pa(1,jres,i), sl->pa(1,ja,i),
-										 sl->pa(1,jns,i), 1.-1./sl->pa(1,jns,i), GTConst::PsiMin, sl->pa(1,jss,i));
-		}
-		
-		if( (long)sl->pa(1,jwp,i) == geotop::input::gDoubleNoValue){
-			sl->pa(1,jwp,i) = teta_psi( -15.*1.E5/GTConst::GRAVITY, 0., sl->pa(1,jsat,i), sl->pa(1,jres,i), sl->pa(1,ja,i),
-										 sl->pa(1,jns,i), 1.-1./sl->pa(1,jns,i), GTConst::PsiMin, sl->pa(1,jss,i));
-		}
-	}
-	
-	//other soil types
-    for (k=2; k<=par->nsoiltypes; k++) {
-        for (size_t i=1; i<sl->pa.getCh(); i++) {
-            for (size_t j=1; j<sl->pa.getRh(); j++) {
-                sl->pa(k,j,i) = sl->pa(1,j,i);
-            }
-        }
-    }
 #else
-    //TODO: to be integrated
     //other layers
-	for (size_t i=2; i<sl->pa.getCh(); i++) {
-		for (size_t j=2; j<sl->pa.getRh(); j++) {
-            sl->pa(1,j,i) = assignation_number(flog, 171 + j-2, i-1, keyword, num_param, num_param_components, sl->pa(1,j,i-1), 0);
+    lKeywordString.clear() ;
+    lKeywordString += "InitSoilPressure", "InitSoilTemp", "NormalHydrConductivity", "LateralHydrConductivity",
+        "ThetaRes", "WiltingPoint", "FieldCapacity", "ThetaSat", "AlphaVanGenuchten", "NVanGenuchten",
+        "VMualem", "ThermalConductivitySoilSolids", "ThermalCapacitySoilSolids", "SpecificStorativity" ;
+
+    for (size_t j=2; j<sl->pa.getRh(); j++) {
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-2], sl->pa(1,j,1), true, sl->pa.getCh(), true) ;
+        for (size_t i=2; i<sl->pa.getCh(); i++) {
+            sl->pa(1,j,i) = lDoubleTempVector[i-1];
 		}
 	}
-    
+#endif
+
 	//field capacity (-0.333 bar) and wilting point (-15 bar)
 	for (size_t i=1; i<sl->pa.getCh(); i++){
 		if( (long)sl->pa(1,jfc,i) == geotop::input::gDoubleNoValue){
@@ -1668,7 +1737,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
             }
         }
     }
-#endif
 	
 	//use water table for water pressure
     for (k=1; k<=par->nsoiltypes; k++) {
@@ -1695,24 +1763,29 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 	for (size_t i=2; i<=nsoillayers; i++) {
 		for (size_t j=1; j<=nsoilprop; j++) {
-			if(j != jdz) itools->pa_bed(1,j,i) = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, itools->pa_bed(1,j,i-1), 0);
+			if(j != jdz)
+                itools->pa_bed(1,j,i) = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, itools->pa_bed(1,j,i-1), 0);
 		}
 	}
 #else
-    //TODO: to be integrated
-	cod = 185;
 	itools->pa_bed.resize(1 + 1, nsoilprop + 1, nsoillayers + 1);
 	for (size_t i=1; i<=nsoillayers; i++) {
 		itools->pa_bed(1,jdz,i) = sl->pa(1,jdz,i);
 	}
-	for (size_t j=1; j<=nsoilprop; j++) {
-		if(j != jdz){
-			itools->pa_bed(1,j,1) = assignation_number(flog, cod+j-2, 0, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
-		}
-	}
-	for (size_t i=2; i<=nsoillayers; i++) {
-		for (size_t j=1; j<=nsoilprop; j++) {
-			if(j != jdz) itools->pa_bed(1,j,i) = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, itools->pa_bed(1,j,i-1), 0);
+    
+    //other layers
+    lKeywordString.clear() ;
+    lKeywordString += "InitSoilPressureBedrock", "InitSoilTempBedrock", "NormalHydrConductivityBedrock",
+        "LateralHydrConductivityBedrock", "ThetaResBedrock", "WiltingPointBedrock",
+        "FieldCapacityBedrock", "ThetaSatBedrock", "AlphaVanGenuchtenBedrock", "NVanGenuchtenBedrock",
+        "VMualemBedrock", "ThermalConductivitySoilSolidsBedrock", "ThermalCapacitySoilSolidsBedrock",
+        "SpecificStorativityBedrock" ;
+
+    for (size_t j=1; j<itools->pa_bed.getCh(); j++) {
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, nsoillayers, true) ;
+        for (size_t i=1; i<itools->pa_bed.getCh(); i++) {
+			if(j != jdz)
+                itools->pa_bed(1,j,i) = lDoubleTempVector[i-1] ;
 		}
 	}
 #endif
@@ -1872,7 +1945,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	for (size_t i=0; i<nlstot; i++) {
 		met->LRc[i] = (double*)malloc(met->LRcnc[i]*sizeof(double));
 		for (lColumnIndexJ=0; lColumnIndexJ<met->LRcnc[i]; lColumnIndexJ++) {
-			if(i==ilsDate12) met->LRc[i][lColumnIndexJ] = 0.;
+			if(i==ilsDate12)
+                met->LRc[i][lColumnIndexJ] = 0.;
 			if(i==ilsTa) {
                 met->LRc[i][lColumnIndexJ] = assignation_number(flog, 210, lColumnIndexJ, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
             }
@@ -1887,25 +1961,38 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->MinIncrFactWithElev = assignation_number(flog, 213, lColumnIndexJ, keyword, num_param, num_param_components, 0.1, 0);
 	par->MaxIncrFactWithElev = assignation_number(flog, 214, lColumnIndexJ, keyword, num_param, num_param_components, 4.4, 0);
 #else
-    //TODO: to be integrated
     size_t lColumnIndexJ ;
+    std::vector<double> lLapseRateTemp = getDoubleVectorValueWithDefault(lConfigStore, "LapseRateTemp", geotop::input::gDoubleNoValue, false, 0, true) ;
+    std::vector<double> lLapseRateDewTemp = getDoubleVectorValueWithDefault(lConfigStore, "LapseRateDewTemp", geotop::input::gDoubleNoValue, false, 0, true) ;
+    std::vector<double> lLapseRatePrec = getDoubleVectorValueWithDefault(lConfigStore, "LapseRatePrec", geotop::input::gDoubleNoValue, false, 0, true) ;
 	for (size_t i=0; i<nlstot; i++) {
 		met->LRc[i] = (double*)malloc(met->LRcnc[i]*sizeof(double));
 		for (lColumnIndexJ=0; lColumnIndexJ<met->LRcnc[i]; lColumnIndexJ++) {
-			if(i==ilsDate12) met->LRc[i][lColumnIndexJ] = 0.;
+			if(i==ilsDate12)
+                met->LRc[i][lColumnIndexJ] = 0.;
 			if(i==ilsTa) {
-                met->LRc[i][lColumnIndexJ] = assignation_number(flog, 210, lColumnIndexJ, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+                if (lColumnIndexJ <= lLapseRateTemp.size())
+                    met->LRc[i][lColumnIndexJ] = lLapseRateTemp[lColumnIndexJ];
+                else
+                    met->LRc[i][lColumnIndexJ] = geotop::input::gDoubleNoValue ;
             }
 			if(i==ilsTdew) {
-                met->LRc[i][lColumnIndexJ] = assignation_number(flog, 211, lColumnIndexJ, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+                if (lColumnIndexJ <= lLapseRateDewTemp.size())
+                    met->LRc[i][lColumnIndexJ] = lLapseRateDewTemp[lColumnIndexJ];
+                else
+                    met->LRc[i][lColumnIndexJ] = geotop::input::gDoubleNoValue ;
             }
 			if(i==ilsPrec) {
-                met->LRc[i][lColumnIndexJ] = assignation_number(flog, 212, lColumnIndexJ, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+                if (lColumnIndexJ <= lLapseRatePrec.size())
+                    met->LRc[i][lColumnIndexJ] = lLapseRatePrec[lColumnIndexJ];
+                else
+                    met->LRc[i][lColumnIndexJ] = geotop::input::gDoubleNoValue ;
             }
 		}
 	}
-	par->MinIncrFactWithElev = assignation_number(flog, 213, lColumnIndexJ, keyword, num_param, num_param_components, 0.1, 0);
-	par->MaxIncrFactWithElev = assignation_number(flog, 214, lColumnIndexJ, keyword, num_param, num_param_components, 4.4, 0);
+
+	par->MinIncrFactWithElev =  getDoubleValueWithDefault(lConfigStore, "MinPrecIncreaseFactorWithElev", geotop::input::gDoubleNoValue, false) ;
+	par->MaxIncrFactWithElev =  getDoubleValueWithDefault(lConfigStore, "MaxPrecDecreaseFactorWithElev", geotop::input::gDoubleNoValue, false) ;
 #endif
 	
 	//output point column
@@ -1934,6 +2021,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 			ipnt[i] = 0;
 			opnt[i] = -1;
 		}
+
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, 215+i, 0, keyword, num_param, num_param_components, -1., 0);
@@ -1943,9 +2031,30 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 			}
 		}
 #else
-        //TODO: to be integrated
+        lKeywordString.clear() ;
+        lKeywordString += "DatePoint", "JulianDayFromYear0Point", "TimeFromStartPoint",
+        "PeriodPoint", "RunPoint", "IDPointPoint", "PsnowPoint",
+        "PrainPoint", "PsnowNetPoint", "PrainNetPoint", "PrainOnSnowPoint",
+        "WindSpeedPoint", "WindDirPoint", "RHPoint", "AirPressPoint",
+        "AirTempPoint", "TDewPoint", "TsurfPoint", "TvegPoint",
+        "TCanopyAirPoint", "SurfaceEBPoint", "SoilHeatFluxPoint", "SWinPoint",
+        "SWbeamPoint", "SWdiffPoint", "LWinPoint", "LWinMinPoint",
+        "LWinMaxPoint", "SWNetPoint", "LWNetPoint", "HPoint",
+        "LEPoint", "CanopyFractionPoint", "LSAIPoint", "z0vegPoint",
+        "d0vegPoint", "EstoredCanopyPoint", "SWvPoint", "LWvPoint",
+        "HvPoint", "LEvPoint", "HgUnvegPoint", "LEgUnvegPoint",
+        "HgVegPoint", "LEgVegPoint", "EvapSurfacePoint", "TraspCanopyPoint",
+        "WaterOnCanopyPoint", "SnowOnCanopyPoint", "QVegPoint", "QSurfPoint",
+        "QAirPoint", "QCanopyAirPoint", "LObukhovPoint", "LObukhovCanopyPoint",
+        "WindSpeedTopCanopyPoint", "DecayKCanopyPoint", "SWupPoint", "LWupPoint",
+        "HupPoint", "LEupPoint", "SnowDepthPoint", "SWEPoint",
+        "SnowDensityPoint", "SnowTempPoint", "SnowMeltedPoint", "SnowSublPoint",
+        "SWEBlownPoint", "SWESublBlownPoint", "GlacDepthPoint", "GWEPoint",
+        "GlacDensityPoint", "GlacTempPoint", "GlacMeltedPoint", "GlacSublPoint",
+        "LowestThawedSoilDepthPoint", "HighestThawedSoilDepthPoint", "LowestWaterTableDepthPoint", "HighestWaterTableDepthPoint" ;
+
 		for (size_t i=0; i<n; i++) {
-			lColumnIndexJ = (long)assignation_number(flog, 215+i, 0, keyword, num_param, num_param_components, -1., 0);
+			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
 				opnt[lColumnIndexJ-1] = i;
 				ipnt[i] = 1;
@@ -1993,9 +2102,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 			}
 		}
 #else
-        //TODO: to be integrated
+        lKeywordString.clear() ;
+        lKeywordString += "DateBasin", "JulianDayFromYear0Basin", "TimeFromStartBasin",
+            "PeriodBasin", "RunBasin", "PRainNetBasin", "PSnowNetBasin", "PRainBasin",
+            "PSnowBasin", "PNetBasin", "AirTempBasin", "TSurfBasin", "TvegBasin",
+            "EvapSurfaceBasin", "TraspCanopyBasin", "LEBasin", "HBasin", "SWNetBasin",
+            "LWNetBasin", "LEvBasin", "HvBasin", "SWvBasin", "LWvBasin",
+            "SWinBasin", "LWinBasin", "MassErrorBasin", "MeanTimeStep" ;
+
 		for (size_t i=0; i<n; i++) {
-			lColumnIndexJ = (long)assignation_number(flog, 295+i, 0, keyword, num_param, num_param_components, -1., 0);
+			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
 				obsn[lColumnIndexJ-1] = i;
 				ibsn[i] = 1;
@@ -2045,41 +2161,25 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->glac_plot_depths[n] = assignation_number(flog, cod, n-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
 	}	
 #else
-    //TODO: to be integrated
-	cod = 356;
-	n = 0;
-	do{
-		a = assignation_number(flog, cod, n, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
-		if ((long)a != geotop::input::gDoubleNoValue) n++;
-	}while ((long)a != geotop::input::gDoubleNoValue && n<=1000000);
-	if (n==0) n=1;
-	par->soil_plot_depths.resize(n + 1);
-	for (n=1; n<par->soil_plot_depths.size(); n++) {
-		par->soil_plot_depths[n] = assignation_number(flog, cod, n-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilPlotDepths", geotop::input::gDoubleNoValue, false, 0, true) ;
+    size_t lSoilPlotDepthsSize = lDoubleTempVector.size() + 1;
+    par->soil_plot_depths.resize(lSoilPlotDepthsSize);
+	for (size_t i=1; i<lSoilPlotDepthsSize; i++) {
+		par->soil_plot_depths[i] = lDoubleTempVector[i-1] ;
 	}
-	
-	cod = 357;
-	n = 0;
-	do{
-		a = assignation_number(flog, cod, n, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
-		if ((long)a != geotop::input::gDoubleNoValue) n++;
-	}while ((long)a != geotop::input::gDoubleNoValue && n<=1000000);
-	if (n==0) n=1;
-	par->snow_plot_depths.resize(n + 1);
-	for (n=1; n<par->snow_plot_depths.size(); n++) {
-		par->snow_plot_depths[n] = assignation_number(flog, cod, n-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SnowPlotDepths", geotop::input::gDoubleNoValue, false, 0, true) ;
+    lSoilPlotDepthsSize = lDoubleTempVector.size() + 1;
+    par->snow_plot_depths.resize(lSoilPlotDepthsSize);
+	for (size_t i=1; i<lSoilPlotDepthsSize; i++) {
+		par->snow_plot_depths[i] = lDoubleTempVector[i-1] ;
 	}
-	
-	cod = 358;
-	n = 0;
-	do{
-		a = assignation_number(flog, cod, n, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
-		if ((long)a != geotop::input::gDoubleNoValue) n++;
-	}while ((long)a != geotop::input::gDoubleNoValue && n<=1000000);
-	if (n==0) n=1;
-	par->glac_plot_depths.resize(n + 1);
-	for (n=1; n<par->glac_plot_depths.size(); n++) {
-		par->glac_plot_depths[n] = assignation_number(flog, cod, n-1, keyword, num_param, num_param_components, geotop::input::gDoubleNoValue, 0);
+
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "GlacPlotDepths", geotop::input::gDoubleNoValue, false, 0, true) ;
+    lSoilPlotDepthsSize = lDoubleTempVector.size() + 1;
+    par->glac_plot_depths.resize(lSoilPlotDepthsSize);
+	for (size_t i=1; i<lSoilPlotDepthsSize; i++) {
+		par->glac_plot_depths[i] = lDoubleTempVector[i-1] ;
 	}
 #endif
 
@@ -2108,8 +2208,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		nosnw = n;
 		
 	}else {
-		
+
+#ifdef STAGED_FOR_REMOVING
 		cod = 323;
+#endif
 		
 		for (size_t i=0; i<n; i++) {
 			osnw[i] = -1;
@@ -2117,13 +2219,18 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<6; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, cod+i, 0, keyword, num_param, num_param_components, -1., 0);
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osnw[lColumnIndexJ-1] = i;
+			if (lColumnIndexJ>=1 && lColumnIndexJ<=n)
+                osnw[lColumnIndexJ-1] = i;
 		}
 #else
-        //TODO: to be integrated
+        lKeywordString.clear() ;
+        lKeywordString += "DateSnow", "JulianDayFromYear0Snow", "TimeFromStartSnow",
+            "PeriodSnow", "RunSnow", "IDPointSnow" ;
+
 		for (size_t i=0; i<6; i++) {
-			lColumnIndexJ = (long)assignation_number(flog, cod+i, 0, keyword, num_param, num_param_components, -1., 0);
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osnw[lColumnIndexJ-1] = i;
+			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
+			if (lColumnIndexJ>=1 && lColumnIndexJ<=n)
+                osnw[lColumnIndexJ-1] = i;
 		}
 #endif
 		nosnw = 0;
@@ -2144,6 +2251,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 #ifdef STAGED_FOR_REMOVING
 	par->all_glac = (short)assignation_number(flog, 348, 0, keyword, num_param, num_param_components, 0., 0);
+    cod = 335;
 #else
     par->all_glac = (short)getDoubleValueWithDefault(lConfigStore, "GlacAll", geotop::input::gDoubleNoValue, false) ;
 #endif
@@ -2157,9 +2265,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		noglc = n;
 		
 	}else {
-		
-		cod = 335;
-		
+				
 		for (size_t i=0; i<n; i++) {
 			oglc[i] = -1;
 		}
@@ -2181,23 +2287,35 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 			}
 		}
 #else
-        //TODO: to be integrated
-		for (size_t i=0; i<6; i++) {
-			lColumnIndexJ = (long)assignation_number(flog, cod+i, 0, keyword, num_param, num_param_components, -1., 0);
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = i;
-		}
-		for (size_t i=6; i<9; i++) {
+        lKeywordString.clear() ;
+        lKeywordString += "SnowAll", "DateGlac", "JulianDayFromYear0Glac", "TimeFromStartGlac", "PeriodGlac", "RunGlac" ;
+        for(size_t i = 0 ; i < lKeywordString.size() ; i++)
+        {
+            lColumnIndexJ = getDoubleValueWithDefault(lConfigStore, "SnowAll", geotop::input::gDoubleNoValue, false) ;
+            if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = i;
+        }
+
+        lKeywordString.clear() ;
+        lKeywordString += "IDPointGlac", "TempGlac", "IceContentGlac" ;
+        for(size_t i = 0 ; i < lKeywordString.size() ; i++)
+        {
+            lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[i], -1, false, 0, false) ;
 			for (k=0; k<m; k++) {
-				lColumnIndexJ = (long)assignation_number(flog, cod+i, k, keyword, num_param, num_param_components, -1., 0);
-				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i-6)*m + k + 6;
+				lColumnIndexJ = (size_t)lDoubleTempVector[k];
+				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i)*m + k + 6;
 			}
-		}
-		for (size_t i=9; i<10; i++) {
+        }
+
+        lKeywordString.clear() ;
+        lKeywordString += "WatContentGlac" ;
+        for(size_t i = 0 ; i < lKeywordString.size() ; i++)
+        {
+            lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[i], -1, false, 0, false) ;
 			for (k=0; k<par->max_glac_layers; k++) {
-				lColumnIndexJ = (long)assignation_number(flog, cod+i, k, keyword, num_param, num_param_components, -1., 0);
+				lColumnIndexJ = (size_t)lDoubleTempVector[k];
 				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
 			}
-		}
+        }
 #endif
 		noglc = 0;
 		for (size_t i=0; i<n; i++) {
@@ -2208,9 +2326,13 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	//output soil column
 	n = 6;
 	osl = (long*)malloc(n*sizeof(long));
-	
+
+#ifdef STAGED_FOR_REMOVING
 	par->all_soil = (short)assignation_number(flog, 355, 0, keyword, num_param, num_param_components, 0., 0);
-	
+#else
+    par->all_soil = (short)getDoubleValueWithDefault(lConfigStore, "SoilAll", geotop::input::gDoubleNoValue, false) ;
+#endif
+
 	if (par->all_soil == 1) {
 		
 		for (size_t i=0; i<n; i++) {
@@ -2230,9 +2352,12 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osl[lColumnIndexJ-1] = i;
 		}
 #else
-        //TODO: to be integrated
+        lKeywordString.clear() ;
+        lKeywordString += "DateSoil", "JulianDayFromYear0Soil", "TimeFromStartSoil",
+            "PeriodSoil", "RunSoil", "IDPointSoil" ;
+
 		for (size_t i=0; i<n; i++) {
-			lColumnIndexJ = (long)assignation_number(flog, 349+i, 0, keyword, num_param, num_param_components, -1., 0);
+			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osl[lColumnIndexJ-1] = i;
 		}
 #endif
@@ -2296,8 +2421,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     par->output_vertical_distances = (short)getDoubleValueWithDefault(lConfigStore, "OutputDepthsVertical", geotop::input::gDoubleNoValue, false) ;
 	if(par->point_sim != 1){
 		if(par->output_vertical_distances == 1){
-			printf("Only for point simulations the parameter %s can be assigned to 1, layers are defined vertically\n",keyword[cod].c_str());
-			fprintf(flog, "Only for point simulations the parameter %s can be assigned to 1, layers are defined vertically\n",keyword[cod].c_str());
+			printf("Only for point simulations the parameter OutputDepthsVertical can be assigned to 1, layers are defined vertically\n");
+			fprintf(flog, "Only for point simulations the parameter OutputDepthsVertical can be assigned to 1, layers are defined vertically\n");
 		}
 	}
 #endif
@@ -2338,25 +2463,31 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	for (size_t i=2; i<par->end_date.size(); i++) {
 		par->Nl_spinup[i] = assignation_number(flog, cod, i-1, keyword, num_param, num_param_components, par->Nl_spinup[i-1], 0);
 	}
-#else
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SpinUpLayerBottom", 0., true, par->end_date.size(), false) ;
-	for (size_t i=1; i<par->Nl_spinup.size(); i++) {
-		par->Nl_spinup[i] = lDoubleTempVector[i-1] ;
-	}
-#endif
 	if(par->Nl_spinup[1]<10000. && par->point_sim!=1){
 		printf("You can use %s only if %s is set to 1\n",keyword[cod].c_str(),keyword[12].c_str());
 		fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[cod].c_str(),keyword[12].c_str());
 		t_error("Not possible to continue");
 	}
+#else
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SpinUpLayerBottom", 0., true, par->end_date.size(), false) ;
+	for (size_t i=1; i<par->Nl_spinup.size(); i++) {
+		par->Nl_spinup[i] = lDoubleTempVector[i-1] ;
+	}
+	if(par->Nl_spinup[1]<10000. && par->point_sim!=1){
+		printf("You can use SpinUpLayerBottom only if PointSim is set to 1\n");
+		fprintf(flog,"You can use SpinUpLayerBottom only if PointSim is set to 1\n");
+		t_error("Not possible to continue");
+	}
+#endif
+
 #ifdef STAGED_FOR_REMOVING
 	par->newperiodinit = (short)assignation_number(flog, 382, 0, keyword, num_param, num_param_components, 0., 0);
 #else
 	par->newperiodinit = (short)getDoubleValueWithDefault(lConfigStore, "InitInNewPeriods", geotop::input::gDoubleNoValue, false) ;
 #endif
 	if(par->newperiodinit != 0 && par->point_sim != 1){
-		printf("You can use %s only if %s is set to 1\n",keyword[382].c_str(),keyword[12].c_str());
-		fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[382].c_str(),keyword[12].c_str());
+		printf("You can use InitInNewPeriods only if PointSim is set to 1\n");
+		fprintf(flog,"You can use InitInNewPeriods only if PointSim is set to 1\n");
 		t_error("Not possible to continue");
 	}
 
@@ -2413,13 +2544,13 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 
 #ifdef STAGED_FOR_REMOVING
-	par->minP_torestore_A = getDoubleValueWithDefault(lConfigStore, "MinPrecToRestoreFreshSnowAlbedo", geotop::input::gDoubleNoValue, false) ;
-	par->snow_conductivity = (short)getDoubleValueWithDefault(lConfigStore, "SnowThermalConductivityPar", geotop::input::gDoubleNoValue, false) ;
-	par->snow_wind_compaction_1D = (short)getDoubleValueWithDefault(lConfigStore, "WindCompaction1D", geotop::input::gDoubleNoValue, false) ;
-#else
 	par->minP_torestore_A = assignation_number(flog, 400, 0, keyword, num_param, num_param_components, 10., 0);
 	par->snow_conductivity = (short)assignation_number(flog, 401, 0, keyword, num_param, num_param_components, 1., 0);
 	par->snow_wind_compaction_1D = (short)assignation_number(flog, 402, 0, keyword, num_param, num_param_components, 0., 0);
+#else
+	par->minP_torestore_A = getDoubleValueWithDefault(lConfigStore, "MinPrecToRestoreFreshSnowAlbedo", geotop::input::gDoubleNoValue, false) ;
+	par->snow_conductivity = (short)getDoubleValueWithDefault(lConfigStore, "SnowThermalConductivityPar", geotop::input::gDoubleNoValue, false) ;
+	par->snow_wind_compaction_1D = (short)getDoubleValueWithDefault(lConfigStore, "WindCompaction1D", geotop::input::gDoubleNoValue, false) ;
 #endif
 
 	if(par->snow_wind_compaction_1D == 1) par->blowing_snow = 1;
@@ -2471,7 +2602,7 @@ char **assign_string_parameter(FILE *f, long beg, long end, char **string_param,
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
-
+#ifdef STAGED_FOR_REMOVING
 // overloaded function
 double assignation_number(FILE *f, long i, long j, string keyword[], double **num_param, long *num_param_components, double default_value, short code_error){
 
@@ -2502,7 +2633,7 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 
 	return a;
 }
-
+#endif
 
 /***********************************************************/
 /***********************************************************/

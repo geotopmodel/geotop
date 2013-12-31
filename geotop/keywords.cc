@@ -20,6 +20,7 @@
 
 #include <keywords.h>
 
+#ifdef STAGED_FOR_REMOVING
 std::string keywords_num[] = {
     "TimeStepEnergyAndWater",                              /*   0 */
     "InitDateDDMMYYYYhhmm",                                /*   1 */  
@@ -427,6 +428,7 @@ std::string keywords_num[] = {
     "DDChannel",                                           /* 403 */
     "DDLand"                                               /* 404 */
 };
+#endif
 
 std::string  keywords_char[] = {                           
     "HeaderDateDDMMYYYYhhmmMeteo",                         /*   0 */

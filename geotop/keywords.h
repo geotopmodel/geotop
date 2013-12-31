@@ -22,7 +22,9 @@
 
 #include <string>
 
+#ifdef STAGED_FOR_REMOVING
 extern std::string keywords_num[] ;
+#endif
 extern std::string  keywords_char[] ;      
 
 #endif //__KEYWORDS__
