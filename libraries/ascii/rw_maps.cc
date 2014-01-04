@@ -437,26 +437,19 @@ void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *
 	fprintf(f,"cellsize      %f\n",UV->U[1]);
 	fprintf(f,"NODATA_value  %ld.0\n",novalue);
 
-//	for(r=1;r<=DTM->nrh;r++){
-	for(r=1;r<=DTM.getRows();r++){
-	//	for(c=1;c<=DTM->nch;c++){
-		for(c=1;c<=DTM.getCols();c++){
-		//	if((long)DTM->co[r][c]==novalue){
+	for(r=1;r<DTM.getRows();r++){
+		for(c=1;c<DTM.getCols();c++){
 			if((long)DTM[r][c]==novalue){
 				fprintf(f,"%ld.0",novalue);
 			}else{
 				if(type==1){
-				//	fprintf(f,"%ld",(long)(DTM->co[r][c]));
 					fprintf(f,"%ld",(long)(DTM[r][c]));
 				}else{
-				//	fprintf(f,"%f",DTM->co[r][c]);
                     fprintf(f,"%ld",DTM[r][c]);
 				}
 			}
-		//	if(c<DTM->nch) fprintf(f," ");
 			if(c<DTM.getCols()) fprintf(f," ");
 		}
-	//	if(r<DTM->nrh) fprintf(f,"\n");
 		if(r<DTM.getRows()) fprintf(f,"\n");
 	}
 	fprintf(f,"\n");// added by Matteo to avoid warnings when reading with R

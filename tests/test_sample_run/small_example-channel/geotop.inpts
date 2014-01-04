@@ -3,7 +3,7 @@
 !*******************************
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 19/02/2012 12:00
-EndDateDDMMYYYYhhmm =  23/02/2012 12:00
+EndDateDDMMYYYYhhmm =  25/02/2012 12:00
 EnergyBalance = 1
 WaterBalance=1
 PointSim=0
@@ -255,4 +255,4 @@ ContinuousRecovery=1
 ! altrimenti, se c'e' un successfulrun o un failed run 
 ! da un messaggio di errore
 !RecoverSim = 15
-SavingPoints = 10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,165
+!SavingPoints = 10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,165

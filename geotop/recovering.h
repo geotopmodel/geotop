@@ -34,10 +34,10 @@ void assign_recovered_map_vector(long n, std::string name, GeoVector<double>& as
 void assign_recovered_map_long(long n, std::string name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>&  Zdistr, GeoMatrix<double>& Zpoint);
 
 
-void assign_recovered_tensor(long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_tensor(long lbegin, long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
 
-void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
+void assign_recovered_tensor_vector(long lbegin, long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);
 
-void assign_recovered_tensor_channel(long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr);
+void assign_recovered_tensor_channel(long lbegin, long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr);
 
 #endif

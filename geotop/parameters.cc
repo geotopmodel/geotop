@@ -299,7 +299,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	free(keywords_str_read);
 	free(string_length_read);
 
-	//assign parameter
+	//assign string parameter
 	end += nmet;
 	itools->met_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
 	beg = end;

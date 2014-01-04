@@ -2030,6 +2030,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     M.resize(Nl+1, par->total_pixel+1, 0.0);
 
                     for (l=0; l<=Nl; l++) {
+						printf("%ld %ld\n",l,par->total_channel);
                         for (i=1; i<=par->total_channel; i++){
                             r = cnet->r[i];
                             c = cnet->c[i];
@@ -2070,13 +2071,16 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     if (par->ContRecovery > 0) {
+		
         t_rec += par->Dt;
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-        printf("t_rec: %12g    par->Dt:%f\n", t_rec, par->Dt);
+        printf("t_rec: %12g    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
 #else
-        printf("t_rec: %f    par->Dt:%f\n", t_rec, par->Dt);
+        printf("t_rec: %f    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
 #endif
-        if (fabs(t_rec - par->ContRecovery*par->Dt)<1.E-5){ //used to be ContRecovery*secinday, replaced with timestep
+		getchar();
+		
+        if (fabs(t_rec - par->ContRecovery*GTConst::secinday)<1.E-5){ //used to be ContRecovery*secinday, replaced with timestep
             t_rec = 0.;
 
             printf("Writing continuous-recovering files\n");
