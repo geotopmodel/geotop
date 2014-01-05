@@ -2,12 +2,11 @@
 #include "../geotop/times.h"
 #include <sstream>
 #include <stdlib.h>
+#include "geotop_common.h"
+#include "inputKeywords.h"
 
 using namespace std;
 using namespace mio;
-extern long i_sim;
-//const double TZ = 1.;
-extern long number_novalue;
 
 IOManager* io;
 DEMObject dem;
@@ -33,23 +32,23 @@ void meteoio_readDEM(GeoMatrix<double>& matrix) {
 	//copy DEM to topo struct
 	matrix.resize(dem.nrows+1, dem.ncols+1);
 //	UV->V = new_doublevector(2);
-	UV->V.resize(2+1);
+	geotop::common::Variables::UV->V.resize(2+1);
 //	UV->U = new_doublevector(4);
-	UV->U.resize(4+1);
+	geotop::common::Variables::UV->U.resize(4+1);
 
 //	UV->V->co[1] = -1.0;
-	UV->V[1] = -1.0;
-//	UV->V->co[2] = number_novalue; //GEOtop nodata -9999.0
-	UV->V[2] = number_novalue; //GEOtop nodata -9999.0
+	geotop::common::Variables::UV->V[1] = -1.0;
+//	UV->V->co[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
+	geotop::common::Variables::UV->V[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
 
 //	UV->U->co[1] = dem.cellsize;
-	UV->U[1] = dem.cellsize;
+	geotop::common::Variables::UV->U[1] = dem.cellsize;
 //	UV->U->co[2] = dem.cellsize;
-	UV->U[2] = dem.cellsize;
+	geotop::common::Variables::UV->U[2] = dem.cellsize;
 //	UV->U->co[3] = dem.llcorner.getNorthing();
-	UV->U[3] = dem.llcorner.getNorthing();
+	geotop::common::Variables::UV->U[3] = dem.llcorner.getNorthing();
 //	UV->U->co[4] = dem.llcorner.getEasting();
-	UV->U[4] = dem.llcorner.getEasting();
+	geotop::common::Variables::UV->U[4] = dem.llcorner.getEasting();
 
 	copyGridToMatrix(dem, matrix);
 }
@@ -83,8 +82,8 @@ DOUBLEMATRIX *meteoio_readDEM(TInit** UVREF) {
 
 	//	UV->V->co[1] = -1.0;
 		UV->V[1] = -1.0;
-	//	UV->V->co[2] = number_novalue; //GEOtop nodata -9999.0
-		UV->V[2] = number_novalue; //GEOtop nodata -9999.0
+	//	UV->V->co[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
+		UV->V[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
 
 	//	UV->U->co[1] = dem.cellsize;
 		UV->U[1] = dem.cellsize;
@@ -118,8 +117,8 @@ DOUBLEMATRIX *meteoio_readDEM(TInit** UVREF) {
 }
 */
 
-//DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* UV, char* _filename) {
-void meteoio_read2DGrid(TInit* UV, GeoMatrix<double>& myGrid, char* _filename) {
+//DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* pUV, char* _filename) {
+void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename) {
 //	DOUBLEMATRIX *myGrid = NULL;
 
 	try {
@@ -139,16 +138,16 @@ void meteoio_read2DGrid(TInit* UV, GeoMatrix<double>& myGrid, char* _filename) {
 		iohandler.read2DGrid(gridObject, filename);
 
 	//	if (UV->U->co[1] != gridObject.cellsize)
-		if (UV->U[1] != gridObject.cellsize)
+		if (geotop::common::Variables::UV->U[1] != gridObject.cellsize)
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 	//	else if (UV->U->co[2] != gridObject.cellsize)
-		else if (UV->U[2] != gridObject.cellsize)
+		else if (geotop::common::Variables::UV->U[2] != gridObject.cellsize)
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 	//	else if (UV->U->co[3] != gridObject.llcorner.getNorthing())
-		else if (UV->U[3] != gridObject.llcorner.getNorthing())
+		else if (geotop::common::Variables::UV->U[3] != gridObject.llcorner.getNorthing())
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 	//	else if (UV->U->co[4] != gridObject.llcorner.getEasting())
-		else if (UV->U[4] != gridObject.llcorner.getEasting())
+		else if (geotop::common::Variables::UV->U[4] != gridObject.llcorner.getEasting())
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 
 		for (unsigned int ii = 0; ii < gridObject.nrows; ii++) {
@@ -156,7 +155,7 @@ void meteoio_read2DGrid(TInit* UV, GeoMatrix<double>& myGrid, char* _filename) {
 				if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii)
 						== IOUtils::nodata) {
 				//	myGrid->co[ii + 1][jj + 1] = UV->V->co[2];
-					myGrid[ii + 1][jj + 1] = UV->V[2];
+					myGrid[ii + 1][jj + 1] = geotop::common::Variables::UV->V[2];
 				} else {
 				//	myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj,
 				//			gridObject.nrows - 1 - ii);
@@ -175,12 +174,12 @@ void meteoio_read2DGrid(TInit* UV, GeoMatrix<double>& myGrid, char* _filename) {
 }
 
 
-void meteoio_writeEsriasciiMap(const string& filename, TInit* UV, GeoMatrix<double>& gm, long number_novalue){
+void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue){
 
 	Grid2DObject  gridObject;
 
-	if(UV->U[1]!=UV->U[2]){
-		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
+	if(geotop::common::Variables::UV->U[1]!=geotop::common::Variables::UV->U[2]){
+		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",geotop::common::Variables::UV->U[2],geotop::common::Variables::UV->U[1]);
 		t_error("Fatal error");
 	}
 
@@ -188,14 +187,14 @@ void meteoio_writeEsriasciiMap(const string& filename, TInit* UV, GeoMatrix<doub
 	unsigned int nrows = gm.getRows()-1;
 
 	gridObject.grid2D.resize(ncols, nrows, IOUtils::nodata);
-    gridObject.llcorner.setXY(UV->U[4],UV->U[3], 0);
-	gridObject.set(ncols, nrows, UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+    gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+	gridObject.set(ncols, nrows, geotop::common::Variables::UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
 
 	/* Copies a GeoMatrix to a MeteoIO Grid2DObject */
 		for (unsigned int ii = 0; ii < nrows; ii++) {
 			for (unsigned int jj = 0; jj < ncols; jj++) {
 			//	if (gm(nrows  - ii,jj) == IOUtils::nodata) {
-			//		gridObject.grid2D(jj,ii) = number_novalue; //using the GEOtop nodata value
+			//		gridObject.grid2D(jj,ii) = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
 			//	} else {
 					gridObject.grid2D(jj,ii) = gm(nrows -  ii,jj+1);
 			//	}
@@ -251,7 +250,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 
 	Date d1;
 	/* GEOtop use matlab offset of julian date */
-	d1.setMatlabDate(currentdate, TZ);
+	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ);
 
 	try {
 
@@ -342,7 +341,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		// TODO: correct the precipitation at each station for the raincorrfact and the snowcorrfact
 		//		   double prec, rain, snow;
 		//		   for(n=1;n<=met->st->Z->nh;n++){
-		//					if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){// check if exists prec. value
+		//					if((long)met->var[n-1][Pcode]!=geotop::input::gDoubleNoValue && (long)met->var[n-1][Pcode]!=geotop::input::gDoubleAbsent){// check if exists prec. value
 		//					prec = met->var[n-1][Pcode];// precipitation of the meteo station n
 		//					part_snow(prec, &rain, &snow, met->var[n-1][Tcode], par->T_rain, par->T_snow);
 		//					met->var[n-1][Pcode] = par->raincorrfact * rain + par->snowcorrfact * snow;
@@ -408,7 +407,7 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw,
 			resultHnw;
 	Date d1;
-	d1.setMatlabDate(currentdate, TZ); // GEOtop use matlab offset of julian date
+	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
 	std::vector<StationData> vecStation;
 
@@ -539,27 +538,27 @@ void copyInterpMeteoData(double *out, std::vector<MeteoData>& meteoin){
 		out[6]=-meteoin[i](MeteoData::VW) * sin(meteoin[i](MeteoData::DW) * GTConst::Pi / 180.);
 		out[7]=-meteoin[i](MeteoData::VW)* cos(meteoin[i](MeteoData::DW) * GTConst::Pi / 180.);
 	} else{
-		out[6]=number_novalue;
-		out[7]=number_novalue;
+		out[6]=geotop::input::gDoubleNoValue;
+		out[7]=geotop::input::gDoubleNoValue;
 	}
 
-	out[8]=meteoin[i](MeteoData::RH)==IOUtils::nodata? number_novalue : meteoin[i](MeteoData::RH)*100;
-	out[9]= meteoin[i](MeteoData::TA)==IOUtils::nodata? number_novalue : meteoin[i](MeteoData::TA)-273.15;
+        out[8]=meteoin[i](MeteoData::RH)==IOUtils::nodata? geotop::input::gDoubleNoValue : meteoin[i](MeteoData::RH)*100;
+	out[9]= meteoin[i](MeteoData::TA)==IOUtils::nodata? geotop::input::gDoubleNoValue : meteoin[i](MeteoData::TA)-273.15;
 
 	if(meteoin[i](MeteoData::TA)!=IOUtils::nodata && meteoin[i](MeteoData::RH)!=IOUtils::nodata && meteoin[i](MeteoData::P)!=IOUtils::nodata)
 	{
 		out[10]=tDew(out[9], out[8], meteoin[i](MeteoData::P) /100.0);// see Tdew(double T, double RH, double P)
 	}else{
-		out[10]=number_novalue;
+		out[10]=geotop::input::gDoubleNoValue;
 	}
 
 	out[11]=checkNOvalue(meteoin[i](MeteoData::ISWR));
-	out[12]=number_novalue;// SWb (beam component)
-	out[13]=number_novalue;// SWd (diffuse component)
-	out[14]=number_novalue;// cloud transmissivity
-	out[15]=number_novalue;// cloud factor
-	out[16]=number_novalue;// LWin
-	out[17]=number_novalue;// SWnet
+	out[12]=geotop::input::gDoubleNoValue;// SWb (beam component)
+	out[13]=geotop::input::gDoubleNoValue;// SWd (diffuse component)
+	out[14]=geotop::input::gDoubleNoValue;// cloud transmissivity
+	out[15]=geotop::input::gDoubleNoValue;// cloud factor
+	out[16]=geotop::input::gDoubleNoValue;// LWin
+	out[17]=geotop::input::gDoubleNoValue;// SWnet
 
 //	cout<<"Station "<<i+1<<endl;
 //	cout<<"meteo[2] " <<out[2]<<endl;
@@ -577,7 +576,7 @@ void copyInterpMeteoData(double *out, std::vector<MeteoData>& meteoin){
 }
 
 double checkNOvalue(double var){
-	return var==IOUtils::nodata? number_novalue : var;
+	return var==IOUtils::nodata? geotop::input::gDoubleNoValue : var;
 }
 
 double tDew(double T, double RH, double P){
@@ -612,7 +611,7 @@ double tDew(double T, double RH, double P){
 	for (size_t ii = 0; ii < gridObject.nrows; ii++) {
 		for (size_t jj = 0; jj < gridObject.ncols; jj++) {
 			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii) == IOUtils::nodata) {
-				myGrid->co[ii + 1][jj + 1] = number_novalue; //using the GEOtop nodata value
+				myGrid->co[ii + 1][jj + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
 			} else {
 				myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.nrows - 1 - ii);
 			}
@@ -629,7 +628,7 @@ void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid) {
 	for (size_t ii = 0; ii < gridObject.nrows; ii++) {
 		for (size_t jj = 0; jj < gridObject.ncols; jj++) {
 			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii) == IOUtils::nodata) {
-				myGrid[ii + 1][jj + 1] = number_novalue; //using the GEOtop nodata value
+				myGrid[ii + 1][jj + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
 			} else {
 				myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.nrows - 1 - ii);
 			}
@@ -652,7 +651,7 @@ void copyGridToMatrixPointWise(std::vector<double>& pointValues,
 		if (pointValues[i] != IOUtils::nodata) {
 			myGrid[1][i + 1] = pointValues[i]; //co[1][1] is the first index accessed
 		} else {
-			myGrid[1][i + 1] = number_novalue; //co[1][1] is the first index accessed
+			myGrid[1][i + 1] = geotop::input::gDoubleNoValue; //co[1][1] is the first index accessed
 		}
 	}
 }
@@ -722,10 +721,10 @@ double ***meteoio_readMeteoData(long*** column,
 	//d1=times->time;
 	//d2=times->time+par->Dt;
 
-//	Date d1 = par->init_date->co[i_sim];
-	Date d1 = par->init_date[i_sim];
-//	Date d2 = par->end_date->co[i_sim];
-	Date d2 = par->end_date[i_sim];
+//	Date d1 = par->init_date->co[geotop::common::Variables::i_sim];
+	Date d1 = par->init_date[geotop::common::Variables::i_sim];
+//	Date d2 = par->end_date->co[geotop::common::Variables::i_sim];
+	Date d2 = par->end_date[geotop::common::Variables::i_sim];
 
 	//	Date d1((int)par->year0, 1, 1, 0, 0);
 	//	d1 += par->JD0;
@@ -823,19 +822,19 @@ double ***meteoio_readMeteoData(long*** column,
 			data[jj][ll][4] = vecMeteo[jj][ll].TA - 273.15; //MeteoIO deals with temperature in Kelvin
 			data[jj][ll][5] = vecMeteo[jj][ll].P;
 			data[jj][ll][6] = vecMeteo[jj][ll].ISWR;
-			data[jj][ll][7] = number_novalue;
-			data[jj][ll][8] = number_novalue;
-			data[jj][ll][9] = number_novalue;
-			data[jj][ll][10] = number_novalue;
-			data[jj][ll][11] = number_novalue;
-			data[jj][ll][12] = number_novalue;
-			data[jj][ll][13] = number_novalue;
+			data[jj][ll][7] = geotop::input::gDoubleNoValue;
+			data[jj][ll][8] = geotop::input::gDoubleNoValue;
+			data[jj][ll][9] = geotop::input::gDoubleNoValue;
+			data[jj][ll][10] = geotop::input::gDoubleNoValue;
+			data[jj][ll][11] = geotop::input::gDoubleNoValue;
+			data[jj][ll][12] = geotop::input::gDoubleNoValue;
+			data[jj][ll][13] = geotop::input::gDoubleNoValue;
 			//data[jj][ll][ncols] = end_vector;
 
 			for (int gg = 0; gg < nrOfVariables; gg++) {
 				if (data[jj][ll][gg] == IOUtils::nodata) {
-					data[jj][ll][gg] = number_novalue;
-				} else if (data[jj][ll][gg] != number_novalue) {
+					data[jj][ll][gg] = geotop::input::gDoubleNoValue;
+				} else if (data[jj][ll][gg] != geotop::input::gDoubleNoValue) {
 					(*column)[jj][gg] = gg; //HACK!
 				}
 			}
@@ -849,7 +848,7 @@ double ***meteoio_readMeteoData(long*** column,
 
 		for (int ff = 1; ff <= ncols; ff++) {
 			if (ll > 0)
-				if (data[jj][ll - 1][ff] != number_novalue)
+				if (data[jj][ll - 1][ff] != geotop::input::gDoubleNoValue)
 					novalueend = 0;
 		}
 
@@ -863,7 +862,7 @@ double ***meteoio_readMeteoData(long*** column,
 		//		}
 	}
 
-	cout << "[I] MeteoIO NOVAL used          : " << number_novalue << endl;
+	cout << "[I] MeteoIO NOVAL used          : " << geotop::input::gDoubleNoValue << endl;
 	cout << "[I] MeteoIO #of meteo parameters: " << nrOfVariables << endl;
 
 	//Testing access to the whole tensor
@@ -934,8 +933,8 @@ void initializeMetaData(const std::vector<StationData>& vecStation,
 		stations->lon[ii] = vecStation[ii - 1].position.getLon() * PI/ 180.0; // from deg to [rad]
 	//	stations->Z->co[ii] = vecStation[ii - 1].position.getAltitude();
 		stations->Z[ii] = vecStation[ii - 1].position.getAltitude();
-	//	stations->sky->co[ii] = number_novalue;
-		stations->sky[ii] = number_novalue;
+	//	stations->sky->co[ii] = geotop::input::gDoubleNoValue;
+		stations->sky[ii] = geotop::input::gDoubleNoValue;
 	//	stations->ST->co[ii] = 0;
 		stations->ST[ii] = 0;
 	//	stations->Vheight->co[ii] = 8.0;
@@ -987,11 +986,11 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 	return iswr_found;
 }
 
-//void meteoio_interpolate_cloudiness(T_INIT* UV, PAR* par,
+//void meteoio_interpolate_cloudiness(T_INIT* pUV, PAR* par,
 //		double currentdate, DOUBLEMATRIX* tau_cloud_grid,
 //		DOUBLEVECTOR* tau_cloud_vec) {
 
-void meteoio_interpolate_cloudiness(TInit* UV, Par* par,
+void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
 		double currentdate, GeoMatrix<double>& tau_cloud_grid,
 		GeoVector<double>& tau_cloud_vec) {
 	/*
@@ -1004,7 +1003,7 @@ void meteoio_interpolate_cloudiness(TInit* UV, Par* par,
 	Grid2DObject cloudwgrid;
 
 	Date d1;
-	d1.setMatlabDate(currentdate, TZ); // GEOtop use matlab offset of julian date
+	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
 	std::cout << "\n[MeteoIO] Time to interpolate : cloudiness "
 			<< d1.toString(Date::ISO) << std::endl;

@@ -20,6 +20,7 @@
  */
 
 #include "channels.h"
+#include "geotop_common.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -102,7 +103,7 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 	//	c = cnet->c->co[i];
 		c = cnet->c[i];
 	//	cnet->length->co[i] *= (UV->U->co[1]/cos(slope->co[r][c]*GTConst::Pi/180.));
-		cnet->length[i] *= (UV->U[1]/cos(slope[r][c]*GTConst::Pi/180.));
+		cnet->length[i] *= (geotop::common::Variables::UV->U[1]/cos(slope[r][c]*GTConst::Pi/180.));
 	}
 	
 }

@@ -25,6 +25,9 @@
 //Contents: Snow subroutines
 #include <string>
 #include "snow.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
+
 using namespace GTConst;
 
 /******************************************************************************************************************************************/
@@ -238,7 +241,7 @@ void snow_layer_combination(double a, long r, long c, Statevar3D *snow, double T
 					snowlayer_merging(a, r, c, snow, -linf, -linf-1, -linf-1);
 					linf = -linf-1;
 				}else {
-					f = fopen(FailedRunFile.c_str(), "w");
+					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 					fprintf(f,"r:%ld c:%ld \n",r,c);			
 					fprintf(f,"Error in snow combination - Rules to combine layers not applicable\n");
 					fclose(f);
@@ -324,7 +327,7 @@ void snow_layer_combination(double a, long r, long c, Statevar3D *snow, double T
 		}
 		
 		if(fabs(D-Dnew)>0.001 || fabs(SWE-SWEnew)>0.001){
-			f = fopen(FailedRunFile.c_str(), "w");
+			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 			fprintf(f,"r:%ld c:%ld Dold:%f Dnew:%f SWEold:%f SWEnew:%f\n",r,c,D,Dnew,SWE,SWEnew);			
 			fprintf(f,"Error in snow combination\n");
 			fclose(f);
@@ -580,7 +583,7 @@ void split_layers(long r, long c, Statevar3D *snow, long l1){
 	FILE *f;
 	
 	if(l1>snow->lnum[r][c]){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error 1 in split_layers\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -611,7 +614,7 @@ void merge_layers(double a, long r, long c, Statevar3D *snow, long l1){
 	FILE *f;
 	
 	if(l1>snow->lnum[r][c]){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error 1 in merge_layers\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -1080,13 +1083,13 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t){
     std::string crec = "_crecNNNN" ;
 	std::string name, temp;
 
-	JDfrom0 = convert_tfromstart_JDfrom0(t, par->init_date[i_sim]);
+	JDfrom0 = convert_tfromstart_JDfrom0(t, par->init_date[geotop::common::Variables::i_sim]);
 	convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
 	convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute); 
 	
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-			if((long)Z[r][c]!=number_novalue){	
+	for(r=1;r<=geotop::common::Variables::Nr;r++){
+		for(c=1;c<=geotop::common::Variables::Nc;c++){
+			if((long)Z[r][c]!=geotop::input::gDoubleNoValue){	
 				D=0.0; T=0.0; SWE=0.0;
 				for(l=1;l<=snow->lnum[r][c];l++){
 					D+=snow->Dzl[l][r][c];
@@ -1122,21 +1125,21 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t){
 	if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
 	if (par->recover>0) {
-		temp = files[fSCA] ;
+		temp = geotop::common::Variables::files[fSCA] ;
         temp += rec;
 		name = temp + textfile;
 	}else if (par->n_ContRecovery>0) {
-		temp = files[fSCA] ;
+		temp = geotop::common::Variables::files[fSCA] ;
         temp += crec;
 		name = temp + textfile ;
 	}else {
-		name = files[fSCA] ;
+		name = geotop::common::Variables::files[fSCA] ;
         name += textfile;
 	}
 
 	f=fopen(name.c_str() ,"a");
 	fprintf(f,"%ld/%ld/%ld %ld:%02.0f",day,month,year,hour,(float)minute);
-	fprintf(f,",%f,%f,%f",JDfrom0-par->init_date[i_sim],JDfrom0,JD);
+	fprintf(f,",%f,%f,%f",JDfrom0-par->init_date[geotop::common::Variables::i_sim],JDfrom0,JD);
 	fprintf(f,",%f,%f,%f,%f,%f,%f\n",Dmean,SWEmean,Tmean,Tsmean,(1.0-SCA)*100.0,SCA*100.0);
 	fclose(f);
 	
@@ -1269,7 +1272,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 	long l;
 	short u;
 
-	q = (double)number_novalue;
+	q = geotop::input::gDoubleNoValue;
 
 	if (h>0) {//downwards
 		u = -1;
@@ -1326,7 +1329,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 		
 		l += u;
 		
-	}while ( (long)q == number_novalue && l <= max+1 && l >= 1);
+	}while ( (long)q == geotop::input::gDoubleNoValue && l <= max+1 && l >= 1);
 	
 	return q;
 	
@@ -1338,7 +1341,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 	long l;
 	short u;
 
-	q = (double)number_novalue;
+	q = geotop::input::gDoubleNoValue;
 
 	if (h>0) {//downwards
 		u = -1;
@@ -1395,7 +1398,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 		
 		l += u;
 		
-	}while ( (long)q == number_novalue && l <= max+1 && l >= 1);
+	}while ( (long)q == geotop::input::gDoubleNoValue && l <= max+1 && l >= 1);
 	
 	return q;
 	
@@ -1409,7 +1412,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 	long l;
 	short u;
 
-	q = (double)number_novalue;
+	q = geotop::input::gDoubleNoValue;
 
 	if (h>0) {//downwards
 		u = -1;
@@ -1448,7 +1451,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 
 		l += u;
 
-	}while ( (long)q == number_novalue && l <= max+1 && l >= 1);
+	}while ( (long)q == geotop::input::gDoubleNoValue && l <= max+1 && l >= 1);
 
 	return q;
 

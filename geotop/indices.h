@@ -23,9 +23,6 @@
 
 #include "struct.geotop.h"
 
-extern long Nl, Nr, Nc;
-extern long number_novalue;
-
 void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc);
 void i_lrc_cont(GeoMatrix<double>& LC, long ***i, GeoMatrix<long>& lrc);
 

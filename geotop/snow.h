@@ -30,19 +30,6 @@
 
 #include "PBSM.h"
 
-extern long number_novalue, number_absent;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-extern std::vector<std::string> files;
-extern long Nl, Nr, Nc;
-extern long i_sim;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
 #define simpl_snow 1E-1
 #define no_snow 1E-6
 

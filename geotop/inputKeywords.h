@@ -28,7 +28,8 @@ namespace geotop
         
         const std::string gStringNoValue ="none";
         const double gDoubleNoValue = -9999;
-        
+        const double gDoubleAbsent = -9998;
+
         /** @brief Configuration file parser and storage class
          *  do not use this class directly, use the singleton
          *  instance create by the factory class

@@ -40,7 +40,6 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
-#include "keywords.h"
 #ifdef USE_NETCDF
 //#include "../gt_utilities/gt_utilities.h"
 #include "../netCDF/read_command_line.h"
@@ -49,26 +48,6 @@
 #include <string>
 #include <vector>
 #include <meteoio/MeteoIO.h>
-
-extern long number_novalue, number_absent;
-extern char *string_novalue;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-extern std::string WORKING_DIRECTORY;
-extern std::vector<std::string> files;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
-extern long *oglc, noglc, *osl, nosl;
-extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-//extern char *SuccessfulRunFile, *FailedRunFile;
-extern std::string SuccessfulRunFile;
-extern std::string FailedRunFile;
-
-extern long i_sim0, i_run0;
-extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 
 typedef struct __INIT_TOOLS__
 {
@@ -79,12 +58,12 @@ typedef struct __INIT_TOOLS__
 	double rhoglac0;
 	double Dglac0;
 	double Tglac0;
-	char **met_col_names;
-	char **soil_col_names;
-	char **horizon_col_names;
-	char **point_col_names;
-	char **lapserates_col_names;
-	char **meteostations_col_names;
+	std::vector<std::string> met_col_names;
+	std::vector<std::string> soil_col_names;
+	std::vector<std::string> horizon_col_names;
+	std::vector<std::string> point_col_names;
+    std::vector<std::string> lapserates_col_names;
+	std::vector<std::string> meteostations_col_names;
 //TODO: remove LU
 //	DOUBLEMATRIX *LU;
 	GeoMatrix<double> LU;

@@ -22,6 +22,8 @@
 
 #include "clouds.h"
 #include "config.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
 
 //*****************************************************************************************************************
 //*****************************************************************************************************************
@@ -36,7 +38,7 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 	long n;
 
 	//if there are radiation data, and no cloudiness
-	if ( (long)meteo[0][iSW] != number_absent || ( (long)meteo[0][iSWb] != number_absent && (long)meteo[0][iSWd] != number_absent ) ){
+	if ( (long)meteo[0][iSW] != geotop::input::gDoubleAbsent || ( (long)meteo[0][iSWb] != geotop::input::gDoubleAbsent && (long)meteo[0][iSWd] != geotop::input::gDoubleAbsent ) ){
 
 		cloudtrans = (double*)malloc(meteolines*sizeof(double));
 		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta, albedo);
@@ -94,7 +96,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	std::string temp;
 	
 	//file header
-	temp = WORKING_DIRECTORY + filecloud;
+	temp = geotop::common::Variables::WORKING_DIRECTORY + filecloud;
 	f = fopen(temp.c_str(),"w");
 	fprintf(f,"Date,SolarHeight[deg],SolarAzimuth[deg],SinSolarHeight,SWinMeasured[W/m2],SWinClearSky[W/m2],AtmTransmissivity,CloudTransmissivity\n");
 	fclose(f);	
@@ -106,7 +108,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	
 	//initialization
 	n00 = 0;
-	tc = (double)number_novalue;
+	tc = geotop::input::gDoubleNoValue;
 	
 	//loop
 	do{
@@ -126,10 +128,10 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 			//cloudiness at night (from n00<=n<n0)
 			if (k==1) {
 				for (n=n00; n<n0; n++) {
-					if ( (long)tc0 != number_novalue && (long)tc != number_novalue ) {
+					if ( (long)tc0 != geotop::input::gDoubleNoValue && (long)tc != geotop::input::gDoubleNoValue ) {
 						cloudtrans[n] = tc0 + (tc-tc0) * (n-n00) / (n0-n00);
 					}else {
-						cloudtrans[n] = (double)number_novalue;
+						cloudtrans[n] = geotop::input::gDoubleNoValue;
 					}
 					printf("n = %ld/%ld\n",n+1,meteolines);
 				}
@@ -156,7 +158,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	if( shadows_point(horizon, horizonlines, height_sun*180./GTConst::Pi, direction*180./GTConst::Pi, GTConst::Tol_h_mount, GTConst::Tol_h_flat) == 0){
 		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
 	}else {
-		tc = (double)number_novalue;
+		tc = geotop::input::gDoubleNoValue;
 	}
 	cloudtrans[n] = tc;
 	printf("n = %ld/%ld\n",n+1,meteolines);
@@ -214,10 +216,10 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 	
 	//relative humidity [-]
 	RH=meteo[n][iRh];
-	if((long)RH != number_novalue && (long)RH != number_absent){
+	if((long)RH != geotop::input::gDoubleNoValue && (long)RH != geotop::input::gDoubleAbsent){
 		RH/=100.;
 	}else {
-		if ( (long)meteo[n][iT] != number_absent && (long)meteo[n][iT] != number_novalue && (long)meteo[n][iTdew] != number_absent && (long)meteo[n][iTdew] != number_novalue){
+		if ( (long)meteo[n][iT] != geotop::input::gDoubleAbsent && (long)meteo[n][iT] != geotop::input::gDoubleNoValue && (long)meteo[n][iTdew] != geotop::input::gDoubleAbsent && (long)meteo[n][iTdew] != geotop::input::gDoubleNoValue){
 			RH=RHfromTdew(meteo[n][iT], meteo[n][iTdew], Z);
 		}else {
 			RH=0.4;
@@ -227,15 +229,14 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 	
 	//air temperature [C]
 	T=meteo[n][iT];
-	if((long)T == number_novalue || (long)T == number_absent) T=0.0;
+	if((long)T == geotop::input::gDoubleNoValue || (long)T == geotop::input::gDoubleAbsent) T=0.0;
 		
 	//cloudiness transmissivity
 	tau_cloud = cloud_transmittance(JDbegin, JDend, lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega, RH, T, P, meteo[n][iSWd],
 									 meteo[n][iSWb], meteo[n][iSW], E0, sky, SWrefl_surr);
 	
 	//plotting
-//	temp = join_strings(WORKING_DIRECTORY,filecloud);
-	temp = WORKING_DIRECTORY + filecloud;
+	temp = geotop::common::Variables::WORKING_DIRECTORY + filecloud;
 	f = fopen(temp.c_str(),"a");
 	convert_JDfrom0_JDandYear(meteo[n][iJDfrom0], &JD, &y);
 	convert_JDandYear_daymonthhourmin(JD, y, &d, &m, &h, &mi);
@@ -273,14 +274,14 @@ double average_cloudiness(long n0, long n1, double **meteo, long meteolines, dou
 		
 	for(n=n0;n<n1;n++){
 		tc = find_cloudiness(n, meteo, meteolines, lat, lon, ST, Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
-		if( (long)tc == number_novalue){
+		if( (long)tc == geotop::input::gDoubleNoValue){
 			is_novalue = 1;
 		}else {
 			tc_av += tc / ((double)(n1-n0));
 		}		
 	}
 	
-	if(is_novalue==1 || n0==n1) tc_av = (double)number_novalue;
+	if(is_novalue==1 || n0==n1) tc_av = geotop::input::gDoubleNoValue;
 	
 	return tc_av;
 	

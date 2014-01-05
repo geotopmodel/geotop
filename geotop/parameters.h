@@ -33,51 +33,16 @@
 #include <meteoio/MeteoIO.h>
 #include <string>
 
-extern long number_novalue, number_absent;
-extern char *string_novalue;
-
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-extern std::vector<std::string> files;
-
-extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw, *oglc, noglc, *osl, nosl;
-extern short *ipnt, *ibsn;
-extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-//extern char *keywords_num[num_par_number] , *keywords_char[num_par_char];
-#ifdef STAGED_FOR_REMOVING
-extern std::string keywords_num[];
-#endif
-extern std::string keywords_char[];
-
-//extern char *SuccessfulRunFile, *FailedRunFile;
-extern std::string SuccessfulRunFile;
-extern std::string FailedRunFile;
-
 short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog) ;
 
-#ifdef STAGED_FOR_REMOVING
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog) ;
-#else
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, FILE *flog) ;
-#endif
+void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog) ;
 
-char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, std::string keyword[]);
-std::vector<std::string> assign_string_parameter_v(FILE *f, long beg, long end, char **string_param, std::string keyword[]) ;
+std::vector<std::string> assign_string_parameter(FILE *f, long beg, long end, std::vector<std::string> string_param, std::string keyword[]);
 
-#ifdef STAGED_FOR_REMOVING
-double assignation_number(FILE *f, long i, long j, std::string keyword[], double **num_param, long *num_param_components, double default_value, short code_error);
-#endif
-
-std::string assignation_string(FILE *f, long i, std::string keyword[], char **string_param);
-
-//short read_soil_parameters(char *name, char **key_header, SOIL *sl, FILE *flog);
 short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog);
 
-//short read_point_file(char *name, char **key_header, PAR *par, FILE *flog);
-short read_point_file(std::string name, char **key_header, Par *par, FILE *flog);
+short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog);
 
-//short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name, char **key_header, FILE *flog);
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, char **key_header, FILE *flog);
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog);
 
 #endif

@@ -22,11 +22,7 @@
 #ifndef TABLES_H
 #define TABLES_H
 
-#include "constants.h"
 #include "struct.geotop.h"
-
-//extern T_INIT *UV;
-extern TInit *UV;
 
 //double find_activelayerdepth_up(long i, long ty, SOIL *sl);
 double find_activelayerdepth_up(long i, long ty, Soil *sl);

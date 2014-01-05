@@ -25,18 +25,6 @@
 #include "meteo.h"
 #include <vector>
 
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-//extern char *logfile;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
 class Turbulence {
 
 	public:

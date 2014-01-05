@@ -12,24 +12,16 @@
 #include "../libraries/fluidturtle/tensors3D.h"
 #include "ncgt_turtle2netcdf.h"
 #include "gt_symbols.h"
-extern long number_novalue, number_absent;
-//extern T_INIT *UV;
-extern TInit *UV;
-extern long Nl, Nr, Nc;
 
-
-//long ncgt_add_output_var(int ncid, DOUBLEMATRIX *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,const char* dimension_y, long counter, short upgrade, short rotate_y, double number_novalue,DOUBLEMATRIX *rc);
-//long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, LONGMATRIX *rc, long **j, long total_pixel);
 long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, GeoMatrix<long>* rc, long **j, long total_pixel);
+		const char* dimension_y, long counter, short update, short rotate_y, double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j, long total_pixel);
 
 int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue);
 
 //long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc, long **j_cont, long total_pixel);
+//		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double geotop::input::gDoubleNoValue, LONGMATRIX *rc, long **j_cont, long total_pixel);
 long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
+		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
 
 
 int ncgt_var_set_to_zero(void * m0, short nlimdim, double novalue);

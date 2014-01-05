@@ -19,6 +19,7 @@
  
  */
 #include "turbulence.h"
+#include "geotop_common.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ void Turbulence::aero_resistance(double zmu, double zmt, double z0, double d0, d
 
 	if(state_turb==0){
 		//Lewis(zmu, zmt, d0, z0, z0_z0t, Tpa, Tp, v, rm, rh, rv, rep);
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: state_turb == 0 not possible, check option file\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -264,7 +265,7 @@ double Turbulence::CZ(short state, double zmeas, double z0, double d0, double L,
 	}else if(state==4){		//both instability and stability not considered
 		c=cz(zmeas,z0,d0,L,(*Zero),(&Turbulence::Zero));
 	}else{
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Value of state turbulence not admitted\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -392,13 +393,13 @@ void Turbulence::Businger(short a, double zmu, double zmt, double d0, double z0,
 	}while(fabs(100*T_star+100*u_star+1000*Q_star-tol)>0.01 && cont<=maxiter);
 	
 	if(d0>zmu || d0>zmt){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Displacement height greater than measurement elevations\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
 	}
 	if(zmu<=z0 || zmt<=z0t || zmt<=z0q){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Elevation of sensors lower than roughness length: zmu=%f zmt=%f z0=%f z0t=%f\n",zmu,zmt,z0,z0t);
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	

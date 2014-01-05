@@ -19,6 +19,7 @@
  
  */
 #include "pedo.funct.h"
+#include "geotop_common.h"
 
 /*
 in all the following subroutine

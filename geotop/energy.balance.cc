@@ -23,7 +23,9 @@
 //Author: Stefano Endrizzi
 //Contents: Energy balance (and also mass balance for snow and glacier)
 #include "energy.balance.h"
+#include "geotop_common.h"
 #include "config.h"
+#include "inputKeywords.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -43,13 +45,13 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     if(A->I->JD_plots.size() > 1 && A->I->iplot<=A->I->JD_plots.size()){
         i=2*A->I->iplot-1;
 
-        if( A->P->init_date[i_sim]+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
-                A->P->init_date[i_sim]+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
+        if( A->P->init_date[geotop::common::Variables::i_sim]+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
+                A->P->init_date[geotop::common::Variables::i_sim]+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
 
             //	Dtplot=(A->I->JD_plots->co[i+1]-A->I->JD_plots->co[i])*GTConst::secinday;
             Dtplot=(A->I->JD_plots[i+1]-A->I->JD_plots[i])*GTConst::secinday;
             *W = Dt / Dtplot;
-            f = fopen(logfile.c_str(), "a");
+            f = fopen(geotop::common::Variables::logfile.c_str(), "a");
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f,"Saving plot number %ld Weight:%12g \n",A->I->iplot,*W);
@@ -94,10 +96,10 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     }
 
     //	INITIALIZE BASIN AVERAGES
-    //	if(A->P->Dtplot_basin->co[i_sim]>0){
-    if(A->P->Dtplot_basin[i_sim]>0){
-        for (i=0; i<nobsn; i++) {
-            odb[i] = 0.;
+    //	if(A->P->Dtplot_basin->co[geotop::common::Variables::i_sim]>0){
+    if(A->P->Dtplot_basin[geotop::common::Variables::i_sim]>0){
+        for (i=0; i<geotop::common::Variables::nobsn; i++) {
+            geotop::common::Variables::odb[i] = 0.;
         }
     }
 
@@ -230,7 +232,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         j = i;
 	    lu = (short)A->L->LC[r][c];
 		 sy = A->C->soil_type[j];
-        for (l=1; l<=Nl; l++) {
+        for (l=1; l<=geotop::common::Variables::Nl; l++) {
             A->C->ET[l][j] = 0.0;
             A->C->th[l][j] = theta_from_psi(C->P[l][j], C->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
             A->C->th[l][j] = Fmin( A->C->th[l][j] , A->S->pa[sy][jsat][l]-C->thi[l][j] );
@@ -242,7 +244,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	    lu = (short)A->L->LC[r][c];
 		 sy = A->S->type[r][c];
 
-        for (l=1; l<=Nl; l++) {
+        for (l=1; l<=geotop::common::Variables::Nl; l++) {
 			
             A->S->ET[l][r][c] = 0.0;
             A->S->th[l][j] = theta_from_psi(L->P[l][j], L->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
@@ -273,8 +275,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     // from UZH version: 
 	//Tdirichlet=A->M->var[A->M->nstTs-1][iTs];  <-segfault on this: to better understand.. 
 	
-	if ((long)Tdirichlet == number_novalue || (long)Tdirichlet == number_absent) Tdirichlet=A->P->Tsup;
-    Tdirichlet = number_novalue; // this as temporary hack to make things work 
+	if ((long)Tdirichlet == geotop::input::gDoubleNoValue || (long)Tdirichlet == geotop::input::gDoubleAbsent) Tdirichlet=A->P->Tsup;
+    Tdirichlet = geotop::input::gDoubleNoValue; // this as temporary hack to make things work
 
 
 
@@ -288,7 +290,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     if (i>A->P->total_channel) {
 
         for(l=1;l<=jdvegprop;l++){
-            if( (long)A->L->vegparv[lu-1][l] != number_novalue ){
+            if( (long)A->L->vegparv[lu-1][l] != geotop::input::gDoubleNoValue ){
                 A->L->vegpar[l] = A->L->vegparv[lu-1][l];
                 if(l==jdroot) root(A->L->root_fraction.getCols(), A->L->vegpar[jdroot], 0.0, A->S->pa, A->L->root_fraction, lu);
             }else{
@@ -404,10 +406,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
         A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
     }else{// meteoIO is activated
-        if( (long)A->M->tau_cl_av_map[r][c] == number_novalue){// the map of average cloudiness from MeteoIO is all null
+        if( (long)A->M->tau_cl_av_map[r][c] == geotop::input::gDoubleNoValue){// the map of average cloudiness from MeteoIO is all null
             A->M->tau_cl_av_map[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
         }
-        if((long)A->M->tau_cl_map[r][c]== number_novalue) {
+        if((long)A->M->tau_cl_map[r][c]== geotop::input::gDoubleNoValue) {
             A->M->tau_cl_map[r][c] = A->M->tau_cl_av_map[r][c];
         }
 
@@ -559,7 +561,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     if(fc>0) update_roughness_veg(A->L->vegpar[jdHveg], snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);
 
     //variables used in the point_surface_balance
-    for(l=1;l<=Nl+ns+ng;l++){
+    for(l=1;l<=geotop::common::Variables::Nl+ns+ng;l++){
         if(l<=ns){	//snow
             A->E->Dlayer[l] = 1.E-3*S->Dzl[ns+1-l][r][c];
             A->E->liq[l] = S->w_liq[ns+1-l][r][c];
@@ -603,22 +605,22 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             //it is not admitted that a snow/glacier layer melts completely
             //snow layer not alone
         }else if (sux == -2) {
-            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb, 1, ns, ns+ng+Nl);
+            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb, 1, ns, ns+ng+geotop::common::Variables::Nl);
             ns--;
 
             //glacier layer not alone
         }else if (sux == -3) {
-            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb, ns+1, ns+ng, ns+ng+Nl);
+            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb, ns+1, ns+ng, ns+ng+geotop::common::Variables::Nl);
             ng --;
 
             //just one glacier layer and snow layers >= 0
         }else if (sux == -4) {
-            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns+ng, ns, ns+ng, ns+ng+Nl);
+            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns+ng, ns, ns+ng, ns+ng+geotop::common::Variables::Nl);
             ng --;
 
             //just one snow layer and glacier layers > 0
         }else if (sux == -5) {
-            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns, ns, ns+1, ns+ng+Nl);
+            merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns, ns, ns+1, ns+ng+geotop::common::Variables::Nl);
             ns --;
 
             //just one snow layer and glacier layers == 0
@@ -627,7 +629,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             ic = A->E->ice[1];
             wa = A->E->liq[1];
             rho = ic / A->E->Dlayer[1];
-            for (l=2; l<=1+Nl; l++) {
+            for (l=2; l<=1+geotop::common::Variables::Nl; l++) {
                 A->E->ice[l-1] = A->E->ice[l];
                 A->E->liq[l-1] = A->E->liq[l];
                 A->E->Temp[l-1] = A->E->Temp[l];
@@ -680,7 +682,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
-										 JDb-A->P->init_date[i_sim], 
+                                    JDb-A->P->init_date[geotop::common::Variables::i_sim],
 										 Dt, i, j, r, c, L,
                                     C, V, A->E, A->L, A->S, A->C,A->T,A->P, ns,
                                     ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
@@ -839,12 +841,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
             //write output
             
-            if(A->P->output_snow[i_sim]>0){
+            if(A->P->output_snow[geotop::common::Variables::i_sim]>0){
                 
-                if(files[fsnowmelt] != string_novalue) A->N->melted[j] = Melt_snow;
+                if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue) A->N->melted[j] = Melt_snow;
                 
-                if(files[fsnowsubl] != string_novalue) A->N->subl[j] = Evap_snow;
-                if(files[fsndur] != string_novalue){
+                if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue) A->N->subl[j] = Evap_snow;
+                if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
                     if(snowD>0){
                         
                         A->N->yes[j] = 1;
@@ -856,41 +858,41 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
 
             
-            if(A->P->max_glac_layers>0 && A->P->output_glac[i_sim]>0){
+            if(A->P->max_glac_layers>0 && A->P->output_glac[geotop::common::Variables::i_sim]>0){
                 
-                if(files[fglacmelt] != string_novalue) A->G->melted[j] = Melt_glac;
+                if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue) A->G->melted[j] = Melt_glac;
                 
-                if(files[fglacsubl] != string_novalue) A->G->subl[j] = Evap_glac;
+                if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue) A->G->subl[j] = Evap_glac;
             }
 
             
-            if(A->P->output_surfenergy[i_sim]>0){
+            if(A->P->output_surfenergy[geotop::common::Variables::i_sim]>0){
                 
-                if(files[fradnet] != string_novalue) A->E->Rn[j] = (SW+LW);
+                if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) A->E->Rn[j] = (SW+LW);
                 
-                if(files[fradLWin] != string_novalue) A->E->LWin[j] = LWin;
+                if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue) A->E->LWin[j] = LWin;
                 
-                if(files[fradLW] != string_novalue) A->E->LW[j] = LW;
+                if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue) A->E->LW[j] = LW;
                 
-                if(files[fradSW] != string_novalue)  A->E->SW[j] = SW;
+                if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)  A->E->SW[j] = SW;
                 
-                if(files[fradSWin] != string_novalue) A->E->SWin[j] = SWin;
+                if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue) A->E->SWin[j] = SWin;
                 
-                if(files[fradSWinbeam] != string_novalue) A->E->SWinb[j] = SWbeam;
+                if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue) A->E->SWinb[j] = SWbeam;
                 
-                if(files[fshadow] != string_novalue) A->E->shad[j] = SWb_yes;
+                if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue) A->E->shad[j] = SWb_yes;
                 
-                if(files[fG] != string_novalue) A->E->G[j] = surfEB;
+                if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue) A->E->G[j] = surfEB;
                 
-                if(files[fH] != string_novalue)  A->E->H[j] = H;
+                if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)  A->E->H[j] = H;
                 
-                if(files[fLE] != string_novalue)  A->E->LE[j] = LE;
+                if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)  A->E->LE[j] = LE;
                 
-                if(files[fTs] != string_novalue) A->E->Ts[j] = (*Tgskin);
+                if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue) A->E->Ts[j] = (*Tgskin);
             }
 
-            if(A->P->output_meteo[i_sim]>0){
-                if(files[fprec] != string_novalue){
+            if(A->P->output_meteo[geotop::common::Variables::i_sim]>0){
+                if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
                     
 					A->W->Pt[j] = Precpoint;
 
@@ -902,146 +904,146 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			if(A->I->JD_plots.size() > 1 && W>0)
 			{
 				
-				if(files[pH] != string_novalue || files[pHg] != string_novalue || files[pG] != string_novalue) A->E->Hgp[j] = W*H;
+				if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) A->E->Hgp[j] = W*H;
 				
-				if(files[pH] != string_novalue || files[pHv] != string_novalue) A->E->Hvp[j] = W*fc*Hv;
+				if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) A->E->Hvp[j] = W*fc*Hv;
 				
-				if(files[pLE] != string_novalue || files[pLEg] != string_novalue || files[pG] != string_novalue) A->E->LEgp[j] = W*LE;
+				if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) A->E->LEgp[j] = W*LE;
 				
-				if(files[pLE] != string_novalue || files[pLEv] != string_novalue) A->E->LEvp[j] = W*fc*LEv;
+				if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) A->E->LEvp[j] = W*fc*LEv;
                 
-				if(files[pSWin] != string_novalue) A->E->SWinp[j] = W*SWin;
+				if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue) A->E->SWinp[j] = W*SWin;
 				
-				if(files[pSWg] != string_novalue || files[pG] != string_novalue) A->E->SWgp[j] = W*SW;
+				if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) A->E->SWgp[j] = W*SW;
 				
-				if(files[pSWv] != string_novalue) A->E->SWvp[j] = W*fc*(SWv_vis+SWv_nir);
+				if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue) A->E->SWvp[j] = W*fc*(SWv_vis+SWv_nir);
 				
-				if(files[pLWin] != string_novalue) A->E->LWinp[j] = W*LWin;
+				if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) A->E->LWinp[j] = W*LWin;
 				
-				if(files[pLWg] != string_novalue || files[pG] != string_novalue) A->E->LWgp[j] = W*LW;
+				if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) A->E->LWgp[j] = W*LW;
 				
-				if(files[pLWv] != string_novalue) A->E->LWvp[j] = W*fc*LWv;
+				if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue) A->E->LWvp[j] = W*fc*LWv;
 				
-				if(files[pTs] != string_novalue) A->E->Tsp[j] = W*Ts;
+				if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue) A->E->Tsp[j] = W*Ts;
 				
-				if(files[pTg] != string_novalue) A->E->Tgp[j] = W*(*Tgskin);
+				if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) A->E->Tgp[j] = W*(*Tgskin);
 				
             }
 			
             if(A->P->state_pixel == 1){
  
-                if (A->P->jplot[j] > 0 && A->P->Dtplot_point[i_sim]>0){
-                    for (l=0; l<nopnt; l++) {
-                        if (opnt[l] > 0) {
+                if (A->P->jplot[j] > 0 && A->P->Dtplot_point[geotop::common::Variables::i_sim]>0){
+                    for (l=0; l<geotop::common::Variables::nopnt; l++) {
+                        if (geotop::common::Variables::opnt[l] > 0) {
                       
-                            if (opnt[l] == osnowover) { odp[opnt[l]][A->P->jplot[j]-1] = Psnow_over;
+                            if (geotop::common::Variables::opnt[l] == osnowover) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Psnow_over;
                      
-                            }else if (opnt[l] == orainover) { odp[opnt[l]][A->P->jplot[j]-1] = Prain_over;
+                            }else if (geotop::common::Variables::opnt[l] == orainover) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Prain_over;
                                 
-                            }else if (opnt[l] == oprecsnow) { odp[opnt[l]][A->P->jplot[j]-1] = Psnow;
+                            }else if (geotop::common::Variables::opnt[l] == oprecsnow) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Psnow;
                                
-                            }else if (opnt[l] == oprecrain) { odp[opnt[l]][A->P->jplot[j]-1] = Prain;
+                            }else if (geotop::common::Variables::opnt[l] == oprecrain) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Prain;
                                 
-                            }else if (opnt[l] == orainonsnow) { odp[opnt[l]][A->P->jplot[j]-1] = RainOnSnow;
+                            }else if (geotop::common::Variables::opnt[l] == orainonsnow) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = RainOnSnow;
                                 
-                            }else if (opnt[l] == oV) { odp[opnt[l]][A->P->jplot[j]-1] = Vpoint*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oV) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Vpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oVdir) { odp[opnt[l]][A->P->jplot[j]-1] = A->M->Vdir[r][c]*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oVdir) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = A->M->Vdir[r][c]*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oRH) { odp[opnt[l]][A->P->jplot[j]-1] = RHpoint*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oRH) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = RHpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                               
-                            }else if (opnt[l] == oPa) { odp[opnt[l]][A->P->jplot[j]-1] = Precpoint*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oPa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Precpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oTa) { odp[opnt[l]][A->P->jplot[j]-1] = Tpoint*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oTa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Tpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oTdew) { odp[opnt[l]][A->P->jplot[j]-1] = Tdew*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oTdew) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Tdew*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oTg) { odp[opnt[l]][A->P->jplot[j]-1] = *Tgskin*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oTg) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = *Tgskin*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                              
-                            }else if (opnt[l] == oTv) { odp[opnt[l]][A->P->jplot[j]-1] = V->Tv[j]*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oTv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = V->Tv[j]*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oTs) { odp[opnt[l]][A->P->jplot[j]-1] = Ts*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oTs) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Ts*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oEB) { odp[opnt[l]][A->P->jplot[j]-1] = surfEB*Dt/A->P->Dtplot_point[i_sim];
-                            }else if (opnt[l] == oG) { odp[opnt[l]][A->P->jplot[j]-1] = GEF*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oEB) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = surfEB*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oG) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = GEF*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oSWin) { odp[opnt[l]][A->P->jplot[j]-1] = SWin*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSWin) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = SWin*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oSWb) { odp[opnt[l]][A->P->jplot[j]-1] = SWbeam*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSWb) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = SWbeam*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oSWd) { odp[opnt[l]][A->P->jplot[j]-1] = SWdiff*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSWd) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = SWdiff*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oLWin) { odp[opnt[l]][A->P->jplot[j]-1] = LWin*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLWin) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LWin*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == ominLWin) { odp[opnt[l]][A->P->jplot[j]-1] = (A->T->sky[r][c]*epsa_min*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c])) * Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == ominLWin) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = (A->T->sky[r][c]*epsa_min*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c])) * Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == omaxLWin) { odp[opnt[l]][A->P->jplot[j]-1] = (A->T->sky[r][c]*epsa_max*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c])) * Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == omaxLWin) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = (A->T->sky[r][c]*epsa_max*SB(Tpoint) + (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c])) * Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oSW) { odp[opnt[l]][A->P->jplot[j]-1] = SW*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSW) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = SW*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oLW) { odp[opnt[l]][A->P->jplot[j]-1] = LW*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLW) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LW*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oH) { odp[opnt[l]][A->P->jplot[j]-1] = H*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oH) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = H*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oLE) { odp[opnt[l]][A->P->jplot[j]-1] = LE*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLE) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LE*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == ofc) { odp[opnt[l]][A->P->jplot[j]-1] = fc*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == ofc) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = fc*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oLSAI) { odp[opnt[l]][A->P->jplot[j]-1] = A->L->vegpar[jdLSAI]*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLSAI) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = A->L->vegpar[jdLSAI]*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oz0v) { odp[opnt[l]][A->P->jplot[j]-1] = z0veg*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oz0v) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = z0veg*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == od0v) { odp[opnt[l]][A->P->jplot[j]-1] = d0veg*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == od0v) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = d0veg*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oEcan) { odp[opnt[l]][A->P->jplot[j]-1] = (SWv_vis+SWv_nir+LWv-Hv-LEv)*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oEcan) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = (SWv_vis+SWv_nir+LWv-Hv-LEv)*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oSWv) { odp[opnt[l]][A->P->jplot[j]-1] = (SWv_vis+SWv_nir)*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSWv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = (SWv_vis+SWv_nir)*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oLWv) { odp[opnt[l]][A->P->jplot[j]-1] = LWv*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLWv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LWv*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oHv) { odp[opnt[l]][A->P->jplot[j]-1] = Hv*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oHv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Hv*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oLEv) { odp[opnt[l]][A->P->jplot[j]-1] = LEv*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLEv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LEv*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oHg0) { odp[opnt[l]][A->P->jplot[j]-1] = Hg0*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oHg0) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Hg0*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oLEg0) { odp[opnt[l]][A->P->jplot[j]-1] = Turbulence::Levap(*Tgskin)*Eg0*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLEg0) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Turbulence::Levap(*Tgskin)*Eg0*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oHg1) { odp[opnt[l]][A->P->jplot[j]-1] = Hg1*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oHg1) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Hg1*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oLEg1) { odp[opnt[l]][A->P->jplot[j]-1] = Turbulence::Levap(*Tgskin)*Eg1*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLEg1) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Turbulence::Levap(*Tgskin)*Eg1*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == oevapsur) { odp[opnt[l]][A->P->jplot[j]-1] = Evap_soil;
+                            }else if (geotop::common::Variables::opnt[l] == oevapsur) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Evap_soil;
                                 
-                            }else if (opnt[l] == otrasp) { odp[opnt[l]][A->P->jplot[j]-1] = Etrans*Dt;
+                            }else if (geotop::common::Variables::opnt[l] == otrasp) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Etrans*Dt;
 
-                            }else if (opnt[l] == oQv) { odp[opnt[l]][A->P->jplot[j]-1] = Qv*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oQv) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Qv*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == oQg) { odp[opnt[l]][A->P->jplot[j]-1] = Qg*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oQg) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Qg*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == oQa) { odp[opnt[l]][A->P->jplot[j]-1] = Qa*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oQa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Qa*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == oQs) { odp[opnt[l]][A->P->jplot[j]-1] = Qs*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oQs) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Qs*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == oLobuk) { odp[opnt[l]][A->P->jplot[j]-1] = Lobukhov*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLobuk) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Lobukhov*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == oLobukcan) { odp[opnt[l]][A->P->jplot[j]-1] = Locc*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLobukcan) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Locc*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == outop) { odp[opnt[l]][A->P->jplot[j]-1] = u_top*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == outop) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = u_top*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
 
-                            }else if (opnt[l] == odecay) { odp[opnt[l]][A->P->jplot[j]-1] = decaycoeff*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == odecay) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = decaycoeff*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oSWup) { odp[opnt[l]][A->P->jplot[j]-1] = *SWupabove_v*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oSWup) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = *SWupabove_v*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
-                            }else if (opnt[l] == oLWup) { odp[opnt[l]][A->P->jplot[j]-1] = LWupabove_v*Dt/A->P->Dtplot_point[i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oLWup) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = LWupabove_v*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
-                            }else if (opnt[l] == omrsnow) { odp[opnt[l]][A->P->jplot[j]-1] = Melt_snow;
+                            }else if (geotop::common::Variables::opnt[l] == omrsnow) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Melt_snow;
                               
-                            }else if (opnt[l] == osrsnow) { odp[opnt[l]][A->P->jplot[j]-1] = Evap_snow;
+                            }else if (geotop::common::Variables::opnt[l] == osrsnow) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Evap_snow;
                                
-                            }else if (opnt[l] == omrglac) { odp[opnt[l]][A->P->jplot[j]-1] = Melt_glac;
+                            }else if (geotop::common::Variables::opnt[l] == omrglac) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Melt_glac;
                                 
-                            }else if (opnt[l] == osrglac) { odp[opnt[l]][A->P->jplot[j]-1] = Evap_glac;
+                            }else if (geotop::common::Variables::opnt[l] == osrglac) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Evap_glac;
                             }
                         }
                     }
@@ -1050,42 +1052,42 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
             if(A->P->state_basin == 1){
                
-                if(A->P->Dtplot_basin[i_sim]>0){
+                if(A->P->Dtplot_basin[geotop::common::Variables::i_sim]>0){
 
-                    for (l=0; l<nobsn; l++) {
-                        if (obsn[l] > 0) {
-                            if (obsn[l] == ooprecrain) { odb[obsn[l]] += Prain/(double)A->P->total_pixel;
-                            }else if (obsn[l] == ooprecsnow) { odb[obsn[l]] += Psnow/(double)A->P->total_pixel;
-                            }else if (obsn[l] == oorainover) { odb[obsn[l]] += Prain_over/(double)A->P->total_pixel;
-                            }else if (obsn[l] == oosnowover) { odb[obsn[l]] += Psnow_over/(double)A->P->total_pixel;
+                    for (l=0; l<geotop::common::Variables::nobsn; l++) {
+                        if (geotop::common::Variables::obsn[l] > 0) {
+                            if (geotop::common::Variables::obsn[l] == ooprecrain) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Prain/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooprecsnow) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Psnow/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == oorainover) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Prain_over/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == oosnowover) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Psnow_over/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooTa) { odb[obsn[l]] += Tpoint*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooTa) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Tpoint*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooTg) { odb[obsn[l]] += *Tgskin*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooTg) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += *Tgskin*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                
-                            }else if (obsn[l] == ooTv) { odb[obsn[l]] += V->Tv[j]*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
-                            }else if (obsn[l] == ooevapsur) { odb[obsn[l]] += Evap_soil/(double)A->P->total_pixel;
-                            }else if (obsn[l] == ootrasp) { odb[obsn[l]] += (Etrans*Dt)/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooTv) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += V->Tv[j]*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooevapsur) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Evap_soil/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ootrasp) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += (Etrans*Dt)/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooLE) { odb[obsn[l]] += LE*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooLE) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += LE*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooH) { odb[obsn[l]] += H*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooH) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += H*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooSW) { odb[obsn[l]] += SW*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooSW) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += SW*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooLW) { odb[obsn[l]] += LW*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooLW) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += LW*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                
-                            }else if (obsn[l] == ooLEv) { odb[obsn[l]] += LEv*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooLEv) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += LEv*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                               
-                            }else if (obsn[l] == ooHv) { odb[obsn[l]] += Hv*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooHv) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += Hv*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                               
-                            }else if (obsn[l] == ooSWv) { odb[obsn[l]] += (SWv_vis+SWv_nir)*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooSWv) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += (SWv_vis+SWv_nir)*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                
-                            }else if (obsn[l] == ooLWv) { odb[obsn[l]] += LWv*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooLWv) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += LWv*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                               
-                            }else if (obsn[l] == ooSWin) { odb[obsn[l]] += SWin*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooSWin) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += SWin*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                                 
-                            }else if (obsn[l] == ooLWin) { odb[obsn[l]] += LWin*(Dt/A->P->Dtplot_basin[i_sim])/(double)A->P->total_pixel;
+                            }else if (geotop::common::Variables::obsn[l] == ooLWin) { geotop::common::Variables::odb[geotop::common::Variables::obsn[l]] += LWin*(Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim])/(double)A->P->total_pixel;
                             }
                         }
                     }
@@ -1099,7 +1101,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         return 0;
 
     }else {
-        f = fopen(logfile.c_str(), "a");
+        f = fopen(geotop::common::Variables::logfile.c_str(), "a");
  
 #ifdef VERBOSE
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
@@ -1109,7 +1111,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 "Wcrnmax=%12g, Wcsn=%12g, Wcsnmax=%12g, SWin=%12g, LWin=%12g, SWv=%12g, LW=%12g, H=%12g, E=%12g, LWv=%12g, Hv=%12g,"
                 "LEv=%12g, Etrans=%12g, Ts=%12g, Qs=%12g, Hadv=%f, Hg0=%12g, Hg1=%12g, Eg0=%12g, Eg1=%12g, Qv=%12g, Qg=%12g,"
                 "Lobukhov=%12g, rh=%12g, rv=%f, rb=%12g, rc=%12g, ruc=%12g, u_top=%12g, decay=%12g, Locc=%12g, LWupabove_v=%12g, lpb=%ld\n",
-                surface, JDb-A->P->init_date[i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
+                surface, JDb-A->P->init_date[geotop::common::Variables::i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
                 snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
                 hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
@@ -1122,7 +1124,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 "Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
                 "LEv=%f, Etrans=%f, Ts=%f, Qs=%f, Hadv=%f, Hg0=%f, Hg1=%f, Eg0=%f, Eg1=%f, Qv=%f, Qg=%f,"
                 "Lobukhov=%f, rh=%f, rv=%f, rb=%f, rc=%f, ruc=%f, u_top=%f, decay=%f, Locc=%f, LWupabove_v=%f, lpb=%ld\n",
-                surface, JDb-A->P->init_date[i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
+                surface, JDb-A->P->init_date[geotop::common::Variables::i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
                 snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
                 hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
@@ -1182,7 +1184,7 @@ short SolvePointEnergyBalance(
 
     short iter_close, iter_close2, lu=land->LC[r][c], flagTmin=0, sux;
     short dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0;
-    long sur, sy, l, m, cont=0, cont2, n=Nl+ns+ng, cont_lambda_min=0;
+    long sur, sy, l, m, cont=0, cont2, n=geotop::common::Variables::Nl+ns+ng, cont_lambda_min=0;
     double dH_dT, dE_dT, EB, dEB_dT, EB0, Tg, Tg0, psim0, psi0, Qg0, Tv0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
     double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0., kub1=0, thi = 0.0,
         thin = 0.0, thw = 0.0, thwn = 0.0, sat = 0.0, satn = 0.0, kt = 0.0, ktn = 0.0;
@@ -1208,13 +1210,13 @@ short SolvePointEnergyBalance(
 	//
 	//boundary condition
 
-	if ((long)Tgd != number_novalue) dirichlet = 1;
-	if ((long)EBd != number_novalue) neumann = 1;
-	if ((long)Convd != number_novalue) micro_sempl = 1;
+	if ((long)Tgd != geotop::input::gDoubleNoValue) dirichlet = 1;
+	if ((long)EBd != geotop::input::gDoubleNoValue) neumann = 1;
+	if ((long)Convd != geotop::input::gDoubleNoValue) micro_sempl = 1;
 	if (neumann == 0 && dirichlet == 0 && micro_sempl == 0) micro = 1;
 	
 	//Soil layer; this is not working... 
-	// n = Fminlong(par->Nl_spinup->[i_sim],Nl) + ns + ng;
+	// n = Fminlong(par->Nl_spinup->[geotop::common::Variables::i_sim],Nl) + ns + ng;
    
 	
     //Surface conditions
@@ -1238,7 +1240,7 @@ short SolvePointEnergyBalance(
     if (i<=par->total_channel) {
         sy = cnet->soil_type[j];
         psi0 = SC->P[0][j];
-        for(l=1;l<=Nl;l++){
+        for(l=1;l<=geotop::common::Variables::Nl;l++){
             //	water content to be modified at each iteration
             egy->THETA[l] = cnet->th[l][j];
 			
@@ -1253,7 +1255,7 @@ short SolvePointEnergyBalance(
     }else {
         sy = sl->type[r][c];
         psi0 = SL->P[0][j];
-        for(l=1;l<=Nl;l++){
+        for(l=1;l<=geotop::common::Variables::Nl;l++){
             //	water content to be modified at each iteration
 			
             egy->THETA[l] = sl->th[l][j];
@@ -1844,13 +1846,13 @@ short SolvePointEnergyBalance(
     }
 
     //error messages
-    for(l=sur;l<=Nl+ns+ng;l++){
+    for(l=sur;l<=geotop::common::Variables::Nl+ns+ng;l++){
 
 // no value conditions: here T is NaN 
         if(egy->Temp[l] != egy->Temp[l]){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
             fprintf(f, "Number of days after start:%f\n",t);
 
             
@@ -1866,20 +1868,20 @@ short SolvePointEnergyBalance(
 
         if(egy->Temp[l] < Tmin || egy->Temp[l] > Tmax){
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-            printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d SoilType=%ld snowD:%12g T:%f LW:%12g H:%12g LE:%12g Ta:%12g\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c],snowD, egy->Temp[l],*LW,*H,Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E),Ta);
+            printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d SoilType=%ld snowD:%12g T:%f LW:%12g H:%12g LE:%12g Ta:%12g\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c],snowD_tmp, egy->Temp[l],*LW,*H,Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E),Ta);
 #else
             printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%f slope=%f aspect=%f sky=%f LC=%d SoilType=%ld snowD:%f T:%f LW:%f H:%f LE:%f Ta:%f\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c],snowD_tmp, egy->Temp[l],*LW,*H,Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E),Ta);
 #endif
         }
     }
 
-    for(l=1;l<=Nl+ns+ng;l++){
+    for(l=1;l<=geotop::common::Variables::Nl+ns+ng;l++){
 
         //	if(egy->deltaw->co[l] != egy->deltaw->co[l]){
         if(egy->deltaw[l] != egy->deltaw[l]){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
             fprintf(f, "Number of days after start:%f\n",t);
             fprintf(f, "dw no value, error 1, PointEnergyBalance, l:%ld r:%ld c:%ld\n",l,r,c);
             fclose(f);
@@ -1910,7 +1912,7 @@ short SolvePointEnergyBalance(
     double th_oversat, psisat;
 
     //soil variables
-    for (l=1; l<=Nl; l++) {
+    for (l=1; l<=geotop::common::Variables::Nl; l++) {
 
         //	canopy transpiration
         if(l < egy->soil_transp_layer.size()) ET[l][r][c] += fc*egy->soil_transp_layer[l]*Dt;
@@ -1955,7 +1957,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Ener
     double th_oversat, psisat;
 
     //soil variables
-    for (l=1; l<=Nl; l++) {
+    for (l=1; l<=geotop::common::Variables::Nl; l++) {
 
         //	canopy transpiration
         //	if(l < egy->soil_transp_layer->nh) ET->co[l][ch] += fc*egy->soil_transp_layer->co[l]*Dt;
@@ -2116,10 +2118,10 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
     //initialization
     if(fc==0){
 
-        *Qs=(double)number_novalue;
-        *Ts=(double)number_novalue;
-        *Qv=(double)number_novalue;
-        *u_top=(double)number_novalue;
+        *Qs=geotop::input::gDoubleNoValue;
+        *Ts=geotop::input::gDoubleNoValue;
+        *Qv=geotop::input::gDoubleNoValue;
+        *u_top=geotop::input::gDoubleNoValue;
         *rh=1.E99;
         *rv=1.E99;
         *rc=1.E99;
@@ -2162,9 +2164,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         *Eg0=Eg;
 
         if(Hg!=Hg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Hg no value bare soil EnergyFluxes r=%ld c=%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d soil type=%ld snowD=%12g rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy,snowD, *rh_g,*rv_g,Hg,Eg);
@@ -2183,9 +2185,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         }
 
         if(Eg!=Eg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t);
             fprintf(f, "Eg no value bare soil r=%ld c=%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d soil type=%ld snowD=%12g\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy, snowD);
@@ -2235,9 +2237,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         *Eg1=Eg;
 
         if(Hg!=Hg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
@@ -2256,9 +2258,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         }
 
         if(Eg!=Eg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
@@ -2357,9 +2359,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 
         //error messages
         if(Hg!=Hg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Hg no value bare soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
@@ -2376,9 +2378,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         }
 
         if(Eg!=Eg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value bare soil %ld %ld \n",r,c);
@@ -2418,9 +2420,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         *Eg1=Eg;
 
         if(Hg!=Hg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
@@ -2438,9 +2440,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         }
 
         if(Eg!=Eg){
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Simulation Period:%ld\n",i_sim);
-            fprintf(f, "Run Time:%ld\n",i_run);
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
@@ -2518,7 +2520,7 @@ double flux(long i, long icol, double **met, double k, double est){
 
     double F=k*met[i-1][icol];
 
-    if ((long)F==number_absent || (long)F==number_novalue) {
+    if ((long)F==geotop::input::gDoubleAbsent || (long)F==geotop::input::gDoubleNoValue) {
         F = est;
     }
 
@@ -2687,7 +2689,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, Energy *E
 
     E->Dlayer[1] = D1;
 
-    for (l=Nl; l>=1; l--) {
+    for (l=geotop::common::Variables::Nl; l>=1; l--) {
 #ifdef VERBOSE
         if(E->ice[l] != E->ice[l])
         {

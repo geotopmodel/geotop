@@ -19,8 +19,9 @@
  
  */
 #include "config.h"
-
+#include "geotop_common.h"
 #include "meteo.h"
+#include "inputKeywords.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -58,18 +59,18 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	}	
 	
 	for (i=0; i<nlstot; i++) {
-		if ( (long)met->LRv[i] == number_novalue) met->LRv[i] = met->LRd[i]; 
+		if ( (long)met->LRv[i] == geotop::input::gDoubleNoValue) met->LRv[i] = met->LRd[i];
 	}
 	
 	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS	
 	//flog = fopen(logfile, "a");
-	flog = fopen(logfile.c_str(), "a");
+	flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
 //	Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 //			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
 //			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co, met->RHgrid->co, met->Vgrid->co,
 //			met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
 //			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-	Meteodistr(UV->U[2], UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
+	Meteodistr(geotop::common::Variables::UV->U[2], geotop::common::Variables::UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
 			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid, met->RHgrid, met->Vgrid,
 			met->Vdir, met->Pgrid, wat->PrecTot, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
@@ -77,8 +78,8 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	fclose(flog);
 		
 	if(par->en_balance==0){
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
+		for(r=1;r<=geotop::common::Variables::Nr;r++){
+			for(c=1;c<=geotop::common::Variables::Nc;c++){
 				wat->Pnet[r][c] = par->raincorrfact*wat->PrecTot[r][c]*((JDend-JDbeg)*24.)*cos(top->slope[r][c]*GTConst::Pi/180.);	//from [mm/h] to [mm]
 				if (par->point_sim==1) wat->Pnet[r][c] *= cos(top->slope[r][c]*GTConst::Pi/180.);
 			}

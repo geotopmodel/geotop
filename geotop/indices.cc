@@ -20,6 +20,8 @@
  */
 
 #include "indices.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -32,10 +34,10 @@
 	long cont=0;
 	long l, r, c;
 	
-	for(r=1; r<=Nr; r++){
-		for(c=1; c<=Nc; c++){
-			if((long)LC[r][c]!=number_novalue){
-				for(l=0; l<=Nl; l++){
+	for(r=1; r<=geotop::common::Variables::Nr; r++){
+		for(c=1; c<=geotop::common::Variables::Nc; c++){
+			if((long)LC[r][c]!=geotop::input::gDoubleNoValue){
+				for(l=0; l<=geotop::common::Variables::Nl; l++){
 					cont++;
 					i[l][r][c]=cont;
 					lrc[cont][1]=l;
@@ -59,10 +61,10 @@ void j_rc_cont(GeoMatrix<double>& LC, long **j, GeoMatrix<long>& rc){
 
 	long cont=0;
 	long r, c;
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-		//	if((long)LC->co[r][c]!=number_novalue){
-			if((long)LC[r][c]!=number_novalue){
+	for(r=1;r<=geotop::common::Variables::Nr;r++){
+		for(c=1;c<=geotop::common::Variables::Nc;c++){
+		//	if((long)LC->co[r][c]!=geotop::input::gDoubleNoValue){
+			if((long)LC[r][c]!=geotop::input::gDoubleNoValue){
 				cont++;
 				j[r][c]=cont;
 			//	rc->co[cont][1]=r;
@@ -89,7 +91,7 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch){
 	long l, ch;
 	
 	for (ch=1; ch<=nch; ch++) {
-		for (l=0; l<=Nl; l++) {
+		for (l=0; l<=geotop::common::Variables::Nl; l++) {
 			cont++;
 			ch3[l][ch]=cont;
 			lch[cont][1]=l;
@@ -116,8 +118,8 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 
 	if (cnet->r[1] > 0) m = cnet->r.size()-1; //HACK: assumption that r.size() > 0
 	
-	N = n*(Nl+1);
-	M = m*(Nl+1);
+	N = n*(geotop::common::Variables::Nl+1);
+	M = m*(geotop::common::Variables::Nl+1);
 	
 #ifdef VERBOSE
 	printf("cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
@@ -139,22 +141,22 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 		//cnt ++;		
 		
 		//the cell below
-		if (l<Nl) cnt ++;
+		if (l<geotop::common::Variables::Nl) cnt ++;
 		
 		if (j<=N) {
-			if((long)LC[r-1][c]!=number_novalue){
+			if((long)LC[r-1][c]!=geotop::input::gDoubleNoValue){
 				if(i[l][r-1][c]>j) cnt ++;
 			}
 			
-			if((long)LC[r+1][c]!=number_novalue){
+			if((long)LC[r+1][c]!=geotop::input::gDoubleNoValue){
 				if(i[l][r+1][c]>j) cnt ++;
 			}
 			
-			if((long)LC[r][c-1]!=number_novalue){
+			if((long)LC[r][c-1]!=geotop::input::gDoubleNoValue){
 				if(i[l][r][c-1]>j) cnt ++;
 			}
 			
-			if((long)LC[r][c+1]!=number_novalue){
+			if((long)LC[r][c+1]!=geotop::input::gDoubleNoValue){
 				if(i[l][r][c+1]>j) cnt ++;
 			}
 			
@@ -193,8 +195,8 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	
 	if (cnet->r[1] > 0) m = cnet->r.size()-1;
 	
-	N = n*(Nl+1);
-	M = m*(Nl+1);
+	N = n*(geotop::common::Variables::Nl+1);
+	M = m*(geotop::common::Variables::Nl+1);
 	
 #ifdef VERBOSE
 	printf("cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
@@ -216,14 +218,14 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 		//	Li->co[cnt] = j;
 		
 	//	the cell below
-		if(l<Nl){
+		if(l<geotop::common::Variables::Nl){
 			cnt++;
 			Li[cnt] = j+1;
 		}
 		
 		if (j<=N) 
 		{
-			if((long)LC[r-1][c]!=number_novalue)
+			if((long)LC[r-1][c]!=geotop::input::gDoubleNoValue)
 			{
 				if(i[l][r-1][c]>j)
 				{
@@ -232,7 +234,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 				}
 			}
 			
-			if((long)LC[r+1][c]!=number_novalue)
+			if((long)LC[r+1][c]!=geotop::input::gDoubleNoValue)
 			    {
 				if(i[l][r+1][c]>j)
 				{
@@ -241,7 +243,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 				}
 			}
 			
-			if((long)LC[r][c-1]!=number_novalue)
+			if((long)LC[r][c-1]!=geotop::input::gDoubleNoValue)
 			{
 				if(i[l][r][c-1]>j){
 					cnt++;
@@ -249,7 +251,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 				}
 			}
 			
-			if((long)LC[r][c+1]!=number_novalue)
+			if((long)LC[r][c+1]!=geotop::input::gDoubleNoValue)
 			{
 				if(i[l][r][c+1]>j){
 					cnt++;
@@ -308,7 +310,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 			Li->co[cnt] = j+1;
 		}
 		
-		if(l>0 && point!=1 && (long)LC->co[r-1][c]!=number_novalue){
+		if(l>0 && point!=1 && (long)LC->co[r-1][c]!=geotop::input::gDoubleNoValue){
 			if(i[l][r-1][c]>j){
 				cnt++;
 				Li->co[cnt] = i[l][r-1][c];
@@ -318,7 +320,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 			}
 		}
 		
-		if(l>0 && point!=1 && (long)LC->co[r+1][c]!=number_novalue){
+		if(l>0 && point!=1 && (long)LC->co[r+1][c]!=geotop::input::gDoubleNoValue){
 			if(i[l][r+1][c]>j){
 				cnt++;
 				Li->co[cnt] = i[l][r+1][c];
@@ -328,7 +330,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 			}		
 		}
 		
-		if(l>0 && point!=1 && (long)LC->co[r][c-1]!=number_novalue){
+		if(l>0 && point!=1 && (long)LC->co[r][c-1]!=geotop::input::gDoubleNoValue){
 			if(i[l][r][c-1]>j){
 				cnt++;
 				Li->co[cnt] = i[l][r][c-1];
@@ -338,7 +340,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 			}		
 		}
 		
-		if(l>0 && point!=1 && (long)LC->co[r][c+1]!=number_novalue){
+		if(l>0 && point!=1 && (long)LC->co[r][c+1]!=geotop::input::gDoubleNoValue){
 			if(i[l][r][c+1]>j){
 				cnt++;
 				Li->co[cnt] = i[l][r][c+1];

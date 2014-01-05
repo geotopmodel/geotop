@@ -33,11 +33,10 @@
  */
 
 
-
-
-
-
 #include "meteodistr.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
+
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
@@ -89,7 +88,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
         fprintf(f,"No precipitation measurements, considered it 0.0\n");
     }
 
-    get_pressure(topo, sfc_pressure, (double)number_novalue);
+    get_pressure(topo, sfc_pressure, geotop::input::gDoubleNoValue);
 
 }
 
@@ -115,7 +114,7 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 
     //Convert the station data to sea level values in [K].
     for(n=1;n<met->st->Z.size();n++){
-        if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
+        if((long)met->var[n-1][Tcode]!=geotop::input::gDoubleAbsent && (long)met->var[n-1][Tcode]!=geotop::input::gDoubleNoValue){
             met->var[n-1][Tcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tcode], lapse_rate) + GTConst::tk;
         }
     }
@@ -128,7 +127,7 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
     //Convert these grid values back to the actual gridded elevations [C].
     for(r=1;r<=nr;r++){//top->Z0.getRows(),top->Z0.getCols()
         for(c=1;c<=nc;c++){
-            if((long)topo[r][c]!=number_novalue){
+            if((long)topo[r][c]!=geotop::input::gDoubleNoValue){
                 Tair_grid[r][c] = temperature(topo[r][c], topo_ref, Tair_grid[r][c], lapse_rate) - GTConst::tk;
             }
         }
@@ -136,7 +135,7 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 
     //Convert back the station data [C].
     for(n=1;n<=nstation;n++){
-        if((long)met->var[n-1][Tcode]!=number_absent && (long)met->var[n-1][Tcode]!=number_novalue){
+        if((long)met->var[n-1][Tcode]!=geotop::input::gDoubleAbsent && (long)met->var[n-1][Tcode]!=geotop::input::gDoubleNoValue){
             met->var[n-1][Tcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tcode], lapse_rate) - GTConst::tk;
         }
     }
@@ -174,7 +173,7 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 
     //Convert the station data to sea level values in [K].
     for(n=1;n<=nstation;n++){
-        if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
+        if((long)met->var[n-1][Tdcode]!=geotop::input::gDoubleAbsent && (long)met->var[n-1][Tdcode]!=geotop::input::gDoubleNoValue){
             met->var[n-1][Tdcode] = temperature(topo_ref, met->st->Z[n], met->var[n-1][Tdcode], lapse_rate) + GTConst::tk;
         }
     }
@@ -186,7 +185,7 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
     //Convert these grid values back to the actual gridded elevations, and convert to RH
     for(r=1;r<=nr;r++){
         for(c=1;c<=nc;c++){
-            if((long)topo[r][c]!=number_novalue){
+            if((long)topo[r][c]!=geotop::input::gDoubleNoValue){
                 RH_grid[r][c] = temperature(topo[r][c], topo_ref, RH_grid[r][c], lapse_rate) - GTConst::tk;
                 RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], topo[r][c]);
                 if(RH_grid[r][c] < RH_min/100.) RH_grid[r][c] = RH_min/100.;
@@ -196,7 +195,7 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 
     //Convert back the station data [C].
     for(n=1;n<=nstation;n++){
-        if((long)met->var[n-1][Tdcode]!=number_absent && (long)met->var[n-1][Tdcode]!=number_novalue){
+        if((long)met->var[n-1][Tdcode]!=geotop::input::gDoubleAbsent && (long)met->var[n-1][Tdcode]!=geotop::input::gDoubleNoValue){
             met->var[n-1][Tdcode] = temperature(met->st->Z[n], topo_ref, met->var[n-1][Tdcode], lapse_rate) - GTConst::tk;
         }
     }
@@ -372,7 +371,7 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
         // The value of windsp_grid is fine before the loop, and it explodes after.
         for(r=1;r<=nr;r++){
             for(c=1;c<=nc;c++){
-                if((long)topo[r][c]!=number_novalue){
+                if((long)topo[r][c]!=geotop::input::gDoubleNoValue){
                     winddir_grid[r][c] = 270.0 - rad2deg*atan2(v_grid[r][c],u_grid[r][c]);
                     if (winddir_grid[r][c]>=360.0)
                         winddir_grid[r][c] -= 360.0;
@@ -383,7 +382,7 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
 
         //Modify the wind speed and direction according to simple wind-topography relationships.
         topo_mod_winds(winddir_grid, windspd_grid, slopewtD, curvewtD, slopewtI, curvewtI, curvature1, curvature2,
-                       curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
+                       curvature3, curvature4, slope_az, terrain_slope, topo, geotop::input::gDoubleNoValue);
     }
 
     //free_doublematrix(u_grid);
@@ -395,7 +394,7 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
     //very small).
     for(r=1;r<=nr;r++){
         for(c=1;c<=nc;c++){
-            if((long)topo[r][c]!=number_novalue){
+            if((long)topo[r][c]!=geotop::input::gDoubleNoValue){
                 if (windspd_grid[r][c]<windspd_min)
                     windspd_grid[r][c] = windspd_min;
             }
@@ -443,7 +442,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
     //   to the grid, so that it can be used as a topographic reference
     //   surface.
     for(n=1;n<=nstation;n++){
-        if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
+        if((long)met->var[n-1][Pcode]!=geotop::input::gDoubleNoValue && (long)met->var[n-1][Pcode]!=geotop::input::gDoubleAbsent){
             prec = met->var[n-1][Pcode];
             met->var[n-1][Pcode] = met->st->Z[n];
             met->st->Z[n] = prec;
@@ -462,7 +461,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
         ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Pcode, topo_ref_grid, dn, iobsint);
 
         for(n=1;n<=nstation;n++){
-            if((long)met->var[n-1][Pcode]!=number_novalue && (long)met->var[n-1][Pcode]!=number_absent){
+            if((long)met->var[n-1][Pcode]!=geotop::input::gDoubleNoValue && (long)met->var[n-1][Pcode]!=geotop::input::gDoubleAbsent){
                 prec = met->st->Z[n];
                 met->st->Z[n] = met->var[n-1][Pcode];
                 if (dew == 1) {
@@ -482,7 +481,7 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
         //	Convert the gridded station data to the actual gridded elevations.
         for(c=1;c<=nc;c++){
             for(r=1;r<=nr;r++){
-                if(topo[r][c]!= number_novalue){
+                if(topo[r][c]!= geotop::input::gDoubleNoValue){
                     alfa = 1.E-3*lapse_rate * (topo[r][c] - topo_ref_grid[r][c]);
                     if(alfa < -1. + 1.E-6) alfa = -1. + 1.E-6;
                     f = (1.0 - alfa)/(1.0 + alfa);
@@ -539,7 +538,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
     long nr=Xpoint.getRows()-1, nc=Xpoint.getCols()-1;
     nstn=0;
     for(n=1;n< Xst.size();n++){
-        if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue) nstn++;
+        if((long)value[n-1][metcod]!=geotop::input::gDoubleAbsent && (long)value[n-1][metcod]!=geotop::input::gDoubleNoValue) nstn++;
     }
 
     if(nstn==0) return 0;
@@ -552,7 +551,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
     GeoVector<double> yst; yst.resize(nstn+1,0);
     nstn=0;
     for(n=1;n<Xst.size();n++){
-        if((long)value[n-1][metcod]!=number_absent && (long)value[n-1][metcod]!=number_novalue){
+        if((long)value[n-1][metcod]!=geotop::input::gDoubleAbsent && (long)value[n-1][metcod]!=geotop::input::gDoubleNoValue){
             nstn++;
             var[nstn]=value[n-1][metcod];
             xst[nstn]=Xst[n];
@@ -567,7 +566,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
             //get_dn(Xpoint->nch, Xpoint->nrh, dX, dY, nstn, &dn);
             get_dn(nc, nr, dX, dY, nstn, &dn);
         }
-        barnes_oi(flag, Xpoint, Ypoint, Xst, Yst, xst, yst, var, dn, (double)number_novalue, grid, value, metcod);
+        barnes_oi(flag, Xpoint, Ypoint, Xst, Yst, xst, yst, var, dn, geotop::input::gDoubleNoValue, grid, value, metcod);
     }else{
         for(r=1;r<=nr;r++){
             for(c=1;c<=nc;c++){

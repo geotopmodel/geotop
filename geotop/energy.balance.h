@@ -34,24 +34,6 @@
 #include "tables.h"
 #include "blowingsnow.h"
 #include "meteodata.h"
-//#include "../meteoio_plugin/meteoioplugin.h"
-extern long number_novalue, number_absent;
-extern char *string_novalue;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-//extern char *logfile;
-extern std::string logfile;
-extern long Nl, Nr, Nc;
-extern long *opnt, nopnt, *obsn, nobsn;
-extern double **odp, *odb;
-extern long nopnt, *opnt;
-extern long i_sim, i_run;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-extern std::vector<std::string> files;
 
 #define MM 1
 #define ni_en 1.E-4

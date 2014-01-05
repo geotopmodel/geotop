@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include "blowingsnow.h"
+#include "inputKeywords.h"
 
 //*****************************************************************************************************
 //*****************************************************************************************************
@@ -45,7 +46,7 @@
 	
 	//double U=0;
 	
-	f=fopen(logfile.c_str(),"a");
+    f=fopen(geotop::common::Variables::logfile.c_str(),"a");
 		
 	if(t0 == 0) line_interp = 0;
 	
@@ -62,25 +63,25 @@
 		Dt0 = Dt;
 		
 		//meteo distribution
-//		meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top, par, par->init_date->co[i_sim]+t0/secinday,
-//					par->init_date->co[i_sim]+(t0+t)/secinday, par->init_date->co[i_sim]+(t0+t+Dt)/secinday);
+//		meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top, par, par->init_date->co[geotop::common::Variables::i_sim]+t0/secinday,
+//					par->init_date->co[geotop::common::Variables::i_sim]+(t0+t)/secinday, par->init_date->co[geotop::common::Variables::i_sim]+(t0+t+Dt)/secinday);
 		
 		//vegetation
 		for(lux=1; lux<=par->n_landuses; lux++) {
 		//	if(par->vegflag->co[lux]==1){
 			if(par->vegflag[lux]==1){
-			//	time_interp_linear(par->init_date->co[i_sim]+t0/GTConst::secinday, par->init_date->co[i_sim]+(t0+t)/GTConst::secinday, par->init_date->co[i_sim]+(t0+t+Dt)/GTConst::secinday,
+			//	time_interp_linear(par->init_date->co[geotop::common::Variables::i_sim]+t0/GTConst::secinday, par->init_date->co[geotop::common::Variables::i_sim]+(t0+t)/GTConst::secinday, par->init_date->co[geotop::common::Variables::i_sim]+(t0+t+Dt)/GTConst::secinday,
 			//					   land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
-				time_interp_linear(par->init_date[i_sim]+t0/GTConst::secinday, par->init_date[i_sim]+(t0+t)/GTConst::secinday, par->init_date[i_sim]+(t0+t+Dt)/GTConst::secinday,
+				time_interp_linear(par->init_date[geotop::common::Variables::i_sim]+t0/GTConst::secinday, par->init_date[geotop::common::Variables::i_sim]+(t0+t)/GTConst::secinday, par->init_date[geotop::common::Variables::i_sim]+(t0+t+Dt)/GTConst::secinday,
 								    land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
 			}
 		}
 		
 		//loop for every pixel
-		for (r=1; r<=Nr; r++) {
-			for (c=1; c<=Nc; c++) {
-			//	if ( (long)land->LC->co[r][c]!=number_novalue) {
-				if ( (long)land->LC[r][c]!=number_novalue) {
+		for (r=1; r<=geotop::common::Variables::Nr; r++) {
+			for (c=1; c<=geotop::common::Variables::Nc; c++) {
+			//	if ( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue) {
+				if ( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue) {
 										
 					D = DEPTH(r, c, snow->S->lnum, snow->S->Dzl);
 					wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
@@ -99,7 +100,7 @@
 						zmeas = met->st->Vheight[1];
 
 						for(j=1;j<=jdvegprop;j++){
-							if( (long)land->vegparv[lu-1][j-1+1] != number_novalue ){
+							if( (long)land->vegparv[lu-1][j-1+1] != geotop::input::gDoubleNoValue ){
 							//	land->vegpar->co[j] = land->vegparv[lu-1][j-1+1];
 								land->vegpar[j] = land->vegparv[lu-1][j-1+1];
 							}else{
@@ -169,10 +170,10 @@
 		set_inhomogeneous_fetch(snow, met, land, par, top, &yes);
 		
 		if(yes==1){
-			for (r=1; r<=Nr; r++) {
-				for (c=1; c<=Nc; c++) {
-				//	if ( (long)land->LC->co[r][c]!=number_novalue) {
-					if ( (long)land->LC[r][c]!=number_novalue) {
+			for (r=1; r<=geotop::common::Variables::Nr; r++) {
+				for (c=1; c<=geotop::common::Variables::Nc; c++) {
+				//	if ( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue) {
+					if ( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue) {
 						wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
 					//	dErdt = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.)) - snow->Nabla2_Qtrans->co[r][c];
 						dErdt = sqrt(pow(snow->Qsub_x[r][c], 2.)+pow(snow->Qsub_y[r][c], 2.)) - snow->Nabla2_Qtrans[r][c];
@@ -213,9 +214,9 @@
 	double Qup, Qdown, Sup, Sdown, k_snowred;
 	
 //	dx=UV->U->co[1];
-	dx=UV->U[1];
+	dx=geotop::common::Variables::UV->U[1];
 //	dy=UV->U->co[2];
-	dy=UV->U[2];
+	dy=geotop::common::Variables::UV->U[2];
 	
 	F1=par->fetch_up/3.;
 	F2=par->fetch_down/3.;
@@ -227,10 +228,10 @@
 	snow->Nabla2_Qtrans.resize(snow->Nabla2_Qtrans.getRows(),snow->Nabla2_Qtrans.getCols(),0.0);
 
 	//check if there is snow transport
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-		//	if( (long)land->LC->co[r][c]!=number_novalue){
-			if( (long)land->LC[r][c]!=number_novalue){
+	for(r=1;r<=geotop::common::Variables::Nr;r++){
+		for(c=1;c<=geotop::common::Variables::Nc;c++){
+		//	if( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
+			if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
 			//	Qtrans += snow->Qtrans->co[r][c]/(double)par->total_pixel;
 				Qtrans += snow->Qtrans[r][c]/(double)par->total_pixel;
 			}
@@ -244,16 +245,16 @@
 		*yes = 1;
 		
 		//wind in direction west-east
-		/*set_no_value(snow->Qtrans, land->LC, number_novalue);
-		extend_topography_row(snow->Qtrans, number_novalue);
+		/*set_no_value(snow->Qtrans, land->LC, geotop::input::gDoubleNoValue);
+		extend_topography_row(snow->Qtrans, geotop::input::gDoubleNoValue);
 		
-		set_no_value(snow->Qsub, land->LC, number_novalue);
-		extend_topography_row(snow->Qsub, number_novalue);*/
+		set_no_value(snow->Qsub, land->LC, geotop::input::gDoubleNoValue);
+		extend_topography_row(snow->Qsub, geotop::input::gDoubleNoValue);*/
 
-		for(r=1;r<=Nr;r++){
+		for(r=1;r<=geotop::common::Variables::Nr;r++){
 			
 		//	find west-east component
-			for(c=1;c<=Nc;c++){
+			for(c=1;c<=geotop::common::Variables::Nc;c++){
 			//	snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(met->Vdir->co[r][c]*GTConst::Pi/180.)));
 				snow->Qtrans_x[r][c]=fabs(snow->Qtrans[r][c]*(-sin(met->Vdir[r][c]*GTConst::Pi/180.)));
 			//	snow->Qsub_x[r][c]=fabs(snow->Qsub->co[r][c]*(-sin(met->Vdir->co[r][c]*GTConst::Pi/180.)));
@@ -277,14 +278,14 @@
 				do{
 					c++;
 			//	}while( (-sin(met->Vdir->co[r][c]*GTConst::Pi/180.))*(-sin(met->Vdir->co[r][c0]*GTConst::Pi/180.))>0 && c<Nc );
-				}while( (-sin(met->Vdir[r][c]*GTConst::Pi/180.))*(-sin(met->Vdir[r][c0]*GTConst::Pi/180.))>0 && c<Nc );
+				}while( (-sin(met->Vdir[r][c]*GTConst::Pi/180.))*(-sin(met->Vdir[r][c0]*GTConst::Pi/180.))>0 && c<geotop::common::Variables::Nc );
 				
 				num_change++;				
 				c0=c;				
 			//	snow->change_dir_wind->co[num_change]=c;
 				snow->change_dir_wind[num_change]=c;
 												
-			}while(c0<Nc);
+			}while(c0<geotop::common::Variables::Nc);
 			
 			for(i=1;i<num_change;i++){
 			//	east wind
@@ -297,7 +298,7 @@
 				//	for(c=snow->change_dir_wind->co[i]+1;c<=snow->change_dir_wind->co[i+1];c++){
 					for(c=snow->change_dir_wind[i]+1;c<=snow->change_dir_wind[i+1];c++){
 					//	if(snow->change_dir_wind->co[i+1]==Nc || (snow->change_dir_wind->co[i+1]!=Nc && c<snow->change_dir_wind->co[i+1])){
-						if(snow->change_dir_wind[i+1]==Nc || (snow->change_dir_wind[i+1]!=Nc && c<snow->change_dir_wind[i+1])){
+						if(snow->change_dir_wind[i+1]==geotop::common::Variables::Nc || (snow->change_dir_wind[i+1]!=geotop::common::Variables::Nc && c<snow->change_dir_wind[i+1])){
 						//	Qup = snow->Qtrans_x->co[r][c-1];
 							Qup = snow->Qtrans_x[r][c-1];
 						//	Qdown = snow->Qtrans_x->co[r][c];
@@ -327,13 +328,13 @@
 				//west wind	
 				}else{	
 				//	if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i+1]!=Nc) snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;
-					if(par->upwindblowingsnow==1 && snow->change_dir_wind[i+1]!=Nc) snow->Qtrans_x[r][snow->change_dir_wind[i+1]-1]=0.0;
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind[i+1]!=geotop::common::Variables::Nc) snow->Qtrans_x[r][snow->change_dir_wind[i+1]-1]=0.0;
 				//	snow->Qtrans_x->co[r][snow->change_dir_wind->co[i+1]-1]=0.0;
 					snow->Qtrans_x[r][snow->change_dir_wind[i+1]-1]=0.0;
 				//	for(c=snow->change_dir_wind->co[i+1]-1;c>=snow->change_dir_wind->co[i];c--){
 					for(c=snow->change_dir_wind[i+1]-1;c>=snow->change_dir_wind[i];c--){
 					//	if(snow->change_dir_wind->co[i+1]==Nc || (snow->change_dir_wind->co[i+1]!=Nc && c<snow->change_dir_wind->co[i+1]-1)){
-						if(snow->change_dir_wind[i+1]==Nc || (snow->change_dir_wind[i+1]!=Nc && c<snow->change_dir_wind[i+1]-1)){
+						if(snow->change_dir_wind[i+1]==geotop::common::Variables::Nc || (snow->change_dir_wind[i+1]!=geotop::common::Variables::Nc && c<snow->change_dir_wind[i+1]-1)){
 						//	Qup = snow->Qtrans_x->co[r][c+1];
 							Qup = snow->Qtrans_x[r][c+1];
 						//	Qdown = snow->Qtrans_x->co[r][c];
@@ -365,16 +366,16 @@
 		
 		
 		//wind in direction south-north
-		/*set_no_value(snow->Qtrans, land->LC, number_novalue);	
-		extend_topography_column(snow->Qtrans, number_novalue);
+		/*set_no_value(snow->Qtrans, land->LC, geotop::input::gDoubleNoValue);	
+		extend_topography_column(snow->Qtrans, geotop::input::gDoubleNoValue);
 
-		set_no_value(snow->Qsub, land->LC, number_novalue);
-		extend_topography_column(snow->Qsub, number_novalue);*/
+		set_no_value(snow->Qsub, land->LC, geotop::input::gDoubleNoValue);
+		extend_topography_column(snow->Qsub, geotop::input::gDoubleNoValue);*/
 		
-		for(c=1;c<=Nc;c++){
+		for(c=1;c<=geotop::common::Variables::Nc;c++){
 			
 		//	find south-north component
-			for(r=1;r<=Nr;r++){
+			for(r=1;r<=geotop::common::Variables::Nr;r++){
 			//	snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(met->Vdir->co[r][c]*GTConst::Pi/180.)));
 				snow->Qtrans_y[r][c]=fabs(snow->Qtrans[r][c]*(-cos(met->Vdir[r][c]*GTConst::Pi/180.)));
 			//	snow->Qsub_y->co[r][c]=fabs(snow->Qsub->co[r][c]*(-cos(met->Vdir->co[r][c]*GTConst::Pi/180.)));
@@ -397,14 +398,14 @@
 				do{
 					r++;
 			//	}while( (-cos(met->Vdir->co[r][c]*GTConst::Pi/180.))*(-cos(met->Vdir->co[r0][c]*GTConst::Pi/180.))>0 && r<Nr );
-				}while( (-cos(met->Vdir[r][c]*GTConst::Pi/180.))*(-cos(met->Vdir[r0][c]*GTConst::Pi/180.))>0 && r<Nr );
+				}while( (-cos(met->Vdir[r][c]*GTConst::Pi/180.))*(-cos(met->Vdir[r0][c]*GTConst::Pi/180.))>0 && r<geotop::common::Variables::Nr );
 				
 				num_change++;				
 				r0=r;				
 			//	snow->change_dir_wind->co[num_change]=r;
 				snow->change_dir_wind[num_change]=r;
 								
-			}while(r0<Nr);
+			}while(r0<geotop::common::Variables::Nr);
 			
 			for(i=1;i<num_change;i++){
 				//south wind
@@ -417,7 +418,7 @@
 				//	for(r=snow->change_dir_wind->co[i]+1;r<=snow->change_dir_wind->co[i+1];r++){
 					for(r=snow->change_dir_wind[i]+1;r<=snow->change_dir_wind[i+1];r++){
 					//	if(snow->change_dir_wind->co[i+1]==Nr || (snow->change_dir_wind->co[i+1]!=Nr && r<snow->change_dir_wind->co[i+1])){
-						if(snow->change_dir_wind[i+1]==Nr || (snow->change_dir_wind[i+1]!=Nr && r<snow->change_dir_wind[i+1])){
+						if(snow->change_dir_wind[i+1]==geotop::common::Variables::Nr || (snow->change_dir_wind[i+1]!=geotop::common::Variables::Nr && r<snow->change_dir_wind[i+1])){
 						//	Qup = snow->Qtrans_y->co[r-1][c];
 							Qup = snow->Qtrans_y[r-1][c];
 						//	Qdown = snow->Qtrans_y->co[r][c];
@@ -447,13 +448,13 @@
 				//north wind	
 				}else{
 				//	if(par->upwindblowingsnow==1 && snow->change_dir_wind->co[i+1]!=Nr) snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;
-					if(par->upwindblowingsnow==1 && snow->change_dir_wind[i+1]!=Nr) snow->Qtrans_y[snow->change_dir_wind[i+1]-1][c]=0.0;
+					if(par->upwindblowingsnow==1 && snow->change_dir_wind[i+1]!=geotop::common::Variables::Nr) snow->Qtrans_y[snow->change_dir_wind[i+1]-1][c]=0.0;
 				//	snow->Qtrans_y->co[snow->change_dir_wind->co[i+1]-1][c]=0.0;
 					snow->Qtrans_y[snow->change_dir_wind[i+1]-1][c]=0.0;
 				//	for(r=snow->change_dir_wind->co[i+1]-1;r>=snow->change_dir_wind->co[i];r--){
 					for(r=snow->change_dir_wind[i+1]-1;r>=snow->change_dir_wind[i];r--){
 					//	if(snow->change_dir_wind->co[i+1]==Nr || (snow->change_dir_wind->co[i+1]!=Nr && r<snow->change_dir_wind->co[i+1]-1)){
-						if(snow->change_dir_wind[i+1]==Nr || (snow->change_dir_wind[i+1]!=Nr && r<snow->change_dir_wind[i+1]-1)){
+						if(snow->change_dir_wind[i+1]==geotop::common::Variables::Nr || (snow->change_dir_wind[i+1]!=geotop::common::Variables::Nr && r<snow->change_dir_wind[i+1]-1)){
 						//	Qup = snow->Qtrans_y->co[r+1][c];
 							Qup = snow->Qtrans_y[r+1][c];
 						//	Qdown = snow->Qtrans_y->co[r][c];
@@ -484,10 +485,10 @@
 		}
 		
 		//Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
-		for(r=1;r<=Nr;r++){
-			for(c=1;c<=Nc;c++){
-			//	if( (long)land->LC->co[r][c]!=number_novalue ){
-				if( (long)land->LC[r][c]!=number_novalue ){
+		for(r=1;r<=geotop::common::Variables::Nr;r++){
+			for(c=1;c<=geotop::common::Variables::Nc;c++){
+			//	if( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue ){
+				if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue ){
 				//	if (par->snow_curv > 0 && top->slope->co[r][c] > par->snow_smin){
 					if (par->snow_curv > 0 && top->slope[r][c] > par->snow_smin){
 					//	if (top->slope->co[r][c] <= par->snow_smax){
@@ -531,10 +532,10 @@
 	float D4 = 0.0884;//m2 N-1	
 			
 	//update snow depth
-	for(r=1;r<=Nr;r++){
-		for(c=1;c<=Nc;c++){
-		//	if((long)land->LC->co[r][c]!=number_novalue){
-			if((long)land->LC[r][c]!=number_novalue){
+	for(r=1;r<=geotop::common::Variables::Nr;r++){
+		for(c=1;c<=geotop::common::Variables::Nc;c++){
+		//	if((long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
+			if((long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
 					
 			//	ns = snow->S->lnum->co[r][c];
 				ns = snow->S->lnum[r][c];
@@ -689,20 +690,20 @@
 	//	Qsub = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));
 		Qsub = sqrt(pow(snow->Qsub_x[r][c], 2.)+pow(snow->Qsub_y[r][c], 2.));
 								
-	//	if(par->output_snow->co[i_sim]>0){
-		if(par->output_snow[i_sim]>0){
+	//	if(par->output_snow->co[geotop::common::Variables::i_sim]>0){
+		if(par->output_snow[geotop::common::Variables::i_sim]>0){
 		//	snow->Wtrans_plot->co[r][c] += Dt*snow->Nabla2_Qtrans->co[r][c];
 			snow->Wtrans_plot[r][c] += Dt*snow->Nabla2_Qtrans[r][c];
 		//	snow->Wsubl_plot->co[r][c] += Dt*Qsub;
 			snow->Wsubl_plot[r][c] += Dt*Qsub;
 		}
 		
-	//	if(par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1 && par->jplot->co[i] > 0){
-		if(par->Dtplot_point[i_sim] > 1.E-5 && par->state_pixel == 1 && par->jplot[i] > 0){
+	//	if(par->Dtplot_point->co[geotop::common::Variables::i_sim] > 1.E-5 && par->state_pixel == 1 && par->jplot->co[i] > 0){
+		if(par->Dtplot_point[geotop::common::Variables::i_sim] > 1.E-5 && par->state_pixel == 1 && par->jplot[i] > 0){
 		//	odp[oblowingsnowtrans][par->jplot->co[i]-1] -= Dt*snow->Nabla2_Qtrans->co[r][c];
-			odp[oblowingsnowtrans][par->jplot[i]-1] -= Dt*snow->Nabla2_Qtrans[r][c];
+			geotop::common::Variables::odp[oblowingsnowtrans][par->jplot[i]-1] -= Dt*snow->Nabla2_Qtrans[r][c];
 		//	odp[oblowingsnowsubl][par->jplot->co[i]-1] += Dt*Qsub;
-			odp[oblowingsnowsubl][par->jplot[i]-1] += Dt*Qsub;
+			geotop::common::Variables::odp[oblowingsnowsubl][par->jplot[i]-1] += Dt*Qsub;
 		}
 	}
 }

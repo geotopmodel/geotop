@@ -23,23 +23,6 @@
 #include "struct.geotop.h"
 #include "constants.h"
 #include "snow.h"
-//#include "../libraries/ascii/init.h"
-
-extern std::vector<std::string> files;
-extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
-extern double **odpnt, **odp, *odbsn, *odb;
-extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
-extern long *oglc, noglc, *osl, nosl;
-extern short *ipnt, *ibsn;
-extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-extern char *string_novalue;
-extern long number_novalue;
-extern long Nl, Nr, Nc;
-//extern T_INIT *UV;
-extern TInit *UV;
 
 
 //void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,Energy *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);

@@ -1,6 +1,7 @@
 #include "tabs.h"
 #include <string>
-
+#include <boost/algorithm/string.hpp>
+#include <inputKeywords.h>
 
 short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_char, long maxcharstring, long maxnumvect, long *key, 
 				   long *keylength, long *string, long *stringlength, double *number, long *numberlength, short *endoffile){
@@ -17,7 +18,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 	}
 	
 	for (i=0; i<maxnumvect; i++) {
-		number[i] = (double)number_novalue;
+		number[i] = geotop::input::gDoubleNoValue ;
 	}
 	
 	//read first character	
@@ -75,7 +76,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 				
 		if (*endoffile == 1 || c == 10) {
 			
-			*number = (double)number_novalue;
+			*number = geotop::input::gDoubleNoValue;
 			*stringlength = 1;
 			string[0] = comment_char;
 			
@@ -168,7 +169,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 			
 			*stringlength = i-1;
 			
-			*number = (double)number_novalue;
+			*number = geotop::input::gDoubleNoValue;
 			
 			*numberlength = 1;
 			
@@ -373,11 +374,11 @@ short readline(FILE *f, long comment_char, long sep_char, long **string, long *s
 }
 
 
-char **readline_of_strings(FILE *f, long comment_char, long sep_char, long *components, short *endoffile, short *success){
+std::vector<std::string> readline_of_strings(FILE *f, long comment_char, long sep_char, long *components, short *endoffile, short *success){
 	
 	long i, n;
 	long **string, *string_length;
-	char **line_of_strings;
+	std::vector<std::string> line_of_strings;
 	
 	n = (long)max_components;
 	string_length = (long*)malloc(n*sizeof(long));
@@ -391,11 +392,8 @@ char **readline_of_strings(FILE *f, long comment_char, long sep_char, long *comp
 	*success = readline(f, comment_char, sep_char, string, string_length, components, max_components, max_string_length, endoffile);
 	
 	if(*success == 1){
-		
-		line_of_strings = (char**)malloc((*components)*sizeof(char*));
-		
 		for (i=0; i<(*components); i++) {
-			line_of_strings[i] = find_string(string[i], string_length[i]);
+			line_of_strings.push_back(find_string(string[i], string_length[i]));
 		}
 		
 	}
@@ -450,10 +448,10 @@ double *readline_of_numbers(FILE *f, long comment_char, long sep_char, long *com
 
 
 //char **ReadHeader(FILE *f, char *filename, long *num_cols){
-char **ReadHeader(FILE *f, std::string filename, long *num_cols){
+std::vector<std::string> ReadHeader(FILE *f, std::string filename, long *num_cols){
 	
 	short endoffile, success;
-	char **Header;
+	std::vector<std::string> Header;
 	
 	do{
 		Header = readline_of_strings(f, 33, 44, num_cols, &endoffile, &success);
@@ -470,10 +468,10 @@ char **ReadHeader(FILE *f, std::string filename, long *num_cols){
 
 
 //long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols, char **header, long num_cols_header, FILE *flog){
-long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char **header, long num_cols_header, FILE *flog){
+long *ColumnCoder(std::string filename, std::vector<std::string> ColDescr, long max_num_cols, std::vector<std::string> header, long num_cols_header, FILE *flog){
 	
 	long *coder, i, j;
-	char *lowercaseColDescr;
+    std::string lowercaseColDescr;
 	
 	//allocation
 	coder = (long*)malloc(max_num_cols*sizeof(long));
@@ -484,23 +482,21 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 	}
 	
 	for( i=0; i<max_num_cols; i++){
-		lowercaseColDescr = assign_string(ColDescr[i]);
-		convert_string_in_lower_case(lowercaseColDescr);
+		lowercaseColDescr = ColDescr[i];
+        boost::algorithm::to_lower(lowercaseColDescr);
 				
 		for (j=0; j<num_cols_header; j++) {
-			convert_string_in_lower_case(header[j]);	
+            boost::algorithm::to_lower(header[j]);
 			
-			if (strcmp(lowercaseColDescr, header[j]) == 0 && coder[i] == -1 && strcmp(string_novalue, header[j]) != 0 ) {
+			if (lowercaseColDescr == header[j] && coder[i] == -1 && geotop::input::gStringNoValue != header[j]) {
 				coder[i] = j;
-				fprintf(flog,"Column %ld in file %s assigned to %s\n",j+1,filename.c_str(),ColDescr[i]);
-				printf("Column %ld in file %s assigned to %s\n",j+1,filename.c_str(),ColDescr[i]);
-			}else if (strcmp(lowercaseColDescr, header[j]) == 0 && coder[i] != -1) {
+				fprintf(flog,"Column %ld in file %s assigned to %s\n",j+1,filename.c_str(),ColDescr[i].c_str());
+				printf("Column %ld in file %s assigned to %s\n",j+1,filename.c_str(),ColDescr[i].c_str());
+			}else if (lowercaseColDescr == header[j] && coder[i] != -1) {
 				//printf("Keyword %s presented twice in file %s\n",ColDescr[i],filename);
 				t_error("Column name DUPLICATED in a comma-separated-value tables!");
 			}
-		}
-		free(lowercaseColDescr);
-		
+		}		
 	}	
 	
 	return coder;
@@ -509,10 +505,10 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 
   long count_lines(std::string meteo_file_name, long comment_char, long sep_char){
 	FILE *f;
-	char **header;
+    std::vector<std::string> header;
 	double *line;
 	short success, endoffile;
-	long  i, components, cont;
+	long  components, cont;
 	
 	f = fopen(meteo_file_name.c_str(), "r");
 	if (f==NULL){
@@ -524,14 +520,7 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 	do{
 		header = readline_of_strings(f, comment_char, sep_char, &components, &endoffile, &success);
 	}while(success != 1 && endoffile == 0);
-	
-	if (success == 1){
-		for (i=0; i<components; i++) {
-			free(header[i]);
-		}
-		free(header);
-	}
-	
+
 	if (endoffile == 1){
 		fclose(f);
 		return 0;
@@ -572,7 +561,7 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 					data[cont][i] = line[i];
 				}
 				for (i=components; i<components_header; i++) {
-					data[cont][i] = (double)number_novalue;
+					data[cont][i] = geotop::input::gDoubleNoValue;
 				}
 			}else {
 				for (i=0; i<components_header; i++) {
@@ -590,14 +579,13 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 }
 
 
-//double **read_txt_matrix(char *filename, long comment_char, long sep_char, char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog){
-  double **read_txt_matrix(std::string filename, long comment_char, long sep_char, char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog){
+double **read_txt_matrix(std::string filename, long comment_char, long sep_char, std::vector<std::string> Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog){
 	
-	/*Read header, and create a **double with the same columns as the header. Then fill with number_absent the columns
+	/*Read header, and create a **double with the same columns as the header. Then fill with geotop::input::gDoubleAbsent the columns
 	 missing with respect to Col_Descr*/
 
 	FILE *f;
-	char **Header;
+	std::vector<std::string> Header;
 	double **Data, **Dataout;
 	long *Coder, ncols, i, j;
 	
@@ -621,19 +609,14 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 			if (Coder[j]!=-1) {
 				Dataout[i][j] = Data[i][Coder[j]];
 			}else {
-				Dataout[i][j] = (double)number_absent;
+				Dataout[i][j] = geotop::input::gDoubleAbsent;
 			}				
 		}
 		free(Data[i]);
 	}
 	free(Data);
 	free(Coder);
-	
-	for (j=0; j<ncols; j++) {
-		free(Header[j]);
-	}
-	free(Header);
-	
+    
 	return Dataout;
 	
 }
@@ -642,12 +625,12 @@ long *ColumnCoder(std::string filename, char **ColDescr, long max_num_cols, char
 //double **read_txt_matrix_2(char *filename, long comment_char, long sep_char, long ncolsCol_Descr, long *nlines){
 double **read_txt_matrix_2(std::string filename, long comment_char, long sep_char, long ncolsCol_Descr, long *nlines){
 	
-	/*Read header, and create a **double with the same columns as Col_Descr, filling with number_novalue the missing columns*/
+	/*Read header, and create a **double with the same columns as Col_Descr, filling with geotop::input::gDoubleNoValue the missing columns*/
 	
 	FILE *f;
-	char **Header;
+    std::vector<std::string> Header;
 	double **Dataout;
-	long ncols, j;
+	long ncols;
 		
 	*nlines = count_lines(filename, comment_char, sep_char);
 	
@@ -660,25 +643,10 @@ double **read_txt_matrix_2(std::string filename, long comment_char, long sep_cha
 	Header = ReadHeader(f, filename, &ncols);
 	Dataout = read_datamatrix(f, filename, comment_char, sep_char, *nlines, ncolsCol_Descr);
 	fclose(f);
-				
-	for (j=0; j<ncols; j++) {
-		free(Header[j]);
-	}
-	free(Header);
-	
+
 	return Dataout;
 	
 }
-
-
-char * assign_string(char const * const a){
-	char *b;
-	int n = 1+strlen(a);
-	b = (char*)malloc(n*sizeof(char));
-	b = strcpy(b, a);
-	return b;
-}
-
 
 void convert_string_in_lower_case(char *s){
 

@@ -11,9 +11,6 @@
 #include <stdio.h>
 #include <iostream>
 
-//char *WORKING_DIRECTORY='\0';
-std::string WORKING_DIRECTORY;
-
 /*WORKING_POSITION=SEEK_SET;*/
 
 FILE * EXTERNAL_FILE;

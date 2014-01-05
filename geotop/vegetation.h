@@ -24,30 +24,11 @@
 #include "datastructs.h"
 #include "constants.h"
 #include "struct.geotop.h"
+#include "geotop_common.h"
 #include "meteo.h"
 #include "turbulence.h"
 #include "radiation.h"
 #include <vector>
-
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-//extern char *logfile;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
-//void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta, double Qa,
-//	double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR, double P,
-//	double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, double *land, double Wcrn0, double Wcrnmax,
-//	double Wcsn0, double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
-//	double *dHgdT, double *LEv, double *Eg, double *dEgdT, double *Ts, double *Qs, double *froot, double *theta,
-//	DOUBLEVECTOR *soil_transp_layer, double *Lobukhov, PAR *par, long n, double *rm, double *rh, double *rv, double *rc,
-//	double *rb, double *ruc, double *u_top, double *Etrans, double *Tv, double *Qv, double *decay, double *Locc,
-//	double *LWup_above_v, double psi, double **soil, double *T, DOUBLEVECTOR *soil_evap_layer);
 
 void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta, double Qa, 
 		   double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR, double P, 

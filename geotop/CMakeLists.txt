@@ -50,8 +50,6 @@ ENDIF(COMMAND CMAKE_POLICY)
 			struct.geotop.h
 			geotop_common.cc
 			geotop_common.h
-			keywords.h
-			keywords.cc
 		   )
 
 	ADD_LIBRARY(${GEOTOP_ENERGY_BALANCE_LIBRARIES} ${LINKING_MODE}

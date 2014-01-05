@@ -29,11 +29,6 @@
 #include "../libraries/ascii/rw_maps.h"
 #include "../libraries/ascii/tabs.h"
 
-extern long number_absent, number_novalue;
-extern char *string_novalue;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
 void time_interp_linear(double t0, double tbeg, double tend, double *out, double **data, long nlines, long ncols, long col_date, short flag, long *istart);
 void time_interp_constant(double t0, double tbeg, double tend, double *out, double **data, long nlines, long ncols, long col_date, short flag, long *istart);
 void time_no_interp(short flag, long *istart, double *out, double **data, long nlines, long ncols, long col_date, double tbeg);
@@ -42,13 +37,13 @@ double integrate_meas_constant_beh(short flag, double t, long i, double **data, 
 long find_line_data(short flag, double t, long ibeg, double **data, long col_date, long nlines, short *a);
 double time_in_JDfrom0(short flag, long i, long col, double **data);
 long find_station(long metvar, long nstat, double **var);
-double **read_horizon(short a, long i, std::string name, char **ColDescr, long *num_lines, FILE *flog);
+double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines, FILE *flog);
 short fixing_dates(long imeteo, double **data, double ST, double STstat, long nlines, long date12col, long JDfrom0col);
-short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWx, char *HeaderWy);
-short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir);
-short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin);
-short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH);
-short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, char *HeaderPrecInt);
+short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWx, std::string HeaderWy);
+short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWSpeed, std::string HeaderWdir);
+short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, std::string HeaderTdew, double RHmin);
+short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, std::string HeaderRH);
+short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt);
 void check_times(long imeteo, double **data, long nlines, long JDfrom0);
 void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
 						 short added_cloudiness, short added_Tdew, short added_RH, short added_Pint);

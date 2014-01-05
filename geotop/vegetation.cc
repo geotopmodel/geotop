@@ -20,6 +20,7 @@
  */
 
 #include "vegetation.h"
+#include "geotop_common.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -100,7 +101,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 		DT=( -C*(T10-T00)/par->Dt + SWv + A*h1 + (1.0-A)*h0 ) / ( C/par->Dt - A*dhdT );
 		
 		if(DT!=DT){
-			f = fopen(FailedRunFile.c_str(), "w");
+			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 			fprintf(f,"Error:: NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c); 
 			fclose(f);
 			t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -186,7 +187,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 	Turbulence::turbulent_fluxes(*ruc, *ruc/beta, P, *Ts , Tg, *Qs, alpha*Qg, alpha*dQgdT, *Hg, *dHgdT, *Eg, *dEgdT);
 		
 	if(*Tv!=(*Tv)){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Tv no value %ld %ld\n",r,c);
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -343,7 +344,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 	*Locc=Loc;
 
 	if(*h!=(*h)){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -525,7 +526,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 	*hc_ris=(*hc_ris)*1.E-3;//[m]
 	
 	if(zmu<(*hc_ris)){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Wind speed measurement height:%f m\n",zmu);
 		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
 		fprintf(f,"Wind Speed must be measured above vegetation");
@@ -534,7 +535,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 	}
 
 	if(zmt<(*hc_ris)){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Temperature measurement height:%f m\n",zmt);
 		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
 		fprintf(f,"Temperatute must be measured above vegetation");
@@ -543,7 +544,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 	}
 	
 	if(*hc_ris-(*d0_ris)<(*z0_ris)){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
 		fprintf(f,"Effective 0 displacement height:%f m\n",*d0_ris);
 		fprintf(f,"Effective roughness length:%f m\n",*z0_ris);

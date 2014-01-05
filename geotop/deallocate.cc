@@ -20,6 +20,7 @@
  */
 #include "deallocate.h"
 #include "geotop_common.h"
+#include "inputKeywords.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -32,75 +33,48 @@
 	long i,j,r,l;
 	
 	printf("Close files\n");
-	if(files[fpointwriteend] != string_novalue) fclose(ffpoint);
-	if(files[fsnTzwriteend] != string_novalue) fclose(ffsnowT);
-	if(files[fsnlzwriteend] != string_novalue) fclose(ffsnowl);
-	if(files[fsnizwriteend] != string_novalue) fclose(ffsnowi);
-	if(files[fsndzwriteend] != string_novalue) fclose(ffsnowd);
-	if(files[fglzwriteend] != string_novalue) fclose(ffglac);
-	if(files[fbaswriteend] != string_novalue) fclose(ffbas);
-	if(files[fTzwriteend] != string_novalue) fclose(ffT);
-	if(files[fTzavwriteend] != string_novalue) fclose(ffTav);
-	if(files[fpsizwriteend] != string_novalue) fclose(ffpsi);
-	if(files[fpsiztotwriteend] != string_novalue) fclose(ffpsitot);
-	if(files[fliqzwriteend] != string_novalue) fclose(ffliq);
-	if(files[ficezwriteend] != string_novalue) fclose(ffice);
+	if(geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpoint);
+	if(geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowT);
+	if(geotop::common::Variables::files[fsnlzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowl);
+	if(geotop::common::Variables::files[fsnizwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowi);
+	if(geotop::common::Variables::files[fsndzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowd);
+	if(geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffglac);
+	if(geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffbas);
+	if(geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffT);
+	if(geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffTav);
+	if(geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpsi);
+	if(geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpsitot);
+	if(geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffliq);
+	if(geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffice);
 	
 	printf("Deallocating global variables\n"); 
 	if(par->state_pixel==1){
 		for (i=0; i<otot; i++) {
-			free(odpnt[i]);
-			free(odp[i]);
+			free(geotop::common::Variables::odpnt[i]);
+			free(geotop::common::Variables::odp[i]);
 		}
-		free(odpnt);
-		free(odp);
+		free(geotop::common::Variables::odpnt);
+		free(geotop::common::Variables::odp);
 	}
-	for (i=0; i<otot; i++) {
-		free(hpnt[i]);
-	}
-	free(hpnt);
-	free(opnt);
-	free(ipnt);
-	
-	for (i=0; i<ootot; i++) {
-		free(hbsn[i]);
-	}
-	free(odbsn);
-	free(odb);
-	free(hbsn);
-	free(obsn);
-	free(ibsn);
 
-/*
-	for (j=0; j<10; j++) {
-		free(hsnw[j]);
-		free(hglc[j]);
-	}
-	free(hsnw);
-	free(hglc);
+    free(geotop::common::Variables::opnt);
+	free(geotop::common::Variables::ipnt);
 	
-	free(osnw);
-	free(oglc);
-		
-	for (j=0; j<6; j++) {
-		free(hsl[j]);
-	}
-	free(hsl);
-	free(osl);
-*/
- 
-//	free(WORKING_DIRECTORY);
-	
+	free(geotop::common::Variables::odbsn);
+	free(geotop::common::Variables::odb);
+	free(geotop::common::Variables::obsn);
+	free(geotop::common::Variables::ibsn);
+ 	
 	/* Deallocation of struct SOIL "sl": */
 	printf("Deallocating soil\n");
 //	free_doublematrix(sl->Ptot);
 
     //commenting the following statements, since they have no body
     /*
-	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0);// free_doublematrix(sl->T_av_tensor);
-	if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0);// free_doublematrix(sl->T_av_tensor);
-	if(strcmp(files[fliqav] , string_novalue) != 0);// free_doublematrix(sl->thw_av_tensor);
-	if(strcmp(files[ficeav] , string_novalue) != 0);// free_doublematrix(sl->thi_av_tensor);
+	if(strcmp(geotop::common::Variables::files[fTav] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fTavsup] , geotop::input::gStringNoValue) != 0);// free_doublematrix(sl->T_av_tensor);
+	if(strcmp(geotop::common::Variables::files[fTav] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fTavsup] , geotop::input::gStringNoValue) != 0);// free_doublematrix(sl->T_av_tensor);
+	if(strcmp(geotop::common::Variables::files[fliqav] , geotop::input::gStringNoValue) != 0);// free_doublematrix(sl->thw_av_tensor);
+	if(strcmp(geotop::common::Variables::files[ficeav] , geotop::input::gStringNoValue) != 0);// free_doublematrix(sl->thi_av_tensor);
     */
 
 //	free_doublematrix(sl->T_av_tensor);
@@ -114,14 +88,14 @@
     //commenting the following statements, since they have no body
     /*
 	if(par->state_pixel == 1){
-		if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->Tzplot);
-		if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) ;//free_doublematrix(sl->Tzavplot);
-		if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->Ptotzplot);
-		if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->Pzplot);
-		if(strcmp(files[fliqz] , string_novalue) != 0 || strcmp(files[fliqzwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->thzplot);
-		if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->thzavplot);
-		if(strcmp(files[ficez] , string_novalue) != 0 || strcmp(files[ficezwriteend] , string_novalue) != 0) ;// free_doublematrix(sl->thizplot);
-		if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) ;//free_doublematrix(sl->thizavplot);
+		if(strcmp(geotop::common::Variables::files[fTz] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fTzwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->Tzplot);
+		if(strcmp(geotop::common::Variables::files[fTzav] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fTzavwriteend] , geotop::input::gStringNoValue) != 0) ;//free_doublematrix(sl->Tzavplot);
+		if(strcmp(geotop::common::Variables::files[fpsiztot] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fpsiztotwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->Ptotzplot);
+		if(strcmp(geotop::common::Variables::files[fpsiz] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fpsizwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->Pzplot);
+		if(strcmp(geotop::common::Variables::files[fliqz] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fliqzwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->thzplot);
+		if(strcmp(geotop::common::Variables::files[fliqzav] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[fliqzavwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->thzavplot);
+		if(strcmp(geotop::common::Variables::files[ficez] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[ficezwriteend] , geotop::input::gStringNoValue) != 0) ;// free_doublematrix(sl->thizplot);
+		if(strcmp(geotop::common::Variables::files[ficezav] , geotop::input::gStringNoValue) != 0 || strcmp(geotop::common::Variables::files[ficezavwriteend] , geotop::input::gStringNoValue) != 0) ;//free_doublematrix(sl->thizavplot);
 	}
     */
 
@@ -162,8 +136,8 @@
 	
 //	free_longmatrix(top->lrc_cont);
 	
-	for(l=0;l<=Nl;l++){
-		for(r=1;r<=Nr;r++){
+	for(l=0;l<=geotop::common::Variables::Nl;l++){
+		for(r=1;r<=geotop::common::Variables::Nr;r++){
 			free(top->i_cont[l][r]);
 		}
 		free(top->i_cont[l]);
@@ -171,7 +145,7 @@
 	free(top->i_cont);
 	
 //	free_longmatrix(top->rc_cont);
-	for(r=1;r<=Nr;r++){
+	for(r=1;r<=geotop::common::Variables::Nr;r++){
 		free(top->j_cont[r]);
 	}
 	free(top->j_cont);
@@ -223,7 +197,7 @@
 //	free_doublematrix(wat->PrecTot);
 //	free_doublematrix(wat->Pnet);
 
-	if (par->output_meteo_bin == 1 && files[fprec] != string_novalue){
+	if (par->output_meteo_bin == 1 &&geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
 		//free_doublevector(wat->PrTOT_mean);
 		//free_doublevector(wat->PrSNW_mean);
 		//free_doublevector(wat->Pt);
@@ -254,7 +228,7 @@
 	//free_doublevector(cnet->Vsub_cum);
 	//free_doublevector(cnet->h_sup);
 	//free_doublevector(cnet->length);
-	for (l=0; l<=Nl; l++) {
+	for (l=0; l<=geotop::common::Variables::Nl; l++) {
 		free(cnet->ch3[l]);
 	}
 	free(cnet->ch3);
@@ -275,47 +249,47 @@
 	/* Deallocation of struct ENERGY "egy": */
 	printf("Deallocating egy\n");  	
 	if(par->output_surfenergy_bin == 1){
-		if(files[fradnet] != string_novalue){
+		if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Rn_mean);
 			//free_doublevector(egy->Rn);
 		}
-		if(files[fradLWin] != string_novalue){
+		if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LWin_mean);
 			//free_doublevector(egy->LWin);
 		}	
-		if(files[fradLW] != string_novalue){
+		if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LW_mean);
 			//free_doublevector(egy->LW);
 		}	
-		if(files[fradSW] != string_novalue){
+		if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->SW_mean);
 			//free_doublevector(egy->SW);
 		}
-		if(files[fradSWin] != string_novalue){
+		if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Rswdown_mean);
 			//free_doublevector(egy->SWin);
 		}
-		if(files[fradSWinbeam] != string_novalue){
+		if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Rswbeam_mean);
 			//free_doublevector(egy->SWinb);
 		}
-		if(files[fLE] != string_novalue){
+		if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->ET_mean);
 			//free_doublevector(egy->LE);
 		}
-		if(files[fG] != string_novalue){
+		if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->SEB_mean);
 			//free_doublevector(egy->G);
 		}
-		if(files[fH] != string_novalue){
+		if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->H_mean);
 			//free_doublevector(egy->H);
 		}
-		if(files[fTs] != string_novalue){
+		if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Ts_mean);
 			//free_doublevector(egy->Ts);
 		}
-		if(files[fshadow] != string_novalue){
+		if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue){
 			//free_longvector(egy->nDt_shadow);
 			//free_longvector(egy->nDt_sun);
 			//free_shortvector(egy->shad);
@@ -326,55 +300,55 @@
 	
 //	if(times->JD_plots->nh > 1){
 	if(times->JD_plots.size() > 1){
-		if(files[pH] != string_novalue || files[pHg] != string_novalue || files[pG] != string_novalue){
+		if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Hgplot);
 			//free_doublevector(egy->Hgp);
 		}
-		if(files[pLE] != string_novalue || files[pLEg] != string_novalue || files[pG] != string_novalue){
+		if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LEgplot);
 			//free_doublevector(egy->LEgp);
 		}
-		if(files[pH] != string_novalue || files[pHv] != string_novalue){
+		if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Hvplot);
 			//free_doublevector(egy->Hvp);
 		}
-		if(files[pLE] != string_novalue || files[pLEv] != string_novalue){
+		if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LEvplot);
 			//free_doublevector(egy->LEvp);
 		}
-		if(files[pSWin] != string_novalue){
+		if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->SWinplot);
 			//free_doublevector(egy->SWinp);
 		}
-		if(files[pSWg] != string_novalue || files[pG] != string_novalue){
+		if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->SWgplot);
 			//free_doublevector(egy->SWgp);
 		}
-		if(files[pSWv] != string_novalue){
+		if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->SWvplot);
 			//free_doublevector(egy->SWvp);
 		}
-		if(files[pLWin] != string_novalue){
+		if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LWinplot);
 			//free_doublevector(egy->LWinp);
 		}
-		if(files[pLWg] != string_novalue || files[pG] != string_novalue){
+		if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LWgplot);
 			//free_doublevector(egy->LWgp);
 		}
-		if(files[pLWv] != string_novalue){
+		if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->LWvplot);
 			//free_doublevector(egy->LWvp);
 		}
-		if(files[pTs] != string_novalue){
+		if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Tsplot);
 			//free_doublevector(egy->Tsp);
 		}
-		if(files[pTg] != string_novalue){
+		if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Tgplot);
 			//free_doublevector(egy->Tgp);
 		}
-		if(files[pTv] != string_novalue){
+		if(geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue){
 			//free_doublevector(egy->Tvplot);
 		}
 	}
@@ -409,7 +383,7 @@
 
 //	if(times->JD_plots->nh > 1){
 	if(times->JD_plots.size() > 1){
-		if(files[pD] != string_novalue){
+		if(geotop::common::Variables::files[pD] != geotop::input::gStringNoValue){
 		//	free_doublevector(snow->Dplot);
 		}
 	}
@@ -435,15 +409,15 @@
 	
 	//free_doublevector(snow->age);
 	if(par->output_snow_bin == 1){
-		if(files[fsndur] != string_novalue){
+		if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
 			//free_doublevector(snow->t_snow);
 			//free_shortvector(snow->yes);
 		}
-		if(files[fsnowmelt] != string_novalue){
+		if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
 			//free_doublevector(snow->MELTED);
 			//free_doublevector(snow->melted);
 		}
-		if(files[fsnowsubl] != string_novalue){
+		if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue){
 			//free_doublevector(snow->SUBL);
 			//free_doublevector(snow->subl);
 		}
@@ -456,11 +430,11 @@
 	printf("Deallocating glacier\n");
 	if(par->max_glac_layers>0){ deallocate_statevar_3D(glac->G);
 		if(par->output_glac_bin == 1){
-			if(files[fglacmelt] != string_novalue){
+			if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
 				//free_doublevector(glac->MELTED);
 				//free_doublevector(glac->melted);
 			}
-			if(files[fglacsubl] != string_novalue){
+			if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue){
 				//free_doublevector(glac->SUBL);
 				//free_doublevector(glac->subl);
 			}
@@ -480,21 +454,21 @@
 //	free_shortmatrix(met->tau_cl_map_yes);
 //	free_shortmatrix(met->tau_cl_av_map_yes);
 	if (par->output_meteo_bin == 1){
-		//if(strcmp(files[fTa] , string_novalue) != 0) free_doublevector(met->Tamean);
-		//if(strcmp(files[fwspd] , string_novalue) != 0) free_doublevector(met->Vspdmean);
-		//if(strcmp(files[fwdir] , string_novalue) != 0) free_doublevector(met->Vdirmean);
-		//if(strcmp(files[frh] , string_novalue) != 0) free_doublevector(met->RHmean);
+		//if(strcmp(geotop::common::Variables::files[fTa] , geotop::input::gStringNoValue) != 0) free_doublevector(met->Tamean);
+		//if(strcmp(geotop::common::Variables::files[fwspd] , geotop::input::gStringNoValue) != 0) free_doublevector(met->Vspdmean);
+		//if(strcmp(geotop::common::Variables::files[fwdir] , geotop::input::gStringNoValue) != 0) free_doublevector(met->Vdirmean);
+		//if(strcmp(geotop::common::Variables::files[frh] , geotop::input::gStringNoValue) != 0) free_doublevector(met->RHmean);
 	}		
 //	if(times->JD_plots->nh > 1){
 	if(times->JD_plots.size() > 1){
-		if(files[pTa] != string_novalue) {
+		if(geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) {
 			//free_doublevector(met->Taplot);
 		}
-		if(files[pVspd] != string_novalue || files[pVdir] != string_novalue){
+		if(geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue){
 			//free_doublevector(met->Vxplot);
 			//free_doublevector(met->Vyplot);
 		}
-		if(files[pRH] != string_novalue)
+		if(geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue)
 		{
 			//free_doublevector(met->RHplot);
 		}
@@ -607,8 +581,7 @@
 	/* Deallocation of struct FILENAMES "filenames": */
 	
 	printf("Deallocating novalues\n"); 
-	free(string_novalue);
-}	
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -675,16 +648,16 @@ void deallocate_veg_state(StateVeg *V){
 	long i, j;
 	
 	if(par->state_pixel == 1){
-		if(files[fTzav] != string_novalue || files[fTzavwriteend] != string_novalue) {
+		if(geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) {
 			//initialize_doublematrix(sl->Tzavplot,0.);
 			sl->Tzavplot.resize(sl->Tzavplot.getRows(), sl->Tzavplot.getCols(),0.0);
 		}
 
-		if(files[fliqzav] != string_novalue || files[fliqzavwriteend] != string_novalue) {
+		if(geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) {
 		//	initialize_doublematrix(sl->thzavplot,0.);
 			sl->thzavplot.resize(sl->thzavplot.getRows(),sl->thzavplot.getCols(),0.0);
 		}
-		if(files[ficezav] != string_novalue || files[ficezavwriteend] != string_novalue) {
+		if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) {
 		//	initialize_doublematrix(sl->thizavplot,0.);
 			sl->thizavplot.resize(sl->thizavplot.getRows(),sl->thizavplot.getCols(),0.0);
 		}
@@ -692,31 +665,31 @@ void deallocate_veg_state(StateVeg *V){
 	//	for(i=1;i<=par->rc->nrh;i++){
 		for(i=1;i<par->rc.getRows();i++){
 			for(j=0;j<otot;j++) { 
-				odpnt[j][i-1]=0.0; 
+				geotop::common::Variables::odpnt[j][i-1]=0.0;
 			}
 		}	
 	}
 	
 	if(par->state_basin== 1){
 		for(j=0;j<ootot;j++){ 
-			odbsn[j]=0.0; 
+			geotop::common::Variables::odbsn[j]=0.0; 
 		}
 	}
 	
 	if(par->output_soil_bin == 1){
-		if(files[fTav] != string_novalue || files[fTavsup] != string_novalue) sl->T_av_tensor.resize(sl->T_av_tensor.getRows(),sl->T_av_tensor.getCols(), 0.);
-		if(files[ficeav] != string_novalue) sl->thi_av_tensor.resize(sl->thi_av_tensor.getRows(),sl->thi_av_tensor.getCols(), 0.0);
-		if(files[fliqav] != string_novalue) sl->thw_av_tensor.resize(sl->thw_av_tensor.getRows(),sl->thw_av_tensor.getCols(), 0.0);
+		if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue) sl->T_av_tensor.resize(sl->T_av_tensor.getRows(),sl->T_av_tensor.getCols(), 0.);
+		if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue) sl->thi_av_tensor.resize(sl->thi_av_tensor.getRows(),sl->thi_av_tensor.getCols(), 0.0);
+		if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue) sl->thw_av_tensor.resize(sl->thw_av_tensor.getRows(),sl->thw_av_tensor.getCols(), 0.0);
 	}
 	
 	if(par->output_snow_bin == 1){
-		if(files[fsnowmelt] != string_novalue) snow->MELTED.resize(snow->MELTED.size(), 0.);
-		if(files[fsnowsubl] != string_novalue) snow->SUBL.resize(snow->SUBL.size(), 0.0);
-		if(files[fswe] != string_novalue && par->blowing_snow==1){
-			initmatrix(0.0, snow->Wtrans_plot, land->LC, number_novalue);
-			initmatrix(0.0, snow->Wsubl_plot, land->LC, number_novalue);
+		if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue) snow->MELTED.resize(snow->MELTED.size(), 0.);
+		if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue) snow->SUBL.resize(snow->SUBL.size(), 0.0);
+		if(geotop::common::Variables::files[fswe] != geotop::input::gStringNoValue && par->blowing_snow==1){
+			initmatrix(0.0, snow->Wtrans_plot, land->LC, geotop::input::gDoubleNoValue);
+			initmatrix(0.0, snow->Wsubl_plot, land->LC, geotop::input::gDoubleNoValue);
 		}
-		if(files[fsndur] != string_novalue)
+		if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue)
 			{
 		//	initialize_doublevector(snow->t_snow, 0.);
 			snow->t_snow.resize(snow->t_snow.size(),0.0);
@@ -724,38 +697,38 @@ void deallocate_veg_state(StateVeg *V){
 	}
 	
 	if(par->max_glac_layers>0 && par->output_glac_bin==1){
-		if(files[fglacmelt] != string_novalue) glac->MELTED.resize(glac->MELTED.size(), 0.);
-		if(files[fglacsubl] != string_novalue) glac->SUBL.resize(glac->SUBL.size(), 0.);
+		if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue) glac->MELTED.resize(glac->MELTED.size(), 0.);
+		if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue) glac->SUBL.resize(glac->SUBL.size(), 0.);
 	}
 	
 	if(par->output_surfenergy_bin == 1){
 		
-		if(files[fradnet] != string_novalue) egy->Rn_mean.resize(egy->Rn_mean.size(), 0.0);
-		if(files[fradLWin] != string_novalue) egy->LWin_mean.resize(egy->LWin_mean.size(), 0.0);
-		if(files[fradLW] != string_novalue) egy->LW_mean.resize(egy->LW_mean.size(), 0.0);
-		if(files[fradSW] != string_novalue) egy->SW_mean.resize(egy->SW_mean.size(), 0.0);
-		if(files[fradSWin] != string_novalue) egy->Rswdown_mean.resize(egy->Rswdown_mean.size(), 0.0);
-		if(files[fradSWinbeam] != string_novalue) egy->Rswbeam_mean.resize(egy->Rswbeam_mean.size(), 0.0);
-		if(files[fshadow] != string_novalue){
+		if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) egy->Rn_mean.resize(egy->Rn_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue) egy->LWin_mean.resize(egy->LWin_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue) egy->LW_mean.resize(egy->LW_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue) egy->SW_mean.resize(egy->SW_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue) egy->Rswdown_mean.resize(egy->Rswdown_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue) egy->Rswbeam_mean.resize(egy->Rswbeam_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue){
 		//	initialize_longvector(egy->nDt_shadow, 0);
 			egy->nDt_shadow.resize(egy->nDt_shadow.size(),0.0);
 		//	initialize_longvector(egy->nDt_sun, 0);
 			egy->nDt_sun.resize(egy->nDt_sun.size(),0.0);
 		}
 		
-		if(files[fG] != string_novalue) egy->SEB_mean.resize(egy->SEB_mean.size(), 0.);
-		if(files[fH] != string_novalue) egy->H_mean.resize(egy->H_mean.size(), 0.0);
-		if(files[fLE] != string_novalue) egy->ET_mean.resize(egy->ET_mean.size(), 0.0);
-		if(files[fTs] != string_novalue) egy->Ts_mean.resize(egy->Ts_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue) egy->SEB_mean.resize(egy->SEB_mean.size(), 0.);
+		if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue) egy->H_mean.resize(egy->H_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue) egy->ET_mean.resize(egy->ET_mean.size(), 0.0);
+		if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue) egy->Ts_mean.resize(egy->Ts_mean.size(), 0.0);
 	}
 	
 	if (par->output_meteo_bin == 1){
-		if(files[fTa] != string_novalue) met->Tamean.resize(met->Tamean.size(), 0.0);
-		if(files[fwspd] != string_novalue) met->Vspdmean.resize(met->Vspdmean.size(), 0.0);
-		if(files[fwdir] != string_novalue) met->Vdirmean.resize(met->Vdirmean.size(),0.0);
+		if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue) met->Tamean.resize(met->Tamean.size(), 0.0);
+		if(geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue) met->Vspdmean.resize(met->Vspdmean.size(), 0.0);
+		if(geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue) met->Vdirmean.resize(met->Vdirmean.size(),0.0);
 
-		if(files[frh] != string_novalue) met->RHmean.resize(met->RHmean.size(), 0.0);
-		if(files[fprec] != string_novalue){
+		if(geotop::common::Variables::files[frh] != geotop::input::gStringNoValue) met->RHmean.resize(met->RHmean.size(), 0.0);
+		if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
 		//	initialize_doublevector(wat->PrTOT_mean, 0.);
 			wat->PrTOT_mean.resize(wat->PrTOT_mean.size(),0.0);
 		//	initialize_doublevector(wat->PrSNW_mean, 0.);

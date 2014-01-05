@@ -20,6 +20,7 @@
  */
 #ifndef CLOUDS_H
 #define CLOUDS_H
+
 #include "struct.geotop.h"
 #include "constants.h"
 #include "meteo.h"
@@ -27,10 +28,6 @@
 #include "times.h"
 
 #define filecloud "clouds.txt"
-
-extern long number_novalue, number_absent;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
 
 short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, double ST, double Z, double sky,
 									  double SWrefl_surr, long ndivday, double rotation, double Lozone, double alpha, double beta, double albedo);

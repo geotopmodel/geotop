@@ -1,87 +1,83 @@
 #include <geotop_common.h>
-#include <vector>
-#include <string>
 
-const double TZ = 1;
+std::string geotop::common::Variables::WORKING_DIRECTORY ;
 
-long number_novalue;
-long number_absent;
-char *string_novalue;
+std::vector<std::string> geotop::common::Variables::hpnt ;
+std::vector<std::string> geotop::common::Variables::hbsn ;
+std::vector<std::string> geotop::common::Variables::hsnw ;
+std::vector<std::string> geotop::common::Variables::hglc ;
+std::vector<std::string> geotop::common::Variables::hsl ;
 
-TInit *UV;
+const double geotop::common::Variables::TZ = 1;
 
-std::string logfile;
-std::vector<std::string> files;
+TInit *geotop::common::Variables::UV;
 
-long Nl = 0 ;
-long Nr = 0 ;
-long Nc = 0 ;
+std::string geotop::common::Variables::logfile;
+std::vector<std::string> geotop::common::Variables::files;
 
-double t_meteo = 0 ;
-double t_energy = 0 ;
-double t_water = 0 ;
-double t_sub = 0 ;
-double t_sup = 0 ;
-double t_blowingsnow = 0 ;
-double t_out = 0 ;
+long geotop::common::Variables::Nl = 0 ;
+long geotop::common::Variables::Nr = 0 ;
+long geotop::common::Variables::Nc = 0 ;
 
-double **odpnt = NULL ;
-double **odp = NULL ;
+double geotop::common::Variables::t_meteo = 0 ;
+double geotop::common::Variables::t_energy = 0 ;
+double geotop::common::Variables::t_water = 0 ;
+double geotop::common::Variables::t_sub = 0 ;
+double geotop::common::Variables::t_sup = 0 ;
+double geotop::common::Variables::t_blowingsnow = 0 ;
+double geotop::common::Variables::t_out = 0 ;
 
-long *opnt = NULL ;
-long nopnt = 0;
-short *ipnt = NULL ;
-short *ibsn =  NULL ;
-char **hpnt = NULL ;
+double **geotop::common::Variables::odpnt = NULL ;
+double **geotop::common::Variables::odp = NULL ;
 
-double *odbsn = NULL ;
-double *odb = NULL ;
-long *obsn = NULL ;
-long nobsn = 0 ;
-char **hbsn = NULL;
+long *geotop::common::Variables::opnt = NULL ;
+long geotop::common::Variables::nopnt = 0;
+short *geotop::common::Variables::ipnt = NULL ;
+short *geotop::common::Variables::ibsn =  NULL ;
 
-long *osnw = NULL ;
-long nosnw = 0 ;
-char **hsnw = NULL ;
+double *geotop::common::Variables::odbsn = NULL ;
+double *geotop::common::Variables::odb = NULL ;
+long *geotop::common::Variables::obsn = NULL ;
+long geotop::common::Variables::nobsn = 0 ;
 
-long *oglc = NULL ;
-long noglc = 0 ;
-char **hglc = NULL ;
+long *geotop::common::Variables::osnw = NULL ;
+long geotop::common::Variables::nosnw = 0 ;
 
-long *osl = NULL ;
-long nosl = 0 ;
-char **hsl = NULL ;
+long *geotop::common::Variables::oglc = NULL ;
+long geotop::common::Variables::noglc = 0 ;
 
-FILE *ffbas = NULL ;
-FILE *ffpoint = NULL ;
-FILE *ffT = NULL ;
-FILE *ffTav = NULL ;
-FILE *ffpsi = NULL ;
-FILE *ffpsitot = NULL ;
-FILE *ffliq = NULL ;
-FILE *ffliqav = NULL ;
-FILE *ffice = NULL ;
-FILE *fficeav = NULL ;
-FILE *ffsnowT = NULL ;
-FILE *ffsnowl = NULL ;
-FILE *ffsnow = NULL ;
-FILE *ffsnowi = NULL ;
-FILE *ffsnowd = NULL ;
-FILE *ffglac = NULL ;
+long *geotop::common::Variables::osl = NULL ;
+long geotop::common::Variables::nosl = 0 ;
 
-long i_sim = 0 ;
-long i_run = 0 ;
-long i_sim0 = 0;
-long i_run0 = 0 ;
+FILE *geotop::common::Variables::ffbas = NULL ;
+FILE *geotop::common::Variables::ffpoint = NULL ;
+FILE *geotop::common::Variables::ffT = NULL ;
+FILE *geotop::common::Variables::ffTav = NULL ;
+FILE *geotop::common::Variables::ffpsi = NULL ;
+FILE *geotop::common::Variables::ffpsitot = NULL ;
+FILE *geotop::common::Variables::ffliq = NULL ;
+FILE *geotop::common::Variables::ffliqav = NULL ;
+FILE *geotop::common::Variables::ffice = NULL ;
+FILE *geotop::common::Variables::fficeav = NULL ;
+FILE *geotop::common::Variables::ffsnowT = NULL ;
+FILE *geotop::common::Variables::ffsnowl = NULL ;
+FILE *geotop::common::Variables::ffsnow = NULL ;
+FILE *geotop::common::Variables::ffsnowi = NULL ;
+FILE *geotop::common::Variables::ffsnowd = NULL ;
+FILE *geotop::common::Variables::ffglac = NULL ;
+
+long geotop::common::Variables::i_sim = 0 ;
+long geotop::common::Variables::i_run = 0 ;
+long geotop::common::Variables::i_sim0 = 0;
+long geotop::common::Variables::i_run0 = 0 ;
 
 //char *SuccessfulRunFile, *FailedRunFile;
 
-std::string SuccessfulRunFile ;
-std::string FailedRunFile ;
+std::string geotop::common::Variables::SuccessfulRunFile ;
+std::string geotop::common::Variables::FailedRunFile ;
 
-time_t start_time ; 
-double elapsed_time = 0 ;
-double elapsed_time_start = 0 ;
-double cum_time = 0 ;
-double max_time = 0 ;
-
+time_t geotop::common::Variables::start_time ;
+double geotop::common::Variables::elapsed_time = 0 ;
+double geotop::common::Variables::elapsed_time_start = 0 ;
+double geotop::common::Variables::cum_time = 0 ;
+double geotop::common::Variables::max_time = 0 ;

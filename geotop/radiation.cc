@@ -19,6 +19,8 @@
  
  */
 #include "radiation.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
 
 using namespace mio;
 
@@ -437,7 +439,7 @@ void longwave_radiation(short state, double pvap, double RH, double T, double k1
 
 	}else{
 
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Incorrect value for longwave radiation formula\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -532,7 +534,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	double sin_alpha;// solar elevationa angle
 	double kd;
 	double kd0;
-	double tau = (double)number_novalue;
+	double tau = geotop::input::gDoubleNoValue;
 	long j;
 			
 	others = (double*)malloc(12*sizeof(double));
@@ -553,13 +555,13 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	//tau_atm_sin_alpha = tau_atm*sin_alpha;
 			
 	if (tau_atm_sin_alpha > 0) {
-		if((long)SWd!=number_absent && (long)SWd!=number_novalue && (long)SWb!=number_absent && (long)SWb!=number_novalue){
+		if((long)SWd!=geotop::input::gDoubleAbsent && (long)SWd!=geotop::input::gDoubleNoValue && (long)SWb!=geotop::input::gDoubleAbsent && (long)SWb!=geotop::input::gDoubleNoValue){
 			if( SWb+SWd > 0 && SWd > 0){
 				kd = SWd / (Fmax(0.,SWb)+SWd);
 				tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha*sky*kd );
 			}
 			
-		}else if((long)SW!=number_absent && (long)SW!=number_novalue){
+		}else if((long)SW!=geotop::input::gDoubleAbsent && (long)SW!=geotop::input::gDoubleNoValue){
 			
 			kd=0.2;
 			tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
@@ -585,7 +587,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 		}
 	}
 		
-	if( (long)tau != number_novalue){
+	if( (long)tau != geotop::input::gDoubleNoValue){
 		if(tau<GTConst::min_tau_cloud) tau=GTConst::min_tau_cloud;
 	}
 	
@@ -607,7 +609,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 {
 	double P, RH, T, c;
 		
-	double tdew = number_novalue;
+	double tdew = geotop::input::gDoubleNoValue;
 	const MeteoData& current = vec_meteo.at(i-1);
 	if ((current(MeteoData::TA) != IOUtils::nodata) && 
 	    (current(MeteoData::RH) != IOUtils::nodata) && (current(MeteoData::P) != IOUtils::nodata)) {
@@ -619,12 +621,12 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 
 	//relative humidity 
 	if (current(MeteoData::RH) != IOUtils::nodata) {
-		//if((long)met->var[i-1][iRh] != number_novalue && (long)met->var[i-1][iRh] != number_absent){
+		//if((long)met->var[i-1][iRh] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iRh] != geotop::input::gDoubleAbsent){
 		//RH = met->var[i-1][iRh]/100.;
 		RH = current(MeteoData::RH);
 	} else {
-		if ((current(MeteoData::TA) != IOUtils::nodata) && (tdew != number_novalue)) {
-			//if ( (long)met->var[i-1][iT] != number_absent && (long)met->var[i-1][iT] != number_novalue && (long)met->var[i-1][iTdew] != number_absent && (long)met->var[i-1][iTdew] != number_novalue){
+		if ((current(MeteoData::TA) != IOUtils::nodata) && (tdew != geotop::input::gDoubleNoValue)) {
+			//if ( (long)met->var[i-1][iT] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iT] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iTdew] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iTdew] != geotop::input::gDoubleNoValue){
 			//RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z->co[i]);
 			RH = RHfromTdew(current(MeteoData::TA)-273.15, tdew, current.meta.position.getAltitude());
 		}else {
@@ -638,7 +640,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 	T = current(MeteoData::TA) - 273.15;
 	
 	if (current(MeteoData::TA) == IOUtils::nodata) T = 0.0;
-	//if((long)T == number_novalue || (long)T == number_absent) T=0.0;	
+	//if((long)T == geotop::input::gDoubleNoValue || (long)T == geotop::input::gDoubleAbsent) T=0.0;	
 		
 	//c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta, (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/GTConst::omega, RH,
 	//						   T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky->co[i], SWrefl_surr);
@@ -646,11 +648,11 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 
 	//c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
 	//					    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-	//					    T, P, number_novalue, number_novalue, current(MeteoData::ISWR), E0, met->st->sky->co[i], SWrefl_surr);
+	//					    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky->co[i], SWrefl_surr);
 
 	c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
 						    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-						    T, P, number_novalue, number_novalue, current(MeteoData::ISWR), E0, met->st->sky[i], SWrefl_surr);
+						    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky[i], SWrefl_surr);
 	return c;
 }
 
@@ -666,10 +668,10 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 	P=pressure(met->st->Z[i]);
 
 	//relative humidity
-	if((long)met->var[i-1][iRh] != number_novalue && (long)met->var[i-1][iRh] != number_absent){
+	if((long)met->var[i-1][iRh] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iRh] != geotop::input::gDoubleAbsent){
 		RH=met->var[i-1][iRh]/100.;
 	}else {
-		if ( (long)met->var[i-1][iT] != number_absent && (long)met->var[i-1][iT] != number_novalue && (long)met->var[i-1][iTdew] != number_absent && (long)met->var[i-1][iTdew] != number_novalue){
+		if ( (long)met->var[i-1][iT] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iT] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iTdew] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iTdew] != geotop::input::gDoubleNoValue){
 			RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z[i]);
 		}else {
 			RH=0.4;
@@ -678,7 +680,7 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 	if(RH<0.01) RH=0.01;
 
 	T=met->var[i-1][iT];
-	if((long)T == number_novalue || (long)T == number_absent) T=0.0;
+	if((long)T == geotop::input::gDoubleNoValue || (long)T == geotop::input::gDoubleAbsent) T=0.0;
 
 	c = cloud_transmittance(JDbeg, JDend, met->st->lat[i]*GTConst::Pi/180., Delta, (met->st->lon[i]*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
 							T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky[i], SWrefl_surr);//,Lozone, alpha, beta, albedo);
@@ -765,12 +767,12 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 	long orix,oriy,k,l,kk,ll,r,c,rr,cc;
 	double sx,sy,sz,xp,yp,x,y,zray,ztopo,q,z1,z2;
 	
-	long nk=Nr;//y
-	long nl=Nc;//x
+	long nk=geotop::common::Variables::Nr;//y
+	long nl=geotop::common::Variables::Nc;//x
 //	double GDX=UV->U->co[2];
-	double GDX=UV->U[2];
+	double GDX=geotop::common::Variables::UV->U[2];
 //	double GDY=UV->U->co[1];
-	double GDY=UV->U[1];
+	double GDY=geotop::common::Variables::UV->U[1];
 					
 	sx=sin(direction)*cos(alpha);
 	sy=cos(direction)*cos(alpha);
@@ -796,17 +798,17 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 		
 		for (k=0; k<nk; k++) {
 			for (l=0; l<nl; l++) {
-				//r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
-				//c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
-				r=Nr-k;
+				//r=row(GDY*k+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				//c=col(GDX*l+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				r=geotop::common::Variables::Nr-k;
 				c=l+1;
 				kk=k;
 				ll=l;
 				xp=GDX*ll+0.5*GDX;
 				yp=GDY*kk+0.5*GDY;
-				//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-				//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-				rr=Nr-kk;
+				//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				rr=geotop::common::Variables::Nr-kk;
 				cc=ll+1;
 			//	zray=Z->co[rr][cc];
 				zray=Z[rr][cc];
@@ -821,14 +823,14 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						ll=ll+orix;
 						xp=GDX*ll+0.5*GDX;
 						yp=y;
-						//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-						rr=Nr-kk;
+						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
 					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
-						rr=Nr-(kk+oriy);
+						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-(kk+oriy);
 					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
@@ -838,13 +840,13 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						kk=kk+oriy;
 						xp=x;
 						yp=GDY*kk+0.5*GDY;
-						//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-						rr=Nr-kk;
+						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;						
 					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						cc=ll+orix+1;
 					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
@@ -877,17 +879,17 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 
 		for (k=0; k<nk; k++) {
 			for (l=0; l<nl; l++) {
-				//r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
-				//c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
-				r=Nr-k;
+				//r=row(GDY*k+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				//c=col(GDX*l+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				r=geotop::common::Variables::Nr-k;
 				c=l+1;
 				kk=k;
 				ll=l;
 				xp=GDX*ll+0.5*GDX;
 				yp=GDY*kk+0.5*GDY;
-				//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-				//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-				rr=Nr-kk;
+				//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				rr=geotop::common::Variables::Nr-kk;
 				cc=ll+1;
 			//	zray=Z->co[rr][cc];
 				zray=Z[rr][cc];
@@ -902,13 +904,13 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						kk=kk+oriy;
 						yp=GDY*kk+0.5*GDY;
 						xp=x;
-						//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-						rr=Nr-kk;
+						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
 					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						cc=ll+orix+1;
 					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
@@ -919,14 +921,14 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						ll=ll+orix;
 						yp=y;
 						xp=GDX*ll+0.5*GDX;
-						//rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-						rr=Nr-kk;
+						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
 					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
-						rr=Nr-(kk+oriy);
+						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+						rr=geotop::common::Variables::Nr-(kk+oriy);
 					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
@@ -978,15 +980,15 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	}
 
 	/*HACK egger: Commenting this out, but it needs to be changed once meteoio can read SWBeam, SWDiffuse
-	if((long)met->var[meteo_stat_num-1][iSWb]!=number_absent && (long)met->var[meteo_stat_num-1][iSWd]!=number_absent){
-		if((long)met->var[meteo_stat_num-1][iSWb]!=number_novalue && (long)met->var[meteo_stat_num-1][iSWd]!=number_novalue){
+	if((long)met->var[meteo_stat_num-1][iSWb]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][iSWd]!=geotop::input::gDoubleAbsent){
+		if((long)met->var[meteo_stat_num-1][iSWb]!=geotop::input::gDoubleNoValue && (long)met->var[meteo_stat_num-1][iSWd]!=geotop::input::gDoubleNoValue){
 			// SWbeam and SWdiffuse both available
 			SWdata=2;
 		}else{
 			SWdata=0;
 		}
-	}else if((long)met->var[meteo_stat_num-1][iSW]!=number_absent){
-		if((long)met->var[meteo_stat_num-1][iSW]!=number_novalue){
+	}else if((long)met->var[meteo_stat_num-1][iSW]!=geotop::input::gDoubleAbsent){
+		if((long)met->var[meteo_stat_num-1][iSW]!=geotop::input::gDoubleNoValue){
 			// SWglob available
 			SWdata=1;
 		}else{
@@ -999,7 +1001,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 
 	if(SWdata>0){
 		tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta, E0, Et, ST, SWrefl_surr);
-		if ( (long)tc != number_novalue){
+		if ( (long)tc != geotop::input::gDoubleNoValue){
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;
 		}else {
@@ -1012,14 +1014,14 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	// calculate tau_cloud_av:
 	*tau_cloud_av_yes = 0;
 	/*HACK egger: we are currently not reading iC itauC through MeteoIO!
-	if( (long)met->var[meteo_stat_num-1][iC]!=number_absent && (long)met->var[meteo_stat_num-1][iC]!=number_novalue ){
+	if( (long)met->var[meteo_stat_num-1][iC]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][iC]!=geotop::input::gDoubleNoValue ){
 		tc = met->var[meteo_stat_num-1][iC];
 		*tau_cloud_av_yes = 1;
 		tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
 		if(tc > 1) tc = 1.;
 		if(tc < 0) tc = 0.;	
 		*tau_cloud_av = tc;
-	}else if( (long)met->var[meteo_stat_num-1][itauC]!=number_absent && (long)met->var[meteo_stat_num-1][itauC]!=number_novalue ){
+	}else if( (long)met->var[meteo_stat_num-1][itauC]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][itauC]!=geotop::input::gDoubleNoValue ){
 		tc = met->var[meteo_stat_num-1][itauC];
 		*tau_cloud_av_yes = 1;
 		if(tc > 1) tc = 1.;
@@ -1040,14 +1042,14 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	short SWdata;
 	double tc;
 
-	if((long)met->var[met->nstsrad-1][iSWb]!=number_absent && (long)met->var[met->nstsrad-1][iSWd]!=number_absent){
-		if((long)met->var[met->nstsrad-1][iSWb]!=number_novalue && (long)met->var[met->nstsrad-1][iSWd]!=number_novalue){
+	if((long)met->var[met->nstsrad-1][iSWb]!=geotop::input::gDoubleAbsent && (long)met->var[met->nstsrad-1][iSWd]!=geotop::input::gDoubleAbsent){
+		if((long)met->var[met->nstsrad-1][iSWb]!=geotop::input::gDoubleNoValue && (long)met->var[met->nstsrad-1][iSWd]!=geotop::input::gDoubleNoValue){
 			SWdata=2;
 		}else{
 			SWdata=0;
 		}
-	}else if((long)met->var[met->nstsrad-1][iSW]!=number_absent){
-		if((long)met->var[met->nstsrad-1][iSW]!=number_novalue){
+	}else if((long)met->var[met->nstsrad-1][iSW]!=geotop::input::gDoubleAbsent){
+		if((long)met->var[met->nstsrad-1][iSW]!=geotop::input::gDoubleNoValue){
 			SWdata=1;
 		}else{
 			SWdata=0;
@@ -1058,7 +1060,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 
 	if(SWdata>0){
 		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr);//, Lozone, alpha, beta, albedo);
-		if ( (long)tc != number_novalue){
+		if ( (long)tc != geotop::input::gDoubleNoValue){
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;
 		}else {
@@ -1068,7 +1070,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 		*tau_cloud_yes = 0;
 	}
 
-	if( (long)met->var[met->nstcloud-1][iC]!=number_absent && (long)met->var[met->nstcloud-1][iC]!=number_novalue ){
+	if( (long)met->var[met->nstcloud-1][iC]!=geotop::input::gDoubleAbsent && (long)met->var[met->nstcloud-1][iC]!=geotop::input::gDoubleNoValue ){
 
 		tc = met->var[met->nstcloud-1][iC];
 
@@ -1078,7 +1080,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 		if(tc < 0) tc = 0.;
 		*tau_cloud_av = tc;
 
-	}else if( (long)met->var[met->nstcloud-1][itauC]!=number_absent && (long)met->var[met->nstcloud-1][itauC]!=number_novalue ){
+	}else if( (long)met->var[met->nstcloud-1][itauC]!=geotop::input::gDoubleAbsent && (long)met->var[met->nstcloud-1][itauC]!=geotop::input::gDoubleNoValue ){
 
 		tc = met->var[met->nstcloud-1][itauC];
 

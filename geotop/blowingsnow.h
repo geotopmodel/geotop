@@ -30,21 +30,7 @@
 #include "vegetation.h"
 #include "energy.balance.h"
 #include "meteodata.h"
-
-extern long number_novalue, number_absent;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-
-//extern char *logfile;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-extern double **odp;
-
-extern long i_sim;
+#include "geotop_common.h"
 
 //void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top, PAR *par, double t0);
 void windtrans_snow(Snow *snow, Meteo *met, Water *wat, Land *land, Topo *top, Par *par, double t0);

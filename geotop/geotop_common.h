@@ -3,93 +3,103 @@
 
 /*----------   Global variables  ------------*/
 
-#include "keywords.h"	//contains the definition of char** keywords_num and char** keywords_char
-
 #include "times.h"
 #include <string>
+#include <vector>
 
-extern const double TZ ;
+namespace geotop
+{
 
-extern long number_novalue;
-extern long number_absent;
-extern char *string_novalue;
+    namespace common
+    {
 
-// T_INIT *UV;
-extern TInit *UV;
+        class Variables
+        {
+        public:
+            static std::string WORKING_DIRECTORY ;
 
-//char *logfile;
-extern std::string logfile;
-extern std::vector<std::string> files;
+            static  std::vector<std::string> hpnt ;
+            static std::vector<std::string> hbsn ;
+            static std::vector<std::string> hsnw ;
+            static std::vector<std::string> hglc ;
+            static std::vector<std::string> hsl ;
 
-extern long Nl ;
-extern long Nr ;
-extern long Nc ;
+            static const double TZ;
 
-extern double t_meteo ;
-extern double t_energy ;
-extern double t_water ;
-extern double t_sub ;
-extern double t_sup ;
-extern double t_blowingsnow ;
-extern double t_out ;
+            static TInit *UV;
 
-extern double **odpnt ;
-extern double **odp;
-extern long *opnt ;
-extern long nopnt;
-extern short *ipnt ;
-extern short *ibsn;
-extern char **hpnt;
+            static std::string logfile;
+            static std::vector<std::string> files;
 
-extern double *odbsn ;
-extern double *odb;
-extern long *obsn ;
-extern long nobsn;
-extern char **hbsn;
+            static long Nl ;
+            static long Nr ;
+            static long Nc ;
 
-extern long *osnw ;
-extern long nosnw;
-extern char **hsnw;
+            static double t_meteo ;
+            static double t_energy ;
+            static double t_water ;
+            static double t_sub ;
+            static double t_sup ;
+            static double t_blowingsnow ;
+            static double t_out ;
 
-extern long *oglc ;
-extern long noglc;
-extern char **hglc;
+            static double **odpnt ;
+            static double **odp ;
 
-extern long *osl ;
-extern long nosl;
-extern char **hsl;
+            static long *opnt ;
+            static long nopnt ;
+            static short *ipnt ;
+            static short *ibsn ;
 
-extern FILE *ffbas ;
-extern FILE *ffpoint ;
-extern FILE *ffT ;
-extern FILE *ffTav ;
-extern FILE *ffpsi ;
-extern FILE *ffpsitot ;
-extern FILE *ffliq ;
-extern FILE *ffliqav ;
-extern FILE *ffice ;
-extern FILE *fficeav ;
-extern FILE *ffsnow ;
-extern FILE *ffsnowT ;
-extern FILE *ffsnowl ;
-extern FILE *ffsnowi ;
-extern FILE *ffsnowd ;
-extern FILE *ffglac ;
+            static double *odbsn  ;
+            static double *odb  ;
+            static long *obsn  ;
+            static long nobsn  ;
 
-extern long i_sim ;
-extern long i_run ;
-extern long i_sim0 ;
-extern long i_run0 ;
+            static long *osnw  ;
+            static long nosnw  ;
 
-//char *SuccessfulRunFile, *FailedRunFile;
+            static long *oglc  ;
+            static long noglc  ;
 
-extern std::string SuccessfulRunFile ;
-extern std::string FailedRunFile ;
+            static long *osl  ;
+            static long nosl  ;
 
-extern time_t start_time ; 
-extern double elapsed_time ;
-extern double elapsed_time_start ;
-extern double cum_time ;
-extern double max_time ;
+            static FILE *ffbas  ;
+            static FILE *ffpoint  ;
+            static FILE *ffT  ;
+            static FILE *ffTav  ;
+            static FILE *ffpsi  ;
+            static FILE *ffpsitot  ;
+            static FILE *ffliq  ;
+            static FILE *ffliqav  ;
+            static FILE *ffice  ;
+            static FILE *fficeav  ;
+            static FILE *ffsnowT  ;
+            static FILE *ffsnowl  ;
+            static FILE *ffsnow  ;
+            static FILE *ffsnowi  ;
+            static FILE *ffsnowd  ;
+            static FILE *ffglac  ;
+
+            static long i_sim  ;
+            static long i_run  ;
+            static long i_sim0 ;
+            static long i_run0  ;
+
+            //char *SuccessfulRunFile, *FailedRunFile;
+
+            static std::string SuccessfulRunFile ;
+            static std::string FailedRunFile ;
+
+            static time_t start_time ;
+            static double elapsed_time  ;
+            static double elapsed_time_start  ;
+            static double cum_time  ;
+            static double max_time  ;
+        } ;
+
+    } // end namespace common
+} // end namespace geotop
 
 #endif //__GEOTOP_COMMON__
