@@ -670,7 +670,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	       }
 	    */
 	    fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex <= Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
+            for(size_t lIndex = 0 ; lIndex <= geotop::common::Variables::Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
             {
                 fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
             }
@@ -710,7 +710,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	       }
 	     */
 	    fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex <= Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
+            for(size_t lIndex = 0 ; lIndex <= geotop::common::Variables::Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
             {
                 fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
             }
@@ -2723,7 +2723,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, Energy *E
     E->ice[2] -= ic;
 	
 #ifdef VERBOSE
-	for(l=1;l<=Nl+1;l++){
+	for(l=1;l<=geotop::common::Variables::Nl+1;l++){
 		printf("SUX-6 l:%ld ice:%f liq:%f dw:%f D:%f T:%f D1:%f ic:%f wa:%f \n",l,E->ice[l],E->liq[l],E->deltaw[l],E->Dlayer[l],E->Temp[l],D1,ic,wa);
 	}
 #endif

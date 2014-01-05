@@ -122,7 +122,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 	M = m*(geotop::common::Variables::Nl+1);
 	
 #ifdef VERBOSE
-	printf("cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
+	printf("cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",geotop::common::Variables::Nl,n,m,N,M);
 #endif
 	
 	for(j=1; j<=N+M; j++){
@@ -199,7 +199,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	M = m*(geotop::common::Variables::Nl+1);
 	
 #ifdef VERBOSE
-	printf("cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",Nl,n,m,N,M);
+	printf("cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n",geotop::common::Variables::Nl,n,m,N,M);
 #endif
 
 	for(j=1; j<=N+M; j++){
