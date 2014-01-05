@@ -430,6 +430,7 @@ std::string keywords_num[] = {
 };
 #endif
 
+#ifdef STAGED_FOR_REMOVING
 std::string  keywords_char[] = {                           
     "HeaderDateDDMMYYYYhhmmMeteo",                         /*   0 */
     "HeaderJulianDayfrom0Meteo",                           /*   1 */
@@ -798,3 +799,4 @@ std::string  keywords_char[] = {
     "FailedRunFile",                                       /* 364 */
     "SubfolderRecoveryFiles"                               /* 365 */
 };
+#endif

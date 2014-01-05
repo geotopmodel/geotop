@@ -26,20 +26,6 @@
 #include "meteo.h"
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
-//#include "../libraries/math/util_math.h"
-//#include "../libraries/geomorphology/geomorphology.h"
-
-extern long number_novalue, number_absent;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
-extern long Nl, Nr, Nc;
 
 void sun(double JDfrom0, double *E0, double *Et, double *Delta);
 

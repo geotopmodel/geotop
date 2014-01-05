@@ -20,6 +20,7 @@
  */
 
 #include "recovering.h"
+#include "geotop_common.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ using namespace std;
 //	temp = namefile_i_we2(name, n);
 //
 //	//if(par->point_sim == 0){
-//		//M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+//		//M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 //		meteoio_readMap(string(temp), M);
 //
 //	//	for (r=1; r<=M->nrh; r++) {
@@ -55,7 +56,7 @@ using namespace std;
 //		}
 //
 //	/*}else{
-//		M = read_map(1, temp, Zpoint, UV, (double)number_novalue);
+//		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 //		for(i=1; i<=par->r_points->nh; i++){
 //			r = par->r_points->co[i];
 //			c = par->c_points->co[i];
@@ -81,7 +82,7 @@ using namespace std;
 	temp = namefile_i_we2(name, n);
 	
 	//if(par->point_sim == 0){
-	//	M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+	//	M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 		meteoio_readMap(string(temp), M);
 	//	for (i=1; i<=rc->nrh; i++) {
 		for (i=1; i<rc.getRows(); i++) {
@@ -94,7 +95,7 @@ using namespace std;
 		}
 		
 	/*}else{
-		M = read_map(1, temp, Zpoint, UV, (double)number_novalue);
+		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 		for(i=1; i<=par->r_points->nh; i++){
 			r = par->r_points->co[i];
 			c = par->c_points->co[i];
@@ -122,7 +123,7 @@ using namespace std;
  	temp = namefile_i_we2(name, n);
 
  	//	if(par->point_sim == 0){
- 	//	M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+ 	//	M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
  		meteoio_readMap(string(temp), M);
  	//	for (r=1; r<=M->nrh; r++) {
  		for (r=1; r< M.getRows(); r++) {
@@ -134,7 +135,7 @@ using namespace std;
  		}
 
  	/*}else{
- 		M = read_map(1, temp, Zpoint, UV, (double)number_novalue);
+ 		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
  		for(i=1; i<=par->r_points->nh; i++){
  			r = par->r_points->co[i];
  			c = par->c_points->co[i];
@@ -166,7 +167,7 @@ using namespace std;
   		temp2 = namefile_i_we(temp1, l);
 
   		//	if(par->point_sim == 0){
-  		//	M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+  		//	M = read_map(1, temp2, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
   			meteoio_readMap(string(temp2), M);
   		//	for (r=1; r<=M->nrh; r++) {
   			for (r=1; r< M.getRows(); r++) {
@@ -178,7 +179,7 @@ using namespace std;
   			}
 
   		/*}else{
-  			M = read_map(1, temp2, Zpoint, UV, (double)number_novalue);
+  			M = read_map(1, temp2, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
   			for(i=1; i<=par->r_points->nh; i++){
   				r = par->r_points->co[i];
   				c = par->c_points->co[i];
@@ -211,7 +212,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
     		temp2 = namefile_i_we(temp1, l);
 
     		//	if(par->point_sim == 0){
-    		//	M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+    		//	M = read_map(1, temp2, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
     			meteoio_readMap(temp2, M);
     		//	for (i=1; i<=rc->nrh; i++) {
     			for (i=1; i<rc.getRows(); i++) {
@@ -224,7 +225,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
     			}
 
     		/*}else{
-    			M = read_map(1, temp2, Zpoint, UV, (double)number_novalue);
+    			M = read_map(1, temp2, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
     			for(i=1; i<=par->r_points->nh; i++){
     				r = par->r_points->co[i];
     				c = par->c_points->co[i];
@@ -257,7 +258,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
    		temp1 = namefile_i_we2(name, n);
    		temp2 = namefile_i_we(temp1, l);
 
-   		//M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+   		//M = read_map(1, temp2, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
    		meteoio_readMap(temp2, M);
 
    	//	for (ch=1; ch<=r->nh; ch++) {

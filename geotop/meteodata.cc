@@ -21,6 +21,8 @@
 
 #include "meteodata.h"
 #include "config.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -43,55 +45,55 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
 
     for (i=0; i<ncols; i++) {
 
-        if ( (long)data[0][i] == number_absent) {
+        if ( (long)data[0][i] == geotop::input::gDoubleAbsent) {
 
-            out[i] = (double)number_absent;
+            out[i] = (double)geotop::input::gDoubleAbsent;
 
         }else if (abeg == 1 && aend == 1) {
 
             out[i] = 0.;
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = integrate_meas_linear_beh(flag, tbeg, ibeg+1, data, i, col_date);
                 //printf("0:tbeg:%f %f\n",tbeg,add);
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
             }
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = -integrate_meas_linear_beh(flag, tend, iend+1, data, i, col_date);
                 //printf("end:tend:%f %f\n",tend,add);
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
             }
 
             j = ibeg+1;
-            while ( (long)out[i] != number_novalue && j <= iend) {
+            while ( (long)out[i] != geotop::input::gDoubleNoValue && j <= iend) {
                 t = time_in_JDfrom0(flag, j, col_date, data);
                 add = integrate_meas_linear_beh(flag, t, j+1, data, i, col_date);
                 //printf("j:%ld:t:%f %f\n",j,t,add);
                 j++;
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
 
             }
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 out[i] /= (tend	- tbeg);
             }
 
         }else {
 
-            out[i] = (double)number_novalue;
+            out[i] = geotop::input::gDoubleNoValue;
 
         }
     }
@@ -120,9 +122,9 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
     for (i=0; i<ncols; i++) {
 
-        if ( (long)data[0][i] == number_absent) {
+        if ( (long)data[0][i] == geotop::input::gDoubleAbsent) {
 
-            out[i] = (double)number_absent;
+            out[i] = (double)geotop::input::gDoubleAbsent;
 
         }else if (abeg == 1 && aend == 1) {
 
@@ -130,43 +132,43 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
             j = ibeg;
 
-            while ( (long)out[i] != number_novalue && j < iend) {
+            while ( (long)out[i] != geotop::input::gDoubleNoValue && j < iend) {
                 t = time_in_JDfrom0(flag, j+1, col_date, data);
                 add = integrate_meas_constant_beh(flag, t, j+1, data, i, col_date);
                 //printf("j:%ld t:%f int:%f va:%f\n",j,t,add,data[j+1][i]);
                 j++;
 
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
             }
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = -integrate_meas_constant_beh(flag, tbeg, ibeg+1, data, i, col_date);
                 //printf(":j:%ld t:%f int:%f va:%f\n",ibeg,tbeg,add);
 
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
             }
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = integrate_meas_constant_beh(flag, tend, iend+1, data, i, col_date);
                 //printf("::j:%ld t:%f int:%f va:%f\n",iend,tend,add,data[iend+1][i]);
 
-                if ((long)add != number_novalue) {
+                if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
-                    out[i] = (double)number_novalue;
+                    out[i] = geotop::input::gDoubleNoValue;
                 }
 
             }
 
-            if ( (long)out[i] != number_novalue) {
+            if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 out[i] /= (tend	- tbeg);
             }
 
@@ -174,7 +176,7 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
         }else {
 
-            out[i] = (double)number_novalue;
+            out[i] = geotop::input::gDoubleNoValue;
 
             printf("<-i:%ld out:%f\n\n",i,out[i]);
 
@@ -206,17 +208,17 @@ void time_no_interp(short flag, long *istart, double *out, double **data, long n
 
     for (i=0; i<ncols; i++) {
 
-        if ( (long)data[0][i] == number_absent) {
+        if ( (long)data[0][i] == geotop::input::gDoubleAbsent) {
 
-            out[i] = (double)number_absent;
+            out[i] = (double)geotop::input::gDoubleAbsent;
 
-        }else if (abeg == 1 && (long)data[ibeg][i] != number_novalue) {
+        }else if (abeg == 1 && (long)data[ibeg][i] != geotop::input::gDoubleNoValue) {
 
             out[i] = data[ibeg][i];
 
         }else {
 
-            out[i] = (double)number_novalue;
+            out[i] = geotop::input::gDoubleNoValue;
 
         }
     }
@@ -236,14 +238,14 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data, lo
     double t0, t1, value, res;
     FILE *f;
 
-    if( (long)data[i  ][col] != number_novalue && (long)data[i  ][col] != number_absent &&
-            (long)data[i-1][col] != number_novalue && (long)data[i-1][col] != number_absent ) {
+    if( (long)data[i  ][col] != geotop::input::gDoubleNoValue && (long)data[i  ][col] != geotop::input::gDoubleAbsent &&
+            (long)data[i-1][col] != geotop::input::gDoubleNoValue && (long)data[i-1][col] != geotop::input::gDoubleAbsent ) {
 
         t0 = time_in_JDfrom0(flag, i-1, col_date, data);
         t1 = time_in_JDfrom0(flag, i  , col_date, data);
 
         if(fabs(t0-t1) < 1.E-5){
-            f = fopen(FailedRunFile.c_str(), "w");
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Error:: There are 2 consecutive line in a meteo file with same date: t0:%12g(%ld) t1:%12g(%ld) equal",t0,i-1,t1,i);
 #else
@@ -261,7 +263,7 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data, lo
 
     }else {
 
-        res = (double)number_novalue;
+        res = geotop::input::gDoubleNoValue;
 
     }
 
@@ -278,7 +280,7 @@ double integrate_meas_constant_beh(short flag, double t, long i, double **data, 
 
     double t0, value, res;
 
-    if( (long)data[i][col] != number_novalue && (long)data[i][col] != number_absent ) {
+    if( (long)data[i][col] != geotop::input::gDoubleNoValue && (long)data[i][col] != geotop::input::gDoubleAbsent ) {
 
         t0 = time_in_JDfrom0(flag, i-1, col_date, data);
 
@@ -289,7 +291,7 @@ double integrate_meas_constant_beh(short flag, double t, long i, double **data, 
 
     }else {
 
-        res = (double)number_novalue;
+        res = geotop::input::gDoubleNoValue;
 
     }
 
@@ -368,7 +370,7 @@ long find_station(long metvar, long nstat, double **var){
 
     long i=0;
 
-    while ( (long)var[i][metvar] == number_absent && i < nstat-1 ) {
+    while ( (long)var[i][metvar] == geotop::input::gDoubleAbsent && i < nstat-1 ) {
         i++;
     }
 
@@ -380,7 +382,7 @@ long find_station(long metvar, long nstat, double **var){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_horizon(short a, long i, std::string name, char **ColDescr, long *num_lines, FILE *flog){
+double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines, FILE *flog){
 
     FILE *f;
     long j;
@@ -389,7 +391,7 @@ double **read_horizon(short a, long i, std::string name, char **ColDescr, long *
     short fileyes;
 
     //check is the file exists
-    if(name != string_novalue){
+    if(name != geotop::input::gStringNoValue){
         fileyes=1;
     }else{
         fileyes=-1;
@@ -439,7 +441,7 @@ double **read_horizon(short a, long i, std::string name, char **ColDescr, long *
         fprintf(f,"! Horizon file for met station or point #%ld \n",i);
         fprintf(f,"! All measures in degrees\n");
         fprintf(f,"\n");
-        fprintf(f,"%s,%s\n",ColDescr[0],ColDescr[1]);
+        fprintf(f,"%s,%s\n",ColDescr[0].c_str(),ColDescr[1].c_str());
 
         *num_lines = 4;
         hor = (double**)malloc((*num_lines)*sizeof(double*));
@@ -465,9 +467,9 @@ double **read_horizon(short a, long i, std::string name, char **ColDescr, long *
         temp = namefile_i(name,i);
         hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines, flog);
 
-        if ( (long)hor[0][0] == number_absent || (long)hor[0][1] == number_absent) {
-            f = fopen(FailedRunFile.c_str(), "w");
-            fprintf(f, "Error:: In the file %s the columns %s and/or %s are missing\n",temp.c_str(),ColDescr[0],ColDescr[1]);
+        if ( (long)hor[0][0] == geotop::input::gDoubleAbsent || (long)hor[0][1] == geotop::input::gDoubleAbsent) {
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+            fprintf(f, "Error:: In the file %s the columns %s and/or %s are missing\n",temp.c_str(),ColDescr[0].c_str(),ColDescr[1].c_str());
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -488,7 +490,7 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat, long nl
     long i;
     FILE *f;
 
-    if ( (long)data[0][JDfrom0col] == number_absent && (long)data[0][date12col] != number_absent) {
+    if ( (long)data[0][JDfrom0col] == geotop::input::gDoubleAbsent && (long)data[0][date12col] != geotop::input::gDoubleAbsent) {
 
         for (i=0; i<nlines; i++) {
             //converting in JDfrom0
@@ -499,13 +501,13 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat, long nl
 
         return 1;
 
-    }else if ( (long)data[0][JDfrom0col] != number_absent) {
+    }else if ( (long)data[0][JDfrom0col] != geotop::input::gDoubleAbsent) {
 
         return 0;
 
     }else {
 
-        f = fopen(FailedRunFile.c_str(), "w");
+        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
         fprintf(f, "Date and Time not available for meteo station %ld\n",imeteo);
         fclose(f);
         t_error("Fatal Error! Geotop is closed. See failing report.");
@@ -521,27 +523,27 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat, long nl
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWx, char *HeaderWy){
+short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWx, std::string HeaderWy){
 
     long i;
 
     //if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
-    if ( (long)data[0][Wspeed] != number_absent && (long)data[0][Wdir] != number_absent && ( (long)data[0][Wx] == number_absent || (long)data[0][Wy] == number_absent ) ) {
+    if ( (long)data[0][Wspeed] != geotop::input::gDoubleAbsent && (long)data[0][Wdir] != geotop::input::gDoubleAbsent && ( (long)data[0][Wx] == geotop::input::gDoubleAbsent || (long)data[0][Wy] == geotop::input::gDoubleAbsent ) ) {
         for (i=0; i<nlines; i++) {
-            if ( (long)data[i][Wspeed] != number_novalue && (long)data[i][Wdir] != number_novalue ) {
+            if ( (long)data[i][Wspeed] != geotop::input::gDoubleNoValue && (long)data[i][Wdir] != geotop::input::gDoubleNoValue ) {
                 data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * GTConst::Pi / 180.);
                 data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * GTConst::Pi / 180.);
             }else {
-                data[i][Wx] = (double)number_novalue;
-                data[i][Wy] = (double)number_novalue;
+                data[i][Wx] = geotop::input::gDoubleNoValue;
+                data[i][Wy] = geotop::input::gDoubleNoValue;
             }
 
-            if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
-                data[i][Wspeed] = (double)number_absent;
-                data[i][Wdir] = (double)number_absent;
+            if(HeaderWx != geotop::input::gStringNoValue && HeaderWy != geotop::input::gStringNoValue){
+                data[i][Wspeed] = (double)geotop::input::gDoubleAbsent;
+                data[i][Wdir] = (double)geotop::input::gDoubleAbsent;
             }
         }
-        if(strcmp(HeaderWx,string_novalue)!=0 && strcmp(HeaderWy,string_novalue)!=0){
+        if(HeaderWx != geotop::input::gStringNoValue && HeaderWy != geotop::input::gStringNoValue){
             return 1;
         }else {
             return 0;
@@ -557,15 +559,15 @@ short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir){
+short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWSpeed, std::string HeaderWdir){
 
     long i;
     double a;
 
     //if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
-    if ( (long)data[0][Wx] != number_absent && (long)data[0][Wy] != number_absent && ( (long)data[0][Wspeed] == number_absent || (long)data[0][Wdir] == number_absent ) ) {
+    if ( (long)data[0][Wx] != geotop::input::gDoubleAbsent && (long)data[0][Wy] != geotop::input::gDoubleAbsent && ( (long)data[0][Wspeed] == geotop::input::gDoubleAbsent || (long)data[0][Wdir] == geotop::input::gDoubleAbsent ) ) {
         for (i=0; i<nlines; i++) {
-            if ( (long)data[i][Wx] != number_novalue && (long)data[i][Wy] != number_novalue ) {
+            if ( (long)data[i][Wx] != geotop::input::gDoubleNoValue && (long)data[i][Wy] != geotop::input::gDoubleNoValue ) {
 
                 data[i][Wspeed] = sqrt(pow(data[i][Wx], 2.)+pow(data[i][Wy], 2.));
 
@@ -587,17 +589,17 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx,
 
             }else {
 
-                data[i][Wspeed] = (double)number_novalue;
-                data[i][Wdir] = (double)number_novalue;
+                data[i][Wspeed] = geotop::input::gDoubleNoValue;
+                data[i][Wdir] = geotop::input::gDoubleNoValue;
 
             }
 
-            if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
-                data[i][Wx] = (double)number_absent;
-                data[i][Wy] = (double)number_absent;
+            if(HeaderWSpeed != geotop::input::gStringNoValue && HeaderWdir != geotop::input::gStringNoValue){
+                data[i][Wx] = (double)geotop::input::gDoubleAbsent;
+                data[i][Wy] = (double)geotop::input::gDoubleAbsent;
             }
         }
-        if(strcmp(HeaderWSpeed,string_novalue)!=0 && strcmp(HeaderWdir,string_novalue)!=0){
+        if(HeaderWSpeed != geotop::input::gStringNoValue && HeaderWdir != geotop::input::gStringNoValue){
             return 1;
         }else {
             return 0;
@@ -613,23 +615,23 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin){
+short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, std::string HeaderTdew, double RHmin){
 
     long i;
 
-    if ( (long)data[0][RH] != number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] == number_absent ) {
+    if ( (long)data[0][RH] != geotop::input::gDoubleAbsent && (long)data[0][Tair] != geotop::input::gDoubleAbsent && (long)data[0][Tairdew] == geotop::input::gDoubleAbsent ) {
         for (i=0; i<nlines; i++) {
-            if ( (long)data[i][RH] != number_novalue && (long)data[i][Tair] != number_novalue ) {
+            if ( (long)data[i][RH] != geotop::input::gDoubleNoValue && (long)data[i][Tair] != geotop::input::gDoubleNoValue ) {
                 data[i][Tairdew] = Tdew(data[i][Tair], Fmax(RHmin, data[i][RH])/100., Z[imeteo]);
             }else {
-                data[i][Tairdew] = (double)number_novalue;
+                data[i][Tairdew] = geotop::input::gDoubleNoValue;
             }
 
-            if (strcmp(HeaderTdew, string_novalue) != 0) {
-                data[i][RH] = (double)number_absent;
+            if (HeaderTdew != geotop::input::gStringNoValue) {
+                data[i][RH] = (double)geotop::input::gDoubleAbsent;
             }
         }
-        if (strcmp(HeaderTdew, string_novalue) != 0) {
+        if (HeaderTdew != geotop::input::gStringNoValue) {
             return 1;
         }else {
             return 0;
@@ -644,23 +646,23 @@ short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, l
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, char *HeaderRH){
+short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, std::string HeaderRH){
 
     long i;
 
-    if ( (long)data[0][RH] == number_absent && (long)data[0][Tair] != number_absent && (long)data[0][Tairdew] != number_absent ) {
+    if ( (long)data[0][RH] == geotop::input::gDoubleAbsent && (long)data[0][Tair] != geotop::input::gDoubleAbsent && (long)data[0][Tairdew] != geotop::input::gDoubleAbsent ) {
         for (i=0; i<nlines; i++) {
-            if ( (long)data[i][Tairdew] != number_novalue && (long)data[i][Tair] != number_novalue ) {
+            if ( (long)data[i][Tairdew] != geotop::input::gDoubleNoValue && (long)data[i][Tair] != geotop::input::gDoubleNoValue ) {
                 data[i][RH] = 100.*RHfromTdew(data[i][Tair], data[i][Tairdew], Z[imeteo]);
             }else {
-                data[i][RH] = (double)number_novalue;
+                data[i][RH] = geotop::input::gDoubleNoValue;
             }
 
-            if (strcmp(HeaderRH, string_novalue) != 0) {
-                data[i][Tairdew] = (double)number_absent;
+            if (HeaderRH != geotop::input::gStringNoValue) {
+                data[i][Tairdew] = (double)geotop::input::gDoubleAbsent;
             }
         }
-        if (strcmp(HeaderRH, string_novalue) != 0) {
+        if (HeaderRH != geotop::input::gStringNoValue) {
             return 1;
         }else {
             return 0;
@@ -675,30 +677,30 @@ short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, lon
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, char *HeaderPrecInt){
+short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt){
 
     long i;
 
-    if ( (long)data[0][Prec] != number_absent && (long)data[0][PrecInt] == number_absent ) {
+    if ( (long)data[0][Prec] != geotop::input::gDoubleAbsent && (long)data[0][PrecInt] == geotop::input::gDoubleAbsent ) {
 
-        data[0][PrecInt] = (double)number_novalue;
+        data[0][PrecInt] = geotop::input::gDoubleNoValue;
 
         for (i=1; i<nlines; i++) {
-            if ( (long)data[i][Prec] != number_novalue) {
+            if ( (long)data[i][Prec] != geotop::input::gDoubleNoValue) {
                 data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]);//[mm/d]
                 data[i][PrecInt] /= 24.;//[mm/h]
                 //printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
             }else{
-                data[i][PrecInt] = (double)number_novalue;
+                data[i][PrecInt] = geotop::input::gDoubleNoValue;
             }
 
-            if (strcmp(HeaderPrecInt, string_novalue) != 0) {
-                data[i][Prec] = (double)number_absent;
+            if (HeaderPrecInt != geotop::input::gStringNoValue) {
+                data[i][Prec] = (double)geotop::input::gDoubleAbsent;
             }
 
         }
 
-        if (strcmp(HeaderPrecInt, string_novalue) != 0) {
+        if (HeaderPrecInt != geotop::input::gStringNoValue) {
             return 1;
         }else {
             return 0;
@@ -723,7 +725,7 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0){
 
     for (i=1; i<nlines; i++) {
         if (data[i][JDfrom0] <= data[i-1][JDfrom0]) {
-            f = fopen(FailedRunFile.c_str(), "w");
+            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Error:: Time %12g is before Time %12g of previous line in meteo file %ld at line %ld.\n",data[i][JDfrom0],data[i-1][JDfrom0],imeteo,i);
 #else
@@ -768,7 +770,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::st
 
         first_column = 1;
         for (i=0; i<nmet; i++) {
-            if ( (long)meteo[0][i] != number_absent && strcmp(header[i], string_novalue) != 0){
+            if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i] != geotop::input::gStringNoValue){
                 if (first_column == 0) {
                     fprintf(f,",");
                 }else {
@@ -789,7 +791,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::st
         for (n=0; n<meteolines; n++) {
             first_column = 1;
             for (i=0; i<nmet; i++) {
-                if ( (long)meteo[0][i] != number_absent && strcmp(header[i], string_novalue) != 0){
+                if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i] != geotop::input::gStringNoValue){
                     if (first_column == 0) {
                         fprintf(f,",");
                     }else {

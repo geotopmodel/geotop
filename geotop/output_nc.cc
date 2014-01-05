@@ -26,32 +26,15 @@
 
 #include <time.h>
  
-extern long number_novalue, number_absent;
-extern char *string_novalue;
-
-extern char *WORKING_DIRECTORY;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-extern char **files, *logfile;
-extern long Nl, Nr, Nc;
-
-extern double t_meteo, t_energy, t_water, t_sub, t_sup, t_out, t_blowingsnow;
-
-extern double **outdata_point, *outdata_basin;
-extern long *outputpoint, noutputpoint, *outputbasin, noutputbasin, *outputsnow, noutputsnow;
-extern long *outputglac, noutputglac, *outputsoil, noutputsoil;
-extern char **headerpoint, **headerbasin, **headersnow, **headerglac, **headersoil;
-
-extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
-
-extern long i_sim, i_run;*/
+*/
 
 #include "config.h"
+#include "geotop_common.h"
 
 #ifdef USE_NETCDF
 
 #include "output_nc.h"
+
 using namespace std;
 NetCDFIO ncio;
 //***************************************************************************************************************
@@ -203,60 +186,60 @@ void set_output_nc(AllData *all){
 		// soil
 		//TODO: for netCDF only 1 simulation allowed!!!
 	//	all->S->SS->P has also the component [0] at the interface soil-atmosphere
-	//	all->outnc->soil_P_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->output_soil[1]);
-		all->outnc->soil_P_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->output_soil[1]);
-	//	all->outnc->soil_T_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-		all->outnc->soil_T_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-	//	all->outnc->soil_thw_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-		all->outnc->soil_thw_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-	//	all->outnc->soil_thi_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-		all->outnc->soil_thi_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-	//	all->outnc->soil_Ptot_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
-		all->outnc->soil_Ptot_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+	//	all->outnc->soil_P_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep", all->P->output_soil[1]);
+		all->outnc->soil_P_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep", all->P->output_soil[1]);
+	//	all->outnc->soil_T_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+		all->outnc->soil_T_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+	//	all->outnc->soil_thw_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+		all->outnc->soil_thw_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+	//	all->outnc->soil_thi_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+		all->outnc->soil_thi_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+	//	all->outnc->soil_Ptot_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
+		all->outnc->soil_Ptot_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_soil[1]);
 		// snow
-//		all->outnc->snowD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-		all->outnc->snowD_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-//		all->outnc->snowT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-		all->outnc->snowT_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-//		all->outnc->snowI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-		all->outnc->snowI_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-//		all->outnc->snowW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
-		all->outnc->snowW_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+//		all->outnc->snowD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+		all->outnc->snowD_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+//		all->outnc->snowT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+		all->outnc->snowT_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+//		all->outnc->snowI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+		all->outnc->snowI_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+//		all->outnc->snowW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
+		all->outnc->snowW_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_snow[1]);
 		//glacier
-	  /*all->outnc->glacD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-		all->outnc->glacT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-		all->outnc->glacI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
-		all->outnc->glacW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->output_glac);
+	  /*all->outnc->glacD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_glac);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->output_glac);
 		*/
 //i_cont
 		// vegetation??? TODO
 		//all->S->Tv=new_doublematrix(Nr,Nc);
 	} else{// point simulation
 		// soil
-	//	all->outnc->soil_P_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->Dtplot_point[i_sim]);
-		all->outnc->soil_P_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep", all->P->Dtplot_point[i_sim]);
-	//	all->outnc->soil_T_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->soil_T_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-	//	all->outnc->soil_thw_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->soil_thw_cum=(GeoMatrix<double> *)ncio.ncgt_new_output_var((void *)&all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-	//	all->outnc->soil_thi_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->soil_thi_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-	//	all->outnc->soil_Ptot_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->soil_Ptot_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
+	//	all->outnc->soil_P_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep", all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->soil_P_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->P, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep", all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+	//	all->outnc->soil_T_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->soil_T_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->T, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+	//	all->outnc->soil_thw_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->soil_thw_cum=(GeoMatrix<double> *)ncio.ncgt_new_output_var((void *)&all->S->th, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+	//	all->outnc->soil_thi_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->soil_thi_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->SS->thi, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+	//	all->outnc->soil_Ptot_cum=(DOUBLEMATRIX *)ncio.ncgt_new_output_var((void *)all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->soil_Ptot_cum=(GeoMatrix<double>*)ncio.ncgt_new_output_var((void *)&all->S->Ptot, NC_GEOTOP_Z_UNSTRUCT_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
 		// snow
-//		all->outnc->snowD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->snowD_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-//		all->outnc->snowT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->snowT_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-//		all->outnc->snowI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->snowI_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-//		all->outnc->snowW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
-		all->outnc->snowW_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point[i_sim]);
+//		all->outnc->snowD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->snowD_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+//		all->outnc->snowT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->snowT_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+//		all->outnc->snowI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->snowI_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+//		all->outnc->snowW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
+		all->outnc->snowW_cum=(GeoTensor<double>*)ncio.ncgt_new_output_var((void *)&all->N->S->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point[geotop::common::Variables::i_sim]);
 		//glacier
-		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
-		all->outnc->glacT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
-		all->outnc->glacI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
-		all->outnc->glacW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) number_novalue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[i_sim]);
+		/*all->outnc->glacD_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->Dzl, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[geotop::common::Variables::i_sim]);
+		all->outnc->glacT_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->T, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[geotop::common::Variables::i_sim]);
+		all->outnc->glacI_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_ice, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[geotop::common::Variables::i_sim]);
+		all->outnc->glacW_cum=(DOUBLETENSOR *)ncio.ncgt_new_output_var((void *)all->G->G->w_liq, NC_GEOTOP_3D_MAP, (double) geotop::input::gDoubleNoValue, "_cum_from_previous_timestep",all->P->Dtplot_point->co[geotop::common::Variables::i_sim]);
 		*/
 	}
 }
@@ -303,7 +286,7 @@ void deallocate_output_nc(OutputNCData* outnc){
 //	//DATA POINT
 //	//****************************************************************************************************************
 //	//****************************************************************************************************************
-//	if(all->P->Dtplot_point->co[i_sim] > 1.E-5){
+//	if(all->P->Dtplot_point->co[geotop::common::Variables::i_sim] > 1.E-5){
 //		//if(par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
 //	}
 //	/* function to write in netCDF modality */
@@ -346,112 +329,112 @@ void write_output_nc(AllData* all){
  */
 	//DISCHARGE
 	//****************************************************************************************************************
-	//if(par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5 && strcmp(files[fQ] , string_novalue) != 0){}
+	//if(par->state_discharge == 1 && par->Dtplot_discharge->co[geotop::common::Variables::i_sim] > 1.E-5 && strcmp(geotop::common::Variables::files[fQ] , geotop::input::gStringNoValue) != 0){}
 
 
 	//DATA POINT
 	//****************************************************************************************************************
-	//if(all->P->Dtplot_point->co[i_sim] > 1.E-5){
+	//if(all->P->Dtplot_point->co[geotop::common::Variables::i_sim] > 1.E-5){
 	//if(par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
-	//if(par->Dtplot_point->co[i_sim] > 1.E-5){
+	//if(par->Dtplot_point->co[geotop::common::Variables::i_sim] > 1.E-5){
 		//Print of pixel-output every times->n_pixel time step
-		//if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5){
+		//if (fabs(t_point - par->Dtplot_point->co[geotop::common::Variables::i_sim])<1.E-5){
 	//soil water pressure head (Psi)
 //	soil
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_P_cum, (void *)all->S->SS->P, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 //	printf("all->outnc->soil_P_cum->nrl=%ld, all->outnc->soil_P_cum->nrh=%ld, all->outnc->soil_P_cum->ncl=%ld, all->outnc->soil_P_cum->nch=%ld",all->outnc->soil_P_cum->nrl, all->outnc->soil_P_cum->nrh, all->outnc->soil_P_cum->ncl, all->outnc->soil_P_cum->nch); stop_execution();
 
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_P_cum, (void *)&all->S->SS->P, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 										  NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, 
 										  &all->P->rc, 
 										  all->T->j_cont, 
 										  all->P->total_pixel);
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_T_cum,(void *)all->S->SS->T, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_T_cum,(void *)&all->S->SS->T, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thw_cum,(void *)all->S->th, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thw_cum,(void *)&all->S->th, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thi_cum,(void *)all->S->SS->thi, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_thi_cum,(void *)&all->S->SS->thi, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_Ptot_cum,(void *)all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->soil_Ptot_cum,(void *)&all->S->Ptot, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->unstruct_z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 //TODO:HACK: COMMENTATO LA NEVE DA QUA
 // 	snow
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowD_cum,(void *)all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	char hold;
 
 
 
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowD_cum,(void *)&all->N->S->Dzl, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowT_cum,(void *)&all->N->S->T, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowI_cum,(void *)all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowI_cum,(void *)&all->N->S->w_ice, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 //	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowW_cum,(void *)all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
-//		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+//		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 //		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc, all->T->j_cont, all->P->total_pixel);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->snowW_cum,(void *)&all->N->S->w_liq, all->I->time+all->P->Dt,all->P->Dt,
-		all->P->Dtplot_point[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
+		all->P->Dtplot_point[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SNOW,NC_GEOTOP_POINT_DIM_GENERIC,"", all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, &all->P->rc, all->T->j_cont, all->P->total_pixel);
 
 
 	// glacier
 	/*all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacD_cum,(void *)all->G->G->Dzl, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
-		all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+		all->P->Dtplot_point->co[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacT_cum,(void *)all->G->G->T, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
-		all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+		all->P->Dtplot_point->co[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacI_cum,(void *)all->G->G->w_ice, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
-		all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+		all->P->Dtplot_point->co[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_NOUPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 	all->counter_point=ncio.ncgt_add_output_var_cumtime(all->ncid, (void *)all->outnc->glacW_cum,(void *)all->G->G->w_liq, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy,all->P->Dt,
-		all->P->Dtplot_point->co[i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
+		all->P->Dtplot_point->co[geotop::common::Variables::i_sim], all->z_point_var_type, NC_GEOTOP_TIME_FOR_POINT_DATA,NC_GEOTOP_Z_SOIL,NC_GEOTOP_POINT_DIM_GENERIC,NULL, all->counter_point,
 		NC_GEOTOP_REINITIALIZE_VARIABLE,NC_GEOTOP_UPDATE_COUNTER_TIME, NC_GEOTOP_NOROTATE_Y, NC_GEOTOP_NOVALUE, all->P->rc);
 				*/
 	//TODO: HACK MATTEO
@@ -474,9 +457,9 @@ void write_output_nc(AllData* all){
 //		}
 	//BASIN DATA
 	//****************************************************************************************************************
-	//if(par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1){
+	//if(par->Dtplot_basin->co[geotop::common::Variables::i_sim] > 1.E-5 && par->state_basin == 1){
 		//t_basin += par->Dt;
-		//if (fabs(t_basin - par->Dtplot_basin->co[i_sim])<1.E-5){
+		//if (fabs(t_basin - par->Dtplot_basin->co[geotop::common::Variables::i_sim])<1.E-5){
 
 	// DISTRIBUTED
 	/**********************************************************************************************************/
@@ -574,7 +557,7 @@ void write_output_nc(AllData* all){
 
 
 //	long ncio.ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//			const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc){
+//			const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double geotop::input::gDoubleNoValue, LONGMATRIX *rc){
 	if(all->P->output_surfenergy_bin == 1){
 //	all->counter_surface_energy=ncio.ncgt_add_output_var_cumtime(all->ncid,NULL, (void *)all->E->Ts_mean, all->I->time+all->P->Dt,all->P->Dt,all->P->output_surfenergy[1]*3600, NC_GEOTOP_UNSTRUCT_MAP, NC_GEOTOP_TIME_FOR_SURFACE_ENERGY,
 //			NC_GEOTOP_Z_GENERIC,NC_GEOTOP_XLON,NC_GEOTOP_YLAT,NC_GEOTOP_NOREINITIALIZE_VARIABLE, all->counter_surface_energy, NC_GEOTOP_NOUPDATE_COUNTER_TIME,

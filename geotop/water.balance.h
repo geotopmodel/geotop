@@ -31,22 +31,6 @@
 
 #include <time.h>
 
-extern long number_novalue, number_absent;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-extern std::vector<std::string> files;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-extern double *odb;
-extern double t_sub, t_sup;
-
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
-extern long i_sim, i_run;
-
 //subsurface flow constants
 #define tol_max_GC 1.E+5
 #define tol_min_GC 1.E-13

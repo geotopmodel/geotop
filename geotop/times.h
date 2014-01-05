@@ -31,12 +31,6 @@
 #include "meteo.h"
 #include "meteodata.h"
 
-extern long number_novalue, number_absent;
-extern std::vector<std::string> files;
-extern long i_sim;
-//extern char *FailedRunFile;
-extern std::string FailedRunFile;
-
 //void set_time_step(PAR *par, TIMES *times);
 void set_time_step(Par *par, Times *times);
 

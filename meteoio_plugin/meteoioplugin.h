@@ -26,10 +26,10 @@
 //	void meteoio_readMap(const std::string& filename, DOUBLEMATRIX*& matrix);
 	void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix);
 
-//	DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* UV, char* _filename);
-	void meteoio_read2DGrid(TInit* UV, GeoMatrix<double>& myGrid, char* _filename);
+//	DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* pUV, char* _filename);
+	void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename);
 
-	void meteoio_writeEsriasciiMap(const std::string& filename, TInit* UV, GeoMatrix<double>& gm, long number_novalue);
+	void meteoio_writeEsriasciiMap(const std::string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue);
 	void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue);
 
 //	void meteoio_interpolate( PAR* par, double JDbeg, METEO* met, WATER* wat);
@@ -40,8 +40,8 @@
 	void meteoio_interpolate_pointwise(Par* par, double currentdate,
 			Meteo* met, Water* wat);
 
-//	void meteoio_interpolate_cloudiness(T_INIT* UV, PAR* par, double JDbeg, DOUBLEMATRIX* tau_cloud_grid, DOUBLEVECTOR* tau_cloud_vec);
-	void meteoio_interpolate_cloudiness(TInit* UV, Par* par, double JDbeg, GeoMatrix<double>& tau_cloud_grid, GeoVector<double>& tau_cloud_vec);
+//	void meteoio_interpolate_cloudiness(T_INIT* pUV, PAR* par, double JDbeg, DOUBLEMATRIX* tau_cloud_grid, DOUBLEVECTOR* tau_cloud_vec);
+	void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, double JDbeg, GeoMatrix<double>& tau_cloud_grid, GeoVector<double>& tau_cloud_vec);
 
 //	void initializeMetaData(const std::vector<mio::StationData>& vecStation,
 //					    const mio::Date& startDate, PAR *par, METEO_STATIONS *stations);

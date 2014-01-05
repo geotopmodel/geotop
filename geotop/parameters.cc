@@ -22,6 +22,7 @@
 #include "constants.h"
 #include <iomanip>
 #include <inputKeywords.h>
+#include "geotop_common.h"
 
 using namespace std;
 using namespace boost::assign ;
@@ -123,8 +124,34 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
 /***********************************************************/
 /***********************************************************/
 
-short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog){
+/** @brief return a list with requested parameters
+  * @param[in] pConfigStore a pointer to a previously initialized configuration store
+  * @param[in] pKeys a list with the requested key
+  * @return the array with the requested parameters
+  */
+static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::vector<std::string> &pKeys){
+	std::vector<std::string> lVector;
+    
+	for (size_t i=0; i<pKeys.size(); i++) {
+        std::string lValue;
+        bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
+        if(lGetResult == false){
+            t_error(std::string("Fatal Error: unable to get parameter: ") + pKeys[i]);
+        }
+        lVector.push_back(lValue);
+	}
+    
+	return(lVector);
+    
+}
 
+/***********************************************************/
+/***********************************************************/
+/***********************************************************/
+/***********************************************************/
+
+short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog){
+#ifdef STAGED_FOR_REMOVING
 	//variables
 	FILE *f;
 	
@@ -140,11 +167,14 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	long *string_length_read;
 	double **number_read;
 	long *number_comp_read;
-	
+#endif
+    
+#ifdef STAGED_FOR_REMOVING
 	long *num_param_components;
 	double **num_param;
+#endif
 	
-	char **string_param;
+    std::vector<std::string> string_param;
 	
 	short endoffile, ok;
 	
@@ -168,6 +198,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	}
 #endif
 
+#ifdef STAGED_FOR_REMOVING
 	n = (long)num_par_char;
 	keywords_char_lower_case = (char**)malloc(n*sizeof(char*));
 	for (i=0; i<n; i++) {
@@ -176,7 +207,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 		convert_string_in_lower_case(keywords_char_lower_case[i]);
 	}
 	
-	//Allocation	
+	//Allocation
 	n = (long)max_charstring;
 	key = (long*)malloc(n*sizeof(long));
 	string = (long*)malloc(n*sizeof(long));
@@ -228,7 +259,9 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	free(key);
 	free(string);
 	free(number);
-	
+#endif
+
+#ifdef STAGED_FOR_REMOVING
 	//compare keywords number	
 	n = (long)num_par_number;
 	num_param_components = (long*)malloc(n*sizeof(long));
@@ -257,36 +290,38 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	free(number_read);
 	free(keywords_num_read);
 	free(number_comp_read);
-	
+#endif
+
 	//assign parameter
 #ifdef STAGED_FOR_REMOVING
 	assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, keywords_num, flog);
 #else
-	assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, flog);    
+	assign_numeric_parameters(par, land, times, sl, met, itools, flog);
 #endif
 
+#ifdef STAGED_FOR_REMOVING
 	//deallocate keyword arrays
 	for(i=0; i<num_par_number; i++){
 		free(num_param[i]);
 	}
 	free(num_param);
 	free(num_param_components);
-	
+#endif
+
+#ifdef STAGED_FOR_REMOVING
 	//compare keywords string
 	n = (long)num_par_char;
-	string_param = (char**)malloc(n*sizeof(char*));
 	for(i=0; i<num_par_char; i++){
 		ok=0;
 		for(j=0; j<istr; j++){
-			if( strcmp (keywords_char_lower_case[i], keywords_str_read[j] ) == 0){
+			if( keywords_char_lower_case[i] == keywords_str_read[j] ){
 				ok=1;
-				string_param[i] = find_string(string_read[j], string_length_read[j]);
+				string_param.push_back( find_string(string_read[j], string_length_read[j]) );
 			}
 		}
 		if (ok==0) {
-			n = strlen(string_novalue)+1;
-			string_param[i] = (char*)malloc(n*sizeof(char));
-			string_param[i] = strcpy(string_param[i], string_novalue);
+			n = geotop::input::gStringNoValue.size()+1;
+			string_param.push_back(geotop::input::gStringNoValue);
 		}
 	}
 	
@@ -298,316 +333,425 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	free(string_read);
 	free(keywords_str_read);
 	free(string_length_read);
+#endif
 
 	//assign parameter
-	end += nmet;
-	itools->met_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += nsoilprop;
-	itools->soil_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += 2;
-	itools->horizon_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char); 
-	beg = end;
-	end += nfiles;
-	files = assign_string_parameter_v(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += otot;
-	hpnt = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += ootot;
-	hbsn = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += 10;
-	hsnw = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += 10;	
-	hglc = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += 6;	
-	hsl = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += ptTOT;		
-	itools->point_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += nlstot;
-	itools->lapserates_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
-	beg = end;
-	end += 8;
-	itools->meteostations_col_names = assign_string_parameter(flog, beg, end, string_param, keywords_char);
+    std::vector<std::string> lKeys ;
+    lKeys += "HeaderDateDDMMYYYYhhmmMeteo", "HeaderJulianDayfrom0Meteo", "HeaderIPrec",
+        "HeaderPrec", "HeaderWindVelocity", "HeaderWindDirection", "HeaderWindX",
+        "HeaderWindY", "HeaderRH", "HeaderAirTemp", "HeaderDewTemp", "HeaderSWglobal",
+        "HeaderSWdirect", "HeaderSWdiffuse", "HeaderCloudSWTransmissivity", "HeaderCloudFactor",
+        "HeaderLWin", "HeaderSWnet", "HeaderSurfaceTemperature" ;
+	itools->met_col_names = getStringValues(lConfigStore, lKeys) ;
+    
+    lKeys.clear() ;
+    lKeys += "HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp", "HeaderNormalHydrConductivity",
+        "HeaderLateralHydrConductivity", "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
+        "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV", "HeaderKthSoilSolids",
+        "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
+	itools->soil_col_names = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderHorizonAngle", "HeaderHorizonHeight" ;
+	itools->horizon_col_names = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "TimeStepsFile", "SoilParFile", "MeteoFile", "MeteoStationsListFile",
+    "LapseRateFile", "HorizonMeteoStationFile", "PointFile", "HorizonPointFile",
+    "TimeDependentVegetationParameterFile", "TimeDependentIncomingDischargeFile", "DemFile", "LandCoverMapFile",
+    "SoilMapFile", "DaysDelayMapFile", "SkyViewFactorMapFile", "SlopeMapFile",
+    "RiverNetwork", "AspectMapFile", "CurvaturesMapFile", "BedrockDepthMapFile",
+    "InitWaterTableDepthMapFile", "InitSnowDepthMapFile", "InitSWEMapFile", "InitSnowAgeMapFile",
+    "InitGlacierDepthMapFile", "DischargeFile", "BasinOutputFile", "BasinOutputFileWriteEnd",
+    "PointOutputFile", "PointOutputFileWriteEnd", "SoilTempProfileFile", "SoilTempProfileFileWriteEnd",
+    "SoilAveragedTempProfileFile", "SoilAveragedTempProfileFileWriteEnd", "SoilLiqWaterPressProfileFile", "SoilLiqWaterPressProfileFileWriteEnd",
+    "SoilTotWaterPressProfileFile", "SoilTotWaterPressProfileFileWriteEnd", "SoilLiqContentProfileFile", "SoilLiqContentProfileFileWriteEnd",
+    "SoilAveragedLiqContentProfileFile", "SoilAveragedLiqContentProfileFileWriteEnd", "SoilIceContentProfileFile", "SoilIceContentProfileFileWriteEnd",
+    "SoilAveragedIceContentProfileFile", "SoilAveragedIceContentProfileFileWriteEnd", "SoilSaturationRatioProfileFile", "SnowTempProfileFile",
+    "SnowLiqContentProfileFile", "SnowIceContentProfileFile", "SnowDepthLayersFile", "SnowTempProfileFileWriteEnd",
+    "SnowLiqContentProfileFileWriteEnd", "SnowIceContentProfileFileWriteEnd", "SnowDepthLayersFileWriteEnd", "GlacierProfileFile",
+    "GlacierProfileFileWriteEnd", "SnowCoveredAreaFile", "RunSoilAveragedTemperatureFile", "RunSoilAveragedTotalSoilMoistureFile",
+    "RunSoilAveragedInternalEnergyFile", "RunSoilAveragedSnowWaterEquivalentFile", "RunSoilMaximumTemperatureFile", "RunSoilMinimumTemperatureFile",
+    "RunSoilMaximumTotalSoilMoistureFile", "RunSoilMinimumTotalSoilMoistureFile", "SoilTempTensorFile", "FirstSoilLayerTempMapFile",
+    "SoilAveragedTempTensorFile", "FirstSoilLayerAveragedTempMapFile", "SoilLiqContentTensorFile", "FirstSoilLayerLiqContentMapFile",
+    "SoilAveragedLiqContentTensorFile", "SoilIceContentTensorFile", "FirstSoilLayerIceContentMapFile", "SoilAveragedIceContentTensorFile",
+    "LandSurfaceWaterDepthMapFile", "ChannelSurfaceWaterDepthMapFile", "NetRadiationMapFile", "InLongwaveRadiationMapFile",
+    "NetLongwaveRadiationMapFile", "NetShortwaveRadiationMapFile", "InShortwaveRadiationMapFile", "DirectInShortwaveRadiationMapFile",
+    "ShadowFractionTimeMapFile", "SurfaceHeatFluxMapFile", "SurfaceSensibleHeatFluxMapFile", "SurfaceLatentHeatFluxMapFile",
+    "SurfaceTempMapFile", "PrecipitationMapFile", "CanopyInterceptedWaterMapFile", "SoilLiqWaterPressTensorFile",
+    "SoilTotWaterPressTensorFile", "SnowDepthMapFile", "GlacierDepthMapFile", "SnowMeltedMapFile",
+    "SnowSublMapFile", "GlacierMeltedMapFile", "GlacierSublimatedMapFile", "AirTempMapFile",
+    "WindSpeedMapFile", "WindDirMapFile", "RelHumMapFile", "SWEMapFile",
+    "GlacierWaterEqMapFile", "SnowDurationMapFile", "ThawedSoilDepthMapFile", "ThawedSoilDepthFromAboveMapFile",
+    "WaterTableDepthMapFile", "WaterTableDepthFromAboveMapFile", "NetPrecipitationMapFile", "EvapotranspirationFromSoilMapFile",
+    "SpecificPlotSurfaceHeatFluxMapFile", "SpecificPlotTotalSensibleHeatFluxMapFile", "SpecificPlotTotalLatentHeatFluxMapFile", "SpecificPlotSurfaceSensibleHeatFluxMapFile",
+    "SpecificPlotSurfaceLatentHeatFluxMapFile", "SpecificPlotVegSensibleHeatFluxMapFile", "SpecificPlotVegLatentHeatFluxMapFile", "SpecificPlotIncomingShortwaveRadMapFile",
+    "SpecificPlotNetSurfaceShortwaveRadMapFile", "SpecificPlotNetVegShortwaveRadMapFile", "SpecificPlotIncomingLongwaveRadMapFile", "SpecificPlotNetSurfaceLongwaveRadMapFile",
+    "SpecificPlotNetVegLongwaveRadMapFile", "SpecificPlotCanopyAirTempMapFile", "SpecificPlotSurfaceTempMapFile", "SpecificPlotVegTempMapFile",
+    "SpecificPlotAboveVegAirTempMapFile", "SpecificPlotWindSpeedMapFile", "SpecificPlotWindDirMapFile", "SpecificPlotRelHumMapFile",
+    "SpecificPlotSnowDepthMapFile", "SpecificPlotSurfaceWaterContentMapFile", "RecoverSoilWatPres", "RecoverSoilIceCont",
+    "RecoverSoilTemp", "RecoverSnowLayerThick", "RecoverSnowLiqMass", "RecoverSnowIceMass",
+    "RecoverSnowTemp", "RecoverGlacierLayerThick", "RecoverGlacierLiqMass", "RecoverGlacierIceMass",
+    "RecoverGlacierTemp", "RecoverSnowLayerNumber", "RecoverGlacierLayerNumber", "RecoverNonDimensionalSnowAge",
+    "RecoverLiqWaterOnCanopy", "RecoverSnowOnCanopy", "RecoverVegTemp", "RecoverSoilWatPresChannel",
+    "RecoverSoilIceContChannel", "RecoverSoilTempChannel", "RecoverRunSoilAveragedTemperatureFile", "RecoverRunSoilAveragedTotalSoilMoistureFile",
+    "RecoverRunSoilAveragedInternalEnergyFile", "RecoverRunSoilAveragedSnowWaterEquivalentFile", "RecoverRunSoilMaximumTemperatureFile", "RecoverRunSoilMinimumTemperatureFile",
+    "RecoverRunSoilMaximumTotalSoilMoistureFile", "RecoverRunSoilMinimumTotalSoilMoistureFile", "RecoverTime", "SuccessfulRecoveryFile" ;
+	geotop::common::Variables::files = getStringValues(lConfigStore, lKeys) ;
+    
+    lKeys.clear() ;
+    lKeys += "HeaderDatePoint", "HeaderJulianDayFromYear0Point", "HeaderTimeFromStartPoint", "HeaderPeriodPoint",
+    "HeaderRunPoint", "HeaderIDPointPoint", "HeaderPsnowPoint", "HeaderPrainPoint",
+    "HeaderPsnowNetPoint", "HeaderPrainNetPoint", "HeaderPrainOnSnowPoint", "HeaderWindSpeedPoint",
+    "HeaderWindDirPoint", "HeaderRHPoint", "HeaderAirPressPoint", "HeaderAirTempPoint",
+    "HeaderTDewPoint", "HeaderTsurfPoint", "HeaderTvegPoint", "HeaderTCanopyAirPoint",
+    "HeaderSurfaceEBPoint", "HeaderSoilHeatFluxPoint", "HeaderSWinPoint", "HeaderSWbeamPoint",
+    "HeaderSWdiffPoint", "HeaderLWinPoint", "HeaderLWinMinPoint", "HeaderLWinMaxPoint",
+    "HeaderSWNetPoint", "HeaderLWNetPoint", "HeaderHPoint", "HeaderLEPoint",
+    "HeaderCanopyFractionPoint", "HeaderLSAIPoint", "Headerz0vegPoint", "Headerd0vegPoint",
+    "HeaderEstoredCanopyPoint", "HeaderSWvPoint", "HeaderLWvPoint", "HeaderHvPoint",
+    "HeaderLEvPoint", "HeaderHgUnvegPoint", "HeaderLEgUnvegPoint", "HeaderHgVegPoint",
+    "HeaderLEgVegPoint", "HeaderEvapSurfacePoint", "HeaderTraspCanopyPoint", "HeaderWaterOnCanopyPoint",
+    "HeaderSnowOnCanopyPoint", "HeaderQVegPoint", "HeaderQSurfPoint", "HeaderQAirPoint",
+    "HeaderQCanopyAirPoint", "HeaderLObukhovPoint", "HeaderLObukhovCanopyPoint", "HeaderWindSpeedTopCanopyPoint",
+    "HeaderDecayKCanopyPoint", "HeaderSWupPoint", "HeaderLWupPoint", "HeaderHupPoint",
+    "HeaderLEupPoint", "HeaderSnowDepthPoint", "HeaderSWEPoint", "HeaderSnowDensityPoint",
+    "HeaderSnowTempPoint", "HeaderSnowMeltedPoint", "HeaderSnowSublPoint", "HeaderSWEBlownPoint",
+    "HeaderSWESublBlownPoint", "HeaderGlacDepthPoint", "HeaderGWEPoint", "HeaderGlacDensityPoint",
+    "HeaderGlacTempPoint", "HeaderGlacMeltedPoint", "HeaderGlacSublPoint", "HeaderLowestThawedSoilDepthPoint",
+    "HeaderHighestThawedSoilDepthPoint", "HeaderLowestWaterTableDepthPoint", "HeaderHighestWaterTableDepthPoint" ;
+	geotop::common::Variables::hpnt = getStringValues(lConfigStore, lKeys) ;
+    
+    lKeys.clear() ;
+    lKeys += "HeaderDateBasin", "HeaderJulianDayFromYear0Basin", "HeaderTimeFromStartBasin", "HeaderPeriodBasin",
+    "HeaderRunBasin", "HeaderPRainNetBasin", "HeaderPSnowNetBasin", "HeaderPRainBasin",
+    "HeaderPSnowBasin", "HeaderPNetBasin", "HeaderAirTempBasin", "HeaderTSurfBasin",
+    "HeaderTvegBasin", "HeaderEvapSurfaceBasin", "HeaderTraspCanopyBasin", "HeaderLEBasin",
+    "HeaderHBasin", "HeaderSWNetBasin", "HeaderLWNetBasin", "HeaderLEvBasin",
+    "HeaderHvBasin", "HeaderSWvBasin", "HeaderLWvBasin", "HeaderSWinBasin",
+    "HeaderLWinBasin", "HeaderMeanTimeStep", "HeaderTimeStepAverage" ;
+	geotop::common::Variables::hbsn = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderDateSnow", "HeaderJulianDayFromYear0Snow", "HeaderTimeFromStartSnow", "HeaderPeriodSnow",
+    "HeaderRunSnow", "HeaderIDPointSnow", "HeaderTempSnow", "HeaderIceContentSnow",
+    "HeaderWatContentSnow", "HeaderDepthSnow" ;
+	geotop::common::Variables::hsnw = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderDateGlac", "HeaderJulianDayFromYear0Glac", "HeaderTimeFromStartGlac", "HeaderPeriodGlac",
+    "HeaderRunGlac", "HeaderIDPointGlac", "HeaderTempGlac", "HeaderIceContentGlac",
+    "HeaderWatContentGlac", "HeaderDepthGlac" ;
+	geotop::common::Variables::hglc = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderDateSoil", "HeaderJulianDayFromYear0Soil", "HeaderTimeFromStartSoil", "HeaderPeriodSoil",
+    "HeaderRunSoil", "HeaderIDPointSoil" ;
+	geotop::common::Variables::hsl = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderPointID", "HeaderCoordinatePointX", "HeaderCoordinatePointY", "HeaderPointElevation",
+    "HeaderPointLandCoverType", "HeaderPointSoilType", "HeaderPointSlope", "HeaderPointAspect",
+    "HeaderPointSkyViewFactor", "HeaderPointCurvatureNorthSouthDirection", "HeaderPointCurvatureWestEastDirection", "HeaderPointCurvatureNorthwestSoutheastDirection",
+    "HeaderPointCurvatureNortheastSouthwestDirection", "HeaderPointDepthFreeSurface", "HeaderPointHorizon", "HeaderPointMaxSWE",
+    "HeaderPointLatitude", "HeaderPointLongitude", "HeaderPointBedrockDepth" ;
+	itools->point_col_names = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderDateDDMMYYYYhhmmLapseRates", "HeaderLapseRateTemp", "HeaderLapseRateDewTemp",
+    "HeaderLapseRatePrec" ;
+	itools->lapserates_col_names = getStringValues(lConfigStore, lKeys) ;
+
+    lKeys.clear() ;
+    lKeys += "HeaderIDMeteoStation", "HeaderMeteoStationCoordinateX", "HeaderMeteoStationCoordinateY", "HeaderMeteoStationLatitude",
+    "HeaderMeteoStationLongitude", "HeaderMeteoStationElevation", "HeaderMeteoStationSkyViewFactor", "HeaderMeteoStationStandardTime" ;
+	itools->meteostations_col_names = getStringValues(lConfigStore, lKeys) ;
 	
-	beg = end;
-	end += 1;
-	temp = assignation_string(flog, beg, keywords_char, string_param);
-	if (strcmp(string_novalue,temp.c_str()) == 0) {
+    lKeys.clear() ;
+    lKeys += "SuccessfulRunFile" ;
+    std::vector<std::string> lValues =  getStringValues(lConfigStore, lKeys) ;
+	temp = lValues[0] ;
+	if (geotop::input::gStringNoValue == temp) {
 		temp = "_SUCCESSFUL_RUN";
 	}
-	SuccessfulRunFile = WORKING_DIRECTORY + temp ;
-			
-	beg = end;
-	end += 1;
-	temp = assignation_string(flog, beg, keywords_char, string_param);
-	if (strcmp(string_novalue,temp.c_str()) == 0) {
+	geotop::common::Variables::SuccessfulRunFile = geotop::common::Variables::WORKING_DIRECTORY + temp ;
+
+    lKeys.clear() ;
+    lKeys += "FailedRunFile" ;
+    lValues =  getStringValues(lConfigStore, lKeys) ;
+	temp = lValues[0] ;
+	if (geotop::input::gStringNoValue == temp) {
 		temp = "_FAILED_RUN";
 	}	
-	FailedRunFile = WORKING_DIRECTORY + temp;
+	geotop::common::Variables::FailedRunFile = geotop::common::Variables::WORKING_DIRECTORY + temp;
 	
-	beg = end;
-	end += 1;
-	path_rec_files = assignation_string(flog, beg, keywords_char, string_param);//path of recovery files
-			
-	//deallocate keyword arrays	
-	for(i=0; i<num_par_char; i++){
-		free(string_param[i]);
-	}
-	free(string_param);
-	
+    lKeys.clear() ;
+    lKeys += "SubfolderRecoveryFiles" ;
+    lValues =  getStringValues(lConfigStore, lKeys) ;
+	path_rec_files = lValues[0] ; //path of recovery files
+
+#ifdef STAGED_FOR_REMOVING
 	n = (long)num_par_number;
 	for (i=0; i<n; i++) {
 		free(keywords_num_lower_case[i]);
 	}
 	free(keywords_num_lower_case);
-	
+#endif
+
+#ifdef STAGED_FOR_REMOVING
 	n = (long)num_par_char;
 	for (i=0; i<n; i++) {
 		free(keywords_char_lower_case[i]);
 	}
 	free(keywords_char_lower_case);
-	
+#endif
+
 	//replace none value with some default values
 	
 	//Horizon
-	for (j=0; j<2; j++) {
-		if(strcmp(itools->horizon_col_names[j], string_novalue) == 0){
-			free(itools->horizon_col_names[j]);
-			if (j==0) { itools->horizon_col_names[j] = assign_string("AngleFromNorthClockwise");
-			}else if (j==1) {  itools->horizon_col_names[j] = assign_string("HorizonHeight");
+	for (size_t j=0; j<2; j++) {
+		if(itools->horizon_col_names[j] == geotop::input::gStringNoValue){
+			if (j==0) {
+                itools->horizon_col_names[j] = "AngleFromNorthClockwise";
+			}else
+                if (j==1) {  itools->horizon_col_names[j] = "HorizonHeight";
 			}
 		}
 	}
 	
 	//HeaderPointFile
-	for (j=0; j<otot; j++) {
-		if(strcmp(hpnt[j], string_novalue) == 0){
-			free(hpnt[j]);
-			if(j==odate12){ hpnt[j] = assign_string("Date12[DDMMYYYYhhmm]");    		
-			}else if(j==oJDfrom0){ hpnt[j] = assign_string("JulianDayFromYear0[days]");   		
-			}else if(j==odaysfromstart){ hpnt[j] = assign_string("TimeFromStart[days]"); 
-			}else if(j==operiod){ hpnt[j] = assign_string("Simulation_Period");
-			}else if(j==orun){ hpnt[j] = assign_string("Run");	
-			}else if(j==opoint){ hpnt[j] = assign_string("IDpoint"); 
-			}else if(j==osnowover){ hpnt[j] = assign_string("Psnow_over_canopy[mm]");     	
-			}else if(j==orainover){ hpnt[j] = assign_string("Prain_over_canopy[mm]"); 		
-			}else if(j==oprecsnow){ hpnt[j] = assign_string("Psnow_under_canopy[mm]"); 
-			}else if(j==oprecrain){ hpnt[j] = assign_string("Prain_under_canopy[mm]"); 		
-			}else if(j==orainonsnow){ hpnt[j] = assign_string("Prain_rain_on_snow[mm]");
-			}else if(j==oV){ hpnt[j] = assign_string("Wind_speed[m/s]");      	   
-			}else if(j==oVdir){ hpnt[j] = assign_string("Wind_direction[deg]");  
-			}else if(j==oRH){ hpnt[j] = assign_string("Relative_Humidity[-]");    
-			}else if(j==oPa){ hpnt[j] = assign_string("Pressure[mbar]");    
-			}else if(j==oTa){ hpnt[j] = assign_string("Tair[C]");    
-			}else if(j==oTdew){ hpnt[j] = assign_string("Tdew[C]");  
-			}else if(j==oTg){ hpnt[j] = assign_string("Tsurface[C]");    
-			}else if(j==oTv){ hpnt[j] = assign_string("Tvegetation[C]");    
-			}else if(j==oTs){ hpnt[j] = assign_string("Tcanopyair[C]");    
-			}else if(j==oEB){ hpnt[j] = assign_string("Surface_Energy_balance[W/m2]");    
-			}else if(j==oG){ hpnt[j] = assign_string("Soil_heat_flux[W/m2]");     
-			}else if(j==oSWin){ hpnt[j] = assign_string("SWin[W/m2]");  
-			}else if(j==oSWb){ hpnt[j] = assign_string("SWbeam[W/m2]");   
-			}else if(j==oSWd){ hpnt[j] = assign_string("SWdiff[W/m2]");  
-			}else if(j==oLWin){ hpnt[j] = assign_string("LWin[W/m2]"); 
-			}else if(j==ominLWin){ hpnt[j] = assign_string("LWin_min[W/m2]"); 
-			}else if(j==omaxLWin){ hpnt[j] = assign_string("LWin_max[W/m2]");
-			}else if(j==oSW){ hpnt[j] = assign_string("SWnet[W/m2]");     
-			}else if(j==oLW){ hpnt[j] = assign_string("LWnet[W/m2]");     
-			}else if(j==oH){ hpnt[j] = assign_string("H[W/m2]");      
-			}else if(j==oLE){ hpnt[j] = assign_string("LE[W/m2]");     
-			}else if(j==ofc){ hpnt[j] = assign_string("Canopy_fraction[-]");     
-			}else if(j==oLSAI){ hpnt[j] = assign_string("LSAI[m2/m2]");   
-			}else if(j==oz0v){ hpnt[j] = assign_string("z0veg[m]");    
-			}else if(j==od0v){ hpnt[j] = assign_string("d0veg[m]");    
-			}else if(j==oEcan){ hpnt[j] = assign_string("Estored_canopy[W/m2]");   
-			}else if(j==oSWv){ hpnt[j] = assign_string("SWv[W/m2]");    
-			}else if(j==oLWv){ hpnt[j] = assign_string("LWv[W/m2]");    
-			}else if(j==oHv){ hpnt[j] = assign_string("Hv[W/m2]");     
-			}else if(j==oLEv){ hpnt[j] = assign_string("LEv[W/m2]");    
-			}else if(j==oHg0){ hpnt[j] = assign_string("Hg_unveg[W/m2]");    
-			}else if(j==oLEg0){ hpnt[j] = assign_string("LEg_unveg[W/m2]");   
-			}else if(j==oHg1){ hpnt[j] = assign_string("Hg_veg[W/m2]");    
-			}else if(j==oLEg1){ hpnt[j] = assign_string("LEg_veg[W/m2]");   
-			}else if(j==oevapsur){ hpnt[j] = assign_string("Evap_surface[mm]");  
-			}else if(j==otrasp){ hpnt[j] = assign_string("Trasp_canopy[mm]");    
-			}else if(j==owcan_rain){ hpnt[j] = assign_string("Water_on_canopy[mm]");
-			}else if(j==owcan_snow){ hpnt[j] = assign_string("Snow_on_canopy[mm]");
-			}else if(j==oQv){ hpnt[j] = assign_string("Qvegetation[-]");   
-			}else if(j==oQg){ hpnt[j] = assign_string("Qsurface[-]");   
-			}else if(j==oQa){ hpnt[j] = assign_string("Qair[-]");   
-			}else if(j==oQs){ hpnt[j] = assign_string("Qcanopyair[-]");   
-			}else if(j==oLobuk){ hpnt[j] = assign_string("LObukhov[m]");
-			}else if(j==oLobukcan){ hpnt[j] = assign_string("LObukhovcanopy[m]");
-			}else if(j==outop){ hpnt[j] = assign_string("Wind_speed_top_canopy[m/s]");    
-			}else if(j==odecay){ hpnt[j] = assign_string("Decay_of_K_in_canopy[-]");   
-			}else if(j==oSWup){ hpnt[j] = assign_string("SWup[W/m2]");   
-			}else if(j==oLWup){ hpnt[j] = assign_string("LWup[W/m2]");   
-			}else if(j==oHup){ hpnt[j] = assign_string("Hup[W/m2]");    
-			}else if(j==oLEup){ hpnt[j] = assign_string("LEup[W/m2]");   
-			}else if(j==osnowdepth){ hpnt[j] = assign_string("snow_depth[mm]"); 
-			}else if(j==oSWE){ hpnt[j] = assign_string("snow_water_equivalent[mm]"); 
-			}else if(j==osnowdens){ hpnt[j] = assign_string("snow_density[kg/m3]"); 
-			}else if(j==osnowT){ hpnt[j] = assign_string("snow_temperature[C]"); 	
-			}else if(j==omrsnow){ hpnt[j] = assign_string("snow_melted[mm]"); 
-			}else if(j==osrsnow){ hpnt[j] = assign_string("snow_subl[mm]"); 
-			}else if(j==oblowingsnowtrans){ hpnt[j] = assign_string("snow_blown_away[mm]"); 
-			}else if(j==oblowingsnowsubl){ hpnt[j] = assign_string("snow_subl_while_blown[mm]");			
-			}else if(j==oglacdepth){ hpnt[j] = assign_string("glac_depth[mm]"); 
-			}else if(j==oGWE){ hpnt[j] = assign_string("glac_water_equivalent[mm]"); 
-			}else if(j==oglacdens){ hpnt[j] = assign_string("glac_density[kg/m3]"); 
-			}else if(j==oglacT){ hpnt[j] = assign_string("glac_temperature[C]"); 
-			}else if(j==omrglac){ hpnt[j] = assign_string("glac_melted[mm]"); 
-			}else if(j==osrglac){ hpnt[j] = assign_string("glac_subl[mm]"); 
-			}else if(j==othawedup){ hpnt[j] = assign_string("lowest_thawed_soil_depth[mm]"); 
-			}else if(j==othaweddw){ hpnt[j] = assign_string("highest_thawed_soil_depth[mm]"); 
-			}else if(j==owtableup){ hpnt[j] = assign_string("lowest_water_table_depth[mm]"); 
-			}else if(j==owtabledw){ hpnt[j] = assign_string("highest_water_table_depth[mm]"); 
-			}
+	for (size_t j=0; j<otot; j++) {
+		if(geotop::common::Variables::hpnt[j] == geotop::input::gStringNoValue ){
+			if(j==odate12){ geotop::common::Variables::hpnt[j] = "Date12[DDMMYYYYhhmm]" ;
+			}else if(j==oJDfrom0){ geotop::common::Variables::hpnt[j] = "JulianDayFromYear0[days]" ;
+			}else if(j==odaysfromstart){ geotop::common::Variables::hpnt[j] = "TimeFromStart[days]" ;
+			}else if(j==operiod){ geotop::common::Variables::hpnt[j] = "Simulation_Period" ;
+			}else if(j==orun){ geotop::common::Variables::hpnt[j] = "Run" ;
+			}else if(j==opoint){ geotop::common::Variables::hpnt[j] = "IDpoint" ;
+			}else if(j==osnowover){geotop::common::Variables::hpnt[j] = "Psnow_over_canopy[mm]" ;     	
+			}else if(j==orainover){geotop::common::Variables::hpnt[j] = "Prain_over_canopy[mm]" ; 		
+			}else if(j==oprecsnow){geotop::common::Variables::hpnt[j] = "Psnow_under_canopy[mm]" ; 
+			}else if(j==oprecrain){geotop::common::Variables::hpnt[j] = "Prain_under_canopy[mm]" ; 		
+			}else if(j==orainonsnow){geotop::common::Variables::hpnt[j] = "Prain_rain_on_snow[mm]" ;
+			}else if(j==oV){geotop::common::Variables::hpnt[j] = "Wind_speed[m/s]" ;      	   
+			}else if(j==oVdir){geotop::common::Variables::hpnt[j] = "Wind_direction[deg]" ;  
+			}else if(j==oRH){geotop::common::Variables::hpnt[j] = "Relative_Humidity[-]" ;    
+			}else if(j==oPa){geotop::common::Variables::hpnt[j] = "Pressure[mbar]" ;    
+			}else if(j==oTa){geotop::common::Variables::hpnt[j] = "Tair[C]" ;    
+			}else if(j==oTdew){geotop::common::Variables::hpnt[j] = "Tdew[C]" ;  
+			}else if(j==oTg){geotop::common::Variables::hpnt[j] = "Tsurface[C]" ;    
+			}else if(j==oTv){geotop::common::Variables::hpnt[j] = "Tvegetation[C]" ;    
+			}else if(j==oTs){geotop::common::Variables::hpnt[j] = "Tcanopyair[C]" ;    
+			}else if(j==oEB){geotop::common::Variables::hpnt[j] = "Surface_Energy_balance[W/m2]" ;    
+			}else if(j==oG){geotop::common::Variables::hpnt[j] = "Soil_heat_flux[W/m2]" ;     
+			}else if(j==oSWin){geotop::common::Variables::hpnt[j] = "SWin[W/m2]" ;  
+			}else if(j==oSWb){geotop::common::Variables::hpnt[j] = "SWbeam[W/m2]" ;   
+			}else if(j==oSWd){geotop::common::Variables::hpnt[j] = "SWdiff[W/m2]" ;  
+			}else if(j==oLWin){geotop::common::Variables::hpnt[j] = "LWin[W/m2]" ; 
+			}else if(j==ominLWin){geotop::common::Variables::hpnt[j] = "LWin_min[W/m2]" ; 
+			}else if(j==omaxLWin){geotop::common::Variables::hpnt[j] = "LWin_max[W/m2]" ;
+			}else if(j==oSW){geotop::common::Variables::hpnt[j] = "SWnet[W/m2]" ;     
+			}else if(j==oLW){geotop::common::Variables::hpnt[j] = "LWnet[W/m2]" ;     
+			}else if(j==oH){geotop::common::Variables::hpnt[j] = "H[W/m2]" ;      
+			}else if(j==oLE){geotop::common::Variables::hpnt[j] = "LE[W/m2]" ;     
+			}else if(j==ofc){geotop::common::Variables::hpnt[j] = "Canopy_fraction[-]" ;     
+			}else if(j==oLSAI){geotop::common::Variables::hpnt[j] = "LSAI[m2/m2]" ;   
+			}else if(j==oz0v){geotop::common::Variables::hpnt[j] = "z0veg[m]" ;    
+			}else if(j==od0v){geotop::common::Variables::hpnt[j] = "d0veg[m]" ;    
+			}else if(j==oEcan){geotop::common::Variables::hpnt[j] = "Estored_canopy[W/m2]" ;   
+			}else if(j==oSWv){geotop::common::Variables::hpnt[j] = "SWv[W/m2]" ;    
+			}else if(j==oLWv){geotop::common::Variables::hpnt[j] = "LWv[W/m2]" ;    
+			}else if(j==oHv){geotop::common::Variables::hpnt[j] = "Hv[W/m2]" ;     
+			}else if(j==oLEv){geotop::common::Variables::hpnt[j] = "LEv[W/m2]" ;    
+			}else if(j==oHg0){geotop::common::Variables::hpnt[j] = "Hg_unveg[W/m2]" ;    
+			}else if(j==oLEg0){geotop::common::Variables::hpnt[j] = "LEg_unveg[W/m2]" ;   
+			}else if(j==oHg1){geotop::common::Variables::hpnt[j] = "Hg_veg[W/m2]" ;    
+			}else if(j==oLEg1){geotop::common::Variables::hpnt[j] = "LEg_veg[W/m2]" ;   
+			}else if(j==oevapsur){geotop::common::Variables::hpnt[j] = "Evap_surface[mm]" ;  
+			}else if(j==otrasp){geotop::common::Variables::hpnt[j] = "Trasp_canopy[mm]" ;    
+			}else if(j==owcan_rain){geotop::common::Variables::hpnt[j] = "Water_on_canopy[mm]" ;
+			}else if(j==owcan_snow){geotop::common::Variables::hpnt[j] = "Snow_on_canopy[mm]" ;
+			}else if(j==oQv){geotop::common::Variables::hpnt[j] = "Qvegetation[-]" ;   
+			}else if(j==oQg){geotop::common::Variables::hpnt[j] = "Qsurface[-]" ;   
+			}else if(j==oQa){geotop::common::Variables::hpnt[j] = "Qair[-]" ;   
+			}else if(j==oQs){geotop::common::Variables::hpnt[j] = "Qcanopyair[-]" ;   
+			}else if(j==oLobuk){geotop::common::Variables::hpnt[j] = "LObukhov[m]" ;
+			}else if(j==oLobukcan){geotop::common::Variables::hpnt[j] = "LObukhovcanopy[m]" ;
+			}else if(j==outop){geotop::common::Variables::hpnt[j] = "Wind_speed_top_canopy[m/s]" ;    
+			}else if(j==odecay){geotop::common::Variables::hpnt[j] = "Decay_of_K_in_canopy[-]" ;   
+			}else if(j==oSWup){geotop::common::Variables::hpnt[j] = "SWup[W/m2]" ;   
+			}else if(j==oLWup){geotop::common::Variables::hpnt[j] = "LWup[W/m2]" ;   
+			}else if(j==oHup){geotop::common::Variables::hpnt[j] = "Hup[W/m2]" ;    
+			}else if(j==oLEup){geotop::common::Variables::hpnt[j] = "LEup[W/m2]" ;   
+			}else if(j==osnowdepth){geotop::common::Variables::hpnt[j] = "snow_depth[mm]" ; 
+			}else if(j==oSWE){geotop::common::Variables::hpnt[j] = "snow_water_equivalent[mm]" ; 
+			}else if(j==osnowdens){geotop::common::Variables::hpnt[j] = "snow_density[kg/m3]" ; 
+			}else if(j==osnowT){geotop::common::Variables::hpnt[j] = "snow_temperature[C]" ; 	
+			}else if(j==omrsnow){geotop::common::Variables::hpnt[j] = "snow_melted[mm]" ; 
+			}else if(j==osrsnow){geotop::common::Variables::hpnt[j] = "snow_subl[mm]" ; 
+			}else if(j==oblowingsnowtrans){geotop::common::Variables::hpnt[j] = "snow_blown_away[mm]" ; 
+			}else if(j==oblowingsnowsubl){geotop::common::Variables::hpnt[j] = "snow_subl_while_blown[mm]" ;			
+			}else if(j==oglacdepth){geotop::common::Variables::hpnt[j] = "glac_depth[mm]" ; 
+			}else if(j==oGWE){geotop::common::Variables::hpnt[j] = "glac_water_equivalent[mm]" ; 
+			}else if(j==oglacdens){geotop::common::Variables::hpnt[j] = "glac_density[kg/m3]" ; 
+			}else if(j==oglacT){geotop::common::Variables::hpnt[j] = "glac_temperature[C]" ; 
+			}else if(j==omrglac){geotop::common::Variables::hpnt[j] = "glac_melted[mm]" ; 
+			}else if(j==osrglac){geotop::common::Variables::hpnt[j] = "glac_subl[mm]" ; 
+			}else if(j==othawedup){geotop::common::Variables::hpnt[j] = "lowest_thawed_soil_depth[mm]" ; 
+			}else if(j==othaweddw){geotop::common::Variables::hpnt[j] = "highest_thawed_soil_depth[mm]" ; 
+			}else if(j==owtableup){geotop::common::Variables::hpnt[j] = "lowest_water_table_depth[mm]" ; 
+			}else if(j==owtabledw){geotop::common::Variables::hpnt[j] = "highest_water_table_depth[mm]" ; 
+			} else {
+                geotop::common::Variables::hpnt[j] = geotop::input::gStringNoValue ;
+            }
 		}
 	}
 	
 	//HeaderBasinFile
-	for (j=0; j<ootot; j++) {
-		if(strcmp(hbsn[j], string_novalue) == 0){
-			free(hbsn[j]);
-			if(j==oodate12){ hbsn[j] = assign_string("Date12[DDMMYYYYhhmm]");    		
-			}else if(j==ooJDfrom0){ hbsn[j] = assign_string("JulianDayFromYear0[days]");   		
-			}else if(j==oodaysfromstart){ hbsn[j] = assign_string("TimeFromStart[days]");    
-			}else if(j==ooperiod){ hbsn[j] = assign_string("Simulation_Period");
-			}else if(j==oorun){ hbsn[j] = assign_string("Run");	
-			}else if(j==ooprecrain){ hbsn[j] = assign_string("Prain_below_canopy[mm]");     	
-			}else if(j==ooprecsnow){ hbsn[j] = assign_string("Psnow_below_canopy[mm]");     	
-			}else if(j==oorainover){ hbsn[j] = assign_string("Prain_above_canopy[mm]");     	
-			}else if(j==oosnowover){ hbsn[j] = assign_string("Prain_above_canopy[mm]"); 
-			}else if(j==oopnet){ hbsn[j] = assign_string("Pnet[mm]"); 			
-			}else if(j==ooTa){ hbsn[j] = assign_string("Tair[C]");     	
-			}else if(j==ooTg){ hbsn[j] = assign_string("Tsurface[C]");     	
-			}else if(j==ooTv){ hbsn[j] = assign_string("Tvegetation[C]");     	
-			}else if(j==ooevapsur){ hbsn[j] = assign_string("Evap_surface[mm]");     	
-			}else if(j==ootrasp){ hbsn[j] = assign_string("Transpiration_canopy[mm]");     	
-			}else if(j==ooLE){ hbsn[j] = assign_string("LE[W/m2]");     	
-			}else if(j==ooH){ hbsn[j] = assign_string("H[W/m2]");     	
-			}else if(j==ooSW){ hbsn[j] = assign_string("SW[W/m2]");     	
-			}else if(j==ooLW){ hbsn[j] = assign_string("LW[W/m2]");     	
-			}else if(j==ooLEv){ hbsn[j] = assign_string("LEv[W/m2]");     	
-			}else if(j==ooHv){ hbsn[j] = assign_string("Hv[W/m2]");     	
-			}else if(j==ooSWv){ hbsn[j] = assign_string("SWv[W/m2]");     	
-			}else if(j==ooLWv){ hbsn[j] = assign_string("LWv[W/m2]");     	
-			}else if(j==ooSWin){ hbsn[j] = assign_string("SWin[W/m2]");     	
-			}else if(j==ooLWin){ hbsn[j] = assign_string("LWin[W/m2]");     	
-			}else if(j==oomasserror){ hbsn[j] = assign_string("Mass_balance_error[mm]");     	
-			}else if(j==ootimestep){ hbsn[j] = assign_string("Mean_Time_Step[s]");     					
-			}
+	for (size_t j=0; j<ootot; j++) {
+		if(geotop::common::Variables::hbsn[j] == geotop::input::gStringNoValue){
+			if(j==oodate12){geotop::common::Variables::hbsn[j] = "Date12[DDMMYYYYhhmm]" ;
+			}else if(j==ooJDfrom0){geotop::common::Variables::hbsn[j] = "JulianDayFromYear0[days]" ;   		
+			}else if(j==oodaysfromstart){geotop::common::Variables::hbsn[j] = "TimeFromStart[days]" ;    
+			}else if(j==ooperiod){geotop::common::Variables::hbsn[j] = "Simulation_Period" ;
+			}else if(j==oorun){geotop::common::Variables::hbsn[j] = "Run" ;	
+			}else if(j==ooprecrain){geotop::common::Variables::hbsn[j] = "Prain_below_canopy[mm]" ;     	
+			}else if(j==ooprecsnow){geotop::common::Variables::hbsn[j] = "Psnow_below_canopy[mm]" ;     	
+			}else if(j==oorainover){geotop::common::Variables::hbsn[j] = "Prain_above_canopy[mm]" ;     	
+			}else if(j==oosnowover){geotop::common::Variables::hbsn[j] = "Prain_above_canopy[mm]" ; 
+			}else if(j==oopnet){geotop::common::Variables::hbsn[j] = "Pnet[mm]" ; 			
+			}else if(j==ooTa){geotop::common::Variables::hbsn[j] = "Tair[C]" ;     	
+			}else if(j==ooTg){geotop::common::Variables::hbsn[j] = "Tsurface[C]" ;     	
+			}else if(j==ooTv){geotop::common::Variables::hbsn[j] = "Tvegetation[C]" ;     	
+			}else if(j==ooevapsur){geotop::common::Variables::hbsn[j] = "Evap_surface[mm]" ;     	
+			}else if(j==ootrasp){geotop::common::Variables::hbsn[j] = "Transpiration_canopy[mm]" ;     	
+			}else if(j==ooLE){geotop::common::Variables::hbsn[j] = "LE[W/m2]" ;     	
+			}else if(j==ooH){geotop::common::Variables::hbsn[j] = "H[W/m2]" ;     	
+			}else if(j==ooSW){geotop::common::Variables::hbsn[j] = "SW[W/m2]" ;     	
+			}else if(j==ooLW){geotop::common::Variables::hbsn[j] = "LW[W/m2]" ;     	
+			}else if(j==ooLEv){geotop::common::Variables::hbsn[j] = "LEv[W/m2]" ;     	
+			}else if(j==ooHv){geotop::common::Variables::hbsn[j] = "Hv[W/m2]" ;     	
+			}else if(j==ooSWv){geotop::common::Variables::hbsn[j] = "SWv[W/m2]" ;     	
+			}else if(j==ooLWv){geotop::common::Variables::hbsn[j] = "LWv[W/m2]" ;     	
+			}else if(j==ooSWin){geotop::common::Variables::hbsn[j] = "SWin[W/m2]" ;     	
+			}else if(j==ooLWin){geotop::common::Variables::hbsn[j] = "LWin[W/m2]" ;     	
+			}else if(j==oomasserror){geotop::common::Variables::hbsn[j] = "Mass_balance_error[mm]" ;     	
+			}else if(j==ootimestep){geotop::common::Variables::hbsn[j] = "Mean_Time_Step[s]" ;     					
+			}else {
+                geotop::common::Variables::hbsn[j] = geotop::input::gStringNoValue;
+            }
 		}
 	}
 	
 	//HeaderSnowFile
-	for (j=0; j<10; j++) {
-		if(strcmp(hsnw[j], string_novalue) == 0){
-			free(hsnw[j]);
-			if(j==0){ hsnw[j] = assign_string("Date12[DDMMYYYYhhmm]");    		
-			}else if(j==1){ hsnw[j] = assign_string("JulianDayFromYear0[days]");   		
-			}else if(j==2){ hsnw[j] = assign_string("TimeFromStart[days]");  
-			}else if(j==3){ hsnw[j] = assign_string("Simulation_Period");
-			}else if(j==4){ hsnw[j] = assign_string("Run");					
-			}else if(j==5){ hsnw[j] = assign_string("IDpoint"); 
-			}
+	for (size_t j=0; j<10; j++) {
+		if(geotop::common::Variables::hsnw[j] == geotop::input::gStringNoValue){
+			if(j==0){
+                geotop::common::Variables::hsnw[j] = "Date12[DDMMYYYYhhmm]" ;
+			}else if(j==1){
+                geotop::common::Variables::hsnw[j] = "JulianDayFromYear0[days]" ;
+			}else if(j==2){
+                geotop::common::Variables::hsnw[j] = "TimeFromStart[days]" ;
+			}else if(j==3){
+                geotop::common::Variables::hsnw[j] = "Simulation_Period" ;
+			}else if(j==4){
+                geotop::common::Variables::hsnw[j] = "Run" ;
+			}else if(j==5){
+                geotop::common::Variables::hsnw[j] = "IDpoint" ;
+			} else {
+                geotop::common::Variables::hsnw[j] = geotop::input::gStringNoValue;
+            }
 		}
 	}
 	
 	//HeaderGlacierFile
-	for (j=0; j<10; j++) {
-		if(strcmp(hglc[j], string_novalue) == 0){
-			
-			free(hglc[j]);
-			if(j==0){ hglc[j] = assign_string("Date12[DDMMYYYYhhmm]");    		
-			}else if(j==1){ hglc[j] = assign_string("JulianDayFromYear0[days]");   		
-			}else if(j==2){ hglc[j] = assign_string("TimeFromStart[days]");   
-			}else if(j==3){ hglc[j] = assign_string("Simulation_Period");
-			}else if(j==4){ hglc[j] = assign_string("Run");					
-			}else if(j==5){ hglc[j] = assign_string("IDpoint"); 
-			}else if(j==6){ hglc[j] = assign_string("Temperature[C]");     	
-			}else if(j==7){ hglc[j] = assign_string("wice[kg/m2]");     	
-			}else if(j==8){ hglc[j] = assign_string("wliq[kg/m2]");     	
-			}else if(j==9){ hglc[j] = assign_string("Dz[mm]");
-			}
+	for (size_t j=0; j<10; j++) {
+		if(geotop::common::Variables::hglc[j] == geotop::input::gStringNoValue){
+			if(j==0){ geotop::common::Variables::hglc[j] = "Date12[DDMMYYYYhhmm]" ;
+			}else if(j==1){ geotop::common::Variables::hglc[j] = "JulianDayFromYear0[days]" ;
+			}else if(j==2){ geotop::common::Variables::hglc[j] = "TimeFromStart[days]" ;
+			}else if(j==3){ geotop::common::Variables::hglc[j] = "Simulation_Period" ;
+			}else if(j==4){ geotop::common::Variables::hglc[j] = "Run" ;
+			}else if(j==5){ geotop::common::Variables::hglc[j] = "IDpoint" ;
+			}else if(j==6){ geotop::common::Variables::hglc[j] = "Temperature[C]" ;
+			}else if(j==7){ geotop::common::Variables::hglc[j] = "wice[kg/m2]" ;
+			}else if(j==8){ geotop::common::Variables::hglc[j] = "wliq[kg/m2]" ;
+			}else if(j==9){ geotop::common::Variables::hglc[j] = "Dz[mm]" ;
+			} else {
+                geotop::common::Variables::hglc[j] = geotop::input::gStringNoValue ;
+            }
 		}
 	}
 	
-	
 	//HeaderGlacierFile
-	for (j=0; j<6; j++) {
-		if(strcmp(hsl[j], string_novalue) == 0){
-			free(hsl[j]);
-			if(j==0){ hsl[j] = assign_string("Date12[DDMMYYYYhhmm]");    		
-			}else if(j==1){ hsl[j] = assign_string("JulianDayFromYear0[days]");   		
-			}else if(j==2){ hsl[j] = assign_string("TimeFromStart[days]"); 
-			}else if(j==3){ hsl[j] = assign_string("Simulation_Period");
-			}else if(j==4){ hsl[j] = assign_string("Run");									
-			}else if(j==5){ hsl[j] = assign_string("IDpoint"); 
-			}
+	for (size_t j=0; j<6; j++) {
+		if(geotop::common::Variables::hsl[j] == geotop::input::gStringNoValue){
+			if(j==0){ geotop::common::Variables::hsl[j] = "Date12[DDMMYYYYhhmm]" ;
+			}else if(j==1){ geotop::common::Variables::hsl[j] = "JulianDayFromYear0[days]" ;
+			}else if(j==2){ geotop::common::Variables::hsl[j] = "TimeFromStart[days]" ;
+			}else if(j==3){ geotop::common::Variables::hsl[j] = "Simulation_Period" ;
+			}else if(j==4){ geotop::common::Variables::hsl[j] = "Run" ;
+			}else if(j==5){ geotop::common::Variables::hsl[j] = "IDpoint" ;
+			} else {
+                geotop::common::Variables::hsl[j] = geotop::input::gStringNoValue;
+            }
 		}	
 	}	
 	
 	//Recovery Files
-	for (j=rpsi; j<=rsux; j++) {
-		if(files[j] == string_novalue){
-			if (j==rpsi) { files[j] = assign_string("SoilPressure");
-			}else if (j==riceg) { files[j] = assign_string("SoilIceContent");
-			}else if (j==rTg) { files[j] = assign_string("SoilTemperature");
-			}else if (j==rDzs) { files[j] = assign_string("SnowThickness");
-			}else if (j==rwls) { files[j] = assign_string("SnowLiqWaterContent");
-			}else if (j==rwis) { files[j] = assign_string("SnowIceContent");
-			}else if (j==rTs) { files[j] = assign_string("SnowTemperature");
-			}else if (j==rDzi) { files[j] = assign_string("GlacThickness");
-			}else if (j==rwli) { files[j] = assign_string("GlacLiqWaterContent");
-			}else if (j==rwii) { files[j] = assign_string("GlacIceContent");
-			}else if (j==rTi) { files[j] = assign_string("GlacTemperature");
-			}else if (j==rns) { files[j] = assign_string("SnowLayersNumber");
-			}else if (j==rni) { files[j] = assign_string("GlacLayersNumber");
-			}else if (j==rsnag) { files[j] = assign_string("SnowAge");
-			}else if (j==rwcrn) { files[j] = assign_string("RainOnCanopy");
-			}else if (j==rwcsn) { files[j] = assign_string("SnowOnCanopy");
-			}else if (j==rTv) { files[j] = assign_string("VegTemperature");
-			}else if (j==rpsich) { files[j] = assign_string("SoilChannelPressure");
-			}else if (j==ricegch) { files[j] = assign_string("SoilChannelIceContent");
-			}else if (j==rTgch) { files[j] = assign_string("SoilChannelTemperature");
-			}else if (j==rTrun) { files[j] = assign_string("RunMeanSoilTemperature");
-			}else if (j==rwrun) { files[j] = assign_string("RunMeanSoilTotWater");
-			}else if (j==rdUrun) { files[j] = assign_string("RunSoilInternalEnergy");
-			}else if (j==rSWErun) { files[j] = assign_string("RunMeanSWE");
-			}else if (j==rTmaxrun) { files[j] = assign_string("RunMaxSoilTemperature");
-			}else if (j==rTminrun) { files[j] = assign_string("RunMinSoilTemperature");
-			}else if (j==rwmaxrun) { files[j] = assign_string("RunMaxSoilTotWater");
-			}else if (j==rwminrun) { files[j] = assign_string("RunMinSoilTotWater");
-			}else if (j==rtime) { files[j] = assign_string("RecoveryTime");		
-			}else if (j==rsux) { files[j] = assign_string("SuccessfulRecovery");				
-			}
+	for (size_t j=rpsi; j<=rsux; j++) {
+		if(geotop::common::Variables::files[j] == geotop::input::gStringNoValue){
+			if (j==rpsi) {geotop::common::Variables::files[j] = "SoilPressure";
+			}else if (j==riceg) {geotop::common::Variables::files[j] = "SoilIceContent";
+			}else if (j==rTg) {geotop::common::Variables::files[j] = "SoilTemperature";
+			}else if (j==rDzs) {geotop::common::Variables::files[j] = "SnowThickness";
+			}else if (j==rwls) {geotop::common::Variables::files[j] = "SnowLiqWaterContent";
+			}else if (j==rwis) {geotop::common::Variables::files[j] = "SnowIceContent";
+			}else if (j==rTs) {geotop::common::Variables::files[j] = "SnowTemperature";
+			}else if (j==rDzi) {geotop::common::Variables::files[j] = "GlacThickness";
+			}else if (j==rwli) {geotop::common::Variables::files[j] = "GlacLiqWaterContent";
+			}else if (j==rwii) {geotop::common::Variables::files[j] = "GlacIceContent";
+			}else if (j==rTi) {geotop::common::Variables::files[j] = "GlacTemperature";
+			}else if (j==rns) {geotop::common::Variables::files[j] = "SnowLayersNumber";
+			}else if (j==rni) {geotop::common::Variables::files[j] = "GlacLayersNumber";
+			}else if (j==rsnag) {geotop::common::Variables::files[j] = "SnowAge";
+			}else if (j==rwcrn) {geotop::common::Variables::files[j] = "RainOnCanopy";
+			}else if (j==rwcsn) {geotop::common::Variables::files[j] = "SnowOnCanopy";
+			}else if (j==rTv) {geotop::common::Variables::files[j] = "VegTemperature";
+			}else if (j==rpsich) {geotop::common::Variables::files[j] = "SoilChannelPressure";
+			}else if (j==ricegch) {geotop::common::Variables::files[j] = "SoilChannelIceContent";
+			}else if (j==rTgch) {geotop::common::Variables::files[j] = "SoilChannelTemperature";
+			}else if (j==rTrun) {geotop::common::Variables::files[j] = "RunMeanSoilTemperature";
+			}else if (j==rwrun) {geotop::common::Variables::files[j] = "RunMeanSoilTotWater";
+			}else if (j==rdUrun) {geotop::common::Variables::files[j] = "RunSoilInternalEnergy";
+			}else if (j==rSWErun) {geotop::common::Variables::files[j] = "RunMeanSWE";
+			}else if (j==rTmaxrun) {geotop::common::Variables::files[j] = "RunMaxSoilTemperature";
+			}else if (j==rTminrun) {geotop::common::Variables::files[j] = "RunMinSoilTemperature";
+			}else if (j==rwmaxrun) {geotop::common::Variables::files[j] = "RunMaxSoilTotWater";
+			}else if (j==rwminrun) {geotop::common::Variables::files[j] = "RunMinSoilTotWater";
+			}else if (j==rtime) {geotop::common::Variables::files[j] = "RecoveryTime";
+			}else if (j==rsux) {geotop::common::Variables::files[j] = "SuccessfulRecovery";
+			} else {
+                geotop::common::Variables::files[j] = geotop::input::gStringNoValue ;
+            }
 		}
 	}
 
 	//add path to recovery files
-	if(path_rec_files != string_novalue){
+	if(path_rec_files != geotop::input::gStringNoValue){
 		temp = path_rec_files;
 		path_rec_files = temp + std::string("/");
-		for (i=rpsi; i<=rsux; i++) {
-			temp = files[i];
-			files[i] = path_rec_files + temp;
+		for (size_t i=rpsi; i<=rsux; i++) {
+			temp =geotop::common::Variables::files[i];
+			geotop::common::Variables::files[i] = path_rec_files + temp;
 		}
 	}
 
 	//add working path to the file name
-	for (i=0; i<nfiles; i++) {
-		if (files[i] != string_novalue) {
-			temp = files[i];
-			files[i] = WORKING_DIRECTORY + std::string(temp);
+	for (size_t i=0; i<nfiles; i++) {
+		if (geotop::common::Variables::files[i] != geotop::input::gStringNoValue) {
+			temp =geotop::common::Variables::files[i];
+			geotop::common::Variables::files[i] = geotop::common::Variables::WORKING_DIRECTORY + std::string(temp);
 		}
 	}
 
@@ -623,7 +767,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 #ifdef STAGED_FOR_REMOVING
 void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog)
 #else
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, FILE *flog)
+void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog)
 #endif
 {
 	short occurring;
@@ -635,8 +779,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     double minDt=1.E99;
 
     std::vector<double> lDoubleTempVector ;
-    double lDoubleTempValue ;
-    bool lConfParamGetResult ;
 
 	fprintf(flog,"\n");
 	
@@ -1997,8 +2139,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	
 	//output point column
 	n = (long)otot;
-	opnt = (long*)malloc(n*sizeof(long));
-	ipnt = (short*)malloc(n*sizeof(short));
+	geotop::common::Variables::opnt = (long*)malloc(n*sizeof(long));
+	geotop::common::Variables::ipnt = (short*)malloc(n*sizeof(short));
 
 #ifdef STAGED_FOR_REMOVING
 	par->all_point = (short)assignation_number(flog, 294, 0, keyword, num_param, num_param_components, 0., 0);
@@ -2009,25 +2151,25 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	if (par->all_point == 1) {
 		
 		for (size_t i=0; i<n; i++) {
-			ipnt[i] = 1;
-			opnt[i] = i;
+			geotop::common::Variables::ipnt[i] = 1;
+			geotop::common::Variables::opnt[i] = i;
 		}
 		
-		nopnt = n;
+		geotop::common::Variables::nopnt = n;
 		
 	}else {
 		
 		for (size_t i=0; i<n; i++) {
-			ipnt[i] = 0;
-			opnt[i] = -1;
+			geotop::common::Variables::ipnt[i] = 0;
+			geotop::common::Variables::opnt[i] = -1;
 		}
 
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, 215+i, 0, keyword, num_param, num_param_components, -1., 0);
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
-				opnt[lColumnIndexJ-1] = i;
-				ipnt[i] = 1;
+				geotop::common::Variables::opnt[lColumnIndexJ-1] = i;
+				geotop::common::Variables::ipnt[i] = 1;
 			}
 		}
 #else
@@ -2056,21 +2198,21 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
-				opnt[lColumnIndexJ-1] = i;
-				ipnt[i] = 1;
+				geotop::common::Variables::opnt[lColumnIndexJ-1] = i;
+				geotop::common::Variables::ipnt[i] = 1;
 			}
 		}
 #endif
-		nopnt = 0;
+		geotop::common::Variables::nopnt = 0;
 		for (size_t i=0; i<n; i++) {
-			if(opnt[i] > 0) nopnt = i+1;
+			if(geotop::common::Variables::opnt[i] > 0) geotop::common::Variables::nopnt = i+1;
 		}
 	}
 	
 	//output basin column
 	n = (long)ootot;
-	obsn = (long*)malloc(n*sizeof(long));
-	ibsn = (short*)malloc(n*sizeof(short));
+	geotop::common::Variables::obsn = (long*)malloc(n*sizeof(long));
+	geotop::common::Variables::ibsn = (short*)malloc(n*sizeof(short));
 	
 #ifdef STAGED_FOR_REMOVING
 	par->all_basin = (short)assignation_number(flog, 322, 0, keyword, num_param, num_param_components, 0., 0);
@@ -2081,24 +2223,24 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	if (par->all_basin == 1) {
 		
 		for (size_t i=0; i<n; i++) {
-			ibsn[i] = 1;
-			obsn[i] = i;
+			geotop::common::Variables::ibsn[i] = 1;
+			geotop::common::Variables::obsn[i] = i;
 		}
 		
-		nobsn = (long)ootot;
+		geotop::common::Variables::nobsn = (long)ootot;
 		
 	}else {
 		
 		for (size_t i=0; i<n; i++) {
-			ibsn[i] = 0;
-			obsn[i] = -1;
+			geotop::common::Variables::ibsn[i] = 0;
+			geotop::common::Variables::obsn[i] = -1;
 		}
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, 295+i, 0, keyword, num_param, num_param_components, -1., 0);
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
-				obsn[lColumnIndexJ-1] = i;
-				ibsn[i] = 1;
+				geotop::common::Variables::obsn[lColumnIndexJ-1] = i;
+				geotop::common::Variables::ibsn[i] = 1;
 			}
 		}
 #else
@@ -2113,14 +2255,14 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n){
-				obsn[lColumnIndexJ-1] = i;
-				ibsn[i] = 1;
+				geotop::common::Variables::obsn[lColumnIndexJ-1] = i;
+				geotop::common::Variables::ibsn[i] = 1;
 			}
 		}
 #endif
-		nobsn = 0;
+		geotop::common::Variables::nobsn = 0;
 		for (size_t i=0; i<n; i++) {
-			if(obsn[i] > 0) nobsn = i+1;
+			if(geotop::common::Variables::obsn[i] > 0) geotop::common::Variables::nobsn = i+1;
 		}
 	}
 	
@@ -2191,7 +2333,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 	n = 6;
 	
-	osnw = (long*)malloc(n*sizeof(long));
+	geotop::common::Variables::osnw = (long*)malloc(n*sizeof(long));
 
 #ifdef STAGED_FOR_REMOVING
 	par->all_snow = (short)assignation_number(flog, 335, 0, keyword, num_param, num_param_components, 0., 0);
@@ -2202,10 +2344,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	if (par->all_snow == 1) {
 		
 		for (size_t i=0; i<n; i++) {
-			osnw[i] = i;
+			geotop::common::Variables::osnw[i] = i;
 		}
 		
-		nosnw = n;
+		geotop::common::Variables::nosnw = n;
 		
 	}else {
 
@@ -2214,13 +2356,13 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 #endif
 		
 		for (size_t i=0; i<n; i++) {
-			osnw[i] = -1;
+			geotop::common::Variables::osnw[i] = -1;
 		}
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<6; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, cod+i, 0, keyword, num_param, num_param_components, -1., 0);
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n)
-                osnw[lColumnIndexJ-1] = i;
+                geotop::common::Variables::osnw[lColumnIndexJ-1] = i;
 		}
 #else
         lKeywordString.clear() ;
@@ -2230,12 +2372,12 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		for (size_t i=0; i<6; i++) {
 			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
 			if (lColumnIndexJ>=1 && lColumnIndexJ<=n)
-                osnw[lColumnIndexJ-1] = i;
+                geotop::common::Variables::osnw[lColumnIndexJ-1] = i;
 		}
 #endif
-		nosnw = 0;
+		geotop::common::Variables::nosnw = 0;
 		for (size_t i=0; i<n; i++) {
-			if(osnw[i] > 0) nosnw = i+1;
+			if(geotop::common::Variables::osnw[i] > 0) geotop::common::Variables::nosnw = i+1;
 		}
 	}
 		
@@ -2247,7 +2389,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		m = par->max_glac_layers;
 	}
 	n = 6 + 3*m + 1*par->max_glac_layers;
-	oglc = (long*)malloc(n*sizeof(long));
+	geotop::common::Variables::oglc = (long*)malloc(n*sizeof(long));
 
 #ifdef STAGED_FOR_REMOVING
 	par->all_glac = (short)assignation_number(flog, 348, 0, keyword, num_param, num_param_components, 0., 0);
@@ -2259,31 +2401,31 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	if (par->all_glac == 1) {
 		
 		for (size_t i=0; i<n; i++) {
-			oglc[i] = i;
+			geotop::common::Variables::oglc[i] = i;
 		}
 		
-		noglc = n;
+		geotop::common::Variables::noglc = n;
 		
 	}else {
 				
 		for (size_t i=0; i<n; i++) {
-			oglc[i] = -1;
+			geotop::common::Variables::oglc[i] = -1;
 		}
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<6; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, cod+i, 0, keyword, num_param, num_param_components, -1., 0);
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = i;
+			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = i;
 		}
 		for (size_t i=6; i<9; i++) {
 			for (k=0; k<m; k++) {
 				lColumnIndexJ = (long)assignation_number(flog, cod+i, k, keyword, num_param, num_param_components, -1., 0);
-				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i-6)*m + k + 6;
+				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = (i-6)*m + k + 6;
 			}
 		}
 		for (size_t i=9; i<10; i++) {
 			for (k=0; k<par->max_glac_layers; k++) {
 				lColumnIndexJ = (long)assignation_number(flog, cod+i, k, keyword, num_param, num_param_components, -1., 0);
-				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
+				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
 			}
 		}
 #else
@@ -2292,7 +2434,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
         for(size_t i = 0 ; i < lKeywordString.size() ; i++)
         {
             lColumnIndexJ = getDoubleValueWithDefault(lConfigStore, "SnowAll", geotop::input::gDoubleNoValue, false) ;
-            if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = i;
+            if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = i;
         }
 
         lKeywordString.clear() ;
@@ -2302,7 +2444,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
             lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[i], -1, false, 0, false) ;
 			for (k=0; k<m; k++) {
 				lColumnIndexJ = (size_t)lDoubleTempVector[k];
-				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i)*m + k + 6;
+				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = (i)*m + k + 6;
 			}
         }
 
@@ -2313,19 +2455,19 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
             lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[i], -1, false, 0, false) ;
 			for (k=0; k<par->max_glac_layers; k++) {
 				lColumnIndexJ = (size_t)lDoubleTempVector[k];
-				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
+				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
 			}
         }
 #endif
-		noglc = 0;
+		geotop::common::Variables::noglc = 0;
 		for (size_t i=0; i<n; i++) {
-			if(oglc[i] > 0) noglc = i+1;
+			if(geotop::common::Variables::oglc[i] > 0) geotop::common::Variables::noglc = i+1;
 		}
 	}
 	
 	//output soil column
 	n = 6;
-	osl = (long*)malloc(n*sizeof(long));
+	geotop::common::Variables::osl = (long*)malloc(n*sizeof(long));
 
 #ifdef STAGED_FOR_REMOVING
 	par->all_soil = (short)assignation_number(flog, 355, 0, keyword, num_param, num_param_components, 0., 0);
@@ -2336,20 +2478,20 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	if (par->all_soil == 1) {
 		
 		for (size_t i=0; i<n; i++) {
-			osl[i] = i;
+			geotop::common::Variables::osl[i] = i;
 		}
 		
-		nosl = n;
+		geotop::common::Variables::nosl = n;
 		
 	}else {
 		
 		for (size_t i=0; i<n; i++) {
-			osl[i] = -1;
+			geotop::common::Variables::osl[i] = -1;
 		}
 #ifdef STAGED_FOR_REMOVING
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)assignation_number(flog, 349+i, 0, keyword, num_param, num_param_components, -1., 0);
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osl[lColumnIndexJ-1] = i;
+			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::osl[lColumnIndexJ-1] = i;
 		}
 #else
         lKeywordString.clear() ;
@@ -2358,12 +2500,12 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 		for (size_t i=0; i<n; i++) {
 			lColumnIndexJ = (long)getDoubleValueWithDefault(lConfigStore, lKeywordString[i], geotop::input::gDoubleNoValue, false) ;
-			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) osl[lColumnIndexJ-1] = i;
+			if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::osl[lColumnIndexJ-1] = i;
 		}
 #endif
-		nosl = 0;
+		geotop::common::Variables::nosl = 0;
 		for (size_t i=0; i<n; i++) {
-			if(osl[i] > 0) nosl = i+1;
+			if(geotop::common::Variables::osl[i] > 0) geotop::common::Variables::nosl = i+1;
 		}
 	}
 
@@ -2569,34 +2711,22 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
-std::vector<std::string> assign_string_parameter_v(FILE *f, long beg, long end, char **string_param, string keyword[]){
-    
+#ifdef STAGED_FOR_REMOVING
+__attribute__ ((deprecated))
+std::vector<std::string> assign_string_parameter(FILE *f, long beg, long end, std::vector<std::string> string_param, string keyword[]){
+
 	long i;
 	std::vector<std::string> a;
 
 	for (i=0; i<end-beg; i++) {
-        std::string lString = assignation_string(f, i+beg, keyword, string_param) ;
-        a.push_back(lString);
-	}
-    
-	return(a);
-}
-
-char **assign_string_parameter(FILE *f, long beg, long end, char **string_param, string keyword[]){
-
-	long i;
-	char **a;
-
-	a = (char**)malloc((end-beg)*sizeof(char*));
-
-	for (i=0; i<end-beg; i++) {
         std::string lString = assignation_string(f, i+beg, keyword, string_param);
-        a[i] = strdup(lString.c_str()) ;
+        a.push_back(lString) ;
 	}
 
 	return(a);
 
 }
+#endif
 
 /***********************************************************/
 /***********************************************************/
@@ -2619,7 +2749,7 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 			a = default_value;
 			fprintf(f,"%s[%ld] = %e (default) \n", keyword[i].c_str(), j+1, a);
 		}else{
-			f = fopen(FailedRunFile.c_str(), "w");
+			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 			fprintf(f, "%s[%ld] not assigned\n", keyword[i].c_str(), j+1);
 			fclose(f);
 			t_error("Fatal Error!");
@@ -2639,22 +2769,20 @@ double assignation_number(FILE *f, long i, long j, string keyword[], double **nu
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
-
-std::string assignation_string(FILE *f, long i, string keyword[], char **string_param){
+#ifdef STAGED_FOR_REMOVING
+__attribute__ ((deprecated))
+std::string assignation_string(FILE *f, long i, std::string keyword[], std::vector<std::string> string_param){
 
     std::string a;
-	long j, dimstring = strlen(string_param[i]);
 
-	for (j=0; j<dimstring; j++) {
-		a.push_back(string_param[i][j]);
-	}
+    a = string_param[i];
 
     //TODO: removeme
     //std::cout << "DEBUG_KEYWORDS assignation_string: name(" << keyword[i] << "),Value("<< a << "),i(" << i << "),string_param[i](" << string_param[i] << ")" << std::endl ;
 	fprintf(f,"%s = %s\n", keyword[i].c_str(), a.c_str());
 	return(a);
 }
-
+#endif
 
 /***********************************************************/
 /***********************************************************/
@@ -2685,7 +2813,7 @@ i = 0;
 			nlines = count_lines(temp, 33, 44);
             
 			if (nlinesprev >= 0 && nlines != nlinesprev){
-				f = fopen(FailedRunFile.c_str(), "w");
+				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 				fprintf(f,"Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",temp.c_str(), nlines, nlinesprev);
 				fprintf(f,"In GEOtop it is only possible to have the same number of layers in any soil parameter files\n");
 				fclose(f);
@@ -2693,8 +2821,8 @@ i = 0;
 			}
 			nlinesprev = nlines;
 		}else {
-			if (i==0 && name != string_novalue) {
-				f = fopen(FailedRunFile.c_str(), "w");
+			if (i==0 && name != geotop::input::gStringNoValue) {
+				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 				fprintf(f,"Error:: Soil file %s not existing.\n", name.c_str());
 				fclose(f);
 				t_error("Fatal Error! GEOtop is closed. See failing report.");	
@@ -2735,7 +2863,7 @@ i = 0;
 					k = (long)nsoilprop;
 					soildata[j] = (double*)malloc(k*sizeof(double));
 					for (n=0; n<k; n++) {
-						soildata[j][n] = (double)number_absent;
+						soildata[j][n] = (double)geotop::input::gDoubleAbsent;
 					}
 				}
 			}
@@ -2756,9 +2884,9 @@ i = 0;
 			//fix layer thickness
 			n = jdz;
 			for (j=1; j<sl->pa.getCh(); j++) { //j is the layer index
-				if ((long)sl->pa[i][n][j] != geotop::input::gDoubleNoValue && (long)sl->pa[i][n][j] != number_absent) {
+				if ((long)sl->pa[i][n][j] != geotop::input::gDoubleNoValue && (long)sl->pa[i][n][j] != geotop::input::gDoubleAbsent) {
 					if ( i > 1 && fabs( sl->pa[i][n][j] - sl->pa[i-1][n][j] ) > 1.E-5 )  {
-						f = fopen(FailedRunFile.c_str(), "w");
+						f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 						fprintf(f,"Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.\n",i);
 						fprintf(f,"In Geotop it is only possible to have the soil layer discretization in any soil parameter files.\n");
 						fclose(f);
@@ -2780,7 +2908,7 @@ i = 0;
                 if (n != jdz) {
                     //for (j=1; j<=sl->pa->nch; j++) { //j is the layer index
                     for (j=1; j<sl->pa.getCh(); j++) { //j is the layer index
-                        if ((long)sl->pa[i][n][j] == geotop::input::gDoubleNoValue || (long)sl->pa[i][n][j] == number_absent) {
+                        if ((long)sl->pa[i][n][j] == geotop::input::gDoubleNoValue || (long)sl->pa[i][n][j] == geotop::input::gDoubleAbsent) {
                             //if (j <= old_sl_par->nch) {
                             if (j < old_sl_par.getCh()) {
                                 sl->pa[i][n][j] = old_sl_par[i][n][j];
@@ -2827,13 +2955,19 @@ i = 0;
 	}
 	
 	//write on the screen the soil paramater
+    
+    std::vector<string> lSoilParameters ;
+    lSoilParameters += "HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp", "HeaderNormalHydrConductivity",
+    "HeaderLateralHydrConductivity", "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
+    "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV",
+    "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
 	fprintf(flog,"\n");
 	k = (long)nmet;
 	fprintf(flog,"Soil Layers: %ud\n",sl->pa.getCh()-1);
 	for (i=1; i<sl->pa.getDh(); i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
-		for (n=1; n<=nsoilprop; n++) {
-			fprintf(flog,"%s: ",keywords_char[k+n-1].c_str());
+		for (n=1; n <= lSoilParameters.size(); n++) {
+			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
 				fprintf(flog,"%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
 				if (j<sl->pa.getCh()-1) fprintf(flog,", ");
@@ -2879,8 +3013,8 @@ i = 0;
 	fprintf(flog,"Soil Bedrock Layers: %ud\n",sl->pa.getCh()-1);
 	for (i=1; i<IT->pa_bed.getDh(); i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
-		for (n=1; n<=nsoilprop; n++) {
-			fprintf(flog,"%s: ",keywords_char[k+n-1].c_str());
+		for (n=1; n<=lSoilParameters.size(); n++) {
+			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
 				fprintf(flog,"%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
 				if(j < sl->pa.getCh()-1) fprintf(flog,", ");
@@ -2899,7 +3033,7 @@ i = 0;
 /***********************************************************/
 /***********************************************************/		
 
-short read_point_file(std::string name, char **key_header, Par *par, FILE *flog){
+short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog){
 
 	GeoMatrix<double>  chkpt2;
 	double **points;
@@ -2920,7 +3054,7 @@ short read_point_file(std::string name, char **key_header, Par *par, FILE *flog)
 		for (n=1; n<=nlines; n++) {
 			for (j=1; j< chkpt2.getCols(); j++) {
 				par->chkpt[n][j] = points[n-1][j-1];
-				if ( (long)par->chkpt[n][j] == geotop::input::gDoubleNoValue || (long)par->chkpt[n][j] == number_absent ) {
+				if ( (long)par->chkpt[n][j] == geotop::input::gDoubleNoValue || (long)par->chkpt[n][j] == geotop::input::gDoubleAbsent ) {
 					if ( n < chkpt2.getRows() ) {
 						par->chkpt[n][j] = chkpt2[n][j];
 					}else {
@@ -2964,7 +3098,7 @@ short read_point_file(std::string name, char **key_header, Par *par, FILE *flog)
 /***********************************************************/		
 	
 //short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name, char **key_header, FILE *flog){
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, char **key_header, FILE *flog){
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog){
 	double **M;
 	long nlines, n, j, k;
     std::string temp;
@@ -2977,7 +3111,7 @@ short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::s
 			for (n=1; n<=nlines; n++) {
 				if ((long)M[n-1][0] == i[j]) {
 					for (k=1; k<8; k++) {
-						if ((long)M[n-1][k] != geotop::input::gDoubleNoValue && (long)M[n-1][k] != number_absent) {
+						if ((long)M[n-1][k] != geotop::input::gDoubleNoValue && (long)M[n-1][k] != geotop::input::gDoubleAbsent) {
 							if (k==1) {
 								S->E[j] = M[n-1][k];
 							}else if (k==2) {

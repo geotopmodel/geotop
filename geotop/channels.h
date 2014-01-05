@@ -22,9 +22,6 @@
 #define CHANNELS_H
 #include "struct.geotop.h"
 #include "constants.h"
-//extern T_INIT *UV;
-extern TInit *UV;
-
 
 //void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type, DOUBLEMATRIX *Z, DOUBLEMATRIX *slope, long novalue);
 void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<double>& Z, GeoMatrix<double>& slope, long novalue);

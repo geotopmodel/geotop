@@ -28,9 +28,6 @@
 #include "../netCDF/gt_symbols.h"
 #include <time.h>
 
-extern long i_sim,i_run;
-extern long number_novalue;
-
 
 void write_output_nc(AllData*);
 

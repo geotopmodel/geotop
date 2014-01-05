@@ -25,8 +25,6 @@
 #include <string>
 #include "../libraries/ascii/rw_maps.h"
 
-extern TInit *UV;
-extern long number_novalue;
 void assign_recovered_map(long n, std::string name, DOUBLEMATRIX *assign, Par *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint);
 
 void assign_recovered_map_vector(long n, std::string name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint);

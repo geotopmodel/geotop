@@ -30,7 +30,7 @@
 #define ERRCODE 2
 #define ERROR_MESSAGE(e,n_function,n_ncfunction) {printf("Error in %s() function: %s",n_function,n_ncfunction); printf("\nError: %s\n", nc_strerror(e)); exit(ERRCODE);}
 //namespace mio{
-extern long Nl, Nr, Nc;
+
 class NetCDFIO{ //: public IOInterface {
 	public:
 
@@ -41,12 +41,12 @@ class NetCDFIO{ //: public IOInterface {
 //	long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step,
 //	                                 short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,	const char* dimension_y,
 //	                                 long counter, short reinitialize, short update, short rotate_y,
-//	                                 double number_novalue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
+//	                                 double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
 
 	long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step,
 	                                 short nlimdim, const std::string& dimension_time,const std::string& dimension_z,const std::string& dimension_x, const std::string& dimension_y,
 	                                 long counter, short reinitialize, short update, short rotate_y,
-	                                 double number_novalue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
+	                                 double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j_cont, long total_pixel);
 	                                 //, const long Nl, const long Nr, const long Nc);
 
 	int ncgt_put_doublematrix_vs_time(GeoMatrix<double>& m, long k, int ncid, const std::string& dimension_t,  const std::string& dimension_x, const std::string & dimension_y, short rotate_y);
@@ -54,7 +54,7 @@ class NetCDFIO{ //: public IOInterface {
 	int ncgt_put_doubletensor_vs_time(GeoTensor<double>&t, long k, int ncid, const std::string& dimension_t,  const std::string& dimension_x, const std::string& dimension_y, const std::string& dimension_z, short rotate_y);
 	int ncgt_put_doublevector_vs_time(GeoVector<double>&v, long k, int ncid, const std::string& dimension_t, const std::string &dimension_x);
 	long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const std::string& dimension_time,const std::string& dimension_z,const std::string& dimension_x,
-			const std::string& dimension_y, long counter, short update, short rotate_y, double number_novalue, GeoMatrix<long>* rc, long **j, long total_pixel);
+			const std::string& dimension_y, long counter, short update, short rotate_y, double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j, long total_pixel);
 	//, const long Nl, const long Nr, const long Nc);
 
 	int ncgt_var_update(void *m, void * m0, double Dt, short nlimdim, double novalue);

@@ -26,8 +26,6 @@
 #include <vector>
 #include <string>
 
-extern std::vector<std::string> files;
-
 double psi_teta(double w, double i, double s, double r, double a, double n, double m, double pmin, double st);
 double teta_psi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);
 double dteta_dpsi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);

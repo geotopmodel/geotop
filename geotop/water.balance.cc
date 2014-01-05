@@ -21,9 +21,10 @@
 
 
 #include "water.balance.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
+
 using namespace std;
-
-
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -51,7 +52,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 	long r, c, l, sy;
 	
 	
-	flog = fopen(logfile.c_str(), "a");
+	flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
 	
 	if(adt->P->qin==1){
 		time_interp_linear(JD0, JD1, JD2, adt->M->qinv, adt->M->qins, adt->M->qinsnr, 2, 0, 0, &(adt->M->qinline));		
@@ -77,7 +78,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		printf("water-balance: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
 #endif 				
 		
-		t_sup += (end-start)/(double)CLOCKS_PER_SEC;	
+		geotop::common::Variables::t_sup += (end-start)/(double)CLOCKS_PER_SEC;
 		
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
@@ -106,7 +107,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 		
 		end=clock();
-		t_sub += (end-start)/(double)CLOCKS_PER_SEC;
+		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
 		if (a != 0){
 			fclose(flog);
 			return 1;
@@ -151,7 +152,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		printf("water-balance after 2nd half: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
 #endif 	
 		
-		t_sup += (end-start)/(double)CLOCKS_PER_SEC;	
+		geotop::common::Variables::t_sup += (end-start)/(double)CLOCKS_PER_SEC;
 		
 	}else {//point simulations
 		
@@ -166,12 +167,12 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 			if( L->P[0][j] > 0 ) L->P[0][j] = Fmin( L->P[0][j], Fmax(0.,-adt->T->BC_DepthFreeSurface[j])*cos(adt->T->slope[1][j]*GTConst::Pi/180.) );
 		}
 		end=clock();
-		t_sub += (end-start)/(double)CLOCKS_PER_SEC;
+		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
 		
 	}
 	
-	odb[oopnet] = Pnet;
-	odb[oomasserror] = loss;	
+	geotop::common::Variables::odb[oopnet] = Pnet;
+	geotop::common::Variables::odb[oomasserror] = loss;
 	
 	fclose(flog);
 	
@@ -216,11 +217,11 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	
 
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
-	double ds=sqrt(UV->U[1]*UV->U[2]), area, dz, dn, dD;
+	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
 	double psi;
 	
 	long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
-	long n=(Nl+1)*adt->P->total_pixel;	
+	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
 	short out, out2;	
@@ -387,9 +388,9 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				adt->W->H1[i] = adt->W->H0[i] + lambda[0] * adt->W->dH[i];
 				
 				if(adt->W->H1[i] != adt->W->H1[i]) {
-					f = fopen(FailedRunFile.c_str(), "w");
-					fprintf(f, "Simulation Period:%ld\n",i_sim);
-					fprintf(f, "Run Time:%ld\n",i_run);
+					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
 					fclose(f);
@@ -462,7 +463,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			}
 			
 			//volume lost at the bottom
-			if(l==Nl){
+			if(l==geotop::common::Variables::Nl){
 				area = ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
 				if (ch>0) area -= adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 				*Vbottom = *Vbottom + area * adt->W->Kbottom[r][c] * 1.E-3 * Dt;
@@ -481,7 +482,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 							
 							dz = adt->S->pa(sy,jdz,l);//[mm]						
 							
-							if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
+							if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
 						
 								dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
@@ -502,7 +503,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 							dz = adt->S->pa(sy,jdz,l);//[mm]
 							
 						
-							if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {							
+							if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {							
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 							}else {							
 								dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
@@ -543,7 +544,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				Vsub[ch] += 1.E-3 * ( hnew - hold ) * adt->C->length[ch] * adt->P->w_dx * ds;
 			}
 			
-			if(l==Nl){
+			if(l==geotop::common::Variables::Nl){
 				area = adt->C->length[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
 				*Vbottom = *Vbottom + area * adt->C->Kbottom[ch] * 1.E-3 * Dt;
 			}
@@ -563,11 +564,9 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu;
-//	double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
-	double ds=sqrt(UV->U[1]*UV->U[2]), area, dz, dn, dD;
+	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
 	
 	long i, l, r=1, m, bc, sy, cont, cont2, iter;
-//	long N=adt->W->H0->nh;
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
 	short out, out2;	
@@ -686,9 +685,9 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 				
 			//	if(adt->W->H1->co[i] != adt->W->H1->co[i]) {
 				if(adt->W->H1[i] != adt->W->H1[i]) {
-					f = fopen(FailedRunFile.c_str(), "w");
-					fprintf(f, "Simulation Period:%ld\n",i_sim);
-					fprintf(f, "Run Time:%ld\n",i_run);
+					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards3D l:%ld point:%ld\n",i-1,c);
 					fclose(f);
@@ -762,7 +761,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		}
 		
 		//volume lost at the bottom
-		if(l==Nl){
+		if(l==geotop::common::Variables::Nl){
 			area = ds*ds;
 		//	*Vbottom = *Vbottom + area * adt->W->Kbottom->co[r][c] * 1.E-3 * Dt;
 			*Vbottom = *Vbottom + area * adt->W->Kbottom[r][c] * 1.E-3 * Dt;
@@ -822,9 +821,9 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 	
 	size_t i;
 	size_t l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
-	size_t n=(Nl+1)*adt->P->total_pixel;
+	size_t n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
-	double area, ds=sqrt(UV->U[1]*UV->U[2]), dn;
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), dn;
 	double psi, ice, a, ns, res, sat, ss, Temp;
 	
 
@@ -846,11 +845,11 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 		//	vertical hydraulic conductivity
 			if(l>0){				
 				dz = adt->S->pa(sy,jdz,l);
-				if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_l[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][c], SL->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat	);
+				if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_l[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][c], SL->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat	);
 			}
 			
 			//flux from cell below
-			if (l<Nl) {
+			if (l<geotop::common::Variables::Nl) {
 				
 				I = i+1;
 				
@@ -923,11 +922,11 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			//vertical hydraulic conductivity
 			if(l>0){
 				dz = adt->S->pa[sy][jdz][l];
-				if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom_ch[ch] = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
+				if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_ch[ch] = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 			}
 			
 			//flux from cell below
-			if (l<Nl) {
+			if (l<geotop::common::Variables::Nl) {
 				
 				I = i+1;
 				
@@ -997,8 +996,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			R = r-1;
 			C = c;
 			//1.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1047,8 +1046,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			C = c;
 
 			//2.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1095,8 +1094,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			C = c-1;
 
 			//3.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1141,8 +1140,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			R = r;
 			C = c+1;
 			//4.
-			if(R>=1 && R<=Nr && C>=1 && C<=Nc){
-				if((long)adt->L->LC[R][C]!=number_novalue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1230,7 +1229,7 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 	{
 	long i, l, r=1, I, sy, cnt=0;
 	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
-	double area, ds=sqrt(UV->U[1]*UV->U[2]);
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	double psi, ice, a, ns, res, sat, ss, Temp;
 	
 	for(i=1;i<H.size();i++){
@@ -1245,11 +1244,11 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 		if(l>0){
 			dz = adt->S->pa[sy][jdz][l];
 		//	if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom->co[r][c] = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
-			if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
+			if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 		}
 		
 		//flux from cell below
-		if (l<Nl) {
+		if (l<geotop::common::Variables::Nl) {
 			
 			I = i+1;
 			
@@ -1331,9 +1330,9 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 	
 	long i, l, r, c, j, sy, ch, bc;
-	long n=(Nl+1)*adt->P->total_pixel;
+	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, psi1, ice=0.0;
-	double area, ds=sqrt(UV->U[1]*UV->U[2]);
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 	for(i=1;i<H.size();i++){
 		
@@ -1380,7 +1379,7 @@ int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, So
 			if (l>0) {
 				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11) {
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
-						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
+						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
@@ -1417,7 +1416,7 @@ int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, So
     long r=1, l, sy, bc;
 	double dz, dn, dD, psi1, ice=0.0;
 //	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double area, ds=sqrt(UV->U[1]*UV->U[2]);
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
 	for(size_t i=1;i<H.size();i++){
@@ -1483,10 +1482,10 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 	
 	
     long l, r, c, j, sy, ch, bc;
-	long n=(Nl+1)*adt->P->total_pixel;
+	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
 
-	double area, ds=sqrt(UV->U[1]*UV->U[2]);
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 	for(size_t i=1;i<H.size();i++){
 		
@@ -1531,7 +1530,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 		f[i] = (V1-V0)/Dt;
 	
 		//drainage at the bottom
-		if (l==Nl){
+		if (l==geotop::common::Variables::Nl){
 			if (i<=n) {
 				f[i] += area*Kbottom_l[r][c];
 			}else {
@@ -1544,7 +1543,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 			if (l>0) {
 				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11){
 					if (adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ){
-						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
+						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
 						
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
@@ -1562,7 +1561,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 				
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) {
 			
-						if ((long)adt->L->LC[r+1][c]==number_novalue || (long)adt->L->LC[r-1][c]==number_novalue) {
+						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
 					
@@ -1608,8 +1607,7 @@ int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *ad
 	
     long l, r=1, sy, bc;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double area, ds=sqrt(UV->U[1]*UV->U[2]);
+	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 //	for(i=1;i<=H->nh;i++){
 	for(size_t i=1;i<H.size();i++){
@@ -1644,7 +1642,7 @@ int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *ad
 		f[i] = (V1-V0)/Dt;
 
 		// drainage at the bottom
-		if (l==Nl){
+		if (l==geotop::common::Variables::Nl){
 		//	f->co[i] += area*Kbottom->co[r][c];
 			f[i] += area*Kbottom[r][c];
 		}		
@@ -1699,7 +1697,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
   void find_dt_max(double Courant, GeoMatrix<double>& h, Land *land, Topo *top, Channel *cnet, Par *par, Meteo *met, double t, double *dt){
 
     // t parameter is NOT used ??? 
-	double q, ds=sqrt(UV->U[1]*UV->U[2]), area, Vmax, H;
+	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, Vmax, H;
 	short d;
 	long r, c, j, ch;
 	
@@ -1763,7 +1761,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 {
 	
 	long d, r, c, j, R, C, ch;                                    
-	double ds=sqrt(UV->U[1]*UV->U[2]), area, Vmax, H;
+	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, Vmax, H;
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
 	
@@ -1927,7 +1925,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 
   void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
 	
-	double q, ds=sqrt(UV->U[1]*UV->U[2]), area, areach, Vmax, H, Hch, DH;
+	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, areach, Vmax, H, Hch, DH;
 	long r, c, ch;
 	
 	for (ch=1; ch<=par->total_channel; ch++) {
@@ -2006,7 +2004,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	
 	long ch, r, c;
 //	double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double ds=sqrt(UV->U[1]*UV->U[2]);
+	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
 	
 	do{
@@ -2132,7 +2130,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	long r, c, ch, R, C;		
 	double Ks, q, Vmax, i, H, dn, dD, ds;
 	
-	ds = sqrt(UV->U[1]*UV->U[2]);
+	ds = sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	dn = par->w_dx*ds;
 	
 	for(ch=1;ch<=par->total_channel;ch++){
@@ -2209,14 +2207,14 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	double q,tb,te,dt,H;
 	
 //	ds = sqrt(UV->U->co[1]*UV->U->co[2]);
-	ds = sqrt(UV->U[1]*UV->U[2]);
+	ds = sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	dn = par->w_dx*ds;
 	
 //	if( par->point_sim!=1 && cnet->r->co[1]!=0 ){	//if it is not point simulation and there are channels
 	if( par->point_sim!=1 && cnet->r[1]!=0 ){	//if it is not point simulation and there are channels
 		
 	//	dn = par->w_dx * UV->U->co[1];		//transversal length [m]
-		dn = par->w_dx * UV->U[1];		//transversal length [m]
+		dn = par->w_dx * geotop::common::Variables::UV->U[1];		//transversal length [m]
 		
 		te=0.0;
 		
@@ -2330,7 +2328,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
   void draining_land(double alpha, long i, Topo *T, Land *L, Par *P, GeoMatrix<double>& h, GeoMatrix<long>& I, GeoMatrix<double>& Q, long row){
 	double H, p, pn, dD, dn, Ks;
 //	double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double ds=sqrt(UV->U[1]*UV->U[2]);
+	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 	long d, r, c;
 	long ir[5] = {0, -1, 1, 0,  0};
@@ -2352,7 +2350,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		
 		
 		for (d=1; d<=4; d++) {
-			if (r+ir[d]>=1 && r+ir[d]<=Nr && c+ic[d]>=1 && c+ic[d]<=Nc) {
+			if (r+ir[d]>=1 && r+ir[d]<=geotop::common::Variables::Nr && c+ic[d]>=1 && c+ic[d]<=geotop::common::Variables::Nc) {
 				
 			//	I[d] = T->j_cont[r+ir[d]][c+ic[d]];
 				I(row,d) = T->j_cont[r+ir[d]][c+ic[d]];
@@ -2453,7 +2451,7 @@ void draining_channel(double alpha, long ch, GeoMatrix<double>& Z, GeoMatrix<dou
 	elev = Z[r][c] + alpha*1.E-3*Fmax(h(0,ch), 0.);
 	
 	for (d=1; d<=8; d++) {
-		if (r+ir[d]>=1 && r+ir[d]<=Nr && c+ic[d]>=1 && c+ic[d]<=Nc) {
+		if (r+ir[d]>=1 && r+ir[d]<=geotop::common::Variables::Nr && c+ic[d]>=1 && c+ic[d]<=geotop::common::Variables::Nc) {
 		//	if(cnet->ch->co[r+ir[d]][c+ic[d]] > 0){
 			if(cnet->ch[r+ir[d]][c+ic[d]] > 0){
 			//	elev1 = Z->co[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h[cnet->ch->co[r+ir[d]][c+ic[d]]], 0.);

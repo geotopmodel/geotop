@@ -8,9 +8,9 @@
 using namespace std;
 
 //long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, LONGMATRIX *rc, long **j, long total_pixel){
+//		const char* dimension_y, long counter, short update, short rotate_y, double geotop::input::gDoubleNoValue, LONGMATRIX *rc, long **j, long total_pixel){
 long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-		const char* dimension_y, long counter, short update, short rotate_y, double number_novalue, GeoMatrix<long>* rc, long **j, long total_pixel){
+		const char* dimension_y, long counter, short update, short rotate_y, double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j, long total_pixel){
 
 
    	/* define the temporal counter*/
@@ -115,8 +115,8 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 		//printf("m1->ncl=%ld, m1->nch=%ld, Nl=%ld, Nr=%ld, Nc=%ld, total_pixel=%ld",m1->ncl, m1->nch, Nl, Nr, Nc, total_pixel);stop_execution();
 //		V = new_doublevector(npoints);
 		tmp_V.resize(npoints+1);
-//		mv=new_doubletensor(Nl,Nr,Nc);
-		tmp_mv.resize(Nl+1, Nr+1, Nc+1);
+//		mv=new_doubletensor(geotop::common::Variables::Nl,Nr,Nc);
+		tmp_mv.resize(geotop::common::Variables::Nl+1, Nr+1, Nc+1);
 
 //		mv->ndl=m2->nrl;
 //		for (l=m2->nrl; l<=m2->nrh; l++){
@@ -125,11 +125,11 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 //				V->co[i] = m2->co[l][i];
 //			}
 //			for(r=1; r<= Nr; r++){
-//				for (c=1; c<=Nc; c++){
+//				for (c=1; c<=geotop::common::Variables::Nc; c++){
 //		 			if (j[r][c] > 0) {
 //						mv->co[l][r][c]=V->co[j[r][c]];
 //		 			}else {
-//		 				mv->co[l][r][c]=number_novalue;
+//		 				mv->co[l][r][c]=geotop::input::gDoubleNoValue;
 //		 			}
 //		 		}
 //		 	}
@@ -140,11 +140,11 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 				tmp_V[i] = (*gm1)[l][i];
 				}
 			for(r=1; r<= Nr; r++){
-				for (c=1; c<=Nc; c++){
+				for (c=1; c<=geotop::common::Variables::Nc; c++){
 					if (j[r][c] > 0) {
 						tmp_mv(l,r,c) = tmp_V[j[r][c]];
 					}else {
-						tmp_mv(l,r,c) = number_novalue;
+						tmp_mv(l,r,c) = geotop::input::gDoubleNoValue;
 					}
 				}
 			}
@@ -184,18 +184,18 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 		stop_execution();
 		
 		tmp_V.resize(npoints+1);
-		tmp_mv.resize(Nl+1, Nr+1, Nc+1);
+		tmp_mv.resize(geotop::common::Variables::Nl+1, Nr+1, Nc+1);
 		
 		for (l=1; l<gm1->getRows(); l++) {
 			for(i=1; i<=total_pixel; i++) {
 				tmp_V[i] = (*gm1)[l][i];
 			}
 			for(r=1; r<= Nr; r++){
-				for (c=1; c<=Nc; c++){
+				for (c=1; c<=geotop::common::Variables::Nc; c++){
 					if (j[r][c] > 0) {
 						tmp_mv(l,r,c) = tmp_V[j[r][c]];
 					}else {
-						tmp_mv(l,r,c) = number_novalue;
+						tmp_mv(l,r,c) = geotop::input::gDoubleNoValue;
 					}
 				}
 			}
@@ -204,7 +204,7 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 		//printf("name=%s, name1=%s",tmp_mv.name,gm1->name);stop_execution();
 		/*
 		V = new_doublevector(npoints);
-		mv=new_doubletensor(Nl,Nr,Nc);
+		mv=new_doubletensor(geotop::common::Variables::Nl,Nr,Nc);
 		mv->ndl=m2->nrl;
 		
 		for (l=m2->nrl; l<=m2->nrh; l++){
@@ -213,11 +213,11 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 				V->co[i] = m2->co[l][i];
 			}
 			for(r=1; r<= Nr; r++){
-				for (c=1; c<=Nc; c++){
+				for (c=1; c<=geotop::common::Variables::Nc; c++){
 					if (j[r][c] > 0) {
 						mv->co[l][r][c]=V->co[j[r][c]];
 					}else {
-						mv->co[l][r][c]=number_novalue;
+						mv->co[l][r][c]=geotop::input::gDoubleNoValue;
 					}
 				}
 			}
@@ -248,11 +248,11 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 			V->co[i] = m2->co[1][i];
 			}
 		for(r=1; r<= Nr; r++){
-			for (c=1; c<=Nc; c++){
+			for (c=1; c<=geotop::common::Variables::Nc; c++){
 				 if (j[r][c] > 0) {
 					mv1->co[r][c]=V->co[j[r][c]];
 				 }else {
-					 mv1->co[r][c]=number_novalue;
+					 mv1->co[r][c]=geotop::input::gDoubleNoValue;
 			 	}
 			 }
 		}
@@ -284,11 +284,11 @@ long ncgt_add_output_var(int ncid, void *m, double time, short nlimdim, const ch
 			V->co[i] = m2->co[1][i];
 			}
 		for(r=1; r<= Nr; r++){
-			for (c=1; c<=Nc; c++){
+			for (c=1; c<=geotop::common::Variables::Nc; c++){
 				 if (j[r][c] > 0) {
 					mv1->co[r][c]=V->co[j[r][c]];
 				 }else {
-					 mv1->co[r][c]=number_novalue;
+					 mv1->co[r][c]=geotop::input::gDoubleNoValue;
 				}
 			 }
 		}
@@ -554,11 +554,11 @@ void* ncgt_new_output_var(const void * m0, const short& nlimdim, const double& n
 }
 
 //long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,
-//		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double number_novalue, LONGMATRIX *rc, long **j_cont, long total_pixel){
+//		const char* dimension_y, long counter, short reinitialize, short update, short rotate_y, double geotop::input::gDoubleNoValue, LONGMATRIX *rc, long **j_cont, long total_pixel){
 long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, double computation_time_step, double print_time_step, 
                                  short nlimdim, const char* dimension_time,const char* dimension_z,const char* dimension_x,	const char* dimension_y, 
                                  long counter, short reinitialize, short update, short rotate_y, 
-                                 double number_novalue, GeoMatrix<long>* rc, long **j_cont, long total_pixel){
+                                 double geotop::input::gDoubleNoValue, GeoMatrix<long>* rc, long **j_cont, long total_pixel){
 
 
 	/*!
@@ -596,11 +596,11 @@ long ncgt_add_output_var_cumtime(int ncid, void *m0, void *m, double time, doubl
 			counter_new=ncgt_add_output_var(ncid, m, time, nlimdim, dimension_time, dimension_z,dimension_x,dimension_y, counter_new,
 						update, NC_GEOTOP_ROTATE_Y, NC_GEOTOP_NOVALUE, rc, j_cont, total_pixel);
 			// set to zero m0 (cumulated)
-			if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, number_novalue);
+			if(reinitialize==1)	ncgt_var_set_to_zero(m0, nlimdim, geotop::input::gDoubleNoValue);
 		}
 	}else if(print_time_step>0){
 		// printing time not reached: updates cumulated variable
-		if(reinitialize==1) ncgt_var_update(m, m0, computation_time_step,nlimdim, number_novalue);
+		if(reinitialize==1) ncgt_var_update(m, m0, computation_time_step,nlimdim, geotop::input::gDoubleNoValue);
 	}
 	return counter_new;
 }

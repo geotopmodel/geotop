@@ -20,6 +20,9 @@
  */
 
 #include "times.h"
+#include "geotop_common.h"
+#include "inputKeywords.h"
+
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 /*==================================================================================================================*/
@@ -38,33 +41,33 @@
 		
 		if(times->time==0){
 			line_interp=0;
-		//	JDnew=par->init_date->co[i_sim]-1.0;
-			JDnew=par->init_date[i_sim]-1.0;
+		//	JDnew=par->init_date->co[geotop::common::Variables::i_sim]-1.0;
+			JDnew=par->init_date[geotop::common::Variables::i_sim]-1.0;
 		}
 		
 		JDold=JDnew;	
-	//	JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date->co[i_sim]);
-		JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date[i_sim]);
+	//	JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date->co[geotop::common::Variables::i_sim]);
+		JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date[geotop::common::Variables::i_sim]);
 		
 		if(floor(JDold)!=floor(JDnew)){
 		//	time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, GTConst::max_cols_time_steps_file+1, 0,
-		//				 par->init_date->co[i_sim]+times->time/86400.);
+		//				 par->init_date->co[geotop::common::Variables::i_sim]+times->time/86400.);
 			time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, GTConst::max_cols_time_steps_file+1, 0,
-								 par->init_date[i_sim]+times->time/86400.);
+								 par->init_date[geotop::common::Variables::i_sim]+times->time/86400.);
 			posix=0;
 		}
 	}
 	
-	if( (long)times->Dt_vector[1+posix]==number_novalue ) posix=0;
+	if( (long)times->Dt_vector[1+posix]== geotop::input::gDoubleNoValue ) posix=0;
 	par->Dt=times->Dt_vector[1+posix];
 	posix++;
 		
-//	if(par->plot_discharge_with_Dt_integration->co[i_sim]==1) par->Dtplot_discharge->co[i_sim]=par->Dt;
-	if(par->plot_discharge_with_Dt_integration[i_sim]==1) par->Dtplot_discharge[i_sim]=par->Dt;
-//	if(par->plot_point_with_Dt_integration->co[i_sim]==1) par->Dtplot_point->co[i_sim]=par->Dt;
-	if(par->plot_point_with_Dt_integration[i_sim]==1) par->Dtplot_point[i_sim]=par->Dt;
-//	if(par->plot_basin_with_Dt_integration->co[i_sim]==1) par->Dtplot_basin->co[i_sim]=par->Dt;
-	if(par->plot_basin_with_Dt_integration[i_sim]==1) par->Dtplot_basin[i_sim]=par->Dt;
+//	if(par->plot_discharge_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_discharge->co[geotop::common::Variables::i_sim]=par->Dt;
+	if(par->plot_discharge_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_discharge[geotop::common::Variables::i_sim]=par->Dt;
+//	if(par->plot_point_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_point->co[geotop::common::Variables::i_sim]=par->Dt;
+	if(par->plot_point_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_point[geotop::common::Variables::i_sim]=par->Dt;
+//	if(par->plot_basin_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_basin->co[geotop::common::Variables::i_sim]=par->Dt;
+	if(par->plot_basin_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_basin[geotop::common::Variables::i_sim]=par->Dt;
 
 }
 	
@@ -100,7 +103,7 @@ double convert_JDandYear_JDfrom0(double JD, long year){
 	FILE *f;
 	
 	if (year < 0){
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -122,7 +125,7 @@ void convert_JDfrom0_JDandYear(double JDfrom0, double *JD, long *year){
 	FILE *f;
 	
 	if (JDfrom0 < 1) {
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -153,7 +156,7 @@ double convert_JDfrom0_JD(double JDfrom0){
 	FILE *f;
 	
 	if (JDfrom0 < 1) {
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: Not Possible to handle dates with year earlier than 0\n");
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	
@@ -246,7 +249,7 @@ void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, 
 	*min = floor(date/1.E0 - (*day)*1.E10 - (*month)*1.E8 - (*year)*1.E4 - (*hour)*1.E2);
 	
 	if (*day<1 || *day>31 || *month<1 || *month>12 || *year<1700 || *year>2900 || *hour<0 || *hour>23 || *min<0 || *min>59) {
-		f = fopen(FailedRunFile.c_str(), "w");
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f,"Error:: the date %12.0f cannot be read\n",date);
 		fclose(f);
 		t_error("Fatal Error! Geotop is closed. See failing report.");	

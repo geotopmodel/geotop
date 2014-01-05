@@ -12,16 +12,30 @@
  Journal of Hydrology, 144 (1993) 165-192
  */
 #include "PBSM.h"
-
-double T, Ustar, Z0, Zr;
-double k_atm, Diff, B, SvDens, Sigma;
-float CC1, CC2, CC3, CC4, CC5;
-
+#include "geotop_common.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/				
+/******************************************************************************************************************************************/
+
+//global variables
+static double T ;
+static double Ustar;
+static double Z0 ;
+static double Zr;
+
+static double k_atm;
+static double Diff;
+static double B;
+static double SvDens;
+static double Sigma;
+
+static float CC1;
+static float CC2;
+static float CC3;
+static float CC4;
+static float CC5;
 
 //Prarie Blowing Snow Model - Pomeroy et al. (1993)
 

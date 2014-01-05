@@ -164,10 +164,10 @@ void write_map(std::string filename, short type, short format, GeoMatrix<double>
 	if(format==1){
 		t_error("The fluidturtle format is not support any more");
 	}else if(format==2){
-		//write_grassascii(filename, type, M, UV, novalue);
+		//write_grassascii(filename, type, M, geotop::common::Variables::UV, novalue);
 		t_error("The Grass Ascii format not supported any more");
 	}else if(format==3){
-		write_esriascii(filename, type, M, UV, novalue);
+		write_esriascii(filename, type, M, geotop::common::Variables::UV, novalue);
 	}
 
 }
@@ -185,10 +185,10 @@ void write_map(std::string filename, short type, short format, GeoMatrix<long>& 
 	if(format==1){
 		t_error("The fluidturtle format is not support any more");
 	}else if(format==2){
-		//write_grassascii(filename, type, M, UV, novalue);
+		//write_grassascii(filename, type, M, geotop::common::Variables::UV, novalue);
 		t_error("The Grass Ascii format not supported any more");
 	}else if(format==3){
-		write_esriascii(filename, type, M, UV, novalue);
+		write_esriascii(filename, type, M, geotop::common::Variables::UV, novalue);
 	}
 
 }
@@ -206,10 +206,10 @@ void write_map_vector(char *filename, short type, short format, const GeoVector<
 	if(format==1){
 		t_error("The fluidturtle format is not support any more");
 	}else if(format==2){
-		//write_grassascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+		//write_grassascii_vector(filename, type, V, j, nr, nc, geotop::common::Variables::UV, novalue);
 		t_error("Grass ascii map format not supported any more");
 	}else if(format==3){
-		write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+		write_esriascii_vector(filename, type, V, j, nr, nc, geotop::common::Variables::UV, novalue);
 	}
 
 }
@@ -227,10 +227,10 @@ void write_map_vector(std::string filename, short type, short format, const GeoV
 	if(format==1){
 		t_error("The fluidturtle format is not support any more");
 	}else if(format==2){
-		//write_grassascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+		//write_grassascii_vector(filename, type, V, j, nr, nc, geotop::common::Variables::UV, novalue);
 		t_error("Grass ascii map format not supported any more");
 	}else if(format==3){
-		write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+		write_esriascii_vector(filename, type, V, j, nr, nc, geotop::common::Variables::UV, novalue);
 	}
 
 }
@@ -275,7 +275,7 @@ void write_tensorseries(short a, long l, long i, std::string filename, short typ
 		}
 	}
 
-	write_map(name, type, format, M, UV, novalue);
+	write_map(name, type, format, M, geotop::common::Variables::UV, novalue);
 	
 //	free_doublematrix(M);
 //	free(name);
@@ -321,7 +321,7 @@ void write_tensorseries_vector(short a, long l, long i, std::string filename, sh
 		V[j]=T[l][j];
 	}
 	
-	write_map_vector(name, type, format, V, UV, novalue, J, nr, nc);
+	write_map_vector(name, type, format, V, geotop::common::Variables::UV, novalue, J, nr, nc);
 	
 	//free_doublevector(V);
 //	free(name);
@@ -353,7 +353,7 @@ void write_tensorseries2(std::string suf, long l, std::string filename, short ty
 	}
 	
 	temp2 = filename + temp1 ;
-	write_map(temp2.c_str(), type, format, M, UV, novalue);
+	write_map(temp2.c_str(), type, format, M, geotop::common::Variables::UV, novalue);
 	
 //	free_doublematrix(M);
 
@@ -376,7 +376,7 @@ void write_tensorseries2_vector(std::string suf, long l, std::string filename, s
 	}
 	
 	temp2 = filename + temp1;
-	write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
+	write_map_vector(temp2, type, format, V, geotop::common::Variables::UV, novalue, J, nr, nc);
 		
 }
 
@@ -387,7 +387,7 @@ void write_tensorseries3(std::string suffix, std::string filename, short type, s
 
 	long l;
 	for(l=T->ndl;l<=T->ndh;l++){
-		write_tensorseries2(suffix, l, filename, type, format, T, UV, novalue);
+		write_tensorseries2(suffix, l, filename, type, format, T, geotop::common::Variables::UV, novalue);
 	}
 }
 
@@ -399,7 +399,7 @@ void write_tensorseries3_vector(std::string suffix, std::string filename, short 
 	// TODO: need check nrl
 //	for(l=T->nrl;l<=T->nrh;l++){
 	for(l=1;l<T.getRows();l++){
-		write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
+		write_tensorseries2_vector(suffix, l, filename, type, format, T, geotop::common::Variables::UV, novalue, J, nr, nc);
 	}
 }
 

@@ -22,6 +22,7 @@
 #ifndef METEO_H
 #define METEO_H
 
+#include "geotop_common.h"
 #include "constants.h"
 #include "struct.geotop.h"
 #include "meteodata.h"
@@ -29,18 +30,7 @@
 //#include "../libraries/ascii/tabs.h"
 #include "times.h"
 #include "snow.h"
-//#include "../meteoio_plugin/meteoioplugin.h"
 
-extern long number_novalue;
-//number_absent;
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char *WORKING_DIRECTORY;
-//extern char *logfile;
-extern std::string logfile;
-
-extern long  Nr, Nc;//Nl
-//extern long i_sim;
 /*----------------------------------------------------------------------------------------------------------*/
 //void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR *par, double JD0, double JDbeg, double JDend);
 void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par *par, double JD0, double JDbeg, double JDend);

@@ -38,35 +38,6 @@
 
 #include <time.h>
 
-extern long number_novalue, number_absent;
-extern char *string_novalue;
-
-//extern char *WORKING_DIRECTORY;
-extern std::string WORKING_DIRECTORY;
-
-//extern T_INIT *UV;
-extern TInit *UV;
-//extern char **files, *logfile;
-extern std::vector<std::string> files;
-extern std::string logfile;
-
-extern long Nl, Nr, Nc;
-
-extern double t_meteo, t_energy, t_water, t_sub, t_sup, t_out, t_blowingsnow;
-
-extern double **odpnt, **odp, *odbsn, *odb;
-extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
-extern long *oglc, noglc, *osl, nosl;
-extern char **hpnt, **hbsn, **hsnw, **hglc, **hsl;
-
-extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav, *ffice, *fficeav, *ffsnow, *ffglac;
-
-extern long i_sim, i_run;
-
-extern time_t start_time;
-extern double elapsed_time, elapsed_time_start, cum_time, max_time;
-
-
 //void write_output(TIMES *times,WATER *wat,CHANNEL *cnet,PAR *par,TOPO *top,LAND *land,SOIL *sl,Energy *egy,SNOW *snow,GLACIER *glac,METEO *met);
   void write_output(Times *times,Water *wat,Channel *cnet,Par *par,Topo *top,Land *land,Soil *sl,Energy *egy,Snow *snow,Glacier *glac,Meteo *met);
 
