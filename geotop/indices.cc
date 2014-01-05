@@ -28,7 +28,7 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc){
+
   void i_lrc_cont(GeoMatrix<double>& LC, long ***i, GeoMatrix<long>& lrc){
 	
 	long cont=0;
@@ -47,8 +47,9 @@
 			}
 		}
 	}
-	printf("i_lrc_cont: cont: %ld\n",cont);
-	  
+#ifdef VERBOSE
+	  printf("i_lrc_cont: cont: %ld\n",cont);
+#endif	  
 }
 
 /******************************************************************************************************************************************/
@@ -63,18 +64,20 @@ void j_rc_cont(GeoMatrix<double>& LC, long **j, GeoMatrix<long>& rc){
 	long r, c;
 	for(r=1;r<=geotop::common::Variables::Nr;r++){
 		for(c=1;c<=geotop::common::Variables::Nc;c++){
-		//	if((long)LC->co[r][c]!=geotop::input::gDoubleNoValue){
+
 			if((long)LC[r][c]!=geotop::input::gDoubleNoValue){
 				cont++;
 				j[r][c]=cont;
-			//	rc->co[cont][1]=r;
-				rc[cont][1]=r;
-			//	rc->co[cont][2]=c;
+				rc[cont][1]=r;;
 				rc[cont][2]=c;
 			}
 		}
 	}
+	
+#ifdef VERBOSE 	
 	printf("j_lrc_cont: cont: %ld\n",cont);
+#endif 
+	
 }
 
 
@@ -98,7 +101,9 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch){
 			lch[cont][2]=ch;
 		}
 	}
+#ifdef VERBOSE 
 	printf("lch3_cont: cont: %ld\n",cont);
+#endif 
 }
 
 /******************************************************************************************************************************************/
@@ -177,9 +182,6 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
-//void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n){
-
 
 
 void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n){
@@ -276,6 +278,9 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	
 	
 }
+
+/// We should remove commented code no longer used /////
+/// are there below needed ? //////////////
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

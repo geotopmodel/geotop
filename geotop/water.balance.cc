@@ -31,8 +31,6 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short water_balance(double Dt, double JD0, double JD1, double JD2, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, DOUBLEVECTOR *Vsub, DOUBLEVECTOR *Vsup,
-//					double *Voutnet, double *Voutlandsub, double *Voutlandsup, double *Voutlandbottom){
 
 short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L, SoilState *C, AllData *adt, GeoVector<double>& Vsub, GeoVector<double>& Vsup,
 					double *Voutnet, double *Voutlandsub, double *Voutlandsup, double *Voutlandbottom){
@@ -67,43 +65,13 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		
 		
 		end=clock();
-
-#ifdef VERBOSE		
-		// this below for debugging: could be removed at later stage.. SC 
-		MMo += mmo;
-		MS1 = mm1;
-		MS2 = mm2;	
-		MM1 = 0.;
-		MM2 = 0.;
-		printf("water-balance: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
-#endif 				
 		
 		geotop::common::Variables::t_sup += (end-start)/(double)CLOCKS_PER_SEC;
 		
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
 
-		
-		/* ds=sqrt(UV->U[1]*UV->U[2]);
-		for (j=1; j<adt->W->H1.size(); j++) {
-			l=adt->T->lrc_cont[j][1];
-			r=adt->T->lrc_cont[j][2];
-			c=adt->T->lrc_cont[j][3];
-			sy=adt->S->type[r][c];
-			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-			if(l==0){
-				m1 += area * 1.E-3*Fmax(0.0, L->P[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-			}else {
-				dz = adt->S->pa[sy][jdz][l];		
-				m1 += area*1.E-3*dz * theta_from_psi(L->P[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa, sy, GTConst::PsiMin);
-				
-			}
-			if(l==0) mo += area * 1.E-3 * adt->W->Pnet[r][c];
-		}*/
-		
-		
-		
-		
+	
 		a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 		
 		end=clock();
@@ -113,44 +81,14 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 			return 1;
 		}
 		
-		/*ds=sqrt(UV->U[1]*UV->U[2]);
-		for (j=1; j<adt->W->H1.size(); j++) {
-			l=adt->T->lrc_cont[j][1];
-			r=adt->T->lrc_cont[j][2];
-			c=adt->T->lrc_cont[j][3];
-			sy=adt->S->type[r][c];
-			area=ds*ds/cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-			if(l==0){
-				m2 += area * 1.E-3*Fmax(0.0, L->P[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope[r][c]*GTConst::Pi/180.);
-			}else {
-				dz = adt->S->pa[sy][jdz][l];		
-				m2 += area*1.E-3*dz * theta_from_psi(L->P[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa, sy, GTConst::PsiMin);
-			}
-		}
-		
-#ifdef VERBOSE		
-		printf("water-balance SUB: m1:%e m2:%e mo:%e dm:%e\n",m1,m2,mo,fabs(m1+mo-m2));
-#endif 		
-		MM1 = m1;
-		MM2 = m2;
-		MMR += mo;*/
-		
-
-		
+				
 		//surface flow: 2nd half of time step
 		start=clock();
 
 		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
 
 		end=clock();
-		
-		MMo += mmo;
-		MS1 = mm1;
-		MS2 = mm2;
-		
-#ifdef VERBOSE	
-		printf("water-balance after 2nd half: %e %e %e %e %e %e\n",MM1,MM2,MMR,MS1,MS2,MMo);
-#endif 	
+
 		
 		geotop::common::Variables::t_sup += (end-start)/(double)CLOCKS_PER_SEC;
 		
@@ -289,12 +227,11 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			
 		 						
 		}
-		
- //	  printf("H1 guess %ld,%f\n", i, adt->W->H1[i]);		
 	}
 
+#ifdef VERBOSE	
 	printf("Richard3D: Pnet: %f\n",*Total_Pnet);
-
+#endif 
 	
 	sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);
 	
@@ -303,8 +240,11 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B, adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);	
 	
 	res = norm_inf(adt->W->B, 1, N);
+
+#ifdef VERBOSE	
 	printf("Richard3D: res: %f\n",res);
-	
+#endif 	
+
 	res00 = res; //initial norm of the residual
 	epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00 , sqrt((double)N) );
 	
@@ -408,9 +348,12 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			res = norm_inf(adt->W->B, 1, N);		
 			
 			out2=0;
+	
+#ifdef VERBOSE
 			
 			printf(" Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,*Total_Pnet);
-
+#endif
+			
 			
 			if(res <= (1.0 - ni_wat*lambda[0]*(1.-mu))*res_av) out2=1;
 			if(lambda[0] <= adt->P->min_lambda_wat) cont_lambda_min++;
@@ -902,7 +845,7 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				}
 				
 				cnt++;
-			
+				
 				//cout << "find3D H.size()=" << H.size()-1 << "  " << "Lx.size() = " << Lx.size()-1 << "   cnt=" << cnt  << endl;
 				//printf("find_3D kmax,kmaxn,kn,%f,%f,%f\n",kmax,kmaxn,kn);
 				Lx[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -935,7 +878,6 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 					dzn = adt->S->pa[sy][jdz][l+1];
 					dD = 0.5*dzn;
 					
-				//	if( H->co[i] < H->co[I] ){
 					if( H[i] < H[I] ){
 						//upward flux
 					
@@ -979,7 +921,6 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 		}
 		
 		//LATERAL FLUXES
-//		printf("i, l ,r , c %ld,%ld,%ld,%ld\n",i,);
 	
 		if (i<=n){
 			
@@ -1209,9 +1150,9 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				Lx[cnt] = -(2.*adt->C->length[adt->C->ch[r][c]]*1.E-3*dz)*kn/dD;						
 				
 			}
-			
+#ifdef VERBOSE			
 			cout << "find3D: Lx[cnt]=" << Lx[cnt] << endl;
-
+#endif 
 		}
 		
 	}									
@@ -1325,7 +1266,6 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L, SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat){
 
 int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 	
@@ -1586,8 +1526,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 			}
 		}else {
 					f[i] -= area*adt->W->Pnet[r][c]/Dt;
-		}
- // 	printf("ff[%ld]=,%f \n",i,f[i]);	
+		}	
 	}
 	
 	return 0;
@@ -1752,8 +1691,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet,
-//			 PAR *par, METEO *met, DOUBLEVECTOR *Vsup, double *Voutnet, double *Voutland, FILE *flog)
+
 
 void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
 			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo )
@@ -1776,8 +1714,10 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		area /= cos(top->slope[r][c]*GTConst::Pi/180.);
 		m1 += H*1.E-3*area;
 	}
-	
+
+#ifdef VERBOSE	
 	printf("supflow: te %ld\n",te);
+#endif 
 	
 	do{
 		
@@ -1892,27 +1832,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	}while(te<Dt);
 
 	
-	// this below control lines... to be removed later
-	
-    printf("sup-flow: %f %f %f\n",Dt/cnt,Dt/cnt2,Dt/cnt3);
-	
-	for (j=1; j<=par->total_pixel; j++) {
-		r = top->rc_cont[j][1];
-		c = top->rc_cont[j][2];
-		H = Fmax(0., h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);
-		area = ds*ds;
-		area /= cos(top->slope[r][c]*GTConst::Pi/180.);
-		m2 += H*1.E-3*area;
-	}	
-	
-	*mm1 = m1;
-	*mm2 = m2;
-	*mmo = mo;
-	
-	printf("SUP: m1:%e m2:%e mo:%e dm:%e\n",m1,m2,mo,fabs(m1-mo-m2));
-	
-	
-	
 }	
 
 /******************************************************************************************************************************************/
@@ -2003,7 +1922,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
   void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
 	
 	long ch, r, c;
-//	double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
 	
