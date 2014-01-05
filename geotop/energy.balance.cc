@@ -272,6 +272,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	//TODO: integrate Tdirichlet
     // from UZH version: 
 	//Tdirichlet=A->M->var[A->M->nstTs-1][iTs];  <-segfault on this: to better understand.. 
+	
 	if ((long)Tdirichlet == number_novalue || (long)Tdirichlet == number_absent) Tdirichlet=A->P->Tsup;
     Tdirichlet = number_novalue; // this as temporary hack to make things work 
 
@@ -652,7 +653,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->E->Temp[0] = A->E->Temp[1];
 
         //ENERGY BALANCE
-// DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
+
+		// DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
 #ifdef VERBOSE
         if(r == 5 && c == 2)
         {
@@ -1413,17 +1415,17 @@ short SolvePointEnergyBalance(
     }
 
 #ifdef VERBOSE
-    printf("DEBUG_PRINT: NS(%ld)\n", ns);
+    printf("DEBUG_PRINT-energy-balance: NS(%ld)\n", ns);
 	
     //top boundary condition
     if(r==5 && c==2)
-	    printf("DEBUG_PRINT: BEFORE: ns(%ld) egy->Fenergy->co[sur]: %.12g\n", ns, egy->Fenergy[sur]);
+	    printf("DEBUG_PRINT:energy-balance BEFORE: ns(%ld) egy->Fenergy->co[sur]: %.12g\n", ns, egy->Fenergy[sur]);
 #endif 
     egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
     //TODO: removed 4/11/2013 egy->Fenergy[sur] -= egy->SWlayer[0];
 #ifdef VERBOSE
     if(r==5 && c==2)
-	    printf("DEBUG_PRINT: AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
+	    printf("DEBUG_PRINT:energy-balance AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
 #endif 
     //bottom boundary condition (treated as sink)
     if (n <= ns+ng) {

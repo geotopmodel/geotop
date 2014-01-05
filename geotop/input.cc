@@ -1180,9 +1180,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         assign_recovered_map_vector(par->recover, files[rwcrn], sl->VS->wrain, top->rc_cont, par, land->LC, IT->LU);
         assign_recovered_map_vector(par->recover, files[rwcsn], sl->VS->wsnow, top->rc_cont, par, land->LC, IT->LU);
         assign_recovered_map_vector(par->recover, files[rTv], sl->VS->Tv, top->rc_cont, par, land->LC, IT->LU);
-		printf("I am here\n");
-		getchar();
-
 
     }
 

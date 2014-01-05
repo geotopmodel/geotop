@@ -2073,12 +2073,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     if (par->ContRecovery > 0) {
 		
         t_rec += par->Dt;
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-        printf("t_rec: %12g    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
-#else
-        printf("t_rec: %f    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
-#endif
-		getchar();
+        
+		printf("t_rec: %f    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
+
 		
         if (fabs(t_rec - par->ContRecovery*GTConst::secinday)<1.E-5){ //used to be ContRecovery*secinday, replaced with timestep
             t_rec = 0.;
@@ -2090,7 +2087,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             fclose(flog);
 
             if(files[rtime] != string_novalue){
-                //	name = join_strings(files[rtime], textfile);
                 name = files[rtime] + string(textfile);
                 f = fopen(name.c_str() , "w");
                 fprintf(f,"Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s]\n");
@@ -2146,20 +2142,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             }
 
             if(files[rsnag] != string_novalue){
-                //	name = join_strings(files[rsnag],NNNN);
                 name = files[rsnag]+ string(NNNN);
                 write_map_vector(name, 0, par->format_out, snow->age, UV, number_novalue, top->j_cont, Nr, Nc);
-                //	free(name);
             }
 
             if(files[rns] != string_novalue){
-                //	M=copydouble_longmatrix(snow->S->lnum);
-                //	name = join_strings(files[rns], NNNN);
                 name = files[rns]+ string(NNNN);
-                //	write_map(name, 1, par->format_out, M, UV, number_novalue);
                 write_map(name, 1, par->format_out, snow->S->lnum, UV, number_novalue);
-                //	free_doublematrix(M);
-                //	free(name);
             }
 
             if(par->max_glac_layers>0){
