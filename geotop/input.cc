@@ -1169,16 +1169,19 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     }
 
+	printf("%f\n",par->delay_day_recover);
+	
     if(par->delay_day_recover > 0){
 
-        assign_recovered_tensor_vector(par->recover,geotop::common::Variables::files[riceg], sl->SS->thi, top->rc_cont, par, land->LC, IT->LU);
-        assign_recovered_tensor_vector(par->recover,geotop::common::Variables::files[rTg], sl->SS->T, top->rc_cont, par, land->LC, IT->LU);
-        assign_recovered_tensor_vector(par->recover,geotop::common::Variables::files[rpsi], sl->SS->P, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_tensor_vector(1, par->recover, geotop::common::Variables::files[riceg], sl->SS->thi, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_tensor_vector(1, par->recover, geotop::common::Variables::files[rTg], sl->SS->T, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_tensor_vector(0, par->recover, geotop::common::Variables::files[rpsi], sl->SS->P, top->rc_cont, par, land->LC, IT->LU);
 
-        assign_recovered_map_vector(par->recover,geotop::common::Variables::files[rwcrn], sl->VS->wrain, top->rc_cont, par, land->LC, IT->LU);
-        assign_recovered_map_vector(par->recover,geotop::common::Variables::files[rwcsn], sl->VS->wsnow, top->rc_cont, par, land->LC, IT->LU);
-        assign_recovered_map_vector(par->recover,geotop::common::Variables::files[rTv], sl->VS->Tv, top->rc_cont, par, land->LC, IT->LU);
-
+        assign_recovered_map_vector(par->recover, geotop::common::Variables::files[rwcrn], sl->VS->wrain, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_map_vector(par->recover, geotop::common::Variables::files[rwcsn], sl->VS->wsnow, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_map_vector(par->recover, geotop::common::Variables::files[rTv], sl->VS->Tv, top->rc_cont, par, land->LC, IT->LU);
+		printf("I am here\n");
+		getchar();
     }
 
 
@@ -1260,9 +1263,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     if(par->delay_day_recover > 0 && par->total_channel > 0){
-        assign_recovered_tensor_channel(par->recover,geotop::common::Variables::files[rpsich], cnet->SS->P, cnet->r, cnet->c, top->Z0);
-        assign_recovered_tensor_channel(par->recover,geotop::common::Variables::files[ricegch], cnet->SS->thi, cnet->r, cnet->c, top->Z0);
-        assign_recovered_tensor_channel(par->recover,geotop::common::Variables::files[rTgch], cnet->SS->T, cnet->r, cnet->c, top->Z0);
+        assign_recovered_tensor_channel(0, par->recover, geotop::common::Variables::files[rpsich], cnet->SS->P, cnet->r, cnet->c, top->Z0);
+        assign_recovered_tensor_channel(1, par->recover, geotop::common::Variables::files[ricegch], cnet->SS->thi, cnet->r, cnet->c, top->Z0);
+        assign_recovered_tensor_channel(1, par->recover, geotop::common::Variables::files[rTgch], cnet->SS->T, cnet->r, cnet->c, top->Z0);
 
         for(i=1; i<=par->total_channel; i++){
             for (l=1; l<=geotop::common::Variables::Nl; l++) {
@@ -1914,12 +1917,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         //	initialize_shortmatrix(snow->S->type, 2);
         snow->S->type.resize(snow->S->type.getRows(),snow->S->type.getCols(),2);
 
-        assign_recovered_map_long(par->recover,geotop::common::Variables::files[rns], snow->S->lnum, par, land->LC, IT->LU);
-        assign_recovered_map_vector(par->recover,geotop::common::Variables::files[rsnag], snow->age, top->rc_cont, par, land->LC, IT->LU);
-        assign_recovered_tensor(par->recover,geotop::common::Variables::files[rDzs], snow->S->Dzl, par, land->LC, IT->LU);
-        assign_recovered_tensor(par->recover,geotop::common::Variables::files[rwls], snow->S->w_liq, par, land->LC, IT->LU);
-        assign_recovered_tensor(par->recover,geotop::common::Variables::files[rwis], snow->S->w_ice, par, land->LC, IT->LU);
-        assign_recovered_tensor(par->recover,geotop::common::Variables::files[rTs], snow->S->T, par, land->LC, IT->LU);
+        assign_recovered_map_long(par->recover, geotop::common::Variables::files[rns], snow->S->lnum, par, land->LC, IT->LU);
+        assign_recovered_map_vector(par->recover, geotop::common::Variables::files[rsnag], snow->age, top->rc_cont, par, land->LC, IT->LU);
+        assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rDzs], snow->S->Dzl, par, land->LC, IT->LU);
+        assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rwls], snow->S->w_liq, par, land->LC, IT->LU);
+        assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rwis], snow->S->w_ice, par, land->LC, IT->LU);
+        assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rTs], snow->S->T, par, land->LC, IT->LU);
     }
 
 
@@ -2063,11 +2066,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         //	free_doublematrix(M);
 
         if(par->delay_day_recover > 0){
-            assign_recovered_map_long(par->recover,geotop::common::Variables::files[rni], glac->G->lnum, par, land->LC, IT->LU);
-            assign_recovered_tensor(par->recover,geotop::common::Variables::files[rDzi], glac->G->Dzl, par, land->LC, IT->LU);
-            assign_recovered_tensor(par->recover,geotop::common::Variables::files[rwli], glac->G->w_liq, par, land->LC, IT->LU);
-            assign_recovered_tensor(par->recover,geotop::common::Variables::files[rwii], glac->G->w_ice, par, land->LC, IT->LU);
-            assign_recovered_tensor(par->recover,geotop::common::Variables::files[rTi], glac->G->T, par, land->LC, IT->LU);
+            assign_recovered_map_long(par->recover, geotop::common::Variables::files[rni], glac->G->lnum, par, land->LC, IT->LU);
+            assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rDzi], glac->G->Dzl, par, land->LC, IT->LU);
+            assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rwli], glac->G->w_liq, par, land->LC, IT->LU);
+            assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rwii], glac->G->w_ice, par, land->LC, IT->LU);
+            assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rTi], glac->G->T, par, land->LC, IT->LU);
         }
     }
 

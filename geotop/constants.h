@@ -325,6 +325,8 @@ namespace GTConst {
 //Files
 //****************************************************
 
+//first letter "f" ordinary files of input and output
+
 #define ftsteps 0			//file with time steps
 #define fspar ftsteps+1				//soil parameters
 #define fmet fspar+1				//meteo
@@ -457,6 +459,7 @@ namespace GTConst {
 #define fpnet fwtable_dw+1
 #define fevap fpnet+1
 
+// first letter "p" are special plot files
 #define pG fevap+1
 #define pH pG+1
 #define pLE pH+1
@@ -480,8 +483,9 @@ namespace GTConst {
 #define pD pRH+1					//p. snow depth
 #define pth pD+1					//p. water content of the most superficial layer
 
+// first letter "r" are recovery files
 
-#define rpsi pth+1					//recover file (f.) psi
+#define rpsi pth+1					//recover file (f.) psi (liquid water pressure)
 #define riceg rpsi+1				//r. soil ice content
 #define rTg riceg+1					//r. soil temperature
 #define rDzs rTg+1					//r. snow layer thicknesses
@@ -494,11 +498,11 @@ namespace GTConst {
 #define rTi rwii+1					//r. glacier temperatures
 #define rns rTi+1					//r. number of snow layers
 #define rni rns+1					//r. number of glacier layers
-#define rsnag rni+1			//r. snow age
-#define rwcrn rsnag+1				//r. water stored on canopy
-#define rwcsn rwcrn+1
-#define rTv rwcsn+1
-#define rpsich rTv+1			
+#define rsnag rni+1					//r. snow age
+#define rwcrn rsnag+1				//r. liquid water stored in canopy
+#define rwcsn rwcrn+1				//r. snow stored in canopy
+#define rTv rwcsn+1					//r. canopy temperature
+#define rpsich rTv+1				//r. psi (liquid water pressure) in channels
 #define ricegch rpsich+1			
 #define rTgch ricegch+1		
 #define rTrun rTgch+1

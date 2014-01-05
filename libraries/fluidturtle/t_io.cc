@@ -1725,12 +1725,12 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 		r = Li[i];
 
 		if(r > c){
-			printf("product_using_only_strict_lower_diagonal_part: r:%ld c:%ld i:%ld Lx:%f x->co[c]:%f xi->co[r]: %f\n",r,c,i,Lx[i],x[c],x[r]);
+			//printf("product_using_only_strict_lower_diagonal_part: r:%ld c:%ld i:%ld Lx:%f x->co[c]:%f xi->co[r]: %f\n",r,c,i,Lx[i],x[c],x[r]);
 
 						product[c] += Lx[i] * (x[r] - x[c]);
 						product[r] += Lx[i] * (x[c] - x[r]);
 		}else if(r < c){
-				printf(" product_using_only_strict_lower_diagonal_part_plus_identity_by_vector r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
+			//printf(" product_using_only_strict_lower_diagonal_part_plus_identity_by_vector r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
             t_error("product_using_only_strict_lower_diagonal_part_plus_identity_by_vector: matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 

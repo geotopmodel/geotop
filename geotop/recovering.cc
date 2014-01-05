@@ -152,8 +152,10 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
   //void assign_recovered_tensor(long n, char *name, DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-    void assign_recovered_tensor(long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+    void assign_recovered_tensor(long lbegin, long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 
+//lbegin can be either 0 or 1 depending if the tensor is defined for l==0
+		
   	long r, c, l;
 //  DOUBLEMATRIX *M;
   	GeoMatrix<double> M;
@@ -161,7 +163,7 @@ using namespace std;
         std::string temp1, temp2;
 
 // 	for (l=assign->ndl; l<=assign->ndh; l++) {
- 	for (l=1; l<assign.getDh(); l++) {  //TODO: assign->ndl  is replaced by 1, need to check!
+ 	for (l=lbegin; l<assign.getDh(); l++) {  //TODO: assign->ndl  is replaced by 1, need to check!
 
   		temp1 = namefile_i_we2(name, n);
   		temp2 = namefile_i_we(temp1, l);
@@ -198,7 +200,7 @@ using namespace std;
 /******************************************************************************************************************************************/
 
 //void assign_recovered_tensor_vector(long n, char *name, DOUBLEMATRIX *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+void assign_recovered_tensor_vector(long lbegin, long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
 
     	long r, c, i, l;
     //	DOUBLEMATRIX *M;
@@ -206,7 +208,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
     std::string temp1, temp2;
 
     //	for (l=assign->nrl; l<=assign->nrh; l++) {
-    	for (l=0; l<assign.getRows(); l++) {
+    	for (l=lbegin; l<assign.getRows(); l++) {
 
     		temp1 = namefile_i_we2(name, n);
     		temp2 = namefile_i_we(temp1, l);
@@ -245,7 +247,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
 
 
    // void assign_recovered_tensor_channel(long n, char *name, DOUBLEMATRIX *assign, LONGVECTOR *r, LONGVECTOR *c, DOUBLEMATRIX *Zdistr){
-   void assign_recovered_tensor_channel(long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr){
+   void assign_recovered_tensor_channel(long lbegin, long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr){
 
    	long ch, l;
 //  DOUBLEMATRIX *M;
@@ -253,7 +255,7 @@ void assign_recovered_tensor_vector(long n, std::string name, GeoMatrix<double>&
        std::string temp1, temp2;
 
 // 	for (l=assign->nrl; l<=assign->nrh; l++) {
- 	for (l=0; l<assign.getRows(); l++) {
+ 	for (l=lbegin; l<assign.getRows(); l++) {
 
    		temp1 = namefile_i_we2(name, n);
    		temp2 = namefile_i_we(temp1, l);

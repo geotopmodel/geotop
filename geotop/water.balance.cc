@@ -903,10 +903,10 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				
 				cnt++;
 			
-				cout << "find3D H.size()=" << H.size()-1 << "  " << "Lx.size() = " << Lx.size()-1 << "   cnt=" << cnt  << endl;
-				printf("find_3D kmax,kmaxn,kn,%f,%f,%f\n",kmax,kmaxn,kn);
+				//cout << "find3D H.size()=" << H.size()-1 << "  " << "Lx.size() = " << Lx.size()-1 << "   cnt=" << cnt  << endl;
+				//printf("find_3D kmax,kmaxn,kn,%f,%f,%f\n",kmax,kmaxn,kn);
 				Lx[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
-		        cout << "find3D Lx[cnt]=" << Lx[cnt] << endl;
+		        //cout << "find3D Lx[cnt]=" << Lx[cnt] << endl;
 			}
 			
 		}else{//channel
