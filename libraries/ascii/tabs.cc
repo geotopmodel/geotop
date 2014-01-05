@@ -630,7 +630,7 @@ double **read_txt_matrix_2(std::string filename, long comment_char, long sep_cha
 	FILE *f;
     std::vector<std::string> Header;
 	double **Dataout;
-	long ncols, j;
+	long ncols;
 		
 	*nlines = count_lines(filename, comment_char, sep_char);
 	

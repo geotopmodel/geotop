@@ -9,6 +9,7 @@
 
 namespace geotop
 {
+
     namespace common
     {
 

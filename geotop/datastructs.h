@@ -25,6 +25,30 @@
 #include <string>
 #include <meteoio/MeteoIO.h>
 
+#include <execinfo.h>
+
+//#define ENABLE_PRINT_STACK_FRAME 1
+
+#ifdef ENABLE_PRINT_STACK_FRAME
+#define PRINT_FRAME_STACK \
+void *__array[2]; \
+size_t __size; \
+char **__strings; \
+\
+__size = backtrace (__array, 2); \
+__strings = backtrace_symbols (__array, __size); \
+\
+printf ("Printing mangled stack frames: %zd\n", __size); \
+\
+for (size_t __i = 0; __i < __size; __i++) \
+printf ("%s\n", __strings[__i]); \
+\
+free (__strings);
+#else
+#define PRINT_FRAME_STACK
+#endif
+
+
 template <class T> class GeoVector {
 	public:
 		GeoVector(const size_t& asize=0);
@@ -109,6 +133,7 @@ template<class T> void GeoVector<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> size_t GeoVector<T>::size() const
 {
+    PRINT_FRAME_STACK
 	return data.size();
 }
 
@@ -239,11 +264,13 @@ template<class T> void GeoMatrix<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> unsigned int GeoMatrix<T>::getRows() const 
 {
+    PRINT_FRAME_STACK
 	return this->nx;
 }
 
 template<class T> unsigned int GeoMatrix<T>::getCols() const 
 {
+    PRINT_FRAME_STACK
 	return this->ny;
 }
 
@@ -347,16 +374,19 @@ template<class T> void GeoTensor<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> unsigned int GeoTensor<T>::getDh() const 
 {
+    PRINT_FRAME_STACK
 	return this->nx;
 }
 
 template<class T> unsigned int GeoTensor<T>::getRh() const 
 {
+    PRINT_FRAME_STACK
 	return this->ny;
 }
 
 template<class T> unsigned int GeoTensor<T>::getCh() const 
 {
+    PRINT_FRAME_STACK
 	return this->nz;
 }
 
