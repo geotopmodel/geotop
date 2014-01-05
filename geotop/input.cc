@@ -3746,6 +3746,7 @@ short file_exists(short key, FILE *flog){
     printf("Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),geotop::common::Variables::files[key].c_str());
     fprintf(flog,"Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),geotop::common::Variables::files[key].c_str());
 */
+
     if(geotop::common::Variables::files[key] == geotop::input::gStringNoValue){
         printf("not present in file list\n");
         fprintf(flog,"not present in file list\n");

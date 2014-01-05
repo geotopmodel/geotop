@@ -648,17 +648,6 @@ double **read_txt_matrix_2(std::string filename, long comment_char, long sep_cha
 	
 }
 
-#ifdef STAGED_FOR_REMOVING
-__attribute__ ((deprecated))
-char * assign_string(char const * const a){
-	char *b;
-	int n = 1+strlen(a);
-	b = (char*)malloc(n*sizeof(char));
-	b = strcpy(b, a);
-	return b;
-}
-#endif
-
 void convert_string_in_lower_case(char *s){
 
 	long i, len=strlen(s);

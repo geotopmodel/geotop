@@ -35,21 +35,9 @@
 
 short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, std::string filename, FILE *flog) ;
 
-#ifdef STAGED_FOR_REMOVING
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, double **num_param, long *num_param_components, std::string keyword[], FILE *flog) ;
-#else
 void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog) ;
-#endif
 
 std::vector<std::string> assign_string_parameter(FILE *f, long beg, long end, std::vector<std::string> string_param, std::string keyword[]);
-
-#ifdef STAGED_FOR_REMOVING
-double assignation_number(FILE *f, long i, long j, std::string keyword[], double **num_param, long *num_param_components, double default_value, short code_error);
-#endif
-
-#ifdef STAGED_FOR_REMOVING
-    std::string assignation_string(FILE *f, long i, std::string keyword[], std::vector<std::string> string_param);
-#endif
 
 short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog);
 

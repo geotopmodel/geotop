@@ -40,9 +40,6 @@ double **read_txt_matrix(std::string filename, long comment_char, long sep_char,
 double **read_txt_matrix_2(std::string filename, long comment_char, long sep_char, long ncolsCol_Descr, long *nlines);
 /*----------------------------------------------------------------------------------------------------------*/
 
-#ifdef STAGED_FOR_REMOVING
-char * assign_string(char const * const a);
-#endif
 
 /*----------------------------------------------------------------------------------------------------------*/
 

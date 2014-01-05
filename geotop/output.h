@@ -31,7 +31,6 @@
 #include "input.h"
 #include "../libraries/ascii/tabs.h"
 #include "vegetation.h"
-#include "keywords.h"
 #include "tables.h"
 #include "snow.h"
 
