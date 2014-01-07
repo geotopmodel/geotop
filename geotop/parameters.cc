@@ -55,7 +55,7 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
     }
     
     if(lValue == geotop::input::gDoubleNoValue && not pAllowNoValue) {
-        t_error(std::string("Fatal Error: value not assigned: ") + pName);
+        t_error(std::string("Fatal Error: mandatory value not assigned: ") + pName);
     }
     
     return lValue ;
@@ -110,7 +110,7 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
         }
 
         if ( not pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue ) {
-            t_error(std::string("Fatal Error: array value not assigned: ") + pName);
+            t_error(std::string("Fatal Error: mandatory array value not assigned: ") + pName);
         } else {
             lValue[i] = lElementValue ;
         }
@@ -136,7 +136,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         std::string lValue;
         bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
         if(lGetResult == false){
-            t_error(std::string("Fatal Error: unable to get parameter: ") + pKeys[i]);
+            t_error(std::string("Fatal Error: mandatory value not assigned: ") + pKeys[i]);
         }
         lVector.push_back(lValue);
 	}
@@ -1274,7 +1274,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		nmeteo_stations = (long) getDoubleValueWithDefault(lConfigStore, "NumberOfMeteoStations", geotop::input::gDoubleNoValue, false);
 	}
 
-    //	met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
     met->st = new MeteoStations();
     size_t lMeteoStationContainerSize = nmeteo_stations+1 ;
     if(!met->st) t_error("meteo_stations was not allocated");
@@ -1288,11 +1287,11 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     met->st->Vheight.resize(lMeteoStationContainerSize);
     met->st->Theight.resize(lMeteoStationContainerSize);
     
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, false);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->E[i] = lDoubleTempVector[i-1];
     }
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateY", geotop::input::gDoubleNoValue, true, nmeteo_stations, false);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateY", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->N[i] = lDoubleTempVector[i-1];
     }
