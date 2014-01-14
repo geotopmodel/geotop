@@ -1744,7 +1744,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
     FILE *f ;
 	
 	//look if there is at least 1 soil file
-i = 0;
+    i = 0;
 	ok = 0;
 	nlinesprev = -1;
 	
@@ -1908,8 +1908,8 @@ i = 0;
     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
 	fprintf(flog,"\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Layers: %ud\n",sl->pa.getCh()-1);
-	for (i=1; i<sl->pa.getDh(); i++) {
+	fprintf(flog,"Soil Layers: %u\n",sl->pa.getCh()-1);
+	for (i=1; i<sl->pa.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
 		for (n=1; n <= lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
@@ -1922,14 +1922,14 @@ i = 0;
 	}
 	
 	//bedrock
-	old_sl_par.resize(1 + 1, IT->pa_bed.getRh() + 1, IT->pa_bed.getCh() + 1);
+	old_sl_par.resize(1 + 1, IT->pa_bed.getRh()+1, IT->pa_bed.getCh()+1);
 	for (n=1; n<sl->pa_bed.getRh(); n++) {
 		for (j=1; j<sl->pa_bed.getCh(); j++) {
 			old_sl_par[1][n][j] = IT->pa_bed[1][n][j];
 		}
 	}
-	//free_doubletensor(sl->pa_bed);
 	
+	//free_doubletensor(sl->pa_bed);
 	IT->pa_bed.resize(sl->pa.getDh(), sl->pa.getRh(), sl->pa.getCh());
 	for (i=1; i<IT->pa_bed.getDh(); i++) {
 		for (n=1; n<IT->pa_bed.getRh(); n++) {
@@ -1955,12 +1955,12 @@ i = 0;
 	
 	fprintf(flog,"\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Bedrock Layers: %ud\n",sl->pa.getCh()-1);
-	for (i=1; i<IT->pa_bed.getDh(); i++) {
+	fprintf(flog,"Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
+	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
 		for (n=1; n<=lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
-			for (j=1; j<sl->pa.getCh(); j++) {
+			for (j=1; j<sl->pa.getCh()-1; j++) {
 				fprintf(flog,"%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
 				if(j < sl->pa.getCh()-1) fprintf(flog,", ");
 			}
