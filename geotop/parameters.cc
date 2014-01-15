@@ -1888,8 +1888,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
             if (ok == 1 )
             {
                 if (IT->init_water_table_depth.size() <= i ) {
-
-			IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
+                    IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
                 }
                 IT->init_water_table_depth[i] = geotop::input::gDoubleNoValue;
             }
@@ -1923,8 +1922,8 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 	
 	//bedrock
 	old_sl_par.resize(1 + 1, IT->pa_bed.getRh()+1, IT->pa_bed.getCh()+1);
-	for (n=1; n<sl->pa_bed.getRh(); n++) {
-		for (j=1; j<sl->pa_bed.getCh(); j++) {
+	for (n=1; n<IT->pa_bed.getRh(); n++) {
+		for (j=1; j<IT->pa_bed.getCh(); j++) {
 			old_sl_par[1][n][j] = IT->pa_bed[1][n][j];
 		}
 	}
@@ -1933,7 +1932,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 	IT->pa_bed.resize(sl->pa.getDh(), sl->pa.getRh(), sl->pa.getCh());
 	for (i=1; i<IT->pa_bed.getDh(); i++) {
 		for (n=1; n<IT->pa_bed.getRh(); n++) {
-			if (n == jdz) {
+			if (i == jdz) {//TODO: to verify
 				for (j=1; j<IT->pa_bed.getCh(); j++) {
 					IT->pa_bed(i,n,j) = sl->pa(1,n,j);
 				}
@@ -1942,7 +1941,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 					if (j < old_sl_par.getCh()) {
 						IT->pa_bed(i,n,j) = old_sl_par(1,n,j);
 					}else {
-						IT->pa_bed(i,n,j) = sl->pa_bed(i,n,j-1);
+						IT->pa_bed(i,n,j) = IT->pa_bed(i,n,j-1);
 					}
 				}
 				for (j=1; j<IT->pa_bed.getCh(); j++) {
@@ -1951,7 +1950,6 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 			}
 		}		
 	}
-	//free_doubletensor(old_sl_par);
 	
 	fprintf(flog,"\n");
 	k = (long)nmet;
@@ -1960,7 +1958,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 		fprintf(flog,"-> Soil Type: %ld\n",i);
 		for (n=1; n<=lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
-			for (j=1; j<sl->pa.getCh()-1; j++) {
+			for (j=1; j<sl->pa.getCh(); j++) {
 				fprintf(flog,"%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
 				if(j < sl->pa.getCh()-1) fprintf(flog,", ");
 			}
