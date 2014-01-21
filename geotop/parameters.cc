@@ -55,7 +55,7 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
     }
     
     if(lValue == geotop::input::gDoubleNoValue && not pAllowNoValue) {
-        t_error(std::string("Fatal Error: value not assigned: ") + pName);
+        t_error(std::string("Fatal Error: mandatory value not assigned: ") + pName);
     }
     
     return lValue ;
@@ -110,7 +110,7 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
         }
 
         if ( not pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue ) {
-            t_error(std::string("Fatal Error: array value not assigned: ") + pName);
+            t_error(std::string("Fatal Error: mandatory array value not assigned: ") + pName);
         } else {
             lValue[i] = lElementValue ;
         }
@@ -136,7 +136,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         std::string lValue;
         bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
         if(lGetResult == false){
-            t_error(std::string("Fatal Error: unable to get parameter: ") + pKeys[i]);
+            t_error(std::string("Fatal Error: mandatory value not assigned: ") + pKeys[i]);
         }
         lVector.push_back(lValue);
 	}
@@ -1274,7 +1274,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		nmeteo_stations = (long) getDoubleValueWithDefault(lConfigStore, "NumberOfMeteoStations", geotop::input::gDoubleNoValue, false);
 	}
 
-    //	met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
     met->st = new MeteoStations();
     size_t lMeteoStationContainerSize = nmeteo_stations+1 ;
     if(!met->st) t_error("meteo_stations was not allocated");
@@ -1288,11 +1287,11 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     met->st->Vheight.resize(lMeteoStationContainerSize);
     met->st->Theight.resize(lMeteoStationContainerSize);
     
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, false);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->E[i] = lDoubleTempVector[i-1];
     }
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateY", geotop::input::gDoubleNoValue, true, nmeteo_stations, false);
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateY", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->N[i] = lDoubleTempVector[i-1];
     }
@@ -1745,7 +1744,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
     FILE *f ;
 	
 	//look if there is at least 1 soil file
-i = 0;
+    i = 0;
 	ok = 0;
 	nlinesprev = -1;
 	
@@ -1889,8 +1888,7 @@ i = 0;
             if (ok == 1 )
             {
                 if (IT->init_water_table_depth.size() <= i ) {
-
-			IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
+                    IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
                 }
                 IT->init_water_table_depth[i] = geotop::input::gDoubleNoValue;
             }
@@ -1909,8 +1907,8 @@ i = 0;
     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
 	fprintf(flog,"\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Layers: %ud\n",sl->pa.getCh()-1);
-	for (i=1; i<sl->pa.getDh(); i++) {
+	fprintf(flog,"Soil Layers: %u\n",sl->pa.getCh()-1);
+	for (i=1; i<sl->pa.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
 		for (n=1; n <= lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
@@ -1923,18 +1921,18 @@ i = 0;
 	}
 	
 	//bedrock
-	old_sl_par.resize(1 + 1, IT->pa_bed.getRh() + 1, IT->pa_bed.getCh() + 1);
-	for (n=1; n<sl->pa_bed.getRh(); n++) {
-		for (j=1; j<sl->pa_bed.getCh(); j++) {
+	old_sl_par.resize(1 + 1, IT->pa_bed.getRh()+1, IT->pa_bed.getCh()+1);
+	for (n=1; n<IT->pa_bed.getRh(); n++) {
+		for (j=1; j<IT->pa_bed.getCh(); j++) {
 			old_sl_par[1][n][j] = IT->pa_bed[1][n][j];
 		}
 	}
-	//free_doubletensor(sl->pa_bed);
 	
+	//free_doubletensor(sl->pa_bed);
 	IT->pa_bed.resize(sl->pa.getDh(), sl->pa.getRh(), sl->pa.getCh());
 	for (i=1; i<IT->pa_bed.getDh(); i++) {
 		for (n=1; n<IT->pa_bed.getRh(); n++) {
-			if (n == jdz) {
+			if (i == jdz) {//TODO: to verify
 				for (j=1; j<IT->pa_bed.getCh(); j++) {
 					IT->pa_bed(i,n,j) = sl->pa(1,n,j);
 				}
@@ -1943,7 +1941,7 @@ i = 0;
 					if (j < old_sl_par.getCh()) {
 						IT->pa_bed(i,n,j) = old_sl_par(1,n,j);
 					}else {
-						IT->pa_bed(i,n,j) = sl->pa_bed(i,n,j-1);
+						IT->pa_bed(i,n,j) = IT->pa_bed(i,n,j-1);
 					}
 				}
 				for (j=1; j<IT->pa_bed.getCh(); j++) {
@@ -1952,12 +1950,11 @@ i = 0;
 			}
 		}		
 	}
-	//free_doubletensor(old_sl_par);
 	
 	fprintf(flog,"\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Bedrock Layers: %ud\n",sl->pa.getCh()-1);
-	for (i=1; i<IT->pa_bed.getDh(); i++) {
+	fprintf(flog,"Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
+	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
 		for (n=1; n<=lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());

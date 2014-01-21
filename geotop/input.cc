@@ -171,6 +171,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		t_error("Fatal Error! Geotop is closed. See failing report.");		
 	}	
 
+    std::cout << "SPAR: " << fspar << " : " << geotop::common::Variables::files[fspar] << std::endl ;
     success = read_soil_parameters(geotop::common::Variables::files[fspar], IT, sl, par->soil_type_bedr_default, flog);
 
     //Nl=sl->pa->nch;

@@ -353,7 +353,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderSWdirect", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("AspectMapFile", std::string("input_maps/aspect")) ;
+    initValue("AspectMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("GlacierMeltedMapFile", std::string(geotop::input::gStringNoValue)) ;
     
@@ -417,7 +417,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderTvegBasin", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("LandCoverMapFile", std::string("input_maps/landcover")) ;
+    initValue("LandCoverMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("LapseRateFile", std::string(geotop::input::gStringNoValue)) ;
     
@@ -577,7 +577,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderThetaRes", std::string("res")) ;
     
-    initValue("HorizonMeteoStationFile", std::string("hor_meteo/horizon")) ;
+    initValue("HorizonMeteoStationFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderLWinBasin", std::string(geotop::input::gStringNoValue)) ;
     
@@ -723,7 +723,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("RunSoilMinimumTemperatureFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilMapFile", std::string("input_maps/soiltype")) ;
+    initValue("SoilMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("ShadowFractionTimeMapFile", std::string(geotop::input::gStringNoValue)) ;
     
@@ -781,7 +781,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("RecoverGlacierLiqMass", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SlopeMapFile", std::string("input_maps/slope")) ;
+    initValue("SlopeMapFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderMeteoStationSkyViewFactor", std::string(geotop::input::gStringNoValue)) ;
     
@@ -833,7 +833,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderPointCurvatureNorthSouthDirection", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HorizonPointFile", std::string("hor_points/horizon")) ;
+    initValue("HorizonPointFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderTimeFromStartGlac", std::string(geotop::input::gStringNoValue)) ;
     
@@ -995,7 +995,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderRHPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SoilParFile", std::string("soil/soil")) ;
+    initValue("SoilParFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SnowDepthLayersFileWriteEnd", std::string(geotop::input::gStringNoValue)) ;
     //END INITIALIZATION OF STRING PARAMETERS
@@ -1406,7 +1406,7 @@ void geotop::input::ConfigStore::init()
     initValue("WetSnowDefRate", double(1.5)) ;
     
     std::vector<double> lMeteoStationLatitude ;
-    lMeteoStationLatitude += 46.3 ;
+    lMeteoStationLatitude += 45 ;
     initValue("MeteoStationLatitude", lMeteoStationLatitude) ;
     
     initValue("MinSupWaterDepthLand", double(1)) ;
@@ -1688,7 +1688,7 @@ void geotop::input::ConfigStore::init()
     initValue("InitSnowAge", double(0)) ;
     
     std::vector<double> lMeteoStationLongitude ;
-    lMeteoStationLongitude += 11.7 ;
+    lMeteoStationLongitude += 0 ;
     initValue("MeteoStationLongitude", lMeteoStationLongitude) ;
 
     
