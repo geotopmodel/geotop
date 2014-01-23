@@ -93,9 +93,13 @@ int main(int argc, char *argv[])
         std::cout << "Info: DecayCoeffCanopy : OK" << std::endl ;
     }
 
-    double lInitDateDDMMYYYYhhmm ;
+    std::vector<double> lInitDateDDMMYYYYhhmm ;
     lConfigStore.get("InitDateDDMMYYYYhhmm", lInitDateDDMMYYYYhhmm) ;
-    std::cout << "InitDateDDMMYYYYhhmm: " << std::setprecision(12) << lInitDateDDMMYYYYhhmm << std::endl ;
+    std::cout << "InitDateDDMMYYYYhhmm: " << std::setprecision(12) << lInitDateDDMMYYYYhhmm[0] << std::endl ;
 
+    std::string lDemFile ;
+    lConfigStore.get("DemFile", lDemFile) ;
+    std::cout << "DemFile: " << lDemFile << std::endl ;
+    
     return 0 ;
 }

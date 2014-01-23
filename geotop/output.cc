@@ -3814,25 +3814,39 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
         }
 
         if(par->max_glac_layers>0 && par->output_glac[geotop::common::Variables::i_sim]>0){
-            if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue) glac->MELTED[j] += glac->melted[j];
-            if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue) glac->SUBL[j] += glac->subl[j];
+            if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
+                glac->MELTED[j] += glac->melted[j];
+            if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
+                glac->SUBL[j] += glac->subl[j];
         }
 
         if(par->output_surfenergy[geotop::common::Variables::i_sim]>0){
-            if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) egy->Rn_mean[j] += (egy->SW[j]+egy->LW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue) egy->LWin_mean[j] += (egy->LWin[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue) egy->LW_mean[j] += (egy->LW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)  egy->SW_mean[j] += (egy->SW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue) egy->Rswdown_mean[j] += (egy->SWin[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue) egy->Rswbeam_mean[j] += (egy->SWinb[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue) egy->SEB_mean[j] += (egy->G[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue) egy->H_mean[j] += (egy->H[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue) egy->ET_mean[j] += (egy->LE[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
-            if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue) egy->Ts_mean[j] += (egy->Ts[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)
+                egy->Rn_mean[j] += (egy->SW[j]+egy->LW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
+                egy->LWin_mean[j] += (egy->LWin[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
+                egy->LW_mean[j] += (egy->LW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
+                egy->SW_mean[j] += (egy->SW[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
+                egy->Rswdown_mean[j] += (egy->SWin[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
+                egy->Rswbeam_mean[j] += (egy->SWinb[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
+                egy->SEB_mean[j] += (egy->G[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
+                egy->H_mean[j] += (egy->H[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
+                egy->ET_mean[j] += (egy->LE[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
+            if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
+                egy->Ts_mean[j] += (egy->Ts[j])*Dt/(par->output_surfenergy[geotop::common::Variables::i_sim]*3600.);
 
             if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue){
-                if (egy->shad[j] >= 0) egy->nDt_sun[j] ++;
-                if (egy->shad[j] == 0) egy->nDt_shadow[j] ++;
+                if (egy->shad[j] >= 0)
+                    egy->nDt_sun[j] ++;
+                if (egy->shad[j] == 0)
+                    egy->nDt_shadow[j] ++;
             }
         }
         if(par->output_meteo[geotop::common::Variables::i_sim]>0){
