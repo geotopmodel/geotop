@@ -59,6 +59,7 @@
 	void changeTAgrid(mio::Grid2DObject& g2d);
 	void changePgrid(mio::Grid2DObject& g2d);
 	void changeVWgrid(mio::Grid2DObject& g2d, double vwMin);
+	void changeGrid(mio::Grid2DObject& g2d, const double val);
 	void copyInterpMeteoData(double *out, std::vector<mio::MeteoData>& meteoin);
 	double tDew(double T, double RH, double P);
 	double checkNOvalue(double var);
