@@ -8,7 +8,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 	
 	long i, j, k, h, **string2;
 	int c;
-	char *keyword;
+    std::string keyword;
 		
 	*endoffile = 0;
 	
@@ -64,8 +64,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 					i++;
 				}else if(i == maxcharstring){
 					keyword = find_string(key, maxcharstring);
-					printf("Warning: Keyword %s has keyword string longer than %ld characters, only the first %ld characters can be read\n",keyword,maxcharstring,maxcharstring);
-					free(keyword);
+					printf("Warning: Keyword %s has keyword string longer than %ld characters, only the first %ld characters can be read\n",keyword.c_str(),maxcharstring,maxcharstring);
 					i++;
 				}
 			}
@@ -100,8 +99,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 					i++;
 				}else if(i == maxcharstring){
 					keyword = find_string(key, *keylength);
-					printf("Warning: Keyword %s has argument string longer than %ld characters, only the first %ld characters are read\n",keyword,maxcharstring,maxcharstring);
-					free(keyword);
+					printf("Warning: Keyword %s has argument string longer than %ld characters, only the first %ld characters are read\n",keyword.c_str(),maxcharstring,maxcharstring);
 					i++;
 				}
 			}
@@ -154,8 +152,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char, long sepvect_
 			
 			if (h == maxnumvect){
 				keyword = find_string(key, *keylength);
-				printf("Warning: Keyword %s has number of vector components higher than %ld, only the first %ld components are read\n",keyword,maxnumvect,maxnumvect);
-				free(keyword);
+				printf("Warning: Keyword %s has number of vector components higher than %ld, only the first %ld components are read\n",keyword.c_str(),maxnumvect,maxnumvect);
 			}
 							
 			free(string2);
@@ -247,16 +244,13 @@ double find_number(long *vector, long lengthvector){
 }
 
 
-char *find_string(long *vector, long lengthvector){
+std::string find_string(long *vector, long lengthvector){
 	
-	char *string;
+    std::string string;
 	long i;
-	
-	string = (char*)malloc((lengthvector+1)*sizeof(char));
 	for (i=0; i<lengthvector; i++) {
-		string[i] = vector[i];
+		string.push_back(vector[i]);
 	}
-	string[lengthvector]=0;
 	return(string);
 }
 

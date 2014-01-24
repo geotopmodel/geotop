@@ -141,7 +141,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         lVector.push_back(lValue);
 	}
     
-	return(lVector);
+	return lVector ;
     
 }
 

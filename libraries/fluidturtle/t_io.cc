@@ -1475,8 +1475,9 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 		}
 
 
-		if(i<Li.size()){
-			while(i >= Lp[c]) c++;
+		if(i < Li.size() ){
+			while(c < Lp.size() && i >= Lp[c])
+                c++;
 		}
 	}
 }
@@ -1695,7 +1696,8 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 		
 		if(r == c+1) udiag[c] = Lx[i];
 		if(i<Li.size()-1){
-			while(i >= Lp[c]) c++;
+			while(c < Lp.size() && i >= Lp[c])
+                c++;
 		}
 	}
 }
@@ -1735,7 +1737,8 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 		}
 
 		if(i<Li.size()){
-			while(i >= Lp[c]) c++;
+			while(c < Lp.size() && i >= Lp[c])
+                c++;
 		}
 	}
 }
