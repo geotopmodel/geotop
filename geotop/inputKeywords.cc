@@ -74,7 +74,7 @@ public:
     {
         std::string lValue = std::string(pBegin, pEnd) ;
         
-        //std::cout << "actionValueString: " << lValue << std::endl;
+        //std::cout << "StringValue: " << *mKey << ":" << lValue << std::endl;
         
         if( mKey->compare ("") != 0 )
         {
@@ -89,7 +89,7 @@ public:
     {
         std::string lValue = std::string(pBegin, pEnd) ;
      
-        //std::cout << "actionValueDate: " << lValue << std::endl;
+        //std::cout << "DateValue: " << *mKey << ":" << lValue << std::endl;
 
         std::stringstream lStringStream;
         lStringStream.imbue(std::locale(lStringStream.getloc(), new boost::posix_time::time_input_facet("%d/%m/%Y %H:%M")));
@@ -181,8 +181,8 @@ public:
         definition(const ConfGrammar &self)
         {
             configfile = +(row);
-            row = blanks >> (comment | parameter) ;
-            blanks = *(boost::spirit::blank_p) ;
+            row = blanks >> (comment | parameter) >> blanks | +(boost::spirit::space_p);
+            blanks = *(boost::spirit::space_p) ;
             parameter = key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)] >> blanks >> "=" >>
             blanks >> value ;
             key = +(boost::spirit::alpha_p|boost::spirit::alnum_p) ;
@@ -244,7 +244,7 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     init() ;
     
     ConfGrammar lConfGrammar (mValueMap) ;
-    boost::spirit::parse_info<> lParserInfo = boost::spirit::parse(ss.str().c_str(), lConfGrammar, boost::spirit::space_p);
+    boost::spirit::parse_info<> lParserInfo = boost::spirit::parse(ss.str().c_str(), lConfGrammar);
     if (lParserInfo.hit)
     {
         std::cout << "Info: configuration file parsing completed" << std::endl;
@@ -252,8 +252,18 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     }
     else
     {
-        std::cout << "Error: parsing failed, stopped at '" << lParserInfo.stop << "'" << std::endl;
-	return false ;
+        std::cout << "Error: parsing failed, length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
+        return false ;
+    }
+
+    if (lParserInfo.full)
+    {
+        std::cout << "full match!\n";
+    }
+    else
+    {
+        std::cout << "Warning: partial parsing, matched length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
+        return false ;
     }
 
     return true ;

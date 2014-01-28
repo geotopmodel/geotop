@@ -45,6 +45,30 @@ namespace geotop
             /** @brief ConfigStore constructor
              */
             virtual ~ConfigStore();
+
+            /** @brief get the boost::any of a configuration item, you must parse a
+             *      file before to use this method otherwise you will obtain no values.
+             *  @param[in] pName the name of the parameter to get, note that this name is case insensitive
+             *  @param[out] rValue the return value of the requested parameter
+             *  @return true if the value stored in rValue is valid, otherwise return false.
+             *      False will be returned also if type of the return parameters passed is not
+             *      compatible with the type of the requested
+             *      parameter.
+             */
+            bool getAny(const std::string pName, boost::any &rValue) const {
+
+                std::string lName ( pName );
+                boost::algorithm::to_lower(lName);
+                
+                if( not mValueMap->count(lName) )
+                {
+                    std::cerr << "Error: configuration item not found: " << pName << std::endl ;
+                    return false ;
+                }
+
+                rValue = mValueMap->at(lName) ;
+                return true ;
+            } ;
             
             /** @brief configuration parameters getter accessor, you must parse a
              *      file before to use this method otherwise you will obtain no values.
@@ -123,6 +147,18 @@ namespace geotop
              */
             bool parse(const std::string pFileName) ;
 
+            /** @brief get the list of registered keywords, returned keys will be lowercase
+             * @return an std::vector of string with the registered keywords
+             */
+            std::vector<std::string> getKeys() {
+                std::vector<std::string> lStringV ;
+                std::map<std::string, boost::any>::const_iterator lIter ;
+                for (lIter = mValueMap->begin() ; lIter != mValueMap->end() ; lIter ++)
+                {
+                    lStringV.push_back(lIter->first);
+                }
+                return lStringV ;
+            } ;
             
         private:
 
