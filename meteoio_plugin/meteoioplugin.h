@@ -50,19 +50,14 @@
 					    const mio::Date& startDate, Par *par, MeteoStations *stations);
 
 	bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& first_check, AllData *A);
-	void replace_grid_values(const mio::DEMObject& dem, const double& value, mio::Grid2DObject& grid);
 
-	void copyGridToMatrix(mio::Grid2DObject& gridObject, DOUBLEMATRIX* myGrid);
 	void copyGridToMatrix(mio::Grid2DObject& gridObject, GeoMatrix<double>& myGrid);
-	void copyGridToMatrixPointWise(std::vector<double>& pointValues, DOUBLEMATRIX* myGrid);
-	void copyGridToMatrixPointWise(std::vector<double>& pointValues, GeoMatrix<double>& myGrid);
+	void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid);
 	void changeRHgrid(mio::Grid2DObject& g2d);
 	void changeTAgrid(mio::Grid2DObject& g2d);
 	void changePgrid(mio::Grid2DObject& g2d);
 	void changeVWgrid(mio::Grid2DObject& g2d, double vwMin);
 	void changeGrid(mio::Grid2DObject& g2d, const double val);
-	void copyInterpMeteoData(double *out, std::vector<mio::MeteoData>& meteoin);
 	double tDew(double T, double RH, double P);
-	double checkNOvalue(double var);
 
 #endif

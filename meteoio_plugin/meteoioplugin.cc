@@ -275,122 +275,63 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 	copyGridToMatrix(hnwgrid, wat->PrecTot);
 }
 
-void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject& grid) 
+/**
+ * @brief This function performs point wise interpolations by calling the respective methods within MeteoIO
+ * 1) Data is copied from MeteoIO objects to GEOtop structs
+ * 2) Interpolation takes place
+ * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
+ * 4) TA, P and RH values need to be converted as well as nodata values
+ *
+ * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
+ * @param currentdate Matlab julian date for which interpolation is desired
+ * @param met Pointer to the GEOtop Meteo object 
+ * @param wat Pointer to the GEOtop Water object
+ */
+void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Water* wat)
 {
-	grid.set(dem.ncols, dem.nrows, dem.cellsize, dem.llcorner);
-	for (unsigned int jj=0; jj<dem.ncols; jj++) {
-		for (unsigned int ii=0; ii<dem.nrows; ii++) {
-			if (dem(jj,ii) != IOUtils::nodata) {
-				grid.grid2D(jj,ii) = value;
-			}
-		}
-	}
-}
+	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw, resultHnw;
 
-//void meteoio_interpolate_pointwise(PAR* par, double currentdate,
-//		METEO* met, WATER* wat) {
-  void meteoio_interpolate_pointwise(Par* par, double currentdate,
-			Meteo* met, Water* wat) {
-
-	/*
-	 This function performs the Point wise interpolations by calling the respective methods within MeteoIO
-	 1) Data is copied from MeteoIO objects to GEOtop structs
-	 2) interpolation takes place
-	 3) gridded data copied back to GEOtop DOUBLEMATRIX
-	 4) TA, P and RH values need to be converted as well as nodata values
-	 */
-
-	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw,
-			resultHnw;
 	Date d1;
 	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
-	std::vector<StationData> vecStation;
-
 	try {
-		/* Intermediate storage for storing collection of stations data */
-		std::vector<std::vector<MeteoData> > vecMeteos;
-		/* Intermediate storage for storing data sets for 1 timestep */
-		std::vector<MeteoData> meteo;
-		/* Read the meteo data for the given timestep */
-		size_t numOfStations = io->getMeteoData(d1, meteo);
-		/* Allocation for the vectors for storing collection of stations data */
-		vecMeteos.insert(vecMeteos.begin(), meteo.size(),std::vector<MeteoData>());
+		// Intermediate storage for storing data sets for 1 timestep
+		std::vector<mio::MeteoData> meteo;
 
-		/*
-		 * The following piece of code is to handle snow/rain partition inside the precipitation by correcting
-		 * the precipitation at each station for the raincorrfact and the snowcorrfact
-		 * GEOtop part_snow() method is used to perform the partitions.
-		 * HNW and TA are read from the MeteoIO MeteoData and then convert TA to celsius
-		 * GEOtop part_snow() method is called for partitioning and then rain correction factor and snow correction factor are added
-		 * Finally push back the modified data to the MeteoIO internal storage
-		 */
+		// Read the meteo data for the given timestep
+		io->getMeteoData(d1, meteo);
 
-		double rain, snow, hnw, ta;
+		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
+		//on the data of the given vector meteo
+		//hnw_correction(par, meteo);
+		//io->add_to_cache(d1, meteo);
 
-		for (size_t i = 0; i < numOfStations  ; i++) {
-			hnw = meteo[i](MeteoData::HNW);
-			if (meteo[i](MeteoData::TA) != IOUtils::nodata) {
-			/* MeteoIO deals with temperature in Kelvin */
-				ta = meteo[i](MeteoData::TA) - 273.15;
-			} else {
-				ta = meteo[i](MeteoData::TA);
-			}
-			/* check for non-zero precipitation */
-			if (hnw > 0 && hnw != IOUtils::nodata && ta != IOUtils::nodata) {
-				/* perform pre-processing on HNW using GEOtop part_snow method */
-				
-				part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow);
-				/* adding rain correction factor and snow correction factor */
-				meteo[i](MeteoData::HNW) = par->raincorrfact * rain + par->snowcorrfact * snow;
-				/* fill the data into the temporary vector of vectors */
-				vecMeteos.at(i).push_back(meteo[i]);
-				
-			}
-		}
-
-		/* Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector */
-		io->add_to_cache(d1, meteo);
-
-		/* Prepare the points */
+		//Prepare the points
 		Coords point;
+		double eastX, northY;
 		std::vector<Coords> pointsVec; //create a vector of Coords objects
 
-		double eastX, northY;
+		//Read the X,Y points listed in the GEOtop ListPoint file and prepare a vector to push in the MeteoIO interpolation
 
-		/* Read the X,Y points listed in the GEOtop ListPoint file and prepare a vector to push in the MeteoIO interpolation */
-
-	//	for (int i = 1; i <= par->chkpt->nrh; i++) {
-		for (size_t i = 1; i < par->chkpt.getRows(); i++) {
-		//	eastX = par->chkpt->co[i][ptX];
-			eastX = par->chkpt[i][ptX];
-		//	northY = par->chkpt->co[i][ptY];
-			northY = par->chkpt[i][ptY];
+		for (size_t i = 1; i < par->chkpt.getRows(); i++) { 		//	for (int i = 1; i <= par->chkpt->nrh; i++) {
+			eastX = par->chkpt[i][ptX];  //eastX  = par->chkpt->co[i][ptX];
+			northY = par->chkpt[i][ptY]; //northY = par->chkpt->co[i][ptY];
 			point.setXY(eastX, northY, IOUtils::nodata);
 			pointsVec.push_back(point);
 		}
 
-		std::cout << "\n[MeteoIO] Time to interpolate Point wise: "
-					<< d1.toString(Date::ISO) << std::endl;
+		std::cout << "\n[MeteoIO] Time to interpolate Point wise: " << d1.toString(Date::ISO) << std::endl;
 
-		/*Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them */
-
+		//Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them
 		io->interpolate(d1, dem, MeteoData::TA, pointsVec, resultTa);
-		/* change TA values */
-		for (size_t i = 0; i < resultTa.size(); i++) {
-			if (resultTa[i] != IOUtils::nodata) {
-				resultTa[i] -= 273.15; //back to celsius
-			}
+		for (size_t i = 0; i < resultTa.size(); i++) { //change TA values
+			if (resultTa[i] != IOUtils::nodata) resultTa[i] -= 273.15; //back to celsius
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
-
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
-		/* change P values */
-		for (size_t i = 0; i < resultP.size(); i++) {
-			if (resultP[i] != IOUtils::nodata) {
-				resultP[i] /= 100.0;
-			}
+		for (size_t i = 0; i < resultP.size(); i++) { //change P values
+			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
 		}
 
 		try {
@@ -403,9 +344,10 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 				}
 			}
 		}
-		try{
+
+		try {
 			io->interpolate(d1, dem, MeteoData::DW, pointsVec, resultDw);
-		}catch (std::exception& e){
+		} catch (std::exception& e) {
 			/* change DW values to a user given  value */
 			for (size_t i = 0; i < resultDw.size(); i++) {
 				if (resultDw[i] != IOUtils::nodata) {
@@ -415,10 +357,8 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 		}
 
 		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
-
-
 	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
+		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
 
 	cout << "[MeteoIO] Start copying point data to GEOtop format: " << endl;
@@ -432,63 +372,8 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
 }
 
-void copyInterpMeteoData(double *out, std::vector<MeteoData>& meteoin){
-
-	for(size_t i=0;i<meteoin.size();i++)
-	{
-//	out[0]=151020111700.000000;   // timestamp
-//	out[1]=734791.666667;  		  // timestamp
-
-	out[2]=checkNOvalue(meteoin[i](MeteoData::HNW));
-	out[3]=checkNOvalue(IOUtils::nodata);
-	out[4]=checkNOvalue(meteoin[i](MeteoData::VW));
-	out[5]=checkNOvalue(meteoin[i](MeteoData::DW));
-	if(meteoin[i](MeteoData::VW)!=IOUtils::nodata && meteoin[i](MeteoData::DW) !=IOUtils::nodata){
-		out[6]=-meteoin[i](MeteoData::VW) * sin(meteoin[i](MeteoData::DW) * GTConst::Pi / 180.);
-		out[7]=-meteoin[i](MeteoData::VW)* cos(meteoin[i](MeteoData::DW) * GTConst::Pi / 180.);
-	} else{
-		out[6]=geotop::input::gDoubleNoValue;
-		out[7]=geotop::input::gDoubleNoValue;
-	}
-
-        out[8]=meteoin[i](MeteoData::RH)==IOUtils::nodata? geotop::input::gDoubleNoValue : meteoin[i](MeteoData::RH)*100;
-	out[9]= meteoin[i](MeteoData::TA)==IOUtils::nodata? geotop::input::gDoubleNoValue : meteoin[i](MeteoData::TA)-273.15;
-
-	if(meteoin[i](MeteoData::TA)!=IOUtils::nodata && meteoin[i](MeteoData::RH)!=IOUtils::nodata && meteoin[i](MeteoData::P)!=IOUtils::nodata)
-	{
-		out[10]=tDew(out[9], out[8], meteoin[i](MeteoData::P) /100.0);// see Tdew(double T, double RH, double P)
-	}else{
-		out[10]=geotop::input::gDoubleNoValue;
-	}
-
-	out[11]=checkNOvalue(meteoin[i](MeteoData::ISWR));
-	out[12]=geotop::input::gDoubleNoValue;// SWb (beam component)
-	out[13]=geotop::input::gDoubleNoValue;// SWd (diffuse component)
-	out[14]=geotop::input::gDoubleNoValue;// cloud transmissivity
-	out[15]=geotop::input::gDoubleNoValue;// cloud factor
-	out[16]=geotop::input::gDoubleNoValue;// LWin
-	out[17]=geotop::input::gDoubleNoValue;// SWnet
-
-//	cout<<"Station "<<i+1<<endl;
-//	cout<<"meteo[2] " <<out[2]<<endl;
-//	cout<<"meteo[4] " <<out[4]<<endl;
-//	cout<<"meteo[5] " <<out[5]<<endl;
-//	cout<<"meteo[6] " <<out[6]<<endl;
-//	cout<<"meteo[7] " <<out[7]<<endl;
-//	cout<<"meteo[8] " <<out[8]<<endl;
-//	cout<<"meteo[9] " <<out[9]<<endl;
-//	cout<<"meteo[10] "<<out[10]<<endl;
-//	cout<<"meteo[11] "<<out[11]<<endl;
-//	cout<<"P " <<checkNOvalue(meteoin[i](MeteoData::P))<<endl;
-	}
-
-}
-
-double checkNOvalue(double var){
-	return var==IOUtils::nodata? geotop::input::gDoubleNoValue : var;
-}
-
-double tDew(double T, double RH, double P){
+double tDew(double T, double RH, double P)
+{
 	/*
 	satVapPressure: vapour pressure [mbar]
 	P: atmospheric pressure [mbar]
@@ -512,25 +397,8 @@ double tDew(double T, double RH, double P){
 	return tFromSatVapPressure;
 }
 
-
-/*void copyGridToMatrix(Grid2DObject& gridObject, DOUBLEMATRIX* myGrid) {
-
-	 This function copy MeteoIO Grid2DObject to the GEOtop structs
-
-	for (size_t ii = 0; ii < gridObject.nrows; ii++) {
-		for (size_t jj = 0; jj < gridObject.ncols; jj++) {
-			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii) == IOUtils::nodata) {
-				myGrid->co[ii + 1][jj + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
-			} else {
-				myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.nrows - 1 - ii);
-			}
-			//std::cout<<"myGrid->co["<<ii<<"]["<<jj<<"]"<<myGrid->co[ii + 1][jj + 1] << std::endl;
-		}
-	}
-}*/
-
-//overloaded method- noori
-void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid) {
+void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid)
+{
 
 	/* This function copy MeteoIO Grid2DObject to the GEOtop structs */
 
@@ -546,16 +414,15 @@ void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid) {
 	}
 }
 
-
-void copyGridToMatrixPointWise(std::vector<double>& pointValues,
-		GeoMatrix<double>& myGrid) {
-
-	/*
-	 * This function copy MeteoIO Point vector to the GEOtop structs
-	 * Notice that, co[1][1] is the first index to accessed, because in GEOtop there is an index offset
-	 * therefor we have to start with [1][1]
-	 */
-
+/*
+ * @brief This function copies a MeteoIO Point vector<double> to the GEOtop object GeoMatrix
+ * Notice that, co[1][1] is the first index to accessed, because in GEOtop there is an index offset
+ * therefor we have to start with [1][1]
+ *
+ * @author noori
+ */
+void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid)
+{
 	for (unsigned int i = 0; i < pointValues.size(); i++) {
 		if (pointValues[i] != IOUtils::nodata) {
 			myGrid[1][i + 1] = pointValues[i]; //co[1][1] is the first index accessed
