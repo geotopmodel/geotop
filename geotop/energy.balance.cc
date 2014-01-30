@@ -117,8 +117,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 			//call the function that interpolates the cloudiness
 			
             if (A->P->use_meteoio_cloud) {
-                meteoio_interpolate_cloudiness(geotop::common::Variables::UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-                meteoio_interpolate_cloudiness(geotop::common::Variables::UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+                meteoio_interpolate_cloudiness(A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
+                meteoio_interpolate_cloudiness(A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
             }
 			
 			A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];

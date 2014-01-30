@@ -55,7 +55,7 @@ void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix)
 	copyGridToMatrix(temp, matrix);
 }
 
-void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename)
+void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename)
 {
 
 	try {
@@ -104,7 +104,7 @@ void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename)
 	}
 }
 
-void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue)
+void meteoio_writeEsriasciiMap(const string& filename, GeoMatrix<double>& gm)
 {
 	Grid2DObject  gridObject;
 
@@ -135,7 +135,7 @@ void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<dou
 	io->write2DGrid(gridObject, filename+".asc");
 }
 
-void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue)
+void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV)
 {
 	Grid2DObject  gridObject;
 
@@ -511,7 +511,7 @@ void changeGrid(Grid2DObject& g2d, const double val)
  * @param first_check true if this is the first check, a special warning message will be printed
  * @param A The AllData reference
  *
- * @return Return true if at least one station measured ISWR 
+ * @return Return true if at least one station measured ISWR
  */
 bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& first_check, AllData *A) 
 {
@@ -552,15 +552,14 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
  * 2) interpolation takes place
  * 3) gridded data copied back to GEOtop DOUBLEMATRIX inside the tau_cloud_grid
  */
-void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, const double& currentdate, GeoMatrix<double>& tau_cloud_grid, GeoVector<double>& tau_cloud_vec)
+void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatrix<double>& tau_cloud_grid, GeoVector<double>& tau_cloud_vec)
 {
 	Grid2DObject cloudwgrid;
 
 	Date d1;
 	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
-	std::cout << "\n[MeteoIO] Time to interpolate : cloudiness "
-			<< d1.toString(Date::ISO) << std::endl;
+	std::cout << "\n[MeteoIO] Time to interpolate : cloudiness " << d1.toString(Date::ISO) << std::endl;
 
 	try {
 		std::vector<std::vector<MeteoData> > vecMeteos;
@@ -569,7 +568,7 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, const double& currentd
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
 		for (int i = 0; i < numOfStations; i++) {
-		//	meteo[i](MeteoData::RSWR) = tau_cloud_vec->co[i];
+			//	meteo[i](MeteoData::RSWR) = tau_cloud_vec->co[i];
 			meteo[i](MeteoData::RSWR) = tau_cloud_vec[i];
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 		}
@@ -587,16 +586,16 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, const double& currentd
 			std::vector<double> resultCloud;
 			double eastX, northY;
 
-		//	for (int i = 1; i <= par->chkpt->nrh; i++) {
+			//	for (int i = 1; i <= par->chkpt->nrh; i++) {
 			for (size_t i = 1; i < par->chkpt.getRows(); i++) {
-			//	eastX = par->chkpt->co[i][ptX];
+				//	eastX = par->chkpt->co[i][ptX];
 				eastX = par->chkpt[i][ptX];
-			//	northY = par->chkpt->co[i][ptY];
+				//	northY = par->chkpt->co[i][ptY];
 				northY = par->chkpt[i][ptY];
 				point.setXY(eastX, northY, IOUtils::nodata);
 				pointsVec.push_back(point);
 			}
-            /* Interpolate point wise */
+			/* Interpolate point wise */
 			try {
 				io->interpolate(d1, dem, MeteoData::RSWR, pointsVec, resultCloud);
 			} catch (std::exception& e) {
@@ -608,14 +607,11 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, const double& currentd
 			}
 			/* Now copy all that data to the appropriate Array */
 			copyGridToMatrixPointWise(resultCloud, tau_cloud_grid);
-
-
 		} else {
-			/*Interpolate 2D grid*/
-			try {
+			try { /* Interpolate 2D grid */
 				io->getMeteoData(d1, dem, MeteoData::RSWR, cloudwgrid);
 			} catch (std::exception& e) {
-			   changeGrid(cloudwgrid, 0.5);
+				changeGrid(cloudwgrid, 0.5);
 			}
 			/* Now copy all that data to the appropriate grids */
 			copyGridToMatrix(cloudwgrid, tau_cloud_grid);
