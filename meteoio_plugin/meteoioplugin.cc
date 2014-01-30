@@ -11,13 +11,14 @@ using namespace mio;
 IOManager* io;
 DEMObject dem;
 
-void meteoio_init(mio::IOManager& iomanager) {
-
-	/*
-	 *  This function performs the initialization by calling the respective methods within MeteoIO
-	 *  1) Reading the DEM (necessary for several spatial interpolations algorithms)
-	 */
-
+/**
+ * @brief Initialization for the MeteoIO plugin.
+ * - Reading the DEM (necessary for several spatial interpolations algorithms)
+ *
+ * @param iomanager Reference to IOManager object that will be connected to static iomanager variable io
+ */
+void meteoio_init(mio::IOManager& iomanager)
+{
 	io = &iomanager; //pointer to the iomanager instantiated in geotop.cc
 
 	try {
@@ -27,7 +28,8 @@ void meteoio_init(mio::IOManager& iomanager) {
 	}
 }
 
-void meteoio_readDEM(GeoMatrix<double>& matrix) {
+void meteoio_readDEM(GeoMatrix<double>& matrix)
+{
 	//copy DEM to topo struct
 	matrix.resize(dem.nrows+1, dem.ncols+1);
 
@@ -44,7 +46,8 @@ void meteoio_readDEM(GeoMatrix<double>& matrix) {
 	copyGridToMatrix(dem, matrix);
 }
 
-void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix) {
+void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix)
+{
 	Grid2DObject temp;
 	io->read2DGrid(temp, filename + ".asc");
 
@@ -52,12 +55,10 @@ void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix) {
 	copyGridToMatrix(temp, matrix);
 }
 
-//DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* pUV, char* _filename) {
-void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename) {
-//	DOUBLEMATRIX *myGrid = NULL;
+void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename)
+{
 
 	try {
-
 		Grid2DObject gridObject;
 		Config cfg("io.ini");
 		IOHandler iohandler(cfg);
@@ -72,16 +73,12 @@ void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename) 
 
 		iohandler.read2DGrid(gridObject, filename);
 
-	//	if (UV->U->co[1] != gridObject.cellsize)
 		if (geotop::common::Variables::UV->U[1] != gridObject.cellsize)
 			throw IOException("Inconsistencies between 2D Grids read", AT);
-	//	else if (UV->U->co[2] != gridObject.cellsize)
 		else if (geotop::common::Variables::UV->U[2] != gridObject.cellsize)
 			throw IOException("Inconsistencies between 2D Grids read", AT);
-	//	else if (UV->U->co[3] != gridObject.llcorner.getNorthing())
 		else if (geotop::common::Variables::UV->U[3] != gridObject.llcorner.getNorthing())
 			throw IOException("Inconsistencies between 2D Grids read", AT);
-	//	else if (UV->U->co[4] != gridObject.llcorner.getEasting())
 		else if (geotop::common::Variables::UV->U[4] != gridObject.llcorner.getEasting())
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 
@@ -105,12 +102,10 @@ void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename) 
 	} catch (std::exception& e) {
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
-//	return myGrid;
 }
 
-
-void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue){
-
+void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue)
+{
 	Grid2DObject  gridObject;
 
 	if(geotop::common::Variables::UV->U[1]!=geotop::common::Variables::UV->U[2]){
@@ -122,50 +117,52 @@ void meteoio_writeEsriasciiMap(const string& filename, TInit* pUV, GeoMatrix<dou
 	unsigned int nrows = gm.getRows()-1;
 
 	gridObject.grid2D.resize(ncols, nrows, IOUtils::nodata);
-    gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+	gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
 	gridObject.set(ncols, nrows, geotop::common::Variables::UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
 
+	//THE FOLLOWING CODE IS HACK:
 	/* Copies a GeoMatrix to a MeteoIO Grid2DObject */
-		for (unsigned int ii = 0; ii < nrows; ii++) {
-			for (unsigned int jj = 0; jj < ncols; jj++) {
+	for (unsigned int ii = 0; ii < nrows; ii++) { 
+		for (unsigned int jj = 0; jj < ncols; jj++) {
 			//	if (gm(nrows  - ii,jj) == IOUtils::nodata) {
 			//		gridObject.grid2D(jj,ii) = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
 			//	} else {
-					gridObject.grid2D(jj,ii) = gm(nrows -  ii,jj+1);
+			gridObject.grid2D(jj,ii) = gm(nrows -  ii,jj+1);
 			//	}
-			}
 		}
-
-	  io->write2DGrid(gridObject, filename+".asc");
 	}
 
-void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue){
+	io->write2DGrid(gridObject, filename+".asc");
+}
 
-		Grid2DObject  gridObject;
+void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue)
+{
+	Grid2DObject  gridObject;
 
-		if(UV->U[1]!=UV->U[2]){
-			printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
-			t_error("Fatal error");
-		}
+	if(UV->U[1]!=UV->U[2]){
+		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
+		t_error("Fatal error");
+	}
 
-		gridObject.grid2D.resize(nc, nr, IOUtils::nodata);
-		gridObject.llcorner.setXY(UV->U[4],UV->U[3], 0);
-	    gridObject.set(nc,nr, UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+	gridObject.grid2D.resize(nc, nr, IOUtils::nodata);
+	gridObject.llcorner.setXY(UV->U[4],UV->U[3], 0);
+	gridObject.set(nc,nr, UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
 
-		for(long ii=0 ;ii< nr;ii++){
-			for(long jj= 0;jj< nc;jj++){
-				if (j[nr - ii][jj+1] > 0) {
-					if(type==1){
-						gridObject.grid2D(jj,ii) = (long)(DTM[j[ii][jj]]);
-					}else{
-						gridObject.grid2D(jj,ii) = DTM[j[ nr - ii][jj+1]];
-					}
-				}else {
-				//	gridObject.grid2D(jj,ii) =  novalue;
+	for(long ii=0 ;ii< nr;ii++){
+		for(long jj= 0;jj< nc;jj++){
+			if (j[nr - ii][jj+1] > 0) {
+				if(type==1){
+					gridObject.grid2D(jj,ii) = (long)(DTM[j[ii][jj]]);
+				}else{
+					gridObject.grid2D(jj,ii) = DTM[j[ nr - ii][jj+1]];
 				}
+			}else {
+				//	gridObject.grid2D(jj,ii) =  novalue;
 			}
 		}
-		io->write2DGrid(gridObject, filenam+".asc");
+	}
+
+	io->write2DGrid(gridObject, filenam+".asc");
 }
 
 /**
@@ -180,7 +177,7 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
  * HNW::arg3    = cst 1.3 1
  * where the arguments of the undercatch_wmo filter are "cst {factor for snow} {factor for mixed precipitation}"
  *
- * @param par      Pointer to GEOtop Par class, holding the values for rain and snow correction factors
+ * @param par      Pointer to GEOtop Par object, holding the values for rain and snow correction factors
  * @param meteo    A vector of MeteoData objects (one for each station) at one point in time
  */
 void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
@@ -214,10 +211,10 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
  * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
  * 4) TA, P and RH values need to be converted as well as nodata values
  *
- * @param par Pointer to the GEOtop Par class, holding geotop.inpts configuration
+ * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
  * @param currentdate Matlab julian date for which interpolation is desired
- * @param met Pointer to the GEOtop Meteo class 
- * @param wat Pointer to the GEOtop Water class
+ * @param met Pointer to the GEOtop Meteo object 
+ * @param wat Pointer to the GEOtop Water object
  */
 void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 	// We need some intermediate storage for storing the interpolated grid by MeteoIO
@@ -227,7 +224,6 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
 
 	try {
-
 		// Intermediate storage for storing data sets for 1 timestep
 		std::vector<mio::MeteoData> meteo;
 
