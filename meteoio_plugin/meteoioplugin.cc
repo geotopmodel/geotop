@@ -397,11 +397,12 @@ double tDew(double T, double RH, double P)
 	return tFromSatVapPressure;
 }
 
+/**
+ * @brief This function copy MeteoIO Grid2DObject to a GEOtop GeoMatrix object 
+ * @author noori
+ */
 void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid)
 {
-
-	/* This function copy MeteoIO Grid2DObject to the GEOtop structs */
-
 	for (size_t ii = 0; ii < gridObject.nrows; ii++) {
 		for (size_t jj = 0; jj < gridObject.ncols; jj++) {
 			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii) == IOUtils::nodata) {
@@ -414,7 +415,7 @@ void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid)
 	}
 }
 
-/*
+/**
  * @brief This function copies a MeteoIO Point vector<double> to the GEOtop object GeoMatrix
  * Notice that, co[1][1] is the first index to accessed, because in GEOtop there is an index offset
  * therefor we have to start with [1][1]
@@ -432,11 +433,12 @@ void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix
 	}
 }
 
-
-void changeRHgrid(Grid2DObject& g2d) {
-
-	/* This function changes the RH according to to GEOtop */
-
+/**
+ * @brief This function changes the RH according to to GEOtop, that is values range from 0-100
+ * @author noori
+ */
+void changeRHgrid(Grid2DObject& g2d)
+{
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
@@ -445,10 +447,12 @@ void changeRHgrid(Grid2DObject& g2d) {
 	}
 }
 
-void changeTAgrid(Grid2DObject& g2d) {
-
-	/* This function changes the TA, kelvin to celsius according to to GEOtop */
-
+/**
+ * @brief This function changes the TA, kelvin to celsius according to to GEOtop
+ * @author noori
+ */
+void changeTAgrid(Grid2DObject& g2d)
+{
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
@@ -457,10 +461,12 @@ void changeTAgrid(Grid2DObject& g2d) {
 	}
 }
 
-void changePgrid(Grid2DObject& g2d) {
-
-	/* This function changes the P according to to GEOtop */
-
+/**
+ * @brief This function changes the P according to to GEOtop, that is values range from 0-100
+ * @author noori
+ */
+void changePgrid(Grid2DObject& g2d)
+{
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
@@ -469,21 +475,27 @@ void changePgrid(Grid2DObject& g2d) {
 	}
 }
 
-void changeVWgrid(Grid2DObject& g2d, double vwMin) {
-
-	/* This function changes the VW according to the GEOtop given min value */
-
+/**
+ * @brief This function changes the VW according to the GEOtop given min value
+ * @author noori
+ */
+void changeVWgrid(Grid2DObject& g2d, double vwMin)
+{
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if (g2d.grid2D(ii, jj) != IOUtils::nodata
-					&& g2d.grid2D(ii, jj) < vwMin)
+			if ((g2d.grid2D(ii, jj) != IOUtils::nodata) && (g2d.grid2D(ii, jj) < vwMin)) {
 				g2d.grid2D(ii, jj) = vwMin;
+			}
 		}
 	}
 }
 
-void changeGrid(Grid2DObject& g2d, const double val) {
-	/* This function changes a grid according to given value */
+/**
+ * @brief This function changes a grid to given value, nodata points are preserved
+ * @author noori
+ */
+void changeGrid(Grid2DObject& g2d, const double val)
+{
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
@@ -492,244 +504,6 @@ void changeGrid(Grid2DObject& g2d, const double val) {
 	}
 }
 
-//double ***meteoio_readMeteoData(long*** column,
-//		METEO_STATIONS *stations, long nrOfVariables, PAR *par,
-//		TIMES *times) {
-
-double ***meteoio_readMeteoData(long*** column,
-		MeteoStations *stations, long nrOfVariables, Par *par,
-		Times *times) {
-
-
-	long ncols = nrOfVariables; //the total number of meteo variables used in GEOtop (should stay fixed)
-
-	//Date d1 holds the beginning of this simulation, d2 the end date of the simulation
-	//d1=times->time;
-	//d2=times->time+par->Dt;
-
-//	Date d1 = par->init_date->co[geotop::common::Variables::i_sim];
-	Date d1 = par->init_date[geotop::common::Variables::i_sim];
-//	Date d2 = par->end_date->co[geotop::common::Variables::i_sim];
-	Date d2 = par->end_date[geotop::common::Variables::i_sim];
-
-	//	Date d1((int)par->year0, 1, 1, 0, 0);
-	//	d1 += par->JD0;
-	//	d1 += times->time/86400; //times->time is in seconds, conversion to julian by devision
-	//
-	//	Date d2((int)par->year0, 1, 1, 0, 0);
-	//	d2 += par->JD0;
-	//	d2 += times->TH/24;      //the end of the simulation
-
-	//Construction a BufferIOHandler and reading the meteo data through meteoio as configured in io.ini
-	Config cfg("io.ini");
-	//IOManager io(cfg);
-
-	std::vector<std::vector<MeteoData> > vecMeteo; //the dimension of this vector will be nrOfStations
-	std::vector<std::vector<StationData> > vecStation; //the dimension of this vector will be nrOfStations
-
-	cout << "[I] MeteoIO: Fetching all data between " << d1.toString(Date::ISO)
-			<< " and " << d2.toString(Date::ISO) << endl;
-
-	/*
-	 * In the following section the BufferedIOHandler is used to request data for descrete times
-	 * MeteoIO will deal with accumulation, linear interpolation, filtering and cleaning of the data
-	 * During the loop a discrete amount of time will be added to the loop variable (one hour)
-	 */
-	for (Date currentDate = d1; currentDate <= d2;
-			currentDate += Date(1.0 / 24.0)) {
-		cout << "[I] MeteoIO: Getting data for "
-				<< currentDate.toString(Date::ISO) << endl;
-		std::vector<MeteoData> vecM; //dimension: nrOfStations
-		std::vector<StationData> vecS; //dimension: nrOfStations
-
-		io->getMeteoData(currentDate, vecM); //reading meteo data and meta datafor currentDate
-
-		//the data needs to be appended to the collection of all read meteo and meta data:
-		for (unsigned int jj = 0; jj < vecM.size(); jj++) {
-			if (currentDate == d1) {
-				vecMeteo.push_back(std::vector<MeteoData>());
-				vecStation.push_back(std::vector<StationData>());
-			}
-			vecMeteo.at(jj).push_back(vecM.at(jj)); //append meteo data to vector
-			vecStation.at(jj).push_back(vecS.at(jj)); //append meta data to vector
-		}
-	}
-	cout << "[I] MeteoIO: " << "Finished getting meteo and station data"
-			<< endl;
-	//print out all data if configured by user
-	try {
-		string tmp;
-		cfg.getValue("METEO", "OUTPUT", tmp);
-		io->writeMeteoData(vecMeteo);
-	} catch (std::exception& e) {
-	} //Do nothing if not configured or error happens
-
-	//Deal with meta data, that is allocate met->st and fill with data
-	std::vector<StationData> vecMyStation;
-	io->getStationData(d1, vecMyStation);
-
-	initializeMetaData(vecMyStation, d1,  par, stations);
-	cout << "[I] MeteoIO: Amount of stations: " << vecMeteo.size() << endl;
-
-	//resize the column matrix - it will hold information about what column in the data matrix holds what parameter
-	*column = (long**) realloc(*column, vecStation.size() * sizeof(long*));
-
-	double ***data = (double ***) malloc(vecMeteo.size() * sizeof(double**));
-	short novalueend = 1;
-
-	for (unsigned int jj = 0; jj < vecStation.size(); jj++) { //for each station
-		//{Iprec, WindS, WindDir, RelHum, AirT, AirP, SWglobal, SWdirect, SWdiffuse, TauCloud, Cloud, LWin, SWnet, Tsup}
-		//iPt ,iWs ,iWdir , iWsx , iWsy, iRh ,iT ,iTdew ,iPs,iSW ,iSWb ,iSWd,itauC ,iC,iLWi,iSWn
-		(*column)[jj] = (long*) malloc((ncols + 1) * sizeof(long));
-		//(*column)[jj][ncols] = end_vector_long;
-		for (int ff = 0; ff < nrOfVariables; ff++) {
-			//(*column)[jj][ff] = ff;
-			(*column)[jj][ff] = -1;
-		}
-
-		unsigned int ii = 0;
-		while ((*column)[jj][ii] != 999999) { //the geotop way of ending a vector
-			//cout << "Station " << jj << "  " << ii << ": " << (*column)[jj][ii] << endl;
-			ii++;
-		}
-
-		data[jj] = (double **) malloc(vecMeteo[jj].size() * sizeof(double*));
-
-		unsigned int ll = 0;
-		for (ll = 0; ll < vecMeteo[jj].size(); ll++) {
-			data[jj][ll] = (double *) malloc((ncols + 1) * sizeof(double));
-
-			//Put data in the correct cell
-
-			data[jj][ll][0] = vecMeteo[jj][ll].HNW;
-			data[jj][ll][1] = vecMeteo[jj][ll].VW;
-			data[jj][ll][2] = vecMeteo[jj][ll].DW;
-			data[jj][ll][3] = vecMeteo[jj][ll].RH * 100.00; //MeteoIO deals with RH in values [0;1]
-			data[jj][ll][4] = vecMeteo[jj][ll].TA - 273.15; //MeteoIO deals with temperature in Kelvin
-			data[jj][ll][5] = vecMeteo[jj][ll].P;
-			data[jj][ll][6] = vecMeteo[jj][ll].ISWR;
-			data[jj][ll][7] = geotop::input::gDoubleNoValue;
-			data[jj][ll][8] = geotop::input::gDoubleNoValue;
-			data[jj][ll][9] = geotop::input::gDoubleNoValue;
-			data[jj][ll][10] = geotop::input::gDoubleNoValue;
-			data[jj][ll][11] = geotop::input::gDoubleNoValue;
-			data[jj][ll][12] = geotop::input::gDoubleNoValue;
-			data[jj][ll][13] = geotop::input::gDoubleNoValue;
-			//data[jj][ll][ncols] = end_vector;
-
-			for (int gg = 0; gg < nrOfVariables; gg++) {
-				if (data[jj][ll][gg] == IOUtils::nodata) {
-					data[jj][ll][gg] = geotop::input::gDoubleNoValue;
-				} else if (data[jj][ll][gg] != geotop::input::gDoubleNoValue) {
-					(*column)[jj][gg] = gg; //HACK!
-				}
-			}
-
-			//Comment this in if you dont want to see the data that was retrieved
-			cout << "MeteoData [" << ll + 1 << "/" << vecMeteo[jj].size()
-					<< "]:" << endl;
-			//	std::cout << vecMeteo[jj][ll].toString() << std::endl;
-
-		}
-
-		for (int ff = 1; ff <= ncols; ff++) {
-			if (ll > 0)
-				if (data[jj][ll - 1][ff] != geotop::input::gDoubleNoValue)
-					novalueend = 0;
-		}
-
-		//		if(novalueend==0){
-		//			data[jj]=(double **)realloc(data[jj],(vecMeteo[jj].size()+1)*sizeof(double*));
-		//			data[jj][vecMeteo[jj].size()] = (double *)malloc(sizeof(double));
-		//			//data[jj][vecMeteo[jj].size()][0]=end_vector;
-		//		} else {
-		//			if (vecMeteo[jj].size()>0)
-		//				data[jj][vecMeteo[jj].size()-1][0]=end_vector;
-		//		}
-	}
-
-	cout << "[I] MeteoIO NOVAL used          : " << geotop::input::gDoubleNoValue << endl;
-	cout << "[I] MeteoIO #of meteo parameters: " << nrOfVariables << endl;
-
-	//Testing access to the whole tensor
-	for (size_t ii = 0; ii < vecStation.size(); ii++) {
-		double d = 0.0;
-		for (size_t ll = 0; ll < vecMeteo[ii].size(); ll++) {
-			for (int kk = 0; kk < ncols; kk++) {
-				//printf("%f ", data[ii][ll][kk]);
-				d = data[ii][ll][kk];
-			}
-			//printf("\n");
-		}
-	}
-
-	return data; //return pointer to heap allocated memory
-}
-
-//void initializeMetaData(const std::vector<StationData>& vecStation,
-//		const Date& startDate,  PAR *par,
-//		METEO_STATIONS *stations) {
-
-void initializeMetaData(const std::vector<StationData>& vecStation,
-		const Date& startDate,  Par *par,
-		MeteoStations *stations) {
-	unsigned int nrOfStations = vecStation.size();
-
-	//Initialize the station data: set beginning of data
-	int year, month, day, hour, minute;
-	startDate.getDate(year, month, day, hour, minute);
-	//	Date JD_start = startDate - Date((int)par->year0, 1, 1, 0, 0); // this is the actual elapsed simulation time
-
-	//init station struct met->st
-//	stations->E = new_doublevector(nrOfStations); // East coordinate [m] of the meteo station
-	stations->E.resize(nrOfStations+1); // East coordinate [m] of the meteo station
-//	stations->N = new_doublevector(nrOfStations); // North coordinate [m] of the meteo station
-	stations->N.resize(nrOfStations+1); // North coordinate [m] of the meteo station
-//	stations->lat = new_doublevector(nrOfStations); // Latitude [rad] of the meteo station
-	stations->lat.resize(nrOfStations+1); // Latitude [rad] of the meteo station
-//	stations->lon = new_doublevector(nrOfStations); // Longitude [rad] of the meteo station
-	stations->lon.resize(nrOfStations+1); // Longitude [rad] of the meteo station
-//	stations->Z = new_doublevector(nrOfStations); // Elevation [m] of the meteo station
-	stations->Z.resize(nrOfStations+1); // Elevation [m] of the meteo station
-//	stations->sky = new_doublevector(nrOfStations); // Sky-view-factor [-] of the meteo station
-	stations->sky.resize(nrOfStations+1); // Sky-view-factor [-] of the meteo station
-//	stations->ST = new_doublevector(nrOfStations); // Standard time minus UTM [hours] of the meteo station
-	stations->ST.resize(nrOfStations+1); // Standard time minus UTM [hours] of the meteo station
-//	stations->Vheight = new_doublevector(nrOfStations); // Wind velocity measurement height [m] (a.g.l.)
-	stations->Vheight.resize(nrOfStations+1); // Wind velocity measurement height [m] (a.g.l.)
-//	stations->Theight = new_doublevector(nrOfStations); // Air temperature measurement height [m] (a.g.l.)
-	stations->Theight.resize(nrOfStations+1); // Air temperature measurement height [m] (a.g.l.)
-
-	//	stations->JD0=new_doublevector(nrOfStations);// Decimal Julian Day of the first data
-	//	stations->Y0=new_longvector(nrOfStations);	// Year of the first data
-	//	stations->Dt=new_doublevector(nrOfStations);	// Dt of sampling of the data [sec]
-	//	stations->offset=new_longvector(nrOfStations);// offset column
-
-	for (unsigned int ii = 1; ii <= nrOfStations; ii++) { //HACK
-		std::cout << "[I] MeteoIO station " << ii << ":\n" << vecStation[ii - 1].toString()
-				<< std::endl;
-
-	//	stations->E->co[ii] = vecStation[ii - 1].position.getEasting();
-		stations->E[ii] = vecStation[ii - 1].position.getEasting();
-	//	stations->N->co[ii] = vecStation[ii - 1].position.getNorthing();
-		stations->N[ii] = vecStation[ii - 1].position.getNorthing();
-	//	stations->lat->co[ii] = vecStation[ii - 1].position.getLat() * PI/ 180.0; // from deg to [rad]
-		stations->lat[ii] = vecStation[ii - 1].position.getLat() * PI/ 180.0; // from deg to [rad]
-	//	stations->lon->co[ii] = vecStation[ii - 1].position.getLon() * PI/ 180.0; // from deg to [rad]
-		stations->lon[ii] = vecStation[ii - 1].position.getLon() * PI/ 180.0; // from deg to [rad]
-	//	stations->Z->co[ii] = vecStation[ii - 1].position.getAltitude();
-		stations->Z[ii] = vecStation[ii - 1].position.getAltitude();
-	//	stations->sky->co[ii] = geotop::input::gDoubleNoValue;
-		stations->sky[ii] = geotop::input::gDoubleNoValue;
-	//	stations->ST->co[ii] = 0;
-		stations->ST[ii] = 0;
-	//	stations->Vheight->co[ii] = 8.0;
-		stations->Vheight[ii] = 8.0;
-	//	stations->Theight->co[ii] = 8.0;
-		stations->Theight[ii] = 8.0;
-
-	}
-}
 /**
  * @brief Function that checks in a vector of MeteoData if a valid ISWR value is present
  *
@@ -772,20 +546,14 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 	return iswr_found;
 }
 
-//void meteoio_interpolate_cloudiness(T_INIT* pUV, PAR* par,
-//		double currentdate, DOUBLEMATRIX* tau_cloud_grid,
-//		DOUBLEVECTOR* tau_cloud_vec) {
-
-void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
-		double currentdate, GeoMatrix<double>& tau_cloud_grid,
-		GeoVector<double>& tau_cloud_vec) {
-	/*
-	 This function performs the 2D interpolations of current cloudiness by calling the respective methods within MeteoIO
-	 1) Data is copied from MeteoIO objects to GEOtop structs
-	 2) interpolation takes place
-	 4) gridded data copied back to GEOtop DOUBLEMATRIX inside the tau_cloud_grid
-	 */
-
+/**
+ * @brief This function performs the 2D interpolations of current cloudiness by calling the respective methods within MeteoIO
+ * 1) Data is copied from MeteoIO objects to GEOtop structs
+ * 2) interpolation takes place
+ * 3) gridded data copied back to GEOtop DOUBLEMATRIX inside the tau_cloud_grid
+ */
+void meteoio_interpolate_cloudiness(TInit* pUV, Par* par, const double& currentdate, GeoMatrix<double>& tau_cloud_grid, GeoVector<double>& tau_cloud_vec)
+{
 	Grid2DObject cloudwgrid;
 
 	Date d1;
@@ -857,33 +625,3 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
 }
-
-
-		// ---------   read the GEOtop lapseRate and set it to MeteoIO config -----
-
-		//		double lrta = -LapseRateTair * 1E-3; // GEOtop default lapse rate of air temp.
-		//		double lspr = -LapseRatePrec * 1E-3; // GEOtop default lapse rate of precipitation
-		//
-		//		if (met->LRv[ilsTa] != LapseRateTair) {
-		//			// The user has given a lapse rate: use this
-		//			lrta = -met->LRv[ilsTa] * 1E-3;
-		//			stringstream lapserateTA;	// Create a stringstream
-		//			lapserateTA << lrta;		// Add number to the stream
-		//			string s = " soft";
-		//			cfg.addKey("TA::idw_lapse", "Interpolations2D", lapserateTA.str()
-		//					+ s);
-		//		}
-		//
-		//		if (met->LRv[ilsPrec] != LapseRatePrec) {
-		//			// The user has given a lapse rate: use this
-		//			lspr = -met->LRv[ilsPrec] * 1E-3;
-		//			stringstream lapserateHNW;	// Create a stringstream
-		//			lapserateHNW << lspr;		// Add number to the stream
-		//			string s = " soft";
-		//			cfg.addKey("HNW::idw_lapse", "Interpolations2D", lapserateHNW.str()
-		//					+ s);
-		//		}
-		//
-		//		IOManager io(cfg);
-		// -------------End of reconfig io.ini----------------------
-
