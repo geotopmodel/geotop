@@ -220,7 +220,7 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
  * @param wat Pointer to the GEOtop Water class
  */
 void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
-	/* We need some intermediate storage for storing the interpolated grid by MeteoIO */
+	// We need some intermediate storage for storing the interpolated grid by MeteoIO
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
 
 	Date d1;
@@ -228,79 +228,49 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 
 	try {
 
-		// ---------   read the GEOtop lapseRate and set it to MeteoIO config -----
+		// Intermediate storage for storing data sets for 1 timestep
+		vector<MeteoData> meteo;
 
-		//		double lrta = -LapseRateTair * 1E-3; // GEOtop default lapse rate of air temp.
-		//		double lspr = -LapseRatePrec * 1E-3; // GEOtop default lapse rate of precipitation
-		//
-		//		if (met->LRv[ilsTa] != LapseRateTair) {
-		//			// The user has given a lapse rate: use this
-		//			lrta = -met->LRv[ilsTa] * 1E-3;
-		//			stringstream lapserateTA;	// Create a stringstream
-		//			lapserateTA << lrta;		// Add number to the stream
-		//			string s = " soft";
-		//			cfg.addKey("TA::idw_lapse", "Interpolations2D", lapserateTA.str()
-		//					+ s);
-		//		}
-		//
-		//		if (met->LRv[ilsPrec] != LapseRatePrec) {
-		//			// The user has given a lapse rate: use this
-		//			lspr = -met->LRv[ilsPrec] * 1E-3;
-		//			stringstream lapserateHNW;	// Create a stringstream
-		//			lapserateHNW << lspr;		// Add number to the stream
-		//			string s = " soft";
-		//			cfg.addKey("HNW::idw_lapse", "Interpolations2D", lapserateHNW.str()
-		//					+ s);
-		//		}
-		//
-		//		IOManager io(cfg);
-		// -------------End of reconfig io.ini----------------------
+		// Read the meteo data for the given timestep
+		io->getMeteoData(d1, meteo);
 
-		/* Intermediate storage for storing data sets for 1 timestep */
-		std::vector<MeteoData> meteo,meteo2;
-		/* Read the meteo data for the given timestep */
-		size_t numOfStations = io->getMeteoData(d1, meteo);
-		meteo2 = meteo;
-
-		// Bypass the internal reading of MeteoData and to performed processing and interpolation 
-		// on the data of the given vector meteo
-		// NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured
-		hnw_correction(par, meteo);
-		io->add_to_cache(d1, meteo);
-
-		for (size_t i = 0; i < numOfStations; i++) {
-			if (meteo[i](MeteoData::HNW) != meteo2[i](MeteoData::HNW))
-				cout << d1.toString(Date::ISO) << "Station " << i << ": " << meteo[i](MeteoData::HNW) 
-					<< " != " << meteo2[i](MeteoData::HNW) << endl;
-		}
+		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
+		//on the data of the given vector meteo
+		//hnw_correction(par, meteo);
+		//io->add_to_cache(d1, meteo);
 
 		io->getMeteoData(d1, dem, MeteoData::TA, tagrid);
 		changeTAgrid(tagrid);
+
 		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid);
 		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
+
 		io->getMeteoData(d1, dem, MeteoData::P, pgrid);
 		changePgrid(pgrid);
+
 		try {
 			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
-		}catch (std::exception& e) {
+		} catch (exception& e) {
 		   changeVWgrid(vwgrid, par->Vmin);
 		}
+
 		try {
 			io->getMeteoData(d1, dem, MeteoData::DW, dwgrid);
-		}catch (std::exception& e) {
+		} catch (exception& e) {
 		   changeGrid(dwgrid, 90);
 		}
+
 		io->getMeteoData(d1, dem, MeteoData::HNW, hnwgrid);
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 
-	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
+	} catch (exception& e) {
+		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
 
-	std::cout << "[MeteoIO] Start copying Grid to GEOtop format: " << std::endl;
+	cout << "[MeteoIO] Start copying Grid to GEOtop format: " << endl;
 
-	// Now copy all that data to the appropriate grids
+	// Now copy all that data to the appropriate GEOtop grids
 	copyGridToMatrix(tagrid, met->Tgrid);
 	copyGridToMatrix(rhgrid, met->RHgrid);
 	copyGridToMatrix(pgrid, met->Pgrid);
@@ -1024,3 +994,33 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}
 }
+
+
+		// ---------   read the GEOtop lapseRate and set it to MeteoIO config -----
+
+		//		double lrta = -LapseRateTair * 1E-3; // GEOtop default lapse rate of air temp.
+		//		double lspr = -LapseRatePrec * 1E-3; // GEOtop default lapse rate of precipitation
+		//
+		//		if (met->LRv[ilsTa] != LapseRateTair) {
+		//			// The user has given a lapse rate: use this
+		//			lrta = -met->LRv[ilsTa] * 1E-3;
+		//			stringstream lapserateTA;	// Create a stringstream
+		//			lapserateTA << lrta;		// Add number to the stream
+		//			string s = " soft";
+		//			cfg.addKey("TA::idw_lapse", "Interpolations2D", lapserateTA.str()
+		//					+ s);
+		//		}
+		//
+		//		if (met->LRv[ilsPrec] != LapseRatePrec) {
+		//			// The user has given a lapse rate: use this
+		//			lspr = -met->LRv[ilsPrec] * 1E-3;
+		//			stringstream lapserateHNW;	// Create a stringstream
+		//			lapserateHNW << lspr;		// Add number to the stream
+		//			string s = " soft";
+		//			cfg.addKey("HNW::idw_lapse", "Interpolations2D", lapserateHNW.str()
+		//					+ s);
+		//		}
+		//
+		//		IOManager io(cfg);
+		// -------------End of reconfig io.ini----------------------
+
