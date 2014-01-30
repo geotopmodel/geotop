@@ -32,6 +32,7 @@
 	void meteoio_writeEsriasciiMap(const std::string& filename, TInit* pUV, GeoMatrix<double>& gm, long pNumber_novalue);
 	void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue);
 
+	void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo);
 //	void meteoio_interpolate( PAR* par, double JDbeg, METEO* met, WATER* wat);
 	void meteoio_interpolate( Par* par, double JDbeg, Meteo* met, Water* wat);
 

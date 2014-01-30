@@ -168,24 +168,63 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
 		io->write2DGrid(gridObject, filenam+".asc");
 }
 
+/**
+ * @brief The following piece of code is to handle snow/rain partition inside the precipitation by correcting
+ * the precipitation at each station for the raincorrfact and the snowcorrfact GEOtop part_snow() method 
+ * is used to perform the partitions. HNW and TA are read from the MeteoIO MeteoData and then convert TA 
+ * to celsius GEOtop part_snow() method is called for partitioning and then rain correction factor and 
+ * snow correction factor are added
+ *
+ * NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured, e.g.:
+ * HNW::filter3    = undercatch_wmo
+ * HNW::arg3    = cst 1.3 1
+ * where the arguments of the undercatch_wmo filter are "cst {factor for snow} {factor for mixed precipitation}"
+ *
+ * @param par      Pointer to GEOtop Par class, holding the values for rain and snow correction factors
+ * @param meteo    A vector of MeteoData objects (one for each station) at one point in time
+ */
+void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
+{
+	double rain=.0, snow=.0, hnw=.0, ta=.0;
+	
+	for (size_t ii = 0; ii < meteo.size(); ii++) {
+		hnw = meteo[ii](MeteoData::HNW);
+		
+		if (meteo[ii](MeteoData::TA) != IOUtils::nodata) { /* MeteoIO deals with temperature in Kelvin */
+			ta = meteo[ii](MeteoData::TA) - 273.15;
+		} else {
+			ta = meteo[ii](MeteoData::TA);
+		}
 
-//void meteoio_interpolate(PAR* par, double currentdate, METEO* met, WATER* wat) {
+		/* check for non-zero precipitation, temperature must be available */
+		if (hnw > 0 && hnw != IOUtils::nodata && ta != IOUtils::nodata) {
+			/* perform pre-processing on HNW using GEOtop part_snow method */
+			part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow);
+
+			/* adding rain correction factor and snow correction factor */
+			meteo[ii](MeteoData::HNW) = par->raincorrfact * rain + par->snowcorrfact * snow;
+		}
+	}
+}
+
+/**
+ * @brief This function performs the 2D interpolations by calling the respective methods within MeteoIO
+ * 1) Data is copied from MeteoIO objects to GEOtop structs
+ * 2) Interpolation takes place
+ * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
+ * 4) TA, P and RH values need to be converted as well as nodata values
+ *
+ * @param par Pointer to the GEOtop Par class, holding geotop.inpts configuration
+ * @param currentdate Matlab julian date for which interpolation is desired
+ * @param met Pointer to the GEOtop Meteo class 
+ * @param wat Pointer to the GEOtop Water class
+ */
 void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
-	/*
-	 This function performs the 2D interpolations by calling the respective methods within MeteoIO
-	 1) Data is copied from MeteoIO objects to GEOtop structs
-	 2) Interpolation takes place
-	 3) Gridded data copied back to GEOtop DOUBLEMATRIX
-	 4) TA, P and RH values need to be converted as well as nodata values
-	 */
-
-
 	/* We need some intermediate storage for storing the interpolated grid by MeteoIO */
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
 
 	Date d1;
-	/* GEOtop use matlab offset of julian date */
-	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ);
+	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
 
 	try {
 
@@ -217,74 +256,24 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		//		IOManager io(cfg);
 		// -------------End of reconfig io.ini----------------------
 
-		/* Intermediate storage for storing collection of stations data */
-		std::vector<std::vector<MeteoData> > vecMeteos;
 		/* Intermediate storage for storing data sets for 1 timestep */
-		std::vector<MeteoData> meteo;
+		std::vector<MeteoData> meteo,meteo2;
 		/* Read the meteo data for the given timestep */
 		size_t numOfStations = io->getMeteoData(d1, meteo);
+		meteo2 = meteo;
 
-
-
-//		for(int i=0;i<met->st->Z.size();i++){
-//			copyInterpMeteoData(met->var[i], meteo);
-//			printf("\nStation %d \n", i+1);
-//			for(int j=0;j<18;j++){
-//	    	            printf(" out[ %d, %d ]:%f\n", i,j,met->var[i][j]);
-//	         }
-//			}
-//		int c;
-//		cin>>c;
-
-
-		/* Allocation for the vectors for storing collection of stations data */
-		vecMeteos.insert(vecMeteos.begin(), meteo.size(),std::vector<MeteoData>());
-
-		/*
-		 * The following piece of code is to handle snow/rain partition inside the precipitation by correcting
-		 * the precipitation at each station for the raincorrfact and the snowcorrfact
-		 * GEOtop part_snow() method is used to perform the partitions.
-		 * HNW and TA are read from the MeteoIO MeteoData and then convert TA to celsius
-		 * GEOtop part_snow() method is called for partitioning and then rain correction factor and snow correction factor are added
-		 * Finally push back the modified data to the MeteoIO internal storage
-		 */
-
-		double rain, snow, hnw, ta;
-		for (size_t i = 0; i < numOfStations; i++) {
-			hnw = meteo[i](MeteoData::HNW);
-			if (meteo[i](MeteoData::TA) != IOUtils::nodata) {
-				/* MeteoIO deals with temperature in Kelvin */
-				ta = meteo[i](MeteoData::TA) - 273.15;
-			} else {
-				ta = meteo[i](MeteoData::TA);
-			}
-			/* check for non-zero precipitation */
-			if (hnw > 0 && hnw != IOUtils::nodata && ta != IOUtils::nodata) {
-				/* perform pre-processing on HNW using GEOtop part_snow method */
-				part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow);
-				/* adding rain correction factor and snow correction factor */
-				meteo[i](MeteoData::HNW) = par->raincorrfact * rain + par->snowcorrfact * snow;
-				/* fill the data into the temporary vector of vectors */
-				vecMeteos.at(i).push_back(meteo[i]);
-			}
-		}
-
-		/* Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector */
+		// Bypass the internal reading of MeteoData and to performed processing and interpolation 
+		// on the data of the given vector meteo
+		// NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured
+		hnw_correction(par, meteo);
 		io->add_to_cache(d1, meteo);
 
-		// PRECIPITATION
-		// TODO: correct the precipitation at each station for the raincorrfact and the snowcorrfact
-		//		   double prec, rain, snow;
-		//		   for(n=1;n<=met->st->Z->nh;n++){
-		//					if((long)met->var[n-1][Pcode]!=geotop::input::gDoubleNoValue && (long)met->var[n-1][Pcode]!=geotop::input::gDoubleAbsent){// check if exists prec. value
-		//					prec = met->var[n-1][Pcode];// precipitation of the meteo station n
-		//					part_snow(prec, &rain, &snow, met->var[n-1][Tcode], par->T_rain, par->T_snow);
-		//					met->var[n-1][Pcode] = par->raincorrfact * rain + par->snowcorrfact * snow;
-		//					//hnwgrid.grid2D(r, c) = par->raincorrfact * rain + par->snowcorrfact * snow;
-		//					}
-		//				}
-		//		    part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), Train, Tsnow);
-		//
+		for (size_t i = 0; i < numOfStations; i++) {
+			if (meteo[i](MeteoData::HNW) != meteo2[i](MeteoData::HNW))
+				cout << d1.toString(Date::ISO) << "Station " << i << ": " << meteo[i](MeteoData::HNW) 
+					<< " != " << meteo2[i](MeteoData::HNW) << endl;
+		}
+
 		io->getMeteoData(d1, dem, MeteoData::TA, tagrid);
 		changeTAgrid(tagrid);
 		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid);
