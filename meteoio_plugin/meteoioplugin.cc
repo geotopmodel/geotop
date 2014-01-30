@@ -285,23 +285,23 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		//				}
 		//		    part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), Train, Tsnow);
 		//
-		io->interpolate(d1, dem, MeteoData::TA, tagrid);
+		io->getMeteoData(d1, dem, MeteoData::TA, tagrid);
 		changeTAgrid(tagrid);
-		io->interpolate(d1, dem, MeteoData::RH, rhgrid);
+		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid);
 		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
-		io->interpolate(d1, dem, MeteoData::P, pgrid);
+		io->getMeteoData(d1, dem, MeteoData::P, pgrid);
 		changePgrid(pgrid);
 		try {
-			io->interpolate(d1, dem, MeteoData::VW, vwgrid);
+			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
 		}catch (std::exception& e) {
 		   changeVWgrid(vwgrid, par->Vmin);
 		}
 		try {
-			io->interpolate(d1, dem, MeteoData::DW, dwgrid);
+			io->getMeteoData(d1, dem, MeteoData::DW, dwgrid);
 		}catch (std::exception& e) {
 		   changeGrid(dwgrid, 90);
 		}
-		io->interpolate(d1, dem, MeteoData::HNW, hnwgrid);
+		io->getMeteoData(d1, dem, MeteoData::HNW, hnwgrid);
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 
@@ -1023,7 +1023,7 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
 		} else {
 			/*Interpolate 2D grid*/
 			try {
-				io->interpolate(d1, dem, MeteoData::RSWR, cloudwgrid);
+				io->getMeteoData(d1, dem, MeteoData::RSWR, cloudwgrid);
 			} catch (std::exception& e) {
 			   changeGrid(cloudwgrid, 0.5);
 			}
