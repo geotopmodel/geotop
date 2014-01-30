@@ -229,7 +229,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 	try {
 
 		// Intermediate storage for storing data sets for 1 timestep
-		vector<MeteoData> meteo;
+		std::vector<mio::MeteoData> meteo;
 
 		// Read the meteo data for the given timestep
 		io->getMeteoData(d1, meteo);
