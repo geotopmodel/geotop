@@ -113,20 +113,19 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
         if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 			
 			find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
-            
-			//call the function that interpolates the cloudiness
-			
-            if (A->P->use_meteoio_cloud) {
-                meteoio_interpolate_cloudiness(geotop::common::Variables::UV, A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-                meteoio_interpolate_cloudiness(geotop::common::Variables::UV, A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
-            }
-			
-			A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];
-			A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
-		    A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
-			A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
-		}
-	}
+        }
+    }
+	//call the function that interpolates the cloudiness
+    if (A->P->use_meteoio_cloud) {
+    	meteoio_interpolate_cloudiness(A->P, JDb, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
+    	meteoio_interpolate_cloudiness(A->P, JDb, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+    	}
+
+    A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];
+	A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
+	A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
+	A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
+
 #else
             find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
 										 i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
