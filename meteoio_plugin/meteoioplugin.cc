@@ -21,101 +21,36 @@ void meteoio_init(mio::IOManager& iomanager) {
 	io = &iomanager; //pointer to the iomanager instantiated in geotop.cc
 
 	try {
-		//read the DEM;
 		io->readDEM(dem);
-	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
+	} catch (exception& e) {
+		cerr << "[E] MeteoIO: " << e.what() << endl;
 	}
 }
 
 void meteoio_readDEM(GeoMatrix<double>& matrix) {
 	//copy DEM to topo struct
 	matrix.resize(dem.nrows+1, dem.ncols+1);
-//	UV->V = new_doublevector(2);
-	geotop::common::Variables::UV->V.resize(2+1);
-//	UV->U = new_doublevector(4);
-	geotop::common::Variables::UV->U.resize(4+1);
 
-//	UV->V->co[1] = -1.0;
+	geotop::common::Variables::UV->V.resize(2+1);
+	geotop::common::Variables::UV->U.resize(4+1);
 	geotop::common::Variables::UV->V[1] = -1.0;
-//	UV->V->co[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
 	geotop::common::Variables::UV->V[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
 
-//	UV->U->co[1] = dem.cellsize;
 	geotop::common::Variables::UV->U[1] = dem.cellsize;
-//	UV->U->co[2] = dem.cellsize;
 	geotop::common::Variables::UV->U[2] = dem.cellsize;
-//	UV->U->co[3] = dem.llcorner.getNorthing();
 	geotop::common::Variables::UV->U[3] = dem.llcorner.getNorthing();
-//	UV->U->co[4] = dem.llcorner.getEasting();
 	geotop::common::Variables::UV->U[4] = dem.llcorner.getEasting();
 
 	copyGridToMatrix(dem, matrix);
 }
 
-
 void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix) {
-	mio::Grid2DObject temp;
+	Grid2DObject temp;
 	io->read2DGrid(temp, filename + ".asc");
 
 	matrix.resize(temp.nrows+1, temp.ncols+1);
 	copyGridToMatrix(temp, matrix);
 }
-
-//DOUBLEMATRIX *meteoio_readDEM(T_INIT** UVREF) {
-/*
-DOUBLEMATRIX *meteoio_readDEM(TInit** UVREF) {
-	DOUBLEMATRIX *myDEM = NULL;
-
-//	T_INIT* UV = (T_INIT *) malloc(sizeof(T_INIT));
-	TInit* UV = new TInit();
-
-	try {
-		//DEMObject dem;
-		io->readDEM(dem);
-
-		myDEM = new_doublematrix(dem.nrows, dem.ncols);
-	//	UV->V = new_doublevector(2);
-		UV->V.resize(2+1);
-	//	UV->U = new_doublevector(4);
-		UV->U.resize(4+1);
-
-	//	UV->V->co[1] = -1.0;
-		UV->V[1] = -1.0;
-	//	UV->V->co[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
-		UV->V[2] = geotop::input::gDoubleNoValue; //GEOtop nodata -9999.0
-
-	//	UV->U->co[1] = dem.cellsize;
-		UV->U[1] = dem.cellsize;
-	//	UV->U->co[2] = dem.cellsize;
-		UV->U[2] = dem.cellsize;
-	//	UV->U->co[3] = dem.llcorner.getNorthing();
-		UV->U[3] = dem.llcorner.getNorthing();
-	//	UV->U->co[4] = dem.llcorner.getEasting();
-		UV->U[4] = dem.llcorner.getEasting();
-
-		for (unsigned int ii = 0; ii < dem.nrows; ii++) {
-			for (unsigned int jj = 0; jj < dem.ncols; jj++) {
-				if (dem.grid2D(jj, dem.nrows - 1 - ii) == IOUtils::nodata) {
-				//	myDEM->co[ii + 1][jj + 1] = UV->V->co[2];
-					myDEM->co[ii + 1][jj + 1] = UV->V[2];
-				} else {
-					myDEM->co[ii + 1][jj + 1] = dem.grid2D(jj,
-							dem.nrows - 1 - ii);
-				}
-			}
-		}
-		std::cout << "Read DEM:" << dem.nrows << "(rows) " << dem.ncols
-				<< "(cols)" << std::endl;
-		free((*UVREF));
-		(*UVREF) = UV;
-	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
-	}
-
-	return myDEM;
-}
-*/
 
 //DOUBLEMATRIX *meteoio_read2DGrid(T_INIT* pUV, char* _filename) {
 void meteoio_read2DGrid(TInit* pUV, GeoMatrix<double>& myGrid, char* _filename) {
