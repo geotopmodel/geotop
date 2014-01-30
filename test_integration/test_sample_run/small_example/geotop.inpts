@@ -2,10 +2,10 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 20/10/2011 12:00
-EndDateDDMMYYYYhhmm =  29/10/2011 12:00
+InitDateDDMMYYYYhhmm = 19/02/2012 12:00
+EndDateDDMMYYYYhhmm =  06/03/2012 12:00
 EnergyBalance = 1
-WaterBalance=0
+WaterBalance=1
 PointSim=0
 
 !*******************************
@@ -219,28 +219,45 @@ SnowIceContentProfileFile="output_tabs/snowice"
 SnowDepthLayersFile="output_tabs/snowly"
 SnowAll=1
 
-!SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
-!NetShortwaveRadiationMapFile = "output_maps/Rn"
-!DischargeFile = "output_tabs/discharge"
 
 ! added to debug netCDF
 OutputSnowMaps = 1
 OutputSoilMaps=1
-!OutputSurfEBALMaps=1
-SWEMapFile= "output_maps/SWE"
+OutputSurfEBALMaps=1
+OutputMeteoMaps=1
+OutputSnowMaps=1
+OutputGlacierMaps=1
 
 
 SoilAll=1
+
+SWEMapFile= "output_maps/SWE"
+SnowDepthMapFile = "output_maps/snowdepth"
+FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
+!NetShortwaveRadiationMapFile = "output_maps/Rn"
+!DischargeFile = "output_tabs/discharge"
 SoilAveragedTempTensorFile = "output_maps/T"
 SoilLiqContentTensorFile = "output_maps/thetaliq"
 IceLiqContentTensorFile = "output_maps/thetaice"
 SoilLiqWaterPressTensorFile = "output_maps/psiz"
-!RadiationMapFile= "output_maps/Rad"
 InShortwaveRadiationMapFile= "output_maps/SWin"
 InLongwaveRadiationMapFile= "output_maps/LWin"
 NetRadiationMapFile= "output_maps/RadNet"
+SurfaceTempMapFile = "output_maps/Ts"
+SoilTotWaterPressTensorFile = "output_maps/psi"
+LandSurfaceWaterDepthMapFile = "output_maps/hsup"
+WaterTableDepthMapFile = "output_maps/watertable"
+SnowDurationMapFile = "output_maps/snowdur"
+SnowMeltedMapFile= "output_maps/snowmelt"
+InShortwaveRadiationMapFile = "output_maps/Rswin"
+SurfaceHeatFluxMapFile = "output_maps/EB"
+SurfaceSensibleHeatFluxMapFile = "output_maps/H"
+SurfaceLatentHeatFluxMapFile = "output_maps/LE"
+PrecipitationMapFile = "output_maps/Prec"
+EvapotranspirationFromSoilMapFile = "output_maps/ET"
+AirTempMapFile = "output_maps/Ta"
+!EvapotranspirationFromSoilFile="output_maps/ETsoil"
+
 !=============================================================================
 !  RECOVERY FILE NAMES
 !=============================================================================

@@ -270,7 +270,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		}
 
 		/* Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector */
-		//	io->add_to_cache(d1, meteo);
+		io->add_to_cache(d1, meteo);
 
 		// PRECIPITATION
 		// TODO: correct the precipitation at each station for the raincorrfact and the snowcorrfact
@@ -286,17 +286,23 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		//		    part_snow(prec, &rain, &snow, tagrid.grid2D(r, c), Train, Tsnow);
 		//
 		io->interpolate(d1, dem, MeteoData::TA, tagrid);
+		changeTAgrid(tagrid);
 		io->interpolate(d1, dem, MeteoData::RH, rhgrid);
+		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
 		io->interpolate(d1, dem, MeteoData::P, pgrid);
-		io->interpolate(d1, dem, MeteoData::VW, vwgrid);
-		io->interpolate(d1, dem, MeteoData::DW, dwgrid);
+		changePgrid(pgrid);
+		try {
+			io->interpolate(d1, dem, MeteoData::VW, vwgrid);
+		}catch (std::exception& e) {
+		   changeVWgrid(vwgrid, par->Vmin);
+		}
+		try {
+			io->interpolate(d1, dem, MeteoData::DW, dwgrid);
+		}catch (std::exception& e) {
+		   changeGrid(dwgrid, 90);
+		}
 		io->interpolate(d1, dem, MeteoData::HNW, hnwgrid);
 
-		//convert values accordingly, necessary for TA , RH and P
-		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
-		changeTAgrid(tagrid);
-		changePgrid(pgrid);
-		changeVWgrid(vwgrid, par->Vmin);
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 
 	} catch (std::exception& e) {
@@ -389,7 +395,7 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 		}
 
 		/* Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector */
-	//	io->add_to_cache(d1, meteo);
+		io->add_to_cache(d1, meteo);
 
 		/* Prepare the points */
 		Coords point;
@@ -415,20 +421,16 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 		/*Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them */
 
 		io->interpolate(d1, dem, MeteoData::TA, pointsVec, resultTa);
-		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
-		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
-		io->interpolate(d1, dem, MeteoData::VW, pointsVec, resultVw);
-		io->interpolate(d1, dem, MeteoData::DW, pointsVec, resultDw);
-		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
-
-		/* We need to convert values accordingly to fit with GEOtop units, in particular TA , RH , P VW */
-
 		/* change TA values */
 		for (size_t i = 0; i < resultTa.size(); i++) {
 			if (resultTa[i] != IOUtils::nodata) {
 				resultTa[i] -= 273.15; //back to celsius
 			}
 		}
+
+		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
+
+		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
 		/* change P values */
 		for (size_t i = 0; i < resultP.size(); i++) {
 			if (resultP[i] != IOUtils::nodata) {
@@ -436,12 +438,29 @@ void replace_grid_values(const DEMObject& dem, const double& value, Grid2DObject
 			}
 		}
 
-		/* change VW values, if the measured value is less than the user given vmin value then set the vmin */
-		for (size_t i = 0; i < resultVw.size(); i++) {
-			if (resultVw[i] != IOUtils::nodata && resultVw[i] < par->Vmin) {
-				resultVw[i] = par->Vmin; //set GEOtop vw min value
+		try {
+			io->interpolate(d1, dem, MeteoData::VW, pointsVec, resultVw);
+		} catch (std::exception& e) {
+			/* change VW values, if the measured value is less than the user given vmin value then set the vmin */
+			for (size_t i = 0; i < resultVw.size(); i++) {
+				if (resultVw[i] != IOUtils::nodata && resultVw[i] < par->Vmin) {
+					resultVw[i] = par->Vmin; //set GEOtop vw min value
+				}
 			}
 		}
+		try{
+			io->interpolate(d1, dem, MeteoData::DW, pointsVec, resultDw);
+		}catch (std::exception& e){
+			/* change DW values to a user given  value */
+			for (size_t i = 0; i < resultDw.size(); i++) {
+				if (resultDw[i] != IOUtils::nodata) {
+					resultDw[i] = 90;
+				}
+			}
+		}
+
+		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
+
 
 	} catch (std::exception& e) {
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
@@ -637,6 +656,16 @@ void changeVWgrid(Grid2DObject& g2d, double vwMin) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata
 					&& g2d.grid2D(ii, jj) < vwMin)
 				g2d.grid2D(ii, jj) = vwMin;
+		}
+	}
+}
+
+void changeGrid(Grid2DObject& g2d, const double val) {
+	/* This function changes a grid according to given value */
+	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
+		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
+			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
+				g2d.grid2D(ii, jj) = val;
 		}
 	}
 }
@@ -978,16 +1007,30 @@ void meteoio_interpolate_cloudiness(TInit* pUV, Par* par,
 				pointsVec.push_back(point);
 			}
             /* Interpolate point wise */
-			io->interpolate(d1, dem, MeteoData::RSWR, pointsVec, resultCloud);
+			try {
+				io->interpolate(d1, dem, MeteoData::RSWR, pointsVec, resultCloud);
+			} catch (std::exception& e) {
+				for (size_t i = 0; i < resultCloud.size(); i++) {
+					if (resultCloud[i] != IOUtils::nodata) {
+						resultCloud[i] = 0.5;
+					}
+				}
+			}
 			/* Now copy all that data to the appropriate Array */
 			copyGridToMatrixPointWise(resultCloud, tau_cloud_grid);
+
+
 		} else {
 			/*Interpolate 2D grid*/
-			io->interpolate(d1, dem, MeteoData::RSWR, cloudwgrid);
-
+			try {
+				io->interpolate(d1, dem, MeteoData::RSWR, cloudwgrid);
+			} catch (std::exception& e) {
+			   changeGrid(cloudwgrid, 0.5);
+			}
 			/* Now copy all that data to the appropriate grids */
 			copyGridToMatrix(cloudwgrid, tau_cloud_grid);
 		}
+
 	} catch (std::exception& e) {
 		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
 	}

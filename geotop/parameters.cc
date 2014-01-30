@@ -141,7 +141,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         lVector.push_back(lValue);
 	}
     
-	return(lVector);
+	return lVector ;
     
 }
 
@@ -644,7 +644,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 	par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
 
-    std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "TimeStepEnergyAndWater", 0., true, par->init_date.size(), false) ;
+    std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotDischarge", 0., true, par->init_date.size(), false) ;
 	for (size_t i=1; i<par->Dtplot_discharge.size(); i++) {
 		par->Dtplot_discharge[i] = lDtPlotDischarge[i-1] ;
 	}

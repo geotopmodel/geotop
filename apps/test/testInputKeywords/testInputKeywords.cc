@@ -25,6 +25,12 @@
 
 using namespace boost::assign;
 
+template <typename T>
+inline bool is_any(const boost::any& op)
+{
+    return (op.type() == typeid(T));
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -66,7 +72,7 @@ int main(int argc, char *argv[])
     {
         lInputFile = vm["file"].as<std::string>();
     } else {
-        std::cerr << "The input file mut be specified, see --input option" << std::endl ;
+        std::cerr << "The input file mut be specified, see --file option" << std::endl ;
         return 20  ;
     }
 
@@ -80,6 +86,38 @@ int main(int argc, char *argv[])
     geotop::input::ConfigStore lConfigStore ;
     lConfigStore.parse(lInputFilePath.string()) ;
 
+    std::vector<std::string> lVOfKeys = lConfigStore.getKeys() ;
+    for(size_t i = 0 ; i < lVOfKeys.size(); i++)
+    {
+        std::string lName = lVOfKeys[i] ;
+        boost::any lValue ;
+        bool lStatus = lConfigStore.getAny(lName, lValue) ;
+        if (not lStatus) {
+            std::cout << "Error getting value for: " << lName << std::endl ;
+            continue ;
+        }
+
+        if(is_any<double>(lValue))
+        {
+            double lV = boost::any_cast<double>(lValue);
+            std::cout << lName << ":" << lV << std::endl ;
+        } else if (is_any<std::string>(lValue)) {
+            std::string lV = boost::any_cast<std::string>(lValue);
+            std::cout << lName << ":" << lV << std::endl ;
+        } else if (is_any<std::vector<double> >(lValue)) {
+        std::vector<double> lV = boost::any_cast<std::vector<double> >(lValue);
+        std::cout << lName << ":" ;
+        for(size_t i = 0; i < lV.size() ; i++){
+            std::cout << lV[i] ;
+            if(i < lV.size()-1)
+                std::cout << "," ;
+            }
+        std::cout << std::endl ;
+        }
+
+    }
+
+    /*
     std::vector<double> lDecayCoeffCanopyOrig ;
     lDecayCoeffCanopyOrig += 1.2,3.4,5.6,7.8,9,10,11,12,13.14 ;
     
@@ -93,9 +131,14 @@ int main(int argc, char *argv[])
         std::cout << "Info: DecayCoeffCanopy : OK" << std::endl ;
     }
 
-    double lInitDateDDMMYYYYhhmm ;
+    std::vector<double> lInitDateDDMMYYYYhhmm ;
     lConfigStore.get("InitDateDDMMYYYYhhmm", lInitDateDDMMYYYYhhmm) ;
-    std::cout << "InitDateDDMMYYYYhhmm: " << std::setprecision(12) << lInitDateDDMMYYYYhhmm << std::endl ;
+    std::cout << "InitDateDDMMYYYYhhmm: " << std::setprecision(12) << lInitDateDDMMYYYYhhmm[0] << std::endl ;
 
+    std::string lDemFile ;
+    lConfigStore.get("DemFile", lDemFile) ;
+    std::cout << "DemFile: " << lDemFile << std::endl ;
+    */
+    
     return 0 ;
 }
