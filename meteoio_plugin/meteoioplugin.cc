@@ -1,9 +1,4 @@
 #include "meteoioplugin.h"
-#include "../geotop/times.h"
-#include <sstream>
-#include <stdlib.h>
-#include "geotop_common.h"
-#include "inputKeywords.h"
 
 using namespace std;
 using namespace mio;
@@ -24,7 +19,7 @@ void meteoio_init(mio::IOManager& iomanager)
 	try {
 		io->readDEM(dem);
 	} catch (exception& e) {
-		cerr << "[E] MeteoIO: " << e.what() << endl;
+		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
 }
 
@@ -100,7 +95,7 @@ void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename)
 				<< gridObject.nrows << "(rows) " << gridObject.ncols << "(cols)"
 				<< std::endl;
 	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
+		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
 }
 
@@ -174,7 +169,7 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
  *
  * NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured, e.g.:
  * HNW::filter3    = undercatch_wmo
- * HNW::arg3    = cst 1.3 1
+ * HNW::arg3    = cst 1.3 1.1
  * where the arguments of the undercatch_wmo filter are "cst {factor for snow} {factor for mixed precipitation}"
  *
  * @param par      Pointer to GEOtop Par object, holding the values for rain and snow correction factors
@@ -236,30 +231,28 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 		//io->add_to_cache(d1, meteo);
 
 		io->getMeteoData(d1, dem, MeteoData::TA, tagrid);
-		changeTAgrid(tagrid);
+		convertToCelsius(tagrid);
 
-		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid);
-		//changeRHgrid(rhgrid);// TODO: check whether GEOtop wants RH from 0 to 100 or from 0 to 1
+		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
 
 		io->getMeteoData(d1, dem, MeteoData::P, pgrid);
-		changePgrid(pgrid);
+		convertToMBar(pgrid); //convert from Pascal to mbar
 
 		try {
 			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
 		} catch (exception& e) {
-		   changeVWgrid(vwgrid, par->Vmin);
+			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
 		}
 
 		try {
 			io->getMeteoData(d1, dem, MeteoData::DW, dwgrid);
 		} catch (exception& e) {
-		   changeGrid(dwgrid, 90);
+		   changeGrid(dwgrid, 90); //if something goes wrong, set to 90 degrees everywhere
 		}
 
 		io->getMeteoData(d1, dem, MeteoData::HNW, hnwgrid);
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
-
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
@@ -325,7 +318,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		//Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them
 		io->interpolate(d1, dem, MeteoData::TA, pointsVec, resultTa);
 		for (size_t i = 0; i < resultTa.size(); i++) { //change TA values
-			if (resultTa[i] != IOUtils::nodata) resultTa[i] -= 273.15; //back to celsius
+			if (resultTa[i] != IOUtils::nodata) resultTa[i] -= GTConst::tk; //back to celsius
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
@@ -434,52 +427,30 @@ void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix
 }
 
 /**
- * @brief This function changes the RH according to to GEOtop, that is values range from 0-100
- * @author noori
+ * @brief This function changes the values in the given grid to Celsius from Kelvin
+ * @param g2d The Grid2DObject that shall be changed
  */
-void changeRHgrid(Grid2DObject& g2d)
+void convertToCelsius(Grid2DObject& g2d)
 {
-	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
-		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
-				g2d.grid2D(ii, jj) *= 100.0;
-		}
-	}
+	g2d.grid2D -= GTConst::tk; //convert back to degrees Celsius, preserve nodata
 }
 
 /**
- * @brief This function changes the TA, kelvin to celsius according to to GEOtop
- * @author noori
+ * @brief This function changes the values in the given grid to mbar from Pascal
+ * @param g2d The Grid2DObject that shall be changed
  */
-void changeTAgrid(Grid2DObject& g2d)
+void convertToMBar(Grid2DObject& g2d)
 {
-	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
-		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
-				g2d.grid2D(ii, jj) -= 273.15; //back to celsius
-		}
-	}
-}
-
-/**
- * @brief This function changes the P according to to GEOtop, that is values range from 0-100
- * @author noori
- */
-void changePgrid(Grid2DObject& g2d)
-{
-	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
-		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
-				g2d.grid2D(ii, jj) /= 100.0;
-		}
-	}
+	g2d.grid2D /= 100.0;
 }
 
 /**
  * @brief This function changes the VW according to the GEOtop given min value
+ *
+ * @param g2d The Grid2DObject that shall be changed
  * @author noori
  */
-void changeVWgrid(Grid2DObject& g2d, double vwMin)
+void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
@@ -492,9 +463,11 @@ void changeVWgrid(Grid2DObject& g2d, double vwMin)
 
 /**
  * @brief This function changes a grid to given value, nodata points are preserved
+ *
+ * @param g2d The Grid2DObject that shall be changed
  * @author noori
  */
-void changeGrid(Grid2DObject& g2d, const double val)
+void changeGrid(Grid2DObject& g2d, const double& val)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
@@ -511,7 +484,7 @@ void changeGrid(Grid2DObject& g2d, const double val)
  * @param first_check true if this is the first check, a special warning message will be printed
  * @param A The AllData reference
  *
- * @return Return true if at least one station measured ISWR
+ * @return true if at least one station measured ISWR
  */
 bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& first_check, AllData *A) 
 {
@@ -618,6 +591,6 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		}
 
 	} catch (std::exception& e) {
-		std::cerr << "[E] MeteoIO: " << e.what() << std::endl;
+		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
 }

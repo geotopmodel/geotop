@@ -1002,12 +1002,11 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 
     npoints = 0 ;
-    for (size_t j=1; j<par->chkpt.getCols(); j++) {
+    for (size_t j=1; j<=lKeywordString.size() ; j++) {
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, false, 0, true) ;
 		if (npoints < lDoubleTempVector.size()) {
             npoints = lDoubleTempVector.size();
         }
-        
 	}
     par->chkpt.resize(npoints + 1, lKeywordString.size() + 1, 0);
 

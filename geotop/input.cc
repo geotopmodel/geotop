@@ -3208,7 +3208,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     fprintf(flog,"ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
     //	for(r=1;r<=par->chkpt->nrh;r++){
     for(r=1;r< par->chkpt.getRows();r++){
-        for(c=1;c<=ptTOT;c++){
+        for(c=1;c<ptTOT;c++){
             //	fprintf(flog,"%f",par->chkpt->co[r][c]);
             fprintf(flog,"%f",par->chkpt[r][c]);
             if (c<ptTOT) fprintf(flog, ",");
