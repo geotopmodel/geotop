@@ -84,7 +84,11 @@ int main(int argc, char *argv[])
     }
 
     geotop::input::ConfigStore lConfigStore ;
-    lConfigStore.parse(lInputFilePath.string()) ;
+    bool lParse = lConfigStore.parse(lInputFilePath.string()) ;
+    if(not lParse) {
+        std::cerr << "Error parsing file for: " << lInputFilePath.string() << std::endl ;
+        return 22 ;
+    }
 
     std::vector<std::string> lVOfKeys = lConfigStore.getKeys() ;
     for(size_t i = 0 ; i < lVOfKeys.size(); i++)
@@ -93,7 +97,7 @@ int main(int argc, char *argv[])
         boost::any lValue ;
         bool lStatus = lConfigStore.getAny(lName, lValue) ;
         if (not lStatus) {
-            std::cout << "Error getting value for: " << lName << std::endl ;
+            std::cerr << "Error getting value for: " << lName << std::endl ;
             continue ;
         }
 
