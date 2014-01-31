@@ -455,7 +455,7 @@ void convertToMBar(Grid2DObject& g2d)
  * @param g2d The Grid2DObject that shall be changed
  * @author noori
  */
-void changeVWgrid(Grid2DObject& g2d, double vwMin)
+void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
@@ -472,7 +472,7 @@ void changeVWgrid(Grid2DObject& g2d, double vwMin)
  * @param g2d The Grid2DObject that shall be changed
  * @author noori
  */
-void changeGrid(Grid2DObject& g2d, const double val)
+void changeGrid(Grid2DObject& g2d, const double& val)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {

@@ -30,8 +30,8 @@ void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix
 void changeRHgrid(mio::Grid2DObject& g2d);
 void convertToCelsius(mio::Grid2DObject& g2d);
 void convertToMBar(mio::Grid2DObject& g2d);
-void changeVWgrid(mio::Grid2DObject& g2d, double vwMin);
-void changeGrid(mio::Grid2DObject& g2d, const double val);
+void changeVWgrid(mio::Grid2DObject& g2d, const double& vwMin);
+void changeGrid(mio::Grid2DObject& g2d, const double& val);
 double tDew(double T, double RH, double P);
 
 #endif
