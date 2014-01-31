@@ -28,8 +28,8 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 void copyGridToMatrix(mio::Grid2DObject& gridObject, GeoMatrix<double>& myGrid);
 void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid);
 void changeRHgrid(mio::Grid2DObject& g2d);
-void changeTAgrid(mio::Grid2DObject& g2d);
-void changePgrid(mio::Grid2DObject& g2d);
+void convertToCelsius(mio::Grid2DObject& g2d);
+void convertToMBar(mio::Grid2DObject& g2d);
 void changeVWgrid(mio::Grid2DObject& g2d, double vwMin);
 void changeGrid(mio::Grid2DObject& g2d, const double val);
 double tDew(double T, double RH, double P);
