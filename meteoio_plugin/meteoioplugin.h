@@ -4,6 +4,7 @@
 #include "../geotop/constants.h"
 #include "../geotop/geotop_common.h"
 #include "../geotop/part_snow.h"
+#include "../geotop/inputKeywords.h"
 
 #include <meteoio/MeteoIO.h>
 #include <iostream>

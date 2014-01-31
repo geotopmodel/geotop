@@ -1,9 +1,4 @@
 #include "meteoioplugin.h"
-#include "../geotop/times.h"
-#include <sstream>
-#include <stdlib.h>
-#include "geotop_common.h"
-#include "inputKeywords.h"
 
 using namespace std;
 using namespace mio;
@@ -174,7 +169,7 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
  *
  * NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured, e.g.:
  * HNW::filter3    = undercatch_wmo
- * HNW::arg3    = cst 1.3 1
+ * HNW::arg3    = cst 1.3 1.1
  * where the arguments of the undercatch_wmo filter are "cst {factor for snow} {factor for mixed precipitation}"
  *
  * @param par      Pointer to GEOtop Par object, holding the values for rain and snow correction factors
