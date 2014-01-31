@@ -49,6 +49,75 @@
 #include <vector>
 #include <meteoio/MeteoIO.h>
 
+template<typename T> class DBGGeoVector : public GeoVector<T>
+{
+public:
+    DBGGeoVector(const size_t& asize=0) {
+        
+    } ;
+    
+    /**
+     * A constructor that creates a vector filled with constant values
+     * @param asize size of the new array
+     * @param init initial value to fill the vector with
+     */
+    DBGGeoVector(const size_t& asize, const T& init) {
+        
+    } ;
+    
+    ~DBGGeoVector() {
+        
+    }
+    
+
+    T& at(const size_t& index) {
+        return GeoVector<T>::at(index) ;
+    } ;
+
+    const T at(const size_t& index) const {
+        return GeoVector<T>::at(index) ;
+    } ;
+    
+    size_t size() const {
+        return GeoVector<T>::size() ;
+    } ;
+
+    void resize(const size_t& asize) {
+        GeoVector<T>::resize(asize) ;
+    } ;
+    
+    void resize(const size_t& asize, const T& init) {
+        GeoVector<T>::resize(asize, init) ;
+    }
+    
+    void clear() {
+        GeoVector<T>::clear() ;
+    } ;
+    
+    /**
+     * Calling this void procedure sets all elements in GeoVector to val
+     * (the size is not affected)
+     * @param val Value of type T
+     */
+    void reset(const T& val) {
+        GeoVector<T>::reset(val) ;
+    };
+    
+    /**
+     * Calling this void procedure sets all elements in GeoVector to val
+     * except the ones that already have value val_to_omit (the size is not affected)
+     * @param val Value of type T that will be copied to all elements, except if
+     * @param val_to_omit Value of type T that will be preserved
+     */
+    void reset(const T& val, const T& val_to_omit){
+        GeoVector<T>::reset(val, val_to_omit) ;
+    } ;
+    
+    void setMetaData(const std::string& name="unknown", const std::string& unit="unknown", const size_t& precision=3){
+        GeoVector<T>::setMetaData(name, unit, precision) ;
+    };
+} ;
+
 typedef struct __INIT_TOOLS__
 {
 	double swe0;
@@ -73,7 +142,7 @@ typedef struct __INIT_TOOLS__
 //	DOUBLETENSOR *pa_bed;
 	GeoTensor<double> pa_bed ;
 //	DOUBLEVECTOR *init_water_table_depth;
-	GeoVector<double> init_water_table_depth;
+	DBGGeoVector<double> init_water_table_depth;
 
 } InitTools;
 
