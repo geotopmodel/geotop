@@ -21,7 +21,7 @@
 #include "radiation.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
-#include <iostream>
+
 using namespace mio;
 
 /******************************************************************************************************************************************/
