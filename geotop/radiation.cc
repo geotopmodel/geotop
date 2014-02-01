@@ -21,7 +21,7 @@
 #include "radiation.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
-
+#include <iostream>
 using namespace mio;
 
 /******************************************************************************************************************************************/
@@ -603,14 +603,13 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 
 //double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met, const std::vector<mio::MeteoData>& vec_meteo,
 //						double Delta, double E0, double Et, double ST, double SWrefl_surr)
-double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
-						double Delta, double E0, double Et, double ST, double SWrefl_surr)
-
+double find_tau_cloud_station(double JDbeg, double JDend, long station_number, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
+                              double Delta, double E0, double Et, double ST, double SWrefl_surr)
 {
 	double P, RH, T, c;
-		
 	double tdew = geotop::input::gDoubleNoValue;
-	const MeteoData& current = vec_meteo.at(i-1);
+	const MeteoData& current = vec_meteo.at(station_number-1); //MeteoIO starts counting at 0
+
 	if ((current(MeteoData::TA) != IOUtils::nodata) && 
 	    (current(MeteoData::RH) != IOUtils::nodata) && (current(MeteoData::P) != IOUtils::nodata)) {
 		tdew = tDew(current(MeteoData::TA)-273.15, current(MeteoData::RH)*100.0, current(MeteoData::P) / 100.0);
@@ -621,38 +620,30 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, Meteo *met, co
 
 	//relative humidity 
 	if (current(MeteoData::RH) != IOUtils::nodata) {
-		//if((long)met->var[i-1][iRh] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iRh] != geotop::input::gDoubleAbsent){
-		//RH = met->var[i-1][iRh]/100.;
 		RH = current(MeteoData::RH);
 	} else {
 		if ((current(MeteoData::TA) != IOUtils::nodata) && (tdew != geotop::input::gDoubleNoValue)) {
 			//if ( (long)met->var[i-1][iT] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iT] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iTdew] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iTdew] != geotop::input::gDoubleNoValue){
 			//RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z->co[i]);
-			RH = RHfromTdew(current(MeteoData::TA)-273.15, tdew, current.meta.position.getAltitude());
-		}else {
+			RH = RHfromTdew(current(MeteoData::TA)-GTConst::tk, tdew, current.meta.position.getAltitude());
+		} else {
 			RH = 0.4;
 		}
 	}
 	
 	if (RH < 0.01) RH = 0.01;
 		
-	//T=met->var[i-1][iT];
-	T = current(MeteoData::TA) - 273.15;
-	
+	T = current(MeteoData::TA) - GTConst::tk;
 	if (current(MeteoData::TA) == IOUtils::nodata) T = 0.0;
-	//if((long)T == geotop::input::gDoubleNoValue || (long)T == geotop::input::gDoubleAbsent) T=0.0;	
 		
 	//c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta, (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/GTConst::omega, RH,
 	//						   T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky->co[i], SWrefl_surr);
 	//HACK: we are not measuring iSWb, iSWd with MeteoIO currently:
 
-	//c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
-	//					    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-	//					    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky->co[i], SWrefl_surr);
-
 	c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
 						    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-						    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky[i], SWrefl_surr);
+						    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
+
 	return c;
 }
 
@@ -964,8 +955,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
 					   double E0, double Et, double ST, double SWrefl_surr)
-
-{	
+{
 	short SWdata;// flag indicating the type of SW data available
 	double tc;
 
