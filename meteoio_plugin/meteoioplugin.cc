@@ -542,7 +542,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 
 		for (int i = 0; i < numOfStations; i++) {
 			//	meteo[i](MeteoData::RSWR) = tau_cloud_vec->co[i];
-			meteo[i](MeteoData::RSWR) = tau_cloud_vec[i];
+			meteo[i](MeteoData::RSWR) = tau_cloud_vec[i+1];
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 		}
 
