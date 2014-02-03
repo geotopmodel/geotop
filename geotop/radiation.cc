@@ -621,7 +621,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 
 	if ((current(MeteoData::TA) != IOUtils::nodata) && 
 	    (current(MeteoData::RH) != IOUtils::nodata) && (current(MeteoData::P) != IOUtils::nodata)) {
-		tdew = tDew(current(MeteoData::TA)-273.15, current(MeteoData::RH)*100.0, current(MeteoData::P) / 100.0);
+		tdew = tDew(current(MeteoData::TA)-GTConst::tk, current(MeteoData::RH)*100.0, current(MeteoData::P) / 100.0);
 	}
 
 	//pressure [mbar]
