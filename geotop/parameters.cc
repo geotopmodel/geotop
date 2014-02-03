@@ -183,47 +183,170 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	itools->horizon_col_names = getStringValues(lConfigStore, lKeys) ;
 
     lKeys.clear() ;
-    lKeys += "TimeStepsFile", "SoilParFile", "MeteoFile", "MeteoStationsListFile",
-    "LapseRateFile", "HorizonMeteoStationFile", "PointFile", "HorizonPointFile",
-    "TimeDependentVegetationParameterFile", "TimeDependentIncomingDischargeFile", "DemFile", "LandCoverMapFile",
-    "SoilMapFile", "DaysDelayMapFile", "SkyViewFactorMapFile", "SlopeMapFile",
-    "RiverNetwork", "AspectMapFile", "CurvaturesMapFile", "BedrockDepthMapFile",
-    "InitWaterTableDepthMapFile", "InitSnowDepthMapFile", "InitSWEMapFile", "InitSnowAgeMapFile",
-    "InitGlacierDepthMapFile", "DischargeFile", "BasinOutputFile", "BasinOutputFileWriteEnd",
-    "PointOutputFile", "PointOutputFileWriteEnd", "SoilTempProfileFile", "SoilTempProfileFileWriteEnd",
-    "SoilAveragedTempProfileFile", "SoilAveragedTempProfileFileWriteEnd", "SoilLiqWaterPressProfileFile", "SoilLiqWaterPressProfileFileWriteEnd",
-    "SoilTotWaterPressProfileFile", "SoilTotWaterPressProfileFileWriteEnd", "SoilLiqContentProfileFile", "SoilLiqContentProfileFileWriteEnd",
-    "SoilAveragedLiqContentProfileFile", "SoilAveragedLiqContentProfileFileWriteEnd", "SoilIceContentProfileFile", "SoilIceContentProfileFileWriteEnd",
-    "SoilAveragedIceContentProfileFile", "SoilAveragedIceContentProfileFileWriteEnd", "SoilSaturationRatioProfileFile", "SnowTempProfileFile",
-    "SnowLiqContentProfileFile", "SnowIceContentProfileFile", "SnowDepthLayersFile", "SnowTempProfileFileWriteEnd",
-    "SnowLiqContentProfileFileWriteEnd", "SnowIceContentProfileFileWriteEnd", "SnowDepthLayersFileWriteEnd", "GlacierProfileFile",
-    "GlacierProfileFileWriteEnd", "SnowCoveredAreaFile", "RunSoilAveragedTemperatureFile", "RunSoilAveragedTotalSoilMoistureFile",
-    "RunSoilAveragedInternalEnergyFile", "RunSoilAveragedSnowWaterEquivalentFile", "RunSoilMaximumTemperatureFile", "RunSoilMinimumTemperatureFile",
-    "RunSoilMaximumTotalSoilMoistureFile", "RunSoilMinimumTotalSoilMoistureFile", "SoilTempTensorFile", "FirstSoilLayerTempMapFile",
-    "SoilAveragedTempTensorFile", "FirstSoilLayerAveragedTempMapFile", "SoilLiqContentTensorFile", "FirstSoilLayerLiqContentMapFile",
-    "SoilAveragedLiqContentTensorFile", "SoilIceContentTensorFile", "FirstSoilLayerIceContentMapFile", "SoilAveragedIceContentTensorFile",
-    "LandSurfaceWaterDepthMapFile", "ChannelSurfaceWaterDepthMapFile", "NetRadiationMapFile", "InLongwaveRadiationMapFile",
-    "NetLongwaveRadiationMapFile", "NetShortwaveRadiationMapFile", "InShortwaveRadiationMapFile", "DirectInShortwaveRadiationMapFile",
-    "ShadowFractionTimeMapFile", "SurfaceHeatFluxMapFile", "SurfaceSensibleHeatFluxMapFile", "SurfaceLatentHeatFluxMapFile",
-    "SurfaceTempMapFile", "PrecipitationMapFile", "CanopyInterceptedWaterMapFile", "SoilLiqWaterPressTensorFile",
-    "SoilTotWaterPressTensorFile", "SnowDepthMapFile", "GlacierDepthMapFile", "SnowMeltedMapFile",
-    "SnowSublMapFile", "GlacierMeltedMapFile", "GlacierSublimatedMapFile", "AirTempMapFile",
-    "WindSpeedMapFile", "WindDirMapFile", "RelHumMapFile", "SWEMapFile",
-    "GlacierWaterEqMapFile", "SnowDurationMapFile", "ThawedSoilDepthMapFile", "ThawedSoilDepthFromAboveMapFile",
-    "WaterTableDepthMapFile", "WaterTableDepthFromAboveMapFile", "NetPrecipitationMapFile", "EvapotranspirationFromSoilMapFile",
-    "SpecificPlotSurfaceHeatFluxMapFile", "SpecificPlotTotalSensibleHeatFluxMapFile", "SpecificPlotTotalLatentHeatFluxMapFile", "SpecificPlotSurfaceSensibleHeatFluxMapFile",
-    "SpecificPlotSurfaceLatentHeatFluxMapFile", "SpecificPlotVegSensibleHeatFluxMapFile", "SpecificPlotVegLatentHeatFluxMapFile", "SpecificPlotIncomingShortwaveRadMapFile",
-    "SpecificPlotNetSurfaceShortwaveRadMapFile", "SpecificPlotNetVegShortwaveRadMapFile", "SpecificPlotIncomingLongwaveRadMapFile", "SpecificPlotNetSurfaceLongwaveRadMapFile",
-    "SpecificPlotNetVegLongwaveRadMapFile", "SpecificPlotCanopyAirTempMapFile", "SpecificPlotSurfaceTempMapFile", "SpecificPlotVegTempMapFile",
-    "SpecificPlotAboveVegAirTempMapFile", "SpecificPlotWindSpeedMapFile", "SpecificPlotWindDirMapFile", "SpecificPlotRelHumMapFile",
-    "SpecificPlotSnowDepthMapFile", "SpecificPlotSurfaceWaterContentMapFile", "RecoverSoilWatPres", "RecoverSoilIceCont",
-    "RecoverSoilTemp", "RecoverSnowLayerThick", "RecoverSnowLiqMass", "RecoverSnowIceMass",
-    "RecoverSnowTemp", "RecoverGlacierLayerThick", "RecoverGlacierLiqMass", "RecoverGlacierIceMass",
-    "RecoverGlacierTemp", "RecoverSnowLayerNumber", "RecoverGlacierLayerNumber", "RecoverNonDimensionalSnowAge",
-    "RecoverLiqWaterOnCanopy", "RecoverSnowOnCanopy", "RecoverVegTemp", "RecoverSoilWatPresChannel",
-    "RecoverSoilIceContChannel", "RecoverSoilTempChannel", "RecoverRunSoilAveragedTemperatureFile", "RecoverRunSoilAveragedTotalSoilMoistureFile",
-    "RecoverRunSoilAveragedInternalEnergyFile", "RecoverRunSoilAveragedSnowWaterEquivalentFile", "RecoverRunSoilMaximumTemperatureFile", "RecoverRunSoilMinimumTemperatureFile",
-    "RecoverRunSoilMaximumTotalSoilMoistureFile", "RecoverRunSoilMinimumTotalSoilMoistureFile", "RecoverTime", "SuccessfulRecoveryFile" ;
+    lKeys += "TimeStepsFile",//ftsteps
+        		"SoilParFile",//fspar
+        		"MeteoFile",//fmet
+        		"MeteoStationsListFile",//fmetstlist
+        		"LapseRateFile",//fLRs
+        		"HorizonMeteoStationFile",//fhormet
+        		"PointFile",//fpointlist
+        		"HorizonPointFile",//fhorpoint
+        		"TimeDependentVegetationParameterFile",//fvegpar
+        		"TimeDependentIncomingDischargeFile",//fqin
+        		"DemFile",//fdem
+        		"LandCoverMapFile",//flu
+        		"SoilMapFile",//fsoil
+        		"DaysDelayMapFile",//fdelay
+        		"SkyViewFactorMapFile",//fsky
+        		"SlopeMapFile",//fslp
+        		"RiverNetwork",//fnet
+        		"AspectMapFile",//fasp
+        		"CurvaturesMapFile",//fcurv
+        		"BedrockDepthMapFile",//fbed
+        		"InitWaterTableDepthMapFile",//fwt0
+        		"InitSnowDepthMapFile",//fsn0
+        		"InitSWEMapFile",//fswe0
+        		"InitSnowAgeMapFile",//fsnag0
+        		"InitGlacierDepthMapFile",//fgl0
+        		"DischargeFile",//fQ
+        		"BasinOutputFile",//fbas
+        		"BasinOutputFileWriteEnd",//fbaswriteend
+        		"PointOutputFile",//fpoint
+        		"PointOutputFileWriteEnd",//fpointwriteend
+        		"SoilTempProfileFile",//fTz
+        		"SoilTempProfileFileWriteEnd",//fTzwriteend
+        		"SoilAveragedTempProfileFile",//fTzav
+        		"SoilAveragedTempProfileFileWriteEnd",//fTzavwriteend
+        		"SoilLiqWaterPressProfileFile",//fpsiz
+        		"SoilLiqWaterPressProfileFileWriteEnd",//fpsizwriteend
+        		"SoilTotWaterPressProfileFile",//fpsiztot
+        		"SoilTotWaterPressProfileFileWriteEnd",//fpsiztotwriteend
+        		"SoilLiqContentProfileFile",//fliqz
+        		"SoilLiqContentProfileFileWriteEnd",//fliqzwriteend
+        		"SoilAveragedLiqContentProfileFile",//fliqzav
+        		"SoilAveragedLiqContentProfileFileWriteEnd",//fliqzavwriteend
+        		"SoilIceContentProfileFile",//ficez
+        		"SoilIceContentProfileFileWriteEnd",//ficezwriteend
+        		"SoilAveragedIceContentProfileFile",//ficezav
+        		"SoilAveragedIceContentProfileFileWriteEnd",//ficezavwriteend
+        		"SoilSaturationRatioProfileFile",//fsatz
+        		"SnowTempProfileFile",//fsnTz
+        		"SnowLiqContentProfileFile",//fsnlz
+        		"SnowIceContentProfileFile",//fsniz
+        		"SnowDepthLayersFile",//fsndz
+        		"SnowTempProfileFileWriteEnd",//fsnTzwriteend
+        		"SnowLiqContentProfileFileWriteEnd",//fsnlzwriteend
+        		"SnowIceContentProfileFileWriteEnd",//fsnizwriteend
+        		"SnowDepthLayersFileWriteEnd",//fsndzwriteend
+        		"GlacierProfileFile",//fglz
+        		"GlacierProfileFileWriteEnd",//fglzwriteend
+        		"SnowCoveredAreaFile",//fSCA
+        		"RunSoilAveragedTemperatureFile",//fTrun
+        		"RunSoilAveragedTotalSoilMoistureFile",//fwrun
+        		"RunSoilAveragedInternalEnergyFile",//fdUrun
+        		"RunSoilAveragedSnowWaterEquivalentFile",//fSWErun
+        		"RunSoilMaximumTemperatureFile",//fTmaxrun
+        		"RunSoilMinimumTemperatureFile",//fTminrun
+        		"RunSoilMaximumTotalSoilMoistureFile",//fwmaxrun
+        		"RunSoilMinimumTotalSoilMoistureFile",//fwminrun
+        		"SoilTempTensorFile",//fT
+        		"FirstSoilLayerTempMapFile",//fTsup
+        		"SoilAveragedTempTensorFile",//fTav
+        		"FirstSoilLayerAveragedTempMapFile",//fTavsup
+        		"SoilLiqContentTensorFile",//fliq
+        		"FirstSoilLayerLiqContentMapFile",//fliqsup
+        		"SoilAveragedLiqContentTensorFile",//fliqav
+        		"SoilIceContentTensorFile",//fice
+        		"FirstSoilLayerIceContentMapFile",//ficesup
+        		"SoilAveragedIceContentTensorFile",//ficeav
+        		"LandSurfaceWaterDepthMapFile",//fhsupland
+        		"ChannelSurfaceWaterDepthMapFile",//fhsupch
+        		"NetRadiationMapFile",//fradnet
+        		"InLongwaveRadiationMapFile",//fradLWin
+        		"NetLongwaveRadiationMapFile",//fradLW
+        		"NetShortwaveRadiationMapFile",//fradSW
+        		"InShortwaveRadiationMapFile",//fradSWin
+        		"DirectInShortwaveRadiationMapFile",//fradSWinbeam
+        		"ShadowFractionTimeMapFile",//fshadow
+        		"SurfaceHeatFluxMapFile",//fG
+        		"SurfaceSensibleHeatFluxMapFile",//fH
+        		"SurfaceLatentHeatFluxMapFile",//fLE
+        		"SurfaceTempMapFile",//fTs
+        		"PrecipitationMapFile",//fprec
+        		"CanopyInterceptedWaterMapFile",//fcint
+        		"SoilLiqWaterPressTensorFile",//fpsiliq
+        		"SoilTotWaterPressTensorFile",//fpsitot
+        		"SnowDepthMapFile",//fsnowdepth
+        		"GlacierDepthMapFile",//fglacdepth
+        		"SnowMeltedMapFile",//fsnowmelt
+        		"SnowSublMapFile",//fsnowsubl
+        		"GlacierMeltedMapFile",//fglacmelt
+        		"GlacierSublimatedMapFile",//fglacsubl
+        		"AirTempMapFile",//fTa
+        		"WindSpeedMapFile",//fwspd
+        		"WindDirMapFile",//fwdir
+        		"RelHumMapFile",//frh
+        		"SWEMapFile",//fswe
+        		"GlacierWaterEqMapFile",//fgwe
+        		"SnowDurationMapFile",//fsndur
+        		"ThawedSoilDepthMapFile",//fthawed_up
+        		"ThawedSoilDepthFromAboveMapFile",//fthawed_dw
+        		"WaterTableDepthMapFile",//fwtable_up
+        		"WaterTableDepthFromAboveMapFile",//fwtable_dw
+        		"NetPrecipitationMapFile",//fpnet
+        		"EvapotranspirationFromSoilMapFile",//fevap
+        		"SpecificPlotSurfaceHeatFluxMapFile",//pG
+        		"SpecificPlotTotalSensibleHeatFluxMapFile",//pH
+        		"SpecificPlotTotalLatentHeatFluxMapFile",//pLE
+        		"SpecificPlotSurfaceSensibleHeatFluxMapFile",//pHg
+        		"SpecificPlotSurfaceLatentHeatFluxMapFile",//pLEg
+        		"SpecificPlotVegSensibleHeatFluxMapFile",//pHv
+        		"SpecificPlotVegLatentHeatFluxMapFile",//pLEv
+        		"SpecificPlotIncomingShortwaveRadMapFile",//pSWin
+        		"SpecificPlotNetSurfaceShortwaveRadMapFile",//pSWg
+        		"SpecificPlotNetVegShortwaveRadMapFile",//pSWv
+        		"SpecificPlotIncomingLongwaveRadMapFile",//pLWin
+        		"SpecificPlotNetSurfaceLongwaveRadMapFile",//pLWg
+        		"SpecificPlotNetVegLongwaveRadMapFile",//pLWv
+        		"SpecificPlotCanopyAirTempMapFile",//pTs
+        		"SpecificPlotSurfaceTempMapFile",//pTg
+        		"SpecificPlotVegTempMapFile",//pTv
+        		"SpecificPlotAboveVegAirTempMapFile",//pTa
+        		"SpecificPlotWindSpeedMapFile",//pVspd
+        		"SpecificPlotWindDirMapFile",//pVdir
+        		"SpecificPlotRelHumMapFile",//pRH
+        		"SpecificPlotSnowDepthMapFile",//pD
+        		"SpecificPlotSurfaceWaterContentMapFile",//pth
+        		"RecoverSoilWatPres",//rpsi
+        		"RecoverSoilIceCont",//riceg
+        		"RecoverSoilTemp",//rTg
+        		"RecoverSnowLayerThick",//rDzs
+        		"RecoverSnowLiqMass",//rwls
+        		"RecoverSnowIceMass",//rwis
+        		"RecoverSnowTemp",//rTs
+        		"RecoverGlacierLayerThick",//rDzi
+        		"RecoverGlacierLiqMass",//rwli
+        		"RecoverGlacierIceMass",//rwii
+        		"RecoverGlacierTemp",//rTi
+        		"RecoverSnowLayerNumber",//rns
+        		"RecoverGlacierLayerNumber",//rni
+        		"RecoverNonDimensionalSnowAge",//rsnag
+        		"RecoverLiqWaterOnCanopy",//rwcrn
+        		"RecoverSnowOnCanopy",//rwcsn
+        		"RecoverVegTemp",//rTv
+        		"RecoverSoilWatPresChannel",//rpsich
+        		"RecoverSoilIceContChannel",//ricegch
+        		"RecoverSoilTempChannel",//rTgch
+        		"RecoverRunSoilAveragedTemperatureFile",//rTrun
+        		"RecoverRunSoilAveragedTotalSoilMoistureFile",//rwrun
+        		"RecoverRunSoilAveragedInternalEnergyFile",//rdUrun
+        		"RecoverRunSoilAveragedSnowWaterEquivalentFile",//rSWErun
+        		"RecoverRunSoilMaximumTemperatureFile",//rTmaxrun
+        		"RecoverRunSoilMinimumTemperatureFile",//rTminrun
+        		"RecoverRunSoilMaximumTotalSoilMoistureFile",//rwmaxrun
+        		"RecoverRunSoilMinimumTotalSoilMoistureFile",//rwminrun
+        		"RecoverTime",//rtime
+        		"SuccessfulRecoveryFile";//rsux
 	geotop::common::Variables::files = getStringValues(lConfigStore, lKeys) ;
     
     lKeys.clear() ;

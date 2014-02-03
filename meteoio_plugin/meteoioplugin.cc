@@ -493,12 +493,12 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 
 	for (size_t ii=0; ii<vec_meteo.size(); ii++) {
 		if (vec_meteo[ii](MeteoData::ISWR) != IOUtils::nodata) { //ISWR is measured
-			if(A->M->nstcloud==0) A->M->nstcloud = ii; // records the first station that has cloud info
+			if (A->M->nstcloud == 0) A->M->nstcloud = ii+1; // records the first station that has cloud info
 
 			A->M->numstcloud++;// increase the counter of meteo stations measuring cloud
 
 			//	A->M->st->flag_SW_meteoST->co[ii] = 1;
-			A->M->st->flag_SW_meteoST[ii] = 1; //HACK: this index should be checked
+			A->M->st->flag_SW_meteoST[ii+1] = 1; //HACK: this index should be checked
 		}
 	}
 	
