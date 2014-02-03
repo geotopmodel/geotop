@@ -601,14 +601,23 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met, const std::vector<mio::MeteoData>& vec_meteo,
-//						double Delta, double E0, double Et, double ST, double SWrefl_surr)
 double find_tau_cloud_station(double JDbeg, double JDend, long station_number, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
                               double Delta, double E0, double Et, double ST, double SWrefl_surr)
 {
 	double P, RH, T, c;
 	double tdew = geotop::input::gDoubleNoValue;
+	double swDirect=geotop::input::gDoubleNoValue, swDiffuse=geotop::input::gDoubleNoValue;
+
 	const MeteoData& current = vec_meteo.at(station_number-1); //MeteoIO starts counting at 0
+	size_t sw_direct = current.getParameterIndex("SWdirect");
+
+	if ((sw_direct != IOUtils::npos) && (current(sw_direct) != IOUtils::nodata)) { //check for SWb
+		size_t sw_diffuse = current.getParameterIndex("Swdiffuse");
+		if ((sw_diffuse != IOUtils::npos) && (current(sw_diffuse) != IOUtils::nodata)) { //check for SWd
+			swDirect = current(sw_direct);
+			swDiffuse = current(sw_diffuse);
+		}
+	}
 
 	if ((current(MeteoData::TA) != IOUtils::nodata) && 
 	    (current(MeteoData::RH) != IOUtils::nodata) && (current(MeteoData::P) != IOUtils::nodata)) {
@@ -616,15 +625,13 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 	}
 
 	//pressure [mbar]
-	P = pressure(current.meta.position.getAltitude());	
+	P = pressure(current.meta.position.getAltitude());
 
 	//relative humidity 
 	if (current(MeteoData::RH) != IOUtils::nodata) {
 		RH = current(MeteoData::RH);
 	} else {
 		if ((current(MeteoData::TA) != IOUtils::nodata) && (tdew != geotop::input::gDoubleNoValue)) {
-			//if ( (long)met->var[i-1][iT] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iT] != geotop::input::gDoubleNoValue && (long)met->var[i-1][iTdew] != geotop::input::gDoubleAbsent && (long)met->var[i-1][iTdew] != geotop::input::gDoubleNoValue){
-			//RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z->co[i]);
 			RH = RHfromTdew(current(MeteoData::TA)-GTConst::tk, tdew, current.meta.position.getAltitude());
 		} else {
 			RH = 0.4;
@@ -635,14 +642,10 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 		
 	T = current(MeteoData::TA) - GTConst::tk;
 	if (current(MeteoData::TA) == IOUtils::nodata) T = 0.0;
-		
-	//c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta, (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/GTConst::omega, RH,
-	//						   T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky->co[i], SWrefl_surr);
-	//HACK: we are not measuring iSWb, iSWd with MeteoIO currently:
 
 	c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
-						    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-						    T, P, geotop::input::gDoubleNoValue, geotop::input::gDoubleNoValue, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
+					    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
+					    T, P, swDiffuse, swDirect, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
 
 	return c;
 }
@@ -948,80 +951,56 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-
-//void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
-//					   METEO *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
-//					   double E0, double Et, double ST, double SWrefl_surr)
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
 					   double E0, double Et, double ST, double SWrefl_surr)
 {
-	short SWdata;// flag indicating the type of SW data available
+	short SWdata = 0; //flag indicating which type of SW data available: 0=none, 1=beam and diff measured, 2=global measured
 	double tc;
 
-	//check SWdata flag:
-	//SWdata=0: no radiation data measured, SWdata=2: beam and diff measured, SWdata=1: global measured
-	//HACK egger: right now we're not reading SWBeam, SWDiffuse, if we do we need to add a case here
-	//printf("THOEMS: station number: %d    iC=%d      iT=%d    iTdew=%d   itauC=%d\n", meteo_stat_num, iC, iT, iTdew, itauC);
-	if (vec_meteo.at(meteo_stat_num-1)(MeteoData::ISWR) != IOUtils::nodata) {
+	const MeteoData& current = vec_meteo.at(meteo_stat_num-1); //MeteoIO starts counting at 0
+	size_t sw_direct = current.getParameterIndex("SWdirect");
+	size_t cloud_factor = current.getParameterIndex("CloudFactor");
+
+	if ((sw_direct != IOUtils::npos) && (current(sw_direct) != IOUtils::nodata)) { //check for SWb
+		size_t sw_diffuse = current.getParameterIndex("Swdiffuse");
+		if ((sw_diffuse != IOUtils::npos) && (current(sw_diffuse) != IOUtils::nodata)) { //check for SWd
+			SWdata = 2;
+		}
+	} else if (current(MeteoData::ISWR) != IOUtils::nodata) {
 		SWdata = 1;
-	} else {
-		SWdata = 0;
 	}
 
-	/*HACK egger: Commenting this out, but it needs to be changed once meteoio can read SWBeam, SWDiffuse
-	if((long)met->var[meteo_stat_num-1][iSWb]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][iSWd]!=geotop::input::gDoubleAbsent){
-		if((long)met->var[meteo_stat_num-1][iSWb]!=geotop::input::gDoubleNoValue && (long)met->var[meteo_stat_num-1][iSWd]!=geotop::input::gDoubleNoValue){
-			// SWbeam and SWdiffuse both available
-			SWdata=2;
-		}else{
-			SWdata=0;
-		}
-	}else if((long)met->var[meteo_stat_num-1][iSW]!=geotop::input::gDoubleAbsent){
-		if((long)met->var[meteo_stat_num-1][iSW]!=geotop::input::gDoubleNoValue){
-			// SWglob available
-			SWdata=1;
-		}else{
-			SWdata=0;
-		}
-	}else{
-		SWdata=0;
-	}	
-	*/
-
-	if(SWdata>0){
+	if (SWdata > 0) { //we can calculate tau_cloud, because we have some SW measurement
 		tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta, E0, Et, ST, SWrefl_surr);
-		if ( (long)tc != geotop::input::gDoubleNoValue){
+		if ((long)tc != geotop::input::gDoubleNoValue) {
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;
-		}else {
+		} else {
 			*tau_cloud_yes = 0;
 		}		
-	}else{
+	} else {
 		*tau_cloud_yes = 0;
 	}
 
-	// calculate tau_cloud_av:
-	*tau_cloud_av_yes = 0;
-	/*HACK egger: we are currently not reading iC itauC through MeteoIO!
-	if( (long)met->var[meteo_stat_num-1][iC]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][iC]!=geotop::input::gDoubleNoValue ){
-		tc = met->var[meteo_stat_num-1][iC];
+	if ((cloud_factor != IOUtils::npos) && (current(cloud_factor) != IOUtils::nodata)) {
+		tc = current(cloud_factor);
+
 		*tau_cloud_av_yes = 1;
-		tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
+		tc = 1. - 0.71*tc; //from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
 		if(tc > 1) tc = 1.;
-		if(tc < 0) tc = 0.;	
+		if(tc < 0) tc = 0.;
 		*tau_cloud_av = tc;
-	}else if( (long)met->var[meteo_stat_num-1][itauC]!=geotop::input::gDoubleAbsent && (long)met->var[meteo_stat_num-1][itauC]!=geotop::input::gDoubleNoValue ){
-		tc = met->var[meteo_stat_num-1][itauC];
+	} else if (current(MeteoData::RSWR) != IOUtils::nodata) { //MeteoData::RSWR holds tauC
+		tc = current(MeteoData::RSWR);
+
 		*tau_cloud_av_yes = 1;
 		if(tc > 1) tc = 1.;
-		if(tc < 0) tc = 0.;	
+		if(tc < 0) tc = 0.;
 		*tau_cloud_av = tc;
-				
-	}else{
+	} else {
 		*tau_cloud_av_yes = 0;
 	}
-	*/
 }
 
 void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
