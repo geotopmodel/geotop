@@ -3463,11 +3463,14 @@ void set_bedrock(Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>
     meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
 
     //	if (sl->init_water_table_depth->nh != sl->pa->ndh){
-    if (sl->init_water_table_depth.size() != sl->pa.getDh()){
+    if ((sl->init_water_table_depth.size()-1) != sl->pa.getDh()){
+		
         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
         fprintf(f, "Error:: Error in bedrock calculations");
+		fprintf(f, "Error:: sl->init_water_table_depth.size()-1) %d \n",sl->init_water_table_depth.size());
+		fprintf(f, "Error:: sl->pa.getDh()) %d \n",sl->pa.getDh());
         fclose(f);
-        t_error("Fatal Error! Geotop is closed. See failing report (19).");
+		t_error("Fatal Error! Geotop is closed. See failing report (19).");
     }
 
     //	rewrite soil type
