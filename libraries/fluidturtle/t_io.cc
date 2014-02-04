@@ -103,10 +103,11 @@ FILE *fp=NULL;
 
 char *lBasePtr = strdup(name) ;
 char *basedir = dirname(lBasePtr);
-free(lBasePtr) ;
 int ret = 0;
     
 ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+free(lBasePtr) ;
+
 if(-1 == ret){
     fprintf(stderr, "ERROR: Unable to create parent directory `%s` name `%s`. Exiting.\n", basedir,name);
     exit(1);
