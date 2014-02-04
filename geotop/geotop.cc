@@ -390,13 +390,13 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 					if(A->P->point_sim == 1){
 						printf("Calling pointwise MeteoIO ");
-						meteoio_interpolate_pointwise( A->P, JDb, A->M, A->W);
+						meteoio_interpolate_pointwise( A->P, JDe, A->M, A->W);
 						//	f = fopen("mio_hnw_1d_log.txt", "a");
 					}else{
 						printf("Calling 2D grid MeteoIO ");
-						meteoio_interpolate(A->P, JDb, A->M, A->W);
+						meteoio_interpolate(A->P, JDe, A->M, A->W);
 						//	f = fopen("mio_hnw_2d_log.txt", "a");
-						}
+					}
 #else
 					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 #endif
