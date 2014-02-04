@@ -27,7 +27,7 @@
 
 #include <execinfo.h>
 
-//#define ENABLE_PRINT_STACK_FRAME 1
+/* #define ENABLE_PRINT_STACK_FRAME 1 */
 
 #ifdef ENABLE_PRINT_STACK_FRAME
 #define PRINT_FRAME_STACK \

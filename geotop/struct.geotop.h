@@ -687,11 +687,8 @@ public:
 	
 	short dew;
 	
-//	DOUBLEVECTOR *init_date;
 	GeoVector<double> init_date;
-//	DOUBLEVECTOR *end_date;
 	GeoVector<double> end_date;
-//	LONGVECTOR *run_times;
 	GeoVector<long> run_times;
 	
 	double delay_day_recover;

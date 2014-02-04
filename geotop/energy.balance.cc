@@ -1421,14 +1421,16 @@ short SolvePointEnergyBalance(
     printf("DEBUG_PRINT-energy-balance: NS(%ld)\n", ns);
 	
     //top boundary condition
-    if(r==5 && c==2)
-	    printf("DEBUG_PRINT:energy-balance BEFORE: ns(%ld) egy->Fenergy->co[sur]: %.12g\n", ns, egy->Fenergy[sur]);
+	
+//    if(r==5 && c==2)
+//	    printf("DEBUG_PRINT:energy-balance BEFORE: ns(%ld) egy->Fenergy->co[sur]: %.12g\n", ns, egy->Fenergy[sur]);
 #endif 
     egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
     //TODO: removed 4/11/2013 egy->Fenergy[sur] -= egy->SWlayer[0];
 #ifdef VERBOSE
-    if(r==5 && c==2)
-	    printf("DEBUG_PRINT:energy-balance AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
+// to be removed 
+//    if(r==5 && c==2)
+//	    printf("DEBUG_PRINT:energy-balance AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
 #endif 
     //bottom boundary condition (treated as sink)
     if (n <= ns+ng) {
