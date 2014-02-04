@@ -541,13 +541,14 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
 		for (int i = 0; i < numOfStations; i++) {
-			//	meteo[i](MeteoData::RSWR) = tau_cloud_vec->co[i];
-			meteo[i](MeteoData::RSWR) = tau_cloud_vec[i];
+			meteo[i](MeteoData::RSWR) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
+			//cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;
 		}
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
-		io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		//io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		io->add_to_cache(d1, meteo);
 
 		// if point_sim == 1 then point-wise simulation otherwise distributed simulation
 
