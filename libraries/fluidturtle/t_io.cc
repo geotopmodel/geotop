@@ -108,7 +108,7 @@ int ret = 0;
     
 ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 if(-1 == ret){
-    fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+    fprintf(stderr, "ERROR: Unable to create parent directory `%s` name `%s`. Exiting.\n", basedir,name);
     exit(1);
 }
 
