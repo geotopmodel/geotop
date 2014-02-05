@@ -293,6 +293,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
         		"ThawedSoilDepthFromAboveMapFile",//fthawed_dw
         		"WaterTableDepthMapFile",//fwtable_up
         		"WaterTableDepthFromAboveMapFile",//fwtable_dw
+        		"HNMapFile",//fHN TODO mattiu
         		"NetPrecipitationMapFile",//fpnet
         		"EvapotranspirationFromSoilMapFile",//fevap
         		"SpecificPlotSurfaceHeatFluxMapFile",//pG
