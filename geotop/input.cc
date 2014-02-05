@@ -890,6 +890,13 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         sl->thw_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
     }
 
+    if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue){//TODO mattiu
+    	sl->Pnetcum.resize(par->total_pixel+1,0.0);
+    }
+    if(geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue){
+    	sl->ETcum.resize(par->total_pixel+1,0.0);
+    }//end mattiu
+
     sl->ET.resize(geotop::common::Variables::Nl+1,geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.);
 
     if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fwt0]) + string(ascii_esri))){
@@ -1462,6 +1469,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	initialize_doublematrix(wat->Pnet,0.0);
     wat->Pnet.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
+    wat->HN.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);//TODO mattiu
     /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
     //	wat->PrecTot=new_doublematrix(Nr,Nc);
     //	initialize_doublematrix(wat->PrecTot,0.0);
@@ -1679,6 +1687,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             //	snow->yes=new_shortvector(par->total_pixel);
             snow->yes.resize(par->total_pixel+1,0.0);
         }
+
+        if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue){//TODO mattiu
+			snow->HNcum.resize(par->total_pixel+1,0.0);
+			//snow->yes.resize(par->total_pixel+1,0.0);//boh
+		}//end mattiu
     }
 
     for(r=1;r<=geotop::common::Variables::Nr;r++){

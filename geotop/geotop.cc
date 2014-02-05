@@ -499,7 +499,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
 				
 				//write output variables
-				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T);
+				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
 				
 				//reset Dt
 				if (Dt < A->P->Dt) Dt *= 2.;

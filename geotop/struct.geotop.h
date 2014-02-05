@@ -254,6 +254,8 @@ public:
 	SoilState *SS;
 //	STATE_VEG *VS;
 	StateVeg *VS;
+	GeoVector<double> Pnetcum;//TODO mattiu
+	GeoVector<double> ETcum;
 };
 //	} SOIL;
 
@@ -428,7 +430,7 @@ class Water { /*nstations=number of all the rain-stations,number_of_pixels=numbe
     GeoMatrix<double> Pnet;   /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                                 of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                                 same subroutine and in "water.balance.c" module*/
-
+    GeoMatrix<double> HN; // map of new snow TODO mattiu
 //	DOUBLEVECTOR *PrTOT_mean;  	 /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
     GeoVector<double> PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
 //	DOUBLEVECTOR *PrSNW_mean;
@@ -879,6 +881,7 @@ class Snow{
 	GeoVector<double> MELTED;
 //	DOUBLEVECTOR *melted;
 	GeoVector<double> melted;
+	GeoVector<double> HNcum;// TODO mattiu
 //	DOUBLEVECTOR *SUBL;
 	GeoVector<double> SUBL;
 //	DOUBLEVECTOR *subl;

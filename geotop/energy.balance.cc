@@ -242,6 +242,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }else{
         j = i - A->P->total_channel;
         A->W->Pnet[r][c] = 0.0;
+        A->W->HN[r][c] = 0.0;//TODO mattiu
 	    lu = (short)A->L->LC[r][c];
 		 sy = A->S->type[r][c];
 
@@ -415,6 +416,20 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         }
 
     }
+    std::string filename;
+        filename = "TauCloud.txt";
+        FILE * f1;
+        long year,day,month,hour,minute;
+        double JDfrom0,JD;
+        JDfrom0 = convert_tfromstart_JDfrom0(A->I->time+A->P->Dt, A->P->init_date[geotop::common::Variables::i_sim]);
+        convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
+        convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
+
+        //if(r==233 & c==192){
+    		f1=fopen(filename.c_str(),"a");
+    		fprintf(f1,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,(float)year,(float)hour,(float)minute);
+    		fprintf(f1,",%f,%f\n",A->M->tau_cl_av_map[r][c],A->M->tau_cl_map[r][c]);
+    		fclose(f1);
 
     //albedo
     if(snowD>0){
@@ -795,7 +810,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             //	NET PRECIPITATION
             //	A->W->Pnet->co[r][c] += (Melt_snow + Melt_glac + Prain);
             A->W->Pnet[r][c] += (Melt_snow + Melt_glac + Prain);
-
+            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint, GTConst::Tfreezing);//TODO mattiu
             //VEGETATION
            
             if( A->L->vegpar[jdLSAI]>=GTConst::LSAIthres && ng==0 ){
