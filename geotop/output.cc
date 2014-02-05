@@ -1171,7 +1171,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             s1 = string(NNNNN) + string(RRRRR) ;
         }
         //	if (par->init_date->nh == 1) {
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             //	s2 = join_strings(s1, "");
             s2 = s1 + "";
         }else {
@@ -1395,7 +1395,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
         //TODO: mattiu
 		if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue){
-			temp1==geotop::common::Variables::files[fpnet]+ s2;
+			temp1=geotop::common::Variables::files[fpnet]+ s2;
 			write_map_vector(temp1, 0, par->format_out, sl->Pnetcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 			sl->Pnetcum.resize(sl->Pnetcum.size(),0.0);
 		}
@@ -1511,7 +1511,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }else {
             s1 = NNNNN + string(RRRRR);
         }
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             s2 = s1 + "";
         }else {
             s2 = s1 + SSSSS;
@@ -1704,7 +1704,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             s1 = NNNNN + string(RRRRR);
         }
         //	if (par->init_date->nh == 1) {
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             //	s2 = join_strings(s1, "");
             s2 = s1 + "";
         }else {
