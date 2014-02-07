@@ -743,8 +743,10 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0){
 /******************************************************************************************************************************************/
 
 
-void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
-                         short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
+//void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
+//                         short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
+void rewrite_meteo_files(double **meteo, long meteolines, std::vector<std::string> header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
+	                         short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
 
     std::string newname;
     short first_column, write;
@@ -770,20 +772,20 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::st
 
         first_column = 1;
         for (i=0; i<nmet; i++) {
-            if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i] != geotop::input::gStringNoValue){
+            if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i].c_str() != geotop::input::gStringNoValue){
                 if (first_column == 0) {
                     fprintf(f,",");
                 }else {
                     first_column = 0;
                 }
-                fprintf(f, "%s", header[i]);
+                fprintf(f, "%s", header[i].c_str());
             }else if (i == iDate12) {
                 if (first_column == 0) {
                     fprintf(f,",");
                 }else {
                     first_column = 0;
                 }
-                fprintf(f, "%s", header[i]);
+                fprintf(f, "%s", header[i].c_str());
             }
         }
         fprintf(f, "\n");
@@ -791,7 +793,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::st
         for (n=0; n<meteolines; n++) {
             first_column = 1;
             for (i=0; i<nmet; i++) {
-                if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i] != geotop::input::gStringNoValue){
+                if ( (long)meteo[0][i] != geotop::input::gDoubleAbsent && header[i].c_str() != geotop::input::gStringNoValue){
                     if (first_column == 0) {
                         fprintf(f,",");
                     }else {
