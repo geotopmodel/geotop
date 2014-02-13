@@ -1856,7 +1856,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rTs], snow->S->T, par, land->LC, IT->LU);
     }
 
-	f = fopen(geotop::common::Variables::logfile.c_str(), "a");
+    f = fopen(geotop::common::Variables::logfile.c_str(), "a");
 	for(r=1;r<=geotop::common::Variables::Nr;r++){
     	for(c=1;c<=geotop::common::Variables::Nc;c++){
     		if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
@@ -1865,7 +1865,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     	}
     }
     fclose(f);
-    
+
     /****************************************************************************************************/
     /*! Initialization of the struct "glac" (of the type GLACIER):*/
 
