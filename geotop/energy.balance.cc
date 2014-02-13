@@ -340,7 +340,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     //RAIN AND SNOW PRECIPITATION [mm]
     //convert total precipitation to [mm]
 	
-    Precpoint*=(Dt/3600.0);	//from [mm/h] to [mm]
+    Precpoint*=(Dt/3600.0);	//from [mm/h] to [mm] TODO: HACK To verify with MeteoIO
 
     ea = RHpoint * SatVapPressure(Tpoint, Ppoint);//Vapour Pressure [mbar]
     Qa = SpecHumidity(ea, Ppoint);//Specific Humidity
