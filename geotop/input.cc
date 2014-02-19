@@ -859,7 +859,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //BEDROCK (adjusting soil properties)
     par->bedrock = 0;
-    if(geotop::common::Variables::files[fbed] != geotop::input::gStringNoValue) set_bedrock(sl, cnet, par, top, land->LC, flog);
+    if(geotop::common::Variables::files[fbed] != geotop::input::gStringNoValue) set_bedrock(IT, sl, cnet, par, top, land->LC, flog);
     
     /****************************************************************************************************/
     /*! Completing of the initialization of SOIL structure                               */
@@ -2664,6 +2664,14 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
         top->BC_DepthFreeSurface.resize(2,geotop::input::gDoubleNoValue);
     }
 
+    //bedrock: the map is read inside the set_bedrock function
+//    flag = file_exists(fbed, flog);
+//    if(flag == 1){
+//    	GeoMatrix<double> B;
+//    	//IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
+//    	 meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
+//    }
+
 }
 
 //***************************************************************************************************************
@@ -2679,7 +2687,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     GeoMatrix<double> Q, P, R, S, T, Z, LU;
     //	SHORTMATRIX *curv;
     GeoMatrix<short> curv;
-    short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_curv, flag, coordinates;
+    short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     //	char *temp;
     string temp;
     double min, max;
@@ -3053,6 +3061,33 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         //	free_doublematrix(P);
     }
 
+    //f2. bedrock file
+	read_bed=0;cout << "par->chkpt.getRows()=" << par->chkpt.getRows() << " par->chkpt[i][ptBED]=" << par->chkpt[1][ptBED] <<  endl;
+	for(i=1;i<par->chkpt.getRows();i++){
+		if((long)par->chkpt[i][ptBED]==geotop::input::gDoubleNoValue) read_bed=1;
+	}
+	if(read_bed==1 && coordinates==0) read_bed=0;
+	if(read_bed==1){
+		flag = file_exists(fbed, flog);
+		if(flag == 1){
+				meteoio_readMap(string(geotop::common::Variables::files[fbed]), P);
+		}else{
+			printf("Warning: Bedrock depth file not present\n");
+			fprintf(flog,"Warning: Bedrock view factor file not present\n");
+			read_bed=0;
+		}
+	}
+
+	if(read_bed==1){
+		for(i=1;i< par->chkpt.getRows();i++){
+			if((long)par->chkpt[i][ptBED]==geotop::input::gDoubleNoValue){
+				r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+				par->chkpt[i][ptBED]=P[r][c];
+			}
+		}
+	}
+
     //g.curvature
     read_curv=0;
     //	for(i=1;i<=par->chkpt->nrh;i++){
@@ -3382,6 +3417,10 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         top->longitude[1][i]=par->chkpt[i][ptLON];
         //	par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
         par->IDpoint[i]=(long)par->chkpt[i][ptID];
+
+//        IT->bed[1][i]=par->chkpt[i][ptBED];
+//        if( (long)IT->bed[1][i] == geotop::input::gDoubleNoValue ) IT->bed[1][i] = 1.E99;
+
     }
 
     //7. SET PAR
@@ -3460,142 +3499,130 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 //***************************************************************************************************************
 
 //void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog){
-void set_bedrock(Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC, FILE *flog){
+void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC, FILE *flog){
+
+	GeoMatrix<double> B;
+	GeoTensor<double> T;
+	GeoVector<double> WT;
+	long i, j, l, r, c, sy, synew;
+	double zlim, z;
+	short yes=0;
+	FILE *f;
+
+	if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fbed]) + string(ascii_esri))) {
+		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+		fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",geotop::common::Variables::files[fbed+1].c_str());
+		fclose(f);
+		t_error("Fatal Error! Geotop is closed. See failing report (18).");
+	}
+
+	printf("A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
+	fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
+
+	par->bedrock = 1;
+	meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
+
+	//check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything
+	z = 0.;
+	for (l=1; l<geotop::common::Variables::Nl+1; l++) {
+		z += sl->pa[1][jdz][l];
+	}
+	for (i=1; i<=par->total_pixel; i++){
+		r = top->rc_cont[i][1];
+		c = top->rc_cont[i][2];
+		if(B[r][c] < z) yes=1;//if (IT->bed[r][c] < z) yes = 1;
+	}
+
+	if (yes == 1){
+
+		//consistency check
+		//if (IT->init_water_table_depth->nh != sl->pa->ndh)
+		if (IT->init_water_table_depth.size() != sl->pa.getDh()){
+			cout << "IT->init_water_table_depth.size()" << IT->init_water_table_depth.size() << " sl->pa.getDh()" << sl->pa.getDh() << endl;
+			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+			fprintf(f, "Error:: Error in bedrock calculations");
+			fclose(f);
+			t_error("Fatal Error! Geotop is closed. See failing report (19).");
+		}
+
+		//	rewrite soil type
+		T.resize(sl->pa.getDh(), nsoilprop+1, geotop::common::Variables::Nl+1);
+		for(i=1;i<sl->pa.getDh();i++){
+			for(j=1;j<=nsoilprop;j++){
+				for(l=1;l<=geotop::common::Variables::Nl;l++){
+					T(i,j,l) = sl->pa(i,j,l);
+				}
+			}
+		}
+		sl->pa.resize(par->total_pixel+par->total_channel+1, nsoilprop+1, geotop::common::Variables::Nl+1);
+
+		//	rewrite initial water table depth
+		WT.resize(IT->init_water_table_depth.size(),geotop::input::gDoubleNoValue);
+		for(size_t k=1;k<IT->init_water_table_depth.size();k++) {
+			WT.data.push_back(IT->init_water_table_depth[k]);
+		}
+		IT->init_water_table_depth.resize(par->total_pixel+par->total_channel+1);
 
 
-    GeoMatrix<double> B;
-    GeoVector<double> WT;
-
-    long i, j, l, r, c, sy, synew;
-    double zlim, z;
-    FILE *f;
-
-    if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fbed]) + string(ascii_esri))) {
-        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-        fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",geotop::common::Variables::files[fbed+1].c_str());
-        fclose(f);
-        t_error("Fatal Error! Geotop is closed. See failing report (18).");
-    }
-
-    printf("A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
-    fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
-
-    par->bedrock = 1;
-    meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
-
-    //	if (sl->init_water_table_depth->nh != sl->pa->ndh){
-    if ((sl->init_water_table_depth.size()-1) != sl->pa.getDh()){
-		
-        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-        fprintf(f, "Error:: Error in bedrock calculations");
-		fprintf(f, "Error:: sl->init_water_table_depth.size()-1) %d \n",sl->init_water_table_depth.size());
-		fprintf(f, "Error:: sl->pa.getDh()) %d \n",sl->pa.getDh());
-        fclose(f);
-		t_error("Fatal Error! Geotop is closed. See failing report (19).");
-    }
-
-    //	rewrite soil type
-    //	T=new_doubletensor(sl->pa->ndh, nsoilprop, Nl);
-    GeoTensor<double> T;
-    T.resize(sl->pa.getDh(), nsoilprop+1, geotop::common::Variables::Nl+1);
-    //	for(i=1;i<=sl->pa->ndh;i++){
-    for(i=1;i<sl->pa.getDh();i++){
-        for(j=1;j<=nsoilprop;j++){
-            for(l=1;l<=geotop::common::Variables::Nl;l++){
-                //	T->co[i][j][l]=sl->pa->co[i][j][l];
-                T(i,j,l) = sl->pa(i,j,l);
-            }
-        }
-    }
-    //	free_doubletensor(sl->pa);
-    //	sl->pa=new_doubletensor(par->total_pixel+par->total_channel, nsoilprop, Nl);
-    sl->pa.resize(par->total_pixel+par->total_channel+1, nsoilprop+1, geotop::common::Variables::Nl+1);
-
-    //	rewrite initial water table depth
-    //	WT=new_doublevector(sl->init_water_table_depth->nh);
-    //	for(i=1;i<=sl->init_water_table_depth->nh;i++) {
-    for(i=1;i<sl->init_water_table_depth.size();i++) {
-        //	WT.push_back(sl->init_water_table_depth->co[i]);
-        WT.data.push_back(sl->init_water_table_depth[i]);
-        //	WT->co[i]=sl->init_water_table_depth->co[i];
-    }
-    //	free_doublevector(sl->init_water_table_depth);
-    //	sl->init_water_table_depth=new_doublevector(par->total_pixel+par->total_channel);
-    sl->init_water_table_depth.resize(par->total_pixel+par->total_channel+1);
+		//assign jdz (is needed later)
+		for(i=1;i<sl->pa.getDh();i++){
+			for(l=1;l<=geotop::common::Variables::Nl;l++){
+				sl->pa(i,jdz,l) = T(1,jdz,l);
+			}
+		}
 
 
-    //	assign jdz (is needed later)
-    //	for(i=1;i<=sl->pa->ndh;i++){
-    for(i=1;i<sl->pa.getDh();i++){
-        for(l=1;l<=geotop::common::Variables::Nl;l++){
-            //	sl->pa->co[i][jdz][l]=T->co[1][jdz][l];
-            sl->pa(i,jdz,l) = T(1,jdz,l);
-        }
-    }
+		for (i=1; i<=par->total_pixel+par->total_channel; i++) {
 
-    for (i=1; i<=par->total_pixel+par->total_channel; i++) {
+			if (i<=par->total_pixel) {
+				r = top->rc_cont[i][1];
+				c = top->rc_cont[i][2];
+				sy = sl->type[r][c];
+				synew = i;
+				sl->type[r][c] = synew;
+				z = 0.0;
+			}else {
+				r = cnet->r[i-par->total_pixel];
+				c = cnet->c[i-par->total_pixel];
+				sy = cnet->soil_type[i-par->total_pixel];
+				synew = i;
+				cnet->soil_type[i-par->total_pixel] = synew;
+				z = par->depr_channel;
+			}
 
-        if (i<=par->total_pixel) {
-            //	r = top->rc_cont->co[i][1];
-            r = top->rc_cont[i][1];
-            //	c = top->rc_cont->co[i][2];
-            c = top->rc_cont[i][2];
-            //	sy = sl->type->co[r][c];
-            sy = sl->type[r][c];
-            synew = i;
-            //	sl->type->co[r][c] = synew;
-            sl->type[r][c] = synew;
-            z = 0.0;
-        }else {
-            //	r = cnet->r->co[i-par->total_pixel];
-            r = cnet->r[i-par->total_pixel];
-            //	c = cnet->c->co[i-par->total_pixel];
-            c = cnet->c[i-par->total_pixel];
-            //	sy = cnet->soil_type->co[i-par->total_pixel];
-            sy = cnet->soil_type[i-par->total_pixel];
-            synew = i;
-            //	cnet->soil_type->co[i-par->total_pixel] = synew;
-            cnet->soil_type[i-par->total_pixel] = synew;
-            z = par->depr_channel;
-        }
+			IT->init_water_table_depth[synew] = WT[sy-1]; //WT->co[sy];
 
-        //	sl->init_water_table_depth->co[synew] = WT[sy-1]; //WT->co[sy];
-        sl->init_water_table_depth[synew] = WT[sy-1]; //WT->co[sy];
+			//zlim = IT->bed->co[r][c];
+			zlim = B[r][c];
 
-        //	zlim = B->co[r][c];
-        zlim = B[r][c];
+			for(l=1;l<=geotop::common::Variables::Nl;l++){
 
-        for(l=1;l<=geotop::common::Variables::Nl;l++){
+				z += 0.5*sl->pa(synew,jdz,l);
 
-            //	z += 0.5*sl->pa->co[synew][jdz][l];
-            z += 0.5*sl->pa(synew,jdz,l);
+				if(z <= zlim){
 
-            if(z <= zlim){
+					for(j=1;j<=nsoilprop;j++){
+						sl->pa(synew,j,l) = T(sy,j,l);
+					}
 
-                for(j=1;j<=nsoilprop;j++){
-                    //	sl->pa->co[synew][j][l] = T->co[sy][j][l];
-                    sl->pa(synew,j,l) = T(sy,j,l);
-                }
+				}else{
 
-            }else{
+					for(j=1;j<=nsoilprop;j++){
+						sl->pa(synew,j,l) = IT->pa_bed(sy,j,l);//IT->pa_bed->co[sy][j][l] ;
+					}
+				}
 
-                for(j=1;j<=nsoilprop;j++){
-                    //	sl->pa->co[synew][j][l] = sl->pa_bed(sy,j,l);
-                    sl->pa(synew,j,l) = sl->pa_bed(sy,j,l);
-                }
+				z += 0.5*sl->pa(synew,jdz,l);
 
-            }
+			}
+		}
 
-            //	z += 0.5*sl->pa->co[synew][jdz][l];
-            z += 0.5*sl->pa(synew,jdz,l);
-
-        }
-    }
-
-    //	free_doubletensor(T);
-    //	free_doublematrix(B);
-    //	free_doublevector(WT);
+	}
 }
+
+
+
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

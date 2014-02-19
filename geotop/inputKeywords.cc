@@ -1621,6 +1621,10 @@ void geotop::input::ConfigStore::init()
     lPointLongitude += geotop::input::gDoubleNoValue ;
     initValue("PointLongitude", lPointLongitude) ;
     
+    std::vector<double> lPointBedrock ;
+    lPointBedrock += geotop::input::gDoubleNoValue ;
+    initValue("PointBedrock", lPointBedrock) ;
+
     std::vector<double> lVegReflectVis ;
     lVegReflectVis += 0,0.15,0,0.15,0,0.12,0.09,0.15 ;
     initValue("VegReflectVis", lVegReflectVis) ;

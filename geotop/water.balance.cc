@@ -510,7 +510,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
 	
 	long i, l, r=1, m, bc, sy, cont, cont2, iter;
-	long N=adt->W->H0.size();
+	long N=adt->W->H0.size()-1;
 	long cont_lambda_min=0;
 	short out, out2;	
 	int sux;
