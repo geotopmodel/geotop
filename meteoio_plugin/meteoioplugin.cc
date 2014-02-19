@@ -240,6 +240,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 
 		try {
 			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
+			changeVWgrid(vwgrid, par->Vmin); 
 		} catch (exception& e) {
 			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
 		}
@@ -454,7 +455,7 @@ void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if ((g2d.grid2D(ii, jj) != IOUtils::nodata) && (g2d.grid2D(ii, jj) < vwMin)) {
+			if ((g2d.grid2D(ii, jj) == IOUtils::nodata) || (g2d.grid2D(ii, jj) < vwMin)) {
 				g2d.grid2D(ii, jj) = vwMin;
 			}
 		}
