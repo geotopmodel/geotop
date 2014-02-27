@@ -2,13 +2,13 @@
 /* STATEMENT:
 
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 1.225-15 - 20 Jun 2013
+ Geotop 2.0.0 - 20 Jun 2013
  
  Copyright (c), 2013 - Stefano Endrizzi 
  
- This file is part of Geotop 1.225-15
+ This file is part of Geotop 2.0.0
  
- Geotop 1.225-15  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
   
  If you have satisfactorily used the code, please acknowledge the authors.
@@ -81,20 +81,20 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     printf("STATEMENT:\n");
     printf("\n");
-    printf("GEOtop 1.225 'MOAB' - 9 Mar 2012\n\n");
+    printf("GEOtop 2.0.0 'MOAB' - 9 Mar 2012\n\n");
     printf("Copyright (c), 2012 - Stefano Endrizzi \n\n");
     printf("TN -EXACT version (tmp)\n\n");
-    printf("GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    printf("GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
     printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
     printf("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
     printf("\nLOGFILE: %s\n",geotop::common::Variables::logfile.c_str());
 
     fprintf(flog,"STATEMENT:\n");
     fprintf(flog,"\n");
-    fprintf(flog,"GEOtop 1.225 'Moab' - 9 Mar 2012\n\n");
+    fprintf(flog,"GEOtop 2.0.0 - 9 Mar 2012\n\n");
     fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");
  	fprintf(flog,"TN -EXACT version  \n\n");
-    fprintf(flog,"GEOtop 1.225 'Moab' is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    fprintf(flog,"GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
     fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
     fprintf(flog,"\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
 
