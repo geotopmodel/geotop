@@ -293,6 +293,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
         		"ThawedSoilDepthFromAboveMapFile",//fthawed_dw
         		"WaterTableDepthMapFile",//fwtable_up
         		"WaterTableDepthFromAboveMapFile",//fwtable_dw
+        		"HNMapFile",//fHN TODO mattiu
         		"NetPrecipitationMapFile",//fpnet
         		"EvapotranspirationFromSoilMapFile",//fevap
         		"SpecificPlotSurfaceHeatFluxMapFile",//pG
@@ -1121,7 +1122,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
         lKeywordString += "PointElevation", "PointLandCoverType", "PointSoilType",
         "PointSlope", "PointAspect", "PointSkyViewFactor", "PointCurvatureNorthSouthDirection", "PointCurvatureWestEastDirection",
         "PointCurvatureNorthwestSoutheastDirection", "PointCurvatureNortheastSouthwestDirection",
-        "PointDepthFreeSurface", "PointHorizon", "PointMaxSWE", "PointLatitude", "PointLongitude" ;
+        "PointDepthFreeSurface", "PointHorizon", "PointMaxSWE", "PointLatitude", "PointLongitude" ,"PointBedrock";
 	}
 
     npoints = 0 ;
@@ -1345,22 +1346,36 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 	itools->pa_bed.resize(1 + 1, nsoilprop + 1, nsoillayers + 1);
 	for (size_t i=1; i<=nsoillayers; i++) {
+		//cout << "sl->pa(1,jdz," << i <<")=" << sl->pa(1,jdz,i) << endl;
 		itools->pa_bed(1,jdz,i) = sl->pa(1,jdz,i);
 	}
     
     //other layers
     lKeywordString.clear() ;
-    lKeywordString += "InitSoilPressureBedrock", "InitSoilTempBedrock", "NormalHydrConductivityBedrock",
-        "LateralHydrConductivityBedrock", "ThetaResBedrock", "WiltingPointBedrock",
-        "FieldCapacityBedrock", "ThetaSatBedrock", "AlphaVanGenuchtenBedrock", "NVanGenuchtenBedrock",
-        "VMualemBedrock", "ThermalConductivitySoilSolidsBedrock", "ThermalCapacitySoilSolidsBedrock",
-        "SpecificStorativityBedrock" ;
+    lKeywordString += "InitSoilPressureBedrock",	//jpsi: initial psi [mm]
+    		"InitSoilTempBedrock", 					//jT: initial temperature [C]
+    		"NormalHydrConductivityBedrock",		//jKn: normal hydr. conductivity [mm/s]
+    		"LateralHydrConductivityBedrock",		//jKl: lateral hydr. conductivity [mm/s]
+    		"ThetaResBedrock",						//jres: residual wat.cont.
+    		"WiltingPointBedrock",					//jwp: wilting point water cont.
+    		"FieldCapacityBedrock",					//jfc: field capacity water cont.
+    		"ThetaSatBedrock",						//jsat: porosity
+    		"AlphaVanGenuchtenBedrock",				//ja: alpha[mm^-1]
+    		"NVanGenuchtenBedrock",					//jns: n
+    		"VMualemBedrock",						//jv: v
+    		"ThermalConductivitySoilSolidsBedrock",	//jkt: thermal conductivity
+    		"ThermalCapacitySoilSolidsBedrock",		//jct: thermal capacity
+    		"SpecificStorativityBedrock" ;			//jss: soil specific storativity
 
-    for (size_t j=1; j<itools->pa_bed.getCh(); j++) {
+    for (size_t j=1; j< nsoilprop; j++) {
+    	//cout << "j" << j << " lKeywordString[j-1]=" << lKeywordString[j-1] << endl;
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, nsoillayers, true) ;
-        for (size_t i=1; i<itools->pa_bed.getCh(); i++) {
-			if(j != jdz)
-                itools->pa_bed(1,j,i) = lDoubleTempVector[i-1] ;
+        //cout << "vector" << lDoubleTempVector << endl;
+        for (size_t i=1; i<=nsoillayers; i++) {
+			if(j != jdz){
+				//cout<< " pa_bed(1," << j << "," << i << ")=" << lDoubleTempVector[i-1] << endl;
+				itools->pa_bed(1,j,i) = lDoubleTempVector[i-1] ;
+			}
 		}
 	}
     

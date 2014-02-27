@@ -456,7 +456,8 @@ namespace GTConst {
 #define fthawed_dw fthawed_up+1
 #define fwtable_up fthawed_dw+1
 #define fwtable_dw fwtable_up+1			//water table depth
-#define fpnet fwtable_dw+1
+#define fHN fwtable_dw+1 // HN file TODO mattiu
+#define fpnet fHN+1
 #define fevap fpnet+1
 
 // first letter "p" are special plot files

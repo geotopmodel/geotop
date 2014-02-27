@@ -122,7 +122,7 @@ int main(int argc,char *argv[]){
     
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");
-	mio::IOManager iomanager(cfg);
+	mio::IOManager iomanager(cfg); std::cout << cfg.toString() << endl;
 	
 	geotop::common::Variables::i_sim0 = 1;
 	geotop::common::Variables::i_run0 = 1;
@@ -378,7 +378,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					tstart=clock();
 
 					mio::Date d1;
-					d1.setMatlabDate(JDb, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
+					d1.setMatlabDate(JDe, geotop::common::Variables::TZ); // GEOtop uses matlab offset of julian date
 
                     std::vector<mio::MeteoData> vec_meteo;
 					if(A->M->st->Z.size()>2)
@@ -390,13 +390,13 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 					if(A->P->point_sim == 1){
 						printf("Calling pointwise MeteoIO ");
-						meteoio_interpolate_pointwise( A->P, JDb, A->M, A->W);
+						meteoio_interpolate_pointwise( A->P, JDe, A->M, A->W);
 						//	f = fopen("mio_hnw_1d_log.txt", "a");
 					}else{
 						printf("Calling 2D grid MeteoIO ");
-						meteoio_interpolate(A->P, JDb, A->M, A->W);
+						meteoio_interpolate(A->P, JDe, A->M, A->W);
 						//	f = fopen("mio_hnw_2d_log.txt", "a");
-						}
+					}
 #else
 					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 #endif
@@ -499,7 +499,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
 				
 				//write output variables
-				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T);
+				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
 				
 				//reset Dt
 				if (Dt < A->P->Dt) Dt *= 2.;

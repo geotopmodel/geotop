@@ -1171,7 +1171,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             s1 = string(NNNNN) + string(RRRRR) ;
         }
         //	if (par->init_date->nh == 1) {
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             //	s2 = join_strings(s1, "");
             s2 = s1 + "";
         }else {
@@ -1393,6 +1393,17 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             temp1 =geotop::common::Variables::files[fhsupch] + s2;
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
+        //TODO: mattiu
+		if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue){
+			temp1=geotop::common::Variables::files[fpnet]+ s2;
+			write_map_vector(temp1, 0, par->format_out, sl->Pnetcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+			sl->Pnetcum.resize(sl->Pnetcum.size(),0.0);
+		}
+		if(geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue){
+			temp1=geotop::common::Variables::files[fevap]+s2;
+			write_map_vector(temp1, 0, par->format_out, sl->ETcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+			sl->ETcum.resize(sl->ETcum.size(),0.0);
+		}//end mattiu
     }
 
     //snow properties
@@ -1423,6 +1434,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             temp1=geotop::common::Variables::files[fsnowdepth] + s2 ;
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
+
+        if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue){//TODO mattiu
+			temp1=geotop::common::Variables::files[fHN] + s2;
+			write_map_vector(temp1, 0, par->format_out, snow->HNcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+			snow->HNcum.resize(snow->HNcum.size(),0.0);
+        }//end mattiu
 
         if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
             temp1=geotop::common::Variables::files[fsnowmelt] + s2;
@@ -1494,7 +1511,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }else {
             s1 = NNNNN + string(RRRRR);
         }
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             s2 = s1 + "";
         }else {
             s2 = s1 + SSSSS;
@@ -1687,7 +1704,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             s1 = NNNNN + string(RRRRR);
         }
         //	if (par->init_date->nh == 1) {
-        if (par->init_date.size() == 1) {
+        if (par->init_date.size()-1 == 1) {
             //	s2 = join_strings(s1, "");
             s2 = s1 + "";
         }else {
@@ -3798,11 +3815,27 @@ void write_tensorseries_soil(long lmin, std::string suf, std::string filename, s
 //***************************************************************************************************************
 
 //void fill_output_vectors(double Dt, double W, Energy *egy, SNOW *snow, GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top){
-void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *glac, Water *wat, Meteo *met, Par *par, Times *time, Topo *top){
+void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *glac, Water *wat, Meteo *met, Par *par, Times *time, Topo *top, Soil* sl){
 
-    long i, j;
+    long i, j,r=0, c=0;
 
     for (j=1; j<=par->total_pixel; j++) {
+
+    	if(par->output_soil[geotop::common::Variables::i_sim]>0){//TODO mattiu
+			r = top->rc_cont[j][1];
+			c = top->rc_cont[j][2];
+			if(geotop::common::Variables::files[fpnet]!= geotop::input::gStringNoValue) sl->Pnetcum[j] += wat->Pnet[r][c];
+			if(geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue){
+				for (i=1; i<=geotop::common::Variables::Nl; i++) {
+					sl->ETcum[j] += sl->ET[i][r][c];
+				}
+			}
+		}
+    	if(par->output_snow[geotop::common::Variables::i_sim]>0){
+    		r = top->rc_cont[j][1];
+    		c = top->rc_cont[j][2];
+    		if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue) snow->HNcum[j] += wat->HN[r][c];
+    	}//end mattiu
 
         //	if(par->output_snow->co[geotop::common::Variables::i_sim]>0){
         if(par->output_snow[geotop::common::Variables::i_sim]>0){

@@ -45,7 +45,9 @@ short fill_Tdew(long imeteo, GeoVector<double> &Z, double **data, long nlines, l
 short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, long RH, long Tair, long Tairdew, std::string HeaderRH);
 short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt);
 void check_times(long imeteo, double **data, long nlines, long JDfrom0);
-void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
+//void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
+//						 short added_cloudiness, short added_Tdew, short added_RH, short added_Pint);
+void rewrite_meteo_files(double **meteo, long meteolines, std::vector<std::string>, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
 						 short added_cloudiness, short added_Tdew, short added_RH, short added_Pint);
 
 #endif

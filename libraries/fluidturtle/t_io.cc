@@ -97,33 +97,27 @@ void t_error(std::string error_text)
 FILE *t_fopen(const char *name,const char *mode)
 /* Safe file open */
 {
+	//char newname[256];
+	FILE *fp=NULL;
 
-//char newname[256];
-FILE *fp=NULL;
-
-char *lBasePtr = strdup(name) ;
-char *basedir = dirname(lBasePtr);
-free(lBasePtr) ;
-int ret = 0;
+	char *lBasePtr = strdup(name) ;
+	char *basedir = dirname(lBasePtr);
     
-ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-if(-1 == ret){
-    fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
-    exit(1);
-}
+	int ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	if (-1 == ret) {
+		fprintf(stderr, "ERROR: Unable to create parent directory `%s` for name `%s`. Exiting.\n", basedir, name);
+		exit(1);
+	}
+	free(lBasePtr); //lBasePtr cannot be freed as long basedir might be in use - see 'man 3 dirname'
 
-if((fp=fopen(name,mode))==NULL){
-	printf("%s",name);    
-	t_error(" The specified file could not be opened ");
-
-	return NULL;
-	
-}else{
-
-	return fp;
-
-}
-
+	if ((fp=fopen(name,mode))==NULL) {
+		printf("%s", name);    
+		t_error(" The specified file could not be opened ");
+		
+		return NULL;
+	} else {
+		return fp;
+	}
 }
 
 /**-----------------------------------------------------------------------*/

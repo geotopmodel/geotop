@@ -240,6 +240,7 @@ void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
 
 		try {
 			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
+			changeVWgrid(vwgrid, par->Vmin); 
 		} catch (exception& e) {
 			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
 		}
@@ -454,7 +455,7 @@ void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
 {
 	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
 		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
-			if ((g2d.grid2D(ii, jj) != IOUtils::nodata) && (g2d.grid2D(ii, jj) < vwMin)) {
+			if ((g2d.grid2D(ii, jj) == IOUtils::nodata) || (g2d.grid2D(ii, jj) < vwMin)) {
 				g2d.grid2D(ii, jj) = vwMin;
 			}
 		}
@@ -490,6 +491,11 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 {
 	A->M->nstcloud   = 0; // first meteo station ID (1...n) to use for the cloudiness (ISWR)
 	A->M->numstcloud = 0; // counter of meteo stations containing cloud info
+
+	if (vec_meteo.size() != (A->M->st->Z.size() - 1)) {
+		cerr << "[ERROR] Inconsistency in number of stations between GEOtop and MeteoIO. Aborting iswr_present calculation!" << endl;
+		return false;
+	}
 
 	for (size_t ii=0; ii<vec_meteo.size(); ii++) {
 		if (vec_meteo[ii](MeteoData::ISWR) != IOUtils::nodata) { //ISWR is measured
@@ -541,13 +547,14 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
 		for (int i = 0; i < numOfStations; i++) {
-			//	meteo[i](MeteoData::RSWR) = tau_cloud_vec->co[i];
-			meteo[i](MeteoData::RSWR) = tau_cloud_vec[i];
+			meteo[i](MeteoData::RSWR) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
+			//cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;
 		}
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
-		io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		//io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		io->add_to_cache(d1, meteo);
 
 		// if point_sim == 1 then point-wise simulation otherwise distributed simulation
 
