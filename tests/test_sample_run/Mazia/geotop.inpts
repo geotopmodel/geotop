@@ -4,7 +4,7 @@ PointSim = 0
 TimeStepEnergyAndWater = 3600
 ! Meteo time series start 01-Jan-1990 and finish 31-Dec-2012
 InitDateDDMMYYYYhhmm = 16/10/2010 12:00
-EndDateDDMMYYYYhhmm =  14/10/2011 12:00
+EndDateDDMMYYYYhhmm =  16/10/2010 20:00
 !NumSimulationTimes	= 1
 
 !=======================================
@@ -21,9 +21,9 @@ WaterBalance = 1
 EnergyBalance = 1
 
 !Output timeseries Dt in hours 
-DtPlotDischarge = 24
-DtPlotPoint = 24
-DtPlotBasin = 24
+DtPlotDischarge = 1
+DtPlotPoint = 1
+DtPlotBasin = 1
 
 !Output maps Dt in hours 
 OutputSoilMaps = 24
