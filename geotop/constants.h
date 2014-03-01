@@ -522,10 +522,10 @@ namespace GTConst {
 //****************************************************
 //Points
 //****************************************************
-#define ptID 1
-#define ptX ptID+1
+#define ptX 1
 #define ptY ptX+1
-#define ptZ ptY+1
+#define ptID ptY+1
+#define ptZ ptID+1
 #define ptLC ptZ+1
 #define ptSY ptLC+1
 #define ptS ptSY+1

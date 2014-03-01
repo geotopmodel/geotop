@@ -3240,6 +3240,8 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     FILE *f;
 
     write_suffix(NNNN, iname, 0);
+	
+	//printf("%s\n",NNNN);
 
     if (par->recover > 0) write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);

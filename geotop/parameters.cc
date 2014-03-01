@@ -1117,7 +1117,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->Wmin_BS = getDoubleValueWithDefault(lConfigStore, "MinIceContentForBlowingSnow", geotop::input::gDoubleNoValue, false) ;
 
     std::vector<std::string> lKeywordString ;
-    lKeywordString += "PointID", "CoordinatePointX", "CoordinatePointY" ;
+    lKeywordString += "CoordinatePointX", "CoordinatePointY","PointID" ;
 	if (par->point_sim == 1) {
         lKeywordString += "PointElevation", "PointLandCoverType", "PointSoilType",
         "PointSlope", "PointAspect", "PointSkyViewFactor", "PointCurvatureNorthSouthDirection", "PointCurvatureWestEastDirection",
@@ -1127,7 +1127,9 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
     npoints = 0 ;
     for (size_t j=1; j<=lKeywordString.size() ; j++) {
-        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, false, 0, true) ;
+		
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
+		printf("parameters.cc line 1132 j:%ld %f  %s\n",j,lDoubleTempVector[0],lKeywordString[j-1].c_str());
 		if (npoints < lDoubleTempVector.size()) {
             npoints = lDoubleTempVector.size();
         }
@@ -1135,12 +1137,14 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     par->chkpt.resize(npoints + 1, lKeywordString.size() + 1, 0);
 
     for (size_t j=1; j<par->chkpt.getCols(); j++) {
-        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, false, 0, true) ;
+        lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
         for (size_t i=1; i<par->chkpt.getRows(); i++) {
 			par->chkpt[i][j] = lDoubleTempVector[i-1] ;
+			printf("parameters.cc line 1143 i:%ld j:%ld %f\n",i,j,par->chkpt[i][j]);
+			
 		}
 	}
-
+	
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SavingPoints", geotop::input::gDoubleNoValue, false, 0, false) ;
 	par->saving_points.resize(lDoubleTempVector.size() + 1, 0);
 	for (size_t i=1; i<par->saving_points.size(); i++) {
