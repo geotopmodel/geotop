@@ -401,7 +401,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	geotop::common::Variables::hsl = getStringValues(lConfigStore, lKeys) ;
 
     lKeys.clear() ;
-    lKeys += "HeaderPointID", "HeaderCoordinatePointX", "HeaderCoordinatePointY", "HeaderPointElevation",
+    lKeys += "HeaderCoordinatePointX", "HeaderCoordinatePointY", "HeaderPointID", "HeaderPointElevation",
     "HeaderPointLandCoverType", "HeaderPointSoilType", "HeaderPointSlope", "HeaderPointAspect",
     "HeaderPointSkyViewFactor", "HeaderPointCurvatureNorthSouthDirection", "HeaderPointCurvatureWestEastDirection", "HeaderPointCurvatureNorthwestSoutheastDirection",
     "HeaderPointCurvatureNortheastSouthwestDirection", "HeaderPointDepthFreeSurface", "HeaderPointHorizon", "HeaderPointMaxSWE",
