@@ -2301,12 +2301,15 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     }
     //if(flag >= 0) write_map(geotop::common::Variables::files[flu], 1, par->format_out, land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
+	printf("par->state_pixel=%ld\n",par->state_pixel);
+	
     if(par->state_pixel == 1){
         //	par->rc=new_longmatrix(par->chkpt->nrh,2);
         par->rc.resize(par->chkpt.getRows(),2+1);
         //	par->IDpoint=new_longvector(par->chkpt->nrh);
         par->IDpoint.resize(par->chkpt.getRows());
         //	for(i=1;i<=par->chkpt->nrh;i++){
+		
         for(i=1;i< par->chkpt.getRows();i++){
             //	par->rc->co[i][1]=row(par->chkpt->co[i][ptY], top->Z0->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             par->rc[i][1]=row(par->chkpt[i][ptY], top->Z0.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
@@ -2338,14 +2341,15 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
                 fclose(f);
                 t_error("Fatal Error! Geotop is closed. See failing report.");
             }
-
-            //	if ((long)par->chkpt->co[i][ptID]!=geotop::input::gDoubleNoValue) {
+			
+			printf("i:%ld %f\n",i,par->chkpt[i][ptID]);
+			
             if ((long)par->chkpt[i][ptID]!=geotop::input::gDoubleNoValue) {
-                //	par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
                 par->IDpoint[i]=(long)par->chkpt[i][ptID];
+				printf("A i:%ld %ld\n",i,par->IDpoint[i]);
             }else {
-                //	par->IDpoint->co[i]=i;
                 par->IDpoint[i]=i;
+				printf("B i:%ld %ld\n",i,par->IDpoint[i]);
             }
 
         }
@@ -3343,6 +3347,8 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     //	par->IDpoint=new_longvector(par->chkpt->nrh);
     par->IDpoint.resize(par->chkpt.getRows());
     //	for(i=1;i<=par->chkpt->nrh;i++){
+	
+	
     for(i=1;i< par->chkpt.getRows();i++){
         //	top->East->co[1][i]=par->chkpt->co[i][ptX];
         top->East[1][i]=par->chkpt[i][ptX];
@@ -3417,6 +3423,8 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         top->longitude[1][i]=par->chkpt[i][ptLON];
         //	par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
         par->IDpoint[i]=(long)par->chkpt[i][ptID];
+		
+		
 
 //        IT->bed[1][i]=par->chkpt[i][ptBED];
 //        if( (long)IT->bed[1][i] == geotop::input::gDoubleNoValue ) IT->bed[1][i] = 1.E99;

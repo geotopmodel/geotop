@@ -403,9 +403,6 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					tend=clock();
 					geotop::common::Variables::t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
-					printf("t:%f Dt:%f\n",t,Dt);
-					
-					printf("ENbegin\n");
 					if(A->P->en_balance == 1){
 						tstart=clock();
 
@@ -414,20 +411,16 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 						tend=clock();
 						geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
-					printf("ENend\n");
 
-					printf("WBbegin\n");
 					if(A->P->wat_balance == 1 && en == 0){
 						tstart=clock();
 						wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
 						tend=clock();
 						geotop::common::Variables::t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
-					printf("WBend\n");
 
 					if (en != 0 || wt != 0) {
 						
-						 // Dt *= 0.5;
 						if(Dt > A->P->min_Dt) Dt *= 0.5;
 						out = 0;
 						

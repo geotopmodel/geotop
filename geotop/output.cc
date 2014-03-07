@@ -2709,7 +2709,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slope[r][c]);
                 fprintf(f," Land use number is %d \n",(short)land->LC[r][c]);
 
-                for(l=1;l<=geotop::common::Variables::Nl;l++){
+                for(l=1;l<land->root_fraction.getCols();l++){
                     fprintf(f," The root fraction [-] of layer %ld: %f\n",l,land->root_fraction[lu][l]);
                 }
 
@@ -3240,6 +3240,8 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     FILE *f;
 
     write_suffix(NNNN, iname, 0);
+	
+	//printf("%s\n",NNNN);
 
     if (par->recover > 0) write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
