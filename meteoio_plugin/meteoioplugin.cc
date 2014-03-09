@@ -4,6 +4,7 @@ using namespace std;
 using namespace mio;
 
 IOManager* io;
+IOManager* io_prepocessing;
 DEMObject dem;
 
 /**
@@ -15,11 +16,25 @@ DEMObject dem;
 void meteoio_init(mio::IOManager& iomanager)
 {
 	io = &iomanager; //pointer to the iomanager instantiated in geotop.cc
+	io_prepocessing = NULL;
+
+	string cfgfile = "io_it_extra.ini";
+	if (IOUtils::fileExists(cfgfile)) {
+		mio::Config cfg(cfgfile);
+		io_prepocessing = new IOManager(cfg);
+	}
 
 	try {
 		io->readDEM(dem);
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
+	}
+}
+
+void meteoio_deallocate()
+{
+	if (io_prepocessing != NULL) {
+		delete io_prepocessing;
 	}
 }
 
@@ -200,6 +215,51 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
 }
 
 /**
+ * @brief This function sees if an extra IO source (io_ini_extra.ini) is configured and
+ * if so attempts to get the MeteoData for the current date from the extra source. Finally
+ * it copies the values for HNW and CloudFactor from the retrieved MeteoData into the already
+ * present MeteoData and copies it to the IOManager cache.
+ *
+ * @param current Date for the current timestep
+ * @param meteo MeteoData for the current timestep from the original source
+ */
+void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
+{
+	if (io_prepocessing == NULL) return;
+
+	std::vector<MeteoData> extra_meteo;
+	io_prepocessing->getMeteoData(current, extra_meteo);
+
+	for (std::vector<MeteoData>::iterator it = extra_meteo.begin(); it != extra_meteo.end(); ++it) {
+		const string& stationID  = (*it).meta.stationID;
+		//const size_t cloud_index = (*it).getParameterIndex("CloudFactor");
+		const size_t cloud_index = MeteoData::RSWR;
+
+		//Look for the same stationID in meteo
+		for (std::vector<MeteoData>::iterator it2 = meteo.begin(); it2 != meteo.end(); ++it2) {
+			if (stationID == (*it2).meta.stationID) {
+				//Perform merge
+				if (cloud_index != IOUtils::npos) {
+					size_t cld = (*it2).addParameter("CloudFactor");
+					(*it2)(cld) = (*it)(cloud_index);
+				}
+				
+				size_t hnw_matteo = (*it2).addParameter("HNW_MATTEO");
+				(*it2)(hnw_matteo)  = (*it)(MeteoData::HNW);
+				
+				continue;
+			}
+		}
+	}
+	/*
+	for (std::vector<MeteoData>::iterator it2 = meteo.begin(); it2 != meteo.end(); ++it2) {
+		cout << (*it2).toString() << endl;
+	}
+	*/
+	io->add_to_cache(current, meteo);
+}
+
+/**
  * @brief This function performs the 2D interpolations by calling the respective methods within MeteoIO
  * 1) Data is copied from MeteoIO objects to GEOtop structs
  * 2) Interpolation takes place
@@ -207,51 +267,52 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
  * 4) TA, P and RH values need to be converted as well as nodata values
  *
  * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
- * @param currentdate Matlab julian date for which interpolation is desired
+ * @param matlabdate Matlab julian date for which interpolation is desired
  * @param met Pointer to the GEOtop Meteo object 
  * @param wat Pointer to the GEOtop Water object
  */
-void meteoio_interpolate(Par* par, double currentdate, Meteo* met, Water* wat) {
+void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	// We need some intermediate storage for storing the interpolated grid by MeteoIO
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
 
-	Date d1;
-	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
+	Date current_date;
+	current_date.setMatlabDate(matlabdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
 
 	try {
 		// Intermediate storage for storing data sets for 1 timestep
 		std::vector<mio::MeteoData> meteo;
 
 		// Read the meteo data for the given timestep
-		io->getMeteoData(d1, meteo);
+		io->getMeteoData(current_date, meteo);
+		merge_meteo_data(current_date, meteo);
 
 		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
 		//on the data of the given vector meteo
 		//hnw_correction(par, meteo);
-		//io->add_to_cache(d1, meteo);
+		//io->add_to_cache(current_date, meteo);
 
-		io->getMeteoData(d1, dem, MeteoData::TA, tagrid);
+		io->getMeteoData(current_date, dem, MeteoData::TA, tagrid);
 		convertToCelsius(tagrid);
 
-		io->getMeteoData(d1, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
+		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
 
-		io->getMeteoData(d1, dem, MeteoData::P, pgrid);
+		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
 
 		try {
-			io->getMeteoData(d1, dem, MeteoData::VW, vwgrid);
+			io->getMeteoData(current_date, dem, MeteoData::VW, vwgrid);
 			changeVWgrid(vwgrid, par->Vmin); 
 		} catch (exception& e) {
 			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
 		}
 
 		try {
-			io->getMeteoData(d1, dem, MeteoData::DW, dwgrid);
+			io->getMeteoData(current_date, dem, MeteoData::DW, dwgrid);
 		} catch (exception& e) {
 		   changeGrid(dwgrid, 90); //if something goes wrong, set to 90 degrees everywhere
 		}
 
-		io->getMeteoData(d1, dem, MeteoData::HNW, hnwgrid);
+		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 	} catch (exception& e) {
