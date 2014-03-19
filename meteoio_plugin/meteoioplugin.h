@@ -11,6 +11,8 @@
 #include <vector>
 
 void meteoio_init(mio::IOManager& io);
+void meteoio_deallocate();
+
 void meteoio_readDEM(GeoMatrix<double>& matrix);
 void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix);
 void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename);
@@ -19,6 +21,7 @@ void meteoio_writeEsriasciiMap(const std::string& filename, GeoMatrix<double>& g
 void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV);
 
 void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo);
+void merge_meteo_data(mio::Date& current, std::vector<mio::MeteoData>& meteo);
 void meteoio_interpolate(Par* par, double JDbeg, Meteo* met, Water* wat);
 void meteoio_interpolate_pointwise(Par* par, double currentdate,	Meteo* met, Water* wat);
 
