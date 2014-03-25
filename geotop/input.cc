@@ -1192,6 +1192,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
     // revision performed on 24.12.2013// 
 
+    fprintf(flog,"Checking for map files undefined...");
 	
     if(par->output_surfenergy_bin == 1){
 				
@@ -1292,15 +1293,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 		}
 	
-		if (count_file_missing >0){
-			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-			fprintf(f, "Error: You have to assign a name to %d of mapfiles required\n",count_file_missing);
-			fprintf(f, "See log file for names of missing files \n",count_file_missing);
-
-			fclose(f);
-//			t_error("Fatal Error! Geotop is closed. See failing report and geotop.log file for suggestion.");		
-		
-    }
+	if (count_file_missing >0){
+		fprintf(flog, "Warning: %d mapfiles undefined: see above for names of missing files\n",count_file_missing);
+	}
 
     egy->sun = (double*)malloc(12*sizeof(double));
 
