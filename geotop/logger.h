@@ -46,21 +46,6 @@ namespace geotop
 
         const int MAXMESSAGESIZE = 2048;
 
-        /**
-         * @internal
-         * @brief Defines a simple (ostream*, severity_levels) pair
-         */
-        class LogStream
-        {
-        public:
-            std::ostream* streamP;
-            severity_levels severity;
-            LogStream(std::ostream* sp, severity_levels sv)
-            {
-                streamP = sp;
-                severity = sv;
-            }
-        } ;
 
         /**
          * @brief The logging class
@@ -135,7 +120,16 @@ namespace geotop
             void logsf(severity_levels severity, const char* format, ...);
 
         private:
-            std::vector<LogStream> mStreams;
+            /**
+             * @internal
+             * @brief Defines a simple (ostream*, severity_levels) pair
+             */
+            struct LogStream
+            {
+                std::ostream* streamP;
+                severity_levels severity;
+            } ;
+            std::vector<struct LogStream> mStreams;
         };
     }
 }

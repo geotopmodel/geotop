@@ -12,18 +12,26 @@ using namespace geotop::logger;
 
 Logger::Logger(std::ostream* stream)
 {
-    mStreams.push_back(LogStream(stream,DEFAULT_SEVERITY));
+    struct LogStream ls;
+    ls.streamP = stream;
+    ls.severity = DEFAULT_SEVERITY;
+    mStreams.push_back(ls);
 }
 
 Logger::Logger()
 {
-    mStreams.push_back(
-                LogStream((std::ostream*)(&std::clog),DEFAULT_SEVERITY));
+    struct LogStream ls;
+    ls.streamP = (std::ostream*)(&std::clog);
+    ls.severity = DEFAULT_SEVERITY;
+    mStreams.push_back(ls);
 }
 
 Logger::Logger(std::ostream* stream, severity_levels minSeverity)
 {
-    mStreams.push_back(LogStream(stream,minSeverity));
+    struct LogStream ls;
+    ls.streamP = stream;
+    ls.severity = minSeverity;
+    mStreams.push_back(ls);
 }
 
 Logger::~Logger()
@@ -32,7 +40,10 @@ Logger::~Logger()
 
 void Logger::addOStream(std::ostream* stream, severity_levels minSeverity)
 {
-    mStreams.push_back(LogStream(stream,minSeverity));
+    struct LogStream ls;
+    ls.streamP = stream;
+    ls.severity = minSeverity;
+    mStreams.push_back(ls);
 }
 
 void Logger::log(std::string const &message, severity_levels severity)
