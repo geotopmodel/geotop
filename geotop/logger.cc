@@ -43,22 +43,36 @@ void Logger::addOStream(std::ostream* stream, severity_levels minSeverity)
     struct LogStream ls;
     ls.streamP = stream;
     ls.severity = minSeverity;
-    mStreams.push_back(ls);
+
+    //Checking for duplicates
+    int foundDuplicate = 0;
+    std::vector<LogStream>::iterator it = mStreams.begin();
+    while (it != mStreams.end())
+    {
+        if (it->streamP == stream)
+        {
+            foundDuplicate = 1;
+            break;
+        }
+        it++;
+    }
+
+    if (!foundDuplicate)
+        mStreams.push_back(ls);
 }
 
 void Logger::log(std::string const &message, severity_levels severity)
 {
-
     try
     {
-        std::ostream* mStream;
+        std::ostream* myStream;
         std::vector<LogStream>::iterator it = mStreams.begin();
-        while(it != mStreams.end()){
-            mStream = it->streamP;
+        while (it != mStreams.end()){
+            myStream = it->streamP;
             if (severity >= it->severity)
-            *mStream << "[" << severity_labels[severity] << "]: "
+            *myStream << "[" << severity_labels[severity] << "]: "
                      << message << std::endl;
-            mStream->flush();
+            myStream->flush();
             it++;
         }
     }
@@ -100,3 +114,37 @@ void Logger::logsf(severity_levels severity, const char* format, ...)
     }
 }
 
+void Logger::writeAll(std::string const &message)
+{
+    try
+    {
+        std::ostream* myStream;
+        std::vector<LogStream>::iterator it = mStreams.begin();
+        while (it != mStreams.end()){
+            myStream = it->streamP;
+            *myStream << message;
+            myStream->flush();
+            it++;
+        }
+    }
+    catch(...)
+    {
+        //Catch and ignore any exception thrown
+    }
+}
+
+void Logger::writefAll(const char* format, ...)
+{
+    char buffer[MAXMESSAGESIZE];
+    va_list args;
+    int chs;
+
+    va_start(args, format);
+    chs = vsprintf(buffer, format, args);
+
+    if (chs != -1 && chs < MAXMESSAGESIZE)
+    {
+        std::string msg(buffer);
+        writeAll(msg);
+    }
+}

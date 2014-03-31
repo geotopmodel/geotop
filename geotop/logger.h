@@ -44,9 +44,6 @@ namespace geotop
             "CRITICAL"
         };
 
-        const int MAXMESSAGESIZE = 2048;
-
-
         /**
          * @brief The logging class
          */
@@ -119,6 +116,22 @@ namespace geotop
              */
             void logsf(severity_levels severity, const char* format, ...);
 
+            /**
+             * @brief Writes message verbatim to all the output streams
+             * @param[in] message The message to log
+             *
+             * This method has been added to Logger in order to handle
+             * headers etc.
+             */
+            void writeAll(std::string const &message);
+
+            /**
+             * @brief Writes a formatted message to all the output streams
+             * @param[in] format a printf-style format string
+             *
+             */
+            void writefAll(const char* format, ...);
+
         private:
             /**
              * @internal
@@ -129,7 +142,18 @@ namespace geotop
                 std::ostream* streamP;
                 severity_levels severity;
             } ;
+
+            /**
+             * @brief stream-severity vector
+             *
+             * Holds the stream-severity pairs for this Logger
+             */
             std::vector<struct LogStream> mStreams;
+
+            /**
+             * @brief Maximum size for logf and logsf methods
+             */
+            static const int MAXMESSAGESIZE = 2048;
         };
     }
 }
