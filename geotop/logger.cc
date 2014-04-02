@@ -36,6 +36,12 @@ Logger::Logger(std::ostream* stream, severity_levels minSeverity)
 
 Logger::~Logger()
 {
+    std::vector<LogStream>::iterator it = mStreams.begin();
+    while (it != mStreams.end())
+    {
+        delete it->streamP;
+        it++;
+    }
 }
 
 void Logger::addOStream(std::ostream* stream, severity_levels minSeverity)
@@ -45,20 +51,22 @@ void Logger::addOStream(std::ostream* stream, severity_levels minSeverity)
     ls.severity = minSeverity;
 
     //Checking for duplicates
-    int foundDuplicate = 0;
+    bool foundDuplicate = false;
     std::vector<LogStream>::iterator it = mStreams.begin();
     while (it != mStreams.end())
     {
         if (it->streamP == stream)
         {
-            foundDuplicate = 1;
+            foundDuplicate = true;
             break;
         }
         it++;
     }
 
     if (!foundDuplicate)
+    {
         mStreams.push_back(ls);
+    }
 }
 
 void Logger::log(std::string const &message, severity_levels severity)

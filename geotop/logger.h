@@ -131,6 +131,11 @@ namespace geotop
              *
              */
             void writefAll(const char* format, ...);
+            
+            /**
+             * @brief Maximum size for logf and logsf methods
+             */
+            static const int MAXMESSAGESIZE = 2048;
 
         private:
             /**
@@ -150,10 +155,6 @@ namespace geotop
              */
             std::vector<struct LogStream> mStreams;
 
-            /**
-             * @brief Maximum size for logf and logsf methods
-             */
-            static const int MAXMESSAGESIZE = 2048;
         };
     }
 }

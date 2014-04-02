@@ -45,6 +45,8 @@ ENDIF(COMMAND CMAKE_POLICY)
 		   )
 	
     ADD_LIBRARY(${GEOTOP_LOGGER} ${LINKING_MODE}
+            global_logger.cc
+            global_logger.h
 			logger.cc
 			logger.h
 		   )

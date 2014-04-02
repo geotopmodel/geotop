@@ -22,6 +22,11 @@
 #include <inputKeywords.h>
 #include "geotop_common.h"
 
+#ifdef WITH_LOGGER
+#include <iostream>
+#include "global_logger.h"
+#endif
+
 using namespace std ;
 
 //***************************************************************************************************************
@@ -30,9 +35,6 @@ using namespace std ;
 //***************************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
-
-//void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAN D *land, METEO *met, WATER *wat, CHANNEL *cnet,
-//			    PAR *par, Energy *egy, SNOW *snow, GLACIER *glac, TIMES *times, mio::IOManager& iomanager)
 
 void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Meteo *met, Water *wat, Channel *cnet,
                    Par *par, Energy *egy, Snow *snow, Glacier *glac, Times *times, mio::IOManager& iomanager)
@@ -69,7 +71,42 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         WORKING_DIRECTORY=read_option_string(argc,argv,"-wpath",".",0); // assign_string(argv[1]); // MODIFY HERE EC
 #endif	
     }
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
+    lg->writeAll("STATEMENT:\n");
+    lg->writeAll("\n");
+    lg->writeAll("GEOtop 2.0.0 'MOAB' - 9 Mar 2012\n\n");
+    lg->writeAll("Copyright (c), 2012 - Stefano Endrizzi \n\n");
+    lg->writeAll("TN -EXACT version (tmp)\n\n");
+    lg->writeAll("GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    lg->writeAll("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
+    lg->writefAll("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
+    lg->log("Using Experimental Logger");
+
+    //TODO: remove these lines AFTER correncting all the functions that
+    //use flog to log
+    //8<==================================
+    if (geotop::common::Variables::WORKING_DIRECTORY[strlen(geotop::common::Variables::WORKING_DIRECTORY.c_str())-1] != 47) {
+        temp = geotop::common::Variables::WORKING_DIRECTORY;
+        geotop::common::Variables::WORKING_DIRECTORY = temp + "/";
+    }
+
+    geotop::common::Variables::logfile = geotop::common::Variables::WORKING_DIRECTORY + logfile_name;
+    flog = fopen(geotop::common::Variables::logfile.c_str(), "w");
+    fprintf(flog,"STATEMENT:\n");
+    fprintf(flog,"\n");
+    fprintf(flog,"GEOtop 2.0.0 - 9 Mar 2012\n\n");
+    fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");
+ 	fprintf(flog,"TN -EXACT version (tmp)\n\n");
+    fprintf(flog,"GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
+    fprintf(flog,"\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
+    //8<==================================
+
+    std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
+
+#else
     //add "/" if it is missing
     if (geotop::common::Variables::WORKING_DIRECTORY[strlen(geotop::common::Variables::WORKING_DIRECTORY.c_str())-1] != 47) {
         temp = geotop::common::Variables::WORKING_DIRECTORY;
@@ -97,6 +134,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     fprintf(flog,"GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
     fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
     fprintf(flog,"\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
+#endif
 
     //reads the parameters in __control_parameters
  
@@ -107,9 +145,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     bool lParsingRes = lConfigStore->parse(lFilePath) ;
     if(not lParsingRes)
     {
+#ifdef WITH_LOGGER
+        lg->log("Unable to parse configuration file: " + lFilePath, geotop::logger::CRITICAL);
+        exit(1);
+#else
         t_error("Fatal Error! Unable to parse configuration file: " + lFilePath);
+#endif
     }
 
+    //TODO: correct this BEFORE the flog variable removal
     success = read_inpts_par(par, land, times, sl, met, IT, temp, flog);
 
 	//correct state pixel
@@ -159,7 +203,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f, "Error: You have to assign a name to the Tzrun and wzrun files\n");
 		fclose(f);
-		t_error("Fatal Error! Geotop is closed. See failing report.");		
+#ifdef WITH_LOGGER
+        lg->log("You have to assign a name to the Tzrun and wzrun files",
+                geotop::logger::ERROR);
+        lg->log("Geotop failed. See failing report.",
+                geotop::logger::CRITICAL);
+        exit(1);
+#else
+		t_error("Fatal Error! Geotop is closed. See failing report.");
+#endif
 	}	
 
     std::cout << "SPAR: " << fspar << " : " << geotop::common::Variables::files[fspar] << std::endl ;
@@ -183,9 +235,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error: recover index higher than the length of the saving points vector");
             fclose(f);
+#ifdef WITH_LOGGER
+            lg->log("Recover index higher than the length of the saving points vector",
+                    geotop::logger::ERROR);
+            lg->log("Geotop failed. See failing report (1).",
+                    geotop::logger::CRITICAL);
+#else
             t_error("Fatal Error! Geotop is closed. See failing report (1).");
+#endif
         }
-        //	par->delay_day_recover = par->saving_points->co[par->recover];
         par->delay_day_recover = par->saving_points[par->recover];
     }
 
@@ -198,11 +256,21 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             rename(geotop::common::Variables::SuccessfulRunFile.c_str(), temp.c_str());
             temp = geotop::common::Variables::FailedRunFile + ".old";
             rename(geotop::common::Variables::FailedRunFile.c_str(), temp.c_str());
+            
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-			
             fprintf(f, "This simulation has successfully reached the end, you cannot recover it.\n");
             fclose(f);
+
+#ifdef WITH_LOGGER
+            lg->log("This simulation has successfully reached the end, you cannot recover it.",
+                    geotop::logger::ERROR);
+            lg->log("Geotop failed. See failing report.",
+                    geotop::logger::CRITICAL);
+            exit(1);
+
+#else
             t_error("Fatal Error! Geotop is closed. See failing report.");
+#endif
         }
         if (mio::IOUtils::fileExists(string(geotop::common::Variables::FailedRunFile))) {
             temp = geotop::common::Variables::SuccessfulRunFile + ".old";
@@ -212,7 +280,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "This simulation has failed, you cannot recover it.\n");
             fclose(f);
+#ifdef WITH_LOGGER
+            lg->log("This simulation has failed, you cannot recover it.",
+                    geotop::logger::ERROR);
+            lg->log("Geotop failed. See failing report.",
+                    geotop::logger::CRITICAL);
+            exit(1);
+#else
             t_error("Fatal Error! Geotop is closed. See failing report.");
+#endif
         }
     }
 
@@ -297,26 +373,56 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
+#ifdef WITH_LOGGER
+    lg->logf("Valid pixels: %ld", par->total_pixel);
+    lg->logf("Number of nodes: %ld",
+            (geotop::common::Variables::Nl+1) * par->total_pixel);
+    lg->logf("Novalue pixels: %ld",
+            (geotop::common::Variables::Nr * geotop::common::Variables::Nc-par->total_pixel)
+            );
+#else
     fprintf(flog,"Valid pixels: %ld\n",par->total_pixel);
     fprintf(flog,"Number of nodes: %ld\n",(geotop::common::Variables::Nl+1)*par->total_pixel);
     fprintf(flog,"Novalue pixels: %ld\n",(geotop::common::Variables::Nr*geotop::common::Variables::Nc-par->total_pixel));
+#endif
 
 
+#ifdef WITH_LOGGER
+    lg->logf("Basin area: %12g km2",
+            (double)par->total_pixel*geotop::common::Variables::UV->U[1] *
+            geotop::common::Variables::UV->U[2] / 1.E6);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     fprintf(flog,"Basin area: %12g km2\n",(double)par->total_pixel*geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]/1.E6);
 #else
     fprintf(flog,"Basin area: %f km2\n",(double)par->total_pixel*geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]/1.E6);
-#endif
+#endif  //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
+#ifdef WITH_LOGGER
+    lg->logf("Valid pixels: %ld", par->total_pixel);
+    lg->logf("Number of nodes: %ld",
+            (geotop::common::Variables::Nl+1) * par->total_pixel);
+    lg->logf("Novalue pixels: %ld",
+            (geotop::common::Variables::Nr *
+             geotop::common::Variables::Nc-par->total_pixel));
+#else
     printf("\nValid pixels: %ld\n",par->total_pixel);
     printf("Number of nodes: %ld\n",(geotop::common::Variables::Nl+1)*par->total_pixel);
     printf("Novalue pixels: %ld\n",(geotop::common::Variables::Nr*geotop::common::Variables::Nc-par->total_pixel));
+#endif
 
+#ifdef WITH_LOGGER
+    lg->logf("Basin area: %12g km2",
+            (double)par->total_pixel * geotop::common::Variables::UV->U[1] *
+            geotop::common::Variables::UV->U[2] / 1.E6);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Basin area: %12g km2\n\n",(double)par->total_pixel*geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]/1.E6);
 #else
     printf("Basin area: %f km2\n\n",(double)par->total_pixel*geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]/1.E6);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     /****************************************************************************************************/
     //Reading of RAIN data file,	METEO data file, 	and CLOUD data file
@@ -379,7 +485,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                 fprintf(f, "Error:: Date Column missing in file %s\n",temp.c_str());
                 fclose(f);
+
+#ifdef WITH_LOGGER
+                lg->log("Date Column missing in file " + temp,
+                        geotop::logger::ERROR);
+                lg->log("Geotop failed. See failing report (2).",
+                       geotop::logger::CRITICAL);
+                exit(1);
+#else
                 t_error("Fatal Error! Geotop is closed. See failing report (2).");
+#endif
             }
             met->numlines[i-1] = num_lines;
 
@@ -423,7 +538,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",i);
                 fprintf(f,"If you want to use precipitation as volume, you cannot set keyword LinearInterpolation at 1.\n");
                 fclose(f);
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::ERROR,
+                        "Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.",
+                        i);
+                lg ->log("Geotop failed. See failing report (3).",
+                        geotop::logger::CRITICAL);
+                exit(1);
+#else
                 t_error("Fatal Error! Geotop is closed. See failing report (3).");
+#endif
             }
 
             if(par->prec_as_intensity == 1){
@@ -452,8 +576,13 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         }else {
 
+#ifdef WITH_LOGGER
+            lg->log("File meteo not in the list, meteo data not read, used default values",
+                    geotop::logger::WARNING);
+#else
             fprintf(flog, "Warning: File meteo not in the list, meteo data not read, used default values\n");
             printf("Warning: File meteo not in the list, meteo data not read, used default values\n");
+#endif
 
             met->data[i-1] = (double**)malloc(2*sizeof(double*));
 
@@ -476,12 +605,23 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     if(geotop::common::Variables::files[fLRs] != geotop::input::gStringNoValue){   //s stands for string
 
         if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fLRs]) + string(textfile)))
+        {
+#ifdef WITH_LOGGER
+            lg->log("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file, remove its name and keywords from input file",
+                    geotop::logger::WARNING);
+#else
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file, remove its name and keywords from input file\n");
+#endif
+        }
         temp = geotop::common::Variables::files[fLRs] + string(textfile);
         met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot, &num_lines, flog);
         met->LRsnr = num_lines;
         par->LRflag=1;
+#ifdef WITH_LOGGER
+        lg->log("Lapse rate file read");
+#else
         printf("\nLapse rate file read\n");
+#endif
 
     }else{
 
@@ -505,19 +645,31 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-
-    //	FIND A STATION WITH SHORTWAVE RADIATION DATA
 #ifdef USE_INTERNAL_METEODISTR
+
+    //Find the first station with shortwave radiation data
     met->nstsrad=0;
+
     do{
         met->nstsrad++;
-        a=0;
-//			printf("met->nstsrad-1=%ld",met->nstsrad-1);
-//			printf("met->data[met->nstsrad-1][0][iSW]=%ld",(long)met->data[met->nstsrad-1][0][iSW]);
-//			printf("met->data[met->nstsrad-1][0][iSWb]=%ld",(long)met->data[met->nstsrad-1][0][iSWb]);
-//			printf("met->data[met->nstsrad-1][0][iSWd]=%ld",(long)met->data[met->nstsrad-1][0][iSWd]);
-        if( (long)met->data[met->nstsrad-1][0][iSW]!=geotop::input::gDoubleAbsent || ((long)met->data[met->nstsrad-1][0][iSWb]!=geotop::input::gDoubleAbsent && (long)met->data[met->nstsrad-1][0][iSWd]!=geotop::input::gDoubleAbsent ) ) a=1;
-		}while(met->nstsrad< num_met_stat && a==0);
+        a = 0;
+        if ((long)met->data[met->nstsrad-1][0][iSW]  != geotop::input::gDoubleAbsent ||
+           ((long)met->data[met->nstsrad-1][0][iSWb] != geotop::input::gDoubleAbsent &&
+           (long)met->data[met->nstsrad-1][0][iSWd]  != geotop::input::gDoubleAbsent ))
+        {
+            a = 1;
+        }
+    } while (met->nstsrad < num_met_stat && a == 0);
+
+#ifdef WITH_LOGGER
+    if (a == 0) {
+        lg->log("NO shortwave radiation measurements available",
+                geotop::logger::WARNING);
+    } else {
+        lg->logf("Shortwave radiation measurements from station %ld\n",
+                met->nstsrad);
+    }
+#else
     if(a==0){
         printf("WARNING: NO shortwave radiation measurements available\n");
         fprintf(flog,"WARNING: NO shortwave radiation measurements available\n");
@@ -525,16 +677,29 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         printf("Shortwave radiation measurements from station %ld\n",met->nstsrad);
         fprintf(flog,"Shortwave radiation measurements from station %ld\n",met->nstsrad);
     }
-#endif
+#endif //WITH_LOGGER
 
-#ifdef USE_INTERNAL_METEODISTR
-	//FIND A STATION WITH CLOUD DATA
+	//Find the first station with cloud data
 	met->nstcloud=0;
 	do{
 		met->nstcloud++;
 		a=0;
-		if( (long)met->data[met->nstcloud-1][0][iC]!=geotop::input::gDoubleAbsent || (long)met->data[met->nstcloud-1][0][itauC]!=geotop::input::gDoubleAbsent ) a=1;
-	}while(met->nstcloud<met->st->Z.size()-1 && a==0);
+        if( (long)met->data[met->nstcloud-1][0][iC]    != geotop::input::gDoubleAbsent ||
+            (long)met->data[met->nstcloud-1][0][itauC] != geotop::input::gDoubleAbsent )
+        {
+            a = 1;
+        }
+	} while (met->nstcloud < met->st->Z.size() - 1 && a == 0);
+
+#ifdef WITH_LOGGER
+    if (a == 0) {
+        lg->log("No cloudiness measurements available",
+                geotop::logger::WARNING);
+    } else {
+        lg->logf("Cloudiness measurements from station %ld",
+                met->nstcloud);
+    }
+#else
 	if(a==0){
 		printf("WARNING: NO cloudiness measurements available\n");
 		fprintf(flog,"WARNING: NO cloudiness measurements available\n");
@@ -542,14 +707,25 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		printf("Cloudiness measurements from station %ld\n",met->nstcloud);
 		fprintf(flog,"Cloudiness measurements from station %ld\n",met->nstcloud);
 	}
+#endif //WITH_LOGGER
 	
-	//FIND A STATION WITH LONGWAVE RADIATION DATA
+	//Find the first station with longwave radiation data
 	met->nstlrad=0;
 	do{
 		met->nstlrad++;
 		a=0;
 		if( (long)met->data[met->nstlrad-1][0][iLWi]!=geotop::input::gDoubleAbsent) a=1;
-	}while(met->nstlrad<met->st->Z.size()-1 && a==0);
+	} while (met->nstlrad < met->st->Z.size() - 1 && a == 0);
+
+#ifdef WITH_LOGGER
+    if (a == 0) {
+        lg->log("No longwave radiation measurements available",
+                geotop::logger::WARNING);
+    } else {
+        lg->logf("Longwave radiation measurements from station %ld\n",
+                met->nstlrad);
+    }
+#else
 	if(a==0){
 		printf("WARNING: NO longwave radiation measurements available\n");
 		fprintf(flog,"WARNING: NO longwave radiation measurements available\n");
@@ -557,8 +733,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		printf("Longwave radiation measurements from station %ld\n",met->nstlrad);
 		fprintf(flog,"Longwave radiation measurements from station %ld\n",met->nstlrad);
 	}
+#endif //WITH_LOGGER
 
-#endif
+#endif //USE_INTERNAL_METEODISTR
 
     met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),geotop::input::gDoubleNoValue);
 
@@ -581,30 +758,55 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->st->tau_cloud_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
 
     //i.show details on checkpoints
+#ifdef WITH_LOGGER
+    lg->writeAll("\nCHECKPOINTS:\n");
+    lg->writeAll("ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]\n");
+#else
     fprintf(flog,"\nCHECKPOINTS:\n");
     fprintf(flog,"ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]\n");
+#endif
+
     for(i=1;i<par->rc.getRows();i++){
         r=par->rc[i][1];
         c=par->rc[i][2];
+#ifdef WITH_LOGGER
+        lg->writefAll("%ld,%ld,%ld,%12g,%d,%ld,%12g,%12g,%12g\n", i, r, c,
+                top->Z0[r][c], (short)land->LC[r][c], sl->type[r][c],
+                top->slope[r][c], top->aspect[r][c], top->sky[r][c]);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
         fprintf(flog,"%ld,%ld,%ld,%12g,%d,%ld,%12g,%12g,%12g\n",i,r,c,top->Z0[r][c],(short)land->LC[r][c],sl->type[r][c],top->slope[r][c],top->aspect[r][c],top->sky[r][c]);
 #else
         fprintf(flog,"%ld,%ld,%ld,%f,%d,%ld,%f,%f,%f\n",i,r,c,top->Z0[r][c],(short)land->LC[r][c],sl->type[r][c],top->slope[r][c],top->aspect[r][c],top->sky[r][c]);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
     }
 
     //i.show meteo stations
+#ifdef WITH_LOGGER
+    lg->writeAll("\nMETEO STATIONS:\n");
+    lg->writeAll("ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]\n");
+#else
     fprintf(flog,"\nMETEO STATIONS:\n");
     fprintf(flog,"ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]\n");
+#endif
+
     for(size_t r=1;r<met->st->E.size();r++){
 
+#ifdef WITH_LOGGER
+        lg->writefAll("%ld,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",
+                r, met->st->E[r], met->st->N[r], met->st->lat[r],
+                met->st->lon[r], met->st->Z[r], met->st->sky[r],
+                met->st->ST[r], met->st->Vheight[r], met->st->Theight[r]);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
         fprintf(flog,"%ld,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",r,met->st->E[r],met->st->N[r],met->st->lat[r], met->st->lon[r],
                 met->st->Z[r],met->st->sky[r],met->st->ST[r],met->st->Vheight[r],met->st->Theight[r]);
 #else
         fprintf(flog,"%ld,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",r,met->st->E[r],met->st->N[r],met->st->lat[r], met->st->lon[r],
                 met->st->Z[r],met->st->sky[r],met->st->ST[r],met->st->Vheight[r],met->st->Theight[r]);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
     }
 
     /****************************************************************************************************/
@@ -622,7 +824,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         met->qinsnr = num_lines;
         par->qin = 1;
         met->qinline = 0;
+#ifdef WITH_LOGGER
+        lg->log("Incoming discharge file read");
+#else
         printf("\nIncoming discharge file read\n");
+#endif
     }else{
         par->qin = 0;
     }
@@ -643,10 +849,27 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     do{
         l++;
         z += sl->pa(1,jdz,l);
-    }while(l<geotop::common::Variables::Nl && z < GTConst::z_transp);
+    } while (l < geotop::common::Variables::Nl && z < GTConst::z_transp);
     
-	land->root_fraction.resize(par->n_landuses+1, l+1 ,0.0);
+	land->root_fraction.resize(par->n_landuses + 1, l + 1 ,0.0);
 
+#ifdef WITH_LOGGER
+    //check vegetation variable consistency
+    if( (jHveg != jdHveg + jHveg - 1)               ||
+        (jz0thresveg != jdz0thresveg + jHveg - 1)   ||
+        (jz0thresveg2 != jdz0thresveg2 + jHveg - 1) ||
+        (jLSAI != jdLSAI + jHveg - 1)               ||
+        (jcf != jdcf + jHveg - 1)                   ||
+        (jdecay0 != jddecay0 + jHveg - 1)           ||
+        (jexpveg != jdexpveg + jHveg - 1)           ||
+        (jroot != jdroot + jHveg - 1)               ||
+        (jrs != jdrs + jHveg - 1))
+    {
+        lg->log("Vegetation variables not consistent",
+                geotop::logger::CRITICAL);
+        exit(1);
+    }
+#else
     //check vegetation variable consistency
     if(jHveg!=jdHveg+jHveg-1) t_error("Vegetation variables not consistent");
     if(jz0thresveg!=jdz0thresveg+jHveg-1) t_error("Vegetation variables not consistent");
@@ -657,6 +880,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     if(jexpveg!=jdexpveg+jHveg-1) t_error("Vegetation variables not consistent");
     if(jroot!=jdroot+jHveg-1) t_error("Vegetation variables not consistent");
     if(jrs!=jdrs+jHveg-1) t_error("Vegetation variables not consistent");
+#endif
 
     //	variables used to assign vegetation properties that change with time
     num_cols = jdvegprop + 1;
@@ -675,13 +899,24 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             temp = namefile_i_we2(geotop::common::Variables::files[fvegpar], i);
 
             if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
+#ifdef WITH_LOGGER
+                lg->logf("There is a specific vegetation parameter file for land cover type = %ld",
+                        i);
+#else
                 printf("There is a specific vegetation parameter file for land cover type = %ld\n",i);
+#endif
                 temp = namefile_i(geotop::common::Variables::files[fvegpar], i);
                 land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines);
                 land->NumlinesVegTimeDepData[i-1] = num_lines;
                 par->vegflag[i]=1;
             } else {
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::WARNING,
+                        "There is NOT a specific vegetation parameter file for land cover type = %ld",
+                        i);
+#else
                 printf("There is NOT a specific vegetation parameter file for land cover type = %ld\n",i);
+#endif
             }
         }
 
@@ -709,7 +944,21 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
 
                 fclose(f);
+
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::ERROR,
+                        "hc:%12g m, zmu:%12g m, zmt:%12g m - hc must be lower than measurement height - land cover %ld, meteo station %ld",
+                        0.001*land->ty[i][jHveg],
+                        met->st->Vheight[l],
+                        met->st->Theight[l],
+                        i,
+                        l);
+                lg->log("Geotop failed. See failing report (5).",
+                        geotop::logger::CRITICAL);
+                exit(1);
+#else
                 t_error("Fatal Error! Geotop is closed. See failing report (5).");
+#endif
             }
         }
     }
@@ -740,7 +989,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             if (top->pixel_type[r][c]>=10) i++;
         }
     }
+
+#ifdef WITH_LOGGER
+    lg->logf("Channel pixels: %ld", i);
+#else
     fprintf(flog,"Channel pixels: %ld\n",i);
+#endif
     par->total_channel = i;
 
     //allocate channel vectors/matrixes
@@ -820,8 +1074,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-    //	top->lrc_cont=new_longmatrix( (geotop::common::Variables::Nl+1)*par->total_pixel, 3);
-    //	initialize_longmatrix(top->lrc_cont, 0);
     top->lrc_cont.resize( (geotop::common::Variables::Nl+1)*par->total_pixel+1, 3+1, 0);
 
     i_lrc_cont(land->LC, top->i_cont, top->lrc_cont);
@@ -834,23 +1086,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-    //	top->rc_cont=new_longmatrix(par->total_pixel, 2);
-    //	initialize_longmatrix(top->rc_cont, 0);
     top->rc_cont.resize(par->total_pixel+1, 2+1);
 
     j_rc_cont(land->LC, top->j_cont, top->rc_cont);
 
     if(par->state_pixel == 1){
-        //	par->jplot = new_longvector(par->total_pixel);
-        //	initialize_longvector(par->jplot, 0);
         par->jplot.resize(par->total_pixel+1, 0);
 
         for (i=1; i<=par->total_pixel; i++) {
-            //	for (j=1; j<=par->rc->nrh; j++) {
             for (j=1; j<par->rc.getRows(); j++) {
-                //	if (top->rc_cont->co[i][1] == par->rc->co[j][1] && top->rc_cont->co[i][2] == par->rc->co[j][2]) {
                 if (top->rc_cont[i][1] == par->rc[j][1] && top->rc_cont[i][2] == par->rc[j][2]) {
-                    //	par->jplot->co[i] = j;
                     par->jplot[i] = j;
                 }
             }
@@ -913,16 +1158,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 			    sl->SS->P[0][i] = -IT->init_water_table_depth[sy]*cos(top->slope[r][c]*GTConst::Pi/180.);
 
                 for(l=1;l<=geotop::common::Variables::Nl;l++){
-                    //	z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
                     z += 0.5*sl->pa(sy,jdz,l)*cos(top->slope[r][c]*GTConst::Pi/180.);
-                    //	sl->SS->P->co[l][i] = sl->SS->P->co[0][i] + z;
                     sl->SS->P[l][i] = sl->SS->P[0][i] + z;
-                    //	z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
                     z += 0.5*sl->pa(sy,jdz,l)*cos(top->slope[r][c]*GTConst::Pi/180.);
                 }
             }else {
                 for(l=1;l<=geotop::common::Variables::Nl;l++){
-                    //	sl->SS->P->co[l][i] = sl->pa->co[sy][jpsi][l];
                     sl->SS->P[l][i] = sl->pa(sy,jpsi,l);
                 }
             }
@@ -930,72 +1171,49 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     }else {
 
-        //	M = read_map(2,geotop::common::Variables::files[fwt0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fwt0]), M);
 
         for (i=1; i<=par->total_pixel; i++) {
-            //	r = top->rc_cont->co[i][1];
             r = top->rc_cont[i][1];
-            //	c = top->rc_cont->co[i][2];
             c = top->rc_cont[i][2];
 
-            //	sy=sl->type->co[r][c];
             sy=sl->type[r][c];
 
             z = 0.;
-            //	sl->SS->P->co[0][i] = -M->co[r][c]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
             sl->SS->P[0][i] = -M[r][c]*cos(top->slope[r][c]*GTConst::Pi/180.);
             for(l=1;l<=geotop::common::Variables::Nl;l++){
-                //	z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
                 z += 0.5*sl->pa(sy,jdz,l)*cos(top->slope[r][c]*GTConst::Pi/180.);
-                //	sl->SS->P->co[l][i] = sl->SS->P->co[0][i] + z;
                 sl->SS->P[l][i] = sl->SS->P[0][i] + z;
-                //	z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*GTConst::Pi/180.);
                 z += 0.5*sl->pa(sy,jdz,l)*cos(top->slope[r][c]*GTConst::Pi/180.);
             }
         }
 
-        //	free_doublematrix(M);
     }
 
     for (i=1; i<=par->total_pixel; i++) {
 
-        //	r = top->rc_cont->co[i][1];
         r = top->rc_cont[i][1];
-        //	c = top->rc_cont->co[i][2];
         c = top->rc_cont[i][2];
 
-        //	sy=sl->type->co[r][c];
         sy=sl->type[r][c];
 
         for(l=1;l<=geotop::common::Variables::Nl;l++){
 
-            //	sl->SS->T->co[l][i]=sl->pa->co[sy][jT][l];
             sl->SS->T[l][i]=sl->pa(sy,jT,l);
 
-            //	sl->Ptot->co[l][i] = sl->SS->P->co[l][i];
             sl->Ptot[l][i] = sl->SS->P[l][i];
-            //	sl->th->co[l][i] = teta_psi(sl->SS->P->co[l][i], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-            //								   sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], GTConst::PsiMin, sl->pa->co[sy][jss][l]);
 
             sl->th[l][i] = teta_psi(sl->SS->P[l][i], 0.0, sl->pa(sy,jsat,l), sl->pa(sy,jres,l), sl->pa(sy,ja,l),
                                     sl->pa(sy,jns,l), 1-1/sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
 
-            //	th_oversat = Fmax( sl->SS->P->co[l][i] , 0.0 ) * sl->pa->co[sy][jss][l];
             th_oversat = Fmax( sl->SS->P[l][i] , 0.0 ) * sl->pa(sy,jss,l);
-            //	sl->th->co[l][i] -= th_oversat;
             sl->th[l][i] -= th_oversat;
 
-            //	if(sl->SS->T->co[l][i]<=GTConst::Tfreezing){
             if(sl->SS->T[l][i]<=GTConst::Tfreezing){
 
                 //	Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-                //	sl->SS->thi->co[l][i] = sl->th->co[l][i] - teta_psi(Psif(sl->SS->T->co[l][i]), 0.0, sl->pa->co[sy][jsat][l],
-                //															sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-                //															1.-1./sl->pa->co[sy][jns][l], GTConst::PsiMin, sl->pa->co[sy][jss][l]);
-
                 sl->SS->thi[l][i] = sl->th[l][i] - teta_psi(Psif(sl->SS->T[l][i]), 0.0, sl->pa(sy,jsat,l),
-                                                            sl->pa(sy,jres,l), sl->pa(sy,ja,l), sl->pa(sy,jns,l), 1.-1./sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
+                                    sl->pa(sy,jres,l), sl->pa(sy,ja,l), sl->pa(sy,jns,l), 1.-1./sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
 
                 //	if Theta(without freezing)<Theta_unfrozen(in equilibrium with T) Theta_ice is set at 0
                 if(sl->SS->thi[l][i]<0) sl->SS->thi[l][i]=0.0;
@@ -1048,7 +1266,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     }
 
+#ifdef WITH_LOGGER
+	lg->logf("INPUT: printing delay_day_recover %f\n",par->delay_day_recover);
+#else
 	printf(" INPUT: printing delay_day_recover %f\n",par->delay_day_recover);
+#endif
 	
     if(par->delay_day_recover > 0){
 
@@ -1183,7 +1405,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
         fprintf(f, "Z at which 0 annual temperature takes place is not lower than the soil column\n");
         fclose(f);
+#ifdef WITH_LOGGER
+        lg->log("Z at which 0 annual temperature takes place is not lower than the soil column",
+               geotop::logger::ERROR);
+        lg->log("Geotop failed. See failing report (6).",
+                geotop::logger::CRITICAL);
+        exit(1);
+#else
         t_error("Fatal Error! Geotop is closed. See failing report (6).");
+#endif
     }
 
     par->Zboundary *= 1.E-3;	//convert in [m]
@@ -1192,7 +1422,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
     // revision performed on 24.12.2013// 
 
+#ifdef WITH_LOGGER
+    lg->log("Checking for map files undefined...");
+#else
     fprintf(flog,"Checking for map files undefined...");
+#endif
 	
     if(par->output_surfenergy_bin == 1){
 				
@@ -1202,7 +1436,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED\n");			
+#endif
 		}
 		
 		}
@@ -1212,7 +1451,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED\n");
+#endif
 		}		
         if((geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)) {
             egy->LW_mean.resize(par->total_pixel+1,0.0);
@@ -1220,7 +1464,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED\n");			
+#endif
 		}
 	
         if((geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)){
@@ -1228,7 +1477,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             egy->SW.resize(par->total_pixel+1);
         }else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  with fradSWin identifier NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File  with fradSWin identifier NOT DEFINED\n");
+#endif
 		}
 	
         if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue){
@@ -1237,7 +1491,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED\n"); 
+#endif
 		}
         if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue){
             egy->H_mean.resize(par->total_pixel+1,0.0);
@@ -1245,7 +1504,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED\n");
+#endif
 		}
         if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue){
             egy->SEB_mean.resize(par->total_pixel+1,0.0);
@@ -1253,7 +1517,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  with fG identifier  NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File  with fG identifier  NOT DEFINED\n");
+#endif
 		}	
         if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue){
             egy->Ts_mean.resize(par->total_pixel+1,0.0);
@@ -1261,7 +1530,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  with fTs identifier  NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog,"File  with fTs identifier  NOT DEFINED\n");
+#endif
 			
 		}	
         if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue){
@@ -1270,7 +1544,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  with fradSWin identifier  NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog, "File  with fradSWin identifier  NOT DEFINED\n");
+#endif
 		}	
         if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue){
 			
@@ -1279,7 +1558,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File  with fradSwinbeam identifier  NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog, "File  with fradSwinbeam identifier  NOT DEFINED\n");
+#endif
 		}
 	
         if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue){
@@ -1289,12 +1573,23 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 		else{
 			count_file_missing++;
+#ifdef WITH_LOGGER
+			lg->log("File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED",
+                    geotop::logger::WARNING);
+#else
 			fprintf(flog, "File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED\n");
+#endif
 
 		}
 	
 	if (count_file_missing >0){
+#ifdef WITH_LOGGER
+		lg->logsf(geotop::logger::WARNING,
+                "%d mapfiles undefined: see above for names of missing files",
+                count_file_missing);
+#else
 		fprintf(flog, "Warning: %d mapfiles undefined: see above for names of missing files\n",count_file_missing);
+#endif
 	}
 
     egy->sun = (double*)malloc(12*sizeof(double));
@@ -1447,10 +1742,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     egy->soil_evap_layer_veg.resize(l+1,0.0);
 
 
+#ifdef WITH_LOGGER
+    lg->logf("Soil water evaporates from the first %ld layers",egy->soil_evap_layer_bare.size() - 1);
+    lg->logf("Soil water transpires from the first %ld layers",egy->soil_transp_layer.size() - 1);
+#else
     printf("Soil water evaporates from the first %ld layers\n",egy->soil_evap_layer_bare.size()-1);
     printf("Soil water transpires from the first %ld layers\n",egy->soil_transp_layer.size()-1);
     fprintf(flog,"Soil water evaporates from the first %ld layers\n",egy->soil_evap_layer_bare.size()-1);
     fprintf(flog,"Soil water transpires from the first %ld layers\n",egy->soil_transp_layer.size()-1);
+#endif
 
     /****************************************************************************************************/
     /*! Completing of the struct "water" (of the type WATER) */
@@ -1500,7 +1800,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //initial snow depth
     if(geotop::common::Variables::files[fsn0] != geotop::input::gStringNoValue &&geotop::common::Variables::files[fswe0] != geotop::input::gStringNoValue ){
+#ifdef WITH_LOGGER
+        lg->logf("Initial condition on snow depth from file %s",
+                geotop::common::Variables::files[fsn0].c_str());
+#else
         printf("Initial condition on snow depth from file %s\n",geotop::common::Variables::files[fsn0].c_str());
+#endif
         //	M=read_map(2,geotop::common::Variables::files[fsn0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fsn0]), M);
 
@@ -1512,7 +1817,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
         //	free_doublematrix(M);
 
+#ifdef WITH_LOGGER
+        lg->logf("Initial condition on snow water equivalent from file %s",
+                geotop::common::Variables::files[fswe0].c_str());
+#else
         printf("Initial condition on snow water equivalent from file %s\n",geotop::common::Variables::files[fswe0].c_str());
+#endif
         //	M=read_map(2,geotop::common::Variables::files[fswe0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fswe0]), M);
 
@@ -1525,7 +1835,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         //	free_doublematrix(M);
 
     }else if(geotop::common::Variables::files[fsn0] != geotop::input::gStringNoValue ){
+#ifdef WITH_LOGGER
+        lg->logf("Initial condition on snow depth from file %s",
+                geotop::common::Variables::files[fsn0].c_str());
+#else
         printf("Initial condition on snow depth from file %s\n",geotop::common::Variables::files[fsn0].c_str());
+#endif
         //	M=read_map(2,geotop::common::Variables::files[fsn0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fsn0]), M);
 
@@ -1545,7 +1860,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 
     }else if(geotop::common::Variables::files[fswe0] != geotop::input::gStringNoValue ){
+#ifdef WITH_LOGGER
+        lg->logf("Initial condition on snow water equivalent from file %s",
+                geotop::common::Variables::files[fswe0].c_str());
+#else
         printf("Initial condition on snow water equivalent from file %s\n",geotop::common::Variables::files[fswe0].c_str());
+#endif
         //	M=read_map(2,geotop::common::Variables::files[fswe0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fswe0]), M);
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
@@ -1580,7 +1900,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //Optional reading of snow age in the whole basin
     if(geotop::common::Variables::files[fsnag0] != geotop::input::gStringNoValue ){
+#ifdef WITH_LOGGER
+        lg->logf("Snow age initial condition from file %s",
+                geotop::common::Variables::files[fsnag0 + 1].c_str());
+#else
         printf("Snow age initial condition from file %s\n",geotop::common::Variables::files[fsnag0 + 1].c_str());
+#endif
         snow->age = read_map_vector(2,geotop::common::Variables::files[fsnag0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->rc_cont);
     }else{
         //	snow->age = new_doublevector(par->total_pixel);
@@ -1727,7 +2052,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
 
                     fclose(f);
+#ifdef WITH_LOGGER
+                    lg->logsf(geotop::logger::ERROR,
+                            "Error: negative initial snow depth %12g or snow water equivalent %12g",
+                            D, SWE);
+                    lg->log("Geotop failed. See failing report (7).",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+#else
                     t_error("Fatal Error! Geotop is closed. See failing report (7).");
+#endif
 
                 }else if(D<1.E-5 && SWE>1.E-5){
                     f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
@@ -1738,7 +2072,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
 
                     fclose(f);
+#ifdef WITH_LOGGER
+                    lg->logsf(geotop::logger::ERROR,
+                            "Initial snow water equivalent %12g > 0 and initial snow depth %12g",
+                            SWE, D);
+                    lg->log("Geotop failed. See failing report (8).",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+#else
                     t_error("Fatal Error! Geotop is closed. See failing report (8).");
+#endif
 
                 }else if(D>1.E-5 && SWE<1.E-5){
                     f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
@@ -1748,7 +2091,16 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     fprintf(f, "Error: Initial snow depth %e > 0 and initial snow water equivalent %e\n",D,SWE);
 #endif
                     fclose(f);
+#ifdef WITH_LOGGER
+                    lg->logsf(geotop::logger::ERROR,
+                            "Initial snow depth %12g > 0 and initial snow water equivalent %12g\n",
+                            D,SWE);
+                    lg->log("Geotop failed. See failing report (9).",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+#else
                     t_error("Fatal Error! Geotop is closed. See failing report (9).");
+#endif
 
                 }else if(D>1.E-5 || SWE>1.E-5){
 
@@ -1867,21 +2219,36 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /***************************************************************************************************/
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
     if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue && par->max_glac_layers==0){
+#ifdef WITH_LOGGER
+        lg->log("Glacier map present, but glacier represented with 0 layers",
+                geotop::logger::WARNING);
+#else
         printf("Warning: Glacier map present, but glacier represented with 0 layers\n");
         fprintf(flog,"Warning: Glacier map present, but glacier represented with 0 layers\n");
+#endif
     }
 
     if(par->max_glac_layers==0 && IT->Dglac0>0){
+#ifdef WITH_LOGGER
+        lg->log("You have chosen 0 glacier layers in block 10 in the parameter file, but you assigned a value of the glacier depth. The latter will be ignored.",
+                geotop::logger::WARNING);
+#else
         printf("\nWARNING: You have chosen 0 glacier layers in block 10 in the parameter file, but you assigned a value of the glacier depth. The latter will be ignored.\n");
         fprintf(flog,"\nWARNING: You have chosen 0 glacier layers in block 10 in the parameter file, but you assigned a value of the glacier depth. The latter will be ignored.\n");
+#endif
     }
 
     //If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum, Dzl. w_liq, w_ice, T and print matrices are defined, according to the respective flags
     if(par->max_glac_layers>0){
 
         if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
+#ifdef WITH_LOGGER
+        lg->logf("Glacier initial condition from file %s",
+                geotop::common::Variables::files[fgl0+1].c_str());
+#else
             printf("Glacier initial condition from file %s\n",geotop::common::Variables::files[fgl0+1].c_str());
             fprintf(flog,"Glacier initial condition from file %s\n",geotop::common::Variables::files[fgl0+1].c_str());
+#endif
             //M=read_map(2,geotop::common::Variables::files[fgl0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             meteoio_readMap(string(geotop::common::Variables::files[fgl0]), M);
         }else{
@@ -1920,7 +2287,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: negative glacier data\n");
                         fclose(f);
+#ifdef WITH_LOGGER
+                        lg->log("Negative glacier data",
+                                geotop::logger::ERROR);
+                        lg->log("Geotop failed. See failing report (10).",
+                                geotop::logger::CRITICAL);
+                        exit(1);
+#else
                         t_error("Fatal Error! Geotop is closed. See failing report (10).");
+#endif
 
                         //	}else if(M->co[r][c]>1.E-5){
                     }else if(M[r][c]>1.E-5){
@@ -2166,41 +2541,31 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     string temp;
     double min, max;
     FILE *f;
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
 
     meteoio_readDEM(top->Z0);
 
     //	reading TOPOGRAPHY
+#ifdef WITH_LOGGER
+    flag = file_exists(fdem);
+#else
     flag = file_exists(fdem, flog);
+#endif
     if(flag == 1){
-        //	M=new_doublematrix(1,1);
-        //	top->Z0=read_map(0,geotop::common::Variables::files[fdem], M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue); //topography
-        //	free_doublematrix(M);
-
-        //write_map(geotop::common::Variables::files[fdem], 0, par->format_out, top->Z0, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	meteoio_writeEsriasciiMap(geotop::common::Variables::files[fdem], pUV, top->Z0 ,geotop::input::gDoubleNoValue) ;
 
         //filtering
-
-        //	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
         M.resize(top->Z0.getRows(),top->Z0.getCols());
         multipass_topofilter(par->lowpass, top->Z0, M, geotop::input::gDoubleNoValue, 1);
-        //	copy_doublematrix(M, top->Z0);
         top->Z0=M;
-        //	free_doublematrix(M);
-        //	write_map(geotop::common::Variables::files[fdem], 0, par->format_out, top->Z0, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
         //	calculate East and North
-        //	top->East = new_doublematrix(top->Z0->nrh, top->Z0->nch);
         top->East.resize(top->Z0.getRows(), top->Z0.getCols());
-        //	top->North = new_doublematrix(top->Z0->nrh, top->Z0->nch);
         top->North.resize(top->Z0.getRows(), top->Z0.getCols());
-        //	for (r=1; r<=top->Z0->nrh; r++) {
         for (r=1; r<top->Z0.getRows(); r++) {
-            //	for (c=1; c<=top->Z0->nch; c++) {
             for (c=1; c<top->Z0.getCols(); c++) {
-                //	top->East->co[r][c] = UV->U->co[4] + (c-0.5)*UV->U->co[2];
                 top->East[r][c] = geotop::common::Variables::UV->U[4] + (c-0.5)*geotop::common::Variables::UV->U[2];
-                //	top->North->co[r][c] = UV->U->co[3] + (top->Z0->nrh-(r-0.5))*UV->U->co[1];
                 top->North[r][c] = geotop::common::Variables::UV->U[3] + ((top->Z0.getRows()-1)-(r-0.5))*geotop::common::Variables::UV->U[1];
             }
         }
@@ -2210,63 +2575,71 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
         fprintf(f, "Error: It is impossible to proceed without giving the digital elevation model\n");
         fclose(f);
+#ifdef WITH_LOGGER
+        lg->log("It is impossible to proceed without giving the digital elevation model",
+                geotop::logger::ERROR);
+        lg->log("Geotop failed. See failing report (11).",
+                geotop::logger::CRITICAL);
+        exit(1);
+#else
         t_error("Fatal Error! Geotop is closed. See failing report (11).");
+#endif
 
     }
 
     //	reading LAND COVER TYPE
+#ifdef WITH_LOGGER
+    flag = file_exists(flu);
+#else
     flag = file_exists(flu, flog);
+#endif
     if(flag == 1){
-        //	land->LC=read_map(1,geotop::common::Variables::files[flu], top->Z0, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[flu]), land->LC);
 
         //	Check borders
-        //	for(r=1;r<=land->LC->nrh;r++){
         for(r=1;r<land->LC.getRows();r++){
-            //	land->LC->co[r][1]=geotop::input::gDoubleNoValue;
             land->LC[r][1]=geotop::input::gDoubleNoValue;
-            //	land->LC->co[r][land->LC->nch]=geotop::input::gDoubleNoValue;
             land->LC[r][land->LC.getCols()-1]=geotop::input::gDoubleNoValue;
         }
-        //	for(c=1;c<=land->LC->nch;c++){
         for(c=1;c<land->LC.getCols();c++){
-            //	land->LC->co[1][c]=geotop::input::gDoubleNoValue;
             land->LC[1][c]=geotop::input::gDoubleNoValue;
-            //	land->LC->co[land->LC->nrh][c]=geotop::input::gDoubleNoValue;
             land->LC[land->LC.getRows()-1][c]=geotop::input::gDoubleNoValue;
         }
-        //	for(r=1;r<=land->LC->nrh;r++){
         for(r=1;r<land->LC.getRows();r++){
-            //	for(c=1;c<=land->LC->nch;c++){
             for(c=1;c<land->LC.getCols();c++){
-                //	if ((long)land->LC->co[r][c] != geotop::input::gDoubleNoValue) {
                 if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) {
-                    //	if ((long)land->LC->co[r][c] < 1 || (long)land->LC->co[r][c] > par->n_landuses){
                     if ((long)land->LC[r][c] < 1 || (long)land->LC[r][c] > par->n_landuses){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: It is not possible to assign Value < 1 or > n_landuses to the land cover type\n");
                         fclose(f);
+#ifdef WITH_LOGGER
+                        lg->log("It is not possible to assign Value < 1 or > n_landuses to the land cover type",
+                                geotop::logger::ERROR);
+                        lg->log("Geotop failed. See failing report (12).",
+                                geotop::logger::CRITICAL);
+                        exit(1);
+#else
                         t_error("Fatal Error! Geotop is closed. See failing report (12).");
+#endif
                     }
                 }
             }
         }
 
         //Land use is the official mask
-        //	for(r=1;r<=land->LC->nrh;r++){
         for(r=1;r< land->LC.getRows();r++){
-            //	for(c=1;c<=land->LC->nch;c++){
             for(c=1;c<land->LC.getCols();c++){
-                //	if((long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
                 if((long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
-                    //	if((long)top->Z0->co[r][c]==geotop::input::gDoubleNoValue){
                     if((long)top->Z0[r][c]==geotop::input::gDoubleNoValue){
+#ifdef WITH_LOGGER
+                        lg->log("Land use mask include DTM novalue pixels",
+                                geotop::logger::WARNING);
+#else
                         printf("ERROR Land use mask include DTM novalue pixels");
-                        //	printf("\nr:%ld c:%ld Z:%f landuse:%f\n",r,c,top->Z0->co[r][c],land->LC->co[r][c]);
                         printf("\nr:%ld c:%ld Z:%f landuse:%f\n",r,c,top->Z0[r][c],land->LC[r][c]);
-                        //	land->LC->co[r][c]=geotop::input::gDoubleNoValue;
                         land->LC[r][c]=geotop::input::gDoubleNoValue;
                         printf("LANDUSE set at novalue where DTM is not available\n");
+#endif
                     }
                 }
             }
@@ -2275,76 +2648,105 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     }else{
 
         //	Write land->LC (land cover)
+#ifdef WITH_LOGGER
+        lg->log("Land cover type assumed to be always 1");
+#else
         printf("Land cover type assumed to be always 1\n");
-        //	land->LC=copydoublematrix_const(1.0, top->Z0, geotop::input::gDoubleNoValue);
+#endif
         copydoublematrix_const(1.0, top->Z0,land->LC ,geotop::input::gDoubleNoValue);
 
-        //	for(r=1;r<=land->LC->nrh;r++){
         for(r=1;r<land->LC.getRows();r++){
-            //	land->LC->co[r][1]=geotop::input::gDoubleNoValue;
             land->LC[r][1]=geotop::input::gDoubleNoValue;
-            //	land->LC->co[r][land->LC->nch]=geotop::input::gDoubleNoValue;
             land->LC[r][land->LC.getCols()-1]=geotop::input::gDoubleNoValue;
         }
-        //	for(c=1;c<=land->LC->nch;c++){
         for(c=1;c<land->LC.getCols();c++){
-            //	land->LC->co[1][c]=geotop::input::gDoubleNoValue;
             land->LC[1][c]=geotop::input::gDoubleNoValue;
-            //	land->LC->co[land->LC->nrh][c]=geotop::input::gDoubleNoValue;
             land->LC[land->LC.getRows()-1][c]=geotop::input::gDoubleNoValue;
         }
     }
-    //if(flag >= 0) write_map(geotop::common::Variables::files[flu], 1, par->format_out, land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
+#ifdef WITH_LOGGER
+	lg->logf("par->state_pixel=%ld\n",
+            par->state_pixel);
+#else
 	printf("par->state_pixel=%ld\n",par->state_pixel);
+#endif
 	
     if(par->state_pixel == 1){
-        //	par->rc=new_longmatrix(par->chkpt->nrh,2);
         par->rc.resize(par->chkpt.getRows(),2+1);
-        //	par->IDpoint=new_longvector(par->chkpt->nrh);
         par->IDpoint.resize(par->chkpt.getRows());
-        //	for(i=1;i<=par->chkpt->nrh;i++){
 		
         for(i=1;i< par->chkpt.getRows();i++){
-            //	par->rc->co[i][1]=row(par->chkpt->co[i][ptY], top->Z0->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             par->rc[i][1]=row(par->chkpt[i][ptY], top->Z0.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            //	par->rc->co[i][2]=col(par->chkpt->co[i][ptX], top->Z0->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             par->rc[i][2]=col(par->chkpt[i][ptX], top->Z0.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
-            //	if (par->rc->co[i][1] == geotop::input::gDoubleNoValue || par->rc->co[i][2] == geotop::input::gDoubleNoValue) {
             if (par->rc[i][1] == geotop::input::gDoubleNoValue || par->rc[i][2] == geotop::input::gDoubleNoValue) {
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::ERROR,
+                        "Point #%4ld is out of the domain",
+                        i);
+#else
                 printf("Point #%4ld is out of the domain",i);
-
                 fprintf(flog, "Point #%4ld is out of the domain",i);
                 fclose(flog);
+#endif
 
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                 fprintf(f, "Point #%4ld is out of the domain",i);
                 fclose(f);
+
+#ifdef WITH_LOGGER
+                lg->log("Geotop failed. See failing report.",
+                        geotop::logger::CRITICAL);
+                exit(1);
+#else
                 t_error("Fatal Error! Geotop is closed. See failing report.");
+#endif
             }
 
-            //	if((long)land->LC->co[par->rc->co[i][1]][par->rc->co[i][2]]==geotop::input::gDoubleNoValue){
             if((long)land->LC[par->rc[i][1]][par->rc[i][2]]==geotop::input::gDoubleNoValue){
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::ERROR,
+                        "Point #%4ld corresponds to NOVALUE pixel",
+                        i);
+#else
                 printf("Point #%4ld corresponds to NOVALUE pixel",i);
-
                 fprintf(flog, "Point #%4ld corresponds to NOVALUE pixel",i);
                 fclose(flog);
+#endif
 
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                 fprintf(f, "Point #%4ld corresponds to NOVALUE pixel",i);
                 fclose(f);
+#ifdef WITH_LOGGER
+                lg->log("Geotop failed. See failing report.",
+                        geotop::logger::CRITICAL);
+                exit(1);
+#else
                 t_error("Fatal Error! Geotop is closed. See failing report.");
+#endif
             }
 			
+#ifdef WITH_LOGGER
+			lg->writefAll("i:%ld %f\n",i,par->chkpt[i][ptID]);
+#else
 			printf("i:%ld %f\n",i,par->chkpt[i][ptID]);
+#endif
 			
             if ((long)par->chkpt[i][ptID]!=geotop::input::gDoubleNoValue) {
                 par->IDpoint[i]=(long)par->chkpt[i][ptID];
+#ifdef WITH_LOGGER
+				lg->writefAll("A i:%ld %ld\n",i,par->IDpoint[i]);
+#else
 				printf("A i:%ld %ld\n",i,par->IDpoint[i]);
+#endif
             }else {
                 par->IDpoint[i]=i;
+#ifdef WITH_LOGGER
+				lg->writefAll("B i:%ld %ld\n",i,par->IDpoint[i]);
+#else
 				printf("B i:%ld %ld\n",i,par->IDpoint[i]);
+#endif
             }
 
         }
@@ -2354,115 +2756,122 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     /****************************************************************************************************/
 
     //reading SKY VIEW FACTOR
+#ifdef WITH_LOGGER
+    flag = file_exists(fsky);
+#else
     flag = file_exists(fsky, flog);
+#endif
     if(flag == 1){
-        //	top->sky=read_map(2,geotop::common::Variables::files[fsky], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fsky]), top->sky);
     }else{/*The sky view factor file "top->sky" must be calculated*/
-        //	top->sky = new_doublematrix(top->Z0->nrh,top->Z0->nch);
         top->sky.resize(top->Z0.getRows(),top->Z0.getCols());
         if (par->sky == 0) {
             //	initialize_doublematrix(top->sky, 1.);
             top->sky.resize(top->Z0.getRows(),top->Z0.getCols(),1.);
         }else {
-            //	curv = new_shortmatrix(top->Z0->nrh,top->Z0->nch);
             curv.resize(top->Z0.getRows(),top->Z0.getCols());
             nablaquadro_mask(top->Z0, curv, geotop::common::Variables::UV->U, geotop::common::Variables::UV->V);
             sky_view_factor(top->sky, 36, geotop::common::Variables::UV, top->Z0, curv, geotop::input::gDoubleNoValue);
-            //	free_shortmatrix(curv);
         }
     }
-    //if(flag >= 0) write_map(geotop::common::Variables::files[fsky], 0, par->format_out, top->sky, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
     /****************************************************************************************************/
 
     //reading DELAY
+#ifdef WITH_LOGGER
+    flag = file_exists(fdelay);
+#else
     flag = file_exists(fdelay, flog);
+#endif
     if(flag == 1){
-        //	land->delay = read_map(2,geotop::common::Variables::files[fdelay], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fdelay]), land->delay);
     }else{
-        //	land->delay = new_doublematrix(top->Z0->nrh,top->Z0->nch);
-        //	initialize_doublematrix(land->delay, 0);
         land->delay.resize(top->Z0.getRows(),top->Z0.getCols(),0);
     }
-    //if(flag >= 0) write_map(geotop::common::Variables::files[fdelay], 0, par->format_out, land->delay, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
     /****************************************************************************************************/
 
     //reading SOIL MAP
+#ifdef WITH_LOGGER
+    flag = file_exists(fsoil);
+#else
     flag = file_exists(fsoil, flog);
+#endif
     if(flag == 1){
-        //	M=read_map(2,geotop::common::Variables::files[fsoil], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fsoil]), M);
 
-        //	sl->type=copylong_doublematrix(M);
         copylong_doublematrix(sl->type, M);
-        //	for(r=1;r<=land->LC->nrh;r++){
         for(r=1;r<land->LC.getRows();r++){
-            //	for(c=1;c<=land->LC->nch;c++){
             for(c=1;c<land->LC.getCols();c++){
-                //	if ((long)land->LC->co[r][c] != geotop::input::gDoubleNoValue) {
                 if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) {
-                    //	if (sl->type->co[r][c] < 1 || sl->type->co[r][c] > par->nsoiltypes){
                     if (sl->type[r][c] < 1 || sl->type[r][c] > par->nsoiltypes){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: It is not possible to assign Value < 1 or > nsoiltypes to the soil type map");
                         fclose(f);
+#ifdef WITH_LOGGER
+                        lg->log("It is not possible to assign Value < 1 or > nsoiltypes to the soil type map",
+                                geotop::logger::ERROR);
+                        lg->log("GEOtop failed. See failing report (13).",
+                                geotop::logger::CRITICAL);
+                        exit(1);
+#else
                         t_error("Fatal Error! GEOtop is closed. See failing report (13).");
+#endif
                     }
                 }
             }
         }
     }else{
-        //	M=copydoublematrix_const(par->soil_type_land_default, land->LC, geotop::input::gDoubleNoValue);
         copydoublematrix_const(par->soil_type_land_default, land->LC, M, geotop::input::gDoubleNoValue);
 
-        //	sl->type=copylong_doublematrix(M);
         copylong_doublematrix(sl->type,M);
     }
-    //if(flag >= 0) write_map(geotop::common::Variables::files[fsoil], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-    //	free_doublematrix(M);
-
 
     /****************************************************************************************************/
     //SLOPE
-    //	top->dzdE = new_doublematrix(land->LC->nrh, land->LC->nch);
     top->dzdE.resize(land->LC.getRows(), land->LC.getCols());
-    //	top->dzdN = new_doublematrix(land->LC->nrh, land->LC->nch);
     top->dzdN.resize(land->LC.getRows(), land->LC.getCols());
 
-    //	find_slope(UV->U->co[1], UV->U->co[2], top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue);
     find_slope(geotop::common::Variables::UV->U[1], geotop::common::Variables::UV->U[2], top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue);
 
+#ifdef WITH_LOGGER
+    flag = file_exists(fslp);
+#else
     flag = file_exists(fslp, flog);
+#endif
     if(flag == 1){
-        //	top->slope=read_map(2,geotop::common::Variables::files[fslp], top->Z0, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);		//reads in degrees
         meteoio_readMap(string(geotop::common::Variables::files[fslp]), top->slope);
     }else{
-        //	top->slope=find_max_slope(top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue);
         find_max_slope(top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue, top->slope);
     }
-    //if(flag >= 0) write_map(geotop::common::Variables::files[fslp], 0, par->format_out, top->slope, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
     find_min_max(top->slope, geotop::input::gDoubleNoValue, &max, &min);
 
+#ifdef WITH_LOGGER
+    lg->logf("Slope Min:%12g (%12g deg) Max:%12g (%12g deg)",
+            tan(min*GTConst::Pi/180.), min,
+            tan(max*GTConst::Pi/180.), max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Slope Min:%12g (%12g deg) Max:%12g (%12g deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
     fprintf(flog,"Slope Min:%12g (%12g deg) Max:%12g (%12g deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
 #else
     printf("Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
     fprintf(flog,"Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     /****************************************************************************************************/
     //ASPECT
+
+#ifdef WITH_LOGGER
+    flag = file_exists(fasp);
+#else
     flag = file_exists(fasp, flog);
+#endif
     if(flag == 1){
-        //	top->aspect=read_map(2,geotop::common::Variables::files[fasp], top->Z0, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fasp]), top->aspect);
     }else{
-        //	top->aspect=find_aspect(top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue);
         find_aspect(top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue,top->aspect);
     }
 	if(flag >= 0) write_map(geotop::common::Variables::files[fasp], 0, par->format_out, top->aspect, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
@@ -2470,82 +2879,83 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
 
     /****************************************************************************************************/
     //curvature
-    //	top->curvature1=new_doublematrix(top->Z0->nrh,top->Z0->nch);
+
     top->curvature1.resize(top->Z0.getRows(),top->Z0.getCols());
-    //	top->curvature2=new_doublematrix(top->Z0->nrh,top->Z0->nch);
     top->curvature2.resize(top->Z0.getRows(),top->Z0.getCols());
-    //	top->curvature3=new_doublematrix(top->Z0->nrh,top->Z0->nch);
     top->curvature3.resize(top->Z0.getRows(),top->Z0.getCols());
-    //	top->curvature4=new_doublematrix(top->Z0->nrh,top->Z0->nch);
     top->curvature4.resize(top->Z0.getRows(),top->Z0.getCols());
 
     //filtering
-    //	M=new_doublematrix(top->Z0->nrh,top->Z0->nch);
     M.resize(top->Z0.getRows(),top->Z0.getCols());
-    //	multipass_topofilter(par->lowpass_curvatures, top->Z0, M, geotop::input::gDoubleNoValue, 1);
     multipass_topofilter(par->lowpass_curvatures, top->Z0, M, geotop::input::gDoubleNoValue, 1);
-    //	curvature(UV->U->co[1], UV->U->co[2], M, top->curvature1, top->curvature2, top->curvature3, top->curvature4, geotop::input::gDoubleNoValue);
     curvature(geotop::common::Variables::UV->U[1], geotop::common::Variables::UV->U[2], M, top->curvature1, top->curvature2, top->curvature3, top->curvature4, geotop::input::gDoubleNoValue);
-    //	free_doublematrix(M);
 
     if(geotop::common::Variables::files[fcurv] != geotop::input::gStringNoValue){
-        //	temp = join_strings(geotop::common::Variables::files[fcurv], "N-S");
         temp =geotop::common::Variables::files[fcurv] + string("N-S");
         write_map(temp, 0, par->format_out, top->curvature1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	free(temp);
 
-        //	temp = join_strings(geotop::common::Variables::files[fcurv], "W-E");
         temp =geotop::common::Variables::files[fcurv] + string("W-E");
         write_map(temp, 0, par->format_out, top->curvature2, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	free(temp);
 
-        //	temp = join_strings(geotop::common::Variables::files[fcurv], "NW-SE");
         temp =geotop::common::Variables::files[fcurv] + string("NW-SE");
         write_map(temp, 0, par->format_out, top->curvature3, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	free(temp);
 
-        //	temp = join_strings(geotop::common::Variables::files[fcurv], "NE-SW");
         temp =geotop::common::Variables::files[fcurv] + string("NE-SW");
         write_map(temp, 0, par->format_out, top->curvature4, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	free(temp);
     }
 
     find_min_max(top->curvature1, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+    lg->logf("Curvature N-S Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Curvature N-S Min:%12g  Max:%12g \n",min,max);
     fprintf(flog,"Curvature N-S Min:%12g  Max:%12g \n",min,max);
 #else
     printf("Curvature N-S Min:%f  Max:%f \n",min,max);
     fprintf(flog,"Curvature N-S Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     find_min_max(top->curvature2, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+    lg->logf("Curvature W-E Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Curvature W-E Min:%12g  Max:%12g \n",min,max);
     fprintf(flog,"Curvature W-E Min:%12g  Max:%12g \n",min,max);
 #else
     printf("Curvature W-E Min:%f  Max:%f \n",min,max);
     fprintf(flog,"Curvature W-E Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     find_min_max(top->curvature3, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+    lg->logf("Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
     fprintf(flog,"Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
 #else
     printf("Curvature NW-SE Min:%f  Max:%f \n",min,max);
     fprintf(flog,"Curvature NW-SE Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     find_min_max(top->curvature4, geotop::input::gDoubleNoValue, &max, &min);
 
+#ifdef WITH_LOGGER
+    lg->logf("Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
     printf("Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
     fprintf(flog,"Curvature NE-SW Min:%f  Max:%f \n",min,max);
 #else
     printf("Curvature NE-SW Min:%f  Max:%f \n",min,max);
     fprintf(flog,"Curvature NE-SW Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
     /****************************************************************************************************/
     //Channel network (in top->pixel_type)
@@ -2555,43 +2965,49 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     //pixel type = 10 channel pixel (if it is on the border, the border is impermeable, water is free only on the surface)
     //pixel type = -1 land pixel where an incoming discharge from outside is considered (as rain)
 
+#ifdef WITH_LOGGER
+    flag = file_exists(fnet);
+#else
     flag = file_exists(fnet, flog);
+#endif
     if(flag == 1){
-        //M=read_map(2,geotop::common::Variables::files[fnet], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
         meteoio_readMap(string(geotop::common::Variables::files[fnet]), M);
 
-        //	top->pixel_type=copyshort_doublematrix(M);
         copyshort_doublematrix(top->pixel_type, M);
 
         cont = 0;
-        //	for(r=1;r<=top->Z0->nrh;r++){
         for(r=1;r<top->Z0.getRows();r++){
-            //	for(c=1;c<=top->Z0->nch;c++){
             for(c=1;c<top->Z0.getCols();c++){
-                //	if((long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
                 if((long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
-                    //	if(top->pixel_type->co[r][c]!=0 && top->pixel_type->co[r][c]!=1 && top->pixel_type->co[r][c]!=2 && top->pixel_type->co[r][c]!=10){
                     if(top->pixel_type[r][c]!=0 && top->pixel_type[r][c]!=1 && top->pixel_type[r][c]!=2 && top->pixel_type[r][c]!=10){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: Only the following values are admitted in the network map: 0, 1, 10\n");
                         fclose(f);
-                        t_error("Fatal Error! GEOtop is closed. See failing report (14).");
+#ifdef WITH_LOGGER
+                        lg->log("Only the following values are admitted in the network map: 0, 1, 10",
+                                geotop::logger::ERROR);
+                        lg->log("Geotop failed. See failing report (14).",
+                                geotop::logger::CRITICAL);
+                        exit(1);
+#else
+                        t_error("Fatal Error! Geotop is closed. See failing report (14).");
+#endif
                     }
-                    //	if(top->pixel_type->co[r][c]==10) cont++;
                     if(top->pixel_type[r][c]==10) cont++;
                 }
             }
         }
 
+#ifdef WITH_LOGGER
+        lg->logf("Channel networks has %ld pixels set to channel",cont);
+#else
         printf("Channel networks has %ld pixels set to channel\n",cont);
+#endif
 
         if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-        //	free_doublematrix(M);
 
     }else{
 
-        //	top->pixel_type=new_shortmatrix(land->LC->nrh, land->LC->nch);
-        //	initialize_shortmatrix(top->pixel_type, 0);
         top->pixel_type.resize(land->LC.getRows(), land->LC.getCols(), 0);
 
     }
@@ -2599,18 +3015,12 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     /****************************************************************************************************/
 
     //border
-    //	top->is_on_border=new_shortmatrix(land->LC->nrh, land->LC->nch);
     top->is_on_border.resize(land->LC.getRows(), land->LC.getCols());
-    //	for(r=1;r<=land->LC->nrh;r++){
     for(r=1;r<land->LC.getRows();r++){
-        //	for(c=1;c<=land->LC->nch;c++){
         for(c=1;c<land->LC.getCols();c++){
-            //	if ( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
             if ( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
-                //	top->is_on_border->co[r][c] = is_boundary(r, c, land->LC, geotop::input::gDoubleNoValue);
                 top->is_on_border[r][c] = is_boundary(r, c, land->LC, geotop::input::gDoubleNoValue);
             }else{
-                //	top->is_on_border->co[r][c] = -1;
                 top->is_on_border[r][c] = -1;
             }
         }
@@ -2618,48 +3028,33 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
 
     //count the pixels having pixel_type = 1, 2 or -1
     cont = 0;
-    //	for(r=1;r<=top->Z0->nrh;r++){
+
     for(r=1;r<top->Z0.getRows();r++){
-        //	for(c=1;c<=top->Z0->nch;c++){
         for(c=1;c<top->Z0.getCols();c++){
-            //	if(top->is_on_border->co[r][c]==1){
             if(top->is_on_border[r][c]==1){
-                //	if (top->pixel_type->co[r][c] == -1 || top->pixel_type->co[r][c] == 1 || top->pixel_type->co[r][c] == 2) cont ++;
                 if (top->pixel_type[r][c] == -1 || top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2) cont ++;
             }
         }
     }
 
-    //	top->BC_counter = new_longmatrix(top->Z0->nrh, top->Z0->nch);
-    //	initialize_longmatrix(top->BC_counter, 0);
     top->BC_counter.resize(top->Z0.getRows(), top->Z0.getCols(), 0);
 
-
     if (cont > 0) {
-        //	top->BC_DepthFreeSurface = new_doublevector(cont);
         top->BC_DepthFreeSurface.resize(cont+1);
 
         cont = 0;
-        //	for(r=1;r<=top->Z0->nrh;r++){
         for(r=1;r<top->Z0.getRows();r++){
-            //	for(c=1;c<=top->Z0->nch;c++){
             for(c=1;c<top->Z0.getCols();c++){
-                //	if(top->is_on_border->co[r][c]==1){
                 if(top->is_on_border[r][c]==1){
-                    //	if (top->pixel_type->co[r][c] == -1 || top->pixel_type->co[r][c] == 1 || top->pixel_type->co[r][c] == 2){
                     if (top->pixel_type[r][c] == -1 || top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2){
                         cont ++;
-                        //	top->BC_counter->co[r][c] = cont;
                         top->BC_counter[r][c] = cont;
-                        //	top->BC_DepthFreeSurface->co[cont] = par->DepthFreeSurface; //[mm]
                         top->BC_DepthFreeSurface[cont] = par->DepthFreeSurface; //[mm]
                     }
                 }
             }
         }
     }else {
-        //	top->BC_DepthFreeSurface = new_doublevector(1);
-        //	initialize_doublevector(top->BC_DepthFreeSurface, geotop::input::gDoubleNoValue);
         top->BC_DepthFreeSurface.resize(2,geotop::input::gDoubleNoValue);
     }
 
@@ -2678,26 +3073,23 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog){
 void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT, FILE *flog){
 
     long i, r, c, num_lines;
-    //	DOUBLEMATRIX *Q, *P, *R, *S, *T, *Z, *LU;
     GeoMatrix<double> Q, P, R, S, T, Z, LU;
-    //	SHORTMATRIX *curv;
     GeoMatrix<short> curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
-    //	char *temp;
     string temp;
     double min, max;
     FILE *f;
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
 
     //4. CALCULATE TOPOGRAPHIC PROPERTIES
     //check if there are point coordinates
     coordinates = 1;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i<par->chkpt.getRows();i++){
-        //	if ( (long)par->chkpt->co[i][ptX]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptY]==geotop::input::gDoubleNoValue ) coordinates = 0;
         if ( (long)par->chkpt[i][ptX]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptY]==geotop::input::gDoubleNoValue ) coordinates = 0;
     }
     /*if (coordinates == 0 && par->recover>0){
@@ -2710,13 +3102,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     //a. read dem
     read_dem=0;
-    //if(par->recover>0) read_dem=1;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //		if((long)par->chkpt->co[i][ptLC]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptSY]==geotop::input::gDoubleNoValue ||
-        //		   (long)par->chkpt->co[i][ptS]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptA]==geotop::input::gDoubleNoValue ||
-        //		   (long)par->chkpt->co[i][ptCNS]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptCWE]==geotop::input::gDoubleNoValue ||
-        //		   (long)par->chkpt->co[i][ptCNwSe]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptCNeSw]==geotop::input::gDoubleNoValue){
         if((long)par->chkpt[i][ptLC]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptSY]==geotop::input::gDoubleNoValue ||
                 (long)par->chkpt[i][ptS]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptA]==geotop::input::gDoubleNoValue ||
                 (long)par->chkpt[i][ptCNS]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptCWE]==geotop::input::gDoubleNoValue ||
@@ -2725,15 +3111,30 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }
     }
     if(read_dem == 1 && coordinates == 0){
+#ifdef WITH_LOGGER
+        lg->log("Not possible to read from dem because at least one point has no coordinates",
+                geotop::logger::WARNING);
+#else
         printf("Warning: Not possible to read from dem because at least one point has no coordinates\n");
         fprintf(flog,"Warning: Not possible to read from dem because at least one point has no coordinates\n");
+#endif
         read_dem = 0;
     }
     if(read_dem==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(fdem);
+#else
         flag = file_exists(fdem, flog);
+#endif
         if(flag == 1){
+#ifdef WITH_LOGGER
+        lg->logsf(geotop::logger::WARNING,
+                "Dem file %s present",
+                geotop::common::Variables::files[fdem+1].c_str());
+#else
             printf("Warning: Dem file %s present\n",geotop::common::Variables::files[fdem+1].c_str());
             fprintf(flog,"Warning: Dem file %s present\n",geotop::common::Variables::files[fdem+1].c_str());
+#endif
 
             //	Q=new_doublematrix(1,1);
             //	Z=read_map(0,geotop::common::Variables::files[fdem], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue); //topography
@@ -2750,8 +3151,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }else{
 
             read_dem=0;
+#ifdef WITH_LOGGER
+        lg->log("Dem file not present",
+                geotop::logger::WARNING);
+#else
             printf("Warning: Dem file not present\n");
             fprintf(flog,"Warning: Dem file not present\n");
+#endif
 
             /*if(par->recover>0){
                 printf("Warning: Not possible to recover the simulation because there is no dem\n");
@@ -2791,7 +3197,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     if(read_lu==1 && coordinates==0) read_lu=0;
     if(read_lu==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(flu);
+#else
         flag = file_exists(flu, flog);
+#endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[flu]), LU); //HACK: add consitency check in meteoioplugin
             /*if(read_dem==0){
@@ -2803,8 +3213,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
                 }*/
 
         }else{
+#ifdef WITH_LOGGER
+        lg->log("Landuse file not present, uniform cover considered",
+                geotop::logger::WARNING);
+#else
             printf("Warning: Landuse file not present, uniform cover considered\n");
             fprintf(flog,"Warning: Landuse file not present, uniform cover considered\n");
+#endif
             if(read_dem==1){
                 //	LU=copydoublematrix_const(1.0, Z, geotop::input::gDoubleNoValue);
                 copydoublematrix_const(1.0, Z, LU,geotop::input::gDoubleNoValue);
@@ -2845,7 +3260,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     if(read_soil==1 && coordinates==0) read_soil=0;
     if(read_soil==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(fsoil);
+#else
         flag = file_exists(fsoil, flog);
+#endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fsoil]), P); //HACK: add consitency check in meteoioplugin
             /*
@@ -2858,8 +3277,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             }
             */
         }else{
+#ifdef WITH_LOGGER
+        lg->log("Soiltype file not present",
+                geotop::logger::WARNING);
+#else
             printf("Warning: Soiltype file not present\n");
             fprintf(flog,"Warning: Soiltype file not present\n");
+#endif
             read_soil=0;
         }
     }
@@ -2888,7 +3312,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     if(read_sl==1 && coordinates==0) read_sl=0;
     if(read_sl==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(fslp);
+#else
         flag = file_exists(fslp, flog);
+#endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fslp]), P); //HACK: add consitency check in meteoioplugin
             /*
@@ -2902,8 +3330,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             */
         }else{
             if(read_dem==0){
+#ifdef WITH_LOGGER
+        lg->log("Slopes file not present",
+                geotop::logger::WARNING);
+#else
                 printf("Warning: Slopes file not present\n");
                 fprintf(flog,"Warning: Slopes file not present\n");
+#endif
                 read_sl=0;
             }else{
                 //	Q=new_doublematrix(Z->nrh,Z->nch);
@@ -2923,13 +3356,17 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     if(read_sl==1){
         find_min_max(P, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+        lg->writefAll("Slope Min:%12g (%12g deg) Max:%12g (%12g deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
         printf("Slope Min:%12g (%12g deg) Max:%12g (%12g deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
         fprintf(flog,"Slope Min:%12g (%12g deg) Max:%12g (%12g deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
 #else
         printf("Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
         fprintf(flog,"Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*GTConst::Pi/180.),min,tan(max*GTConst::Pi/180.),max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
         //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
@@ -2955,7 +3392,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     if(read_as==1 && coordinates==0) read_as=0;
     if(read_as==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(fasp);
+#else
         flag = file_exists(fasp, flog);
+#endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fasp]), P); //HACK: add consitency check in meteoioplugin
             /*
@@ -2969,8 +3410,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             */
         }else{
             if(read_dem==0){
+#ifdef WITH_LOGGER
+        lg->log("Aspect file not present",
+                geotop::logger::WARNING);
+#else
                 printf("Warning: Aspect file not present\n");
                 fprintf(flog,"Warning: Aspect file not present\n");
+#endif
                 read_as=0;
             }else{
                 //	Q=new_doublematrix(Z->nrh,Z->nch);
@@ -3014,7 +3460,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     if(read_sk==1 && coordinates==0) read_sk=0;
     if(read_sk==1){
+#ifdef WITH_LOGGER
+        flag = file_exists(fsky);
+#else
         flag = file_exists(fsky, flog);
+#endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fsky]), P); //HACK: add consitency check in meteoioplugin
             /*
@@ -3028,8 +3478,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             */
         }else{
             if(read_dem==0){
+#ifdef WITH_LOGGER
+        lg->log("Sky view factor file not present",
+                geotop::logger::WARNING);
+#else
                 printf("Warning: Sky view factor file not present\n");
                 fprintf(flog,"Warning: Sky view factor file not present\n");
+#endif
                 read_sk=0;
             }else{
                 //	P=new_doublematrix(Z->nrh,Z->nch);
@@ -3067,12 +3522,21 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 	}
 	if(read_bed==1 && coordinates==0) read_bed=0;
 	if(read_bed==1){
+#ifdef WITH_LOGGER
+		flag = file_exists(fbed);
+#else
 		flag = file_exists(fbed, flog);
+#endif
 		if(flag == 1){
 				meteoio_readMap(string(geotop::common::Variables::files[fbed]), P);
 		}else{
+#ifdef WITH_LOGGER
+        lg->log("Bedrock depth file not present",
+                geotop::logger::WARNING);
+#else
 			printf("Warning: Bedrock depth file not present\n");
 			fprintf(flog,"Warning: Bedrock view factor file not present\n");
+#endif
 			read_bed=0;
 		}
 	}
@@ -3099,8 +3563,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     if(read_curv==1 && coordinates==0) read_curv=0;
     if(read_curv==1){
         if(read_dem==0){
+#ifdef WITH_LOGGER
+        lg->log("Dem file is not present, and therefore it is not possible to calculate curvature",
+                geotop::logger::WARNING);
+#else
             printf("Warning: Dem file is not present, and therefore it is not possible to calculate curvature\n");
             fprintf(flog,"Warning: Dem file is not present, and therefore it is not possible to calculate curvature\n");
+#endif
             read_curv=0;
         }else{
             //	Q=new_doublematrix(Z->nrh,Z->nch);
@@ -3142,40 +3611,56 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             }
 
             find_min_max(P, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+            lg->writefAll("Curvature N-S Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             printf("Curvature N-S Min:%12g  Max:%12g \n",min,max);
             fprintf(flog,"Curvature N-S Min:%12g  Max:%12g \n",min,max);
 #else
             printf("Curvature N-S Min:%f  Max:%f \n",min,max);
             fprintf(flog,"Curvature N-S Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
             find_min_max(R, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+            lg->writefAll("Curvature W-E Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             printf("Curvature W-E Min:%12g  Max:%12g \n",min,max);
             fprintf(flog,"Curvature W-E Min:%12g  Max:%12g \n",min,max);
 #else
             printf("Curvature W-E Min:%f  Max:%f \n",min,max);
             fprintf(flog,"Curvature W-E Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
             find_min_max(S, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+            lg->writefAll("Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             printf("Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
             fprintf(flog,"Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
 #else
             printf("Curvature NW-SE Min:%f  Max:%f \n",min,max);
             fprintf(flog,"Curvature NW-SE Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
 
             find_min_max(T, geotop::input::gDoubleNoValue, &max, &min);
+#ifdef WITH_LOGGER
+            lg->writefAll("Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
+#else
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             printf("Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
             fprintf(flog,"Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
 #else
             printf("Curvature NE-SW Min:%f  Max:%f \n",min,max);
             fprintf(flog,"Curvature NE-SW Min:%f  Max:%f \n",min,max);
-#endif
+#endif //USE_DOUBLE_PRECISION_OUTPUT
+#endif //WITH_LOGGER
         }
     }
     if(read_curv==1){
@@ -3238,16 +3723,34 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     //i.show results
+#ifdef WITH_LOGGER
+    lg->writefAll("\nPOINTS:\n");
+    lg->writefAll("ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
+#else
     fprintf(flog,"\nPOINTS:\n");
     fprintf(flog,"ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
-    //	for(r=1;r<=par->chkpt->nrh;r++){
+#endif
+
     for(r=1;r< par->chkpt.getRows();r++){
         for(c=1;c<ptTOT;c++){
-            //	fprintf(flog,"%f",par->chkpt->co[r][c]);
+#ifdef WITH_LOGGER
+            lg->writefAll("%f",par->chkpt[r][c]);
+#else
             fprintf(flog,"%f",par->chkpt[r][c]);
-            if (c<ptTOT) fprintf(flog, ",");
+#endif
+            if (c<ptTOT) {
+#ifdef WITH_LOGGER
+                lg->writefAll(",");
+#else
+                fprintf(flog, ",");
+#endif
+            }
         }
+#ifdef WITH_LOGGER
+        lg->writefAll("\n");
+#else
         fprintf(flog,"\n");
+#endif
     }
 
     //l. set UV
@@ -3283,143 +3786,114 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     //5. SET CHECKPOINT
     if(par->state_pixel == 1){
-        //	par->rc=new_longmatrix(par->chkpt->nrh,2);
         par->rc.resize(par->chkpt.getRows(),2+1);
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	par->rc->co[i][1]=1;
             par->rc[i][1]=1;
-            //	par->rc->co[i][2]=i;
             par->rc[i][2]=i;
         }
     }
 
     //6. SET PROPERTIES
-    //	top->East=new_doublematrix(1,par->chkpt->nrh);
     top->East.resize(1+1,par->chkpt.getRows());
-    //	top->North=new_doublematrix(1,par->chkpt->nrh);
     top->North.resize(1+1,par->chkpt.getRows());
-    //	top->Z0=new_doublematrix(1,par->chkpt->nrh);
     top->Z0.resize(1+1,par->chkpt.getRows());
-    //	land->LC=new_doublematrix(1,par->chkpt->nrh);
     land->LC.resize(1+1,par->chkpt.getRows());
-    //	land->delay=new_doublematrix(1,par->chkpt->nrh);
     land->delay.resize(1+1,par->chkpt.getRows());
-    //	sl->type=new_longmatrix(1,par->chkpt->nrh);
     sl->type.resize(1+1,par->chkpt.getRows());
-    //	top->slope=new_doublematrix(1,par->chkpt->nrh);
     top->slope.resize(1+1,par->chkpt.getRows());
-    //	top->aspect=new_doublematrix(1,par->chkpt->nrh);
     top->aspect.resize(1+1,par->chkpt.getRows());
-    //	top->curvature1=new_doublematrix(1,par->chkpt->nrh);
     top->curvature1.resize(1+1,par->chkpt.getRows());
-    //	top->curvature2=new_doublematrix(1,par->chkpt->nrh);
     top->curvature2.resize(1+1,par->chkpt.getRows());
-    //	top->curvature3=new_doublematrix(1,par->chkpt->nrh);
     top->curvature3.resize(1+1,par->chkpt.getRows());
-    //	top->curvature4=new_doublematrix(1,par->chkpt->nrh);
     top->curvature4.resize(1+1,par->chkpt.getRows());
-    //	top->sky=new_doublematrix(1,par->chkpt->nrh);
     top->sky.resize(1+1,par->chkpt.getRows());
-    //	top->pixel_type=new_shortmatrix(1,par->chkpt->nrh);
     top->pixel_type.resize(1+1,par->chkpt.getRows());
-    //	top->BC_counter=new_longmatrix(1,par->chkpt->nrh);
     top->BC_counter.resize(1+1,par->chkpt.getRows());
-    //	top->BC_DepthFreeSurface=new_doublevector(par->chkpt->nrh);
     top->BC_DepthFreeSurface.resize(par->chkpt.getRows());
-    //	par->maxSWE=new_doublematrix(1,par->chkpt->nrh);
     par->maxSWE.resize(2,par->chkpt.getRows());
-    //	top->horizon_point=new_longmatrix(1,par->chkpt->nrh);
     top->horizon_point.resize(1+1,par->chkpt.getRows());
-    //	top->dzdE=new_doublematrix(1,par->chkpt->nrh);
     top->dzdE.resize(1+1,par->chkpt.getRows());
-    //	top->dzdN=new_doublematrix(1,par->chkpt->nrh);
     top->dzdN.resize(1+1,par->chkpt.getRows());
-    //	top->latitude=new_doublematrix(1,par->chkpt->nrh);
     top->latitude.resize(2,par->chkpt.getRows());
-    //	top->longitude=new_doublematrix(1,par->chkpt->nrh);
     top->longitude.resize(2,par->chkpt.getRows());
-    //	par->IDpoint=new_longvector(par->chkpt->nrh);
     par->IDpoint.resize(par->chkpt.getRows());
-    //	for(i=1;i<=par->chkpt->nrh;i++){
 	
 	
     for(i=1;i< par->chkpt.getRows();i++){
-        //	top->East->co[1][i]=par->chkpt->co[i][ptX];
         top->East[1][i]=par->chkpt[i][ptX];
-        //	top->North->co[1][i]=par->chkpt->co[i][ptY];
         top->North[1][i]=par->chkpt[i][ptY];
-        //	top->Z0->co[1][i]=par->chkpt->co[i][ptZ];
         top->Z0[1][i]=par->chkpt[i][ptZ];
-        //	land->LC->co[1][i]=par->chkpt->co[i][ptLC];
         land->LC[1][i]=par->chkpt[i][ptLC];
 
-        //	if((long)land->LC->co[1][i] <= 0){
         if((long)land->LC[1][i] <= 0){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error:: Point %ld has land cover type <= 0. This is not admitted.\n",i);
             fclose(f);
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::ERROR,
+            "Point %ld has land cover type <= 0. This is not admitted.",
+            i);
+            lg->log("Geotop failed. See failing report (15).",
+            geotop::logger::CRITICAL);
+            exit(1);
+#else
             t_error("Fatal Error! Geotop is closed. See failing report (15).");
+#endif
         }
 
-        //	sl->type->co[1][i]=(long)par->chkpt->co[i][ptSY];
         sl->type[1][i]=(long)par->chkpt[i][ptSY];
 
-        //	if(sl->type->co[1][i] <= 0){
         if(sl->type[1][i] <= 0){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error:: Point %ld has soil type <= 0. This is not admitted.\n",i);
             fclose(f);
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::ERROR,
+            "Point %ld has soil type <= 0. This is not admitted.",
+            i);
+            lg->log("Geotop failed. See failing report (16).",
+            geotop::logger::CRITICAL);
+            exit(1);
+#else
             t_error("Fatal Error! Geotop is closed. See failing report (16).");
+#endif
         }
 
-        //	top->slope->co[1][i]=par->chkpt->co[i][ptS];
         top->slope[1][i]=par->chkpt[i][ptS];
-        //	top->aspect->co[1][i]=par->chkpt->co[i][ptA];
         top->aspect[1][i]=par->chkpt[i][ptA];
-        //	top->sky->co[1][i]=par->chkpt->co[i][ptSKY];
         top->sky[1][i]=par->chkpt[i][ptSKY];
-        //	top->curvature1->co[1][i]=par->chkpt->co[i][ptCNS];
         top->curvature1[1][i]=par->chkpt[i][ptCNS];
-        //	top->curvature2->co[1][i]=par->chkpt->co[i][ptCWE];
         top->curvature2[1][i]=par->chkpt[i][ptCWE];
-        //	top->curvature3->co[1][i]=par->chkpt->co[i][ptCNwSe];
         top->curvature3[1][i]=par->chkpt[i][ptCNwSe];
-        //	top->curvature4->co[1][i]=par->chkpt->co[i][ptCNeSw];
         top->curvature4[1][i]=par->chkpt[i][ptCNeSw];
-        //	top->pixel_type->co[1][i]=1;
         top->pixel_type[1][i]=1;
-        //	top->BC_counter->co[1][i]=i;
         top->BC_counter[1][i]=i;
-        //	top->BC_DepthFreeSurface->co[i]=par->chkpt->co[i][ptDrDEPTH];
         top->BC_DepthFreeSurface[i]=par->chkpt[i][ptDrDEPTH];
-        //	top->horizon_point->co[1][i]=(long)par->chkpt->co[i][ptHOR];
         top->horizon_point[1][i]=(long)par->chkpt[i][ptHOR];
-        //	top->dzdE->co[1][i]=0.;
         top->dzdE[1][i]=0.;
-        //	top->dzdN->co[1][i]=0.;
         top->dzdN[1][i]=0.;
-        //	land->delay->co[1][i]=0.;
         land->delay[1][i]=0.;
 
-        //	if(sl->type->co[1][i] <= 0){
         if(sl->type[1][i] <= 0){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error:: Point %ld has horizon type <= 0. This is not admitted.\n",i);
             fclose(f);
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::ERROR,
+            "Point %ld has horizon type <= 0. This is not admitted.",
+            i);
+            lg->log("Geotop failed. See failing report (17).",
+            geotop::logger::CRITICAL);
+            exit(1);
+#else
             t_error("Fatal Error! Geotop is closed. See failing report (17).");
+#endif
         }
 
-        //	par->maxSWE->co[1][i]=par->chkpt->co[i][ptMAXSWE];
         par->maxSWE[1][i]=par->chkpt[i][ptMAXSWE];
-        //	top->latitude->co[1][i]=par->chkpt->co[i][ptLAT];
         top->latitude[1][i]=par->chkpt[i][ptLAT];
-        //	top->longitude->co[1][i]=par->chkpt->co[i][ptLON];
         top->longitude[1][i]=par->chkpt[i][ptLON];
-        //	par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
         par->IDpoint[i]=(long)par->chkpt[i][ptID];
-		
-		
 
 //        IT->bed[1][i]=par->chkpt[i][ptBED];
 //        if( (long)IT->bed[1][i] == geotop::input::gDoubleNoValue ) IT->bed[1][i] = 1.E99;
@@ -3427,19 +3901,12 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     //7. SET PAR
-    //	for (i=1; i<=par->init_date->nh; i++) {
     for (size_t i=1; i< par->init_date.size(); i++) {
-        //	par->output_soil->co[i]=0.;
         par->output_soil[i]=0.;
-        //	par->output_snow->co[i]=0.;
         par->output_snow[i]=0.;
-        //	par->output_glac->co[i]=0.;
         par->output_glac[i]=0.;
-        //	par->output_surfenergy->co[i]=0.;
         par->output_surfenergy[i]=0.;
-        //	par->output_vegetation->co[i]=0.;
         par->output_vegetation[i]=0.;
-        //	par->output_meteo->co[i]=0.;
         par->output_meteo[i]=0.;
     }
 
@@ -3452,11 +3919,8 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     //8. READ HORIZONS
     //find max top->horizon_point
     top->num_horizon_point=0;
-    //	for(r=1;r<=top->horizon_point->nrh;r++){
     for(r=1;r<=top->horizon_point.getRows()-1;r++){
-        //	for(c=1;c<=top->horizon_point->nch;c++){
         for(c=1;c<=top->horizon_point.getCols()-1;c++){
-            //	if (top->horizon_point->co[r][c] > top->num_horizon_point) top->num_horizon_point = top->horizon_point->co[r][c];
             if (top->horizon_point[r][c] > top->num_horizon_point) top->num_horizon_point = top->horizon_point[r][c];
         }
     }
@@ -3467,21 +3931,15 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         c=0;
         do{
             flag = 0;
-            //	if (c < par->chkpt->nrh) {
             if (c < par->chkpt.getRows()-1) {
-                //	if (top->horizon_point->co[1][c+1] != i) c++;
                 if (top->horizon_point[1][c+1] != i) c++;
             }
-            //	if (c < par->chkpt->nrh) {
             if (c < par->chkpt.getRows()-1) {
-                //	if (top->horizon_point->co[1][c+1] != i) flag=1;
                 if (top->horizon_point[1][c+1] != i) flag=1;
             }
 
-            //	}while (flag == 1 && c < par->chkpt->nrh);
         }while (flag == 1 && c < par->chkpt.getRows()-1);
 
-        //	if (c < par->chkpt->nrh) {
         if (c < par->chkpt.getRows()-1) {
             top->horizon_height[i-1] = read_horizon(0, i,geotop::common::Variables::files[fhorpoint], IT->horizon_col_names, &num_lines, flog);
             top->horizon_numlines[i-1] = num_lines;
@@ -3512,15 +3970,33 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 	short yes=0;
 	FILE *f;
 
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
+
 	if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fbed]) + string(ascii_esri))) {
 		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f, "Error:: File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file\n",geotop::common::Variables::files[fbed+1].c_str());
 		fclose(f);
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::ERROR,
+            "File %s is missing. Please check if you have a bedrock topography map. If it is not available, remove the file name and keyword from input file.",
+            geotop::common::Variables::files[fbed+1].c_str());
+            lg->log("Geotop failed. See failing report (18).",
+            geotop::logger::CRITICAL);
+            exit(1);
+#else
 		t_error("Fatal Error! Geotop is closed. See failing report (18).");
+#endif
 	}
 
+#ifdef WITH_LOGGER
+    lg->logf("A bedrock depth map has been assigned and read from %s",
+            geotop::common::Variables::files[fbed].c_str());
+#else
 	printf("A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
 	fprintf(flog,"A bedrock depth map has been assigned and read from %s\n\n",geotop::common::Variables::files[fbed].c_str());
+#endif
 
 	par->bedrock = 1;
 	meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
@@ -3539,13 +4015,24 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 	if (yes == 1){
 
 		//consistency check
-		//if (IT->init_water_table_depth->nh != sl->pa->ndh)
 		if (IT->init_water_table_depth.size() != sl->pa.getDh()){
-			cout << "IT->init_water_table_depth.size()" << IT->init_water_table_depth.size() << " sl->pa.getDh()" << sl->pa.getDh() << endl;
 			f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 			fprintf(f, "Error:: Error in bedrock calculations");
 			fclose(f);
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::DEBUG,
+                    "IT->init_water_table_depth.size()=%u sl->pa.getDh()=%u",
+                    IT->init_water_table_depth.size(),
+                    sl->pa.getDh());
+            lg->log("Error in bedrock calculations.",
+                    geotop::logger::ERROR);
+			lg->log(" Geotop failed. See failing report (19).",
+                    geotop::logger::CRITICAL);
+            exit(1);
+#else
+			cout << "IT->init_water_table_depth.size()" << IT->init_water_table_depth.size() << " sl->pa.getDh()" << sl->pa.getDh() << endl;
 			t_error("Fatal Error! Geotop is closed. See failing report (19).");
+#endif
 		}
 
 		//	rewrite soil type
@@ -3709,30 +4196,44 @@ GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+#ifdef WITH_LOGGER
+//TODO: Add meaningful information about the files checked
+short file_exists(short key){
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#else
 short file_exists(short key, FILE *flog){
+#endif
 
     //no keyword -> -1
     //keyword but does not exist -> 0
     //keyword and exists -> 1
-/*
-    printf("Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),geotop::common::Variables::files[key].c_str());
-    fprintf(flog,"Attempting to read '%s' in the file '%s': ",keywords_char[key+nmet+nsoilprop+2].c_str(),geotop::common::Variables::files[key].c_str());
-*/
 
     if(geotop::common::Variables::files[key] == geotop::input::gStringNoValue){
+#ifdef WITH_LOGGER
+        lg->log("not present in file list");
+#else
         printf("not present in file list\n");
         fprintf(flog,"not present in file list\n");
+#endif
         return (-1);
     }else{
         bool is_present = mio::IOUtils::fileExists(string(geotop::common::Variables::files[key]) + string(ascii_esri));
 
         if (is_present) {
+#ifdef WITH_LOGGER
+            lg->logf("EXISTING in format %d", 3);
+#else
             printf("EXISTING in format %d\n", 3);
             fprintf(flog, "EXISTING in format %d\n", 3);
+#endif
             return (1);
         }else{
+#ifdef WITH_LOGGER
+            lg->log("not existing");
+#else
             printf("not existing\n");
             fprintf(flog, "not existing\n");
+#endif
             return (0);
         }
     }

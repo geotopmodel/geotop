@@ -166,7 +166,11 @@ typedef struct __INIT_TOOLS__
 //DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope, DOUBLEMATRIX *LC, SOIL *sl, short point);
   GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<double>& slope, GeoMatrix<double>& LC, Soil *sl, short point);
 
+#ifdef WITH_LOGGER
+short file_exists(short key);
+#else
 short file_exists(short key, FILE *flog);
+#endif
 
 double peat_thickness(double dist_from_channel);
 
