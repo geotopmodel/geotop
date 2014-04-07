@@ -10,6 +10,7 @@
 
 #include "logger.h"
 #include <fstream>
+#include <string>
 
 namespace geotop
 {
@@ -43,7 +44,7 @@ namespace geotop
              * @brief Gives the full path of the log file
              * @return A constant pointer to the full path
              */
-            const char* getLogFilePath();
+            std::string getLogFilePath();
             /**
              * @see Logger
              */

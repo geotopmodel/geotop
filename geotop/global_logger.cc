@@ -25,15 +25,17 @@ GlobalLogger* GlobalLogger::single = NULL;
  */
 GlobalLogger::GlobalLogger()
 {
+    std::string filePath = getLogFilePath();
+    
     logfileStream.exceptions(std::ofstream::failbit | std::ofstream::badbit);
     
     try
     {
-        logfileStream.open(getLogFilePath(), std::ofstream::out | std::ofstream::trunc);
+        logfileStream.open(filePath.c_str() , std::ofstream::out | std::ofstream::trunc);
     }
     catch (std::ofstream::failure e)
     {
-        std::cerr << "[CRITICAL]: Unable to open log file " << getLogFilePath() << std::endl;
+        std::cerr << "[CRITICAL]: Unable to open log file " << filePath  << std::endl;
         std::cerr << "[DEBUG]: " << e.what() <<std::endl;
         exit(1);
     }
@@ -44,7 +46,7 @@ GlobalLogger::GlobalLogger()
     }
 }
 
-const char* GlobalLogger::getLogFilePath()
+std::string GlobalLogger::getLogFilePath()
 {
     boost::filesystem::path myPath;
     myPath /= geotop::common::Variables::WORKING_DIRECTORY;
@@ -52,15 +54,16 @@ const char* GlobalLogger::getLogFilePath()
     //myPath /= geotop::common::Variables::logfile;
     myPath /= "geotop_new.log";
     
-    return (const char*)myPath.c_str();
+    return myPath.string();
 }
 
 void GlobalLogger::setSeverity(severity_levels minSeverity)
 {
 
+    std::string filePath = getLogFilePath();
     logfileStream.close();
     
-    logfileStream.open(getLogFilePath(),
+    logfileStream.open(filePath.c_str() ,
             std::ios_base::trunc | std::ios_base::out);
 
     mLogger.~Logger();
