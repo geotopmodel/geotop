@@ -42,7 +42,11 @@ GlobalLogger::GlobalLogger()
 
     if (logfileStream.is_open())
     {
+#ifdef VERBOSE
+        mLogger.addOStream(&logfileStream, mLogger.DEBUG);
+#else
         mLogger.addOStream(&logfileStream, mLogger.DEFAULT_SEVERITY);
+#endif
     }
 }
 
