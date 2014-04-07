@@ -24,6 +24,10 @@
 #include "geotop_common.h"
 #include "inputKeywords.h"
 
+#ifdef WITH_LOGGER
+#include "global_logger.h"
+#endif
+
 using namespace std;
 
 /******************************************************************************************************************************************/
@@ -32,11 +36,17 @@ using namespace std;
 /******************************************************************************************************************************************/
 
 
-short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L, SoilState *C, AllData *adt, GeoVector<double>& Vsub, GeoVector<double>& Vsup,
-					double *Voutnet, double *Voutlandsub, double *Voutlandsup, double *Voutlandbottom){
+short water_balance(double Dt, double JD0, double JD1, double JD2,
+                    SoilState *L, SoilState *C, AllData *adt, GeoVector<double>& Vsub,
+                    GeoVector<double>& Vsup, double *Voutnet, double *Voutlandsub,
+                    double *Voutlandsup, double *Voutlandbottom){
 
 	clock_t start, end;
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#else
 	FILE *flog;
+#endif
 	double Pnet, loss;
 	long j;
 	short a;
@@ -50,7 +60,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 	long r, c, l, sy;
 	
 	
+#ifndef WITH_LOGGER
 	flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
+#endif
 	
 	if(adt->P->qin==1){
 		time_interp_linear(JD0, JD1, JD2, adt->M->qinv, adt->M->qins, adt->M->qinsnr, 2, 0, 0, &(adt->M->qinline));		
@@ -61,7 +73,13 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		//surface flow: 1st half of time step
 		start=clock();
 
+#ifdef WITH_LOGGER
+        supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
+                &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
+                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+#else
 		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
+#endif
 		
 		
 		end=clock();
@@ -71,13 +89,18 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
 
-	
+#ifdef WITH_LOGGER
+		a = Richards3D(Dt, L, C, adt, NULL, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+#else
 		a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+#endif
 		
 		end=clock();
 		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
 		if (a != 0){
+#ifndef WITH_LOGGER
 			fclose(flog);
+#endif
 			return 1;
 		}
 		
@@ -85,7 +108,13 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		//surface flow: 2nd half of time step
 		start=clock();
 
+#ifdef WITH_LOGGER
+        supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
+                &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
+                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+#else
 		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
+#endif
 
 		end=clock();
 
@@ -96,9 +125,15 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 		
 		start = clock();
 		for (j=1; j<=adt->P->total_pixel; j++) {			
+#ifdef WITH_LOGGER
+			a = Richards1D(j, Dt, L, adt, NULL, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+#else
 			a = Richards1D(j, Dt, L, adt, flog, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+#endif
 			if (a != 0){
+#ifndef WITH_LOGGER
 				fclose(flog);
+#endif
 				return 1;
 			}			
 		
@@ -112,7 +147,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L,
 	geotop::common::Variables::odb[oopnet] = Pnet;
 	geotop::common::Variables::odb[oomasserror] = loss;
 	
+#ifndef WITH_LOGGER
 	fclose(flog);
+#endif
 	
 	return 0;
 	
@@ -165,6 +202,11 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	short out, out2;	
 	int sux;
 	FILE *f;
+
+
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
 	
 	*Total_Pnet = 0.;
 	
@@ -230,8 +272,14 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	}
 
 #ifdef VERBOSE	
-	printf("Richard3D: Pnet: %f\n",*Total_Pnet);
-#endif 
+#ifdef WITH_LOGGER
+    lg->logsf(geotop::logger::DEBUG,
+            "Richard3D: Pnet: %f",
+            *Total_Pnet);
+#else
+	printf("Richard3D: Pnet: %f\n", *Total_Pnet);
+#endif //WITH_LOGGER
+#endif //VERBOSE
 	
 	sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);
 	
@@ -242,8 +290,13 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	res = norm_inf(adt->W->B, 1, N);
 
 #ifdef VERBOSE	
+#ifdef WITH_LOGGER
+    lg->logsf(geotop::logger::DEBUG,
+            "Richard3D: res: %f\n", res);
+#else
 	printf("Richard3D: res: %f\n",res);
-#endif 	
+#endif //WITH_LOGGER
+#endif //VERBOSE	
 
 	res00 = res; //initial norm of the residual
 	epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00 , sqrt((double)N) );
@@ -334,7 +387,16 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
 					fclose(f);
+#ifdef WITH_LOGGER
+                    lg->logsf(geotop::logger::ERROR,
+                            "No value psi Richards3D l:%ld r:%ld c:%ld\n",
+                            l, r, c);
+                    lg->log("Geotop failed. See failing report.",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+#else
 					t_error("Fatal Error! Geotop is closed. See failing report.");	
+#endif
 				}
 				
 			}
@@ -350,9 +412,14 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			out2=0;
 	
 #ifdef VERBOSE
-			
+#ifdef WITH_LOGGER
+    lg->logsf(geotop::logger::DEBUG,
+            "Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",
+            cont, res, lambda[0], Dt, *Total_Pnet);
+#else
 			printf(" Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,*Total_Pnet);
-#endif
+#endif //WITH_LOGGER
+#endif //VERBOSE
 			
 
 			
@@ -523,14 +590,11 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		
 		l = i-1;
 		
-	//	if (l == 0 && adt->W->Pnet->co[r][c] > 0) {
 		if (l == 0 && adt->W->Pnet[r][c] > 0) {
-		//	*Total_Pnet = *Total_Pnet + (adt->W->Pnet->co[r][c]/cos(Fmin(GTConst::max_slope,adt->T->slope->co[r][c])*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
 			*Total_Pnet = *Total_Pnet + (adt->W->Pnet[r][c]/cos(Fmin(GTConst::max_slope,adt->T->slope[r][c])*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
 		}
 		
 	//	solution guess
-	//	adt->W->H1->co[i] = L->P->co[l][c] + adt->T->Z->co[l][r][c];
 		adt->W->H1[i] = L->P[l][c] + adt->T->Z[l][r][c];
 		
 	}
@@ -560,9 +624,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		cont++;
 		
 		for(i=1; i<=N; i++){
-		//	adt->W->H0->co[i] = adt->W->H1->co[i];
 			adt->W->H0[i] = adt->W->H1[i];
-		//	adt->W->dH->co[i] = 0.;
 			adt->W->dH[i] = 0.;
 		}
 				
@@ -624,10 +686,8 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 			
 			for(i=1; i<=N; i++){
 				
-			//	adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
 				adt->W->H1[i] = adt->W->H0[i] + lambda[0] * adt->W->dH[i];
 				
-			//	if(adt->W->H1->co[i] != adt->W->H1->co[i]) {
 				if(adt->W->H1[i] != adt->W->H1[i]) {
 					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
@@ -686,42 +746,31 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 	for(i=1; i<=N; i++){
 		
 		l = i-1;
-	//	sy = adt->S->type->co[r][c];
 		sy = adt->S->type[r][c];
-	//	bc = adt->T->BC_counter->co[r][c];
 		bc = adt->T->BC_counter[r][c];
 		
-	//	L->P->co[l][c] = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
 		L->P[l][c] = adt->W->H1[i] - adt->T->Z[l][r][c];
 		
 		//update variables
 		if(l>0){
-		//	adt->S->th->co[l][c] = theta_from_psi(L->P->co[l][c], L->thi->co[l][c], l, adt->S->pa->co[sy], GTConst::PsiMin);
 			adt->S->th[l][c] = theta_from_psi(L->P[l][c], L->thi[l][c], l, adt->S->pa, sy, GTConst::PsiMin);
-		//	adt->S->Ptot->co[l][c] = psi_from_theta(adt->S->th->co[l][c]+L->thi->co[l][c], 0., l, adt->S->pa->co[sy], GTConst::PsiMin);
 			adt->S->Ptot[l][c] = psi_from_theta(adt->S->th[l][c]+L->thi[l][c], 0., l, adt->S->pa, sy, GTConst::PsiMin);
-		//	adt->S->th->co[l][c] = Fmin( adt->S->th->co[l][c] , adt->S->pa->co[sy][jsat][l]-L->thi->co[l][c] );
 			adt->S->th[l][c] = Fmin( adt->S->th[l][c] , adt->S->pa(sy,jsat,l) - L->thi[l][c] );
 		}
 		
 		//volume lost at the bottom
 		if(l==geotop::common::Variables::Nl){
 			area = ds*ds;
-		//	*Vbottom = *Vbottom + area * adt->W->Kbottom->co[r][c] * 1.E-3 * Dt;
 			*Vbottom = *Vbottom + area * adt->W->Kbottom[r][c] * 1.E-3 * Dt;
 		}
 		
 		//lateral drainage at the border
 		if (bc>0 && l>0) {
-		//	if (adt->T->pixel_type->co[r][c] == 1) {
 			if (adt->T->pixel_type[r][c] == 1) {
-			//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && adt->W->H1->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
 				if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && adt->W->H1[i] - adt->T->Z[l][r][c] > 0 ) {
-					//dz = adt->S->pa->co[sy][jdz][l];//[mm]
 					dz = adt->S->pa(sy,jdz,l);//[mm]
 					dn = ds;
 					dD = 0.5 * 1.E3*ds;
-				//	*Vlat = *Vlat + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat->co[bc][l]*adt->P->free_drainage_lateral*(adt->W->H1->co[i] - adt->T->Z->co[l][r][c]) / dD;
 					*Vlat = *Vlat + Dt * (dn*dz*1.E-3) * 1.E-3*adt->W->Klat[bc][l]*adt->P->free_drainage_lateral*(adt->W->H1[i] - adt->T->Z[l][r][c]) / dD;
 				}
 			}
@@ -902,8 +951,6 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 						//downward flow
 						kn = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa,sy, adt->P->imp, adt->P->k_to_ksat);	
 					}
-					
-				//	
 					
 				
 					kmax = k_from_psi(jKn, psisat_from(SC->thi[l][ch], l, adt->S->pa, sy), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
@@ -1152,8 +1199,14 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				
 			}
 #ifdef VERBOSE			
+#ifdef WITH_LOGGER
+            geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+            lg->logsf(geotop::logger::DEBUG,
+                    "find3D: Lx[cnt]=%f", Lx[cnt]);
+#else
 			cout << "find3D: Lx[cnt]=" << Lx[cnt] << endl;
-#endif 
+#endif //WITH_LOGGER
+#endif //VERBOSE
 		}
 		
 	}									
@@ -1717,8 +1770,14 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	}
 
 #ifdef VERBOSE	
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    lg->logsf(geotop::logger::DEBUG,
+            "supflow: te %ld", te);
+#else
 	printf("supflow: te %ld\n",te);
-#endif 
+#endif //WITH_LOGGER
+#endif //VERBOSE
 	
 	do{
 		
@@ -1840,10 +1899,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt){
-
-
-  void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
+void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
 	
 	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, areach, Vmax, H, Hch, DH;
 	long r, c, ch;
@@ -1852,14 +1908,13 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		
 		r = cnet->r[ch];
 		c = cnet->c[ch];
-		H = Fmax(0.0 , h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
+
+        //h[i] is the pressure at the surface, H is the depth of water normal to the surface
+		H = Fmax(0.0 , h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);
 		
-	//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.) - cnet->length->co[ch] * par->w_dx * ds;
 		area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
 		
-	//	Hch = Fmax(0., hch[ch] ) / cos(top->slope->co[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 		Hch = Fmax(0., hch(0,ch) ) / cos(top->slope[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope[r][c]*GTConst::Pi/180.);
-	//	areach = cnet->length->co[ch] * par->w_dx * ds;
 		areach = cnet->length[ch] * par->w_dx * ds;
 		
 		if(H > par->min_hsup_land){
@@ -1867,7 +1922,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			if( Hch < -par->min_dhsup_land_channel_in ){	//free flow
 				
 				DH = H;
-			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 
 				Vmax = Fmin( areach*1.E-3*(-Hch) , area*1.E-3*H );
@@ -1880,7 +1934,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
 				
 				DH = H - Hch;
-			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 				Vmax = 1.E-3*DH / (1./area + 1./areach);
 				
@@ -1895,7 +1948,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		if ( Hch - H > par->min_dhsup_land_channel_out ) {
 			
 			DH = Hch - H;
-		//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s
 			q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*Hch;//m3/s
 			
 			Vmax = 1.E-3*DH / (1./area + 1./areach);
@@ -1917,7 +1969,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog, long *cnt){
 // piccola divergenza con codice c in questa routine.. 
 
   void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
@@ -1943,90 +1994,66 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		//Superficial flow to the channels
 		for(ch=1;ch<=par->total_channel;ch++){
 			
-		//	r = cnet->r->co[ch];
 			r = cnet->r[ch];
-		//	c = cnet->c->co[ch];
 			c = cnet->c[ch];
 			
-		//	H = Fmax(0., h[top->j_cont[r][c]]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);
 			H = Fmax(0., h(0,top->j_cont[r][c])) / cos(top->slope[r][c]*GTConst::Pi/180.);
-		//	Hch = Fmax(0., hch[ch] ) / cos(top->slope->co[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 			Hch = Fmax(0., hch(0,ch) ) / cos(top->slope[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope[r][c]*GTConst::Pi/180.);
 			
-		//	area = ds*ds/cos(top->slope->co[r][c]*GTConst::Pi/180.) - cnet->length->co[ch] * par->w_dx * ds;
 			area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
-		//	areach = cnet->length->co[ch] * par->w_dx * ds;
 			areach = cnet->length[ch] * par->w_dx * ds;
 			
 			if( Hch < 0 ){	//free flow
 				
 				DH = H;
-			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 				
 				Vmax = Fmin( areach*1.E-3*(-Hch) , area*1.E-3*H );
 				if (q*dt > Vmax) q = Vmax/dt;
 				
-			//	Vsup->co[ch] += q*dt;
 				Vsup[ch] += q*dt;
 				
-			//	h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 				h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-			//	if(hch[ch]>0){
 				if(hch(0,ch)>0){
-				//	hch[ch] += (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}else{
-				//	if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}				
 				
 			}else if( H - Hch > 0 ){//submerged flow towards channel
 				
 				DH = H - Hch;
-			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 				
 				Vmax = 1.E-3*DH / (1./area + 1./areach);
 				if (q*dt > Vmax) q = Vmax/dt;
 				
-			//	Vsup->co[ch] += q*dt;
 				Vsup[ch] += q*dt;
 				
-			//	h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 				h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-			//	if(hch[ch]>0){
 				if(hch(0,ch)>0){
-				//	hch[ch] += (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}else{
-				//	if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}				
 				
 			}else if ( Hch - H > 0 ) {
 				
 				DH = Hch - H;
-			//	q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*Hch;//m3/s
 				
 				Vmax = 1.E-3*DH / (1./area + 1./areach);
 				if (q*dt > Vmax) q = Vmax/dt;
 				
-			//	Vsup->co[ch] -= q*dt;
 				Vsup[ch] -= q*dt;
 				
-			//	hch[ch] -= (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 				hch(0,ch) -= (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-			//	if(h[top->j_cont[r][c]]>0){
 				if(h(0,top->j_cont[r][c])>0){
-				//	h[top->j_cont[r][c]] += (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					h(0,top->j_cont[r][c]) += (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}else{
-				//	if( q > 0 ) h[top->j_cont[r][c]] = (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*GTConst::Pi/180.);	//mm;
 					if( q > 0 ) h(0,top->j_cont[r][c]) = (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
 				}
 			}
@@ -2054,9 +2081,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	
 	for(ch=1;ch<=par->total_channel;ch++){
 		
-	//	if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down->co[ch]));
-	//	if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down[ch]));
-
 		r = cnet->r[ch];
 		c = cnet->c[ch];
 		H = Fmax(0., h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);
@@ -2113,11 +2137,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f, long *cnt)
-
-
-
-  void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
+void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
 
 	long r,c,ch,R,C;                                    
 	double ds, dn, dD;
@@ -2125,14 +2145,11 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	double i;											  // hydraulic gradient
 	double q,tb,te,dt,H;
 	
-//	ds = sqrt(UV->U->co[1]*UV->U->co[2]);
 	ds = sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	dn = par->w_dx*ds;
 	
-//	if( par->point_sim!=1 && cnet->r->co[1]!=0 ){	//if it is not point simulation and there are channels
 	if( par->point_sim!=1 && cnet->r[1]!=0 ){	//if it is not point simulation and there are channels
 		
-	//	dn = par->w_dx * UV->U->co[1];		//transversal length [m]
 		dn = par->w_dx * geotop::common::Variables::UV->U[1];		//transversal length [m]
 		
 		te=0.0;
@@ -2151,27 +2168,20 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 				dt=te-tb;
 			}		
 			
-		//	for(ch=1;ch<=cnet->r->nh;ch++){
 			for(ch=1;ch<cnet->r.size();ch++){
 				
-			//	r = cnet->r->co[ch];
 				r = cnet->r[ch];
-			//	c = cnet->c->co[ch];
 				c = cnet->c[ch];
 				
 				dV[ch] = 0.0;
 				
-			//	H = Fmax(0., h[ch]) / cos(top->slope->co[r][c]*GTConst::Pi/180.);
 				H = Fmax(0., h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);
 				
 				if(H > 0){
 					
-				//	R = cnet->r->co[cnet->ch_down->co[ch]];
 					R = cnet->r[cnet->ch_down[ch]];
-				//	C = cnet->c->co[cnet->ch_down->co[ch]];
 					C = cnet->c[cnet->ch_down[ch]];
 					
-				//	if(top->is_on_border->co[r][c] == 1 && cnet->ch_down->co[ch]==ch){//outlet section
 					if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
 						
 						q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*dn;	//[m3/s]
@@ -2179,16 +2189,13 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 					}else{
 						
 						if( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) ){
-						//	dD = find_3Ddistance(ds*sqrt(2.), top->Z0->co[r][c] - top->Z0->co[R][C]);
 							dD = find_3Ddistance(ds*sqrt(2.), top->Z0[r][c] - top->Z0[R][C]);
 						}else {
-						//	dD = find_3Ddistance(ds, top->Z0->co[r][c] - top->Z0->co[R][C]);
 							dD = find_3Ddistance(ds, top->Z0[r][c] - top->Z0[R][C]);
 						}
 						
 						Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 						
-					//	i= ( (top->Z0->co[r][c] - top->Z0->co[R][C] ) + 1.E-3*(Fmax(0.0, h[ch]) - Fmax(0.0, h[cnet->ch_down->co[ch]])) ) / dD;
 						i= ( (top->Z0[r][c] - top->Z0[R][C] ) + 1.E-3*(Fmax(0.0, h(0,ch)) - Fmax(0.0, h(0,cnet->ch_down[ch]))) ) / dD;
 						
 						if(i<0) i=0.;
@@ -2197,38 +2204,27 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 						
 					}
 					
-				//	dV[ch] = Fmin( q*dt , 1.E-3*H*dn*cnet->length->co[ch] );	//m3
 					dV[ch] = Fmin( q*dt , 1.E-3*H*dn*cnet->length[ch] );	//m3
 					
 				}				
 			}
 			
-		//	for(ch=1;ch<=cnet->r->nh;ch++){
 			for(ch=1;ch<cnet->r.size();ch++){
 				
-			//	r = cnet->r->co[ch];
 				r = cnet->r[ch];
-			//	c = cnet->c->co[ch];
 				c = cnet->c[ch];
 				
-			//	h[ch] -= (1.E3*dV[ch]/(dn*cnet->length->co[ch])) * cos(top->slope->co[r][c]*GTConst::Pi/180.);
 				h(0,ch) -= (1.E3*dV[ch]/(dn*cnet->length[ch])) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-			//	if(top->is_on_border->co[r][c] == 1 && cnet->ch_down->co[ch]==ch){//outlet section
 				if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
 					*Vout = *Vout + dV[ch];	//m3
 				}else {
-				//	R = cnet->r->co[cnet->ch_down->co[ch]];
 					R = cnet->r[cnet->ch_down[ch]];
-				//	C = cnet->c->co[cnet->ch_down->co[ch]];
 					C = cnet->c[cnet->ch_down[ch]];
 
-				//	if(h[cnet->ch_down->co[ch]]>0){
 					if(h(0,cnet->ch_down[ch])>0){
-					//	h[cnet->ch_down->co[ch]] += (1.E3*dV[ch]/(dn*cnet->length->co[cnet->ch_down->co[ch]])) * cos(top->slope->co[R][C]*GTConst::Pi/180.);	//mm;
 						h(0,cnet->ch_down[ch]) += (1.E3*dV[ch]/(dn*cnet->length[cnet->ch_down[ch]])) * cos(top->slope[R][C]*GTConst::Pi/180.);	//mm;
 					}else{
-					//	if( dV[ch] > 0) h[cnet->ch_down->co[ch]] = (1.E3*dV[ch]/(dn*cnet->length->co[cnet->ch_down->co[ch]])) * cos(top->slope->co[R][C]*GTConst::Pi/180.);	//mm;
 						if( dV[ch] > 0) h(0,cnet->ch_down[ch]) = (1.E3*dV[ch]/(dn*cnet->length[cnet->ch_down[ch]])) * cos(top->slope[R][C]*GTConst::Pi/180.);	//mm;
 					}
 				}							
@@ -2243,81 +2239,57 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void draining_land(double alpha, long i, TOPO *T, Land *L, PAR *P, double *h, long *I, double *Q){
-  void draining_land(double alpha, long i, Topo *T, Land *L, Par *P, GeoMatrix<double>& h, GeoMatrix<long>& I, GeoMatrix<double>& Q, long row){
+void draining_land(double alpha, long i, Topo *T, Land *L, Par *P, GeoMatrix<double>& h, GeoMatrix<long>& I, GeoMatrix<double>& Q, long row){
 	double H, p, pn, dD, dn, Ks;
-//	double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
 	long d, r, c;
 	long ir[5] = {0, -1, 1, 0,  0};
 	long ic[5] = {0,  0, 0, -1, 1};
 	
-//	if (h[i] > 0) {
 	if (h(0,i) > 0) {
 		
-	//	r = T->rc_cont->co[i][1];
 		r = T->rc_cont[i][1];
-	//	c = T->rc_cont->co[i][2];
 		c = T->rc_cont[i][2];
-	//	H = Fmax(h[i], 0.)/cos(T->slope->co[r][c]*GTConst::Pi/180.);
 		H = Fmax(h(0,i), 0.)/cos(T->slope[r][c]*GTConst::Pi/180.);
-	//	p = T->Z0->co[r][c] + alpha*1.E-3*Fmax(h[i], 0.);
 		p = T->Z0[r][c] + alpha*1.E-3*Fmax(h(0,i), 0.);
-	//	Ks = cm_h(L->ty->co[(short)L->LC->co[r][c]][jcm], H, P->thres_hsup_1,  P->thres_hsup_2);
 		Ks = cm_h(L->ty[(short)L->LC[r][c]][jcm], H, P->thres_hsup_1,  P->thres_hsup_2);
 		
 		
 		for (d=1; d<=4; d++) {
 			if (r+ir[d]>=1 && r+ir[d]<=geotop::common::Variables::Nr && c+ic[d]>=1 && c+ic[d]<=geotop::common::Variables::Nc) {
 				
-			//	I[d] = T->j_cont[r+ir[d]][c+ic[d]];
 				I(row,d) = T->j_cont[r+ir[d]][c+ic[d]];
 				
-			//	if (I[d]>0) {
 				if (I(row,d)>0) {
 					
-				//	dD = find_3Ddistance(ds, T->Z0->co[r][c] - T->Z0->co[r+ir[d]][c+ic[d]]);
 					dD = find_3Ddistance(ds, T->Z0[r][c] - T->Z0[r+ir[d]][c+ic[d]]);
 					if(ir[d]==1 || ir[d]==-1){
-					//	dn = ds/cos(0.5*atan(T->dzdE->co[r][c])+0.5*atan(T->dzdE->co[r+ir[d]][c+ic[d]]));
 						dn = ds/cos(0.5*atan(T->dzdE[r][c])+0.5*atan(T->dzdE[r+ir[d]][c+ic[d]]));
 					}else {
-					//	dn = ds/cos(0.5*atan(T->dzdN->co[r][c])+0.5*atan(T->dzdN->co[r+ir[d]][c+ic[d]]));
 						dn = ds/cos(0.5*atan(T->dzdN[r][c])+0.5*atan(T->dzdN[r+ir[d]][c+ic[d]]));
 					}		
 					
-				//	pn = T->Z0->co[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h[I[d]], 0.);
 					pn = T->Z0[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h(0,I(row, d)), 0.);
 					
 					if (pn < p) {
-					//	Q[d] = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
 						Q(row, d) = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
 					}else {
-					//	Q[d] = 0.;
 						Q(row,d) = 0.;
 					}
 					
 				}else {
 					
-				//	if(T->BC_counter->co[r][c] > 0){
 					if(T->BC_counter[r][c] > 0){
-					//	if (H >= -T->BC_DepthFreeSurface->co[T->BC_counter->co[r][c]] ){
 						if (H >= -T->BC_DepthFreeSurface[T->BC_counter[r][c]] ){
-						//	I[d] = -1;
 							I(row,d) = -1;
-						//	Q[d] = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*ds;
 							Q(row,d) = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*ds;
 						}else {
-						//	I[d] = i;
 							I(row,d) = i;
-						//	Q[d] = 0.;
 							Q(row, d) = 0.;
 						}
 					}else {
-					//	I[d] = i;
 						I(row, d) = i;
-					//	Q[d] = 0.;
 						Q(row, d) = 0.;
 					}
 					
@@ -2325,9 +2297,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 				
 			}else {
 				
-			//	I[d] = i;
 				I(row, d) = i;
-			//	Q[d] = 0.;
 				Q(row, d) = 0.;
 				
 			}
@@ -2336,9 +2306,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	}else {
 		
 		for (d=1; d<=4; d++) {
-		//	I[d] = i;
 			I(row, d) = i;
-		//	Q[d] = 0.;
 			Q(row, d) = 0.;
 		}
 	}
@@ -2351,8 +2319,6 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void draining_channel(double alpha, long ch, DOUBLEMATRIX *Z, double *h, CHANNEL *cnet, long *CH){
-	
 void draining_channel(double alpha, long ch, GeoMatrix<double>& Z, GeoMatrix<double>& h, Channel *cnet, long *CH){
 	
 	long d, r, c;
@@ -2362,22 +2328,16 @@ void draining_channel(double alpha, long ch, GeoMatrix<double>& Z, GeoMatrix<dou
 	
 	*CH = ch;
 	
-//	r = cnet->r->co[ch];
 	r = cnet->r[ch];
-//	c = cnet->c->co[ch];
 	c = cnet->c[ch];
-//	elev = Z->co[r][c] + alpha*1.E-3*Fmax(h[ch], 0.);
 	elev = Z[r][c] + alpha*1.E-3*Fmax(h(0,ch), 0.);
 	
 	for (d=1; d<=8; d++) {
 		if (r+ir[d]>=1 && r+ir[d]<=geotop::common::Variables::Nr && c+ic[d]>=1 && c+ic[d]<=geotop::common::Variables::Nc) {
-		//	if(cnet->ch->co[r+ir[d]][c+ic[d]] > 0){
 			if(cnet->ch[r+ir[d]][c+ic[d]] > 0){
-			//	elev1 = Z->co[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h[cnet->ch->co[r+ir[d]][c+ic[d]]], 0.);
 				elev1 = Z[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h(0,cnet->ch[r+ir[d]][c+ic[d]]), 0.);
 				if( elev1 < elev){
 					elev = elev1;
-				//	*CH = cnet->ch->co[r+ir[d]][c+ic[d]];
 					*CH = cnet->ch[r+ir[d]][c+ic[d]];
 				}
 			}
