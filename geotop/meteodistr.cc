@@ -36,56 +36,101 @@
 #include "meteodistr.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
+#ifdef WITH_LOGGER
+#include "global_logger.h"
+#endif
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
-//				DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
-//				double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
-//				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid,
-//				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid,
-//				double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
-//				short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
+#ifdef WITH_LOGGER
 void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
                 GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
                 double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
                 long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
                 GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
                 double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
-                short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
+                short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor)
+{
+#else
+void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
+                GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
+                double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
+                GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
+                double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
+                short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f)
+{
+#endif
     short ok;
 
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
+
+#ifdef WITH_LOGGER
+    ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate);
+#else
     ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate, f);
+#endif
     if(ok==0){
-        //printf("No temperature measurements, used the value of the previous time step\n");
+#ifdef WITH_LOGGER
+        lg->log("No temperature measurements, used the value of the previous time step",
+                geotop::logger::WARNING);
+#else
         fprintf(f,"No temperature measurements, used the value of the previous time step\n");
+#endif
     }
 
+#ifdef WITH_LOGGER
+    ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate);
+#else
     ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate, f);
+#endif
     if(ok==0){
-        //printf("No RH measurements, used the value of the previous time step\n");
+#ifdef WITH_LOGGER
+        lg->log("No RH measurements, used the value of the previous time step",
+                geotop::logger::WARNING);
+#else
         fprintf(f,"No RH measurements, used the value of the previous time step\n");
+#endif
     }
 
+#ifdef WITH_LOGGER
+    ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2, curvature3,
+                  curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint, NULL);
+#else
     ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2, curvature3,
                   curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint, f);
+#endif
 
     if(ok==0){
-        //printf("No wind measurements, used the value of the previous time step\n");
+#ifdef WITH_LOGGER
+        lg->log("No wind measurements, used the value of the previous time step",
+               geotop::logger::WARNING);
+#else
         fprintf(f,"No wind measurements, used the value of the previous time step\n");
+#endif
     }else if(ok==1){
-        //printf("No wind direction measurements, used the value of the previous time step\n");
+#ifdef WITH_LOGGER
+        lg->log("No wind direction measurements, used the value of the previous time step",
+               geotop::logger::WARNING);
+#else
         fprintf(f,"No wind direction measurements, used the value of the previous time step\n");
+#endif
     }
 
     ok = get_precipitation(dE, dN, E, N, met, Pcode, Tcode, Tdcode, prec_grid, dn, topo, iobsint, Prec_lapse_rate, maxfactorP, minfactorP,
                            dew, Train, Tsnow, snow_corr_factor, rain_corr_factor);
     if(ok==0){
-        //printf("No precipitation measurements, considered it 0.0\n");
+#ifdef WITH_LOGGER
+        lg->log("No precipitation measurements, considered it 0.0",
+               geotop::logger::WARNING);
+#else
         fprintf(f,"No precipitation measurements, considered it 0.0\n");
+#endif
     }
 
     get_pressure(topo, sfc_pressure, geotop::input::gDoubleNoValue);
@@ -98,10 +143,13 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
 //***************************************************************************************************************
 
 
-//short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn,
-//					  DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f){
+#ifdef WITH_LOGGER
+short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tcode, GeoMatrix<double>& Tair_grid, double dn,
+                      GeoMatrix<double>& topo, short iobsint, double lapse_rate){
+#else
 short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tcode, GeoMatrix<double>& Tair_grid, double dn,
                       GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f){
+#endif
 
     double topo_ref;
     long n, r, c;
@@ -149,11 +197,13 @@ short get_temperature(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<doub
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
-//			double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
-//			FILE *f){
+#ifdef WITH_LOGGER
+short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tdcode, GeoMatrix<double>& RH_grid,
+		GeoMatrix<double>& Tair_grid, double RH_min, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate) {
+#else
 short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Tdcode, GeoMatrix<double>& RH_grid,
                             GeoMatrix<double>& Tair_grid, double RH_min, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate, FILE *f){
+#endif
 
     // First convert stn relative humidity to dew-point temperature.  Use
     //   the Td lapse rate to take the stn Td to sea level.  Interpolate
@@ -209,18 +259,13 @@ short get_relative_humidity(double dE, double dN, GeoMatrix<double>& E, GeoMatri
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void topo_mod_winds(double **winddir_grid, double **windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-//					DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
-//					DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef){
 void topo_mod_winds(GeoMatrix<double>& winddir_grid, GeoMatrix<double>& windspd_grid, double slopewtD, double curvewtD, double slopewtI, double curvewtI,
                     GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2, GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4,
                     GeoMatrix<double>& slope_az,GeoMatrix<double>& terrain_slope, GeoMatrix<double>& topo, double undef){
 
-    //long r, c, nc=topo->nch, nr=topo->nrh;
     long r, c, nc=topo.getCols()-1, nr=topo.getRows()-1;
     double deg2rad=GTConst::Pi/180.0,dirdiff,windwt;
 
-    //DOUBLEMATRIX *wind_slope, *wind_curv;
     GeoMatrix<double> wind_slope, wind_curv;
 
     //Compute the wind modification factor which is a function of topography and wind direction following Liston and Sturm (1998).
@@ -306,19 +351,12 @@ void topo_mod_winds(GeoMatrix<double>& winddir_grid, GeoMatrix<double>& windspd_
         }
     }
 
-    //free_doublematrix(wind_slope);
-    //free_doublematrix(wind_curv);
 }
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-//short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,METEO *met, long ucode, long vcode, long Vscode,
-//			   double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
-//			   DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
-//			   double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
-//			   DOUBLEMATRIX *topo, short iobsint, FILE *f){
 short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long ucode, long vcode, long Vscode,
                GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
                GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& slope_az, GeoMatrix<double>& terrain_slope,
@@ -336,9 +374,7 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
     //   between u-v and speed-dir is done because of the problems
     //   with interpolating over the 360/0 direction line.)
 
-    //DOUBLEMATRIX *u_grid, *v_grid;
     GeoMatrix<double> u_grid, v_grid;
-    //long r, c, nc=topo->nch, nr=topo->nrh;
     long r, c, nc=topo.getCols()-1, nr=topo.getRows()-1;
     double rad2deg=180.0/GTConst::Pi;
     short oku, okv, ok;
@@ -346,12 +382,10 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
     //Use the barnes oi scheme to interpolate the station data to
     //the grid.
     //U component.
-    //u_grid=new_doublematrix(nr,nc);
     u_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
     oku = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, ucode, u_grid, dn, iobsint);
 
     //V component.
-    //v_grid=new_doublematrix(nr,nc);
     v_grid.resize(topo.getRows()+1,topo.getCols()+1,0);
     okv = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, vcode, v_grid, dn, iobsint);
 
@@ -359,8 +393,6 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
         //There is not availability of U and V, just consider wind speed as a scalar
         ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, Vscode, windspd_grid, dn, iobsint);
         if(ok==0){
-            //free_doublematrix(u_grid);
-            //free_doublematrix(v_grid);
             return ok;
         }
 
@@ -385,9 +417,6 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
                        curvature3, curvature4, slope_az, terrain_slope, topo, geotop::input::gDoubleNoValue);
     }
 
-    //free_doublematrix(u_grid);
-    //free_doublematrix(v_grid);
-
     //Avoid problems of zero (low) winds (for example, turbulence
     //theory, log wind profile, etc., says that we must have some
     //wind.  Thus, some equations blow up when the wind speed gets
@@ -409,9 +438,6 @@ short get_wind(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//short get_precipitation(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
-//				long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate,
-//				double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor){
 short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, Meteo *met, long Pcode, long Tcode,
                         long Tdcode, GeoMatrix<double>& prec_grid, double dn, GeoMatrix<double>& topo, short iobsint, double lapse_rate,
                         double max, double min, short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor){
@@ -429,11 +455,9 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
     //   daily meteorological variables over large regions of complex
     //   terrain.  J. Hydrology, 190, 214-251.
 
-    //long n, r, c, nc=topo->nch, nr=topo->nrh, cnt=0;
     long n, r, c, nc=topo.getCols()-1, nr=topo.getRows()-1, cnt=0;
     long nstation=met->st->Z.size()-1;
     double alfa, prec, f, rain, snow;
-    //DOUBLEMATRIX *topo_ref_grid;
     GeoMatrix<double> topo_ref_grid;
     short ok;
 
@@ -492,8 +516,6 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
             }
         }
 
-        //free_doublematrix(topo_ref_grid);
-
         return ok;
     }
 }
@@ -503,13 +525,10 @@ short get_precipitation(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<do
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef){
 void get_pressure(GeoMatrix<double>& topo, GeoMatrix<double>& sfc_pressure, double undef){
 
-    //long r,c,nc=topo->nch,nr=topo->nrh;
     long r,c,nc=topo.getCols()-1,nr=topo.getRows()-1;
 
-    //Compute the average station pressure (in bar).
     for(c=1;c<=nc;c++){
         for(r=1;r<=nr;r++){
             if(topo[r][c]!=undef){
@@ -527,14 +546,11 @@ void get_pressure(GeoMatrix<double>& topo, GeoMatrix<double>& sfc_pressure, doub
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//short interpolate_meteo(short flag, double dX, double dY, DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst,
-//			DOUBLEVECTOR *Yst, double **value, long metcod, double **grid, double dn0, short iobsint){
 short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpoint, GeoMatrix<double>& Ypoint, GeoVector<double>& Xst, GeoVector<double>& Yst,
                         double** value, long metcod, GeoMatrix<double>& grid, double dn0, short iobsint){
 
     long r,c,n,nstn;
     double dn;
-    //DOUBLEVECTOR *var, *xst, *yst;
     long nr=Xpoint.getRows()-1, nc=Xpoint.getCols()-1;
     nstn=0;
     for(n=1;n< Xst.size();n++){
@@ -543,9 +559,6 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 
     if(nstn==0) return 0;
 
-    //	var=new_doublevector(nstn);
-    //	xst=new_doublevector(nstn);
-    //	yst=new_doublevector(nstn);
     GeoVector<double> var; var.resize(nstn+1,0);
     GeoVector<double> xst; xst.resize(nstn+1,0);
     GeoVector<double> yst; yst.resize(nstn+1,0);
@@ -563,7 +576,6 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
         if(iobsint==1){
             dn=dn0;
         }else{
-            //get_dn(Xpoint->nch, Xpoint->nrh, dX, dY, nstn, &dn);
             get_dn(nc, nr, dX, dY, nstn, &dn);
         }
         barnes_oi(flag, Xpoint, Ypoint, Xst, Yst, xst, yst, var, dn, geotop::input::gDoubleNoValue, grid, value, metcod);
@@ -575,10 +587,6 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
         }
     }
 
-    //	free_doublevector(var);
-    //	free_doublevector(xst);
-    //	free_doublevector(yst);
-
     return nstn;
 }
 
@@ -587,11 +595,7 @@ short interpolate_meteo(short flag, double dX, double dY, GeoMatrix<double>& Xpo
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *dn){
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *dn){
-
-    //real dn_max           ! the max obs spacing, dn_r
-    //real dn_min           ! dn_r, for large n
 
     double dn_max, dn_min;
 
@@ -608,19 +612,13 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns, double *
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint, DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall,
-//		DOUBLEVECTOR *xstn, DOUBLEVECTOR *ystn, DOUBLEVECTOR *var, double dn, double undef,
-//		double **grid, double **value_station, long metcode){
 void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint, GeoVector<double>& xstnall, GeoVector<double>& ystnall,
                GeoVector<double>& xstn, GeoVector<double>& ystn, GeoVector<double>& var, double dn, double undef,
                GeoMatrix<double>& grid, double **value_station, long metcode){
 
     long r, c, mm, nn;
-    //long nr=xpoint->nrh, nc=xpoint->nch;
     long nr=xpoint.getRows()-1, nc=xpoint.getCols()-1;
-    //long nstns=xstn->nh;
     long nstns=xstn.size()-1;
-    //long nstnsall=xstnall->nh;
     long nstnsall=xstnall.size()-1;
 
     double gamma=0.2;
@@ -632,7 +630,6 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
     double dsq;         //delx**2 + dely**2
     double xa,ya;       //x, y coords of current station
     double xb,yb;       //x, y coords of current station
-    // DOUBLEVECTOR *dvar;			//estimated error
     double *dvar;
     dvar = (double *)calloc(nstns+1, sizeof(double));
 
@@ -667,9 +664,7 @@ void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& ypoint,
     // Scan each input data point and construct estimated error, dvar, at that point.
     for(nn=1;nn<=nstns;nn++){	//222
 
-        //		xa = xstn->co[nn];
         xa = xstn[nn];
-        //		ya = ystn->co[nn];
         ya = ystn[nn];
         wtot1 = 0.0;
         ftot1 = 0.0;
