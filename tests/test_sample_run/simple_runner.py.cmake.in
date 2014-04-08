@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+#
+# Simple test runner
+# ==================
+#
+# Runs all the tests except those which directory contains a file called
+# DISABLE_TEST_RUNNER and saves the stdout and stderr outputs to
+# test$DIRNAME.stdout and test$DIRNAME.stderr where $DIRNAME is the test's
+# working directory.
+
+import os
+import subprocess
+
+TESTDIR = "${GEOTOP_TEST_DIR}"
+GEOTOP = "${GEOTOP_PROGRAM_PATH}"
+
+os.chdir(TESTDIR)
+
+for d in sorted(os.listdir(TESTDIR)):
+    td = os.path.join(TESTDIR,d)
+    if os.path.isdir(td):
+        os.chdir(d)
+        print d
+        print "================================================================================"
+        if os.path.isfile("DISABLE_TEST_RUNNER"):
+            print "Test skipped because DISABLE_TEST_RUNNER file found"
+        else:
+            outlogf = "".join(["test",d,".stdout"])
+            errlogf = "".join(["test",d,".stderr"])
+            olf = open(outlogf,"w")
+            elf = open(errlogf,"w")
+            res = subprocess.call([GEOTOP,"."],stdout=olf,stderr=elf)
+            if res != 0:
+                print "Error Code:",res
+            olf.close()
+            elf.close()
+        print "================================================================================"
+        os.chdir(TESTDIR)
+

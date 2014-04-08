@@ -213,6 +213,7 @@ ELSE(ENABLE_INTERNAL_METEODISTR)
 ENDIF(ENABLE_INTERNAL_METEODISTR)
 configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
 configure_file (${GEOTOP_TEST_INTEGRATION_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_INTEGRATION_DIR}/test_runner.py)
+configure_file (${GEOTOP_TEST_DIR}/simple_runner.py.cmake.in ${GEOTOP_TEST_DIR}/simple_runner.py)
 
 # generate config include file
 ## config.h variables
