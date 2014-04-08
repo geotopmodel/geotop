@@ -14,6 +14,12 @@ ENDIF(COMMAND CMAKE_POLICY)
 			part_snow.cc
 		   )
 
+        ADD_LIBRARY(${GEOTOP_LOGGER} ${LINKING_MODE}
+            global_logger.cc
+            global_logger.h
+			logger.cc
+			logger.h
+		   )
 	ADD_LIBRARY(${GEOTOP_METEO_LIBRARIES} ${LINKING_MODE}
 			meteo.h
 			meteo.cc
@@ -44,12 +50,6 @@ ENDIF(COMMAND CMAKE_POLICY)
 			inputKeywords.h
 		   )
 	
-    ADD_LIBRARY(${GEOTOP_LOGGER} ${LINKING_MODE}
-            global_logger.cc
-            global_logger.h
-			logger.cc
-			logger.h
-		   )
 
 	ADD_LIBRARY(${GEOTOP_COMMON_LIBRARIES} ${LINKING_MODE}
 			constants.h
@@ -121,6 +121,7 @@ ENDIF(COMMAND CMAKE_POLICY)
 	TARGET_LINK_LIBRARIES(${GEOTOP_METEO_LIBRARIES}
 			${GEOTOP_COMMON_LIBRARIES}
 			${ASCII_LIBRARIES}
+			${GEOTOP_LOGGER}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_WATER_BALANCE_LIBRARIES}
