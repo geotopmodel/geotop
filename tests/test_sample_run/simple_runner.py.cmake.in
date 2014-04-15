@@ -16,6 +16,7 @@ GEOTOP = "${GEOTOP_PROGRAM_PATH}"
 
 os.chdir(TESTDIR)
 
+failed=0
 for d in sorted(os.listdir(TESTDIR)):
     td = os.path.join(TESTDIR,d)
     if os.path.isdir(td):
@@ -32,8 +33,10 @@ for d in sorted(os.listdir(TESTDIR)):
             res = subprocess.call([GEOTOP,"."],stdout=olf,stderr=elf)
             if res != 0:
                 print "Error Code:",res
+                failed += 1
             olf.close()
             elf.close()
         print "================================================================================"
         os.chdir(TESTDIR)
 
+sys.exit(failed)
