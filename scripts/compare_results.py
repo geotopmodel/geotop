@@ -92,19 +92,19 @@ def compare_map_files(f1, f2):
     data_ok = pandas.read_csv(f1, sep=' ', skiprows=6, header=None)
     data_new = pandas.read_csv(f2, sep=' ', skiprows=6, header=None)
     if data_ok.shape != data_new.shape:
-        p_quiet("FAIL")
+        p_quiet("  => FAIL")
         return False
     try:
         diff = (data_ok - data_new).apply(abs)
     except (ValueError, TypeError):
         if not filecmp.cmp(f1, f2):
-            p_quiet("FAIL")
+            p_quiet("  => FAIL")
             return False
     if (diff == 0).all().all():
-        p_quiet("OK")
+        p_quiet("  => OK")
         return True
     else:
-        p_quiet("FAIL")
+        p_quiet("  => FAIL")
         p_verbose(indent(diff.describe(), tabs=4))
         return False
 

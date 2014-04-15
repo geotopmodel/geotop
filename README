@@ -1,5 +1,1 @@
-type from this path:
 
-make -f geotop.make
-
-This will put the executable in the subdirectory "bin"
