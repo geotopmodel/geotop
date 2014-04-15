@@ -9,6 +9,7 @@
 # working directory.
 
 import os
+import sys
 import subprocess
 
 TESTDIR = "${GEOTOP_TEST_DIR}"
