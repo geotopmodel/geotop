@@ -243,7 +243,9 @@ short tridiag2(short a, long r, long c, long nbeg, long nend, const GeoVector<do
 {
 	long j;
 	double bet;
+#ifdef VERYVERBOSE
 	size_t lIndex = 0 ;
+#endif
 	//DOUBLEVECTOR *gam;
     GeoVector<double> gam;
 
