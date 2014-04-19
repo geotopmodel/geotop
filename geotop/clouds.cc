@@ -37,8 +37,12 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 	double *cloudtrans;
 	long n;
 
+	if ( (long)meteo[0][iLWi] != geotop::input::gDoubleAbsent ){
+		
+		return 0;
+
 	//if there are radiation data, and no cloudiness
-	if ( (long)meteo[0][iSW] != geotop::input::gDoubleAbsent || ( (long)meteo[0][iSWb] != geotop::input::gDoubleAbsent && (long)meteo[0][iSWd] != geotop::input::gDoubleAbsent ) ){
+	}else if ( (long)meteo[0][iSW] != geotop::input::gDoubleAbsent || ( (long)meteo[0][iSWb] != geotop::input::gDoubleAbsent && (long)meteo[0][iSWd] != geotop::input::gDoubleAbsent ) ){
 
 		cloudtrans = (double*)malloc(meteolines*sizeof(double));
 		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta, albedo);

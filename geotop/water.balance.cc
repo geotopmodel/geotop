@@ -307,8 +307,12 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	//The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
 	if( res <= Fmin( epsilon , max_res_adm ) ) out=1;
 	
+	//printf("res:%e %e\n",res,Fmin( epsilon , max_res_adm ));
+	
 	//Max iteration number
 	if( cont >= adt->P->MaxiterTol ) out=1;	
+	
+	//printf("cont:%ld %ld\n",cont,adt->P->MaxiterTol);
 	
 	while (out==0) {
 		
@@ -571,7 +575,6 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu;
@@ -586,6 +589,13 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 	
 	*Total_Pnet = 0.;
 	
+	res0[0]=0.;
+	res0[1]=0.;
+	res0[2]=0.;
+	lambda[0]=0.;
+	lambda[1]=0.;
+	lambda[2]=0.;	
+	
 	for(i=1; i<=N; i++){//layers
 		
 		l = i-1;
@@ -595,7 +605,12 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		}
 		
 	//	solution guess
-		adt->W->H1[i] = L->P[l][c] + adt->T->Z[l][r][c];
+		//adt->W->H1[i] = L->P[l][c] + adt->T->Z[l][r][c];
+		if (adt->W->Pnet[r][c] > 0 && l == 0) {
+			adt->W->H1[i] = Fmax(0., L->P[l][c]) + (adt->W->Pnet[r][c]/cos(Fmin(GTConst::max_slope,adt->T->slope[r][c])*GTConst::Pi/180.)) + adt->T->Z[l][r][c];
+		}else {
+			adt->W->H1[i] = L->P[l][c] + adt->T->Z[l][r][c];
+		}
 		
 	}
 	
@@ -618,6 +633,8 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 	//Max iteration number
 	if( cont >= adt->P->MaxiterTol ) out=1;	
 	
+	//printf("Richards1D res:%e Tol:%e cont:%ld max:%ld\n",res,Fmin( epsilon , max_res_adm ),cont,adt->P->MaxiterTol);
+	//printf("out:%d\n",out);
 	
 	while (out==0) {
 		
@@ -641,6 +658,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		
 		//CONJUGATED GRADIENTS ALGORITHM
 		iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC, tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp, adt->W->Lx);
+		//printf("iter:%ld\n",iter);
 		if(iter==-1){
 			return 1;	//does not converge 
 		}
@@ -693,7 +711,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
 					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
-					fprintf(f, "Error: no value psi Richards3D l:%ld point:%ld\n",i-1,c);
+					fprintf(f, "Error: no value psi Richards1D l:%ld point:%ld\n",i-1,c);
 					fclose(f);
 					t_error("Fatal Error! Geotop is closed. See failing report.");	
 				}
@@ -712,6 +730,8 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 			
 			if(res <= (1.0 - ni_wat*lambda[0]*(1.-mu))*res_av) out2=1;
 			if(lambda[0] <= adt->P->min_lambda_wat) cont_lambda_min++;
+			
+			//printf("res:%e lam:%e cont2:%ld\n",res,lambda[0],cont2);
 			
 			if(cont_lambda_min > adt->P->max_times_min_lambda_wat){
 				if(adt->P->exit_lambda_min_wat == 1){
