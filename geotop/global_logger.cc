@@ -43,9 +43,9 @@ GlobalLogger::GlobalLogger()
     if (logfileStream.is_open())
     {
 #ifdef VERBOSE
-        mLogger.addOStream(&logfileStream, mLogger.DEBUG);
+	mLogger.addOStream(&logfileStream, geotop::logger::DEBUG);
 #else
-        mLogger.addOStream(&logfileStream, mLogger.DEFAULT_SEVERITY);
+	mLogger.addOStream(&logfileStream, geotop::logger::Logger::DEFAULT_SEVERITY);
 #endif
     }
 }
