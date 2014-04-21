@@ -72,12 +72,6 @@ int main(int argc,char *argv[]){
 	AllData *adt;
 	FILE *f;
 
-    //TODO: removeme
-#ifdef VERBOSE
-    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "w");
-    fclose(SolvePointEnergyBalance_LOG_FILE);
-    
-#endif 
 	
 	string cfgfile = "io_it.ini";
 //	printf("argc=%d, argv[0]=%s argv[1]=%s argv[2]=%s argv[3]=%s argv[4]=%s",argc,argv[0],argv[1],argv[2],argv[3],argv[4]);stop_execution();
