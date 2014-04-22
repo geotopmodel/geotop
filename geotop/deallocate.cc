@@ -33,19 +33,45 @@
 	long i,j,r,l;
 	
 	printf("Close files\n");
-	if(geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpoint);
-	if(geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowT);
-	if(geotop::common::Variables::files[fsnlzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowl);
-	if(geotop::common::Variables::files[fsnizwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowi);
-	if(geotop::common::Variables::files[fsndzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffsnowd);
-	if(geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffglac);
-	if(geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffbas);
-	if(geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffT);
-	if(geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffTav);
-	if(geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpsi);
-	if(geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffpsitot);
-	if(geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffliq);
-	if(geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue) fclose(geotop::common::Variables::ffice);
+    if(geotop::common::Variables::files[fpointwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffpoint)
+        fclose(geotop::common::Variables::ffpoint);
+    if(geotop::common::Variables::files[fsnTzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffsnowT)
+        fclose(geotop::common::Variables::ffsnowT);
+    if(geotop::common::Variables::files[fsnlzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffsnowl)
+        fclose(geotop::common::Variables::ffsnowl);
+    if(geotop::common::Variables::files[fsnizwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffsnowi)
+        fclose(geotop::common::Variables::ffsnowi);
+    if(geotop::common::Variables::files[fsndzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffsnowd)
+        fclose(geotop::common::Variables::ffsnowd);
+    if(geotop::common::Variables::files[fglzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffglac)
+        fclose(geotop::common::Variables::ffglac);
+    if(geotop::common::Variables::files[fbaswriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffbas)
+        fclose(geotop::common::Variables::ffbas);
+    if(geotop::common::Variables::files[fTzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffT)
+        fclose(geotop::common::Variables::ffT);
+    if(geotop::common::Variables::files[fTzavwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffTav)
+        fclose(geotop::common::Variables::ffTav);
+    if(geotop::common::Variables::files[fpsizwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffpsi)
+        fclose(geotop::common::Variables::ffpsi);
+    if(geotop::common::Variables::files[fpsiztotwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffpsitot)
+        fclose(geotop::common::Variables::ffpsitot);
+    if(geotop::common::Variables::files[fliqzwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffliq)
+        fclose(geotop::common::Variables::ffliq);
+    if(geotop::common::Variables::files[ficezwriteend].compare(geotop::input::gStringNoValue) != 0
+        && geotop::common::Variables::ffice)
+        fclose(geotop::common::Variables::ffice);
 	
 	printf("Deallocating global variables\n"); 
 	if(par->state_pixel==1){
