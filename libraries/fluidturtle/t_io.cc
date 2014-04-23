@@ -1421,7 +1421,7 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<d
 
 	//calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 
-	long i;
+	size_t i;
 
 	product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
 
@@ -1469,8 +1469,8 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 		}
 
 
-		if(i < Li.size() ){
-			while(c < Lp.size() && i >= Lp[c])
+ 		if(i < Li.size() && (long)Li.size() > 0){
+			while(c < (long)Lp.size() && (long)i >= Lp[c])
                 c++;
 		}
 	}
@@ -1490,8 +1490,9 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 
 	GeoVector<double> r0, r, p, v, s, t, diag, udiag, yy, z;
 	double rho, rho1, alpha, omeg, beta, norm_r0;
-	long i=0, j, maxiter;
+	long i=0, maxiter;
 	short sux;
+	size_t j;
 
 
 	/*r0.resize(x.size() + 1);
@@ -1672,7 +1673,8 @@ return 1;
 void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& diag,  GeoVector<double>& udiag, const GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
 
 
-	long i, r, c;
+	long r, c;
+	size_t i;
 	
 	//find diagonal and upper diagonal of matrix A+Iy, where A is described by its strict lower diagonal part
 
@@ -1689,8 +1691,8 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 		diag[r] -= Lx[i];
 		
 		if(r == c+1) udiag[c] = Lx[i];
-		if(i<Li.size()-1){
-			while(c < Lp.size() && i >= Lp[c])
+		if(i<Li.size()-1 && (long)i > 0){
+			while(c < (long)Lp.size() && (long)i >= Lp[c])
                 c++;
 		}
 	}
@@ -1705,13 +1707,12 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<double>& y,
 																	const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
 
-	long i, r, c;
+	long r, c;
+  	size_t i;
 
 	//calculate (A+Iy)*x, A described by its strict lower diagonal part
 
-//	for(i=1;i<=x->nh;i++){
 	for(i=1;i<x.size();i++){
-	//  product->co[i] = y->co[i] * x->co[i];
 		product[i] = y[i] * x[i];
 	}
 
@@ -1721,17 +1722,14 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVe
 		r = Li[i];
 
 		if(r > c){
-			//printf("product_using_only_strict_lower_diagonal_part: r:%ld c:%ld i:%ld Lx:%f x->co[c]:%f xi->co[r]: %f\n",r,c,i,Lx[i],x[c],x[r]);
-
 						product[c] += Lx[i] * (x[r] - x[c]);
 						product[r] += Lx[i] * (x[c] - x[r]);
 		}else if(r < c){
-			//printf(" product_using_only_strict_lower_diagonal_part_plus_identity_by_vector r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp[c],Li.size(),Lp[x.size()],x.size());
             t_error("product_using_only_strict_lower_diagonal_part_plus_identity_by_vector: matrix is not L, see function: " + std::string(__FUNCTION__));
 		}
 
-		if(i<Li.size()){
-			while(c < Lp.size() && i >= Lp[c])
+		if(i<Li.size() && (long)i > 0){
+			while(c < (long)Lp.size() && (long)i >= Lp[c])
                 c++;
 		}
 	}
@@ -1741,7 +1739,7 @@ double product(const GeoVector<double>& a, const GeoVector<double>& b){
 
 	double p=0.;
 
-	long i ;
+	size_t i;
 
 	for(i=1;i<a.size();i++){
 		p += a[i] * b[i];
