@@ -972,6 +972,10 @@ class MeteoStations {
 //typedef struct {
 class Meteo {
 	public:
+		Meteo() : st(NULL), data(NULL), numlines(NULL), horizonlines(NULL), 
+		          var(NULL), line_interp_WEB(NULL), line_interp_Bsnow(NULL), line_interp_WEB_LR(0), line_interp_Bsnow_LR(0),
+		tau_cloud(0.), tau_cloud_av(0.), tau_cloud_yes(0), tau_cloud_av_yes(0) {}
+
 //	METEO_STATIONS *st;
 	MeteoStations *st;
 	

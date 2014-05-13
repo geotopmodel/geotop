@@ -27,6 +27,8 @@
 #include "config.h"
 #include "inputKeywords.h"
 
+using namespace std;
+
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -110,10 +112,10 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 #ifndef USE_INTERNAL_METEODISTR
 
     for (i=1; i<A->M->st->Z.size(); i++){// for all meteo stations
-        if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
-			find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
-							   &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
-        }
+	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
+		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
+							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+	    }
     }
 
     //call the function that interpolates the cloudiness
@@ -121,16 +123,23 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
 	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
     }
+    
+    if (A->M->st->tau_cloud_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
+	    A->M->tau_cloud = A->M->st->tau_cloud_meteoST[A->M->nstcloud];
 
-    A->M->tau_cloud=A->M->st->tau_cloud_meteoST[A->M->nstcloud];
-    A->M->tau_cloud_av=A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
-    A->M->tau_cloud_yes=A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
-    A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
+    if (A->M->st->tau_cloud_av_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
+	    A->M->tau_cloud_av = A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
+
+    if (A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
+	    A->M->tau_cloud_yes = A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
+
+    if (A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
+	    A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
 
 #else
 
     find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
-							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 #endif
 
     //	POINT ENERGY BALANCE
@@ -222,7 +231,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     long lpb;
 
     //TODO: removeme
-	
+
 #ifdef VERBOSE
     FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
 #endif 
@@ -258,7 +267,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
 
     //METEO
-	
+
     Tpoint=A->M->Tgrid[r][c];
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
@@ -695,7 +704,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		
 //		printf("b.ic:%f ns:%ld\n",ic,ns);
 #endif
-		
+
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
                                     JDb-A->P->init_date[geotop::common::Variables::i_sim],
