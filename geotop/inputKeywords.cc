@@ -180,8 +180,10 @@ public:
         definition(const ConfGrammar &self)
         {
             configfile = +(row);
-            row = blanks >> (comment | parameter) >> blanks | +(boost::spirit::classic::space_p);
+            row = blanks >> (section | comment | parameter) >> blanks | +(boost::spirit::classic::space_p);
             blanks = *(boost::spirit::classic::space_p) ;
+            section = "[" >> section_ident >> "]" >> boost::spirit::classic::eol_p;
+            section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
             parameter = key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)] >> blanks >> "=" >>
             blanks >> value ;
             key = +(boost::spirit::classic::alpha_p|boost::spirit::classic::alnum_p) ;
@@ -192,7 +194,7 @@ public:
             array = (boost::spirit::classic::real_p >> +(blanks >> "," >>
                                                 blanks >> boost::spirit::classic::real_p))[boost::bind(&ConfGrammar::actionValueDoubleArray, self, _1, _2)] ;
             string = "\"" >> (*(~(boost::spirit::classic::ch_p("\""))))[boost::bind(&ConfGrammar::actionValueString, self, _1, _2)] >> "\"" ;
-            comment = boost::spirit::classic::comment_p("!") | boost::spirit::classic::comment_p("#") | boost::spirit::classic::comment_p("[","]");
+            comment = boost::spirit::classic::comment_p("!") | boost::spirit::classic::comment_p("#");
             date = (DD >> "/" >> MM >> "/" >> YYYY >>
                     blanks >> hh >> ":" >> mm)[boost::bind(&ConfGrammar::actionValueDate, self, _1, _2)] ;
             DD = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
@@ -212,6 +214,8 @@ public:
         
         boost::spirit::classic::rule<Scanner> configfile,
         row,
+        section,
+        section_ident,
         parameter,
         key,
         value,
