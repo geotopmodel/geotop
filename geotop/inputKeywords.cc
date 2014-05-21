@@ -193,7 +193,7 @@ public:
             array = (boost::spirit::real_p >> +(blanks >> "," >>
                                                 blanks >> boost::spirit::real_p))[boost::bind(&ConfGrammar::actionValueDoubleArray, self, _1, _2)] ;
             string = "\"" >> (*(~(boost::spirit::ch_p("\""))))[boost::bind(&ConfGrammar::actionValueString, self, _1, _2)] >> "\"" ;
-            comment = boost::spirit::comment_p("!");
+            comment = boost::spirit::comment_p("!") | boost::spirit::comment_p("#") | boost::spirit::comment_p("[","]");
             date = (DD >> "/" >> MM >> "/" >> YYYY >>
                     blanks >> hh >> ":" >> mm)[boost::bind(&ConfGrammar::actionValueDate, self, _1, _2)] ;
             DD = boost::spirit::digit_p >> boost::spirit::digit_p ;
