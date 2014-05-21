@@ -39,7 +39,14 @@ Logger::~Logger()
     std::vector<LogStream>::iterator it = mStreams.begin();
     while (it != mStreams.end())
     {
-        delete it->streamP;
+        try
+        {
+            delete it->streamP;
+        }
+        catch(...)
+        {
+            //Catch and ignore any exception thrown
+        }
         it++;
     }
 }
