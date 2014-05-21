@@ -21,6 +21,7 @@
 #ifndef ENERGY_BALANCE_H
 #define ENERGY_BALANCE_H
 
+#define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #include "constants.h"
 #include "struct.geotop.h"

@@ -47,6 +47,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 
 template<typename T> class DBGGeoVector : public GeoVector<T>

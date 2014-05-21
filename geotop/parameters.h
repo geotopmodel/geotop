@@ -30,6 +30,7 @@
 #include "times.h"
 #include "pedo.funct.h"
 #include "input.h"
+#define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #include <string>
 
