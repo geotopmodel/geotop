@@ -8,7 +8,7 @@
  */
 
 #include <inputKeywords.h>
-#include <boost/spirit.hpp>
+#include <boost/spirit/include/classic.hpp>
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string/erase.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -47,8 +47,7 @@ bool stringToDouble(std::string const& pString, double &pValue)
  *  must not be used, in the future if more configuration format will be
  *  available, this class should be handled using the decorator pattern.
  */
-class ConfGrammar
-    : public boost::spirit::grammar<ConfGrammar>
+class ConfGrammar : public boost::spirit::classic::grammar<ConfGrammar>
 {
 public:
     
@@ -181,38 +180,42 @@ public:
         definition(const ConfGrammar &self)
         {
             configfile = +(row);
-            row = blanks >> (comment | parameter) >> blanks | +(boost::spirit::space_p);
-            blanks = *(boost::spirit::space_p) ;
+            row = blanks >> (section | comment | parameter) >> blanks | +(boost::spirit::classic::space_p);
+            blanks = *(boost::spirit::classic::space_p) ;
+            section = "[" >> section_ident >> "]" >> boost::spirit::classic::eol_p;
+            section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
             parameter = key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)] >> blanks >> "=" >>
             blanks >> value ;
-            key = +(boost::spirit::alpha_p|boost::spirit::alnum_p) ;
+            key = +(boost::spirit::classic::alpha_p|boost::spirit::classic::alnum_p) ;
             value = date | array | num | string ;
-            num = (boost::spirit::real_p)[boost::bind(&ConfGrammar::actionValueDouble, self, _1)] ;
+            num = (boost::spirit::classic::real_p)[boost::bind(&ConfGrammar::actionValueDouble, self, _1)] ;
             date_array = (date >> +(blanks >> "," >>
                                                      blanks >> date))[boost::bind(&ConfGrammar::actionValueDate, self, _1, _2)] ;
-            array = (boost::spirit::real_p >> +(blanks >> "," >>
-                                                blanks >> boost::spirit::real_p))[boost::bind(&ConfGrammar::actionValueDoubleArray, self, _1, _2)] ;
-            string = "\"" >> (*(~(boost::spirit::ch_p("\""))))[boost::bind(&ConfGrammar::actionValueString, self, _1, _2)] >> "\"" ;
-            comment = boost::spirit::comment_p("!") | boost::spirit::comment_p("#") | boost::spirit::comment_p("[","]");
+            array = (boost::spirit::classic::real_p >> +(blanks >> "," >>
+                                                blanks >> boost::spirit::classic::real_p))[boost::bind(&ConfGrammar::actionValueDoubleArray, self, _1, _2)] ;
+            string = "\"" >> (*(~(boost::spirit::classic::ch_p("\""))))[boost::bind(&ConfGrammar::actionValueString, self, _1, _2)] >> "\"" ;
+            comment = boost::spirit::classic::comment_p("!") | boost::spirit::classic::comment_p("#");
             date = (DD >> "/" >> MM >> "/" >> YYYY >>
                     blanks >> hh >> ":" >> mm)[boost::bind(&ConfGrammar::actionValueDate, self, _1, _2)] ;
-            DD = boost::spirit::digit_p >> boost::spirit::digit_p ;
-            MM = boost::spirit::digit_p >> boost::spirit::digit_p ;
-            YYYY = boost::spirit::digit_p >> boost::spirit::digit_p >>
-            boost::spirit::digit_p >> boost::spirit::digit_p ;
-            hh = boost::spirit::digit_p >> boost::spirit::digit_p ;
-            mm = boost::spirit::digit_p >> boost::spirit::digit_p ;
+            DD = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
+            MM = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
+            YYYY = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p >>
+            boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
+            hh = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
+            mm = boost::spirit::classic::digit_p >> boost::spirit::classic::digit_p ;
         }
         
-        const boost::spirit::rule<Scanner> &start()
+        const boost::spirit::classic::rule<Scanner> &start()
         {
             return configfile;
         }
         
     private:
         
-        boost::spirit::rule<Scanner> configfile,
+        boost::spirit::classic::rule<Scanner> configfile,
         row,
+        section,
+        section_ident,
         parameter,
         key,
         value,
@@ -244,7 +247,7 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     init() ;
     
     ConfGrammar lConfGrammar (mValueMap) ;
-    boost::spirit::parse_info<> lParserInfo = boost::spirit::parse(ss.str().c_str(), lConfGrammar);
+    boost::spirit::classic::parse_info<> lParserInfo = boost::spirit::classic::parse(ss.str().c_str(), lConfGrammar);
     if (lParserInfo.hit)
     {
         std::cout << "Info: configuration file parsing completed" << std::endl;
