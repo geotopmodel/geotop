@@ -123,7 +123,11 @@ int main(int argc,char *argv[]){
     
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");
-	mio::IOManager iomanager(cfg); std::cout << cfg.toString() << endl;
+	mio::IOManager iomanager(cfg);
+#ifdef VERBOSE 
+    //MeteoIO post-initialization output
+    std::cout << cfg.toString() << endl;
+#endif
 	
 	geotop::common::Variables::i_sim0 = 1;
 	geotop::common::Variables::i_run0 = 1;
