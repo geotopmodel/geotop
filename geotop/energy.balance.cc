@@ -230,11 +230,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double ic=0., wa, rho=0.;
     long lpb;
 
-    //TODO: removeme
-
-#ifdef VERBOSE
-    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
-#endif 
 	
     //initialization of cumulated water volumes and set soil ancillary state vars
     if (i <= A->P->total_channel)
@@ -681,30 +676,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
         //ENERGY BALANCE
 
-		// DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
-#ifdef VERBOSE
-        if(r == 5 && c == 2)
-        {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-                    r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-	    /*
-	       fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-	       for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
-	       {
-	       fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
-	       }
-	    */
-	    fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex <= geotop::common::Variables::Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
-            {
-                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
-            }
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
-        }
 		
-//		printf("b.ic:%f ns:%ld\n",ic,ns);
-#endif
-
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
                                     JDb-A->P->init_date[geotop::common::Variables::i_sim],
@@ -720,28 +692,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 									    &decaycoeff, &Locc, &LWupabove_v, &lpb, &dUsl);
 		
 		
-// DEGUB session: let us save on a file a few value for a point (choosen here to be 2 and 5) 		
-#ifdef VERBOSE
-
-        if(r==5 && c == 2)
-        {
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-                    r, c, ns, ng, zmeas_u, zmeas_T, z0, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-	    /*
-	       fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-	       for(size_t lIndex = 0 ; lIndex < A->E->T0.size() ; lIndex++)
-	       {
-	       fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0[lIndex]);
-	       }
-	     */
-	    fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->Temp: ",r,c) ;
-            for(size_t lIndex = 0 ; lIndex <= geotop::common::Variables::Nl+ns /*A->E->Temp.size()*/ ; lIndex++)
-            {
-                fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g ", A->E->Temp[lIndex]);
-            }
-            fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
-        }
-#endif 
 		
     }while (sux < 0);
 
@@ -1120,9 +1070,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
         }
 
-#ifdef VERBOSE
-        fclose(SolvePointEnergyBalance_LOG_FILE);
-#endif 
         return 0;
 
     }else {
@@ -1158,9 +1105,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 #endif //USE_DOUBLE_PRECISION_OUTPUT
 #endif //VERBOSE
 
-#ifdef VERBOSE
-        fclose(SolvePointEnergyBalance_LOG_FILE);
-#endif 		
         fclose(f);
 
         return 1;
@@ -1218,11 +1162,6 @@ short SolvePointEnergyBalance(
 	
     FILE *f;
 
-#ifdef VERBOSE
-    FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.TN.txt", "a");
-#endif 
-	
-	
 	//
 	
 	res0[0]=0.;
@@ -1446,16 +1385,10 @@ short SolvePointEnergyBalance(
 	
     //top boundary condition
 	
-//    if(r==5 && c==2)
-//	    printf("DEBUG_PRINT:energy-balance BEFORE: ns(%ld) egy->Fenergy->co[sur]: %.12g\n", ns, egy->Fenergy[sur]);
 #endif 
     egy->Fenergy[sur] -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
     //TODO: removed 4/11/2013 egy->Fenergy[sur] -= egy->SWlayer[0];
-#ifdef VERBOSE
-// to be removed 
-//    if(r==5 && c==2)
-//	    printf("DEBUG_PRINT:energy-balance AFTER: egy->Fenergy->co[sur]: %.12g\n", egy->Fenergy[sur]);
-#endif 
+    //
     //bottom boundary condition (treated as sink)
     if (n <= ns+ng) {
 	    kbb1 = k_thermal(1, par->snow_conductivity, thw, thi, sat, kt);
@@ -1790,13 +1723,6 @@ short SolvePointEnergyBalance(
 			update_F_energy(sur, n, egy->Fenergy, 1.-GTConst::KNe, egy->Kth1, &(egy->Temp[0]));
 		   update_F_energy(sur, n, egy->Fenergy, GTConst::KNe, egy->Kth0, &(egy->T0[0]));
             res = norm_2(egy->Fenergy, sur, n);
-#ifdef VERBOSE
-	    if(r == 5 && c == 2)
-	    {
-		    fprintf(SolvePointEnergyBalance_LOG_FILE, "RES - r(%ld),c(%ld) : %.12g\n", r, c, res);
-		    fprintf(SolvePointEnergyBalance_LOG_FILE, "Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp[sur],egy->Temp[1],EB,egy->SWlayer[0],Ta,Tg,*LW,(*H),0,egy->deltaw[1],egy->liq[1]+egy->deltaw[1],egy->ice[1]-egy->deltaw[1]);
-	    }
-#endif 
 
             if(res <= res_av*(1.0 - ni_en*lambda[0])) iter_close2=1;
             if(lambda[0] <= par->min_lambda_en) cont_lambda_min++;
@@ -1816,9 +1742,6 @@ short SolvePointEnergyBalance(
 
     } while(iter_close!=1);
 
-#ifdef VERBOSE
-	fclose(SolvePointEnergyBalance_LOG_FILE);
-#endif
     //if there is no convergence, go out of the loop
     if(res > par->tol_energy){
         if (ns > 1 && surfacemelting == 0) {
@@ -1952,19 +1875,14 @@ short SolvePointEnergyBalance(
 
         //	water pressure and contents
         psisat = psi_saturation(Fmax(0.,egy->ice[l+n])/(GTConst::rho_w*egy->Dlayer[l+n]), pa[sy][jsat][l], pa[sy][jres][l], pa[sy][ja][l], pa[sy][jns][l], 1.-1./pa[sy][jns][l]);
-        //	th_oversat = Fmax( S->P->co[l][i] - psisat , 0.0 ) * pa[jss][l];
         th_oversat = Fmax( S->P[l][i] - psisat , 0.0 ) * pa[sy][jss][l];
 
-        //	th->co[l][i] = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/(GTConst::rho_w*egy->Dlayer->co[l+n]);
         th[l][i] = Fmax(0.,egy->liq[l+n]+egy->deltaw[l+n])/(GTConst::rho_w*egy->Dlayer[l+n]);
-        //	S->thi->co[l][i] = Fmax(0.,egy->ice->co[l+n]-egy->deltaw->co[l+n])/(GTConst::rho_w*egy->Dlayer->co[l+n]);
         S->thi[l][i] = Fmax(0.,egy->ice[l+n]-egy->deltaw[l+n])/(GTConst::rho_w*egy->Dlayer[l+n]);
 
-        //	S->P->co[l][i] = psi_teta(th->co[l][i]+th_oversat, S->thi->co[l][i], pa[jsat][l], pa[jres][l], pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], GTConst::PsiMin, pa[jss][l]);
         S->P[l][i] = psi_teta(th[l][i]+th_oversat, S->thi[l][i], pa[sy][jsat][l], pa[sy][jres][l], pa[sy][ja][l], pa[sy][jns][l], 1.-1./pa[sy][jns][l], GTConst::PsiMin, pa[sy][jss][l]);
 
         //	temperature
-        //	S->T->co[l][i] = egy->Temp->co[l+n];
         S->T[l][i] = egy->Temp[l+n];
 		
 //		printf("ALLA FINE l:%ld j:%ld n:%ld th:%f thi:%f P:%f T:%f wliq:%f ice:%f deltaw:%f \n",l,i,n,th[l][i],S->thi[l][i],S->P[l][i],S->T[l][i],egy->liq[l+n],egy->ice[l+n],egy->deltaw[l+n]);
@@ -1977,7 +1895,6 @@ short SolvePointEnergyBalance(
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Energy *egy, double **pa, SOIL_STATE *S, DOUBLEMATRIX *ET, DOUBLEMATRIX *th){
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoMatrix<double>& ET, GeoMatrix<double>& th){
 
     long l;
@@ -1987,7 +1904,6 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Ener
     for (l=1; l<=geotop::common::Variables::Nl; l++) {
 
         //	canopy transpiration
-        //	if(l < egy->soil_transp_layer->nh) ET->co[l][ch] += fc*egy->soil_transp_layer->co[l]*Dt;
         if(l <= egy->soil_transp_layer.size()) ET[l][ch] += fc*egy->soil_transp_layer[l]*Dt;
 
         //	soil evaporation
@@ -2023,7 +1939,6 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Ener
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void update_F_energy(long nbeg, long nend, DOUBLEVECTOR *F, double w, DOUBLEVECTOR *K, double *T){
 void update_F_energy(long nbeg, long nend, GeoVector<double>& F, double w, const GeoVector<double>& K, const double *T){
 
     long l;
@@ -2031,13 +1946,10 @@ void update_F_energy(long nbeg, long nend, GeoVector<double>& F, double w, const
     for(l=nbeg;l<=nend;l++){
 
         if(l==nbeg){
-            //	F->co[l] += w*(-K[l]*T[l] + K[l]*T[l+1]);
             F[l] += w*(-K[l]*T[l] + K[l]*T[l+1]);
         }else if(l<nend){
-            //	F->co[l] += w*(K[l-1]*T[l-1] - (K[l]+K[l-1])*T[l] + K[l]*T[l+1]);
             F[l] += w*(K[l-1]*T[l-1] - (K[l]+K[l-1])*T[l] + K[l]*T[l+1]);
         }else{
-            //	F->co[l] += w*(K[l-1]*T[l-1] - K[l-1]*T[l]);
             F[l] += w*(K[l-1]*T[l-1] - K[l-1]*T[l]);
         }
     }
@@ -2049,7 +1961,6 @@ void update_F_energy(long nbeg, long nend, GeoVector<double>& F, double w, const
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void update_diag_dF_energy(long nbeg, long nend, DOUBLEVECTOR *dF, double w, DOUBLEVECTOR *K){
 void update_diag_dF_energy(long nbeg, long nend, GeoVector<double>& dF, double w, const GeoVector<double>& K){
 
     long l;
@@ -2057,13 +1968,10 @@ void update_diag_dF_energy(long nbeg, long nend, GeoVector<double>& dF, double w
     for(l=nbeg;l<=nend;l++){
 
         if(l==nbeg){
-            //	dF->co[l] -= w*K[l];
             dF[l] -= w*K[l];
         }else if(l<nend){
-            //	dF->co[l] -= w*(K[l]+K[l-1]);
             dF[l] -= w*(K[l]+K[l-1]);
         }else{
-            //	dF->co[l] -= w*K[l-1];
             dF[l] -= w*K[l-1];
         }
     }
@@ -2075,7 +1983,6 @@ void update_diag_dF_energy(long nbeg, long nend, GeoVector<double>& dF, double w
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw, double *D, double **pa){
 double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw, double *D, const GeoTensor<double>& pa, long sy)
 {	
     double C;
@@ -2083,7 +1990,6 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw, d
     if(l<=nsng){	//snow
         C = (GTConst::c_ice*(wi[l]-a*dw[l]) + GTConst::c_liq*(wl[l]+a*dw[l]))/D[l];
     }else{	//soil
-        //C = pa[jct][l-nsng]*(1.-pa[jsat][l-nsng]) + (GTConst::c_ice*(wi[l]-a*dw[l]) + GTConst::c_liq*(wl[l]+a*dw[l]))/D[l];
         C = pa(sy,jct,l-nsng)*(1.-pa(sy,jsat,l-nsng)) + (GTConst::c_ice*(wi[l]-a*dw[l]) + GTConst::c_liq*(wl[l]+a*dw[l]))/D[l];
     }
 
@@ -2558,7 +2464,8 @@ double flux(long i, long icol, double **met, double k, double est){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
+//FIXME: this rourine below never called ????
+//FIXME: should we remove it ? SC.21.04.2014)
 //void check_errors(long r, long c, long n, DOUBLEVECTOR *adi, DOUBLEVECTOR *ad, DOUBLEVECTOR *ads, DOUBLEVECTOR *b, DOUBLEVECTOR *e,
 //				  double *T, SHORTVECTOR *mf){
 
