@@ -248,7 +248,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     //Continuous Recovering
-    if (par->RunIfAnOldRunIsPresent != 1) {
+/*    if (par->RunIfAnOldRunIsPresent != 1) {
 
         if (mio::IOUtils::fileExists(geotop::common::Variables::SuccessfulRunFile)) {
 
@@ -290,7 +290,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             t_error("Fatal Error! Geotop is closed. See failing report.");
 #endif
         }
-    }
+    }*/
 
     temp = geotop::common::Variables::SuccessfulRunFile + ".old";
     rename(geotop::common::Variables::SuccessfulRunFile.c_str(), temp.c_str());
