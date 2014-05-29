@@ -24,86 +24,29 @@
 
 using namespace std;
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-
-//void assign_recovered_map(long n, char *name, DOUBLEMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-//  void assign_recovered_map(long n, char *name, DOUBLEMATRIX *assign, Par *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-//
-//
-//	long r, c;
-//	//long i;
-////	DOUBLEMATRIX *M;
-//	GeoMatrix<double> M;
-//	char *temp;
-//
-//	temp = namefile_i_we2(name, n);
-//
-//	//if(par->point_sim == 0){
-//		//M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-//		meteoio_readMap(string(temp), M);
-//
-//	//	for (r=1; r<=M->nrh; r++) {
-//		for (r=1; r< M.getRows(); r++) {
-//		//	for (c=1; c<=M->nch; c++) {
-//			for (c=1; c< M.getCols(); c++) {
-//			//	assign->co[r][c] = M->co[r][c];
-//				assign->co[r][c] = M[r][c];
-//			}
-//		}
-//
-//	/*}else{
-//		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-//		for(i=1; i<=par->r_points->nh; i++){
-//			r = par->r_points->co[i];
-//			c = par->c_points->co[i];
-//			assign->co[1][i] = M->co[r][c];
-//		}
-//	}*/
-//
-////	free_doublematrix(M);
-//	free(temp);
-//}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-  void assign_recovered_map_vector(long n, std::string name, GeoVector<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
-	long i, r, c;
-//	DOUBLEMATRIX *M;
-	GeoMatrix<double> M;
+void assign_recovered_map_vector   (long n,
+                                    std::string name,
+                                    GeoVector<double> &assign,
+                                    GeoMatrix<long> &rc,
+                                    Par * par,
+                                    GeoMatrix<double> &Zdistr,
+                                    GeoMatrix<double> &Zpoint)
+{
+    long i, r, c;
+    GeoMatrix<double> M;
     std::string temp;
-	
-	temp = namefile_i_we2(name, n);
-	
-	//if(par->point_sim == 0){
-	//	M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-		meteoio_readMap(string(temp), M);
-	//	for (i=1; i<=rc->nrh; i++) {
-		for (i=1; i<rc.getRows(); i++) {
-		//	r = rc->co[i][1];
-			r = rc[i][1];
-		//	c = rc->co[i][2];
-			c = rc[i][2];
-		//	assign->co[i] = M->co[r][c];
-			assign[i] = M[r][c];
-		}
-		
-	/*}else{
-		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-		for(i=1; i<=par->r_points->nh; i++){
-			r = par->r_points->co[i];
-			c = par->c_points->co[i];
-			assign->co[i] = M->co[r][c];
-		}
-	}*/
-	
-//	free_doublematrix(M);
+
+    temp = namefile_i_we2(name, n);
+
+    meteoio_readMap(string(temp), M);
+
+    for (i = 1; i < rc.getRows(); i++)
+    {
+        r = rc[i][1];
+        c = rc[i][2];
+        assign[i] = M[r][c];
+    }
+
 }
 
 
@@ -112,115 +55,66 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-  void assign_recovered_map_long(long n, std::string name, GeoMatrix<long>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+void assign_recovered_map_long (long n,
+                                std::string name,
+                                GeoMatrix<long> &assign,
+                                Par * par,
+                                GeoMatrix<double> &Zdistr,
+                                GeoMatrix<double> &Zpoint)
+{
 
- 	long r, c;
- 	//long i;
- //	DOUBLEMATRIX *M;
- 	GeoMatrix<double> M;
-      std::string temp;
+    long r, c;
+    GeoMatrix<double> M;
+    std::string temp;
 
- 	temp = namefile_i_we2(name, n);
+    temp = namefile_i_we2(name, n);
 
- 	//	if(par->point_sim == 0){
- 	//	M = read_map(1, temp, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
- 		meteoio_readMap(string(temp), M);
- 	//	for (r=1; r<=M->nrh; r++) {
- 		for (r=1; r< M.getRows(); r++) {
- 		//	for (c=1; c<=M->nch; c++) {
- 			for (c=1; c< M.getCols(); c++) {
- 			//	assign->co[r][c] = (long)M->co[r][c];
- 				assign[r][c] = (long)M[r][c];
- 			}
- 		}
+    meteoio_readMap(string(temp), M);
+    for (r = 1; r < M.getRows (); r++)
+    {
+        for (c = 1; c < M.getCols(); c++)
+        {
+            assign[r][c] = (long) M[r][c];
+        }
+    }
 
- 	/*}else{
- 		M = read_map(1, temp, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
- 		for(i=1; i<=par->r_points->nh; i++){
- 			r = par->r_points->co[i];
- 			c = par->c_points->co[i];
- 			assign->co[1][i] = (long)M->co[r][c];
- 		}
- 	}*/
-
- //	free_doublematrix(M);
- }
+}
 
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-  //void assign_recovered_tensor(long n, char *name, DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr, DOUBLEMATRIX *Zpoint){
-    void assign_recovered_tensor(long lbegin, long n, std::string name, GeoTensor<double>& assign, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
+void assign_recovered_tensor   (long lbegin,
+                                long n,
+                                std::string name,
+                                GeoTensor<double> &assign,
+                                Par * par,
+                                GeoMatrix<double> &Zdistr,
+                                GeoMatrix<double> &Zpoint)
+{
 
-//lbegin can be either 0 or 1 depending if the tensor is defined for l==0
-		
-  	long r, c, l;
-//  DOUBLEMATRIX *M;
-  	GeoMatrix<double> M;
+    long r, c, l;
+    GeoMatrix < double >M;
 
-        std::string temp1, temp2;
-
-// 	for (l=assign->ndl; l<=assign->ndh; l++) {
- 	for (l=lbegin; l<assign.getDh(); l++) {  //TODO: assign->ndl  is replaced by 1, need to check!
-
-  		temp1 = namefile_i_we2(name, n);
-  		temp2 = namefile_i_we(temp1, l);
-
-  		//	if(par->point_sim == 0){
-  		//	M = read_map(1, temp2, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-  			meteoio_readMap(string(temp2), M);
-  		//	for (r=1; r<=M->nrh; r++) {
-  			for (r=1; r< M.getRows(); r++) {
-  			//	for (c=1; c<=M->nch; c++) {
-  				for (c=1; c< M.getCols(); c++) {
-  				//	assign->co[l][r][c] = M->co[r][c];
-  					assign[l][r][c] = M[r][c];
-  				}
-  			}
-
-  		/*}else{
-  			M = read_map(1, temp2, Zpoint, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-  			for(i=1; i<=par->r_points->nh; i++){
-  				r = par->r_points->co[i];
-  				c = par->c_points->co[i];
-  				assign->co[l][1][i] = M->co[r][c];
-  			}
-  		}*/
-
-  	//	free_doublematrix(M);
-  	}
-  }
-
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-
-void assign_recovered_tensor_vector(long lbegin, long n, std::string name, GeoMatrix<double>& assign, GeoMatrix<long>& rc, Par *par, GeoMatrix<double>& Zdistr, GeoMatrix<double>& Zpoint){
-	
-// lbegin 1 or 0 depending of the size of the data-structure considered (psi is 0)
-// this should disappear once we have all data structure correclty allocated (SC.	
-	long r, c, i, l;
-	GeoMatrix<double> M;
     std::string temp1, temp2;
-	
-	for (l=lbegin; l<assign.getRows(); l++) {
-		
-		temp1 = namefile_i_we2(name, n);
-		temp2 = namefile_i_we(temp1, l);
-		
-		meteoio_readMap(temp2, M);
-		for (i=1; i<rc.getRows(); i++) {
-			r = rc[i][1];
-			c = rc[i][2];
-			assign[l][i] = M[r][c];
-		}
-		
-	}
+
+    //TODO: assign->ndl is replaced by 1, need to check!
+    for (l = lbegin; l < assign.getDh(); l++) {
+
+          temp1 = namefile_i_we2 (name, n);
+          temp2 = namefile_i_we (temp1, l);
+
+          meteoio_readMap (string (temp2), M);
+
+          for (r = 1; r < M.getRows(); r++)
+          {
+              for (c = 1; c < M.getCols(); c++)
+              {
+                  assign[l][r][c] = M[r][c];
+              }
+          }
+    }
 }
 
 
@@ -230,31 +124,72 @@ void assign_recovered_tensor_vector(long lbegin, long n, std::string name, GeoMa
 /******************************************************************************************************************************************/
 
 
-   // void assign_recovered_tensor_channel(long n, char *name, DOUBLEMATRIX *assign, LONGVECTOR *r, LONGVECTOR *c, DOUBLEMATRIX *Zdistr){
+void assign_recovered_tensor_vector    (long lbegin,
+                                        long n,
+                                        std::string name,
+                                        GeoMatrix<double> &assign,
+                                        GeoMatrix<long> &rc,
+                                        Par * par,
+                                        GeoMatrix<double> &Zdistr,
+                                        GeoMatrix<double> &Zpoint)
+{
 
-   void assign_recovered_tensor_channel(long lbegin, long n, std::string name, GeoMatrix<double>& assign,const GeoVector<long> r, const GeoVector<long> c, GeoMatrix<double>& Zdistr){
+// lbegin 1 or 0 depending of the size of the data-structure considered (psi is 0)
+// this should disappear once we have all data structure correclty allocated (SC.       
+    long r, c, i, l;
+    GeoMatrix<double> M;
+    std::string temp1, temp2;
 
-   	long ch, l;
-//  DOUBLEMATRIX *M;
-   	GeoMatrix<double> M;
-       std::string temp1, temp2;
+    for (l = lbegin; l < assign.getRows(); l++)
+    {
 
-// 	for (l=assign->nrl; l<=assign->nrh; l++) {
- 	for (l=lbegin; l<assign.getRows(); l++) {
+        temp1 = namefile_i_we2(name, n);
+        temp2 = namefile_i_we(temp1, l);
 
-   		temp1 = namefile_i_we2(name, n);
-   		temp2 = namefile_i_we(temp1, l);
+        meteoio_readMap (temp2, M);
+        for (i = 1; i < rc.getRows(); i++)
+        {
+            r = rc[i][1];
+            c = rc[i][2];
+            assign[l][i] = M[r][c];
+        }
 
-   		//M = read_map(1, temp2, Zdistr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-   		meteoio_readMap(temp2, M);
+    }
+}
 
-   	//	for (ch=1; ch<=r->nh; ch++) {
-   		for (ch=1; ch<r.size(); ch++) {
-   		//	if(r->co[ch] > 0) assign->co[l][ch] = M->co[r->co[ch]][c->co[ch]];
-   			if(r[ch] > 0) assign[l][ch] = M[r[ch]][c[ch]];
-   		}
 
-   	//	free_doublematrix(M);
-   	}
-   }
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+
+void assign_recovered_tensor_channel   (long lbegin,
+                                        long n,
+                                        std::string name,
+                                        GeoMatrix<double> &assign,
+                                        const GeoVector<long> r,
+                                        const GeoVector<long> c,
+                                        GeoMatrix<double> &Zdistr)
+{
+
+    long ch, l;
+    GeoMatrix<double> M;
+    std::string temp1, temp2;
+
+    for (l = lbegin; l < assign.getRows(); l++)
+    {
+
+        temp1 = namefile_i_we2(name, n);
+        temp2 = namefile_i_we(temp1, l);
+
+        meteoio_readMap(temp2, M);
+
+        for (ch = 1; ch < r.size (); ch++)
+        {
+            if (r[ch] > 0)
+            assign[l][ch] = M[r[ch]][c[ch]];
+        }
+    }
+}
 
