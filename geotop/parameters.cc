@@ -462,14 +462,15 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
         case 3:
             //path_rec_files points to a file (regular or special)
 #ifdef WITH_LOGGER
-            lg->logsf(geotop::logger::ERROR,
-                    "SubfolderRecoveryFiles: %s is a file",
+            lg->logsf(geotop::logger::CRITICAL,
+                    "SubfolderRecoveryFiles: %s is a file. Aborting",
                     path_rec_files.c_str());
 #else
             fprintf(stderr,
-                    "[ERROR] SubfolderRecoveryFiles: %s is a file\n",
+                    "[CRITICAL] SubfolderRecoveryFiles: %s is a file. Aborting\n",
                     path_rec_files.c_str());
 #endif
+            exit(1);
             break;
         case 0:
             //path_rec_files doesn't exist
