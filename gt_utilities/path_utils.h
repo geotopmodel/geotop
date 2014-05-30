@@ -3,8 +3,6 @@
    and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
-file geo_trivial_symbols.h
-
 Copyright (c), 2011 Emanuele Cordano
 
 This file is part of GEOTRIVIALUtilities.
