@@ -1670,8 +1670,6 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void find_dt_max(double Courant, double *h, LAND *land, TOPO *top, CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt){
-
 
   void find_dt_max(double Courant, GeoMatrix<double>& h, Land *land, Topo *top, Channel *cnet, Par *par, Meteo *met, double t, double *dt){
 
@@ -2055,8 +2053,6 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt){
-
 
   void find_dt_max_channel(short DDcomplex, double Courant, GeoMatrix<double>& h, Topo *top, Channel *cnet, Par *par, Land *land, double t, double *dt){
 	
@@ -2286,13 +2282,7 @@ void draining_land(double alpha, long i, Topo *T, Land *L, Par *P, GeoMatrix<dou
 					Q(row, d) = 0.;
 				}
 			}
-			else {
-				
-				I(row, d) = i;
-				Q(row, d) = 0.;
-			}
 		}
-	}
 	}else {
 		
 		for (d=1; d<=4; d++) {
