@@ -489,8 +489,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				
 				if (l>0) {
 					
-				
-					if (adt->T->pixel_type[r][c] == 1) {
+		 	
+					if (adt->T->pixel_type[r][c] == 1 ||  adt->T->pixel_type[r][c] == 11) {
 					//	The depth of the free surface is multiplied by cosine since Z's are the layer depths in vertical direction
 					
 						if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && adt->W->H1[i] - adt->T->Z[l][r][c] > 0 ) {
@@ -510,8 +510,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 							
 						}
 						
-				
-					}else if (adt->T->pixel_type[r][c] == 2) {
+					}else if (adt->T->pixel_type[r][c] == 2 ||  adt->T->pixel_type[r][c] == 12) {
 						
 						if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) {
 							
@@ -1787,7 +1786,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			H = Fmax(0., h(0,j)) / cos(top->slope[r][c]*GTConst::Pi/180.);
 			
 			dV[j] = 0.0;
-			
+// this below should be replaced by H >par->min_hsup_land) TODO SC 30.05.2014) 	
 			if(H > 0){
 				
 
@@ -1874,6 +1873,7 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 		}			
 		
 		supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, flog, &cnt2);
+// parameter 1 here means DDch: TODO/TOFIX 30.05.2014 SC		
 		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, flog, &cnt3);
 		
 	}while(te<Dt);
@@ -1956,8 +1956,6 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-// piccola divergenza con codice c in questa routine.. 
-
   void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
 	
 	long ch, r, c;
@@ -1965,11 +1963,11 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
 	
 	do{
-		
+
 		tb=te;
 		dt=Dt;
-		
-		find_dt_max_chla(par->max_courant_land, h, hch, top, cnet, par, t, &dt);
+
+		find_dt_max_chla(par->max_courant_land_channel, h, hch, top, cnet, par, t, &dt);
 		*cnt = *cnt + 1;
 		
 		te=tb+dt;
@@ -1977,56 +1975,58 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 			te=Dt;
 			dt=te-tb;
 		}		
-		
+
 		//Superficial flow to the channels
 		for(ch=1;ch<=par->total_channel;ch++){
-			
+
 			r = cnet->r[ch];
 			c = cnet->c[ch];
 			
 			H = Fmax(0., h(0,top->j_cont[r][c])) / cos(top->slope[r][c]*GTConst::Pi/180.);
 			Hch = Fmax(0., hch(0,ch) ) / cos(top->slope[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope[r][c]*GTConst::Pi/180.);
-			
+
 			area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
 			areach = cnet->length[ch] * par->w_dx * ds;
-			
-			if( Hch < 0 ){	//free flow
+
+			if (H > par->min_hsup_land) {  //H= water depth on the land 
+				if( Hch < -par->min_dhsup_land_channel_in ){	// Hch: same as H but for channel  free flow
+
+					DH = H;
+					q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 				
-				DH = H;
-				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
+					Vmax = Fmin( areach*1.E-3*(-Hch) , area*1.E-3*H );
+					if (q*dt > Vmax) q = Vmax/dt;
+
+					Vsup[ch] += q*dt;
 				
-				Vmax = Fmin( areach*1.E-3*(-Hch) , area*1.E-3*H );
-				if (q*dt > Vmax) q = Vmax/dt;
+					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-				Vsup[ch] += q*dt;
+					if(hch(0,ch)>0){
+						hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					}else{
+						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					}				
 				
-				h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
+				}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
 				
-				if(hch(0,ch)>0){
-					hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
-				}else{
-					if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
-				}				
+					DH = H - Hch;
+					q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
 				
-			}else if( H - Hch > 0 ){//submerged flow towards channel
+					Vmax = 1.E-3*DH / (1./area + 1./areach);
+					if (q*dt > Vmax) q = Vmax/dt;
+
+					Vsup[ch] += q*dt;
 				
-				DH = H - Hch;
-				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*H;//m3/s
+					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-				Vmax = 1.E-3*DH / (1./area + 1./areach);
-				if (q*dt > Vmax) q = Vmax/dt;
-				
-				Vsup[ch] += q*dt;
-				
-				h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
-				
-				if(hch(0,ch)>0){
-					hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
-				}else{
-					if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
-				}				
-				
-			}else if ( Hch - H > 0 ) {
+					if(hch(0,ch)>0){
+						hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					}else{
+						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					}				
+				} 
+			}	
+			if ( Hch - H >  par->min_dhsup_land_channel_out ) {
 				
 				DH = Hch - H;
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*DH)*(2.*cnet->length[ch])*1.E-3*Hch;//m3/s
@@ -2245,51 +2245,54 @@ void draining_land(double alpha, long i, Topo *T, Land *L, Par *P, GeoMatrix<dou
 		
 		for (d=1; d<=4; d++) {
 			if (r+ir[d]>=1 && r+ir[d]<=geotop::common::Variables::Nr && c+ic[d]>=1 && c+ic[d]<=geotop::common::Variables::Nc) {
-				
+
 				I(row,d) = T->j_cont[r+ir[d]][c+ic[d]];
-				
-				if (I(row,d)>0) {
-					
-					dD = find_3Ddistance(ds, T->Z0[r][c] - T->Z0[r+ir[d]][c+ic[d]]);
-					if(ir[d]==1 || ir[d]==-1){
-						dn = ds/cos(0.5*atan(T->dzdE[r][c])+0.5*atan(T->dzdE[r+ir[d]][c+ic[d]]));
-					}else {
-						dn = ds/cos(0.5*atan(T->dzdN[r][c])+0.5*atan(T->dzdN[r+ir[d]][c+ic[d]]));
-					}		
-					
-					pn = T->Z0[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h(0,I(row, d)), 0.);
-					
-					if (pn < p) {
-						Q(row, d) = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
-					}else {
-						Q(row,d) = 0.;
-					}
-					
+                                }else {
+					I(row,d) = 0;
+				}
+
+			if (I(row,d)>0) {
+
+				dD = find_3Ddistance(ds, T->Z0[r][c] - T->Z0[r+ir[d]][c+ic[d]]);
+				dn = ds;
+
+				if(ir[d]==1 || ir[d]==-1){
+					dn /= cos(0.5*atan(T->dzdE[r][c])+0.5*atan(T->dzdE[r+ir[d]][c+ic[d]]));
 				}else {
+					dn /= cos(0.5*atan(T->dzdN[r][c])+0.5*atan(T->dzdN[r+ir[d]][c+ic[d]]));
+				}		
 					
-					if(T->BC_counter[r][c] > 0){
-						if (H >= -T->BC_DepthFreeSurface[T->BC_counter[r][c]] ){
-							I(row,d) = -1;
-							Q(row,d) = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*ds;
-						}else {
-							I(row,d) = i;
-							Q(row, d) = 0.;
-						}
+				pn = T->Z0[r+ir[d]][c+ic[d]] + alpha*1.E-3*Fmax(h(0,I(row, d)), 0.);
+					
+				if (pn < p) {
+					Q(row, d) = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
+				}else {
+					Q(row,d) = 0.;
+				}
+					
+			}else {
+
+				if(T->BC_counter[r][c] > 0){
+					if (H >= -T->BC_DepthFreeSurface[T->BC_counter[r][c]] ){
+						//I(row,d) = -1;
+						Q(row,d) = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*ds;
+						//if(cnet->ch[r][c]>0) Q(row,d)= Q(row,d)*(1.-P->w_dx);
 					}else {
-						I(row, d) = i;
+						I(row,d) = i;
 						Q(row, d) = 0.;
 					}
-					
+				}else {
+					I(row, d) = i;
+					Q(row, d) = 0.;
 				}
-				
-			}else {
+			}
+			else {
 				
 				I(row, d) = i;
 				Q(row, d) = 0.;
-				
 			}
 		}
-		
+	}
 	}else {
 		
 		for (d=1; d<=4; d++) {
