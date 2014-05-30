@@ -14,6 +14,13 @@
 #include <iomanip>
 #include <inputKeywords.h>
 #include "geotop_common.h"
+#include "../gt_utilities/path_utils.h"
+
+#ifdef WITH_LOGGER
+#include "global_logger.h"
+#else
+#include <stdio.h>
+#endif
 
 using namespace std;
 using namespace boost::assign ;
@@ -431,6 +438,76 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
     lKeys += "SubfolderRecoveryFiles" ;
     lValues =  getStringValues(lConfigStore, lKeys) ;
 	path_rec_files = lValues[0] ; //path of recovery files
+
+    //Check if path_rec_files exists and is a directory
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
+    switch(gt_fileExists(path_rec_files.c_str()))
+    {
+        case 2:
+            //path_rec_files points to a directory
+            //do nothing
+            break;
+        case 1:
+        case 3:
+            //path_rec_files points to a file (regular or special)
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::ERROR,
+                    "SubfolderRecoveryFiles: %s is a file",
+                    path_rec_files.c_str());
+#else
+            fprintf(stderr,
+                    "[ERROR] SubfolderRecoveryFiles: %s is a file\n",
+                    path_rec_files.c_str());
+#endif
+            break;
+        case 0:
+            //path_rec_files doesn't exist
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::WARNING,
+                    "SubfolderRecoveryFiles: %s doesn't exist. Attempting to create it...",
+                    path_rec_files.c_str());
+#else
+            fprintf(stderr,
+                    "[WARNING] SubfolderRecoveryFiles: %s doesn't exist. Attempting to create it...\n",
+                    path_rec_files.c_str());
+#endif
+            if (gt_makeDirectory(path_rec_files.c_str()))
+            {
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::WARNING,
+                        "%s successfully created",
+                        path_rec_files.c_str());
+#else
+                fprintf(stderr, "[WARNING] %s successfully created\n", path_rec_files.c_str());
+#endif
+            }
+            else
+            {
+#ifdef WITH_LOGGER
+                lg->log("Unable to create recovery files directory. Aborting",
+                       geotop::logger::CRITICAL);
+#else
+                fprintf(stderr, "[CRITICAL] Unable to create recovery files directory. Aborting\n");
+#endif
+                exit(1);
+            }
+            break;
+        default:
+            //An error occurred in gt_fileExists
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::CRITICAL,
+                    "Unable to verify if %s is a directory. Aborting.",
+                    path_rec_files.c_str());
+#else
+            fprintf(stderr,
+                    "Unable to verify if %s is a directory. Aborting.\n",
+                    path_rec_files.c_str());
+#endif
+            exit(1);
+            break;
+    }
 
 	//replace none value with some default values
 	
