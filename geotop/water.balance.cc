@@ -1251,14 +1251,12 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 		
 		//VERTICAL FLUXES
 		l = i-1;	
-	//	sy=adt->S->type->co[r][c];
 		sy=adt->S->type[r][c];
 		area=ds*ds;
 		
 		//vertical hydraulic conductivity
 		if(l>0){
 			dz = adt->S->pa[sy][jdz][l];
-		//	if (l==Nl && adt->P->free_drainage_bottom>0) Kbottom->co[r][c] = k_from_psi(jKn, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 			if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 		}
 		
@@ -1272,15 +1270,11 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 				dzn = adt->S->pa[sy][jdz][l+1];
 				dD = 0.5*dzn;
 				
-			//	if( H->co[i] < H->co[I] ){
 				if( H[i] < H[I] ){
 					//upward flux
-				//	kn = k_from_psi(jKn, H->co[I] - adt->T->Z->co[l+1][r][c], L->thi->co[l+1][c], L->T->co[l+1][c], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 					kn = k_from_psi(jKn, H[I] - adt->T->Z[l+1][r][c], L->thi[l+1][c], L->T[l+1][c], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-					
 				}else{	
 					//downward flow
-				//	kn = k_from_psi(jKn, psisat_from(L->thi->co[l+1][c], l+1, adt->S->pa->co[sy]), L->thi->co[l+1][c], L->T->co[l+1][c], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 					kn = k_from_psi(jKn, psisat_from(L->thi[l+1][c], l+1, adt->S->pa, sy), L->thi[l+1][c], L->T[l+1][c], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
  				 }
 			}else{	//subsurface flow
@@ -1288,11 +1282,19 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 				dzn = adt->S->pa[sy][jdz][l+1];
 				dD = 0.5*dz + 0.5*dzn;
 				
-			//	psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
+				if( H[i] < H[I] ){
+					//upward flux
+					kn = k_from_psi(jKn, H[I] - adt->T->Z[l+1][r][c], L->thi[l+1][c], L->T[l+1][c], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
+				}else{	
+					//downward flow
+					kn = k_from_psi(jKn, H[i]- adt->T->Z[l][r][c], L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
+ 				 }
+
+			/*	psi = Arithmetic_Mean(dz, dzn, H->co[i] - adt->T->Z->co[l][r][c], H->co[I] - adt->T->Z->co[l+1][r][c]);
 				psi = Arithmetic_Mean(dz, dzn, H[i] - adt->T->Z[l][r][c], H[I] - adt->T->Z[l+1][r][c]);
-			//	ice = Arithmetic_Mean(dz, dzn, L->thi->co[l][c], L->thi->co[l+1][c]);
+				ice = Arithmetic_Mean(dz, dzn, L->thi->co[l][c], L->thi->co[l+1][c]);
 				ice = Arithmetic_Mean(dz, dzn, L->thi[l][c], L->thi[l+1][c]);
-			//	Temp = Arithmetic_Mean(dz, dzn, L->T->co[l][c], L->T->co[l+1][c]);
+		 		Temp = Arithmetic_Mean(dz, dzn, L->T->co[l][c], L->T->co[l+1][c]);
 				Temp = Arithmetic_Mean(dz, dzn, L->T[l][c], L->T[l+1][c]);
 				a = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][ja][l], adt->S->pa[sy][ja][l+1]);
 				ns = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jns][l], adt->S->pa[sy][jns][l+1]);
@@ -1300,11 +1302,9 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 				sat = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jsat][l], adt->S->pa[sy][jsat][l+1]);
 				ss = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jss][l], adt->S->pa[sy][jss][l+1]);
 				k = Arithmetic_Mean(dz, dzn, adt->S->pa[sy][jKn][l], adt->S->pa[sy][jKn][l+1]);
-				kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat);
+				kn = k_hydr_soil(psi, k, adt->P->imp, ice, sat, res, a, ns, 1.-1./ns, 0.5, Temp, adt->P->k_to_ksat); */
 				
-			//	kmax = k_from_psi( jKn,  psisat_from( L->thi->co[l][c], l, adt->S->pa->co[sy]), L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 				kmax = k_from_psi( jKn,  psisat_from( L->thi[l][c], l, adt->S->pa, sy), L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
-			//	kmaxn = k_from_psi( jKn,  psisat_from( L->thi->co[l+1][c], l+1, adt->S->pa->co[sy]), L->thi->co[l+1][c], L->T->co[l+1][c], l+1, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
 				kmaxn = k_from_psi( jKn,  psisat_from( L->thi[l+1][c], l+1, adt->S->pa, sy), L->thi[l+1][c], L->T[l+1][c], l+1, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 				kmaxn = Fmin(kmax, kmaxn);
 				
@@ -1313,18 +1313,16 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 			}
 			
 			cnt++;
-		//	Lx->co[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 			Lx[cnt] = -area*kn/dD;	//Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
 		//	printf("area:%e kn:%e dD:%e psi:%e k:%e Temp:%e \n",area,kn,dD,psi,k,Temp);
 		//	printf("Lx %ld %e %e %ld %ld\n",cnt,-area*kn/dD,Lx->co[cnt],r,c);
 		}
 		
 		//LATERAL FLUXES
-	//	if (adt->T->pixel_type->co[r][c] == 1){
 		if (adt->T->pixel_type[r][c] == 1){
 			
 			//lateral hydraulic conductivity
-		//	if (l>0) Klat->co[adt->T->BC_counter->co[r][c]][l] = k_from_psi(jKl, H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
+			//
 			if (l>0) Klat[adt->T->BC_counter[r][c]][l] = k_from_psi(jKl, H[i] - adt->T->Z[l][r][c], L->thi[l][c], L->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 			
 		}
@@ -1429,36 +1427,24 @@ int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, So
 
     long r=1, l, sy, bc;
 	double dz, dn, dD, psi1, ice=0.0;
-//	double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
-//	for(i=1;i<=H->nh;i++){
 	for(size_t i=1;i<H.size();i++){
 		
-	//	df->co[i] = 0.;
 		df[i] = 0.;
 		
 		l = i-1;	
-	//	sy=adt->S->type->co[r][c];
 		sy=adt->S->type[r][c];
-	//	bc=adt->T->BC_counter->co[r][c];
 		bc=adt->T->BC_counter[r][c];
 		area=ds*ds;
-	//	psi1 = H->co[i] - adt->T->Z->co[l][r][c];
 		psi1 = H[i] - adt->T->Z[l][r][c];
-	//	if(l>0) ice = L->thi->co[l][c];
 		if(l>0) ice = L->thi[l][c];
 		
 		//hydraulic capacity (diagonal term) = (dV/dH)/(Ah*Dt)
 		if(l==0){
-		//	if(psi1>0) df->co[i] += ( area / cos( Fmin(GTConst::max_slope,adt->T->slope->co[r][c])*GTConst::Pi/180.) ) / Dt;
 			if(psi1>0) df[i] += ( area / cos( Fmin(GTConst::max_slope,adt->T->slope[r][c])*GTConst::Pi/180.) ) / Dt;
 		}else{
 			dz = adt->S->pa[sy][jdz][l];
-//			df->co[i] += dteta_dpsi(psi1, ice, adt->S->pa->co[sy][jsat][l], adt->S->pa->co[sy][jres][l], adt->S->pa->co[sy][ja][l],
-//									adt->S->pa->co[sy][jns][l], 1.-1./adt->S->pa->co[sy][jns][l], GTConst::PsiMin, adt->S->pa->co[sy][jss][l])*
-//			area * dz / Dt;
-
 			df[i] += dteta_dpsi(psi1, ice, adt->S->pa[sy][jsat][l], adt->S->pa[sy][jres][l], adt->S->pa[sy][ja][l],
 									adt->S->pa[sy][jns][l], 1.-1./adt->S->pa[sy][jns][l], GTConst::PsiMin, adt->S->pa[sy][jss][l])* area * dz / Dt;
 		}
@@ -1466,14 +1452,11 @@ int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, So
 		//lateral drainage at the border
 		if (bc>0 && l>0) {
 
-		//	if (adt->T->pixel_type->co[r][c] == 1) {
 			if (adt->T->pixel_type[r][c] == 1) {
-			//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && H->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
 				if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
 					dz = adt->S->pa[sy][jdz][l];//[mm]
 					dn = ds;
 					dD = 0.5 * 1.E3*ds;
-				//	df->co[i] += (dn*dz*1.E-3) * Klat->co[bc][l]*adt->P->free_drainage_lateral / dD;
 					df[i] += (dn*dz*1.E-3) * Klat[bc][l]*adt->P->free_drainage_lateral / dD;
 				}
 			}
@@ -1615,34 +1598,25 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom){
 int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *adt, const GeoVector<double>& H, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom){
 	
     long l, r=1, sy, bc;
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
-//	for(i=1;i<=H->nh;i++){
 	for(size_t i=1;i<H.size();i++){
 		
 		l = i-1;	
-	//	sy=adt->S->type->co[r][c];
 		sy=adt->S->type[r][c];
-	//	bc=adt->T->BC_counter->co[r][c];
 		bc=adt->T->BC_counter[r][c];
 		area=ds*ds;
-	//	psi0 = L->P->co[l][c];
 		psi0 = L->P[l][c];
-	//	psi1 = H->co[i] - adt->T->Z->co[l][r][c];
 		psi1 = H[i] - adt->T->Z[l][r][c];
-	//	if(l>0) ice = L->thi->co[l][c];
 		if(l>0) ice = L->thi[l][c];
 		
 	//	hydraulic capacity (diagonal term)
 		if(l==0){
-		//	V1 = area * Fmax(0.0, psi1) / cos( Fmin(GTConst::max_slope,adt->T->slope->co[r][c])*GTConst::Pi/180.);
 			V1 = area * Fmax(0.0, psi1) / cos( Fmin(GTConst::max_slope,adt->T->slope[r][c])*GTConst::Pi/180.);
-		//	V0 = area * Fmax(0.0, psi0) / cos( Fmin(GTConst::max_slope,adt->T->slope->co[r][c])*GTConst::Pi/180.);
 			V0 = area * Fmax(0.0, psi0) / cos( Fmin(GTConst::max_slope,adt->T->slope[r][c])*GTConst::Pi/180.);
 			
 		}else{
@@ -1651,25 +1625,20 @@ int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *ad
 			V0 = area*dz * theta_from_psi(psi0, ice, l, adt->S->pa, sy, GTConst::PsiMin);
 		}
 		
-	//	f->co[i] = (V1-V0)/Dt;
 		f[i] = (V1-V0)/Dt;
 
 		// drainage at the bottom
 		if (l==geotop::common::Variables::Nl){
-		//	f->co[i] += area*Kbottom->co[r][c];
 			f[i] += area*Kbottom[r][c];
 		}		
 		
 		//lateral drainage at the border
 		if (bc>0 && l>0) {
-		//	if (adt->T->pixel_type->co[r][c] == 1) {
 			if (adt->T->pixel_type[r][c] == 1) {
-			//	if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <= adt->T->BC_DepthFreeSurface->co[bc]*cos(adt->T->slope->co[r][c]*GTConst::Pi/180.) && H->co[i] - adt->T->Z->co[l][r][c] > 0 ) {
 				if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
 					dz = adt->S->pa[sy][jdz][l];//[mm]
 					dn = ds;
 					dD = 0.5 * 1.E3*ds;
-				//	f->co[i] += (dn*dz*1.E-3) * Klat->co[bc][l]*adt->P->free_drainage_lateral*(H->co[i] - adt->T->Z->co[l][r][c]) / dD;
 					f[i] += (dn*dz*1.E-3) * Klat[bc][l]*adt->P->free_drainage_lateral*(H[i] - adt->T->Z[l][r][c]) / dD;
 				}
 			}
@@ -1678,10 +1647,8 @@ int find_f_1D(long c, double Dt, SoilState *L, GeoVector<double>& f, AllData *ad
 		
 		//evaporation 
 		if(l>0){
-		//	f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
 			f[i] += area*adt->S->ET[l][r][c]/Dt;
 		}else {
-		//	f->co[i] -= area*adt->W->Pnet->co[r][c]/Dt;
 			f[i] -= area*adt->W->Pnet[r][c]/Dt;
 		}
 	}
