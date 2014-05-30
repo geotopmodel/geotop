@@ -68,6 +68,111 @@ int gt_fileExists(const char* filename)
 
 }
 
+char* gt_popPath(const char* path)
+{
+    char *ret = NULL;
+    size_t len;
+    int i, found = 0;
+
+    len = strlen(path);
+
+    if (len > MAX_PATH_LENGTH || len == 0)
+        return NULL;
+
+    for (i=len - 1; i>=0; --i)
+    {
+        if(path[i] == '/')
+        {
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        return NULL;
+    
+    if (i == 0) i++; //Handles "/something" case
+
+    ret = calloc(i + 1, sizeof(char));
+
+    if (ret != NULL)
+        strncpy(ret, path, i);
+
+    return ret;
+}
+
+static int gt_recursiveMakeDirectory(char* path)
+{
+    int ret = 1, saved_errno;
+    
+    ret = mkdir((const char*)path, 0755);
+    saved_errno = errno;
+
+    if (ret == -1 && saved_errno == ENOENT)
+    {
+        char *newpath = gt_popPath(path);
+        if (newpath != NULL)
+        {
+            ret = gt_recursiveMakeDirectory(newpath);
+            free(newpath);
+        }
+        else
+        {
+            ret = 0;
+        }
+
+        if (ret) ret = mkdir((const char*)path, 0755);
+
+        if (ret == 0)
+            ret = 1;
+        else
+            ret = 0;
+    }
+    else if (ret == 0)
+    {
+        ret = 1;
+    }
+    else
+    {
+        ret = 0;
+    }
+
+    return ret;
+}
+
+int gt_makeDirectory(const char* path)
+{
+    int ret = 0;
+    char* newpath;
+
+    switch (gt_fileExists(path))
+    {
+        case 0:
+            //the directory doesn't exist
+            //attempt to create it
+            newpath = calloc(MAX_PATH_LENGTH + 1, sizeof(char));
+            if (newpath != NULL)
+            {
+                strncpy(newpath, path, MAX_PATH_LENGTH);
+                ret = gt_recursiveMakeDirectory(newpath);
+                free(newpath);
+            }
+            else
+                ret = 0;
+            break;
+        case 2:
+            //file exists and is a directory
+            //do nothing
+            ret = 1;
+            break;
+        default:
+            ret = 0;
+            break;
+    }
+
+    return ret;
+}
+
 #ifdef __cplusplus
 }
 #endif

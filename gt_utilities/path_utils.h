@@ -36,9 +36,17 @@ extern "C" {
 #endif
 
 #include <errno.h>
+#include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#if __STDC_VERSION__ >= 199901L
+    const size_t MAX_PATH_LENGTH = 254;
+#else
+#define MAX_PATH_LENGTH 254
+#endif
 
 /**
  * @brief Checks if file exists
@@ -48,6 +56,24 @@ extern "C" {
  *         and -1 on error.
  */
 int gt_fileExists(const char* filename);
+
+/**
+ * @brief Attempts to create a directory
+ * @param[in] path the path of the directory
+ * @return 1 if successful 0 on error.
+ */
+int gt_makeDirectory(const char* path);
+
+/**
+ * @brief removes the last element of a path
+ *
+ * E.G.: "/home/user/file" becomes "/home/user"
+ *
+ * @param[in] path the path to pop
+ * @return a newly created string that must be freed with free() by the
+ *         caller or NULL in case of error.
+ */
+char* gt_popPath(const char* path);
 
 #ifdef __cplusplus
 }
