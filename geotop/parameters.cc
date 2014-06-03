@@ -1198,11 +1198,14 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		}
 	}
 	
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SavingPoints", geotop::input::gDoubleNoValue, false, 0, false) ;
+// Saving Points no longer supported: TODO : cancel commented lines  below.. 
+/*    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SavingPoints", geotop::input::gDoubleNoValue, false, 0, false) ;
+
 	par->saving_points.resize(lDoubleTempVector.size() + 1, 0);
 	for (size_t i=1; i<par->saving_points.size(); i++) {
 		par->saving_points[i] = lDoubleTempVector[i-1];
 	}
+*/
 			
 	par->output_soil.resize(1 + 1, 0);
 	par->output_snow.resize(1 + 1, 0);
