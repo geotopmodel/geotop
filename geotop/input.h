@@ -1,4 +1,3 @@
-
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
@@ -135,36 +134,24 @@ typedef struct __INIT_TOOLS__
     std::vector<std::string> lapserates_col_names;
 	std::vector<std::string> meteostations_col_names;
 //TODO: remove LU
-//	DOUBLEMATRIX *LU;
 	GeoMatrix<double> LU;
 
-//	DOUBLEMATRIX *bed;
 	GeoMatrix<double> bed;
-//	DOUBLETENSOR *pa_bed;
 	GeoTensor<double> pa_bed ;
-//	DOUBLEVECTOR *init_water_table_depth;
 	DBGGeoVector<double> init_water_table_depth;
 
 } InitTools;
 
 
-//void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, METEO *met, WATER *wat, CHANNEL *cnet,
-//			    PAR *par, Energy *egy, SNOW *snow, GLACIER *glac, TIMES *times, mio::IOManager& iomanager);
   void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Meteo *met, Water *wat, Channel *cnet,
 		  Par *par, Energy *egy, Snow *snow, Glacier *glac, Times *times, mio::IOManager& iomanager);
 
-//void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog, mio::IOManager& iomanager);
   void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::IOManager& iomanager);
 
-//void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog);
-
-//void read_optionsfile_point(PAR *par, TOPO *top, Land *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT, FILE *flog);
   void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT, FILE *flog);
 
-//void set_bedrock(SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC, FILE *flog);
   void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC, FILE *flog);
 
-//DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope, DOUBLEMATRIX *LC, SOIL *sl, short point);
   GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<double>& slope, GeoMatrix<double>& LC, Soil *sl, short point);
 
 #ifdef WITH_LOGGER
@@ -175,16 +162,12 @@ short file_exists(short key, FILE *flog);
 
 double peat_thickness(double dist_from_channel);
 
-//void initialize_soil_state(SOIL_STATE *S, long n, long nl);
 void initialize_soil_state(SoilState *S, long n, long nl);
 
-//void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to);
 void copy_soil_state(SoilState *from, SoilState *to);
 
-//void initialize_veg_state(STATE_VEG *V, long n);
 void initialize_veg_state(StateVeg *V, long n);
 
-//void copy_veg_state(STATE_VEG *from, STATE_VEG *to);
 void copy_veg_state(StateVeg *from, StateVeg *to);
 
 

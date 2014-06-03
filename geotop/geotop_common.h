@@ -18,7 +18,7 @@ namespace geotop
         public:
             static std::string WORKING_DIRECTORY ;
 
-            static  std::vector<std::string> hpnt ;
+            static std::vector<std::string> hpnt ;
             static std::vector<std::string> hbsn ;
             static std::vector<std::string> hsnw ;
             static std::vector<std::string> hglc ;
