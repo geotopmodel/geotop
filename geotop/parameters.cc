@@ -784,6 +784,9 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	double a;
     double minDt=1.E99;
 
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
     std::vector<double> lDoubleTempVector ;
 
 	fprintf(flog,"\n");
@@ -907,6 +910,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->format_out = (short)getDoubleValueWithDefault(lConfigStore, "FormatOutputMaps", 3., false) ;
 	par->point_sim = (short)getDoubleValueWithDefault(lConfigStore, "PointSim", 0., false) ;
 	par->recover = (short)getDoubleValueWithDefault(lConfigStore, "RecoverSim", 0., false) ;
+	if  (par->recover >0) { 
+#ifdef WITH_LOGGER
+		lg->log(" RecoverSim option no longer supported; Please remove/comment  it from your input file ",
+				geotop::logger::CRITICAL);
+#else
+		fprintf(stderr, "[CRITICAL] Unable to create recovery files directory. Aborting\n");
+#endif
+		exit(1);
+	}
+
     
     //land cover types
 	par->n_landuses = (long)getDoubleValueWithDefault(lConfigStore, "NumLandCoverTypes", 0., false) ;
