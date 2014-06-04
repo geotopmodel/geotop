@@ -1195,7 +1195,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     for (size_t j=1; j<=lKeywordString.size() ; j++) {
 		
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
-//		printf("parameters.cc line 1132 j:%ld %f  %s\n",j,lDoubleTempVector[0],lKeywordString[j-1].c_str());
+
 		if (npoints < lDoubleTempVector.size()) {
             npoints = lDoubleTempVector.size();
         }
@@ -1206,7 +1206,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
         for (size_t i=1; i<par->chkpt.getRows(); i++) {
 			par->chkpt[i][j] = lDoubleTempVector[i-1] ;
-//			printf("parameters.cc line 1143 i:%ld j:%ld %f\n",i,j,par->chkpt[i][j]);
 			
 		}
 	}
