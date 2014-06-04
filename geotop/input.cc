@@ -1219,12 +1219,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 if(sl->SS->thi[l][i]<0) sl->SS->thi[l][i]=0.0;
 
                 //	Psi is updated taking into account the freezing
-                //	sl->th->co[l][i] -= sl->SS->thi->co[l][i];
                 sl->th[l][i] -= sl->SS->thi[l][i];
 
-                //	sl->SS->P->co[l][i] = psi_teta(sl->th->co[l][i] + th_oversat, sl->SS->thi->co[l][i], sl->pa->co[sy][jsat][l],
-                //								   sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-                //								   1-1/sl->pa->co[sy][jns][l], GTConst::PsiMin, sl->pa->co[sy][jss][l]);
                 sl->SS->P[l][i] = psi_teta(sl->th[l][i] + th_oversat, sl->SS->thi[l][i], sl->pa(sy,jsat,l),
                                            sl->pa(sy,jres,l), sl->pa(sy,ja,l), sl->pa(sy,jns,l),
                                            1-1/sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
@@ -1285,75 +1281,46 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 
     //	channel soil
-    //	cnet->SS = (SOIL_STATE *)malloc(sizeof(SOIL_STATE));
     cnet->SS = new SoilState();
-    //	initialize_soil_state(cnet->SS, cnet->r->nh, Nl);
     initialize_soil_state(cnet->SS, cnet->r.size(), geotop::common::Variables::Nl);
 
-    //	cnet->th = new_doublematrix(geotop::common::Variables::Nl, cnet->r->nh);
     cnet->th.resize(geotop::common::Variables::Nl+1, cnet->r.size());
 
-    //	cnet->ET = new_doublematrix(geotop::common::Variables::Nl, cnet->r->nh);
-    //	initialize_doublematrix(cnet->ET, 0.0);
     cnet->ET.resize(geotop::common::Variables::Nl+1, cnet->r.size(),0.0);
 
-    //	cnet->Kbottom = new_doublevector(cnet->r->nh);
-    //	initialize_doublevector(cnet->Kbottom, 0.0);
     cnet->Kbottom.resize(cnet->r.size(),0.0);
 
     for(j=1;j<=par->total_channel;j++){
 
-        //	sy=cnet->soil_type->co[j];
         sy=cnet->soil_type[j];
-        //	r=cnet->r->co[j];
         r=cnet->r[j];
-        //	c=cnet->c->co[j];
         c=cnet->c[j];
 
-        //	cnet->SS->P->co[0][j] = sl->SS->P->co[0][top->j_cont[r][c]];
         cnet->SS->P[0][j] = sl->SS->P[0][top->j_cont[r][c]];
         for(l=1;l<=geotop::common::Variables::Nl;l++){
-            //	cnet->SS->P->co[l][j] = sl->Ptot->co[l][top->j_cont[r][c]];
             cnet->SS->P[l][j] = sl->Ptot[l][top->j_cont[r][c]];
         }
 
         for(l=1;l<=geotop::common::Variables::Nl;l++){
 
-            //	cnet->SS->T->co[l][j]=sl->pa->co[sy][jT][l];
             cnet->SS->T[l][j]=sl->pa(sy,jT,l);
 
-            //	cnet->th->co[l][j] = teta_psi(cnet->SS->P->co[l][j], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
-            //								  sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1.-1./sl->pa->co[sy][jns][l],
-            //								  GTConst::PsiMin, sl->pa->co[sy][jss][l]);
             cnet->th[l][j] = teta_psi(cnet->SS->P[l][j], 0.0, sl->pa(sy,jsat,l), sl->pa(sy,jres,l),
                                       sl->pa(sy,ja,l), sl->pa(sy,jns,l), 1.-1./sl->pa(sy,jns,l),
                                       GTConst::PsiMin, sl->pa(sy,jss,l));
 
-            //	th_oversat = Fmax( cnet->SS->P->co[l][j] , 0.0 ) * sl->pa->co[sy][jss][l];
             th_oversat = Fmax( cnet->SS->P[l][j] , 0.0 ) * sl->pa(sy,jss,l);
-            //	cnet->th->co[l][j] -= th_oversat;
             cnet->th[l][j] -= th_oversat;
 
-            //	if(cnet->SS->T->co[l][j]<=GTConst::Tfreezing){
             if(cnet->SS->T[l][j]<=GTConst::Tfreezing){
-                //	Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-                //	cnet->SS->thi->co[l][j] = cnet->th->co[l][j] - teta_psi(Psif(cnet->SS->T->co[l][j]), 0.0, sl->pa->co[sy][jsat][l],
-                //															sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-                //															1.-1./sl->pa->co[sy][jns][l], GTConst::PsiMin, sl->pa->co[sy][jss][l]);
                 cnet->SS->thi[l][j] = cnet->th[l][j] - teta_psi(Psif(cnet->SS->T[l][j]), 0.0, sl->pa(sy,jsat,l),
                                                                 sl->pa(sy,jres,l), sl->pa(sy,ja,l), sl->pa(sy,jns,l),
                                                                 1.-1./sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
 
-                //	if Theta(without freezing)<Theta_unfrozen(in equilibrium with T) Theta_ice is set at 0
-                //	if(cnet->SS->thi->co[l][j]<0) cnet->SS->thi->co[l][j]=0.0;
                 if(cnet->SS->thi[l][j]<0) cnet->SS->thi[l][j]=0.0;
 
                 //Psi is updated taking into account the freezing
-                //	cnet->th->co[l][j] -= cnet->SS->thi->co[l][j];
                 cnet->th[l][j] -= cnet->SS->thi[l][j];
-                //	cnet->SS->P->co[l][j] = psi_teta(cnet->th->co[l][j] + th_oversat, cnet->SS->thi->co[l][j],
-                //									 sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-                //									 sl->pa->co[sy][jns][l], 1.-1./sl->pa->co[sy][jns][l], GTConst::PsiMin, sl->pa->co[sy][jss][l]);
                 cnet->SS->P[l][j] = psi_teta(cnet->th[l][j] + th_oversat, cnet->SS->thi[l][j],
                                              sl->pa(sy,jsat,l), sl->pa(sy,jres,l), sl->pa(sy,ja,l),
                                              sl->pa(sy,jns,l), 1.-1./sl->pa(sy,jns,l), GTConst::PsiMin, sl->pa(sy,jss,l));
@@ -1595,96 +1562,57 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     egy->sun = (double*)malloc(12*sizeof(double));
 
 
-    //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
         if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
-            //	egy->Hgplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Hgplot, 0.);
             egy->Hgplot.resize(par->total_pixel+1,0.0);
-            //	egy->Hgp=new_doublevector(par->total_pixel);
             egy->Hgp.resize(par->total_pixel+1);
 
         }
         if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue){
-            //	egy->Hvplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Hvplot, 0.);
             egy->Hvplot.resize(par->total_pixel+1,0.0);
-            //	egy->Hvp=new_doublevector(par->total_pixel);
             egy->Hvp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
-            //	egy->LEgplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LEgplot, 0.);
             egy->LEgplot.resize(par->total_pixel+1,0.0);
-            //	egy->LEgp=new_doublevector(par->total_pixel);
             egy->LEgp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue){
-            //	egy->LEvplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LEvplot, 0.);
             egy->LEvplot.resize(par->total_pixel+1,0.0);
-            //	egy->LEvp=new_doublevector(par->total_pixel);
             egy->LEvp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue){
-            //	egy->SWinplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->SWinplot, 0.);
             egy->SWinplot.resize(par->total_pixel+1,0.0);
-            //	egy->SWinp=new_doublevector(par->total_pixel);
             egy->SWinp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
-            //	egy->SWgplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->SWgplot, 0.);
-            //	egy->SWgp=new_doublevector(par->total_pixel);
             egy->SWgplot.resize(par->total_pixel+1,0.0);
             egy->SWgp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue){
-            //	egy->SWvplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->SWvplot, 0.);
             egy->SWvplot.resize(par->total_pixel+1,0.0);
-            //	egy->SWvp=new_doublevector(par->total_pixel);
             egy->SWvp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue){
-            //	egy->LWinplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LWinplot, 0.);
             egy->LWinplot.resize(par->total_pixel+1,0.0);
-            //	egy->LWinp=new_doublevector(par->total_pixel);
             egy->LWinp.resize(par->total_pixel);
         }
         if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pG] != geotop::input::gStringNoValue){
-            //	egy->LWgplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LWgplot, 0.);
             egy->LWgplot.resize(par->total_pixel+1,0.0);
-            //	egy->LWgp=new_doublevector(par->total_pixel);
             egy->LWgp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue){
-            //	egy->LWvplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->LWvplot, 0.);
             egy->LWvplot.resize(par->total_pixel+1,0.0);
-            //	egy->LWvp=new_doublevector(par->total_pixel);
             egy->LWvp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue){
-            //	egy->Tsplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Tsplot, 0.);
             egy->Tsplot.resize(par->total_pixel+1,0.0);
-            //	egy->Tsp=new_doublevector(par->total_pixel);
             egy->Tsp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue){
-            //	egy->Tgplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Tgplot, 0.);
             egy->Tgplot.resize(par->total_pixel+1,0.0);
-            //	egy->Tgp=new_doublevector(par->total_pixel);
             egy->Tgp.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue){
-            //	egy->Tvplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(egy->Tvplot, 0.);
             egy->Tvplot.resize(par->total_pixel+1,0.0);
         }
     }
@@ -1704,25 +1632,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //  tolto +1 dalla linea qua sotto 24.12.2013 S.C.&S.E. 
     egy->soil_transp_layer.resize(land->root_fraction.getCols());
 
-    //	egy->dFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->dFenergy.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->udFenergy = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1);
     egy->udFenergy.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->Kth0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1 );
     egy->Kth0.resize(geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->Kth1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers - 1);
     egy->Kth1.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->Fenergy=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->Fenergy.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers +1);
-    //	egy->Newton_dir=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->Newton_dir.resize(geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->T0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->T0.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->T1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
     egy->T1.resize( geotop::common::Variables::Nl + par->max_snow_layers + par->max_glac_layers+1);
-    //	egy->Tstar=new_doublevector(geotop::common::Variables::Nl); //soil temperature at which freezing begins
     egy->Tstar.resize(geotop::common::Variables::Nl+1);
-    //	egy->THETA=new_doublevector(geotop::common::Variables::Nl);	//water content (updated in the iterations)
     egy->THETA.resize(geotop::common::Variables::Nl+1);
 
     //allocate vector	of soil layer contributions to evaporation (up to z_evap)
@@ -1730,15 +1648,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     l = 0;
     do{
         l++;
-        //z += sl->pa->co[1][jdz][l];
         z += sl->pa(1,jdz,l);
     }while(l<geotop::common::Variables::Nl && z < GTConst::z_evap);
 	
-    //	egy->soil_evap_layer_bare = new_doublevector(l);
-    //	initialize_doublevector(egy->soil_evap_layer_bare, 0.);
     egy->soil_evap_layer_bare.resize(l+1,0.0);
-    //	egy->soil_evap_layer_veg = new_doublevector(l);
-    //	initialize_doublevector(egy->soil_evap_layer_veg, 0.);
     egy->soil_evap_layer_veg.resize(l+1,0.0);
 
 
@@ -1760,41 +1673,28 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     wat->Voutbottom = 0.;
 
     /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm):*/
-    //	wat->Pnet=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(wat->Pnet,0.0);
     wat->Pnet.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     wat->HN.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);//TODO mattiu
     /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
-    //	wat->PrecTot=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(wat->PrecTot,0.0);
     wat->PrecTot.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     /* Initialization of the matrices with the output of total precipitation and interception:*/
     if (par->output_meteo_bin == 1 &&geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
-        //	wat->PrTOT_mean=new_doublevector(par->total_pixel);
-        //	initialize_doublevector(wat->PrTOT_mean, 0.);
         wat->PrTOT_mean.resize(par->total_pixel+1,0.0);
 
-        //	wat->PrSNW_mean=new_doublevector(par->total_pixel);
-        //	initialize_doublevector(wat->PrSNW_mean, 0.);
         wat->PrSNW_mean.resize(par->total_pixel+1,0.0);
 
-        //	wat->Pt=new_doublevector(par->total_pixel);
         wat->Pt.resize(par->total_pixel+1);
-        //	wat->Ps=new_doublevector(par->total_pixel);
         wat->Ps.resize(par->total_pixel+1);
     }
 
-    //	wat->h_sup=new_doublevector(par->total_pixel);
-    //	initialize_doublevector(wat->h_sup, 0.);
     wat->h_sup.resize(par->total_pixel+1,0.0);
 
     /****************************************************************************************************/
     /*! Initialization of the struct "snow" (of the type SNOW):*/
 
     /***************************************************************************************************/
-    //snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
     snow->S=new Statevar3D();
     allocate_and_initialize_statevar_3D(snow->S, geotop::input::gDoubleNoValue, par->max_snow_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 
@@ -1811,11 +1711,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	snow->S->Dzl->co[1][r][c] = M->co[r][c];
                 snow->S->Dzl[1][r][c] = M[r][c];
             }
         }
-        //	free_doublematrix(M);
 
 #ifdef WITH_LOGGER
         lg->logf("Initial condition on snow water equivalent from file %s",
@@ -1828,11 +1726,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	snow->S->w_ice->co[1][r][c] = M->co[r][c];
                 snow->S->w_ice[1][r][c] = M[r][c];
             }
         }
-        //	free_doublematrix(M);
 
     }else if(geotop::common::Variables::files[fsn0] != geotop::input::gStringNoValue ){
 #ifdef WITH_LOGGER
@@ -1846,15 +1742,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	snow->S->Dzl->co[1][r][c] = M->co[r][c];
                 snow->S->Dzl[1][r][c] = M[r][c];
             }
         }
-        //	free_doublematrix(M);
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	if ((long)land->LC->co[r][c] != geotop::input::gDoubleNoValue) snow->S->w_ice->co[1][r][c] = snow->S->Dzl->co[1][r][c]*IT->rhosnow0/GTConst::rho_w;
                 if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) snow->S->w_ice[1][r][c] = snow->S->Dzl[1][r][c]*IT->rhosnow0/GTConst::rho_w;
             }
         }
@@ -1870,15 +1763,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         meteoio_readMap(string(geotop::common::Variables::files[fswe0]), M);
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	snow->S->w_ice->co[1][r][c] = M->co[r][c];
                 snow->S->w_ice[1][r][c] = M[r][c];
             }
         }
-        //	free_doublematrix(M);
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	if ((long)land->LC->co[r][c] != geotop::input::gDoubleNoValue) snow->S->Dzl->co[1][r][c] = snow->S->w_ice->co[1][r][c]*GTConst::rho_w/IT->rhosnow0;
                 if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) snow->S->Dzl[1][r][c] = snow->S->w_ice[1][r][c]*GTConst::rho_w/IT->rhosnow0;
             }
         }
@@ -1887,9 +1777,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
-                //	if ((long)land->LC->co[r][c] != geotop::input::gDoubleNoValue){
                 if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue){
-                    //	snow->S->w_ice->co[1][r][c] = IT->swe0;
                     snow->S->w_ice[1][r][c] = IT->swe0;
                     snow->S->Dzl[1][r][c] = IT->swe0*GTConst::rho_w/IT->rhosnow0;
                 }
@@ -1908,75 +1796,51 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
         snow->age = read_map_vector(2,geotop::common::Variables::files[fsnag0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->rc_cont);
     }else{
-        //	snow->age = new_doublevector(par->total_pixel);
-        //	initialize_doublevector(snow->age, IT->agesnow0);
         snow->age.resize(par->total_pixel+1,IT->agesnow0);
     }
 
 
-    //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
         if(geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) {
-            //	snow->Dplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(snow->Dplot, 0.);
             snow->Dplot.resize(par->total_pixel+1,0.0);
         }
     }
 
     if(par->blowing_snow==1){
 
-        //	snow->S_for_BS=(STATEVAR_1D *)malloc(sizeof(STATEVAR_1D));
         snow->S_for_BS=new Statevar1D();
         allocate_and_initialize_statevar_1D(snow->S_for_BS, geotop::input::gDoubleNoValue, par->max_snow_layers);
 
-        //	snow->change_dir_wind=new_longvector(Fmaxlong(Nr,Nc));
         snow->change_dir_wind.resize(Fmaxlong(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1));
 
-        //	snow->Qtrans=new_doublematrix(Nr,Nc);
-        //	initialize_doublematrix(snow->Qtrans, 0.0);
         snow->Qtrans.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
-        //	snow->Qsub=new_doublematrix(Nr,Nc);
-        //	initialize_doublematrix(snow->Qsub, 0.0);
         snow->Qsub.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
-        //	snow->Qsalt=new_doublematrix(Nr,Nc);
         snow->Qsalt.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
-        //	snow->Nabla2_Qtrans=new_doublematrix(Nr,Nc);
         snow->Nabla2_Qtrans.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
-        //	snow->Qsub_x=new_doublematrix(Nr,Nc);
         snow->Qsub_x.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
-        //	snow->Qsub_y=new_doublematrix(Nr,Nc);
         snow->Qsub_y.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
-        //	snow->Qtrans_x=new_doublematrix(Nr,Nc);
         snow->Qtrans_x.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
-        //	snow->Qtrans_y=new_doublematrix(Nr,Nc);
         snow->Qtrans_y.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
         if(par->output_snow_bin == 1){
-            //	snow->Wtrans_plot=new_doublematrix(Nr,Nc);
             snow->Wtrans_plot.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
-            //	snow->Wsubl_plot=new_doublematrix(Nr,Nc);
             snow->Wsubl_plot.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1);
 
             for(r=1;r<=geotop::common::Variables::Nr;r++){
                 for(c=1;c<=geotop::common::Variables::Nc;c++){
-                    //	if((long)land->LC->co[r][c]==geotop::input::gDoubleNoValue){
                     if((long)land->LC[r][c]==geotop::input::gDoubleNoValue){
-                        //	snow->Wtrans_plot->co[r][c]=geotop::input::gDoubleNoValue;
                         snow->Wtrans_plot[r][c]=geotop::input::gDoubleNoValue;
-                        //	snow->Wsubl_plot->co[r][c]=geotop::input::gDoubleNoValue;
                         snow->Wsubl_plot[r][c]=geotop::input::gDoubleNoValue;
 
                     }else{
-                        //	snow->Wtrans_plot->co[r][c]=0.0;
                         snow->Wtrans_plot[r][c]=0.0;
-                        //	snow->Wsubl_plot->co[r][c]=0.0;
                         snow->Wsubl_plot[r][c]=0.0;
 
                     }
@@ -1987,60 +1851,41 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     if(par->output_snow_bin == 1){
         if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
-            //	snow->MELTED=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(snow->MELTED,0.);
             snow->MELTED.resize(par->total_pixel+1,0.0);
-            //	snow->melted=new_doublevector(par->total_pixel);
             snow->melted.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue){
-            //	snow->SUBL=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(snow->SUBL,0.);
             snow->SUBL.resize(par->total_pixel+1,0.0);
-            //	snow->subl=new_doublevector(par->total_pixel);
             snow->subl.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
-            //	snow->t_snow=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(snow->t_snow,0.);
             snow->t_snow.resize(par->total_pixel+1,0.0);
-            //	snow->yes=new_shortvector(par->total_pixel);
             snow->yes.resize(par->total_pixel+1,0.0);
         }
 
         if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue){//TODO mattiu
 			snow->HNcum.resize(par->total_pixel+1,0.0);
-			//snow->yes.resize(par->total_pixel+1,0.0);//boh
 		}//end mattiu
     }
 
     for(r=1;r<=geotop::common::Variables::Nr;r++){
         for(c=1;c<=geotop::common::Variables::Nc;c++){
 
-            //	if( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
             if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
 
                 //Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
-                //	if (par->snow_curv > 0 && top->slope->co[r][c] > par->snow_smin){
                 if (par->snow_curv > 0 && top->slope[r][c] > par->snow_smin){
-                    //	if (top->slope->co[r][c] <= par->snow_smax){
                     if (top->slope[r][c] <= par->snow_smax){
-                        //	k_snowred = ( exp(-pow(top->slope->co[r][c] - par->snow_smin, 2.)/par->snow_curv) -
-                        //				 exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                         k_snowred = ( exp(-pow(top->slope[r][c] - par->snow_smin, 2.)/par->snow_curv) -
                                       exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                     }else{
                         k_snowred = 0.0;
                     }
-                    //	snow->S->Dzl->co[1][r][c] *= k_snowred;
                     snow->S->Dzl[1][r][c] *= k_snowred;
-                    //	snow->S->w_ice->co[1][r][c] *= k_snowred;
                     snow->S->w_ice[1][r][c] *= k_snowred;
                 }
 
-                //	D = snow->S->Dzl->co[1][r][c];
                 D = snow->S->Dzl[1][r][c];
-                //	SWE = snow->S->w_ice->co[1][r][c];
                 SWE = snow->S->w_ice[1][r][c];
 
                 if(D<0 || SWE<0){
@@ -2104,7 +1949,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
                 }else if(D>1.E-5 || SWE>1.E-5){
 
-                    //	snow->age->co[top->j_cont[r][c]]*=86400.0;	//now in [s]
                     snow->age[top->j_cont[r][c]]*=86400.0;	//now in [s]
                     if (SWE <= par->max_weq_snow * par->max_snow_layers ) {
 
@@ -2113,71 +1957,54 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                         if (i>0) {
 
                             for (n=1; n<=i; n++) {
-                                //	snow->S->w_ice->co[n][r][c] = par->max_weq_snow;
                                 snow->S->w_ice[n][r][c] = par->max_weq_snow;
                             }
 
                             if (SWE - i * par->max_weq_snow > 0.1 * par->max_weq_snow) {
-                                //	snow->S->w_ice->co[i+1][r][c] = SWE - i * par->max_weq_snow;
                                 snow->S->w_ice[i+1][r][c] = SWE - i * par->max_weq_snow;
-                                //	snow->S->lnum->co[r][c] = i+1;
                                 snow->S->lnum[r][c] = i+1;
                             }else {
-                                //	snow->S->w_ice->co[i][r][c] += (SWE - i * par->max_weq_snow);
                                 snow->S->w_ice[i][r][c] += (SWE - i * par->max_weq_snow);
-                                //	snow->S->lnum->co[r][c] = i;
                                 snow->S->lnum[r][c] = i;
                             }
 
                         }else {
 
-                            //	snow->S->w_ice->co[1][r][c] = SWE;
                             snow->S->w_ice[1][r][c] = SWE;
-                            //	snow->S->lnum->co[r][c] = 1;
                             snow->S->lnum[r][c] = 1;
 
                         }
 
                     }else {
 
-                        //	snow->S->lnum->co[r][c] = par->max_snow_layers;
                         snow->S->lnum[r][c] = par->max_snow_layers;
 
                         for (n=1; n<=par->max_snow_layers; n++) {
 
                             a = 0;
 
-                            //	for (i=1; i<=par->inf_snow_layers->nh; i++) {
                             for (size_t i=1; i<par->inf_snow_layers.size(); i++) {
-                                //	if (n == abs(par->inf_snow_layers->co[i])) a = 1;
                                 if (n == abs(par->inf_snow_layers[i])) a = 1;
                             }
 
                             if (a == 0) {
-                                //	snow->S->w_ice->co[n][r][c] = par->max_weq_snow;
                                 snow->S->w_ice[n][r][c] = par->max_weq_snow;
                             }else {
-                                //	snow->S->w_ice->co[n][r][c] = ( SWE - par->max_weq_snow * ( par->max_snow_layers - par->inf_snow_layers->nh ) ) / par->inf_snow_layers->nh;
                                 snow->S->w_ice[n][r][c] = ( SWE - par->max_weq_snow * ( par->max_snow_layers - par->inf_snow_layers.size() ) ) / par->inf_snow_layers.size();
                             }
                         }
                     }
 
-                    //	for (n=1; n<=snow->S->lnum->co[r][c]; n++) {
                     for (n=1; n<=snow->S->lnum[r][c]; n++) {
-                        //	snow->S->Dzl->co[n][r][c] = D * (snow->S->w_ice->co[n][r][c] / SWE);
                         snow->S->Dzl[n][r][c] = D * (snow->S->w_ice[n][r][c] / SWE);
-                        //	snow->S->T->co[n][r][c] = IT->Tsnow0;
                         snow->S->T[n][r][c] = IT->Tsnow0;
                     }
 
                 }
 
-                //				non_dimensionalize_snowage(&(snow->age->co[top->j_cont[r][c]]), IT->Tsnow0);
                 non_dimensionalize_snowage(&(snow->age[top->j_cont[r][c]]), IT->Tsnow0);
 
                 if (par->point_sim == 1) {
-                    //	maxSWE = par->maxSWE->co[r][c];
                     maxSWE = par->maxSWE[r][c];
                 }else {
                     maxSWE = 1.E10;
@@ -2192,7 +2019,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     if(par->delay_day_recover > 0){
-        //	initialize_shortmatrix(snow->S->type, 2);
         snow->S->type.resize(snow->S->type.getRows(),snow->S->type.getCols(),2);
 
         assign_recovered_map_long(par->recover, geotop::common::Variables::files[rns], snow->S->lnum, par, land->LC, IT->LU);
@@ -2528,16 +2354,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-//void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, FILE *flog, mio::IOManager& iomanager){
 void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::IOManager& iomanager){
 
     long r, c, i, cont;
-    //	DOUBLEMATRIX *M;
     GeoMatrix<double> M;
-    //	SHORTMATRIX *curv;
     GeoMatrix<short> curv;
     short flag;
-    //	char *temp;
     string temp;
     double min, max;
     FILE *f;
@@ -3176,13 +2998,9 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         //	par->c_points=new_longvector(par->chkpt->nrh);
         par->c_points.resize(par->chkpt.getRows());
 
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	par->r_points->co[i]=row(par->chkpt->co[i][ptY], Z->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             par->r_points[i]=row(par->chkpt[i][ptY], Z.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            //	par->c_points->co[i]=col(par->chkpt->co[i][ptX], Z->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             par->c_points[i]=col(par->chkpt[i][ptX], Z.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            //	if((long)par->chkpt->co[i][ptZ]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptZ]=Z->co[par->r_points->co[i]][par->c_points->co[i]];
             if((long)par->chkpt[i][ptZ]==geotop::input::gDoubleNoValue) par->chkpt[i][ptZ]=Z[par->r_points[i]][par->c_points[i]];
         }
     }
@@ -3192,7 +3010,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     //if(par->recover>0) read_lu=1;
     //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i<par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptLC]==geotop::input::gDoubleNoValue) read_lu=1;
         if((long)par->chkpt[i][ptLC]==geotop::input::gDoubleNoValue) read_lu=1;
     }
     if(read_lu==1 && coordinates==0) read_lu=0;
@@ -3237,15 +3054,10 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     if(read_lu==1){
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	if((long)par->chkpt->co[i][ptLC]==geotop::input::gDoubleNoValue){
             if((long)par->chkpt[i][ptLC]==geotop::input::gDoubleNoValue){
-                //	r=row(par->chkpt->co[i][ptY], LU->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 r=row(par->chkpt[i][ptY], LU.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	c=col(par->chkpt->co[i][ptX], LU->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 c=col(par->chkpt[i][ptX], LU.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	par->chkpt->co[i][ptLC]=LU->co[r][c];
                 par->chkpt[i][ptLC]=LU[r][c];
             }
         }
@@ -3253,9 +3065,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     //c. read soil type
     read_soil=0;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i<par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptSY]==geotop::input::gDoubleNoValue) read_soil=1;
         if((long)par->chkpt[i][ptSY]==geotop::input::gDoubleNoValue) read_soil=1;
     }
     if(read_soil==1 && coordinates==0) read_soil=0;

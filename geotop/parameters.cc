@@ -912,10 +912,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->recover = (short)getDoubleValueWithDefault(lConfigStore, "RecoverSim", 0., false) ;
 	if  (par->recover >0) { 
 #ifdef WITH_LOGGER
-		lg->log(" RecoverSim option no longer supported; Please remove/comment  it from your input file ",
+		lg->log(" RecoverSim option no longer supported; please remove/comment it from your input file",
 				geotop::logger::CRITICAL);
 #else
-		fprintf(stderr, "[CRITICAL] Unable to create recovery files directory. Aborting\n");
+		fprintf(stderr, "[CRITICAL] RecoverSim option no longer supported; please remove/comment  it from your input file Aborting\n");
 #endif
 		exit(1);
 	}

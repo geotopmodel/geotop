@@ -109,15 +109,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 Vsup += cnet->Vsup[l];
             }
 
-            if (par->recover > 0) write_suffix(rec, par->recover, 4);
             if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-            if (par->recover > 0)
-            {
-                temp1 = geotop::common::Variables::files[fQ] + string(rec) ;
-                name = temp1 + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp1 = geotop::common::Variables::files[fQ] + string(crec);
                 name = temp1 + textfile;
@@ -169,11 +163,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         if(par->state_pixel == 1)
         {
-
-            for(i = 1; i < par->rc.getRows(); i++)
+	   for(i = 1; i < par->rc.getRows(); i++)
             {
-
-                r = par->rc[i][1];
+	         r = par->rc[i][1];
                 c = par->rc[i][2];
                 j = top->j_cont[r][c];
 
@@ -213,7 +205,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             if(par->state_pixel == 1)
             {
 
-                if (par->recover > 0) write_suffix(rec, par->recover, 4);
                 if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
                 for(i = 1; i < par->rc.getRows(); i++)
@@ -307,12 +298,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                         temp1 = geotop::common::Variables::files[fpoint] + string(NNNN);
 
-                        if (par->recover > 0)
-                        {
-                            temp2 = temp1 + rec;
-                            name = temp2 + textfile;
-                        }
-                        else if (par->n_ContRecovery > 0)
+                        if (par->n_ContRecovery > 0)
                         {
                             temp2 = temp1 + crec;
                             name = temp2 + textfile;
@@ -457,14 +443,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                         temp1 = geotop::common::Variables::files[fsatz] + string(NNNN);
 
-                        if (par->recover > 0)
-                        {
 
-                            temp2 = temp1 + rec;
-                            name = temp2 + textfile;
-
-                        }
-                        else if (par->n_ContRecovery > 0)
+                        if (par->n_ContRecovery > 0)
                         {
 
                             temp2 = temp1 + crec;
@@ -794,14 +774,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                             temp1 = geotop::common::Variables::files[fglz] + string(NNNN);
 
-                            if (par->recover > 0)
-                            {
-
-                                temp2 = temp1 + rec;
-                                name = temp2 + textfile;
-
-                            }
-                            else if (par->n_ContRecovery > 0)
+                            if (par->n_ContRecovery > 0)
                             {
 
                                 temp2 = temp1 + crec;
@@ -1168,15 +1141,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             if(geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
             {
 
-                if (par->recover > 0) write_suffix(rec, par->recover, 4);
                 if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-                if (par->recover > 0)
-                {
-                    temp1 = geotop::common::Variables::files[fbas] + string(rec);
-                    name = temp1 + textfile;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp1 = geotop::common::Variables::files[fbas] + string(crec);
                     name = temp1 + textfile;
@@ -2430,18 +2397,12 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     GeoVector<double> root_fraction;
     FILE *f;
 
-    if (par->recover > 0) write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
     //DISCHARGE
     if (par->state_discharge == 1 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
     {
-        if (par->recover > 0)
-        {
-            temp = geotop::common::Variables::files[fQ] + string(rec);
-            name = temp + textfile;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp = geotop::common::Variables::files[fQ] + string(crec);
             name = temp + textfile;
@@ -2478,12 +2439,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fpointwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fpointwriteend] + string(crec);
                 name = temp + textfile;
@@ -2521,12 +2477,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fsnTzwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fsnTzwriteend] + string(crec);
                 name = temp + textfile;
@@ -2598,12 +2549,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             if(geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue)
             {
 
-                if (par->recover > 0)
-                {
-                    temp = geotop::common::Variables::files[fpointwriteend] + string(rec);
-                    name = temp + textfile;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp = geotop::common::Variables::files[fpointwriteend] + string(crec);
                     name = temp + textfile;
@@ -2673,12 +2619,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fTzwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fTzwriteend] + string(crec);
                 name = temp + textfile;
@@ -2696,12 +2637,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fTzavwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fTzavwriteend] + string(crec);
                 name = temp + textfile;
@@ -2718,12 +2654,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fpsiztotwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fpsiztotwriteend] + string(crec);
                 name = temp + textfile;
@@ -2740,12 +2671,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fpsizwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fpsizwriteend] + string(crec);
                 name = temp + textfile;
@@ -2762,12 +2688,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fliqzwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fliqzwriteend] + string(crec);
                 name = temp + textfile;
@@ -2784,12 +2705,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[fliqzavwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fliqzavwriteend] + string(crec);
                 name = temp + textfile;
@@ -2806,12 +2722,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[ficezwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[ficezwriteend] + string(crec);
                 name = temp + textfile;
@@ -2828,12 +2739,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-                temp = geotop::common::Variables::files[ficezavwriteend] + string(rec);
-                name = temp + textfile;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[ficezavwriteend] + string(crec);
                 name = temp + textfile;
@@ -2939,12 +2845,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fpoint] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec;
                     name = temp2 + textfile;
@@ -2985,12 +2886,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fsatz] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec;
-                    name = temp2 + textfile;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec;
                     name = temp2 + textfile;
@@ -3060,12 +2956,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                     temp = geotop::common::Variables::files[fglz] + string(NNNN);
 
-                    if (par->recover > 0)
-                    {
-                        temp2 = temp + rec;
-                        name = temp2 + textfile;
-                    }
-                    else if (par->n_ContRecovery > 0)
+                    if (par->n_ContRecovery > 0)
                     {
                         temp2 = temp + crec;
                         name = temp2 + textfile ;
@@ -3135,12 +3026,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fTz] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec ;
                     name = temp2 + textfile;
@@ -3161,12 +3047,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fTzav] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec ;
                     name = temp2 + textfile ;
@@ -3187,12 +3068,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fpsiztot] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec ;
                     name = temp2 + textfile ;
@@ -3213,12 +3089,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fpsiz] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec ;
                     name = temp2 + textfile;
@@ -3238,12 +3109,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             {
 
                 temp = geotop::common::Variables::files[fliqz] + string(NNNN);
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec;
-                    name = temp2 + textfile;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec;
                     name = temp2 + textfile;
@@ -3264,12 +3130,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[fliqzav] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec;
                     name = temp2 + textfile ;
@@ -3290,12 +3151,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[ficez] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile ;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec ;
                     name = temp2 + textfile ;
@@ -3316,12 +3172,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 temp = geotop::common::Variables::files[ficezav] + string(NNNN);
 
-                if (par->recover > 0)
-                {
-                    temp2 = temp + rec ;
-                    name = temp2 + textfile;
-                }
-                else if (par->n_ContRecovery > 0)
+                if (par->n_ContRecovery > 0)
                 {
                     temp2 = temp + crec;
                     name = temp2 + textfile;
@@ -3358,13 +3209,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-
-                temp = geotop::common::Variables::files[fbaswriteend] + string(rec);
-                name = temp + textfile ;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
                 temp = geotop::common::Variables::files[fbaswriteend] + string(crec);
                 name = temp + textfile;
@@ -3402,13 +3247,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         if(geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
         {
 
-            if (par->recover > 0)
-            {
-
-                temp = geotop::common::Variables::files[fbas] + string(rec);
-                name = temp + textfile ;
-            }
-            else if (par->n_ContRecovery > 0)
+            if (par->n_ContRecovery > 0)
             {
 
                 temp = geotop::common::Variables::files[fbas] + string(crec);
@@ -3452,12 +3291,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     if(par->point_sim != 1 && geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue)
     {
 
-        if (par->recover > 0)
-        {
-            temp = geotop::common::Variables::files[fSCA] + string(rec);
-            name = temp + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp = geotop::common::Variables::files[fSCA] + string(crec);
             name = temp + textfile ;
@@ -3493,7 +3327,6 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
 
     write_suffix(NNNN, iname, 0);
 
-    if (par->recover > 0) write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
     if(geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue)
@@ -3501,12 +3334,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
 
         temp = geotop::common::Variables::files[fTz] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile;
@@ -3530,12 +3358,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[fTzav] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;
@@ -3559,12 +3382,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[fpsiztot] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;
@@ -3588,12 +3406,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[fpsiz] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;
@@ -3617,12 +3430,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[fliqz] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;
@@ -3646,12 +3454,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[fliqzav] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec;
-            name = temp2 + textfile;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;
@@ -3675,12 +3478,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[ficez] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec;
             name = temp2 + textfile ;
@@ -3704,12 +3502,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
     {
         temp = geotop::common::Variables::files[ficezav] + string(NNNN);
 
-        if (par->recover > 0)
-        {
-            temp2 = temp + rec ;
-            name = temp2 + textfile ;
-        }
-        else if (par->n_ContRecovery > 0)
+        if (par->n_ContRecovery > 0)
         {
             temp2 = temp + crec ;
             name = temp2 + textfile ;

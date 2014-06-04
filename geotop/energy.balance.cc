@@ -50,7 +50,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
         if( A->P->init_date[geotop::common::Variables::i_sim]+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
                 A->P->init_date[geotop::common::Variables::i_sim]+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
 
-            //	Dtplot=(A->I->JD_plots->co[i+1]-A->I->JD_plots->co[i])*GTConst::secinday;
             Dtplot=(A->I->JD_plots[i+1]-A->I->JD_plots[i])*GTConst::secinday;
             *W = Dt / Dtplot;
             f = fopen(geotop::common::Variables::logfile.c_str(), "a");
@@ -71,7 +70,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
     if(A->I->time==0) line_interp=0;
     for(i=1; i<=A->P->n_landuses; i++) {
-        //	if(A->P->vegflag->co[i]==1){
         if(A->P->vegflag[i]==1){
             time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1], A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
         }
@@ -98,7 +96,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     }
 
     //	INITIALIZE BASIN AVERAGES
-    //	if(A->P->Dtplot_basin->co[geotop::common::Variables::i_sim]>0){
     if(A->P->Dtplot_basin[geotop::common::Variables::i_sim]>0){
         for (i=0; i<geotop::common::Variables::nobsn; i++) {
             geotop::common::Variables::odb[i] = 0.;
@@ -146,51 +143,51 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     for (i=1; i<= A->P->total_channel+A->P->total_pixel; i++) {
 
         //channel or land?
-        if (i<=A->P->total_channel) {//CHANNEL
-          
-			 r = A->C->r[i];
-			 c = A->C->c[i];
-        }else {//LAND
-			
-			r = A->T->rc_cont[i - A->P->total_channel][1];
+	    if (i<=A->P->total_channel) {//CHANNEL
+
+		    r = A->C->r[i];
+		    c = A->C->c[i];
+	    }else {//LAND
+
+		    r = A->T->rc_cont[i - A->P->total_channel][1];
 		    c = A->T->rc_cont[i - A->P->total_channel][2];
-			
-        }
+
+	    }
 
         
-        if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
+	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
-            cnt++;
-            sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin);
+		    cnt++;
+		    sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin);
 
-            if(sux==1) return 1;
-        }else {
-            SWup = 0.;
-            Tgskin = 0.;
-        }
+		    if(sux==1) return 1;
+	    }else {
+		    SWup = 0.;
+		    Tgskin = 0.;
+	    }
 
         //surroundings
-        if (i>A->P->total_channel) {
-            if (A->P->surroundings == 1){
-                SWrefl_surr_ave += SWup/(double)A->P->total_pixel;
-                Tgskin_surr_ave += Tgskin/(double)A->P->total_pixel;
-            }else {
+	    if (i>A->P->total_channel) {
+		    if (A->P->surroundings == 1){
+			    SWrefl_surr_ave += SWup/(double)A->P->total_pixel;
+			    Tgskin_surr_ave += Tgskin/(double)A->P->total_pixel;
+		    }else {
 
-                A->E->SWrefl_surr[r][c] = SWup;
-                A->E->Tgskin_surr[r][c] = Tgskin;
-            }
-        }
+			    A->E->SWrefl_surr[r][c] = SWup;
+			    A->E->Tgskin_surr[r][c] = Tgskin;
+		    }
+	    }
 
     }
 
     if (A->P->surroundings == 1){
-        for (i=1; i<=A->P->total_pixel; i++) {
-			
-            r = A->T->rc_cont[i][1];
-            c = A->T->rc_cont[i][2];
-            A->E->SWrefl_surr[r][c] = SWrefl_surr_ave;
-            A->E->Tgskin_surr[r][c] = Tgskin_surr_ave;
-        }
+	    for (i=1; i<=A->P->total_pixel; i++) {
+
+		    r = A->T->rc_cont[i][1];
+		    c = A->T->rc_cont[i][2];
+		    A->E->SWrefl_surr[r][c] = SWrefl_surr_ave;
+		    A->E->Tgskin_surr[r][c] = Tgskin_surr_ave;
+	    }
     }
 
     return 0;
@@ -205,7 +202,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
-                         GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin){
+		GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin){
 
     long l=0, j=0, ns=0, ng=0;
     double SWin, SW, SWbeam, SWdiff, SWv_vis, SWv_nir, SWg_vis, SWg_nir, cosinc, avis_b, avis_d, anir_b, anir_d;
@@ -230,31 +227,30 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double ic=0., wa, rho=0.;
     long lpb;
 
-	
     //initialization of cumulated water volumes and set soil ancillary state vars
     if (i <= A->P->total_channel)
-	{
-        j = i;
+    {
+	    j = i;
 	    lu = (short)A->L->LC[r][c];
-		 sy = A->C->soil_type[j];
-        for (l=1; l<=geotop::common::Variables::Nl; l++) {
-            A->C->ET[l][j] = 0.0;
-            A->C->th[l][j] = theta_from_psi(C->P[l][j], C->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
-            A->C->th[l][j] = Fmin( A->C->th[l][j] , A->S->pa[sy][jsat][l]-C->thi[l][j] );
-        }
+	    sy = A->C->soil_type[j];
+	    for (l=1; l<=geotop::common::Variables::Nl; l++) {
+		    A->C->ET[l][j] = 0.0;
+		    A->C->th[l][j] = theta_from_psi(C->P[l][j], C->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
+		    A->C->th[l][j] = Fmin( A->C->th[l][j] , A->S->pa[sy][jsat][l]-C->thi[l][j] );
+	    }
 
     }else{
-        j = i - A->P->total_channel;
-        A->W->Pnet[r][c] = 0.0;
-        A->W->HN[r][c] = 0.0;//TODO mattiu
+	    j = i - A->P->total_channel;
+	    A->W->Pnet[r][c] = 0.0;
+	    A->W->HN[r][c] = 0.0;//TODO mattiu
 	    lu = (short)A->L->LC[r][c];
-		 sy = A->S->type[r][c];
+	    sy = A->S->type[r][c];
 
-        for (l=1; l<=geotop::common::Variables::Nl; l++) {
+	    for (l=1; l<=geotop::common::Variables::Nl; l++) {
 			
-            A->S->ET[l][r][c] = 0.0;
-            A->S->th[l][j] = theta_from_psi(L->P[l][j], L->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
-            A->S->th[l][j] = Fmin( A->S->th[l][j] , A->S->pa[sy][jsat][l]-L->thi[l][j] );
+		    A->S->ET[l][r][c] = 0.0;
+		    A->S->th[l][j] = theta_from_psi(L->P[l][j], L->thi[l][j], l, A->S->pa, sy, GTConst::PsiMin);
+		    A->S->th[l][j] = Fmin( A->S->th[l][j] , A->S->pa[sy][jsat][l]-L->thi[l][j] );
 
 		}
 
