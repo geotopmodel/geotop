@@ -78,7 +78,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     if(ok==0){
 #ifdef WITH_LOGGER
         lg->log("No temperature measurements, used the value of the previous time step",
-                geotop::logger::WARNING);
+                geotop::logger::DEBUG);
 #else
         fprintf(f,"No temperature measurements, used the value of the previous time step\n");
 #endif
@@ -92,7 +92,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     if(ok==0){
 #ifdef WITH_LOGGER
         lg->log("No RH measurements, used the value of the previous time step",
-                geotop::logger::WARNING);
+                geotop::logger::DEBUG);
 #else
         fprintf(f,"No RH measurements, used the value of the previous time step\n");
 #endif
@@ -109,14 +109,14 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     if(ok==0){
 #ifdef WITH_LOGGER
         lg->log("No wind measurements, used the value of the previous time step",
-               geotop::logger::WARNING);
+               geotop::logger::DEBUG);
 #else
         fprintf(f,"No wind measurements, used the value of the previous time step\n");
 #endif
     }else if(ok==1){
 #ifdef WITH_LOGGER
         lg->log("No wind direction measurements, used the value of the previous time step",
-               geotop::logger::WARNING);
+               geotop::logger::DEBUG);
 #else
         fprintf(f,"No wind direction measurements, used the value of the previous time step\n");
 #endif
@@ -127,7 +127,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     if(ok==0){
 #ifdef WITH_LOGGER
         lg->log("No precipitation measurements, considered it 0.0",
-               geotop::logger::WARNING);
+               geotop::logger::DEBUG);
 #else
         fprintf(f,"No precipitation measurements, considered it 0.0\n");
 #endif
