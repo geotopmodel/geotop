@@ -101,41 +101,38 @@ char* gt_popPath(const char* path)
 
 static int gt_recursiveMakeDirectory(char* path)
 {
-    int ret = 1, saved_errno;
+    int success = 0, ret = 1, saved_errno;
+    size_t len;
+
+    len = strlen((const char*)path);
+    if (len > MAX_PATH_LENGTH || len == 0)
+        return 0;
     
     ret = mkdir((const char*)path, 0755);
     saved_errno = errno;
+
+    if (ret == 0)
+        return 1;
 
     if (ret == -1 && saved_errno == ENOENT)
     {
         char *newpath = gt_popPath(path);
         if (newpath != NULL)
         {
-            ret = gt_recursiveMakeDirectory(newpath);
+            success = gt_recursiveMakeDirectory(newpath);
             free(newpath);
         }
-        else
+
+        if (success)
         {
-            ret = 0;
+            ret = mkdir((const char*)path, 0755);
+
+            if (ret == 0)
+                success = 1;
         }
-
-        if (ret) ret = mkdir((const char*)path, 0755);
-
-        if (ret == 0)
-            ret = 1;
-        else
-            ret = 0;
-    }
-    else if (ret == 0)
-    {
-        ret = 1;
-    }
-    else
-    {
-        ret = 0;
     }
 
-    return ret;
+    return success;
 }
 
 int gt_makeDirectory(const char* path)
