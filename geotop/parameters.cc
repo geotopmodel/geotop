@@ -1446,15 +1446,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     }
 	
 	//use water table for water pressure
+    sl->init_water_table_depth.resize((size_t)(par->nsoiltypes + 1));
     for (k=1; k<=par->nsoiltypes; k++) {
         occurring = 0;//check if psi initial has at least one novalue
-        /*for (i=1; i<=sl->pa->nch; i++) {
-         if ( (long)sl->pa->co[k][jpsi][i] == geotop::input::gDoubleNoValue) occurring = 1;*/
         for (size_t i=1; i<sl->pa.getCh(); i++) {
             if ( (long)sl->pa(k,jpsi,i) == geotop::input::gDoubleNoValue) occurring = 1;
         }
-        //      if (occurring == 0) sl->init_water_table_depth->co[k] = geotop::input::gDoubleNoValue;
-        if (occurring == 0) sl->init_water_table_depth[k] = geotop::input::gDoubleNoValue;
+        if (occurring == 0)
+        {
+            sl->init_water_table_depth[k] = geotop::input::gDoubleNoValue;
+        }
     }
 
 	itools->pa_bed.resize(1 + 1, nsoilprop + 1, nsoillayers + 1);
