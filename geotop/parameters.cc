@@ -52,17 +52,32 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
     
 	double lValue;
     bool lGetResult = pConfigStore->get(pName, lValue) ;
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
     
     if(not lGetResult) {
+#ifdef WITH_LOGGER
+        lg->logsf(geotop::logger::CRITICAL, "Unable to get parameter: %s", pName.c_str());
+        exit(1);
+#else
         t_error(std::string("Fatal Error: unable to get parameter: ") + pName);
+#endif
     }
     
     if(lValue == geotop::input::gDoubleNoValue) {
-        lValue = pDefaultValue ;
-    }
-    
-    if(lValue == geotop::input::gDoubleNoValue && not pAllowNoValue) {
-        t_error(std::string("Fatal Error: mandatory value not assigned: ") + pName);
+        
+        if (not pAllowNoValue) {
+#ifdef WITH_LOGGER
+            lg->logsf(geotop::logger::CRITICAL, "Mandatory value not assigned: %s", pName.c_str());
+            exit(1);
+#else
+            t_error(std::string("Fatal Error: mandatory value not assigned: ") + pName);
+#endif
+        } else {
+            lValue = pDefaultValue ;
+        }
+
     }
     
     return lValue ;
@@ -72,10 +87,11 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
   * @param[in] pConfigStore a pointer to a previously initialized configuration store
   * @param[in] pName the keyword of the parameter to read
   * @param[in] pDefaultValue a default value to be applied if the value of the parameter is geotop::input::gDoubleNoValue
-  * @param[in] pUsePrevElement if true, use the element repeat the last element instead of the default value, use the default value only
-  *     if the latest value is geotop::input::gDoubleNoValue. If false use the default value for each element.
+  * @param[in] pUsePrevElement if true and the element's value is geotop::input::gDoubleNoValue then repeat the previous
+  *     element instead of the default value unless the first element's value is geotop::input::gDoubleNoValue.
+  *     If false and the element's value is geotop::input::gDoubleNoValue then use the default value for all elements.
   * @param[in] pLength the expected length of the output vector
-  * @param[in] pAllowNoValue if true the returning of a vector containing no value is permitted, by default is false
+  * @param[in] pAllowNoValue if true then returning a vector containing N/A values is permitted, by default is false
   * @return the parameter with the array of double. If the keyword does not exists or if the return value is
   *     geotop::input::gDoubleNoValue (and pAllowNoValue == false)
   *     the function will cause an exit from the program by calling the t_error function
@@ -83,46 +99,61 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
 static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::string pName, const double pDefaultValue, const bool pUsePrevElement, const size_t pLength, const bool pAllowNoValue = false){
 
     std::vector<double> lValue;
-    bool lGetResult = pConfigStore->get(pName, lValue) ;
-    
-    size_t lDesiredLength = pLength ;
-    if ( pLength == 0 ) {
-        lDesiredLength = lValue.size() ;
-    }
-    
-    if(not lGetResult) {
+    bool lGetResult = pConfigStore->get(pName, lValue);
+
+#ifdef WITH_LOGGER
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+#endif
+
+    if(not lGetResult)
+    {
+#ifdef WITH_LOGGER
+        lg->logsf(geotop::logger::CRITICAL, "Unable to get parameter: %s", pName.c_str());
+        exit(1);
+#else
         t_error(std::string("Fatal Error: unable to get parameter: ") + pName);
+#endif
     }
 
-    size_t lLength = lValue.size() ;
-    
-    for (size_t i = 0; i < lDesiredLength ; i++) {
-        double lElementValue = geotop::input::gDoubleNoValue ;
-        
-        if(i < lLength) {
-            lElementValue = lValue[i] ;
-        } else {
-            lValue.push_back( geotop::input::gDoubleNoValue ) ;
+    size_t lDesiredLength = pLength;
+    size_t lLength = lValue.size();
+
+    if (pLength == 0)
+        lDesiredLength = lLength;
+
+    for (size_t i = 0; i < lDesiredLength ; i++)
+    {
+        double lElementValue = geotop::input::gDoubleNoValue;
+
+        if(i < lLength)
+        {
+            lElementValue = lValue[i];
+        }
+        else
+        {
+            lValue.push_back(geotop::input::gDoubleNoValue);
         }
 
-        if ( lElementValue == geotop::input::gDoubleNoValue ) {
-            if( i > 0 ) {
-                if(pUsePrevElement)
-                    lElementValue = lValue[i-1] ;
-                else
-                    lElementValue = pDefaultValue ;
-            } else {
+        if (lElementValue == geotop::input::gDoubleNoValue) {
+            if(pUsePrevElement && i > 0)
+                lElementValue = lValue[i-1] ;
+            else
                 lElementValue = pDefaultValue ;
+
+            if (!pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue)
+            {
+#ifdef WITH_LOGGER
+                lg->logsf(geotop::logger::CRITICAL,
+                          "Mandatory array value not assigned: %s",
+                          pName.c_str());
+                exit(1);
+#else
+                t_error(std::string("Fatal Error: mandatory array value not assigned: ") + pName);
+#endif
             }
         }
-
-        if ( not pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue ) {
-            t_error(std::string("Fatal Error: mandatory array value not assigned: ") + pName);
-        } else {
-            lValue[i] = lElementValue ;
-        }
+        lValue[i] = lElementValue ;
     }
-    
     return lValue ;
 }
 
@@ -133,7 +164,7 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
 
 /** @brief return a list with requested parameters
   * @param[in] pConfigStore a pointer to a previously initialized configuration store
-  * @param[in] pKeys a list with the requested key
+  * @param[in] pKeys a list with the requested keys
   * @return the array with the requested parameters
   */
 static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::vector<std::string> &pKeys){
@@ -143,7 +174,15 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         std::string lValue;
         bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
         if(lGetResult == false){
+#ifdef WITH_LOGGER
+            geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+            lg->logsf(geotop::logger::CRITICAL, 
+                      "Mandatory value not assigned: %s",
+                      pKeys[i].c_str());
+            exit(1);
+#else
             t_error(std::string("Fatal Error: mandatory value not assigned: ") + pKeys[i]);
+#endif
         }
         lVector.push_back(lValue);
 	}
