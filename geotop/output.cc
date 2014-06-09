@@ -2243,17 +2243,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 name = geotop::common::Variables::files[rtime] + string(textfile);
                 f = fopen(name.c_str() , "w");
                 fprintf(f, "Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s]\n");
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                fprintf(f, "%12g,%12g,%ld,%ld,%ld,%12g,%12g", times->time + par->Dt + par->delay_day_recover * GTConst::secinday,
-                        (times->time + par->Dt) / GTConst::secinday + par->delay_day_recover,
-                        (long)(((times->time + par->Dt) / GTConst::secinday + par->delay_day_recover) / par->ContRecovery),
-                        geotop::common::Variables::i_run, geotop::common::Variables::i_sim, geotop::common::Variables::cum_time, geotop::common::Variables::elapsed_time);
-#else
                 fprintf(f, "%f,%f,%ld,%ld,%ld,%f,%f", times->time + par->Dt + par->delay_day_recover * GTConst::secinday,
                         (times->time + par->Dt) / GTConst::secinday + par->delay_day_recover,
                         (long)(((times->time + par->Dt) / GTConst::secinday + par->delay_day_recover) / par->ContRecovery),
                         geotop::common::Variables::i_run, geotop::common::Variables::i_sim, geotop::common::Variables::cum_time, geotop::common::Variables::elapsed_time);
-#endif
                 fclose(f);
             }
             //TODO: NNNN should be removed in recovery
