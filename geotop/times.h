@@ -30,10 +30,20 @@
 #include "constants.h"
 #include "meteo.h"
 #include "meteodata.h"
+#include <exception>
 
+class InvalidDateException : std::exception
+{
+    public:
+        const char* what()
+        {
+            return "Invalid date.";
+        }
+};
 
-short is_leap(long y);
+void set_time_step(Par *par, Times *times);
 
+short is_leap(long year);
 
 double convert_JDandYear_JDfrom0(double JD, long year);
 
@@ -41,11 +51,9 @@ void convert_JDfrom0_JDandYear(double JDfrom0, double *JD, long *year);
 
 double convert_JDfrom0_JD(double JDfrom0);
 
-
 void convert_JDandYear_daymonthhourmin(double JD, long year, long *d, long *m, long *h, long *min);
 
 double convert_daymonthyearhourmin_JD(long d, long m, long y, long h, long min);
-
 
 void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, long *year, long *hour, long *min);
 
@@ -58,7 +66,6 @@ double convert_JDandYear_dateeur12(double JD, long year);
 double convert_dateeur12_JDfrom0(double date);
 
 double convert_JDfrom0_dateeur12(double JDfrom0);
-
 
 double convert_tfromstart_JDfrom0(double t, double JDfrom0_start);
 
