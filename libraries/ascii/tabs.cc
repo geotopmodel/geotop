@@ -535,8 +535,7 @@ long *ColumnCoder(std::string filename, std::vector<std::string> ColDescr, long 
 }
 
 
-//double **read_datamatrix(FILE *f, char *filename, long comment_char, long sep_char, long number_lines, long components_header){
-  double **read_datamatrix(FILE *f, std::string filename, long comment_char, long sep_char, long number_lines, long components_header){
+double **read_datamatrix(FILE *f, std::string filename, long comment_char, long sep_char, long number_lines, long components_header){
 	
 	double **data, *line;
 	short endoffile, success;
