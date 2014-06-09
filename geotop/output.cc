@@ -2261,11 +2261,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             for(l = 0; l <= geotop::common::Variables::Nl; l++)
             {
-                if(geotop::common::Variables::files[rpsi] != geotop::input::gStringNoValue) write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rpsi], 0, par->format_out, sl->SS->P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+                if(geotop::common::Variables::files[rpsi] != geotop::input::gStringNoValue)
+                    write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rpsi], 0, par->format_out, sl->SS->P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
                 if(l > 0)
                 {
-                    if(geotop::common::Variables::files[riceg] != geotop::input::gStringNoValue) write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[riceg], 0, par->format_out, sl->SS->thi, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-                    if(geotop::common::Variables::files[rTg] != geotop::input::gStringNoValue) write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rTg], 0, par->format_out, sl->SS->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+                    if(geotop::common::Variables::files[riceg] != geotop::input::gStringNoValue)
+                        write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[riceg], 0, par->format_out, sl->SS->thi, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+                    if(geotop::common::Variables::files[rTg] != geotop::input::gStringNoValue)
+                        write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rTg], 0, par->format_out, sl->SS->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
                 }
             }
 
@@ -2294,10 +2297,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             for(l = 1; l <= par->max_snow_layers; l++)
             {
-                if(geotop::common::Variables::files[rDzs] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzs], 0, par->format_out, snow->S->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rwls] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rwls], 0, par->format_out, snow->S->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rwis] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rwis], 0, par->format_out, snow->S->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rTs] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rTs], 0, par->format_out, snow->S->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                if(geotop::common::Variables::files[rDzs] != geotop::input::gStringNoValue)
+                    write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzs], 0, par->format_out, snow->S->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                if(geotop::common::Variables::files[rwls] != geotop::input::gStringNoValue)
+                    write_tensorseries(1, l, 0, geotop::common::Variables::files[rwls], 0, par->format_out, snow->S->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                if(geotop::common::Variables::files[rwis] != geotop::input::gStringNoValue)
+                    write_tensorseries(1, l, 0, geotop::common::Variables::files[rwis], 0, par->format_out, snow->S->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                if(geotop::common::Variables::files[rTs] != geotop::input::gStringNoValue)
+                    write_tensorseries(1, l, 0, geotop::common::Variables::files[rTs], 0, par->format_out, snow->S->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
 
             if(geotop::common::Variables::files[rsnag] != geotop::input::gStringNoValue)
@@ -2316,10 +2323,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             {
                 for(l = 1; l <= par->max_glac_layers; l++)
                 {
-                    if(geotop::common::Variables::files[rDzi] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzi], 0, par->format_out, glac->G->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rwli] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rwli], 0, par->format_out, glac->G->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rwii] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rwii], 0, par->format_out, glac->G->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rTi] != geotop::input::gStringNoValue) write_tensorseries(1, l, 0, geotop::common::Variables::files[rTi], 0, par->format_out, glac->G->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                    if(geotop::common::Variables::files[rDzi] != geotop::input::gStringNoValue)
+                        write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzi], 0, par->format_out, glac->G->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                    if(geotop::common::Variables::files[rwli] != geotop::input::gStringNoValue)
+                        write_tensorseries(1, l, 0, geotop::common::Variables::files[rwli], 0, par->format_out, glac->G->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                    if(geotop::common::Variables::files[rwii] != geotop::input::gStringNoValue)
+                        write_tensorseries(1, l, 0, geotop::common::Variables::files[rwii], 0, par->format_out, glac->G->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+                    if(geotop::common::Variables::files[rTi] != geotop::input::gStringNoValue)
+                        write_tensorseries(1, l, 0, geotop::common::Variables::files[rTi], 0, par->format_out, glac->G->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 }
 
                 if(geotop::common::Variables::files[rni] != geotop::input::gStringNoValue)
