@@ -161,6 +161,15 @@ double convert_JDfrom0_JD(double JDfrom0)
 
 /*==================================================================================================================*/
 
+/**
+ * @brief Converts a Julian Date to day of month, month, hour and minutes
+ * @param[in] JD Julian Date to convert
+ * @param[in] year Year JD refers to
+ * @param[out] d pointer to a long that will hold the day (must not be NULL)
+ * @param[out] m pointer to a long that will hold the month (must not be NULL)
+ * @param[out] h pointer to a long that will hold the hour (must not be NULL)
+ * @param[out] min pointer to a long that will hold the minutes (must not be NULL)
+ */
 void convert_JDandYear_daymonthhourmin(double JD, long year, long *d, long *m, long *h, long *min)
 {
 
@@ -168,34 +177,44 @@ void convert_JDandYear_daymonthhourmin(double JD, long year, long *d, long *m, l
     double frac = JD - floor(JD);
     long days_in_months_in_leap[ ] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     long days_in_months_in_non_leap[ ] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    long* dim = NULL;
 
-    *m = 1;                                       //initialization
-
-    if(is_leap(year) == 1)
+    if (d != NULL && m != NULL && h != NULL && min != NULL)
     {
-        while (JDint > days_in_months_in_leap[*m])
+        *m = 1;                                       //initialization
+
+        dim = is_leap(year) ? days_in_months_in_leap : days_in_months_in_non_leap;
+
+        while (JDint > dim[*m])
         {
-            JDint -= days_in_months_in_leap[*m];
+            JDint -= dim[*m];
             *m = (*m) + 1;
         }
+
+        *d = JDint;
+
+        *min = ((int)floor(frac * ((double)24.0 * 60.0) + 0.5)) % 60;
+        *h = (int) floor(((((double)1440.0) * frac - (double) * min) / (double)60.0) + 0.5);
     }
     else
     {
-        while (JDint > days_in_months_in_non_leap[*m])
-        {
-            JDint -= days_in_months_in_non_leap[*m];
-            *m = (*m) + 1;
-        }
+        //TODO: write a better exception
+        std::exception e;
+        throw e;
     }
-
-    *d = JDint;
-
-    *min = ((int)floor(frac * ((double)24.0 * 60.0) + 0.5)) % 60;
-    *h = (int) floor(((((double)1440.0) * frac - (double) * min) / (double)60.0) + 0.5);
 
 }
 
-
+/**
+ * @brief Converts a date to a Julian Date
+ * @param[in] d day of the month (1-31)
+ * @param[in] m month (1-12)
+ * @param[in] y year
+ * @param[in] h hour (0-23)
+ * @param[in] min minutes (0-59)
+ * @return the Julian Date
+ * @throw InvalidDateException
+ */
 double convert_daymonthyearhourmin_JD(long d, long m, long y, long h, long min)
 {
 
@@ -204,20 +223,22 @@ double convert_daymonthyearhourmin_JD(long d, long m, long y, long h, long min)
     long i;
     long days_in_months_in_leap[ ] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     long days_in_months_in_non_leap[ ] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    long* dim;
+    
+    dim = is_leap(y) ? days_in_months_in_leap : days_in_months_in_non_leap;
 
-    if (is_leap(y) == 1)
+    if (min < 0 || min > 59 ||
+        h < 0 || h > 23 ||
+        m < 1 || m > 12 ||
+        d < 1 || d > dim[m])
     {
-        for (i = 1; i <= m - 1; i++)
-        {
-            JD += (double)days_in_months_in_leap[i];
-        }
+        InvalidDateException e;
+        throw e;
     }
-    else
+
+    for (i = 1; i <= m - 1; i++)
     {
-        for (i = 1; i <= m - 1; i++)
-        {
-            JD += (double)days_in_months_in_non_leap[i];
-        }
+        JD += (double)dim[i];
     }
 
     JD += (double)d - 1.;
