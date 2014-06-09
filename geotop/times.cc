@@ -162,8 +162,8 @@ double convert_JDfrom0_JD(double JDfrom0)
 /*==================================================================================================================*/
 
 /**
- * @brief Converts a Julian Date to day of month, month, hour and minutes
- * @param[in] JD Julian Date to convert
+ * @brief Converts an Ordinal Date to day of month, month, hour and minutes
+ * @param[in] JD Ordinal Date to convert
  * @param[in] year Year JD refers to
  * @param[out] d pointer to a long that will hold the day (must not be NULL)
  * @param[out] m pointer to a long that will hold the month (must not be NULL)
@@ -206,13 +206,13 @@ void convert_JDandYear_daymonthhourmin(double JD, long year, long *d, long *m, l
 }
 
 /**
- * @brief Converts a date to a Julian Date
+ * @brief Converts a date to an Ordinal Date
  * @param[in] d day of the month (1-31)
  * @param[in] m month (1-12)
  * @param[in] y year
  * @param[in] h hour (0-23)
  * @param[in] min minutes (0-59)
- * @return the Julian Date
+ * @return the Ordinal Date
  * @throw InvalidDateException
  */
 double convert_daymonthyearhourmin_JD(long d, long m, long y, long h, long min)
