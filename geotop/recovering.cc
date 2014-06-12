@@ -28,7 +28,7 @@ void assign_recovered_map_vector   (long n,
                                     std::string name,
                                     GeoVector<double> &assign,
                                     GeoMatrix<long> &rc,
-                                    Par * par,
+                                    Par *par,
                                     GeoMatrix<double> &Zdistr,
                                     GeoMatrix<double> &Zpoint)
 {
@@ -58,7 +58,7 @@ void assign_recovered_map_vector   (long n,
 void assign_recovered_map_long (long n,
                                 std::string name,
                                 GeoMatrix<long> &assign,
-                                Par * par,
+                                Par *par,
                                 GeoMatrix<double> &Zdistr,
                                 GeoMatrix<double> &Zpoint)
 {
@@ -89,7 +89,7 @@ void assign_recovered_tensor   (long lbegin,
                                 long n,
                                 std::string name,
                                 GeoTensor<double> &assign,
-                                Par * par,
+                                Par *par,
                                 GeoMatrix<double> &Zdistr,
                                 GeoMatrix<double> &Zpoint)
 {
@@ -129,7 +129,7 @@ void assign_recovered_tensor_vector    (long lbegin,
                                         std::string name,
                                         GeoMatrix<double> &assign,
                                         GeoMatrix<long> &rc,
-                                        Par * par,
+                                        Par *par,
                                         GeoMatrix<double> &Zdistr,
                                         GeoMatrix<double> &Zpoint)
 {
