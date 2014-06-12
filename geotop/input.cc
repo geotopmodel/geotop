@@ -512,12 +512,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 }
             }
 
-            //calcululate Wx and Wy if Wspeed and direction are given
+            //calculate Wx and Wy if Wspeed and direction are given
             if (par->wind_as_xy == 1) {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
             }
 
-            //calcululate Wspeed and direction if Wx and Wy are given
+            //calculate Wspeed and direction if Wx and Wy are given
             if (par->wind_as_dir == 1) {
                 added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
             }
@@ -554,10 +554,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            //rewrite completed files
-            //rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names, temp.c_str(), added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud, added_Tdew, added_RH, added_Pint);
-
-            //calcululate Wx and Wy if Wspeed and direction are given
+            //calculate Wx and Wy if Wspeed and direction are given
             if (par->wind_as_xy != 1) {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
             }
@@ -2075,40 +2072,29 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             printf("Glacier initial condition from file %s\n",geotop::common::Variables::files[fgl0+1].c_str());
             fprintf(flog,"Glacier initial condition from file %s\n",geotop::common::Variables::files[fgl0+1].c_str());
 #endif
-            //M=read_map(2,geotop::common::Variables::files[fgl0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             meteoio_readMap(string(geotop::common::Variables::files[fgl0]), M);
         }else{
-            //	M=copydoublematrix_const(IT->Dglac0, land->LC, geotop::input::gDoubleNoValue);
             copydoublematrix_const(IT->Dglac0, land->LC, M, geotop::input::gDoubleNoValue);
         }
 
-        //	glac->G=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
         glac->G=new Statevar3D();
         allocate_and_initialize_statevar_3D(glac->G, geotop::input::gDoubleNoValue, par->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 
         if(par->output_glac_bin == 1){
             if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
-                //	glac->MELTED=new_doublevector(par->total_pixel);
-                //	initialize_doublevector(glac->MELTED,0.);
                 glac->MELTED.resize(par->total_pixel+1,0.0);
-                //	glac->melted=new_doublevector(par->total_pixel);
                 glac->melted.resize(par->total_pixel+1);
             }
             if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue){
-                //	glac->SUBL=new_doublevector(par->total_pixel);
-                //	initialize_doublevector(glac->SUBL, 0.);
                 glac->SUBL.resize(par->total_pixel+1,0.0);
-                //	glac->subl=new_doublevector(par->total_pixel);
                 glac->subl.resize(par->total_pixel+1);
             }
         }
 
         for(r=1;r<=geotop::common::Variables::Nr;r++){
             for(c=1;c<=geotop::common::Variables::Nc;c++){
-                //	if( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
                 if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
 
-                    //	if(M->co[r][c]<0){
                     if(M[r][c]<0){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: negative glacier data\n");
@@ -2123,10 +2109,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                         t_error("Fatal Error! Geotop is closed. See failing report (10).");
 #endif
 
-                        //	}else if(M->co[r][c]>1.E-5){
                     }else if(M[r][c]>1.E-5){
 
-                        //	if (IT->rhoglac0 * M->co[r][c] / GTConst::rho_w < par->max_weq_glac * par->max_glac_layers ) {
                         if (IT->rhoglac0 * M[r][c] / GTConst::rho_w < par->max_weq_glac * par->max_glac_layers ) {
 
                             n = 0;
@@ -2136,54 +2120,40 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
                                 n++;
 
-                                //	if (IT->rhoglac0 * M->co[r][c] / GTConst::rho_w < par->max_weq_glac * n) {
                                 if (IT->rhoglac0 * M[r][c] / GTConst::rho_w < par->max_weq_glac * n) {
-                                    //	glac->G->w_ice->co[n][r][c] = par->max_weq_glac;
                                     glac->G->w_ice[n][r][c] = par->max_weq_glac;
                                 }else {
-                                    //	glac->G->w_ice->co[n][r][c] = IT->rhoglac0 * M->co[r][c] / 1000. - z;
                                     glac->G->w_ice[n][r][c] = IT->rhoglac0 * M[r][c] / 1000. - z;
                                 }
 
-                                //	glac->G->Dzl->co[n][r][c] = GTConst::rho_w * glac->G->w_ice->co[n][r][c] / IT->rhoglac0;
                                 glac->G->Dzl[n][r][c] = GTConst::rho_w * glac->G->w_ice[n][r][c] / IT->rhoglac0;
-                                //	glac->G->T->co[n][r][c] = IT->Tglac0;
                                 glac->G->T[n][r][c] = IT->Tglac0;
 
-                                //	z += glac->G->w_ice->co[n][r][c];
                                 z += glac->G->w_ice[n][r][c];
 
-                                //	}while (fabs(z - IT->rhoglac0 * M->co[r][c] / GTConst::rho_w) < 1.E-6);
                             }while (fabs(z - IT->rhoglac0 * M[r][c] / GTConst::rho_w) < 1.E-6);
 
-                            //	glac->G->lnum->co[r][c] = n;
                             glac->G->lnum[r][c] = n;
 
                         }else {
 
-                            //	glac->G->lnum->co[r][c] = par->max_glac_layers;
                             glac->G->lnum[r][c] = par->max_glac_layers;
 
                             for (n=1; n<=par->max_glac_layers; n++) {
 
                                 a = 0;
 
-                                //	for (i=1; i<=par->inf_glac_layers->nh; i++) {
                                 for (i=1; i< par->inf_glac_layers.size(); i++) {
                                     if (n == i) a = 1;
                                 }
 
                                 if (a == 0) {
-                                    //	glac->G->w_ice->co[n][r][c] = par->max_weq_glac;
                                     glac->G->w_ice[n][r][c] = par->max_weq_glac;
                                 }else {
-                                    //	glac->G->w_ice->co[n][r][c] = ( IT->rhoglac0 * M->co[r][c] / GTConst::rho_w - par->max_weq_glac * ( par->max_glac_layers - par->inf_glac_layers->nh ) ) / par->inf_glac_layers->nh;
                                     glac->G->w_ice[n][r][c] = ( IT->rhoglac0 * M[r][c] / GTConst::rho_w - par->max_weq_glac * ( par->max_glac_layers - par->inf_glac_layers.size() ) ) / par->inf_glac_layers.size();
                                 }
 
-                                //	glac->G->Dzl->co[n][r][c] = GTConst::rho_w * glac->G->w_ice->co[n][r][c] / IT->rhoglac0;
                                 glac->G->Dzl[n][r][c] = GTConst::rho_w * glac->G->w_ice[n][r][c] / IT->rhoglac0;
-                                //	glac->G->T->co[n][r][c] = IT->Tglac0;
                                 glac->G->T[n][r][c] = IT->Tglac0;
 
                             }
@@ -2197,8 +2167,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 }
             }
         }
-
-        //	free_doublematrix(M);
 
         if(par->delay_day_recover > 0){
             assign_recovered_map_long(par->recover, geotop::common::Variables::files[rni], glac->G->lnum, par, land->LC, IT->LU);
@@ -2214,92 +2182,57 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //***************************************************************************************************
     // Filling up of the struct "met" (of the type METEO):
 
-    //	met->Tgrid=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(met->Tgrid, 5.);
     met->Tgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,5.);
 
-    //	met->Pgrid=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(met->Pgrid, GTConst::Pa0);
     met->Pgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,GTConst::Pa0);
 
-    //	met->RHgrid=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(met->RHgrid, 0.7);
     met->RHgrid.resize(geotop::common::Variables::Nr+1, geotop::common::Variables::Nc+1, 0.7);
 
-    //	met->Vgrid=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(met->Vgrid, par->Vmin);
     met->Vgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1, par->Vmin);
 
-    //	met->Vdir=new_doublematrix(Nr,Nc);
-    //	initialize_doublematrix(met->Vdir, 0.0);
     met->Vdir.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     if (par->output_meteo_bin == 1){
         if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue){
-            //	met->Tamean=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Tamean, 0.);
             met->Tamean.resize(par->total_pixel+1);
         }
         if(geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue){
-            //	met->Vspdmean=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Vspdmean, 0.);
             met->Vspdmean.resize(par->total_pixel+1,0.0);
         }
         if(geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue){
-            //	met->Vdirmean=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Vdirmean, 0.);
             met->Vdirmean.resize(par->total_pixel+1,0.0);
         }
         if(geotop::common::Variables::files[frh] != geotop::input::gStringNoValue){
-            //	met->RHmean=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->RHmean, 0.);
             met->RHmean.resize(par->total_pixel+1,0.0);
         }
     }
 
 
     //plot output
-    //	if(times->JD_plots->nh > 1){
     if(times->JD_plots.size() > 1){
         if(geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue){
-            //	met->Taplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Taplot, 0.);
             met->Taplot.resize(par->total_pixel+1,0.0);
         }
         if(geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue){
-            //	met->RHplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->RHplot, 0.);
             met->RHplot.resize(par->total_pixel+1,0.0);
         }
         if(geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue ||geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue){
-            //	met->Vxplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Vxplot, 0.);
             met->Vxplot.resize(par->total_pixel+1,0.0);
-            //	met->Vyplot=new_doublevector(par->total_pixel);
-            //	initialize_doublevector(met->Vyplot, 0.);
             met->Vyplot.resize(par->total_pixel+1,0.0);
         }
     }
 
     /****************************************************************************************************/
 
-    /*Free the struct allocated in this subroutine:*/
-    //free_doublematrix(par->chkpt);
-    //free_doublevector(sl->init_water_table_depth);
-
     delete(IT);
-    //free(IT);
 
     if (par->point_sim != 1) {
 
         cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel);
 		
-        //	top->Li = new_longvector(i);
         top->Li.resize(i+1);
-        //	top->Lp = new_longvector(j);
         top->Lp.resize(j+1);
 
-        //	wat->Lx = new_doublevector(i);
         wat->Lx.resize(i+1);
         cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont, top->i_cont, par->total_pixel);
 
@@ -2307,42 +2240,26 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         i = geotop::common::Variables::Nl;
         j = geotop::common::Variables::Nl + 1;
-        //	top->Li = new_longvector(i);
         top->Li.resize(i+1);
-        //	top->Lp = new_longvector(j);
         top->Lp.resize(j+1);
 
-        //	wat->Lx = new_doublevector(i);
         wat->Lx.resize(i+1);
 
         for (l=1; l<=geotop::common::Variables::Nl; l++) {
-            //	top->Li->co[l] = l+1;
             top->Li[l] = l+1;
-            //	top->Lp->co[l] = l;
             top->Lp[l] = l;
         }
-        //	top->Lp->co[l] = i;
         top->Lp[l] = i;
     }
 
-    //	wat->H0 = new_doublevector(j);
     wat->H0.resize(j+1);
-    //	wat->H1 = new_doublevector(j);
     wat->H1.resize(j+1);
-    //	wat->dH = new_doublevector(j);
     wat->dH.resize(j+1);
-    //	wat->B = new_doublevector(j);
     wat->B.resize(j+1);
-    //	wat->f = new_doublevector(j);
     wat->f.resize(j+1);
-    //	wat->df = new_doublevector(j);
     wat->df.resize(j+1);
-    //	wat->Kbottom = new_doublematrix(Nr, Nc);
-    //	initialize_doublematrix(wat->Kbottom, 0.);
     wat->Kbottom.resize(geotop::common::Variables::Nr+1, geotop::common::Variables::Nc+1, 0.);
 
-    //	wat->Klat = new_doublematrix(top->BC_DepthFreeSurface->nh, Nl);
-    //	initialize_doublematrix(wat->Klat, 0.);
     wat->Klat.resize(top->BC_DepthFreeSurface.size(), geotop::common::Variables::Nl+1,0.0);
 
     fclose(flog);
@@ -2588,7 +2505,6 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     }else{/*The sky view factor file "top->sky" must be calculated*/
         top->sky.resize(top->Z0.getRows(),top->Z0.getCols());
         if (par->sky == 0) {
-            //	initialize_doublematrix(top->sky, 1.);
             top->sky.resize(top->Z0.getRows(),top->Z0.getCols(),1.);
         }else {
             curv.resize(top->Z0.getRows(),top->Z0.getCols());
@@ -2958,17 +2874,11 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             fprintf(flog,"Warning: Dem file %s present\n",geotop::common::Variables::files[fdem+1].c_str());
 #endif
 
-            //	Q=new_doublematrix(1,1);
-            //	Z=read_map(0,geotop::common::Variables::files[fdem], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue); //topography
             meteoio_readDEM(Z);
-            //	free_doublematrix(Q);
 
-            //	Q=new_doublematrix(Z->nrh,Z->nch);
             Q.resize(Z.getRows(),Z.getCols());
             multipass_topofilter(par->lowpass, Z, Q, geotop::input::gDoubleNoValue, 1);
-            //	copy_doublematrix(Q, Z);
             Z = Q;
-            //	free_doublematrix(Q);
 
         }else{
 
@@ -2993,9 +2903,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
 
     if(read_dem==1){
-        //	par->r_points=new_longvector(par->chkpt->nrh);
         par->r_points.resize(par->chkpt.getRows());
-        //	par->c_points=new_longvector(par->chkpt->nrh);
         par->c_points.resize(par->chkpt.getRows());
 
         for(i=1;i< par->chkpt.getRows();i++){
@@ -3007,8 +2915,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     //b. read land use
     read_lu=0;
-    //if(par->recover>0) read_lu=1;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i<par->chkpt.getRows();i++){
         if((long)par->chkpt[i][ptLC]==geotop::input::gDoubleNoValue) read_lu=1;
     }
@@ -3038,7 +2944,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             fprintf(flog,"Warning: Landuse file not present, uniform cover considered\n");
 #endif
             if(read_dem==1){
-                //	LU=copydoublematrix_const(1.0, Z, geotop::input::gDoubleNoValue);
                 copydoublematrix_const(1.0, Z, LU,geotop::input::gDoubleNoValue);
             }else{
                 read_lu=0;
@@ -3098,26 +3003,18 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }
     }
     if(read_soil==1){
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	if((long)par->chkpt->co[i][ptSY]==geotop::input::gDoubleNoValue){
             if((long)par->chkpt[i][ptSY]==geotop::input::gDoubleNoValue){
-                //	r=row(par->chkpt->co[i][ptY], P->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	c=col(par->chkpt->co[i][ptX], P->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	par->chkpt->co[i][ptSY]=P->co[r][c];
                 par->chkpt[i][ptSY]=P[r][c];
             }
         }
-        //	free_doublematrix(P);
     }
 
     //d. read slope
     read_sl=0;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptS]==geotop::input::gDoubleNoValue) read_sl=1;
         if((long)par->chkpt[i][ptS]==geotop::input::gDoubleNoValue) read_sl=1;
     }
     if(read_sl==1 && coordinates==0) read_sl=0;
@@ -3149,16 +3046,10 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
                 read_sl=0;
             }else{
-                //	Q=new_doublematrix(Z->nrh,Z->nch);
                 Q.resize(Z.getRows(),Z.getCols());
-                //	R=new_doublematrix(Z->nrh,Z->nch);
                 R.resize(Z.getRows(),Z.getCols());
-                //	find_slope(UV->U->co[1], UV->U->co[2], Z, Q, R, geotop::input::gDoubleNoValue);
                 find_slope(geotop::common::Variables::UV->U[1], geotop::common::Variables::UV->U[2], Z, Q, R, geotop::input::gDoubleNoValue);
-                //	P=find_max_slope(Z, Q, R, geotop::input::gDoubleNoValue);
                 find_max_slope(Z, Q, R, geotop::input::gDoubleNoValue, P);
-                //	free_doublematrix(Q);
-                //	free_doublematrix(R);
                 if(flag==0) write_map(geotop::common::Variables::files[fslp], 0, par->format_out, P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
         }
@@ -3178,26 +3069,18 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif //USE_DOUBLE_PRECISION_OUTPUT
 #endif //WITH_LOGGER
 
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	if((long)par->chkpt->co[i][ptS]==geotop::input::gDoubleNoValue){
             if((long)par->chkpt[i][ptS]==geotop::input::gDoubleNoValue){
-                //	r=row(par->chkpt->co[i][ptY], P->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	c=col(par->chkpt->co[i][ptX], P->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	par->chkpt->co[i][ptS]=P->co[r][c];
                 par->chkpt[i][ptS]=P[r][c];
             }
         }
-        //	free_doublematrix(P);
     }
 
     //e. read aspect
     read_as=0;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptA]==geotop::input::gDoubleNoValue) read_as=1;
         if((long)par->chkpt[i][ptA]==geotop::input::gDoubleNoValue) read_as=1;
     }
     if(read_as==1 && coordinates==0) read_as=0;
@@ -3229,43 +3112,29 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
                 read_as=0;
             }else{
-                //	Q=new_doublematrix(Z->nrh,Z->nch);
                 Q.resize(Z.getRows(),Z.getCols());
-                //	R=new_doublematrix(Z->nrh,Z->nch);
                 R.resize(Z.getRows(),Z.getCols());
-                //	find_slope(UV->U->co[1], UV->U->co[2], Z, Q, R, geotop::input::gDoubleNoValue);
                 find_slope(geotop::common::Variables::UV->U[1], geotop::common::Variables::UV->U[2], Z, Q, R, geotop::input::gDoubleNoValue);
-                //	P=find_aspect(Z, Q, R, geotop::input::gDoubleNoValue);
                 find_aspect(Z, Q, R, geotop::input::gDoubleNoValue, P);
 
-                //	free_doublematrix(Q);
-                //	free_doublematrix(R);
                 if(flag==0) write_map(geotop::common::Variables::files[fasp], 0, par->format_out, P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
         }
     }
 
     if(read_as==1){
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	if((long)par->chkpt->co[i][ptA]==geotop::input::gDoubleNoValue){
             if((long)par->chkpt[i][ptA]==geotop::input::gDoubleNoValue){
-                //	r=row(par->chkpt->co[i][ptY], P->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	c=col(par->chkpt->co[i][ptX], P->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	par->chkpt->co[i][ptA]=P->co[r][c];
                 par->chkpt[i][ptA]=P[r][c];
             }
         }
-        //	free_doublematrix(P);
     }
 
     //f. sky view factor file
     read_sk=0;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptSKY]==geotop::input::gDoubleNoValue) read_sk=1;
         if((long)par->chkpt[i][ptSKY]==geotop::input::gDoubleNoValue) read_sk=1;
     }
     if(read_sk==1 && coordinates==0) read_sk=0;
@@ -3297,32 +3166,23 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
                 read_sk=0;
             }else{
-                //	P=new_doublematrix(Z->nrh,Z->nch);
                 P.resize(Z.getRows(),Z.getCols());
-                //	curv=new_shortmatrix(Z->nrh,Z->nch);
                 curv.resize(Z.getRows(),Z.getCols());
                 nablaquadro_mask(Z, curv, geotop::common::Variables::UV->U, geotop::common::Variables::UV->V);
                 sky_view_factor(P, 36, geotop::common::Variables::UV, Z, curv, geotop::input::gDoubleNoValue);
-                //	free_shortmatrix(curv);
                 if(flag==0) write_map(geotop::common::Variables::files[fsky], 0, par->format_out, P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
         }
     }
 
     if(read_sk==1){
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	if((long)par->chkpt->co[i][ptSKY]==geotop::input::gDoubleNoValue){
             if((long)par->chkpt[i][ptSKY]==geotop::input::gDoubleNoValue){
-                //	r=row(par->chkpt->co[i][ptY], P->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	c=col(par->chkpt->co[i][ptX], P->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	par->chkpt->co[i][ptSKY]=P->co[r][c];
                 par->chkpt[i][ptSKY]=P[r][c];
             }
         }
-        //	free_doublematrix(P);
     }
 
     //f2. bedrock file
@@ -3363,10 +3223,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     //g.curvature
     read_curv=0;
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //	if( (long)par->chkpt->co[i][ptCNS]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptCWE]==geotop::input::gDoubleNoValue ||
-        //	    (long)par->chkpt->co[i][ptCNwSe]==geotop::input::gDoubleNoValue || (long)par->chkpt->co[i][ptCNeSw]==geotop::input::gDoubleNoValue  ) read_curv=1;
         if( (long)par->chkpt[i][ptCNS]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptCWE]==geotop::input::gDoubleNoValue ||
                 (long)par->chkpt[i][ptCNwSe]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptCNeSw]==geotop::input::gDoubleNoValue  ) read_curv=1;
     }
@@ -3382,42 +3239,24 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
             read_curv=0;
         }else{
-            //	Q=new_doublematrix(Z->nrh,Z->nch);
             Q.resize(Z.getRows(),Z.getCols());
-
-            //	P=new_doublematrix(Z->nrh,Z->nch);
             P.resize(Z.getRows(),Z.getCols());
-
-            //	R=new_doublematrix(Z->nrh,Z->nch);
             R.resize(Z.getRows(),Z.getCols());
-
-            //	S=new_doublematrix(Z->nrh,Z->nch);
             S.resize(Z.getRows(),Z.getCols());
-            //	T=new_doublematrix(Z->nrh,Z->nch);
             T.resize(Z.getRows(),Z.getCols());
 
             multipass_topofilter(par->lowpass_curvatures, Z, Q, geotop::input::gDoubleNoValue, 1);
-            //	curvature(UV->U->co[1], UV->U->co[2], Q, P, R, S, T, geotop::input::gDoubleNoValue);
             curvature(geotop::common::Variables::UV->U[1], geotop::common::Variables::UV->U[2], Q, P, R, S, T, geotop::input::gDoubleNoValue);
-            //	free_doublematrix(Q);
 
             if(geotop::common::Variables::files[fcurv] != geotop::input::gStringNoValue){
-                //	temp = join_strings(geotop::common::Variables::files[fcurv], "N-S");
                 temp =geotop::common::Variables::files[fcurv] + string("N-S");
                 write_map(temp, 0, par->format_out, P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	free(temp);
-                //	temp = join_strings(geotop::common::Variables::files[fcurv], "W-E");
                 temp =geotop::common::Variables::files[fcurv] + string("W-E");
                 write_map(temp, 0, par->format_out, R, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	free(temp);
-                //	temp = join_strings(geotop::common::Variables::files[fcurv], "NW-SE");
                 temp =geotop::common::Variables::files[fcurv] + string("NW-SE");
                 write_map(temp, 0, par->format_out, S, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	free(temp);
-                //	temp = join_strings(geotop::common::Variables::files[fcurv], "NE-SW");
                 temp =geotop::common::Variables::files[fcurv] + string("NE-SW");
                 write_map(temp, 0, par->format_out, T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                //	free(temp);
             }
 
             find_min_max(P, geotop::input::gDoubleNoValue, &max, &min);
@@ -3474,61 +3313,33 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }
     }
     if(read_curv==1){
-        //	for(i=1;i<=par->chkpt->nrh;i++){
         for(i=1;i< par->chkpt.getRows();i++){
-            //	r=row(par->chkpt->co[i][ptY], P->nrh, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             r=row(par->chkpt[i][ptY], P.getRows()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            //	c=col(par->chkpt->co[i][ptX], P->nch, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             c=col(par->chkpt[i][ptX], P.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            //	if((long)par->chkpt->co[i][ptCNS]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNS]=P->co[r][c];
             if((long)par->chkpt[i][ptCNS]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNS]=P[r][c];
-            //	if((long)par->chkpt->co[i][ptCWE]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCWE]=R->co[r][c];
             if((long)par->chkpt[i][ptCWE]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCWE]=R[r][c];
-            //	if((long)par->chkpt->co[i][ptCNwSe]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNwSe]=S->co[r][c];
             if((long)par->chkpt[i][ptCNwSe]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNwSe]=S[r][c];
-            //	if((long)par->chkpt->co[i][ptCNeSw]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNeSw]=T->co[r][c];
             if((long)par->chkpt[i][ptCNeSw]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNeSw]=T[r][c];
         }
-        //	free_doublematrix(P);
-        //	free_doublematrix(R);
-        //	free_doublematrix(S);
-        //	free_doublematrix(T);
     }
 
     //h. no value check
-    //	for(i=1;i<=par->chkpt->nrh;i++){
     for(i=1;i< par->chkpt.getRows();i++){
-        //	if((long)par->chkpt->co[i][ptZ]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptZ]=0.0;
         if((long)par->chkpt[i][ptZ]==geotop::input::gDoubleNoValue) par->chkpt[i][ptZ]=0.0;
-        //	if((long)par->chkpt->co[i][ptLC]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptLC]=1.0;
         if((long)par->chkpt[i][ptLC]==geotop::input::gDoubleNoValue) par->chkpt[i][ptLC]=1.0;
-        //	if((long)par->chkpt->co[i][ptSY]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptSY]=1.0;
         if((long)par->chkpt[i][ptSY]==geotop::input::gDoubleNoValue) par->chkpt[i][ptSY]=1.0;
-        //	if((long)par->chkpt->co[i][ptS]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptS]=0.0;
         if((long)par->chkpt[i][ptS]==geotop::input::gDoubleNoValue) par->chkpt[i][ptS]=0.0;
-        //	if((long)par->chkpt->co[i][ptA]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptA]=0.0;
         if((long)par->chkpt[i][ptA]==geotop::input::gDoubleNoValue) par->chkpt[i][ptA]=0.0;
-        //	if((long)par->chkpt->co[i][ptSKY]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptSKY]=1.0;
         if((long)par->chkpt[i][ptSKY]==geotop::input::gDoubleNoValue) par->chkpt[i][ptSKY]=1.0;
-        //	if((long)par->chkpt->co[i][ptCNS]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNS]=0.0;
         if((long)par->chkpt[i][ptCNS]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNS]=0.0;
-        //	if((long)par->chkpt->co[i][ptCWE]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCWE]=0.0;
         if((long)par->chkpt[i][ptCWE]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCWE]=0.0;
-        //	if((long)par->chkpt->co[i][ptCNwSe]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNwSe]=0.0;
         if((long)par->chkpt[i][ptCNwSe]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNwSe]=0.0;
-        //	if((long)par->chkpt->co[i][ptCNeSw]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptCNeSw]=0.0;
         if((long)par->chkpt[i][ptCNeSw]==geotop::input::gDoubleNoValue) par->chkpt[i][ptCNeSw]=0.0;
-        //	if((long)par->chkpt->co[i][ptDrDEPTH]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptDrDEPTH]=par->DepthFreeSurface;//[mm]
         if((long)par->chkpt[i][ptDrDEPTH]==geotop::input::gDoubleNoValue) par->chkpt[i][ptDrDEPTH]=par->DepthFreeSurface;//[mm]
-        //	if((long)par->chkpt->co[i][ptMAXSWE]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptMAXSWE]=1.E10;//[mm]
         if((long)par->chkpt[i][ptMAXSWE]==geotop::input::gDoubleNoValue) par->chkpt[i][ptMAXSWE]=1.E10;//[mm]
-        //	if((long)par->chkpt->co[i][ptLAT]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptLAT]=par->latitude;
         if((long)par->chkpt[i][ptLAT]==geotop::input::gDoubleNoValue) par->chkpt[i][ptLAT]=par->latitude;
-        //	if((long)par->chkpt->co[i][ptLON]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptLON]=par->longitude;
         if((long)par->chkpt[i][ptLON]==geotop::input::gDoubleNoValue) par->chkpt[i][ptLON]=par->longitude;
-        //	if((long)par->chkpt->co[i][ptID]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptID]=(double)i;
         if((long)par->chkpt[i][ptID]==geotop::input::gDoubleNoValue) par->chkpt[i][ptID]=(double)i;
-        //	if((long)par->chkpt->co[i][ptHOR]==geotop::input::gDoubleNoValue) par->chkpt->co[i][ptHOR]=par->chkpt->co[i][ptID];
         if((long)par->chkpt[i][ptHOR]==geotop::input::gDoubleNoValue) par->chkpt[i][ptHOR]=par->chkpt[i][ptID];
     }
 
@@ -3584,15 +3395,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         IT->LU=new_doublematrix(Z->nrh, Z->nch);
         copy_doublematrix(LU, IT->LU);
     }*/
-
-    //n. deallocation
-    //	if(read_dem==1) free_doublematrix(Z);
-    //	if(read_lu==1) free_doublematrix(LU);
-    //	if(par->recover==0 && read_dem==1){
-    if(read_dem==1){
-        //	free_longvector(par->r_points);
-        //	free_longvector(par->c_points);
-    }
 
     //5. SET CHECKPOINT
     if(par->state_pixel == 1){
@@ -3705,9 +3507,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         top->longitude[1][i]=par->chkpt[i][ptLON];
         par->IDpoint[i]=(long)par->chkpt[i][ptID];
 
-//        IT->bed[1][i]=par->chkpt[i][ptBED];
-//        if( (long)IT->bed[1][i] == geotop::input::gDoubleNoValue ) IT->bed[1][i] = 1.E99;
-
     }
 
     //7. SET PAR
@@ -3819,7 +3618,7 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 	for (i=1; i<=par->total_pixel; i++){
 		r = top->rc_cont[i][1];
 		c = top->rc_cont[i][2];
-		if(B[r][c] < z) yes=1;//if (IT->bed[r][c] < z) yes = 1;
+		if(B[r][c] < z) yes=1;
 	}
 
 	if (yes == 1){
@@ -3890,9 +3689,8 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 				z = par->depr_channel;
 			}
 
-			IT->init_water_table_depth[synew] = WT[sy-1]; //WT->co[sy];
+			IT->init_water_table_depth[synew] = WT[sy-1];
 
-			//zlim = IT->bed->co[r][c];
 			zlim = B[r][c];
 
 			for(l=1;l<=geotop::common::Variables::Nl;l++){
@@ -3940,14 +3738,10 @@ GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<dou
     if(point!=1){
         Zaverage=0.;
         n=0;
-        //	for(r=1;r<=Zsurface->nrh;r++){
         for(r=1;r<Zsurface.getRows();r++){
-            //	for(c=1;c<=Zsurface->nch;c++){
             for(c=1;c<Zsurface.getCols();c++){
-                //	if((long)LC->co[r][c]!=geotop::input::gDoubleNoValue){
                 if((long)LC[r][c]!=geotop::input::gDoubleNoValue){
                     n++;
-                    //	Zaverage += Zsurface->co[r][c];
                     Zaverage += Zsurface[r][c];
                 }
             }
@@ -3956,43 +3750,30 @@ GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<dou
     }
 
 
-    //	Z=new_doubletensor0(sl->pa->nch, Zsurface->nrh, Zsurface->nch);
-    //	initialize_doubletensor(Z, geotop::input::gDoubleNoValue);
     Z.resize(sl->pa.getCh(), Zsurface.getRows(), Zsurface.getCols(), geotop::input::gDoubleNoValue);
 
 
-    //	for(r=1;r<=Zsurface->nrh;r++){
     for(r=1;r<Zsurface.getRows();r++){
-        //	for(c=1;c<=Zsurface->nch;c++){
         for(c=1;c<Zsurface.getCols();c++){
-            //	if((long)LC->co[r][c]!=geotop::input::gDoubleNoValue){
             if((long)LC[r][c]!=geotop::input::gDoubleNoValue){
 
-                //	cosine = cos(slope->co[r][c]*GTConst::Pi/180.);
                 cosine = cos(slope[r][c]*GTConst::Pi/180.);
 
-                //	sy=sl->type->co[r][c];
                 sy=sl->type[r][c];
                 if (point!=1){
-                    //	z=1.E3*(Zsurface->co[r][c]-Zaverage);//[mm]
                     z=1.E3*(Zsurface[r][c]-Zaverage);//[mm]
                 }else {
                     z=0.;
                 }
 
                 l=0;
-                //	Z->co[l][r][c]=z;
                 Z[l][r][c]=z;
 
                 do{
                     l++;
-                    //z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
                     z -= 0.5 * sl->pa(sy,jdz,l) * cosine;
-                    //	Z->co[l][r][c]=z;
                     Z[l][r][c]=z;
-                    //z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
                     z -= 0.5 * sl->pa(sy,jdz,l) * cosine;
-                    //}while(l<sl->pa->nch);
                 } while(l < sl->pa.getCh()-1);
             }
         }
@@ -4074,17 +3855,10 @@ double peat_thickness(double dist_from_channel){
 
 void initialize_soil_state(SoilState *S, long n, long nl){
 
-    //	S->T = new_doublematrix(nl, n);
-    //	initialize_doublematrix(S->T, 0.);
     S->T.resize(nl+1, n+1, 0.);
 
-    //	S->P = new_doublematrix0_(nl, n);
-    //	initialize_doublematrix(S->P, 0.);
-    //	TODO: notice that "new_doublematrix0_()"
     S->P.resize(nl+1, n+1, 0.);
 
-    //	S->thi = new_doublematrix(nl, n);
-    //	initialize_doublematrix(S->thi, 0.);
     S->thi.resize(nl+1, n+1,0.0);
 
 }
@@ -4100,7 +3874,6 @@ void copy_soil_state(SoilState *from, SoilState *to){
     long nl=from->T.getRows(), n=from->T.getCols();
 
     for (i=1; i<n; i++) {
-        //	to->P->co[0][i] = from->P->co[0][i];
         to->P[0][i] = from->P[0][i];
         for (l=1; l<nl; l++) {
             to->P[l][i] = from->P[l][i];
@@ -4116,16 +3889,10 @@ void copy_soil_state(SoilState *from, SoilState *to){
 /******************************************************************************************************************************************/
 
 void initialize_veg_state(StateVeg *V, long n){
-    //	V->Tv = new_doublevector(n);
-    //	initialize_doublevector(V->Tv, 0.);
     V->Tv.resize(n+1,0.0);
 
-    //	V->wsnow = new_doublevector(n);
-    //	initialize_doublevector(V->wsnow, 0.);
     V->wsnow.resize(n+1,0.0);
 
-    //	V->wrain = new_doublevector(n);
-    //	initialize_doublevector(V->wrain, 0.);
     V->wrain.resize(n+1,0.);
 }
 
