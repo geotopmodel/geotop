@@ -358,8 +358,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					d1.setMatlabDate(JDe, geotop::common::Variables::TZ); // GEOtop uses matlab offset of julian date
 
 					std::vector<mio::MeteoData> vec_meteo;
-					if(A->M->st->Z.size()>2)
-						iomanager.getMeteoData(d1, vec_meteo);
+					iomanager.getMeteoData(d1, vec_meteo);
 
 #ifndef USE_INTERNAL_METEODISTR
 					A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date[geotop::common::Variables::i_sim]), A);
