@@ -227,8 +227,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //Recovering
     par->delay_day_recover = 0.0;
     par->n_ContRecovery = 0;
+
 // this below should be removed (S.C. 22.06.2014)
-    if(par->recover > 0){
+/*    if(par->recover > 0){
         if(par->saving_points.size() -1< par->recover){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error: recover index higher than the length of the saving points vector");
@@ -243,51 +244,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
         }
         par->delay_day_recover = par->saving_points[par->recover];
-    }
-
-    //Continuous Recovering
-/*    if (par->RunIfAnOldRunIsPresent != 1) {
-
-        if (mio::IOUtils::fileExists(geotop::common::Variables::SuccessfulRunFile)) {
-
-            temp = geotop::common::Variables::SuccessfulRunFile + ".old";
-            rename(geotop::common::Variables::SuccessfulRunFile.c_str(), temp.c_str());
-            temp = geotop::common::Variables::FailedRunFile + ".old";
-            rename(geotop::common::Variables::FailedRunFile.c_str(), temp.c_str());
-            
-            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-            fprintf(f, "This simulation has successfully reached the end, you cannot recover it.\n");
-            fclose(f);
-
-#ifdef WITH_LOGGER
-            lg->log("This simulation has successfully reached the end, you cannot recover it.",
-                    geotop::logger::ERROR);
-            lg->log("Geotop failed. See failing report.",
-                    geotop::logger::CRITICAL);
-            exit(1);
-
-#else
-            t_error("Fatal Error! Geotop is closed. See failing report.");
-#endif
-        }
-        if (mio::IOUtils::fileExists(string(geotop::common::Variables::FailedRunFile))) {
-            temp = geotop::common::Variables::SuccessfulRunFile + ".old";
-            rename(geotop::common::Variables::SuccessfulRunFile.c_str(), temp.c_str());
-            temp = geotop::common::Variables::FailedRunFile + ".old";
-            rename(geotop::common::Variables::FailedRunFile.c_str(), temp.c_str());
-            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-            fprintf(f, "This simulation has failed, you cannot recover it.\n");
-            fclose(f);
-#ifdef WITH_LOGGER
-            lg->log("This simulation has failed, you cannot recover it.",
-                    geotop::logger::ERROR);
-            lg->log("Geotop failed. See failing report.",
-                    geotop::logger::CRITICAL);
-            exit(1);
-#else
-            t_error("Fatal Error! Geotop is closed. See failing report.");
-#endif
-        }
     }*/
 
     temp = geotop::common::Variables::SuccessfulRunFile + ".old";
