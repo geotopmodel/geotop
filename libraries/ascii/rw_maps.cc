@@ -1,4 +1,12 @@
 #include "rw_maps.h"
+
+#include "../fluidturtle/t_io.h"
+#include "../fluidturtle/tensors3D.h"
+
+#include "../../meteoio_plugin/meteoioplugin.h"
+
+#include <libgen.h>
+#include <sys/stat.h>
 #include <sstream>
 
 using namespace std;
@@ -127,6 +135,7 @@ std::string namefile_i_we2(std::string name, long i)
 }
 
 // TODO: Noori - supposed to return a pointer
+// TODO: remove type
 GeoVector<double> read_map_vector(short type, std::string namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc)
 {
 
