@@ -27,10 +27,7 @@ using namespace std;
 void assign_recovered_map_vector   (long n,
                                     std::string name,
                                     GeoVector<double> &assign,
-                                    GeoMatrix<long> &rc,
-                                    Par *par,
-                                    GeoMatrix<double> &Zdistr,
-                                    GeoMatrix<double> &Zpoint)
+                                    GeoMatrix<long> &rc)
 {
     long i, r, c;
     GeoMatrix<double> M;
@@ -57,10 +54,7 @@ void assign_recovered_map_vector   (long n,
 
 void assign_recovered_map_long (long n,
                                 std::string name,
-                                GeoMatrix<long> &assign,
-                                Par *par,
-                                GeoMatrix<double> &Zdistr,
-                                GeoMatrix<double> &Zpoint)
+                                GeoMatrix<long> &assign)
 {
 
     long r, c;
@@ -88,10 +82,7 @@ void assign_recovered_map_long (long n,
 void assign_recovered_tensor   (long lbegin,
                                 long n,
                                 std::string name,
-                                GeoTensor<double> &assign,
-                                Par *par,
-                                GeoMatrix<double> &Zdistr,
-                                GeoMatrix<double> &Zpoint)
+                                GeoTensor<double> &assign)
 {
 
     long r, c, l;
@@ -128,10 +119,7 @@ void assign_recovered_tensor_vector    (long lbegin,
                                         long n,
                                         std::string name,
                                         GeoMatrix<double> &assign,
-                                        GeoMatrix<long> &rc,
-                                        Par *par,
-                                        GeoMatrix<double> &Zdistr,
-                                        GeoMatrix<double> &Zpoint)
+                                        GeoMatrix<long> &rc)
 {
 
 // lbegin 1 or 0 depending of the size of the data-structure considered (psi is 0)
@@ -169,11 +157,11 @@ void assign_recovered_tensor_channel   (long lbegin,
                                         std::string name,
                                         GeoMatrix<double> &assign,
                                         const GeoVector<long> r,
-                                        const GeoVector<long> c,
-                                        GeoMatrix<double> &Zdistr)
+                                        const GeoVector<long> c)
 {
 
-    long ch, l;
+    long l;
+    size_t ch;
     GeoMatrix<double> M;
     std::string temp1, temp2;
 
@@ -185,7 +173,7 @@ void assign_recovered_tensor_channel   (long lbegin,
 
         meteoio_readMap(temp2, M);
 
-        for (ch = 1; ch < r.size (); ch++)
+        for (ch = 1; ch < r.size(); ch++)
         {
             if (r[ch] > 0)
             assign[l][ch] = M[r[ch]][c[ch]];
