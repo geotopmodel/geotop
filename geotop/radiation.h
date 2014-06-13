@@ -24,6 +24,7 @@
 #include "constants.h"
 #include "struct.geotop.h"
 #include "meteo.h"
+#include "../meteoio_plugin/meteoioplugin.h"
 #include "../libraries/ascii/tabs.h"
 #include "times.h"
 
