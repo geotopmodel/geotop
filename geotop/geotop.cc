@@ -357,10 +357,11 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					mio::Date d1;
 					d1.setMatlabDate(JDe, geotop::common::Variables::TZ); // GEOtop uses matlab offset of julian date
 
-					std::vector<mio::MeteoData> vec_meteo;
-					iomanager.getMeteoData(d1, vec_meteo);
+					std::vector<mio::MeteoData> vec_meteo; //Defined here because it is passed to EnergyBalance even when USE_INTERNAL_METEODISTR is defined 13/06/2014 GG
 
 #ifndef USE_INTERNAL_METEODISTR
+                    iomanager.getMeteoData(d1, vec_meteo);
+
 					A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date[geotop::common::Variables::i_sim]), A);
 					//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
 
