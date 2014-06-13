@@ -63,7 +63,7 @@ int gt_fileExists(const char* filename);
 int gt_makeDirectory(const char* path);
 
 /**
- * @brief removes the last element of a path
+ * @brief Removes the last element of a path
  *
  * E.G.: "/home/user/file" becomes "/home/user"
  *

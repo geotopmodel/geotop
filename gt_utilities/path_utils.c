@@ -77,7 +77,7 @@ char* gt_popPath(const char* path)
     if (len > MAX_PATH_LENGTH || len == 0)
         return NULL;
 
-    for (i=len - 1; i>=0; --i)
+    for (i=len; i>=0; --i)
     {
         if(path[i] == '/')
         {
