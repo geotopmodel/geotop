@@ -235,51 +235,39 @@ long Fmaxlong(long a, long b){
 
 /*===============================functions copied from util_math.c========================================*/
 
-//short tridiag2(short a, long r, long c, long nbeg, long nend, DOUBLEVECTOR *ld, DOUBLEVECTOR *d, DOUBLEVECTOR *ud, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
-short tridiag2(short a, long r, long c, long nbeg, long nend, const GeoVector<double>& ld, const GeoVector<double>& d, const GeoVector<double>& ud, const GeoVector<double>& b, GeoVector<double>& e)
-
+short tridiag2(long nbeg, long nend, const GeoVector<double>& ld, const GeoVector<double>& d, const GeoVector<double>& ud, const GeoVector<double>& b, GeoVector<double>& e)
 //solve A(ld,d,ud) * e + b = 0
-
 {
 	long j;
 	double bet;
 #ifdef VERYVERBOSE
 	size_t lIndex = 0 ;
 #endif
-	//DOUBLEVECTOR *gam;
     GeoVector<double> gam;
 
-	//gam = new_doublevector(nend);
     gam.resize(nend+1);
 
-	//bet = d->co[nbeg];
 	bet = d[nbeg];
 	if(bet == 0.0){
 		return 1;
 	}
-	//e->co[nbeg] = -b->co[nbeg]/bet;
+
 	e[nbeg] = -b[nbeg]/bet;
 
 	//Decomposition and forward substitution
 	for(j=nbeg+1; j<=nend; j++){
-		//gam->co[j] = ud->co[j-1]/bet;
 		gam[j] = ud[j-1]/bet;
-		//bet = d->co[j]-ld->co[j-1]*gam->co[j];
 		bet = d[j]-ld[j-1]*gam[j];
 		if(bet == 0.0){
 			return 1;
 		}
-		//e->co[j] = (-b->co[j]-ld->co[j-1]*e->co[j-1])/bet;
 		e[j] = (-b[j]-ld[j-1]*e[j-1])/bet;
 	}
 
 	//Backsubstitution
 	for(j=(nend-1); j>=nbeg; j--){
-		//e->co[j] -= gam->co[j+1]*e->co[j+1];
 		e[j] -= gam[j+1]*e[j+1];
 	}
-
-	//free_doublevector(gam);
 
 #ifdef VERYVERBOSE
 	printf("DEBUG_PRINT: nbeg(%ld),nend(%ld)\n", nbeg, nend);
@@ -313,7 +301,6 @@ short tridiag2(short a, long r, long c, long nbeg, long nend, const GeoVector<do
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-//double norm_inf(DOUBLEVECTOR *V, long nbeg, long nend){
 double norm_inf(const GeoVector<double>& V, long nbeg, long nend){
 
 	long l;
@@ -454,8 +441,4 @@ double adaptiveSimpsons2(double (*f)(double x, void *p), void *arg,   // ptr to 
 	double S = (h/6)*(fa + 4*fc + fb);
 	return adaptiveSimpsonsAux2(f, arg, a, b, epsilon, S, fa, fb, fc, maxRecursionDepth);
 }
-
-
-
-
 

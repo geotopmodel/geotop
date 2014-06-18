@@ -1464,7 +1464,7 @@ short SolvePointEnergyBalance(
 			
         }
         //Solve tridiagonal system
-        sux = tridiag2(1, r, c, sur, n, egy->udFenergy, egy->dFenergy, egy->udFenergy, egy->Fenergy, egy->Newton_dir);
+        sux = tridiag2(sur, n, egy->udFenergy, egy->dFenergy, egy->udFenergy, egy->Fenergy, egy->Newton_dir);
 		
         if (sux == 1) {
             if(ns != 1){
