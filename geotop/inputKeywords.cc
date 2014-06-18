@@ -29,6 +29,21 @@
 #include <sstream>
 #include <iostream>
 
+#ifdef WITH_LOGGER
+#include "logger.h"
+#include "global_logger.h"
+using namespace geotop::logger;
+
+//Uncomment the following line to enable the trace log.
+//#define TRACELOG
+
+#ifdef TRACELOG
+static std::ofstream tlf("inputKeywords_trace.log");
+static Logger trace_log((std::ostream*)(&tlf), TRACE);
+#endif
+
+#endif
+
 using namespace boost::assign;
 
 /** @internal
@@ -64,6 +79,11 @@ public:
     {
         std::string lKey = std::string(pBegin, pEnd) ;
         //std::cout << "actionKey: " << lKey << std::endl ;
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "actionKey: %s", lKey.c_str());
+#endif
+#endif
         std::string lLowercaseKey ( lKey );
         boost::algorithm::to_lower(lLowercaseKey);
         mKey->assign( lLowercaseKey ) ;
@@ -74,12 +94,22 @@ public:
         std::string lValue = std::string(pBegin, pEnd) ;
         
         //std::cout << "StringValue: " << *mKey << ":" << lValue << std::endl;
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "StringValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
+#endif
+#endif
         
         if( mKey->compare ("") != 0 )
         {
             (*mMap)[*mKey] = lValue;
         } else {
+#ifdef WITH_LOGGER
+            GlobalLogger* lg = GlobalLogger::getInstance();
+            lg->log("actionValueString : no key was pushed for the value, value will be discarded", ERROR);
+#else
             std::cerr << "Error: actionValueString : no key was pushed for the value, value will be discarded" << std::endl ;
+#endif
         }
         mKey->assign( "" ) ;
     };
@@ -89,6 +119,12 @@ public:
         std::string lValue = std::string(pBegin, pEnd) ;
      
         //std::cout << "DateValue: " << *mKey << ":" << lValue << std::endl;
+#ifdef WITH_LOGGER
+        GlobalLogger* lg = GlobalLogger::getInstance();
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "DateValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
+#endif
+#endif
 
         std::stringstream lStringStream;
         lStringStream.imbue(std::locale(lStringStream.getloc(), new boost::posix_time::time_input_facet("%d/%m/%Y %H:%M")));
@@ -104,7 +140,11 @@ public:
         double lDoubleEncodedDate = geotop::input::gDoubleNoValue ;
         if ( not stringToDouble(lOutStringStream.str(), lDoubleEncodedDate) )
         {
+#ifdef WITH_LOGGER
+            lg->logsf(ERROR, "Unable to convert string to double: %s", lOutStringStream.str().c_str());
+#else
             std::cerr << "Error: unable to convert string to double: " << lOutStringStream.str() << std::endl ;
+#endif
             return ;
         }
 
@@ -120,7 +160,11 @@ public:
                 (*mMap)[*mKey] = lDoubleEncodedDate;
             }
         } else {
+#ifdef WITH_LOGGER
+            lg->log("actionValueDate : no key was pushed for the value, the value will be discarded", ERROR);
+#else
             std::cerr << "Error: actionValueDate : no key was pushed for the value, value will be discarded" << std::endl ;
+#endif
         }
         mKey->assign( "" ) ;
     };
@@ -128,6 +172,11 @@ public:
     void actionValueDouble(const double pValue) const
     {
         //std::cout << "actionValueDouble: " << pValue << std::endl;
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "actionValueDouble: %f", pValue);
+#endif
+#endif
         
         if( mKey->compare ("") != 0 )
         {
@@ -141,7 +190,12 @@ public:
                 (*mMap)[*mKey] = pValue;
             }
         } else {
+#ifdef WITH_LOGGER
+            GlobalLogger* lg = GlobalLogger::getInstance();
+            lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
+#else
             std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
+#endif
         }
         mKey->assign( "" ) ;
     };
@@ -164,11 +218,21 @@ public:
         {
             (*mMap)[*mKey] = lDoubleArray;
         } else {
+#ifdef WITH_LOGGER
+            GlobalLogger* lg = GlobalLogger::getInstance();
+            lg->log("actionValueDoubleArray : no key was pushed for the value, the value will be discarded", ERROR);
+#else
             std::cerr << "Error: actionValueDoubleArray : no key was pushed for the value, value will be discarded" << std::endl ;
+#endif
         }
         mKey->assign( "" ) ;
         
         //std::cout << "actionValueDoubleArray Size: " << lDoubleArray.size() << std::endl;
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "actionValueDoubleArray Size: %u", lDoubleArray.size());
+#endif
+#endif
     };
     
     /** @internal
@@ -240,6 +304,10 @@ geotop::input::ConfigStore::ConfigStore()
 }
 
 bool geotop::input::ConfigStore::parse(const std::string pFileName) {
+
+#ifdef WITH_LOGGER
+    GlobalLogger* lg = GlobalLogger::getInstance();
+#endif
     std::ifstream fs(pFileName.c_str());
     std::ostringstream ss;
     ss << fs.rdbuf();
@@ -250,22 +318,46 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     boost::spirit::classic::parse_info<> lParserInfo = boost::spirit::classic::parse(ss.str().c_str(), lConfGrammar);
     if (lParserInfo.hit)
     {
+#ifdef WITH_LOGGER
+        lg->logsf(NOTICE, "Configuration file parsing completed. %u characters parsed.", lParserInfo.length);
+#else
         std::cout << "Info: configuration file parsing completed" << std::endl;
         std::cout << lParserInfo.length << " characters parsed" << std::endl;
+#endif
     }
     else
     {
+#ifdef WITH_LOGGER
+        lg->log("Parsing failed.", ERROR);
+#else
         std::cout << "Error: parsing failed, length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
+#endif
         return false ;
     }
 
     if (lParserInfo.full)
     {
+#ifdef WITH_LOGGER
+        lg->log("Full match!", NOTICE);
+#else
         std::cout << "full match!\n";
+#endif
     }
     else
     {
+#ifdef WITH_LOGGER
+        char tmpbuf[21] = {0};
+        size_t i;
+        for (i=0; i<21; i++) {
+            if (lParserInfo.stop && lParserInfo.stop[i] != '\n')
+                tmpbuf[i] = lParserInfo.stop[i];
+            else
+                break;
+        }
+        lg->logsf(WARNING, "Partial parsing, matched length(%u) stopped at '%.20s'", lParserInfo.length, tmpbuf);
+#else
         std::cout << "Warning: partial parsing, matched length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
+#endif
         return false ;
     }
 
