@@ -251,7 +251,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     temp = geotop::common::Variables::FailedRunFile + ".old";
     rename(geotop::common::Variables::FailedRunFile.c_str(), temp.c_str());
 
-    if (par->ContRecovery > 0 && par->recover == 0) {
+    if (par->ContRecovery > 0 ) {
         if (mio::IOUtils::fileExists(string(geotop::common::Variables::files[rtime]) + string(textfile))) {
             temp = geotop::common::Variables::files[rtime] + string(textfile);
             matrix = read_txt_matrix_2(temp, 33, 44, 7, &num_lines);
@@ -2769,13 +2769,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     for(i=1;i<par->chkpt.getRows();i++){
         if ( (long)par->chkpt[i][ptX]==geotop::input::gDoubleNoValue || (long)par->chkpt[i][ptY]==geotop::input::gDoubleNoValue ) coordinates = 0;
     }
-    /*if (coordinates == 0 && par->recover>0){
-        printf("Warning: Not possible to recover the simulation because at least one point has no coordinates\n");
-        printf("Starting from normal initial condition\n");
-        fprintf(flog,"Warning: Not possible to recover the simulation because at least one point has no coordinates\n");
-        fprintf(flog,"Starting from normal initial condition\n");
-        par->recover = 0;
-    }*/
 
     //a. read dem
     read_dem=0;
@@ -2829,14 +2822,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             printf("Warning: Dem file not present\n");
             fprintf(flog,"Warning: Dem file not present\n");
 #endif
-
-            /*if(par->recover>0){
-                printf("Warning: Not possible to recover the simulation because there is no dem\n");
-                printf("Starting from normal initial condition\n");
-                fprintf(flog,"Warning: Not possible to recover the simulation because there is no dem\n");
-                fprintf(flog,"Starting from normal initial condition\n");
-                par->recover = 0;
-            }*/
         }
     }
 
@@ -2886,13 +2871,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
                 copydoublematrix_const(1.0, Z, LU,geotop::input::gDoubleNoValue);
             }else{
                 read_lu=0;
-                /*if(par->recover>0){
-                    printf("Warning: Not possible to recover the simulation because there is no dem\n");
-                    printf("Starting from normal initial condition\n");
-                    fprintf(flog,"Warning: Not possible to recover the simulation because there is no dem\n");
-                    fprintf(flog,"Starting from normal initial condition\n");
-                    par->recover = 0;
-                }*/
             }
         }
     }
@@ -3328,12 +3306,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }else{
         geotop::common::Variables::UV->V[1] = 1.;
     }
-
-    //m. set IT->LU
-    /*if(par->recover>0){
-        IT->LU=new_doublematrix(Z->nrh, Z->nch);
-        copy_doublematrix(LU, IT->LU);
-    }*/
 
     //5. SET CHECKPOINT
     if(par->state_pixel == 1){

@@ -1121,14 +1121,9 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t){
 		SCA=0.0;
 	}
 
-	if (par->recover > 0) write_suffix(rec, par->recover, 4);
 	if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-	if (par->recover>0) {
-		temp = geotop::common::Variables::files[fSCA] ;
-        temp += rec;
-		name = temp + textfile;
-	}else if (par->n_ContRecovery>0) {
+	if (par->n_ContRecovery>0) {
 		temp = geotop::common::Variables::files[fSCA] ;
         temp += crec;
 		name = temp + textfile ;
