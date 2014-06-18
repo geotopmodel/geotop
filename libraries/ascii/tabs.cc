@@ -337,7 +337,7 @@ static double *readline_of_numbers(FILE *f, long comment_char, long sep_char, lo
 
     long i, n;
     long **string, *string_length;
-    double *line_of_numbers;
+    double *line_of_numbers = NULL;
 
     n = max_components;
     string_length = (long*)malloc(n * sizeof(long));
