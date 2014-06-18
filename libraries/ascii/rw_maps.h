@@ -37,7 +37,7 @@ std::string namefile_i_we2(std::string name, long i);
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-GeoVector<double> read_map_vector(short type, std::string namefile, GeoMatrix<double>& mask, TInit *grid, double no_value, GeoMatrix<long>& rc);
+GeoVector<double> read_map_vector(std::string namefile, GeoMatrix<long>& rc);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------

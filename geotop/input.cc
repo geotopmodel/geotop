@@ -1729,7 +1729,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #else
         printf("Snow age initial condition from file %s\n",geotop::common::Variables::files[fsnag0 + 1].c_str());
 #endif
-        snow->age = read_map_vector(2,geotop::common::Variables::files[fsnag0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->rc_cont);
+        snow->age = read_map_vector(geotop::common::Variables::files[fsnag0], top->rc_cont);
     }else{
         snow->age.resize(par->total_pixel+1,IT->agesnow0);
     }
