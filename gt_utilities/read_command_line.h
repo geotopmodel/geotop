@@ -31,8 +31,8 @@ This file is part of GEOTRIVIALUtilities.
 #include <string.h>
 #include <string>
 
-#define SUCCESS 1
-#define NO_SUCCESS 0
+const int SUCCESS = 1;
+const int NO_SUCCESS = 0;
 
 
 char *read_option_string(int argc,char *argv[], char *option_f,char *no_option_argument,short print);
