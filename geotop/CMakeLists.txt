@@ -138,6 +138,7 @@ ENDIF(COMMAND CMAKE_POLICY)
             ${Boost_SYSTEM_LIBRARY}
             ${Boost_IOSTREAMS_LIBRARY}
             ${Boost_REGEX_LIBRARY}
+            ${GEOTOP_LOGGER}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_LIBRARIES}
