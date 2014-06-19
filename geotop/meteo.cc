@@ -98,6 +98,7 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+//TODO: this function should depend on the value of Z but it's not used anywhere.
 double pressure(double Z){
 	double scale_ht = 8500.0;
 	return GTConst::Pa0 * exp(-3305./scale_ht);
