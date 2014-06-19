@@ -53,6 +53,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     std::vector<std::string> temp2 ;
     string temp;
 
+    maxSWE = 1.E10; //TODO: this has been placed here to quiet the compiler.
 
     IT = new InitTools();
 
@@ -3643,7 +3644,7 @@ GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<dou
 
     //	DOUBLETENSOR *Z;
     GeoTensor<double> Z;
-    double Zaverage, z, cosine;
+    double Zaverage = 0.0, z, cosine;
     long l, r, c, n, sy;
 
     if(point!=1){
