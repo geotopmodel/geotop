@@ -677,7 +677,7 @@ short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, lon
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_Pint(long imeteo, double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt){
+short fill_Pint(double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt){
 
     long i;
 
