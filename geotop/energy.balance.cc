@@ -741,7 +741,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 //glacier melting
                 WBglacier(ns, ng, r, c, G, &Melt_glac, A->P, A->E, Evap_glac);
                 //adjust glacier layers
-                snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint, A->P->inf_glac_layers, A->P->max_weq_glac, 1.E10, f);
+                snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint, A->P->inf_glac_layers, A->P->max_weq_glac, 1.E10);
             }
 
             //SNOW
@@ -756,16 +756,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }else {
                 maxSWE = 1.E10;
             }
-            snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE, f);
+            snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE);
 
             //	add new snow
-            //	Psnow*=new_corr_snow->co[r][c];// TODO
-            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint, GTConst::Tfreezing), Tpoint);
+            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint);
 
             //	NET PRECIPITATION
-            //	A->W->Pnet->co[r][c] += (Melt_snow + Melt_glac + Prain);
             A->W->Pnet[r][c] += (Melt_snow + Melt_glac + Prain);
-            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint, GTConst::Tfreezing);//TODO mattiu
+            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint);
             //VEGETATION
            
             if( A->L->vegpar[jdLSAI]>=GTConst::LSAIthres && ng==0 ){
@@ -2593,8 +2591,7 @@ void merge(double a, GeoVector<double>& ice, GeoVector<double>& liq, GeoVector<d
     //	D->co[n] += D->co[m];
     D[n] += D[m];
 
-    //	from_internal_energy(a, 0, 0, h, &(ice->co[n]), &(liq->co[n]), &(Temp->co[n]));
-    from_internal_energy(a, 0, 0, h, &(ice[n]), &(liq[n]), &(Temp[n]));
+    from_internal_energy(a, h, &(ice[n]), &(liq[n]), &(Temp[n]));
 
     for (i=m+1; i<=tot; i++) {
         //	ice->co[i-1] = ice->co[i];

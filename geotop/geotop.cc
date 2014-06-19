@@ -472,7 +472,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 			if(A->P->blowing_snow==1){
 				tstart=clock();
-				windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
+				windtrans_snow(A->N, A->M, A->L, A->T, A->P, A->I->time);
 				tend=clock();
 				geotop::common::Variables::t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 			}

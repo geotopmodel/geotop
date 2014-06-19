@@ -1946,7 +1946,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 }
 
                 f = fopen(geotop::common::Variables::logfile.c_str(), "a");
-                snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1, par->inf_snow_layers, par->max_weq_snow, maxSWE, f);
+                snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1, par->inf_snow_layers, par->max_weq_snow, maxSWE);
                 fclose(f);
 
             }
@@ -1968,7 +1968,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	for(r=1;r<=geotop::common::Variables::Nr;r++){
     	for(c=1;c<=geotop::common::Variables::Nc;c++){
     		if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
-    			snow_layer_combination(par->alpha_snow, r, c, snow->S, 0., par->inf_snow_layers, par->max_weq_snow, maxSWE, f);
+    			snow_layer_combination(par->alpha_snow, r, c, snow->S, 0., par->inf_snow_layers, par->max_weq_snow, maxSWE);
     		}
     	}
     }
@@ -2099,7 +2099,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     }
 
                     f = fopen(geotop::common::Variables::logfile.c_str(), "a");
-                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers, par->max_weq_glac, 1.E10, f);
+                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers, par->max_weq_glac, 1.E10);
                     fclose(f);
 
                 }

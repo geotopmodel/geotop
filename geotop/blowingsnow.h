@@ -32,32 +32,8 @@
 #include "meteodata.h"
 #include "geotop_common.h"
 
-//void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top, PAR *par, double t0);
-void windtrans_snow(Snow *snow, Meteo *met, Water *wat, Land *land, Topo *top, Par *par, double t0);
+void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, double t0);
 
-//void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par, TOPO *top, short *yes);
 void set_inhomogeneous_fetch(Snow *snow, Meteo *met, Land *land, Par *par, Topo *top, short *yes);
-
-//void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LAND *land, PAR *par, FILE *f);
-void set_windtrans_snow(double Dt, double t, Snow *snow, Meteo *met, Land *land, Par *par, FILE *f);
-
-//void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top, METEO *met, DOUBLEMATRIX *LC);
-void print_windtrans_snow(double Dt, Snow *snow, Par *par, Topo *top, Meteo *met, GeoMatrix<double>& LC);
-
-void extend_topography(DOUBLEMATRIX *M, double novalue);
-
-void extend_topography_row(DOUBLEMATRIX *M, double novalue);
-
-void extend_topography_column(DOUBLEMATRIX *M, double novalue);
-
-void find_the_nearest(long r, long c, double novalue, DOUBLEMATRIX *M, long *rr, long *cc);
-
-void find_the_nearest_row(long r, long c, double novalue, DOUBLEMATRIX *M, long *rr, long *cc);
-
-void find_the_nearest_column(long r, long c, double novalue, DOUBLEMATRIX *M, long *rr, long *cc);
-
-short no_novalue(long r, long c, DOUBLEMATRIX *M, double novalue, long *rr, long *cc);
-
-void set_no_value(DOUBLEMATRIX *M, DOUBLEMATRIX *N, double undef);
 
 #endif
