@@ -50,7 +50,7 @@ using namespace boost::assign ;
   */
 static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::string pName, const double pDefaultValue, const bool pAllowNoValue = false){
     
-	double lValue;
+	double lValue = geotop::input::gDoubleNoValue;
     bool lGetResult = pConfigStore->get(pName, lValue) ;
 #ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();

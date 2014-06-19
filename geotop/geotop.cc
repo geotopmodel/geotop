@@ -238,7 +238,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 	//double mean;
 
-	Statevar3D *S, *G;
+	Statevar3D *S, *G = NULL; //TODO: check how EnergyBalance handles G 19/6/2014 Gianfranco
 	SoilState *L, *C;
 	StateVeg *V;
 
