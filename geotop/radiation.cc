@@ -21,6 +21,7 @@
 #include "radiation.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
+#include <stdexcept>
 
 using namespace mio;
 
@@ -701,7 +702,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 {
 	double horiz_H;// horizon elevation at a defined solar azimuth
 	double w;//weight
-	long i,iend,ibeg;
+	long i, iend = -1, ibeg = -1;
 	short shad; 
 	
 	/* compare the current solar azimuth with the horizon matrix */
@@ -716,6 +717,18 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 			}
 		}
 	}
+
+    if (ibeg < 0)
+    {
+        std::out_of_range e("ibeg");
+        throw e;
+    }
+
+    if (iend < 0)
+    {
+        std::out_of_range e("iend");
+        throw e;
+    }
 	
 	if (iend>ibeg) {
 		w=(azimuth-hor[ibeg][0])/(hor[iend][0]-hor[ibeg][0]);
@@ -763,9 +776,7 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 	
 	long nk=geotop::common::Variables::Nr;//y
 	long nl=geotop::common::Variables::Nc;//x
-//	double GDX=UV->U->co[2];
 	double GDX=geotop::common::Variables::UV->U[2];
-//	double GDY=UV->U->co[1];
 	double GDY=geotop::common::Variables::UV->U[1];
 					
 	sx=sin(direction)*cos(alpha);
@@ -776,40 +787,33 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 		
 		if (sx>0) {
 			orix=1;
-		}else {
+		} else {
 			orix=-1;
 		}
 		
 		if (fabs(sy)>1.E-10) {
 			if (sy>0) {
 				oriy=1;
-			}else {
+			} else {
 				oriy=-1;
 			}
-		}else {
-			orix=0;
+		} else {
+			oriy=0;
 		}
 		
 		for (k=0; k<nk; k++) {
 			for (l=0; l<nl; l++) {
-				//r=row(GDY*k+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-				//c=col(GDX*l+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 				r=geotop::common::Variables::Nr-k;
 				c=l+1;
 				kk=k;
 				ll=l;
 				xp=GDX*ll+0.5*GDX;
 				yp=GDY*kk+0.5*GDY;
-				//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-				//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 				rr=geotop::common::Variables::Nr-kk;
 				cc=ll+1;
-			//	zray=Z->co[rr][cc];
 				zray=Z[rr][cc];
-			//	SH->co[r][c]=0;
 				SH[r][c]=0;
 				
-			//	while ( (SH->co[r][c]==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) ) {
 				while ( (SH[r][c]==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) ) {
 					q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
 					y=yp+q*sy;
@@ -817,15 +821,10 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						ll=ll+orix;
 						xp=GDX*ll+0.5*GDX;
 						yp=y;
-						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
-					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-(kk+oriy);
-					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
 					}else {
@@ -834,20 +833,14 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						kk=kk+oriy;
 						xp=x;
 						yp=GDY*kk+0.5*GDY;
-						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;						
-					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						cc=ll+orix+1;
-					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
 					}
 					zray=zray+q*sz; 	
-				//	if (ztopo>zray) SH->co[r][c]=1;
 					if (ztopo>zray) SH[r][c]=1;
 				} 
 			}
@@ -873,24 +866,17 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 
 		for (k=0; k<nk; k++) {
 			for (l=0; l<nl; l++) {
-				//r=row(GDY*k+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-				//c=col(GDX*l+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 				r=geotop::common::Variables::Nr-k;
 				c=l+1;
 				kk=k;
 				ll=l;
 				xp=GDX*ll+0.5*GDX;
 				yp=GDY*kk+0.5*GDY;
-				//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-				//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 				rr=geotop::common::Variables::Nr-kk;
 				cc=ll+1;
-			//	zray=Z->co[rr][cc];
 				zray=Z[rr][cc];
-			//	SH->co[r][c]=0;
 				SH[r][c]=0;
 				
-			//	while ( (SH->co[r][c]==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1)) {
 				while ( (SH[r][c]==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1)) {
 					q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
 					x=xp+q*sx;
@@ -898,15 +884,10 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						kk=kk+oriy;
 						yp=GDY*kk+0.5*GDY;
 						xp=x;
-						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
-					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						cc=ll+orix+1;
-					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
 					} else {
@@ -915,20 +896,14 @@ void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatr
 						ll=ll+orix;
 						yp=y;
 						xp=GDX*ll+0.5*GDX;
-						//rr=row(GDY*kk+0.5*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-						//cc=col(GDX*ll+0.5*GDX, Nc, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-kk;
 						cc=ll+1;
-					//	z1=Z->co[rr][cc];
 						z1=Z[rr][cc];
-						//rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 						rr=geotop::common::Variables::Nr-(kk+oriy);
-					//	z2=Z->co[rr][cc];
 						z2=Z[rr][cc];
 						ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
 					}
 					zray=zray+q*sz; 	
-				//	if (ztopo>zray) SH->co[r][c]=1;
 					if (ztopo>zray) SH[r][c]=1;
 				} 
 			}
