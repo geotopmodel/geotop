@@ -257,7 +257,6 @@ int main(int argc, char** argv) {
 	}
 
 	geotop::common::Variables::i_sim0 = 1;
-	geotop::common::Variables::i_run0 = 1;
 	geotop::common::Variables::cum_time = 0.;
 	geotop::common::Variables::elapsed_time_start = 0.;
 
@@ -268,8 +267,6 @@ int main(int argc, char** argv) {
 	adt->P->init_date[geotop::common::Variables::i_sim0] += adt->P->delay_day_recover;
 	convert_JDfrom0_JDandYear(adt->P->init_date[geotop::common::Variables::i_sim0], &JD, &year);
 	convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
-
-	geotop::common::Variables::i_run = geotop::common::Variables::i_run0;//Run index
 
 
 	num_cols = (long)nmet;

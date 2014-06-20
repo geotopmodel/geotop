@@ -1802,7 +1802,6 @@ short SolvePointEnergyBalance(
         if(egy->Temp[l] != egy->Temp[l]){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
             fprintf(f, "Number of days after start:%f\n",t);
 
             
@@ -1831,7 +1830,6 @@ short SolvePointEnergyBalance(
         if(egy->deltaw[l] != egy->deltaw[l]){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
             fprintf(f, "Number of days after start:%f\n",t);
             fprintf(f, "dw no value, error 1, PointEnergyBalance, l:%ld r:%ld c:%ld\n",l,r,c);
             fclose(f);
@@ -2099,7 +2097,6 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Hg no value bare soil EnergyFluxes r=%ld c=%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d soil type=%ld snowD=%12g rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy,snowD, *rh_g,*rv_g,Hg,Eg);
@@ -2120,7 +2117,6 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t);
             fprintf(f, "Eg no value bare soil r=%ld c=%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d soil type=%ld snowD=%12g\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy, snowD);
@@ -2172,7 +2168,6 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
@@ -2193,7 +2188,6 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
@@ -2294,7 +2288,6 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Hg no value bare soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
@@ -2313,7 +2306,6 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value bare soil %ld %ld \n",r,c);
@@ -2355,7 +2347,6 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
@@ -2375,7 +2366,6 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-            fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Number of days after start:%12g\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);

@@ -68,6 +68,7 @@ public:
     
     ConfGrammar (boost::shared_ptr< std::map<std::string, boost::any> > pMap){
         mMap = pMap ;
+        mUnsupportedKeys.push_back("NumSimulationTimes") ;
         mKey = boost::shared_ptr< std::string >( new std::string() ) ;
     };
     
@@ -84,6 +85,18 @@ public:
         trace_log.logsf(TRACE, "actionKey: %s", lKey.c_str());
 #endif
 #endif
+        for (size_t it = 0; it < mUnsupportedKeys.size(); ++it)
+        {
+            if (lKey.compare(mUnsupportedKeys.at(it)) == 0)
+            {
+#ifdef WITH_LOGGER
+                GlobalLogger* lg = GlobalLogger::getInstance();
+                lg->logsf(WARNING, "The %s parameter is no longer supported. Please update your configuration file.",
+                          lKey.c_str());
+#endif
+                return;
+            }
+        }
         std::string lLowercaseKey ( lKey );
         boost::algorithm::to_lower(lLowercaseKey);
         mKey->assign( lLowercaseKey ) ;
@@ -294,6 +307,7 @@ public:
     
 private:
     
+    std::vector<std::string> mUnsupportedKeys; //No longer supported keys
     boost::shared_ptr<std::string> mKey ;
     boost::shared_ptr< std::map<std::string, boost::any> > mMap ;
 };
@@ -1431,10 +1445,6 @@ void geotop::input::ConfigStore::init()
     initValue("ThetaRes", lThetaRes) ;
     
     initValue("AlbExtParSnow", double(10)) ;
-
-    std::vector<double> lNumSimulationTimes ;
-    lNumSimulationTimes += 1;
-    initValue("NumSimulationTimes", lNumSimulationTimes) ;
 
     std::vector<double> lThresSnowVegDown ;
     lThresSnowVegDown += 0,200,0,200,0,1900,1900,800 ;

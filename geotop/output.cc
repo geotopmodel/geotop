@@ -83,8 +83,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         t_rec=0.;
     }
 
-    write_suffix(SSSSS, geotop::common::Variables::i_sim, 1);
-    write_suffix(RRRRR, geotop::common::Variables::i_run, 1);
+    write_suffix(SSSSS, geotop::common::Variables::i_sim, 1); //TODO: remove this!
+    write_suffix(RRRRR, geotop::common::Variables::i_run, 1); //TODO: remove this!
 
     //Time indices
 	JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt, par->init_date[geotop::common::Variables::i_sim]);
@@ -165,7 +165,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    //	if(par->Dtplot_point->co[geotop::common::Variables::i_sim] > 1.E-5){
     if(par->Dtplot_point[geotop::common::Variables::i_sim] > 1.E-5){
 
         t_point += par->Dt;
@@ -326,8 +325,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (geotop::common::Variables::opnt[j] == operiod) {
                                     fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::opnt[j] == orun) {
-                                    fprintf(f, "%ld",geotop::common::Variables::i_run);
                                 }else if (geotop::common::Variables::opnt[j] == opoint) {
                                     fprintf(f, "%ld",par->IDpoint[i]);
                                 }else {
@@ -371,8 +368,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (geotop::common::Variables::opnt[j] == operiod) {
                                     fprintf(geotop::common::Variables::ffpoint, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::opnt[j] == orun) {
-                                    fprintf(geotop::common::Variables::ffpoint, "%ld",geotop::common::Variables::i_run);
                                 }else if (geotop::common::Variables::opnt[j] == opoint) {
                                     fprintf(geotop::common::Variables::ffpoint, "%ld",par->IDpoint[i]);
                                 }else {
@@ -445,8 +440,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (geotop::common::Variables::osnw[j] == 3) {
                                     fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::osnw[j] == 4) {
-                                    fprintf(f, "%ld",geotop::common::Variables::i_run);
+                                }else if (geotop::common::Variables::osnw[j] == 4) { //Needed to balance the braces
                                 }else if (geotop::common::Variables::osnw[j] == 5) {
                                     fprintf(f, "%ld",par->IDpoint[i]);
                                 }else if (geotop::common::Variables::osnw[j] <= 5 + 1*m) {
@@ -560,8 +554,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                 }else if (geotop::common::Variables::osnw[j] == 3) {
                                     fprintf(geotop::common::Variables::ffsnow, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::osnw[j] == 4) {
-                                    fprintf(geotop::common::Variables::ffsnow, "%ld",geotop::common::Variables::i_run);
+                                }else if (geotop::common::Variables::osnw[j] == 4) { //Needed to balance the braces
                                 }else if (geotop::common::Variables::osnw[j] == 5) {
                                     
                                     fprintf(geotop::common::Variables::ffsnow, "%ld",par->IDpoint[i]);
@@ -702,8 +695,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                     }else if (geotop::common::Variables::oglc[j] == 3) {
                                         fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                    }else if (geotop::common::Variables::oglc[j] == 4) {
-                                        fprintf(f, "%ld",geotop::common::Variables::i_run);
+                                    }else if (geotop::common::Variables::oglc[j] == 4) { //Needed to balance the braces
                                     }else if (geotop::common::Variables::oglc[j] == 5) {
 
                                         fprintf(f, "%ld",par->IDpoint[i]);
@@ -803,8 +795,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                                     }else if (geotop::common::Variables::oglc[j] == 3) {
                                         fprintf(geotop::common::Variables::ffglac, "%ld",geotop::common::Variables::i_sim);
-                                    }else if (geotop::common::Variables::oglc[j] == 4) {
-                                        fprintf(geotop::common::Variables::ffglac, "%ld",geotop::common::Variables::i_run);
+                                    }else if (geotop::common::Variables::oglc[j] == 4) { //Needed to balance the braces
                                     }else if (geotop::common::Variables::oglc[j] == 5) {
                                         fprintf(geotop::common::Variables::ffglac, "%ld",par->IDpoint[i]);
                                     }else if (geotop::common::Variables::oglc[j] <= 5 + 1*m) {
@@ -2108,17 +2099,17 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             if(geotop::common::Variables::files[rtime] != geotop::input::gStringNoValue){
                 name =geotop::common::Variables::files[rtime] + string(textfile);
                 f = fopen(name.c_str() , "w");
-                fprintf(f,"Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s]\n");
+                fprintf(f,"Time[s],Time[d],n,i_sim,cum_time[s],elapsed_time[s]\n");
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                fprintf(f,"%12g,%12g,%ld,%ld,%ld,%12g,%12g",times->time+par->Dt+par->delay_day_recover*GTConst::secinday,
+                fprintf(f,"%12g,%12g,%ld,%ld,%12g,%12g",times->time+par->Dt+par->delay_day_recover*GTConst::secinday,
                         (times->time+par->Dt)/GTConst::secinday+par->delay_day_recover,
                         (long)(((times->time+par->Dt)/GTConst::secinday+par->delay_day_recover)/par->ContRecovery),
-                        geotop::common::Variables::i_run,geotop::common::Variables::i_sim,geotop::common::Variables::cum_time,geotop::common::Variables::elapsed_time);
+                        geotop::common::Variables::i_sim,geotop::common::Variables::cum_time,geotop::common::Variables::elapsed_time);
 #else
-                fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f",times->time+par->Dt+par->delay_day_recover*GTConst::secinday,
+                fprintf(f,"%f,%f,%ld,%ld,%f,%f",times->time+par->Dt+par->delay_day_recover*GTConst::secinday,
                         (times->time+par->Dt)/GTConst::secinday+par->delay_day_recover,
                         (long)(((times->time+par->Dt)/GTConst::secinday+par->delay_day_recover)/par->ContRecovery),
-                        geotop::common::Variables::i_run,geotop::common::Variables::i_sim,geotop::common::Variables::cum_time,geotop::common::Variables::elapsed_time);
+                        geotop::common::Variables::i_sim,geotop::common::Variables::cum_time,geotop::common::Variables::elapsed_time);
 #endif
                 fclose(f);
                 //	free(name);
@@ -3547,8 +3538,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
                 fprintf(f, "%f",JDfrom0-JDfrom0init);
             }else if (geotop::common::Variables::osl[j] == 3) {
                 fprintf(f, "%ld",geotop::common::Variables::i_sim);
-            }else if (geotop::common::Variables::osl[j] == 4) {
-                fprintf(f, "%ld",geotop::common::Variables::i_run);
+            }else if (geotop::common::Variables::osl[j] == 4) { //Needed to balance the braces
             }else if (geotop::common::Variables::osl[j] == 5) {
                 fprintf(f, "%ld",i);
             }

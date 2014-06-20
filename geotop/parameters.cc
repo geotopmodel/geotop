@@ -758,10 +758,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
     par->run_times.resize(par->init_date.size() + 1, 0);
 
-    std::vector<double> lNumSimulationTimes = getDoubleVectorValueWithDefault(lConfigStore, "NumSimulationTimes", 1., true, par->init_date.size(), false);
-    size_t lNumSimulationTimesSize = lNumSimulationTimes.size() ;
 	for (size_t i=1; i<par->run_times.size(); i++) {
-		par->run_times[i] = lNumSimulationTimes[i-1] ;
+		par->run_times[i] = 1 ;
 	}
 
 	par->ST = getDoubleValueWithDefault(lConfigStore, "StandardTimeSimulation", 0., false) ;

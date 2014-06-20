@@ -387,7 +387,6 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 				if(adt->W->H1[i] != adt->W->H1[i]) {
 					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
 					fclose(f);
@@ -709,7 +708,6 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 				if(adt->W->H1[i] != adt->W->H1[i]) {
 					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards1D l:%ld point:%ld\n",i-1,c);
 					fclose(f);
