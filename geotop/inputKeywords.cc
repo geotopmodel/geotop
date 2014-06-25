@@ -35,7 +35,7 @@
 using namespace geotop::logger;
 
 //Uncomment the following line to enable the trace log.
-//#define TRACELOG
+#define TRACELOG
 
 #ifdef TRACELOG
 static std::ofstream tlf("inputKeywords_trace.log");
@@ -244,6 +244,16 @@ public:
 #ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionValueDoubleArray Size: %u", lDoubleArray.size());
+#endif
+#endif
+    };
+
+    void actionTrace(char const * const pBegin, char const * const pEnd) const
+    {
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        std::string lValue = std::string(pBegin, pEnd);
+        trace_log.logsf(TRACE, "actionTrace: %s", lValue.c_str());
 #endif
 #endif
     };
