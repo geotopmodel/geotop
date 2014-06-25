@@ -267,13 +267,17 @@ public:
         definition(const ConfGrammar &self)
         {
             configfile = +(row);
-            row = blanks >> (section | comment | parameter) >> blanks | +(boost::spirit::classic::space_p);
+            row = blanks >> (section | comment | parameter ) >> blanks | +(boost::spirit::classic::space_p);
             blanks = *(boost::spirit::classic::space_p) ;
             section = "[" >> section_ident >> "]" >> boost::spirit::classic::eol_p;
             section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
-            parameter = key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)] >> blanks >> "=" >>
-            blanks >> value ;
-            key = +(boost::spirit::classic::alpha_p|boost::spirit::classic::alnum_p) ;
+            parameter = (output_key[boost::bind(&ConfGrammar::actionTrace, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
+                blanks >> value ;
+            standard_key = +(boost::spirit::classic::alpha_p|boost::spirit::classic::alnum_p) ;
+            output_key = output_var >> "::" >> output_dim >> "::" >> output_type ;
+            output_var = boost::spirit::classic::alpha_p >> *(boost::spirit::classic::alnum_p);
+            output_dim = (boost::spirit::classic::str_p("1Dp") | boost::spirit::classic::str_p("1Ds") | boost::spirit::classic::str_p("2D") | boost::spirit::classic::str_p("3D"));
+            output_type = (boost::spirit::classic::str_p("AVG") | boost::spirit::classic::str_p("CUM") | boost::spirit::classic::str_p("INS"));
             value = date | array | num | string ;
             num = (boost::spirit::classic::real_p)[boost::bind(&ConfGrammar::actionValueDouble, self, _1)] ;
             date_array = (date >> +(blanks >> "," >>
@@ -304,7 +308,11 @@ public:
         section,
         section_ident,
         parameter,
-        key,
+        standard_key,
+        output_key,
+        output_var,
+        output_dim,
+        output_type,
         value,
         date_array,
         array,
