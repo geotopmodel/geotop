@@ -37,7 +37,7 @@
 using namespace geotop::logger;
 
 //Uncomment the following line to enable the trace log.
-//#define TRACELOG
+#define TRACELOG
 
 #ifdef TRACELOG
 static std::ofstream tlf("inputKeywords_trace.log");
@@ -59,6 +59,12 @@ bool stringToDouble(std::string const& pString, double &pValue)
     return true ;
 }
 
+enum Sections
+{
+    GENERAL_SEC,
+    OUTPUT_SEC
+};
+
 /** @internal
  * @brief configuration file parsing class, this class
  *  must not be used, in the future if more configuration format will be
@@ -69,6 +75,7 @@ class ConfGrammar : public boost::spirit::classic::grammar<ConfGrammar>
 public:
     
     ConfGrammar (boost::shared_ptr< std::map<std::string, boost::any> > pMap){
+        mCurrent_section = boost::shared_ptr<Sections>(new Sections);
         mMap = pMap ;
         mUnsupportedKeys.push_back("NumSimulationTimes") ;
         mKey = boost::shared_ptr< std::string >( new std::string() ) ;
@@ -78,10 +85,29 @@ public:
         
     };
 
+    void actionSession(char const * const pBegin, char const * const pEnd) const
+    {
+        std::string lKey = std::string(pBegin, pEnd);
+        std::string lLowercaseKey ( lKey );
+        boost::algorithm::to_lower(lLowercaseKey);
+        *mCurrent_section = GENERAL_SEC; //By default set the section to General
+
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "actionSession: %s", lKey.c_str());
+#endif
+#endif
+
+        if (lLowercaseKey.compare("output") == 0)
+            *mCurrent_section = OUTPUT_SEC;
+    }
+
     void actionKey(char const * const pBegin, char const * const pEnd) const
     {
         std::string lKey = std::string(pBegin, pEnd) ;
-        //std::cout << "actionKey: " << lKey << std::endl ;
+        std::string lLowercaseKey ( lKey );
+        boost::algorithm::to_lower(lLowercaseKey);
+
 #ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionKey: %s", lKey.c_str());
@@ -89,7 +115,9 @@ public:
 #endif
         for (size_t it = 0; it < mUnsupportedKeys.size(); ++it)
         {
-            if (lKey.compare(mUnsupportedKeys.at(it)) == 0)
+            std::string ukl(mUnsupportedKeys.at(it));
+            boost::algorithm::to_lower(ukl);
+            if (lKey.compare(ukl) == 0)
             {
 #ifdef WITH_LOGGER
                 GlobalLogger* lg = GlobalLogger::getInstance();
@@ -99,8 +127,7 @@ public:
                 return;
             }
         }
-        std::string lLowercaseKey ( lKey );
-        boost::algorithm::to_lower(lLowercaseKey);
+
         mKey->assign( lLowercaseKey ) ;
     };
     
@@ -275,7 +302,7 @@ public:
             configfile = +(row);
             row = blanks >> (section | comment | parameter ) >> blanks | +(boost::spirit::classic::space_p);
             blanks = *(boost::spirit::classic::space_p) ;
-            section = "[" >> section_ident >> "]" >> boost::spirit::classic::eol_p;
+            section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSession, self, _1, _2)] >> "]" >> boost::spirit::classic::eol_p;
             section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
             parameter = (output_key[boost::bind(&ConfGrammar::actionTrace, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
                 blanks >> value ;
@@ -334,6 +361,7 @@ private:
     std::vector<std::string> mUnsupportedKeys; //No longer supported keys
     boost::shared_ptr<std::string> mKey ;
     boost::shared_ptr< std::map<std::string, boost::any> > mMap ;
+    boost::shared_ptr<Sections> mCurrent_section;
 };
 
 geotop::input::ConfigStore::ConfigStore()
