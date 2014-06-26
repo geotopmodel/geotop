@@ -29,13 +29,15 @@
 #include <sstream>
 #include <iostream>
 
+#include "output_file.h"
+
 #ifdef WITH_LOGGER
 #include "logger.h"
 #include "global_logger.h"
 using namespace geotop::logger;
 
 //Uncomment the following line to enable the trace log.
-#define TRACELOG
+//#define TRACELOG
 
 #ifdef TRACELOG
 static std::ofstream tlf("inputKeywords_trace.log");
@@ -250,12 +252,16 @@ public:
 
     void actionTrace(char const * const pBegin, char const * const pEnd) const
     {
-#ifdef WITH_LOGGER
-#ifdef TRACELOG
         std::string lValue = std::string(pBegin, pEnd);
+#ifdef WITH_LOGGER
+        GlobalLogger* lg = GlobalLogger::getInstance();
+        lg->logsf(TRACE, "actionTrace: %s", lValue.c_str());
+#ifdef TRACELOG
         trace_log.logsf(TRACE, "actionTrace: %s", lValue.c_str());
-#endif
-#endif
+#endif //TRACELOG
+#else
+        std::cerr << "actionTrace: " << lValue << std::endl;
+#endif //WITH_LOGGER
     };
     
     /** @internal
