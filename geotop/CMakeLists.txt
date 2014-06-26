@@ -48,6 +48,8 @@ ENDIF(COMMAND CMAKE_POLICY)
 	ADD_LIBRARY(${INPUT_KEYWORDS_LIBRARIES} ${LINKING_MODE}
 			inputKeywords.cc
 			inputKeywords.h
+            output_file.cc
+            output_file.h
 		   )
 	
 
