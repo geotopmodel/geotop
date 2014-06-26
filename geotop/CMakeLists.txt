@@ -90,7 +90,7 @@ ENDIF(COMMAND CMAKE_POLICY)
             recovering.h
 	)
 
-	ADD_LIBRARY(geotopOutPostProcessing ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_OUT_POSTPROC_LIBRARIES} ${LINKING_MODE}
 			tables.cc
 			tables.h
 			output.cc
