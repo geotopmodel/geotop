@@ -47,8 +47,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     if(A->I->JD_plots.size() > 1 && A->I->iplot<=A->I->JD_plots.size()){
         i=2*A->I->iplot-1;
 
-        if( A->P->init_date[geotop::common::Variables::i_sim]+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
-                A->P->init_date[geotop::common::Variables::i_sim]+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
+        if( A->P->init_date+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
+                A->P->init_date+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
 
             //	Dtplot=(A->I->JD_plots->co[i+1]-A->I->JD_plots->co[i])*GTConst::secinday;
             Dtplot=(A->I->JD_plots[i+1]-A->I->JD_plots[i])*GTConst::secinday;
@@ -679,7 +679,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
-                                    JDb-A->P->init_date[geotop::common::Variables::i_sim],
+                                    JDb-A->P->init_date,
 										 Dt, i, j, r, c, L,
                                     C, V, A->E, A->L, A->S, A->C,A->T,A->P, ns,
                                     ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
@@ -1083,7 +1083,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 "Wcrnmax=%12g, Wcsn=%12g, Wcsnmax=%12g, SWin=%12g, LWin=%12g, SWv=%12g, LW=%12g, H=%12g, E=%12g, LWv=%12g, Hv=%12g,"
                 "LEv=%12g, Etrans=%12g, Ts=%12g, Qs=%12g, Hadv=%f, Hg0=%12g, Hg1=%12g, Eg0=%12g, Eg1=%12g, Qv=%12g, Qg=%12g,"
                 "Lobukhov=%12g, rh=%12g, rv=%f, rb=%12g, rc=%12g, ruc=%12g, u_top=%12g, decay=%12g, Locc=%12g, LWupabove_v=%12g, lpb=%ld\n",
-                surface, JDb-A->P->init_date[geotop::common::Variables::i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
+                surface, JDb-A->P->init_date, Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
                 snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
                 hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
@@ -1096,7 +1096,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 "Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
                 "LEv=%f, Etrans=%f, Ts=%f, Qs=%f, Hadv=%f, Hg0=%f, Hg1=%f, Eg0=%f, Eg1=%f, Qv=%f, Qg=%f,"
                 "Lobukhov=%f, rh=%f, rv=%f, rb=%f, rc=%f, ruc=%f, u_top=%f, decay=%f, Locc=%f, LWupabove_v=%f, lpb=%ld\n",
-                surface, JDb-A->P->init_date[geotop::common::Variables::i_sim], Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
+                surface, JDb-A->P->init_date, Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
                 snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
                 hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,

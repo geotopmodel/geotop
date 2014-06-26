@@ -1,13 +1,4 @@
-/* STATEMENT:
- 
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 2.0.0 - 20 Jun 2013
- 
- Copyright (c), 2013 - Stefano Endrizzi 
- 
- This file is part of Geotop 2.0.0
- 
- Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ /*//3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
  Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
@@ -726,13 +717,18 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     }
 
 	//init date
-        std::vector<double> lInitDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "InitDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
-    par->init_date.resize(lInitDateDDMMYYYYhhmm.size() + 1 , 0);
-	for (size_t i=1; i<par->init_date.size(); i++) {
-		par->init_date[i] = lInitDateDDMMYYYYhhmm[i-1];
-		par->init_date[i] = convert_dateeur12_JDfrom0(par->init_date[i]);
-	}
+	//this is no longer an array (just one date)
 	
+        std::vector<double> lInitDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "InitDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
+  //    par->init_date.resize(lInitDateDDMMYYYYhhmm.size() + 1 , 0);
+  	for (size_t i=1; i<2; i++) {
+  		par->init_date = lInitDateDDMMYYYYhhmm[i-1];
+  	}
+  //		par->init_date[i] = convert_dateeur12_JDfrom0(par->init_date[i]);
+	
+
+    par->init_date = convert_dateeur12_JDfrom0(par->init_date);
+
 	//simulation time
     par->simulation_hours = getDoubleValueWithDefault(lConfigStore, "SimulationHours", geotop::input::gDoubleNoValue, false) ;
 
@@ -740,59 +736,80 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     std::vector<double> lEndDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "EndDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
     
     //	par->end_date = new_doublevector(num_param_components[cod]);
-    par->end_date.resize(lEndDateDDMMYYYYhhmm.size() + 1, 0) ;
-	if (par->end_date.size() != par->init_date.size()){
-		fprintf(flog, "Error:: End date has a number of components different from Init Date");
-		printf("Error:: End date has a number of components different from Init Date");
-		t_error("Fatal Error! Geotop is closed. See failing report.");
-	}
-    
-	for (size_t i=1; i<par->end_date.size(); i++) {
-		par->end_date[i] = lEndDateDDMMYYYYhhmm[i-1];
-		if ((long)par->end_date[i] == geotop::input::gDoubleNoValue){
-			par->end_date[i] = par->init_date[i] + par->simulation_hours/24.;
-		}else {
-			par->end_date[i] = convert_dateeur12_JDfrom0(par->end_date[i]);
-		}
-	}
+    //par->end_date.resize(lEndDateDDMMYYYYhhmm.size() + 1, 0) ;
+//	if (par->end_date.size() != par->init_date.size()){
+//		fprintf(flog, "Error:: End date has a number of components different from Init Date");
+//		printf("Error:: End date has a number of components different from Init Date");
+//		t_error("Fatal Error! Geotop is closed. See failing report.");
+//	}
+//    
+    for (size_t i=1; i<2; i++) {
+	    par->end_date = lEndDateDDMMYYYYhhmm[i-1];
+    }
+//		if ((long)par->end_date[i] == geotop::input::gDoubleNoValue){
+//			par->end_date[i] = par->init_date[i] + par->simulation_hours/24.;
+//		}else {
+//			par->end_date[i] = convert_dateeur12_JDfrom0(par->end_date[i]);
+//	}
 
-    par->run_times.resize(par->init_date.size() + 1, 0);
 
-	for (size_t i=1; i<par->run_times.size(); i++) {
-		par->run_times[i] = 1 ;
-	}
+    if ((long)par->end_date == geotop::input::gDoubleNoValue){
+	    par->end_date = par->init_date + par->simulation_hours/24.;
+    }else {
+	    par->end_date = convert_dateeur12_JDfrom0(par->end_date);
+    }
+    // TO REMOVE
+    //par->run_times.resize(par->init_date.size() + 1, 0);
+
+    //	for (size_t i=1; i<par->run_times.size(); i++) {
+    //		par->run_times[i] = 1 ;
+    //	}
 
 	par->ST = getDoubleValueWithDefault(lConfigStore, "StandardTimeSimulation", 0., false) ;
+// this below is a scalar:
+//
 
-	par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
+//    par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
+      par->Dtplot_discharge = 0 ;
 
-    std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotDischarge", 0., true, par->init_date.size(), false) ;
-	for (size_t i=1; i<par->Dtplot_discharge.size(); i++) {
-		par->Dtplot_discharge[i] = lDtPlotDischarge[i-1] ;
-	}
-    
-	par->plot_discharge_with_Dt_integration.resize(par->init_date.size() + 1, 0);
+    std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotDischarge", 0., true, 1, false) ;
+//	for (size_t i=1; i<par->Dtplot_discharge.size(); i++) {
+		par->Dtplot_discharge = lDtPlotDischarge[0] ;
+//	}
+
+//	par->plot_discharge_with_Dt_integration.resize(par->init_date.size() + 1, 0);
+
 	par->state_discharge = 0;
-	for (size_t i=1; i<par->init_date.size(); i++) {
-		par->Dtplot_discharge[i] *= 3600.;
-		if(par->Dtplot_discharge[i] > 1.E-5 && par->Dtplot_discharge[i] <= minDt){
-			par->plot_discharge_with_Dt_integration[i]=1;
-		}else{
-			par->plot_discharge_with_Dt_integration[i]=0;
-		}
-		if(par->Dtplot_discharge[i] > 1.E-5) par->state_discharge = 1;
+//	for (size_t i=1; i<par->init_date.size(); i++) {
+//		par->Dtplot_discharge[i] *= 3600.;
+//		if(par->Dtplot_discharge[i] > 1.E-5 && par->Dtplot_discharge[i] <= minDt){
+//			par->plot_discharge_with_Dt_integration[i]=1;
+//		}else{
+//			par->plot_discharge_with_Dt_integration[i]=0;
+//		}
+//		if(par->Dtplot_discharge[i] > 1.E-5) par->state_discharge = 1;
+//	}
+//
+	par->Dtplot_discharge *= 3600.;
+	if(par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge <= minDt){
+		par->plot_discharge_with_Dt_integration=1;
+	}else{
+		par->plot_discharge_with_Dt_integration=0;
 	}
-	
-	par->Dtplot_point.resize(par->init_date.size() + 1, 0);
+	if(par->Dtplot_discharge > 1.E-5) par->state_discharge = 1;
 
-    std::vector<double> lDtPlotPoint = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotPoint", 0., true, par->init_date.size(), false) ;
-	for (size_t i=1; i<par->Dtplot_point.size(); i++) {
+        // hack tmp: this should be a scalar 
+	//par->Dtplot_point.resize(par->init_date.size() + 1, 0);
+	par->Dtplot_point.resize(2, 0);
+
+    std::vector<double> lDtPlotPoint = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotPoint", 0., true, 1, false) ;
+	for (size_t i=1; i<3; i++) {
 		par->Dtplot_point[i] = lDtPlotPoint[i-1];
 	}
 
-	par->plot_point_with_Dt_integration.resize(par->init_date.size() + 1, 0);
+	par->plot_point_with_Dt_integration.resize(1 + 1, 0);
 	par->state_pixel = 0;
-	for (size_t i=1; i<par->init_date.size(); i++) {
+	for (size_t i=1; i<2; i++) {
 		par->Dtplot_point[i] *= 3600.;
 		if(par->Dtplot_point[i] > 1.E-5 && par->Dtplot_point[i] <= minDt){
 			par->plot_point_with_Dt_integration[i]=1;
@@ -802,16 +819,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		if(par->Dtplot_point[i] > 1.E-5) par->state_pixel = 1;
 	}
 
-    par->Dtplot_basin.resize(par->init_date.size() + 1, 0);
+    par->Dtplot_basin.resize(1 + 1, 0);
 
-    std::vector<double> lDtPlotBasin = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotBasin", 0., true, par->init_date.size(), false) ;
+    std::vector<double> lDtPlotBasin = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotBasin", 0., true, 1, false) ;
 	for (size_t i=1; i<par->Dtplot_basin.size(); i++) {
 		par->Dtplot_basin[i] = lDtPlotBasin[i-1];
 	}
     
-	par->plot_basin_with_Dt_integration.resize(par->init_date.size() + 1, 0);
+	par->plot_basin_with_Dt_integration.resize(1 + 1, 0);
 	par->state_basin = 0;
-	for (size_t i=1; i<par->init_date.size(); i++) {
+	for (size_t i=1; i<2; i++) {
 		par->Dtplot_basin[i] *= 3600.;
 		if(par->Dtplot_basin[i] > 1.E-5 && par->Dtplot_basin[i] <= minDt){
 			par->plot_basin_with_Dt_integration[i]=1;
@@ -1127,7 +1144,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     for (size_t j=1; j<=lKeywordString.size() ; j++) {
 		
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
-		printf("parameters.cc line 1132 j:%ld %f  %s\n",j,lDoubleTempVector[0],lKeywordString[j-1].c_str());
+//		printf("parameters.cc line 1132 j:%ld %f  %s\n",j,lDoubleTempVector[0],lKeywordString[j-1].c_str());
 		if (npoints < lDoubleTempVector.size()) {
             npoints = lDoubleTempVector.size();
         }
@@ -1138,7 +1155,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
         for (size_t i=1; i<par->chkpt.getRows(); i++) {
 			par->chkpt[i][j] = lDoubleTempVector[i-1] ;
-			printf("parameters.cc line 1143 i:%ld j:%ld %f\n",i,j,par->chkpt[i][j]);
+//			printf("parameters.cc line 1143 i:%ld j:%ld %f\n",i,j,par->chkpt[i][j]);
 			
 		}
 	}
@@ -1149,39 +1166,41 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->saving_points[i] = lDoubleTempVector[i-1];
 	}
 			
-	par->output_soil.resize(par->init_date.size() + 1, 0);
-	par->output_snow.resize(par->init_date.size() + 1, 0);
-	par->output_glac.resize(par->init_date.size() + 1, 0);
-	par->output_surfenergy.resize(par->init_date.size() + 1, 0);
-	par->output_vegetation.resize(par->init_date.size() + 1, 0);
-	par->output_meteo.resize(par->init_date.size() + 1, 0);
+	par->output_soil.resize(1 + 1, 0);
+	par->output_snow.resize(1 + 1, 0);
+	par->output_glac.resize(1 + 1, 0);
+	par->output_surfenergy.resize(1 + 1, 0);
+	par->output_vegetation.resize(1 + 1, 0);
+	par->output_meteo.resize(1 + 1, 0);
+	//par->output_meteo.resize(par->init_date.size() + 1, 0);
+        // these above should be scalar:
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSoilMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSoilMaps", 0., true, 1, false) ;
 	for (size_t i=1; i<par->output_soil.size(); i++) {
 		par->output_soil[i] = lDoubleTempVector[i-1] ;
 	}
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSnowMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSnowMaps", 0., true, 1, false) ;
 	for (size_t i=1; i<par->output_snow.size(); i++) {
 		par->output_snow[i] = lDoubleTempVector[i-1] ;
 	}
     
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputGlacierMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputGlacierMaps", 0., true, 1, false) ;
 	for (size_t i=1; i<par->output_glac.size(); i++) {
 		par->output_glac[i] = lDoubleTempVector[i-1] ;
 	}
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSurfEBALMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputSurfEBALMaps", 0., true,1, false) ;
 	for (size_t i=1; i<par->output_surfenergy.size(); i++) {
 		par->output_surfenergy[i] = lDoubleTempVector[i-1] ;
 	}
 	
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputVegetationMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputVegetationMaps", 0., true, 1, false) ;
 	for (size_t i=1; i<par->output_vegetation.size(); i++) {
 		par->output_vegetation[i] = lDoubleTempVector[i-1] ;
 	}
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputMeteoMaps", 0., true, par->init_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "OutputMeteoMaps", 0., true, 1, false) ;
 	for (size_t i=1; i<par->output_meteo.size(); i++) {
 		par->output_meteo[i] = lDoubleTempVector[i-1] ;
 	}
@@ -1192,7 +1211,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->output_surfenergy_bin = 0;
 	par->output_meteo_bin = 0;
 
-	for (size_t i=1; i<par->init_date.size(); i++) {
+	for (size_t i=1; i<2; i++) {
 		if (par->output_soil[i] > 0) par->output_soil_bin = 1;		
 		if (par->output_snow[i] > 0) par->output_snow_bin = 1;
 		if (par->output_glac[i] > 0) par->output_glac_bin = 1;
@@ -1811,9 +1830,9 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->max_courant_land_channel = getDoubleValueWithDefault(lConfigStore, "MaxCourantSupFlowChannelLand", geotop::input::gDoubleNoValue, false) ;
 	par->min_dhsup_land_channel_out = getDoubleValueWithDefault(lConfigStore, "MinDiffSupWaterDepthChannelLand", geotop::input::gDoubleNoValue, false) ;
 
-	par->Nl_spinup.resize(par->end_date.size() + 1);
+	par->Nl_spinup.resize(1 + 1);
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SpinUpLayerBottom", 0., true, par->end_date.size(), false) ;
+    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SpinUpLayerBottom", 0., true, 1, false) ;
 	for (size_t i=1; i<par->Nl_spinup.size(); i++) {
 		par->Nl_spinup[i] = lDoubleTempVector[i-1] ;
 	}

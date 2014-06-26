@@ -222,14 +222,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     success = read_point_file(geotop::common::Variables::files[fpointlist], IT->point_col_names, par, flog);
 
     geotop::common::Variables::max_time = 0.;
-    for (size_t i=1; i<par->init_date.size(); i++) {
-        geotop::common::Variables::max_time += par->run_times[i]*(par->end_date[i] - par->init_date[i])*86400.;//seconds
-    }
+    geotop::common::Variables::max_time = (par->end_date - par->init_date)*86400.;//seconds
 
     //Recovering
     par->delay_day_recover = 0.0;
     par->n_ContRecovery = 0;
-
+// this below should be removed (S.C. 22.06.2014)
     if(par->recover > 0){
         if(par->saving_points.size() -1< par->recover){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
@@ -316,8 +314,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //Time indices
 	
-    par->init_date[geotop::common::Variables::i_sim0] += par->delay_day_recover;
-    convert_JDfrom0_JDandYear(par->init_date[geotop::common::Variables::i_sim0], &JD, &year);
+    par->init_date += par->delay_day_recover;
+    convert_JDfrom0_JDandYear(par->init_date, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
 	geotop::common::Variables::i_run = geotop::common::Variables::i_run0;//Run index
@@ -1392,7 +1390,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 cosslope = 1.;
             }
 
-            write_soil_output(j, par->IDpoint[j], par->init_date[1], par->init_date[1], JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
+            write_soil_output(j, par->IDpoint[j], par->init_date, par->init_date, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
         }
     }
 
@@ -3900,15 +3898,15 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 
     }
 
-    //7. SET PAR
-    for (size_t i=1; i< par->init_date.size(); i++) {
-        par->output_soil[i]=0.;
-        par->output_snow[i]=0.;
-        par->output_glac[i]=0.;
-        par->output_surfenergy[i]=0.;
-        par->output_vegetation[i]=0.;
-        par->output_meteo[i]=0.;
-    }
+    //7. SET PAR these are all scalar from now on.. 
+   // for (size_t i=1; i< par->init_date.size(); i++) {
+        par->output_soil[1]=0.;
+        par->output_snow[1]=0.;
+        par->output_glac[1]=0.;
+        par->output_surfenergy[1]=0.;
+        par->output_vegetation[1]=0.;
+        par->output_meteo[1]=0.;
+    //}
 
     par->output_soil_bin = 0;
     par->output_snow_bin = 0;

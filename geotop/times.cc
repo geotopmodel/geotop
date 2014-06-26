@@ -28,32 +28,29 @@
 /*==================================================================================================================*/
 /*==================================================================================================================*/
 
-//void set_time_step(PAR *par, TIMES *times){
-  void set_time_step(Par *par, Times *times){
-	
+void set_time_step(Par *par, Times *times){
+
 	double JDold;
 	static double JDnew;
 	static long line_interp, posix;
 
 	if(times->time==0) posix=0;
-	
+
 	if(par->tsteps_from_file==1){
-		
+
 		if(times->time==0){
 			line_interp=0;
-		//	JDnew=par->init_date->co[geotop::common::Variables::i_sim]-1.0;
-			JDnew=par->init_date[geotop::common::Variables::i_sim]-1.0;
+			//JDnew=par->init_date[geotop::common::Variables::i_sim]-1.0;
+			JDnew=par->init_date-1.0;
 		}
-		
+
 		JDold=JDnew;	
-	//	JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date->co[geotop::common::Variables::i_sim]);
-		JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date[geotop::common::Variables::i_sim]);
-		
+		//JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date[geotop::common::Variables::i_sim]);
+		JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date);
+
 		if(floor(JDold)!=floor(JDnew)){
-		//	time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, GTConst::max_cols_time_steps_file+1, 0,
-		//				 par->init_date->co[geotop::common::Variables::i_sim]+times->time/86400.);
 			time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix, times->numlinesDt_matrix, GTConst::max_cols_time_steps_file+1, 0,
-								 par->init_date[geotop::common::Variables::i_sim]+times->time/86400.);
+					par->init_date+times->time/86400.);
 			posix=0;
 		}
 	}
@@ -62,11 +59,8 @@
 	par->Dt=times->Dt_vector[1+posix];
 	posix++;
 		
-//	if(par->plot_discharge_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_discharge->co[geotop::common::Variables::i_sim]=par->Dt;
-	if(par->plot_discharge_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_discharge[geotop::common::Variables::i_sim]=par->Dt;
-//	if(par->plot_point_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_point->co[geotop::common::Variables::i_sim]=par->Dt;
+	if(par->plot_discharge_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_discharge=par->Dt;
 	if(par->plot_point_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_point[geotop::common::Variables::i_sim]=par->Dt;
-//	if(par->plot_basin_with_Dt_integration->co[geotop::common::Variables::i_sim]==1) par->Dtplot_basin->co[geotop::common::Variables::i_sim]=par->Dt;
 	if(par->plot_basin_with_Dt_integration[geotop::common::Variables::i_sim]==1) par->Dtplot_basin[geotop::common::Variables::i_sim]=par->Dt;
 
 }

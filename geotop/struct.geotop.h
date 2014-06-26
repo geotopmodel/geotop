@@ -471,8 +471,11 @@ public:
 	GeoVector<short> plot_basin_with_Dt_integration;
 	
 	GeoVector<double> Dtplot_point;
-    GeoVector<double> Dtplot_basin;
-	GeoVector<double> Dtplot_discharge;
+        GeoVector<double> Dtplot_basin;
+        //
+	//
+	double Dtplot_discharge;
+	// GeoVector<double> Dtplot_discharge;
 
 	short state_pixel;
 	short state_discharge;
@@ -484,11 +487,16 @@ public:
 	long lowpass_curvatures;
 	
 	short dew;
-	
-	GeoVector<double> init_date;
-	GeoVector<double> end_date;
-	GeoVector<long> run_times;
-	
+        //
+	// 
+	//GeoVector<double> init_date;
+	//GeoVector<double> end_date;
+	//GeoVector<long> run_times;
+	 
+	 double init_date;
+	 double end_date;
+	 long run_times;
+
 	double delay_day_recover;
 	
 	short all_point;

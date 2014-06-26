@@ -278,7 +278,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 	// TODO: check number of simulation issue
 #else
 	//long nsim = A->P->init_date->nh;
-	long nsim = A->P->init_date.size();
+	//long nsim = A->P->init_date.size();
+	long nsim=1;
 #endif
 
 #ifdef USE_NETCDF
@@ -315,7 +316,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
         //time at the beginning of the time step
 
-        JD0 = A->P->init_date[geotop::common::Variables::i_sim]+A->I->time/GTConst::secinday;
+        JD0 = A->P->init_date+A->I->time/GTConst::secinday;
 
         //time step variables
         t = 0.;
@@ -323,11 +324,11 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
         //time step subdivisions
         do{
-            JDb = A->P->init_date[geotop::common::Variables::i_sim]+(A->I->time+t)/GTConst::secinday;
+            JDb = A->P->init_date+(A->I->time+t)/GTConst::secinday;
             if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
             //iterations
             do{
-                JDe = A->P->init_date[geotop::common::Variables::i_sim]+(A->I->time+t+Dt)/GTConst::secinday;
+                JDe = A->P->init_date+(A->I->time+t+Dt)/GTConst::secinday;
 
                 //	copy state variables on
                 S=A->N->S;
@@ -492,12 +493,12 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
         A->I->time += A->P->Dt;//Increase TIME	
 
-        if( A->I->time > (A->P->end_date[geotop::common::Variables::i_sim] - A->P->init_date[geotop::common::Variables::i_sim])*86400. - 1.E-5){
+        if( A->I->time > (A->P->end_date - A->P->init_date)*86400. - 1.E-5){
             
             A->I->time = 0.0;//Initialize time
 
             // what is doing here below ??? (SC) 
-            A->P->init_date[geotop::common::Variables::i_sim0] -= A->P->delay_day_recover;
+            A->P->init_date -= A->P->delay_day_recover;
             A->P->delay_day_recover = 0.0;
             reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
 

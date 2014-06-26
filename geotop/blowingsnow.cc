@@ -70,11 +70,8 @@
 		
 		//vegetation
 		for(lux=1; lux<=par->n_landuses; lux++) {
-		//	if(par->vegflag->co[lux]==1){
 			if(par->vegflag[lux]==1){
-			//	time_interp_linear(par->init_date->co[geotop::common::Variables::i_sim]+t0/GTConst::secinday, par->init_date->co[geotop::common::Variables::i_sim]+(t0+t)/GTConst::secinday, par->init_date->co[geotop::common::Variables::i_sim]+(t0+t+Dt)/GTConst::secinday,
-			//					   land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
-				time_interp_linear(par->init_date[geotop::common::Variables::i_sim]+t0/GTConst::secinday, par->init_date[geotop::common::Variables::i_sim]+(t0+t)/GTConst::secinday, par->init_date[geotop::common::Variables::i_sim]+(t0+t+Dt)/GTConst::secinday,
+				time_interp_linear(par->init_date+t0/GTConst::secinday, par->init_date+(t0+t)/GTConst::secinday, par->init_date+(t0+t+Dt)/GTConst::secinday,
 								    land->vegparv[lux-1], land->vegpars[lux-1], land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
 			}
 		}
@@ -82,13 +79,11 @@
 		//loop for every pixel
 		for (r=1; r<=geotop::common::Variables::Nr; r++) {
 			for (c=1; c<=geotop::common::Variables::Nc; c++) {
-			//	if ( (long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue) {
 				if ( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue) {
 										
 					D = DEPTH(r, c, snow->S->lnum, snow->S->Dzl);
 					wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
 					
-					//U += met->Vgrid->co[r][c]/par->total_pixel;
 
 					if(wice > par->Wmin_BS){
 																														
