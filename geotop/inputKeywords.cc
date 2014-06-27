@@ -85,7 +85,7 @@ public:
         
     };
 
-    void actionSession(char const * const pBegin, char const * const pEnd) const
+    void actionSection(char const * const pBegin, char const * const pEnd) const
     {
         std::string lKey = std::string(pBegin, pEnd);
         std::string lLowercaseKey ( lKey );
@@ -94,7 +94,7 @@ public:
 
 #ifdef WITH_LOGGER
 #ifdef TRACELOG
-        trace_log.logsf(TRACE, "actionSession: %s", lKey.c_str());
+        trace_log.logsf(TRACE, "actionSection: %s", lKey.c_str());
 #endif
 #endif
 
@@ -302,7 +302,7 @@ public:
             configfile = +(row);
             row = blanks >> (section | comment | parameter ) >> blanks | +(boost::spirit::classic::space_p);
             blanks = *(boost::spirit::classic::space_p) ;
-            section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSession, self, _1, _2)] >> "]" >> boost::spirit::classic::eol_p;
+            section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSection, self, _1, _2)] >> "]" >> boost::spirit::classic::eol_p;
             section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
             parameter = (output_key[boost::bind(&ConfGrammar::actionTrace, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
                 blanks >> value ;
