@@ -302,7 +302,7 @@ public:
             configfile = +(row);
             row = blanks >> (section | comment | parameter ) >> blanks | +(boost::spirit::classic::space_p);
             blanks = *(boost::spirit::classic::space_p) ;
-            section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSection, self, _1, _2)] >> "]" >> boost::spirit::classic::eol_p;
+            section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSection, self, _1, _2)] >> "]";
             section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
             parameter = (output_key[boost::bind(&ConfGrammar::actionTrace, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
                 blanks >> value ;
