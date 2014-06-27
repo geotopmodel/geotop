@@ -99,7 +99,29 @@ public:
 #endif
 
         if (lLowercaseKey.compare("output") == 0)
+        {
             *mCurrent_section = OUTPUT_SEC;
+            if (mMap->count("OUTPUT_SEC") == 0)
+            {
+                (*mMap)["OUTPUT_SEC"] = boost::shared_ptr< std::vector<geotop::input::OutputFile> >(new std::vector<geotop::input::OutputFile>());
+            }
+        }
+    }
+
+    void actionOutputKey(char const * const pBegin, char const * const pEnd) const
+    {
+        std::string lKey = std::string(pBegin, pEnd);
+
+#ifdef WITH_LOGGER
+#ifdef TRACELOG
+        trace_log.logsf(TRACE, "actionOutputKey: %s", lKey.c_str());
+#endif
+#endif
+
+        if (*mCurrent_section == OUTPUT_SEC)
+            mKey->assign(lKey);
+        else
+            mKey->assign("");
     }
 
     void actionKey(char const * const pBegin, char const * const pEnd) const
@@ -141,32 +163,56 @@ public:
         trace_log.logsf(TRACE, "StringValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
 #endif
 #endif
-        
-        if( mKey->compare ("") != 0 )
+        switch (*mCurrent_section)
         {
-            (*mMap)[*mKey] = lValue;
-        } else {
+            case GENERAL_SEC:
+                if( mKey->compare ("") != 0 )
+                {
+                    (*mMap)[*mKey] = lValue;
+                } else {
 #ifdef WITH_LOGGER
-            GlobalLogger* lg = GlobalLogger::getInstance();
-            lg->log("actionValueString : no key was pushed for the value, value will be discarded", ERROR);
+                    GlobalLogger* lg = GlobalLogger::getInstance();
+                    lg->log("actionValueString : no key was pushed for the value, value will be discarded", ERROR);
 #else
-            std::cerr << "Error: actionValueString : no key was pushed for the value, value will be discarded" << std::endl ;
+                    std::cerr << "Error: actionValueString : no key was pushed for the value, value will be discarded" << std::endl ;
 #endif
+                }
+                break;
+            case OUTPUT_SEC:
+#ifdef WITH_LOGGER
+                GlobalLogger* lg = GlobalLogger::getInstance();
+                lg->log("Invalid input file format: string value not allowed for output file period", CRITICAL);
+#else
+                std::cerr << "CRITICAL: Invalid input file format: string value not allowed for output file period" << std::endl;
+#endif
+                exit(1);
+                break;
         }
-        mKey->assign( "" ) ;
+
+        mKey->assign( "" );
+
     };
     
     void actionValueDate(char const * const pBegin, char const * const pEnd) const
     {
         std::string lValue = std::string(pBegin, pEnd) ;
      
-        //std::cout << "DateValue: " << *mKey << ":" << lValue << std::endl;
 #ifdef WITH_LOGGER
         GlobalLogger* lg = GlobalLogger::getInstance();
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "DateValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
 #endif
 #endif
+
+        if (*mCurrent_section == OUTPUT_SEC)
+        {
+#ifdef WITH_LOGGER
+            lg->log("Invalid input file format: date value not allowed for output file period", CRITICAL);
+#else
+            std::cerr << "CRITICAL: Invalid input file format: date value not allowed for output file period" << std::endl;
+#endif
+            exit(1);
+        }
 
         std::stringstream lStringStream;
         lStringStream.imbue(std::locale(lStringStream.getloc(), new boost::posix_time::time_input_facet("%d/%m/%Y %H:%M")));
@@ -213,39 +259,72 @@ public:
     
     void actionValueDouble(const double pValue) const
     {
-        //std::cout << "actionValueDouble: " << pValue << std::endl;
 #ifdef WITH_LOGGER
+        GlobalLogger* lg = GlobalLogger::getInstance();
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionValueDouble: %f", pValue);
 #endif
 #endif
-        
-        if( mKey->compare ("") != 0 )
+        switch(*mCurrent_section)
         {
-            boost::any lAny = (*mMap)[*mKey] ;
-            if(lAny.type() == typeid(std::vector<double>))
-            {
-                std::vector<double> lValue ;
-                lValue.push_back(pValue) ;
-                (*mMap)[*mKey] = lValue;
-            } else {
-                (*mMap)[*mKey] = pValue;
-            }
-        } else {
+            case GENERAL_SEC:
+                if( mKey->compare ("") != 0 )
+                {
+                    boost::any lAny = (*mMap)[*mKey] ;
+                    if(lAny.type() == typeid(std::vector<double>))
+                    {
+                        std::vector<double> lValue ;
+                        lValue.push_back(pValue) ;
+                        (*mMap)[*mKey] = lValue;
+                    } else {
+                        (*mMap)[*mKey] = pValue;
+                    }
+                } else {
 #ifdef WITH_LOGGER
-            GlobalLogger* lg = GlobalLogger::getInstance();
-            lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
+                    lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
 #else
-            std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
+                    std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
 #endif
+                }
+                break;
+            case OUTPUT_SEC:
+                if (mKey->compare("") != 0)
+                {
+                    boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
+                        boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
+                    files->push_back(geotop::input::OutputFile(*mKey, pValue));
+                }
+                else
+                {
+#ifdef WITH_LOGGER
+                    lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
+#else
+                    std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
+#endif
+                }
+                break;
         }
+        
         mKey->assign( "" ) ;
     };
     
     void actionValueDoubleArray(char const * const pBegin, char const * const pEnd) const
     {
+#ifdef WITH_LOGGER
+        GlobalLogger* lg = GlobalLogger::getInstance();
+#endif
         std::string lString = std::string(pBegin, pEnd) ;
         boost::algorithm::erase_all(lString, " ");
+
+        if (*mCurrent_section == OUTPUT_SEC)
+        {
+#ifdef WITH_LOGGER
+            lg->log("Invalid input file format: too many values for output file period", CRITICAL);
+#else
+            std::cerr << "CRITICAL: Invalid input file format: too many values for output file period" << std::endl;
+#endif
+            exit(1);
+        }
         
         std::vector<std::string> lTokenArray;
         boost::split(lTokenArray, lString, boost::algorithm::is_any_of(","));
@@ -261,7 +340,6 @@ public:
             (*mMap)[*mKey] = lDoubleArray;
         } else {
 #ifdef WITH_LOGGER
-            GlobalLogger* lg = GlobalLogger::getInstance();
             lg->log("actionValueDoubleArray : no key was pushed for the value, the value will be discarded", ERROR);
 #else
             std::cerr << "Error: actionValueDoubleArray : no key was pushed for the value, value will be discarded" << std::endl ;
@@ -304,7 +382,7 @@ public:
             blanks = *(boost::spirit::classic::space_p) ;
             section = "[" >> section_ident[boost::bind(&ConfGrammar::actionSection, self, _1, _2)] >> "]";
             section_ident = (+(boost::spirit::classic::alpha_p) >> *(boost::spirit::classic::alpha_p | boost::spirit::classic::ch_p('_')));
-            parameter = (output_key[boost::bind(&ConfGrammar::actionTrace, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
+            parameter = (output_key[boost::bind(&ConfGrammar::actionOutputKey, self, _1, _2)] | standard_key[boost::bind(&ConfGrammar::actionKey, self, _1, _2)]) >> blanks >> "=" >>
                 blanks >> value ;
             standard_key = +(boost::spirit::classic::alpha_p|boost::spirit::classic::alnum_p) ;
             output_key = output_var >> "::" >> output_dim >> "::" >> output_type ;
