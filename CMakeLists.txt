@@ -170,8 +170,13 @@ SET( GEOTOP_ENERGY_BALANCE_LIBRARIES
 SET( GEOTOP_COMMON_LIBRARIES
     "geotopCommon" )
 
+# logger
 SET( GEOTOP_LOGGER
     "logger" )
+
+# geotopOutputFile
+SET( GEOTOP_OUTPUT_FILE
+    "geotopOutputFile" )
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
