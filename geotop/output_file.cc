@@ -58,6 +58,8 @@ namespace geotop
                 i++;
             }
 
+            output.push_back(tmp);
+
             return output;
         }
 
