@@ -59,6 +59,7 @@ namespace geotop
             static GlobalLogger* single;
             Logger mLogger;
             std::ofstream logfileStream;
+            std::string append_path(std::string path, std::string filename);
         };
         
     }

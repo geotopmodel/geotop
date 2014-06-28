@@ -5,7 +5,7 @@
  */ 
 
 #include "geotop_common.h"
-#include <boost/filesystem/path.hpp>
+#include <stdexcept>
 #include "global_logger.h"
 
 using namespace geotop::logger;
@@ -50,15 +50,37 @@ GlobalLogger::GlobalLogger()
     }
 }
 
+std::string GlobalLogger::append_path(std::string path, std::string filename)
+{
+    std::string output;
+
+    if (filename.length() == 0)
+    {
+        std::invalid_argument e("filename string length cannot be equal to 0");
+        throw e;
+    }
+
+    if (path.length() > 0)
+    {
+        output += path;
+
+        if (output.at(output.length() - 1) != '/')
+           output += "/";
+    }
+
+    output += filename;
+
+    return output;
+
+}
+
 std::string GlobalLogger::getLogFilePath()
 {
-    boost::filesystem::path myPath;
-    myPath /= geotop::common::Variables::WORKING_DIRECTORY;
     //TODO: once the migration will be complete use the correct path
-    //myPath /= geotop::common::Variables::logfile;
-    myPath /= "geotop_new.log";
     
-    return myPath.string();
+    return append_path(geotop::common::Variables::WORKING_DIRECTORY,
+                       "geotop_new.log"/*geotop::common::Variables::logfile*/);
+
 }
 
 void GlobalLogger::setSeverity(severity_levels minSeverity)
