@@ -502,13 +502,16 @@ void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit
                 if(type == 1)
                 {
                     fprintf(f, "%ld", (long)(DTM[r][c]));
-                }
-                else
-                {
-                    fprintf(f, "%.3f", DTM[r][c]);
-                }
-            }
-            if(c < DTM.getCols()) fprintf(f, " ");
+		}
+		else if (type== -1)
+		{
+			fprintf(f, "%.9f", DTM[r][c]);
+		}
+		else { 
+			fprintf(f, "%.3f", DTM[r][c]);
+		}
+	    }
+	    if(c < DTM.getCols()) fprintf(f, " ");
         }
         if(r < DTM.getRows()) fprintf(f, "\n");
     }
@@ -554,9 +557,12 @@ void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM
                 {
                     fprintf(f, "%ld", (long)(DTM[j[r][c]]));
                 }
-                else
-                {
-                    fprintf(f, "%.3f", DTM[j[r][c]]);
+		else if (type== -1)
+		{
+			fprintf(f, "%.9f", DTM[j[r][c]]);
+		}
+		else { 
+			fprintf(f, "%.3f", DTM[j[r][c]]);
                 }
             }
             else
