@@ -31,9 +31,6 @@
 #include "meteo.h"
 #include "meteodata.h"
 
-//void set_time_step(PAR *par, TIMES *times);
-void set_time_step(Par *par, Times *times);
-
 
 short is_leap(long y);
 

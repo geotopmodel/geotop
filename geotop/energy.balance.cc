@@ -461,11 +461,15 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     if(A->P->point_sim==1){
         A->E->sun[0] = A->T->latitude[r][c]*GTConst::Pi/180.;
         A->E->sun[2] = (A->T->longitude[r][c]*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
+		
+		
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
-        if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
+		
+		if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
         if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6, 20) / (JDe - JDb);
+				
         if(A->P->cast_shadow==1) A->L->shadow[r][c]=shadows_point(A->T->horizon_height[A->T->horizon_point[r][c]-1],
 			A->T->horizon_numlines[A->T->horizon_point[r][c]-1], A->E->hsun*180./GTConst::Pi,
 			A->E->dsun*180/GTConst::Pi, 0., 0.);

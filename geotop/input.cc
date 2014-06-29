@@ -961,21 +961,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
-    //******************************************
-    //file with time steps
-
-    if(geotop::common::Variables::files[ftsteps] != geotop::input::gStringNoValue){
-
-        temp=geotop::common::Variables::files[ftsteps] + string(textfile);
-        times->Dt_matrix = read_txt_matrix_2(temp, 33, 44, GTConst::max_cols_time_steps_file+1, &num_lines);
-        times->numlinesDt_matrix = num_lines;
-        par->tsteps_from_file=1;
-
-    }else{
-
-        par->tsteps_from_file=0;
-
-    }
 
     /****************************************************************************************************/
     /*! Filling up of the struct "channel" (of the type CHANNEL):                                        */

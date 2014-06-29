@@ -552,13 +552,6 @@
 	
 	printf("Deallocating times\n");
 	//free_doublevector(times->JD_plots);
-	free(times->Dt_vector);
-	if(par->tsteps_from_file==1){
-		for(j=0;j<times->numlinesDt_matrix;j++){
-			free(times->Dt_matrix[j]);
-		}
-		free(times->Dt_matrix);
-	}
 	free(times);
 	
 	/* Deallocation of struct PAR "par": */

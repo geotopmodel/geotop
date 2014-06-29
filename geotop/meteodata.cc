@@ -178,7 +178,7 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
             out[i] = geotop::input::gDoubleNoValue;
 
-            printf("<-i:%ld out:%f\n\n",i,out[i]);
+            //printf("<-i:%ld out:%f\n\n",i,out[i]);
 
         }
 

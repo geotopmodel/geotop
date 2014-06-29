@@ -5,15 +5,15 @@ Latitude               = 45.3
 Longitude              = 5.77
 TimeStepEnergyAndWater = 900
 InitDateDDMMYYYYhhmm   = 01/08/1993 00:00
-EndDateDDMMYYYYhhmm    = 31/07/1998 23:00
-DtPlotPoint            = 0, 24
-DtPlotDischarge        = 0, 24
+EndDateDDMMYYYYhhmm    = 01/08/1993 23:00
+DtPlotPoint            = 1
+DtPlotDischarge        = 1 
 
 
 !=============================================================================
 !  RECOVERY
 !=============================================================================
-SuccessfulRunFile 	   = "out/_SUCCESSFUL_RUN"
+SuccessfulRunFile      = "out/_SUCCESSFUL_RUN"
 FailedRunFile          = "out/_FAILED_RUN"
 
 !=============================================================================

@@ -706,149 +706,109 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     boost::shared_ptr<geotop::input::ConfigStore> lConfigStore = geotop::input::ConfigStoreSingletonFactory::getInstance() ;
 
     n = (long)GTConst::max_cols_time_steps_file + 1;
-    std::vector<double> lTimeStepEnergyAndWater = getDoubleVectorValueWithDefault(lConfigStore, "TimeStepEnergyAndWater", geotop::input::gDoubleNoValue, false, (long)GTConst::max_cols_time_steps_file, true);
-    times->Dt_vector=(double *)malloc(n*sizeof(double));
-    times->Dt_vector[0] = 0.;//it is the space for the date in case of time variable time step
-    for (size_t i=1; i<n; i++) {
-        times->Dt_vector[i] = lTimeStepEnergyAndWater[i-1] ;
-        if((long)times->Dt_vector[i] != geotop::input::gDoubleNoValue){
-            if (times->Dt_vector[i] < minDt) minDt = times->Dt_vector[i];
-        }
-    }
+	std::vector<double> lTimeStepEnergyAndWater = getDoubleVectorValueWithDefault(lConfigStore, "TimeStepEnergyAndWater", geotop::input::gDoubleNoValue, false, (long)GTConst::max_cols_time_steps_file, true);
+	par->Dt=lTimeStepEnergyAndWater[0];
 
 	//init date
 	//this is no longer an array (just one date)
-	
-        std::vector<double> lInitDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "InitDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
-  //    par->init_date.resize(lInitDateDDMMYYYYhhmm.size() + 1 , 0);
-  	for (size_t i=1; i<2; i++) {
-  		par->init_date = lInitDateDDMMYYYYhhmm[i-1];
-  	}
-  //		par->init_date[i] = convert_dateeur12_JDfrom0(par->init_date[i]);
-	
 
-    par->init_date = convert_dateeur12_JDfrom0(par->init_date);
+
+	std::vector<double> lInitDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "InitDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
+	par->init_date = lInitDateDDMMYYYYhhmm[0];
+
+
+	par->init_date = convert_dateeur12_JDfrom0(par->init_date);
 
 	//simulation time
-    par->simulation_hours = getDoubleValueWithDefault(lConfigStore, "SimulationHours", geotop::input::gDoubleNoValue, false) ;
+	par->simulation_hours = getDoubleValueWithDefault(lConfigStore, "SimulationHours", geotop::input::gDoubleNoValue, false) ;
 
 	//end date
-    std::vector<double> lEndDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "EndDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
-    
-    //	par->end_date = new_doublevector(num_param_components[cod]);
-    //par->end_date.resize(lEndDateDDMMYYYYhhmm.size() + 1, 0) ;
-//	if (par->end_date.size() != par->init_date.size()){
-//		fprintf(flog, "Error:: End date has a number of components different from Init Date");
-//		printf("Error:: End date has a number of components different from Init Date");
-//		t_error("Fatal Error! Geotop is closed. See failing report.");
-//	}
-//    
-    for (size_t i=1; i<2; i++) {
-	    par->end_date = lEndDateDDMMYYYYhhmm[i-1];
-    }
-//		if ((long)par->end_date[i] == geotop::input::gDoubleNoValue){
-//			par->end_date[i] = par->init_date[i] + par->simulation_hours/24.;
-//		}else {
-//			par->end_date[i] = convert_dateeur12_JDfrom0(par->end_date[i]);
-//	}
+	std::vector<double> lEndDateDDMMYYYYhhmm = getDoubleVectorValueWithDefault(lConfigStore, "EndDateDDMMYYYYhhmm", geotop::input::gDoubleNoValue, false, 0, false);
+	par->end_date = lEndDateDDMMYYYYhhmm[0];
 
-
-    if ((long)par->end_date == geotop::input::gDoubleNoValue){
-	    par->end_date = par->init_date + par->simulation_hours/24.;
-    }else {
-	    par->end_date = convert_dateeur12_JDfrom0(par->end_date);
-    }
-    // TO REMOVE
-    //par->run_times.resize(par->init_date.size() + 1, 0);
-
-    //	for (size_t i=1; i<par->run_times.size(); i++) {
-    //		par->run_times[i] = 1 ;
-    //	}
+	if ((long)par->end_date == geotop::input::gDoubleNoValue){
+		par->end_date = par->init_date + par->simulation_hours/24.;
+	}else {
+		par->end_date = convert_dateeur12_JDfrom0(par->end_date);
+	}
+	// TO REMOVE later
+	//par->run_times.resize(2, 0);
+        //
+	//for (size_t i=1; i<par->run_times.size(); i++) {
+	//	par->run_times[i] = 1 ;
+	//`}
 
 	par->ST = getDoubleValueWithDefault(lConfigStore, "StandardTimeSimulation", 0., false) ;
-// this below is a scalar:
+	// this below is a scalar:
 //
 
 //    par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
       par->Dtplot_discharge = 0 ;
 
-    std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotDischarge", 0., true, 1, false) ;
-//	for (size_t i=1; i<par->Dtplot_discharge.size(); i++) {
-		par->Dtplot_discharge = lDtPlotDischarge[0] ;
-//	}
+      std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotDischarge", 0., true, 1, false) ;
+      par->Dtplot_discharge = lDtPlotDischarge[0] ;
 
-//	par->plot_discharge_with_Dt_integration.resize(par->init_date.size() + 1, 0);
+      par->plot_discharge_with_Dt_integration.resize(2, 0);
 
-	par->state_discharge = 0;
-//	for (size_t i=1; i<par->init_date.size(); i++) {
-//		par->Dtplot_discharge[i] *= 3600.;
-//		if(par->Dtplot_discharge[i] > 1.E-5 && par->Dtplot_discharge[i] <= minDt){
-//			par->plot_discharge_with_Dt_integration[i]=1;
-//		}else{
-//			par->plot_discharge_with_Dt_integration[i]=0;
-//		}
-//		if(par->Dtplot_discharge[i] > 1.E-5) par->state_discharge = 1;
-//	}
-//
-	par->Dtplot_discharge *= 3600.;
-	if(par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge <= minDt){
-		par->plot_discharge_with_Dt_integration=1;
-	}else{
-		par->plot_discharge_with_Dt_integration=0;
-	}
-	if(par->Dtplot_discharge > 1.E-5) par->state_discharge = 1;
+      par->state_discharge = 0;
+      par->Dtplot_discharge *= 3600.;
+      if(par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge <= minDt){
+	      par->plot_discharge_with_Dt_integration[1]=1;
+      }else{
+	      par->plot_discharge_with_Dt_integration[1]=0;
+      }
+      if(par->Dtplot_discharge > 1.E-5) par->state_discharge = 1;
 
-        // hack tmp: this should be a scalar 
-	//par->Dtplot_point.resize(par->init_date.size() + 1, 0);
-	par->Dtplot_point.resize(2, 0);
+      // hack tmp: this should be a scalar 
+      par->Dtplot_point.resize(2, 0);
 
-    std::vector<double> lDtPlotPoint = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotPoint", 0., true, 1, false) ;
-	for (size_t i=1; i<3; i++) {
-		par->Dtplot_point[i] = lDtPlotPoint[i-1];
-	}
+      std::vector<double> lDtPlotPoint = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotPoint", 0., true, 1, false) ;
+      for (size_t i=1; i<2; i++) {
+	      par->Dtplot_point[i] = lDtPlotPoint[i-1];
+      }
 
-	par->plot_point_with_Dt_integration.resize(1 + 1, 0);
-	par->state_pixel = 0;
-	for (size_t i=1; i<2; i++) {
-		par->Dtplot_point[i] *= 3600.;
-		if(par->Dtplot_point[i] > 1.E-5 && par->Dtplot_point[i] <= minDt){
-			par->plot_point_with_Dt_integration[i]=1;
-		}else{
-			par->plot_point_with_Dt_integration[i]=0;
-		}
-		if(par->Dtplot_point[i] > 1.E-5) par->state_pixel = 1;
-	}
+      par->plot_point_with_Dt_integration.resize(1 + 1, 0);
+      par->state_pixel = 0;
+      for (size_t i=1; i<2; i++) {
+	      par->Dtplot_point[i] *= 3600.;
+	      if(par->Dtplot_point[i] > 1.E-5 && par->Dtplot_point[i] <= minDt){
+		      par->plot_point_with_Dt_integration[i]=1;
+	      }else{
+		      par->plot_point_with_Dt_integration[i]=0;
+	      }
+	      if(par->Dtplot_point[i] > 1.E-5) par->state_pixel = 1;
+      }
 
-    par->Dtplot_basin.resize(1 + 1, 0);
+      par->Dtplot_basin.resize(1 + 1, 0);
 
-    std::vector<double> lDtPlotBasin = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotBasin", 0., true, 1, false) ;
-	for (size_t i=1; i<par->Dtplot_basin.size(); i++) {
-		par->Dtplot_basin[i] = lDtPlotBasin[i-1];
-	}
-    
-	par->plot_basin_with_Dt_integration.resize(1 + 1, 0);
-	par->state_basin = 0;
-	for (size_t i=1; i<2; i++) {
-		par->Dtplot_basin[i] *= 3600.;
-		if(par->Dtplot_basin[i] > 1.E-5 && par->Dtplot_basin[i] <= minDt){
-			par->plot_basin_with_Dt_integration[i]=1;
-		}else{
-			par->plot_basin_with_Dt_integration[i]=0;
-		}
-		if(par->Dtplot_basin[i] > 1.E-5) par->state_basin = 1;
-	}
+      std::vector<double> lDtPlotBasin = getDoubleVectorValueWithDefault(lConfigStore, "DtPlotBasin", 0., true, 1, false) ;
+      for (size_t i=1; i<par->Dtplot_basin.size(); i++) {
+	      par->Dtplot_basin[i] = lDtPlotBasin[i-1];
+      }
 
-    par->lowpass = (long)getDoubleValueWithDefault(lConfigStore, "NumLowPassFilterOnDemForAll", 0., false) ;
-	par->lowpass_curvatures = (long)getDoubleValueWithDefault(lConfigStore, "NumLowPassFilterOnDemForCurv", 0., false) ;
-	par->sky = (short)getDoubleValueWithDefault(lConfigStore, "FlagSkyViewFactor", 0., false) ;
-	par->format_out = (short)getDoubleValueWithDefault(lConfigStore, "FormatOutputMaps", 3., false) ;
-	par->point_sim = (short)getDoubleValueWithDefault(lConfigStore, "PointSim", 0., false) ;
-	par->recover = (short)getDoubleValueWithDefault(lConfigStore, "RecoverSim", 0., false) ;
-    
+      par->plot_basin_with_Dt_integration.resize(1 + 1, 0);
+      par->state_basin = 0;
+      for (size_t i=1; i<2; i++) {
+	      par->Dtplot_basin[i] *= 3600.;
+	      if(par->Dtplot_basin[i] > 1.E-5 && par->Dtplot_basin[i] <= minDt){
+		      par->plot_basin_with_Dt_integration[i]=1;
+	      }else{
+		      par->plot_basin_with_Dt_integration[i]=0;
+	      }
+	      if(par->Dtplot_basin[i] > 1.E-5) par->state_basin = 1;
+      }
+
+      par->lowpass = (long)getDoubleValueWithDefault(lConfigStore, "NumLowPassFilterOnDemForAll", 0., false) ;
+      par->lowpass_curvatures = (long)getDoubleValueWithDefault(lConfigStore, "NumLowPassFilterOnDemForCurv", 0., false) ;
+      par->sky = (short)getDoubleValueWithDefault(lConfigStore, "FlagSkyViewFactor", 0., false) ;
+      par->format_out = (short)getDoubleValueWithDefault(lConfigStore, "FormatOutputMaps", 3., false) ;
+      par->point_sim = (short)getDoubleValueWithDefault(lConfigStore, "PointSim", 0., false) ;
+      par->recover = (short)getDoubleValueWithDefault(lConfigStore, "RecoverSim", 0., false) ;
+
     //land cover types
-	par->n_landuses = (long)getDoubleValueWithDefault(lConfigStore, "NumLandCoverTypes", 0., false) ;
+      par->n_landuses = (long)getDoubleValueWithDefault(lConfigStore, "NumLandCoverTypes", 0., false) ;
 	
-	land->ty.resize(par->n_landuses + 1, nlandprop + 1, 0);
+      land->ty.resize(par->n_landuses + 1, nlandprop + 1, 0);
 
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilRoughness", 10., true, par->n_landuses, false) ;
 	for (size_t i=1; i<land->ty.getNx(); i++) {

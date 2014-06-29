@@ -304,9 +304,7 @@ public:
 	GeoVector<double> JD_plots;
 	double time;    /*time=current time from the begin of simulation [s]*/
 	long iplot;
-	double **Dt_matrix;
-	long numlinesDt_matrix;
-	double *Dt_vector;
+
 };
 
 
@@ -463,9 +461,7 @@ public:
 	
 	double Ks_channel;
 	double depr_channel;
-	
-	short tsteps_from_file;
-	
+		
 	GeoVector<short> plot_discharge_with_Dt_integration;
 	GeoVector<short> plot_point_with_Dt_integration;
 	GeoVector<short> plot_basin_with_Dt_integration;
