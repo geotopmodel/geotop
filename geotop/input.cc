@@ -4212,7 +4212,7 @@ short file_exists(short key, FILE *flog){
             return (1);
         }else{
 #ifdef WITH_LOGGER
-            lg->log("not existing");
+            lg->log("File" + geotop::common::Variables::files[key] + " not existing", geotop::logger::WARNING);
 #else
             printf("not existing\n");
             fprintf(flog, "not existing\n");
