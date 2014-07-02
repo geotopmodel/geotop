@@ -104,6 +104,33 @@ namespace geotop
                 }
             } ;
 
+            /** @brief configuration parameters getter accessor, case sensitive variant
+             *  @param[in] pName the name of the parameter to get, case sensitive
+             *  @param[out] rValue the return value of the requested parameter
+             *  @return true if the value stored in rValue is valid, otherwise return false.
+             *      False will be returned also if type of the return parameters passed is not
+             *      compatible with the type of the requested parameter.
+             */
+            template <typename T> bool case_sensitive_get(const std::string pName, T &rValue) const {
+                
+                if( not mValueMap->count(pName) )
+                {
+                    std::cerr << "Error: configuration item not found: " << pName << std::endl ;
+                    return false ;
+                }
+
+                try
+                {
+                    rValue = boost::any_cast<T>(mValueMap->at(pName));
+                    return true;
+                }
+                catch(const boost::bad_any_cast &)
+                {
+                    std::cerr << "Error: runtime typechecking failed for item: " << pName << std::endl ;
+                    return false;
+                }
+            } ;
+
             /** @brief configuration parameters setter accessor, you must parse a
              *      file before to use this method otherwise you will no set any.
              *      The method infer the right type by the parameter passed by reference

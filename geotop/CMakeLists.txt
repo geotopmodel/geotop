@@ -49,7 +49,10 @@ ENDIF(COMMAND CMAKE_POLICY)
 			inputKeywords.cc
 			inputKeywords.h
 		   )
-	
+	ADD_LIBRARY(${GEOTOP_OUTPUT_FILE} ${LINKING_MODE}
+            output_file.cc
+            output_file.h
+               )
 
 	ADD_LIBRARY(${GEOTOP_COMMON_LIBRARIES} ${LINKING_MODE}
 			constants.h
@@ -90,7 +93,7 @@ ENDIF(COMMAND CMAKE_POLICY)
             recovering.h
 	)
 
-	ADD_LIBRARY(geotopOutPostProcessing ${LINKING_MODE}
+	ADD_LIBRARY(${GEOTOP_OUT_POSTPROC_LIBRARIES} ${LINKING_MODE}
 			tables.cc
 			tables.h
 			output.cc
@@ -137,6 +140,7 @@ ENDIF(COMMAND CMAKE_POLICY)
             ${Boost_IOSTREAMS_LIBRARY}
             ${Boost_REGEX_LIBRARY}
             ${GEOTOP_LOGGER}
+            ${GEOTOP_OUTPUT_FILE}
 			)
 
 	TARGET_LINK_LIBRARIES(${GEOTOP_LIBRARIES}
