@@ -53,7 +53,6 @@
 #include <errno.h>
 
 #include <inputKeywords.h>
-#include "output_file.h"
 
 using namespace std;
 
@@ -221,19 +220,6 @@ int main(int argc,char *argv[]){
 
 	f = fopen(geotop::common::Variables::SuccessfulRunFile.c_str(), "w");
 	fclose(f);
-
-    //BOGUS: this is a P.O.C. for output writing
-    boost::shared_ptr<geotop::input::ConfigStore> lConfigStore = geotop::input::ConfigStoreSingletonFactory::getInstance();
-    boost::shared_ptr< std::vector<geotop::input::OutputFile> > output_files;
-    if (lConfigStore->case_sensitive_get("OUTPUT_SEC", output_files))
-    {
-        for (size_t i = 0; i < output_files->size(); i++)
-        {
-            geotop::input::OutputFile tmp = output_files->at(i);
-            //1.01197E10 = 1/1/1970 00:00
-            printf("Output file written: %s\n", (tmp.getFileName(1.01197E10)).c_str());
-        }
-    }
 
 	return 0;
 }
