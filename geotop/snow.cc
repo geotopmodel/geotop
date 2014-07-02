@@ -947,7 +947,7 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t)
     std::string crec = "_crecNNNN" ;
     std::string name, temp;
 
-    JDfrom0 = convert_tfromstart_JDfrom0(t, par->init_date[geotop::common::Variables::i_sim]);
+    JDfrom0 = convert_tfromstart_JDfrom0(t, par->init_date);
     convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
@@ -1011,7 +1011,7 @@ void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t)
 
     f = fopen(name.c_str() , "a");
     fprintf(f, "%ld/%ld/%ld %ld:%02.0f", day, month, year, hour, (float)minute);
-    fprintf(f, ",%f,%f,%f", JDfrom0 - par->init_date[geotop::common::Variables::i_sim], JDfrom0, JD);
+    fprintf(f, ",%f,%f,%f", JDfrom0 - par->init_date, JDfrom0, JD);
     fprintf(f, ",%f,%f,%f,%f,%f,%f\n", Dmean, SWEmean, Tmean, Tsmean, (1.0 - SCA) * 100.0, SCA * 100.0);
     fclose(f);
 

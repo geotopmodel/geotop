@@ -75,9 +75,9 @@ void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, dou
         {
             if(par->vegflag[lux] == 1)
             {
-                time_interp_linear(par->init_date[geotop::common::Variables::i_sim] + t0 / GTConst::secinday,
-                                   par->init_date[geotop::common::Variables::i_sim] + (t0 + t) / GTConst::secinday,
-                                   par->init_date[geotop::common::Variables::i_sim] + (t0 + t + Dt) / GTConst::secinday,
+                time_interp_linear(par->init_date + t0 / GTConst::secinday,
+                                   par->init_date + (t0 + t) / GTConst::secinday,
+                                   par->init_date + (t0 + t + Dt) / GTConst::secinday,
                                    land->vegparv[lux - 1], land->vegpars[lux - 1], land->NumlinesVegTimeDepData[lux - 1],
                                    jdvegprop + 1, 0, 0, &line_interp);
             }
@@ -196,7 +196,7 @@ void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, dou
     while (t < par->Dt);
 
     fclose(f);
->>>>>>> Huge cleanup of snow routines
+
 }
 
 

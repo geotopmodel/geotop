@@ -90,11 +90,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    if(par->state_discharge == 1 && par->Dtplot_discharge[geotop::common::Variables::i_sim] > 1.E-5 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
+    if(par->state_discharge == 1 && par->Dtplot_discharge > 1.E-5 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
     {
         t_discharge += par->Dt;
 
-        if (fabs(t_discharge - par->Dtplot_discharge[geotop::common::Variables::i_sim]) < 1.E-5)
+        if (fabs(t_discharge - par->Dtplot_discharge) < 1.E-5)
         {
             Vchannel = 0.;
             Vsub = 0.;
@@ -131,9 +131,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     wat->Voutlandsub / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], wat->Voutbottom / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim]);
 #else
             fprintf(f, ",%f,%f,%f", (times->time + par->Dt) / GTConst::secinday, JDfrom0, JD);
-            fprintf(f, ",%e,%e,%e,%e,%e,%e,%e\n", cnet->Vout / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], Vsup / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim],
-                    Vsub / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim],
-                    wat->Voutlandsub / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], wat->Voutbottom / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim]);
+            fprintf(f, ",%e,%e,%e,%e,%e,%e,%e\n", cnet->Vout / (double)par->Dtplot_discharge, Vsup / (double)par->Dtplot_discharge,
+                    Vsub / (double)par->Dtplot_discharge, Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge,
+                    wat->Voutlandsub / (double)par->Dtplot_discharge, wat->Voutbottom / (double)par->Dtplot_discharge);
 #endif
 
             fclose(f);
@@ -1940,7 +1940,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         i = times->iplot;
         j = 2 * i - 1;
-        if( fabs(par->init_date[geotop::common::Variables::i_sim] + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
+        if( fabs(par->init_date + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
         {
 
             flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
