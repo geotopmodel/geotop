@@ -196,7 +196,6 @@ void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, dou
     while (t < par->Dt);
 
     fclose(f);
-
 }
 
 

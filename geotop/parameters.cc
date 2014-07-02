@@ -1234,7 +1234,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     for (size_t j=1; j<=lKeywordString.size() ; j++) {
 		
         lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[j-1], geotop::input::gDoubleNoValue, true, 0, true) ;
-
 		if (npoints < lDoubleTempVector.size()) {
             npoints = lDoubleTempVector.size();
         }

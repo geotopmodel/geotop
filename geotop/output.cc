@@ -1587,18 +1587,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //snow properties
     if(par->output_snow[geotop::common::Variables::i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_snow[geotop::common::Variables::i_sim]*3600.0)<1.E-5){
 	    n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_snow[geotop::common::Variables::i_sim]*3600.0));
-	    // to further clean-up this below SSSS and RRRR no longer used
 	    write_suffix(NNNNN, n_file, 1);
-	    //        if (par->run_times[geotop::common::Variables::i_sim] == 1) {
 	    s1 = NNNNN + string("");
-	    //        }else {
-	    //            s1 = NNNNN + string(RRRRR);
-	    //       }
-	    //        if (par->init_date.size()-1 == 1) {
 	    s2 = s1 + "" ;
-	    //       }else {
-	    //           s2 = s1 + SSSSS ;
-	    //        }
 
 	    if(geotop::common::Variables::files[fsnowdepth] != geotop::input::gStringNoValue){
 		    for(i=1; i<=par->total_pixel; i++){
@@ -1690,8 +1681,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
         n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_glac[geotop::common::Variables::i_sim] * 3600.0));
         write_suffix(NNNNN, n_file, 1);
-            s1 = NNNNN + string("");
-            s2 = s1 + "";
+        s1 = NNNNN + string("");
+        s2 = s1 + "";
 
         if(geotop::common::Variables::files[fglacdepth] != geotop::input::gStringNoValue)
         {

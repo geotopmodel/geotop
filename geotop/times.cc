@@ -34,7 +34,6 @@ short is_leap(long year)
 
     if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))
         isLeap = (short)1;
-
     return(isLeap);
 }
 
