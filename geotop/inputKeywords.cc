@@ -76,6 +76,7 @@ public:
     
     ConfGrammar (boost::shared_ptr< std::map<std::string, boost::any> > pMap){
         mCurrent_section = boost::shared_ptr<Sections>(new Sections);
+        *mCurrent_section = GENERAL_SEC;
         mMap = pMap ;
         mUnsupportedKeys.push_back("NumSimulationTimes") ;
         mKey = boost::shared_ptr< std::string >( new std::string() ) ;
