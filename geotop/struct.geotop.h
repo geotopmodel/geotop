@@ -20,8 +20,6 @@
  */
 #ifndef STRUCT_GEOTOP_H
 #define STRUCT_GEOTOP_H
-//#include "../libraries/fluidturtle/turtle.h"
-#include "../libraries/fluidturtle/tensors3D.h"
 #include "datastructs.h"
 
 #include <vector>

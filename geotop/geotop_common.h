@@ -6,6 +6,7 @@
 #include "times.h"
 #include <string>
 #include <vector>
+#include "../libraries/fluidturtle/turtle.h"
 
 namespace geotop
 {
