@@ -278,7 +278,6 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 #ifdef USE_NETCDF
 	long nrun=1;
-	// TODO: check number run issue
 #endif
 	//periods
 	geotop::common::Variables::i_sim = geotop::common::Variables::i_sim0;
