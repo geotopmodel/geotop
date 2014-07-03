@@ -32,7 +32,8 @@
 /******************************************************************************************************************************************/
 void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par *par, double JD0, double JDbeg, double JDend){
 
-	long i,r,c,year,j;
+    long r,c,year,j;
+    size_t i;
 	double JD;
 #ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
@@ -43,11 +44,9 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 
 	
 	//INTERPOLATION OF METEO VARIABLES
-	//for(i=1;i<=met->st->Z->nh;i++){
 	for (i=1; i<met->st->Z.size(); i++){
 		if(par->linear_interpolation_meteo[i] == 1){
 			time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
-			//time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1], A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
 		}else {
 			time_interp_constant(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1], met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));
 		}
@@ -102,7 +101,7 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 
 double pressure(double Z){
 	double scale_ht = 8500.0;
-	return GTConst::Pa0 * exp(-3305./scale_ht);
+	return GTConst::Pa0 * exp(-Z/scale_ht);
 }
 
 /******************************************************************************************************************************************/
