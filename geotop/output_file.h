@@ -28,6 +28,9 @@
  * type and period of integration.
  */
 
+#ifndef OUTPUT_FILE_H
+#define OUTPUT_FILE_H
+
 #include <string>
 #include <exception>
 
@@ -84,4 +87,5 @@ namespace geotop
         };
     }
 }
+#endif
 
