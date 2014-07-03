@@ -69,7 +69,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     double D, cosslope;
 
     //initialize static variables
-    if(times->time < 1.E-5)
+    if (times->time < 1.E-5)
     {
         mass_error_tot = 0.;
         t_discharge = 0.;
@@ -82,7 +82,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     write_suffix(RRRRR, geotop::common::Variables::i_run, 1); //TODO: remove this!
 
     //Time indices
-	JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt, par->init_date);
+    JDfrom0 = convert_tfromstart_JDfrom0(times->time + par->Dt, par->init_date);
     convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
@@ -90,7 +90,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    if(par->state_discharge == 1 && par->Dtplot_discharge > 1.E-5 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
+    if (par->state_discharge == 1 && par->Dtplot_discharge > 1.E-5 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
     {
         t_discharge += par->Dt;
 
@@ -99,7 +99,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             Vchannel = 0.;
             Vsub = 0.;
             Vsup = 0.;
-            for(l = 1; l <= par->total_channel; l++)
+            for (l = 1; l <= par->total_channel; l++)
             {
 
                 r = cnet->r[l];
@@ -155,25 +155,25 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    if(par->Dtplot_point[geotop::common::Variables::i_sim] > 1.E-5)
+    if (par->Dtplot_point[geotop::common::Variables::i_sim] > 1.E-5)
     {
 
         t_point += par->Dt;
         geotop::common::Variables::cum_time += par->Dt;
 
-        if(par->state_pixel == 1)
+        if (par->state_pixel == 1)
         {
-	   for(i = 1; i < par->rc.getRows(); i++)
+            for (i = 1; i < par->rc.getRows(); i++)
             {
-	         r = par->rc[i][1];
+                r = par->rc[i][1];
                 c = par->rc[i][2];
                 j = top->j_cont[r][c];
 
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
-                    if(geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][l] += sl->SS->T[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
-                    if(geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][l] += sl->th[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
-                    if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][l] += sl->SS->thi[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][l] += sl->SS->T[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][l] += sl->th[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][l] += sl->SS->thi[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
                 }
 
                 D = find_activelayerdepth_up(j, sl->type[r][c], sl);
@@ -202,12 +202,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         if (fabs(t_point - par->Dtplot_point[geotop::common::Variables::i_sim]) < 1.E-5)
         {
 
-            if(par->state_pixel == 1)
+            if (par->state_pixel == 1)
             {
 
                 if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-                for(i = 1; i < par->rc.getRows(); i++)
+                for (i = 1; i < par->rc.getRows(); i++)
                 {
 
                     write_suffix(NNNN, par->IDpoint[i], 0);
@@ -228,26 +228,26 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //	soil data
-                    for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                    for (l = 1; l <= geotop::common::Variables::Nl; l++)
                     {
-                        if(geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue) sl->Tzplot[i][l] = sl->SS->T[l][j];
-                        if(geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue || geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue) sl->Ptotzplot[i][l] = sl->Ptot[l][j];
-                        if(geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue) sl->thzplot[i][l] = sl->th[l][j];
-                        if(geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue) sl->thizplot[i][l] = sl->SS->thi[l][j];
+                        if (geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue) sl->Tzplot[i][l] = sl->SS->T[l][j];
+                        if (geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue || geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue) sl->Ptotzplot[i][l] = sl->Ptot[l][j];
+                        if (geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue) sl->thzplot[i][l] = sl->th[l][j];
+                        if (geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue) sl->thizplot[i][l] = sl->SS->thi[l][j];
                     }
-                    for(l = 0; l <= geotop::common::Variables::Nl; l++)
+                    for (l = 0; l <= geotop::common::Variables::Nl; l++)
                     {
-                        if(geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue) sl->Pzplot[i][l] = sl->SS->P[l][j];
+                        if (geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue || geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue) sl->Pzplot[i][l] = sl->SS->P[l][j];
                     }
 
                     //	snow data
 
-                    if(snow->S->lnum[r][c] > 0)
+                    if (snow->S->lnum[r][c] > 0)
                     {
                         geotop::common::Variables::odpnt[osnowdepth][i - 1] = 0.0;
                         geotop::common::Variables::odpnt[oSWE][i - 1] = 0.0;
                         geotop::common::Variables::odpnt[osnowT][i - 1] = 0.0;
-                        for(l = 1; l <= snow->S->lnum[r][c]; l++)
+                        for (l = 1; l <= snow->S->lnum[r][c]; l++)
                         {
                             geotop::common::Variables::odpnt[osnowdepth][i - 1] += snow->S->Dzl[l][r][c];
                             geotop::common::Variables::odpnt[oSWE][i - 1] += 1.0E+3 * (snow->S->w_liq[l][r][c] + snow->S->w_ice[l][r][c]) / GTConst::rho_w;
@@ -265,14 +265,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //glacier data
-                    if(par->max_glac_layers > 0)
+                    if (par->max_glac_layers > 0)
                     {
-                        if(glac->G->lnum[r][c] > 0)
+                        if (glac->G->lnum[r][c] > 0)
                         {
                             geotop::common::Variables::odpnt[oglacdepth][i - 1] = 0.0;
                             geotop::common::Variables::odpnt[oGWE][i - 1] = 0.0;
                             geotop::common::Variables::odpnt[oglacT][i - 1] = 0.0;
-                            for(l = 1; l <= glac->G->lnum[r][c]; l++)
+                            for (l = 1; l <= glac->G->lnum[r][c]; l++)
                             {
                                 geotop::common::Variables::odpnt[oglacdepth][i - 1] += glac->G->Dzl[l][r][c];
 
@@ -293,7 +293,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                     //Point data
 
-                    if(geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue)
                     {
 
                         temp1 = geotop::common::Variables::files[fpoint] + string(NNNN);
@@ -312,7 +312,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         first_column = 1;
                         for (j = 0; j < geotop::common::Variables::nopnt; j++)
                         {
-                            if(first_column == 0)
+                            if (first_column == 0)
                             {
                                 fprintf(f, ",");
                             }
@@ -337,15 +337,21 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 else if (geotop::common::Variables::opnt[j] == odaysfromstart)
                                 {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g",JDfrom0-par->init_date);
+                                    fprintf(f, "%12g", JDfrom0 - par->init_date);
 #else
-                                    fprintf(f, "%f",JDfrom0-par->init_date);
+                                    fprintf(f, "%f", JDfrom0 - par->init_date);
 #endif
-                                }else if (geotop::common::Variables::opnt[j] == operiod) {
-                                    fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::opnt[j] == opoint) {
-                                    fprintf(f, "%ld",par->IDpoint[i]);
-                                }else {
+                                }
+                                else if (geotop::common::Variables::opnt[j] == operiod)
+                                {
+                                    fprintf(f, "%ld", geotop::common::Variables::i_sim);
+                                }
+                                else if (geotop::common::Variables::opnt[j] == opoint)
+                                {
+                                    fprintf(f, "%ld", par->IDpoint[i]);
+                                }
+                                else
+                                {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                     fprintf(f, "%12g", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
 #else
@@ -362,13 +368,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         fclose(f);
                     }
 
-                    if(geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue)
                     {
 
                         first_column = 1;
                         for (j = 0; j < geotop::common::Variables::nopnt; j++)
                         {
-                            if(first_column == 0)
+                            if (first_column == 0)
                             {
                                 fprintf(geotop::common::Variables::ffpoint, ",");
                             }
@@ -393,15 +399,21 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 else if (geotop::common::Variables::opnt[j] == odaysfromstart)
                                 {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffpoint, "%12g",JDfrom0-par->init_date);
+                                    fprintf(geotop::common::Variables::ffpoint, "%12g", JDfrom0 - par->init_date);
 #else
-                                    fprintf(geotop::common::Variables::ffpoint, "%f",JDfrom0-par->init_date);
+                                    fprintf(geotop::common::Variables::ffpoint, "%f", JDfrom0 - par->init_date);
 #endif
-                                }else if (geotop::common::Variables::opnt[j] == operiod) {
-                                    fprintf(geotop::common::Variables::ffpoint, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::opnt[j] == opoint) {
-                                    fprintf(geotop::common::Variables::ffpoint, "%ld",par->IDpoint[i]);
-                                }else {
+                                }
+                                else if (geotop::common::Variables::opnt[j] == operiod)
+                                {
+                                    fprintf(geotop::common::Variables::ffpoint, "%ld", geotop::common::Variables::i_sim);
+                                }
+                                else if (geotop::common::Variables::opnt[j] == opoint)
+                                {
+                                    fprintf(geotop::common::Variables::ffpoint, "%ld", par->IDpoint[i]);
+                                }
+                                else
+                                {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                     fprintf(geotop::common::Variables::ffpoint, "%12g", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
 #else
@@ -418,7 +430,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //Snow
-                    if(geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
                     {
 
                         temp1 = geotop::common::Variables::files[fsatz] + string(NNNN);
@@ -451,7 +463,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         first_column = 1;
                         for (j = 0; j < geotop::common::Variables::nosnw; j++)
                         {
-                            if(first_column == 0)
+                            if (first_column == 0)
                             {
                                 fprintf(f, ",");
                             }
@@ -476,20 +488,29 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 else if (geotop::common::Variables::osnw[j] == 2)
                                 {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                  
-                                    fprintf(f, "%12g",JDfrom0-par->init_date);
+
+                                    fprintf(f, "%12g", JDfrom0 - par->init_date);
 #else
-                                  
-                                    fprintf(f, "%f",JDfrom0-par->init_date);
+
+                                    fprintf(f, "%f", JDfrom0 - par->init_date);
 #endif
-                                }else if (geotop::common::Variables::osnw[j] == 3) {
-                                    fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::osnw[j] == 4) { //Needed to balance the braces
-                                }else if (geotop::common::Variables::osnw[j] == 5) {
-                                    fprintf(f, "%ld",par->IDpoint[i]);
-                                }else if (geotop::common::Variables::osnw[j] <= 5 + 1*m) {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 0*m;
-						            if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue) {
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 3)
+                                {
+                                    fprintf(f, "%ld", geotop::common::Variables::i_sim);
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
+                                {
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 5)
+                                {
+                                    fprintf(f, "%ld", par->IDpoint[i]);
+                                }
+                                else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
+                                {
+                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
+                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+                                    {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                         fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
 #else
@@ -582,7 +603,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                     }
 
-                    if(geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
                     {
                         if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
                         {
@@ -595,7 +616,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         first_column = 1;
                         for (j = 0; j < geotop::common::Variables::nosnw; j++)
                         {
-                            if(first_column == 0)
+                            if (first_column == 0)
                             {
                                 fprintf(geotop::common::Variables::ffsnow, ",");
                             }
@@ -620,21 +641,30 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 else if (geotop::common::Variables::osnw[j] == 2)
                                 {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffsnow, "%12g",JDfrom0-par->init_date);
+                                    fprintf(geotop::common::Variables::ffsnow, "%12g", JDfrom0 - par->init_date);
 #else
-								
-                                    fprintf(geotop::common::Variables::ffsnow, "%f",JDfrom0-par->init_date);
+
+                                    fprintf(geotop::common::Variables::ffsnow, "%f", JDfrom0 - par->init_date);
 #endif
-                                }else if (geotop::common::Variables::osnw[j] == 3) {
-                                    fprintf(geotop::common::Variables::ffsnow, "%ld",geotop::common::Variables::i_sim);
-                                }else if (geotop::common::Variables::osnw[j] == 4) { //Needed to balance the braces
-                                }else if (geotop::common::Variables::osnw[j] == 5) {
-                                    
-                                    fprintf(geotop::common::Variables::ffsnow, "%ld",par->IDpoint[i]);
-                                }else if (geotop::common::Variables::osnw[j] <= 5 + 1*m) {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 0*m;
-                                    
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue) {
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 3)
+                                {
+                                    fprintf(geotop::common::Variables::ffsnow, "%ld", geotop::common::Variables::i_sim);
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
+                                {
+                                }
+                                else if (geotop::common::Variables::osnw[j] == 5)
+                                {
+
+                                    fprintf(geotop::common::Variables::ffsnow, "%ld", par->IDpoint[i]);
+                                }
+                                else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
+                                {
+                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
+
+                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+                                    {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
 
                                         fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
@@ -726,10 +756,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     }
 
                     //Glacier
-                    if(par->max_glac_layers > 0)
+                    if (par->max_glac_layers > 0)
                     {
 
-                        if(geotop::common::Variables::files[fglz] != geotop::input::gStringNoValue)
+                        if (geotop::common::Variables::files[fglz] != geotop::input::gStringNoValue)
                         {
 
                             temp1 = geotop::common::Variables::files[fglz] + string(NNNN);
@@ -763,7 +793,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                             first_column = 1;
                             for (j = 0; j < geotop::common::Variables::noglc; j++)
                             {
-                                if(first_column == 0)
+                                if (first_column == 0)
                                 {
                                     fprintf(f, ",");
                                 }
@@ -788,20 +818,29 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     else if (geotop::common::Variables::oglc[j] == 2)
                                     {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(f, "%12g",JDfrom0-par->init_date);
+                                        fprintf(f, "%12g", JDfrom0 - par->init_date);
 #else
 
-                                        fprintf(f, "%f",JDfrom0-par->init_date);
+                                        fprintf(f, "%f", JDfrom0 - par->init_date);
 #endif
-                                    }else if (geotop::common::Variables::oglc[j] == 3) {
-                                        fprintf(f, "%ld",geotop::common::Variables::i_sim);
-                                    }else if (geotop::common::Variables::oglc[j] == 4) { //Needed to balance the braces
-                                    }else if (geotop::common::Variables::oglc[j] == 5) {
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 3)
+                                    {
+                                        fprintf(f, "%ld", geotop::common::Variables::i_sim);
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 4)    //Needed to balance the braces
+                                    {
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 5)
+                                    {
 
-                                        fprintf(f, "%ld",par->IDpoint[i]);
-                                    }else if (geotop::common::Variables::oglc[j] <= 5 + 1*m) {
-                                        l = geotop::common::Variables::oglc[j] - 5 - 0*m;
-                                        if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue) {
+                                        fprintf(f, "%ld", par->IDpoint[i]);
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] <= 5 + 1 * m)
+                                    {
+                                        l = geotop::common::Variables::oglc[j] - 5 - 0 * m;
+                                        if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
+                                        {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                             fprintf(f, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #else
@@ -880,7 +919,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                             fclose(f);
                         }
 
-                        if(geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue)
+                        if (geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue)
                         {
                             if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                             {
@@ -893,7 +932,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                             first_column = 1;
                             for (j = 0; j < geotop::common::Variables::noglc; j++)
                             {
-                                if(first_column == 0)
+                                if (first_column == 0)
                                 {
                                     fprintf(f, ",");
                                 }
@@ -918,18 +957,27 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     else if (geotop::common::Variables::oglc[j] == 2)
                                     {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(geotop::common::Variables::ffglac, "%12g",JDfrom0-par->init_date);
+                                        fprintf(geotop::common::Variables::ffglac, "%12g", JDfrom0 - par->init_date);
 #else
-                                        fprintf(geotop::common::Variables::ffglac, "%f",JDfrom0-par->init_date);
+                                        fprintf(geotop::common::Variables::ffglac, "%f", JDfrom0 - par->init_date);
 #endif
-                                    }else if (geotop::common::Variables::oglc[j] == 3) {
-                                        fprintf(geotop::common::Variables::ffglac, "%ld",geotop::common::Variables::i_sim);
-                                    }else if (geotop::common::Variables::oglc[j] == 4) { //Needed to balance the braces
-                                    }else if (geotop::common::Variables::oglc[j] == 5) {
-                                        fprintf(geotop::common::Variables::ffglac, "%ld",par->IDpoint[i]);
-                                    }else if (geotop::common::Variables::oglc[j] <= 5 + 1*m) {
-                                        l = geotop::common::Variables::oglc[j] - 5 - 0*m;
-                                        if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue) {
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 3)
+                                    {
+                                        fprintf(geotop::common::Variables::ffglac, "%ld", geotop::common::Variables::i_sim);
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 4)    //Needed to balance the braces
+                                    {
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] == 5)
+                                    {
+                                        fprintf(geotop::common::Variables::ffglac, "%ld", par->IDpoint[i]);
+                                    }
+                                    else if (geotop::common::Variables::oglc[j] <= 5 + 1 * m)
+                                    {
+                                        l = geotop::common::Variables::oglc[j] - 5 - 0 * m;
+                                        if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
+                                        {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                             fprintf(geotop::common::Variables::ffglac, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
 #else
@@ -1016,13 +1064,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     //sl output
 
                     write_soil_output(i, par->IDpoint[i], par->init_date, JDfrom0, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
-					
-					//snow output : this to enable at later stage (SC: 26.12.2013)
-//					write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[geotop::common::Variables::i_sim], par->end_date->co[geotop::common::Variables::i_sim], JDfrom0, JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);	
-					
-					
+
+                    //snow output : this to enable at later stage (SC: 26.12.2013)
+//					write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[geotop::common::Variables::i_sim], par->end_date->co[geotop::common::Variables::i_sim], JDfrom0, JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);
+
+
                     //	initialize
-                    for(j = 0; j < otot; j++)
+                    for (j = 0; j < otot; j++)
                     {
                         geotop::common::Variables::odpnt[j][i - 1] = 0.0;
                     }
@@ -1036,7 +1084,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             time( &stop_time );
             geotop::common::Variables::elapsed_time = difftime( stop_time, geotop::common::Variables::start_time ) + geotop::common::Variables::elapsed_time_start;
 
-            if( percent_done > 1.0e-6 )
+            if ( percent_done > 1.0e-6 )
             {
                 total_time = geotop::common::Variables::elapsed_time * 100.0 / percent_done;
             }
@@ -1071,7 +1119,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
 
-    if(par->Dtplot_basin[geotop::common::Variables::i_sim] > 1.E-5 && par->state_basin == 1)
+    if (par->Dtplot_basin[geotop::common::Variables::i_sim] > 1.E-5 && par->state_basin == 1)
     {
 
         t_basin += par->Dt;
@@ -1079,7 +1127,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         if (fabs(t_basin - par->Dtplot_basin[geotop::common::Variables::i_sim]) < 1.E-5)
         {
 
-            if(geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
             {
 
                 if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
@@ -1098,7 +1146,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 first_column = 1;
                 for (j = 0; j < geotop::common::Variables::nobsn; j++)
                 {
-                    if(first_column == 0)
+                    if (first_column == 0)
                     {
                         fprintf(f, ",");
                     }
@@ -1123,9 +1171,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         else if (geotop::common::Variables::obsn[j] == oodaysfromstart)
                         {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(f, "%12g",JDfrom0-par->init_date);
+                            fprintf(f, "%12g", JDfrom0 - par->init_date);
 #else
-                            fprintf(f, "%f",JDfrom0-par->init_date);
+                            fprintf(f, "%f", JDfrom0 - par->init_date);
 #endif
                         }
                         else
@@ -1150,12 +1198,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 fclose(f);
             }
 
-            if(geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue)
             {
                 first_column = 1;
                 for (j = 0; j < geotop::common::Variables::nobsn; j++)
                 {
-                    if(first_column == 0)
+                    if (first_column == 0)
                     {
                         fprintf(geotop::common::Variables::ffbas, ",");
                     }
@@ -1180,9 +1228,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         else if (geotop::common::Variables::obsn[j] == oodaysfromstart)
                         {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(geotop::common::Variables::ffbas, "%12g",JDfrom0-par->init_[geotop::common::Variables::i_sim]);
+                            fprintf(geotop::common::Variables::ffbas, "%12g", JDfrom0 - par->init_[geotop::common::Variables::i_sim]);
 #else
-                            fprintf(geotop::common::Variables::ffbas, "%f",JDfrom0-par->init_date);
+                            fprintf(geotop::common::Variables::ffbas, "%f", JDfrom0 - par->init_date);
 #endif
                         }
                         else
@@ -1229,7 +1277,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             fclose(flog);
 
-            for(j = 0; j < ootot; j++)
+            for (j = 0; j < ootot; j++)
             {
                 geotop::common::Variables::odbsn[j] = 0.0;
             }
@@ -1241,32 +1289,32 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //****************************************************************************************************************
     //****************************************************************************************************************
     //averaging properties
-    if(par->output_meteo[geotop::common::Variables::i_sim] > 0)
+    if (par->output_meteo[geotop::common::Variables::i_sim] > 0)
     {
-        if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 met->Tamean[i] += met->Tgrid[top->rc_cont[i][1]][top->rc_cont[i][2]] / ((par->output_meteo[geotop::common::Variables::i_sim] * 3600.0) / (par->Dt));
             }
         }
-        if(geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 met->Vspdmean[i] += met->Vgrid[top->rc_cont[i][1]][top->rc_cont[i][2]] / ((par->output_meteo[geotop::common::Variables::i_sim] * 3600.0) / (par->Dt));
             }
         }
-        if(geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 met->Vdirmean[i] += met->Vdir[top->rc_cont[i][1]][top->rc_cont[i][2]] / ((par->output_meteo[geotop::common::Variables::i_sim] * 3600.0) / (par->Dt));
             }
         }
-        if(geotop::common::Variables::files[frh] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[frh] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 met->RHmean[i] += met->RHgrid[top->rc_cont[i][1]][top->rc_cont[i][2]] / ((par->output_meteo[geotop::common::Variables::i_sim] * 3600.0) / (par->Dt));
             }
@@ -1275,7 +1323,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
     if (par->output_soil[geotop::common::Variables::i_sim] > 0)
     {
-        if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue)
         {
             for (i = 1; i <= par->total_pixel; i++)
             {
@@ -1285,7 +1333,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 }
             }
         }
-        if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue)
         {
             for (i = 1; i <= par->total_pixel; i++)
             {
@@ -1295,7 +1343,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 }
             }
         }
-        if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue)
         {
             for (i = 1; i <= par->total_pixel; i++)
             {
@@ -1310,16 +1358,19 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     V.resize(par->total_pixel + 1, geotop::input::gDoubleNoValue);
 
     //	soil properties
-    if(par->output_soil[geotop::common::Variables::i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_soil[geotop::common::Variables::i_sim]*3600.0)<1.E-5){
-        n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_soil[geotop::common::Variables::i_sim]*3600.0));
+    if (par->output_soil[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_soil[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    {
+        n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_soil[geotop::common::Variables::i_sim] * 3600.0));
 
         write_suffix(NNNNN, n_file, 1);
         s1 = NNNNN + string("");
         s2 = s1 + "";
 
         //theta liq tensor
-        if(geotop::common::Variables::files[fliq] != geotop::input::gStringNoValue){
-            if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue) {
+        if (geotop::common::Variables::files[fliq] != geotop::input::gStringNoValue)
+        {
+            if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
+            {
                 write_tensorseries_soil(1, s2, geotop::common::Variables::files[fliq], 0, par->format_out, sl->th, par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa, top->slope, par->output_vertical_distances);
             }
             else
@@ -1329,18 +1380,22 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //theta liq surface
-        if(geotop::common::Variables::files[fliqsup] != geotop::input::gStringNoValue){
-            for(i=1; i<=par->total_pixel; i++){
+        if (geotop::common::Variables::files[fliqsup] != geotop::input::gStringNoValue)
+        {
+            for (i = 1; i <= par->total_pixel; i++)
+            {
                 V[i] = sl->th[1][i];
             }
 
-            temp1= geotop::common::Variables::files[fliqsup] + s2 ;
+            temp1 = geotop::common::Variables::files[fliqsup] + s2 ;
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
 
         //write thw_av tensor
-        if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue){
-            if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue) {
+        if (geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue)
+        {
+            if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
+            {
                 write_tensorseries_soil(1, s2, geotop::common::Variables::files[fliqav], 0, par->format_out, sl->thw_av_tensor, par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa, top->slope, par->output_vertical_distances);
             }
             else
@@ -1350,10 +1405,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //initialize thw_av_tensor
-        if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue) sl->thw_av_tensor.resize(sl->thw_av_tensor.getRows(), sl->thw_av_tensor.getCols(), 0.0);
+        if (geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue) sl->thw_av_tensor.resize(sl->thw_av_tensor.getRows(), sl->thw_av_tensor.getCols(), 0.0);
 
         //write T tensor
-        if(geotop::common::Variables::files[fT] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fT] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1366,9 +1421,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //theta T surface
-        if(geotop::common::Variables::files[fTsup] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTsup] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 V[i] = sl->SS->T[1][i];
             }
@@ -1378,7 +1433,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //write Tav tensor
-        if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1391,9 +1446,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //theta Tav surface
-        if(geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 V[i] = sl->T_av_tensor[1][i];
             }
@@ -1404,10 +1459,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //initialize T_av_tensor
-        if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue) sl->T_av_tensor.resize(sl->T_av_tensor.getRows(), sl->T_av_tensor.getCols(), 0.0);
+        if (geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue) sl->T_av_tensor.resize(sl->T_av_tensor.getRows(), sl->T_av_tensor.getCols(), 0.0);
 
         //theta_ice tensor
-        if(geotop::common::Variables::files[fice] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fice] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1420,9 +1475,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //theta_ice surface
-        if(geotop::common::Variables::files[ficesup] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[ficesup] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 V[i] = sl->SS->thi[1][i];
             }
@@ -1432,7 +1487,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //write thi_av tensor
-        if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1445,10 +1500,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //initialize thi_av_tensor
-        if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue) sl->thi_av_tensor.resize(sl->thi_av_tensor.getRows(), sl->thi_av_tensor.getCols() , 0.0);
+        if (geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue) sl->thi_av_tensor.resize(sl->thi_av_tensor.getRows(), sl->thi_av_tensor.getCols() , 0.0);
 
         //write psi tensors
-        if(geotop::common::Variables::files[fpsitot] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpsitot] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1460,7 +1515,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             }
         }
 
-        if(geotop::common::Variables::files[fpsiliq] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpsiliq] != geotop::input::gStringNoValue)
         {
             if ((long)par->soil_plot_depths[1] != geotop::input::gDoubleNoValue)
             {
@@ -1473,10 +1528,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //calculate saturation front depth
-        if(geotop::common::Variables::files[fwtable_up] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fwtable_up] != geotop::input::gStringNoValue)
         {
 
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1488,10 +1543,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
 
-        if( geotop::common::Variables::files[fwtable_dw] != geotop::input::gStringNoValue )
+        if ( geotop::common::Variables::files[fwtable_dw] != geotop::input::gStringNoValue )
         {
 
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1510,9 +1565,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //calculate active layer depth
-        if( geotop::common::Variables::files[fthawed_up] != geotop::input::gStringNoValue)
+        if ( geotop::common::Variables::files[fthawed_up] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1523,9 +1578,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
 
-        if(geotop::common::Variables::files[fthawed_dw] != geotop::input::gStringNoValue )
+        if (geotop::common::Variables::files[fthawed_dw] != geotop::input::gStringNoValue )
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1537,9 +1592,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //WATER OVER THE SURFACE
-        if(geotop::common::Variables::files[fhsupland] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fhsupland] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1550,9 +1605,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
 
-        if(geotop::common::Variables::files[fhsupch] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fhsupch] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
@@ -1570,13 +1625,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
         //TODO: mattiu
-        if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue)
         {
             temp1 = geotop::common::Variables::files[fpnet] + s2;
             write_map_vector(temp1, 0, par->format_out, sl->Pnetcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             sl->Pnetcum.resize(sl->Pnetcum.size(), 0.0);
         }
-        if(geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue)
         {
             temp1 = geotop::common::Variables::files[fevap] + s2;
             write_map_vector(temp1, 0, par->format_out, sl->ETcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1585,63 +1640,74 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //snow properties
-    if(par->output_snow[geotop::common::Variables::i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_snow[geotop::common::Variables::i_sim]*3600.0)<1.E-5){
-	    n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_snow[geotop::common::Variables::i_sim]*3600.0));
-	    write_suffix(NNNNN, n_file, 1);
-	    s1 = NNNNN + string("");
-	    s2 = s1 + "" ;
+    if (par->output_snow[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_snow[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    {
+        n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_snow[geotop::common::Variables::i_sim] * 3600.0));
+        write_suffix(NNNNN, n_file, 1);
+        s1 = NNNNN + string("");
+        s2 = s1 + "" ;
 
-	    if(geotop::common::Variables::files[fsnowdepth] != geotop::input::gStringNoValue){
-		    for(i=1; i<=par->total_pixel; i++){
-			    r = top->rc_cont[i][1];
-			    c = top->rc_cont[i][2];
-			    V[i] = 0.;
-			    for(l=1;l<=snow->S->lnum[r][c];l++){
-				    V[i] += snow->S->Dzl[l][r][c];
-			    }
-		    }
+        if (geotop::common::Variables::files[fsnowdepth] != geotop::input::gStringNoValue)
+        {
+            for (i = 1; i <= par->total_pixel; i++)
+            {
+                r = top->rc_cont[i][1];
+                c = top->rc_cont[i][2];
+                V[i] = 0.;
+                for (l = 1; l <= snow->S->lnum[r][c]; l++)
+                {
+                    V[i] += snow->S->Dzl[l][r][c];
+                }
+            }
 
-		    temp1=geotop::common::Variables::files[fsnowdepth] + s2 ;
-		    write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-	    }
+            temp1 = geotop::common::Variables::files[fsnowdepth] + s2 ;
+            write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+        }
 
-	    if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue){//TODO mattiu
-		    temp1=geotop::common::Variables::files[fHN] + s2;
-		    write_map_vector(temp1, 0, par->format_out, snow->HNcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-		    snow->HNcum.resize(snow->HNcum.size(),0.0);
+        if (geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue) //TODO mattiu
+        {
+            temp1 = geotop::common::Variables::files[fHN] + s2;
+            write_map_vector(temp1, 0, par->format_out, snow->HNcum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+            snow->HNcum.resize(snow->HNcum.size(), 0.0);
 
-	    }//end mattiu
+        }//end mattiu
 
-	    if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
-		    temp1=geotop::common::Variables::files[fsnowmelt] + s2;
-		    write_map_vector(temp1, 0, par->format_out, snow->MELTED, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-		    snow->MELTED.resize(snow->MELTED.size(),0.0);
-	    }
+        if (geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue)
+        {
+            temp1 = geotop::common::Variables::files[fsnowmelt] + s2;
+            write_map_vector(temp1, 0, par->format_out, snow->MELTED, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+            snow->MELTED.resize(snow->MELTED.size(), 0.0);
+        }
 
-	    if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue){
-		    temp1=geotop::common::Variables::files[fsnowsubl] + s2 ;
-		    write_map_vector(temp1, 0, par->format_out, snow->SUBL, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-		    snow->SUBL.resize(snow->SUBL.size(),0.0);
-	    }
+        if (geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue)
+        {
+            temp1 = geotop::common::Variables::files[fsnowsubl] + s2 ;
+            write_map_vector(temp1, 0, par->format_out, snow->SUBL, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+            snow->SUBL.resize(snow->SUBL.size(), 0.0);
+        }
 
-	    if(geotop::common::Variables::files[fswe] != geotop::input::gStringNoValue){
-		    for(i=1; i<=par->total_pixel; i++){
-			    r = top->rc_cont[i][1];
-			    c = top->rc_cont[i][2];
-			    V[i] = 0.;
-			    for(l=1;l<=snow->S->lnum[r][c];l++){
-				    V[i] += (snow->S->w_liq[l][r][c]+snow->S->w_ice[l][r][c]);
-			    }
-		    }
-		    temp1=geotop::common::Variables::files[fswe] + s2 ;
-		    write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+        if (geotop::common::Variables::files[fswe] != geotop::input::gStringNoValue)
+        {
+            for (i = 1; i <= par->total_pixel; i++)
+            {
+                r = top->rc_cont[i][1];
+                c = top->rc_cont[i][2];
+                V[i] = 0.;
+                for (l = 1; l <= snow->S->lnum[r][c]; l++)
+                {
+                    V[i] += (snow->S->w_liq[l][r][c] + snow->S->w_ice[l][r][c]);
+                }
+            }
+            temp1 = geotop::common::Variables::files[fswe] + s2 ;
+            write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 
-		    for(i=1; i<=par->total_pixel; i++){
-			    r = top->rc_cont[i][1];
+            for (i = 1; i <= par->total_pixel; i++)
+            {
+                r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
                 V[i] = 0.;
                 D = 0.;
-                for(l = 1; l <= snow->S->lnum[r][c]; l++)
+                for (l = 1; l <= snow->S->lnum[r][c]; l++)
                 {
                     V[i] += (snow->S->w_liq[l][r][c] + snow->S->w_ice[l][r][c]);
                     D += snow->S->Dzl[l][r][c];
@@ -1652,7 +1718,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             temp2 = temp1 + s2;
             write_map_vector(temp2, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 
-            if(par->blowing_snow == 1)
+            if (par->blowing_snow == 1)
             {
                 temp1 = geotop::common::Variables::files[fswe] + string("WindTrans");
                 temp2 = temp1 + s2;
@@ -1666,7 +1732,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             }
         }
 
-        if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue)
         {
             temp1 = geotop::common::Variables::files[fsndur] + s2 ;
             write_map_vector(temp1, 0, par->format_out, snow->t_snow, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1676,7 +1742,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //glacier properties
-    if(par->max_glac_layers > 0 && par->output_glac[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_glac[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    if (par->max_glac_layers > 0 && par->output_glac[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_glac[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
     {
 
         n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_glac[geotop::common::Variables::i_sim] * 3600.0));
@@ -1684,15 +1750,15 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         s1 = NNNNN + string("");
         s2 = s1 + "";
 
-        if(geotop::common::Variables::files[fglacdepth] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fglacdepth] != geotop::input::gStringNoValue)
         {
 
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
                 V[i] = 0.;
-                for(l = 1; l <= glac->G->lnum[r][c]; l++)
+                for (l = 1; l <= glac->G->lnum[r][c]; l++)
                 {
                     V[i] += (glac->G->w_liq[l][r][c] + glac->G->w_ice[l][r][c]);
                 }
@@ -1701,28 +1767,28 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             write_map_vector(temp1, 0, par->format_out, V, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
         }
 
-        if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
         {
             temp1 = geotop::common::Variables::files[fglacmelt] + s2 ;
             write_map_vector(temp1, 0, par->format_out, glac->MELTED, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             glac->MELTED.resize(glac->MELTED.size(), 0.);
         }
 
-        if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
         {
             temp1 = geotop::common::Variables::files[fglacsubl] + s2 ;
             write_map_vector(temp1, 0, par->format_out, glac->SUBL, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             glac->SUBL.resize(glac->SUBL.size(), 0.);
         }
 
-        if(geotop::common::Variables::files[fgwe] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fgwe] != geotop::input::gStringNoValue)
         {
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
                 r = top->rc_cont[i][1];
                 c = top->rc_cont[i][2];
                 V[i] = 0.;
-                for(l = 1; l <= glac->G->lnum[r][c]; l++)
+                for (l = 1; l <= glac->G->lnum[r][c]; l++)
                 {
                     V[i] += (glac->G->w_liq[l][r][c] + glac->G->w_ice[l][r][c]);
                 }
@@ -1736,61 +1802,61 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     //SURFACE ENERGY BALANCE
 
     //RADIATION
-    if(par->output_surfenergy[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    if (par->output_surfenergy[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
     {
 
         n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.0));
         write_suffix(NNNNN, n_file, 1);
         s1 = NNNNN + string("");
         s2 = s1 + "";
-        if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradnet] + s2 ;
             write_map_vector(name, 0, par->format_out, egy->Rn_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->Rn_mean.resize(egy->Rn_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradLWin] + s2 ;
             write_map_vector(name, 0, par->format_out, egy->LWin_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->LWin_mean.resize(egy->LWin_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradLW] + s2 ;
             write_map_vector(name , 0, par->format_out, egy->LW_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->LW_mean.resize(egy->LW_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradSW] + s2 ;
             write_map_vector(name , 0, par->format_out, egy->SW_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->SW_mean.resize(egy->SW_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradSWin] + s2;
             write_map_vector(name, 0, par->format_out, egy->Rswdown_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->Rswdown_mean.resize(egy->Rswdown_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fradSWinbeam] + s2;
             write_map_vector(name, 0, par->format_out, egy->Rswbeam_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             egy->Rswbeam_mean.resize(egy->Rswbeam_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
         {
 
-            for(i = 1; i <= par->total_pixel; i++)
+            for (i = 1; i <= par->total_pixel; i++)
             {
-                if(egy->nDt_sun[i] > 0)
+                if (egy->nDt_sun[i] > 0)
                 {
                     V[i] = egy->nDt_shadow[i] / (double)(egy->nDt_sun[i]);
                 }
@@ -1807,7 +1873,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //GROUND HEAT FLUX
-        if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fG] + s2 ;
             write_map_vector(name, 0, par->format_out, egy->SEB_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1815,7 +1881,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //SENSIBLE HEAT FLUX
-        if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fH] + s2 ;
             write_map_vector(name, 0, par->format_out, egy->H_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1823,7 +1889,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //LATENT HEAT FLUX
-        if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fLE] + s2 ;
             write_map_vector(name, 0, par->format_out, egy->ET_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1831,7 +1897,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //SURFACE TEMPERATURE
-        if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fTs] + s2;
             write_map_vector(name, 0, par->format_out, egy->Ts_mean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1842,15 +1908,16 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //vegetation variables
-    if(par->output_vegetation[geotop::common::Variables::i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_vegetation[geotop::common::Variables::i_sim]*3600.0)<1.E-5){
-        n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_vegetation[geotop::common::Variables::i_sim]*3600.0));
+    if (par->output_vegetation[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_vegetation[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    {
+        n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_vegetation[geotop::common::Variables::i_sim] * 3600.0));
         write_suffix(NNNNN, n_file, 1);
         s1 = NNNNN + string("");
         s1 = NNNNN + string(RRRRR);
         s2 = s1 + "";
 
         //INTERCEPTED PRECIPITATION
-        if(geotop::common::Variables::files[fcint] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fcint] != geotop::input::gStringNoValue)
         {
 
             temp1 = geotop::common::Variables::files[fcint] + string("water");
@@ -1866,8 +1933,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //METEO
-    if(par->output_meteo[geotop::common::Variables::i_sim]>0 && fmod(times->time+par->Dt+par->delay_day_recover*86400.,par->output_meteo[geotop::common::Variables::i_sim]*3600.0)<1.E-5){
-        n_file=(long)((times->time+par->Dt+par->delay_day_recover*86400.)/(par->output_meteo[geotop::common::Variables::i_sim]*3600.0));
+    if (par->output_meteo[geotop::common::Variables::i_sim] > 0 && fmod(times->time + par->Dt + par->delay_day_recover * 86400., par->output_meteo[geotop::common::Variables::i_sim] * 3600.0) < 1.E-5)
+    {
+        n_file = (long)((times->time + par->Dt + par->delay_day_recover * 86400.) / (par->output_meteo[geotop::common::Variables::i_sim] * 3600.0));
 
         write_suffix(NNNNN, n_file, 1);
         s1 = NNNNN + string("");
@@ -1875,7 +1943,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         s2 = s1 + SSSSS ;
 
         //AIR TEMPERATURE
-        if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fTa] + s2;
             write_map_vector(name, 0, par->format_out, met->Tamean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1883,7 +1951,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         }
 
         //PRECIPITATION
-        if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue)
         {
 
             name = geotop::common::Variables::files[fprec] + string("TOTAL");
@@ -1897,21 +1965,21 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             wat->PrSNW_mean.resize(wat->PrSNW_mean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fwspd] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fwspd] + s2 ;
             write_map_vector(name, 0, par->format_out, met->Vspdmean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             met->Vspdmean.resize(met->Vspdmean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fwdir] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[fwdir] + s2;
             write_map_vector(name, 0, par->format_out, met->Vdirmean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             met->Vdirmean.resize(met->Vdirmean.size(), 0.0);
         }
 
-        if(geotop::common::Variables::files[frh] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[frh] != geotop::input::gStringNoValue)
         {
             name = geotop::common::Variables::files[frh] + s2;
             write_map_vector(name, 0, par->format_out, met->RHmean, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -1926,12 +1994,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     /**********************************************************************************************************/
     /**********************************************************************************************************/
 
-    if(times->JD_plots.size() > 1 && times->iplot < times->JD_plots.size())
+    if (times->JD_plots.size() > 1 && times->iplot < times->JD_plots.size())
     {
 
         i = times->iplot;
         j = 2 * i - 1;
-        if( fabs(par->init_date + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
+        if ( fabs(par->init_date + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
         {
 
             flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
@@ -1942,7 +2010,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             V.resize(par->total_pixel + 1);
 
-            if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pH] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1952,7 +2020,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pH], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1962,7 +2030,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pLE], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pG] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pG] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1971,7 +2039,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pG], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pth] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pth] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1980,7 +2048,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pth], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pth] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pth] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1989,7 +2057,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pth], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -1998,7 +2066,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 plot(geotop::common::Variables::files[pVspd], i, V, par->format_out, top->j_cont);
             }
 
-            if(geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= par->total_pixel; i++)
                 {
@@ -2009,44 +2077,44 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             }
 
 
-            if(geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pHg], i, egy->Hgplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLEg], i, egy->LEgplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pHv], i, egy->Hvplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLEv], i, egy->LEvplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWin], i, egy->SWinplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWg], i, egy->SWgplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWv], i, egy->SWvplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLWin], i, egy->LWinplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLWg], i, egy->LWgplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pLWv], i, egy->LWvplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pTs], i, egy->Tsplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pTg], i, egy->Tgplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pTv], i, egy->Tvplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pTa], i, met->Taplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pD], i, snow->Dplot, par->format_out, top->j_cont);
-            if(geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pRH], i, met->RHplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pHg], i, egy->Hgplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLEg], i, egy->LEgplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pHv], i, egy->Hvplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLEv], i, egy->LEvplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWin], i, egy->SWinplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWg], i, egy->SWgplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pSWv], i, egy->SWvplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLWin], i, egy->LWinplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pLWg], i, egy->LWgplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pLWv], i, egy->LWvplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pTs], i, egy->Tsplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pTg], i, egy->Tgplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pTv], i, egy->Tvplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pTa], i, met->Taplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) plot(geotop::common::Variables::files[pD], i, snow->Dplot, par->format_out, top->j_cont);
+            if (geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue)  plot(geotop::common::Variables::files[pRH], i, met->RHplot, par->format_out, top->j_cont);
 
-            if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->Hgplot.resize(egy->Hgplot.size(), 0.0);
-            if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LEgplot.resize(egy->LEgplot.size(), 0.0);
-            if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) egy->Hvplot.resize(egy->Hvplot.size(), 0.);
-            if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) egy->LEvplot.resize(egy->LEvplot.size(), 0.);
-            if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue) egy->SWinplot.resize(egy->SWinplot.size(), 0.);
-            if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->SWgplot.resize(egy->SWgplot.size(), 0.);
-            if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue) egy->SWvplot.resize(egy->SWvplot.size(), 0.);
-            if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) egy->LWinplot.resize(egy->LWinplot.size(), 0.);
-            if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LWgplot.resize(egy->LWgplot.size(), 0.);
-            if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue) egy->LWvplot.resize(egy->LWvplot.size(), 0.);
-            if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue) egy->Tsplot.resize(egy->Tsplot.size(), 0.);
-            if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) egy->Tgplot.resize(egy->Tgplot.size(), 0.);
-            if(geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue) egy->Tvplot.resize(egy->Tvplot.size(), 0.);
-            if(geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) snow->Dplot.resize(snow->Dplot.size(), 0.);
-            if(geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) met->Taplot.resize(met->Taplot.size(), 0.);
-            if(geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue || geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->Hgplot.resize(egy->Hgplot.size(), 0.0);
+            if (geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LEgplot.resize(egy->LEgplot.size(), 0.0);
+            if (geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) egy->Hvplot.resize(egy->Hvplot.size(), 0.);
+            if (geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) egy->LEvplot.resize(egy->LEvplot.size(), 0.);
+            if (geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue) egy->SWinplot.resize(egy->SWinplot.size(), 0.);
+            if (geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->SWgplot.resize(egy->SWgplot.size(), 0.);
+            if (geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue) egy->SWvplot.resize(egy->SWvplot.size(), 0.);
+            if (geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) egy->LWinplot.resize(egy->LWinplot.size(), 0.);
+            if (geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LWgplot.resize(egy->LWgplot.size(), 0.);
+            if (geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue) egy->LWvplot.resize(egy->LWvplot.size(), 0.);
+            if (geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue) egy->Tsplot.resize(egy->Tsplot.size(), 0.);
+            if (geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) egy->Tgplot.resize(egy->Tgplot.size(), 0.);
+            if (geotop::common::Variables::files[pTv] != geotop::input::gStringNoValue) egy->Tvplot.resize(egy->Tvplot.size(), 0.);
+            if (geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) snow->Dplot.resize(snow->Dplot.size(), 0.);
+            if (geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) met->Taplot.resize(met->Taplot.size(), 0.);
+            if (geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue || geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
             {
                 met->Vxplot.resize(met->Vxplot.size(), 0.);
                 met->Vyplot.resize(met->Vyplot.size(), 0.);
             }
-            if(geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue) met->RHplot.resize(met->RHplot.size(), 0.);
+            if (geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue) met->RHplot.resize(met->RHplot.size(), 0.);
 
             times->iplot ++;
         }
@@ -2076,7 +2144,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             fprintf(flog, "Writing continuous-recovering files\n");
             fclose(flog);
 
-            if(geotop::common::Variables::files[rtime] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rtime] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rtime] + string(textfile);
                 f = fopen(name.c_str() , "w");
@@ -2090,26 +2158,26 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             //TODO: NNNN should be removed in recovery
             write_suffix(NNNN, 0, 0);
 
-            for(l = 0; l <= geotop::common::Variables::Nl; l++)
+            for (l = 0; l <= geotop::common::Variables::Nl; l++)
             {
-                if(geotop::common::Variables::files[rpsi] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rpsi] != geotop::input::gStringNoValue)
                     write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rpsi], -1, par->format_out, sl->SS->P, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-                if(l > 0)
+                if (l > 0)
                 {
-                    if(geotop::common::Variables::files[riceg] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[riceg] != geotop::input::gStringNoValue)
                         write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[riceg], -1, par->format_out, sl->SS->thi, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-                    if(geotop::common::Variables::files[rTg] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[rTg] != geotop::input::gStringNoValue)
                         write_tensorseries_vector(1, l, 0, geotop::common::Variables::files[rTg], -1, par->format_out, sl->SS->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
                 }
             }
 
-            if(geotop::common::Variables::files[rwcrn] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rwcrn] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rwcrn] + string(NNNN);
                 write_map_vector(name, -1, par->format_out, sl->VS->wrain, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             }
 
-            if(geotop::common::Variables::files[rwcsn] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rwcsn] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rwcsn] + string(NNNN);
                 write_map_vector(name, -1, par->format_out, sl->VS->wsnow, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
@@ -2120,58 +2188,58 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 if ((long)sl->VS->Tv[i] == geotop::input::gDoubleNoValue) sl->VS->Tv[i] = 0.;
             }
 
-            if(geotop::common::Variables::files[rTv] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rTv] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rTv] + string(NNNN);
                 write_map_vector(name, -1, par->format_out, sl->VS->Tv, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             }
 
-            for(l = 1; l <= par->max_snow_layers; l++)
+            for (l = 1; l <= par->max_snow_layers; l++)
             {
-                if(geotop::common::Variables::files[rDzs] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rDzs] != geotop::input::gStringNoValue)
                     write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzs], -1, par->format_out, snow->S->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rwls] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rwls] != geotop::input::gStringNoValue)
                     write_tensorseries(1, l, 0, geotop::common::Variables::files[rwls], -1, par->format_out, snow->S->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rwis] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rwis] != geotop::input::gStringNoValue)
                     write_tensorseries(1, l, 0, geotop::common::Variables::files[rwis], -1 , par->format_out, snow->S->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                if(geotop::common::Variables::files[rTs] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rTs] != geotop::input::gStringNoValue)
                     write_tensorseries(1, l, 0, geotop::common::Variables::files[rTs], -1, par->format_out, snow->S->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
 
-            if(geotop::common::Variables::files[rsnag] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rsnag] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rsnag] + string(NNNN);
                 write_map_vector(name, -1, par->format_out, snow->age, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
             }
 
-            if(geotop::common::Variables::files[rns] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rns] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rns] + string(NNNN);
                 write_map(name, 1, par->format_out, snow->S->lnum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
             }
 
-            if(par->max_glac_layers > 0)
+            if (par->max_glac_layers > 0)
             {
-                for(l = 1; l <= par->max_glac_layers; l++)
+                for (l = 1; l <= par->max_glac_layers; l++)
                 {
-                    if(geotop::common::Variables::files[rDzi] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[rDzi] != geotop::input::gStringNoValue)
                         write_tensorseries(1, l, 0, geotop::common::Variables::files[rDzi], -1, par->format_out, glac->G->Dzl, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rwli] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[rwli] != geotop::input::gStringNoValue)
                         write_tensorseries(1, l, 0, geotop::common::Variables::files[rwli], -1, par->format_out, glac->G->w_liq, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rwii] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[rwii] != geotop::input::gStringNoValue)
                         write_tensorseries(1, l, 0, geotop::common::Variables::files[rwii], -1, par->format_out, glac->G->w_ice, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                    if(geotop::common::Variables::files[rTi] != geotop::input::gStringNoValue)
+                    if (geotop::common::Variables::files[rTi] != geotop::input::gStringNoValue)
                         write_tensorseries(1, l, 0, geotop::common::Variables::files[rTi], -1, par->format_out, glac->G->T, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 }
 
-                if(geotop::common::Variables::files[rni] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[rni] != geotop::input::gStringNoValue)
                 {
                     name = geotop::common::Variables::files[rni] + string(NNNN);
                     write_map(name, 1, par->format_out, glac->G->lnum, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
                 }
             }
 
-            if(geotop::common::Variables::files[rpsich] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rpsich] != geotop::input::gStringNoValue)
             {
                 M.resize(geotop::common::Variables::Nl + 1, par->total_pixel + 1, 0.0);
                 for (l = 0; l <= geotop::common::Variables::Nl; l++)
@@ -2186,7 +2254,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 }
             }
 
-            if(geotop::common::Variables::files[rTgch] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[rTgch] != geotop::input::gStringNoValue)
             {
                 M.resize(geotop::common::Variables::Nl + 1, par->total_pixel + 1, 0.0);
                 for (l = 1; l <= geotop::common::Variables::Nl; l++)
@@ -2201,7 +2269,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 }
             }
 
-            if(geotop::common::Variables::files[ricegch] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[ricegch] != geotop::input::gStringNoValue)
             {
                 M.resize(geotop::common::Variables::Nl + 1, par->total_pixel + 1, 0.0);
                 for (l = 1; l <= geotop::common::Variables::Nl; l++)
@@ -2259,7 +2327,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         t_fclose(f);
     }
 
-    if(par->state_pixel == 1)
+    if (par->state_pixel == 1)
     {
 
         //output matrix and vectors
@@ -2278,7 +2346,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             }
         }
 
-        if(geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpointwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2294,9 +2362,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
             geotop::common::Variables::ffpoint = fopen(name.c_str(), "w");
             first_column = 1;
-            for(j = 0; j < geotop::common::Variables::nopnt; j++)
+            for (j = 0; j < geotop::common::Variables::nopnt; j++)
             {
-                if(first_column == 0)
+                if (first_column == 0)
                 {
                     fprintf(geotop::common::Variables::ffpoint, ",");
                 }
@@ -2316,7 +2384,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             fprintf(geotop::common::Variables::ffpoint, "\n");
         }
 
-        if(geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2341,9 +2409,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             }
 
             first_column = 1;
-            for(j = 0; j < geotop::common::Variables::nosnw; j++)
+            for (j = 0; j < geotop::common::Variables::nosnw; j++)
             {
-                if(first_column == 0)
+                if (first_column == 0)
                 {
                     fprintf(geotop::common::Variables::ffsnow, ",");
                 }
@@ -2386,9 +2454,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             fprintf(geotop::common::Variables::ffsnow, "\n");
         }
 
-        if(par->max_glac_layers > 0)
+        if (par->max_glac_layers > 0)
         {
-            if(geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fglzwriteend] != geotop::input::gStringNoValue)
             {
 
                 if (par->n_ContRecovery > 0)
@@ -2412,9 +2480,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     m = par->max_glac_layers;
                 }
                 first_column = 1;
-                for(j = 0; j < geotop::common::Variables::noglc; j++)
+                for (j = 0; j < geotop::common::Variables::noglc; j++)
                 {
-                    if(first_column == 0)
+                    if (first_column == 0)
                     {
                         fprintf(geotop::common::Variables::ffglac, ",");
                     }
@@ -2458,7 +2526,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             }
         }
 
-        if(geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2476,7 +2544,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffT, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2493,7 +2561,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffTav, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2510,7 +2578,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffpsitot, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2527,7 +2595,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffpsi, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2544,7 +2612,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffliq, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2561,7 +2629,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffliqav, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2578,7 +2646,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             write_soil_header(geotop::common::Variables::ffice, par->soil_plot_depths, sl->pa);
         }
 
-        if(geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -2601,7 +2669,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
         //DATA POINTS
 
-        for(i = 1; i < par->rc.getRows(); i++)
+        for (i = 1; i < par->rc.getRows(); i++)
         {
 
             write_suffix(NNNN, par->IDpoint[i], 0);
@@ -2610,7 +2678,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             sy = sl->type[r][c];
             lu = (short)land->LC[r][c];
 
-            if(geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue && par->point_sim != 1)
+            if (geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue && par->point_sim != 1)
             {
                 name = geotop::common::Variables::files[fpoint] + string("_info_");
                 temp = name + NNNN;
@@ -2620,43 +2688,43 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, " The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n", par->chkpt[i][ptX], par->chkpt[i][ptY], r, c);
                 fprintf(f, " Elevation above sea level: %10.3f m\n", top->Z0[r][c]);
                 fprintf(f, " Gauckler-Strickler [m^1/3/s]: %f\n", land->ty[lu][jcm]);
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Residual water content[-] of the layer %ld: %f\n", l, sl->pa[sy][jres][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Saturated water content[-] of the layer %ld: %f\n", l, sl->pa[sy][jsat][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Alpha of van Genuchten[mm^-1] of the layer %ld: %f\n", l, sl->pa[sy][ja][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " n of van Genuchten[-] of the layer %ld: %f\n", l, sl->pa[sy][jns][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " m of van Genuchten[-] of the layer %ld: %f\n", l, 1 - 1 / sl->pa[sy][jns][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " v of van Genuchten[-] of the layer %ld: %f\n", l, sl->pa[sy][jv][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Water content of wilting point [-] of the layer %ld: %f\n", l, sl->pa[sy][jwp][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Water content of field capacity [-] of the layer %ld: %f\n", l, sl->pa[sy][jfc][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Kv_sat of layer %ld [mm/s]: %f\n", l, sl->pa[sy][jKn][l]);
                 }
-                for(l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
                 {
                     fprintf(f, " Kh_sat of layer %ld [mm/s]: %f\n", l, sl->pa[sy][jKl][l]);
                 }
@@ -2668,7 +2736,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, " Mean slope of the pixel [deg]: %f \n", top->slope[r][c]);
                 fprintf(f, " Land use number is %d \n", (short)land->LC[r][c]);
 
-                for(l = 1; l < land->root_fraction.getCols(); l++)
+                for (l = 1; l < land->root_fraction.getCols(); l++)
                 {
                     fprintf(f, " The root fraction [-] of layer %ld: %f\n", l, land->root_fraction[lu][l]);
                 }
@@ -2682,7 +2750,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fpoint] + string(NNNN);
@@ -2700,9 +2768,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 f = t_fopen(name.c_str(), "w");
                 first_column = 1;
-                for(j = 0; j < geotop::common::Variables::nopnt; j++)
+                for (j = 0; j < geotop::common::Variables::nopnt; j++)
                 {
-                    if(first_column == 0)
+                    if (first_column == 0)
                     {
                         fprintf(f, ",");
                     }
@@ -2723,7 +2791,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fsatz] + string(NNNN);
@@ -2749,9 +2817,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                 f = t_fopen(name.c_str(), "w");
                 first_column = 1;
-                for(j = 0; j < geotop::common::Variables::nosnw; j++)
+                for (j = 0; j < geotop::common::Variables::nosnw; j++)
                 {
-                    if(first_column == 0)
+                    if (first_column == 0)
                     {
                         fprintf(f, ",");
                     }
@@ -2791,9 +2859,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(par->max_glac_layers > 0)
+            if (par->max_glac_layers > 0)
             {
-                if(geotop::common::Variables::files[fglz] != geotop::input::gStringNoValue)
+                if (geotop::common::Variables::files[fglz] != geotop::input::gStringNoValue)
                 {
 
                     temp = geotop::common::Variables::files[fglz] + string(NNNN);
@@ -2820,9 +2888,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
                     f = t_fopen(name.c_str(), "w");
                     first_column = 1;
-                    for(j = 0; j < geotop::common::Variables::noglc; j++)
+                    for (j = 0; j < geotop::common::Variables::noglc; j++)
                     {
-                        if(first_column == 0)
+                        if (first_column == 0)
                         {
                             fprintf(f, ",");
                         }
@@ -2863,7 +2931,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
             }
 
-            if(geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fTz] + string(NNNN);
@@ -2884,7 +2952,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fTzav] + string(NNNN);
@@ -2905,7 +2973,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fpsiztot] + string(NNNN);
@@ -2926,7 +2994,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fpsiz] + string(NNNN);
@@ -2947,7 +3015,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fliqz] + string(NNNN);
@@ -2967,7 +3035,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[fliqzav] + string(NNNN);
@@ -2988,7 +3056,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[ficez] + string(NNNN);
@@ -3009,7 +3077,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-            if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue)
             {
 
                 temp = geotop::common::Variables::files[ficezav] + string(NNNN);
@@ -3044,11 +3112,11 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         geotop::common::Variables::odb[i] = 0.;
     }
 
-    if(par->state_basin == 1)
+    if (par->state_basin == 1)
     {
 
         //DATA BASIN
-        if(geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fbaswriteend] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -3064,9 +3132,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             geotop::common::Variables::ffbas = fopen(name.c_str(), "w");
 
             first_column = 1;
-            for(j = 0; j < geotop::common::Variables::nobsn; j++)
+            for (j = 0; j < geotop::common::Variables::nobsn; j++)
             {
-                if(first_column == 0)
+                if (first_column == 0)
                 {
                     fprintf(geotop::common::Variables::ffbas, ",");
                 }
@@ -3086,7 +3154,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             fprintf(geotop::common::Variables::ffbas, "\n");
         }
 
-        if(geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
+        if (geotop::common::Variables::files[fbas] != geotop::input::gStringNoValue)
         {
 
             if (par->n_ContRecovery > 0)
@@ -3103,9 +3171,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             f = t_fopen(name.c_str(), "w");
 
             first_column = 1;
-            for(j = 0; j < geotop::common::Variables::nobsn; j++)
+            for (j = 0; j < geotop::common::Variables::nobsn; j++)
             {
-                if(first_column == 0)
+                if (first_column == 0)
                 {
                     fprintf(f, ",");
                 }
@@ -3130,7 +3198,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     }
 
     //SNOW COVERED AREA STATISTICS
-    if(par->point_sim != 1 && geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue)
+    if (par->point_sim != 1 && geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue)
     {
 
         if (par->n_ContRecovery > 0)
@@ -3171,7 +3239,7 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
 
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
-    if(geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fTz] != geotop::input::gStringNoValue)
     {
 
         temp = geotop::common::Variables::files[fTz] + string(NNNN);
@@ -3191,12 +3259,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fTzwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffT, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[fTzav] + string(NNNN);
 
@@ -3215,12 +3283,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffTav, day, month, year, hour, minute, JDfrom0, init_date, sl->Tzavplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[fpsiztot] + string(NNNN);
 
@@ -3239,12 +3307,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fpsiztotwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffpsitot, day, month, year, hour, minute, JDfrom0, init_date, sl->Ptotzplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[fpsiz] + string(NNNN);
 
@@ -3263,12 +3331,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fpsizwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(0, iname, geotop::common::Variables::ffpsi, day, month, year, hour, minute, JDfrom0, init_date, sl->Pzplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[fliqz] + string(NNNN);
 
@@ -3287,12 +3355,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fliqzwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffliq, day, month, year, hour, minute, JDfrom0, init_date, sl->thzplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[fliqzav] + string(NNNN);
 
@@ -3311,12 +3379,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffliqav, day, month, year, hour, minute, JDfrom0, init_date, sl->thzavplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[ficez] + string(NNNN);
 
@@ -3335,12 +3403,12 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::ffice, day, month, year, hour, minute, JDfrom0, init_date, sl->thizplot, i, n, sl->pa, cosslope);
     }
 
-    if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue)
     {
         temp = geotop::common::Variables::files[ficezav] + string(NNNN);
 
@@ -3359,16 +3427,16 @@ void write_soil_output(long i, long iname, double init_date, double JDfrom0, dou
         fclose(f);
     }
 
-    if(geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue)
+    if (geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue)
     {
         write_soil_file(1, iname, geotop::common::Variables::fficeav, day, month, year, hour, minute, JDfrom0, init_date, sl->thizavplot, i, n, sl->pa, cosslope);
     }
 
-    for(l = 1; l <= geotop::common::Variables::Nl; l++)
+    for (l = 1; l <= geotop::common::Variables::Nl; l++)
     {
-        if(geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][l] = 0.0;
-        if(geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][l] = 0.0;
-        if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][l] = 0.0;
+        if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][l] = 0.0;
+        if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][l] = 0.0;
+        if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][l] = 0.0;
     }
 }
 
@@ -3386,7 +3454,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
 
     for (j = 0; j < geotop::common::Variables::nosl; j++)
     {
-        if(first_column == 0)
+        if (first_column == 0)
         {
             fprintf(f, ",");
         }
@@ -3436,7 +3504,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
     }
     else
     {
-        for(l = 1; l <= geotop::common::Variables::Nl; l++)
+        for (l = 1; l <= geotop::common::Variables::Nl; l++)
         {
             fprintf(f, ",%f", var(row, l));
         }
@@ -3458,9 +3526,9 @@ void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<doub
     long j, l;
     double z = 0.0;
 
-    for(j = 0; j < geotop::common::Variables::nosl; j++)
+    for (j = 0; j < geotop::common::Variables::nosl; j++)
     {
-        if(first_column == 0)
+        if (first_column == 0)
         {
             fprintf(f, ",");
         }
@@ -3487,7 +3555,7 @@ void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<doub
     }
     else
     {
-        for(l = 1; l <= geotop::common::Variables::Nl; l++)
+        for (l = 1; l <= geotop::common::Variables::Nl; l++)
         {
             z += dz(1, jdz, l);
             fprintf(f, ",%f ", z - 0.5 * dz(1, jdz, l));
@@ -3550,7 +3618,7 @@ double interpolate_soil3(long lmin, double h, long max, double *Dz, double *Q)
             z = z0 + Dz[max] / 2.;
         }
 
-        if(h < z && h >= z0)
+        if (h < z && h >= z0)
         {
             if (l == lmin)
             {
@@ -3605,7 +3673,7 @@ double interpolate_soil(long lmin, double h, long max, const GeoTensor<double>& 
             z = z0 + Dz(1, jdz, max) / 2.;
         }
 
-        if(h < z && h >= z0)
+        if (h < z && h >= z0)
         {
             if (l == lmin)
             {
@@ -3665,7 +3733,7 @@ double interpolate_soil2(long lmin, double h, long max, const GeoTensor<double>&
             z = z0 + Dz(1, jdz, max) / 2.;
         }
 
-        if(h < z && h >= z0)
+        if (h < z && h >= z0)
         {
             if (l == lmin)
             {
@@ -3707,12 +3775,12 @@ void write_tensorseries_soil(long lmin, std::string suf, std::string filename, s
     double cosslope = 1.;
     GeoVector<double> V(npoints);
 
-    for(size_t l = 1; l < n.size(); l++)
+    for (size_t l = 1; l < n.size(); l++)
     {
         temp1 = LLLLL + string(suf);
         write_suffix(temp1, l, 1);
 
-        for(long i = 1; i < npoints; i++)
+        for (long i = 1; i < npoints; i++)
         {
             if (vertical == 1) cosslope = cos( Fmin(GTConst::max_slope, slope[RC[i][1]][RC[i][2]]) * GTConst::Pi / 180. );
             V[i] = interpolate_soil2(lmin, n[l] * cosslope, geotop::common::Variables::Nl, dz, T, i);
@@ -3739,12 +3807,12 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
     {
 
         //TODO mattiu
-        if(par->output_soil[geotop::common::Variables::i_sim] > 0)
+        if (par->output_soil[geotop::common::Variables::i_sim] > 0)
         {
             r = top->rc_cont[j][1];
             c = top->rc_cont[j][2];
-            if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue) sl->Pnetcum[j] += wat->Pnet[r][c];
-            if(geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue) sl->Pnetcum[j] += wat->Pnet[r][c];
+            if (geotop::common::Variables::files[fevap] != geotop::input::gStringNoValue)
             {
                 for (i = 1; i <= geotop::common::Variables::Nl; i++)
                 {
@@ -3752,55 +3820,55 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
                 }
             }
         }
-        if(par->output_snow[geotop::common::Variables::i_sim] > 0)
+        if (par->output_snow[geotop::common::Variables::i_sim] > 0)
         {
             r = top->rc_cont[j][1];
             c = top->rc_cont[j][2];
-            if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue) snow->HNcum[j] += wat->HN[r][c];
+            if (geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue) snow->HNcum[j] += wat->HN[r][c];
         }                                         //end mattiu
 
-        if(par->output_snow[geotop::common::Variables::i_sim] > 0)
+        if (par->output_snow[geotop::common::Variables::i_sim] > 0)
         {
-            if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue) snow->MELTED[j] += snow->melted[j];
-            if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue) snow->SUBL[j] += snow->subl[j];
-            if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue) snow->MELTED[j] += snow->melted[j];
+            if (geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue) snow->SUBL[j] += snow->subl[j];
+            if (geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue)
             {
-                if(snow->yes[j] == 1) snow->t_snow[j] += Dt / GTConst::secinday;
+                if (snow->yes[j] == 1) snow->t_snow[j] += Dt / GTConst::secinday;
             }
         }
 
-        if(par->max_glac_layers > 0 && par->output_glac[geotop::common::Variables::i_sim] > 0)
+        if (par->max_glac_layers > 0 && par->output_glac[geotop::common::Variables::i_sim] > 0)
         {
-            if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
                 glac->MELTED[j] += glac->melted[j];
-            if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
                 glac->SUBL[j] += glac->subl[j];
         }
 
-        if(par->output_surfenergy[geotop::common::Variables::i_sim] > 0)
+        if (par->output_surfenergy[geotop::common::Variables::i_sim] > 0)
         {
-            if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)
                 egy->Rn_mean[j] += (egy->SW[j] + egy->LW[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
                 egy->LWin_mean[j] += (egy->LWin[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
                 egy->LW_mean[j] += (egy->LW[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
                 egy->SW_mean[j] += (egy->SW[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
                 egy->Rswdown_mean[j] += (egy->SWin[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
                 egy->Rswbeam_mean[j] += (egy->SWinb[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
                 egy->SEB_mean[j] += (egy->G[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
                 egy->H_mean[j] += (egy->H[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
                 egy->ET_mean[j] += (egy->LE[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
-            if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
                 egy->Ts_mean[j] += (egy->Ts[j]) * Dt / (par->output_surfenergy[geotop::common::Variables::i_sim] * 3600.);
 
-            if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
             {
                 if (egy->shad[j] >= 0)
                     egy->nDt_sun[j] ++;
@@ -3808,33 +3876,33 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
                     egy->nDt_shadow[j] ++;
             }
         }
-        if(par->output_meteo[geotop::common::Variables::i_sim] > 0)
+        if (par->output_meteo[geotop::common::Variables::i_sim] > 0)
         {
-            if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue)
             {
                 wat->PrTOT_mean[j] = wat->Pt[j];
                 wat->PrSNW_mean[j] = wat->Ps[j];
             }
         }
 
-        if(time->JD_plots.size() > 1 && W > 0)
+        if (time->JD_plots.size() > 1 && W > 0)
         {
-            if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->Hgplot[j] += egy->Hgp[j];
-            if(geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) egy->Hvplot[j] += egy->Hvp[j];
-            if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LEgplot[j] += egy->LEgp[j];
-            if(geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) egy->LEvplot[j] += egy->LEvp[j];
-            if(geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue) egy->SWinplot[j] += egy->SWinp[j];
-            if(geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->SWgplot[j] += egy->SWgp[j];
-            if(geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue) egy->SWvplot[j] += egy->SWvp[j];
-            if(geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) egy->LWinplot[j] += egy->LWinp[j];
-            if(geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LWgplot[j] += egy->LWgp[j];
-            if(geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue) egy->LWvplot[j] += egy->LWvp[j];
-            if(geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue) egy->Tsplot[j] += egy->Tsp[j];
-            if(geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) egy->Tgplot[j] += egy->Tgp[j];
-            if(geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) snow->Dplot[j] += W * DEPTH(top->rc_cont[j][1], top->rc_cont[j][2], snow->S->lnum, snow->S->Dzl);
-            if(geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) met->Taplot[j] += W * met->Tgrid[top->rc_cont[j][1]][top->rc_cont[j][2]];
-            if(geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue) met->RHplot[j] += W * met->RHgrid[top->rc_cont[j][1]][top->rc_cont[j][2]];
-            if(geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue || geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
+            if (geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->Hgplot[j] += egy->Hgp[j];
+            if (geotop::common::Variables::files[pH] != geotop::input::gStringNoValue || geotop::common::Variables::files[pHv] != geotop::input::gStringNoValue) egy->Hvplot[j] += egy->Hvp[j];
+            if (geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LEgplot[j] += egy->LEgp[j];
+            if (geotop::common::Variables::files[pLE] != geotop::input::gStringNoValue || geotop::common::Variables::files[pLEv] != geotop::input::gStringNoValue) egy->LEvplot[j] += egy->LEvp[j];
+            if (geotop::common::Variables::files[pSWin] != geotop::input::gStringNoValue) egy->SWinplot[j] += egy->SWinp[j];
+            if (geotop::common::Variables::files[pSWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->SWgplot[j] += egy->SWgp[j];
+            if (geotop::common::Variables::files[pSWv] != geotop::input::gStringNoValue) egy->SWvplot[j] += egy->SWvp[j];
+            if (geotop::common::Variables::files[pLWin] != geotop::input::gStringNoValue) egy->LWinplot[j] += egy->LWinp[j];
+            if (geotop::common::Variables::files[pLWg] != geotop::input::gStringNoValue || geotop::common::Variables::files[pG] != geotop::input::gStringNoValue) egy->LWgplot[j] += egy->LWgp[j];
+            if (geotop::common::Variables::files[pLWv] != geotop::input::gStringNoValue) egy->LWvplot[j] += egy->LWvp[j];
+            if (geotop::common::Variables::files[pTs] != geotop::input::gStringNoValue) egy->Tsplot[j] += egy->Tsp[j];
+            if (geotop::common::Variables::files[pTg] != geotop::input::gStringNoValue) egy->Tgplot[j] += egy->Tgp[j];
+            if (geotop::common::Variables::files[pD] != geotop::input::gStringNoValue) snow->Dplot[j] += W * DEPTH(top->rc_cont[j][1], top->rc_cont[j][2], snow->S->lnum, snow->S->Dzl);
+            if (geotop::common::Variables::files[pTa] != geotop::input::gStringNoValue) met->Taplot[j] += W * met->Tgrid[top->rc_cont[j][1]][top->rc_cont[j][2]];
+            if (geotop::common::Variables::files[pRH] != geotop::input::gStringNoValue) met->RHplot[j] += W * met->RHgrid[top->rc_cont[j][1]][top->rc_cont[j][2]];
+            if (geotop::common::Variables::files[pVspd] != geotop::input::gStringNoValue || geotop::common::Variables::files[pVdir] != geotop::input::gStringNoValue)
             {
                 met->Vxplot[j] -= W * met->Vgrid[top->rc_cont[j][1]][top->rc_cont[j][2]] * sin(met->Vdir[top->rc_cont[j][1]][top->rc_cont[j][2]] * GTConst::Pi / 180.);
                 met->Vyplot[j] -= W * met->Vgrid[top->rc_cont[j][1]][top->rc_cont[j][2]] * cos(met->Vdir[top->rc_cont[j][1]][top->rc_cont[j][2]] * GTConst::Pi / 180.);
@@ -3844,7 +3912,7 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
         {
             if (par->jplot[j] > 0 && par->Dtplot_point[geotop::common::Variables::i_sim] > 0)
             {
-                for(i = 0; i < otot; i++)
+                for (i = 0; i < otot; i++)
                 {
                     geotop::common::Variables::odpnt[i][par->jplot[j] - 1] += geotop::common::Variables::odp[i][par->jplot[j] - 1];
                 }
@@ -3856,7 +3924,7 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
     {
         if (par->Dtplot_basin[geotop::common::Variables::i_sim] > 0)
         {
-            for(i = 0; i < ootot; i++)
+            for (i = 0; i < ootot; i++)
             {
                 geotop::common::Variables::odbsn[i] += geotop::common::Variables::odb[i];
             }
