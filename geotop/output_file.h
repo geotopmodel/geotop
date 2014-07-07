@@ -54,6 +54,7 @@ namespace geotop
         };
 
         enum Variable {
+            SOIL_TEMP,
             UNKNOWN_VAR
         };
 
@@ -72,6 +73,7 @@ namespace geotop
             geotop::input::Dimension mDimension;
             geotop::input::IntegrationType mType;
             long mPeriod;
+            Variable str2var(std::string v);
         };
     }
 }

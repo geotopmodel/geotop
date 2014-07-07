@@ -70,6 +70,23 @@ namespace geotop
             return (long)d ;
         }
 
+        static std::string toLower(std::string s)
+        {
+            std::string tmp;
+            size_t i;
+
+            for (i = 0; i < s.size(); i++)
+            {
+                char c = s.at(i);
+                if (c >= 'A' && c <= 'Z')
+                    c += ('a' - 'A');
+
+                tmp.push_back(c);
+            }
+
+            return tmp;
+        }
+
         OutputFile::OutputFile(std::string extended_key, double period)
         {
             mVariable = geotop::input::UNKNOWN_VAR;
@@ -80,8 +97,12 @@ namespace geotop
 
             if (values.size() == 3)
             {
+                //Variable
+                std::string tmp = toLower(values.at(0));
+                mVariable = str2var(tmp);
+
                 //Dimension
-                std::string tmp = values.at(1);
+                tmp = values.at(1);
                 if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
                 if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
                 if (tmp.compare("2D") == 0) mDimension = D2D;
@@ -114,6 +135,9 @@ namespace geotop
 
             switch (mVariable)
             {
+                case SOIL_TEMP:
+                    output.append("SoilTemperature");
+                    break;
                 default:
                     output.append("UNKNOWN");
                     break;
@@ -180,6 +204,15 @@ namespace geotop
             output.append(".asc");
             
             return output;
+        }
+
+        Variable OutputFile::str2var(std::string v)
+        {
+            Variable lVar = UNKNOWN_VAR;
+
+            if (v.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
+
+            return lVar;
         }
     }
 }
