@@ -57,18 +57,6 @@ namespace geotop
             UNKNOWN_VAR
         };
 
-        class DateEur12Exception : std::exception
-        {
-        public:
-            DateEur12Exception(double date)
-            {
-                mDate = date;
-            }
-            const char* what();
-        private:
-            double mDate;
-        };
-
         class OutputFile
         {
         public:
