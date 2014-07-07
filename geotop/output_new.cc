@@ -148,15 +148,15 @@ void output_file_preproc()
     if (sz == 0) //No output files defined
         return;
 
+    //Sort them by period from shorter to longer
+    std::sort(output_files->begin(), output_files->end(), compareByPeriod);
+
     //Initial period
     lPeriod = (output_files->at(0)).getPeriod();
 
     lInstants->push_back(new OutputFilesVector(lPeriod));
     lCumulates->push_back(new OutputFilesVector(lPeriod));
     lAverages->push_back(new OutputFilesVector(lPeriod));
-
-    //Sort them by period from shorter to longer
-    std::sort(output_files->begin(), output_files->end(), compareByPeriod);
 
     //For each output file defined in geotop.inpts
     while (i < sz)
@@ -221,8 +221,7 @@ void output_file_preproc()
 
             if ((*itI)->empty() == true)
             {
-                lInstants->pop_back();
-                itI = lInstants->end();
+                itI = lInstants->erase(itI);
             }
             else if (itI == lInstants->begin())
                 doneI = true;
@@ -235,8 +234,7 @@ void output_file_preproc()
 
             if ((*itC)->empty() == true)
             {
-                lCumulates->pop_back();
-                itC = lCumulates->end();
+                itC = lCumulates->erase(itC);
             }
             else if (itC == lCumulates->begin())
                 doneC = true;
@@ -249,8 +247,7 @@ void output_file_preproc()
 
             if ((*itA)->empty() == true)
             {
-                lAverages->pop_back();
-                itA = lAverages->end();
+                itA = lAverages->erase(itA);
             }
             else if (itA == lAverages->begin())
                 doneA = true;
@@ -290,5 +287,38 @@ void write_output_new(AllData* A)
             }
         }
     }
+
+    if (ofs.cumulates != NULL)
+    {
+        for (i = 0; i < ofs.cumulates->size(); i++)
+        {
+            ofv = ofs.cumulates->at(i);
+
+            if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
+            {
+                for (j = 0; j < ofv->size(); j++)
+                {
+                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                }
+            }
+        }
+    }
+
+    if (ofs.averages != NULL)
+    {
+        for (i = 0; i < ofs.averages->size(); i++)
+        {
+            ofv = ofs.averages->at(i);
+
+            if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
+            {
+                for (j = 0; j < ofv->size(); j++)
+                {
+                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                }
+            }
+        }
+    }
+
 }
 
