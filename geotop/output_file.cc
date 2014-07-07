@@ -32,6 +32,7 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
+#include "times.h"
 
 namespace geotop
 {
@@ -67,35 +68,6 @@ namespace geotop
         {
             d += 0.5;
             return (long)d ;
-        }
-
-        static long floor(double d)
-        {
-            return (long)d;
-        }
-
-        static void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, long *year, long *hour, long *min)
-        {
-
-            *day = floor(date/1.E10);
-            *month = floor(date/1.E8 - (*day)*1.E2);
-            *year = floor(date/1.E4 - (*day)*1.E6 - (*month)*1.E4);
-            *hour = floor(date/1.E2 - (*day)*1.E8 - (*month)*1.E6 - (*year)*1.E2 );
-            *min = floor(date/1.E0 - (*day)*1.E10 - (*month)*1.E8 - (*year)*1.E4 - (*hour)*1.E2);
-
-            if (*day<1 || *day>31 || *month<1 || *month>12 || *year<1700 || *year>2900 || *hour<0 || *hour>23 || *min<0 || *min>59) {
-                geotop::input::DateEur12Exception e(date);
-                throw e;
-            }
-        }
-
-        const char* DateEur12Exception::what()
-        {
-            char buffer[512] = {'\0'};
-
-            sprintf(buffer, "Invalid date: %f", mDate);
-
-            return (const char*)strdup(buffer);
         }
 
         OutputFile::OutputFile(std::string extended_key, double period)

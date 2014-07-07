@@ -26,10 +26,15 @@
  */
 
 #include "output_new.h"
+#include "constants.h"
 #include "inputKeywords.h"
 #include "output_file.h"
 #include <algorithm>
 #include <math.h>
+#include "times.h"
+
+/*Constants*/
+const double epsilon = 1.E-6;
 
 /**
  * @internal 
@@ -43,6 +48,8 @@ class OutputFilesVector
         double period() { return mPeriod; };
         void append(geotop::input::OutputFile of);
         geotop::input::OutputFile at(size_t index);
+        bool empty() { return (mVector->size() == 0); }
+        size_t size() { return mVector->size(); }
     private:
         double mPeriod;
         std::vector<geotop::input::OutputFile>* mVector;
@@ -78,9 +85,9 @@ class OutputFilesStore
     public:
         OutputFilesStore();
         virtual ~OutputFilesStore();
-        std::vector<OutputFilesVector>* instants;
-        std::vector<OutputFilesVector>* cumulates;
-        std::vector<OutputFilesVector>* averages;
+        std::vector<OutputFilesVector*>* instants;
+        std::vector<OutputFilesVector*>* cumulates;
+        std::vector<OutputFilesVector*>* averages;
 } ;
 
 OutputFilesStore::OutputFilesStore()
@@ -112,6 +119,7 @@ OutputFilesStore::~OutputFilesStore()
 }
 
 static OutputFilesStore ofs;
+
 static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFile b)
 {
     return (a.getPeriod() < b.getPeriod());
@@ -120,18 +128,13 @@ static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFi
 void output_file_preproc()
 {
     boost::shared_ptr< std::vector<geotop::input::OutputFile> > output_files;
-    geotop::input::OutputFile of;
-    std::vector<OutputFilesVector>* lInstants = new std::vector<OutputFilesVector>();
-    std::vector<OutputFilesVector>* lCumulates = new std::vector<OutputFilesVector>();
-    std::vector<OutputFilesVector>* lAverages = new std::vector<OutputFilesVector>();
-    double lPeriod, lTmpDouble;
+    std::vector<OutputFilesVector*>* lInstants = new std::vector<OutputFilesVector*>();
+    std::vector<OutputFilesVector*>* lCumulates = new std::vector<OutputFilesVector*>();
+    std::vector<OutputFilesVector*>* lAverages = new std::vector<OutputFilesVector*>();
+    long lPeriod, lTmpLong;
     size_t i = 0;
     size_t j = 0;
     size_t sz;
-
-    lInstants->push_back(OutputFilesVector(lPeriod));
-    lCumulates->push_back(OutputFilesVector(lPeriod));
-    lAverages->push_back(OutputFilesVector(lPeriod));
 
     //Get all output files from geotop.inpts OUTPUT_SEC
     boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
@@ -145,32 +148,36 @@ void output_file_preproc()
     if (sz == 0) //No output files defined
         return;
 
-    //Sort them by period from shorter to longer
-    std::sort(output_files->begin(), output_files->end(), compareByPeriod);
-
     //Initial period
     lPeriod = (output_files->at(0)).getPeriod();
 
-    lTmpVector = new std::vector<geotop::input::OutputFile>();
+    lInstants->push_back(new OutputFilesVector(lPeriod));
+    lCumulates->push_back(new OutputFilesVector(lPeriod));
+    lAverages->push_back(new OutputFilesVector(lPeriod));
+
+    //Sort them by period from shorter to longer
+    std::sort(output_files->begin(), output_files->end(), compareByPeriod);
 
     //For each output file defined in geotop.inpts
     while (i < sz)
     {
-        of = output_files->at(i);
-        lTmpDouble = of.getPeriod();
+        geotop::input::OutputFile of = output_files->at(i);
+        lTmpLong = of.getPeriod();
 
-        if (fabs(lTmpDouble - lPeriod) < 1.E-6) //lTmpDouble == lPeriod
+        if (lTmpLong == lPeriod)
         {
             switch(of.getIntegrationType())
             {
-                case INS:
-                    (lInstants->at(j)).append(of);
+                case geotop::input::INS:
+                    (lInstants->at(j))->append(of);
                     break;
-                case CUM:
-                    (lCumulates->at(j)).append(of);
+                case geotop::input::CUM:
+                    (lCumulates->at(j))->append(of);
                     break;
-                case AVG:
-                    (lAverages->at(j)).append(of);
+                case geotop::input::AVG:
+                    (lAverages->at(j))->append(of);
+                    break;
+                default:
                     break;
             }
 
@@ -178,25 +185,110 @@ void output_file_preproc()
         }
         else
         {
-            lPeriod = lTmpDouble;
+            lPeriod = lTmpLong;
 
-            lInstants->push_back(OutputFilesVector(lPeriod));
-            lCumulates->push_back(OutputFilesVector(lPeriod));
-            lAverages->push_back(OutputFilesVector(lPeriod));
+            lInstants->push_back(new OutputFilesVector(lPeriod));
+            lCumulates->push_back(new OutputFilesVector(lPeriod));
+            lAverages->push_back(new OutputFilesVector(lPeriod));
 
             j++;
         }
     }
 
-    //TODO: prune the vectors
+    //Pruning
+    
+    bool doneI = false;
+    bool doneC = false;
+    bool doneA = false;
 
-    ofs.instants = lInstants;
-    ofs.cumulates = lCumulates;
-    ofs.averages = lAverages;
+    std::vector<OutputFilesVector*>::iterator itI = lInstants->end();
+    std::vector<OutputFilesVector*>::iterator itC = lCumulates->end();
+    std::vector<OutputFilesVector*>::iterator itA = lAverages->end();
+
+    while (!doneI || !doneC || !doneA)
+    {
+        if (lInstants->empty())
+            doneI = true;
+        if (lCumulates->empty())
+            doneC = true;
+        if (lAverages->empty())
+            doneA = true;
+
+        if (!doneI)
+        {
+            if (itI != lInstants->begin())
+                --itI;
+
+            if ((*itI)->empty() == true)
+            {
+                lInstants->pop_back();
+                itI = lInstants->end();
+            }
+            else if (itI == lInstants->begin())
+                doneI = true;
+        }
+
+        if (!doneC)
+        {
+            if (itC != lCumulates->begin())
+                --itC;
+
+            if ((*itC)->empty() == true)
+            {
+                lCumulates->pop_back();
+                itC = lCumulates->end();
+            }
+            else if (itC == lCumulates->begin())
+                doneC = true;
+        }
+
+        if (!doneA)
+        {
+            if (itA != lAverages->begin())
+                --itA;
+
+            if ((*itA)->empty() == true)
+            {
+                lAverages->pop_back();
+                itA = lAverages->end();
+            }
+            else if (itA == lAverages->begin())
+                doneA = true;
+        }
+    }
+
+    if (lInstants->empty() == false)
+        ofs.instants = lInstants;
+    if (lCumulates->empty() == false)
+        ofs.cumulates = lCumulates;
+    if (lAverages->empty() == false)
+        ofs.averages = lAverages;
+    
 }
 
 void write_output_new(AllData* A)
 {
-    double time_from_start = A->I->time;
+    double lJDate = A->I->time; //seconds passed since the beginning fo the simulation
+    OutputFilesVector* ofv = NULL;
+    size_t i, j;
+
+    lJDate /= GTConst::secinday;
+    lJDate += A->P->init_date;
+
+    if (ofs.instants != NULL)
+    {
+        for (i = 0; i < ofs.instants->size(); i++)
+        {
+            ofv = ofs.instants->at(i);
+
+            if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
+            {
+                for (j = 0; j < ofv->size(); j++)
+                {
+                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                }
+            }
+        }
+    }
 }
 

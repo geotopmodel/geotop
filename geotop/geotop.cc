@@ -53,6 +53,7 @@
 #include <errno.h>
 
 #include <inputKeywords.h>
+#include "output_new.h"
 
 using namespace std;
 
@@ -190,6 +191,7 @@ int main(int argc,char *argv[]){
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
+        output_file_preproc();
 
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 #ifdef USE_NETCDF
@@ -479,6 +481,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			// line below to move in output..   
 			if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
 #endif
+            write_output_new(A);
+
 			tend=clock();
 			geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
