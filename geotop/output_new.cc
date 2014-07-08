@@ -185,19 +185,22 @@ void output_file_preproc()
 
         if (lTmpLong == lPeriod)
         {
-            switch(of.getIntegrationType())
+            if (of.getVariable() != geotop::input::UNKNOWN_VAR)
             {
-                case geotop::input::INS:
-                    (lInstants->at(j))->append(of);
-                    break;
-                case geotop::input::CUM:
-                    (lCumulates->at(j))->append(of);
-                    break;
-                case geotop::input::AVG:
-                    (lAverages->at(j))->append(of);
-                    break;
-                default:
-                    break;
+                switch(of.getIntegrationType())
+                {
+                    case geotop::input::INS:
+                        (lInstants->at(j))->append(of);
+                        break;
+                    case geotop::input::CUM:
+                        (lCumulates->at(j))->append(of);
+                        break;
+                    case geotop::input::AVG:
+                        (lAverages->at(j))->append(of);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             i++;
@@ -284,7 +287,7 @@ void output_file_preproc()
 
 void write_output_new(AllData* A)
 {
-    double lJDate = A->I->time; //seconds passed since the beginning fo the simulation
+    double lJDate = A->I->time; //seconds passed since the beginning of the simulation
     OutputFilesVector* ofv = NULL;
     size_t i, j;
 
