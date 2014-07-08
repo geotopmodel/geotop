@@ -61,18 +61,20 @@ namespace geotop
         class OutputFile
         {
         public:
-            OutputFile(std::string extended_key, double period);
+            OutputFile(std::string extended_key, double period, long layer = 0L);
             virtual ~OutputFile();
             std::string getFileName(double dateeur12);
             geotop::input::Variable getVariable() { return mVariable; }
             geotop::input::Dimension getDimension() { return mDimension; }
             geotop::input::IntegrationType getIntegrationType() { return mType; }
             long getPeriod() { return mPeriod; }
+            long getLayer() { return mLayerIndex; }
         private:
             geotop::input::Variable mVariable;
             geotop::input::Dimension mDimension;
             geotop::input::IntegrationType mType;
             long mPeriod;
+            long mLayerIndex;
             Variable str2var(std::string v);
         };
     }

@@ -87,12 +87,13 @@ namespace geotop
             return tmp;
         }
 
-        OutputFile::OutputFile(std::string extended_key, double period)
+        OutputFile::OutputFile(std::string extended_key, double period, long layer)
         {
             mVariable = geotop::input::UNKNOWN_VAR;
             mDimension = geotop::input::UNKNOWN_DIM;
             mType = geotop::input::UNKNOWN_INTEG;
             mPeriod = rounding(period);
+            mLayerIndex = layer;
             std::vector<std::string> values = split_ext_key(extended_key);
 
             if (values.size() == 3)
