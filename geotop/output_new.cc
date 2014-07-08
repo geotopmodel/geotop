@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <math.h>
 #include "times.h"
+#include "geotop_common.h"
 
 /*==============================================================================
    Constants
@@ -138,6 +139,75 @@ static OutputFilesStore ofs;
 static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFile b)
 {
     return (a.getPeriod() < b.getPeriod());
+}
+
+static GeoTensor<double> getTensor(AllData* A, geotop::input::OutputFile* f)
+{
+    long i,l;
+    GeoTensor<double> output(geotop::common::Variables::Nl+1,
+                             geotop::common::Variables::Nr+1,
+                             geotop::common::Variables::Nc+1,
+                             geotop::input::gDoubleNoValue);
+
+    GeoMatrix<double>* var = NULL;
+
+    switch(f->getVariable())
+    {
+        case geotop::input::SOIL_TEMP:
+            var = &(A->S->SS->T);
+            break;
+        default:
+            exit(666);
+            break;
+    }
+
+    //For each layer
+    for (l = 1; l <= geotop::common::Variables::Nl; l++)
+    {
+        //Scan Data Vector
+        for (i = 1; i <= A->P->total_pixel; i++)
+        {
+            long r = A->T->rc_cont[i][1];
+            long c = A->T->rc_cont[i][2];
+
+            output[l][r][c] = (*var)[l][i];
+        }
+    }
+
+    return output;
+}
+
+//Prints a variable
+static void printInstant(AllData* A, geotop::input::OutputFile* f)
+{
+    if (f->getVariable() != geotop::input::UNKNOWN_VAR)
+    {
+        double lJDate = A->I->time; //seconds passed since the beginning of the simulation
+
+        lJDate /= GTConst::secinday;
+        lJDate += A->P->init_date;
+
+        std::cout << f->getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+
+        switch(f->getDimension())
+        {
+            case geotop::input::D1Dp:
+                break;
+            case geotop::input::D1Ds:
+                break;
+            case geotop::input::D2D:
+                break;
+            case geotop::input::D3D:
+                {
+                    GeoTensor<double> T = getTensor(A, f);
+                    //TODO: print the tensor
+                }
+                break;
+            default:
+                //ERROR
+                break;
+        }
+    }
 }
 
 /*==============================================================================
@@ -305,6 +375,8 @@ void write_output_new(AllData* A)
                 for (j = 0; j < ofv->size(); j++)
                 {
                     std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                    f = &(ofv->at(j));
+                    printInstant(A, f);
                 }
             }
         }
