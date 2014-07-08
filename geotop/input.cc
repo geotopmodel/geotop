@@ -229,24 +229,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->delay_day_recover = 0.0;
     par->n_ContRecovery = 0;
 
-// this below should be removed (S.C. 22.06.2014)
-/*    if(par->recover > 0){
-        if(par->saving_points.size() -1< par->recover){
-            f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-            fprintf(f, "Error: recover index higher than the length of the saving points vector");
-            fclose(f);
-#ifdef WITH_LOGGER
-            lg->log("Recover index higher than the length of the saving points vector",
-                    geotop::logger::ERROR);
-            lg->log("Geotop failed. See failing report (1).",
-                    geotop::logger::CRITICAL);
-#else
-            t_error("Fatal Error! Geotop is closed. See failing report (1).");
-#endif
-        }
-        par->delay_day_recover = par->saving_points[par->recover];
-    }*/
-
     temp = geotop::common::Variables::SuccessfulRunFile + ".old";
     rename(geotop::common::Variables::SuccessfulRunFile.c_str(), temp.c_str());
     temp = geotop::common::Variables::FailedRunFile + ".old";
@@ -971,35 +953,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /****************************************************************************************************/
     //Calculates distance from the main channel
 
-    /*DOUBLEMATRIX *M;
-    M=new_doublematrix(land->LC->nrh, land->LC->nch);
-    distance_from_channel2(M, top->pixel_type, cnet->r, cnet->c);
-
-    long R=Nr;
-    for (i=1; i<=cnet->r->nh; i++) {
-        if (cnet->r->co[i]<=R) R=cnet->r->co[i];
-    }
-    long C;
-    for(r=1;r<=geotop::common::Variables::Nr;r++){
-        C=Nc;
-        for (i=1; i<=cnet->r->nh; i++) {
-            if (r==cnet->r->co[i]) C=cnet->c->co[i];
-        }
-        for(c=1;c<=geotop::common::Variables::Nc;c++){
-            if((long)land->LC->co[r][c]!=geotop::input::gDoubleNoValue){
-                M->co[r][c]*=UV->U->co[1];
-                if(M->co[r][c]>45) M->co[r][c]=geotop::input::gDoubleNoValue;
-                if(c>=C) M->co[r][c]=geotop::input::gDoubleNoValue;
-                if(r<=R) M->co[r][c]=geotop::input::gDoubleNoValue;
-            }
-        }
-    }
-
-    temp=join_strings(WORKING_DIRECTORY, "dist_from_channel");
-    write_map(temp, 0, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-    free(temp);
-    free_doublematrix(M);*/
-
     //Cont for Richards 3D
     //There are not channels
   
@@ -1643,7 +1596,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #else
         printf("Initial condition on snow depth from file %s\n",geotop::common::Variables::files[fsn0].c_str());
 #endif
-        //	M=read_map(2,geotop::common::Variables::files[fsn0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+
         meteoio_readMap(string(geotop::common::Variables::files[fsn0]), M);
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
@@ -1658,7 +1611,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #else
         printf("Initial condition on snow water equivalent from file %s\n",geotop::common::Variables::files[fswe0].c_str());
 #endif
-        //	M=read_map(2,geotop::common::Variables::files[fswe0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+
         meteoio_readMap(string(geotop::common::Variables::files[fswe0]), M);
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
@@ -1674,7 +1627,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #else
         printf("Initial condition on snow depth from file %s\n",geotop::common::Variables::files[fsn0].c_str());
 #endif
-        //	M=read_map(2,geotop::common::Variables::files[fsn0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+
         meteoio_readMap(string(geotop::common::Variables::files[fsn0]), M);
 
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
@@ -1696,7 +1649,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #else
         printf("Initial condition on snow water equivalent from file %s\n",geotop::common::Variables::files[fswe0].c_str());
 #endif
-        //	M=read_map(2,geotop::common::Variables::files[fswe0], land->LC, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+
         meteoio_readMap(string(geotop::common::Variables::files[fswe0]), M);
         for (r=1; r<=geotop::common::Variables::Nr; r++) {
             for (c=1; c<=geotop::common::Variables::Nc; c++) {
@@ -2736,14 +2689,6 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
         top->BC_DepthFreeSurface.resize(2,geotop::input::gDoubleNoValue);
     }
 
-    //bedrock: the map is read inside the set_bedrock function
-//    flag = file_exists(fbed, flog);
-//    if(flag == 1){
-//    	GeoMatrix<double> B;
-//    	//IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
-//    	 meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
-//    }
-
 }
 
 //***************************************************************************************************************
@@ -2852,14 +2797,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[flu]), LU); //HACK: add consitency check in meteoioplugin
-            /*if(read_dem==0){
-                Q=new_doublematrix(1,1);
-                LU=read_map(0,geotop::common::Variables::files[flu], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                free_doublematrix(Q);
-            }else{
-                LU=read_map(1,geotop::common::Variables::files[flu], Z, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                }*/
-
         }else{
 #ifdef WITH_LOGGER
         lg->log("Landuse file not present, uniform cover considered",
@@ -2900,15 +2837,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fsoil]), P); //HACK: add consitency check in meteoioplugin
-            /*
-            if(read_dem==0){
-                Q=new_doublematrix(1,1);
-                P=read_map(0,geotop::common::Variables::files[fsoil], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                free_doublematrix(Q);
-            }else{
-                P=read_map(1,geotop::common::Variables::files[fsoil], Z, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            }
-            */
         }else{
 #ifdef WITH_LOGGER
         lg->log("Soiltype file not present",
@@ -2944,15 +2872,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fslp]), P); //HACK: add consitency check in meteoioplugin
-            /*
-            if(read_dem==0){
-                Q=new_doublematrix(1,1);
-                P=read_map(0,geotop::common::Variables::files[fslp], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                free_doublematrix(Q);
-            }else{
-                P=read_map(1,geotop::common::Variables::files[fslp], Z, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            }
-            */
         }else{
             if(read_dem==0){
 #ifdef WITH_LOGGER
@@ -3010,15 +2929,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fasp]), P); //HACK: add consitency check in meteoioplugin
-            /*
-            if(read_dem==0){
-                Q=new_doublematrix(1,1);
-                P=read_map(0,geotop::common::Variables::files[fasp], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                free_doublematrix(Q);
-            }else{
-                P=read_map(1,geotop::common::Variables::files[fasp], Z, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            }
-            */
         }else{
             if(read_dem==0){
 #ifdef WITH_LOGGER
@@ -3064,15 +2974,6 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 #endif
         if(flag == 1){
             meteoio_readMap(string(geotop::common::Variables::files[fsky]), P); //HACK: add consitency check in meteoioplugin
-            /*
-            if(read_dem==0){
-                Q=new_doublematrix(1,1);
-                P=read_map(0,geotop::common::Variables::files[fsky], Q, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-                free_doublematrix(Q);
-            }else{
-                P=read_map(1,geotop::common::Variables::files[fsky], Z, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-            }
-            */
         }else{
             if(read_dem==0){
 #ifdef WITH_LOGGER
@@ -3422,14 +3323,12 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     //7. SET PAR these are all scalar from now on.. 
-   // for (size_t i=1; i< par->init_date.size(); i++) {
-        par->output_soil[1]=0.;
-        par->output_snow[1]=0.;
-        par->output_glac[1]=0.;
-        par->output_surfenergy[1]=0.;
-        par->output_vegetation[1]=0.;
-        par->output_meteo[1]=0.;
-    //}
+    par->output_soil[1]=0.;
+    par->output_snow[1]=0.;
+    par->output_glac[1]=0.;
+    par->output_surfenergy[1]=0.;
+    par->output_vegetation[1]=0.;
+    par->output_meteo[1]=0.;
 
     par->output_soil_bin = 0;
     par->output_snow_bin = 0;
@@ -3618,7 +3517,7 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 				}else{
 
 					for(j=1;j<=nsoilprop;j++){
-						sl->pa(synew,j,l) = IT->pa_bed(sy,j,l);//IT->pa_bed->co[sy][j][l] ;
+						sl->pa(synew,j,l) = IT->pa_bed(sy,j,l);
 					}
 				}
 
@@ -3642,7 +3541,6 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
 
 GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<double>& slope, GeoMatrix<double>& LC, Soil *sl, short point){
 
-    //	DOUBLETENSOR *Z;
     GeoTensor<double> Z;
     double Zaverage = 0.0, z, cosine;
     long l, r, c, n, sy;
