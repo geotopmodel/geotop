@@ -33,6 +33,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "times.h"
+#include "global_logger.h"
 
 namespace geotop
 {
@@ -127,6 +128,16 @@ namespace geotop
                 //Variable
                 std::string tmp = values.at(0);
                 mVariable = str2var(tmp);
+
+                if (mVariable == geotop::input::UNKNOWN_VAR)
+                {
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+
+                    lg->logsf(geotop::logger::WARNING,
+                              "Unknown output variable: '%s'.",
+                              tmp.c_str());
+                }
 
                 //Dimension
                 tmp = values.at(1);
