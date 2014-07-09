@@ -31,8 +31,10 @@
 #include "output_file.h"
 #include <algorithm>
 #include <math.h>
+#include <stdio.h>
 #include "times.h"
 #include "geotop_common.h"
+#include "global_logger.h"
 
 /*==============================================================================
    Constants
@@ -127,13 +129,13 @@ OutputFilesStore::~OutputFilesStore()
 }
 
 /*==============================================================================
-   Private variables
+   Static variables
  ==============================================================================*/
 
 static OutputFilesStore ofs;
 
 /*==============================================================================
-   Private functions
+   Static functions
  ==============================================================================*/
 
 static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFile b)
@@ -141,7 +143,72 @@ static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFi
     return (a.getPeriod() < b.getPeriod());
 }
 
-static GeoTensor<double> getTensor(AllData* A, geotop::input::OutputFile* f)
+static inline bool equals(double a, double b)
+{
+    return fabs(a - b) < epsilon ? true : false;
+}
+
+static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what)
+{
+    GeoMatrix<double>* var = NULL;
+
+    switch(what)
+    {
+        case geotop::input::SOIL_TEMP:
+            var = &(A->S->SS->T);
+            break;
+        default:
+            break;
+    }
+
+    return var;
+
+}
+
+static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
+{
+    long i;
+    bool found = false;
+    double output = geotop::input::gDoubleNoValue;
+
+    GeoMatrix<double>* var = getSupervectorVariable(A, what);
+
+    for (i = 1; i <= A->P->total_pixel; i++)
+    {
+        if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) output = (*var)[layer][i];
+
+    return output;
+}
+
+static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long layer)
+{
+    long i;
+    GeoMatrix<double> output(geotop::common::Variables::Nr+1,
+                             geotop::common::Variables::Nc+1,
+                             geotop::input::gDoubleNoValue);
+    
+    GeoMatrix<double>* var = getSupervectorVariable(A, what);
+
+    //Scan Data Vector
+    for (i = 1; i <= A->P->total_pixel; i++)
+    {
+        long r = A->T->rc_cont[i][1];
+        long c = A->T->rc_cont[i][2];
+
+        output[r][c] = (*var)[layer][i];
+    }
+
+    return output;
+}
+
+static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
 {
     long i,l;
     GeoTensor<double> output(geotop::common::Variables::Nl+1,
@@ -149,17 +216,7 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::OutputFile* f)
                              geotop::common::Variables::Nc+1,
                              geotop::input::gDoubleNoValue);
 
-    GeoMatrix<double>* var = NULL;
-
-    switch(f->getVariable())
-    {
-        case geotop::input::SOIL_TEMP:
-            var = &(A->S->SS->T);
-            break;
-        default:
-            exit(666);
-            break;
-    }
+    GeoMatrix<double>* var = getSupervectorVariable(A, what);
 
     //For each layer
     for (l = 1; l <= geotop::common::Variables::Nl; l++)
@@ -177,17 +234,57 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::OutputFile* f)
     return output;
 }
 
-//Prints a variable
+static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, double date)
+{
+    long l,r,c;
+    FILE* fp = NULL;
+
+    //For all layers
+    for (l = 1; l < T.getDh(); l++)
+    {
+        std::string filename =
+            f->getFileName(date, l);
+
+        fp = fopen(filename.c_str(), "w");
+        if (fp == NULL)
+        {
+            geotop::logger::GlobalLogger* lg =
+                geotop::logger::GlobalLogger::getInstance();
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to open file %s for writing. Aborting.",
+                      filename.c_str());
+            exit(1);
+        }
+
+        for (r = 1; r < T.getRh(); r++)
+        {
+            for (c = 1; c < T.getCh(); c++)
+                fprintf(fp, "%.3f ", T[l][r][c]);
+
+            fseek(fp, -1, SEEK_CUR);
+            fprintf(fp,"\n");
+        }
+
+        fclose(fp);
+    }
+}
+
+/**
+ * @brief Prints a variable to the corrisponding file(s)
+ * @param[in] A global data storage pointer
+ * @param[in] f output file definition
+ */
 static void printInstant(AllData* A, geotop::input::OutputFile* f)
 {
+    std::string filename;
+
     if (f->getVariable() != geotop::input::UNKNOWN_VAR)
     {
         double lJDate = A->I->time; //seconds passed since the beginning of the simulation
 
-        lJDate /= GTConst::secinday;
+        lJDate /= GTConst::secinday; //seconds to days
         lJDate += A->P->init_date;
-
-        std::cout << f->getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+        lJDate = convert_JDfrom0_dateeur12(lJDate);
 
         switch(f->getDimension())
         {
@@ -196,15 +293,24 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
             case geotop::input::D1Ds:
                 break;
             case geotop::input::D2D:
+                {
+                    GeoMatrix<double> M = getLayer(A, f->getVariable(), f->getLayer());
+                }
                 break;
             case geotop::input::D3D:
                 {
-                    GeoTensor<double> T = getTensor(A, f);
-                    //TODO: print the tensor
+                    GeoTensor<double> T = getTensor(A, f->getVariable());
+                    printTensor(T, f, lJDate);
                 }
                 break;
             default:
-                //ERROR
+                {
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+
+                    lg->log("Unable to find the output dimension. Check your geotop.inpts file.",
+                            geotop::logger::WARNING);
+                }
                 break;
         }
     }
@@ -375,8 +481,8 @@ void write_output_new(AllData* A)
                 for (j = 0; j < ofv->size(); j++)
                 {
                     std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
-                    f = &(ofv->at(j));
-                    printInstant(A, f);
+                    geotop::input::OutputFile f = ofv->at(j);
+                    printInstant(A, &f);
                 }
             }
         }
