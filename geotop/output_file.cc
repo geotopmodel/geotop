@@ -223,7 +223,7 @@ namespace geotop
             //Layer
             if (layer != -1)
             {
-                output.append("_");
+                output.append("_L");
                 memset(buffer, 0, 13);
                 sprintf(buffer, "%.4ld", layer);
                 output.append(buffer);
