@@ -38,6 +38,16 @@ namespace geotop
 {
     namespace input
     {
+        /*=====================================================================
+         * Static functions
+         =====================================================================*/
+
+        /**
+         * @internal
+         * @brief Splits an extended key
+         * @param[in] key the key to split
+         * @return a std::vector with the subkeys
+         */
         static std::vector<std::string> split_ext_key(std::string key)
         {
             std::vector<std::string> output;
@@ -64,12 +74,24 @@ namespace geotop
             return output;
         }
 
+        /**
+         * @internal
+         * @brief Converts a double to a long with rounding
+         * @param[in] d the double to convert
+         * @return truncate (d + 0.5)
+         */
         static long rounding(double d)
         {
             d += 0.5;
             return (long)d ;
         }
 
+        /**
+         * @internal
+         * @brief Converts a string to lowercase
+         * @param[in] s the string to convert
+         * @return the lowercase version of s
+         */
         static std::string toLower(std::string s)
         {
             std::string tmp;
@@ -87,6 +109,10 @@ namespace geotop
             return tmp;
         }
 
+        /*=====================================================================
+         * OutputFile class members
+         =====================================================================*/
+
         OutputFile::OutputFile(std::string extended_key, double period, long layer)
         {
             mVariable = geotop::input::UNKNOWN_VAR;
@@ -99,7 +125,7 @@ namespace geotop
             if (values.size() == 3)
             {
                 //Variable
-                std::string tmp = toLower(values.at(0));
+                std::string tmp = values.at(0);
                 mVariable = str2var(tmp);
 
                 //Dimension
@@ -122,7 +148,7 @@ namespace geotop
         {
         }
 
-        std::string OutputFile::getFileName(double dateeur12)
+        std::string OutputFile::getFileName(double dateeur12, long layer)
         {
             char buffer[13] = {'\0'};
             long day = 0L, month = 0L, year = 0L, hour = 0L, min = 0L;
@@ -134,15 +160,7 @@ namespace geotop
             std::string output(buffer);
             output.append("_");
 
-            switch (mVariable)
-            {
-                case SOIL_TEMP:
-                    output.append("SoilTemperature");
-                    break;
-                default:
-                    output.append("UNKNOWN");
-                    break;
-            }
+            output.append(var2str(mVariable));
 
             output.append("_");
 
@@ -202,16 +220,44 @@ namespace geotop
 
             output.append(buffer);
 
+            //Layer
+            if (layer != -1)
+            {
+                output.append("_");
+                memset(buffer, 0, 13);
+                sprintf(buffer, "%.4ld", layer);
+                output.append(buffer);
+            }
+
+            //Extension
             output.append(".asc");
             
+            return output;
+        }
+
+        std::string OutputFile::var2str(Variable v)
+        {
+            std::string output = "";
+
+            switch (v)
+            {
+                case SOIL_TEMP:
+                    output.append("SoilTemperature");
+                    break;
+                default:
+                    output.append("UNKNOWN");
+                    break;
+            }
+
             return output;
         }
 
         Variable OutputFile::str2var(std::string v)
         {
             Variable lVar = UNKNOWN_VAR;
+            std::string tmp = toLower(v);
 
-            if (v.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
+            if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
 
             return lVar;
         }

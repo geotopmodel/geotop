@@ -38,6 +38,14 @@ namespace geotop
 {
     namespace input
     {
+        /**
+         * @brief Output Dimensions
+         *
+         * - D1Dp Single point table
+         * - D1Ds Whole domain mean table
+         * - D2D  Single layer map
+         * - D3D  Multiple maps (one per layer) 
+         */
         enum Dimension {
             D1Dp,
             D1Ds,
@@ -46,6 +54,13 @@ namespace geotop
             UNKNOWN_DIM
         };
 
+        /**
+         * @brief Type of integration
+         *
+         * - AVG Time Average (value += current_value/period)
+         * - CUM Cumulate (value += current_value)
+         * - INS Instant (value = current_value)
+         */
         enum IntegrationType {
             AVG,
             CUM,
@@ -53,8 +68,11 @@ namespace geotop
             UNKNOWN_INTEG
         };
 
+        /**
+         * @brief Output variables known
+         */
         enum Variable {
-            SOIL_TEMP,
+            SOIL_TEMP, //Soil temperature
             UNKNOWN_VAR
         };
 
@@ -63,19 +81,20 @@ namespace geotop
         public:
             OutputFile(std::string extended_key, double period, long layer = 0L);
             virtual ~OutputFile();
-            std::string getFileName(double dateeur12);
+            std::string getFileName(double dateeur12, long layer = -1L);
             geotop::input::Variable getVariable() { return mVariable; }
             geotop::input::Dimension getDimension() { return mDimension; }
             geotop::input::IntegrationType getIntegrationType() { return mType; }
             long getPeriod() { return mPeriod; }
             long getLayer() { return mLayerIndex; }
+            static Variable str2var(std::string v);
+            static std::string var2str(Variable v);
         private:
             geotop::input::Variable mVariable;
             geotop::input::Dimension mDimension;
             geotop::input::IntegrationType mType;
             long mPeriod;
             long mLayerIndex;
-            Variable str2var(std::string v);
         };
     }
 }
