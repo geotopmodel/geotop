@@ -79,15 +79,48 @@ namespace geotop
         class OutputFile
         {
         public:
+            /*=================================================================
+             * Constructor and Destructor
+             =================================================================*/
+            /**
+             * @brief Constructor
+             * @param[in] extended_key the key in VARIABLE::DIMENSION::INTEGRATION format
+             * @param[in] period time of integration
+             * @param[in] layer optional layer index
+             */
             OutputFile(std::string extended_key, double period, long layer = 0L);
             virtual ~OutputFile();
+
+            /*=================================================================
+             * Methods
+             =================================================================*/
+            /**
+             * @brief retrieves the output file name
+             * @param[in] dateeur12 the date in dateeur12 format (see times.cc)
+             * @param[in] layer optional layer index (set to -1 to omit)
+             * @return a string with the file's name
+             */
             std::string getFileName(double dateeur12, long layer = -1L);
+
+            /*=================================================================
+             * Read-only Properties
+             =================================================================*/
             geotop::input::Variable getVariable() { return mVariable; }
             geotop::input::Dimension getDimension() { return mDimension; }
             geotop::input::IntegrationType getIntegrationType() { return mType; }
             long getPeriod() { return mPeriod; }
             long getLayer() { return mLayerIndex; }
+
+            /*=================================================================
+             * Static methods
+             =================================================================*/
+            /**
+             * @brief Converts a string to a Variable
+             */
             static Variable str2var(std::string v);
+            /**
+             * @brief Converts a Variable to a string
+             */
             static std::string var2str(Variable v);
         private:
             geotop::input::Variable mVariable;
