@@ -26,15 +26,6 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-//void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta, double Qa,
-//		double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR, double P,
-//		double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, double *land, double Wcrn0, double Wcrnmax,
-//		double Wcsn0, double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
-//		double *dHgdT, double *LEv, double *Eg, double *dEgdT, double *Ts, double *Qs, double *froot, double *theta,
-//		DOUBLEVECTOR *soil_transp_layer, double *Lobukhov, PAR *par, long n, double *rm, double *rh, double *rv, double *rc,
-//		double *rb, double *ruc, double *u_top, double *Etrans, double *Tv, double *Qv, double *decay, double *Locc,
-//		double *LWup_above_v, double psi, double **soil, double *T, DOUBLEVECTOR *soil_evap_layer){
-
 
 void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta, double Qa, 
 		double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR, double P, 
@@ -58,8 +49,6 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 	FILE *f;
 
 	//vegetation thermal capacity
-	//C0=0.02*LSAI*c_liq + c_ice*Wcsn + c_liq*Wcrn;
-//	C0=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
 	C0=land(lu,jcd)*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
 	C=C0; 
 	
@@ -152,7 +141,6 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 				T11p=T11;
 			}
 									
-		//	C=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
 			C=land(lu,jcd)*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
 			C=(C+C0)/2.;
 			
@@ -176,10 +164,6 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 								
 	}while(a==0 && cont<par->maxiter_canopy);
 	
-	/*if(fabs(T11-T10)>0.5){
-		printf("Tcanopy not converging %f %f %ld %ld \n",T10,T11,r,c);
-	}*/
-		
 	*Tv=T11p;
 	*dWcrn=Wcrn-Wcrn0;
 	*dWcsn=Wcsn-Wcsn0;
@@ -200,15 +184,6 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 		
-//void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat, double Qa, double zmu, double zmT, double z0,
-//				   double z0s, double d0, double z0r, double hveg, double v, double LR, double P, double SW, double LW, double e,
-//				   double LSAI, double decaycoeff0, double *land, double Wcrn, double Wcrnmax, double Wcsn, double Wcsnmax,
-//				   double *Esubl, double *Etrans, double *LWv, double *LWg, double *H, double *LE, double *h, double *dhdT,
-//				   double *Ts, double *Qs, double *Qv, double *ruc, double *froot, double *theta, DOUBLEVECTOR *soil_transp_layer,
-//				   long chgsgn, double *Lobukhov, PAR *par, long n, double *rm, double *rh, double *rv, double *rc, double *rb,
-//				   double *u_top, double *decay, double *Locc, double *LWup_above_v, double psi, double **soil, double *alpha,
-//				   double *beta, double *T, DOUBLEVECTOR *soil_evap_layer){
-
 void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat, double Qa, double zmu, double zmT, double z0, 
 				   double z0s, double d0, double z0r, double hveg, double v, double LR, double P, double SW, double LW, double e, 
 				   double LSAI, double decaycoeff0, const GeoMatrix<double>& land, long lu, double Wcrn, double Wcrnmax, double Wcsn, double Wcsnmax,
@@ -222,7 +197,8 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 	double u_star, ft=0.0, fw, fwliq, fwice;
 	double dQvdT, Hg, Lt, Lv, R, dLWvdT, dHdT, dEdT, dEsubldT, E;
 	double Loc=1.E50, Loc0, Ts0;
-	long l, cont, cont2, max_chgsgn=10;
+	long cont, cont2, max_chgsgn=10;
+    size_t l;
 	short MO=par->monin_obukhov;
 	FILE *f;
 	
@@ -269,8 +245,6 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 		
 			Loc0=Loc;
 			
-			//if(cont==par->maxiter_Loc) Loc=-1.E50;
-
 			veg_transmittance(par->stabcorr_incanopy, v, u_star, *u_top, hveg, z0s, z0, d0, LSAI, decaycoeff0, *Lobukhov, Loc, rb, ruc, decay);		
 			
 			Turbulence::find_actual_evaporation_parameters(r, c, alpha, beta, soil_evap_layer, theta, soil, sy, T, psi, P, *ruc, Ta, Qa, Qgsat, n);
@@ -296,17 +270,9 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 			if(Hg==0.0 || Hg!=Hg) Loc=1.E+50;
 			
 		}while(fabs(Loc0-Loc)>0.01 && cont<=par->maxiter_Loc);
-		
-		/*if(cont==maxiter){
-			printf("Loc not converging, set at neutrality %ld %ld\n",r,c);
-		}*/
 								
 	}while(cont2<par->maxiter_Ts && fabs((*Ts)-Ts0)>0.01);
 	
-	/*if(fabs((*Ts)-Ts0)>0.01){
-		printf("Ts not converging %f %f %ld %ld\n",*Ts,Ts0,r,c);
-	}*/
-		
 	//CANOPY FLUXES								
 	Turbulence::turbulent_fluxes(*rb, *rc, P, *Ts, Tv, *Qs, *Qv, dQvdT, *H, dHdT, E, dEdT);	
 	
@@ -332,9 +298,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 	}
 	
 	*Etrans=E-(*Esubl);
-//	for(l=1;l<=soil_transp_layer->nh;l++){
 	for(l=1;l<soil_transp_layer.size();l++){
-	//	soil_transp_layer->co[l] = soil_transp_layer->co[l] * (*Etrans);
 		soil_transp_layer[l] = soil_transp_layer[l] * (*Etrans);
 	}
 	
@@ -517,8 +481,6 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 	
 	*hc_ris=hc-snowD;//[mm]
 	*d0_ris=0.667*(*hc_ris);//[mm]
-	//*hc_ris=hc;//[mm]
-	//*d0_ris=0.0;//[mm]
 	*z0_ris=0.1*(*hc_ris);//[mm]
 	
 	*d0_ris=(*d0_ris)*1.E-3;//[m]
@@ -560,8 +522,6 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void root(long n, double d, double slope, double *D, double *root_fraction){
-//void root(long n, double d, double slope, double *D, GeoMatrix<double>& root_fraction, long row){
 void root(long n, double d, double slope, GeoTensor<double>& D, GeoMatrix<double>& root_fraction, long row)
 {
 	//n = number of soil layers (from the surface) affected by root absorption
@@ -574,20 +534,14 @@ void root(long n, double d, double slope, GeoTensor<double>& D, GeoMatrix<double
 	double z=0.0;
 	double d_corr=d*cos(slope); //slope depth taken as ortogonal to layer boundary
 		
-//	for(l=1;l<=n;l++){
 	for(l=1;l<n;l++){
-		//z += D[l];
 		z += D(1,jdz,l);
 		if( d_corr > z ){
-		//	root_fraction[l] = D[l]/d_corr;
 			root_fraction(row,l) = D(1,jdz,l)/d_corr;
 		}else{
-			//if( d_corr > z-D[l] ){
 			if( d_corr > z-D(1,jdz,l)){
-			//	root_fraction[l] = ( d_corr - (z-D[l]) ) / d_corr;
 				root_fraction(row,l) = ( d_corr - (z-D(1,jdz,l)) ) / d_corr;
 			}else{
-			//	root_fraction[l] = 0.0;
 				root_fraction(row, l) = 0.0;
 			}
 		}
@@ -600,14 +554,11 @@ void root(long n, double d, double slope, GeoTensor<double>& D, GeoMatrix<double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land,
-//							   double **soil, double *root, double *f, DOUBLEVECTOR *fl){
-
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, const GeoMatrix<double>& land, long lu,
 						 GeoTensor<double>& soil, long sy, const GeoMatrix<double>& root, double *f, GeoVector<double>& fl){
 
 	double fS, fe, fTemp, Rsmin, ea, ev;
-	long l;
+	size_t l;
 	
 	//CANOPY TRANSPIRATION (parameters from Best (1998))
 	//solar radiation [Best, (1998); Dolman et al., 1991]
@@ -629,43 +580,31 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	}
 	
 	*f=0.0;
-	//for(l=1;l<=fl->nh;l++){
 	for(l=1;l<fl.size();l++){
 		//water content [Wigmosta et al., (1994); Feddes et al.(1978)]
 		if (theta[l] >= soil[sy][jfc][l]){
-		//	fl->co[l] = 1.0;
 			fl[l] = 1.0;
 		}else if(theta[l] > soil[sy][jwp][l]){
-		//	fl->co[l] = (theta[l]-soil[jwp][l])/(soil[jfc][l]-soil[jwp][l]);
 			fl[l] = (theta[l]-soil[sy][jwp][l])/(soil[sy][jfc][l]-soil[sy][jwp][l]);
 		}else{
-		//	fl->co[l] = 0.0;
 			fl[l] = 0.0;
 		}
 						
 		//stomata resistance for each layer
-	//	if(fS*fe*fTemp*fl->co[l]<6.0E-11){
 		if(fS*fe*fTemp*fl[l]<6.0E-11){
-		//	fl->co[l]=1.0E12;
 			fl[l]=1.0E12;
 		}else{
-		//	Rsmin=land[jrs];
 			Rsmin=land(lu,jrs);
-		//	fl->co[l]=Rsmin/(fS*fe*fTemp*fl->co[l]);
 			fl[l]=Rsmin/(fS*fe*fTemp*fl[l]);
 		}
 			
 		//transpiration fraction for each layer
-	//	fl->co[l]=root[l]*(rbv/(rbv+fl->co[l]));
 		fl[l]=root(lu,l)*(rbv/(rbv+fl[l]));
 		//transpiration for all the column (as a fraction of Epc)
-	//	*f+=fl->co[l];
 		*f+=fl[l];
 	}
 	
-//	for(l=1;l<=fl->nh;l++){
 		for(l=1;l<fl.size();l++){
-		// if(*f!=0) fl->co[l]/=(*f);
 		   if(*f!=0) fl[l]/=(*f);
 	}
 
