@@ -234,6 +234,45 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
     return output;
 }
 
+static void printLayer(GeoMatrix<double> M, geotop::input::OutputFile* f, double date, long layer)
+{
+    long r,c;
+    FILE* fp = NULL;
+    std::string filename = f->getFileName(date, layer);
+
+    fp = fopen (filename.c_str(), "w");
+
+    if (fp == NULL)
+    {
+        geotop::logger::GlobalLogger* lg =
+            geotop::logger::GlobalLogger::getInstance();
+        lg->logsf(geotop::logger::CRITICAL,
+                  "Unable to open file %s for writing. Aborting.",
+                  filename.c_str());
+        exit(1);
+    }
+
+    //Header
+    fprintf(fp,"ncols         %u\n", M.getCols()-1);
+    fprintf(fp,"nrows         %u\n", M.getRows()-1);
+    fprintf(fp,"xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
+    fprintf(fp,"yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
+    fprintf(fp,"cellsize      %f\n", geotop::common::Variables::UV->U[1]);
+    fprintf(fp,"NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
+
+    //Data
+    for (r = 1; r < M.getRows(); r++)
+    {
+        for (c = 1; c < M.getCols(); c++)
+            fprintf(fp, "%.3f ", M[r][c]);
+
+        fseek(fp, -1, SEEK_CUR);
+        fprintf(fp,"\n");
+    }
+
+    fclose(fp);
+}
+
 static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, double date)
 {
     long l,r,c;
@@ -264,6 +303,7 @@ static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, doubl
         fprintf(fp,"cellsize      %f\n", geotop::common::Variables::UV->U[1]);
         fprintf(fp,"NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
 
+        //Data
         for (r = 1; r < T.getRh(); r++)
         {
             for (c = 1; c < T.getCh(); c++)
@@ -303,6 +343,7 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
             case geotop::input::D2D:
                 {
                     GeoMatrix<double> M = getLayer(A, f->getVariable(), f->getLayer());
+                    printLayer(M, f, lJDate, f->getLayer());
                 }
                 break;
             case geotop::input::D3D:
