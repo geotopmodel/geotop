@@ -256,6 +256,14 @@ static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, doubl
             exit(1);
         }
 
+        //Header
+        fprintf(fp,"ncols         %u\n", T.getCh()-1);
+        fprintf(fp,"nrows         %u\n", T.getRh()-1);
+        fprintf(fp,"xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
+        fprintf(fp,"yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
+        fprintf(fp,"cellsize      %f\n", geotop::common::Variables::UV->U[1]);
+        fprintf(fp,"NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
+
         for (r = 1; r < T.getRh(); r++)
         {
             for (c = 1; c < T.getCh(); c++)
