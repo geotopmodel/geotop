@@ -36,7 +36,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
 {
     /*internal auxiliary variables:*/
-    long i, j, r, c, l, m;                        /*counters*/
+    long i, j, r = 0L, c = 0L, l, m;              /*counters*/
     long n_file;                                  /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
     std::string NNNNN = "NNNNN";
     std::string RRRRR = "RRRRR";                  /*TODO: remove this*/
@@ -46,11 +46,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     std::string crec = "_crecNNNN";
 
     string name, temp1, temp2 , s1, s2;
-    FILE *f, *flog;
+    FILE *f = NULL, *flog = NULL;
 
     //	time variables
     time_t stop_time;
-    double percent_done, remaining_time, total_time;
+    double percent_done = 0.0, remaining_time, total_time;
     short first_column;
     double JD, JDfrom0;
     long day, month, year, hour, minute;
@@ -1994,7 +1994,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     /**********************************************************************************************************/
     /**********************************************************************************************************/
 
-    if (times->JD_plots.size() > 1 && times->iplot < times->JD_plots.size())
+    if (times->JD_plots.size() > 1 && (size_t)(times->iplot) < times->JD_plots.size())
     {
 
         i = times->iplot;
@@ -3450,7 +3450,8 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
 {
 
     short first_column = 1;
-    long j, l;
+    long j;
+    size_t l;
 
     for (j = 0; j < geotop::common::Variables::nosl; j++)
     {
@@ -3504,7 +3505,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
     }
     else
     {
-        for (l = 1; l <= geotop::common::Variables::Nl; l++)
+        for (l = 1; l <= (size_t)(geotop::common::Variables::Nl); l++)
         {
             fprintf(f, ",%f", var(row, l));
         }
@@ -3523,7 +3524,8 @@ void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<doub
 {
 
     short first_column = 1;
-    long j, l;
+    long j;
+    size_t l;
     double z = 0.0;
 
     for (j = 0; j < geotop::common::Variables::nosl; j++)
@@ -3555,7 +3557,7 @@ void write_soil_header(FILE *f, const GeoVector<double>& n, const GeoTensor<doub
     }
     else
     {
-        for (l = 1; l <= geotop::common::Variables::Nl; l++)
+        for (l = 1; l <= (size_t)(geotop::common::Variables::Nl); l++)
         {
             z += dz(1, jdz, l);
             fprintf(f, ",%f ", z - 0.5 * dz(1, jdz, l));
