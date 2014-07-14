@@ -388,7 +388,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->line_interp_Bsnow_LR=0;
 #endif
     long num_met_stat=met->st->E.size()-1;
-    for(size_t i=1; i <= num_met_stat; i++){
+
+    if(num_met_stat < 0)
+        num_met_stat = 0;
+
+    for(size_t i=1; i <= (size_t)num_met_stat; i++){
         if (met->imeteo_stations[1] != geotop::input::gDoubleNoValue) {
             ist = met->imeteo_stations[i];
         }else {
@@ -436,7 +440,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             met->numlines[i-1] = num_lines;
 
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
+            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0); //TODO: check return value for errors
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
@@ -623,7 +627,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         {
             a = 1;
         }
-	} while (met->nstcloud < met->st->Z.size() - 1 && a == 0);
+	} while ((size_t)(met->nstcloud) < met->st->Z.size() - 1 && a == 0);
 
 #ifdef WITH_LOGGER
     if (a == 0) {
@@ -649,7 +653,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		met->nstlrad++;
 		a=0;
 		if( (long)met->data[met->nstlrad-1][0][iLWi]!=geotop::input::gDoubleAbsent) a=1;
-	} while (met->nstlrad < met->st->Z.size() - 1 && a == 0);
+	} while ((size_t)(met->nstlrad) < met->st->Z.size() - 1 && a == 0);
 
 #ifdef WITH_LOGGER
     if (a == 0) {
@@ -826,7 +830,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     par->vegflag.resize(par->n_landuses+1,0);
 
-    for(i=1;i<=par->n_landuses;i++){
+    for(i = 1; (size_t)i <= par->n_landuses; i++){
 
         if (geotop::common::Variables::files[fvegpar] != geotop::input::gStringNoValue) {   //s stands for string
 
@@ -2036,7 +2040,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
                                 a = 0;
 
-                                for (i=1; i< par->inf_glac_layers.size(); i++) {
+                                for (i = 1; (size_t)i < par->inf_glac_layers.size(); i++) {
                                     if (n == i) a = 1;
                                 }
 
@@ -2239,8 +2243,8 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
         }
         for(r=1;r<land->LC.getRows();r++){
             for(c=1;c<land->LC.getCols();c++){
-                if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) {
-                    if ((long)land->LC[r][c] < 1 || (long)land->LC[r][c] > par->n_landuses){
+                if (land->LC[r][c] != geotop::input::gDoubleNoValue) {
+                    if (land->LC[r][c] < 1. || land->LC[r][c] > (double)(par->n_landuses)){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                         fprintf(f, "Error: It is not possible to assign Value < 1 or > n_landuses to the land cover type\n");
                         fclose(f);
