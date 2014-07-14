@@ -78,12 +78,17 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 		}
 		
 	}while(r>0);
+
+    {
+        size_t i; //Quiet the compiler
 	
-	for(i=1;i<cnet->r.size();i++){
-		r = cnet->r[i];
-		c = cnet->c[i];
-		cnet->length[i] *= (geotop::common::Variables::UV->U[1]/cos(slope[r][c]*GTConst::Pi/180.));
-	}
+        for(i=1;i<cnet->r.size();i++){
+            r = cnet->r[i];
+            c = cnet->c[i];
+            cnet->length[i] *= (geotop::common::Variables::UV->U[1]/cos(slope[r][c]*GTConst::Pi/180.));
+        }
+
+    }
 	
 }
 
