@@ -52,18 +52,17 @@
 template<typename T> class DBGGeoVector : public GeoVector<T>
 {
 public:
-    DBGGeoVector(const size_t& asize=0) {
-        
-    } ;
-    
+    DBGGeoVector(const size_t& asize=0) : GeoVector<T>(asize)
+    {
+    };
     /**
      * A constructor that creates a vector filled with constant values
      * @param asize size of the new array
      * @param init initial value to fill the vector with
      */
-    DBGGeoVector(const size_t& asize, const T& init) {
-        
-    } ;
+    DBGGeoVector(const size_t& asize, const T& init) : GeoVector<T>(asize, init)
+    {
+    };
     
     ~DBGGeoVector() {
         
