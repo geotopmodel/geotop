@@ -27,51 +27,37 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type, DOUBLEMATRIX *Z, DOUBLEMATRIX *slope, long novalue){
 void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<double>& Z, GeoMatrix<double>& slope, long novalue){
 	
 	long r, c, rnext, cnext, i=0;
 	
-//	initialize_doublevector(cnet->length, 0.);
 	cnet->length.resize(cnet->length.size(),0.0);
 	do{
 		
-	//	find_max_constraint( Z->co, LC, pixel_type, cnet->ch, novalue, &r, &c);
 		find_max_constraint( Z, LC, pixel_type, cnet->ch, novalue, &r, &c);
 		
 		if(r>0){
 			
 			i++;
-		//	cnet->r->co[i]=r;
 			cnet->r[i]=r;
-		//	cnet->c->co[i]=c;
 			cnet->c[i]=c;
-		//	cnet->ch->co[r][c]=i;
 			cnet->ch[r][c]=i;
 			
 			do{
 				
-			//	next_down_channel_pixel( r, c, Z->co, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
 				next_down_channel_pixel( r, c, Z, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
 				if(rnext>0){
 					i++;
 					if(fabs(rnext-r)==1 && fabs(cnext-c)==1){
-					//	cnet->length->co[i-1]+=0.5*sqrt(2.);
 						cnet->length[i-1]+=0.5*sqrt(2.);
-					//	cnet->length->co[i]+=0.5*sqrt(2.);
 						cnet->length[i]+=0.5*sqrt(2.);
 					}else{
-					//	cnet->length->co[i-1]+=0.5;
 						cnet->length[i-1]+=0.5;
-					//	cnet->length->co[i]+=0.5;
 						cnet->length[i]+=0.5;
 					}
 					
-				//	cnet->r->co[i]=rnext;
 					cnet->r[i]=rnext;
-				//	cnet->c->co[i]=cnext;
 					cnet->c[i]=cnext;
-				//	cnet->ch->co[rnext][cnext]=i;
 					cnet->ch[rnext][cnext]=i;
 					r=rnext;
 					c=cnext;
@@ -82,27 +68,20 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 			
 			if(rnext<0){
 				if(fabs(-rnext-r)==1 && fabs(-cnext-c)==1){
-				//	cnet->length->co[i]+=0.5*sqrt(2.);
 					cnet->length[i]+=0.5*sqrt(2.);
 				}else{
-				//	cnet->length->co[i]+=0.5;
 					cnet->length[i]+=0.5;
 				}
 			}else{
-			//	cnet->length->co[i]+=0.5;
 				cnet->length[i]+=0.5;
 			}		
 		}
 		
 	}while(r>0);
 	
-//	for(i=1;i<=cnet->r->nh;i++){
 	for(i=1;i<cnet->r.size();i++){
-	//	r = cnet->r->co[i];
 		r = cnet->r[i];
-	//	c = cnet->c->co[i];
 		c = cnet->c[i];
-	//	cnet->length->co[i] *= (UV->U->co[1]/cos(slope->co[r][c]*GTConst::Pi/180.));
 		cnet->length[i] *= (geotop::common::Variables::UV->U[1]/cos(slope[r][c]*GTConst::Pi/180.));
 	}
 	
@@ -113,7 +92,6 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void next_down_channel_pixel( long r, long c, double **Z, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C){
 void next_down_channel_pixel( long r, long c, GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<long>& CH, long novalue, long *R, long *C){
 	
 	*R=0;
@@ -222,7 +200,6 @@ void next_down_channel_pixel( long r, long c, GeoMatrix<double>& Z, GeoMatrix<do
 /******************************************************************************************************************************************/
 
 //find highest channel pixel that has not been enumerated yet	
-//void find_max_constraint( double **Z, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C){
 void find_max_constraint( GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<long>& CH, long novalue, long *R, long *C){
 	
 	long r, c;
@@ -231,13 +208,9 @@ void find_max_constraint( GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix
 	*R=0;
 	*C=0;
 	
-//	for(r=1;r<=CH->nrh;r++){
 	for(r=1;r<CH.getRows();r++){
-	//	for(c=1;c<=CH->nch;c++){
 		for(c=1;c<CH.getCols();c++){
-		//	if((long)LC->co[r][c]!=novalue){
 			if((long)LC[r][c]!=novalue){
-			//	if(pixel_type->co[r][c]>=10 && CH->co[r][c]==0){
 				if(pixel_type[r][c]>=10 && CH[r][c]==0){
 					if(Z[r][c]>z){
 						z=Z[r][c];
@@ -255,21 +228,16 @@ void find_max_constraint( GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//short neighboring_down_channel_pixel( long r, long c, long ir, long ic, double **Z, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue){
 short neighboring_down_channel_pixel( long r, long c, long ir, long ic, GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<long>& CH, long novalue){
 	
 	short yes=0;
 	long R=r+ir, C=c+ic;
 	
-//	if(R>=1 && R<=CH->nrh && C>=1 && C<=CH->nch){
 	if(R>=1 && R<CH.getRows() && C>=1 && C<CH.getCols()){
-	//	if((long)LC->co[R][C]!=novalue){
 		if((long)LC[R][C]!=novalue){
 		//	neighboring pixel is a channel
-		//	if(Z[R][C]<=Z[r][c] && pixel_type->co[R][C]>=10) yes=-1;
 			if(Z[R][C]<=Z[r][c] && pixel_type[R][C]>=10) yes=-1;
 		//	neighboring pixel is a channels that has not been enumerated yet
-		//	if(Z[R][C]<=Z[r][c] && pixel_type->co[R][C]>=10 && CH->co[R][C]==0) yes=1;
 			if(Z[R][C]<=Z[r][c] && pixel_type[R][C]>=10 && CH[R][C]==0) yes=1;
 		}
 	}
