@@ -22,6 +22,8 @@
 #include <stdio.h>
 #endif
 
+#include <assert.h>
+
 using namespace std;
 using namespace boost::assign ;
 
@@ -1436,7 +1438,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	}
 	
 	//other soil types
-    for (k=2; k<=par->nsoiltypes; k++) {
+    for (k=2; k<=(size_t)(par->nsoiltypes); k++) {
         for (size_t i=1; i<sl->pa.getCh(); i++) {
             for (size_t j=1; j<sl->pa.getRh(); j++) {
                 sl->pa(k,j,i) = sl->pa(1,j,i);
@@ -1446,7 +1448,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	
 	//use water table for water pressure
     sl->init_water_table_depth.resize((size_t)(par->nsoiltypes + 1));
-    for (k=1; k<=par->nsoiltypes; k++) {
+    for (k=1; k<=(size_t)(par->nsoiltypes); k++) {
         occurring = 0;//check if psi initial has at least one novalue
         for (size_t i=1; i<sl->pa.getCh(); i++) {
             if ( (long)sl->pa(k,jpsi,i) == geotop::input::gDoubleNoValue) occurring = 1;
@@ -1594,7 +1596,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     std::vector<double> lLapseRatePrec = getDoubleVectorValueWithDefault(lConfigStore, "LapseRatePrec", geotop::input::gDoubleNoValue, false, 0, true) ;
 	for (size_t i=0; i<nlstot; i++) {
 		met->LRc[i] = (double*)malloc(met->LRcnc[i]*sizeof(double));
-		for (lColumnIndexJ=0; lColumnIndexJ<met->LRcnc[i]; lColumnIndexJ++) {
+		for (lColumnIndexJ=0; lColumnIndexJ<(size_t)(met->LRcnc[i]); lColumnIndexJ++) {
 			if(i==ilsDate12)
                 met->LRc[i][lColumnIndexJ] = 0.;
 			if(i==ilsTa) {
@@ -1836,7 +1838,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
         for(size_t i = 0 ; i < lKeywordString.size() ; i++)
         {
             lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, lKeywordString[i], -1, false, 0, false) ;
-			for (k=0; k<par->max_glac_layers; k++) {
+			for (k=0; k<(size_t)(par->max_glac_layers); k++) {
 				lColumnIndexJ = (size_t)lDoubleTempVector[k];
 				if (lColumnIndexJ>=1 && lColumnIndexJ<=n) geotop::common::Variables::oglc[lColumnIndexJ-1] = (i-9)*par->max_glac_layers + k + 6 + 3*m;
 			}
@@ -2137,7 +2139,8 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 
             if (ok == 1 )
             {
-                if (IT->init_water_table_depth.size() <= i ) {
+                assert(i >= 0);
+                if (IT->init_water_table_depth.size() <= (size_t)i ) {
                     IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
                 }
                 IT->init_water_table_depth[i] = geotop::input::gDoubleNoValue;
@@ -2160,7 +2163,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 	fprintf(flog,"Soil Layers: %u\n",sl->pa.getCh()-1);
 	for (i=1; i<sl->pa.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
-		for (n=1; n <= lSoilParameters.size(); n++) {
+		for (size_t n=1; n <= lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
 				fprintf(flog,"%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
@@ -2206,7 +2209,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 	fprintf(flog,"Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
 	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
 		fprintf(flog,"-> Soil Type: %ld\n",i);
-		for (n=1; n<=lSoilParameters.size(); n++) {
+		for (size_t n=1; n<=lSoilParameters.size(); n++) {
 			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
 				fprintf(flog,"%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
@@ -2293,14 +2296,14 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 //short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name, char **key_header, FILE *flog){
 short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog){
 	double **M;
-	long nlines, n, j, k;
+	long nlines, n, k;
     std::string temp;
 		
 	if (mio::IOUtils::fileExists(name + string(textfile))) {
 		temp = name + textfile ;
 		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
 				
-		for (j=1; j<i.size(); j++) {
+		for (size_t j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {
 				if ((long)M[n-1][0] == i[j]) {
 					for (k=1; k<8; k++) {
