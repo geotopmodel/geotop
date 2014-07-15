@@ -95,6 +95,11 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
 
     /* Deallocation of struct SOIL "sl": */
     printf("Deallocating soil\n");
+    if (sl != NULL)
+    {
+        delete sl;
+        sl = NULL;
+    }
 
     /* Deallocation of struct TOPO "top": */
     printf("Deallocating top\n");
