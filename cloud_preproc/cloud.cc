@@ -260,7 +260,7 @@ int main(int argc, char** argv) {
 	geotop::common::Variables::cum_time = 0.;
 	geotop::common::Variables::elapsed_time_start = 0.;
 
-	success = read_inpts_par(adt->P, adt->L, adt->I, adt->S, adt->M, IT, temp, flog);
+	success = read_inpts_par(adt->P, adt->L, adt->I, adt->S, adt->M, IT, flog);
 
 
 	//Time indices

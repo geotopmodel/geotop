@@ -155,7 +155,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     //TODO: correct this BEFORE the flog variable removal
-    success = read_inpts_par(par, land, times, sl, met, IT, temp, flog);
+    success = read_inpts_par(par, land, times, sl, met, IT, flog);
 
 	//correct state pixel
 	par->Tzrun = 0;
