@@ -127,7 +127,7 @@
 	/* Deallocation of struct LAND "land": */
 	printf("Deallocating land\n");
 	
-	for(i=0;i<par->n_landuses;i++){
+	for(size_t i=0;i<par->n_landuses;i++){
 		free(land->vegparv[i]);
 		
 		if(par->vegflag[i+1]==1){
