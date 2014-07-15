@@ -26,6 +26,7 @@
 #include "geotop_common.h"
 #include "config.h"
 #include "inputKeywords.h"
+#include <assert.h>
 
 using namespace std;
 
@@ -44,7 +45,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     //	calculation to be done before plotting maps
     *W = 0.;
     if(A->I->time==0) A->I->iplot=1;
-    if(A->I->JD_plots.size() > 1 && A->I->iplot<=A->I->JD_plots.size()){
+    assert(A->I->iplot >= 0);
+    if(A->I->JD_plots.size() > 1 && (size_t)(A->I->iplot) <= A->I->JD_plots.size()){
         i=2*A->I->iplot-1;
 
         if( A->P->init_date+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
@@ -69,7 +71,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     //	vegetation
 
     if(A->I->time==0) line_interp=0;
-    for(i=1; i<=A->P->n_landuses; i++) {
+    for(size_t i=1; i<=A->P->n_landuses; i++) {
         if(A->P->vegflag[i]==1){
             time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1], A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
         }
@@ -1565,7 +1567,7 @@ short SolvePointEnergyBalance(
 					//update egy->THETA taking into account evaporation (if there is not snow)
 					if(ns+ng == 0){
 						
-						for(l=ns+ng+1;l<=n;l++){
+						for(size_t l=ns+ng+1;l<=(size_t)n;l++){
 							
 							m=l-ns-ng;
 							
@@ -1858,7 +1860,8 @@ short SolvePointEnergyBalance(
     double th_oversat, psisat;
 
     //soil variables
-    for (l=1; l<=geotop::common::Variables::Nl; l++) {
+    assert(geotop::common::Variables::Nl >= 0);
+    for (size_t l=1; l<=(size_t)(geotop::common::Variables::Nl); l++) {
 
         //	canopy transpiration
         if(l < egy->soil_transp_layer.size()) ET[l][r][c] += fc*egy->soil_transp_layer[l]*Dt;
@@ -1880,8 +1883,6 @@ short SolvePointEnergyBalance(
 
         //	temperature
         S->T[l][i] = egy->Temp[l+n];
-		
-//		printf("ALLA FINE l:%ld j:%ld n:%ld th:%f thi:%f P:%f T:%f wliq:%f ice:%f deltaw:%f \n",l,i,n,th[l][i],S->thi[l][i],S->P[l][i],S->T[l][i],egy->liq[l+n],egy->ice[l+n],egy->deltaw[l+n]);
 
     }
 } 	
@@ -1897,7 +1898,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Ener
     double th_oversat, psisat;
 
     //soil variables
-    for (l=1; l<=geotop::common::Variables::Nl; l++) {
+    for (size_t l=1; l<=(size_t)(geotop::common::Variables::Nl); l++) {
 
         //	canopy transpiration
         if(l <= egy->soil_transp_layer.size()) ET[l][ch] += fc*egy->soil_transp_layer[l]*Dt;
