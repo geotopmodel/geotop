@@ -25,15 +25,11 @@
 #include "snow.h"
 
 
-//void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par,Energy *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);
-  void dealloc_all(Topo *top,Soil *sl,Land *land,Water *wat,Channel *cnet,Par *par,Energy *egy,Snow *snow, Glacier *glac, Meteo *met, Times *times);
-//void dealloc_meteostations(METEO_STATIONS *st);
-  void dealloc_meteostations(MeteoStations *st);
-//void deallocate_soil_state(SOIL_STATE *S);
-  void deallocate_soil_state(SoilState *S);
-//void deallocate_veg_state(STATE_VEG *V);
-  void deallocate_veg_state(StateVeg *V);
-//void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, Energy *egy, METEO *met, WATER *wat);
-  void reset_to_zero(Par *par, Soil *sl, Land *land, Snow *snow, Glacier *glac, Energy *egy, Meteo *met, Water *wat);
+void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par *par, Energy *egy, Snow *snow, Glacier *glac, Meteo *met, Times *times);
+void deallocate_soil_state(SoilState *S);
+void deallocate_veg_state(StateVeg *V);
+void reset_to_zero(Par *par, Soil *sl, Land *land, Snow *snow, Glacier *glac, Energy *egy, Meteo *met, Water *wat);
 
 #endif
+
+
