@@ -21,6 +21,7 @@
 #include "deallocate.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
+#include "global_logger.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -32,7 +33,9 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
 
     long i, j, r, l;
 
-    printf("Close files\n");
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+
+    lg->log("Close files");
     if(geotop::common::Variables::files[fpointwriteend].compare(geotop::input::gStringNoValue) != 0
             && geotop::common::Variables::ffpoint)
         fclose(geotop::common::Variables::ffpoint);
@@ -73,7 +76,7 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
             && geotop::common::Variables::ffice)
         fclose(geotop::common::Variables::ffice);
 
-    printf("Deallocating global variables\n");
+    lg->log("Deallocating global variables");
     if(par->state_pixel == 1)
     {
         for (i = 0; i < otot; i++)
@@ -94,7 +97,7 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     free(geotop::common::Variables::ibsn);
 
     /* Deallocation of struct SOIL "sl": */
-    printf("Deallocating soil\n");
+    lg->log("Deallocating soil");
     if (sl != NULL)
     {
         delete sl;
@@ -102,7 +105,7 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     }
 
     /* Deallocation of struct TOPO "top": */
-    printf("Deallocating top\n");
+    lg->log("Deallocating top");
 
     if(par->point_sim == 1)
     {
@@ -140,7 +143,7 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     }
 
     /* Deallocation of struct LAND "land": */
-    printf("Deallocating land\n");
+    lg->log("Deallocating land");
 
     for(size_t i = 0; i < par->n_landuses; i++)
     {
@@ -161,12 +164,12 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     free(land->NumlinesVegTimeDepData);
 
     /* Deallocation of struct WATER "water": */
-    printf("Deallocating water\n");
+    lg->log("Deallocating water");
 
     free(wat);
 
     /* Deallocation of struct CHANNEL "channel": */
-    printf("Deallocating channel network\n");
+    lg->log("Deallocating channel network");
     for (l = 0; l <= geotop::common::Variables::Nl; l++)
     {
         free(cnet->ch3[l]);
@@ -174,15 +177,15 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     free(cnet->ch3);
 
     /* Deallocation of struct T_INIT "UV": */
-    printf("Deallocating UV\n");
+    lg->log("Deallocating UV");
 
     /* Deallocation of struct ENERGY "egy": */
-    printf("Deallocating egy\n");
+    lg->log("Deallocating egy");
 
     free(egy->sun);
 
     /* Deallocation of struct SNOW "snow": */
-    printf("Deallocating snow\n");
+    lg->log("Deallocating snow");
 
     if(par->blowing_snow == 1)
     {
@@ -192,13 +195,13 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     if(par->blowing_snow == 1)
         free(snow);
 
-    printf("Deallocating glacier\n");
+    lg->log("Deallocating glacier");
     if(par->max_glac_layers > 0)
     {
         deallocate_statevar_3D(glac->G);
     }
 
-    printf("Deallocating met\n");
+    lg->log("Deallocating met");
 
     for(i = 0; i < long(met->st->Z.size() - 1); i++)
     {
@@ -247,15 +250,15 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
         }
     }
 
-    printf("Deallocating times\n");
+    lg->log("Deallocating times");
     free(times);
 
     /* Deallocation of struct PAR "par": */
-    printf("Deallocating par\n");
+    lg->log("Deallocating par");
 
     /* Deallocation of struct FILENAMES "filenames": */
 
-    printf("Deallocating novalues\n");
+    lg->log("Deallocating novalues");
 }
 
 
