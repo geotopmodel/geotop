@@ -36,9 +36,7 @@
 #include "meteodistr.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
-#ifdef WITH_LOGGER
 #include "global_logger.h"
-#endif
 
 //***************************************************************************************************************
 //***************************************************************************************************************
@@ -79,7 +77,6 @@ static void barnes_oi(short flag, GeoMatrix<double>& xpoint, GeoMatrix<double>& 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-#ifdef WITH_LOGGER
 void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
                 GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
                 double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
@@ -88,72 +85,40 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
                 double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
                 short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor)
 {
-#else
-void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N, GeoMatrix<double>& topo, GeoMatrix<double>& curvature1, GeoMatrix<double>& curvature2,
-                GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
-                double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
-                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
-                GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
-                double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
-                short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f)
-{
-#endif
     short ok;
 
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
 
     ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate);
 
     if(ok==0){
-#ifdef WITH_LOGGER
         lg->log("No temperature measurements, used the value of the previous time step",
                 geotop::logger::DEBUG);
-#else
-        fprintf(f,"No temperature measurements, used the value of the previous time step\n");
-#endif
     }
 
     ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate);
 
     if(ok==0){
-#ifdef WITH_LOGGER
         lg->log("No RH measurements, used the value of the previous time step",
                 geotop::logger::DEBUG);
-#else
-        fprintf(f,"No RH measurements, used the value of the previous time step\n");
-#endif
     }
 
     ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2, curvature3,
                   curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint);
 
     if(ok==0){
-#ifdef WITH_LOGGER
         lg->log("No wind measurements, used the value of the previous time step",
                geotop::logger::DEBUG);
-#else
-        fprintf(f,"No wind measurements, used the value of the previous time step\n");
-#endif
     }else if(ok==1){
-#ifdef WITH_LOGGER
         lg->log("No wind direction measurements, used the value of the previous time step",
                geotop::logger::DEBUG);
-#else
-        fprintf(f,"No wind direction measurements, used the value of the previous time step\n");
-#endif
     }
 
     ok = get_precipitation(dE, dN, E, N, met, Pcode, Tcode, Tdcode, prec_grid, dn, topo, iobsint, Prec_lapse_rate, maxfactorP, minfactorP,
                            dew, Train, Tsnow, snow_corr_factor, rain_corr_factor);
     if(ok==0){
-#ifdef WITH_LOGGER
         lg->log("No precipitation measurements, considered it 0.0",
                geotop::logger::DEBUG);
-#else
-        fprintf(f,"No precipitation measurements, considered it 0.0\n");
-#endif
     }
 
     get_pressure(topo, sfc_pressure, geotop::input::gDoubleNoValue);

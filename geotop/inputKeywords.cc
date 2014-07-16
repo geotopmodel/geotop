@@ -31,7 +31,6 @@
 
 #include "output_file.h"
 
-#ifdef WITH_LOGGER
 #include "logger.h"
 #include "global_logger.h"
 using namespace geotop::logger;
@@ -44,7 +43,6 @@ static std::ofstream tlf("inputKeywords_trace.log");
 static Logger trace_log((std::ostream*)(&tlf), TRACE);
 #endif
 
-#endif
 
 using namespace boost::assign;
 
@@ -93,10 +91,8 @@ public:
         boost::algorithm::to_lower(lLowercaseKey);
         *mCurrent_section = GENERAL_SEC; //By default set the section to General
 
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionSection: %s", lKey.c_str());
-#endif
 #endif
 
         if (lLowercaseKey.compare("output") == 0)
@@ -105,10 +101,8 @@ public:
             if (mMap->count("OUTPUT_SEC") == 0)
             {
                 (*mMap)["OUTPUT_SEC"] = boost::shared_ptr< std::vector<geotop::input::OutputFile> >(new std::vector<geotop::input::OutputFile>());
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.log("actionSection: created OUTPUT_SEC key", TRACE);
-#endif
 #endif
             }
         }
@@ -118,10 +112,8 @@ public:
     {
         std::string lKey = std::string(pBegin, pEnd);
 
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionOutputKey: %s", lKey.c_str());
-#endif
 #endif
 
         if (*mCurrent_section == OUTPUT_SEC)
@@ -136,10 +128,8 @@ public:
         std::string lLowercaseKey ( lKey );
         boost::algorithm::to_lower(lLowercaseKey);
 
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionKey: %s", lKey.c_str());
-#endif
 #endif
         for (size_t it = 0; it < mUnsupportedKeys.size(); ++it)
         {
@@ -147,11 +137,9 @@ public:
             boost::algorithm::to_lower(ukl);
             if (lKey.compare(ukl) == 0)
             {
-#ifdef WITH_LOGGER
                 GlobalLogger* lg = GlobalLogger::getInstance();
                 lg->logsf(WARNING, "The %s parameter is no longer supported. Please update your configuration file.",
                           lKey.c_str());
-#endif
                 return;
             }
         }
@@ -164,10 +152,8 @@ public:
         std::string lValue = std::string(pBegin, pEnd) ;
         
         //std::cout << "StringValue: " << *mKey << ":" << lValue << std::endl;
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "StringValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
-#endif
 #endif
         switch (*mCurrent_section)
         {
@@ -176,21 +162,13 @@ public:
                 {
                     (*mMap)[*mKey] = lValue;
                 } else {
-#ifdef WITH_LOGGER
                     GlobalLogger* lg = GlobalLogger::getInstance();
                     lg->log("actionValueString : no key was pushed for the value, value will be discarded", ERROR);
-#else
-                    std::cerr << "Error: actionValueString : no key was pushed for the value, value will be discarded" << std::endl ;
-#endif
                 }
                 break;
             case OUTPUT_SEC:
-#ifdef WITH_LOGGER
                 GlobalLogger* lg = GlobalLogger::getInstance();
                 lg->log("Invalid input file format: string value not allowed for output file period", CRITICAL);
-#else
-                std::cerr << "CRITICAL: Invalid input file format: string value not allowed for output file period" << std::endl;
-#endif
                 exit(1);
                 break;
         }
@@ -203,20 +181,14 @@ public:
     {
         std::string lValue = std::string(pBegin, pEnd) ;
      
-#ifdef WITH_LOGGER
         GlobalLogger* lg = GlobalLogger::getInstance();
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "DateValue: %s:%s", ((std::string)*mKey).c_str(), lValue.c_str());
 #endif
-#endif
 
         if (*mCurrent_section == OUTPUT_SEC)
         {
-#ifdef WITH_LOGGER
             lg->log("Invalid input file format: date value not allowed for output file period", CRITICAL);
-#else
-            std::cerr << "CRITICAL: Invalid input file format: date value not allowed for output file period" << std::endl;
-#endif
             exit(1);
         }
 
@@ -234,11 +206,7 @@ public:
         double lDoubleEncodedDate = geotop::input::gDoubleNoValue ;
         if ( not stringToDouble(lOutStringStream.str(), lDoubleEncodedDate) )
         {
-#ifdef WITH_LOGGER
             lg->logsf(ERROR, "Unable to convert string to double: %s", lOutStringStream.str().c_str());
-#else
-            std::cerr << "Error: unable to convert string to double: " << lOutStringStream.str() << std::endl ;
-#endif
             return ;
         }
 
@@ -254,22 +222,16 @@ public:
                 (*mMap)[*mKey] = lDoubleEncodedDate;
             }
         } else {
-#ifdef WITH_LOGGER
             lg->log("actionValueDate : no key was pushed for the value, the value will be discarded", ERROR);
-#else
-            std::cerr << "Error: actionValueDate : no key was pushed for the value, value will be discarded" << std::endl ;
-#endif
         }
         mKey->assign( "" ) ;
     };
     
     void actionValueDouble(const double pValue) const
     {
-#ifdef WITH_LOGGER
         GlobalLogger* lg = GlobalLogger::getInstance();
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionValueDouble: %f", pValue);
-#endif
 #endif
         switch(*mCurrent_section)
         {
@@ -286,11 +248,7 @@ public:
                         (*mMap)[*mKey] = pValue;
                     }
                 } else {
-#ifdef WITH_LOGGER
                     lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
-#else
-                    std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
-#endif
                 }
                 break;
             case OUTPUT_SEC:
@@ -299,20 +257,14 @@ public:
                     boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
                         boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
                     files->push_back(geotop::input::OutputFile(*mKey, pValue));
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
                     trace_log.logsf(TRACE, "actionValueDouble: created new output file: %s %f", mKey->c_str(), pValue);
                     trace_log.logsf(TRACE, "actionValueDouble: files' size: %u", files->size());
 #endif
-#endif
                 }
                 else
                 {
-#ifdef WITH_LOGGER
                     lg->log("actionValueDouble : no key was pushed for the value, the value will be discarded", ERROR);
-#else
-                    std::cerr << "Error: actionValueDouble : no key was pushed for the value, value will be discarded" << std::endl ;
-#endif
                 }
                 break;
         }
@@ -322,19 +274,13 @@ public:
     
     void actionValueDoubleArray(char const * const pBegin, char const * const pEnd) const
     {
-#ifdef WITH_LOGGER
         GlobalLogger* lg = GlobalLogger::getInstance();
-#endif
         std::string lString = std::string(pBegin, pEnd) ;
         boost::algorithm::erase_all(lString, " ");
 
         if (*mCurrent_section == OUTPUT_SEC)
         {
-#ifdef WITH_LOGGER
             lg->log("Invalid input file format: too many values for output file period", CRITICAL);
-#else
-            std::cerr << "CRITICAL: Invalid input file format: too many values for output file period" << std::endl;
-#endif
             exit(1);
         }
         
@@ -351,34 +297,24 @@ public:
         {
             (*mMap)[*mKey] = lDoubleArray;
         } else {
-#ifdef WITH_LOGGER
             lg->log("actionValueDoubleArray : no key was pushed for the value, the value will be discarded", ERROR);
-#else
-            std::cerr << "Error: actionValueDoubleArray : no key was pushed for the value, value will be discarded" << std::endl ;
-#endif
         }
         mKey->assign( "" ) ;
         
         //std::cout << "actionValueDoubleArray Size: " << lDoubleArray.size() << std::endl;
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionValueDoubleArray Size: %u", lDoubleArray.size());
-#endif
 #endif
     };
 
     void actionTrace(char const * const pBegin, char const * const pEnd) const
     {
         std::string lValue = std::string(pBegin, pEnd);
-#ifdef WITH_LOGGER
         GlobalLogger* lg = GlobalLogger::getInstance();
         lg->logsf(TRACE, "actionTrace: %s", lValue.c_str());
 #ifdef TRACELOG
         trace_log.logsf(TRACE, "actionTrace: %s", lValue.c_str());
-#endif //TRACELOG
-#else
-        std::cerr << "actionTrace: " << lValue << std::endl;
-#endif //WITH_LOGGER
+#endif
     };
     
     /** @internal
@@ -461,9 +397,7 @@ geotop::input::ConfigStore::ConfigStore()
 
 bool geotop::input::ConfigStore::parse(const std::string pFileName) {
 
-#ifdef WITH_LOGGER
     GlobalLogger* lg = GlobalLogger::getInstance();
-#endif
     std::ifstream fs(pFileName.c_str());
     std::ostringstream ss;
     ss << fs.rdbuf();
@@ -474,34 +408,20 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
     boost::spirit::classic::parse_info<> lParserInfo = boost::spirit::classic::parse(ss.str().c_str(), lConfGrammar);
     if (lParserInfo.hit)
     {
-#ifdef WITH_LOGGER
         lg->logsf(NOTICE, "Configuration file parsing completed. %u characters parsed.", lParserInfo.length);
-#else
-        std::cout << "Info: configuration file parsing completed" << std::endl;
-        std::cout << lParserInfo.length << " characters parsed" << std::endl;
-#endif
     }
     else
     {
-#ifdef WITH_LOGGER
         lg->log("Parsing failed.", ERROR);
-#else
-        std::cout << "Error: parsing failed, length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
-#endif
         return false ;
     }
 
     if (lParserInfo.full)
     {
-#ifdef WITH_LOGGER
         lg->log("Full match!", NOTICE);
-#else
-        std::cout << "full match!\n";
-#endif
     }
     else
     {
-#ifdef WITH_LOGGER
         char tmpbuf[21] = {0};
         size_t i;
         for (i=0; i<21; i++) {
@@ -511,9 +431,6 @@ bool geotop::input::ConfigStore::parse(const std::string pFileName) {
                 break;
         }
         lg->logsf(WARNING, "Partial parsing, matched length(%u) stopped at '%.20s'", lParserInfo.length, tmpbuf);
-#else
-        std::cout << "Warning: partial parsing, matched length(" << lParserInfo.length << ") stopped at '" << lParserInfo.stop << "'" << std::endl;
-#endif
         return false ;
     }
 

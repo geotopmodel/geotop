@@ -16,11 +16,7 @@
 #include "geotop_common.h"
 #include "../gt_utilities/path_utils.h"
 
-#ifdef WITH_LOGGER
 #include "global_logger.h"
-#else
-#include <stdio.h>
-#endif
 
 #include <assert.h>
 
@@ -45,28 +41,18 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
     
 	double lValue = geotop::input::gDoubleNoValue;
     bool lGetResult = pConfigStore->get(pName, lValue) ;
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
     
     if(not lGetResult) {
-#ifdef WITH_LOGGER
         lg->logsf(geotop::logger::CRITICAL, "Unable to get parameter: %s", pName.c_str());
         exit(1);
-#else
-        t_error(std::string("Fatal Error: unable to get parameter: ") + pName);
-#endif
     }
     
     if(lValue == geotop::input::gDoubleNoValue) {
         
         if (not pAllowNoValue) {
-#ifdef WITH_LOGGER
             lg->logsf(geotop::logger::CRITICAL, "Mandatory value not assigned: %s", pName.c_str());
             exit(1);
-#else
-            t_error(std::string("Fatal Error: mandatory value not assigned: ") + pName);
-#endif
         } else {
             lValue = pDefaultValue ;
         }
@@ -94,18 +80,12 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
     std::vector<double> lValue;
     bool lGetResult = pConfigStore->get(pName, lValue);
 
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
 
     if(not lGetResult)
     {
-#ifdef WITH_LOGGER
         lg->logsf(geotop::logger::CRITICAL, "Unable to get parameter: %s", pName.c_str());
         exit(1);
-#else
-        t_error(std::string("Fatal Error: unable to get parameter: ") + pName);
-#endif
     }
 
     size_t lDesiredLength = pLength;
@@ -135,14 +115,10 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
 
             if (!pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue)
             {
-#ifdef WITH_LOGGER
                 lg->logsf(geotop::logger::CRITICAL,
                           "Mandatory array value not assigned: %s",
                           pName.c_str());
                 exit(1);
-#else
-                t_error(std::string("Fatal Error: mandatory array value not assigned: ") + pName);
-#endif
             }
         }
         lValue[i] = lElementValue ;
@@ -167,15 +143,11 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
         std::string lValue;
         bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
         if(lGetResult == false){
-#ifdef WITH_LOGGER
             geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
             lg->logsf(geotop::logger::CRITICAL, 
                       "Mandatory value not assigned: %s",
                       pKeys[i].c_str());
             exit(1);
-#else
-            t_error(std::string("Fatal Error: mandatory value not assigned: ") + pKeys[i]);
-#endif
         }
         lVector.push_back(lValue);
 	}
@@ -481,9 +453,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 	path_rec_files = lValues[0] ; //path of recovery files
 
     //Check if path_rec_files exists and is a directory
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
     switch(gt_fileExists(path_rec_files.c_str()))
     {
         case 2:
@@ -493,60 +463,34 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
         case 1:
         case 3:
             //path_rec_files points to a file (regular or special)
-#ifdef WITH_LOGGER
             lg->logsf(geotop::logger::CRITICAL,
                     "SubfolderRecoveryFiles: %s is a file. Aborting",
                     path_rec_files.c_str());
-#else
-            fprintf(stderr,
-                    "[CRITICAL] SubfolderRecoveryFiles: %s is a file. Aborting\n",
-                    path_rec_files.c_str());
-#endif
             exit(1);
             break;
         case 0:
             //path_rec_files doesn't exist
-#ifdef WITH_LOGGER
             lg->logsf(geotop::logger::WARNING,
                     "SubfolderRecoveryFiles: %s doesn't exist. Attempting to create it...",
                     path_rec_files.c_str());
-#else
-            fprintf(stderr,
-                    "[WARNING] SubfolderRecoveryFiles: %s doesn't exist. Attempting to create it...\n",
-                    path_rec_files.c_str());
-#endif
             if (gt_makeDirectory(path_rec_files.c_str()))
             {
-#ifdef WITH_LOGGER
                 lg->logsf(geotop::logger::WARNING,
                         "%s successfully created",
                         path_rec_files.c_str());
-#else
-                fprintf(stderr, "[WARNING] %s successfully created\n", path_rec_files.c_str());
-#endif
             }
             else
             {
-#ifdef WITH_LOGGER
                 lg->log("Unable to create recovery files directory. Aborting",
                        geotop::logger::CRITICAL);
-#else
-                fprintf(stderr, "[CRITICAL] Unable to create recovery files directory. Aborting\n");
-#endif
                 exit(1);
             }
             break;
         default:
             //An error occurred in gt_fileExists
-#ifdef WITH_LOGGER
             lg->logsf(geotop::logger::CRITICAL,
                     "Unable to verify if %s is a directory. Aborting.",
                     path_rec_files.c_str());
-#else
-            fprintf(stderr,
-                    "Unable to verify if %s is a directory. Aborting.\n",
-                    path_rec_files.c_str());
-#endif
             exit(1);
             break;
     }
@@ -816,9 +760,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	double a;
     double minDt=1.E99;
 
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
     std::vector<double> lDoubleTempVector ;
 
 	fprintf(flog,"\n");
@@ -928,12 +870,8 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
       par->recover = (short)getDoubleValueWithDefault(lConfigStore, "RecoverSim", 0., false) ;
 
 	if  (par->recover >0) { 
-#ifdef WITH_LOGGER
 		lg->log(" RecoverSim option no longer supported; please remove/comment it from your input file",
 				geotop::logger::CRITICAL);
-#else
-		fprintf(stderr, "[CRITICAL] RecoverSim option no longer supported; please remove/comment  it from your input file Aborting\n");
-#endif
 		exit(1);
 	}
 

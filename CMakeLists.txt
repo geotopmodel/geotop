@@ -29,8 +29,6 @@ SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, 
 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 
-SET(WITH_LOGGER OFF CACHE BOOL "enable the use of GEOtop Logger (Experimental)")
-
 find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
@@ -85,10 +83,6 @@ ENDIF(ENABLE_INTERNAL_METEODISTR)
 IF (USE_NETCDF)
 	add_definitions(-DUSE_NETCDF)
 ENDIF (USE_NETCDF)
-
-IF (WITH_LOGGER)
-    add_definitions(-DWITH_LOGGER)
-ENDIF (WITH_LOGGER)
 
 #add_definitions(
 #    "-std=c++11"

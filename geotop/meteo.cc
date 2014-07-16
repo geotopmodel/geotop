@@ -22,9 +22,7 @@
 #include "geotop_common.h"
 #include "meteo.h"
 #include "inputKeywords.h"
-#ifdef WITH_LOGGER
 #include "global_logger.h"
-#endif
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -35,11 +33,6 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	long r,c,year,j;
     size_t i;
 	double JD;
-#ifndef WITH_LOGGER
-	FILE *flog;	
-#endif
-			
-
 	
 	//INTERPOLATION OF METEO VARIABLES
 	for (i=1; i<met->st->Z.size(); i++){
@@ -66,21 +59,11 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	}
 	
 	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS	
-#ifdef WITH_LOGGER
 	Meteodistr(geotop::common::Variables::UV->U[2], geotop::common::Variables::UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
 			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid, met->RHgrid, met->Vgrid,
 			met->Vdir, met->Pgrid, wat->PrecTot, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
 			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact);
-#else
-	flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-	Meteodistr(geotop::common::Variables::UV->U[2], geotop::common::Variables::UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
-			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
-			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid, met->RHgrid, met->Vgrid,
-			met->Vdir, met->Pgrid, wat->PrecTot, met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
-			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-	fclose(flog);
-#endif
 		
 	if(par->en_balance==0){
 		for(r=1;r<=geotop::common::Variables::Nr;r++){

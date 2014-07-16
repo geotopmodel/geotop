@@ -24,9 +24,7 @@
 #include "geotop_common.h"
 #include "inputKeywords.h"
 
-#ifdef WITH_LOGGER
 #include "global_logger.h"
-#endif
 
 using namespace std;
 
@@ -42,11 +40,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandsup, double *Voutlandbottom){
 
 	clock_t start, end;
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#else
-	FILE *flog;
-#endif
 	double Pnet, loss;
 	long j;
 	short a;
@@ -60,10 +54,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 	long r, c, l, sy;
 	
 	
-#ifndef WITH_LOGGER
-	flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-#endif
-	
 	if(adt->P->qin==1){
 		time_interp_linear(JD0, JD1, JD2, adt->M->qinv, adt->M->qins, adt->M->qinsnr, 2, 0, 0, &(adt->M->qinline));		
 	}
@@ -73,14 +63,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		//surface flow: 1st half of time step
 		start=clock();
 
-#ifdef WITH_LOGGER
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
                 adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
-#else
-		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
-#endif
-		
 		
 		end=clock();
 		
@@ -89,18 +74,11 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
 
-#ifdef WITH_LOGGER
 		a = Richards3D(Dt, L, C, adt, NULL, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
-#else
-		a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
-#endif
 		
 		end=clock();
 		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
 		if (a != 0){
-#ifndef WITH_LOGGER
-			fclose(flog);
-#endif
 			return 1;
 		}
 		
@@ -108,13 +86,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		//surface flow: 2nd half of time step
 		start=clock();
 
-#ifdef WITH_LOGGER
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
                 adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
-#else
-		supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P, &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo );
-#endif
 
 		end=clock();
 
@@ -125,15 +99,8 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		
 		start = clock();
 		for (j=1; j<=adt->P->total_pixel; j++) {			
-#ifdef WITH_LOGGER
 			a = Richards1D(j, Dt, L, adt, NULL, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
-#else
-			a = Richards1D(j, Dt, L, adt, flog, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
-#endif
 			if (a != 0){
-#ifndef WITH_LOGGER
-				fclose(flog);
-#endif
 				return 1;
 			}			
 		
@@ -146,10 +113,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 	
 	geotop::common::Variables::odb[oopnet] = Pnet;
 	geotop::common::Variables::odb[oomasserror] = loss;
-	
-#ifndef WITH_LOGGER
-	fclose(flog);
-#endif
 	
 	return 0;
 	
@@ -204,9 +167,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	FILE *f;
 
 
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
-#endif
 	
 	*Total_Pnet = 0.;
 	
@@ -272,14 +233,10 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	}
 
 #ifdef VERBOSE	
-#ifdef WITH_LOGGER
     lg->logsf(geotop::logger::DEBUG,
             "Richard3D: Pnet: %f",
             *Total_Pnet);
-#else
-	printf("Richard3D: Pnet: %f\n", *Total_Pnet);
-#endif //WITH_LOGGER
-#endif //VERBOSE
+#endif
 	
 	sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);
 	
@@ -290,12 +247,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 	res = norm_inf(adt->W->B, 1, N);
 
 #ifdef VERBOSE	
-#ifdef WITH_LOGGER
     lg->logsf(geotop::logger::DEBUG,
             "Richard3D: res: %f\n", res);
-#else
-	printf("Richard3D: res: %f\n",res);
-#endif //WITH_LOGGER
 #endif //VERBOSE	
 
 	res00 = res; //initial norm of the residual
@@ -390,16 +343,12 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards3D l:%ld r:%ld c:%ld\n",l,r,c);
 					fclose(f);
-#ifdef WITH_LOGGER
                     lg->logsf(geotop::logger::ERROR,
                             "No value psi Richards3D l:%ld r:%ld c:%ld\n",
                             l, r, c);
                     lg->log("Geotop failed. See failing report.",
                             geotop::logger::CRITICAL);
                     exit(1);
-#else
-					t_error("Fatal Error! Geotop is closed. See failing report.");	
-#endif
 				}
 				
 			}
@@ -415,14 +364,10 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 			out2=0;
 	
 #ifdef VERBOSE
-#ifdef WITH_LOGGER
     lg->logsf(geotop::logger::DEBUG,
             "Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",
             cont, res, lambda[0], Dt, *Total_Pnet);
-#else
-			printf(" Richar3D: cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,*Total_Pnet);
-#endif //WITH_LOGGER
-#endif //VERBOSE
+#endif
 			
 
 			
@@ -1216,14 +1161,10 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 				
 			}
 #ifdef VERBOSE			
-#ifdef WITH_LOGGER
             geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
             lg->logsf(geotop::logger::DEBUG,
                     "find3D: Lx[cnt]=%f", Lx[cnt]);
-#else
-			cout << "find3D: Lx[cnt]=" << Lx[cnt] << endl;
-#endif //WITH_LOGGER
-#endif //VERBOSE
+#endif
 		}
 		
 	}									
@@ -1752,14 +1693,10 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	}
 
 #ifdef VERBOSE	
-#ifdef WITH_LOGGER
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
     lg->logsf(geotop::logger::DEBUG,
             "supflow: te %ld", te);
-#else
-	printf("supflow: te %ld\n",te);
-#endif //WITH_LOGGER
-#endif //VERBOSE
+#endif
 	
 	do{
 		
