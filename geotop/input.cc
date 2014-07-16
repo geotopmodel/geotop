@@ -618,11 +618,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         met->qinsnr = num_lines;
         par->qin = 1;
         met->qinline = 0;
-#ifdef WITH_LOGGER
         lg->log("Incoming discharge file read");
-#else
-        printf("\nIncoming discharge file read\n");
-#endif
     }else{
         par->qin = 0;
     }
