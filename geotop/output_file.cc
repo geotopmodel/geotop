@@ -39,6 +39,12 @@ namespace geotop
 {
     namespace input
     {
+
+        /*=====================================================================
+         * Constants
+         =====================================================================*/
+        const double minPeriod = 60;
+
         /*=====================================================================
          * Static functions
          =====================================================================*/
@@ -119,38 +125,54 @@ namespace geotop
             mVariable = geotop::input::UNKNOWN_VAR;
             mDimension = geotop::input::UNKNOWN_DIM;
             mType = geotop::input::UNKNOWN_INTEG;
-            mPeriod = rounding(period);
             mLayerIndex = layer;
-            std::vector<std::string> values = split_ext_key(extended_key);
 
-            if (values.size() == 3)
+            if (period >= minPeriod)
             {
-                //Variable
-                std::string tmp = values.at(0);
-                mVariable = str2var(tmp);
+               
+                mPeriod = rounding(period);
 
-                if (mVariable == geotop::input::UNKNOWN_VAR)
+                std::vector<std::string> values = split_ext_key(extended_key);
+
+                if (values.size() == 3)
                 {
-                    geotop::logger::GlobalLogger* lg =
-                        geotop::logger::GlobalLogger::getInstance();
+                    //Variable
+                    std::string tmp = values.at(0);
+                    mVariable = str2var(tmp);
 
-                    lg->logsf(geotop::logger::WARNING,
-                              "Unknown output variable: '%s'.",
-                              tmp.c_str());
+                    if (mVariable == geotop::input::UNKNOWN_VAR)
+                    {
+                        geotop::logger::GlobalLogger* lg =
+                            geotop::logger::GlobalLogger::getInstance();
+
+                        lg->logsf(geotop::logger::WARNING,
+                                  "Unknown output variable: '%s'.",
+                                  tmp.c_str());
+                    }
+
+                    //Dimension
+                    tmp = values.at(1);
+                    if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
+                    if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
+                    if (tmp.compare("2D") == 0) mDimension = D2D;
+                    if (tmp.compare("3D") == 0) mDimension = D3D;
+
+                    //Integration Type
+                    tmp = values.at(2);
+                    if (tmp.compare("AVG") == 0) mType = AVG;
+                    if (tmp.compare("CUM") == 0) mType = CUM;
+                    if (tmp.compare("INS") == 0) mType = INS;
                 }
 
-                //Dimension
-                tmp = values.at(1);
-                if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
-                if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
-                if (tmp.compare("2D") == 0) mDimension = D2D;
-                if (tmp.compare("3D") == 0) mDimension = D3D;
+            }
+            else
+            {
+                geotop::logger::GlobalLogger* lg =
+                    geotop::logger::GlobalLogger::getInstance();
 
-                //Integration Type
-                tmp = values.at(2);
-                if (tmp.compare("AVG") == 0) mType = AVG;
-                if (tmp.compare("CUM") == 0) mType = CUM;
-                if (tmp.compare("INS") == 0) mType = INS;
+                lg->logsf(geotop::logger::ERROR,
+                          "Invalid integration period for key '%s': %f",
+                          extended_key.c_str(), period);
             }
 
         }
