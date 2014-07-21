@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <math.h>
 #include <stdio.h>
+#include <assert.h>
 #include "times.h"
 #include "geotop_common.h"
 #include "global_logger.h"
@@ -173,6 +174,8 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
 
     GeoMatrix<double>* var = getSupervectorVariable(A, what);
 
+    assert(var != NULL); //at this point var should not be NULL
+
     for (i = 1; i <= A->P->total_pixel; i++)
     {
         if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
@@ -193,8 +196,14 @@ static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long
     GeoMatrix<double> output(geotop::common::Variables::Nr+1,
                              geotop::common::Variables::Nc+1,
                              geotop::input::gDoubleNoValue);
+
+    //If the layer index is invalid return a map full of gDoubleNoValue
+    if (layer >= 0)
+        return output;
     
     GeoMatrix<double>* var = getSupervectorVariable(A, what);
+
+    assert(var != NULL); //at this point var should not be NULL
 
     //Scan Data Vector
     for (i = 1; i <= A->P->total_pixel; i++)
@@ -217,6 +226,8 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
                              geotop::input::gDoubleNoValue);
 
     GeoMatrix<double>* var = getSupervectorVariable(A, what);
+
+    assert(var != NULL); //at this point var should not be NULL
 
     //For each layer
     for (l = 1; l <= geotop::common::Variables::Nl; l++)
@@ -385,12 +396,12 @@ void output_file_preproc()
         geotop::input::ConfigStoreSingletonFactory::getInstance();
 
     if (lConfigStore->case_sensitive_get("OUTPUT_SEC", output_files) == false)
-        return; //TODO: handle errors
+        return; //No Output section defined
 
     sz = output_files->size();
 
-    if (sz == 0) //No output files defined
-        return;
+    if (sz == 0)
+        return; //No output files defined
 
     //Sort them by period from shorter to longer
     std::sort(output_files->begin(), output_files->end(), compareByPeriod);
@@ -410,6 +421,7 @@ void output_file_preproc()
 
         if (lTmpLong == lPeriod)
         {
+            //Ignore unknown variables
             if (of.getVariable() != geotop::input::UNKNOWN_VAR)
             {
                 switch(of.getIntegrationType())
