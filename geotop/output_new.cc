@@ -198,7 +198,7 @@ static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long
                              geotop::input::gDoubleNoValue);
 
     //If the layer index is invalid return a map full of gDoubleNoValue
-    if (layer >= 0)
+    if (layer <= 0)
         return output;
     
     GeoMatrix<double>* var = getSupervectorVariable(A, what);
