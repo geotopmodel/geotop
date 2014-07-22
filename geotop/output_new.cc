@@ -157,6 +157,47 @@ static inline bool equals(double a, double b)
  */
 static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what);
 
+static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+{
+    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nr+1,
+                                                      geotop::common::Variables::Nc+1,
+                                                      geotop::input::gDoubleNoValue);
+    long i,r,c;
+
+    for (i = 1; i <= A->P->total_pixel; i++)
+    {
+        r = A->T->rc_cont[i][1];
+        c = A->T->rc_cont[i][2];
+        (*output)[r][c] = 0.;
+    }
+
+    return output;
+}
+
+static GeoTensor<double>* initTempValuesTensor(AllData* A)
+{
+    GeoTensor<double>* output = new GeoTensor<double>(geotop::common::Variables::Nl+1,
+                                                      geotop::common::Variables::Nr+1,
+                                                      geotop::common::Variables::Nc+1,
+                                                      geotop::input::gDoubleNoValue);
+    
+    long l;
+
+    for (l = 1; l <= geotop::common::Variables::Nl; l++)
+    {
+        long i,r,c;
+
+        for (i = 1; i <= A->P->total_pixel; i++)
+        {
+            r = A->T->rc_cont[i][1];
+            c = A->T->rc_cont[i][2];
+            (*output)[l][r][c] = 0.;
+        }
+    }
+
+    return output;
+}
+
 static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
 {
     long i;
