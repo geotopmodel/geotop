@@ -149,22 +149,7 @@ static inline bool equals(double a, double b)
     return fabs(a - b) < epsilon ? true : false;
 }
 
-static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what)
-{
-    GeoMatrix<double>* var = NULL;
-
-    switch(what)
-    {
-        case geotop::input::SOIL_TEMP:
-            var = &(A->S->SS->T);
-            break;
-        default:
-            break;
-    }
-
-    return var;
-
-}
+static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what);
 
 static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
 {
@@ -580,6 +565,25 @@ void write_output_new(AllData* A)
             }
         }
     }
+
+}
+
+
+//Implementation moved here because this function will grow considerably
+static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what)
+{
+    GeoMatrix<double>* var = NULL;
+
+    switch(what)
+    {
+        case geotop::input::SOIL_TEMP:
+            var = &(A->S->SS->T);
+            break;
+        default:
+            break;
+    }
+
+    return var;
 
 }
 
