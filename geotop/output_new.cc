@@ -149,6 +149,12 @@ static inline bool equals(double a, double b)
     return fabs(a - b) < epsilon ? true : false;
 }
 
+/**
+ * @brief gets the supervector olding the values for an output variable
+ * @param A global data storage pointer
+ * @param what variable to fetch
+ * @return a GeoMatrix with one row per layer, each row holding the values for that layer
+ */
 static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what);
 
 static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
