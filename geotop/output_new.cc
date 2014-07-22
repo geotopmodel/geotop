@@ -478,6 +478,76 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
 
 }
 
+static void printAverages(AllData* A, geotop::input::OutputFile* of)
+{
+    double lJDate = A->I->time; //seconds passed since the beginning of the simulation
+
+    lJDate /= GTConst::secinday; //seconds to days
+    lJDate += A->P->init_date;
+    lJDate = convert_JDfrom0_dateeur12(lJDate);
+
+    std::string filename;
+   
+    switch(of->getDimension())
+    {
+        case geotop::input::D1Dp:
+            break;
+        case geotop::input::D1Ds:
+            break;
+        case geotop::input::D2D:
+            {
+                GeoMatrix<double> Mi = getLayer(A, of->getVariable(), of->getLayer());
+                GeoMatrix<double>* Mt = of->values.getValuesM();
+                long i,r,c;
+
+                for (i = 1; i <= A->P->total_pixel; i++)
+                {
+                    r = A->T->rc_cont[i][1];
+                    c = A->T->rc_cont[i][2];
+
+                    //Accumulator += Instant value / (Integration time[s] / TimeStepEnergyAndWater[s])
+                    (*Mt)[r][c] = (*Mt)[r][c] + (Mi[r][c] / (of->getPeriod() / A->P->Dt));
+                }
+
+                printLayer(of, lJDate, of->getLayer());
+
+            }
+            break;
+        case geotop::input::D3D:
+            {
+                GeoTensor<double> Ti = getTensor(A, of->getVariable());
+                GeoTensor<double>* Tt = of->values.getValuesT();
+
+                long i,l,r,c;
+
+                for (l = 1; l <= geotop::common::Variables::Nl; l++)
+                {
+                    for (i = 1; i <= A->P->total_pixel; i++)
+                    {
+                        r = A->T->rc_cont[i][1];
+                        c = A->T->rc_cont[i][2];
+
+                        (*Tt)[l][r][c] = (*Tt)[l][r][c] + (Ti[l][r][c] / (of->getPeriod() / A->P->Dt));
+                    }
+                }
+
+                printTensor(of, lJDate);
+
+            }
+            break;
+        default:
+            {
+                geotop::logger::GlobalLogger* lg =
+                    geotop::logger::GlobalLogger::getInstance();
+
+                lg->log("Unable to find the output dimension. Check your geotop.inpts file.",
+                        geotop::logger::WARNING);
+            }
+            break;
+    }
+
+}
+
 /*==============================================================================
    Public functions
  ==============================================================================*/
@@ -712,6 +782,8 @@ void write_output_new(AllData* A)
                 for (j = 0; j < ofv->size(); j++)
                 {
                     std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                    geotop::input::OutputFile f = ofv->at(j);
+                    printAverages(A, &f);
                 }
             }
         }
