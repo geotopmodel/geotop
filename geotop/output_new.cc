@@ -482,7 +482,7 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
    Public functions
  ==============================================================================*/
 
-void output_file_preproc()
+void output_file_preproc(AllData* A)
 {
     boost::shared_ptr< std::vector<geotop::input::OutputFile> > output_files;
     std::vector<OutputFilesVector*>* lInstants = new std::vector<OutputFilesVector*>();
@@ -532,9 +532,41 @@ void output_file_preproc()
                         (lInstants->at(j))->append(of);
                         break;
                     case geotop::input::CUM:
+                        switch(of.getDimension())
+                        {
+                            case geotop::input::D1Dp:
+                            case geotop::input::D1Ds:
+                                of.values = geotop::input::TemporaryValues(0.);
+                                break;
+                            case geotop::input::D2D:
+                                of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
+                                break;
+                            case geotop::input::D3D:
+                                of.values = geotop::input::TemporaryValues(initTempValuesTensor(A));
+                                break;
+                            default:
+                                break;
+ 
+                        }
                         (lCumulates->at(j))->append(of);
                         break;
                     case geotop::input::AVG:
+                        switch(of.getDimension())
+                        {
+                            case geotop::input::D1Dp:
+                            case geotop::input::D1Ds:
+                                of.values = geotop::input::TemporaryValues(0.);
+                                break;
+                            case geotop::input::D2D:
+                                of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
+                                break;
+                            case geotop::input::D3D:
+                                of.values = geotop::input::TemporaryValues(initTempValuesTensor(A));
+                                break;
+                            default:
+                                break;
+ 
+                        }
                         (lAverages->at(j))->append(of);
                         break;
                     default:
@@ -662,6 +694,8 @@ void write_output_new(AllData* A)
                 for (j = 0; j < ofv->size(); j++)
                 {
                     std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
+                    geotop::input::OutputFile f = ofv->at(j);
+                    printCumulates(A, &f);
                 }
             }
         }
@@ -685,6 +719,74 @@ void write_output_new(AllData* A)
 
 }
 
+static void deallocate_helper(geotop::input::OutputFile* of)
+{
+    switch (of->values.whatIsValid())
+    {
+        case 1:
+            {
+                GeoMatrix<double>* M = of->values.getValuesM();
+                delete M;
+            }
+            break;
+        case 2:
+            {
+                GeoTensor<double>* T = of->values.getValuesT();
+                delete T;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void deallocate_output_new()
+{
+    size_t i,j;
+    OutputFilesVector* ofv = NULL;
+
+    if (ofs.instants != NULL)
+    {
+        for (i = 0; i < ofs.instants->size(); i++)
+        {
+            ofv = ofs.instants->at(i);
+
+            for (j = 0; j < ofv->size(); j++)
+            {
+                geotop::input::OutputFile of = ofv->at(j);
+                deallocate_helper(&of);
+            }
+        }
+    }
+
+    if (ofs.cumulates != NULL)
+    {
+        for (i = 0; i < ofs.cumulates->size(); i++)
+        {
+            ofv = ofs.cumulates->at(i);
+
+            for (j = 0; j < ofv->size(); j++)
+            {
+                geotop::input::OutputFile of = ofv->at(j);
+                deallocate_helper(&of);
+            }
+        }
+    }
+
+    if (ofs.averages != NULL)
+    {
+        for (i = 0; i < ofs.averages->size(); i++)
+        {
+            ofv = ofs.averages->at(i);
+
+            for (j = 0; j < ofv->size(); j++)
+            {
+                geotop::input::OutputFile of = ofv->at(j);
+                deallocate_helper(&of);
+            }
+        }
+    }
+}
 
 //Implementation moved here because this function will grow considerably
 static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what)

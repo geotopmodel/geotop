@@ -30,9 +30,11 @@
 
 #include "struct.geotop.h"
 
-void output_file_preproc();
+void output_file_preproc(AllData* A);
 
 void write_output_new(AllData* A);
+
+void deallocate_output_new();
 
 #endif
 
