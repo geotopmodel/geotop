@@ -117,6 +117,63 @@ namespace geotop
         }
 
         /*=====================================================================
+         * TemporaryValues class members
+         =====================================================================*/
+
+        /**
+         * @brief Default constructor: sets eveything as invalid
+         */
+        TemporaryValues::TemporaryValues()
+        {
+            mWhatIsValid = -1;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = NULL;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(double init)
+        {
+            mWhatIsValid = 0;
+            mDValue = init;
+            mMValue = NULL;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(GeoMatrix<double>* init)
+        {
+            mWhatIsValid = 1;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = init;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(GeoTensor<double>* init)
+        {
+            mWhatIsValid = 2;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = NULL;
+            mTValue = init;
+        }
+
+        double TemporaryValues::getValueD()
+        {
+            assert(mWhatIsValid == 0);
+            return mDValue;
+        }
+
+        GeoMatrix<double>* TemporaryValues::getValuesM()
+        {
+            assert(mWhatIsValid == 1);
+            return mMValue;
+        }
+
+        GeoTensor<double>* TemporaryValues::getValuesT()
+        {
+            assert(mWhatIsValid == 2);
+            return mTValue;
+        }
+
+        /*=====================================================================
          * OutputFile class members
          =====================================================================*/
 

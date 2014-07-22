@@ -33,6 +33,7 @@
 
 #include <string>
 #include <exception>
+#include "struct.geotop.h"
 
 namespace geotop
 {
@@ -76,6 +77,28 @@ namespace geotop
             UNKNOWN_VAR
         };
 
+        /**
+         * @brief Holds the temporary values for cumulates and averages
+         */
+        class TemporaryValues
+        {
+            public:
+                TemporaryValues();
+                TemporaryValues(double init);
+                TemporaryValues(GeoMatrix<double>* init);
+                TemporaryValues(GeoTensor<double>* init);
+                int whatIsValid() { return mWhatIsValid; }
+                double getValueD();
+                GeoMatrix<double>* getValuesM();
+                GeoTensor<double>* getValuesT();
+            private:
+                int mWhatIsValid;
+                double mDValue;
+                GeoMatrix<double>* mMValue;
+                GeoTensor<double>* mTValue;
+
+        } ;
+
         class OutputFile
         {
         public:
@@ -110,6 +133,11 @@ namespace geotop
             geotop::input::IntegrationType getIntegrationType() { return mType; }
             long getPeriod() { return mPeriod; }
             long getLayer() { return mLayerIndex; }
+
+            /*=================================================================
+             * Public Fields
+             =================================================================*/
+            geotop::input::TemporaryValues values;
 
             /*=================================================================
              * Static methods
