@@ -277,10 +277,11 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
     return output;
 }
 
-static void printLayer(GeoMatrix<double> M, geotop::input::OutputFile* f, double date, long layer)
+static void printLayer(geotop::input::OutputFile* f, double date, long layer)
 {
     long r,c;
     FILE* fp = NULL;
+    GeoMatrix<double> M = *(f->values.getValuesM());
     std::string filename = f->getFileName(date, layer);
 
     fp = fopen (filename.c_str(), "w");
@@ -316,10 +317,11 @@ static void printLayer(GeoMatrix<double> M, geotop::input::OutputFile* f, double
     fclose(fp);
 }
 
-static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, double date)
+static void printTensor(geotop::input::OutputFile* f, double date)
 {
     long l,r,c;
     FILE* fp = NULL;
+    GeoTensor<double> T = *(f->values.getValuesT());
 
     //For all layers
     for (l = 1; l < T.getDh(); l++)
@@ -367,8 +369,6 @@ static void printTensor(GeoTensor<double> T, geotop::input::OutputFile* f, doubl
  */
 static void printInstant(AllData* A, geotop::input::OutputFile* f)
 {
-    std::string filename;
-
     if (f->getVariable() != geotop::input::UNKNOWN_VAR)
     {
         double lJDate = A->I->time; //seconds passed since the beginning of the simulation
@@ -386,13 +386,15 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
             case geotop::input::D2D:
                 {
                     GeoMatrix<double> M = getLayer(A, f->getVariable(), f->getLayer());
-                    printLayer(M, f, lJDate, f->getLayer());
+                    f->values = geotop::input::TemporaryValues(&M);
+                    printLayer(f, lJDate, f->getLayer());
                 }
                 break;
             case geotop::input::D3D:
                 {
                     GeoTensor<double> T = getTensor(A, f->getVariable());
-                    printTensor(T, f, lJDate);
+                    f->values = geotop::input::TemporaryValues(&T);
+                    printTensor(f, lJDate);
                 }
                 break;
             default:
