@@ -155,7 +155,9 @@ static inline bool equals(double a, double b)
  * @param what variable to fetch
  * @return a GeoMatrix with one row per layer, each row holding the values for that layer
  */
-static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what);
+static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Variable what);
+
+static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what);
 
 static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
 {
@@ -204,22 +206,42 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
     bool found = false;
     double output = geotop::input::gDoubleNoValue;
 
-    GeoMatrix<double>* var = getSupervectorVariable(A, what);
+    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
-    assert(var != NULL); //at this point var should not be NULL
-
-    for (i = 1; i <= A->P->total_pixel; i++)
+    if (var != NULL)
     {
-        if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+        for (i = 1; i <= A->P->total_pixel; i++)
         {
-            found = true;
-            break;
+            if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) output = (*var)[layer][i];
+    }
+    else
+    {
+        GeoVector<double>* var = getSupervectorVariableV(A, what);
+
+        if (var != NULL)
+        {
+            for (i = 1; i <= A->P->total_pixel; i++)
+            {
+                if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) output = (*var)[i];
         }
     }
 
-    if (found) output = (*var)[layer][i];
-
     return output;
+
 }
 
 static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long layer)
@@ -233,17 +255,36 @@ static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long
     if (layer <= 0)
         return output;
     
-    GeoMatrix<double>* var = getSupervectorVariable(A, what);
+    //Not NULL if the user asked for a layer in a tensor
+    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
-    assert(var != NULL); //at this point var should not be NULL
-
-    //Scan Data Vector
-    for (i = 1; i <= A->P->total_pixel; i++)
+    if (var != NULL)
     {
-        long r = A->T->rc_cont[i][1];
-        long c = A->T->rc_cont[i][2];
 
-        output[r][c] = (*var)[layer][i];
+        //Scan Data Vector
+        for (i = 1; i <= A->P->total_pixel; i++)
+        {
+            long r = A->T->rc_cont[i][1];
+            long c = A->T->rc_cont[i][2];
+
+            output[r][c] = (*var)[layer][i];
+        }
+    }
+    else
+    {
+        //Not NULL if the variable is available as a map
+        GeoVector<double>* var = getSupervectorVariableV(A, what);
+
+        assert(var != NULL); //at this point var should be not NULL
+
+        //Scan Data Vector
+        for (i = 1; i <= A->P->total_pixel; i++)
+        {
+            long r = A->T->rc_cont[i][1];
+            long c = A->T->rc_cont[i][2];
+
+            output[r][c] = (*var)[i];
+        }
     }
 
     return output;
@@ -257,7 +298,7 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
                              geotop::common::Variables::Nc+1,
                              geotop::input::gDoubleNoValue);
 
-    GeoMatrix<double>* var = getSupervectorVariable(A, what);
+    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
     assert(var != NULL); //at this point var should not be NULL
 
@@ -861,7 +902,7 @@ void deallocate_output_new()
 }
 
 //Implementation moved here because this function will grow considerably
-static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Variable what)
+static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Variable what)
 {
     GeoMatrix<double>* var = NULL;
 
@@ -873,6 +914,26 @@ static GeoMatrix<double>* getSupervectorVariable(AllData* A, geotop::input::Vari
         default:
             break;
     }
+
+    if (var != NULL && var->getCols() < A->P->total_pixel)
+        return NULL;
+
+    return var;
+
+}
+
+static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what)
+{
+    GeoVector<double>* var = NULL;
+
+    switch(what)
+    {
+        default:
+            break;
+    }
+
+    if (var != NULL && var->size() < (size_t)A->P->total_pixel)
+        return NULL;
 
     return var;
 
