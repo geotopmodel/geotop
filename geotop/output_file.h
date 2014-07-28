@@ -151,6 +151,7 @@ namespace geotop
              */
             static std::string var2str(Variable v);
         private:
+            bool isValidDimension();
             geotop::input::Variable mVariable;
             geotop::input::Dimension mDimension;
             geotop::input::IntegrationType mType;

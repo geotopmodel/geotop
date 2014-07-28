@@ -219,6 +219,22 @@ namespace geotop
                     if (tmp.compare("AVG") == 0) mType = AVG;
                     if (tmp.compare("CUM") == 0) mType = CUM;
                     if (tmp.compare("INS") == 0) mType = INS;
+                    
+                    if (isValidDimension() == false)
+                    {
+                        mVariable = geotop::input::UNKNOWN_VAR;
+                        mDimension = geotop::input::UNKNOWN_DIM;
+                        mType = geotop::input::UNKNOWN_INTEG;
+
+                        geotop::logger::GlobalLogger* lg =
+                            geotop::logger::GlobalLogger::getInstance();
+
+                        lg->logsf(geotop::logger::ERROR,
+                                  "Invalid output file definition: %s",
+                                  extended_key.c_str());
+
+                    }
+
                 }
 
             }
@@ -350,6 +366,26 @@ namespace geotop
             if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
 
             return lVar;
+        }
+
+        bool OutputFile::isValidDimension()
+        {
+            bool output = false;
+
+            if (mDimension == UNKNOWN_DIM)
+                return false;
+
+            switch (mVariable)
+            {
+                case SOIL_TEMP:
+                    output = true;
+                    break;
+                default:
+                    output = false;
+                    break;
+            }
+
+            return output;
         }
     }
 }
