@@ -482,14 +482,14 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			// line below to move in output..   
 			if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
 #endif
-            write_output_new(A);
-
 			tend=clock();
 			geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
 			
 			A->I->time += A->P->Dt; //Increase TIME
 			
+            write_output_new(A);
+
 			// counter...// 
 			i_steps++;
 		 	printf("time-loop: time:%f steps:%ld   enddate:%f initdate:%f diff:%f\n",A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
