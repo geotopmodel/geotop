@@ -78,6 +78,8 @@ public:
         mMap = pMap ;
         mUnsupportedKeys.push_back("NumSimulationTimes") ;
         mKey = boost::shared_ptr< std::string >( new std::string() ) ;
+        mCurrentLayerIndex = boost::shared_ptr<double>(new double);
+        *mCurrentLayerIndex  = 0.;
     };
     
     ~ConfGrammar (){
@@ -254,13 +256,28 @@ public:
             case OUTPUT_SEC:
                 if (mKey->compare("") != 0)
                 {
-                    boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
-                        boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
-                    files->push_back(geotop::input::OutputFile(*mKey, pValue));
+                    //Fetch the key and convert it to lower case
+                    std::string lcKey = std::string(*mKey);
+                    boost::algorithm::to_lower(lcKey);
+
+                    //If it's not a LayerIndex key create a new OutputFile
+                    if (lcKey.compare("layerindex") != 0)
+                    {
+                        boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
+                            boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
+                        files->push_back(geotop::input::OutputFile(*mKey, pValue, (long)(*mCurrentLayerIndex)));
+#ifdef WITH_LOGGER
 #ifdef TRACELOG
-                    trace_log.logsf(TRACE, "actionValueDouble: created new output file: %s %f", mKey->c_str(), pValue);
-                    trace_log.logsf(TRACE, "actionValueDouble: files' size: %u", files->size());
+                        trace_log.logsf(TRACE, "actionValueDouble: created new output file: %s %f", mKey->c_str(), pValue);
+                        trace_log.logsf(TRACE, "actionValueDouble: files' size: %u", files->size());
 #endif
+#endif
+                    }
+                    else
+                    {
+                        //update  the current layer index
+                        *mCurrentLayerIndex = pValue;
+                    }
                 }
                 else
                 {
@@ -388,6 +405,7 @@ private:
     boost::shared_ptr<std::string> mKey ;
     boost::shared_ptr< std::map<std::string, boost::any> > mMap ;
     boost::shared_ptr<Sections> mCurrent_section;
+    boost::shared_ptr<double> mCurrentLayerIndex;
 };
 
 geotop::input::ConfigStore::ConfigStore()

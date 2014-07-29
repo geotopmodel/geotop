@@ -144,6 +144,10 @@ SET( INPUT_KEYWORDS_LIBRARIES
 SET( GEOTOP_OUT_POSTPROC_LIBRARIES
     "geotopOutPostProcessing" )
 
+# geotopOutPostProcessingNew
+SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
+    "geotopOutPostProcessingNew" )
+
 # geotopMeteo
 SET( GEOTOP_METEO_LIBRARIES
     "geotopMeteo" )

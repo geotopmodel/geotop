@@ -32,11 +32,29 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
+#include "times.h"
+#include "global_logger.h"
 
 namespace geotop
 {
     namespace input
     {
+
+        /*=====================================================================
+         * Constants
+         =====================================================================*/
+        const double minPeriod = 60;
+
+        /*=====================================================================
+         * Static functions
+         =====================================================================*/
+
+        /**
+         * @internal
+         * @brief Splits an extended key
+         * @param[in] key the key to split
+         * @return a std::vector with the subkeys
+         */
         static std::vector<std::string> split_ext_key(std::string key)
         {
             std::vector<std::string> output;
@@ -63,63 +81,171 @@ namespace geotop
             return output;
         }
 
+        /**
+         * @internal
+         * @brief Converts a double to a long with rounding
+         * @param[in] d the double to convert
+         * @return truncate (d + 0.5)
+         */
         static long rounding(double d)
         {
             d += 0.5;
             return (long)d ;
         }
 
-        static long floor(double d)
+        /**
+         * @internal
+         * @brief Converts a string to lowercase
+         * @param[in] s the string to convert
+         * @return the lowercase version of s
+         */
+        static std::string toLower(std::string s)
         {
-            return (long)d;
-        }
+            std::string tmp;
+            size_t i;
 
-        static void convert_dateeur12_daymonthyearhourmin(double date, long *day, long *month, long *year, long *hour, long *min)
-        {
+            for (i = 0; i < s.size(); i++)
+            {
+                char c = s.at(i);
+                if (c >= 'A' && c <= 'Z')
+                    c += ('a' - 'A');
 
-            *day = floor(date/1.E10);
-            *month = floor(date/1.E8 - (*day)*1.E2);
-            *year = floor(date/1.E4 - (*day)*1.E6 - (*month)*1.E4);
-            *hour = floor(date/1.E2 - (*day)*1.E8 - (*month)*1.E6 - (*year)*1.E2 );
-            *min = floor(date/1.E0 - (*day)*1.E10 - (*month)*1.E8 - (*year)*1.E4 - (*hour)*1.E2);
-
-            if (*day<1 || *day>31 || *month<1 || *month>12 || *year<1700 || *year>2900 || *hour<0 || *hour>23 || *min<0 || *min>59) {
-                geotop::input::DateEur12Exception e(date);
-                throw e;
+                tmp.push_back(c);
             }
+
+            return tmp;
         }
 
-        const char* DateEur12Exception::what()
+        /*=====================================================================
+         * TemporaryValues class members
+         =====================================================================*/
+
+        /**
+         * @brief Default constructor: sets eveything as invalid
+         */
+        TemporaryValues::TemporaryValues()
         {
-            char buffer[512] = {'\0'};
-
-            sprintf(buffer, "Invalid date: %f", mDate);
-
-            return (const char*)strdup(buffer);
+            mWhatIsValid = -1;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = NULL;
+            mTValue = NULL;
         }
 
-        OutputFile::OutputFile(std::string extended_key, double period)
+        TemporaryValues::TemporaryValues(double init)
+        {
+            mWhatIsValid = 0;
+            mDValue = init;
+            mMValue = NULL;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(GeoMatrix<double>* init)
+        {
+            mWhatIsValid = 1;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = init;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(GeoTensor<double>* init)
+        {
+            mWhatIsValid = 2;
+            mDValue = geotop::input::gDoubleNoValue;
+            mMValue = NULL;
+            mTValue = init;
+        }
+
+        double TemporaryValues::getValueD()
+        {
+            assert(mWhatIsValid == 0);
+            return mDValue;
+        }
+
+        GeoMatrix<double>* TemporaryValues::getValuesM()
+        {
+            assert(mWhatIsValid == 1);
+            return mMValue;
+        }
+
+        GeoTensor<double>* TemporaryValues::getValuesT()
+        {
+            assert(mWhatIsValid == 2);
+            return mTValue;
+        }
+
+        /*=====================================================================
+         * OutputFile class members
+         =====================================================================*/
+
+        OutputFile::OutputFile(std::string extended_key, double period, long layer)
         {
             mVariable = geotop::input::UNKNOWN_VAR;
             mDimension = geotop::input::UNKNOWN_DIM;
             mType = geotop::input::UNKNOWN_INTEG;
-            mPeriod = rounding(period);
-            std::vector<std::string> values = split_ext_key(extended_key);
+            mLayerIndex = layer;
 
-            if (values.size() == 3)
+            if (period >= minPeriod)
             {
-                //Dimension
-                std::string tmp = values.at(1);
-                if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
-                if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
-                if (tmp.compare("2D") == 0) mDimension = D2D;
-                if (tmp.compare("3D") == 0) mDimension = D3D;
+               
+                mPeriod = rounding(period);
 
-                //Integration Type
-                tmp = values.at(2);
-                if (tmp.compare("AVG") == 0) mType = AVG;
-                if (tmp.compare("CUM") == 0) mType = CUM;
-                if (tmp.compare("INS") == 0) mType = INS;
+                std::vector<std::string> values = split_ext_key(extended_key);
+
+                if (values.size() == 3)
+                {
+                    //Variable
+                    std::string tmp = values.at(0);
+                    mVariable = str2var(tmp);
+
+                    if (mVariable == geotop::input::UNKNOWN_VAR)
+                    {
+                        geotop::logger::GlobalLogger* lg =
+                            geotop::logger::GlobalLogger::getInstance();
+
+                        lg->logsf(geotop::logger::WARNING,
+                                  "Unknown output variable: '%s'.",
+                                  tmp.c_str());
+                    }
+
+                    //Dimension
+                    tmp = values.at(1);
+                    if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
+                    if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
+                    if (tmp.compare("2D") == 0) mDimension = D2D;
+                    if (tmp.compare("3D") == 0) mDimension = D3D;
+
+                    //Integration Type
+                    tmp = values.at(2);
+                    if (tmp.compare("AVG") == 0) mType = AVG;
+                    if (tmp.compare("CUM") == 0) mType = CUM;
+                    if (tmp.compare("INS") == 0) mType = INS;
+                    
+                    if (isValidDimension() == false)
+                    {
+                        mVariable = geotop::input::UNKNOWN_VAR;
+                        mDimension = geotop::input::UNKNOWN_DIM;
+                        mType = geotop::input::UNKNOWN_INTEG;
+
+                        geotop::logger::GlobalLogger* lg =
+                            geotop::logger::GlobalLogger::getInstance();
+
+                        lg->logsf(geotop::logger::ERROR,
+                                  "Invalid output file definition: %s",
+                                  extended_key.c_str());
+
+                    }
+
+                }
+
+            }
+            else
+            {
+                geotop::logger::GlobalLogger* lg =
+                    geotop::logger::GlobalLogger::getInstance();
+
+                lg->logsf(geotop::logger::ERROR,
+                          "Invalid integration period for key '%s': %f",
+                          extended_key.c_str(), period);
             }
 
         }
@@ -128,7 +254,7 @@ namespace geotop
         {
         }
 
-        std::string OutputFile::getFileName(double dateeur12)
+        std::string OutputFile::getFileName(double dateeur12, long layer)
         {
             char buffer[13] = {'\0'};
             long day = 0L, month = 0L, year = 0L, hour = 0L, min = 0L;
@@ -140,12 +266,7 @@ namespace geotop
             std::string output(buffer);
             output.append("_");
 
-            switch (mVariable)
-            {
-                default:
-                    output.append("UNKNOWN");
-                    break;
-            }
+            output.append(var2str(mVariable));
 
             output.append("_");
 
@@ -205,8 +326,65 @@ namespace geotop
 
             output.append(buffer);
 
+            //Layer
+            if (layer != -1)
+            {
+                output.append("_L");
+                memset(buffer, 0, 13);
+                sprintf(buffer, "%.4ld", layer);
+                output.append(buffer);
+            }
+
+            //Extension
             output.append(".asc");
             
+            return output;
+        }
+
+        std::string OutputFile::var2str(Variable v)
+        {
+            std::string output = "";
+
+            switch (v)
+            {
+                case SOIL_TEMP:
+                    output.append("SoilTemperature");
+                    break;
+                default:
+                    output.append("UNKNOWN");
+                    break;
+            }
+
+            return output;
+        }
+
+        Variable OutputFile::str2var(std::string v)
+        {
+            Variable lVar = UNKNOWN_VAR;
+            std::string tmp = toLower(v);
+
+            if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
+
+            return lVar;
+        }
+
+        bool OutputFile::isValidDimension()
+        {
+            bool output = false;
+
+            if (mDimension == UNKNOWN_DIM)
+                return false;
+
+            switch (mVariable)
+            {
+                case SOIL_TEMP:
+                    output = true;
+                    break;
+                default:
+                    output = false;
+                    break;
+            }
+
             return output;
         }
     }
