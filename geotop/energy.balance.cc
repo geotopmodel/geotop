@@ -37,10 +37,10 @@ using namespace std;
 
 short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,  GeoVector<double>& snowage, AllData *A, double *W, std::vector<mio::MeteoData>& vec_meteo){
     short sux;
-    long i, r, c, cnt=0;
+    long i=0, r, c, cnt=0;
     static long line_interp;
-    double Dtplot, Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0., Tgskin_surr_ave=0.;
-    FILE *f;
+    double Dtplot=1., Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0., Tgskin_surr_ave=0.;
+    FILE *f = NULL;
 
     //	calculation to be done before plotting maps
     *W = 0.;
