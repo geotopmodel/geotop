@@ -115,7 +115,6 @@ namespace geotop
                 
                 if( not mValueMap->count(pName) )
                 {
-                    std::cerr << "Error: configuration item not found: " << pName << std::endl ;
                     return false ;
                 }
 
@@ -126,7 +125,6 @@ namespace geotop
                 }
                 catch(const boost::bad_any_cast &)
                 {
-                    std::cerr << "Error: runtime typechecking failed for item: " << pName << std::endl ;
                     return false;
                 }
             } ;

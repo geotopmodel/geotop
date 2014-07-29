@@ -53,6 +53,7 @@
 #include <errno.h>
 
 #include <inputKeywords.h>
+#include "output_new.h"
 
 using namespace std;
 
@@ -190,6 +191,7 @@ int main(int argc,char *argv[]){
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
+        output_file_preproc(adt);
 
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 #ifdef USE_NETCDF
@@ -211,6 +213,7 @@ int main(int argc,char *argv[]){
 
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 
+        deallocate_output_new();
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 		free(adt);
 
@@ -485,6 +488,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			
 			A->I->time += A->P->Dt; //Increase TIME
 			
+            write_output_new(A);
+
 			// counter...// 
 			i_steps++;
 		 	printf("time-loop: time:%f steps:%ld   enddate:%f initdate:%f diff:%f\n",A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
