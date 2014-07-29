@@ -441,7 +441,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 							
 							dz = adt->S->pa(sy,jdz,l);//[mm]						
 							
-							if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
+							if ((long)adt->L->LC[r+1][c] == (long)geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c] == (long)geotop::input::gDoubleNoValue) {
 						
 								dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
@@ -461,7 +461,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 							dz = adt->S->pa(sy,jdz,l);//[mm]
 							
 						
-							if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {							
+							if ((long)adt->L->LC[r+1][c] == (long)geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c] == (long)geotop::input::gDoubleNoValue) {							
 								dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 							}else {							
 								dn = ds / cos(atan(adt->T->dzdN[r][c]));//m
@@ -800,11 +800,11 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 		//	vertical hydraulic conductivity
 			if(l>0){				
 				dz = adt->S->pa(sy,jdz,l);
-				if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_l[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][c], SL->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat	);
+				if (l == (size_t)geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_l[r][c] = k_from_psi(jKn, H[i] - adt->T->Z[l][r][c], SL->thi[l][c], SL->T[l][c], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat	);
 			}
 			
 			//flux from cell below
-			if (l<geotop::common::Variables::Nl) {
+			if (l < (size_t)geotop::common::Variables::Nl) {
 				
 				I = i+1;
 				
@@ -877,11 +877,11 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			//vertical hydraulic conductivity
 			if(l>0){
 				dz = adt->S->pa[sy][jdz][l];
-				if (l==geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_ch[ch] = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
+				if (l == (size_t)geotop::common::Variables::Nl && adt->P->free_drainage_bottom>0) Kbottom_ch[ch] = k_from_psi(jKn, H[i] - (adt->T->Z[l][r][c]-adt->P->depr_channel), SC->thi[l][ch], SC->T[l][ch], l, adt->S->pa, sy, adt->P->imp, adt->P->k_to_ksat);
 			}
 			
 			//flux from cell below
-			if (l<geotop::common::Variables::Nl) {
+			if (l < (size_t)geotop::common::Variables::Nl) {
 				
 				I = i+1;
 				
@@ -947,8 +947,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			R = r-1;
 			C = c;
 			//1.
-			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
-				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
+			if(R >= 1 && R <= (size_t)geotop::common::Variables::Nr && C >= 1 && C <= (size_t)geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C] != (long)geotop::input::gDoubleNoValue && (size_t)adt->T->i_cont[l][R][C] > i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -997,8 +997,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			C = c;
 
 			//2.
-			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
-				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
+			if(R >= 1 && R <= (size_t)geotop::common::Variables::Nr && C >= 1 && C <= (size_t)geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C] != (long)geotop::input::gDoubleNoValue && (size_t)adt->T->i_cont[l][R][C] > i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1045,8 +1045,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			C = c-1;
 
 			//3.
-			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
-				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R <= (size_t)geotop::common::Variables::Nr && C>=1 && C <= (size_t)geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C] != (long)geotop::input::gDoubleNoValue && (size_t)adt->T->i_cont[l][R][C] > i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1091,8 +1091,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 			R = r;
 			C = c+1;
 			//4.
-			if(R>=1 && R<=geotop::common::Variables::Nr && C>=1 && C<=geotop::common::Variables::Nc){
-				if((long)adt->L->LC[R][C]!=geotop::input::gDoubleNoValue && adt->T->i_cont[l][R][C]>i){ 
+			if(R>=1 && R <= (size_t)geotop::common::Variables::Nr && C>=1 && C <= (size_t)geotop::common::Variables::Nc){
+				if((long)adt->L->LC[R][C] != (long)geotop::input::gDoubleNoValue && (size_t)adt->T->i_cont[l][R][C] > i){ 
 					
 					I = adt->T->i_cont[l][R][C];	
 					syn = adt->S->type[R][C];
@@ -1180,7 +1180,8 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 
 int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H)
 	{
-	long i, l, r=1, I, sy, cnt=0;
+	long l, r=1, I, sy, cnt=0;
+    size_t i;
 	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	double psi, ice, a, ns, res, sat, ss, Temp;
@@ -1279,8 +1280,9 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 
 int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, SoilState *C, const GeoVector<double>& H, GeoMatrix<double>& Klat){
 	
-	long i, l, r, c, j, sy, ch, bc;
-	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
+	long l, r, c, j, sy, ch, bc;
+    size_t i;
+	size_t n = (size_t)((geotop::common::Variables::Nl+1)*adt->P->total_pixel);
 	double dz, dn, dD, psi1, ice=0.0;
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	
@@ -1329,7 +1331,7 @@ int find_dfdH_3D(double Dt,GeoVector<double>& df, AllData *adt, SoilState *L, So
 			if (l>0) {
 				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11) {
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ) {
-						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
+						if ((long)adt->L->LC[r+1][c] == (long)geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c] == (long)geotop::input::gDoubleNoValue) {
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
@@ -1417,7 +1419,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 	
 	
     long l, r, c, j, sy, ch, bc;
-	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
+	size_t n = (size_t)((geotop::common::Variables::Nl+1)*adt->P->total_pixel);
 	double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
 
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
@@ -1478,7 +1480,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 			if (l>0) {
 				if (adt->T->pixel_type[r][c] == 1 || adt->T->pixel_type[r][c] == 11){
 					if (adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) && H[i] - adt->T->Z[l][r][c] > 0 ){
-						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
+						if ((long)adt->L->LC[r+1][c] == (long)geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c] == (long)geotop::input::gDoubleNoValue) {
 						
 							dD = 0.5 * 1.E3*ds / cos(atan(adt->T->dzdN[r][c]));//mm
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
@@ -1496,7 +1498,7 @@ int find_f_3D(double Dt, GeoVector<double>& f, AllData *adt, SoilState *L, SoilS
 				
 					if ( adt->T->Z[0][r][c] - adt->T->Z[l][r][c] <= adt->T->BC_DepthFreeSurface[bc]*cos(adt->T->slope[r][c]*GTConst::Pi/180.) ) {
 			
-						if ((long)adt->L->LC[r+1][c]==geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c]==geotop::input::gDoubleNoValue) {
+						if ((long)adt->L->LC[r+1][c] == (long)geotop::input::gDoubleNoValue || (long)adt->L->LC[r-1][c] == (long)geotop::input::gDoubleNoValue) {
 							dn = ds / cos(atan(adt->T->dzdE[r][c]));//m
 						}else {
 					
@@ -2057,7 +2059,8 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 
 void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
 
-	long r,c,ch,R,C;                                    
+	long r,c,R,C;
+    size_t ch;
 	double ds, dn, dD;
 	double Ks;											  // the Strickler's coefficent
 	double i;											  // hydraulic gradient
@@ -2100,7 +2103,7 @@ void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, do
 					R = cnet->r[cnet->ch_down[ch]];
 					C = cnet->c[cnet->ch_down[ch]];
 					
-					if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
+					if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch] == (long)ch){//outlet section
 						
 						q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*dn;	//[m3/s]
 						
@@ -2134,7 +2137,7 @@ void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, do
 				
 				h(0,ch) -= (1.E3*dV[ch]/(dn*cnet->length[ch])) * cos(top->slope[r][c]*GTConst::Pi/180.);
 				
-				if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
+				if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch] == (long)ch){//outlet section
 					*Vout = *Vout + dV[ch];	//m3
 				}else {
 					R = cnet->r[cnet->ch_down[ch]];
