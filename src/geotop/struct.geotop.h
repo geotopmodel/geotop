@@ -754,6 +754,8 @@ typedef struct {
 	
 	LONGVECTOR *imeteo_stations;
 	
+	DOUBLEMATRIX *taucloud_distr;
+	
 } METEO;
 
 

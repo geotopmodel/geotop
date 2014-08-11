@@ -188,7 +188,7 @@ double TauatmSinalpha(double JD, double *others){
 	
 	height = SolarHeight_(JD, others);
 	if (height>0) {
-		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.0);
 	}else {
 		return 0.0;
 	}
@@ -237,7 +237,7 @@ double Sinalpha(double JD, double *others){
 	
 	alpha = SolarHeight_(JD, others);
 	if (alpha>0) {
-		return Fmax(sin(alpha), 0.05);
+		return Fmax(sin(alpha), 0.0);
 	}else {
 		return 0.0;
 	}
@@ -277,21 +277,28 @@ double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
 /******************************************************************************************************************************************/
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
+	double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
+	double tau_cloud_to_use;
 	//long i;
+	
+	if ((long)tau_cloud_distr != number_novalue) {
+		tau_cloud_to_use = tau_cloud_distr;
+	}else {
+		tau_cloud_to_use = tau_cloud;
+	}
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 		
-	kd=diff2glob(tau_cloud*tau_atm);
+	kd=diff2glob(tau_cloud_to_use*tau_atm);
 	
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
 	
-	*SWd = Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
-		
+	*SWd = Isc*E0*tau_cloud_to_use*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+			
 	if (shadow == 1) {
 		cos_inc = 0.0;
 		*SWb = 0.0;
@@ -302,7 +309,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		//tau_atm_cos_inc = tau_atm * cos_inc;
 		//cos_inc = sin_alpha;
 		//tau_atm_cos_inc = *tau_atm_sin_alpha;
-		*SWb = (1.-kd)*Isc*E0*tau_cloud*tau_atm_cos_inc;
+		*SWb = (1.-kd)*Isc*E0*tau_cloud_to_use*tau_atm_cos_inc;
 	}
 		
 	*cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -316,6 +323,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	}else {
 		*SWb_yes = -1;
 	}
+	
 	
 }
 
@@ -415,10 +423,17 @@ double atm_transmittance_iqbal(double X, double P, double RH, double T, double L
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double tau_cloud_distr, double *eps, double *eps_max, double *eps_min){
 
-	double taucloud_overcast=0.29;//after Kimball(1928)
+	double tau_cloud_overcast=0.29;//after Kimball(1928)
+	double tau_cloud_to_use;
 	FILE *f;
+	
+	if ((long)tau_cloud_distr != number_novalue) {
+		tau_cloud_to_use = tau_cloud_distr;
+	}else {
+		tau_cloud_to_use = tau_cloud;
+	}
 				
 	if(state==1){
 		*eps_min = 1.24*pow((pvap/(T+tk)),1./7.); //Brutsaert, 1975
@@ -457,8 +472,8 @@ void longwave_radiation(short state, double pvap, double RH, double T, double k1
 
 	}
 	
-	*eps = (*eps_min) * taucloud + 1.0 * (1.-taucloud);
-	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-taucloud);
+	*eps = (*eps_min) * tau_cloud_to_use + 1.0 * (1.-tau_cloud_to_use);
+	*eps_max = (*eps_min) * tau_cloud_overcast + 1.0 * (1.-tau_cloud_overcast);
 		
 	/*double fcloud;
 	fcloud=pow((1.0-taucloud)/0.75,1/3.4);
@@ -554,6 +569,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	//tau_atm_sin_alpha = tau_atm*sin_alpha;
 			
 	if (tau_atm_sin_alpha > 0) {
+		
 		if((long)SWd!=number_absent && (long)SWd!=number_novalue && (long)SWb!=number_absent && (long)SWb!=number_novalue){
 			if( SWb+SWd > 0 && SWd > 0){
 				kd = SWd / (Fmax(0.,SWb)+SWd);
@@ -561,7 +577,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 			}
 			
 		}else if((long)SW!=number_absent && (long)SW!=number_novalue){
-			
+						
 			kd=0.2;
 			tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 			sin_alpha = adaptiveSimpsons2(Sinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
@@ -577,18 +593,18 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 				//SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				//Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
-				if(tau > 1) tau = 1.0;				
-				if(tau < 0) tau = 0.0;				
+				//if(tau > 1) tau = 1.0;				
+				//if(tau < 0) tau = 0.0;				
 				kd = diff2glob(tau * tau_atm);
-																
+																				
 			}while(fabs(kd0-kd)>0.005 && j<1000);
-			
+						
 		}
 	}
 		
-	if( (long)tau != number_novalue){
+	/*if( (long)tau != number_novalue){
 		if(tau<min_tau_cloud) tau=min_tau_cloud;
-	}
+	}*/
 	
 	free(others);
 		

@@ -33,12 +33,12 @@
 
 
 void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
-			DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
-			double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
-			long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
-			double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
-			double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP, 
-			short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f);
+				DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
+				double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
+				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, long cloudecode, double **Tair_grid, double **RH_grid, 
+				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, double **cloud,
+				double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
+				short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f);
 	
 short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid, double dn, 
 			DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);

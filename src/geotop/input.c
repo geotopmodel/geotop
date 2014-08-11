@@ -1714,7 +1714,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	initialize_doublematrix(met->Vgrid, par->V_default);
 	met->Vdir=new_doublematrix(Nr,Nc);
 	initialize_doublematrix(met->Vdir, par->Vdir_default);
-		
+	met->taucloud_distr=new_doublematrix(Nr,Nc);
+	initialize_doublematrix(met->taucloud_distr, (double)number_novalue);
+
 	if (par->output_meteo_bin == 1){
 		if(strcmp(files[fTa] , string_novalue) != 0){
 			met->Tamean=new_doublevector(par->total_pixel);

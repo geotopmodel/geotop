@@ -211,10 +211,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	double ic=0., wa, rho=0.;
 	long lpb;
 										
-	//TODO: removeme
-	FILE *SolvePointEnergyBalance_LOG_FILE = fopen("SolvePointEnergyBalance_LOG.txt", "a");
-	size_t lIndex = 0 ;
-
 	//initialization of cumulated water volumes and set soil ancillary state vars
 		
 	if (i <= A->P->total_channel) {
@@ -360,12 +356,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	SW=0.0;
 	*SWupabove_v=0.0;
 			
+	//cloudiness
+	
 	//if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
 	if(A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 			
 	//in case of shortwave data not available
 	if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;	
-			
+		
 	//albedo	
 	if(snowD>0){
 		if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T->co[ns][r][c], Dt, A->P->minP_torestore_A, &(snowage->co[j]));
@@ -409,7 +407,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
 	
 	shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
-						A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
+						A->M->tau_cloud, A->M->taucloud_distr->co[r][c], A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 	
 	SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
 	SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0, (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
@@ -472,7 +470,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		eps=A->L->ty->co[lu][jemg];
 	}			
 	
-	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
+	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, A->M->tau_cloud_av, A->M->taucloud_distr->co[r][c], &epsa, &epsa_max, &epsa_min);
 
     LWin = A->T->sky->co[r][c]*epsa*SB(Tpoint);
     if(A->P->surroundings == 1){
@@ -580,29 +578,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->E->Temp->co[0] = A->E->Temp->co[1];
 						
 		//ENERGY BALANCE	
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE -r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "BEFORE - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-		for(lIndex = 1 ; lIndex < A->E->T0->nh ; lIndex++)
-		{
-			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[lIndex]);
-		}
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
-
 		sux=SolvePointEnergyBalance(surface, Tdirichlet, A->P->EB, A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, 
 									A->S, A->C, A->T, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], 
 									eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow, 
 									SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov, 
 									&rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb, &dUsl);	
 		
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),ns(%ld),ng(%ld),zmeas_u(%12g),zmeas_T(%12g),z0(%12g),z0veg(%12g),d0veg(%12g),hveg(%12g),Vpoint(%12g),Tpoint(12%g),Qa(%12g),Ppoint(%12g),SWin(%12g),LWin(%12g),SWv_vis(%12g), SWv_nir(%12g)\n",
-				r, c, ns, ng, zmeas_u, zmeas_T, z0, z0veg, d0veg, hveg, Vpoint, Tpoint, Qa, Ppoint, SWin, LWin, SWv_vis, SWv_nir) ;
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "AFTER - r(%ld),c(%ld),EGY->T0: ",r,c) ;
-		for(lIndex = 1 ; lIndex < A->E->T0->nh ; lIndex++)
-		{
-			fprintf(SolvePointEnergyBalance_LOG_FILE, "%12g", A->E->T0->co[lIndex]);
-		}
-		fprintf(SolvePointEnergyBalance_LOG_FILE, "\n");
 
 	}while (sux < 0);
 			
@@ -861,7 +842,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			}
 		}
 			
-		fclose(SolvePointEnergyBalance_LOG_FILE);
 		return 0;
 			
 	}else {

@@ -55,8 +55,8 @@ extern char *WORKING_DIRECTORY;
 void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, 
 				DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, 
 				double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint, 
-				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid, double **RH_grid, 
-				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, 
+				long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, long cloudcode, double **Tair_grid, double **RH_grid, 
+				double **windspd_grid, double **winddir_grid, double **sfc_pressure, double **prec_grid, double **cloud,
 				double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
 				short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor, FILE *f){
 	
@@ -92,6 +92,11 @@ void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMA
 	}
 	
 	get_pressure(topo, sfc_pressure, (double)number_novalue);
+	
+	
+	//cloudiness (added 5th Aug 2014)
+	ok = interpolate_meteo(0, dE, dN, E, N, met->st->E, met->st->N, met->var, cloudcode, cloud, dn, iobsint);
+	
 	
 }
 

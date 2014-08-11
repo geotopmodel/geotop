@@ -494,6 +494,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublematrix(met->Vgrid);
 	free_doublematrix(met->Vdir);
 	free_doublematrix(met->RHgrid);
+	free_doublematrix(met->taucloud_distr);
 	if (par->output_meteo_bin == 1){
 		if(strcmp(files[fTa] , string_novalue) != 0) free_doublevector(met->Tamean);
 		if(strcmp(files[fwspd] , string_novalue) != 0) free_doublevector(met->Vspdmean);

@@ -54,14 +54,13 @@ double Tauatm(double JD, double *others);
 double Tauatm_(double JD, void *others);
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-						 double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, 
-						 double *tau_atm_sin_alpha, short *SWb_yes);
+						 double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes);
 	
 double diff2glob(double a);
 
 double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g);
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min);
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double tau_cloud_distr, double *eps, double *eps_max, double *eps_min);
 
 double SB(double T);
 
