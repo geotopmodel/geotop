@@ -1301,7 +1301,7 @@ void geotop::input::ConfigStore::init()
     initValue("EvapSurfacePoint", double(-1)) ;
     
     std::vector<double> lLeafAngles ;
-    lLeafAngles += 0,0.3,0,0.3,0,0.1,0.01,0.01 ;
+    lLeafAngles += 0 ;
     initValue("LeafAngles", lLeafAngles) ;
     
     initValue("OutputDepthsVertical", double(0)) ;
@@ -1359,7 +1359,7 @@ void geotop::input::ConfigStore::init()
     initValue("PSnowBasin", double(-1)) ;
     
     std::vector<double> lSoilEmissiv ;
-    lSoilEmissiv += 0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99 ;
+    lSoilEmissiv += 0.96;
     initValue("SoilEmissiv", lSoilEmissiv) ;
     
     initValue("DDChannel", double(1)) ;
@@ -1379,11 +1379,11 @@ void geotop::input::ConfigStore::init()
     initValue("NumLowPassFilterOnDemForCurv", double(0)) ;
     
     std::vector<double> lCanopyFraction ;
-    lCanopyFraction += 0,0,0,0,0,0,0,0 ;
+    lCanopyFraction += 0;
     initValue("CanopyFraction", lCanopyFraction) ;
     
     std::vector<double> lVegTransNIR ;
-    lVegTransNIR += 0,0.32,0,0.32,0,0.22,0.09,0.32 ;
+    lVegTransNIR += 0.2 ;
     initValue("VegTransNIR", lVegTransNIR) ;
     
     initValue("MaxCourantSupFlowChannelLand", double(0.1)) ;
@@ -1411,11 +1411,11 @@ void geotop::input::ConfigStore::init()
     initValue("WatContentGlac", lWatContentGlac) ;
 
     std::vector<double> lThetaSat ;
-    lThetaSat += 0.5,0.5,0.5,0.5,0.5 ;
+    lThetaSat += 0.5;
     initValue("ThetaSat", lThetaSat) ;
     
     std::vector<double> lVegSnowBurying ;
-    lVegSnowBurying += 1,1,1,1,1,1,1,1 ;
+    lVegSnowBurying += 1;
     initValue("VegSnowBurying", lVegSnowBurying) ;
     
     std::vector<double> lGlacPlotDepths ;
@@ -1463,13 +1463,13 @@ void geotop::input::ConfigStore::init()
     initValue("MinTimeStep", double(10)) ;
     
     std::vector<double> lCanDensSurface ;
-    lCanDensSurface += 0,1,0,1,0,20,20,5 ;
+    lCanDensSurface += 2 ;
     initValue("CanDensSurface", lCanDensSurface) ;
     
     initValue("RunBasin", double(-1)) ;
     
     std::vector<double> lNormalHydrConductivity ;
-    lNormalHydrConductivity += 0.0001,0.0001,0.0001,0.0001,0.0001 ;
+    lNormalHydrConductivity += 0.0001;
     initValue("NormalHydrConductivity", lNormalHydrConductivity) ;
     
     initValue("MinIceContentForBlowingSnow", double(8)) ;
@@ -1583,7 +1583,7 @@ void geotop::input::ConfigStore::init()
     initValue("DtPlotDischarge", lDtPlotDischarge) ;
     
     std::vector<double> lVMualem ;
-    lVMualem += 0.5,0.5,0.5,0.5,0.5 ;
+    lVMualem += 0.5;
     initValue("VMualem", lVMualem) ;
     
     std::vector<double> lWiltingPointBedrock ;
@@ -1599,17 +1599,17 @@ void geotop::input::ConfigStore::init()
     initValue("IDPointPoint", double(-1)) ;
     
     std::vector<double> lThetaRes ;
-    lThetaRes += 0.05,0.05,0.05,0.05,0.05 ;
+    lThetaRes += 0.05;
     initValue("ThetaRes", lThetaRes) ;
     
     initValue("AlbExtParSnow", double(10)) ;
 
     std::vector<double> lThresSnowVegDown ;
-    lThresSnowVegDown += 0,200,0,200,0,1900,1900,800 ;
+    lThresSnowVegDown += 1000 ;
     initValue("ThresSnowVegDown", lThresSnowVegDown) ;
     
     std::vector<double> lSurFlowResLand ;
-    lSurFlowResLand += 0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5 ;
+    lSurFlowResLand += 0.5;
     initValue("SurFlowResLand", lSurFlowResLand) ;
     
     initValue("SnowTempPoint", double(-1)) ;
@@ -1623,7 +1623,7 @@ void geotop::input::ConfigStore::init()
     initValue("LObukhovCanopyPoint", double(-1)) ;
     
     std::vector<double> lLSAI ;
-    lLSAI += 0,2,0,2,0,4,4,2 ;
+    lLSAI += 1 ;
     initValue("LSAI", lLSAI) ;
     
     initValue("SurFlowResChannel", double(20)) ;
@@ -1675,7 +1675,7 @@ void geotop::input::ConfigStore::init()
     initValue("TimeStepEnergyAndWater", lTimeStepEnergyAndWater) ;
     
     std::vector<double> lSoilRoughness ;
-    lSoilRoughness += 10,10,10,10,10,10,10,10 ;
+    lSoilRoughness += 10;
     initValue("SoilRoughness", lSoilRoughness) ;
     
     initValue("WetSnowDefRate", double(1.5)) ;
@@ -1715,7 +1715,7 @@ void geotop::input::ConfigStore::init()
     initValue("TimeFromStartBasin", double(-1)) ;
     
     std::vector<double> lVegTransVis ;
-    lVegTransVis += 0,0.07,0,0.07,0,0.04,0.04,0.07 ;
+    lVegTransVis += 0.2;
     initValue("VegTransVis", lVegTransVis) ;
     
     initValue("TsMaxIter", double(2)) ;
@@ -1753,7 +1753,7 @@ void geotop::input::ConfigStore::init()
     initValue("BlowingSnow", double(0)) ;
     
     std::vector<double> lThermalConductivitySoilSolids ;
-    lThermalConductivitySoilSolids += 2.5,2.5,2.5,2.5,2.5 ;
+    lThermalConductivitySoilSolids += 2.5;
     initValue("ThermalConductivitySoilSolids", lThermalConductivitySoilSolids) ;
     
     std::vector<double> lMeteoStationElevation ;
@@ -1761,7 +1761,7 @@ void geotop::input::ConfigStore::init()
     initValue("MeteoStationElevation", lMeteoStationElevation) ;
     
     std::vector<double> lSoilAlbNIRDry ;
-    lSoilAlbNIRDry += 0.33,0.33,0.33,0.33,0.33,0.33,0.33,0.33 ;
+    lSoilAlbNIRDry += 0.33;
     initValue("SoilAlbNIRDry", lSoilAlbNIRDry) ;
     
     initValue("BaseRelativeHumidity", double(70)) ;
@@ -1889,7 +1889,7 @@ void geotop::input::ConfigStore::init()
     initValue("PointBedrock", lPointBedrock) ;
 
     std::vector<double> lVegReflectVis ;
-    lVegReflectVis += 0,0.15,0,0.15,0,0.12,0.09,0.15 ;
+    lVegReflectVis += 0.2 ;
     initValue("VegReflectVis", lVegReflectVis) ;
     
     initValue("IrriducibleWatSatGlacier", double(0.02)) ;
@@ -2004,7 +2004,7 @@ void geotop::input::ConfigStore::init()
     initValue("InitSoilPressureBedrock", lInitSoilPressureBedrock) ;
     
     std::vector<double> lRoughElemXUnitArea ;
-    lRoughElemXUnitArea += 0,0,0,0,0,0,0,0 ;
+    lRoughElemXUnitArea += 0 ;
     initValue("RoughElemXUnitArea", lRoughElemXUnitArea) ;
     
     std::vector<double> lThermalCapacitySoilSolidsBedrock ;
@@ -2038,11 +2038,11 @@ void geotop::input::ConfigStore::init()
     initValue("ActualOrProjectedArea", double(0)) ;
     
     std::vector<double> lMinStomatalRes ;
-    lMinStomatalRes += 0,60,0,60,0,60,60,60 ;
+    lMinStomatalRes += 60;
     initValue("MinStomatalRes", lMinStomatalRes) ;
     
     std::vector<double> lLateralHydrConductivity ;
-    lLateralHydrConductivity += 0.0001,0.0001,0.0001,0.0001,0.0001 ;
+    lLateralHydrConductivity += 0.0001;
     initValue("LateralHydrConductivity", lLateralHydrConductivity) ;
     
     initValue("RunGlac", double(-1)) ;
@@ -2058,7 +2058,7 @@ void geotop::input::ConfigStore::init()
     initValue("SWupPoint", double(-1)) ;
     
     std::vector<double> lDecayCoeffCanopy ;
-    lDecayCoeffCanopy += 0,2.5,0,2.5,0,4,4,2.5 ;
+    lDecayCoeffCanopy += 2.5;
     initValue("DecayCoeffCanopy", lDecayCoeffCanopy) ;
     
     initValue("HighestNodeCorrespondsToLayer", double(0)) ;
@@ -2066,7 +2066,7 @@ void geotop::input::ConfigStore::init()
     initValue("TsurfPoint", double(-1)) ;
     
     std::vector<double> lNVanGenuchten ;
-    lNVanGenuchten += 1.3,1.3,1.3,1.3,1.3 ;
+    lNVanGenuchten += 1.3 ;
     initValue("NVanGenuchten", lNVanGenuchten) ;
     
     initValue("PNetBasin", double(-1)) ;
@@ -2076,7 +2076,7 @@ void geotop::input::ConfigStore::init()
     initValue("Latitude", double(46.3)) ;
     
     std::vector<double> lRoughElemDiam ;
-    lRoughElemDiam += 50,50,50,50,50,50,50,50 ;
+    lRoughElemDiam += 50 ;
     initValue("RoughElemDiam", lRoughElemDiam) ;
     
     initValue("LWinParameterization", double(9)) ;
@@ -2102,7 +2102,7 @@ void geotop::input::ConfigStore::init()
     initValue("SWEbottom", double(20)) ;
     
     std::vector<double> lSoilAlbNIRWet ;
-    lSoilAlbNIRWet += 0.16,0.16,0.16,0.16,0.16,0.16,0.16,0.16 ;
+    lSoilAlbNIRWet += 0.16;
     initValue("SoilAlbNIRWet", lSoilAlbNIRWet) ;
     
     initValue("JulianDayFromYear0Point", double(-1)) ;
@@ -2140,13 +2140,13 @@ void geotop::input::ConfigStore::init()
     initValue("InitSoilTempBedrock", lInitSoilTempBedrock) ;
     
     std::vector<double> lSoilAlbVisDry ;
-    lSoilAlbVisDry += 0.16,0.16,0.16,0.16,0.16,0.16,0.16,0.16 ;
+    lSoilAlbVisDry += 0.16;
     initValue("SoilAlbVisDry", lSoilAlbVisDry) ;
     
     initValue("LEupPoint", double(-1)) ;
     
     std::vector<double> lRootDepth ;
-    lRootDepth += 0,30,0,30,0,2000,2000,300 ;
+    lRootDepth += 300 ;
     initValue("RootDepth", lRootDepth) ;
     
     initValue("RecoverSim", double(0)) ;
@@ -2168,7 +2168,7 @@ void geotop::input::ConfigStore::init()
     initValue("LEvPoint", double(-1)) ;
     
     std::vector<double> lVegHeight ;
-    lVegHeight += 0,200,0,200,0,1900,1900,800 ;
+    lVegHeight += 1000;
     initValue("VegHeight", lVegHeight) ;
     
     initValue("ChannelDepression", double(500)) ;
@@ -2188,7 +2188,7 @@ void geotop::input::ConfigStore::init()
     initValue("MeteoStationTemperatureSensorHeight", lMeteoStationTemperatureSensorHeight) ;
     
     std::vector<double> lVegReflNIR ;
-    lVegReflNIR += 0,0.4,0,0.4,0,0.43,0.36,0.4 ; 
+    lVegReflNIR += 0.2 ;
     initValue("VegReflNIR", lVegReflNIR) ; 
     
     initValue("ContinuousRecovery", double(0)) ;
@@ -2246,7 +2246,7 @@ void geotop::input::ConfigStore::init()
     initValue("DtPlotPoint", lDtPlotPoint) ;
     
     std::vector<double> lSpecificStorativity ;
-    lSpecificStorativity += 1e-07,1e-07,1e-07,1e-07,1e-07 ; 
+    lSpecificStorativity += 1e-07 ;
     initValue("SpecificStorativity", lSpecificStorativity) ; 
     
     initValue("HeatEqTol", double(1e-06)) ;
@@ -2254,7 +2254,7 @@ void geotop::input::ConfigStore::init()
     initValue("DateGlac", double(-1)) ;
     
     std::vector<double> lSoilAlbVisWet ;
-    lSoilAlbVisWet += 0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08 ; 
+    lSoilAlbVisWet += 0.16 ;
     initValue("SoilAlbVisWet", lSoilAlbVisWet) ; 
     
     initValue("SnowSMAX", double(80)) ;
@@ -2262,7 +2262,7 @@ void geotop::input::ConfigStore::init()
     initValue("SWinBasin", double(-1)) ;
     
     std::vector<double> lInitSoilTemp ;
-    lInitSoilTemp += 5,5,5,5,5 ; 
+    lInitSoilTemp += 5 ;
     initValue("InitSoilTemp", lInitSoilTemp) ; 
     
     initValue("TCanopyAirPoint", double(-1)) ;
@@ -2280,7 +2280,7 @@ void geotop::input::ConfigStore::init()
     initValue("UpdateHydraulicConductivity", double(0)) ;
     
     std::vector<double> lThresSnowSoilRough ;
-    lThresSnowSoilRough += 10,10,10,10,10,10,10,10 ; 
+    lThresSnowSoilRough += 10 ;
     initValue("ThresSnowSoilRough", lThresSnowSoilRough) ; 
     
     initValue("MaxWaterEqGlacLayerContent", double(5)) ;
