@@ -446,15 +446,8 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
     }
 }
 
-static void printCumulates(AllData* A, geotop::input::OutputFile* of)
+static void refreshCumulates(AllData* A, geotop::input::OutputFile* of)
 {
-    double lJDate = A->I->time; //seconds passed since the beginning of the simulation
-
-    lJDate /= GTConst::secinday; //seconds to days
-    lJDate += A->P->init_date;
-    lJDate = convert_JDfrom0_dateeur12(lJDate);
-
-    std::string filename;
    
     switch(of->getDimension())
     {
@@ -474,8 +467,6 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
                     c = A->T->rc_cont[i][2];
                     (*Mt)[r][c] = (*Mt)[r][c] + Mi[r][c];
                 }
-
-                printLayer(of, lJDate, of->getLayer());
 
             }
             break;
@@ -497,8 +488,45 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
                     }
                 }
 
-                printTensor(of, lJDate);
+            }
+            break;
+        default:
+            {
+                geotop::logger::GlobalLogger* lg =
+                    geotop::logger::GlobalLogger::getInstance();
 
+                lg->log("Unable to find the output dimension. Check your geotop.inpts file.",
+                        geotop::logger::WARNING);
+            }
+            break;
+    }
+
+}
+
+static void printCumulates(AllData* A, geotop::input::OutputFile* of)
+{
+    double lJDate = A->I->time; //seconds passed since the beginning of the simulation
+
+    lJDate /= GTConst::secinday; //seconds to days
+    lJDate += A->P->init_date;
+    lJDate = convert_JDfrom0_dateeur12(lJDate);
+
+    std::string filename;
+   
+    switch(of->getDimension())
+    {
+        case geotop::input::D1Dp:
+            break;
+        case geotop::input::D1Ds:
+            break;
+        case geotop::input::D2D:
+            {
+                printLayer(of, lJDate, of->getLayer());
+            }
+            break;
+        case geotop::input::D3D:
+            {
+                printTensor(of, lJDate);
             }
             break;
         default:
@@ -794,11 +822,12 @@ void write_output_new(AllData* A)
         {
             ofv = ofs.cumulates->at(i);
 
-            if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
+            for (j = 0; j < ofv->size(); j++)
             {
-                for (j = 0; j < ofv->size(); j++)
+                geotop::input::OutputFile f = ofv->at(j);
+                refreshCumulates(A, &f);
+                if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
                 {
-                    geotop::input::OutputFile f = ofv->at(j);
                     printCumulates(A, &f);
                 }
             }
