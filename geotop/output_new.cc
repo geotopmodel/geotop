@@ -781,7 +781,6 @@ void write_output_new(AllData* A)
             {
                 for (j = 0; j < ofv->size(); j++)
                 {
-                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
                     geotop::input::OutputFile f = ofv->at(j);
                     printInstant(A, &f);
                 }
@@ -799,7 +798,6 @@ void write_output_new(AllData* A)
             {
                 for (j = 0; j < ofv->size(); j++)
                 {
-                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
                     geotop::input::OutputFile f = ofv->at(j);
                     printCumulates(A, &f);
                 }
@@ -817,7 +815,6 @@ void write_output_new(AllData* A)
             {
                 for (j = 0; j < ofv->size(); j++)
                 {
-                    std::cout << ofv->at(j).getFileName(convert_JDfrom0_dateeur12(lJDate)) << std::endl ;
                     geotop::input::OutputFile f = ofv->at(j);
                     printAverages(A, &f);
                 }
