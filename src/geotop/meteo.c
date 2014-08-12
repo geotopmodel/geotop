@@ -101,7 +101,7 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top, PAR
 
 double pressure(double Z){
 	double scale_ht = 8500.0;
-	return Pa0 * exp(-3305./scale_ht);
+	return Pa0 * exp(-Z/scale_ht);
 }
 
 /******************************************************************************************************************************************/
