@@ -144,11 +144,6 @@ static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFi
     return (a.getPeriod() < b.getPeriod());
 }
 
-static inline bool equals(double a, double b)
-{
-    return fabs(a - b) < epsilon ? true : false;
-}
-
 /**
  * @brief gets the supervector olding the values for an output variable
  * @param A global data storage pointer
@@ -209,10 +204,10 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
     GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
     if (var != NULL)
-    {
+    {   //TODO: Move this to a function
         for (i = 1; i <= A->P->total_pixel; i++)
         {
-            if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+            if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
             {
                 found = true;
                 break;
@@ -229,7 +224,7 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
         {
             for (i = 1; i <= A->P->total_pixel; i++)
             {
-                if (equals(row, A->T->rc_cont[i][1])  && equals(col, A->T->rc_cont[i][2]))
+                if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
                 {
                     found = true;
                     break;
