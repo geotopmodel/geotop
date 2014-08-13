@@ -154,19 +154,44 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what);
 
-static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+static void clearTempValuesMatrix(AllData* A, GeoMatrix<double>* M)
 {
-    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nr+1,
-                                                      geotop::common::Variables::Nc+1,
-                                                      geotop::input::gDoubleNoValue);
     long i,r,c;
 
     for (i = 1; i <= A->P->total_pixel; i++)
     {
         r = A->T->rc_cont[i][1];
         c = A->T->rc_cont[i][2];
-        (*output)[r][c] = 0.;
+        (*M)[r][c] = 0.;
     }
+
+}
+
+static void clearTempValuesTensor(AllData* A, GeoTensor<double>* T)
+{
+    long l;
+
+    for (l = 1; l <= geotop::common::Variables::Nl; l++)
+    {
+        long i,r,c;
+
+        for (i = 1; i <= A->P->total_pixel; i++)
+        {
+            r = A->T->rc_cont[i][1];
+            c = A->T->rc_cont[i][2];
+            (*T)[l][r][c] = 0.;
+        }
+    }
+
+}
+
+static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+{
+    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nr+1,
+                                                      geotop::common::Variables::Nc+1,
+                                                      geotop::input::gDoubleNoValue);
+
+    clearTempValuesMatrix(A, output);
 
     return output;
 }
@@ -178,19 +203,7 @@ static GeoTensor<double>* initTempValuesTensor(AllData* A)
                                                       geotop::common::Variables::Nc+1,
                                                       geotop::input::gDoubleNoValue);
     
-    long l;
-
-    for (l = 1; l <= geotop::common::Variables::Nl; l++)
-    {
-        long i,r,c;
-
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            r = A->T->rc_cont[i][1];
-            c = A->T->rc_cont[i][2];
-            (*output)[l][r][c] = 0.;
-        }
-    }
+    clearTempValuesTensor(A, output);
 
     return output;
 }
@@ -829,6 +842,17 @@ void write_output_new(AllData* A)
                 if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
                 {
                     printCumulates(A, &f);
+                    switch(f.getDimension())
+                    {
+                        case geotop::input::D2D:
+                            clearTempValuesMatrix(A, f.values.getValuesM());
+                            break;
+                        case geotop::input::D3D:
+                            clearTempValuesTensor(A, f.values.getValuesT());
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
