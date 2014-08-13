@@ -177,12 +177,21 @@ namespace geotop
          * OutputFile class members
          =====================================================================*/
 
-        OutputFile::OutputFile(std::string extended_key, double period, long layer)
+        OutputFile::OutputFile(std::string extended_key, double period, long layer, std::string prefix)
         {
             mVariable = geotop::input::UNKNOWN_VAR;
             mDimension = geotop::input::UNKNOWN_DIM;
             mType = geotop::input::UNKNOWN_INTEG;
             mLayerIndex = layer;
+            mPrefix = prefix;
+
+            size_t l = mPrefix.length();
+
+            if (l > 0)
+            {
+                if (mPrefix.at(l - 1) != '/')
+                    mPrefix.push_back('/');
+            }
 
             if (period >= minPeriod)
             {
@@ -257,14 +266,22 @@ namespace geotop
         std::string OutputFile::getFileName(double dateeur12, long layer)
         {
             char buffer[13] = {'\0'};
+            std::string output;
             long day = 0L, month = 0L, year = 0L, hour = 0L, min = 0L;
 
             convert_dateeur12_daymonthyearhourmin(dateeur12, &day, &month, &year, &hour, &min);
 
             sprintf(buffer, "%.4ld%.2ld%.2ld%.2ld%.2ld", year, month, day, hour, min);
 
-            std::string output(buffer);
-            output.append("_");
+            if (mDimension == D1Dp || mDimension == D1Ds) 
+            {
+                output = std::string(""); //Do not prepend the date for tab files
+            }
+            else
+            {
+                output = std::string(buffer);
+                output.append("_");
+            }
 
             output.append(var2str(mVariable));
 
@@ -327,7 +344,7 @@ namespace geotop
             output.append(buffer);
 
             //Layer
-            if (layer != -1)
+            if (layer != -1 && mDimension != D1Dp && mDimension != D1Ds)
             {
                 output.append("_L");
                 memset(buffer, 0, 13);
@@ -338,6 +355,13 @@ namespace geotop
             //Extension
             output.append(".asc");
             
+            return output;
+        }
+
+        std::string OutputFile::getFilePath(double dateeur12, long layer)
+        {
+            std::string output = std::string(mPrefix);
+            output.append(getFileName(dateeur12, layer));
             return output;
         }
 

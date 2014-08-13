@@ -37,7 +37,7 @@
 using namespace geotop::logger;
 
 //Uncomment the following line to enable the trace log.
-#define TRACELOG
+//#define TRACELOG
 
 #ifdef TRACELOG
 static std::ofstream tlf("inputKeywords_trace.log");
@@ -80,6 +80,7 @@ public:
         mMap = pMap ;
         mUnsupportedKeys.push_back("NumSimulationTimes") ;
         mKey = boost::shared_ptr< std::string >( new std::string() ) ;
+        mCurrentPrefix  = boost::shared_ptr< std::string >( new std::string("") ) ;
         mCurrentLayerIndex = boost::shared_ptr<double>(new double);
         *mCurrentLayerIndex  = 0.;
     };
@@ -187,13 +188,19 @@ public:
                 }
                 break;
             case OUTPUT_SEC:
+                if(mKey->compare("pathprefix") == 0)
+                {
+                    mCurrentPrefix->assign(lValue);
+                }
+                if(mKey->compare("") == 0)
+                {
 #ifdef WITH_LOGGER
-                GlobalLogger* lg = GlobalLogger::getInstance();
-                lg->log("Invalid input file format: string value not allowed for output file period", CRITICAL);
+                    GlobalLogger* lg = GlobalLogger::getInstance();
+                    lg->log("actionValueString : no key was pushed for the value, value will be discarded", ERROR);
 #else
-                std::cerr << "CRITICAL: Invalid input file format: string value not allowed for output file period" << std::endl;
+                    std::cerr << "Error: actionValueString : no key was pushed for the value, value will be discarded" << std::endl ;
 #endif
-                exit(1);
+                }
                 break;
         }
 
@@ -307,7 +314,7 @@ public:
                     {
                         boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
                             boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
-                        files->push_back(geotop::input::OutputFile(*mKey, pValue, (long)(*mCurrentLayerIndex)));
+                        files->push_back(geotop::input::OutputFile(*mKey, pValue, (long)(*mCurrentLayerIndex), (std::string)(*mCurrentPrefix)));
 #ifdef WITH_LOGGER
 #ifdef TRACELOG
                         trace_log.logsf(TRACE, "actionValueDouble: created new output file: %s %f", mKey->c_str(), pValue);
@@ -465,6 +472,7 @@ private:
     
     std::vector<std::string> mUnsupportedKeys; //No longer supported keys
     boost::shared_ptr<std::string> mKey ;
+    boost::shared_ptr<std::string> mCurrentPrefix ;
     boost::shared_ptr< std::map<std::string, boost::any> > mMap ;
     boost::shared_ptr<Sections> mCurrent_section;
     boost::shared_ptr<double> mCurrentLayerIndex;

@@ -36,6 +36,7 @@
 #include "times.h"
 #include "geotop_common.h"
 #include "global_logger.h"
+#include "../gt_utilities/path_utils.h"
 
 /*==============================================================================
    Constants
@@ -667,6 +668,24 @@ void output_file_preproc(AllData* A)
     {
         geotop::input::OutputFile of = output_files->at(i);
         lTmpLong = of.getPeriod();
+        std::string prefix = of.getPrefix();
+
+        switch(gt_fileExists(prefix.c_str()))
+        {
+            case 0:
+                //Prefix directory doesn't exist
+                break;
+            case 2:
+                //Prefix directory exists
+                break;
+            case 1:
+            case 3:
+                //Prefix exists but it's a file
+                break;
+            default:
+                //An error occurred
+                break;
+        }
 
         if (lTmpLong == lPeriod)
         {
