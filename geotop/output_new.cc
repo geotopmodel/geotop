@@ -332,7 +332,7 @@ static void printLayer(geotop::input::OutputFile* f, double date, long layer)
     long r,c;
     FILE* fp = NULL;
     GeoMatrix<double> M = *(f->values.getValuesM());
-    std::string filename = f->getFileName(date, layer);
+    std::string filename = f->getFilePath(date, layer);
 
     fp = fopen (filename.c_str(), "w");
 
@@ -377,7 +377,7 @@ static void printTensor(geotop::input::OutputFile* f, double date)
     for (l = 1; l < T.getDh(); l++)
     {
         std::string filename =
-            f->getFileName(date, l);
+            f->getFilePath(date, l);
 
         fp = fopen(filename.c_str(), "w");
         if (fp == NULL)
@@ -641,6 +641,9 @@ void output_file_preproc(AllData* A)
     size_t j = 0;
     size_t sz;
 
+    //Get Global Logger instance
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+
     //Get all output files from geotop.inpts OUTPUT_SEC
     boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
         geotop::input::ConfigStoreSingletonFactory::getInstance();
@@ -670,20 +673,40 @@ void output_file_preproc(AllData* A)
         lTmpLong = of.getPeriod();
         std::string prefix = of.getPrefix();
 
-        switch(gt_fileExists(prefix.c_str()))
+        switch (gt_fileExists(prefix.c_str()))
         {
             case 0:
                 //Prefix directory doesn't exist
+                //Attempt to create it
+                if (gt_makeDirectory(prefix.c_str()) == 0)
+                {
+                    //An error occurred
+                    lg->logsf(geotop::logger::CRITICAL,
+                              "Unable to create directory '%s'. Aborting.",
+                              prefix.c_str());
+                    exit(1);
+                }
                 break;
             case 2:
                 //Prefix directory exists
+                    lg->logsf(geotop::logger::NOTICE,
+                              "Directory '%s' already exists.",
+                              prefix.c_str());
                 break;
             case 1:
             case 3:
                 //Prefix exists but it's a file
+                    lg->logsf(geotop::logger::CRITICAL,
+                              "File '%s' already exists and it's not a directory. Aborting",
+                              prefix.c_str());
+                    exit(1);
                 break;
             default:
                 //An error occurred
+                    lg->logsf(geotop::logger::CRITICAL,
+                            "An unknown error occurred while trying to access to '%s'. Aborting.",
+                            prefix.c_str());
+                    exit(1);
                 break;
         }
 
