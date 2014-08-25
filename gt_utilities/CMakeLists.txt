@@ -20,8 +20,8 @@ ADD_LIBRARY( gt_utilities ${LINKING_MODE}
 			read_command_line.h
 			read_command_line_netcdf.cc
 			read_command_line_netcdf.h
-            path_utils.c
-            path_utils.h
+			path_utils.h
+			path_utils.c
 )
 
 TARGET_LINK_LIBRARIES( gt_utilities

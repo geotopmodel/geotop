@@ -111,7 +111,7 @@ namespace geotop
              * @param[in] period time of integration
              * @param[in] layer optional layer index
              */
-            OutputFile(std::string extended_key, double period, long layer = 0L);
+            OutputFile(std::string extended_key, double period, long layer = 0L, std::string prefix = std::string(""));
             virtual ~OutputFile();
 
             /*=================================================================
@@ -124,6 +124,14 @@ namespace geotop
              * @return a string with the file's name
              */
             std::string getFileName(double dateeur12, long layer = -1L);
+            
+            /**
+             * @brief retrieves the output file path (based on prefix)
+             * @param[in] dateeur12 the date in dateeur12 format (see times.cc)
+             * @param[in] layer optional layer index (set to -1 to omit)
+             * @return a string with the file's name
+             */
+            std::string getFilePath(double dateeur12, long layer = -1L);
 
             /*=================================================================
              * Read-only Properties
@@ -133,6 +141,7 @@ namespace geotop
             geotop::input::IntegrationType getIntegrationType() { return mType; }
             long getPeriod() { return mPeriod; }
             long getLayer() { return mLayerIndex; }
+            std::string getPrefix() { return std::string(mPrefix); }
 
             /*=================================================================
              * Public Fields
@@ -152,6 +161,7 @@ namespace geotop
             static std::string var2str(Variable v);
         private:
             bool isValidDimension();
+            std::string mPrefix;
             geotop::input::Variable mVariable;
             geotop::input::Dimension mDimension;
             geotop::input::IntegrationType mType;
