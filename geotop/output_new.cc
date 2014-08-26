@@ -724,6 +724,15 @@ void output_file_preproc(AllData* A)
     //Initial period
     lPeriod = (output_files->at(0)).getPeriod();
 
+    //Check if initial period is less than TimeStep
+    if (lPeriod < A->P->Dt)
+    {
+        lg->logsf(geotop::logger::CRITICAL,
+                  "The minimum integration period (%d) is shorter than the time step (%f).\nPlease increase the integration period at least up to %.0f in your geotop.inpts file near line:\n%s",
+                  lPeriod, A->P->Dt, A->P->Dt, ((output_files->at(0)).toString()).c_str());
+        exit(1);
+    }
+
     lInstants->push_back(new OutputFilesVector(lPeriod));
     lCumulates->push_back(new OutputFilesVector(lPeriod));
     lAverages->push_back(new OutputFilesVector(lPeriod));
