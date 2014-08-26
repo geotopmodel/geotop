@@ -1064,6 +1064,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
         case geotop::input::SOIL_TEMP:
             var = &(A->S->SS->T);
             break;
+        case geotop::input::SOIL_WATER_CONTENT:
+            var = &(A->S->th);
+            break;
         default:
             break;
     }
