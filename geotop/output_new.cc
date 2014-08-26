@@ -728,7 +728,7 @@ void output_file_preproc(AllData* A)
     if (lPeriod < A->P->Dt)
     {
         lg->logsf(geotop::logger::CRITICAL,
-                  "The minimum integration period (%d) is shorter than the time step (%f).\nPlease increase the integration period at least up to %.0f in your geotop.inpts file near line:\n%s",
+                  "The minimum integration period (%d) is shorter than the time step (%.0f).\nPlease increase the integration period at least to %.0f or more in your geotop.inpts file in the line:\n%s",
                   lPeriod, A->P->Dt, A->P->Dt, ((output_files->at(0)).toString()).c_str());
         exit(1);
     }
