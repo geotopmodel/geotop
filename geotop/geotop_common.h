@@ -83,7 +83,7 @@ namespace geotop
             static FILE *ffsnowd  ;
             static FILE *ffglac  ;
 
-            static long i_sim  ;
+            static const long i_sim = 1L ;
             static long i_run  ;
             static long i_sim0 ;
             static long i_run0  ;
