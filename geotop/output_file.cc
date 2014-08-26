@@ -374,6 +374,9 @@ namespace geotop
                 case SOIL_TEMP:
                     output.append("SoilTemperature");
                     break;
+                case SOIL_WATER_CONTENT:
+                    output.append("SoilWaterContent");
+                    break;
                 default:
                     output.append("UNKNOWN");
                     break;
@@ -388,6 +391,7 @@ namespace geotop
             std::string tmp = toLower(v);
 
             if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
+            if (tmp.compare("soilwatercontent") == 0) lVar = SOIL_WATER_CONTENT;
 
             return lVar;
         }
@@ -402,6 +406,9 @@ namespace geotop
             switch (mVariable)
             {
                 case SOIL_TEMP:
+                    output = true;
+                    break;
+                case SOIL_WATER_CONTENT:
                     output = true;
                     break;
                 default:

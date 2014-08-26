@@ -74,6 +74,7 @@ namespace geotop
          */
         enum Variable {
             SOIL_TEMP, //Soil temperature
+            SOIL_WATER_CONTENT, //Water content in soil [mm]
             UNKNOWN_VAR
         };
 
