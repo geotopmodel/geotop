@@ -38,6 +38,11 @@
 #include "global_logger.h"
 #include "../gt_utilities/path_utils.h"
 
+#ifdef METEOIO_OUTPUT
+#define __MATHOPTIM_H__
+#include <meteoio/MeteoIO.h>
+#endif
+
 /*==============================================================================
    Constants
  ==============================================================================*/
@@ -135,6 +140,9 @@ OutputFilesStore::~OutputFilesStore()
  ==============================================================================*/
 
 static OutputFilesStore ofs;
+#ifdef METEOIO_OUTPUT
+static mio::Config cfg;
+#endif
 
 /*==============================================================================
    Static functions
@@ -215,38 +223,35 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
     bool found = false;
     double output = geotop::input::gDoubleNoValue;
 
-    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
-
-    if (var != NULL)
-    {   //TODO: Move this to a function
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
-            {
-                found = true;
-                break;
-            }
-        }
-
-        if (found) output = (*var)[layer][i];
-    }
-    else
+    //Search for the requested point
+    for (i = 1; i <= A->P->total_pixel; i++)
     {
-        GeoVector<double>* var = getSupervectorVariableV(A, what);
+        if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (found)
+    {
+
+        GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
         if (var != NULL)
         {
-            for (i = 1; i <= A->P->total_pixel; i++)
-            {
-                if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (found) output = (*var)[i];
+            output = (*var)[layer][i];
         }
+        else
+        {
+            GeoVector<double>* var = getSupervectorVariableV(A, what);
+
+            if (var != NULL)
+            {
+                output = (*var)[i];
+            }
+        }
+
     }
 
     return output;
@@ -326,7 +331,7 @@ static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
 
     return output;
 }
-
+#ifndef METEOIO_OUTPUT
 static void printLayer(geotop::input::OutputFile* f, double date, long layer)
 {
     long r,c;
@@ -366,6 +371,45 @@ static void printLayer(geotop::input::OutputFile* f, double date, long layer)
 
     fclose(fp);
 }
+#else
+static void printLayer(geotop::input::OutputFile* f, double date, long layer)
+{
+    GeoMatrix<double> M = *(f->values.getValuesM());
+    std::string filename = f->getFilePath(date, layer);
+
+    size_t i,j;
+
+    //HACK: GEOTop most of the times uses 1..n indexes instead of 0..n-1
+    //so we cut out one row and one column even if this can lead to data loss
+    size_t ncols = M.getCols() - 1, nrows = M.getRows() - 1;
+
+    //Building the transposed matrix N
+    GeoMatrix<double> N(ncols, nrows, mio::IOUtils::nodata);
+
+    for (i = 0; i < nrows; i++)
+    {
+        for (j = 0; j < ncols; j++)
+        {
+            double v = M[nrows - i][j + 1];
+            //If the value is different from gDoubleNoValue use it, else use mio::IOUtils::nodata
+            N[j][i] = (geotop::input::gDoubleNoValue != v) ? v : mio::IOUtils::nodata;
+        }
+    }
+
+    mio::IOManager iomanager(cfg);
+
+    //Required by write2DGrid
+    mio::Grid2DObject g2d;
+
+    //Setting the coordinates
+	g2d.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+
+    //Setting the grid (rows, columns, cellsize, lower left corner coordinates and grid data)
+    g2d.set(N.getRows(), N.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, N);
+
+    iomanager.write2DGrid(g2d, filename);
+}
+#endif
 
 static void printTensor(geotop::input::OutputFile* f, double date)
 {
@@ -430,6 +474,16 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
         switch(f->getDimension())
         {
             case geotop::input::D1Dp:
+                {
+                    //For each point of interest
+                    size_t n_points = A->P->chkpt.getRows(), i;
+                    for (i = 1; i < n_points; i++)
+                    {
+                        //Check if file exists
+                        //If not create file with header
+                        //Append values
+                    }
+                }
                 break;
             case geotop::input::D1Ds:
                 break;
@@ -630,7 +684,11 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of)
    Public functions
  ==============================================================================*/
 
+#ifdef METEOIO_OUTPUT
+void output_file_preproc(AllData* A, mio::Config& mioConfig)
+#else
 void output_file_preproc(AllData* A)
+#endif
 {
     boost::shared_ptr< std::vector<geotop::input::OutputFile> > output_files;
     std::vector<OutputFilesVector*>* lInstants = new std::vector<OutputFilesVector*>();
@@ -640,6 +698,10 @@ void output_file_preproc(AllData* A)
     size_t i = 0;
     size_t j = 0;
     size_t sz;
+
+#ifdef METEOIO_OUTPUT
+    cfg = mioConfig;
+#endif
 
     //Get Global Logger instance
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
@@ -673,41 +735,45 @@ void output_file_preproc(AllData* A)
         lTmpLong = of.getPeriod();
         std::string prefix = of.getPrefix();
 
-        switch (gt_fileExists(prefix.c_str()))
+        if (prefix != "")
         {
-            case 0:
-                //Prefix directory doesn't exist
-                //Attempt to create it
-                if (gt_makeDirectory(prefix.c_str()) == 0)
-                {
-                    //An error occurred
-                    lg->logsf(geotop::logger::CRITICAL,
-                              "Unable to create directory '%s'. Aborting.",
-                              prefix.c_str());
-                    exit(1);
-                }
-                break;
-            case 2:
-                //Prefix directory exists
+
+            switch (gt_fileExists(prefix.c_str()))
+            {
+                case 0:
+                    //Prefix directory doesn't exist
+                    //Attempt to create it
+                    if (gt_makeDirectory(prefix.c_str()) == 0)
+                    {
+                        //An error occurred
+                        lg->logsf(geotop::logger::CRITICAL,
+                                  "Unable to create directory '%s'. Aborting.",
+                                  prefix.c_str());
+                        exit(1);
+                    }
+                    break;
+                case 2:
+                    //Prefix directory exists
                     lg->logsf(geotop::logger::NOTICE,
                               "Directory '%s' already exists.",
                               prefix.c_str());
-                break;
-            case 1:
-            case 3:
-                //Prefix exists but it's a file
+                    break;
+                case 1:
+                case 3:
+                    //Prefix exists but it's a file
                     lg->logsf(geotop::logger::CRITICAL,
                               "File '%s' already exists and it's not a directory. Aborting",
                               prefix.c_str());
                     exit(1);
-                break;
-            default:
-                //An error occurred
+                    break;
+                default:
+                    //An error occurred
                     lg->logsf(geotop::logger::CRITICAL,
-                            "An unknown error occurred while trying to access to '%s'. Aborting.",
-                            prefix.c_str());
+                              "An unknown error occurred while trying to access to '%s'. Aborting.",
+                              prefix.c_str());
                     exit(1);
-                break;
+                    break;
+            }
         }
 
         if (lTmpLong == lPeriod)
