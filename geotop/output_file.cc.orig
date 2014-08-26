@@ -344,9 +344,17 @@ namespace geotop
             output.append(buffer);
 
             //Layer
-            if (layer != -1 && mDimension != D1Dp && mDimension != D1Ds)
+            if (layer != -1)
             {
-                output.append("_L");
+                if (mDimension != D1Dp)
+                {
+                    output.append("_L");
+                }
+                else
+                {
+                    //For tabs we use the layer parameter as point index
+                    output.append("_P");
+                }
                 memset(buffer, 0, 13);
                 sprintf(buffer, "%.4ld", layer);
                 output.append(buffer);
@@ -365,61 +373,6 @@ namespace geotop
             return output;
         }
 
-       
-        std::string OutputFile::toString()
-        {
-            char buffer[256] = {'\0'};
-
-            sprintf(buffer,"%ld", mPeriod);
-
-            std::string output(var2str(mVariable));
-
-            output.append("::");
-
-            switch (mDimension)
-            {
-                case D1Dp:
-                    output.append("1Dp");
-                    break;
-                case D1Ds:
-                    output.append("1Ds");
-                    break;
-                case D2D:
-                    output.append("2D");
-                    break;
-                case D3D:
-                    output.append("3D");
-                    break;
-                default:
-                    output.append("UNKNOWN");
-                    break;
-            }
-
-            output.append("::");
-
-            switch (mType)
-            {
-                case AVG:
-                    output.append("AVG");
-                    break;
-                case CUM:
-                    output.append("CUM");
-                    break;
-                case INS:
-                    output.append("INS");
-                    break;
-                default:
-                    output.append("UNKNOWN");
-                    break;
-            }
-
-            output.append("=");
-
-            output.append(buffer);
-
-            return output;
-        }
-
         std::string OutputFile::var2str(Variable v)
         {
             std::string output = "";
@@ -428,9 +381,6 @@ namespace geotop
             {
                 case SOIL_TEMP:
                     output.append("SoilTemperature");
-                    break;
-                case SOIL_WATER_CONTENT:
-                    output.append("SoilWaterContent");
                     break;
                 default:
                     output.append("UNKNOWN");
@@ -446,7 +396,6 @@ namespace geotop
             std::string tmp = toLower(v);
 
             if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
-            if (tmp.compare("soilwatercontent") == 0) lVar = SOIL_WATER_CONTENT;
 
             return lVar;
         }
@@ -461,9 +410,6 @@ namespace geotop
             switch (mVariable)
             {
                 case SOIL_TEMP:
-                    output = true;
-                    break;
-                case SOIL_WATER_CONTENT:
                     output = true;
                     break;
                 default:

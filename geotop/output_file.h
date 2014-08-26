@@ -134,6 +134,12 @@ namespace geotop
              */
             std::string getFilePath(double dateeur12, long layer = -1L);
 
+            /**
+             * @brief converts the output file to a std::string
+             * @return a string that contains the output file specification
+             */
+            std::string toString();
+
             /*=================================================================
              * Read-only Properties
              =================================================================*/
