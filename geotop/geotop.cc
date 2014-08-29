@@ -123,9 +123,6 @@ int main(int argc,char *argv[]){
 	std::cout << cfg.toString() << endl;
 #endif
 
-	// these two variables below to be removed: no longer i_sim and i_run SC29.05.2014)	
-	geotop::common::Variables::i_sim0 = 1;
-	geotop::common::Variables::i_run0 = 1;
 	geotop::common::Variables::cum_time = 0.;
 	geotop::common::Variables::elapsed_time_start = 0.;
 
@@ -273,15 +270,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 	time( &geotop::common::Variables::start_time );
 
-	long nsim=1;
 	long i_steps=0;
 
-#ifdef USE_NETCDF
-	long nrun=1;
-	// TODO: check number run issue
-#endif
-	//periods
-	geotop::common::Variables::i_sim = geotop::common::Variables::i_sim0;
 #ifdef USE_NETCDF
 	// printing time counter initialization
 	//TODO please revisit into details the initialization procedure for counters according to time coordinates
@@ -300,219 +290,202 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 		A->point_var_type=NC_GEOTOP_POINT_VAR;
 	}
 #endif
-		A->I->time = 0.0;//Initialize time	
-// main loop over time-steps.. 
-		do {
 
-			//time at the beginning of the time step
-			JD0 = A->P->init_date + A->I->time/GTConst::secinday;
+//////////////////////////////////////////////////////////////////////////////////
+//Still to DO:
+//   -consider times in seconds and not in days to avoid round-off error.. 
+//   -remove all the division by GTConst::secinday
+//   -better organization of timing 
+//   -introduce logger.. 
+	A->I->time = 0.0;//Initialize time	
+	// main loop over time-steps.. 
+	do {
 
-			//time step variables
-			t = 0.;
-			Dt = A->P->Dt;
+		//time at the beginning of the time step
+		JD0 = A->P->init_date + A->I->time/GTConst::secinday;
 
-			//time step subdivisions
+		//time step variables
+		t = 0.;
+		Dt = A->P->Dt;
+
+		//time step subdivisions
+		do{
+			JDb = A->P->init_date + (A->I->time+t)/GTConst::secinday;
+			if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
+			//iterations
 			do{
-				JDb = A->P->init_date + (A->I->time+t)/GTConst::secinday;
-				if (t + Dt > A->P->Dt) Dt = A->P->Dt - t;
-				//iterations
-				do{
-					JDe = A->P->init_date+(A->I->time+t+Dt)/GTConst::secinday;
+				JDe = A->P->init_date+(A->I->time+t+Dt)/GTConst::secinday;
 #ifdef VERBOSE
-					printf("TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",A->P->Dt,JD0,JDb,JDe); 
+				printf("TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",A->P->Dt,JD0,JDb,JDe); 
 #endif 					
-					//	copy state variables on
-					S=A->N->S;
-					a = A->N->age;
+				//	copy state variables on
+				S=A->N->S;
+				a = A->N->age;
 
-					if (A->P->max_glac_layers>0) G=A->G->G;
-					L=A->S->SS;
-					C=A->C->SS;
-					V=A->S->VS;
+				if (A->P->max_glac_layers>0) G=A->G->G;
+				L=A->S->SS;
+				C=A->C->SS;
+				V=A->S->VS;
 
-					//	init
-					Vsub_ch.resize(Vsub_ch.size(),0.);
-					Vsup_ch.resize(Vsup_ch.size(),0.);
-					Vout = 0.;
-					Voutsub = 0.;
-					Voutsup = 0.;
-					Vbottom = 0.;
+				//	init
+				Vsub_ch.resize(Vsub_ch.size(),0.);
+				Vsup_ch.resize(Vsup_ch.size(),0.);
+				Vout = 0.;
+				Voutsub = 0.;
+				Voutsup = 0.;
+				Vbottom = 0.;
 
-					//	meteo
+				//	meteo
 
-					tstart=clock();
+				tstart=clock();
 
-					mio::Date d1;
-					d1.setMatlabDate(JDe, geotop::common::Variables::TZ); // GEOtop uses matlab offset of julian date
+				mio::Date d1;
+				d1.setMatlabDate(JDe, geotop::common::Variables::TZ); // GEOtop uses matlab offset of julian date
 
-					std::vector<mio::MeteoData> vec_meteo; //Defined here because it is passed to EnergyBalance even when USE_INTERNAL_METEODISTR is defined 13/06/2014 GG
+				std::vector<mio::MeteoData> vec_meteo; //Defined here because it is passed to EnergyBalance even when USE_INTERNAL_METEODISTR is defined 13/06/2014 GG
 
 #ifndef USE_INTERNAL_METEODISTR
-                    iomanager.getMeteoData(d1, vec_meteo);
+				iomanager.getMeteoData(d1, vec_meteo);
 
-					A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date), A);
-					//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
+				A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date), A);
+				//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
 
-					if(A->P->point_sim == 1){
-						printf("Calling pointwise MeteoIO ");
-						meteoio_interpolate_pointwise( A->P, JDe, A->M, A->W);
-						//	f = fopen("mio_hnw_1d_log.txt", "a");
-					}else{
-						printf("Calling 2D grid MeteoIO ");
-						meteoio_interpolate(A->P, JDe, A->M, A->W);
-						//	f = fopen("mio_hnw_2d_log.txt", "a");
+				if(A->P->point_sim == 1){
+					printf("Calling pointwise MeteoIO ");
+					meteoio_interpolate_pointwise( A->P, JDe, A->M, A->W);
+					//	f = fopen("mio_hnw_1d_log.txt", "a");
+				}else{
+					printf("Calling 2D grid MeteoIO ");
+					meteoio_interpolate(A->P, JDe, A->M, A->W);
+					//	f = fopen("mio_hnw_2d_log.txt", "a");
 					}
 #else
-					meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
+				meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 #endif
+				tend=clock();
+				geotop::common::Variables::t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+
+				if(A->P->en_balance == 1){
+					tstart=clock();
+
+					en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
+
 					tend=clock();
-					geotop::common::Variables::t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-
-					if(A->P->en_balance == 1){
-						tstart=clock();
-
-						en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
-
-						tend=clock();
-						geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+					geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
 
-					if(A->P->wat_balance == 1 && en == 0){
-						tstart=clock();
-						wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
-						tend=clock();
-						geotop::common::Variables::t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+				if(A->P->wat_balance == 1 && en == 0){
+					tstart=clock();
+					wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
+					tend=clock();
+					geotop::common::Variables::t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
-
-					if (en != 0 || wt != 0) {
-
-						if(Dt > A->P->min_Dt) Dt *= 0.5;
-						out = 0;
-
-						f = fopen(geotop::common::Variables::logfile.c_str(), "a");
-						if (en != 0) {
-							fprintf(f,"Energy balance not converging\n");
-						}else {
-							fprintf(f,"Water balance not converging\n");
-						}
-						fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
-						fclose(f);
-
-					}else {
-						out = 1;
-					}
-
-#ifdef VERBOSE
-					printf("time-loop: Dt:%f min:%f\n",Dt,A->P->min_Dt); 
-#endif
-
-
-				}while( out == 0 && Dt > A->P->min_Dt ); 
 
 				if (en != 0 || wt != 0) {
-					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-					fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
-					fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
 
-					if (en != 0 && wt == 0) {
-						fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
-					}else if (en == 0 && wt != 0) {
-						fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
+					if(Dt > A->P->min_Dt) Dt *= 0.5;
+					out = 0;
+
+					f = fopen(geotop::common::Variables::logfile.c_str(), "a");
+					if (en != 0) {
+						fprintf(f,"Energy balance not converging\n");
 					}else {
-						fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
+						fprintf(f,"Water balance not converging\n");
 					}
-
+					fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
 					fclose(f);
-					t_error("Fatal Error! Geotop is closed. See failing report.");	
+
+				}else {
+					out = 1;
 				}
 
-				t += Dt;
+			}while( out == 0 && Dt > A->P->min_Dt ); 
 
-				//	write state variables
-				A->N->S=S;
+			if (en != 0 || wt != 0) {
+				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+				fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
+				fprintf(f, "Run Time:%ld\n",geotop::common::Variables::i_run);
+				fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
 
-				A->N->age = a;
+				if (en != 0 && wt == 0) {
+					fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
+				}else if (en == 0 && wt != 0) {
+					fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
+				
+				}else {
+					fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
+				}
 
-				if (A->P->max_glac_layers>0) A->G->G=G;
-				A->S->SS=L;
-				A->C->SS=C;
-				A->S->VS=V;
-
-				std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), Vsub_ch.data.begin(),plus<double>());
-				std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), Vsup_ch.data.begin(),plus<double>());
-				A->C->Vout += Vout;
-				A->W->Voutbottom += Vbottom;
-				A->W->Voutlandsub += Voutsub;
-				A->W->Voutlandsup += Voutsup;
-
-				//	record time step
-				geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
-
-				//write output variables
-				fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
-
-				//reset Dt
-				if (Dt < A->P->Dt) Dt *= 2.;
-
-			}while(t < A->P->Dt); // convergence loop
-
-			if(A->P->blowing_snow==1){
-				tstart=clock();
-				windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
-				tend=clock();
-				geotop::common::Variables::t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+				fclose(f);
+				t_error("Fatal Error! Geotop is closed. See failing report.");	
 			}
 
+			t += Dt;
+
+			//	write state variables
+			A->N->S=S;
+
+			A->N->age = a;
+
+			if (A->P->max_glac_layers>0) A->G->G=G;
+			A->S->SS=L;
+			A->C->SS=C;
+			A->S->VS=V;
+
+			std::transform(Vsub_ch.data.begin(), Vsub_ch.data.end(), A->C->Vsub.data.begin(), Vsub_ch.data.begin(),plus<double>());
+			std::transform(Vsup_ch.data.begin(), Vsup_ch.data.end(), A->C->Vsup.data.begin(), Vsup_ch.data.begin(),plus<double>());
+			A->C->Vout += Vout;
+			A->W->Voutbottom += Vbottom;
+			A->W->Voutlandsub += Voutsub;
+			A->W->Voutlandsup += Voutsup;
+
+			//	record time step : To further check: do we need the line below ? 
+			geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
+
+			//write output variables
+			fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
+
+			//reset Dt
+			if (Dt < A->P->Dt) Dt *= 2.;
+
+		}while(t < A->P->Dt); // convergence loop
+
+		if(A->P->blowing_snow==1){
 			tstart=clock();
+			windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
+			tend=clock();
+			geotop::common::Variables::t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+			}
+
+		tstart=clock();
 
 #ifdef USE_NETCDF
-			if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
-				write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-				if(strcmp(geotop::common::Variables::files[fSCA] , geotop::input::gStringNoValue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+		if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
+			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
+			if(strcmp(geotop::common::Variables::files[fSCA] , geotop::input::gStringNoValue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
 			}
-			else {
-				write_output_nc(A);
+		else {
+			write_output_nc(A);
 			}
 #else
-			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-			// line below to move in output..   
-			if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
+		write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
+		// line below to move in output..   
+		if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
 #endif
-			tend=clock();
-			geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+		tend=clock();
+		geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
 			
-			A->I->time += A->P->Dt; //Increase TIME
+		A->I->time += A->P->Dt; //Increase TIME
+
+		// counter...// 
+		i_steps++;
+		printf("time-loop: time:%f steps:%ld enddate:%f initdate:%f diff:%f\n",A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
 			
-			// counter...// 
-			i_steps++;
-		 	printf("time-loop: time:%f steps:%ld   enddate:%f initdate:%f diff:%f\n",A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
-			
-			if( A->I->time > (A->P->end_date - A->P->init_date)*86400. - 1.E-5){
-				printf("Number of times the simulation #%ld has been run: %ld\n",geotop::common::Variables::i_sim,geotop::common::Variables::i_run);
 
-				geotop::common::Variables::i_run++;
-//`				A->I->time = 0.0;//Initialize time
+	}while( (long)((A->P->end_date - A->P->init_date)*86400.) > (long)A->I->time );
 
-				// what is doing here below ??? (SC) 
-				// A->P->init_date -= A->P->delay_day_recover;
-				//A->P->delay_day_recover = 0.0;
-				//reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
-
-			}
-
-		//}while (   ((A->P->end_date - A->P->init_date)*86400. - A->I->time) > 1.E-5);
-		}while( (long)((A->P->end_date - A->P->init_date)*86400.) > (long)A->I->time );
-
-/// end of time-loop... 
-//
-//		reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
-
-//		geotop::common::Variables::i_sim++;
-//		geotop::common::Variables::i_run0 = 1;
-
-//	}while (geotop::common::Variables::i_sim < nsim);
+///////////////////////////////////////////////////// end of time-loop... 
 
 
 	if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);
