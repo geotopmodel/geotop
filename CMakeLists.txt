@@ -15,7 +15,7 @@ SET(PACKAGE_VERSION "1.2.10")
 SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 
-SET(METEOIO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../geotopio/trunk/fakeroot/usr" CACHE PATH "location of the MeteoIO library" )
+SET(METEOIO_PATH "/usr/local" CACHE PATH "location of the MeteoIO library" )
 
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 
@@ -33,7 +33,7 @@ SET(WITH_LOGGER OFF CACHE BOOL "enable the use of GEOtop Logger (Experimental)")
 
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
-find_package(PkgConfig REQUIRED)
+#find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
 SET(CMAKE_SKIP_BUILD_RPATH FALSE)
