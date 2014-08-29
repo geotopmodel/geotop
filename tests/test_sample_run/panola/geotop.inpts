@@ -133,7 +133,7 @@ SoilEmissiv	=	0.96
 SurFlowResLand	=	0.5
 SurFlowResExp	=	0.667 
 
- =======================================
+!=======================================
 ! FREE BOUNDARY CONDITION
 !=======================================
 
@@ -141,7 +141,7 @@ SurFlowResExp	=	0.667
 DepthFreeSurfaceAtTheBoundary = 10000000000
 !! MinRatioKactualToKSat = 1.E-5
 
- =======================================
+! =======================================
 ! SOIL
 !=======================================
 FrozenSoilHydrCondReduction  = 0
@@ -334,3 +334,4 @@ NetPrecipitationFile = "output_maps/Pnet"
 
 !ContinuousRecovery = 10
 !SubfolderRecoveryFiles = "rec"
+

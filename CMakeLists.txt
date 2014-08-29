@@ -25,11 +25,13 @@ SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 
 SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
 
-SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, routine instead of using MeteoIO")
+SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 
 SET(WITH_LOGGER OFF CACHE BOOL "enable the use of GEOtop Logger (Experimental)")
+
+SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
 find_package(PkgConfig REQUIRED)
 
@@ -90,6 +92,10 @@ IF (WITH_LOGGER)
     add_definitions(-DWITH_LOGGER)
 ENDIF (WITH_LOGGER)
 
+IF (METEOIO_OUTPUT)
+    add_definitions(-DMETEOIO_OUTPUT)
+ENDIF (METEOIO_OUTPUT)
+
 #add_definitions(
 #    "-std=c++11"
 #)
@@ -149,6 +155,10 @@ SET( INPUT_KEYWORDS_LIBRARIES
 # geotopOutPostProcessing
 SET( GEOTOP_OUT_POSTPROC_LIBRARIES
     "geotopOutPostProcessing" )
+
+# geotopOutPostProcessingNew
+SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
+    "geotopOutPostProcessingNew" )
 
 # geotopMeteo
 SET( GEOTOP_METEO_LIBRARIES

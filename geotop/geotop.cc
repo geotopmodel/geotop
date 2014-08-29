@@ -53,6 +53,7 @@
 #include <errno.h>
 
 #include <inputKeywords.h>
+#include "output_new.h"
 
 using namespace std;
 
@@ -187,6 +188,11 @@ int main(int argc,char *argv[]){
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
+#ifdef METEOIO_OUTPUT
+        output_file_preproc(adt, cfg);
+#else
+        output_file_preproc(adt);
+#endif
 
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 #ifdef USE_NETCDF
@@ -208,6 +214,7 @@ int main(int argc,char *argv[]){
 
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 
+        deallocate_output_new();
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
 		free(adt);
 
@@ -271,6 +278,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 	time( &geotop::common::Variables::start_time );
 
 	long i_steps=0;
+
 
 #ifdef USE_NETCDF
 	// printing time counter initialization
@@ -477,6 +485,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 			
 		A->I->time += A->P->Dt; //Increase TIME
+			
 
 		// counter...// 
 		i_steps++;

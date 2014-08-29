@@ -6,6 +6,7 @@
 #include "times.h"
 #include <string>
 #include <vector>
+#include "../libraries/fluidturtle/turtle.h"
 
 namespace geotop
 {
@@ -18,7 +19,7 @@ namespace geotop
         public:
             static std::string WORKING_DIRECTORY ;
 
-            static  std::vector<std::string> hpnt ;
+            static std::vector<std::string> hpnt ;
             static std::vector<std::string> hbsn ;
             static std::vector<std::string> hsnw ;
             static std::vector<std::string> hglc ;
@@ -82,7 +83,7 @@ namespace geotop
             static FILE *ffsnowd  ;
             static FILE *ffglac  ;
 
-            static long i_sim  ;
+            static const long i_sim = 1L ;
             static long i_run  ;
             static long i_sim0 ;
             static long i_run0  ;

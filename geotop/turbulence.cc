@@ -355,7 +355,7 @@ void Turbulence::Businger(short a, double zmu, double zmt, double d0, double z0,
 			  double *rm, double *rh, double *rv, double *Lobukhov, long maxiter)
 {
 
-	double L, cm, u_star, ch, T_star, cv, Q_star;
+	double L, cm, u_star=0, ch, T_star=0, cv, Q_star=0;
 	double z0v, z0t, z0q;
 	long cont;
 	double tol;	

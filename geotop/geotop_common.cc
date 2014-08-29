@@ -66,7 +66,6 @@ FILE *geotop::common::Variables::ffsnowi = NULL ;
 FILE *geotop::common::Variables::ffsnowd = NULL ;
 FILE *geotop::common::Variables::ffglac = NULL ;
 
-long geotop::common::Variables::i_sim = 0 ;
 long geotop::common::Variables::i_run = 0 ;
 long geotop::common::Variables::i_sim0 = 0;
 long geotop::common::Variables::i_run0 = 0 ;

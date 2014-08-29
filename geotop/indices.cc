@@ -94,7 +94,7 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch){
 	long l, ch;
 	
 	for (ch=1; ch<=nch; ch++) {
-		for (l=0; l<=geotop::common::Variables::Nl; l++) {
+		for (l=0; l<=Nl; l++) {
 			cont++;
 			ch3[l][ch]=cont;
 			lch[cont][1]=l;
@@ -111,17 +111,13 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n){
-
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n){
 	
-	long j, jj, l, r, c;
+	long j, jj, l, r = 0, c = 0;
 	long cnt=0, m=0;
 	long N, M;
 	
-//	if (cnet->r->co[1] > 0) m = cnet->r->nh;
-
-	if (cnet->r[1] > 0) m = cnet->r.size()-1; //HACK: assumption that r.size() > 0
+	if (cnet->r.size() >= 2 && cnet->r.at(1) > 0) m = cnet->r.size()-1;
 	
 	N = n*(geotop::common::Variables::Nl+1);
 	M = m*(geotop::common::Variables::Nl+1);
@@ -186,7 +182,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
 
 void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<long>& lrc, long ***i, long n){
 
-	long j,jj,l,r,c;
+	long j,jj,l,r = 0, c = 0;
 	long cnt = 0;
 	long m=0;
 	long N, M;
@@ -195,7 +191,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 //  to double check with/without channel 
 //  S.C. 24.12.2013
 	
-	if (cnet->r[1] > 0) m = cnet->r.size()-1;
+	if (cnet->r.size() >=2 && cnet->r.at(1) > 0) m = cnet->r.size() - 1;
 	
 	N = n*(geotop::common::Variables::Nl+1);
 	M = m*(geotop::common::Variables::Nl+1);
@@ -279,99 +275,3 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
 	
 }
 
-/// We should remove commented code no longer used /////
-/// are there below needed ? //////////////
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-/*void cont_nonzero_values_matrix4(LONGVECTOR *Lp, LONGVECTOR *Li, LONGVECTOR *Up, LONGVECTOR *Ui, DOUBLEMATRIX *LC, 
-								 LONGMATRIX *lrc, long ***i, long n, short point){
-	
-	//Li = line index
-	//Lp = number of values for each row
-	//Ui = line index transposed
-	//Up = number of values for each row trasnposed
-	//Axt such that Ax[Axt[i]] is the transposed
-	
-	long j,l,r,c;
-	long cnt = 0, cntt = 0;
-	
-	for(j=1;j<=n;j++){
-		
-		l=lrc->co[j][1];
-		r=lrc->co[j][2];
-		c=lrc->co[j][3];
-		
-		//the cell itself
-		cnt++;
-		Li->co[cnt] = j;
-		
-		//the cell below
-		if(l<Nl){
-			cnt++;
-			Li->co[cnt] = j+1;
-		}
-		
-		if(l>0 && point!=1 && (long)LC->co[r-1][c]!=geotop::input::gDoubleNoValue){
-			if(i[l][r-1][c]>j){
-				cnt++;
-				Li->co[cnt] = i[l][r-1][c];
-			}else if(i[l][r-1][c]<j){
-				cntt++;
-				Ui->co[cntt] = i[l][r-1][c];
-			}
-		}
-		
-		if(l>0 && point!=1 && (long)LC->co[r+1][c]!=geotop::input::gDoubleNoValue){
-			if(i[l][r+1][c]>j){
-				cnt++;
-				Li->co[cnt] = i[l][r+1][c];
-			}else if(i[l][r+1][c]<j){
-				cntt++;
-				Ui->co[cntt] = i[l][r+1][c];
-			}		
-		}
-		
-		if(l>0 && point!=1 && (long)LC->co[r][c-1]!=geotop::input::gDoubleNoValue){
-			if(i[l][r][c-1]>j){
-				cnt++;
-				Li->co[cnt] = i[l][r][c-1];
-			}else if(i[l][r][c-1]<j){
-				cntt++;
-				Ui->co[cntt] = i[l][r][c-1];
-			}		
-		}
-		
-		if(l>0 && point!=1 && (long)LC->co[r][c+1]!=geotop::input::gDoubleNoValue){
-			if(i[l][r][c+1]>j){
-				cnt++;
-				Li->co[cnt] = i[l][r][c+1];
-			}else if(i[l][r][c+1]<j){
-				cntt++;
-				Ui->co[cntt] = i[l][r][c+1];
-			}		
-		}
-		
-		//the cell above
-		if(l>0){
-			cntt++;
-			Ui->co[cntt] = j-1;
-		}
-		
-		//the cell itself
-		cntt++;
-		Ui->co[cntt] = j;
-		
-		Lp->co[j] = cnt;
-		Up->co[j] = cntt;
-	}
-	
-}*/
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/

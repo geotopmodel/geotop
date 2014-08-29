@@ -2,10 +2,10 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 20/10/2011 12:00
-EndDateDDMMYYYYhhmm =  29/10/2011 12:00
+InitDateDDMMYYYYhhmm = 20/01/2012 12:00
+EndDateDDMMYYYYhhmm =  20/03/2012 12:00
 EnergyBalance = 1
-WaterBalance=0
+WaterBalance=1
 PointSim=0
 
 !*******************************
@@ -244,14 +244,15 @@ NetRadiationMapFile= "output_maps/RadNet"
 !=============================================================================
 !  RECOVERY FILE NAMES
 !=============================================================================
-SubfolderRecoveryFiles="rec"
-!ContinuousRecovery=10
-! every 10 days does an update of the simulation
+![recovery]
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery=15
+! every x  days save the status of the simulation 
 ! when you launch it again, it starts from the last recovery
-!RunIfAnOldRunIsPresent=1
-!se c'e' questa keywordk, rifa la simulazione anche se 
-!c'e' un failed run o un successful run
-! altrimenti, se c'e' un successfulrun o un failed run 
-! da un messaggio di errore
+!RunIfAnOldRunIsPresent=5
+! NO !se c'e' questa keywordk, rifa la simulazione anche se 
+! NO !c'e' un failed run o un successful run
+! NO !altrimenti, se c'e' un successfulrun o un failed run 
+! NO !da un messaggio di errore
 !RecoverSim = 15
-SavingPoints = 10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,165
+!SavingPoints = 10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,165
