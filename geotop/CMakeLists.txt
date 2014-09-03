@@ -52,6 +52,8 @@ ENDIF(COMMAND CMAKE_POLICY)
 	ADD_LIBRARY(${GEOTOP_OUTPUT_FILE} ${LINKING_MODE}
             output_file.cc
             output_file.h
+            standard_names.h
+            standard_names.cc
                )
 
 	ADD_LIBRARY(${GEOTOP_COMMON_LIBRARIES} ${LINKING_MODE}
