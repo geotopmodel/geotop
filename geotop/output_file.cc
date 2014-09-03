@@ -433,7 +433,10 @@ namespace geotop
             {
                 case SOIL_TEMP:
                 case SOIL_WATER_CONTENT:
-					output.append(StandardNames[v].longstring);
+                case SOIL_ICE_CONTENT:
+                case SOIL_WATER_PRESSURE:
+                case SOIL_TOTAL_PRESSURE:
+                    output.append(getLongString(v));
                     break;
                 default:
                     output.append("UNKNOWN");
@@ -445,13 +448,15 @@ namespace geotop
 
         Variable OutputFile::str2var(std::string v)
         {
-            Variable lVar = UNKNOWN_VAR;
             std::string tmp = toLower(v);
 
-            if (tmp.compare(toLower(StandardNames[SOIL_TEMP].longstring)) == 0) lVar = SOIL_TEMP;
-            if (tmp.compare(toLower(StandardNames[SOIL_WATER_CONTENT].longstring)) == 0) lVar = SOIL_WATER_CONTENT;
+            if (tmp.compare(toLower(getLongString(SOIL_TEMP))) == 0) return SOIL_TEMP;
+            if (tmp.compare(toLower(getLongString(SOIL_WATER_CONTENT))) == 0) return SOIL_WATER_CONTENT;
+            if (tmp.compare(toLower(getLongString(SOIL_ICE_CONTENT))) == 0) return SOIL_ICE_CONTENT;
+            if (tmp.compare(toLower(getLongString(SOIL_WATER_PRESSURE))) == 0) return SOIL_WATER_PRESSURE;
+            if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
 
-            return lVar;
+            return UNKNOWN_VAR;
         }
 
         bool OutputFile::isValidDimension()
@@ -467,6 +472,15 @@ namespace geotop
                     output = true;
                     break;
                 case SOIL_WATER_CONTENT:
+                    output = true;
+                    break;
+                case SOIL_ICE_CONTENT:
+                    output = true;
+                    break;
+                case SOIL_WATER_PRESSURE:
+                    output = true;
+                    break;
+                case SOIL_TOTAL_PRESSURE:
                     output = true;
                     break;
                 default:
