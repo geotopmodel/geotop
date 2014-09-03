@@ -187,6 +187,9 @@ namespace geotop
 
             size_t l = mPrefix.length();
 
+			//Construct known variables names array
+			fillStandardNames();
+
             if (l > 0)
             {
                 if (mPrefix.at(l - 1) != '/')
@@ -430,10 +433,8 @@ namespace geotop
             switch (v)
             {
                 case SOIL_TEMP:
-                    output.append("SoilTemperature");
-                    break;
                 case SOIL_WATER_CONTENT:
-                    output.append("SoilWaterContent");
+					output.append(StandardNames[v].longstring);
                     break;
                 default:
                     output.append("UNKNOWN");
@@ -448,8 +449,8 @@ namespace geotop
             Variable lVar = UNKNOWN_VAR;
             std::string tmp = toLower(v);
 
-            if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
-            if (tmp.compare("soilwatercontent") == 0) lVar = SOIL_WATER_CONTENT;
+            if (tmp.compare(toLower(StandardNames[SOIL_TEMP].longstring)) == 0) lVar = SOIL_TEMP;
+            if (tmp.compare(toLower(StandardNames[SOIL_WATER_CONTENT].longstring)) == 0) lVar = SOIL_WATER_CONTENT;
 
             return lVar;
         }
