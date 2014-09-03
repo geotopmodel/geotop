@@ -34,6 +34,7 @@
 #include <string>
 #include <exception>
 #include "struct.geotop.h"
+#include "standard_names.h"
 
 namespace geotop
 {
@@ -67,15 +68,6 @@ namespace geotop
             CUM,
             INS,
             UNKNOWN_INTEG
-        };
-
-        /**
-         * @brief Output variables known
-         */
-        enum Variable {
-            SOIL_TEMP, //Soil temperature
-            SOIL_WATER_CONTENT, //Water content in soil [mm]
-            UNKNOWN_VAR
         };
 
         /**
