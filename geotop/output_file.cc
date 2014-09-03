@@ -125,32 +125,50 @@ namespace geotop
          */
         TemporaryValues::TemporaryValues()
         {
+            mCount = 0;
             mWhatIsValid = -1;
             mDValue = geotop::input::gDoubleNoValue;
+            mVValue = NULL;
             mMValue = NULL;
             mTValue = NULL;
         }
 
         TemporaryValues::TemporaryValues(double init)
         {
+            mCount = 1;
             mWhatIsValid = 0;
             mDValue = init;
+            mVValue = NULL;
+            mMValue = NULL;
+            mTValue = NULL;
+        }
+
+        TemporaryValues::TemporaryValues(GeoVector<double>* init)
+        {
+            mCount = 1;
+            mWhatIsValid = 1;
+            mDValue = NULL;
+            mVValue = init;
             mMValue = NULL;
             mTValue = NULL;
         }
 
         TemporaryValues::TemporaryValues(GeoMatrix<double>* init)
         {
-            mWhatIsValid = 1;
+            mCount = 1;
+            mWhatIsValid = 2;
             mDValue = geotop::input::gDoubleNoValue;
+            mVValue = NULL;
             mMValue = init;
             mTValue = NULL;
         }
 
         TemporaryValues::TemporaryValues(GeoTensor<double>* init)
         {
-            mWhatIsValid = 2;
+            mCount = 1;
+            mWhatIsValid = 3;
             mDValue = geotop::input::gDoubleNoValue;
+            mVValue = NULL;
             mMValue = NULL;
             mTValue = init;
         }
@@ -161,15 +179,21 @@ namespace geotop
             return mDValue;
         }
 
-        GeoMatrix<double>* TemporaryValues::getValuesM()
+        GeoVector<double>* TemporaryValues::getValuesV()
         {
             assert(mWhatIsValid == 1);
+            return mVValue;
+        }
+
+        GeoMatrix<double>* TemporaryValues::getValuesM()
+        {
+            assert(mWhatIsValid == 2);
             return mMValue;
         }
 
         GeoTensor<double>* TemporaryValues::getValuesT()
         {
-            assert(mWhatIsValid == 2);
+            assert(mWhatIsValid == 3);
             return mTValue;
         }
 

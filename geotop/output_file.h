@@ -86,15 +86,21 @@ namespace geotop
             public:
                 TemporaryValues();
                 TemporaryValues(double init);
+                TemporaryValues(GeoVector<double>* init);
                 TemporaryValues(GeoMatrix<double>* init);
                 TemporaryValues(GeoTensor<double>* init);
+                void incCount() { mCount++; }
+                size_t getCount() { return mCount; }
                 int whatIsValid() { return mWhatIsValid; }
                 double getValueD();
+                GeoVector<double>* getValuesV();
                 GeoMatrix<double>* getValuesM();
                 GeoTensor<double>* getValuesT();
             private:
+                size_t mCount;
                 int mWhatIsValid;
                 double mDValue;
+                GeoVector<double>* mVValue;
                 GeoMatrix<double>* mMValue;
                 GeoTensor<double>* mTValue;
 
