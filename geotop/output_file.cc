@@ -211,9 +211,12 @@ namespace geotop
                         geotop::logger::GlobalLogger* lg =
                             geotop::logger::GlobalLogger::getInstance();
 
-                        lg->logsf(geotop::logger::WARNING,
-                                  "Unknown output variable: '%s'.",
+                        lg->logsf(geotop::logger::CRITICAL,
+                                  "Unknown output variable: '%s'. Modify the geotop.inpts. Aborting.",
                                   tmp.c_str());
+						
+						exit(1);
+						
                     }
 
                     //Dimension
@@ -446,7 +449,7 @@ namespace geotop
 
             if (tmp.compare("soiltemperature") == 0) lVar = SOIL_TEMP;
             if (tmp.compare("soilwatercontent") == 0) lVar = SOIL_WATER_CONTENT;
-
+			
             return lVar;
         }
 
