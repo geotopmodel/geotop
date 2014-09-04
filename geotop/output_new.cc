@@ -320,6 +320,17 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
             }
 
         }
+        else
+        {
+            std::string vname = geotop::input::OutputFile::var2str(f->getVariable());
+
+            geotop::logger::GlobalLogger* lg =
+                geotop::logger::GlobalLogger::getInstance();
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to retrieve data for variable '%s'. Aborting.",
+                      vname.c_str());
+            exit(1);
+        }
     }
 
 }
