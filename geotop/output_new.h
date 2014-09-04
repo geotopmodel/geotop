@@ -30,7 +30,11 @@
 
 #include "struct.geotop.h"
 
+#ifdef METEOIO_OUTPUT
+void output_file_preproc(AllData* A, mio::Config& mioConfig);
+#else
 void output_file_preproc(AllData* A);
+#endif
 
 void write_output_new(AllData* A);
 

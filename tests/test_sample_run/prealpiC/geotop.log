@@ -4,7 +4,7 @@ GEOtop 2.0.0 - 9 Mar 2012
 
 Copyright (c), 2012 - Stefano Endrizzi 
 
-TN -EXACT version  
+TN -EXACT version (tmp)
 
 GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -65,270 +65,349 @@ HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00
 Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/ListPoints.txt assigned to X
 Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/ListPoints.txt assigned to Y
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/ListPoints.txt assigned to ID
-EXISTING in format 3
-EXISTING in format 3
-EXISTING in format 3
-not present in file list
-EXISTING in format 3
-EXISTING in format 3
-Slope Min:0.000000 (0.000000 deg) Max:0.034571 (1.980000 deg) 
-EXISTING in format 3
-Curvature N-S Min:-0.017766  Max:0.011595 
-Curvature W-E Min:-0.016874  Max:0.015296 
-Curvature NW-SE Min:-0.017909  Max:0.018845 
-Curvature NE-SW Min:-0.019552  Max:0.017597 
-not present in file list
-Valid pixels: 68259
-Number of nodes: 273036
-Novalue pixels: 299485
-Basin area: 4266.187500 km2
 
 Horizon file FOUND for meteo station #1
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0001.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0001.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0001.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0001.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0001.txt assigned to AirT
 
 Horizon file FOUND for meteo station #2
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0002.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0002.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0002.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #3
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0003.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0003.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0003.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #4
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0004.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0004.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0004.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0004.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0004.txt assigned to AirT
 
 Horizon file FOUND for meteo station #5
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0005.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0005.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to Swglob
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0005.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #6
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0006.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0006.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0006.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #7
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0007.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0007.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0007.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0007.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0007.txt assigned to AirT
 
 Horizon file FOUND for meteo station #8
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0008.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0008.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0008.txt assigned to AirT
 
 Horizon file FOUND for meteo station #9
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0009.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0009.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0009.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #10
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0010.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0010.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0010.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #11
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0011.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0011.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0011.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #12
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0012.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0012.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0012.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #13
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0013.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0013.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0013.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #14
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0014.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0014.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0014.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0014.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0014.txt assigned to AirT
 
 Horizon file FOUND for meteo station #15
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0015.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0015.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0015.txt assigned to AirT
 
 Horizon file FOUND for meteo station #16
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0016.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0016.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0016.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0016.txt assigned to WindSp
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0016.txt assigned to WindDir
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0016.txt assigned to AirT
 
 Horizon file FOUND for meteo station #17
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0017.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0017.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to RH
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to AirT
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to Swglob
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0017.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #18
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0018.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0018.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0018.txt assigned to AirT
 
 Horizon file FOUND for meteo station #19
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0019.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0019.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0019.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #20
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0020.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0020.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0020.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #21
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0021.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0021.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0021.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #22
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0022.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0022.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0022.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #23
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0023.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0023.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0023.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #24
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0024.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0024.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0024.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #25
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0025.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0025.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0025.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #26
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0026.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0026.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to RH
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to AirT
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to Swglob
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0026.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #27
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0027.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0027.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0027.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #28
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0028.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0028.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0028.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #29
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0029.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0029.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0029.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0029.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0029.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0029.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0029.txt assigned to AirT
 
 Horizon file FOUND for meteo station #30
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0030.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0030.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to RH
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to AirT
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to Swglob
+Column 8 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0030.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #31
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0031.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0031.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0031.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0031.txt assigned to Iprec
 
 Horizon file FOUND for meteo station #32
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0032.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0032.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0032.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0032.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0032.txt assigned to AirT
 
 Horizon file FOUND for meteo station #33
 Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0033.txt assigned to az
 Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/horizon_meteo/horizon0033.txt assigned to el
-
-CHECKPOINTS:
-ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
-1,233,192,1570.700000,2,1,0.180000,264.000000,0.940000
-2,154,305,1478.900000,2,1,0.170000,130.000000,0.940000
-3,195,353,1371.100000,2,1,0.050000,36.000000,0.960000
-4,245,308,1608.100000,4,1,0.150000,274.000000,0.970000
-5,164,471,1344.500000,2,1,0.150000,349.000000,0.960000
-6,266,345,1159.000000,3,1,0.100000,338.000000,0.860000
-7,269,254,1418.000000,2,1,0.130000,171.000000,0.940000
-8,154,305,1478.900000,2,1,0.170000,130.000000,0.940000
-9,175,490,1417.500000,4,1,0.080000,80.000000,0.970000
-10,211,532,1533.900000,2,1,0.190000,290.000000,0.970000
-11,300,313,1612.100000,2,1,0.110000,118.000000,0.970000
-12,279,343,1437.600000,2,1,0.140000,279.000000,0.930000
-13,214,374,1731.200000,4,1,0.200000,360.000000,0.960000
-14,173,418,1597.500000,2,1,0.140000,224.000000,0.960000
-
-METEO STATIONS:
-ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
-1,674705.200000,5089977.200000,45.941100,11.253900,1155.000000,1.000000,1.000000,5.000000,2.000000
-2,662068.600000,5092696.300000,45.968700,11.091900,182.000000,1.000000,1.000000,5.000000,2.000000
-3,658572.400000,5084628.100000,45.896900,11.044100,203.000000,1.000000,1.000000,5.000000,2.000000
-4,666924.800000,5083013.000000,45.880400,11.151100,800.000000,1.000000,1.000000,5.000000,2.000000
-5,660681.500000,5067245.500000,45.740100,11.065500,692.000000,1.000000,1.000000,5.000000,2.000000
-6,645727.800000,5081432.900000,45.871000,10.877700,90.000000,1.000000,1.000000,5.000000,2.000000
-7,667852.800000,5087016.100000,45.916200,11.164500,1121.000000,1.000000,1.000000,5.000000,2.000000
-8,646017.800000,5087231.100000,45.923100,10.883200,115.000000,1.000000,1.000000,5.000000,2.000000
-9,630784.100000,5077929.800000,45.842500,10.684200,1560.000000,1.000000,1.000000,5.000000,2.000000
-10,659080.400000,5097713.500000,46.014500,11.055000,1490.000000,1.000000,1.000000,5.000000,2.000000
-11,671079.000000,5087476.100000,45.919600,11.206200,1360.000000,1.000000,1.000000,5.000000,2.000000
-12,659903.500000,5074818.700000,45.808400,11.058000,1620.000000,1.000000,1.000000,5.000000,2.000000
-13,650374.000000,5094202.400000,45.984900,10.941500,282.000000,1.000000,1.000000,5.000000,2.000000
-14,652233.100000,5076454.800000,45.824800,10.959900,727.000000,1.000000,1.000000,5.000000,2.000000
-15,679346.100000,5076239.700000,45.816400,11.308600,430.000000,1.000000,1.000000,5.000000,2.000000
-16,687096.300000,5089083.900000,45.931200,11.413300,2015.000000,1.000000,1.000000,5.000000,2.000000
-17,670083.900000,5063574.400000,45.704800,11.185000,705.000000,1.000000,1.000000,5.000000,2.000000
-18,712918.000000,5076188.800000,45.806400,11.740200,675.000000,1.000000,1.000000,5.000000,2.000000
-19,672223.000000,5054978.300000,45.627000,11.209400,382.000000,1.000000,1.000000,5.000000,2.000000
-20,637905.100000,5042149.000000,45.519200,10.765800,165.000000,1.000000,1.000000,5.000000,2.000000
-21,700496.700000,5066311.600000,45.721300,11.576400,182.000000,1.000000,1.000000,5.000000,2.000000
-22,694846.500000,5084259.800000,45.884300,11.511100,1010.000000,1.000000,1.000000,5.000000,2.000000
-23,658947.600000,5053876.300000,45.620200,11.038800,1050.000000,1.000000,1.000000,5.000000,2.000000
-24,705446.100000,5092459.500000,45.954900,11.651100,1428.000000,1.000000,1.000000,5.000000,2.000000
-25,645040.300000,5070590.600000,45.773600,10.865500,1760.000000,1.000000,1.000000,5.000000,2.000000
-26,715965.700000,5083402.200000,45.870300,11.782600,1540.000000,1.000000,1.000000,5.000000,2.000000
-27,661129.000000,5061052.200000,45.684300,11.069200,1620.000000,1.000000,1.000000,5.000000,2.000000
-28,668727.200000,5066262.300000,45.729300,11.168500,1464.000000,1.000000,1.000000,5.000000,2.000000
-29,676408.500000,5082560.900000,45.874000,11.273100,1735.000000,1.000000,1.000000,5.000000,2.000000
-30,687435.300000,5092957.300000,45.964600,11.419100,1605.000000,1.000000,1.000000,5.000000,2.000000
-31,646340.800000,5068995.100000,45.759000,10.881800,1430.000000,1.000000,1.000000,5.000000,2.000000
-32,700637.000000,5095083.000000,45.980000,11.590200,1345.000000,1.000000,1.000000,5.000000,2.000000
-33,669122.000000,5069571.000000,45.759000,11.174700,1170.000000,1.000000,1.000000,5.000000,2.000000
-Channel pixels: 0
-File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED
-File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
-File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
-File  with fradSWin identifier NOT DEFINED
-File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
-File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
-File  with fG identifier  NOT DEFINED
-File  with fTs identifier  NOT DEFINED
-File  with fradSWin identifier  NOT DEFINED
-File  with fradSwinbeam identifier  NOT DEFINED
-File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
-Soil water evaporates from the first 1 layers
-Soil water transpires from the first 3 layers
-17/10/2013 8:00 34.72% - Time elapsed (h:m:s)  0:04:27 Time remaining (h:m)  0:08  
-17/10/2013 9:00 36.11% - Time elapsed (h:m:s)  0:04:52 Time remaining (h:m)  0:08  
-17/10/2013 10:00 37.50% - Time elapsed (h:m:s)  0:05:10 Time remaining (h:m)  0:08  
-17/10/2013 11:00 38.89% - Time elapsed (h:m:s)  0:05:22 Time remaining (h:m)  0:08  
-17/10/2013 12:00 40.28% - Time elapsed (h:m:s)  0:05:36 Time remaining (h:m)  0:08  
-17/10/2013 13:00 41.67% - Time elapsed (h:m:s)  0:05:49 Time remaining (h:m)  0:08  
-17/10/2013 14:00 43.06% - Time elapsed (h:m:s)  0:06:04 Time remaining (h:m)  0:08  
-17/10/2013 15:00 44.44% - Time elapsed (h:m:s)  0:06:20 Time remaining (h:m)  0:07  
-17/10/2013 16:00 45.83% - Time elapsed (h:m:s)  0:06:32 Time remaining (h:m)  0:07  
-17/10/2013 17:00 47.22% - Time elapsed (h:m:s)  0:06:44 Time remaining (h:m)  0:07  
-17/10/2013 18:00 48.61% - Time elapsed (h:m:s)  0:06:50 Time remaining (h:m)  0:07  
-17/10/2013 19:00 50.00% - Time elapsed (h:m:s)  0:06:57 Time remaining (h:m)  0:06  
-17/10/2013 20:00 51.39% - Time elapsed (h:m:s)  0:07:01 Time remaining (h:m)  0:06  
-17/10/2013 21:00 52.78% - Time elapsed (h:m:s)  0:07:08 Time remaining (h:m)  0:06  
-17/10/2013 22:00 54.17% - Time elapsed (h:m:s)  0:07:13 Time remaining (h:m)  0:06  
-17/10/2013 23:00 55.56% - Time elapsed (h:m:s)  0:07:18 Time remaining (h:m)  0:05  
-18/10/2013 0:00 56.94% - Time elapsed (h:m:s)  0:07:24 Time remaining (h:m)  0:05  
-18/10/2013 1:00 58.33% - Time elapsed (h:m:s)  0:07:29 Time remaining (h:m)  0:05  
-18/10/2013 2:00 59.72% - Time elapsed (h:m:s)  0:07:34 Time remaining (h:m)  0:05  
-18/10/2013 3:00 61.11% - Time elapsed (h:m:s)  0:07:39 Time remaining (h:m)  0:04  
-18/10/2013 4:00 62.50% - Time elapsed (h:m:s)  0:07:46 Time remaining (h:m)  0:04  
-18/10/2013 5:00 63.89% - Time elapsed (h:m:s)  0:07:52 Time remaining (h:m)  0:04  
-18/10/2013 6:00 65.28% - Time elapsed (h:m:s)  0:08:03 Time remaining (h:m)  0:04  
-18/10/2013 7:00 66.67% - Time elapsed (h:m:s)  0:08:15 Time remaining (h:m)  0:04  
-Writing continuous-recovering files
-18/10/2013 8:00 68.06% - Time elapsed (h:m:s)  0:08:43 Time remaining (h:m)  0:04  
-18/10/2013 9:00 69.44% - Time elapsed (h:m:s)  0:08:59 Time remaining (h:m)  0:03  
-18/10/2013 10:00 70.83% - Time elapsed (h:m:s)  0:09:13 Time remaining (h:m)  0:03  
-18/10/2013 11:00 72.22% - Time elapsed (h:m:s)  0:09:46 Time remaining (h:m)  0:03  
-18/10/2013 12:00 73.61% - Time elapsed (h:m:s)  0:09:59 Time remaining (h:m)  0:03  
-18/10/2013 13:00 75.00% - Time elapsed (h:m:s)  0:10:13 Time remaining (h:m)  0:03  
-18/10/2013 14:00 76.39% - Time elapsed (h:m:s)  0:10:28 Time remaining (h:m)  0:03  
-18/10/2013 15:00 77.78% - Time elapsed (h:m:s)  0:10:43 Time remaining (h:m)  0:03  
-18/10/2013 16:00 79.17% - Time elapsed (h:m:s)  0:10:56 Time remaining (h:m)  0:02  
-18/10/2013 17:00 80.56% - Time elapsed (h:m:s)  0:11:05 Time remaining (h:m)  0:02  
-18/10/2013 18:00 81.94% - Time elapsed (h:m:s)  0:11:12 Time remaining (h:m)  0:02  
-18/10/2013 19:00 83.33% - Time elapsed (h:m:s)  0:11:17 Time remaining (h:m)  0:02  
-18/10/2013 20:00 84.72% - Time elapsed (h:m:s)  0:11:24 Time remaining (h:m)  0:02  
-18/10/2013 21:00 86.11% - Time elapsed (h:m:s)  0:11:30 Time remaining (h:m)  0:01  
-18/10/2013 22:00 87.50% - Time elapsed (h:m:s)  0:11:35 Time remaining (h:m)  0:01  
-18/10/2013 23:00 88.89% - Time elapsed (h:m:s)  0:11:39 Time remaining (h:m)  0:01  
-19/10/2013 0:00 90.28% - Time elapsed (h:m:s)  0:11:45 Time remaining (h:m)  0:01  
-19/10/2013 1:00 91.67% - Time elapsed (h:m:s)  0:11:49 Time remaining (h:m)  0:01  
-19/10/2013 2:00 93.06% - Time elapsed (h:m:s)  0:11:56 Time remaining (h:m)  0:00  
-19/10/2013 3:00 94.44% - Time elapsed (h:m:s)  0:12:01 Time remaining (h:m)  0:00  
-19/10/2013 4:00 95.83% - Time elapsed (h:m:s)  0:12:07 Time remaining (h:m)  0:00  
-19/10/2013 5:00 97.22% - Time elapsed (h:m:s)  0:12:14 Time remaining (h:m)  0:00  
-19/10/2013 6:00 98.61% - Time elapsed (h:m:s)  0:12:26 Time remaining (h:m)  0:00  
-19/10/2013 7:00 100.00% - Time elapsed (h:m:s)  0:12:37 Time remaining (h:m)  0:00  
-Writing continuous-recovering files
-Number of times the simulation #1 has been run: 1
+Column 1 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to Iprec
+Column 3 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to WindSp
+Column 4 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to WindDir
+Column 5 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to Swglob
+Column 7 in file /Users/cozzini/GEOTOP/PROVAZZA/geotop/tests/test_sample_run/prealpiC/meteo/meteo0033.txt assigned to CloudTrans

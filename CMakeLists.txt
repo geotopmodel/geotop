@@ -15,7 +15,7 @@ SET(PACKAGE_VERSION "1.2.10")
 SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 
-SET(METEOIO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../geotopio/trunk/fakeroot/usr" CACHE PATH "location of the MeteoIO library" )
+SET(METEOIO_PATH "/usr/local" CACHE PATH "location of the MeteoIO library" )
 
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 
@@ -25,11 +25,13 @@ SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 
 SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
 
-SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation, routine instead of using MeteoIO")
+SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 
-find_package(PkgConfig REQUIRED)
+SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
+
+#find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
 SET(CMAKE_SKIP_BUILD_RPATH FALSE)
@@ -83,6 +85,14 @@ ENDIF(ENABLE_INTERNAL_METEODISTR)
 IF (USE_NETCDF)
 	add_definitions(-DUSE_NETCDF)
 ENDIF (USE_NETCDF)
+
+IF (WITH_LOGGER)
+    add_definitions(-DWITH_LOGGER)
+ENDIF (WITH_LOGGER)
+
+IF (METEOIO_OUTPUT)
+    add_definitions(-DMETEOIO_OUTPUT)
+ENDIF (METEOIO_OUTPUT)
 
 #add_definitions(
 #    "-std=c++11"

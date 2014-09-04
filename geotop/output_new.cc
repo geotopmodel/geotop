@@ -38,6 +38,11 @@
 #include "global_logger.h"
 #include "../gt_utilities/path_utils.h"
 
+#ifdef METEOIO_OUTPUT
+#define __MATHOPTIM_H__
+#include <meteoio/MeteoIO.h>
+#endif
+
 /*==============================================================================
    Constants
  ==============================================================================*/
@@ -135,6 +140,25 @@ OutputFilesStore::~OutputFilesStore()
  ==============================================================================*/
 
 static OutputFilesStore ofs;
+#ifdef METEOIO_OUTPUT
+static mio::Config cfg;
+#endif
+
+/*==============================================================================
+   Static functions prototypes
+ ==============================================================================*/
+
+/**
+ * @internal
+ * @brief gets the supervector olding the values for an output variable
+ * @param A global data storage pointer
+ * @param what variable to fetch
+ * @return a GeoMatrix with one row per layer, each row holding the values for that layer
+ */
+static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Variable what);
+
+//Same as above but for 2D-only variables
+static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what);
 
 /*==============================================================================
    Static functions
@@ -146,67 +170,173 @@ static bool compareByPeriod(geotop::input::OutputFile a, geotop::input::OutputFi
 }
 
 /**
- * @brief gets the supervector olding the values for an output variable
- * @param A global data storage pointer
- * @param what variable to fetch
- * @return a GeoMatrix with one row per layer, each row holding the values for that layer
+ * @internal
+ * @brief extracts a single row from a GeoMatrix and puts it into a new GeoVector
+ * @param[in] M the matrix
+ * @param[in] layer the layer's index
+ * @return a newly created GeoVector holding the data of that layer.
+ *  WARNING: you have to explicitly call delete on that GeoVector.
  */
-static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Variable what);
-
-static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what);
-
-static void clearTempValuesMatrix(AllData* A, GeoMatrix<double>* M)
+static GeoVector<double>* extractGeoVector(GeoMatrix<double>* M, long layer)
 {
-    long i,r,c;
+    GeoVector<double>* V = new GeoVector<double>(M->getCols());
 
-    for (i = 1; i <= A->P->total_pixel; i++)
+    for (size_t i = 0, s = V->size(); i < s; i++)
     {
-        r = A->T->rc_cont[i][1];
-        c = A->T->rc_cont[i][2];
-        (*M)[r][c] = 0.;
+        (*V)[i] = (*M)[layer][i];
     }
 
+    return V;
 }
 
-static void clearTempValuesTensor(AllData* A, GeoTensor<double>* T)
+static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputFile* of, AllData* A)
 {
-    long l;
+    GeoVector<double>* output = NULL;
 
-    for (l = 1; l <= geotop::common::Variables::Nl; l++)
+    GeoMatrix<double>* M = getSupervectorVariableM(A, of->getVariable());
+
+    if (M != NULL)
     {
-        long i,r,c;
+        output = extractGeoVector(M, layer);
+    }
+    else
+    {
+        GeoVector<double>* T = getSupervectorVariableV(A, of->getVariable());
 
-        for (i = 1; i <= A->P->total_pixel; i++)
+        if (T != NULL)
         {
-            r = A->T->rc_cont[i][1];
-            c = A->T->rc_cont[i][2];
-            (*T)[l][r][c] = 0.;
+            output = new GeoVector<double>(T->size());
+            for (size_t i=0, s = T->size(); i < s; i++)
+            {
+                output[i] = T->at(i);
+            }
+        }
+    }
+
+    return output;
+}
+
+static GeoVector<double>* initTempValuesVector(AllData* A)
+{
+    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel, 0.);
+
+    return output;
+}
+
+static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+{
+    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nl+1,
+                                                      A->P->total_pixel,
+                                                      0.);
+
+    return output;
+}
+
+static GeoTensor<double>* initTempValuesTensor(AllData* A, size_t count)
+{
+    GeoTensor<double>* output = new GeoTensor<double>(count,
+                                                      geotop::common::Variables::Nl+1,
+                                                      A->P->total_pixel,
+                                                      0.);
+
+    return output;
+}
+
+static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
+{
+    switch(of.getDimension())
+    {
+        case geotop::input::D1Dp:
+            break;
+        case geotop::input::D1Ds:
+            break;
+        case geotop::input::D2D:
+            of.values = geotop::input::TemporaryValues(initTempValuesVector(A));
+            break;
+        case geotop::input::D3D:
+            of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
+            break;
+        default:
+            break;
+
+    }
+}
+
+static void zeroFill(geotop::input::OutputFile* of)
+{
+
+    switch(of->getDimension())
+    {
+        case geotop::input::D1Dp:
+            break;
+        case geotop::input::D1Ds:
+            break;
+        case geotop::input::D2D:
+            {
+                GeoVector<double>* V = of->values.getValuesV();
+                V->resize(V->size(), 0.);
+            }
+            break;
+        case geotop::input::D3D:
+            {
+                GeoMatrix<double>* M = of->values.getValuesM();
+                M->reset(0.);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, long layer)
+{
+
+    GeoMatrix<double>* M = getSupervectorVariableM(A, f->getVariable());
+
+    if (M != NULL)
+    {
+        GeoVector<double>* V = f->values.getValuesV();
+
+        assert(V->size() == M->getCols());
+
+        for (size_t i = 0, s = V->size(); i < s; i++)
+        {
+            (*V)[i] = (*M)[layer][i];
+        }
+    }
+    else
+    {
+        GeoVector<double>* V = getSupervectorVariableV(A, f->getVariable());
+
+        if (V != NULL)
+        {
+            GeoVector<double>* TV = f->values.getValuesV();
+
+            assert(TV->size() == V->size());
+
+            for (size_t i = 0, s = TV->size(); i < s; i++)
+            {
+                (*TV)[i] = V->at(i);
+            }
+
         }
     }
 
 }
 
-static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+
+static void refreshTemporaryValuesM(geotop::input::OutputFile* f, AllData* A)
 {
-    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nr+1,
-                                                      geotop::common::Variables::Nc+1,
-                                                      geotop::input::gDoubleNoValue);
+    GeoMatrix<double>* M = getSupervectorVariableM(A, f->getVariable());
+    GeoMatrix<double>* N = f->values.getValuesM();
 
-    clearTempValuesMatrix(A, output);
-
-    return output;
-}
-
-static GeoTensor<double>* initTempValuesTensor(AllData* A)
-{
-    GeoTensor<double>* output = new GeoTensor<double>(geotop::common::Variables::Nl+1,
-                                                      geotop::common::Variables::Nr+1,
-                                                      geotop::common::Variables::Nc+1,
-                                                      geotop::input::gDoubleNoValue);
+    assert(M != NULL && N != NULL);
     
-    clearTempValuesTensor(A, output);
-
-    return output;
+    for (size_t l = 0, sr = N->getRows(); l < sr; l++)
+    {
+        for (size_t i = 0, sc = N->getCols(); i < sc; i++)
+            (*N)[l][i] = (*M)[l][i];
+    }
 }
 
 static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
@@ -215,124 +345,58 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
     bool found = false;
     double output = geotop::input::gDoubleNoValue;
 
-    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
-
-    if (var != NULL)
-    {   //TODO: Move this to a function
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
-            {
-                found = true;
-                break;
-            }
-        }
-
-        if (found) output = (*var)[layer][i];
-    }
-    else
+    //Search for the requested point
+    for (i = 1; i <= A->P->total_pixel; i++)
     {
-        GeoVector<double>* var = getSupervectorVariableV(A, what);
+        if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (found)
+    {
+
+        GeoMatrix<double>* var = getSupervectorVariableM(A, what);
 
         if (var != NULL)
         {
-            for (i = 1; i <= A->P->total_pixel; i++)
+            output = (*var)[layer][i];
+        }
+        else
+        {
+            GeoVector<double>* var = getSupervectorVariableV(A, what);
+
+            if (var != NULL)
             {
-                if ((row == A->T->rc_cont[i][1])  && (col == A->T->rc_cont[i][2]))
-                {
-                    found = true;
-                    break;
-                }
+                output = (*var)[i];
             }
-
-            if (found) output = (*var)[i];
         }
+
     }
 
     return output;
 
 }
 
-static GeoMatrix<double> getLayer(AllData* A, geotop::input::Variable what, long layer)
-{
-    long i;
-    GeoMatrix<double> output(geotop::common::Variables::Nr+1,
-                             geotop::common::Variables::Nc+1,
-                             geotop::input::gDoubleNoValue);
-
-    //If the layer index is invalid return a map full of gDoubleNoValue
-    if (layer <= 0)
-        return output;
-    
-    //Not NULL if the user asked for a layer in a tensor
-    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
-
-    if (var != NULL)
-    {
-
-        //Scan Data Vector
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            long r = A->T->rc_cont[i][1];
-            long c = A->T->rc_cont[i][2];
-
-            output[r][c] = (*var)[layer][i];
-        }
-    }
-    else
-    {
-        //Not NULL if the variable is available as a map
-        GeoVector<double>* var = getSupervectorVariableV(A, what);
-
-        assert(var != NULL); //at this point var should be not NULL
-
-        //Scan Data Vector
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            long r = A->T->rc_cont[i][1];
-            long c = A->T->rc_cont[i][2];
-
-            output[r][c] = (*var)[i];
-        }
-    }
-
-    return output;
-}
-
-static GeoTensor<double> getTensor(AllData* A, geotop::input::Variable what)
-{
-    long i,l;
-    GeoTensor<double> output(geotop::common::Variables::Nl+1,
-                             geotop::common::Variables::Nr+1,
-                             geotop::common::Variables::Nc+1,
-                             geotop::input::gDoubleNoValue);
-
-    GeoMatrix<double>* var = getSupervectorVariableM(A, what);
-
-    assert(var != NULL); //at this point var should not be NULL
-
-    //For each layer
-    for (l = 1; l <= geotop::common::Variables::Nl; l++)
-    {
-        //Scan Data Vector
-        for (i = 1; i <= A->P->total_pixel; i++)
-        {
-            long r = A->T->rc_cont[i][1];
-            long c = A->T->rc_cont[i][2];
-
-            output[l][r][c] = (*var)[l][i];
-        }
-    }
-
-    return output;
-}
-
-static void printLayer(geotop::input::OutputFile* f, double date, long layer)
+#ifndef METEOIO_OUTPUT
+static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
 {
     long r,c;
     FILE* fp = NULL;
-    GeoMatrix<double> M = *(f->values.getValuesM());
-    std::string filename = f->getFilePath(date, layer);
+    GeoMatrix<double> M(geotop::common::Variables::Nr+1,
+                        geotop::common::Variables::Nc+1,
+                        geotop::input::gDoubleNoValue);
+
+    //Cycle through the supervector and populate the matrix
+    for (size_t i = 1; i < V->size(); i++)
+    {
+        r = A->T->rc_cont[i][1];
+        c = A->T->rc_cont[i][2];
+
+        M[r][c] = V->at(i);
+    }
 
     fp = fopen (filename.c_str(), "w");
 
@@ -347,12 +411,12 @@ static void printLayer(geotop::input::OutputFile* f, double date, long layer)
     }
 
     //Header
-    fprintf(fp,"ncols         %u\n", M.getCols()-1);
-    fprintf(fp,"nrows         %u\n", M.getRows()-1);
-    fprintf(fp,"xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
-    fprintf(fp,"yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
-    fprintf(fp,"cellsize      %f\n", geotop::common::Variables::UV->U[1]);
-    fprintf(fp,"NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
+    fprintf(fp, "ncols         %u\n", M.getCols()-1);
+    fprintf(fp, "nrows         %u\n", M.getRows()-1);
+    fprintf(fp, "xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
+    fprintf(fp, "yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
+    fprintf(fp, "cellsize      %f\n", geotop::common::Variables::UV->U[1]);
+    fprintf(fp, "NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
 
     //Data
     for (r = 1; r < M.getRows(); r++)
@@ -366,51 +430,43 @@ static void printLayer(geotop::input::OutputFile* f, double date, long layer)
 
     fclose(fp);
 }
-
-static void printTensor(geotop::input::OutputFile* f, double date)
+#else
+static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
 {
-    long l,r,c;
-    FILE* fp = NULL;
-    GeoTensor<double> T = *(f->values.getValuesT());
 
-    //For all layers
-    for (l = 1; l < T.getDh(); l++)
+    assert(geotop::common::Variables::Nc > 0);
+    size_t ncols = geotop::common::Variables::Nc;
+
+    assert(geotop::common::Variables::Nr > 0);
+    size_t nrows = geotop::common::Variables::Nr;
+
+    //The output matrix
+    GeoMatrix<double> M(ncols, nrows, mio::IOUtils::nodata);
+
+    //HACK: GEOTop most of the times uses 1..n indexes instead of 0..n-1
+    //so we cut out one element even if this can lead to data loss
+    for (size_t i = 1, s = V->size(); i < s; i++)
     {
-        std::string filename =
-            f->getFilePath(date, l);
+        long r = A->T->rc_cont[i][1];
+        long c = A->T->rc_cont[i][2];
 
-        fp = fopen(filename.c_str(), "w");
-        if (fp == NULL)
-        {
-            geotop::logger::GlobalLogger* lg =
-                geotop::logger::GlobalLogger::getInstance();
-            lg->logsf(geotop::logger::CRITICAL,
-                      "Unable to open file %s for writing. Aborting.",
-                      filename.c_str());
-            exit(1);
-        }
-
-        //Header
-        fprintf(fp,"ncols         %u\n", T.getCh()-1);
-        fprintf(fp,"nrows         %u\n", T.getRh()-1);
-        fprintf(fp,"xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
-        fprintf(fp,"yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
-        fprintf(fp,"cellsize      %f\n", geotop::common::Variables::UV->U[1]);
-        fprintf(fp,"NODATA_value  %.3f\n", geotop::input::gDoubleNoValue);
-
-        //Data
-        for (r = 1; r < T.getRh(); r++)
-        {
-            for (c = 1; c < T.getCh(); c++)
-                fprintf(fp, "%.3f ", T[l][r][c]);
-
-            fseek(fp, -1, SEEK_CUR);
-            fprintf(fp,"\n");
-        }
-
-        fclose(fp);
+        M[c - 1][nrows - r] = V->at(i);
     }
+
+    mio::IOManager iomanager(cfg);
+
+    //Required by write2DGrid
+    mio::Grid2DObject g2d;
+
+    //Setting the coordinates
+	g2d.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+
+    //Setting the grid (rows, columns, cellsize, lower left corner coordinates and grid data)
+    g2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
+
+    iomanager.write2DGrid(g2d, filename);
 }
+#endif
 
 /**
  * @brief Prints a variable to the corrisponding file(s)
@@ -435,16 +491,42 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
                 break;
             case geotop::input::D2D:
                 {
-                    GeoMatrix<double> M = getLayer(A, f->getVariable(), f->getLayer());
-                    f->values = geotop::input::TemporaryValues(&M);
-                    printLayer(f, lJDate, f->getLayer());
+                    long l = f->getLayer();
+
+                    if (l >= 0)
+                    {
+                        refreshTemporaryValuesV(f, A, l);
+                        std::string filename = f->getFilePath(lJDate, l);
+                        printLayer(filename, f->values.getValuesV(), A);
+                    }
+                    else
+                    {
+                        //Invalid layer number
+                        geotop::logger::GlobalLogger* lg =
+                            geotop::logger::GlobalLogger::getInstance();
+
+                        lg->logsf(geotop::logger::ERROR,
+                                  "Invalid layer number (%ld) for line:\n%s",
+                                  l, (f->toString()).c_str());
+                    }
                 }
                 break;
             case geotop::input::D3D:
                 {
-                    GeoTensor<double> T = getTensor(A, f->getVariable());
-                    f->values = geotop::input::TemporaryValues(&T);
-                    printTensor(f, lJDate);
+                    refreshTemporaryValuesM(f, A);
+                    
+                    //For each layer
+                    for (long l = 1; l <= geotop::common::Variables::Nl; l++)
+                    {
+                        std::string filename = f->getFilePath(lJDate, l);
+
+                        //Extract layer's supervector
+                        GeoVector<double>* V = extractGeoVector(f->values.getValuesM(), l);
+
+                        printLayer(filename, V, A);
+
+                        delete V; //Deallocate temporary vector V
+                    }
                 }
                 break;
             default:
@@ -460,6 +542,11 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
     }
 }
 
+/**
+ * @brief Adds current values to temporary values
+ * @param[in] A GEOTop data structure
+ * @param[in] of OutputFile to refresh
+ */
 static void refreshCumulates(AllData* A, geotop::input::OutputFile* of)
 {
    
@@ -471,37 +558,35 @@ static void refreshCumulates(AllData* A, geotop::input::OutputFile* of)
             break;
         case geotop::input::D2D:
             {
-                GeoMatrix<double> Mi = getLayer(A, of->getVariable(), of->getLayer());
-                GeoMatrix<double>* Mt = of->values.getValuesM();
-                long i,r,c;
+                //Get temporary value vector
+                GeoVector<double>* TV = of->values.getValuesV();
+                //Get instant supervector copy
+                GeoVector<double>* IV = getSupervectorLayer(of->getLayer(), of, A);
 
-                for (i = 1; i <= A->P->total_pixel; i++)
-                {
-                    r = A->T->rc_cont[i][1];
-                    c = A->T->rc_cont[i][2];
-                    (*Mt)[r][c] = (*Mt)[r][c] + Mi[r][c];
-                }
+                assert(IV != NULL);
 
+                //Add supervector to temporary values
+                for (size_t i = 0, s = TV->size(); i < s; i++)
+                    (*TV)[i] = TV->at(i) + IV->at(i);
+
+                delete IV; //deallocate instant supervector
             }
             break;
         case geotop::input::D3D:
             {
-                GeoTensor<double> Ti = getTensor(A, of->getVariable());
-                GeoTensor<double>* Tt = of->values.getValuesT();
+                //Get temporary value matrix
+                GeoMatrix<double>* TM = of->values.getValuesM();
+                //Get instant supervector matrix
+                GeoMatrix<double>* M = getSupervectorVariableM(A, of->getVariable());
 
-                long i,l,r,c;
+                assert(M != NULL);
 
-                for (l = 1; l <= geotop::common::Variables::Nl; l++)
+                //For each layer add supervector to temp
+                for (size_t l = 0, nl = TM->getRows(); l < nl; l++)
                 {
-                    for (i = 1; i <= A->P->total_pixel; i++)
-                    {
-                        r = A->T->rc_cont[i][1];
-                        c = A->T->rc_cont[i][2];
-
-                        (*Tt)[l][r][c] = (*Tt)[l][r][c] + Ti[l][r][c];
-                    }
+                    for (size_t i = 0, s = TM->getCols(); i < s; i++)
+                        (*TM)[l][i] = (*TM)[l][i] + (*M)[l][i];
                 }
-
             }
             break;
         default:
@@ -535,12 +620,40 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
             break;
         case geotop::input::D2D:
             {
-                printLayer(of, lJDate, of->getLayer());
+                long l = of->getLayer();
+
+                if (l >= 0)
+                {
+                    GeoVector<double>* V = of->values.getValuesV(); 
+                    std::string filename = of->getFilePath(lJDate, l);
+                    printLayer(filename, V, A);
+                }
+                else
+                {
+                    //Invalid layer number
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+
+                    lg->logsf(geotop::logger::ERROR,
+                              "Invalid layer number (%ld) for line:\n%s",
+                              l, (of->toString()).c_str());
+                }
             }
             break;
         case geotop::input::D3D:
             {
-                printTensor(of, lJDate);
+                //For each layer
+                for (long l = 1; l <= geotop::common::Variables::Nl; l++)
+                {
+                    std::string filename = of->getFilePath(lJDate, l);
+
+                    //Extract layer's supervector
+                    GeoVector<double>* V = extractGeoVector(of->values.getValuesM(), l);
+
+                    printLayer(filename, V, A);
+
+                    delete V; //Deallocate temporary vector V
+                }
             }
             break;
         default:
@@ -574,43 +687,39 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of)
             break;
         case geotop::input::D2D:
             {
-                GeoMatrix<double> Mi = getLayer(A, of->getVariable(), of->getLayer());
-                GeoMatrix<double>* Mt = of->values.getValuesM();
-                long i,r,c;
+                long l = of->getLayer();
 
-                for (i = 1; i <= A->P->total_pixel; i++)
+                if (l >= 0)
                 {
-                    r = A->T->rc_cont[i][1];
-                    c = A->T->rc_cont[i][2];
+                    //Get cumulates vector
+                    GeoVector<double>* V = of->values.getValuesV();
 
-                    //Accumulator += Instant value / (Integration time[s] / TimeStepEnergyAndWater[s])
-                    (*Mt)[r][c] = (*Mt)[r][c] + (Mi[r][c] / (of->getPeriod() / A->P->Dt));
+                    //Get number of additions
+                    size_t count = of->values.getCount();
+                    
+                    //Divide each member of cumulates vector by count to get the mean value
+                    for (size_t i = 0, s = V->size(); i < s; i++)
+                    {
+                        (*V)[i] = V->at(i) / (double)count;
+                    }
+
+                    std::string filename = of->getFilePath(lJDate, l);
+                    printLayer(filename, of->values.getValuesV(), A);
                 }
+                else
+                {
+                    //Invalid layer number
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
 
-                printLayer(of, lJDate, of->getLayer());
-
+                    lg->logsf(geotop::logger::ERROR,
+                              "Invalid layer number (%ld) for line:\n%s",
+                              l, (of->toString()).c_str());
+                }
             }
             break;
         case geotop::input::D3D:
             {
-                GeoTensor<double> Ti = getTensor(A, of->getVariable());
-                GeoTensor<double>* Tt = of->values.getValuesT();
-
-                long i,l,r,c;
-
-                for (l = 1; l <= geotop::common::Variables::Nl; l++)
-                {
-                    for (i = 1; i <= A->P->total_pixel; i++)
-                    {
-                        r = A->T->rc_cont[i][1];
-                        c = A->T->rc_cont[i][2];
-
-                        (*Tt)[l][r][c] = (*Tt)[l][r][c] + (Ti[l][r][c] / (of->getPeriod() / A->P->Dt));
-                    }
-                }
-
-                printTensor(of, lJDate);
-
             }
             break;
         default:
@@ -630,7 +739,11 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of)
    Public functions
  ==============================================================================*/
 
+#ifdef METEOIO_OUTPUT
+void output_file_preproc(AllData* A, mio::Config& mioConfig)
+#else
 void output_file_preproc(AllData* A)
+#endif
 {
     boost::shared_ptr< std::vector<geotop::input::OutputFile> > output_files;
     std::vector<OutputFilesVector*>* lInstants = new std::vector<OutputFilesVector*>();
@@ -640,6 +753,10 @@ void output_file_preproc(AllData* A)
     size_t i = 0;
     size_t j = 0;
     size_t sz;
+
+#ifdef METEOIO_OUTPUT
+    cfg = mioConfig;
+#endif
 
     //Get Global Logger instance
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
@@ -662,6 +779,15 @@ void output_file_preproc(AllData* A)
     //Initial period
     lPeriod = (output_files->at(0)).getPeriod();
 
+    //Check if initial period is less than TimeStep
+    if (lPeriod < A->P->Dt)
+    {
+        lg->logsf(geotop::logger::CRITICAL,
+                  "The minimum integration period (%d) is shorter than the time step (%.0f).\nPlease increase the integration period at least to %.0f or more in your geotop.inpts file in the line:\n%s",
+                  lPeriod, A->P->Dt, A->P->Dt, ((output_files->at(0)).toString()).c_str());
+        exit(1);
+    }
+
     lInstants->push_back(new OutputFilesVector(lPeriod));
     lCumulates->push_back(new OutputFilesVector(lPeriod));
     lAverages->push_back(new OutputFilesVector(lPeriod));
@@ -673,41 +799,47 @@ void output_file_preproc(AllData* A)
         lTmpLong = of.getPeriod();
         std::string prefix = of.getPrefix();
 
-        switch (gt_fileExists(prefix.c_str()))
+        //If the user set a prefix directory for OutputFile of
+        if (prefix != "")
         {
-            case 0:
-                //Prefix directory doesn't exist
-                //Attempt to create it
-                if (gt_makeDirectory(prefix.c_str()) == 0)
-                {
-                    //An error occurred
-                    lg->logsf(geotop::logger::CRITICAL,
-                              "Unable to create directory '%s'. Aborting.",
-                              prefix.c_str());
-                    exit(1);
-                }
-                break;
-            case 2:
-                //Prefix directory exists
+            //Test if prefix directory exists
+            switch (gt_fileExists(prefix.c_str()))
+            {
+                case 0:
+                    //Prefix directory doesn't exist
+                    //Attempt to create it
+                    if (gt_makeDirectory(prefix.c_str()) == 0)
+                    {
+                        //An error occurred
+                        lg->logsf(geotop::logger::CRITICAL,
+                                  "Unable to create directory '%s'. Aborting.",
+                                  prefix.c_str());
+                        exit(1);
+                    }
+                    break;
+                case 2:
+                    //Prefix directory exists
                     lg->logsf(geotop::logger::NOTICE,
                               "Directory '%s' already exists.",
                               prefix.c_str());
-                break;
-            case 1:
-            case 3:
-                //Prefix exists but it's a file
+                    break;
+                case 1:
+                    //Pass through
+                case 3:
+                    //Prefix exists but it's a file
                     lg->logsf(geotop::logger::CRITICAL,
                               "File '%s' already exists and it's not a directory. Aborting",
                               prefix.c_str());
                     exit(1);
-                break;
-            default:
-                //An error occurred
+                    break;
+                default:
+                    //An error occurred
                     lg->logsf(geotop::logger::CRITICAL,
-                            "An unknown error occurred while trying to access to '%s'. Aborting.",
-                            prefix.c_str());
+                              "An unknown error occurred while trying to access to '%s'. Aborting.",
+                              prefix.c_str());
                     exit(1);
-                break;
+                    break;
+            }
         }
 
         if (lTmpLong == lPeriod)
@@ -715,47 +847,17 @@ void output_file_preproc(AllData* A)
             //Ignore unknown variables
             if (of.getVariable() != geotop::input::UNKNOWN_VAR)
             {
+                initTemporaryValues(of, A);
+
                 switch(of.getIntegrationType())
                 {
                     case geotop::input::INS:
                         (lInstants->at(j))->append(of);
                         break;
                     case geotop::input::CUM:
-                        switch(of.getDimension())
-                        {
-                            case geotop::input::D1Dp:
-                            case geotop::input::D1Ds:
-                                of.values = geotop::input::TemporaryValues(0.);
-                                break;
-                            case geotop::input::D2D:
-                                of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
-                                break;
-                            case geotop::input::D3D:
-                                of.values = geotop::input::TemporaryValues(initTempValuesTensor(A));
-                                break;
-                            default:
-                                break;
- 
-                        }
                         (lCumulates->at(j))->append(of);
                         break;
                     case geotop::input::AVG:
-                        switch(of.getDimension())
-                        {
-                            case geotop::input::D1Dp:
-                            case geotop::input::D1Ds:
-                                of.values = geotop::input::TemporaryValues(0.);
-                                break;
-                            case geotop::input::D2D:
-                                of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
-                                break;
-                            case geotop::input::D3D:
-                                of.values = geotop::input::TemporaryValues(initTempValuesTensor(A));
-                                break;
-                            default:
-                                break;
- 
-                        }
                         (lAverages->at(j))->append(of);
                         break;
                     default:
@@ -884,17 +986,7 @@ void write_output_new(AllData* A)
                 if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
                 {
                     printCumulates(A, &f);
-                    switch(f.getDimension())
-                    {
-                        case geotop::input::D2D:
-                            clearTempValuesMatrix(A, f.values.getValuesM());
-                            break;
-                        case geotop::input::D3D:
-                            clearTempValuesTensor(A, f.values.getValuesT());
-                            break;
-                        default:
-                            break;
-                    }
+                    zeroFill(&f);
                 }
             }
         }
@@ -906,12 +998,15 @@ void write_output_new(AllData* A)
         {
             ofv = ofs.averages->at(i);
 
-            if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
+            for (j = 0; j < ofv->size(); j++)
             {
-                for (j = 0; j < ofv->size(); j++)
+                geotop::input::OutputFile f = ofv->at(j);
+                refreshCumulates(A, &f);
+                f.values.incCount();
+                if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
                 {
-                    geotop::input::OutputFile f = ofv->at(j);
                     printAverages(A, &f);
+                    zeroFill(&f);
                 }
             }
         }
@@ -921,21 +1016,37 @@ void write_output_new(AllData* A)
 
 static void deallocate_helper(geotop::input::OutputFile* of)
 {
-    switch (of->values.whatIsValid())
+    int wiv = of->values.whatIsValid();
+    switch (wiv)
     {
+        case 0:
+            break;
         case 1:
+            {
+                GeoVector<double>* V = of->values.getValuesV();
+                delete V;
+            }
+            break;
+        case 2:
             {
                 GeoMatrix<double>* M = of->values.getValuesM();
                 delete M;
             }
             break;
-        case 2:
+        case 3:
             {
                 GeoTensor<double>* T = of->values.getValuesT();
                 delete T;
             }
             break;
         default:
+            //This code shouldn't be reached, if it is then VERY BAD things happened
+            geotop::logger::GlobalLogger* lg =
+                geotop::logger::GlobalLogger::getInstance();
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Invalid value for TemporaryValue.whatIsValid: %d. Aborting.",
+                      wiv);
+            exit(666);
             break;
     }
 }
@@ -997,6 +1108,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
     {
         case geotop::input::SOIL_TEMP:
             var = &(A->S->SS->T);
+            break;
+        case geotop::input::SOIL_WATER_CONTENT:
+            var = &(A->S->th);
             break;
         default:
             break;
