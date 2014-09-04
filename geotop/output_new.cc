@@ -1165,7 +1165,16 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 
     switch(what)
     {
-        default:
+	    case geotop::input::ENERGY_NET_RAD:
+            var = &(A->E->Rn_mean);
+            break;
+	    case geotop::input::ENERGY_SHORT_IN_RAD:
+            var = &(A->E->Rswdown_mean);
+			break;
+	    case geotop::input::ENERGY_SURFACE_HEAT:
+            var = &(A->E->SEB_mean);
+			break;
+	    default:
             break;
     }
 
