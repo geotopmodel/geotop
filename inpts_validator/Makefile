@@ -1,5 +1,5 @@
 #GEOtop inpts_validator
-#Copyright (C) 2014 Exact Lab. srl
+#Copyright (C) 2014 eXact lab srl
 
 all: inpts_validator
 
