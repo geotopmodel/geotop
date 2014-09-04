@@ -147,7 +147,7 @@ namespace geotop
         {
             mCount = 1;
             mWhatIsValid = 1;
-            mDValue = NULL;
+            mDValue = geotop::input::gDoubleNoValue;
             mVValue = init;
             mMValue = NULL;
             mTValue = NULL;
