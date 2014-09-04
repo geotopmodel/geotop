@@ -1460,29 +1460,15 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 
     switch(what)
     {
-	    case geotop::input::SNOW_AGE:
-            var = &(A->N->age);
+	    case geotop::input::ENERGY_NET_RAD:
+            var = &(A->E->Rn_mean);
             break;
-        case geotop::input::SNOW_DEPTH:
-            //Be aware that this will never work because tmp has been allocated in stack
-            //and will be wiped away when this function will exit.
-            //We need to rethink the API to accomodate this.
-            //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
-            var = &tmp;
-            break;
-	    case geotop::input::SNOW_MELTED:
-            var = &(A->N->melted);
+	    case geotop::input::ENERGY_SHORT_IN_RAD:
+            var = &(A->E->Rswdown_mean);
 			break;
-	    case geotop::input::SNOW_SUBL:
-            var = &(A->N->subl);
+	    case geotop::input::ENERGY_SURFACE_HEAT:
+            var = &(A->E->SEB_mean);
 			break;
-	    case geotop::input::SNOW_DURATION:
-            var = &(A->N->t_snow);
-			break;
-        // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
-	    // case geotop::input::SNOW_CA:
-        //     var = &(A->N->yes);
-		// 	break;
 	    default:
             break;
     }
