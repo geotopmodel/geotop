@@ -278,11 +278,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	//TODO: integrate Tdirichlet
     // from UZH version: 
 	//Tdirichlet=A->M->var[A->M->nstTs-1][iTs];  <-segfault on this: to better understand.. 
+    Tdirichlet = geotop::input::gDoubleNoValue; // this as temporary hack to make things work
 	
 	if ((long)Tdirichlet == geotop::input::gDoubleNoValue || (long)Tdirichlet == geotop::input::gDoubleAbsent) Tdirichlet=A->P->Tsup;
-    Tdirichlet = geotop::input::gDoubleNoValue; // this as temporary hack to make things work
-
-
 
     //SNOW
 	
