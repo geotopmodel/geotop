@@ -1,8 +1,8 @@
 /** 
  * @file global_logger.h 
  * @Author Gianfranco Gallizia (skyglobe83@gmail.com) 
+ * @copyright (C) 2014 eXact lab srl
  * 
- * http://www.codeproject.com/Articles/1921/Singleton-Pattern-its-implementation-with-C
  */ 
  
 #ifndef GLOBAL_LOGGER_H_INCLUDED 

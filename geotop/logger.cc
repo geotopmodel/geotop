@@ -1,6 +1,7 @@
 /**
  * @file logger.cc
  * @Author Gianfranco Gallizia (skyglobe83@gmail.com)
+ * @copyright (C) 2014 eXact lab srl
  * @brief Log facility class
  *
  * GEOtop logging facility

@@ -485,7 +485,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 			
 		A->I->time += A->P->Dt; //Increase TIME
-			
+        write_output_new(A);
 
 		// counter...// 
 		i_steps++;
