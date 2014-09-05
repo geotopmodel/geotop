@@ -22,7 +22,7 @@ namespace geotop
             SNOW_HNcum, // The height of the snow
             SNOW_MELTED, // Snowmelt
             SNOW_SUBL, // The sublimation of the snow
-			SNOW_DURATION, // The duration of the snow
+            SNOW_DURATION, // The duration of the snow
             // SNOW_CA, // Snow covered area
             UNKNOWN_VAR
         };
