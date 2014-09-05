@@ -1341,6 +1341,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Initialization of the struct "snow" (of the type SNOW):*/
 
     /***************************************************************************************************/
+
+    //Horrible hack needed to cope with legacy code structure
+    snow->allocate_data(geotop::input::gDoubleNoValue, par->total_pixel);
     
     snow->S = new Statevar3D(geotop::input::gDoubleNoValue,
                              par->max_snow_layers,

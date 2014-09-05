@@ -32,6 +32,9 @@ class Snow
         GeoMatrix<double> Wtrans_plot;
         GeoVector<double> Dplot;
         GeoVector<long> change_dir_wind;
+        Snow() {};
+        Snow(double novalue, size_t total_pixel);
+        void allocate_data(double novalue, size_t total_pixel);
 };
 
 #endif
