@@ -461,9 +461,6 @@ namespace geotop
                 case SOIL_ICE_CONTENT:
                 case SOIL_WATER_PRESSURE:
                 case SOIL_TOTAL_PRESSURE:
-				case ENERGY_NET_RAD:
-				case ENERGY_SHORT_IN_RAD:
-				case ENERGY_SURFACE_HEAT:				
                     output.append(getLongString(v));
                     break;
                 default:
@@ -483,11 +480,7 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SOIL_ICE_CONTENT))) == 0) return SOIL_ICE_CONTENT;
             if (tmp.compare(toLower(getLongString(SOIL_WATER_PRESSURE))) == 0) return SOIL_WATER_PRESSURE;
             if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
-            if (tmp.compare(toLower(getLongString(ENERGY_NET_RAD))) == 0) return ENERGY_NET_RAD;
-			if (tmp.compare(toLower(getLongString(ENERGY_SHORT_IN_RAD))) == 0) return ENERGY_SHORT_IN_RAD;
-			if (tmp.compare(toLower(getLongString(ENERGY_SURFACE_HEAT))) == 0) return ENERGY_SURFACE_HEAT;			
 
-			
             return UNKNOWN_VAR;
         }
 
@@ -515,16 +508,7 @@ namespace geotop
                 case SOIL_TOTAL_PRESSURE:
                     output = true;
                     break;
-                case ENERGY_NET_RAD:
-					output = true;
-					break;
-                case ENERGY_SHORT_IN_RAD:
-					output = true;
-					break;
-				case ENERGY_SURFACE_HEAT:
-					output = true;
-					break;
-				default:
+                default:
                     output = false;
                     break;
             }

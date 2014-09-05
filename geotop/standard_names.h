@@ -17,9 +17,6 @@ namespace geotop
             SOIL_ICE_CONTENT, //Ice content in soil depth
             SOIL_WATER_PRESSURE, //Liquid water pressure in soil depth
             SOIL_TOTAL_PRESSURE, //Total water and ice pressure in soil depth
-			ENERGY_NET_RAD,
-			ENERGY_SHORT_IN_RAD,
-			ENERGY_SURFACE_HEAT,
             UNKNOWN_VAR
         };
 

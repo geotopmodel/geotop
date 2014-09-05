@@ -27,10 +27,7 @@ namespace geotop
                 fillStandardName(SOIL_ICE_CONTENT, "SoilIceContent", "SoilThI", "mm");
                 fillStandardName(SOIL_WATER_PRESSURE, "SoilWaterPressure", "SoilP", "m");
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
-	            fillStandardName(ENERGY_NET_RAD, "EnergyNetRadiation", "Rn", "W/m^2");
-	            fillStandardName(ENERGY_SHORT_IN_RAD, "EnergyShortInputRadiation", "SWinR", "W/m^2");
-	            fillStandardName(ENERGY_SURFACE_HEAT, "EnergySurfaceHeatFlux", "SEB", "W/m^2");
-				init = true;
+                init = true;
             }
         }
 
