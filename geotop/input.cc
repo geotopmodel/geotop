@@ -1777,9 +1777,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Initialization of the struct "snow" (of the type SNOW):*/
 
     /***************************************************************************************************/
-    //snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-    snow->S=new Statevar3D();
-    allocate_and_initialize_statevar_3D(snow->S, geotop::input::gDoubleNoValue, par->max_snow_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+    
+    snow->S = new Statevar3D(geotop::input::gDoubleNoValue,
+                             par->max_snow_layers,
+                             geotop::common::Variables::Nr,
+                             geotop::common::Variables::Nc);
 
     //initial snow depth
     if(geotop::common::Variables::files[fsn0] != geotop::input::gStringNoValue &&geotop::common::Variables::files[fswe0] != geotop::input::gStringNoValue ){
@@ -2240,8 +2242,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 
         //	glac->G=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-        glac->G=new Statevar3D();
-        allocate_and_initialize_statevar_3D(glac->G, geotop::input::gDoubleNoValue, par->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+        glac->G = new Statevar3D(geotop::input::gDoubleNoValue,
+                                 par->max_glac_layers,
+                                 geotop::common::Variables::Nr,
+                                 geotop::common::Variables::Nc);
 
         if(par->output_glac_bin == 1){
             if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){

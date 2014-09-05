@@ -21,6 +21,7 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #ifndef STRUCT_GEOTOP_H
 #define STRUCT_GEOTOP_H
 #include "datastructs.h"
+#include "statevar.h"
 
 #include <vector>
 
@@ -614,28 +615,6 @@ class Par
         short DDchannel;
         short DDland;
 
-};
-
-class Statevar3D
-{
-    public:
-        GeoMatrix<short> type;
-        GeoMatrix<long> lnum;
-        GeoTensor<double> Dzl;
-        GeoTensor<double> w_liq;
-        GeoTensor<double> w_ice;
-        GeoTensor<double> T;
-};
-
-class Statevar1D
-{
-    public:
-        short type;
-        long lnum;
-        GeoVector<double> Dzl;
-        GeoVector<double>  w_liq;
-        GeoVector<double> w_ice;
-        GeoVector<double> T;
 };
 
 class Snow
