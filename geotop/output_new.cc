@@ -218,7 +218,7 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
 
 static GeoVector<double>* initTempValuesVector(AllData* A)
 {
-    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel, 0.);
+    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel + 1, 0.);
 
     return output;
 }
