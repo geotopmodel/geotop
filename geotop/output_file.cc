@@ -461,6 +461,13 @@ namespace geotop
                 case SOIL_ICE_CONTENT:
                 case SOIL_WATER_PRESSURE:
                 case SOIL_TOTAL_PRESSURE:
+                // SNOW MAP VARIABLES
+                case SNOW_AGE:
+                case SNOW_HNcum:
+                case SNOW_MELTED:
+                case SNOW_SUBL:
+                case SNOW_DURATION:
+                // case SNOW_CA:
                     output.append(getLongString(v));
                     break;
                 default:
@@ -480,6 +487,13 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SOIL_ICE_CONTENT))) == 0) return SOIL_ICE_CONTENT;
             if (tmp.compare(toLower(getLongString(SOIL_WATER_PRESSURE))) == 0) return SOIL_WATER_PRESSURE;
             if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
+            // SNOW MAP VARIABLES
+            if (tmp.compare(toLower(getLongString(SNOW_AGE))) == 0) return SNOW_AGE;
+            if (tmp.compare(toLower(getLongString(SNOW_HNcum))) == 0) return SNOW_HNcum;
+            if (tmp.compare(toLower(getLongString(SNOW_MELTED))) == 0) return SNOW_MELTED;
+            if (tmp.compare(toLower(getLongString(SNOW_SUBL))) == 0) return SNOW_SUBL;
+            if (tmp.compare(toLower(getLongString(SNOW_DURATION))) == 0) return SNOW_DURATION;
+            // if (tmp.compare(toLower(getLongString(SNOW_CA))) == 0) return SNOW_CA;
 
             return UNKNOWN_VAR;
         }
@@ -508,6 +522,25 @@ namespace geotop
                 case SOIL_TOTAL_PRESSURE:
                     output = true;
                     break;
+                // SNOW MAP VARIABLES
+                case SNOW_AGE:
+                    output = true;
+                    break;
+                case SNOW_HNcum:
+                    output = true;
+                    break;
+                case SNOW_MELTED:
+                    output = true;
+                    break;
+                case SNOW_SUBL:
+                    output = true;
+                    break;
+                case SNOW_DURATION:
+                    output = true;
+                    break;
+                // case SNOW_CA:
+                //     output = true;
+                //     break;
                 default:
                     output = false;
                     break;

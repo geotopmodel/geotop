@@ -27,6 +27,13 @@ namespace geotop
                 fillStandardName(SOIL_ICE_CONTENT, "SoilIceContent", "SoilThI", "mm");
                 fillStandardName(SOIL_WATER_PRESSURE, "SoilWaterPressure", "SoilP", "m");
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
+                // SNOW MAP VARIABLES
+                fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
+                fillStandardName(SNOW_HNcum, "SnowHeightCumulate", "SnowHC", "m");
+                fillStandardName(SNOW_MELTED, "SnowMelted", "SnowM", "-");
+                fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
+                fillStandardName(SNOW_DURATION, "SnowDuration", "SnowDur", "-");
+                // fillStandardName(SNOW_CA, "SnowCoveredArea", "SnowCA", "-");
                 init = true;
             }
         }
