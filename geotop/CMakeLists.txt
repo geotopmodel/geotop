@@ -60,6 +60,8 @@ ENDIF(COMMAND CMAKE_POLICY)
 			constants.h
 			datastructs.h
 			struct.geotop.h
+			statevar.h
+			statevar.cc
 			geotop_common.cc
 			geotop_common.h
 		   )
