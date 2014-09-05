@@ -1437,8 +1437,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     if(par->blowing_snow==1){
 
-        snow->S_for_BS=new Statevar1D();
-        allocate_and_initialize_statevar_1D(snow->S_for_BS, geotop::input::gDoubleNoValue, par->max_snow_layers);
+        //	snow->S_for_BS=(STATEVAR_1D *)malloc(sizeof(STATEVAR_1D));
+        snow->S_for_BS = new Statevar1D(geotop::input::gDoubleNoValue, par->max_snow_layers);
 
         snow->change_dir_wind.resize(Fmaxlong(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1));
 
