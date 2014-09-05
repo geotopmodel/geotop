@@ -273,11 +273,9 @@ public:
                         boost::shared_ptr< std::vector<geotop::input::OutputFile> > files = 
                             boost::any_cast< boost::shared_ptr< std::vector<geotop::input::OutputFile> > >(mMap->at("OUTPUT_SEC"));
                         files->push_back(geotop::input::OutputFile(*mKey, pValue, (long)(*mCurrentLayerIndex), (std::string)(*mCurrentPrefix)));
-#ifdef WITH_LOGGER
 #ifdef TRACELOG
                         trace_log.logsf(TRACE, "actionValueDouble: created new output file: %s %f", mKey->c_str(), pValue);
                         trace_log.logsf(TRACE, "actionValueDouble: files' size: %u", files->size());
-#endif
 #endif
                     }
                     else

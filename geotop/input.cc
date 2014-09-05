@@ -167,15 +167,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 		f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 		fprintf(f, "Error: You have to assign a name to the Tzrun and wzrun files\n");
 		fclose(f);
-#ifdef WITH_LOGGER
         lg->log("You have to assign a name to the Tzrun and wzrun files",
                 geotop::logger::ERROR);
         lg->log("Geotop failed. See failing report.",
                 geotop::logger::CRITICAL);
         exit(1);
-#else
-		t_error("Fatal Error! Geotop is closed. See failing report.");
-#endif
 	}	
 
     std::cout << "SPAR: " << fspar << " : " << geotop::common::Variables::files[fspar] << std::endl ;
