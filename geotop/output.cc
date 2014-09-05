@@ -126,9 +126,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, ",%12g,%12g,%12g", (times->time + par->Dt) / GTConst::secinday, JDfrom0, JD);
-            fprintf(f, ",%12g,%12g,%12g,%12g,%12g,%12g,%12g\n", cnet->Vout / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], Vsup / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim],
-                    Vsub / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim],
-                    wat->Voutlandsub / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim], wat->Voutbottom / (double)par->Dtplot_discharge[geotop::common::Variables::i_sim]);
+            fprintf(f, ",%12g,%12g,%12g,%12g,%12g,%12g,%12g\n", cnet->Vout / (double)par->Dtplot_discharge, Vsup / (double)par->Dtplot_discharge,
+                    Vsub / (double)par->Dtplot_discharge, Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge,
+                    wat->Voutlandsub / (double)par->Dtplot_discharge, wat->Voutbottom / (double)par->Dtplot_discharge);
 #else
             fprintf(f, ",%f,%f,%f", (times->time + par->Dt) / GTConst::secinday, JDfrom0, JD);
             fprintf(f, ",%e,%e,%e,%e,%e,%e,%e\n", cnet->Vout / (double)par->Dtplot_discharge, Vsup / (double)par->Dtplot_discharge,
