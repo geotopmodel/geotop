@@ -1427,6 +1427,25 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 
     switch(what)
     {
+	    case geotop::input::SNOW_AGE:
+            var = &(A->N->age);
+            break;
+	    case geotop::input::SNOW_HNcum:
+            var = &(A->N->HNcum);
+			break;
+	    case geotop::input::SNOW_MELTED:
+            var = &(A->N->melted);
+			break;
+	    case geotop::input::SNOW_SUBL:
+            var = &(A->N->subl);
+			break;
+	    case geotop::input::SNOW_DURATION:
+            var = &(A->N->t_snow);
+			break;
+        // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
+	    // case geotop::input::SNOW_CA:
+        //     var = &(A->N->yes);
+		// 	break;
 	    default:
             break;
     }

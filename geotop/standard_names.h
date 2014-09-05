@@ -17,9 +17,13 @@ namespace geotop
             SOIL_ICE_CONTENT, //Ice content in soil depth
             SOIL_WATER_PRESSURE, //Liquid water pressure in soil depth
             SOIL_TOTAL_PRESSURE, //Total water and ice pressure in soil depth
-			ENERGY_NET_RAD,
-			ENERGY_SHORT_IN_RAD,
-			ENERGY_SURFACE_HEAT,
+            // SNOW MAP VARIABLES
+            SNOW_AGE, // Age of the snow
+            SNOW_HNcum, // The height of the snow
+            SNOW_MELTED, // Snowmelt
+            SNOW_SUBL, // The sublimation of the snow
+			SNOW_DURATION, // The duration of the snow
+            // SNOW_CA, // Snow covered area
             UNKNOWN_VAR
         };
 
