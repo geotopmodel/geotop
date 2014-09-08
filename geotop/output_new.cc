@@ -18,11 +18,14 @@
 #include "geotop_common.h"
 #include "global_logger.h"
 #include "../gt_utilities/path_utils.h"
+#include <meteoio/MeteoIO.h>
 
 #ifdef METEOIO_OUTPUT
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #endif
+
+using namespace mio;
 
 /*==============================================================================
    Constants
@@ -1410,6 +1413,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
         case geotop::input::SOIL_TOTAL_PRESSURE:
             var = &(A->S->Ptot);
             break;
+        case geotop::input::SNOW_HN:
+            var = &(A->W->HN);
+			break;
         default:
             break;
     }
@@ -1421,18 +1427,64 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 }
 
+static GeoVector<double> getSupervectorFromGeoTensor(AllData* A)
+{
+
+    Array3D<double> test = Array3D<double>(geotop::common::Variables::Nr+1,
+                                           geotop::common::Variables::Nc+1,
+                                           A->P->max_snow_layers+1);
+
+    for (int k=1; k < A->P->max_snow_layers +1; k++)
+    {
+	   for (int i=1; i < geotop::common::Variables::Nr +1; i++)
+       {
+	        for (int j=1; j < geotop::common::Variables::Nc +1; j++)
+            {
+		       test[i][j][k] = A->N->S->Dzl[k][i][j];
+            }
+        }
+    }
+
+    Array2D<double> tmpM = Array2D<double>(geotop::common::Variables::Nr+1,
+                                          geotop::common::Variables::Nc+1,0.);
+
+    GeoVector<double> tmpV = GeoVector<double>(A->P->total_pixel+1);
+
+    short r,c;
+
+    for (int i=1; i < A->P->max_snow_layers+1; i++)
+	{
+	    tmpM.operator += (Array2D<double>(test,i));
+	}
+
+	for (int i=1; i < A->P->total_pixel+1; i++)
+	{
+	    r = A->T->rc_cont[i][1];
+        c = A->T->rc_cont[i][2];
+
+        tmpV[i] = tmpM[r][c];
+
+	}
+
+	return tmpV;
+
+}
+
+
 static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what)
 {
     GeoVector<double>* var = NULL;
+    GeoVector<double> tmp = GeoVector<double>(A->P->total_pixel + 1);
 
     switch(what)
     {
 	    case geotop::input::SNOW_AGE:
             var = &(A->N->age);
             break;
-	    case geotop::input::SNOW_HNcum:
-            var = &(A->N->HNcum);
-			break;
+        case geotop::input::SNOW_DEPTH:
+            tmp = getSupervectorFromGeoTensor(A);
+            var = &tmp;
+            break;
 	    case geotop::input::SNOW_MELTED:
             var = &(A->N->melted);
 			break;

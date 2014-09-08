@@ -19,7 +19,8 @@ namespace geotop
             SOIL_TOTAL_PRESSURE, //Total water and ice pressure in soil depth
             // SNOW MAP VARIABLES
             SNOW_AGE, // Age of the snow
-            SNOW_HNcum, // The height of the snow
+            SNOW_DEPTH, // Depth of the snow
+            SNOW_HN, // The height of the new snow fallend in the time interval
             SNOW_MELTED, // Snowmelt
             SNOW_SUBL, // The sublimation of the snow
             SNOW_DURATION, // The duration of the snow
