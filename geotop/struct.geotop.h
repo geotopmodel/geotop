@@ -21,6 +21,9 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #ifndef STRUCT_GEOTOP_H
 #define STRUCT_GEOTOP_H
 #include "datastructs.h"
+#include "statevar.h"
+#include "Snow/snow_class.h"
+#include "Water/water_class.h"
 
 #include <vector>
 
@@ -255,43 +258,43 @@ class Channel
         SoilState *SS;
 };
 
-/*---------------------------------------------------------------------------*/
+// /*---------------------------------------------------------------------------*/
 
-class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
-{
-    public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-        GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
+// class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
+// {
+//     public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
+//         GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
 
-        GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
-                                                   of "punctual_energy" subroutine, rain intensity in mm/s as output of the
-                                                   same subroutine and in "water.balance.c" module*/
-        GeoMatrix<double> HN;                     // map of new snow TODO mattiu
-        GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-        GeoVector<double> PrSNW_mean;
-        GeoVector<double> Pt;
-        GeoVector<double> Ps;
+//         GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+//                                                    of "punctual_energy" subroutine, rain intensity in mm/s as output of the
+//                                                    same subroutine and in "water.balance.c" module*/
+//         GeoMatrix<double> HN;                     // map of new snow TODO mattiu
+//         GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+//         GeoVector<double> PrSNW_mean;
+//         GeoVector<double> Pt;
+//         GeoVector<double> Ps;
 
-        GeoVector<double> h_sup;
+//         GeoVector<double> h_sup;
 
-        GeoMatrix<double> error;
+//         GeoMatrix<double> error;
 
-        GeoVector<double> Lx;
+//         GeoVector<double> Lx;
 
-        GeoVector<double> H0;
-        GeoVector<double> H1;
-        GeoVector<double> dH;
+//         GeoVector<double> H0;
+//         GeoVector<double> H1;
+//         GeoVector<double> dH;
 
-        GeoVector<double> B;
-        GeoVector<double> f;
-        GeoVector<double> df;
+//         GeoVector<double> B;
+//         GeoVector<double> f;
+//         GeoVector<double> df;
 
-        GeoMatrix<double> Klat;
-        GeoMatrix<double> Kbottom;
+//         GeoMatrix<double> Klat;
+//         GeoMatrix<double> Kbottom;
 
-        double Voutlandsub;
-        double Voutlandsup;
-        double Voutbottom;
-};
+//         double Voutlandsub;
+//         double Voutlandsup;
+//         double Voutbottom;
+// };
 
 /*---------------------------------------------------------------------------*/
 class Times
@@ -616,54 +619,6 @@ class Par
 
 };
 
-class Statevar3D
-{
-    public:
-        GeoMatrix<short> type;
-        GeoMatrix<long> lnum;
-        GeoTensor<double> Dzl;
-        GeoTensor<double> w_liq;
-        GeoTensor<double> w_ice;
-        GeoTensor<double> T;
-};
-
-class Statevar1D
-{
-    public:
-        short type;
-        long lnum;
-        GeoVector<double> Dzl;
-        GeoVector<double>  w_liq;
-        GeoVector<double> w_ice;
-        GeoVector<double> T;
-};
-
-class Snow
-{
-    public:
-        Statevar3D *S;
-        Statevar1D *S_for_BS;
-        GeoVector<double> age;
-        GeoVector<double> MELTED;
-        GeoVector<double> melted;
-        GeoVector<double> HNcum;                  // TODO mattiu
-        GeoVector<double> SUBL;
-        GeoVector<double> subl;
-        GeoVector<double> t_snow;
-        GeoVector<short> yes;
-        GeoMatrix<double> Qsub;
-        GeoMatrix<double> Qsub_x;
-        GeoMatrix<double> Qsub_y;
-        GeoMatrix<double> Nabla2_Qtrans;
-        GeoMatrix<double> Qtrans;
-        GeoMatrix<double> Qsalt;
-        GeoMatrix<double> Qtrans_x;
-        GeoMatrix<double> Qtrans_y;
-        GeoMatrix<double> Wsubl_plot;
-        GeoMatrix<double> Wtrans_plot;
-        GeoVector<double> Dplot;
-        GeoVector<long> change_dir_wind;
-};
 
 class Glacier
 {

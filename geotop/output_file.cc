@@ -442,9 +442,14 @@ namespace geotop
                 case SOIL_ICE_CONTENT:
                 case SOIL_WATER_PRESSURE:
                 case SOIL_TOTAL_PRESSURE:
-				case ENERGY_NET_RAD:
-				case ENERGY_SHORT_IN_RAD:
-				case ENERGY_SURFACE_HEAT:				
+                // SNOW MAP VARIABLES
+                case SNOW_AGE:
+                case SNOW_DEPTH:
+                case SNOW_HN:
+                case SNOW_MELTED:
+                case SNOW_SUBL:
+                case SNOW_DURATION:
+                // case SNOW_CA:
                     output.append(getLongString(v));
                     break;
                 default:
@@ -464,11 +469,15 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SOIL_ICE_CONTENT))) == 0) return SOIL_ICE_CONTENT;
             if (tmp.compare(toLower(getLongString(SOIL_WATER_PRESSURE))) == 0) return SOIL_WATER_PRESSURE;
             if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
-            if (tmp.compare(toLower(getLongString(ENERGY_NET_RAD))) == 0) return ENERGY_NET_RAD;
-			if (tmp.compare(toLower(getLongString(ENERGY_SHORT_IN_RAD))) == 0) return ENERGY_SHORT_IN_RAD;
-			if (tmp.compare(toLower(getLongString(ENERGY_SURFACE_HEAT))) == 0) return ENERGY_SURFACE_HEAT;			
+            // SNOW MAP VARIABLES
+            if (tmp.compare(toLower(getLongString(SNOW_AGE))) == 0) return SNOW_AGE;
+            if (tmp.compare(toLower(getLongString(SNOW_DEPTH))) == 0) return SNOW_DEPTH;
+            if (tmp.compare(toLower(getLongString(SNOW_HN))) == 0) return SNOW_HN;
+            if (tmp.compare(toLower(getLongString(SNOW_MELTED))) == 0) return SNOW_MELTED;
+            if (tmp.compare(toLower(getLongString(SNOW_SUBL))) == 0) return SNOW_SUBL;
+            if (tmp.compare(toLower(getLongString(SNOW_DURATION))) == 0) return SNOW_DURATION;
+            // if (tmp.compare(toLower(getLongString(SNOW_CA))) == 0) return SNOW_CA;
 
-			
             return UNKNOWN_VAR;
         }
 
@@ -496,16 +505,29 @@ namespace geotop
                 case SOIL_TOTAL_PRESSURE:
                     output = true;
                     break;
-                case ENERGY_NET_RAD:
-					output = true;
+                // SNOW MAP VARIABLES
+                case SNOW_AGE:
+                    output = true;
+                    break;
+                case SNOW_DEPTH:
+				    output = true;
 					break;
-                case ENERGY_SHORT_IN_RAD:
-					output = true;
-					break;
-				case ENERGY_SURFACE_HEAT:
-					output = true;
-					break;
-				default:
+                case SNOW_HN:
+                    output = true;
+                    break;
+                case SNOW_MELTED:
+                    output = true;
+                    break;
+                case SNOW_SUBL:
+                    output = true;
+                    break;
+                case SNOW_DURATION:
+                    output = true;
+                    break;
+                // case SNOW_CA:
+                //     output = true;
+                //     break;
+                default:
                     output = false;
                     break;
             }

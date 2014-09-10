@@ -18,11 +18,14 @@
 #include "geotop_common.h"
 #include "global_logger.h"
 #include "../gt_utilities/path_utils.h"
+#include <meteoio/MeteoIO.h>
 
 #ifdef METEOIO_OUTPUT
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #endif
+
+using namespace mio;
 
 /*==============================================================================
    Constants
@@ -1148,6 +1151,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
         case geotop::input::SOIL_TOTAL_PRESSURE:
             var = &(A->S->Ptot);
             break;
+        case geotop::input::SNOW_HN:
+            var = &(A->W->HN);
+			break;
         default:
             break;
     }
@@ -1159,12 +1165,65 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 }
 
+static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor<double>* T)
+{
+
+    size_t l, layers;  //GeoTensor layer indexes
+    long r, c, i;      //Row/Column and Index needed to build the SuperVector
+
+    GeoVector<double> output = GeoVector<double>(A->P->total_pixel + 1, 0.);
+
+    layers = T->getDh();
+
+    if (layers > 1)
+    {
+        for (l = 1; l <= layers; l++)
+        {
+            for (i = 1; i <= A->P->total_pixel; i++)
+            {
+                r = A->T->rc_cont[i][1];
+                c = A->T->rc_cont[i][2];
+
+                output[i] += (*T)[l][r][c];
+
+            }
+        }
+    }
+
+	return output;
+
+}
+
 static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what)
 {
     GeoVector<double>* var = NULL;
+    GeoVector<double> tmp = GeoVector<double>(A->P->total_pixel + 1);
 
     switch(what)
     {
+	    case geotop::input::SNOW_AGE:
+            var = &(A->N->age);
+            break;
+        case geotop::input::SNOW_DEPTH:
+            //Be aware that this will never work because tmp has been allocated in stack
+            //and will be wiped away when this function will exit.
+            //We need to rethink the API to accomodate this.
+            //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
+            var = &tmp;
+            break;
+	    case geotop::input::SNOW_MELTED:
+            var = &(A->N->melted);
+			break;
+	    case geotop::input::SNOW_SUBL:
+            var = &(A->N->subl);
+			break;
+	    case geotop::input::SNOW_DURATION:
+            var = &(A->N->t_snow);
+			break;
+        // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
+	    // case geotop::input::SNOW_CA:
+        //     var = &(A->N->yes);
+		// 	break;
 	    default:
             break;
     }
