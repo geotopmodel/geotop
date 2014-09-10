@@ -197,27 +197,27 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
     return output;
 }
 
-static GeoVector<double>* initTempValuesVector(AllData* A)
+static GeoVector<double>* initTempValuesVector(size_t count)
 {
-    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel, 0.);
+    GeoVector<double>* output = new GeoVector<double>(count, 0.);
 
     return output;
 }
 
-static GeoMatrix<double>* initTempValuesMatrix(AllData* A)
+static GeoMatrix<double>* initTempValuesMatrix(size_t rows, size_t cols)
 {
-    GeoMatrix<double>* output = new GeoMatrix<double>(geotop::common::Variables::Nl+1,
-                                                      A->P->total_pixel,
+    GeoMatrix<double>* output = new GeoMatrix<double>(rows,
+                                                      cols,
                                                       0.);
 
     return output;
 }
 
-static GeoTensor<double>* initTempValuesTensor(AllData* A, size_t count)
+static GeoTensor<double>* initTempValuesTensor(size_t layers, size_t rows, size_t cols)
 {
-    GeoTensor<double>* output = new GeoTensor<double>(count,
-                                                      geotop::common::Variables::Nl+1,
-                                                      A->P->total_pixel,
+    GeoTensor<double>* output = new GeoTensor<double>(layers,
+                                                      rows,
+                                                      cols,
                                                       0.);
 
     return output;
@@ -232,10 +232,45 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
         case geotop::input::D1Ds:
             break;
         case geotop::input::D2D:
-            of.values = geotop::input::TemporaryValues(initTempValuesVector(A));
+            {
+                size_t count;
+
+                switch (of.getVariable())
+                {
+                    //Soil variables
+                    case geotop::input::SOIL_TEMP:
+                    case geotop::input::SOIL_WATER_CONTENT:
+                        count = A->P->total_pixel + 1;
+                        break;
+                    default:
+                        count = 0;
+                        break;
+                }
+
+                of.values = geotop::input::TemporaryValues(initTempValuesVector(count));
+            }
             break;
         case geotop::input::D3D:
-            of.values = geotop::input::TemporaryValues(initTempValuesMatrix(A));
+            {
+                size_t rows, cols;
+
+                switch (of.getVariable())
+                {
+                    //Soil variables
+                    case geotop::input::SOIL_TEMP:
+                    case geotop::input::SOIL_WATER_CONTENT:
+                        rows = geotop::common::Variables::Nl + 1;
+                        cols = A->P->total_pixel + 1;
+                        of.values = geotop::input::TemporaryValues(initTempValuesMatrix(rows, cols));
+                        break;
+                    default:
+                        rows = 0;
+                        cols = 0;
+                        of.values = geotop::input::TemporaryValues(initTempValuesMatrix(rows, cols));
+                        break;
+                }
+
+            }
             break;
         default:
             break;
