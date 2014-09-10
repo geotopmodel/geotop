@@ -1427,49 +1427,34 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 }
 
-static GeoVector<double> getSupervectorFromGeoTensor(AllData* A)
+static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor* T)
 {
 
-    Array3D<double> test = Array3D<double>(geotop::common::Variables::Nr+1,
-                                           geotop::common::Variables::Nc+1,
-                                           A->P->max_snow_layers+1);
+    size_t l, layers;  //GeoTensor layer indexes
+    long r, c, i;      //Row/Column and Index needed to build the SuperVector
 
-    for (int k=1; k < A->P->max_snow_layers +1; k++)
+    GeoVector<double> output = GeoVector<double>(A->P->total_pixel + 1, 0.);
+
+    layers = T->getDh();
+
+    if (layers > 1)
     {
-	   for (int i=1; i < geotop::common::Variables::Nr +1; i++)
-       {
-	        for (int j=1; j < geotop::common::Variables::Nc +1; j++)
+        for (l = 1; l <= layers; l++)
+        {
+            for (i = 1; i <= A->P->total_pixel; i++)
             {
-		       test[i][j][k] = A->N->S->Dzl[k][i][j];
+                r = A->T->rc_cont[i][1];
+                c = A->T->rc_cont[i][2];
+
+                tmpV[i] += (*T)[l][r][c];
+
             }
         }
     }
 
-    Array2D<double> tmpM = Array2D<double>(geotop::common::Variables::Nr+1,
-                                          geotop::common::Variables::Nc+1,0.);
-
-    GeoVector<double> tmpV = GeoVector<double>(A->P->total_pixel+1);
-
-    short r,c;
-
-    for (int i=1; i < A->P->max_snow_layers+1; i++)
-	{
-	    tmpM.operator += (Array2D<double>(test,i));
-	}
-
-	for (int i=1; i < A->P->total_pixel+1; i++)
-	{
-	    r = A->T->rc_cont[i][1];
-        c = A->T->rc_cont[i][2];
-
-        tmpV[i] = tmpM[r][c];
-
-	}
-
-	return tmpV;
+	return output;
 
 }
-
 
 static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Variable what)
 {
@@ -1482,7 +1467,10 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
             var = &(A->N->age);
             break;
         case geotop::input::SNOW_DEPTH:
-            tmp = getSupervectorFromGeoTensor(A);
+            //Be aware that this will never work because tmp has been allocated in stack
+            //and will be wiped away when this function will exit.
+            //We need to rethink the API to accomodate this.
+            tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
             var = &tmp;
             break;
 	    case geotop::input::SNOW_MELTED:
