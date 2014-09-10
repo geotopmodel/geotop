@@ -1427,7 +1427,7 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 }
 
-static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor* T)
+static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor<double>* T)
 {
 
     size_t l, layers;  //GeoTensor layer indexes
@@ -1446,7 +1446,7 @@ static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor* T)
                 r = A->T->rc_cont[i][1];
                 c = A->T->rc_cont[i][2];
 
-                tmpV[i] += (*T)[l][r][c];
+                output[i] += (*T)[l][r][c];
 
             }
         }
@@ -1470,7 +1470,7 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
             //Be aware that this will never work because tmp has been allocated in stack
             //and will be wiped away when this function will exit.
             //We need to rethink the API to accomodate this.
-            tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
+            //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
             var = &tmp;
             break;
 	    case geotop::input::SNOW_MELTED:

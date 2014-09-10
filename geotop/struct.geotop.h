@@ -23,6 +23,7 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #include "datastructs.h"
 #include "statevar.h"
 #include "Snow/snow_class.h"
+#include "Water/water_class.h"
 
 #include <vector>
 
@@ -257,43 +258,43 @@ class Channel
         SoilState *SS;
 };
 
-/*---------------------------------------------------------------------------*/
+// /*---------------------------------------------------------------------------*/
 
-class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
-{
-    public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-        GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
+// class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
+// {
+//     public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
+//         GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
 
-        GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
-                                                   of "punctual_energy" subroutine, rain intensity in mm/s as output of the
-                                                   same subroutine and in "water.balance.c" module*/
-        GeoMatrix<double> HN;                     // map of new snow TODO mattiu
-        GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-        GeoVector<double> PrSNW_mean;
-        GeoVector<double> Pt;
-        GeoVector<double> Ps;
+//         GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+//                                                    of "punctual_energy" subroutine, rain intensity in mm/s as output of the
+//                                                    same subroutine and in "water.balance.c" module*/
+//         GeoMatrix<double> HN;                     // map of new snow TODO mattiu
+//         GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+//         GeoVector<double> PrSNW_mean;
+//         GeoVector<double> Pt;
+//         GeoVector<double> Ps;
 
-        GeoVector<double> h_sup;
+//         GeoVector<double> h_sup;
 
-        GeoMatrix<double> error;
+//         GeoMatrix<double> error;
 
-        GeoVector<double> Lx;
+//         GeoVector<double> Lx;
 
-        GeoVector<double> H0;
-        GeoVector<double> H1;
-        GeoVector<double> dH;
+//         GeoVector<double> H0;
+//         GeoVector<double> H1;
+//         GeoVector<double> dH;
 
-        GeoVector<double> B;
-        GeoVector<double> f;
-        GeoVector<double> df;
+//         GeoVector<double> B;
+//         GeoVector<double> f;
+//         GeoVector<double> df;
 
-        GeoMatrix<double> Klat;
-        GeoMatrix<double> Kbottom;
+//         GeoMatrix<double> Klat;
+//         GeoMatrix<double> Kbottom;
 
-        double Voutlandsub;
-        double Voutlandsup;
-        double Voutbottom;
-};
+//         double Voutlandsub;
+//         double Voutlandsup;
+//         double Voutbottom;
+// };
 
 /*---------------------------------------------------------------------------*/
 class Times

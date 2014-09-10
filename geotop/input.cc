@@ -1314,28 +1314,43 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /****************************************************************************************************/
     /*! Completing of the struct "water" (of the type WATER) */
 
-    wat->Voutlandsub = 0.;
-    wat->Voutlandsup = 0.;
-    wat->Voutbottom = 0.;
+    //Horrible hack needed to cope with legacy code structure
+    wat->allocate_data(geotop::input::gDoubleNoValue, geotop::common::Variables::Nr, geotop::common::Variables::Nc, par->total_pixel);
+	
+    // wat->Voutlandsub = 0.;
+    // wat->Voutlandsup = 0.;
+    // wat->Voutbottom = 0.;
 
-    /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm):*/
-    wat->Pnet.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
+    // /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm):*/
+    // //	wat->Pnet=new_doublematrix(Nr,Nc);
+    // //	initialize_doublematrix(wat->Pnet,0.0);
+    // wat->Pnet.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
-    wat->HN.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);//TODO mattiu
-    /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
-    wat->PrecTot.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
+    // wat->HN.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);//TODO mattiu
+    // /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation):*/
+    // //	wat->PrecTot=new_doublematrix(Nr,Nc);
+    // //	initialize_doublematrix(wat->PrecTot,0.0);
+    // wat->PrecTot.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
-    /* Initialization of the matrices with the output of total precipitation and interception:*/
-    if (par->output_meteo_bin == 1 &&geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
-        wat->PrTOT_mean.resize(par->total_pixel+1,0.0);
+    // /* Initialization of the matrices with the output of total precipitation and interception:*/
+    // if (par->output_meteo_bin == 1 &&geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
+    //     //	wat->PrTOT_mean=new_doublevector(par->total_pixel);
+    //     //	initialize_doublevector(wat->PrTOT_mean, 0.);
+    //     wat->PrTOT_mean.resize(par->total_pixel+1,0.0);
 
-        wat->PrSNW_mean.resize(par->total_pixel+1,0.0);
+    //     //	wat->PrSNW_mean=new_doublevector(par->total_pixel);
+    //     //	initialize_doublevector(wat->PrSNW_mean, 0.);
+    //     wat->PrSNW_mean.resize(par->total_pixel+1,0.0);
 
-        wat->Pt.resize(par->total_pixel+1);
-        wat->Ps.resize(par->total_pixel+1);
-    }
+    //     //	wat->Pt=new_doublevector(par->total_pixel);
+    //     wat->Pt.resize(par->total_pixel+1);
+    //     //	wat->Ps=new_doublevector(par->total_pixel);
+    //     wat->Ps.resize(par->total_pixel+1);
+    // }
 
-    wat->h_sup.resize(par->total_pixel+1,0.0);
+    // //	wat->h_sup=new_doublevector(par->total_pixel);
+    // //	initialize_doublevector(wat->h_sup, 0.);
+    // wat->h_sup.resize(par->total_pixel+1,0.0);
 
     /****************************************************************************************************/
     /*! Initialization of the struct "snow" (of the type SNOW):*/
