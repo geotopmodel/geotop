@@ -450,6 +450,9 @@ namespace geotop
                 case SNOW_SUBL:
                 case SNOW_DURATION:
                 // case SNOW_CA:
+                case PREC_TOTAL:
+                case PREC_LIQ:
+                case PREC_SNOW:
                 case VECTOR_TEST:
                     output.append(getLongString(v));
                     break;
@@ -478,6 +481,10 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SNOW_SUBL))) == 0) return SNOW_SUBL;
             if (tmp.compare(toLower(getLongString(SNOW_DURATION))) == 0) return SNOW_DURATION;
             // if (tmp.compare(toLower(getLongString(SNOW_CA))) == 0) return SNOW_CA;
+            // WATER MAP VARIABLES
+            if (tmp.compare(toLower(getLongString(PREC_TOTAL))) == 0) return PREC_TOTAL;
+            if (tmp.compare(toLower(getLongString(PREC_LIQ))) == 0) return PREC_LIQ;
+            if (tmp.compare(toLower(getLongString(PREC_SNOW))) == 0) return PREC_SNOW;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
 
             return UNKNOWN_VAR;
@@ -508,13 +515,13 @@ namespace geotop
                     output = true;
                     break;
                 // SNOW MAP VARIABLES
-				//If mDimension is D3D then false else true
+                //If mDimension is D3D then false else true
                 case SNOW_AGE:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case SNOW_DEPTH:// Dzl is a GeoTensor that has to be cumulate in space
-				    output = true;
-					break;
+                    output = true;
+                    break;
                 case SNOW_HN:
                     output = (mDimension == D3D) ? false : true;
                     break;
@@ -530,7 +537,16 @@ namespace geotop
                 // case SNOW_CA:
                 //     output = true;
                 //     break;
+                case PREC_TOTAL:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
                 case VECTOR_TEST:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case PREC_LIQ:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case PREC_SNOW:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 default:
