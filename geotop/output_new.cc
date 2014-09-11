@@ -239,6 +239,22 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
         case geotop::input::D1Dp:
             break;
         case geotop::input::D1Ds:
+            {
+                size_t count;
+
+                switch(of.getVariable())
+                {
+                    //Soil variables
+                    case geotop::input::SOIL_TEMP:
+                    case geotop::input::SOIL_WATER_CONTENT:
+                        count = geotop::common::Variables::Nl;
+                        break;
+                    default:
+                        count = 0;
+                }
+
+                of.values = geotop::input::TemporaryValues(initTempValuesVector(count));
+            }
             break;
         case geotop::input::D2D:
             {
@@ -295,7 +311,6 @@ static void zeroFill(geotop::input::OutputFile* of)
         case geotop::input::D1Dp:
             break;
         case geotop::input::D1Ds:
-            break;
         case geotop::input::D2D:
             {
                 GeoVector<double>* V = of->values.getValuesV();
