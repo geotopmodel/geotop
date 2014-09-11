@@ -170,6 +170,15 @@ static GeoVector<double>* extractGeoVector(GeoMatrix<double>* M, long layer)
     return V;
 }
 
+/**
+ * @internal
+ * @brief Gets a single layer's supervector
+ * @param[in] layer the layer's index
+ * param[in] of pointer to an OutputFile specification object
+ * param[in] A pointer to the AllData structure
+ * @return a newly created GeoVector holding the requested data.
+ * WARNING; the caller has to explicitly delete that GeoVector.
+ */
 static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputFile* of, AllData* A)
 {
     GeoVector<double>* output = NULL;
