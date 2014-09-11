@@ -504,6 +504,76 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
 }
 #endif
 
+static void printTableHeader(std::string filename, size_t numlayers, bool printunit = false, std::string unit = "")
+{
+    FILE* fp;
+
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    switch (gt_fileExists(filename.c_str()))
+    {
+        case 0:
+            //File doesn't exists
+            break;
+        case 1:
+            //File exists
+            return;
+        case 2:
+            //File is a directory
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to open file '%s' for writing: the file is a directory. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+        case 3:
+            //File is a special file
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to open file '%s' for writing: wrong type. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+        default:
+            //Unspecified error
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to open file '%s' for writing: an error occurred while trying to find file's type. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+    }
+
+    //Create the file
+    fp = fopen (filename.c_str(), "w");
+
+    if (fp == NULL)
+    {
+        lg->logsf(geotop::logger::CRITICAL,
+                  "Unable to open file '%s' for writing. Aborting.",
+                  filename.c_str());
+        exit(1);
+    }
+
+    //Write the header
+    fprintf(fp, "\"Time[s]\",");
+
+    for (size_t i = 1; i <= numlayers; i++)
+    {
+        if (printunit)
+        {
+            fprintf(fp, "\"Layer %zu [%s]\",", i, unit.c_str());
+        }
+        else
+        {
+            fprintf(fp, "\"Layer %zu\",", i);
+        }
+    }
+
+    fseek(fp, -1, SEEK_CUR);
+    fprintf(fp,"\n");
+
+    fclose(fp);
+}
+
 /**
  * @brief Prints a variable to the corrisponding file(s)
  * @param[in] A global data storage pointer
