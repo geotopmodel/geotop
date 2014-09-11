@@ -609,6 +609,33 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
             case geotop::input::D1Dp:
                 break;
             case geotop::input::D1Ds:
+                {
+                    //Fetch TemporaryValues Vector
+                    GeoVector<double>* TV = f->values.getValuesV();
+                    size_t layers = TV->size() - 1;
+
+                    //For all layers
+                    for (size_t i = 1; i <= layers; i++)
+                    {
+                        double mean = 0.;
+                        //Get layer's data
+                        GeoVector<double>* V = getSupervectorLayer(i, f, A);
+                        size_t s = V->size();
+
+                        //Compute mean of all layer's points
+                        for (size_t j = 1; j < s; j++)
+                            mean += V->at(j);
+                        mean /= (s - 1);
+
+                        //Store the data in the temporary values array
+                        (*TV)[i - 1] = mean;
+
+                        //Delete temporary GeoVector
+                        delete V;
+                    }
+
+                //Print a new row in the table
+                }
                 break;
             case geotop::input::D2D:
                 {
