@@ -173,6 +173,22 @@ static GeoVector<double>* extractGeoVector(GeoMatrix<double>* M, long layer)
     return V;
 }
 
+static GeoVector<double>* extractSupervectorFromMap(GeoMatrix<double>* M, AllData* A)
+{
+    //We have t build a Supervector from HN
+    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel + 1);
+    long r,c;
+    size_t i;
+    for (i = 1; i <= A->P->total_pixel; i++)
+    {
+        r = A->T->rc_cont[i][1];
+        c = A->T->rc_cont[i][2];
+        (*output)[i] = (*M)[r][c];
+    }
+
+    return output;
+}
+
 static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputFile* of, AllData* A)
 {
     GeoVector<double>* output = NULL;
@@ -192,9 +208,21 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
             output = new GeoVector<double>(T->size());
             for (size_t i=0, s = T->size(); i < s; i++)
             {
-                output[i] = T->at(i);
+                (*output)[i] = T->at(i);
             }
         }
+        else
+        {
+            switch(of->getVariable())
+            {
+                case geotop::input::SNOW_HN:
+                    output = extractSupervectorFromMap(&(A->W->HN), A);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 
     return output;
@@ -243,6 +271,16 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     //Soil variables
                     case geotop::input::SOIL_TEMP:
                     case geotop::input::SOIL_WATER_CONTENT:
+                    case geotop::input::SOIL_ICE_CONTENT:
+                    case geotop::input::SOIL_WATER_PRESSURE:
+                    case geotop::input::SOIL_TOTAL_PRESSURE:
+                    case geotop::input::SNOW_AGE:
+                    case geotop::input::SNOW_DEPTH:
+                    case geotop::input::SNOW_HN:
+                    case geotop::input::SNOW_MELTED:
+                    case geotop::input::SNOW_SUBL:
+                    case geotop::input::SNOW_DURATION:
+                    case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
                     default:
@@ -262,6 +300,9 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     //Soil variables
                     case geotop::input::SOIL_TEMP:
                     case geotop::input::SOIL_WATER_CONTENT:
+                    case geotop::input::SOIL_ICE_CONTENT:
+                    case geotop::input::SOIL_WATER_PRESSURE:
+                    case geotop::input::SOIL_TOTAL_PRESSURE:
                         rows = geotop::common::Variables::Nl + 1;
                         cols = A->P->total_pixel + 1;
                         of.values = geotop::input::TemporaryValues(initTempValuesMatrix(rows, cols));
@@ -341,14 +382,37 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
         }
         else
         {
-            std::string vname = geotop::input::OutputFile::var2str(f->getVariable());
+            switch(f->getVariable())
+            {
+                case geotop::input::SNOW_HN:
+                    {
+                        V = extractSupervectorFromMap(&(A->W->HN), A);
 
-            geotop::logger::GlobalLogger* lg =
-                geotop::logger::GlobalLogger::getInstance();
-            lg->logsf(geotop::logger::CRITICAL,
-                      "Unable to retrieve data for variable '%s'. Aborting.",
-                      vname.c_str());
-            exit(1);
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                    break;
+                default:
+                {
+                    std::string vname = geotop::input::OutputFile::var2str(f->getVariable());
+
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+                    lg->logsf(geotop::logger::CRITICAL,
+                              "Unable to retrieve data for variable '%s'. Aborting.",
+                              vname.c_str());
+                    exit(1);
+                }
+                break;
+            }
         }
     }
 
@@ -1224,6 +1288,9 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 	    // case geotop::input::SNOW_CA:
         //     var = &(A->N->yes);
 		// 	break;
+        case geotop::input::VECTOR_TEST:
+            var = &(A->N->HNcum);
+			break;
 	    default:
             break;
     }

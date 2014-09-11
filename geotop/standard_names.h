@@ -25,6 +25,7 @@ namespace geotop
             SNOW_SUBL, // The sublimation of the snow
             SNOW_DURATION, // The duration of the snow
             // SNOW_CA, // Snow covered area
+            VECTOR_TEST,
             UNKNOWN_VAR
         };
 

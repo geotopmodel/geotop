@@ -35,6 +35,7 @@ namespace geotop
                 fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
                 fillStandardName(SNOW_DURATION, "SnowDuration", "SnowDur", "-");
                 // fillStandardName(SNOW_CA, "SnowCoveredArea", "SnowCA", "-");
+                fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
         }
