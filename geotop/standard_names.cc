@@ -27,10 +27,16 @@ namespace geotop
                 fillStandardName(SOIL_ICE_CONTENT, "SoilIceContent", "SoilThI", "mm");
                 fillStandardName(SOIL_WATER_PRESSURE, "SoilWaterPressure", "SoilP", "m");
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
-	            fillStandardName(ENERGY_NET_RAD, "EnergyNetRadiation", "Rn", "W/m^2");
-	            fillStandardName(ENERGY_SHORT_IN_RAD, "EnergyShortInputRadiation", "SWinR", "W/m^2");
-	            fillStandardName(ENERGY_SURFACE_HEAT, "EnergySurfaceHeatFlux", "SEB", "W/m^2");
-				init = true;
+                // SNOW MAP VARIABLES
+                fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
+                fillStandardName(SNOW_DEPTH, "SnowDepth", "HS", "mm");
+                fillStandardName(SNOW_HN, "SnowHeightFallen", "SnowHC", "m");
+                fillStandardName(SNOW_MELTED, "SnowMelted", "SnowM", "-");
+                fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
+                fillStandardName(SNOW_DURATION, "SnowDuration", "SnowDur", "-");
+                // fillStandardName(SNOW_CA, "SnowCoveredArea", "SnowCA", "-");
+                fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
+                init = true;
             }
         }
 
