@@ -310,6 +310,9 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SNOW_MELTED:
                     case geotop::input::SNOW_SUBL:
                     case geotop::input::SNOW_DURATION:
+                    case geotop::input::PREC_TOTAL:
+                    case geotop::input::PREC_LIQ:
+                    case geotop::input::PREC_SNOW:
                     case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
@@ -414,6 +417,21 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
             switch(f->getVariable())
             {
                 case geotop::input::SNOW_HN:
+                    {
+                        V = extractSupervectorFromMap(&(A->W->HN), A);
+
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                case geotop::input::PREC_LIQ:
                     {
                         V = extractSupervectorFromMap(&(A->W->HN), A);
 
@@ -1477,6 +1495,12 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
         case geotop::input::SOIL_TOTAL_PRESSURE:
             var = &(A->S->Ptot);
             break;
+        case geotop::input::SNOW_HN:
+            var = &(A->W->HN);
+            break;
+        case geotop::input::PREC_LIQ:
+            var = &(A->W->Pnet);
+            break;
         default:
             break;
     }
@@ -1546,7 +1570,13 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
             // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
             // case geotop::input::SNOW_CA:
             //     var = &(A->N->yes);
-            // 	break;
+            //     break;
+        case geotop::input::PREC_TOTAL:
+            var = &(A->W->Pt);
+            break;
+        case geotop::input::PREC_SNOW:
+            var = &(A->W->Ps);
+            break;
         case geotop::input::VECTOR_TEST:
             var = &(A->N->HNcum);
             break;

@@ -35,6 +35,10 @@ namespace geotop
                 fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
                 fillStandardName(SNOW_DURATION, "SnowDuration", "SnowDur", "-");
                 // fillStandardName(SNOW_CA, "SnowCoveredArea", "SnowCA", "-");
+                // WATER MAPS VARIABLES
+                fillStandardName(PREC_TOTAL, "PrecipitationTotal", "PrecTot", "mm");
+                fillStandardName(PREC_LIQ, "PrecipitationNet", "PrecNet", "mm");
+                fillStandardName(PREC_SNOW, "PrecipitationSnow", "PrecSnow", "mm");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
