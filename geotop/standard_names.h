@@ -29,6 +29,9 @@ namespace geotop
             PREC_TOTAL, //Total precipitation (snow + rain)
             PREC_LIQ, //Liquid precipitation which reaches the soil surface in the time interval
             PREC_SNOW, //Snowy part of the total precipitation
+            // ENERGY MAPS VARIABLES
+            ENER_SW, // Short wave radiation
+            ENER_LW, // Long wave radiation
             VECTOR_TEST,
             UNKNOWN_VAR
         };

@@ -39,6 +39,8 @@ namespace geotop
                 fillStandardName(PREC_TOTAL, "PrecipitationTotal", "PrecTot", "mm");
                 fillStandardName(PREC_LIQ, "PrecipitationNet", "PrecNet", "mm");
                 fillStandardName(PREC_SNOW, "PrecipitationSnow", "PrecSnow", "mm");
+                fillStandardName(ENER_SW, "EnergyShortWave", "SW", "W/m2");
+                fillStandardName(ENER_LW, "EnergyLongWave", "LW", "W/m2");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }

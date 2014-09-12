@@ -283,6 +283,8 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::PREC_TOTAL:
                     case geotop::input::PREC_LIQ:
                     case geotop::input::PREC_SNOW:
+                    case geotop::input::ENER_SW:
+                    case geotop::input::ENER_LW:
                     case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
@@ -404,7 +406,7 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
                     }
                 case geotop::input::PREC_LIQ:
                     {
-                        V = extractSupervectorFromMap(&(A->W->HN), A);
+                        V = extractSupervectorFromMap(&(A->W->Pnet), A);
 
                         GeoVector<double>* TV = f->values.getValuesV();
 
@@ -1315,8 +1317,14 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
         case geotop::input::PREC_SNOW:
             var = &(A->W->Ps);
             break;
+        case geotop::input::ENER_SW:
+            var = &(A->E->SW);
+            break;
+        case geotop::input::ENER_LW:
+            var = &(A->E->LW);
+            break;
         case geotop::input::VECTOR_TEST:
-            var = &(A->N->HNcum);
+            var = &(A->E->SWin);
             break;
 	default:
             break;

@@ -839,15 +839,17 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
 
             
-            if(A->P->output_surfenergy[geotop::common::Variables::i_sim]>0){
+            // if(A->P->output_surfenergy[geotop::common::Variables::i_sim]>0){
                 
                 if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) A->E->Rn[j] = (SW+LW);
                 
                 if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue) A->E->LWin[j] = LWin;
                 
-                if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue) A->E->LW[j] = LW;
+                // if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
+                  A->E->LW[j] = LW;
                 
-                if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)  A->E->SW[j] = SW;
+                // if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
+                  A->E->SW[j] = SW;
                 
                 if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue) A->E->SWin[j] = SWin;
                 
@@ -862,16 +864,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)  A->E->LE[j] = LE;
                 
                 if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue) A->E->Ts[j] = (*Tgskin);
-            }
+            // }
 
-            if(A->P->output_meteo[geotop::common::Variables::i_sim]>0){
-                if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
+            // if(A->P->output_meteo[geotop::common::Variables::i_sim]>0){
+            //     if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
                     
-					A->W->Pt[j] = Precpoint;
+                    A->W->Pt[j] = Precpoint;
 
                     A->W->Ps[j] = Psnow_over;
-                }
-            }
+            //     }
+            // }
 
             
 			if(A->I->JD_plots.size() > 1 && W>0)
