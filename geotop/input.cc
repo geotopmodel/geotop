@@ -1094,105 +1094,107 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
     // revision performed on 24.12.2013// 
 
-    lg->log("Checking for map files undefined...");
+    egy->allocate_data(geotop::input::gDoubleNoValue, par->total_pixel);
+
+    // lg->log("Checking for map files undefined...");
 	
-    if(par->output_surfenergy_bin == 1){
+    // if(par->output_surfenergy_bin == 1){
 				
-        if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue){
-		    egy->Rn_mean.resize(par->total_pixel+1,0.0);
-            egy->Rn.resize(par->total_pixel+1,0.0);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
+    //     if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue){
+    //     	    egy->Rn_mean.resize(par->total_pixel+1,0.0);
+    //         egy->Rn.resize(par->total_pixel+1,0.0);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
 		
-		}
-        if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue){
-            egy->LWin_mean.resize(par->total_pixel+1, 0.0);
-            egy->LWin.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED",
-                    geotop::logger::WARNING);
-		}		
-        if((geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)) {
-            egy->LW_mean.resize(par->total_pixel+1,0.0);
-            egy->LW.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
+    //     	}
+    //     if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue){
+    //         egy->LWin_mean.resize(par->total_pixel+1, 0.0);
+    //         egy->LWin.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
+    //     if((geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)) {
+    //         egy->LW_mean.resize(par->total_pixel+1,0.0);
+    //         egy->LW.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
 	
-        if((geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)){
-            egy->SW_mean.resize(par->total_pixel+1,0.0);
-            egy->SW.resize(par->total_pixel+1);
-        }else{
-			count_file_missing++;
-			lg->log("File  with fradSWin identifier NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
+    //     if((geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)||(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue)){
+    //         egy->SW_mean.resize(par->total_pixel+1,0.0);
+    //         egy->SW.resize(par->total_pixel+1);
+    //     }else{
+    //     		count_file_missing++;
+    //     		lg->log("File  with fradSWin identifier NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
 	
-        if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue){
-            egy->ET_mean.resize(par->total_pixel+1,0.0);
-            egy->LE.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
-        if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue){
-            egy->H_mean.resize(par->total_pixel+1,0.0);
-            egy->H.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
-        if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue){
-            egy->SEB_mean.resize(par->total_pixel+1,0.0);
-            egy->G.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File  with fG identifier  NOT DEFINED",
-                    geotop::logger::WARNING);
-		}	
-        if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue){
-            egy->Ts_mean.resize(par->total_pixel+1,0.0);
-            egy->Ts.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File  with fTs identifier  NOT DEFINED",
-                    geotop::logger::WARNING);
+    //     if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue){
+    //         egy->ET_mean.resize(par->total_pixel+1,0.0);
+    //         egy->LE.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
+    //     if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue){
+    //         egy->H_mean.resize(par->total_pixel+1,0.0);
+    //         egy->H.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
+    //     if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue){
+    //         egy->SEB_mean.resize(par->total_pixel+1,0.0);
+    //         egy->G.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File  with fG identifier  NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
+    //     if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue){
+    //         egy->Ts_mean.resize(par->total_pixel+1,0.0);
+    //         egy->Ts.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File  with fTs identifier  NOT DEFINED",
+    //                 geotop::logger::WARNING);
 			
-		}	
-        if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue){
-            egy->Rswdown_mean.resize(par->total_pixel+1,0.0);
-            egy->SWin.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File  with fradSWin identifier  NOT DEFINED",
-                    geotop::logger::WARNING);
-		}	
-        if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue){
+    //     	}
+    //     if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue){
+    //         egy->Rswdown_mean.resize(par->total_pixel+1,0.0);
+    //         egy->SWin.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File  with fradSWin identifier  NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
+    //     if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue){
 			
-            egy->Rswbeam_mean.resize(par->total_pixel+1,0.0);
-            egy->SWinb.resize(par->total_pixel+1);
-        }
-		else{
-			count_file_missing++;
-			lg->log("File  with fradSwinbeam identifier  NOT DEFINED",
-                    geotop::logger::WARNING);
-		}
+    //         egy->Rswbeam_mean.resize(par->total_pixel+1,0.0);
+    //         egy->SWinb.resize(par->total_pixel+1);
+    //     }
+    //     	else{
+    //     		count_file_missing++;
+    //     		lg->log("File  with fradSwinbeam identifier  NOT DEFINED",
+    //                 geotop::logger::WARNING);
+    //     	}
 	
         if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue){
             egy->nDt_shadow.resize(par->total_pixel+1,0.0);
