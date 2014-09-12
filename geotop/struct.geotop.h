@@ -25,6 +25,7 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #include "Snow/snow_class.h"
 #include "Water/water_class.h"
 #include "Energy/energy_class.h"
+#include "Glacier/glacier_class.h"
 
 #include <vector>
 
@@ -501,15 +502,15 @@ class Par
 };
 
 
-class Glacier
-{
-    public:
-        Statevar3D *G;
-        GeoVector<double> MELTED;
-        GeoVector<double> melted;
-        GeoVector<double> SUBL;
-        GeoVector<double> subl;
-};
+// class Glacier
+// {
+//     public:
+//         Statevar3D *G;
+//         GeoVector<double> MELTED;
+//         GeoVector<double> melted;
+//         GeoVector<double> SUBL;
+//         GeoVector<double> subl;
+// };
 
 class MeteoStations
 {
