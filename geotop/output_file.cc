@@ -452,6 +452,7 @@ namespace geotop
                 case ENER_LWin:
                 case ENER_SW:
                 case ENER_LW:
+                case ENER_LE:
                 case VECTOR_TEST:
                     output.append(getLongString(v));
                     break;
@@ -487,6 +488,7 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(ENER_LWin))) == 0) return ENER_LWin;
             if (tmp.compare(toLower(getLongString(ENER_SW))) == 0) return ENER_SW;
             if (tmp.compare(toLower(getLongString(ENER_LW))) == 0) return ENER_LW;
+            if (tmp.compare(toLower(getLongString(ENER_LE))) == 0) return ENER_LE;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
 
 			
@@ -559,6 +561,9 @@ namespace geotop
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case ENER_LW:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case ENER_LE:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 default:
