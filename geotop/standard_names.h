@@ -37,6 +37,7 @@ namespace geotop
             ENER_H,              // Surface sensible heat flux
             ENER_G,              // Surface heat flux
             ENER_Ts,             // Surface temperature
+            ENER_SWin,           // Incoming shortwave radiation
             VECTOR_TEST,
             UNKNOWN_VAR
         };
