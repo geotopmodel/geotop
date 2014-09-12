@@ -1708,16 +1708,18 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                                  geotop::common::Variables::Nr,
                                  geotop::common::Variables::Nc);
 
-        if(par->output_glac_bin == 1){
-            if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
-                glac->MELTED.resize(par->total_pixel+1,0.0);
-                glac->melted.resize(par->total_pixel+1);
-            }
-            if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue){
-                glac->SUBL.resize(par->total_pixel+1,0.0);
-                glac->subl.resize(par->total_pixel+1);
-            }
-        }
+        glac->allocate_data(geotop::input::gDoubleNoValue, par->total_pixel);
+
+        // if(par->output_glac_bin == 1){
+        //     if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
+        //         glac->MELTED.resize(par->total_pixel+1,0.0);
+        //         glac->melted.resize(par->total_pixel+1);
+        //     }
+        //     if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue){
+        //         glac->SUBL.resize(par->total_pixel+1,0.0);
+        //         glac->subl.resize(par->total_pixel+1);
+        //     }
+        // }
 
         for(r=1;r<=geotop::common::Variables::Nr;r++){
             for(c=1;c<=geotop::common::Variables::Nc;c++){
