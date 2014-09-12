@@ -533,7 +533,10 @@ static void printTableHeader(std::string filename, size_t numlayers, bool printu
             break;
         case 1:
             //File exists
-            return;
+            lg->logsf(geotop::logger::WARNING,
+                      "File '%s' already exists and it will be overwritten.",
+                      filename.c_str());
+            break;
         case 2:
             //File is a directory
             lg->logsf(geotop::logger::CRITICAL,

@@ -107,11 +107,11 @@ namespace geotop
              =================================================================*/
             /**
              * @brief retrieves the output file name
-             * @param[in] dateeur12 the date in dateeur12 format (see times.cc)
+             * @param[in] dateeur12 the date in dateeur12 format (see times.cc) defaults to 1/1/1900 00:00
              * @param[in] layer optional layer index (set to -1 to omit)
              * @return a string with the file's name
              */
-            std::string getFileName(double dateeur12, long layer = -1L);
+            std::string getFileName(double dateeur12 = 10119000000.0, long layer = -1L);
             
             /**
              * @brief retrieves the output file path (based on prefix)
@@ -119,7 +119,7 @@ namespace geotop
              * @param[in] layer optional layer index (set to -1 to omit)
              * @return a string with the file's name
              */
-            std::string getFilePath(double dateeur12, long layer = -1L);
+            std::string getFilePath(double dateeur12 = 10119000000.0, long layer = -1L);
 
             /**
              * @brief converts the output file to a std::string
