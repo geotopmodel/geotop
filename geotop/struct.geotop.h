@@ -24,90 +24,9 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #include "statevar.h"
 #include "Snow/snow_class.h"
 #include "Water/water_class.h"
+#include "Energy/energy_class.h"
 
 #include <vector>
-
-/*---------------------------------------------------------------------------*/
-
-class Energy
-{
-    public:
-        GeoVector<double> Rn_mean;
-        GeoVector<double> LWin_mean;
-        GeoVector<double> LW_mean;
-        GeoVector<double> SW_mean;
-        GeoVector<double> ET_mean;
-        GeoVector<double> H_mean;
-        GeoVector<double> SEB_mean;
-        GeoVector<double> Ts_mean;                /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
-        GeoVector<double> Rswdown_mean;
-        GeoVector<double> Rswbeam_mean;
-        GeoVector<long> nDt_shadow;
-        GeoVector<long> nDt_sun;
-        GeoVector<double> Rn;
-        GeoVector<double> LWin;
-        GeoVector<double> LW;
-        GeoVector<double> SW;
-        GeoVector<double> LE;
-        GeoVector<double> H;
-        GeoVector<double> G;
-        GeoVector<double> Ts;
-        GeoVector<double> SWin;
-        GeoVector<double> SWinb;
-        GeoVector<short> shad;
-        GeoVector<double> Hgplot;
-        GeoVector<double> LEgplot;
-        GeoVector<double> Hvplot;
-        GeoVector<double> LEvplot;
-        GeoVector<double> SWinplot;
-        GeoVector<double> SWgplot;
-        GeoVector<double> SWvplot;
-        GeoVector<double> LWinplot;
-        GeoVector<double> LWgplot;
-        GeoVector<double> LWvplot;
-        GeoVector<double> Tgplot;
-        GeoVector<double> Tsplot;
-        GeoVector<double> Tvplot;
-        GeoVector<double> Hgp;
-        GeoVector<double> LEgp;
-        GeoVector<double> Hvp;
-        GeoVector<double> LEvp;
-        GeoVector<double> SWinp;
-        GeoVector<double> SWgp;
-        GeoVector<double> SWvp;
-        GeoVector<double> LWinp;
-        GeoVector<double> LWgp;
-        GeoVector<double> LWvp;
-        GeoVector<double> Tgp;
-        GeoVector<double> Tsp;
-
-        double *sun;
-        double hsun;
-        double sinhsun;
-        double dsun;
-
-        GeoVector<double> Dlayer;
-        GeoVector<double> liq;
-        GeoVector<double> ice;
-        GeoVector<double> Temp;
-        GeoVector<double> deltaw;
-        GeoVector<double> SWlayer;
-        GeoVector<double> soil_transp_layer;
-        GeoVector<double> dFenergy;
-        GeoVector<double> udFenergy;
-        GeoVector<double> Kth0;
-        GeoVector<double> Kth1;
-        GeoVector<double> Fenergy;
-        GeoVector<double> Newton_dir;
-        GeoVector<double> T0;
-        GeoVector<double> T1;
-        GeoVector<double> Tstar;
-        GeoVector<double> THETA;
-        GeoVector<double> soil_evap_layer_bare;
-        GeoVector<double> soil_evap_layer_veg;
-        GeoMatrix<double> Tgskin_surr;
-        GeoMatrix<double> SWrefl_surr;
-};
 
 /*---------------------------------------------------------------------------*/
 
@@ -257,44 +176,6 @@ class Channel
 
         SoilState *SS;
 };
-
-// /*---------------------------------------------------------------------------*/
-
-// class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
-// {
-//     public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-//         GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
-
-//         GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
-//                                                    of "punctual_energy" subroutine, rain intensity in mm/s as output of the
-//                                                    same subroutine and in "water.balance.c" module*/
-//         GeoMatrix<double> HN;                     // map of new snow TODO mattiu
-//         GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-//         GeoVector<double> PrSNW_mean;
-//         GeoVector<double> Pt;
-//         GeoVector<double> Ps;
-
-//         GeoVector<double> h_sup;
-
-//         GeoMatrix<double> error;
-
-//         GeoVector<double> Lx;
-
-//         GeoVector<double> H0;
-//         GeoVector<double> H1;
-//         GeoVector<double> dH;
-
-//         GeoVector<double> B;
-//         GeoVector<double> f;
-//         GeoVector<double> df;
-
-//         GeoMatrix<double> Klat;
-//         GeoMatrix<double> Kbottom;
-
-//         double Voutlandsub;
-//         double Voutlandsup;
-//         double Voutbottom;
-// };
 
 /*---------------------------------------------------------------------------*/
 class Times

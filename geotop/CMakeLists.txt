@@ -62,6 +62,8 @@ ENDIF(COMMAND CMAKE_POLICY)
 			struct.geotop.h
 			statevar.h
 			statevar.cc
+                        Energy/energy_class.h
+                        Energy/energy_class.cc
 			Snow/snow_class.h
 			Snow/snow_class.cc
 			Water/water_class.h
