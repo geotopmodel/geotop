@@ -321,6 +321,8 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::ENER_LW:
                     case geotop::input::ENER_LE:
                     case geotop::input::ENER_H:
+                    case geotop::input::ENER_G:
+                    case geotop::input::ENER_Ts:
                     case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
@@ -1599,6 +1601,12 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
             break;
         case geotop::input::ENER_H:
             var = &(A->E->H);
+            break;
+        case geotop::input::ENER_G:
+            var = &(A->E->G);
+            break;
+        case geotop::input::ENER_Ts:
+            var = &(A->E->Ts);
             break;
         case geotop::input::VECTOR_TEST:
             var = &(A->E->SWin);

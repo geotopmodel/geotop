@@ -45,6 +45,8 @@ namespace geotop
                 fillStandardName(ENER_LW, "EnergyLongWave", "EnerLW", "W/m2");
                 fillStandardName(ENER_LE, "EnergySurfaceLatentHeat", "EnerLE", "W/m2");
                 fillStandardName(ENER_H, "EnergySurfaceSensibleHeat", "EnerH", "W/m2");
+                fillStandardName(ENER_G, "EnergySurfaceHeat", "EnerG", "W/m2");
+                fillStandardName(ENER_Ts, "EnergySurfaceTemperature", "EnerTs", "W/m2");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
