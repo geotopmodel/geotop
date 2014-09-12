@@ -29,7 +29,7 @@ namespace geotop
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
                 // SNOW MAP VARIABLES
                 fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
-                fillStandardName(SNOW_DEPTH, "SnowDepth", "HS", "mm");
+                fillStandardName(SNOW_DEPTH, "SnowDepth", "SnowHS", "mm");
                 fillStandardName(SNOW_HN, "SnowHeightFallen", "SnowHC", "m");
                 fillStandardName(SNOW_MELTED, "SnowMelted", "SnowM", "-");
                 fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
@@ -40,10 +40,11 @@ namespace geotop
                 fillStandardName(PREC_LIQ, "PrecipitationNet", "PrecNet", "mm");
                 fillStandardName(PREC_SNOW, "PrecipitationSnow", "PrecSnow", "mm");
                 // ENERGY MAP VARIABLES
-                fillStandardName(ENER_LWin, "EnergyIncomingLongWave", "InLW", "W/m2");
-                fillStandardName(ENER_SW, "EnergyShortWave", "SW", "W/m2");
-                fillStandardName(ENER_LW, "EnergyLongWave", "LW", "W/m2");
-                fillStandardName(ENER_LE, "EnergySurfaceLatentHeat", "LE", "W/m2");
+                fillStandardName(ENER_LWin, "EnergyIncomingLongWave", "EnerInLW", "W/m2");
+                fillStandardName(ENER_SW, "EnergyShortWave", "EnerSW", "W/m2");
+                fillStandardName(ENER_LW, "EnergyLongWave", "EnerLW", "W/m2");
+                fillStandardName(ENER_LE, "EnergySurfaceLatentHeat", "EnerLE", "W/m2");
+                fillStandardName(ENER_H, "EnergySurfaceSensibleHeat", "EnerH", "W/m2");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
