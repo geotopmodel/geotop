@@ -35,6 +35,8 @@ namespace geotop
             ENER_LW, // Longwave radiation
             ENER_LE, // Surface latent heat flux
             ENER_H, // Surface sensible heat flux
+            ENER_G, // Surface heat flux
+            ENER_Ts, // Surface temperature
             VECTOR_TEST,
             UNKNOWN_VAR
         };
