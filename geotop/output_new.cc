@@ -278,7 +278,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
                     case geotop::input::SNOW_AGE:
-                    case geotop::input::SNOW_DEPTH:
+                    // case geotop::input::SNOW_DEPTH:
                     case geotop::input::SNOW_HN:
                     case geotop::input::SNOW_MELTED:
                     case geotop::input::SNOW_SUBL:
@@ -1301,13 +1301,13 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 	case geotop::input::SNOW_AGE:
             var = &(A->N->age);
             break;
-        case geotop::input::SNOW_DEPTH:
-            //Be aware that this will never work because tmp has been allocated in stack
-            //and will be wiped away when this function will exit.
-            //We need to rethink the API to accomodate this.
-            //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
-            var = &tmp;
-            break;
+        // case geotop::input::SNOW_DEPTH:
+        //     //Be aware that this will never work because tmp has been allocated in stack
+        //     //and will be wiped away when this function will exit.
+        //     //We need to rethink the API to accomodate this.
+        //     //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
+        //     var = &tmp;
+        //     break;
 	case geotop::input::SNOW_MELTED:
             var = &(A->N->melted);
             break;
