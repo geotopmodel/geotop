@@ -218,6 +218,9 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
                 case geotop::input::SNOW_HN:
                     output = extractSupervectorFromMap(&(A->W->HN), A);
                     break;
+                case geotop::input::PREC_LIQ:
+                    output = extractSupervectorFromMap(&(A->W->Pnet), A);
+                    break;
                 default:
                     break;
             }
@@ -283,6 +286,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::PREC_TOTAL:
                     case geotop::input::PREC_LIQ:
                     case geotop::input::PREC_SNOW:
+                    case geotop::input::ENER_LWin:
                     case geotop::input::ENER_SW:
                     case geotop::input::ENER_LW:
                     case geotop::input::VECTOR_TEST:
@@ -1316,6 +1320,9 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
             break;
         case geotop::input::PREC_SNOW:
             var = &(A->W->Ps);
+            break;
+        case geotop::input::ENER_LWin:
+            var = &(A->E->LWin);
             break;
         case geotop::input::ENER_SW:
             var = &(A->E->SW);

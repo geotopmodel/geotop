@@ -455,6 +455,7 @@ namespace geotop
                 case PREC_LIQ:
                 case PREC_SNOW:
                 // ENERGY MAP VARIABLES
+                case ENER_LWin:
                 case ENER_SW:
                 case ENER_LW:
                 case VECTOR_TEST:
@@ -489,6 +490,7 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(PREC_TOTAL))) == 0) return PREC_TOTAL;
             if (tmp.compare(toLower(getLongString(PREC_LIQ))) == 0) return PREC_LIQ;
             if (tmp.compare(toLower(getLongString(PREC_SNOW))) == 0) return PREC_SNOW;
+            if (tmp.compare(toLower(getLongString(ENER_LWin))) == 0) return ENER_LWin;
             if (tmp.compare(toLower(getLongString(ENER_SW))) == 0) return ENER_SW;
             if (tmp.compare(toLower(getLongString(ENER_LW))) == 0) return ENER_LW;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
@@ -553,6 +555,9 @@ namespace geotop
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case PREC_SNOW:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case ENER_LWin:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case ENER_SW:

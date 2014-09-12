@@ -30,8 +30,9 @@ namespace geotop
             PREC_LIQ, //Liquid precipitation which reaches the soil surface in the time interval
             PREC_SNOW, //Snowy part of the total precipitation
             // ENERGY MAPS VARIABLES
-            ENER_SW, // Short wave radiation
-            ENER_LW, // Long wave radiation
+            ENER_LWin, // Incoming longwave radiation
+            ENER_SW, // Shortwave radiation
+            ENER_LW, // Longwave radiation
             VECTOR_TEST,
             UNKNOWN_VAR
         };
