@@ -29,7 +29,7 @@ namespace geotop
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
                 // SNOW MAP VARIABLES
                 fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
-                fillStandardName(SNOW_DEPTH, "SnowDepth", "SnowHS", "mm");
+                // fillStandardName(SNOW_DEPTH, "SnowDepth", "SnowHS", "mm");
                 fillStandardName(SNOW_HN, "SnowHeightFallen", "SnowHC", "m");
                 fillStandardName(SNOW_MELTED, "SnowMelted", "SnowM", "-");
                 fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");

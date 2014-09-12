@@ -308,7 +308,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
                     case geotop::input::SNOW_AGE:
-                    case geotop::input::SNOW_DEPTH:
+                    // case geotop::input::SNOW_DEPTH:
                     case geotop::input::SNOW_HN:
                     case geotop::input::SNOW_MELTED:
                     case geotop::input::SNOW_SUBL:

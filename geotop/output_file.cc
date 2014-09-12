@@ -438,7 +438,7 @@ namespace geotop
                 case SOIL_TOTAL_PRESSURE:
                 // SNOW MAP VARIABLES
                 case SNOW_AGE:
-                case SNOW_DEPTH:
+                // case SNOW_DEPTH:
                 case SNOW_HN:
                 case SNOW_MELTED:
                 case SNOW_SUBL:
@@ -480,7 +480,7 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
             // SNOW MAP VARIABLES
             if (tmp.compare(toLower(getLongString(SNOW_AGE))) == 0) return SNOW_AGE;
-            if (tmp.compare(toLower(getLongString(SNOW_DEPTH))) == 0) return SNOW_DEPTH;
+            // if (tmp.compare(toLower(getLongString(SNOW_DEPTH))) == 0) return SNOW_DEPTH;
             if (tmp.compare(toLower(getLongString(SNOW_HN))) == 0) return SNOW_HN;
             if (tmp.compare(toLower(getLongString(SNOW_MELTED))) == 0) return SNOW_MELTED;
             if (tmp.compare(toLower(getLongString(SNOW_SUBL))) == 0) return SNOW_SUBL;
@@ -534,9 +534,9 @@ namespace geotop
                 case SNOW_AGE:
                     output = (mDimension == D3D) ? false : true;
                     break;
-                case SNOW_DEPTH:// Dzl is a GeoTensor that has to be cumulate in space
-                    output = true;
-                    break;
+                // case SNOW_DEPTH:// Dzl is a GeoTensor that has to be cumulate in space
+                //     output = true;
+                //     break;
                 case SNOW_HN:
                     output = (mDimension == D3D) ? false : true;
                     break;
