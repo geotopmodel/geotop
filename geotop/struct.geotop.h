@@ -501,17 +501,6 @@ class Par
 
 };
 
-
-// class Glacier
-// {
-//     public:
-//         Statevar3D *G;
-//         GeoVector<double> MELTED;
-//         GeoVector<double> melted;
-//         GeoVector<double> SUBL;
-//         GeoVector<double> subl;
-// };
-
 class MeteoStations
 {
     public:
