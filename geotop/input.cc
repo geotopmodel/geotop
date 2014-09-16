@@ -1499,18 +1499,18 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     }
 
     if(par->output_snow_bin == 1){
-        if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
-            snow->MELTED.resize(par->total_pixel+1,0.0);
-            snow->melted.resize(par->total_pixel+1);
-        }
-        if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue){
-            snow->SUBL.resize(par->total_pixel+1,0.0);
-            snow->subl.resize(par->total_pixel+1);
-        }
-        if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
-            snow->t_snow.resize(par->total_pixel+1,0.0);
-            snow->yes.resize(par->total_pixel+1,0.0);
-        }
+        // if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue){
+        //     snow->MELTED.resize(par->total_pixel+1,0.0);
+        //     snow->melted.resize(par->total_pixel+1);
+        // }
+        // if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue){
+        //     snow->SUBL.resize(par->total_pixel+1,0.0);
+        //     snow->subl.resize(par->total_pixel+1);
+        // }
+        // if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
+        //     snow->t_snow.resize(par->total_pixel+1,0.0);
+        //     snow->yes.resize(par->total_pixel+1,0.0);
+        // }
 
         if(geotop::common::Variables::files[fHN] != geotop::input::gStringNoValue){//TODO mattiu
 			snow->HNcum.resize(par->total_pixel+1,0.0);
