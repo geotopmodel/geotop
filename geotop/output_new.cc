@@ -235,6 +235,9 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
                 case geotop::input::PREC_LIQ:
                     output = extractSupervectorFromMap(&(A->W->Pnet), A);
                     break;
+                case geotop::input::VECTOR_TEST:
+                    output = extractSupervectorFromMap(&(A->N->Wsubl_plot), A);
+                    break;
                 default:
                     break;
             }
@@ -308,7 +311,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
                     case geotop::input::SNOW_AGE:
-                    // case geotop::input::SNOW_DEPTH:
+                        // case geotop::input::SNOW_DEPTH:
                     case geotop::input::SNOW_HN:
                     case geotop::input::SNOW_MELTED:
                     case geotop::input::SNOW_SUBL:
@@ -443,9 +446,26 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
 
                         delete V;
                     }
+                    break;
                 case geotop::input::PREC_LIQ:
                     {
                         V = extractSupervectorFromMap(&(A->W->Pnet), A);
+
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                    break;
+                case geotop::input::VECTOR_TEST:
+                    {
+                        V = extractSupervectorFromMap(&(A->N->Wsubl_plot), A);
 
                         GeoVector<double>* TV = f->values.getValuesV();
 
@@ -1512,6 +1532,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
             break;
         case geotop::input::PREC_LIQ:
             var = &(A->W->Pnet);
+            break;
+        case geotop::input::VECTOR_TEST:
+            var = &(A->N->Wsubl_plot);
             break;
         default:
             break;

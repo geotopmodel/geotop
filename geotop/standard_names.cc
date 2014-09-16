@@ -30,7 +30,7 @@ namespace geotop
                 // SNOW MAP VARIABLES
                 fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
                 // fillStandardName(SNOW_DEPTH, "SnowDepth", "SnowHS", "mm");
-                fillStandardName(SNOW_HN, "SnowHeightFallen", "SnowHC", "m");
+                fillStandardName(SNOW_HN, "SnowHeightFallen", "SnowHN", "mm");
                 fillStandardName(SNOW_MELTED, "SnowMelted", "SnowM", "-");
                 fillStandardName(SNOW_SUBL, "SnowSublimation", "SnowSub", "-");
                 fillStandardName(SNOW_DURATION, "SnowDuration", "SnowDur", "-");
@@ -49,6 +49,9 @@ namespace geotop
                 fillStandardName(ENER_Ts, "EnergySurfaceTemperature", "EnerTs", "W/m2");
                 fillStandardName(ENER_SWin, "EnergyIncomingShortWave", "EnerInSW", "W/m2");
                 fillStandardName(ENER_SWinb, "EnergyDirectIncomingShortWave", "EnerDISW", "W/m2");
+                // GLACIER MAP VARIABLES
+                // fillStandardName(GLAC_MELT, "GlacierMelted", "GlacM", "-");
+                // fillStandardName(GLAC_SUBL, "GlacierSublimation", "GlacS", "-");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
