@@ -11,10 +11,12 @@ class Glacier
 {
     public:
         Statevar3D *G;
-        GeoVector<double> MELTED;
+
         GeoVector<double> melted;
-        GeoVector<double> SUBL;
         GeoVector<double> subl;
+
+        GeoVector<double> MELTED; // this is the cumulative value of the melted instant variable, unuseful with the new output
+        GeoVector<double> SUBL; // this is the cumulative value of the subl instant variable, unuseful with the new output
         Glacier() {};
         Glacier(double novalue, size_t total_pixel);
         void allocate_data(double novalue, size_t total_pixel);
