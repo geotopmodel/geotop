@@ -1681,6 +1681,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     /***************************************************************************************************/
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
+
+    glac->allocate_data(geotop::input::gDoubleNoValue, par->total_pixel);
+
     if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue && par->max_glac_layers==0){
         lg->log("Glacier map present, but glacier represented with 0 layers",
                 geotop::logger::WARNING);
@@ -1707,8 +1710,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                                  par->max_glac_layers,
                                  geotop::common::Variables::Nr,
                                  geotop::common::Variables::Nc);
-
-        glac->allocate_data(geotop::input::gDoubleNoValue, par->total_pixel);
 
         // if(par->output_glac_bin == 1){
         //     if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
