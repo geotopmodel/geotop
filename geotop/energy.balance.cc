@@ -833,9 +833,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             
             if(A->P->max_glac_layers>0 && A->P->output_glac[geotop::common::Variables::i_sim]>0){
                 
-                if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue) A->G->melted[j] = Melt_glac;
+                // if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
+                  A->G->melted[j] = Melt_glac;
                 
-                if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue) A->G->subl[j] = Evap_glac;
+                // if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
+                  A->G->subl[j] = Evap_glac;
             }
 
             

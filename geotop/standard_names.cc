@@ -50,8 +50,8 @@ namespace geotop
                 fillStandardName(ENER_SWin, "EnergyIncomingShortWave", "EnerInSW", "W/m2");
                 fillStandardName(ENER_SWinb, "EnergyDirectIncomingShortWave", "EnerDISW", "W/m2");
                 // GLACIER MAP VARIABLES
-                // fillStandardName(GLAC_MELT, "GlacierMelted", "GlacM", "-");
-                // fillStandardName(GLAC_SUBL, "GlacierSublimation", "GlacS", "-");
+                fillStandardName(GLAC_MELT, "GlacierMelted", "GlacM", "-");
+                fillStandardName(GLAC_SUBL, "GlacierSublimation", "GlacS", "-");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }

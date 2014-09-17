@@ -458,6 +458,8 @@ namespace geotop
                 case ENER_Ts:
                 case ENER_SWin:
                 case ENER_SWinb:
+                case GLAC_MELT:
+                case GLAC_SUBL:
                 case VECTOR_TEST:
                     output.append(getLongString(v));
                     break;
@@ -499,6 +501,8 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(ENER_Ts))) == 0) return ENER_Ts;
             if (tmp.compare(toLower(getLongString(ENER_SWin))) == 0) return ENER_SWin;
             if (tmp.compare(toLower(getLongString(ENER_SWinb))) == 0) return ENER_SWinb;
+            if (tmp.compare(toLower(getLongString(GLAC_MELT))) == 0) return GLAC_MELT;
+            if (tmp.compare(toLower(getLongString(GLAC_SUBL))) == 0) return GLAC_SUBL;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
 
 			
@@ -589,6 +593,12 @@ namespace geotop
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case ENER_SWinb:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case GLAC_MELT:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case GLAC_SUBL:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 default:
