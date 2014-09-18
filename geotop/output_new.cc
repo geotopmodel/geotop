@@ -805,6 +805,16 @@ static void refreshCumulates(AllData* A, geotop::input::OutputFile* of)
         case geotop::input::D1Dp:
             break;
         case geotop::input::D1Ds:
+            {
+                //Get temporary value vector
+                GeoVector<double>* TV = of->values.getValuesV();
+
+                GeoVector<double> IV = getCurrentSpatialMeans(of, A);
+
+                //Add supervector to temporary values
+                for (size_t i = 0, s = TV->size(); i < s; i++)
+                    TV->at(i) += IV.at(i);
+            }
             break;
         case geotop::input::D2D:
             {
@@ -867,6 +877,8 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
         case geotop::input::D1Dp:
             break;
         case geotop::input::D1Ds:
+            //Print a new row in the table
+            printTableRow(of->getFilePath(), of->values.getValuesV(), (size_t)A->I->time, false);
             break;
         case geotop::input::D2D:
             {
