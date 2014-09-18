@@ -106,7 +106,6 @@ namespace geotop
          */
         TemporaryValues::TemporaryValues()
         {
-            mCount = 0;
             mWhatIsValid = -1;
             mDValue = geotop::input::gDoubleNoValue;
             mVValue = NULL;
@@ -116,7 +115,6 @@ namespace geotop
 
         TemporaryValues::TemporaryValues(double init)
         {
-            mCount = 1;
             mWhatIsValid = 0;
             mDValue = init;
             mVValue = NULL;
@@ -126,7 +124,6 @@ namespace geotop
 
         TemporaryValues::TemporaryValues(GeoVector<double>* init)
         {
-            mCount = 1;
             mWhatIsValid = 1;
             mDValue = geotop::input::gDoubleNoValue;
             mVValue = init;
@@ -136,7 +133,6 @@ namespace geotop
 
         TemporaryValues::TemporaryValues(GeoMatrix<double>* init)
         {
-            mCount = 1;
             mWhatIsValid = 2;
             mDValue = geotop::input::gDoubleNoValue;
             mVValue = NULL;
@@ -146,7 +142,6 @@ namespace geotop
 
         TemporaryValues::TemporaryValues(GeoTensor<double>* init)
         {
-            mCount = 1;
             mWhatIsValid = 3;
             mDValue = geotop::input::gDoubleNoValue;
             mVValue = NULL;

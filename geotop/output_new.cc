@@ -48,13 +48,17 @@ class OutputFilesVector
         geotop::input::OutputFile at(size_t index);
         bool empty() { return (mVector->size() == 0); }
         size_t size() { return mVector->size(); }
+        size_t getCount() { return mCount; }
+        void incCount() { mCount++; }
     private:
         double mPeriod;
+        size_t mCount;
         std::vector<geotop::input::OutputFile>* mVector;
 } ;
 
 OutputFilesVector::OutputFilesVector(double period)
 {
+    mCount = 1;
     mPeriod = period;
     mVector = new std::vector<geotop::input::OutputFile>();
 }
@@ -915,7 +919,7 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
 
 }
 
-static void printAverages(AllData* A, geotop::input::OutputFile* of)
+static void printAverages(AllData* A, geotop::input::OutputFile* of, size_t count)
 {
     double lJDate = A->I->time; //seconds passed since the beginning of the simulation
 
@@ -940,14 +944,9 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of)
                     //Get cumulates vector
                     GeoVector<double>* V = of->values.getValuesV();
 
-                    //Get number of additions
-                    size_t count = of->values.getCount();
-                    
                     //Divide each member of cumulates vector by count to get the mean value
                     for (size_t i = 0, s = V->size(); i < s; i++)
-                    {
-                        (*V)[i] = V->at(i) / (double)count;
-                    }
+                        V->at(i) /= (double)count;
 
                     std::string filename = of->getFilePath(lJDate, l);
                     printLayer(filename, of->values.getValuesV(), A);
@@ -966,6 +965,22 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of)
             break;
         case geotop::input::D3D:
             {
+                //For each layer
+                for (long l = 1; l <= geotop::common::Variables::Nl; l++)
+                {
+                    std::string filename = of->getFilePath(lJDate, l);
+
+                    //Extract layer's supervector
+                    GeoVector<double>* V = extractGeoVector(of->values.getValuesM(), l);
+
+                    //Divide each member of cumulates vector by count to get the mean value
+                    for(size_t i = 0, s = V->size(); i < s; i++)
+                        V->at(i) /= (double)count;
+
+                    printLayer(filename, V, A);
+
+                    delete V; //Deallocate temporary vector V
+                }
             }
             break;
         default:
@@ -1251,10 +1266,10 @@ void write_output_new(AllData* A)
             {
                 geotop::input::OutputFile f = ofv->at(j);
                 refreshCumulates(A, &f);
-                f.values.incCount();
+                ofv->incCount();
                 if (fabs(fmod(A->I->time, ofv->period())) < epsilon)
                 {
-                    printAverages(A, &f);
+                    printAverages(A, &f, ofv->getCount());
                     zeroFill(&f);
                 }
             }
