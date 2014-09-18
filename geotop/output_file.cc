@@ -274,16 +274,15 @@ namespace geotop
             std::string output;
             long day = 0L, month = 0L, year = 0L, hour = 0L, min = 0L;
 
-            convert_dateeur12_daymonthyearhourmin(dateeur12, &day, &month, &year, &hour, &min);
-
-            sprintf(buffer, "%.4ld%.2ld%.2ld%.2ld%.2ld", year, month, day, hour, min);
-
             if (mDimension == D1Dp || mDimension == D1Ds) 
             {
                 output = std::string(""); //Do not prepend the date for tab files
             }
             else
             {
+                convert_dateeur12_daymonthyearhourmin(dateeur12, &day, &month, &year, &hour, &min);
+                sprintf(buffer, "%.4ld%.2ld%.2ld%.2ld%.2ld", year, month, day, hour, min);
+
                 output = std::string(buffer);
                 output.append("_");
             }
