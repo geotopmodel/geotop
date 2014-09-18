@@ -823,30 +823,32 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     /*! Completing of the initialization of SOIL structure                               */
     /****************************************************************************************************/
 
-    sl->SS =new SoilState();
+    sl->allocate_data(geotop::input::gDoubleNoValue, geotop::common::Variables::Nl, geotop::common::Variables::Nr, geotop::common::Variables::Nc, par->total_pixel);
+
+    sl->SS =new SoilState(par->total_pixel, geotop::common::Variables::Nl);
     initialize_soil_state(sl->SS, par->total_pixel, geotop::common::Variables::Nl);
 
-    sl->VS =new StateVeg();
+    sl->VS =new StateVeg(par->total_pixel);
     initialize_veg_state(sl->VS, par->total_pixel);
     
-	sl->th.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,geotop::input::gDoubleNoValue);
+    //     sl->th.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,geotop::input::gDoubleNoValue);
 
-	sl->Ptot.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,geotop::input::gDoubleNoValue);
+    //     sl->Ptot.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,geotop::input::gDoubleNoValue);
 
-    if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue){
+    // if(geotop::common::Variables::files[fTav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[fTavsup] != geotop::input::gStringNoValue){
  
-		sl->T_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
-    }
+    //     	sl->T_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
+    // }
 
-    if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue){
+    // if(geotop::common::Variables::files[ficeav] != geotop::input::gStringNoValue){
   
-		sl->thi_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
-    }
+    //     	sl->thi_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
+    // }
 
-    if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue){
+    // if(geotop::common::Variables::files[fliqav] != geotop::input::gStringNoValue){
 
-        sl->thw_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
-    }
+    //     sl->thw_av_tensor.resize(geotop::common::Variables::Nl+1,par->total_pixel+1,0.0);
+    // }
 
     if(geotop::common::Variables::files[fpnet] != geotop::input::gStringNoValue){//TODO mattiu
     	sl->Pnetcum.resize(par->total_pixel+1,0.0);
@@ -855,7 +857,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     	sl->ETcum.resize(par->total_pixel+1,0.0);
     }//end mattiu
 
-    sl->ET.resize(geotop::common::Variables::Nl+1,geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.);
+    // sl->ET.resize(geotop::common::Variables::Nl+1,geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.);
 
     if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fwt0]) + string(ascii_esri))){
 
