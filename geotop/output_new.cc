@@ -50,6 +50,7 @@ class OutputFilesVector
         size_t size() { return mVector->size(); }
         size_t getCount() { return mCount; }
         void incCount() { mCount++; }
+        void resetCount() { mCount = 1; }
     private:
         double mPeriod;
         size_t mCount;
@@ -946,6 +947,17 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of, size_t coun
         case geotop::input::D1Dp:
             break;
         case geotop::input::D1Ds:
+            {
+                //Get cumulates vector
+                GeoVector<double>* V = of->values.getValuesV();
+
+                //Divide each member of cumulates vector by count to get the mean value
+                for (size_t i = 0, s = V->size(); i < s; i++)
+                    V->at(i) /= (double)count;
+
+                //Print a new row in the table
+                printTableRow(of->getFilePath(), of->values.getValuesV(), (size_t)A->I->time, false);
+            }
             break;
         case geotop::input::D2D:
             {
@@ -1283,6 +1295,7 @@ void write_output_new(AllData* A)
                 {
                     printAverages(A, &f, ofv->getCount());
                     zeroFill(&f);
+                    ofv->resetCount();
                 }
             }
         }
