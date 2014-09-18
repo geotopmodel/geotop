@@ -673,6 +673,41 @@ static void printTableRow(std::string filename, GeoVector<double>* row, size_t s
 
 }
 
+static GeoVector<double> getCurrentSpatialMeans(geotop::input::OutputFile* f, AllData* A)
+{
+    GeoVector<double> output;
+
+    //Fetch TemporaryValues Vector
+    GeoVector<double>* TV = f->values.getValuesV();
+    size_t layers = TV->size();
+
+    output.resize(layers);
+
+    //For all layers
+    for (size_t i = 1; i <= layers; i++)
+    {
+        double mean = 0.;
+
+        //Get layer's data
+        GeoVector<double>* V = getSupervectorLayer(i, f, A);
+        size_t s = V->size();
+
+        //Compute mean of all layer's points
+        for (size_t j = 1; j < s; j++)
+            mean += V->at(j);
+
+        mean /= (s - 1);
+
+        //Store the data in the temporary values array
+        output[i - 1] = mean;
+
+        //Delete temporary GeoVector
+        delete V;
+    }
+
+    return output;
+}
+
 /**
  * @brief Prints a variable to the corrisponding file(s)
  * @param[in] A global data storage pointer
@@ -694,34 +729,10 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
                 break;
             case geotop::input::D1Ds:
                 {
-                    //Fetch TemporaryValues Vector
-                    GeoVector<double>* TV = f->values.getValuesV();
-                    size_t layers = TV->size() - 1;
-
-                    //For all layers
-                    for (size_t i = 1; i <= layers; i++)
-                    {
-                        double mean = 0.;
-
-                        //Get layer's data
-                        GeoVector<double>* V = getSupervectorLayer(i, f, A);
-                        size_t s = V->size();
-
-                        //Compute mean of all layer's points
-                        for (size_t j = 1; j < s; j++)
-                            mean += V->at(j);
-
-                        mean /= (s - 1);
-
-                        //Store the data in the temporary values array
-                        (*TV)[i - 1] = mean;
-
-                        //Delete temporary GeoVector
-                        delete V;
-                    }
+                    GeoVector<double> TV = getCurrentSpatialMeans(f, A);
 
                     //Print a new row in the table
-                    printTableRow(f->getFilePath(), TV, (size_t)A->I->time, false);
+                    printTableRow(f->getFilePath(), &TV, (size_t)A->I->time, false);
                 }
                 break;
             case geotop::input::D2D:
