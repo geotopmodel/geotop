@@ -586,10 +586,91 @@ static void printTableHeader(std::string filename, size_t numlayers, bool printu
         }
     }
 
+    //Erase last ',' and place a newline instead
     fseek(fp, -1, SEEK_CUR);
     fprintf(fp,"\n");
 
     fclose(fp);
+}
+
+static void printTableRow(std::string filename, GeoVector<double>* row, size_t seconds_from_start, bool skipfirst = true)
+{
+    FILE* fp;
+
+    size_t i = 0, last = row->size();   
+
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    switch (gt_fileExists(filename.c_str()))
+    {
+        case 0:
+            //filename doesn't exists
+            lg->logsf(geotop::logger::CRITICAL,
+                      "'%s' doesn't exists. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+        case 1:
+            //filename exists and it's a regular file: proceed
+            break;
+        case 2:
+            //filename points to a directory
+            lg->logsf(geotop::logger::CRITICAL,
+                      "'%s' is a directory. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+        case 3:
+            //filename points to a special file (device)
+            lg->logsf(geotop::logger::CRITICAL,
+                      "'%s' is not valid. Aborting",
+                      filename.c_str());
+            exit(1);
+            break;
+        default:
+            //An error occurred
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Unable to retrieve informations about '%s'. Aborting.",
+                      filename.c_str());
+            exit(1);
+            break;
+    }
+
+    fp = fopen(filename.c_str(), "a");
+
+    if (fp == NULL)
+    {
+        lg->logsf(geotop::logger::CRITICAL,
+                  "Unable to open file '%s' for writing. Aborting.",
+                  filename.c_str());
+        exit(1);
+    }
+
+    //Print time field
+    fprintf(fp, "%zu,", seconds_from_start);
+
+    //Scan row elements
+    if (last > 0)
+    {
+        if (last > 1)
+        {
+            //Set starting index
+            i = skipfirst ? 1 : 0;
+
+            while(i < last - 1)
+            {
+                fprintf(fp, "%f,", row->at(i));
+                i++;
+            }
+        }
+
+        fprintf(fp, "%f\n", row->at(i));
+
+    }
+
+    fclose(fp);
+
 }
 
 /**
@@ -621,6 +702,7 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
                     for (size_t i = 1; i <= layers; i++)
                     {
                         double mean = 0.;
+
                         //Get layer's data
                         GeoVector<double>* V = getSupervectorLayer(i, f, A);
                         size_t s = V->size();
@@ -628,6 +710,7 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
                         //Compute mean of all layer's points
                         for (size_t j = 1; j < s; j++)
                             mean += V->at(j);
+
                         mean /= (s - 1);
 
                         //Store the data in the temporary values array
@@ -637,7 +720,8 @@ static void printInstant(AllData* A, geotop::input::OutputFile* f)
                         delete V;
                     }
 
-                //Print a new row in the table
+                    //Print a new row in the table
+                    printTableRow(f->getFilePath(), TV, (size_t)A->I->time, false);
                 }
                 break;
             case geotop::input::D2D:
@@ -970,9 +1054,6 @@ void output_file_preproc(AllData* A)
                     break;
                 case 2:
                     //Prefix directory exists
-                    lg->logsf(geotop::logger::NOTICE,
-                              "Directory '%s' already exists.",
-                              prefix.c_str());
                     break;
                 case 1:
                     //Pass through
@@ -1014,6 +1095,12 @@ void output_file_preproc(AllData* A)
                     default:
                         break;
                 }
+            }
+
+            if (of.getDimension() == geotop::input::D1Ds)
+            {
+                //TODO: handle different layer numbers for non-soil tensors
+                printTableHeader(of.getFilePath(), (size_t)geotop::common::Variables::Nl);
             }
 
             i++;
