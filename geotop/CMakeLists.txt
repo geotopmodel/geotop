@@ -68,6 +68,12 @@ ENDIF(COMMAND CMAKE_POLICY)
                         Glacier/glacier_class.cc
 			Snow/snow_class.h
 			Snow/snow_class.cc
+                        Soil/soil_class.h
+                        Soil/soil_class.cc
+                        Soil/soilstatevar.h
+                        Soil/soilstatevar.cc
+                        Soil/vegstatevar.h
+                        Soil/vegstatevar.cc
 			Water/water_class.h
 			Water/water_class.cc
 			geotop_common.cc
