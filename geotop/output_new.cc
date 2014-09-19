@@ -238,6 +238,9 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
                 case geotop::input::METEO_AIRTEMP:
                     output = extractSupervectorFromMap(&(A->M->Tgrid), A);
                     break;
+                case geotop::input::METEO_WSPEED:
+                    output = extractSupervectorFromMap(&(A->M->Vgrid), A);
+                    break;
                 case geotop::input::VECTOR_TEST:
                     output = extractSupervectorFromMap(&(A->N->Wsubl_plot), A);
                     break;
@@ -337,6 +340,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::GLAC_MELT:
                     case geotop::input::GLAC_SUBL:
                     case geotop::input::METEO_AIRTEMP:
+                    case geotop::input::METEO_WSPEED:
                     case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
@@ -476,6 +480,22 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
                 case geotop::input::METEO_AIRTEMP:
                     {
                         V = extractSupervectorFromMap(&(A->M->Tgrid), A);
+
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                    break;
+                case geotop::input::METEO_WSPEED:
+                    {
+                        V = extractSupervectorFromMap(&(A->M->Vgrid), A);
 
                         GeoVector<double>* TV = f->values.getValuesV();
 
@@ -1564,6 +1584,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
             break;
         case geotop::input::METEO_AIRTEMP:
             var = &(A->M->Tgrid);
+            break;
+        case geotop::input::METEO_WSPEED:
+            var = &(A->M->Vgrid);
             break;
         case geotop::input::VECTOR_TEST:
             var = &(A->N->Wsubl_plot);

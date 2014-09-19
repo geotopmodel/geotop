@@ -47,6 +47,7 @@ namespace geotop
             GLAC_SUBL,           // Sublimation of the glacier
             // METEO MAPS VARIABLES
             METEO_AIRTEMP,       // The air temperature 
+            METEO_WSPEED,        // The speed of the wind
             VECTOR_TEST,
             // METEO MAPS VARIABLES
             UNKNOWN_VAR
