@@ -280,6 +280,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_ICE_CONTENT:
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
+                    // case geotop::input::SOIL_ET:
                     case geotop::input::SOIL_CAN_RAIN:
                     case geotop::input::SOIL_CAN_SNOW:
                     case geotop::input::SNOW_AGE:
@@ -325,6 +326,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_ICE_CONTENT:
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
+                    // case geotop::input::SOIL_ET:
                         rows = geotop::common::Variables::Nl + 1;
                         cols = A->P->total_pixel + 1;
                         of.values = geotop::input::TemporaryValues(initTempValuesMatrix(rows, cols));
@@ -1269,6 +1271,9 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
         case geotop::input::SOIL_TOTAL_PRESSURE:
             var = &(A->S->Ptot);
             break;
+        // case geotop::input::SOIL_ET:
+        //     var = &(A->S->ET);
+        //     break;
         case geotop::input::SNOW_HN:
             var = &(A->W->HN);
             break;
