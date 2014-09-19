@@ -816,10 +816,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             
             if(A->P->output_snow[geotop::common::Variables::i_sim]>0){
                 
-                if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue) A->N->melted[j] = Melt_snow;
+                // if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue)
+                  A->N->melted[j] = Melt_snow;
                 
-                if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue) A->N->subl[j] = Evap_snow;
-                if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
+                // if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue)
+                  A->N->subl[j] = Evap_snow;
+                // if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
                     if(snowD>0){
                         
                         A->N->yes[j] = 1;
@@ -827,7 +829,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                         
                         A->N->yes[j] = 0;
                     }
-                }
+                // }
             }
 
             
