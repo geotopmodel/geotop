@@ -23,13 +23,15 @@ If you have satisfactorily used the code, please acknowledge the authors.
 
 #include "datastructs.h"
 #include "statevar.h"
+#include "Energy/energy_class.h"
+#include "Glacier/glacier_class.h"
+#include "Meteo/meteo_class.h"
+#include "Meteo/meteostations.h"
+#include "Soil/soil_class.h"
 #include "Soil/soilstatevar.h"
 #include "Soil/vegstatevar.h"
 #include "Snow/snow_class.h"
-#include "Soil/soil_class.h"
 #include "Water/water_class.h"
-#include "Energy/energy_class.h"
-#include "Glacier/glacier_class.h"
 
 #include <vector>
 
@@ -454,93 +456,6 @@ class Par
         short DDchannel;
         short DDland;
 
-};
-
-class MeteoStations
-{
-    public:
-        GeoVector<double> E;
-        GeoVector<double> N;
-        GeoVector<double> lat;
-        GeoVector<double> lon;
-        GeoVector<double> Z;
-
-        GeoVector<double> sky;
-        GeoVector<double> ST;
-        GeoVector<double> Vheight;
-        GeoVector<double> Theight;
-        GeoVector<double> tau_cloud_av_meteoST;   // vector containing the tau_cloud_av at each meteo stations measuring SW radiation
-        GeoVector<double> tau_cloud_meteoST;      // vector containing the tau_cloud at each meteo stations measuring SW radiation
-        GeoVector<short> tau_cloud_av_yes_meteoST;// flag indicating whether the tau_cloud_av at each meteo stations is available
-        GeoVector<short> tau_cloud_yes_meteoST;   // flag indicating whether the tau_cloud at each meteo stations is available
-        GeoVector<short> flag_SW_meteoST;         // flag vector saying whether a meteo station accounts for SW radiation (0: no SW, 1: SW available)
-};
-
-class Meteo
-{
-    public:
-        Meteo() : st(NULL), data(NULL), numlines(NULL), horizonlines(NULL),
-            var(NULL), line_interp_WEB(NULL), line_interp_Bsnow(NULL), line_interp_WEB_LR(0), line_interp_Bsnow_LR(0),
-            tau_cloud(0.), tau_cloud_av(0.), tau_cloud_yes(0), tau_cloud_av_yes(0) {}
-
-        MeteoStations *st;
-
-        double ***data;
-        long *numlines;
-        double ***horizon;
-        long *horizonlines;
-
-        double **var;
-        long *line_interp_WEB;
-        long *line_interp_Bsnow;
-        long line_interp_WEB_LR;
-        long line_interp_Bsnow_LR;
-        double **LRs;                             //matrix read from the external value
-        long LRsnr;                               //number of lines of the matrix
-        double *LRv;                              //vector of interpolated values
-        double **LRc;                             //cyclic values from the parameter file (one vector for each LR variable)
-        long *LRcnc;                              //number of components of the vector (for each component)
-        double *LRd;                              //vector of default values
-
-        double **qins;
-        double *qinv;
-        long qinsnr;
-        long qinline;
-
-        double tau_cloud;                         // tau_cloud for the chosen meteo station used to derive cloud
-        double tau_cloud_av;                      // tau_cloud for the chosen meteo station used to derive cloud
-        short tau_cloud_yes;
-        short tau_cloud_av_yes;
-        GeoMatrix<double> tau_cl_map;             // matrix containing the tau_cloud for each grid point
-        GeoMatrix<double> tau_cl_av_map;          // matrix containing the tau_cloud_av for each grid point
-        GeoMatrix<short> tau_cl_map_yes;          // boolean matrix saying whether the grid point has tau_cl value
-        GeoMatrix<short> tau_cl_av_map_yes;       // boolean matrix saying whether the grid point has tau_cl_av value
-
-        GeoMatrix<double> Tgrid;
-        GeoMatrix<double> Pgrid;
-        GeoMatrix<double> Vgrid;
-        GeoMatrix<double> Vdir;
-        GeoMatrix<double> RHgrid;
-
-        GeoVector<double> Tamean;
-        GeoVector<double> Vspdmean;
-        GeoVector<double> Vdirmean;
-        GeoVector<double> RHmean;
-
-        GeoVector<double> Taplot;
-        GeoVector<double> Vxplot;
-        GeoVector<double> Vyplot;
-        GeoVector<double> RHplot;
-
-        double V;
-
-        long nstcloud;                            // meteo station ID (1...n) to use for the cloudiness
-        long numstcloud;                          // number of meteo stations measuring cloudiness
-        long nstsrad;
-        long nstlrad;
-        long nstTs;
-
-        GeoVector<long> imeteo_stations;
 };
 
 #ifdef USE_NETCDF

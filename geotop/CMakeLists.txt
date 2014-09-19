@@ -66,6 +66,10 @@ ENDIF(COMMAND CMAKE_POLICY)
                         Energy/energy_class.cc
                         Glacier/glacier_class.h
                         Glacier/glacier_class.cc
+                        Meteo/meteo_class.h
+                        Meteo/meteo_class.cc
+                        Meteo/meteostations.h
+                        Meteo/meteostations.cc
 			Snow/snow_class.h
 			Snow/snow_class.cc
                         Soil/soil_class.h

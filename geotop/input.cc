@@ -555,25 +555,26 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 #endif //USE_INTERNAL_METEODISTR
 
-    met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),geotop::input::gDoubleNoValue);
+    met->allocate_data(geotop::input::gDoubleNoValue, geotop::common::Variables::Nr, geotop::common::Variables::Nc, top->Z0.getRows(), top->Z0.getCols(), par->Vmin, GTConst::Pa0);
+    // met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),geotop::input::gDoubleNoValue);
 
-    met->tau_cl_av_map.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);
+    // met->tau_cl_av_map.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);
 
-    met->tau_cl_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+    // met->tau_cl_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
 
-    met->tau_cl_av_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+    // met->tau_cl_av_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
 
     //	vector defining which meteo station has the SW radiation information
 
-    met->st->flag_SW_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
+    // met->st->flag_SW_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
 	
-	met->st->tau_cloud_av_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+    // met->st->tau_cloud_av_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
 
-    met->st->tau_cloud_yes_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
+    // met->st->tau_cloud_yes_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
 
-    met->st->tau_cloud_av_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+    // met->st->tau_cloud_av_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
 
-    met->st->tau_cloud_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
+    // met->st->tau_cloud_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
 
     //i.show details on checkpoints
     lg->writeAll("\nCHECKPOINTS:\n");
@@ -1811,15 +1812,15 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //***************************************************************************************************
     // Filling up of the struct "met" (of the type METEO):
 
-    met->Tgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,5.);
+    // met->Tgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,5.);
 
-    met->Pgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,GTConst::Pa0);
+    // met->Pgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,GTConst::Pa0);
 
-    met->RHgrid.resize(geotop::common::Variables::Nr+1, geotop::common::Variables::Nc+1, 0.7);
+    // met->RHgrid.resize(geotop::common::Variables::Nr+1, geotop::common::Variables::Nc+1, 0.7);
 
-    met->Vgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1, par->Vmin);
+    // met->Vgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1, par->Vmin);
 
-    met->Vdir.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
+    // met->Vdir.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     if (par->output_meteo_bin == 1){
         if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue){

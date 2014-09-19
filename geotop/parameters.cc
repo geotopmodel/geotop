@@ -1464,18 +1464,18 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		nmeteo_stations = (long) getDoubleValueWithDefault(lConfigStore, "NumberOfMeteoStations", geotop::input::gDoubleNoValue, false);
 	}
 
-    met->st = new MeteoStations();
-    size_t lMeteoStationContainerSize = nmeteo_stations+1 ;
+    size_t lMeteoStationContainerSize = nmeteo_stations+1;
+    met->st = new MeteoStations(lMeteoStationContainerSize, geotop::input::gDoubleNoValue);
     if(!met->st) t_error("meteo_stations was not allocated");
-    met->st->E.resize(lMeteoStationContainerSize);
-    met->st->N.resize(lMeteoStationContainerSize);
-    met->st->lat.resize(lMeteoStationContainerSize);
-    met->st->lon.resize(lMeteoStationContainerSize);
-    met->st->Z.resize(lMeteoStationContainerSize);
-    met->st->sky.resize(lMeteoStationContainerSize);
-    met->st->ST.resize(lMeteoStationContainerSize);
-    met->st->Vheight.resize(lMeteoStationContainerSize);
-    met->st->Theight.resize(lMeteoStationContainerSize);
+    // met->st->E.resize(lMeteoStationContainerSize);
+    // met->st->N.resize(lMeteoStationContainerSize);
+    // met->st->lat.resize(lMeteoStationContainerSize);
+    // met->st->lon.resize(lMeteoStationContainerSize);
+    // met->st->Z.resize(lMeteoStationContainerSize);
+    // met->st->sky.resize(lMeteoStationContainerSize);
+    // met->st->ST.resize(lMeteoStationContainerSize);
+    // met->st->Vheight.resize(lMeteoStationContainerSize);
+    // met->st->Theight.resize(lMeteoStationContainerSize);
     
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
