@@ -17,6 +17,7 @@ namespace geotop
             SOIL_ICE_CONTENT,    // Ice content in soil depth
             SOIL_WATER_PRESSURE, // Liquid water pressure in soil depth
             SOIL_TOTAL_PRESSURE, // Total water and ice pressure in soil depth
+            // SOIL_ET,             // Evapotranspiration from soil
             SOIL_CAN_RAIN,       // Canopy intercepted rain
             SOIL_CAN_SNOW,       // Canopy intercepted snow
             // SNOW MAP VARIABLES
@@ -45,6 +46,7 @@ namespace geotop
             GLAC_MELT,           // Glacier melting
             GLAC_SUBL,           // Sublimation of the glacier
             VECTOR_TEST,
+            // METEO MAPS VARIABLES
             UNKNOWN_VAR
         };
 

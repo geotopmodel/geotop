@@ -28,6 +28,7 @@ namespace geotop
                 fillStandardName(SOIL_ICE_CONTENT, "SoilIceContent", "SoilThI", "mm");
                 fillStandardName(SOIL_WATER_PRESSURE, "SoilWaterPressure", "SoilP", "m");
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
+                // fillStandardName(SOIL_ET, "SoilEvapotranspiration", "SoilET", "-");
                 // SOIL MAP VARIABLES
                 fillStandardName(SOIL_CAN_RAIN, "SoilCanopyInterceptedRain", "SoilCanRain", "mm");
                 fillStandardName(SOIL_CAN_SNOW, "SoilCanopyInterceptedSnow", "SoilCanSnow", "mm");
