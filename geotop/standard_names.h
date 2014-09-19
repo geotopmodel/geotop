@@ -45,6 +45,8 @@ namespace geotop
             // GLACIER MAPS VARIABLES
             GLAC_MELT,           // Glacier melting
             GLAC_SUBL,           // Sublimation of the glacier
+            // METEO MAPS VARIABLES
+            METEO_AIRTEMP,       // The air temperature 
             VECTOR_TEST,
             // METEO MAPS VARIABLES
             UNKNOWN_VAR
