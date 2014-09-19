@@ -241,6 +241,12 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
                 case geotop::input::METEO_WSPEED:
                     output = extractSupervectorFromMap(&(A->M->Vgrid), A);
                     break;
+                case geotop::input::METEO_WDIR:
+                    output = extractSupervectorFromMap(&(A->M->Vdir), A);
+                    break;
+                case geotop::input::METEO_RH:
+                    output = extractSupervectorFromMap(&(A->M->RHgrid), A);
+                    break;
                 case geotop::input::VECTOR_TEST:
                     output = extractSupervectorFromMap(&(A->N->Wsubl_plot), A);
                     break;
@@ -341,6 +347,8 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::GLAC_SUBL:
                     case geotop::input::METEO_AIRTEMP:
                     case geotop::input::METEO_WSPEED:
+                    case geotop::input::METEO_WDIR:
+                    case geotop::input::METEO_RH:
                     case geotop::input::VECTOR_TEST:
                         count = A->P->total_pixel + 1;
                         break;
@@ -496,6 +504,38 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
                 case geotop::input::METEO_WSPEED:
                     {
                         V = extractSupervectorFromMap(&(A->M->Vgrid), A);
+
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                    break;
+                case geotop::input::METEO_WDIR:
+                    {
+                        V = extractSupervectorFromMap(&(A->M->Vdir), A);
+
+                        GeoVector<double>* TV = f->values.getValuesV();
+
+                        assert(TV->size() == V->size());
+
+                        for (size_t i = 0, s = TV->size(); i < s; i++)
+                        {
+                            (*TV)[i] = V->at(i);
+                        }
+
+                        delete V;
+                    }
+                    break;
+                case geotop::input::METEO_RH:
+                    {
+                        V = extractSupervectorFromMap(&(A->M->RHgrid), A);
 
                         GeoVector<double>* TV = f->values.getValuesV();
 
@@ -1587,6 +1627,12 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
             break;
         case geotop::input::METEO_WSPEED:
             var = &(A->M->Vgrid);
+            break;
+        case geotop::input::METEO_WDIR:
+            var = &(A->M->Vdir);
+            break;
+        case geotop::input::METEO_RH:
+            var = &(A->M->RHgrid);
             break;
         case geotop::input::VECTOR_TEST:
             var = &(A->N->Wsubl_plot);

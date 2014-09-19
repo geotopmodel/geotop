@@ -465,6 +465,8 @@ namespace geotop
                 case GLAC_SUBL:
                 case METEO_AIRTEMP:
                 case METEO_WSPEED:
+                case METEO_WDIR:
+                case METEO_RH:
                 case VECTOR_TEST:
                     output.append(getLongString(v));
                     break;
@@ -513,6 +515,8 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(GLAC_SUBL))) == 0) return GLAC_SUBL;
             if (tmp.compare(toLower(getLongString(METEO_AIRTEMP))) == 0) return METEO_AIRTEMP;
             if (tmp.compare(toLower(getLongString(METEO_WSPEED))) == 0) return METEO_WSPEED;
+            if (tmp.compare(toLower(getLongString(METEO_WDIR))) == 0) return METEO_WDIR;
+            if (tmp.compare(toLower(getLongString(METEO_RH))) == 0) return METEO_RH;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
 
 			
@@ -624,6 +628,12 @@ namespace geotop
                     output = (mDimension == D3D) ? false : true;
                     break;
                 case METEO_WSPEED:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case METEO_WDIR:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case METEO_RH:
                     output = (mDimension == D3D) ? false : true;
                     break;
                 default:
