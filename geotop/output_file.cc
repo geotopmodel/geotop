@@ -436,6 +436,8 @@ namespace geotop
                 case SOIL_ICE_CONTENT:
                 case SOIL_WATER_PRESSURE:
                 case SOIL_TOTAL_PRESSURE:
+                case SOIL_CAN_RAIN:
+                case SOIL_CAN_SNOW:
                 // SNOW MAP VARIABLES
                 case SNOW_AGE:
                 // case SNOW_DEPTH:
@@ -480,6 +482,8 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(SOIL_ICE_CONTENT))) == 0) return SOIL_ICE_CONTENT;
             if (tmp.compare(toLower(getLongString(SOIL_WATER_PRESSURE))) == 0) return SOIL_WATER_PRESSURE;
             if (tmp.compare(toLower(getLongString(SOIL_TOTAL_PRESSURE))) == 0) return SOIL_TOTAL_PRESSURE;
+            if (tmp.compare(toLower(getLongString(SOIL_CAN_RAIN))) == 0) return SOIL_CAN_RAIN;
+            if (tmp.compare(toLower(getLongString(SOIL_CAN_SNOW))) == 0) return SOIL_CAN_SNOW;
             // SNOW MAP VARIABLES
             if (tmp.compare(toLower(getLongString(SNOW_AGE))) == 0) return SNOW_AGE;
             // if (tmp.compare(toLower(getLongString(SNOW_DEPTH))) == 0) return SNOW_DEPTH;
@@ -532,6 +536,12 @@ namespace geotop
                     break;
                 case SOIL_TOTAL_PRESSURE:
                     output = true;
+                    break;
+                case SOIL_CAN_RAIN:
+                    output = (mDimension == D3D) ? false : true;
+                    break;
+                case SOIL_CAN_SNOW:
+                    output = (mDimension == D3D) ? false : true;
                     break;
                 // SNOW MAP VARIABLES
                 //If mDimension is D3D then false else true

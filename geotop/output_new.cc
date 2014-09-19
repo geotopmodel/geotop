@@ -310,6 +310,8 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_ICE_CONTENT:
                     case geotop::input::SOIL_WATER_PRESSURE:
                     case geotop::input::SOIL_TOTAL_PRESSURE:
+                    case geotop::input::SOIL_CAN_RAIN:
+                    case geotop::input::SOIL_CAN_SNOW:
                     case geotop::input::SNOW_AGE:
                         // case geotop::input::SNOW_DEPTH:
                     case geotop::input::SNOW_HN:
@@ -1585,7 +1587,13 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 
     switch(what)
     {
-        case geotop::input::SNOW_AGE:
+        case geotop::input::SOIL_CAN_RAIN:
+            var = &(A->S->VS->wrain);
+            break;
+        case geotop::input::SOIL_CAN_SNOW:
+            var = &(A->S->VS->wsnow);
+            break;
+	case geotop::input::SNOW_AGE:
             var = &(A->N->age);
             break;
         case geotop::input::SNOW_DEPTH:

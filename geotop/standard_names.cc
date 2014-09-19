@@ -22,11 +22,15 @@ namespace geotop
             //Avoid multiple initializations
             if (not init)
             {
+                // SOIL TENSOR VARIABLES
                 fillStandardName(SOIL_TEMP, "SoilTemperature", "SoilT", "C");
                 fillStandardName(SOIL_WATER_CONTENT, "SoilWaterContent", "SoilTh", "mm");
                 fillStandardName(SOIL_ICE_CONTENT, "SoilIceContent", "SoilThI", "mm");
                 fillStandardName(SOIL_WATER_PRESSURE, "SoilWaterPressure", "SoilP", "m");
                 fillStandardName(SOIL_TOTAL_PRESSURE, "SoilTotalPressure", "SoilTotP", "m");
+                // SOIL MAP VARIABLES
+                fillStandardName(SOIL_CAN_RAIN, "SoilCanopyInterceptedRain", "SoilCanRain", "mm");
+                fillStandardName(SOIL_CAN_SNOW, "SoilCanopyInterceptedSnow", "SoilCanSnow", "mm");
                 // SNOW MAP VARIABLES
                 fillStandardName(SNOW_AGE, "SnowAge", "SnowA", "s");
                 // fillStandardName(SNOW_DEPTH, "SnowDepth", "SnowHS", "mm");

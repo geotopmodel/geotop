@@ -17,6 +17,8 @@ namespace geotop
             SOIL_ICE_CONTENT,    // Ice content in soil depth
             SOIL_WATER_PRESSURE, // Liquid water pressure in soil depth
             SOIL_TOTAL_PRESSURE, // Total water and ice pressure in soil depth
+            SOIL_CAN_RAIN,       // Canopy intercepted rain
+            SOIL_CAN_SNOW,       // Canopy intercepted snow
             // SNOW MAP VARIABLES
             SNOW_AGE,            // Age of the snow
             // SNOW_DEPTH,          //Depth of the snow
