@@ -57,6 +57,8 @@ namespace geotop
                 // GLACIER MAP VARIABLES
                 fillStandardName(GLAC_MELT, "GlacierMelted", "GlacM", "-");
                 fillStandardName(GLAC_SUBL, "GlacierSublimation", "GlacS", "-");
+                // METEO MAPS VARIABLES
+                fillStandardName(METEO_AIRTEMP, "MeteoAirTemperature", "MeteoAT", "-");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }
