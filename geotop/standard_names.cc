@@ -60,6 +60,8 @@ namespace geotop
                 // METEO MAPS VARIABLES
                 fillStandardName(METEO_AIRTEMP, "MeteoAirTemperature", "MeteoAT", "-");
                 fillStandardName(METEO_WSPEED, "MeteoWindSpeed", "MeteoWS", "-");
+                fillStandardName(METEO_WDIR, "MeteoWindDirection", "MeteoWD", "-");
+                fillStandardName(METEO_RH, "MeteoRelativeHumidity", "MeteoRH", "-");
                 fillStandardName(VECTOR_TEST, "VectorTest", "VT", "-");
                 init = true;
             }

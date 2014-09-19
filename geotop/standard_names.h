@@ -48,8 +48,9 @@ namespace geotop
             // METEO MAPS VARIABLES
             METEO_AIRTEMP,       // The air temperature 
             METEO_WSPEED,        // The speed of the wind
+            METEO_WDIR,          // The direction of the wind
+            METEO_RH,            // The relative humidity of the air
             VECTOR_TEST,
-            // METEO MAPS VARIABLES
             UNKNOWN_VAR
         };
 
