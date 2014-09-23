@@ -519,7 +519,6 @@ namespace geotop
             if (tmp.compare(toLower(getLongString(METEO_RH))) == 0) return METEO_RH;
             if (tmp.compare(toLower(getLongString(VECTOR_TEST))) == 0) return VECTOR_TEST;
 
-			
             return UNKNOWN_VAR;
         }
 

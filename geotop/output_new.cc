@@ -326,7 +326,7 @@ static void initTemporaryValues(geotop::input::OutputFile& of, AllData* A)
                     case geotop::input::SOIL_CAN_RAIN:
                     case geotop::input::SOIL_CAN_SNOW:
                     case geotop::input::SNOW_AGE:
-                        // case geotop::input::SNOW_DEPTH:
+                    // case geotop::input::SNOW_DEPTH:
                     case geotop::input::SNOW_HN:
                     case geotop::input::SNOW_MELTED:
                     case geotop::input::SNOW_SUBL:
@@ -566,17 +566,17 @@ static void refreshTemporaryValuesV(geotop::input::OutputFile* f, AllData* A, lo
                     }
                     break;
                 default:
-                    {
-                        std::string vname = geotop::input::OutputFile::var2str(f->getVariable());
+                {
+                    std::string vname = geotop::input::OutputFile::var2str(f->getVariable());
 
-                        geotop::logger::GlobalLogger* lg =
-                            geotop::logger::GlobalLogger::getInstance();
-                        lg->logsf(geotop::logger::CRITICAL,
-                                  "Unable to retrieve data for variable '%s'. Aborting.",
-                                  vname.c_str());
-                        exit(1);
-                    }
-                    break;
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+                    lg->logsf(geotop::logger::CRITICAL,
+                              "Unable to retrieve data for variable '%s'. Aborting.",
+                              vname.c_str());
+                    exit(1);
+                }
+                break;
             }
         }
     }
@@ -1703,19 +1703,19 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
         //     //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
         //     var = &tmp;
         //     break;
-        case geotop::input::SNOW_MELTED:
+	case geotop::input::SNOW_MELTED:
             var = &(A->N->melted);
             break;
-        case geotop::input::SNOW_SUBL:
+	case geotop::input::SNOW_SUBL:
             var = &(A->N->subl);
             break;
-        case geotop::input::SNOW_DURATION:
+	case geotop::input::SNOW_DURATION:
             var = &(A->N->t_snow);
             break;
-            // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
-            // case geotop::input::SNOW_CA:
-            //     var = &(A->N->yes);
-            //     break;
+        // error: cannot convert ‘GeoVector<short int>*’ to ‘GeoVector<double>*’ in assignment
+	// case geotop::input::SNOW_CA:
+        //     var = &(A->N->yes);
+        //     break;
         case geotop::input::PREC_TOTAL:
             var = &(A->W->Pt);
             break;
