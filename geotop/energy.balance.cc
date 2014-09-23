@@ -816,12 +816,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             
             if(A->P->output_snow[geotop::common::Variables::i_sim]>0){
                 
-                // if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fsnowmelt] != geotop::input::gStringNoValue)
                   A->N->melted[j] = Melt_snow;
                 
-                // if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fsnowsubl] != geotop::input::gStringNoValue)
                   A->N->subl[j] = Evap_snow;
-                // if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
+                if(geotop::common::Variables::files[fsndur] != geotop::input::gStringNoValue){
                     if(snowD>0){
                         
                         A->N->yes[j] = 1;
@@ -829,63 +829,63 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                         
                         A->N->yes[j] = 0;
                     }
-                // }
+                }
             }
 
             
             if(A->P->max_glac_layers>0 && A->P->output_glac[geotop::common::Variables::i_sim]>0){
                 
-                // if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue)
                   A->G->melted[j] = Melt_glac;
                 
-                // if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fglacsubl] != geotop::input::gStringNoValue)
                   A->G->subl[j] = Evap_glac;
             }
 
             
-            // if(A->P->output_surfenergy[geotop::common::Variables::i_sim]>0){
+            if(A->P->output_surfenergy[geotop::common::Variables::i_sim]>0){
                 
-                // if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) A->E->Rn[j] = (SW+LW);
+                if(geotop::common::Variables::files[fradnet] != geotop::input::gStringNoValue) A->E->Rn[j] = (SW+LW);
                 
-                // if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fradLWin] != geotop::input::gStringNoValue)
                   A->E->LWin[j] = LWin;
                 
-                // if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fradLW] != geotop::input::gStringNoValue)
                   A->E->LW[j] = LW;
                 
-                // if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fradSW] != geotop::input::gStringNoValue)
                   A->E->SW[j] = SW;
                 
-                // if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fradSWin] != geotop::input::gStringNoValue)
                   A->E->SWin[j] = SWin;
                 
-                // if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fradSWinbeam] != geotop::input::gStringNoValue)
                   A->E->SWinb[j] = SWbeam;
                 
-                // if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fshadow] != geotop::input::gStringNoValue)
                   A->E->shad[j] = SWb_yes;
                 
-                // if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fG] != geotop::input::gStringNoValue)
                   A->E->G[j] = surfEB;
                 
-                // if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fH] != geotop::input::gStringNoValue)
                   A->E->H[j] = H;
                 
-                // if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fLE] != geotop::input::gStringNoValue)
                   A->E->LE[j] = LE;
                 
-                // if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
+                if(geotop::common::Variables::files[fTs] != geotop::input::gStringNoValue)
                   A->E->Ts[j] = (*Tgskin);
-            // }
+            }
 
-            // if(A->P->output_meteo[geotop::common::Variables::i_sim]>0){
-            //     if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
+            if(A->P->output_meteo[geotop::common::Variables::i_sim]>0){
+                if(geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue){
                     
                     A->W->Pt[j] = Precpoint;
 
                     A->W->Ps[j] = Psnow_over;
-            //     }
-            // }
+                }
+            }
 
             
 			if(A->I->JD_plots.size() > 1 && W>0)

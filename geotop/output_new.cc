@@ -262,7 +262,7 @@ static GeoVector<double>* getSupervectorLayer(long layer, geotop::input::OutputF
 
 static GeoVector<double>* initTempValuesVector(size_t count)
 {
-    GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel + 1, 0.);
+    GeoVector<double>* output = new GeoVector<double>(count, 0.);
 
     return output;
 }
@@ -724,6 +724,9 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
     g2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
 
     iomanager.write2DGrid(g2d, filename);
+
+    A->N->t_snow.resize(A->N->t_snow.size(), 0.0);
+    A->E->SEB_mean.resize(egy->SEB_mean.size(), 0.0);
 }
 #endif
 
@@ -1693,13 +1696,13 @@ static GeoVector<double>* getSupervectorVariableV(AllData* A, geotop::input::Var
 	case geotop::input::SNOW_AGE:
             var = &(A->N->age);
             break;
-        case geotop::input::SNOW_DEPTH:
-            //Be aware that this will never work because tmp has been allocated in stack
-            //and will be wiped away when this function will exit.
-            //We need to rethink the API to accomodate this.
-            //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
-            var = &tmp;
-            break;
+        // case geotop::input::SNOW_DEPTH:
+        //     //Be aware that this will never work because tmp has been allocated in stack
+        //     //and will be wiped away when this function will exit.
+        //     //We need to rethink the API to accomodate this.
+        //     //tmp = getSupervectorFromGeoTensor(A, A->N->Dzl);
+        //     var = &tmp;
+        //     break;
         case geotop::input::SNOW_MELTED:
             var = &(A->N->melted);
             break;

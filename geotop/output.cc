@@ -1736,7 +1736,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         {
             temp1 = geotop::common::Variables::files[fsndur] + s2 ;
             write_map_vector(temp1, 0, par->format_out, snow->t_snow, geotop::common::Variables::UV, geotop::input::gDoubleNoValue, top->j_cont, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
-            snow->t_snow.resize(snow->t_snow.size(), 0.0);
+            // snow->t_snow.resize(snow->t_snow.size(), 0.0);
         }
 
     }
