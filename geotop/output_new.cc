@@ -726,7 +726,7 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
     iomanager.write2DGrid(g2d, filename);
 
     A->N->t_snow.resize(A->N->t_snow.size(), 0.0);
-    A->E->SEB_mean.resize(egy->SEB_mean.size(), 0.0);
+    A->E->SEB_mean.resize(A->E->SEB_mean.size(), 0.0);
 }
 #endif
 
