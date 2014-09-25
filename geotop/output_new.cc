@@ -50,7 +50,7 @@ class OutputFilesVector
         size_t size() { return mVector->size(); }
         size_t getCount() { return mCount; }
         void incCount() { mCount++; }
-        void resetCount() { mCount = 1; }
+        void resetCount() { mCount = 0; }
     private:
         double mPeriod;
         size_t mCount;
@@ -59,7 +59,7 @@ class OutputFilesVector
 
 OutputFilesVector::OutputFilesVector(double period)
 {
-    mCount = 1;
+    mCount = 0;
     mPeriod = period;
     mVector = new std::vector<geotop::input::OutputFile>();
 }
