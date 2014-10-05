@@ -1,0 +1,2 @@
+ID,ele,slp,asp,sky,landcover,soil
+1,2500,0,360,1,1,1
