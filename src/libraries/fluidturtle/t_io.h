@@ -978,12 +978,6 @@ Description: inspect a file a look for the string that starts
 
 
 
-a comment (/**)
-
-
-
-
-
 
 
 Authors & Date: Riccardo Rigon, February 1997

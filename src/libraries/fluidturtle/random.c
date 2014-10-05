@@ -210,7 +210,7 @@ pto[1]=vy[dnr]+2;
 vy[dnr]=(col-2)*(long)rand()/(RAND_MAX+1);
 
 }
-
+*/
 
 /*--------------------------------------------------------------------------*/
 
@@ -222,9 +222,9 @@ long i;
 static double vx[98];
 static long toggle;
 long pto,dnr;
-/* char ch; */
-/* Initializing the randon number generator */
-/* commentata per  warning: integer overflow in expression
+// char ch;
+// Initializing the randon number generator
+// commentata per  warning: integer overflow in expression
 if(toggle==0){
 		srand(time(NULL));
 		for(i=0;i<=97;i++) rand();
@@ -236,11 +236,12 @@ dnr=98*(long)rand()/(RAND_MAX+1);
 if(dnr>97) {printf("dnr was %d",dnr); t_error("merda");}
 pto=abs(row*vx[dnr]);
 vx[dnr]=(double)rand()/(RAND_MAX+1);
-/* printf("pto = %d",pto); scanf("%c",&ch);*/
-/* commentata per  warning: integer overflow in expression
+// printf("pto = %d",pto); scanf("%c",&ch);
+// commentata per  warning: integer overflow in expression
 return pto;
 
 }
+*/
 
 
 /*--------------------------------------------------------------------------*/

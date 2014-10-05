@@ -801,8 +801,8 @@ void initialize_doublematrix(DOUBLEMATRIX *L,double sign)
 
   if(L!=NULL){
     if(L->isdynamic==1){
-      for(i=1;i<=L->nrh;i++){
-	for(j=1;j<=L->nch;j++){
+      for(i=L->nrl;i<=L->nrh;i++){
+	for(j=L->ncl;j<=L->nch;j++){
 	  L->co[i][j]=sign;
 	}
       }
@@ -972,8 +972,8 @@ void copy_doublematrix(DOUBLEMATRIX *origin,DOUBLEMATRIX *destination)
 
   }
 
-  for(i=1;i<=origin->nrh;i++){
-    for(j=1;j<=origin->nch;j++){
+  for(i=origin->nrl;i<=origin->nrh;i++){
+    for(j=origin->ncl;j<=origin->nch;j++){
 	
       destination->co[i][j]=origin->co[i][j];
 
@@ -1137,7 +1137,7 @@ void copy_doublevector(DOUBLEVECTOR *origin,DOUBLEVECTOR *destination)
 
   }
 
-  for(i=1;i<=origin->nh;i++){
+  for(i=origin->nl;i<=origin->nh;i++){
 	
 	
     destination->co[i]=origin->co[i];
@@ -1169,7 +1169,7 @@ void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big)
 		
 	}
 	
-	for(i=1;i<=small->nh;i++){
+	for(i=small->nl;i<=small->nh;i++){
 		
 		
 		big->co[i] += small->co[i];

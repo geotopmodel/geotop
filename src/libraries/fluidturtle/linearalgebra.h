@@ -209,9 +209,10 @@ FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalg
  
 
 */
-/* commentata per l'errore (dovuto ad una errata definizione di asolve):
-error: conflicting types for `asolve'
-void ris_sistema (double d[], double ds[], double di[], double b[], double x[], int n);
+
+//commentata per l'errore (dovuto ad una errata definizione di asolve):
+//error: conflicting types for `asolve'
+//void ris_sistema (double d[], double ds[], double di[], double b[], double x[], int n);
 
 
 /**
@@ -283,10 +284,11 @@ FILE: LIBRARIES/LINEARALGEBRA/linearalgebra.c, LIBRARIES/LINEARALGEBRA/linearalg
      Bugs & limitations:
 
  */
-/* commentata per l'errore (dovuto ad una errata definizione di asolve):
-error: conflicting types for `asolve' 
-void linbcg(long, double *,double *, int, double, int, int *,double *,
-             double *, long *);  
+
+// commentata per l'errore (dovuto ad una errata definizione di asolve):
+//error: conflicting types for `asolve'
+//void linbcg(long, double *,double *, int, double, int, int *,double *,
+//             double *, long *);
 
 
 /**                  

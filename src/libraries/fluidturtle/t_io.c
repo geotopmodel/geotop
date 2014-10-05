@@ -2,6 +2,15 @@
 #include "t_utilities.h"
 #include "tensor3D.h"
 
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <string.h>
+#include <libgen.h>
+#include <limits.h>
+#include <stdio.h>
+
 char *WORKING_DIRECTORY='\0';
 
 /*WORKING_POSITION=SEEK_SET;*/
@@ -40,6 +49,37 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
 
 
 
+int mkdirp(const char *pathname, mode_t mode)
+{
+    /* From http://niallohiggins.com/2009/01/08/mkpath-mkdir-p-alike-in-c-for-unix/ */
+    char parent[PATH_MAX], *p;
+
+    /* make a parent directory path */
+    strncpy(parent, pathname, sizeof(parent));
+    parent[sizeof(parent) - 1] = '\0';
+    for(p = parent + strlen(parent); *p != '/' && p != parent; p--);
+    *p = '\0';
+
+    /* try make parent directory */
+    if(p != parent && mkdirp(parent, mode) != 0)
+        return -1;
+
+    /* make this one if parent has been made */
+    if(mkdir(pathname, mode) == 0)
+        return 0;
+
+    /* if it already exists that is fine */
+    if(errno == EEXIST){
+        struct stat sb;
+        stat(pathname, &sb);
+        if(!S_ISDIR(sb.st_mode)){
+            /* pathname is NOT a directory! */
+            return -1;
+        }
+        return 0;
+    }
+    return -1;
+}
 
 /**-----------------------------------------------------------------------*/
 FILE *t_fopen(const char *name,const char *mode)
@@ -48,7 +88,8 @@ FILE *t_fopen(const char *name,const char *mode)
 
 //char newname[256];
 FILE *fp=NULL;
-
+char *basedir = dirname(strdup(name));
+int ret = 0;
 
 /*if(strcmp(mode,"w")==0 || strcmp(mode,"wb")==0){
 	if((fp=fopen(name,"r"))!=NULL ){
@@ -60,9 +101,15 @@ FILE *fp=NULL;
 		//rename(name,newname);
 	}
 }*/
-    
+
+ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+if(-1 == ret){
+    fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+    exit(1);
+}
+
 if((fp=fopen(name,mode))==NULL){
-	printf("%s",name);    
+	printf("%s\n",name);    
 	t_error(" The specified file could not be opened ");
 
 	return NULL;
