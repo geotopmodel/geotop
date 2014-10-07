@@ -55,6 +55,8 @@
 #include <inputKeywords.h>
 #include "output_new.h"
 
+#include "global_logger.h"
+
 using namespace std;
 
 void time_loop(AllData *A, mio::IOManager& iomanager);
@@ -74,10 +76,9 @@ int main(int argc,char *argv[]){
 	AllData *adt;
 	FILE *f;
 
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
 	string cfgfile = "io_it.ini";
-	//	printf("argc=%d, argv[0]=%s argv[1]=%s argv[2]=%s argv[3]=%s argv[4]=%s",argc,argv[0],argv[1],argv[2],argv[3],argv[4]);stop_execution();
-	//	if (argc > 1) cfgfile = string(argv[1]) + "/" + cfgfile; //if a working directory is given, we prepend it to io_it.ini
 
 	/* ANTONIO: This is just crazy. We have *two* incompatible way of
 	   calling geotop, and part of the command line parsing is done
@@ -209,7 +210,7 @@ int main(int argc,char *argv[]){
 		end = clock();
 		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-		printf("Duration of simulation: %f\n", elapsed);
+		lg->logsf(geotop::logger::NOTICE, "Duration of simulation: %f\n", elapsed);
 
 
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
@@ -220,7 +221,7 @@ int main(int argc,char *argv[]){
 
 	}
 
-	printf("End of simulation!\n");
+	lg->log("End of simulation!\n");
 
 	f = fopen(geotop::common::Variables::SuccessfulRunFile.c_str(), "w");
 	fclose(f);
@@ -239,6 +240,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 	double t, Dt, JD0, JDb, JDe, W;
 	double Vout, Voutsub, Voutsup, Vbottom;
 	FILE *f;
+
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
 	//double mean;
 
@@ -323,7 +326,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			do{
 				JDe = A->P->init_date+(A->I->time+t+Dt)/GTConst::secinday;
 #ifdef VERBOSE
-				printf("TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",A->P->Dt,JD0,JDb,JDe); 
+				lg->logsf(geotop::logger::DEBUG,
+                          "TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",
+                          A->P->Dt,JD0,JDb,JDe); 
 #endif 					
 				//	copy state variables on
 				S=A->N->S;
@@ -355,16 +360,13 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				iomanager.getMeteoData(d1, vec_meteo);
 
 				A->P->use_meteoio_cloud = iswr_present(vec_meteo, (JDb == A->P->init_date), A);
-				//	printf("met->Tgrid->ndh=%ld, met->Tgrid->nrh=%ld, met->Tgrid->nch=%ld", met->Tgrid->ndh, met->Tgrid->nrh, met->Tgrid->nch);stop_execution();
 
 				if(A->P->point_sim == 1){
-					printf("Calling pointwise MeteoIO ");
+					lg->log("Calling pointwise MeteoIO", geotop::logger::DEBUG);
 					meteoio_interpolate_pointwise( A->P, JDe, A->M, A->W);
-					//	f = fopen("mio_hnw_1d_log.txt", "a");
 				}else{
-					printf("Calling 2D grid MeteoIO ");
+					lg->log("Calling 2D grid MeteoIO", geotop::logger::DEBUG);
 					meteoio_interpolate(A->P, JDe, A->M, A->W);
-					//	f = fopen("mio_hnw_2d_log.txt", "a");
 					}
 #else
 				meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
@@ -393,21 +395,21 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					if(Dt > A->P->min_Dt) Dt *= 0.5;
 					out = 0;
 
-					f = fopen(geotop::common::Variables::logfile.c_str(), "a");
 					if (en != 0) {
-						fprintf(f,"Energy balance not converging\n");
+						lg->log("Energy balance not converging", geotop::logger::WARNING);
 					}else {
-						fprintf(f,"Water balance not converging\n");
+						lg->log("Water balance not converging", geotop::logger::WARNING);
 					}
-					fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
-					fclose(f);
+					lg->logsf(geotop::logger::WARNING,
+                              "Reducing time step to %f s, t:%f s\n",Dt,t);
 
 				}else {
 					out = 1;
 				}
 
-			}while( out == 0 && Dt > A->P->min_Dt ); 
+			}while( out == 0 && Dt > A->P->min_Dt );
 
+            //TODO: sort out this mess about _FAILED_RUN files (G.G.)
 			if (en != 0 || wt != 0) {
 				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 				fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
@@ -489,7 +491,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 		// counter...// 
 		i_steps++;
-		printf("time-loop: time:%f steps:%ld enddate:%f initdate:%f diff:%f\n",A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
+		lg->logsf(geotop::logger::TRACE,
+                  "time-loop: time:%f steps:%ld enddate:%f initdate:%f diff:%f\n",
+                  A->I->time,i_steps,A->P->end_date,A->P->init_date,(A->P->end_date - A->P->init_date)*86400.); 
 			
 
 	}while( (long)((A->P->end_date - A->P->init_date)*86400.) > (long)A->I->time );
