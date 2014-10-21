@@ -22,6 +22,7 @@
 #include "indices.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
+#include "global_logger.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -53,7 +54,11 @@ void i_lrc_cont(GeoMatrix<double>& LC, long ***i, GeoMatrix<long>& lrc)
         }
     }
 #ifdef VERBOSE
-    printf("i_lrc_cont: cont: %ld\n", cont);
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::DEBUG,
+              "i_lrc_cont: cont: %ld\n", cont);
 #endif
 }
 
@@ -62,7 +67,6 @@ void i_lrc_cont(GeoMatrix<double>& LC, long ***i, GeoMatrix<long>& lrc)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void j_rc_cont(DOUBLEMATRIX *LC, long **j, LONGMATRIX *rc)
 void j_rc_cont(GeoMatrix<double>& LC, long **j, GeoMatrix<long>& rc)
 {
 
@@ -84,7 +88,11 @@ void j_rc_cont(GeoMatrix<double>& LC, long **j, GeoMatrix<long>& rc)
     }
 
 #ifdef VERBOSE
-    printf("j_lrc_cont: cont: %ld\n", cont);
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::DEBUG,
+              "j_lrc_cont: cont: %ld\n", cont);
 #endif
 
 }
@@ -114,7 +122,11 @@ void lch3_cont(long **ch3, GeoMatrix<long>& lch, long Nl, long nch)
         }
     }
 #ifdef VERBOSE
-    printf("lch3_cont: cont: %ld\n", cont);
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::DEBUG,
+              "lch3_cont: cont: %ld\n", cont);
 #endif
 }
 
@@ -136,7 +148,12 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
     M = m * (geotop::common::Variables::Nl + 1);
 
 #ifdef VERBOSE
-    printf("cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n", geotop::common::Variables::Nl, n, m, N, M);
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::DEBUG,
+              "cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld",
+              geotop::common::Variables::Nl, n, m, N, M);
 #endif
 
     for(j = 1; j <= N + M; j++)
@@ -190,7 +207,9 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
     *tot = cnt;
     *totdiag = N + M;
 #ifdef VERBOSE
-    printf(" nonzero_values_matrix2 cnt:%ld totdiag:%ld  \n", cnt, *totdiag);
+    lg->logsf(geotop::logger::DEBUG,
+              " nonzero_values_matrix2 cnt:%ld totdiag:%ld"
+              , cnt, *totdiag);
 #endif
 
 
@@ -220,7 +239,12 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
     M = m * (geotop::common::Variables::Nl + 1);
 
 #ifdef VERBOSE
-    printf("cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld \n", geotop::common::Variables::Nl, n, m, N, M);
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::DEBUG,
+              "cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld",
+              geotop::common::Variables::Nl, n, m, N, M);
 #endif
 
     for(j = 1; j <= N + M; j++)
@@ -299,7 +323,9 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
         Lp[j] = cnt;
 
 #ifdef VERBOSE
-        printf(" nonzero_values_matrix3 j:%ld cnt:%ld Li:%ld l:%ld r:%ld c:%ld ch:%ld \n", j, cnt, Li[cnt], l, r, c, cnet->ch[r][c]);
+        lg->logsf(geotop::logger::DEBUG,
+                  " nonzero_values_matrix3 j:%ld cnt:%ld Li:%ld l:%ld r:%ld c:%ld ch:%ld",
+                  j, cnt, Li[cnt], l, r, c, cnet->ch[r][c]);
 #endif
     }
 
