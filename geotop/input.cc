@@ -92,14 +92,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //8<==================================
     geotop::common::Variables::logfile = geotop::common::Variables::WORKING_DIRECTORY + logfile_name;
     flog = fopen(geotop::common::Variables::logfile.c_str(), "w");
-    fprintf(flog,"STATEMENT:\n");
-    fprintf(flog,"\n");
-    fprintf(flog,"GEOtop 2.0.0 - 9 Mar 2012\n\n");
-    fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");
- 	fprintf(flog,"TN -EXACT version (tmp)\n\n");
-    fprintf(flog,"GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-    fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-    fprintf(flog,"\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
     //8<==================================
 
     std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
