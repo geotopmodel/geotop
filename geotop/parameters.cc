@@ -23,6 +23,14 @@
 using namespace std;
 using namespace boost::assign ;
 
+/*
+ * Internal prototypes
+ */
+
+
+static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools);
+
+
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
@@ -171,7 +179,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
     boost::shared_ptr<geotop::input::ConfigStore> lConfigStore = geotop::input::ConfigStoreSingletonFactory::getInstance() ;
 
 	//assign parameter
-	assign_numeric_parameters(par, land, times, sl, met, itools, flog);
+	assign_numeric_parameters(par, land, times, sl, met, itools);
 
 	//assign parameter
     std::vector<std::string> lKeys ;
@@ -753,17 +761,17 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 /***********************************************************/
 /***********************************************************/
 /***********************************************************/
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog)
+static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools)
 {
 	short occurring;
     size_t k, n, m, nsoillayers, nmeteo_stations, npoints;
 	double a;
     double minDt=1.E99;
 
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
     std::vector<double> lDoubleTempVector ;
 
-	fprintf(flog,"\n");
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
 	
 	par->print=0;
 
@@ -1101,9 +1109,10 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 
 	n = par->max_snow_layers ;
 	if(n < 1){
-		fprintf(flog,"Error:: MaxSnowLayersMiddle must be 1 or larger\n");
-		printf("Error:: MaxSnowLayersMiddle must be 1 or larger\n");
-		t_error("Fatal Error! Geotop is closed.");
+        lg->log("MaxSnowLayersMiddle must be 1 or larger. Aborting.",
+                geotop::logger::CRITICAL);
+        exit(1);
+
 	}
 
 	par->SWE_bottom = getDoubleValueWithDefault(lConfigStore, "SWEbottom", geotop::input::gDoubleNoValue, false) ;
@@ -1111,13 +1120,16 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     
 	par->max_snow_layers = (long)floor(par->SWE_bottom/par->max_weq_snow) + (long)floor(par->SWE_top/par->max_weq_snow) + n;
 	par->inf_snow_layers.resize(n + 1, 0);
-	fprintf(flog,"Max snow layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",par->max_snow_layers,floor(par->SWE_bottom/par->max_weq_snow),n,floor(par->SWE_top/par->max_weq_snow));
-	fprintf(flog,"Infinite Snow layer numbers are numbers: ");
+
+	lg->logf("Max snow layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.",
+        par->max_snow_layers,floor(par->SWE_bottom/par->max_weq_snow),n,floor(par->SWE_top/par->max_weq_snow));
+	lg->log("Infinite Snow layer numbers are numbers: ");
+    lg->writeAll("\t");
 	for (size_t i=1; i<=n; i++) {
 		par->inf_snow_layers[i] = (long)floor(par->SWE_bottom/par->max_weq_snow) + i;
-		fprintf(flog, "%ld ",par->inf_snow_layers[i]);
+		lg->writefAll("%ld ",par->inf_snow_layers[i]);
 	}
-	fprintf(flog,"\n");
+	lg->writeAll("\n");
 	
 	//former block 7
     itools->Dglac0 = getDoubleValueWithDefault(lConfigStore, "InitGlacierDepth", geotop::input::gDoubleNoValue, false) ;
@@ -1133,21 +1145,23 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->GWE_top = getDoubleValueWithDefault(lConfigStore, "GWEtop", geotop::input::gDoubleNoValue, false) ;
 
 	if(n < 1 && (par->GWE_bottom > 0 || par->GWE_top > 0)){
-		fprintf(flog,"Error:: MaxGlacLayersMiddle must be 1 or larger\n");
-		printf("Error:: MaxGlacLayersMiddle must be 1 or larger\n");
-		t_error("Fatal Error! Geotop is closed.");	
+		lg->log("Error:: MaxGlacLayersMiddle must be 1 or larger",
+                geotop::logger::CRITICAL);
+		exit(1);
 	}
 
 	par->max_glac_layers = (long)floor(par->GWE_bottom/par->max_weq_glac) + (long)floor(par->GWE_top/par->max_weq_glac) + n;
 	par->inf_glac_layers.resize(n + 1, 0);
-	fprintf(flog,"Max glac layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",par->max_glac_layers,floor(par->GWE_bottom/par->max_weq_glac),n,floor(par->GWE_top/par->max_weq_glac));
-	fprintf(flog,"Infinite Glac layer numbers are numbers: ");
+	lg->logf("Max glac layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.",
+             par->max_glac_layers,floor(par->GWE_bottom/par->max_weq_glac),n,floor(par->GWE_top/par->max_weq_glac));
+	lg->log("Infinite Glac layer numbers are numbers: ");
+    lg->writeAll("\t");
 	for (size_t i=1; i<=n; i++) {
 		par->inf_glac_layers[i] = (long)floor(par->GWE_bottom/par->max_weq_glac) + i;
-		fprintf(flog, "%ld ",par->inf_glac_layers[i]);
+		lg->writefAll("%ld ",par->inf_glac_layers[i]);
 	}
-	fprintf(flog,"\n");
-
+    lg->writeAll("\n");
+	
     par->state_turb = 1;
     
 	//former block 9
@@ -1254,9 +1268,9 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     std::vector<double> lSpecialPlotEnd = getDoubleVectorValueWithDefault(lConfigStore, "SpecialPlotEnd", geotop::input::gDoubleNoValue, false, 0, false) ;
 
     if(lSpecialPlotBegin.size() != lSpecialPlotEnd.size()){
-		fprintf(flog, "Error:: Number of components of parameters SpecialPlotBegin and SpecialPlotEnd must be equal\n");
-		printf("Error:: Number of components of parameters SpecialPlotBegin and SpecialPlotEnd must be equal\n");
-		t_error("Fatal Error! Geotop is closed. See failing report.");
+		lg->log("Number of components of parameters SpecialPlotBegin and SpecialPlotEnd must be equal. Aborting.",
+                geotop::logger::CRITICAL);
+        exit(1);
 	}
 
     times->JD_plots.resize(lSpecialPlotBegin.size() + lSpecialPlotEnd.size() + 1, 0) ;
@@ -1266,7 +1280,6 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		times->JD_plots[2*i  ] = lSpecialPlotEnd[i-1];
 	}
 	if (times->JD_plots.size() == 3 && times->JD_plots[1] < 1.E-5 && times->JD_plots[2] < 1.E-5) {
-        //		free_doublevector(times->JD_plots);
 		times->JD_plots.resize(1 + 1, 0) ;
 	}
 	if (times->JD_plots.size() > 2) {
@@ -1292,17 +1305,17 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->soil_type_land_default = (long)getDoubleValueWithDefault(lConfigStore, "DefaultSoilTypeLand", geotop::input::gDoubleNoValue, false) ;
 
 	if(par->soil_type_land_default<1 || par->soil_type_land_default>par->nsoiltypes){
-		fprintf(flog, "Error:: Soil_type_land_default lower than 0 or higher than soil types numbers");
-		printf("Error:: Soil_type_land_default lower than 0 or higher than soil types numbers");
-		t_error("Fatal Error! Geotop is closed. See failing report.");	
+		lg->log("Soil_type_land_default lower than 0 or higher than soil types numbers. Aborting.",
+                geotop::logger::CRITICAL);
+        exit(1);
 	}
 
 	par->soil_type_chan_default = (long)getDoubleValueWithDefault(lConfigStore, "DefaultSoilTypeChannel", geotop::input::gDoubleNoValue, false) ;
 
 	if(par->soil_type_chan_default<1 || par->soil_type_chan_default>par->nsoiltypes){
-		fprintf(flog, "Error:  Soil_type_chan_default lower than 0 or higher than soil types numbers");
-		printf("Error:  Soil_type_chan_default lower than 0 or higher than soil types numbers");
-		t_error("Fatal Error! Geotop is closed. See failing report.");	
+		lg->log("Soil_type_chan_default lower than 0 or higher than soil types numbers. Aborting.",
+                geotop::logger::CRITICAL);
+        exit(1);
 	}
 
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "SoilLayerThicknesses", geotop::input::gDoubleNoValue, true, 0, true) ;
@@ -1844,8 +1857,7 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
     par->output_vertical_distances = (short)getDoubleValueWithDefault(lConfigStore, "OutputDepthsVertical", geotop::input::gDoubleNoValue, false) ;
 	if(par->point_sim != 1){
 		if(par->output_vertical_distances == 1){
-			printf("Only for point simulations the parameter OutputDepthsVertical can be assigned to 1, layers are defined vertically\n");
-			fprintf(flog, "Only for point simulations the parameter OutputDepthsVertical can be assigned to 1, layers are defined vertically\n");
+			lg->log("Only for point simulations the parameter OutputDepthsVertical can be assigned to 1, layers are defined vertically.");
 		}
 	}
 
@@ -1869,17 +1881,17 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 		par->Nl_spinup[i] = lDoubleTempVector[i-1] ;
 	}
 	if(par->Nl_spinup[1]<10000. && par->point_sim!=1){
-		printf("You can use SpinUpLayerBottom only if PointSim is set to 1\n");
-		fprintf(flog,"You can use SpinUpLayerBottom only if PointSim is set to 1\n");
-		t_error("Not possible to continue");
+		lg->log("You can use SpinUpLayerBottom only if PointSim is set to 1. Aborting.",
+                geotop::logger::CRITICAL);
+		exit(1);
 	}
 
 	par->newperiodinit = (short)getDoubleValueWithDefault(lConfigStore, "InitInNewPeriods", geotop::input::gDoubleNoValue, false) ;
 
 	if(par->newperiodinit != 0 && par->point_sim != 1){
-		printf("You can use InitInNewPeriods only if PointSim is set to 1\n");
-		fprintf(flog,"You can use InitInNewPeriods only if PointSim is set to 1\n");
-		t_error("Not possible to continue");
+		lg->log("You can use InitInNewPeriods only if PointSim is set to 1. Aborting.",
+                geotop::logger::CRITICAL);
+        exit(1);
 	}
 
 	par->k1 = getDoubleValueWithDefault(lConfigStore, "KonzelmannA", geotop::input::gDoubleNoValue, false) ;
@@ -1904,9 +1916,9 @@ void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Met
 	par->soil_type_bedr_default = (long)getDoubleValueWithDefault(lConfigStore, "DefaultSoilTypeBedrock", geotop::input::gDoubleNoValue, false) ;
 
     if(par->soil_type_bedr_default<1 || par->soil_type_bedr_default>par->nsoiltypes){
-		fprintf(flog, "Error:  soil_type_bedr_default lower than 0 or higher than soil types numbers");
-		printf("Error:  soil_type_bedr_default lower than 0 or higher than soil types numbers");
-		t_error("Fatal Error! Geotop is closed. See failing report.");
+		lg->log("Soil_type_bedr_default lower than 0 or higher than soil types numbers. Aborting.",
+                geotop::logger::CRITICAL);
+		exit(1);
 	}
 
 	par->minP_torestore_A = getDoubleValueWithDefault(lConfigStore, "MinPrecToRestoreFreshSnowAlbedo", geotop::input::gDoubleNoValue, false) ;
@@ -1932,6 +1944,9 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 	double **soildata;
     GeoTensor<double> old_sl_par;
     FILE *f ;
+
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
 	
 	//look if there is at least 1 soil file
     i = 0;
@@ -1960,7 +1975,10 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 				fprintf(f,"Error:: Soil file %s not existing.\n", name.c_str());
 				fclose(f);
-				t_error("Fatal Error! GEOtop is closed. See failing report.");	
+				lg->logsf(geotop::logger::CRITICAL,
+                          "Soil file %s not existing. Aborting.",
+                          name.c_str());
+                exit(1);
 			}
 		}
 			
@@ -2025,7 +2043,11 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 						fprintf(f,"Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.\n",i);
 						fprintf(f,"In Geotop it is only possible to have the soil layer discretization in any soil parameter files.\n");
 						fclose(f);
-						t_error("Fatal Error! Geotop is closed. See failing report.");	
+						lg->logsf(geotop::logger::CRITICAL,
+                                  "Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.",
+                                  i);
+						lg->writeAll("In Geotop it is only possible to have the soil layer discretization in any soil parameter files.\n");
+						exit(1);
 					}
 				} else if (i == 1) {
 					if (j < old_sl_par.getCh()) {
@@ -2041,10 +2063,8 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 			//all other variables
             for (n=1; n<=nsoilprop; n++) {
                 if (n != jdz) {
-                    //for (j=1; j<=sl->pa->nch; j++) { //j is the layer index
                     for (j=1; j<sl->pa.getCh(); j++) { //j is the layer index
                         if ((long)sl->pa[i][n][j] == geotop::input::gDoubleNoValue || (long)sl->pa[i][n][j] == geotop::input::gDoubleAbsent) {
-                            //if (j <= old_sl_par->nch) {
                             if (j < old_sl_par.getCh()) {
                                 sl->pa[i][n][j] = old_sl_par[i][n][j];
                             }else {
@@ -2084,9 +2104,6 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
                 IT->init_water_table_depth[i] = geotop::input::gDoubleNoValue;
             }
         }
-
-		//free_doubletensor(old_sl_par);
-			
 	}
 	
 	//write on the screen the soil paramater
@@ -2096,18 +2113,18 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
     "HeaderLateralHydrConductivity", "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
     "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV",
     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
-	fprintf(flog,"\n");
+	lg->writeAll("\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Layers: %u\n",sl->pa.getCh()-1);
+	lg->writefAll("Soil Layers: %u\n",sl->pa.getCh()-1);
 	for (i=1; i<sl->pa.getDh()-1; i++) {
-		fprintf(flog,"-> Soil Type: %ld\n",i);
+		lg->writefAll("-> Soil Type: %ld\n",i);
 		for (size_t n=1; n <= lSoilParameters.size(); n++) {
-			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
+			lg->writefAll("%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				fprintf(flog,"%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
-				if (j<sl->pa.getCh()-1) fprintf(flog,", ");
+				lg->writefAll("%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
+				if (j<sl->pa.getCh()-1) lg->writeAll(", ");
 			}
-			fprintf(flog,"\n");
+			lg->writeAll("\n");
 		}
 	}
 	
@@ -2142,21 +2159,21 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 		}		
 	}
 	
-	fprintf(flog,"\n");
+	lg->writeAll("\n");
 	k = (long)nmet;
-	fprintf(flog,"Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
+	lg->writefAll("Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
 	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
-		fprintf(flog,"-> Soil Type: %ld\n",i);
+		lg->writefAll("-> Soil Type: %ld\n",i);
 		for (size_t n=1; n<=lSoilParameters.size(); n++) {
-			fprintf(flog,"%s: ",lSoilParameters[n-1].c_str());
+			lg->writefAll("%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				fprintf(flog,"%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
-				if(j < sl->pa.getCh()-1) fprintf(flog,", ");
+				lg->writefAll("%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
+				if(j < sl->pa.getCh()-1) lg->writeAll(", ");
 			}
-			fprintf(flog,"\n");
+			lg->writeAll("\n");
 		}
 	}
-	fprintf(flog,"\n");
+	lg->writeAll("\n");
 	
 	return 1;
 	
@@ -2167,6 +2184,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 /***********************************************************/
 /***********************************************************/		
 
+//TODO: check libraries/ascii  and see if it's possible to remove flog
 short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog){
 
 	GeoMatrix<double>  chkpt2;
@@ -2174,15 +2192,16 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 	long nlines, n, j;
       std::string temp;
 
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+
 	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
 		temp = name + std::string(textfile);
-		printf("%s\n",temp.c_str());
+		lg->log(temp);
 		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines, flog);
 				
 		chkpt2.resize(par->chkpt.getRows() + 1, par->chkpt.getCols() + 1);
 
 		chkpt2=par->chkpt;
-	//	free_doublematrix(par->chkpt);
 		
 		par->chkpt.resize(nlines+1, chkpt2.getCols());
 		for (n=1; n<=nlines; n++) {
@@ -2206,23 +2225,26 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 			free(points[n-1]);
 		}
 				
-	//	free_doublematrix(chkpt2);
 		free(points);
 	}
 	
-	if (par->point_sim != 1){
-		for (n=1; n< par->chkpt.getRows(); n++) {
-			if ( (long)par->chkpt[n][ptX] == geotop::input::gDoubleNoValue || (long)par->chkpt[n][ptY] == geotop::input::gDoubleNoValue) {
-				fprintf(flog,"Warning: The points to plot specific results are not completely specified\n");
-				fprintf(flog,"Output for single point output is deactivated.\n");
-				printf("Warning: The points to plot specific results are not completely specified\n");
-				printf("Output for single point output is deactivated.\n");
-				par->state_pixel = 0;
-			}
-		}
-	}
-	
-	
+    if (par->point_sim != 1)
+    {
+        for (n=1; n< par->chkpt.getRows(); n++)
+        {
+            if (
+                (long)par->chkpt[n][ptX] == geotop::input::gDoubleNoValue ||
+                (long)par->chkpt[n][ptY] == geotop::input::gDoubleNoValue
+               )
+            {
+                lg->log("The points to plot specific results are not completely specified\nOutput for single point output is deactivated.",
+                        geotop::logger::WARNING);
+                par->state_pixel = 0;
+            }
+        }
+    }
+
+
 	return 1;
 }
 
