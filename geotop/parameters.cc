@@ -43,7 +43,7 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
   * @param[in] pAllowNoValue if true the returning of no value is permitted, by default is false
   * @return the parameter value. If the keyword does not exists or if the return value is
   *     geotop::input::gDoubleNoValue (and pAllowNoValue == false)
-  *     the function will cause an exit from the program by calling the t_error function
+  *     the function will trigger a CRITICAL error and close the program
   */
 static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::string pName, const double pDefaultValue, const bool pAllowNoValue = false){
     
@@ -81,7 +81,7 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
   * @param[in] pAllowNoValue if true then returning a vector containing N/A values is permitted, by default is false
   * @return the parameter with the array of double. If the keyword does not exists or if the return value is
   *     geotop::input::gDoubleNoValue (and pAllowNoValue == false)
-  *     the function will cause an exit from the program by calling the t_error function
+  *     the function will trigger a CRITICAL error and close the program
   */
 static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore, const std::string pName, const double pDefaultValue, const bool pUsePrevElement, const size_t pLength, const bool pAllowNoValue = false){
 
@@ -1479,7 +1479,12 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 
     met->st = new MeteoStations();
     size_t lMeteoStationContainerSize = nmeteo_stations+1 ;
-    if(!met->st) t_error("meteo_stations was not allocated");
+    if(!met->st)
+    {
+        lg->log("meteo_stations were not allocated",
+                geotop::logger::CRITICAL);
+        exit(1);
+    }
     met->st->E.resize(lMeteoStationContainerSize);
     met->st->N.resize(lMeteoStationContainerSize);
     met->st->lat.resize(lMeteoStationContainerSize);
@@ -1967,7 +1972,12 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 				fprintf(f,"Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",temp.c_str(), nlines, nlinesprev);
 				fprintf(f,"In GEOtop it is only possible to have the same number of layers in any soil parameter files\n");
 				fclose(f);
-				t_error("Fatal Error! GEOtop is closed. See failing report.");
+				lg->logsf(geotop::logger::CRITICAL,
+                          "The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files",
+                          temp.c_str(), nlines, nlinesprev);
+				lg->log("In GEOtop it is only possible to have the same number of layers in any soil parameter files",
+                        geotop::logger::CRITICAL);
+                exit(1);
 			}
 			nlinesprev = nlines;
 		}else {
