@@ -23,6 +23,7 @@
 #include "config.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
+#include "global_logger.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -41,7 +42,14 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
     ibeg = find_line_data(flag, tbeg, i0, data, col_date, nlines, &abeg);
     iend = find_line_data(flag, tend, ibeg, data, col_date, nlines, &aend);
 
-    //printf("istart:%ld ibeg:%ld iend:%ld %f %f %ld %ld\n",*istart,ibeg,iend,tbeg,tend,abeg,aend);
+#ifdef VERY_VERBOSE
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->logsf(geotop::logger::TRACE,
+             "time_interp_linear istart:%ld ibeg:%ld iend:%ld tbeg:%f tend:%f abeg:%ld aend:%ld",
+             *istart,ibeg,iend,tbeg,tend,abeg,aend);
+#endif
 
     for (i=0; i<ncols; i++) {
 
@@ -55,7 +63,10 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
 
             if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = integrate_meas_linear_beh(flag, tbeg, ibeg+1, data, i, col_date);
-                //printf("0:tbeg:%f %f\n",tbeg,add);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "0:tbeg:%f add:%f",tbeg,add);
+#endif
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
@@ -65,7 +76,10 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
 
             if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = -integrate_meas_linear_beh(flag, tend, iend+1, data, i, col_date);
-                //printf("end:tend:%f %f\n",tend,add);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "end:tend:%f add:%f",tend,add);
+#endif
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
                 }else {
@@ -77,7 +91,10 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
             while ( (long)out[i] != geotop::input::gDoubleNoValue && j <= iend) {
                 t = time_in_JDfrom0(flag, j, col_date, data);
                 add = integrate_meas_linear_beh(flag, t, j+1, data, i, col_date);
-                //printf("j:%ld:t:%f %f\n",j,t,add);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "j:%ld:t:%f iadd:%f",j,t,add);
+#endif
                 j++;
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
@@ -118,7 +135,13 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
     ibeg = find_line_data(flag, tbeg, i0, data, col_date, nlines, &abeg);
     iend = find_line_data(flag, tend, ibeg, data, col_date, nlines, &aend);
 
-    //printf("istart:%ld ibeg:%ld iend:%ld %f %f %d %d\n",*istart,ibeg,iend,tbeg,tend,abeg,aend);
+#ifdef VERY_VERBOSE
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+    lg->logsf(geotop::logger::TRACE,
+              "time_interp_constant istart:%ld ibeg:%ld iend:%ld tbeg:%f tend:%f abeg:%d aend:%d",
+              *istart,ibeg,iend,tbeg,tend,abeg,aend);
+#endif
 
     for (i=0; i<ncols; i++) {
 
@@ -135,7 +158,11 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
             while ( (long)out[i] != geotop::input::gDoubleNoValue && j < iend) {
                 t = time_in_JDfrom0(flag, j+1, col_date, data);
                 add = integrate_meas_constant_beh(flag, t, j+1, data, i, col_date);
-                //printf("j:%ld t:%f int:%f va:%f\n",j,t,add,data[j+1][i]);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "j:%ld t:%f add:%f va:%f\n",
+                          j,t,add,data[j+1][i]);
+#endif
                 j++;
 
                 if ((long)add != geotop::input::gDoubleNoValue) {
@@ -147,7 +174,10 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
             if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = -integrate_meas_constant_beh(flag, tbeg, ibeg+1, data, i, col_date);
-                //printf(":j:%ld t:%f int:%f va:%f\n",ibeg,tbeg,add);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "ibeg:%ld t:beg%f add:%f",ibeg,tbeg,add);
+#endif
 
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
@@ -158,7 +188,11 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
 
             if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = integrate_meas_constant_beh(flag, tend, iend+1, data, i, col_date);
-                //printf("::j:%ld t:%f int:%f va:%f\n",iend,tend,add,data[iend+1][i]);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          ":iend:%ld tend:%f add:%f va:%f\n",
+                          iend,tend,add,data[iend+1][i]);
+#endif
 
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;
@@ -172,13 +206,19 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out, doub
                 out[i] /= (tend	- tbeg);
             }
 
-            //printf("i:%ld out:%f\n\n",i,out[i]);
+#ifdef VERY_VERBOSE
+            lg->logsf(geotop::logger::TRACE,
+                      "i:%ld out:%f",i,out[i]);
+#endif
 
         }else {
 
             out[i] = geotop::input::gDoubleNoValue;
 
-            //printf("<-i:%ld out:%f\n\n",i,out[i]);
+#ifdef VERY_VERBOSE
+            lg->logsf(geotop::logger::TRACE,
+                      "<-i:%ld out:%f",i,out[i]);
+#endif
 
         }
 
@@ -238,6 +278,9 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data, lo
     double t0, t1, value, res;
     FILE *f;
 
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
     if( (long)data[i  ][col] != geotop::input::gDoubleNoValue && (long)data[i  ][col] != geotop::input::gDoubleAbsent &&
             (long)data[i-1][col] != geotop::input::gDoubleNoValue && (long)data[i-1][col] != geotop::input::gDoubleAbsent ) {
 
@@ -246,17 +289,21 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data, lo
 
         if(fabs(t0-t1) < 1.E-5){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Error:: There are 2 consecutive line in a meteo file with same date: t0:%12g(%ld) t1:%12g(%ld) equal",t0,i-1,t1,i);
-#else
-            fprintf(f, "Error:: There are 2 consecutive line in a meteo file with same date: t0:%f(%ld) t1:%f(%ld) equal",t0,i-1,t1,i);
-#endif
             fclose(f);
-            t_error("Fatal Error! Geotop is closed. See failing report.");
+            lg->logsf(geotop::logger::CRITICAL,
+                      "There are 2 consecutive line in a meteo file with same date: t0:%12g(%ld) t1:%12g(%ld) equal",
+                      t0,i-1,t1,i);
+            exit(1);
         }
 
         value = ( (t - t0) * data[i][col] + (t1 - t) * data[i-1][col] )/(t1 - t0);
-        //printf("Integrate: t:%f t0:%f t1:%f v0:%f v1:%f v:%f\n",t,t0,t1,data[i-1][col],data[i][col],value);
+
+#ifdef VERY_VERBOSE
+        lg->logsf(geotop::logger::TRACE,
+                  "Integrate: t:%f t0:%f t1:%f v0:%f v1:%f v:%f\n",
+                  t,t0,t1,data[i-1][col],data[i][col],value);
+#endif
 
         //area of trapezium
         res = 0.5 * ( value + data[i][col] ) * (t1 - t);
@@ -390,6 +437,9 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
     std::string temp ;
     short fileyes;
 
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
     //check is the file exists
     if(name != geotop::input::gStringNoValue){
         fileyes=1;
@@ -410,11 +460,13 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
     if (fileyes == -1) {
 
         if(a==0){
-            fprintf(flog,"\nWarning:: No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
-            printf("\nWarning:: No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE",
+                      i);
         }else if (a==1){
-            fprintf(flog,"\nWarning:: No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
-            printf("\nWarning:: No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE",
+                      i);
         }
 
         *num_lines = 4;
@@ -428,11 +480,13 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
     }else if (fileyes == 0) {
 
         if(a==0){
-            fprintf(flog,"\nWarning:: No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
-            printf("\nWarning:: No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "No horizon file found for point type #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE",
+                      i);
         }else if (a==1){
-            fprintf(flog,"\nWarning:: No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
-            printf("\nWarning:: No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "No horizon file found for meteo station #%ld. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE",
+                      i);
         }
 
         temp=namefile_i(name,i);
@@ -457,11 +511,13 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
     } else if(fileyes == 1) {
 
         if(a==0){
-            fprintf(flog,"\nHorizon file FOUND for point type #%ld\n",i);
-            printf("\nHorizon file FOUND for point type #%ld\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "Horizon file FOUND for point type #%ld",
+                      i);
         }else if (a==1) {
-            fprintf(flog,"\nHorizon file FOUND for meteo station #%ld\n",i);
-            printf("\nHorizon file FOUND for meteo station #%ld\n",i);
+            lg->logsf(geotop::logger::WARNING,
+                      "Horizon file FOUND for meteo station #%ld",
+                      i);
         }
 
         temp = namefile_i(name,i);
@@ -471,7 +527,10 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Error:: In the file %s the columns %s and/or %s are missing\n",temp.c_str(),ColDescr[0].c_str(),ColDescr[1].c_str());
             fclose(f);
-            t_error("Fatal Error! Geotop is closed. See failing report.");
+            lg->logsf(geotop::logger::CRITICAL,
+                      "In the file %s the columns %s and/or %s are missing\n",
+                      temp.c_str(),ColDescr[0].c_str(),ColDescr[1].c_str());
+            exit(1);
         }
 
     }
@@ -510,7 +569,12 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat, long nl
         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
         fprintf(f, "Date and Time not available for meteo station %ld\n",imeteo);
         fclose(f);
-        t_error("Fatal Error! Geotop is closed. See failing report.");
+        
+        geotop::logger::GlobalLogger* lg =
+            geotop::logger::GlobalLogger::getInstance();
+        lg->logsf(geotop::logger::CRITICAL,
+                  "Date and Time not available for meteo station %ld\n",
+                  imeteo);
 
         return -1;
 
@@ -680,6 +744,12 @@ short fill_RH(long imeteo, GeoVector<double> &Z, double **data, long nlines, lon
 short fill_Pint(double **data, long nlines, long Prec, long PrecInt, long JDfrom0, std::string HeaderPrecInt){
 
     long i;
+#ifdef VERY_VERBOSE
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
+    lg->log("fill_Pint",geotop::logger::TRACE);
+#endif
 
     if ( (long)data[0][Prec] != geotop::input::gDoubleAbsent && (long)data[0][PrecInt] == geotop::input::gDoubleAbsent ) {
 
@@ -689,7 +759,11 @@ short fill_Pint(double **data, long nlines, long Prec, long PrecInt, long JDfrom
             if ( (long)data[i][Prec] != geotop::input::gDoubleNoValue) {
                 data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]);//[mm/d]
                 data[i][PrecInt] /= 24.;//[mm/h]
-                //printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
+#ifdef VERY_VERBOSE
+                lg->logsf(geotop::logger::TRACE,
+                          "%ld %f %f",
+                          i,data[i][PrecInt],data[i][Prec]);
+#endif
             }else{
                 data[i][PrecInt] = geotop::input::gDoubleNoValue;
             }
@@ -723,16 +797,18 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0){
     long i;
     FILE *f;
 
+    geotop::logger::GlobalLogger* lg =
+        geotop::logger::GlobalLogger::getInstance();
+
     for (i=1; i<nlines; i++) {
         if (data[i][JDfrom0] <= data[i-1][JDfrom0]) {
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
             fprintf(f, "Error:: Time %12g is before Time %12g of previous line in meteo file %ld at line %ld.\n",data[i][JDfrom0],data[i-1][JDfrom0],imeteo,i);
-#else
-            fprintf(f, "Error:: Time %f is before Time %f of previous line in meteo file %ld at line %ld.\n",data[i][JDfrom0],data[i-1][JDfrom0],imeteo,i);
-#endif
             fclose(f);
-            t_error("Fatal Error! Geotop is closed. See failing report.");
+            lg->logsf(geotop::logger::CRITICAL,
+                      "Time %12g is before Time %12g of previous line in meteo file %ld at line %ld.\n",
+                      data[i][JDfrom0],data[i-1][JDfrom0],imeteo,i);
+            exit(1);
         }
     }
 }
@@ -743,8 +819,6 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0){
 /******************************************************************************************************************************************/
 
 
-//void rewrite_meteo_files(double **meteo, long meteolines, char **header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
-//                         short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
 void rewrite_meteo_files(double **meteo, long meteolines, std::vector<std::string> header, std::string name, short added_JD, short added_wind_xy, short added_wind_dir,
 	                         short added_cloudiness, short added_Tdew, short added_RH, short added_Pint){
 
@@ -803,11 +877,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, std::vector<std::strin
                         convert_dateeur12_daymonthyearhourmin(meteo[n][i], &d, &m, &y, &h, &mi);
                         fprintf(f, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
                     }else{
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
                         fprintf(f, "%12g", meteo[n][i]);
-#else
-                        fprintf(f, "%f", meteo[n][i]);
-#endif
                     }
                 }else if (i == iDate12) {
                     if (first_column == 0) {
