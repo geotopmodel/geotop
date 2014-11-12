@@ -43,11 +43,15 @@ GlobalLogger::GlobalLogger()
 
     if (logfileStream.is_open())
     {
+#ifdef VERY_VERBOSE
+	mLogger.addOStream(&logfileStream, geotop::logger::TRACE);
+#else
 #ifdef VERBOSE
 	mLogger.addOStream(&logfileStream, geotop::logger::DEBUG);
 #else
 	mLogger.addOStream(&logfileStream, geotop::logger::Logger::DEFAULT_SEVERITY);
-#endif
+#endif //VERBOSE
+#endif //VERY_VERBOSE
     }
 }
 
