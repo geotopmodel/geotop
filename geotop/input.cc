@@ -359,7 +359,25 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             met->numlines[i-1] = num_lines;
 
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0); //TODO: check return value for errors
+            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
+
+            switch(added_JDfrom0)
+            {
+                case 1:
+                    //Conversion performed
+                    break;
+                case 0:
+                    //No conversion has been performed
+                    break;
+                case -1:
+                    //An error occurred
+                    exit(1);
+                    break;
+                default:
+                    //An unknown error occurred
+                    exit(666);
+                    break;
+            }
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
