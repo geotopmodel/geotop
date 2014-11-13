@@ -511,14 +511,15 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
 
     mio::IOManager iomanager(cfg);
 
+    mio::Coords llcorner(geotop::common::Variables::UV->U[4], geotop::common::Variables::UV->U[3]);
     //Required by write2DGrid
-    mio::Grid2DObject g2d;
+    mio::Grid2DObject g2d(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], llcorner);
 
     //Setting the coordinates
-	g2d.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+    // 	g2d.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
 
-    //Setting the grid (rows, columns, cellsize, lower left corner coordinates and grid data)
-    g2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
+    // //Setting the grid (rows, columns, cellsize, lower left corner coordinates and grid data)
+    // g2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
 
     iomanager.write2DGrid(g2d, filename);
 }
