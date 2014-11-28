@@ -565,10 +565,13 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 {
 	A->M->nstcloud   = 0; // first meteo station ID (1...n) to use for the cloudiness (ISWR)
 	A->M->numstcloud = 0; // counter of meteo stations containing cloud info
-
-	if (vec_meteo.size() != (A->M->st->Z.size() - 1)) {
-		cerr << "[ERROR] Inconsistency in number of stations between GEOtop and MeteoIO. Aborting iswr_present calculation!" << endl;
-		return false;
+	mio::Config cfg = io->getConfig();
+	std::string plugin_type = cfg.get("METEO", "Input");
+	if (plugin_type == "GEOTOP"){
+	  if (vec_meteo.size() != (A->M->st->Z.size() - 1)) {
+	    cerr << "[ERROR] Inconsistency in number of stations between GEOtop and MeteoIO. Aborting iswr_present calculation!" << endl;
+	    return false;
+	  }
 	}
 
 	for (size_t ii=0; ii<vec_meteo.size(); ii++) {
