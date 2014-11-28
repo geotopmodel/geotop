@@ -222,6 +222,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double rh, rv, rc, rb, ruc, Lobukhov;
     double fc, fc0, decaycoeff, Locc, u_top, Qv;
     double ea, Tdew, Qa, RHpoint, Vpoint, Ppoint, Tpoint, Precpoint, zmeas_T, zmeas_u, Tdirichlet ;
+    double ilwr_point; // Incoming Longwave Radiation in the point (r,c) as an interrogation from the map ILWRgrid that is given as input
     double Ts, Qs, Qg;
     long sy;
     short lu;
@@ -265,6 +266,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
     Vpoint=A->M->Vgrid[r][c];
+    ilwr_point=A->M->ILWRgrid[r][c];
 
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
@@ -555,7 +557,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }
   
 	// inserted  Matteo suggestion
-	
+
+    if (!A->P->use_ilwr_wrf) {
 	if (!A->P->use_meteoio_cloud) { 
 		  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
 		
@@ -571,7 +574,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
          * calculated as averaged. */
         LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
     }
+    } else {
 
+	    LWin = ilwr_point;
+
+    }
+    
     //if incoming LW data are available, they are used (priority)
     //HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
     //TODO: merge it #LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);

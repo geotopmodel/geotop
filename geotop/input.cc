@@ -229,6 +229,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->use_meteoio_cloud = true;
 #endif
 
+    par->use_ilwr_wrf = true; // TODO: convert to cmake flag
     meteoio_init(iomanager);
     // ##################################################################################################################################
     // ##################################################################################################################################
@@ -1789,6 +1790,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->Vgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1, par->Vmin);
 
     met->Vdir.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
+
+    met->ILWRgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     if (par->output_meteo_bin == 1){
         if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue){

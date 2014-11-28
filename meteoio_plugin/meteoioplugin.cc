@@ -282,7 +282,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	// We need some intermediate storage for storing the interpolated grid by MeteoIO
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
-
+	Grid2DObject ilwrgrid;// grid for the interpolated ILWR
 	Date current_date;
 	current_date.setMatlabDate(matlabdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
 
@@ -303,6 +303,8 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		convertToCelsius(tagrid);
 
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
+
+		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //values as fractions from [0;1]
 
 		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
@@ -336,6 +338,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	copyGridToMatrix(vwgrid, met->Vgrid);
 	copyGridToMatrix(dwgrid, met->Vdir);
 	copyGridToMatrix(hnwgrid, wat->PrecTot);
+	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
 }
 
 /**
@@ -353,7 +356,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Water* wat)
 {
 	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw, resultHnw;
-
+	std::vector<double> resultILWR;
 	Date d1;
 	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
@@ -392,6 +395,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
+		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
 		for (size_t i = 0; i < resultP.size(); i++) { //change P values
 			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
@@ -433,6 +437,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	copyGridToMatrixPointWise(resultDw, met->Vdir);
 	copyGridToMatrixPointWise(resultVw, met->Vgrid);
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
+	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);
 }
 
 double tDew(double T, double RH, double P)
@@ -616,7 +621,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
 		for (int i = 0; i < numOfStations; i++) {
-			meteo[i](MeteoData::RSWR) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
+			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 			//cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;
 		}
@@ -646,7 +651,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			}
 			/* Interpolate point wise */
 			try {
-				io->interpolate(d1, dem, MeteoData::RSWR, pointsVec, resultCloud);
+				io->interpolate(d1, dem, MeteoData::TAU_CLD, pointsVec, resultCloud);
 			} catch (std::exception& e) {
 				for (size_t i = 0; i < resultCloud.size(); i++) {
 					if (resultCloud[i] != IOUtils::nodata) {
@@ -658,7 +663,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			copyGridToMatrixPointWise(resultCloud, tau_cloud_grid);
 		} else {
 			try { /* Interpolate 2D grid */
-				io->getMeteoData(d1, dem, MeteoData::RSWR, cloudwgrid);
+				io->getMeteoData(d1, dem, MeteoData::TAU_CLD, cloudwgrid);
 			} catch (std::exception& e) {
 				changeGrid(cloudwgrid, 0.5);
 			}

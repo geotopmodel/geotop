@@ -564,6 +564,7 @@ class Par
         short usemeteoio;                         // flag indicating whether MeteoIO library is used
         bool use_meteoio_cloud;
         short use_meteoio_meteodata;
+        bool use_ilwr_wrf;  // this flag enable ILWR from WRF plugin
 
         short qin;
         short flag1D;
@@ -740,6 +741,7 @@ class Meteo
         GeoMatrix<double> Vgrid;
         GeoMatrix<double> Vdir;
         GeoMatrix<double> RHgrid;
+        GeoMatrix<double> ILWRgrid;// grid of Incoming Longwave radiation in input
 
         GeoVector<double> Tamean;
         GeoVector<double> Vspdmean;
