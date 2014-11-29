@@ -229,7 +229,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->use_meteoio_cloud = true;
 #endif
 
-    par->use_ilwr_wrf = true; // TODO: convert to cmake flag
+    par->use_ilwr_wrf = false; // TODO: convert to cmake flag
     meteoio_init(iomanager);
     // ##################################################################################################################################
     // ##################################################################################################################################
@@ -310,7 +310,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	line of met->data used (stored in memory to avoid from searching from the first line)
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names, flog);
-
+    success = fill_GTmeteostations_meta(JD, iomanager, met);
 
 #ifdef USE_INTERNAL_METEODISTR
     met->var=(double**)malloc((met->st->E.size()-1)*sizeof(double*));
@@ -368,7 +368,25 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             met->numlines[i-1] = num_lines;
 
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0); //TODO: check return value for errors
+            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
+
+            switch(added_JDfrom0)
+            {
+                case 1:
+                    //Conversion performed
+                    break;
+                case 0:
+                    //No conversion has been performed
+                    break;
+                case -1:
+                    //An error occurred
+                    exit(1);
+                    break;
+                default:
+                    //An unknown error occurred
+                    exit(666);
+                    break;
+            }
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
@@ -3088,3 +3106,52 @@ void copy_veg_state(StateVeg *from, StateVeg *to){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
+short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Meteo *met) {
+
+    mio::Date d1;
+    d1.setMatlabDate(JDE, geotop::common::Variables::TZ);
+    std::vector<mio::MeteoData> vec_meteo;
+    iomanager.getMeteoData(d1, vec_meteo);
+
+    mio::Config cfg = iomanager.getConfig();
+    std::string tz = cfg.get("SIM_TIME_ZONE", "Input");
+
+    //met->st = new MeteoStations();
+    size_t lMeteoStationContainerSize = vec_meteo.size()+1 ;
+    // if(!met->st)
+    // {
+    //     lg->log("meteo_stations were not allocated",
+    //             geotop::logger::CRITICAL);
+    //     exit(1);
+    // }
+    met->st->E.resize(lMeteoStationContainerSize);
+    met->st->N.resize(lMeteoStationContainerSize);
+    met->st->lat.resize(lMeteoStationContainerSize);
+    met->st->lon.resize(lMeteoStationContainerSize);
+    met->st->Z.resize(lMeteoStationContainerSize);
+    met->st->sky.resize(lMeteoStationContainerSize);
+    met->st->ST.resize(lMeteoStationContainerSize);
+    met->st->Vheight.resize(lMeteoStationContainerSize);
+    met->st->Theight.resize(lMeteoStationContainerSize);
+
+    for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
+    	mio::MeteoData& tmpmeteo = vec_meteo[i-1];
+
+        met->st->E[i] = tmpmeteo.meta.position.getEasting();
+        met->st->N[i] = tmpmeteo.meta.position.getNorthing();
+        met->st->lat[i] = tmpmeteo.meta.position.getLat();
+        met->st->lon[i] = tmpmeteo.meta.position.getLon();
+        met->st->Z[i] = tmpmeteo.meta.position.getAltitude();
+        //met->st->sky[i] = tmpmeteo(tmpmeteo.getParameterIndex("SKY"));
+        met->st->sky[i] = 0.97;
+        met->st->ST[i] = atoi(tz.c_str());
+        met->st->Vheight[i] = 2;
+        met->st->Theight[i] = 5;
+
+        printf("\ninput.cc:3143 i:%zu; E=%f; N=%f; lat=%f; lon=%f; Z=%f; sky=%f; ST=%f; Vheight=%f; Theight=%f",i,
+        		met->st->E[i],met->st->N[i],met->st->lat[i],met->st->lon[i],met->st->Z[i],met->st->sky[i],met->st->ST[i],met->st->Vheight[i],met->st->Theight[i]);
+    }
+
+    return 1;
+
+}

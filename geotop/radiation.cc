@@ -644,6 +644,10 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 	T = current(MeteoData::TA) - GTConst::tk;
 	if (current(MeteoData::TA) == IOUtils::nodata) T = 0.0;
 
+	printf("\nradiation.cc:647   JDbeg=%f, JDend=%f, lat=%f, delta=%f, lon=%f, RH=%f, T=%f, P=%f, swDiffuse=%f, swDirect=%f, ISWR=%f, E0=%f, sky=%f, SWrefl_surr=%f",
+					JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
+					(current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega,
+					RH, T, P, swDiffuse, swDirect, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
 	c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
 					    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
 					    T, P, swDiffuse, swDirect, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
@@ -966,8 +970,8 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 		if(tc > 1) tc = 1.;
 		if(tc < 0) tc = 0.;
 		*tau_cloud_av = tc;
-	} else if (current(MeteoData::RSWR) != IOUtils::nodata) { //MeteoData::RSWR holds tauC
-		tc = current(MeteoData::RSWR);
+	} else if (current(MeteoData::TAU_CLD) != IOUtils::nodata) {
+		tc = current(MeteoData::TAU_CLD);
 
 		*tau_cloud_av_yes = 1;
 		if(tc > 1) tc = 1.;

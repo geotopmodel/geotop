@@ -110,10 +110,13 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 #ifndef USE_INTERNAL_METEODISTR
 
-    for (i=1; i<A->M->st->Z.size(); i++){// for all meteo stations
+    //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
+    for (i=1; i< A->M->st->Z.size(); i++){
+    	printf("\nenergy.balance:114 station: %zu, flag_SW_meteoST=%d",i,A->M->st->flag_SW_meteoST[i]);
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
 							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+		    printf("\nenergy.balance:118 station: %zu, tau_cloud_av=%f, tau_cloud_actual=%f",i,A->M->st->tau_cloud_av_meteoST[i], A->M->st->tau_cloud_meteoST[i]);
 	    }
     }
 
@@ -156,12 +159,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 	    }
 
-        
+        printf("\nenergy.balance.cc:159 i=%ld, r=%ld, c=%ld\n",i,r,c);
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
 		    cnt++;
 		    sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin);
-
+		    printf("\nenergy.balance.c:164 SWup%f",SWup);
 		    if(sux==1) return 1;
 	    }else {
 		    SWup = 0.;
@@ -266,7 +269,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
     Vpoint=A->M->Vgrid[r][c];
-    ilwr_point=A->M->ILWRgrid[r][c];
+    //ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
 
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
@@ -480,6 +483,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
 	
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
+    printf("\nenergy.balance.c:483 A->P->surroundings=%d, JDb=%f, JDe=%f, A->E->sun=%f, A->E->sinhsun=%f, E0=%f, A->T->sky[r][c]=%f, A->E->SWrefl_surr[r][c]=%f,"
+    		"A->M->tau_cl_map[r][c]=%f, A->L->shadow[r][c]=%f",A->P->surroundings, JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],A->E->SWrefl_surr[r][c],A->M->tau_cl_map[r][c], A->L->shadow[r][c]);
 
     shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
 		    A->E->SWrefl_surr[r][c],
@@ -559,21 +564,21 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	// inserted  Matteo suggestion
 
     if (!A->P->use_ilwr_wrf) {
-	if (!A->P->use_meteoio_cloud) { 
-		  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
+		if (!A->P->use_meteoio_cloud) {
+			  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
+
+		}else {
+			longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
+		}
+
 		
-	}else {
-		longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
-	}
-
 	
-
-    LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
-    if(A->P->surroundings == 1){
-        /* LWin corrected with temperature of surrounding terrain,
-         * calculated as averaged. */
-        LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
-    }
+		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+		if(A->P->surroundings == 1){
+			/* LWin corrected with temperature of surrounding terrain,
+			 * calculated as averaged. */
+			LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+		}
     } else {
 
 	    LWin = ilwr_point;
@@ -683,7 +688,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->E->Temp[0] = A->E->Temp[1];
 
         //ENERGY BALANCE
-
+        printf("\nenergy.balance.cc:686 Tpoint=%f, Vpoint=%f, Ppoint=%f, Precpoint=%f, Qa=%f, SWin=%f, LWin=%f\n",Tpoint,Vpoint,Ppoint,Precpoint,Qa,SWin,LWin);
 		
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,

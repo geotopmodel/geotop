@@ -241,7 +241,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 	for (std::vector<MeteoData>::iterator it = extra_meteo.begin(); it != extra_meteo.end(); ++it) {
 		const string& stationID  = (*it).meta.stationID;
 		//const size_t cloud_index = (*it).getParameterIndex("CloudFactor");
-		const size_t cloud_index = MeteoData::RSWR;
+		const size_t cloud_index = MeteoData::TAU_CLD;
 
 		//Look for the same stationID in meteo
 		for (std::vector<MeteoData>::iterator it2 = meteo.begin(); it2 != meteo.end(); ++it2) {
@@ -304,7 +304,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
 
-		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //values as fractions from [0;1]
+		//io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr values as fractions from [0;1]
 
 		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
@@ -338,7 +338,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	copyGridToMatrix(vwgrid, met->Vgrid);
 	copyGridToMatrix(dwgrid, met->Vdir);
 	copyGridToMatrix(hnwgrid, wat->PrecTot);
-	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
+	//copyGridToMatrix(ilwrgrid, met->ILWRgrid);//TODO: to be added once WRF has ilwr
 }
 
 /**
@@ -395,7 +395,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
-		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);
+		//io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
 		for (size_t i = 0; i < resultP.size(); i++) { //change P values
 			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
@@ -437,7 +437,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	copyGridToMatrixPointWise(resultDw, met->Vdir);
 	copyGridToMatrixPointWise(resultVw, met->Vgrid);
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
-	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);
+	//copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
 }
 
 double tDew(double T, double RH, double P)
@@ -673,7 +673,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			/* Now copy all that data to the appropriate grids */
 			copyGridToMatrix(cloudwgrid, tau_cloud_grid);
 		}
-
+		//io->write2DGrid(cloudwgrid, "cloudgrid.asc");
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
