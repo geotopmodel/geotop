@@ -318,6 +318,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->line_interp_Bsnow=(long*)malloc(met->st->E.size()*sizeof(long));
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
+#else
+    //	horizon for meteo stations
+    met->horizon = (double***)realloc(met->horizon, met->st->E.size()*sizeof(double**));
+    //	number of line in the horizon file
+    met->horizonlines = (long*)realloc(met->horizonlines, met->st->E.size()*sizeof(long));
+    //	line of met->data used (stored in memory to avoid from searching from the first line)
 #endif
     long num_met_stat=met->st->E.size()-1;
 
