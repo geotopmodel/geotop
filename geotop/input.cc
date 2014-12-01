@@ -321,6 +321,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
     long num_met_stat=met->st->E.size()-1;
 
+    printf("\ninput.cc:324 numero meteo stationi: %zu", num_met_stat);getchar();
     if(num_met_stat < 0)
         num_met_stat = 0;
 
@@ -2051,7 +2052,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
     //reading SKY VIEW FACTOR
     flag = file_exists(fsky);
     if(flag == 1){
-        meteoio_readMap(string(geotop::common::Variables::files[fsky]), top->sky);
+      meteoio_readMap(string(geotop::common::Variables::files[fsky]), top->sky);//meteoio_writeEsriasciiMap("sky_read.asc", top->sky);
     }else{/*The sky view factor file "top->sky" must be calculated*/
         top->sky.resize(top->Z0.getRows(),top->Z0.getCols());
         if (par->sky == 0) {
@@ -3108,14 +3109,20 @@ void copy_veg_state(StateVeg *from, StateVeg *to){
 /******************************************************************************************************************************************/
 short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Meteo *met) {
 
-    mio::Date d1;
-    d1.setMatlabDate(JDE, geotop::common::Variables::TZ);
+    mio::Config cfg = iomanager.getConfig();
+    std::string tz = cfg.get("SIM_TIME_ZONE", "Input");
+    double d_tz = atoi(tz.c_str());
+
+    // printf("\ninit date: %f", JDE+mio::Date::Matlab_offset);getchar();
+    mio::Date d1(JDE+mio::Date::Matlab_offset, d_tz);
+    // d1.setMatlabDate(JDE, d_tz);
+    // std::cout << d1.toString() << std::endl;getchar();
     std::vector<mio::MeteoData> vec_meteo;
     iomanager.getMeteoData(d1, vec_meteo);
 
-    mio::Config cfg = iomanager.getConfig();
-    std::string tz = cfg.get("SIM_TIME_ZONE", "Input");
-
+    mio::MeteoData& tmp = vec_meteo[1];
+    // size_t i_sky= 0;
+    size_t i_sky = tmp.getParameterIndex("SKY");
     //met->st = new MeteoStations();
     size_t lMeteoStationContainerSize = vec_meteo.size()+1 ;
     // if(!met->st)
@@ -3142,13 +3149,13 @@ short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Met
         met->st->lat[i] = tmpmeteo.meta.position.getLat();
         met->st->lon[i] = tmpmeteo.meta.position.getLon();
         met->st->Z[i] = tmpmeteo.meta.position.getAltitude();
-        //met->st->sky[i] = tmpmeteo(tmpmeteo.getParameterIndex("SKY"));
+        // met->st->sky[i] = tmpmeteo(i_sky);
         met->st->sky[i] = 0.97;
-        met->st->ST[i] = atoi(tz.c_str());
+        met->st->ST[i] = d_tz;
         met->st->Vheight[i] = 2;
         met->st->Theight[i] = 5;
 
-        printf("\ninput.cc:3143 i:%zu; E=%f; N=%f; lat=%f; lon=%f; Z=%f; sky=%f; ST=%f; Vheight=%f; Theight=%f",i,
+        printf("\ninput.cc:3143 i:%zu; E=%f; N=%f; lat=%f; lon=%f; Z=%f; sky=%f; ST=%f; Vheight=%f; Theight=%f", i,
         		met->st->E[i],met->st->N[i],met->st->lat[i],met->st->lon[i],met->st->Z[i],met->st->sky[i],met->st->ST[i],met->st->Vheight[i],met->st->Theight[i]);
     }
 

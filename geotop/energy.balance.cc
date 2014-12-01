@@ -159,11 +159,11 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 	    }
 
-        printf("\nenergy.balance.cc:159 i=%ld, r=%ld, c=%ld\n",i,r,c);
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
 		    cnt++;
 		    sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin);
+
 		    printf("\nenergy.balance.c:164 SWup%f",SWup);
 		    if(sux==1) return 1;
 	    }else {
@@ -483,9 +483,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
 	
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
-    printf("\nenergy.balance.c:483 A->P->surroundings=%d, JDb=%f, JDe=%f, A->E->sun=%f, A->E->sinhsun=%f, E0=%f, A->T->sky[r][c]=%f, A->E->SWrefl_surr[r][c]=%f,"
-    		"A->M->tau_cl_map[r][c]=%f, A->L->shadow[r][c]=%f",A->P->surroundings, JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],A->E->SWrefl_surr[r][c],A->M->tau_cl_map[r][c], A->L->shadow[r][c]);
-
     shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
 		    A->E->SWrefl_surr[r][c],
                         A->M->tau_cl_map[r][c], A->L->shadow[r][c],
