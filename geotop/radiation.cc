@@ -276,13 +276,12 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 
 	kd=diff2glob(tau_cloud*tau_atm);
-	printf("\nradiation.cc:277 kd=%f, tau_cloud=%f, tau_atm=%f", kd, tau_cloud, tau_atm);
+
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
-	printf("\nradiation.cc:282 tau_atm_sin_alpha=%f",*tau_atm_sin_alpha);
+
 	*SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
-	printf("\nradiation.cc:285 SWd=%f, sky=%f", *SWd, sky);
 	if (shadow == 1) {
 		cos_inc = 0.0;
 		*SWb = 0.0;
