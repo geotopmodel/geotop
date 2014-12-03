@@ -321,7 +321,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 #endif
     long num_met_stat=met->st->E.size()-1;
 
-    printf("\ninput.cc:324 numero meteo stationi: %zu", num_met_stat);getchar();
     if(num_met_stat < 0)
         num_met_stat = 0;
 
@@ -3155,8 +3154,6 @@ short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Met
         met->st->Vheight[i] = 2;
         met->st->Theight[i] = 5;
 
-        printf("\ninput.cc:3143 i:%zu; E=%f; N=%f; lat=%f; lon=%f; Z=%f; sky=%f; ST=%f; Vheight=%f; Theight=%f", i,
-        		met->st->E[i],met->st->N[i],met->st->lat[i],met->st->lon[i],met->st->Z[i],met->st->sky[i],met->st->ST[i],met->st->Vheight[i],met->st->Theight[i]);
     }
 
     return 1;
