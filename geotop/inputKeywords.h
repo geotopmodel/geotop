@@ -196,7 +196,7 @@ namespace geotop
             template <typename T> bool initValue(const std::string pName, const T &pValue) {
                 
                 std::string lName ( pName );
-                boost::algorithm::to_lower(lName);                
+                boost::algorithm::to_lower(lName);
                 (*mValueMap)[lName] = pValue ;
                 
                 return true ;
