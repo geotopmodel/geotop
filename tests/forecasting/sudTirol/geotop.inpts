@@ -2,10 +2,10 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-!InitDateDDMMYYYYhhmm = 15/10/2014 12:00
-!EndDateDDMMYYYYhhmm =  24/10/2014 12:00
-InitDateDDMMYYYYhhmm = 01/10/2011 12:00
-EndDateDDMMYYYYhhmm =  03/10/2011 12:00
+InitDateDDMMYYYYhhmm = 15/10/2014 12:00
+EndDateDDMMYYYYhhmm =  16/10/2014 12:00
+!InitDateDDMMYYYYhhmm = 01/10/2011 12:00
+!EndDateDDMMYYYYhhmm =  03/10/2011 12:00
 !EndDateDDMMYYYYhhmm =  03/11/2014 12:00
 EnergyBalance = 1
 WaterBalance=0
