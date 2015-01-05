@@ -3148,8 +3148,8 @@ short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Met
         met->st->lat[i] = tmpmeteo.meta.position.getLat();
         met->st->lon[i] = tmpmeteo.meta.position.getLon();
         met->st->Z[i] = tmpmeteo.meta.position.getAltitude();
-        // met->st->sky[i] = tmpmeteo(i_sky);
-        met->st->sky[i] = 0.97;
+        met->st->sky[i] = tmpmeteo(i_sky);
+        // met->st->sky[i] = 0.97;
         met->st->ST[i] = d_tz;
         met->st->Vheight[i] = 2;
         met->st->Theight[i] = 5;

@@ -266,8 +266,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
     Vpoint=A->M->Vgrid[r][c];
-    //ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
+    ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
 
+    printf("271: energy.balance.cc: ilwr_point: %f",ilwr_point);
+    
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
     
