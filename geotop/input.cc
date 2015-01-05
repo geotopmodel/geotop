@@ -229,7 +229,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->use_meteoio_cloud = true;
 #endif
 
-    par->use_ilwr_wrf = false; // TODO: convert to cmake flag
+    par->use_ilwr_wrf = true; // TODO: convert to cmake flag
     meteoio_init(iomanager);
     // ##################################################################################################################################
     // ##################################################################################################################################
