@@ -268,7 +268,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Vpoint=A->M->Vgrid[r][c];
     ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
 
-    printf("271: energy.balance.cc: ilwr_point: %f",ilwr_point);
     
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
@@ -562,23 +561,18 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     if (!A->P->use_ilwr_wrf) {
 		if (!A->P->use_meteoio_cloud) {
 			  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-
 		}else {
 			longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
 		}
-
-		
-	
 		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
-		if(A->P->surroundings == 1){
-			/* LWin corrected with temperature of surrounding terrain,
-			 * calculated as averaged. */
-			LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
-		}
     } else {
-
 	    LWin = ilwr_point;
-
+	    //printf("570: energy.balance.cc: ilwr_point: %f\n",ilwr_point);
+    }
+    if(A->P->surroundings == 1){
+    	/* LWin corrected with temperature of surrounding terrain,
+    	* calculated as averaged. */
+    	LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
     }
     
     //if incoming LW data are available, they are used (priority)

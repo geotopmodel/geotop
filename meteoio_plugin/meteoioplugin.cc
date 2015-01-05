@@ -306,7 +306,8 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
 
-		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr values as fractions from [0;1]
+		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
+		io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
 
 		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
