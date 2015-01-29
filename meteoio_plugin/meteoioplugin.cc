@@ -380,15 +380,15 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 					hnwgrid.gridify(tmpcoord);
 					size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
 
-					if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+					// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
 
-						std::ostringstream ss;
-						std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
-						ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(precindex) << "\n";
-						ss << "Estimated Prec: " << hnwgrid(j, i);
-						std::cout << ss.str() << std::endl;getchar();
+					// 	std::ostringstream ss;
+					// 	std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
+					// 	ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(precindex) << "\n";
+					// 	ss << "Estimated Prec: " << hnwgrid(j, i);
+					// 	std::cout << ss.str() << std::endl;getchar();
 
-					}
+					// }
 
 					if (tmpmd(precindex) == -9999) {
 
