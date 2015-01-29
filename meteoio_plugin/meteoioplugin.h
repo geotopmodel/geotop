@@ -14,6 +14,7 @@
 void meteoio_init(mio::IOManager& io);
 void meteoio_deallocate();
 
+void parseDatAssim(const mio::Config& cfg, mio::Date& start_date, mio::Date& end_date);
 void meteoio_readDEM(GeoMatrix<double>& matrix);
 void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix);
 void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename);

@@ -5,6 +5,7 @@ using namespace mio;
 
 IOManager* io;
 IOManager* io_prepocessing;
+IOManager* io_datassim;
 DEMObject dem;
 
 /**
@@ -29,6 +30,7 @@ void meteoio_init(mio::IOManager& iomanager)
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
+
 }
 
 void meteoio_deallocate()
@@ -36,6 +38,20 @@ void meteoio_deallocate()
 	if (io_prepocessing != NULL) {
 		delete io_prepocessing;
 	}
+}
+
+void parseDatAssim(const Config& cfg, Date& start_date, Date& end_date)
+{
+
+	std::string str_sd, str_ed, timezone;
+
+	cfg.getValue("TIME_ZONE", "Input", timezone);
+	double tz = atof(timezone.c_str());
+	cfg.getValue("DATE_START", "Datassim", str_sd);
+	IOUtils::convertString(start_date, str_sd, tz);
+	cfg.getValue("DATE_END", "Datassim", str_ed);
+	IOUtils::convertString(end_date, str_ed, tz);
+
 }
 
 void meteoio_readDEM(GeoMatrix<double>& matrix)
@@ -301,13 +317,12 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::TA, tagrid);
 		convertToCelsius(tagrid);
-
-		io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
+		// io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
 		
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
 
 		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
-		io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
+		// io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
 
 		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
@@ -326,6 +341,84 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		}
 
 		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
+
+		string cfgfile_datassim = "io_datassim.ini";
+		if (IOUtils::fileExists(cfgfile_datassim)) {
+			IOManager* io_datassim = NULL;
+			mio::Config cfg(cfgfile_datassim);
+			io_datassim = new IOManager(cfg);
+
+			Date start_datassim, end_datassim;
+			Grid2DObject hnwgrid_diff, hnwgrid_meas;
+
+			parseDatAssim(cfg, start_datassim, end_datassim);
+
+			if (current_date >= start_datassim && current_date <= end_datassim) {
+
+				printf("#----------------------------------------------------------#\n");
+				printf("Computing DATASSIMILATION\n");
+				ostringstream ss_bef, ss_meas, ss_diff, ss_aft;
+				ss_bef << current_date.toString(mio::Date::ISO) << "_before.asc";
+				ss_meas << current_date.toString(mio::Date::ISO) << "_meas.asc";
+				ss_diff << current_date.toString(mio::Date::ISO) << "_diff.asc";
+				ss_aft << current_date.toString(mio::Date::ISO) << "_after.asc";
+
+				// io_datassim->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid_meas);
+
+				io->write2DGrid(hnwgrid, ss_bef.str());
+				// io->write2DGrid(hnwgrid_meas, ss_meas.str());
+
+				std::vector<MeteoData> md;
+				io_datassim->getMeteoData(current_date, md);
+
+				for (size_t station=0; station<md.size(); station++) {
+
+					MeteoData& tmpmd = md[station];
+					size_t precindex = tmpmd.getParameterIndex("HNW");
+					Coords tmpcoord = tmpmd.meta.position;
+
+					hnwgrid.gridify(tmpcoord);
+					size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+
+					if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+
+						std::ostringstream ss;
+						std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
+						ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(precindex) << "\n";
+						ss << "Estimated Prec: " << hnwgrid(j, i);
+						std::cout << ss.str() << std::endl;getchar();
+
+					}
+
+					if (tmpmd(precindex) == -9999) {
+
+						// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+						// 	printf("OK! novalue correctly evaluated\n");getchar();
+						// }
+						tmpmd(precindex) = 0;
+
+					} else {
+
+						tmpmd(precindex) = tmpmd(precindex) - hnwgrid(j, i);
+
+					}
+
+				}
+
+				io_datassim->add_to_points_cache(current_date, md);
+				io_datassim->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid_diff);
+				io->write2DGrid(hnwgrid_diff, ss_diff.str());
+				hnwgrid += hnwgrid_diff;
+
+				io->write2DGrid(hnwgrid, ss_aft.str());
+
+			}
+
+			if (io_datassim != NULL) {
+				delete io_datassim;
+			}
+
+		}
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 	} catch (exception& e) {
