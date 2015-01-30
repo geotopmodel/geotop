@@ -342,6 +342,28 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
 
+		//----------------------------------------------------------------------------------------------------------//
+		// PSEUDO-DATASSIMILATION                                                                                   //
+		//----------------------------------------------------------------------------------------------------------//
+		// This part of code is very raw datassimilation.
+		// It takes info from an additional ini file -> io_datassim.ini. It needs:
+		//
+		// @param start_datassim The starting date of the precipitation
+		// @param end_datassim   The ending date of the precipitation
+		//
+		// It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
+		// this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
+		// from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
+		// value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
+		// one and the WRF value, so the valid Datum is overwritten by a DELTA value.
+		//
+		// Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
+		// object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
+		// the map from WRF.
+		//
+		// @date 2015-01-29
+		// @author Francesco Serafin
+		//----------------------------------------------------------------------------------------------------------//
 		string cfgfile_datassim = "io_datassim.ini";
 		if (IOUtils::fileExists(cfgfile_datassim)) {
 			IOManager* io_datassim = NULL;
