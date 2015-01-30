@@ -284,6 +284,95 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 }
 
 /**
+ *
+ * @brief This function is a very raw datassimilation
+ * It takes info from an additional ini file -> io_datassim.ini. It needs:
+ *
+ * param: start_datassim The starting date of the precipitation
+ * param: end_datassim   The ending date of the precipitation
+ *
+ * It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
+ * this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
+ * from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
+ * value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
+ * one and the WRF value, so the valid Datum is overwritten by a DELTA value.
+ *
+ * Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
+ * object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
+ * the map from WRF.
+ *
+ * @param[in] cfgfile_datassim The name of the ini file whit datassimilation info
+ * @param[in] current_date The current date
+ * @param[in] i_param The MeteoData parameter that has to be processed
+ * @param[in] i_grid  The orginal map of data that has to be modified
+ *
+ */
+void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, Grid2DObject& i_grid)
+{
+
+	IOManager* io_datassim = NULL;
+	mio::Config cfg(cfgfile_datassim);
+	io_datassim = new IOManager(cfg);
+
+	Date start_datassim, end_datassim;
+	Grid2DObject grid_diff;
+
+	parseDatAssim(cfg, start_datassim, end_datassim);
+
+	if (current_date >= start_datassim && current_date <= end_datassim) {
+
+		printf("#----------------------------------------------------------#\n");
+
+		if (i_param == MeteoData::HNW) printf("DATASSIMILATION:\tPrecipitation\n");
+
+		std::vector<MeteoData> md;
+		io_datassim->getMeteoData(current_date, md);
+
+		for (size_t station=0; station<md.size(); station++) {
+
+			MeteoData& tmpmd = md[station];
+			Coords tmpcoord = tmpmd.meta.position;
+
+			i_grid.gridify(tmpcoord);
+			size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+
+			// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+
+			// 	std::ostringstream ss;
+			// 	std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
+			// 	ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(i_param) << "\n";
+			// 	ss << "Estimated Prec: " << i_grid(j, i);
+			// 	std::cout << ss.str() << std::endl;getchar();
+
+			// }
+
+			if (tmpmd(i_param) == -9999) {
+
+				// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+				// 	printf("OK! novalue correctly evaluated\n");getchar();
+				// }
+				tmpmd(i_param) = 0;
+
+			} else {
+
+				tmpmd(i_param) = tmpmd(i_param) - i_grid(j, i);
+
+			}
+
+		}
+
+		io_datassim->add_to_points_cache(current_date, md);
+		io_datassim->getMeteoData(current_date, dem, i_param, grid_diff);
+
+		i_grid += grid_diff;
+
+	}
+
+	delete io_datassim;
+
+}
+
+/**
  * @brief This function performs the 2D interpolations by calling the respective methods within MeteoIO
  * 1) Data is copied from MeteoIO objects to GEOtop structs
  * 2) Interpolation takes place
@@ -342,105 +431,9 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
 
-		//----------------------------------------------------------------------------------------------------------//
-		// PSEUDO-DATASSIMILATION                                                                                   //
-		//----------------------------------------------------------------------------------------------------------//
-		// This part of code is very raw datassimilation.
-		// It takes info from an additional ini file -> io_datassim.ini. It needs:
-		//
-		// @param start_datassim The starting date of the precipitation
-		// @param end_datassim   The ending date of the precipitation
-		//
-		// It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
-		// this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
-		// from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
-		// value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
-		// one and the WRF value, so the valid Datum is overwritten by a DELTA value.
-		//
-		// Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
-		// object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
-		// the map from WRF.
-		//
-		// @date 2015-01-29
-		// @author Francesco Serafin
-		//----------------------------------------------------------------------------------------------------------//
 		string cfgfile_datassim = "io_datassim.ini";
-		if (IOUtils::fileExists(cfgfile_datassim)) {
-			IOManager* io_datassim = NULL;
-			mio::Config cfg(cfgfile_datassim);
-			io_datassim = new IOManager(cfg);
-
-			Date start_datassim, end_datassim;
-			Grid2DObject hnwgrid_diff, hnwgrid_meas;
-
-			parseDatAssim(cfg, start_datassim, end_datassim);
-
-			if (current_date >= start_datassim && current_date <= end_datassim) {
-
-				printf("#----------------------------------------------------------#\n");
-				printf("Computing DATASSIMILATION\n");
-				ostringstream ss_bef, ss_meas, ss_diff, ss_aft;
-				ss_bef << current_date.toString(mio::Date::ISO) << "_before.asc";
-				ss_meas << current_date.toString(mio::Date::ISO) << "_meas.asc";
-				ss_diff << current_date.toString(mio::Date::ISO) << "_diff.asc";
-				ss_aft << current_date.toString(mio::Date::ISO) << "_after.asc";
-
-				// io_datassim->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid_meas);
-
-				io->write2DGrid(hnwgrid, ss_bef.str());
-				// io->write2DGrid(hnwgrid_meas, ss_meas.str());
-
-				std::vector<MeteoData> md;
-				io_datassim->getMeteoData(current_date, md);
-
-				for (size_t station=0; station<md.size(); station++) {
-
-					MeteoData& tmpmd = md[station];
-					size_t precindex = tmpmd.getParameterIndex("HNW");
-					Coords tmpcoord = tmpmd.meta.position;
-
-					hnwgrid.gridify(tmpcoord);
-					size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-
-					// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
-
-					// 	std::ostringstream ss;
-					// 	std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
-					// 	ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(precindex) << "\n";
-					// 	ss << "Estimated Prec: " << hnwgrid(j, i);
-					// 	std::cout << ss.str() << std::endl;getchar();
-
-					// }
-
-					if (tmpmd(precindex) == -9999) {
-
-						// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
-						// 	printf("OK! novalue correctly evaluated\n");getchar();
-						// }
-						tmpmd(precindex) = 0;
-
-					} else {
-
-						tmpmd(precindex) = tmpmd(precindex) - hnwgrid(j, i);
-
-					}
-
-				}
-
-				io_datassim->add_to_points_cache(current_date, md);
-				io_datassim->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid_diff);
-				io->write2DGrid(hnwgrid_diff, ss_diff.str());
-				hnwgrid += hnwgrid_diff;
-
-				io->write2DGrid(hnwgrid, ss_aft.str());
-
-			}
-
-			if (io_datassim != NULL) {
-				delete io_datassim;
-			}
-
-		}
+		if (IOUtils::fileExists(cfgfile_datassim))
+			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::HNW, hnwgrid);
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 	} catch (exception& e) {
