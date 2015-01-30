@@ -351,18 +351,22 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 				// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
 				// 	printf("OK! novalue correctly evaluated\n");getchar();
 				// }
-				tmpmd(i_param) = 0;
+				tmpmd(MeteoData::DELTA) = 0;
 
 			} else {
 
-				tmpmd(i_param) = tmpmd(i_param) - i_grid(j, i);
+				tmpmd(MeteoData::DELTA) = tmpmd(i_param) - i_grid(j, i);
 
 			}
 
 		}
 
 		io_datassim->add_to_points_cache(current_date, md);
-		io_datassim->getMeteoData(current_date, dem, i_param, grid_diff);
+		io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA, grid_diff);
+
+		std::ostringstream ss;
+		ss << current_date.toString(mio::Date::ISO) << "_diff_delta.asc";
+		io_datassim->write2DGrid(grid_diff, ss.str());
 
 		i_grid += grid_diff;
 
