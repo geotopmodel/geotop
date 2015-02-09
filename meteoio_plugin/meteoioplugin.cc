@@ -323,53 +323,41 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 		printf("#----------------------------------------------------------#\n");
 
-		if (i_param == MeteoData::HNW) printf("DATASSIMILATION:\tPrecipitation\n");
+		if (i_param == MeteoData::HNW) {
 
-		std::vector<MeteoData> md;
-		io_datassim->getMeteoData(current_date, md);
+			printf("DATASSIMILATION:\tPrecipitation\n");
 
-		for (size_t station=0; station<md.size(); station++) {
+			std::vector<MeteoData> md;
+			io_datassim->getMeteoData(current_date, md);
 
-			MeteoData& tmpmd = md[station];
-			Coords tmpcoord = tmpmd.meta.position;
+			for (size_t station=0; station<md.size(); station++) {
 
-			i_grid.gridify(tmpcoord);
-			size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+				MeteoData& tmpmd = md[station];
+				Coords tmpcoord = tmpmd.meta.position;
 
-			// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
+				i_grid.gridify(tmpcoord);
+				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
 
-			// 	std::ostringstream ss;
-			// 	std::cout << "Name: " << tmpmd.meta.stationID << std::endl;
-			// 	ss << current_date.toString(mio::Date::ISO) << ", Measured Prec: " << tmpmd(i_param) << "\n";
-			// 	ss << "Estimated Prec: " << i_grid(j, i);
-			// 	std::cout << ss.str() << std::endl;getchar();
-
-			// }
-
-			if (tmpmd(i_param) == -9999) {
-
-				// if (tmpcoord.getEasting() == 677414.0 && tmpcoord.getNorthing() == 5190356.0) {
-				// 	printf("OK! novalue correctly evaluated\n");getchar();
-				// }
-				tmpmd(MeteoData::DELTA) = 0;
-
-			} else {
-
-				tmpmd(MeteoData::DELTA) = tmpmd(i_param) - i_grid(j, i);
+				if (tmpmd(i_param) == -9999)
+					tmpmd(MeteoData::DELTA_OFFSET) = 0;
+				else
+					tmpmd(MeteoData::DELTA_OFFSET) = tmpmd(i_param) - i_grid(j, i);
 
 			}
 
+			io_datassim->add_to_points_cache(current_date, md);
+			io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA_OFFSET, grid_diff);
+
+			i_grid += grid_diff;
+
+		} else if (i_param == MeteoData::ILWR) {
+
+			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
+
+			io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
+			i_grid *= grid_diff;
+
 		}
-
-		io_datassim->add_to_points_cache(current_date, md);
-		io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA, grid_diff);
-
-		// std::ostringstream ss;
-		// ss << current_date.toString(mio::Date::ISO) << "_diff_delta.asc";
-		// io_datassim->write2DGrid(grid_diff, ss.str());
-
-		i_grid += grid_diff;
-
 	}
 
 	delete io_datassim;
