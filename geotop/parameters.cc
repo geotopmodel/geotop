@@ -1479,7 +1479,12 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 
     size_t lMeteoStationContainerSize = nmeteo_stations+1;
     met->st = new MeteoStations(lMeteoStationContainerSize, geotop::input::gDoubleNoValue);
-    if(!met->st) t_error("meteo_stations was not allocated");
+    if(!met->st)
+    {
+        lg->log("meteo_stations were not allocated",
+                geotop::logger::CRITICAL);
+        exit(1);
+    }
     // met->st->E.resize(lMeteoStationContainerSize);
     // met->st->N.resize(lMeteoStationContainerSize);
     // met->st->lat.resize(lMeteoStationContainerSize);
