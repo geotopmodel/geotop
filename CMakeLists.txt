@@ -110,12 +110,6 @@ SET( FLUIDTURTLE_LIBRARIES
 SET( FLUIDTURTLE_LIBRARY_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/fluidturtle")
 SET( FLUIDTURTLE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/fluidturtle")
 
-# wrf
-SET( WRF_LIBRARIES
-    "wrfIO" )
-SET( WRF_LIBRARY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/wrf)
-SET( WRF_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/wrf)
-
 # gt_utilities
 SET( GT_UTILITIES_LIBRARIES
     "gt_utilities" )
@@ -241,6 +235,5 @@ SUBDIRS(
 	libraries
 	meteoio_plugin
 	netCDF
-	wrf
 )
 
