@@ -36,10 +36,6 @@
 
 short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog) ;
 
-void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog) ;
-
-std::vector<std::string> assign_string_parameter(FILE *f, long beg, long end, std::vector<std::string> string_param, std::string keyword[]);
-
 short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog);
 
 short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog);

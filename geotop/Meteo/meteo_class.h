@@ -52,6 +52,7 @@ public:
     GeoMatrix<double> Vgrid;
     GeoMatrix<double> Vdir;
     GeoMatrix<double> RHgrid;
+    GeoMatrix<double> ILWRgrid;
 
     GeoVector<double> Tamean;
     GeoVector<double> Vspdmean;

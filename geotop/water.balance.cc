@@ -651,11 +651,14 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 				
 				if(adt->W->H1[i] != adt->W->H1[i]) {
 					f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-					fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
 					fprintf(f, "Number of days after start:%f\n",adt->I->time/86400.);					
 					fprintf(f, "Error: no value psi Richards1D l:%ld point:%ld\n",i-1,c);
 					fclose(f);
-					t_error("Fatal Error! Geotop is closed. See failing report.");	
+                    geotop::logger::GlobalLogger* lg =
+                        geotop::logger::GlobalLogger::getInstance();
+					lg->logsf(geotop::logger::CRITICAL,
+                              "Error: no value psi Richards1D l:%ld point:%ld\n",i-1,c);
+                    exit(1);
 				}
 				
 			}

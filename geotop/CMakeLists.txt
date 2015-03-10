@@ -70,8 +70,8 @@ ENDIF(COMMAND CMAKE_POLICY)
                         Meteo/meteo_class.cc
                         Meteo/meteostations.h
                         Meteo/meteostations.cc
-			Snow/snow_class.h
-			Snow/snow_class.cc
+                        Snow/snow_class.h
+                        Snow/snow_class.cc
                         Soil/soil_class.h
                         Soil/soil_class.cc
                         Soil/soilstatevar.h

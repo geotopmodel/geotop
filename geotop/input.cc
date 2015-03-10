@@ -92,14 +92,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //8<==================================
     geotop::common::Variables::logfile = geotop::common::Variables::WORKING_DIRECTORY + logfile_name;
     flog = fopen(geotop::common::Variables::logfile.c_str(), "w");
-    fprintf(flog,"STATEMENT:\n");
-    fprintf(flog,"\n");
-    fprintf(flog,"GEOtop 2.0.0 - 9 Mar 2012\n\n");
-    fprintf(flog,"Copyright (c), 2012 - Stefano Endrizzi \n\n");
- 	fprintf(flog,"TN -EXACT version (tmp)\n\n");
-    fprintf(flog,"GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-    fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-    fprintf(flog,"\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
     //8<==================================
 
     std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
@@ -3141,27 +3133,25 @@ void copy_veg_state(StateVeg *from, StateVeg *to){
 short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Meteo *met) {
 
     mio::Config cfg = iomanager.getConfig();
+#ifdef WRF_PLUGIN
     std::string tz = cfg.get("SIM_TIME_ZONE", "Input");
+#else
+    std::string tz = cfg.get("TIME_ZONE", "Input");
+#endif
     double d_tz = atoi(tz.c_str());
 
-    // printf("\ninit date: %f", JDE+mio::Date::Matlab_offset);getchar();
     mio::Date d1(JDE+mio::Date::Matlab_offset, d_tz);
-    // d1.setMatlabDate(JDE, d_tz);
-    // std::cout << d1.toString() << std::endl;getchar();
     std::vector<mio::MeteoData> vec_meteo;
     iomanager.getMeteoData(d1, vec_meteo);
 
     mio::MeteoData& tmp = vec_meteo[1];
-    // size_t i_sky= 0;
+
+#ifdef WRF_PLUGIN
     size_t i_sky = tmp.getParameterIndex("SKY");
-    //met->st = new MeteoStations();
+#endif
+
     size_t lMeteoStationContainerSize = vec_meteo.size()+1 ;
-    // if(!met->st)
-    // {
-    //     lg->log("meteo_stations were not allocated",
-    //             geotop::logger::CRITICAL);
-    //     exit(1);
-    // }
+
     met->st->E.resize(lMeteoStationContainerSize);
     met->st->N.resize(lMeteoStationContainerSize);
     met->st->lat.resize(lMeteoStationContainerSize);
@@ -3180,7 +3170,9 @@ short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Met
         met->st->lat[i] = tmpmeteo.meta.position.getLat();
         met->st->lon[i] = tmpmeteo.meta.position.getLon();
         met->st->Z[i] = tmpmeteo.meta.position.getAltitude();
+#ifdef WRF_PLUGIN
         met->st->sky[i] = tmpmeteo(i_sky);
+#endif
         // met->st->sky[i] = 0.97;
         met->st->ST[i] = d_tz;
         met->st->Vheight[i] = 2;
