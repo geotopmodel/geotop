@@ -31,6 +31,8 @@ SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
+SET(WRF_PLUGIN OFF CACHE BOOL "enable parameters that work only with MeteoIO WRF Plugin")
+
 #find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
