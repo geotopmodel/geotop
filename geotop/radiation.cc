@@ -274,14 +274,14 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
-		
+
 	kd=diff2glob(tau_cloud*tau_atm);
-	
+
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
-	
+
 	*SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
-		
+
 	if (shadow == 1) {
 		cos_inc = 0.0;
 		*SWb = 0.0;
@@ -966,8 +966,8 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 		if(tc > 1) tc = 1.;
 		if(tc < 0) tc = 0.;
 		*tau_cloud_av = tc;
-	} else if (current(MeteoData::RSWR) != IOUtils::nodata) { //MeteoData::RSWR holds tauC
-		tc = current(MeteoData::RSWR);
+	} else if (current(MeteoData::TAU_CLD) != IOUtils::nodata) {
+		tc = current(MeteoData::TAU_CLD);
 
 		*tau_cloud_av_yes = 1;
 		if(tc > 1) tc = 1.;

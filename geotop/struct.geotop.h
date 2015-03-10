@@ -406,6 +406,7 @@ class Par
         short usemeteoio;                         // flag indicating whether MeteoIO library is used
         bool use_meteoio_cloud;
         short use_meteoio_meteodata;
+        bool use_ilwr_wrf;  // this flag enable ILWR from WRF plugin
 
         short qin;
         short flag1D;

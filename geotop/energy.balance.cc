@@ -110,7 +110,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 #ifndef USE_INTERNAL_METEODISTR
 
-    for (i=1; i<A->M->st->Z.size(); i++){// for all meteo stations
+    //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
+    for (i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
 							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
@@ -156,7 +157,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 	    }
 
-        
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
 		    cnt++;
@@ -222,6 +222,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double rh, rv, rc, rb, ruc, Lobukhov;
     double fc, fc0, decaycoeff, Locc, u_top, Qv;
     double ea, Tdew, Qa, RHpoint, Vpoint, Ppoint, Tpoint, Precpoint, zmeas_T, zmeas_u, Tdirichlet ;
+    double ilwr_point; // Incoming Longwave Radiation in the point (r,c) as an interrogation from the map ILWRgrid that is given as input
     double Ts, Qs, Qg;
     long sy;
     short lu;
@@ -265,7 +266,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
     Vpoint=A->M->Vgrid[r][c];
+    ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
 
+    
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
     
@@ -478,7 +481,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
 	
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
-
     shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
 		    A->E->SWrefl_surr[r][c],
                         A->M->tau_cl_map[r][c], A->L->shadow[r][c],
@@ -555,23 +557,24 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }
   
 	// inserted  Matteo suggestion
-	
-	if (!A->P->use_meteoio_cloud) { 
-		  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-		
-	}else {
-		longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
-	}
 
-	
-
-    LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
-    if(A->P->surroundings == 1){
-        /* LWin corrected with temperature of surrounding terrain,
-         * calculated as averaged. */
-        LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+    if (!A->P->use_ilwr_wrf) {
+		if (!A->P->use_meteoio_cloud) {
+			  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
+		}else {
+			longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
+		}
+		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+    } else {
+	    LWin = ilwr_point;
+	    //printf("570: energy.balance.cc: ilwr_point: %f\n",ilwr_point);
     }
-
+    if(A->P->surroundings == 1){
+    	/* LWin corrected with temperature of surrounding terrain,
+    	* calculated as averaged. */
+    	LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+    }
+    
     //if incoming LW data are available, they are used (priority)
     //HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
     //TODO: merge it #LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
@@ -675,8 +678,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->E->Temp[0] = A->E->Temp[1];
 
         //ENERGY BALANCE
-
-		
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
                                     JDb-A->P->init_date,

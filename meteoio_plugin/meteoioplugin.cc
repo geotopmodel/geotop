@@ -5,6 +5,7 @@ using namespace mio;
 
 IOManager* io;
 IOManager* io_prepocessing;
+IOManager* io_datassim;
 DEMObject dem;
 
 /**
@@ -29,6 +30,7 @@ void meteoio_init(mio::IOManager& iomanager)
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
+
 }
 
 void meteoio_deallocate()
@@ -38,10 +40,24 @@ void meteoio_deallocate()
 	}
 }
 
+void parseDatAssim(const Config& cfg, Date& start_date, Date& end_date)
+{
+
+	std::string str_sd, str_ed, timezone;
+
+	cfg.getValue("TIME_ZONE", "Input", timezone);
+	double tz = atof(timezone.c_str());
+	cfg.getValue("DATE_START", "Datassim", str_sd);
+	IOUtils::convertString(start_date, str_sd, tz);
+	cfg.getValue("DATE_END", "Datassim", str_ed);
+	IOUtils::convertString(end_date, str_ed, tz);
+
+}
+
 void meteoio_readDEM(GeoMatrix<double>& matrix)
 {
 	//copy DEM to topo struct
-	matrix.resize(dem.nrows+1, dem.ncols+1);
+	matrix.resize(dem.getNy()+1, dem.getNx()+1);
 
 	geotop::common::Variables::UV->V.resize(2+1);
 	geotop::common::Variables::UV->U.resize(4+1);
@@ -61,7 +77,7 @@ void meteoio_readMap(const std::string& filename, GeoMatrix<double>& matrix)
 	Grid2DObject temp;
 	io->read2DGrid(temp, filename + ".asc");
 
-	matrix.resize(temp.nrows+1, temp.ncols+1);
+	matrix.resize(temp.getNy()+1, temp.getNx()+1);
 	copyGridToMatrix(temp, matrix);
 }
 
@@ -92,9 +108,9 @@ void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename)
 		else if (geotop::common::Variables::UV->U[4] != gridObject.llcorner.getEasting())
 			throw IOException("Inconsistencies between 2D Grids read", AT);
 
-		for (unsigned int ii = 0; ii < gridObject.nrows; ii++) {
-			for (unsigned int jj = 0; jj < gridObject.ncols; jj++) {
-				if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii)
+		for (unsigned int ii = 0; ii < gridObject.getNy(); ii++) {
+			for (unsigned int jj = 0; jj < gridObject.getNx(); jj++) {
+				if (gridObject.grid2D(jj, gridObject.getNy() - 1 - ii)
 						== IOUtils::nodata) {
 				//	myGrid->co[ii + 1][jj + 1] = UV->V->co[2];
 					myGrid[ii + 1][jj + 1] = geotop::common::Variables::UV->V[2];
@@ -102,12 +118,12 @@ void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename)
 				//	myGrid->co[ii + 1][jj + 1] = gridObject.grid2D(jj,
 				//			gridObject.nrows - 1 - ii);
 					myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj,
-											gridObject.nrows - 1 - ii);
+											gridObject.getNy() - 1 - ii);
 				}
 			}
 		}
 		std::cout << "Read 2D Grid from file '" << filename << "' : "
-				<< gridObject.nrows << "(rows) " << gridObject.ncols << "(cols)"
+				<< gridObject.getNy() << "(rows) " << gridObject.getNx() << "(cols)"
 				<< std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
@@ -116,7 +132,7 @@ void meteoio_read2DGrid(GeoMatrix<double>& myGrid, char* _filename)
 
 void meteoio_writeEsriasciiMap(const string& filename, GeoMatrix<double>& gm)
 {
-	Grid2DObject  gridObject;
+	// Grid2DObject  gridObject;
 
 	if(geotop::common::Variables::UV->U[1]!=geotop::common::Variables::UV->U[2]){
 		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",geotop::common::Variables::UV->U[2],geotop::common::Variables::UV->U[1]);
@@ -126,9 +142,13 @@ void meteoio_writeEsriasciiMap(const string& filename, GeoMatrix<double>& gm)
 	unsigned int ncols = gm.getCols()-1;
 	unsigned int nrows = gm.getRows()-1;
 
-	gridObject.grid2D.resize(ncols, nrows, IOUtils::nodata);
-	gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
-	gridObject.set(ncols, nrows, geotop::common::Variables::UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+	// gridObject.grid2D.resize(ncols, nrows, IOUtils::nodata);
+	// gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
+	// gridObject.set(ncols, nrows, geotop::common::Variables::UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+
+	double cellsize = geotop::common::Variables::UV->U[2];
+	Coords llcorner(geotop::common::Variables::UV->U[4], geotop::common::Variables::UV->U[3]);
+	Grid2DObject gridObject(ncols, nrows, cellsize, llcorner, IOUtils::nodata);
 
 	//THE FOLLOWING CODE IS HACK:
 	/* Copies a GeoMatrix to a MeteoIO Grid2DObject */
@@ -147,16 +167,20 @@ void meteoio_writeEsriasciiMap(const string& filename, GeoMatrix<double>& gm)
 
 void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV)
 {
-	Grid2DObject  gridObject;
+	// Grid2DObject  gridObject;
 
 	if(UV->U[1]!=UV->U[2]){
 		printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",UV->U[2],UV->U[1]);
 		t_error("Fatal error");
 	}
 
-	gridObject.grid2D.resize(nc, nr, IOUtils::nodata);
-	gridObject.llcorner.setXY(UV->U[4],UV->U[3], 0);
-	gridObject.set(nc,nr, UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+	// gridObject.grid2D.resize(nc, nr, IOUtils::nodata);
+	// gridObject.llcorner.setXY(UV->U[4],UV->U[3], 0);
+	// gridObject.set(nc,nr, UV->U[1] ,gridObject.llcorner,gridObject.grid2D);
+
+	double cellsize = UV->U[2];
+	Coords llcorner(UV->U[4], UV->U[3]);
+	Grid2DObject gridObject(nc, nr, cellsize, llcorner, IOUtils::nodata);
 
 	for(long ii=0 ;ii< nr;ii++){
 		for(long jj= 0;jj< nc;jj++){
@@ -233,7 +257,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 	for (std::vector<MeteoData>::iterator it = extra_meteo.begin(); it != extra_meteo.end(); ++it) {
 		const string& stationID  = (*it).meta.stationID;
 		//const size_t cloud_index = (*it).getParameterIndex("CloudFactor");
-		const size_t cloud_index = MeteoData::RSWR;
+		const size_t cloud_index = MeteoData::TAU_CLD;
 
 		//Look for the same stationID in meteo
 		for (std::vector<MeteoData>::iterator it2 = meteo.begin(); it2 != meteo.end(); ++it2) {
@@ -256,7 +280,93 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 		cout << (*it2).toString() << endl;
 	}
 	*/
-	io->add_to_cache(current, meteo);
+	io->add_to_points_cache(current, meteo);
+}
+
+/**
+ *
+ * @brief This function is a very raw datassimilation
+ * It takes info from an additional ini file -> io_datassim.ini. It needs:
+ *
+ * param: start_datassim The starting date of the precipitation
+ * param: end_datassim   The ending date of the precipitation
+ *
+ * It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
+ * this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
+ * from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
+ * value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
+ * one and the WRF value, so the valid Datum is overwritten by a DELTA value.
+ *
+ * Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
+ * object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
+ * the map from WRF.
+ *
+ * @param[in] cfgfile_datassim The name of the ini file whit datassimilation info
+ * @param[in] current_date The current date
+ * @param[in] i_param The MeteoData parameter that has to be processed
+ * @param[in] i_grid  The orginal map of data that has to be modified
+ *
+ * @author francescoS
+ */
+void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, Grid2DObject& i_grid)
+{
+
+	IOManager* io_datassim = NULL;
+	mio::Config cfg(cfgfile_datassim);
+	io_datassim = new IOManager(cfg);
+
+	Date start_datassim, end_datassim;
+	Grid2DObject grid_diff;
+
+	parseDatAssim(cfg, start_datassim, end_datassim);
+
+	if (current_date >= start_datassim && current_date <= end_datassim) {
+
+		printf("#----------------------------------------------------------#\n");
+
+		if (i_param == MeteoData::HNW) {
+
+			printf("DATASSIMILATION:\tPrecipitation\n");
+
+			std::vector<MeteoData> md;
+			io_datassim->getMeteoData(current_date, md);
+
+			for (size_t station=0; station<md.size(); station++) {
+
+				MeteoData& tmpmd = md[station];
+				Coords tmpcoord = tmpmd.meta.position;
+
+				i_grid.gridify(tmpcoord);
+				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+
+				if (tmpmd(i_param) == -9999)
+					tmpmd(MeteoData::DELTA_OFFSET) = 0;
+				else
+					tmpmd(MeteoData::DELTA_OFFSET) = tmpmd(i_param) - i_grid(j, i);
+
+			}
+
+			io_datassim->add_to_points_cache(current_date, md);
+			io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA_OFFSET, grid_diff);
+
+			i_grid += grid_diff;
+
+		} else if (i_param == MeteoData::ILWR) {
+
+			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
+
+			try {
+				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
+				i_grid *= grid_diff;
+			} catch (exception& e) {
+				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
+			}
+
+		}
+	}
+
+	delete io_datassim;
+
 }
 
 /**
@@ -274,7 +384,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	// We need some intermediate storage for storing the interpolated grid by MeteoIO
 	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
-
+	Grid2DObject ilwrgrid;// grid for the interpolated ILWR
 	Date current_date;
 	current_date.setMatlabDate(matlabdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
 
@@ -293,8 +403,12 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::TA, tagrid);
 		convertToCelsius(tagrid);
-
+		// io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
+		
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
+
+		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
+		// io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
 
 		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
 		convertToMBar(pgrid); //convert from Pascal to mbar
@@ -314,6 +428,10 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
 
+		string cfgfile_datassim = "io_datassim.ini";
+		if (IOUtils::fileExists(cfgfile_datassim))
+			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::HNW, hnwgrid);
+
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
@@ -328,6 +446,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	copyGridToMatrix(vwgrid, met->Vgrid);
 	copyGridToMatrix(dwgrid, met->Vdir);
 	copyGridToMatrix(hnwgrid, wat->PrecTot);
+	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
 }
 
 /**
@@ -345,7 +464,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Water* wat)
 {
 	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw, resultHnw;
-
+	std::vector<double> resultILWR;
 	Date d1;
 	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
 
@@ -384,6 +503,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
+		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
 		for (size_t i = 0; i < resultP.size(); i++) { //change P values
 			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
@@ -425,6 +545,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	copyGridToMatrixPointWise(resultDw, met->Vdir);
 	copyGridToMatrixPointWise(resultVw, met->Vgrid);
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
+	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
 }
 
 double tDew(double T, double RH, double P)
@@ -458,12 +579,12 @@ double tDew(double T, double RH, double P)
  */
 void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid)
 {
-	for (size_t ii = 0; ii < gridObject.nrows; ii++) {
-		for (size_t jj = 0; jj < gridObject.ncols; jj++) {
-			if (gridObject.grid2D(jj, gridObject.nrows - 1 - ii) == IOUtils::nodata) {
+	for (size_t ii = 0; ii < gridObject.getNy(); ii++) {
+		for (size_t jj = 0; jj < gridObject.getNx(); jj++) {
+			if (gridObject.grid2D(jj, gridObject.getNy() - 1 - ii) == IOUtils::nodata) {
 				myGrid[ii + 1][jj + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
 			} else {
-				myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.nrows - 1 - ii);
+				myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.getNy() - 1 - ii);
 			}
 			//std::cout<<"myGrid->co["<<ii<<"]["<<jj<<"]"<<myGrid->co[ii + 1][jj + 1] << std::endl;
 		}
@@ -514,8 +635,8 @@ void convertToMBar(Grid2DObject& g2d)
  */
 void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
 {
-	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
-		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
+	for (unsigned int ii = 0; ii < g2d.getNx(); ii++) {
+		for (unsigned int jj = 0; jj < g2d.getNy(); jj++) {
 			if ((g2d.grid2D(ii, jj) == IOUtils::nodata) || (g2d.grid2D(ii, jj) < vwMin)) {
 				g2d.grid2D(ii, jj) = vwMin;
 			}
@@ -531,8 +652,8 @@ void changeVWgrid(Grid2DObject& g2d, const double& vwMin)
  */
 void changeGrid(Grid2DObject& g2d, const double& val)
 {
-	for (unsigned int ii = 0; ii < g2d.ncols; ii++) {
-		for (unsigned int jj = 0; jj < g2d.nrows; jj++) {
+	for (unsigned int ii = 0; ii < g2d.getNx(); ii++) {
+		for (unsigned int jj = 0; jj < g2d.getNy(); jj++) {
 			if (g2d.grid2D(ii, jj) != IOUtils::nodata)
 				g2d.grid2D(ii, jj) = val;
 		}
@@ -552,10 +673,13 @@ bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& firs
 {
 	A->M->nstcloud   = 0; // first meteo station ID (1...n) to use for the cloudiness (ISWR)
 	A->M->numstcloud = 0; // counter of meteo stations containing cloud info
-
-	if (vec_meteo.size() != (A->M->st->Z.size() - 1)) {
-		cerr << "[ERROR] Inconsistency in number of stations between GEOtop and MeteoIO. Aborting iswr_present calculation!" << endl;
-		return false;
+	mio::Config cfg = io->getConfig();
+	std::string plugin_type = cfg.get("METEO", "Input");
+	if (plugin_type == "GEOTOP"){
+	  if (vec_meteo.size() != (A->M->st->Z.size() - 1)) {
+	    cerr << "[ERROR] Inconsistency in number of stations between GEOtop and MeteoIO. Aborting iswr_present calculation!" << endl;
+	    return false;
+	  }
 	}
 
 	for (size_t ii=0; ii<vec_meteo.size(); ii++) {
@@ -608,14 +732,14 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
 		for (int i = 0; i < numOfStations; i++) {
-			meteo[i](MeteoData::RSWR) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
+			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 			//cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;
 		}
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
 		//io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
-		io->add_to_cache(d1, meteo);
+		io->add_to_points_cache(d1, meteo);
 
 		// if point_sim == 1 then point-wise simulation otherwise distributed simulation
 
@@ -638,7 +762,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			}
 			/* Interpolate point wise */
 			try {
-				io->interpolate(d1, dem, MeteoData::RSWR, pointsVec, resultCloud);
+				io->interpolate(d1, dem, MeteoData::TAU_CLD, pointsVec, resultCloud);
 			} catch (std::exception& e) {
 				for (size_t i = 0; i < resultCloud.size(); i++) {
 					if (resultCloud[i] != IOUtils::nodata) {
@@ -650,14 +774,14 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			copyGridToMatrixPointWise(resultCloud, tau_cloud_grid);
 		} else {
 			try { /* Interpolate 2D grid */
-				io->getMeteoData(d1, dem, MeteoData::RSWR, cloudwgrid);
+				io->getMeteoData(d1, dem, MeteoData::TAU_CLD, cloudwgrid);
 			} catch (std::exception& e) {
 				changeGrid(cloudwgrid, 0.5);
 			}
 			/* Now copy all that data to the appropriate grids */
 			copyGridToMatrix(cloudwgrid, tau_cloud_grid);
 		}
-
+		//io->write2DGrid(cloudwgrid, "cloudgrid.asc");
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
