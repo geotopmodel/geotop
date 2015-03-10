@@ -354,8 +354,12 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
 
-			io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
-			i_grid *= grid_diff;
+			try {
+				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
+				i_grid *= grid_diff;
+			} catch (exception& e) {
+				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
+			}
 
 		}
 	}
