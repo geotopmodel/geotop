@@ -221,7 +221,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->use_meteoio_cloud = true;
 #endif
 
+#ifdef WRF_PLUGIN
     par->use_ilwr_wrf = true; // TODO: convert to cmake flag
+#else
+    par->use_ilwr_wrf = false;
+#endif
     meteoio_init(iomanager);
     // ##################################################################################################################################
     // ##################################################################################################################################
@@ -296,7 +300,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names, flog);
-    success = fill_GTmeteostations_meta(JD, iomanager, met);
+    success = fill_GTmeteostations_meta(par->init_date, iomanager, met);
 
     //	horizon for meteo stations
     met->horizon=(double***)malloc(met->st->E.size()*sizeof(double**));
@@ -1833,7 +1837,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     // met->Vdir.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
-    met->ILWRgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
+    // met->ILWRgrid.resize(geotop::common::Variables::Nr+1,geotop::common::Variables::Nc+1,0.0);
 
     if (par->output_meteo_bin == 1){
         if(geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue){
@@ -3130,7 +3134,7 @@ void copy_veg_state(StateVeg *from, StateVeg *to){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Meteo *met) {
+short fill_GTmeteostations_meta(const double& JDE, mio::IOManager& iomanager, Meteo *met) {
 
     mio::Config cfg = iomanager.getConfig();
 #ifdef WRF_PLUGIN
@@ -3138,7 +3142,7 @@ short fill_GTmeteostations_meta(const double JDE, mio::IOManager& iomanager, Met
 #else
     std::string tz = cfg.get("TIME_ZONE", "Input");
 #endif
-    double d_tz = atoi(tz.c_str());
+    double d_tz = atof(tz.c_str());
 
     mio::Date d1(JDE+mio::Date::Matlab_offset, d_tz);
     std::vector<mio::MeteoData> vec_meteo;
