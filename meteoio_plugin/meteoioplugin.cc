@@ -508,7 +508,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
 #ifdef WRF_PLUGIN
 		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
-#endif WRF_PLUGIN
+#endif
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
 		for (size_t i = 0; i < resultP.size(); i++) { //change P values
 			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
@@ -552,7 +552,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
 #ifdef WRF_PLUGIN
 	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
-#endif WRF_PLUGIN
+#endif
 }
 
 double tDew(double T, double RH, double P)
