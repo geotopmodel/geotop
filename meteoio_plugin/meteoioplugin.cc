@@ -306,7 +306,8 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
  * @param[in] i_param The MeteoData parameter that has to be processed
  * @param[in] i_grid  The orginal map of data that has to be modified
  *
- * @author francescoS
+ * @author Francesco Serafin
+ * @date   2015-02-25
  */
 void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, Grid2DObject& i_grid)
 {
