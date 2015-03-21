@@ -283,6 +283,32 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 	io->add_to_points_cache(current, meteo);
 }
 
+void compute_offsetGrid(const Date& current_date, const MeteoData::Parameters& i_param, const Grid2DObject& i_grid, IOManager* io_datassim, Grid2DObject& grid_diff)
+{
+
+	std::vector<MeteoData> md;
+	io_datassim->getMeteoData(current_date, md);
+
+	for (size_t station=0; station<md.size(); station++) {
+
+		MeteoData& tmpmd = md[station];
+		Coords tmpcoord = tmpmd.meta.position;
+
+		i_grid.gridify(tmpcoord);
+		size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+
+		if (tmpmd(i_param) == -9999)
+			tmpmd(MeteoData::DELTA_OFFSET) = 0;
+		else
+			tmpmd(MeteoData::DELTA_OFFSET) = tmpmd(i_param) - i_grid(j, i);
+
+	}
+
+	io_datassim->add_to_points_cache(current_date, md);
+	io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA_OFFSET, grid_diff);
+
+}
+
 /**
  *
  * @brief This function is a very raw datassimilation
@@ -329,26 +355,7 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 			printf("DATASSIMILATION:\tPrecipitation\n");
 
-			std::vector<MeteoData> md;
-			io_datassim->getMeteoData(current_date, md);
-
-			for (size_t station=0; station<md.size(); station++) {
-
-				MeteoData& tmpmd = md[station];
-				Coords tmpcoord = tmpmd.meta.position;
-
-				i_grid.gridify(tmpcoord);
-				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-
-				if (tmpmd(i_param) == -9999)
-					tmpmd(MeteoData::DELTA_OFFSET) = 0;
-				else
-					tmpmd(MeteoData::DELTA_OFFSET) = tmpmd(i_param) - i_grid(j, i);
-
-			}
-
-			io_datassim->add_to_points_cache(current_date, md);
-			io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA_OFFSET, grid_diff);
+			compute_offsetGrid(current_date, i_param, i_grid, io_datassim, grid_diff);
 
 			i_grid += grid_diff;
 
@@ -454,6 +461,102 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 }
 
 /**
+ *
+ * @brief This function is a very raw datassimilation
+ * It takes info from an additional ini file -> io_datassim.ini. It needs:
+ *
+ * param: start_datassim The starting date of the precipitation
+ * param: end_datassim   The ending date of the precipitation
+ *
+ * It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
+ * this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
+ * from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
+ * value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
+ * one and the WRF value, so the valid Datum is overwritten by a DELTA value.
+ *
+ * Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
+ * object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
+ * the map from WRF.
+ *
+ * @param[in] cfgfile_datassim The name of the ini file whit datassimilation info
+ * @param[in] current_date The current date
+ * @param[in] i_param The MeteoData parameter that has to be processed
+ * @param[in] i_grid  The orginal map of data that has to be modified
+ *
+ * @author francescoS
+ */
+void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, std::vector<Coords>& pointsVec, std::vector<double>& resultHnw)
+{
+
+	IOManager* io_datassim = NULL;
+	mio::Config cfg(cfgfile_datassim);
+	io_datassim = new IOManager(cfg);
+
+	Date start_datassim, end_datassim;
+	Grid2DObject i_grid, grid_diff;
+	std::vector<double> v_diff;
+
+	parseDatAssim(cfg, start_datassim, end_datassim);
+
+	if (current_date >= start_datassim && current_date <= end_datassim) {
+
+		printf("#----------------------------------------------------------#\n");
+
+		if (i_param == MeteoData::HNW) {
+
+			printf("DATASSIMILATION:\tPrecipitation\n");
+
+			io->getMeteoData(current_date, dem, MeteoData::HNW, i_grid);
+
+			compute_offsetGrid(current_date, i_param, i_grid, io_datassim, grid_diff);
+
+			std::ostringstream ss;
+
+			i_grid += grid_diff;
+			ss << current_date.toString(mio::Date::ISO) << "-HNW.asc";
+			io->write2DGrid(i_grid, ss.str());
+
+			std::ofstream fout;
+			std::string name="Iprec_wrfda.txt";
+			fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
+
+			fout << current_date.toString(mio::Date::ISO_TZ);
+
+			for (size_t point=0; point<pointsVec.size(); point++) {
+
+				Coords& tmpcoord = pointsVec[point];
+
+				fout << "," << resultHnw[point];
+				grid_diff.gridify(tmpcoord);
+				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+				resultHnw[point] += grid_diff(j, i);
+
+				fout << "," << grid_diff(j,i) <<  "," << resultHnw[point];
+
+			}
+
+			fout << "\n";
+			fout.close();
+
+		} else if (i_param == MeteoData::ILWR) {
+
+			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
+
+			try {
+				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
+				i_grid *= grid_diff;
+			} catch (exception& e) {
+				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
+			}
+
+		}
+	}
+
+	delete io_datassim;
+
+}
+
+/**
  * @brief This function performs point wise interpolations by calling the respective methods within MeteoIO
  * 1) Data is copied from MeteoIO objects to GEOtop structs
  * 2) Interpolation takes place
@@ -538,6 +641,11 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		}
 
 		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
+
+		string cfgfile_datassim = "io_datassim.ini";
+		if (IOUtils::fileExists(cfgfile_datassim))
+		  pseudo_datassim(cfgfile_datassim, d1, MeteoData::HNW, pointsVec, resultHnw);
+
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
