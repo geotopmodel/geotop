@@ -33,6 +33,8 @@ SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experim
 
 SET(WRF_PLUGIN OFF CACHE BOOL "enable parameters that work only with MeteoIO WRF Plugin")
 
+SET(ILWR_PRESENT OFF CACHE BOOL "get ILWR from input MeteoData")
+
 #find_package(PkgConfig REQUIRED)
 
 # use, i.e. don't skip the full RPATH for the build tree
@@ -95,6 +97,14 @@ ENDIF (WITH_LOGGER)
 IF (METEOIO_OUTPUT)
     add_definitions(-DMETEOIO_OUTPUT)
 ENDIF (METEOIO_OUTPUT)
+
+IF (WRF_PLUGIN)
+    add_definitions(-DWRF_PLUGIN)
+ENDIF (WRF_PLUGIN)
+
+IF (ILWR_PRESENT)
+    add_definitions(-DILWR_PRESENT)
+ENDIF (ILWR_PRESENT)
 
 #add_definitions(
 #    "-std=c++11"

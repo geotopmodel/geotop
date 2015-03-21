@@ -407,7 +407,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		// io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
 		
 		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
-#ifdef WRF_PLUGIN
+#ifdef ILWR_PRESENT
 		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
 #endif
 		// io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
@@ -448,7 +448,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 	copyGridToMatrix(vwgrid, met->Vgrid);
 	copyGridToMatrix(dwgrid, met->Vdir);
 	copyGridToMatrix(hnwgrid, wat->PrecTot);
-#ifdef WRF_PLUGIN
+#ifdef ILWR_PRESENT
 	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
 #endif
 }
@@ -507,7 +507,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		}
 
 		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
-#ifdef WRF_PLUGIN
+#ifdef ILWR_PRESENT
 		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
 #endif
 		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
@@ -551,7 +551,7 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	copyGridToMatrixPointWise(resultDw, met->Vdir);
 	copyGridToMatrixPointWise(resultVw, met->Vgrid);
 	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
-#ifdef WRF_PLUGIN
+#ifdef ILWR_PRESENT
 	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
 #endif
 }

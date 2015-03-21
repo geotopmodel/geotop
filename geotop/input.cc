@@ -221,7 +221,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->use_meteoio_cloud = true;
 #endif
 
-#ifdef WRF_PLUGIN
+#ifdef ILWR_PRESENT
     par->use_ilwr_wrf = true; // TODO: convert to cmake flag
 #else
     par->use_ilwr_wrf = false;
