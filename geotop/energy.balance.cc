@@ -764,13 +764,27 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE);
 
             //	add new snow
-            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint);
+            // if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint); // Jordan
+            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_valt(Tpoint), Tpoint); // Valt
 
             //	NET PRECIPITATION
             A->W->Pnet[r][c] += (Melt_snow + Melt_glac + Prain);
-            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint);
+            // A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint); // Jordan
+            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_valt(Tpoint); // Valt
             //VEGETATION
-           
+
+	    // mio::Date date;
+	    // double tmp = JDb + date.Matlab_offset;
+	    // mio::Date d(tmp, 1);
+
+	    // std::ofstream fout;
+	    // std::string name="hn.txt";
+	    // fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
+
+	    // // fout << d.toString(mio::Date::ISO_TZ) << "," << rho_newlyfallensnow(Vpoint, Tpoint) << "," << Vpoint << "," << Tpoint << "," << Psnow << std::endl; // Jordan
+	    // fout << d.toString(mio::Date::ISO_TZ) << "," << rho_valt(Tpoint) << "," << Vpoint << "," << Tpoint << "," << Psnow << std::endl; //Valt
+	    // fout.close();
+
             if( A->L->vegpar[jdLSAI]>=GTConst::LSAIthres && ng==0 ){
                 snowD = DEPTH(r, c, S->lnum, S->Dzl);
 

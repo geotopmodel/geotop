@@ -36,6 +36,7 @@
 
 /*----------------------------------------------------------------------------------------------------------*/
 double rho_newlyfallensnow(double u, double Tatm);
+double rho_valt(double Tatm);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void snow_layer_combination(double a, long r, long c, Statevar3D *snow, double Ta, GeoVector<long>& inf, double SWEmax_layer, double SWEmax_tot);
