@@ -438,8 +438,15 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
 
 		string cfgfile_datassim = "io_datassim.ini";
-		if (IOUtils::fileExists(cfgfile_datassim))
+		if (IOUtils::fileExists(cfgfile_datassim)) {
 			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::HNW, hnwgrid);
+			pseudo_datassim_TA(cfgfile_datassim, current_date, hnwgrid, tagrid);
+
+			// ostringstream ss;
+			// ss << current_date.toString(Date::ISO) << "_TA_DA.asc";
+			// io->write2DGrid(hnwgrid, MeteoGrids::HNW, current_date);
+			// io->write2DGrid(tagrid, ss.str());
+		}
 
 		//io.write2DGrid(vwgrid, "vw_change.asc");
 	} catch (exception& e) {
@@ -485,7 +492,7 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
  *
  * @author francescoS
  */
-void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, std::vector<Coords>& pointsVec, std::vector<double>& resultHnw)
+void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, std::vector<Coords>& pointsVec, std::vector<double>& i_result)
 {
 
 	IOManager* io_datassim = NULL;
@@ -514,29 +521,29 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 			i_grid += grid_diff;
 			ss << current_date.toString(mio::Date::ISO) << "-HNW.asc";
-			io->write2DGrid(i_grid, ss.str());
+			// io->write2DGrid(i_grid, ss.str());
 
-			std::ofstream fout;
-			std::string name="Iprec_wrfda.txt";
-			fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
+			// std::ofstream fout;
+			// std::string name="Iprec_wrfda.txt";
+			// fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
 
-			fout << current_date.toString(mio::Date::ISO_TZ);
+			// fout << current_date.toString(mio::Date::ISO_TZ);
 
 			for (size_t point=0; point<pointsVec.size(); point++) {
 
 				Coords& tmpcoord = pointsVec[point];
 
-				fout << "," << resultHnw[point];
+				// fout << "," << resultHnw[point];
 				grid_diff.gridify(tmpcoord);
 				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-				resultHnw[point] += grid_diff(j, i);
+				i_result[point] += grid_diff(j, i);
 
-				fout << "," << grid_diff(j,i) <<  "," << resultHnw[point];
+				// fout << "," << grid_diff(j,i) <<  "," << resultHnw[point];
 
 			}
 
-			fout << "\n";
-			fout.close();
+			// fout << "\n";
+			// fout.close();
 
 		} else if (i_param == MeteoData::ILWR) {
 
@@ -548,11 +555,112 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 			} catch (exception& e) {
 				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 			}
-
 		}
 	}
 
 	delete io_datassim;
+
+}
+
+void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid, Grid2DObject&  i_tagrid)
+{
+
+	Date start_datassim, end_datassim;
+	parseDatAssim(cfg, start_datassim, end_datassim);
+
+	if (current_date >= start_datassim && current_date <= end_datassim) {
+
+		printf("#----------------------------------------------------------#\n");
+		printf("DATASSIMILATION:\tTemperature\n");
+
+		Coords tmpcoord(dem.llcorner);
+		double cellsize = dem.cellsize;
+
+		tmpcoord.moveByXY(0.5*cellsize, 0.5*cellsize);
+
+		size_t ncols = dem.getNx();
+		size_t nrows = dem.getNy();
+		double thresh_prec = 0.5; // threshold on precipitation necessary to activate TA "assimilation"
+		for (size_t i=0; i<nrows; i++) {
+
+			for (size_t j=0; j<ncols; j++) {
+
+				dem.gridify(tmpcoord);
+				const size_t in_lon = tmpcoord.getGridI(), in_lat = tmpcoord.getGridJ();
+				float z = dem.grid2D(in_lon, in_lat);
+				if ( z != IOUtils::nodata && i_hnwgrid.grid2D(in_lon, in_lat) > thresh_prec) {
+
+					i_tagrid.grid2D(in_lon, in_lat) = computeTA(z, i_tagrid.grid2D(in_lon, in_lat), tmpcoord);
+
+				}
+				tmpcoord.moveByXY(cellsize, 0);
+
+			}
+
+			tmpcoord.moveByXY(-cellsize*ncols, cellsize);
+		}
+		
+	}
+
+}
+
+void pseudo_datassim_TA_pointwise(std::string& cfg, Date& current_date, std::vector<Coords>& pointsVec, std::vector<double>& resultHnw, std::vector<double>& resultTA)
+{
+
+	Date start_datassim, end_datassim;
+	parseDatAssim(cfg, start_datassim, end_datassim);
+
+	if (current_date >= start_datassim && current_date <= end_datassim) {
+
+		printf("#----------------------------------------------------------#\n");
+		printf("DATASSIMILATION:\tTemperature\n");
+
+		size_t npoint = pointsVec.size();
+		double thresh_prec = 0.5; // threshold on precipitation necessary to activate TA "assimilation"
+		for (size_t point=0; point<npoint; point++) {
+
+			if (resultHnw[point] > thresh_prec) {
+
+				Coords& tmpcoord = pointsVec[point];
+				dem.gridify(tmpcoord);
+				size_t i = tmpcoord.getGridI(), j = tmpcoord.getGridJ();
+				float z = dem.grid2D(i, j);
+
+				// std::cout << "Prec: " << resultHnw[point] << std::endl;
+				resultTA[point] = computeTA(z, resultTA[point], tmpcoord);
+
+			}
+
+		}
+
+	}
+
+}
+
+double computeTA(float& z, double& ta, Coords& point)
+{
+
+    float zmin=900, zmax=1000;
+    float t_snow=0, t_rain=2;
+    double t_out=ta;
+
+    if (z < zmin){
+       if(ta < t_rain) {//simulated snow when it actually rains
+	 t_out = t_rain;// correct temperature to rain threshold
+       }
+    }else if (z > zmax){
+       if(ta > t_snow){//simulated rain when it actually snows
+	  t_out = t_snow;// correct temperature to snow threshold
+       }
+    }else{
+	if (ta < t_snow || ta > t_rain){
+	    t_out = t_rain - (t_rain - t_snow) * (z - zmin) / (zmax - zmin);
+	}
+    }
+
+    // std::cout << "TA: " << ta << "Quota: " << z << "Tout: " << t_out << std::endl;getchar();
+
+    return t_out;
 
 }
 
@@ -643,8 +751,12 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
 
 		string cfgfile_datassim = "io_datassim.ini";
-		if (IOUtils::fileExists(cfgfile_datassim))
+		if (IOUtils::fileExists(cfgfile_datassim)) {
+
 		  pseudo_datassim(cfgfile_datassim, d1, MeteoData::HNW, pointsVec, resultHnw);
+		  pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
+
+		}
 
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
@@ -842,6 +954,8 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 	std::cout << "\n[MeteoIO] Time to interpolate : cloudiness " << d1.toString(Date::ISO) << std::endl;
 
 	try {
+
+#ifndef WRF_PLUGIN
 		std::vector<std::vector<MeteoData> > vecMeteos;
 		std::vector<MeteoData> meteo; // Intermediate storage for storing data sets for 1 timestep
 		int numOfStations = io->getMeteoData(d1, meteo); // Read the meteo data for the given timestep
@@ -850,12 +964,13 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		for (int i = 0; i < numOfStations; i++) {
 			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
-			//cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;
+			// cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;getchar();
 		}
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
-		//io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		// io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
 		io->add_to_points_cache(d1, meteo);
+#endif
 
 		// if point_sim == 1 then point-wise simulation otherwise distributed simulation
 
@@ -897,7 +1012,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 			/* Now copy all that data to the appropriate grids */
 			copyGridToMatrix(cloudwgrid, tau_cloud_grid);
 		}
-		//io->write2DGrid(cloudwgrid, "cloudgrid.asc");
+		// io->write2DGrid(cloudwgrid, "cloudgrid.asc");
 	} catch (std::exception& e) {
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
