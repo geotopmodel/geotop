@@ -956,6 +956,10 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 	try {
 
 #ifndef WRF_PLUGIN
+		// Matteo e Francesco March 2015
+		// This piece of code is useful only when the cloudiness is read from Meteo Data and is necessary to push it into the MeteoIO Buffer.
+		// TAU_CLD is a variable already present inside the WRF dataset (through a preprocessing of ISWR) and then inside the MeteoIO Buffer,
+		// so in this case, this piece of code has to be avoided.
 		std::vector<std::vector<MeteoData> > vecMeteos;
 		std::vector<MeteoData> meteo; // Intermediate storage for storing data sets for 1 timestep
 		int numOfStations = io->getMeteoData(d1, meteo); // Read the meteo data for the given timestep
