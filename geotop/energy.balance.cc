@@ -359,6 +359,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         part_snow(Precpoint, &Prain_over, &Psnow_over, Tpoint, A->P->T_rain, A->P->T_snow);
     }
 
+    // added snow and rain correction factor
+    Psnow_over *= A->P->snowcorrfact;
+    Prain_over *= A->P->raincorrfact;
+
     //Adjusting snow precipitation in case of steep slope (contribution by Stephan Gruber)
     if (A->P->snow_curv > 0 && A->T->slope[r][c] > A->P->snow_smin){
         if (A->T->slope[r][c] <= A->P->snow_smax){
@@ -772,18 +776,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             // A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint); // Jordan
             A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_valt(Tpoint); // Valt
             //VEGETATION
-
-	    // mio::Date date;
-	    // double tmp = JDb + date.Matlab_offset;
-	    // mio::Date d(tmp, 1);
-
-	    // std::ofstream fout;
-	    // std::string name="hn.txt";
-	    // fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
-
-	    // // fout << d.toString(mio::Date::ISO_TZ) << "," << rho_newlyfallensnow(Vpoint, Tpoint) << "," << Vpoint << "," << Tpoint << "," << Psnow << std::endl; // Jordan
-	    // fout << d.toString(mio::Date::ISO_TZ) << "," << rho_valt(Tpoint) << "," << Vpoint << "," << Tpoint << "," << Psnow << std::endl; //Valt
-	    // fout.close();
 
             if( A->L->vegpar[jdLSAI]>=GTConst::LSAIthres && ng==0 ){
                 snowD = DEPTH(r, c, S->lnum, S->Dzl);
