@@ -5,7 +5,6 @@ using namespace mio;
 
 IOManager* io;
 IOManager* io_prepocessing;
-IOManager* io_datassim;
 DEMObject dem;
 
 /**
@@ -47,10 +46,39 @@ void parseDatAssim(const Config& cfg, Date& start_date, Date& end_date)
 
 	cfg.getValue("TIME_ZONE", "Input", timezone);
 	double tz = atof(timezone.c_str());
-	cfg.getValue("DATE_START", "Datassim", str_sd);
+	cfg.getValue("DATE_START_HNW", "Datassim", str_sd);
 	IOUtils::convertString(start_date, str_sd, tz);
-	cfg.getValue("DATE_END", "Datassim", str_ed);
+	cfg.getValue("DATE_END_HNW", "Datassim", str_ed);
 	IOUtils::convertString(end_date, str_ed, tz);
+
+}
+
+void parseDatAssimTA(const Config& cfg, Date& start_date, Date& end_date, std::vector<std::pair<double, double> >& v_TAminmax)
+{
+
+	std::string str_sd, str_ed, timezone;
+	std::vector<std::string> min, max;
+
+	cfg.getValue("TIME_ZONE", "Input", timezone);
+	double tz = atof(timezone.c_str());
+	cfg.getValue("DATE_START_TA", "Datassim", str_sd);
+	IOUtils::convertString(start_date, str_sd, tz);
+	cfg.getValue("DATE_END_TA", "Datassim", str_ed);
+	IOUtils::convertString(end_date, str_ed, tz);
+	cfg.getValues("TAmin_ZONE", "Datassim", min);
+	cfg.getValues("TAmax_ZONE", "Datassim", max);
+
+	if (min.size() == max.size()) {
+
+		v_TAminmax.resize(max.size());
+		for (size_t i = 0; i<max.size(); i++) {
+
+			v_TAminmax[i].first = atof(min[i].c_str());
+			v_TAminmax[i].second = atof(max[i].c_str());
+
+		}
+
+	}
 
 }
 
@@ -455,13 +483,14 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 	cout << "[MeteoIO] Start copying Grid to GEOtop format: " << endl;
 
+	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
 	// Now copy all that data to the appropriate GEOtop grids
 	copyGridToMatrix(tagrid, met->Tgrid);
 	copyGridToMatrix(rhgrid, met->RHgrid);
 	copyGridToMatrix(pgrid, met->Pgrid);
 	copyGridToMatrix(vwgrid, met->Vgrid);
 	copyGridToMatrix(dwgrid, met->Vdir);
-	copyGridToMatrix(hnwgrid, wat->PrecTot);
+	copyGridToMatrix(hnwgrid, wat->PrecTot, thr_min, val_min, thr_max, val_max);
 #ifdef ILWR_PRESENT
 	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
 #endif
@@ -551,7 +580,18 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 			try {
 				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
-				i_grid *= grid_diff;
+
+				for (size_t point=0; point<pointsVec.size(); point++) {
+
+					Coords& tmpcoord = pointsVec[point];
+
+					grid_diff.gridify(tmpcoord);
+					size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
+					double tmp = i_result[point] * grid_diff(j, i);
+					i_result[point] = i_result[point] - tmp;
+
+				}
+
 			} catch (exception& e) {
 				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 			}
@@ -566,7 +606,8 @@ void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid
 {
 
 	Date start_datassim, end_datassim;
-	parseDatAssim(cfg, start_datassim, end_datassim);
+	std::vector<std::pair<double, double> > v_TAminmax; // every element of this vector contains the min max threshold for snow elevation
+	parseDatAssimTA(cfg, start_datassim, end_datassim, v_TAminmax);
 
 	if (current_date >= start_datassim && current_date <= end_datassim) {
 
@@ -575,6 +616,9 @@ void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid
 
 		Coords tmpcoord(dem.llcorner);
 		double cellsize = dem.cellsize;
+		Grid2DObject ta_zone;
+		IOManager* io_datassim = new IOManager(cfg);
+		io_datassim->read2DGrid(ta_zone, "zone.asc");
 
 		tmpcoord.moveByXY(0.5*cellsize, 0.5*cellsize);
 
@@ -590,7 +634,16 @@ void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid
 				float z = dem.grid2D(in_lon, in_lat);
 				if ( z != IOUtils::nodata && i_hnwgrid.grid2D(in_lon, in_lat) > thresh_prec) {
 
-					i_tagrid.grid2D(in_lon, in_lat) = computeTA(z, i_tagrid.grid2D(in_lon, in_lat), tmpcoord);
+					ta_zone.gridify(tmpcoord);
+					const size_t ta_lon = tmpcoord.getGridI(), ta_lat = tmpcoord.getGridJ();
+					double zone = ta_zone.grid2D(ta_lon, ta_lat);
+					if (zone != IOUtils::nodata && zone <= v_TAminmax.size()) {
+
+						double min = v_TAminmax[zone-1].first;
+						double max = v_TAminmax[zone-1].second;
+						i_tagrid.grid2D(in_lon, in_lat) = computeTA(z, i_tagrid.grid2D(in_lon, in_lat), tmpcoord, min, max);
+
+					}
 
 				}
 				tmpcoord.moveByXY(cellsize, 0);
@@ -599,7 +652,9 @@ void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid
 
 			tmpcoord.moveByXY(-cellsize*ncols, cellsize);
 		}
-		
+
+	delete io_datassim;
+	
 	}
 
 }
@@ -608,12 +663,17 @@ void pseudo_datassim_TA_pointwise(std::string& cfg, Date& current_date, std::vec
 {
 
 	Date start_datassim, end_datassim;
-	parseDatAssim(cfg, start_datassim, end_datassim);
+	std::vector<std::pair<double, double> > v_TAminmax; // every element of this vector contains the min max threshold for snow elevation
+	parseDatAssimTA(cfg, start_datassim, end_datassim, v_TAminmax);
 
 	if (current_date >= start_datassim && current_date <= end_datassim) {
 
 		printf("#----------------------------------------------------------#\n");
 		printf("DATASSIMILATION:\tTemperature\n");
+
+		IOManager* io_datassim = new IOManager(cfg);
+		Grid2DObject ta_zone;
+		io_datassim->read2DGrid(ta_zone, "zone.asc");
 
 		size_t npoint = pointsVec.size();
 		double thresh_prec = 0.5; // threshold on precipitation necessary to activate TA "assimilation"
@@ -621,26 +681,38 @@ void pseudo_datassim_TA_pointwise(std::string& cfg, Date& current_date, std::vec
 
 			if (resultHnw[point] > thresh_prec) {
 
-				Coords& tmpcoord = pointsVec[point];
+				Coords tmpcoord = pointsVec[point];
+				Coords ta_tmpcoord = pointsVec[point];
 				dem.gridify(tmpcoord);
 				size_t i = tmpcoord.getGridI(), j = tmpcoord.getGridJ();
 				float z = dem.grid2D(i, j);
 
-				// std::cout << "Prec: " << resultHnw[point] << std::endl;
-				resultTA[point] = computeTA(z, resultTA[point], tmpcoord);
+				ta_zone.gridify(ta_tmpcoord);
+				const size_t ta_lon = ta_tmpcoord.getGridI(), ta_lat = ta_tmpcoord.getGridJ();
+				double zone = ta_zone.grid2D(ta_lon, ta_lat);
+				if (zone != IOUtils::nodata && zone <= v_TAminmax.size()) {
+
+					double min = v_TAminmax[zone-1].first;
+					double max = v_TAminmax[zone-1].second;
+
+					// std::cout << "Prec: " << resultHnw[point] << std::endl;
+					resultTA[point] = computeTA(z, resultTA[point], tmpcoord, min, max);
+				}
 
 			}
 
 		}
 
+		delete io_datassim;
+
 	}
 
 }
 
-double computeTA(float& z, double& ta, Coords& point)
+double computeTA(float& z, double& ta, Coords& point, double& zmin, double& zmax)
 {
 
-    float zmin=900, zmax=1000;
+    // float zmin=min, zmax=max;
     float t_snow=0, t_rain=2;
     double t_out=ta;
 
@@ -753,8 +825,10 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 		string cfgfile_datassim = "io_datassim.ini";
 		if (IOUtils::fileExists(cfgfile_datassim)) {
 
-		  pseudo_datassim(cfgfile_datassim, d1, MeteoData::HNW, pointsVec, resultHnw);
-		  pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
+			pseudo_datassim(cfgfile_datassim, d1, MeteoData::HNW, pointsVec, resultHnw);
+			pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
+
+			// pseudo_datassim(cfgfile_datassim, d1, MeteoData::ILWR, pointsVec, resultILWR);
 
 		}
 
@@ -765,12 +839,13 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 	cout << "[MeteoIO] Start copying point data to GEOtop format: " << endl;
 	/* Now copy all that MeteoIO interpolated data to the appropriate GEOtop grids */
 
+	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
 	copyGridToMatrixPointWise(resultTa, met->Tgrid);
 	copyGridToMatrixPointWise(resultRh, met->RHgrid);
 	copyGridToMatrixPointWise(resultP, met->Pgrid);
 	copyGridToMatrixPointWise(resultDw, met->Vdir);
 	copyGridToMatrixPointWise(resultVw, met->Vgrid);
-	copyGridToMatrixPointWise(resultHnw, wat->PrecTot);
+	copyGridToMatrixPointWise(resultHnw, wat->PrecTot, thr_min, val_min, thr_max, val_max);
 #ifdef ILWR_PRESENT
 	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
 #endif
@@ -801,6 +876,29 @@ double tDew(double T, double RH, double P)
 	return tFromSatVapPressure;
 }
 
+void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid, double& thr_min, double& val_min, double& thr_max, double& val_max)
+{
+	for (size_t ii = 0; ii < gridObject.getNy(); ii++) {
+		for (size_t jj = 0; jj < gridObject.getNx(); jj++) {
+			if (gridObject.grid2D(jj, gridObject.getNy() - 1 - ii) == IOUtils::nodata) {
+				myGrid[ii + 1][jj + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
+			} else if (gridObject.grid2D(jj, gridObject.getNy() - 1 - ii) > thr_max) {
+
+				myGrid[ii + 1][jj + 1] = val_max;
+
+			} else if (gridObject.grid2D(jj, gridObject.getNy() - 1 - ii) < thr_min) {
+
+				myGrid[ii + 1][jj + 1] = val_min;
+
+			} else {
+
+				myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.getNy() - 1 - ii);
+			}
+			//std::cout<<"myGrid->co["<<ii<<"]["<<jj<<"]"<<myGrid->co[ii + 1][jj + 1] << std::endl;
+		}
+	}
+}
+
 /**
  * @brief This function copy MeteoIO Grid2DObject to a GEOtop GeoMatrix object 
  * @author noori
@@ -815,6 +913,33 @@ void copyGridToMatrix(Grid2DObject& gridObject, GeoMatrix<double>& myGrid)
 				myGrid[ii + 1][jj + 1] = gridObject.grid2D(jj, gridObject.getNy() - 1 - ii);
 			}
 			//std::cout<<"myGrid->co["<<ii<<"]["<<jj<<"]"<<myGrid->co[ii + 1][jj + 1] << std::endl;
+		}
+	}
+}
+
+/**
+ * @brief This function copies a MeteoIO Point vector<double> to the GEOtop object GeoMatrix
+ * Notice that, co[1][1] is the first index to accessed, because in GEOtop there is an index offset
+ * therefor we have to start with [1][1]
+ *
+ * @author noori
+ */
+void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid, double& thr_min, double& val_min, double& thr_max, double& val_max)
+{
+	for (unsigned int i = 0; i < pointValues.size(); i++) {
+		if (pointValues[i] == IOUtils::nodata) {
+			myGrid[1][i + 1] = geotop::input::gDoubleNoValue; //using the GEOtop nodata value
+		} else if (pointValues[i] > thr_max) {
+
+			myGrid[1][i + 1] = val_max;
+
+		} else if (pointValues[i] < thr_min) {
+
+			myGrid[1][i + 1] = val_min;
+
+		} else {
+
+			myGrid[1][i + 1] = pointValues[i];
 		}
 	}
 }
