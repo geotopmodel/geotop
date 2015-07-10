@@ -1,5 +1,0 @@
-// the configured options and settings for GEOtop
-
-// to set the software version number from CMakeLists
-#define geotop_VERSION_MAJOR @geotop_VERSION_MAJOR@
-#define geotop_VERSION_MINOR @geotop_VERSION_MINOR@
