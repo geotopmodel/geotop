@@ -20,7 +20,7 @@
 
 #include <string>
 #include "output.h"
-#include "config.h"
+#include "../../config.h"
 #include "constants.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"

@@ -1,4 +1,4 @@
-#include <geotop_common.h>
+#include "geotop_common.h"
 
 std::string geotop::common::Variables::WORKING_DIRECTORY ;
 

@@ -7,7 +7,7 @@
  * Parse configuration file and store parameters on single container
  */
 
-#include <inputKeywords.h>
+#include "inputKeywords.h"
 #include <boost/spirit/include/classic.hpp>
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string/erase.hpp>

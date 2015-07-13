@@ -28,7 +28,7 @@ This file is part of numerioc_solver.
  *
  */
 
-#include "config.h"
+#include "../../config.h"
 
 #ifdef USE_NETCDF
 

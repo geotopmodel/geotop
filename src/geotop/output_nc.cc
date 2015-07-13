@@ -28,7 +28,7 @@
  
 */
 
-#include "config.h"
+#include "../../config.h"
 #include "geotop_common.h"
 
 #ifdef USE_NETCDF

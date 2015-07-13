@@ -15,11 +15,11 @@
  
  */
  
-#include "config.h"
+#include "../../config.h"
 #include "input.h"
 #include "parameters.h"
 #include <unistd.h>
-#include <inputKeywords.h>
+#include "inputKeywords.h"
 #include "geotop_common.h"
 
 #include <iostream>

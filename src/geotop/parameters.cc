@@ -12,7 +12,7 @@
 #include "parameters.h"
 #include "constants.h"
 #include <iomanip>
-#include <inputKeywords.h>
+#include "inputKeywords.h"
 #include "geotop_common.h"
 #include "../gt_utilities/path_utils.h"
 

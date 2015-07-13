@@ -21,7 +21,7 @@
 
 /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
 
-#include "config.h"
+#include "../config.h"
 
 #include <sys/stat.h>
 #include "struct.geotop.h"
@@ -52,7 +52,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include <inputKeywords.h>
+#include "inputKeywords.h"
 #include "output_new.h"
 
 #include "global_logger.h"

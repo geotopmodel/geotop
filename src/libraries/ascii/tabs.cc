@@ -7,7 +7,7 @@
 
 #include "../fluidturtle/turtle.h"
 #include <boost/algorithm/string.hpp>
-#include <inputKeywords.h>
+#include "../../geotop/inputKeywords.h"
 
 /*============================================================================*/
 /*                               Constants                                    */

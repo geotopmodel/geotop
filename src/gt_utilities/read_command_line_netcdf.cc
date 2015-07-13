@@ -22,7 +22,7 @@ This file is part of GEOTRIVIALUtilities.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "config.h"
+#include "../../config.h"
 
 #ifdef USE_NETCDF
 #include "read_command_line_netcdf.h"

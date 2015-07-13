@@ -4,7 +4,7 @@
 #endif
 #include <boost/test/unit_test.hpp>
 
-#include <inputKeywords.h>
+#include "../../../geotop/inputKeywords.h"
 
 using namespace boost::assign;
 

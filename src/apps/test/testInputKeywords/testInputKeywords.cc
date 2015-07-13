@@ -7,7 +7,7 @@
  * test program for generic configuration store class
  */
 
-#include <inputKeywords.h>
+#include "../../../geotop/inputKeywords.h"
 #include <boost/filesystem.hpp>
 #include <boost/program_options/option.hpp>
 #include <boost/program_options/options_description.hpp>
