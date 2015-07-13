@@ -1,24 +1,5 @@
 PROJECT(geotop)
 
-INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/")
-
-INCLUDE("${PROJECT_SOURCE_DIR}/src/geotop/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/apps/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/cloud_preproc/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/gt_utilities/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/inpts_validator/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/libraries/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/meteoio_plugin/CMakeLists.txt")
-INCLUDE("${PROJECT_SOURCE_DIR}/src/netCDF/CMakeLists.txt")
-
-# generate config include file
-## config.h variables
-# SET(PACKAGE "geotop")
-# SET(PACKAGE_VERSION "1.2.10")
-# SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
-# SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
-configure_file (${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
-
 # ascii
 SET( ASCII_LIBRARIES
     "ascii" )
@@ -61,37 +42,37 @@ SET( GEOTOP_LIBRARIES
 SET( GEOTOP_LIBRARY_PATH "${PROJECT_SOURCE_DIR}/src/geotop")
 SET( GEOTOP_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/src/geotop")
 
-# # inputKeywords
-# SET( INPUT_KEYWORDS_LIBRARIES
-#     "inputKeywords" )
+# inputKeywords
+SET( INPUT_KEYWORDS_LIBRARIES
+    "inputKeywords" )
 
-# # geotopOutPostProcessing
-# SET( GEOTOP_OUT_POSTPROC_LIBRARIES
-#     "geotopOutPostProcessing" )
+# geotopOutPostProcessing
+SET( GEOTOP_OUT_POSTPROC_LIBRARIES
+    "geotopOutPostProcessing" )
 
-# # geotopOutPostProcessingNew
-# SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
-#     "geotopOutPostProcessingNew" )
+# geotopOutPostProcessingNew
+SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
+    "geotopOutPostProcessingNew" )
 
-# # geotopMeteo
-# SET( GEOTOP_METEO_LIBRARIES
-#     "geotopMeteo" )
+# geotopMeteo
+SET( GEOTOP_METEO_LIBRARIES
+    "geotopMeteo" )
 
-# # geotopWaterBalance
-# SET( GEOTOP_WATER_BALANCE_LIBRARIES
-#     "geotopWaterBalance" )
+# geotopWaterBalance
+SET( GEOTOP_WATER_BALANCE_LIBRARIES
+    "geotopWaterBalance" )
 
-# # geotopPartSnow
-# SET( GEOTOP_PART_SNOW_LIBRARIES
-#     "geotopPartSnow" )
+# geotopPartSnow
+SET( GEOTOP_PART_SNOW_LIBRARIES
+    "geotopPartSnow" )
 
-# # geotopEnergyBalance
-# SET( GEOTOP_ENERGY_BALANCE_LIBRARIES
-#     "geotopEnergyBalance" )
+# geotopEnergyBalance
+SET( GEOTOP_ENERGY_BALANCE_LIBRARIES
+    "geotopEnergyBalance" )
 
-# # geotopCommon
-# SET( GEOTOP_COMMON_LIBRARIES
-#     "geotopCommon" )
+# geotopCommon
+SET( GEOTOP_COMMON_LIBRARIES
+    "geotopCommon" )
 
 # logger
 SET( GEOTOP_LOGGER
@@ -102,7 +83,7 @@ SET( GEOTOP_OUTPUT_FILE
     "geotopOutputFile" )
 
 include_directories(
-	${PROJECT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}
 	${INPUT_KEYWORDS_INCLUDE_PATH}
 	${ASCII_INCLUDE_PATH}
 	${FLUIDTURTLE_INCLUDE_PATH}
