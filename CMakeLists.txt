@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 
+###########################################################
+# general settings
+
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
 SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
@@ -34,8 +37,26 @@ SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
 ###########################################################
-# libraries linking type and extension
+# find dependecies
 
+FIND_PACKAGE(Boost REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS regex REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS filesystem REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS system REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS iostreams REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS unit_test_framework REQUIRED)
+
+IF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
+	MESSAGE(FATAL_ERROR "METEOIO LIBRARY NOT FOUND")
+ELSE(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
+	SET(METEOIO_LIBRARY_PATH "${METEOIO_PATH}/lib")
+	SET(METEOIO_INCLUDE_PATH "${METEOIO_PATH}/include")
+	SET(METEOIO_LIBRARIES "meteoio")
+ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
+
+###########################################################
+# libraries linking type and extension
 
 IF (BUILD_STATIC)
 	SET(LINKING_MODE STATIC)
@@ -44,6 +65,10 @@ ELSE (BUILD_STATIC)
 ENDIF (BUILD_STATIC)
 
 MESSAGE("Linking mode: ${LINKING_MODE}")
+
+# build code version
+INCLUDE("${CMAKE_SOURCE_DIR}/tools/cmake/BuildVersion.cmake")
+BuildVersion()
 
 #The following pre-processor variables are automatically defined:
 # __linux, __GNUC__, __CYGWIN__, _WIN32, __MINGW32__, __APPLE__
@@ -80,26 +105,7 @@ ELSE(UNIX)
 ENDIF(UNIX)
 
 ###########################################################
-# find dependecies
-
-FIND_PACKAGE(Boost REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS regex REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS filesystem REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS system REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS iostreams REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS unit_test_framework REQUIRED)
-
-IF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
-	MESSAGE(FATAL_ERROR "METEOIO LIBRARY NOT FOUND")
-ELSE(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
-	SET(METEOIO_LIBRARY_PATH "${METEOIO_PATH}/lib")
-	SET(METEOIO_INCLUDE_PATH "${METEOIO_PATH}/include")
-	SET(METEOIO_LIBRARIES "meteoio")
-ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
-
-###########################################################
-# set flags
+# set extra flags
 
 IF (PRINT_DOUBLE_PRECISION)
 	add_definitions(-DUSE_DOUBLE_PRECISION_OUTPUT)
@@ -129,6 +135,7 @@ IF (METEOIO_OUTPUT)
     add_definitions(-DMETEOIO_OUTPUT)
 ENDIF (METEOIO_OUTPUT)
 
+#Add subdirectory, so it can inherit all variables defined above
 SUBDIRS(src)
 
 ###########################################################
@@ -159,11 +166,14 @@ INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturt
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
 INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 
+###########################################################
+#for the uninstall target
+
 ADD_CUSTOM_TARGET(distclean make clean
-	COMMAND cmake -E remove CMakeCache.txt CPackSourceConfig.cmake CPackConfig.cmake CTestTestfile.cmake DartConfiguration.tcl cmake_install.cmake cmake_uninstall.cmake install_manifest.txt Makefile
+	COMMAND cmake -E remove CMakeCache.txt cmake_install.cmake cmake_uninstall.cmake install_manifest.txt Makefile
 	COMMAND cmake -E remove "lib/libgeotop*.${DLL_EXT}" "lib/libgeotop*.${STAT_EXT}" "lib/libgeotop*.lib"
-	COMMAND cmake -E remove */CMakeCache.txt */CTestTestfile.cmake */cmake_install.cmake
-	COMMAND cmake -E remove */*/CMakeCache.txt */*/CTestTestfile.cmake */*/cmake_install.cmake
+	COMMAND cmake -E remove */CMakeCache.txt */CTestTestfile.cmake */cmake_install.cmake */Makefile
+	COMMAND cmake -E remove */*/CMakeCache.txt */*/CTestTestfile.cmake */*/cmake_install.cmake */*/Makefile
 	COMMAND cmake -E remove_directory CMakeFiles
 	COMMAND cmake -E remove_directory src/CMakeFiles
 	COMMAND cmake -E remove_directory src/app/CMakeFiles
