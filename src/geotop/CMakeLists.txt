@@ -1,5 +1,8 @@
 PROJECT(geotop)
 
+###########################################################
+# set variables for internal libraries
+
 # inputKeywords
 SET( INPUT_KEYWORDS_LIBRARIES
     "inputKeywords" )
@@ -43,6 +46,9 @@ SET( GEOTOP_OUTPUT_FILE
 ADD_EXECUTABLE(geotop
   geotop.cc
   )
+
+###########################################################
+# add libraries section
 
 #shared library.
 # IF(BUILD_SHARED_LIBS)
@@ -167,6 +173,8 @@ ADD_LIBRARY(${GEOTOP_OUT_POSTPROC_LIBRARIES_NEW} ${LINKING_MODE}
   output_new.h
   )
 
+###########################################################
+# link and install libraries
 
 TARGET_LINK_LIBRARIES(${GEOTOP_OUTPUT_FILE}
   ${GEOTOP_METEO_LIBRARIES}
