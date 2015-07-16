@@ -61,7 +61,6 @@ link_directories(
 )
 
 SUBDIRS(
-	apps
 	geotop
 	gt_utilities
 	libraries
