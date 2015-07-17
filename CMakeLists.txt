@@ -32,7 +32,7 @@ SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
-SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
+SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
