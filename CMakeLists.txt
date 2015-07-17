@@ -27,7 +27,7 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/con
 ###########################################################
 # user options
 
-SET(METEOIO_PATH "/usr/local" CACHE PATH "location of the MeteoIO library" )
+SET(METEOIO_PATH "/usr" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
