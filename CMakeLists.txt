@@ -196,4 +196,119 @@ CONFIGURE_FILE(
 	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
 	IMMEDIATE @ONLY)
 
-ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+      ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+
+###########################################################
+## CPACK section
+###########################################################
+SET(CPACK_PACKAGE_DESCRIPTION "Hydrological cycle model")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "TODO")
+# SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/Welcome.txt")
+SET(CPACK_PACKAGE_NAME "GEOtop")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "GEOtop")
+SET(CPACK_PACKAGE_CONTACT "Francesco Serafin <f.serafin.1@unitn.it>")
+SET(CPACK_PACKAGE_VENDOR "Università degli Studi di Trento")
+# SET(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/meteoio/icons\\\\icon.ico")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/doc/COPYING")
+# SET(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/Welcome.txt")
+SET(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README")
+
+IF (DEST MATCHES "par")
+	SET(PACKAGE_EXTRA "-par")
+ENDIF(DEST MATCHES "par")
+SET(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
+SET(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
+SET(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
+SET(VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+#SET(CPACK_ARCH "${CMAKE_SYSTEM_PROCESSOR}")
+SET(CPACK_ARCH "i386")
+SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}${PACKAGE_EXTRA}-${VERSION}-${CPACK_ARCH}")
+
+#installation by components for formats that support it
+#SET(CPACK_COMPONENTS_ALL_GROUPS_IN_ONE_PACKAGE 1)
+SET(CPACK_COMPONENTS_ALL libraries headers documentation examples)
+SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "GEOtop")
+SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "GEOtop model")
+SET(CPACK_COMPONENT_LIBRARIES_GROUP Runtime)
+SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Header files")
+SET(CPACK_COMPONENT_HEADERS_DESCRIPTION "C++ header files")
+SET(CPACK_COMPONENT_HEADERS_GROUP Development)
+SET(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
+# IF(INSTALL_DOC)
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_DISPLAY_NAME "Documentation")
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_DESCRIPTION "Documentation of the MeteoIO usage and API both for the end user and the developer using MeteoIO in his/her application")
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_GROUP Docs)
+# 	SET(CPACK_COMPONENT_EXAMPLES_DISPLAY_NAME "Examples")
+# 	SET(CPACK_COMPONENT_EXAMPLES_DESCRIPTION "C++ Source code of various simple examples of applications with their example data")
+# 	SET(CPACK_COMPONENT_EXAMPLES_DEPENDS libraries headers)
+# 	SET(CPACK_COMPONENT_EXAMPLES_GROUP Docs)
+# 	SET(CPACK_COMPONENT_DOCS_GROUP "Documentation")
+# 	SET(CPACK_COMPONENT_GROUP_DOCS_DESCRIPTION "How to use MeteoIO as an end user and as a developer")
+# ENDIF(INSTALL_DOC)
+
+SET(CPACK_COMPONENT_RUNTIME_GROUP "Runtime")
+# SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION "What you need to run an application based on MeteoIO")
+SET(CPACK_COMPONENT_DEVELOPMENT_GROUP "Development")
+# SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "What you need to develop an application based on MeteoIO")
+SET(CPACK_PACKAGE_EXECUTABLES "geotop")
+
+IF(UNIX)
+	IF(APPLE)
+		SET(CPACK_GENERATOR "PackageMaker")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/Applications/${CPACK_PACKAGE_NAME}")
+	ELSE(APPLE)
+		SET(CPACK_GENERATOR "DEB;RPM;TGZ")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+		SET(CPACK_DEBIAN_PACKAGE_NAME "geotop")
+		SET(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+		SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-filesystem-dev, libboost-system-dev, libboost-iostreams-dev, libboost-regex-dev, libboost-program-options-dev, libboost-test-dev") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386") #dpkg --print-architecture
+		SET(CPACK_RPM_PACKAGE_NAME "GEOtop")
+		SET(CPACK_RPM_PACKAGE_LICENSE "LPGLv3")
+		SET(CPACK_RPM_PACKAGE_REQUIRES "libstdc++6") #simply libproj for OpenSuse
+		SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
+		SET(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
+	ENDIF(APPLE)
+ELSE(UNIX)
+	# IF(WIN32)
+	# 	SET(CPACK_GENERATOR "NSIS")
+	# 	SET(CPACK_NSIS_MUI_ICON "${CPACK_PACKAGE_ICON}")
+	# 	SET(CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_PACKAGE_NAME}-${VERSION}")
+	# 	SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CPACK_PACKAGE_NAME}")
+	# 	IF(INSTALL_DOC)
+	# 		SET(CPACK_NSIS_MENU_LINKS
+	# 			"${DOC_PATH}/MeteoIO_doc.html" "MeteoIO documentation"
+	# 			"${DOC_PATH}/examples" "MeteoIO examples"
+	# 			"https://models.slf.ch/p/meteoio/" "Home page")
+	# 	ELSEIF(INSTALL_DOC)
+	# 		SET(CPACK_NSIS_MENU_LINKS
+	# 			"https://models.slf.ch/p/meteoio/" "Home page")
+	# 	ENDIF(INSTALL_DOC)
+	# 	#info for the add/uninstall software administration
+	# 	SET(CPACK_NSIS_INSTALLED_ICON_NAME "doc\\\\icon.ico")
+	# 	SET(CPACK_NSIS_URL_INFO_ABOUT "http://www.slf.ch")
+	# 	SET(CPACK_NSIS_HELP_LINK "https://models.slf.ch/p/meteoio")
+	# 	SET(CPACK_NSIS_CONTACT "${CPACK_PACKAGE_CONTACT}")
+	# ENDIF(WIN32)
+ENDIF(UNIX)
+
+
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${VERSION}" CACHE INTERNAL "tarball basename")
+SET(CPACK_SOURCE_GENERATOR TGZ)
+# The following components are regex's to match anywhere (unless anchored)
+# in absolute path + filename to find files or directories to be excluded
+# from source tarball.
+SET(CPACK_SOURCE_IGNORE_FILES
+	"~$"
+	"\\\\.svn/"
+	"/CMakeFiles/"
+	"/CMakeCache*"
+	"/cmake_install\\\\.cmake$"
+	"/cmake_uninstall\\\\.cmake$"
+	"^_CPack_.*/"
+	"/CPack*"
+	"\\\\.o$"
+	"/m4/"
+)
+
+INCLUDE(CPack)
