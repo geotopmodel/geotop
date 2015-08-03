@@ -70,6 +70,46 @@ MESSAGE("Linking mode: ${LINKING_MODE}")
 INCLUDE("${CMAKE_SOURCE_DIR}/tools/cmake/BuildVersion.cmake")
 BuildVersion()
 
+IF(MSVC)
+	#SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "limited configs"  FORCE)
+	SET(WARNINGS "/W4 /D_CRT_SECURE_NO_WARNINGS /EHsc") #Za: strict ansi EHsc: handle c++ exceptions
+	#SET(EXTRA_WARNINGS "/Wp64") #/Wall
+	SET(OPTIM "/O2 /DNDEBUG /MD /DNOSAFECHECKS")
+	SET(ARCH_OPTIM "/arch:SSE2")
+	SET(ARCH_SAFE "")
+	SET(DEBUG "/Z7 /Od /D__DEBUG /MDd")
+	SET(_VERSION "/D_VERSION=\\\"${_versionString}\\\"")
+	IF(BUILD_SHARED_LIBS)
+		ADD_DEFINITIONS(/DMIO_DLL)
+	ENDIF(BUILD_SHARED_LIBS)
+	IF(GUI_EXCEPTIONS)
+		SET(MSG_BOX "/DMESG_BOX")
+	ENDIF(GUI_EXCEPTIONS)
+ELSE(MSVC)
+	#we consider that all other compilers support "-" options and silently ignore what they don't know
+	SET(WARNINGS "-Wall -Wno-long-long")
+	SET(PROFILING "-pg -fprofile-arcs")
+	SET(DEEP_WARNINGS "-Wunused-value -Wshadow -Wpointer-arith -Wconversion -Winline -Wdisabled-optimization") #-Wfloat-equal -Wpadded
+	SET(EXTRA_WARNINGS "-Wextra -pedantic -Weffc++ ${DEEP_WARNINGS}") #-Weffc++
+	IF(CMAKE_COMPILER_IS_GNUCXX AND NOT ANDROID)
+		SET(EXTRA_WARNINGS "${EXTRA_WARNINGS} -ansi") #Android does not like ansi...
+		IF(WIN32) #for gcc on windows
+			SET(CMAKE_SHARED_LINKER_FLAGS "--enable-auto-import")
+		ENDIF(WIN32)
+	ENDIF(CMAKE_COMPILER_IS_GNUCXX AND NOT ANDROID)
+	SET(OPTIM "-g -O3 -DNDEBUG -DNOSAFECHECKS") #-flto for gcc>4.5?
+	EXECUTE_PROCESS(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+	IF (GCC_VERSION VERSION_GREATER 4.2 OR GCC_VERSION VERSION_EQUAL 4.2)
+		SET(ARCH_OPTIM  "-march=native -mtune=native")
+	ENDIF()
+	SET(ARCH_SAFE  "")
+	SET(DEBUG "-g3 -O0 -D__DEBUG")
+	SET(_VERSION "-D_VERSION=\\\"${_versionString}\\\"")
+	#IF(BUILD_SHARED_LIBS)
+	#	ADD_DEFINITIONS(-DMIO_DLL)
+	#ENDIF(BUILD_SHARED_LIBS)
+ENDIF(MSVC)
+
 #The following pre-processor variables are automatically defined:
 # __linux, __GNUC__, __CYGWIN__, _WIN32, __MINGW32__, __APPLE__
 IF(UNIX)
