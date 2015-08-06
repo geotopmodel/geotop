@@ -26,8 +26,8 @@
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 
+#if defined(__linux) && !defined(ANDROID) && !defined(__CYGWIN__)
 #include <execinfo.h>
-
 /* #define ENABLE_PRINT_STACK_FRAME 1 */
 
 #ifdef ENABLE_PRINT_STACK_FRAME
@@ -48,7 +48,11 @@ free (__strings);
 #else
 #define PRINT_FRAME_STACK
 #endif
+#endif
 
+#if defined _WIN32 || defined __MINGW32__
+#include <windows.h>
+#endif
 
 template <class T> class GeoVector {
 	public:
@@ -134,7 +138,9 @@ template<class T> void GeoVector<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> size_t GeoVector<T>::size() const
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return data.size();
 }
 
@@ -265,13 +271,17 @@ template<class T> void GeoMatrix<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> unsigned int GeoMatrix<T>::getRows() const 
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return this->nx;
 }
 
 template<class T> unsigned int GeoMatrix<T>::getCols() const 
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return this->ny;
 }
 
@@ -375,19 +385,25 @@ template<class T> void GeoTensor<T>::reset(const T& val, const T& val_to_omit)
 
 template<class T> unsigned int GeoTensor<T>::getDh() const 
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return this->nx;
 }
 
 template<class T> unsigned int GeoTensor<T>::getRh() const 
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return this->ny;
 }
 
 template<class T> unsigned int GeoTensor<T>::getCh() const 
 {
+#if defined(__linux)
     PRINT_FRAME_STACK
+#endif
 	return this->nz;
 }
 
