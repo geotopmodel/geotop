@@ -451,15 +451,6 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                         f = fopen(name.c_str() , "a");
 
-                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                        {
-                            m = par->snow_plot_depths.size();
-                        }
-                        else
-                        {
-                            m = par->max_snow_layers;
-                        }
-
                         first_column = 1;
                         for (j = 0; j < geotop::common::Variables::nosnw; j++)
                         {
@@ -506,7 +497,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 {
                                     fprintf(f, "%ld", par->IDpoint[i]);
                                 }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
+                                /*2015.08.13: deleted code from here (totally wrong) Matteo and Leonardo
+                                 * else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
                                 {
                                     l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
                                     if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
@@ -588,8 +580,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     fprintf(f, "%f", snow->S->Dzl[l][r][c]);
 #endif
                                 }
-                            }
-                            else
+                               2015.08.13: deleted code until here (totally wrong) Matteo and Leonardo*/
+
+                            }else
                             {
 #ifdef USE_DOUBLE_PRECISION_OUTPUT
                                 fprintf(f, "%12g", geotop::input::gDoubleNoValue);
@@ -598,6 +591,29 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 #endif
                             }
                         }
+
+
+                        /* 2015-08-13 new implementation (Matteo and Leonardo) from here */
+                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+							m = par->snow_plot_depths.size();
+							for (l=1; l<=m; l++) {
+								fprintf(f, ",%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 1.));
+							}
+
+                        }else{
+
+							m = par->max_snow_layers;
+							for(l=1;l<=m;l++){
+								if (snow->S->Dzl[l][r][c] > 0) {
+									fprintf(f,",%f",snow->S->w_ice[l][r][c]/snow->S->Dzl[l][r][c]);
+								}else {
+									fprintf(f,",%f",(double)geotop::input::gDoubleNoValue);
+								}
+							}
+
+                        }
+                        /* 2015-08-13 new implementation (Matteo and Leonardo) until here  */
+
                         fprintf(f, "\n");
                         fclose(f);
 
@@ -2790,7 +2806,6 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, "\n");
                 t_fclose(f);
             }
-
             if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
             {
 
@@ -2819,7 +2834,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 first_column = 1;
                 for (j = 0; j < geotop::common::Variables::nosnw; j++)
                 {
-                    if (first_column == 0)
+                	if (first_column == 0)
                     {
                         fprintf(f, ",");
                     }
@@ -2831,7 +2846,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     {
                         fprintf(f, "%s", geotop::common::Variables::hsnw[geotop::common::Variables::osnw[j]].c_str());
                     }
-                    else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < 6 + 3 * m)
+
+                    /* 13.08.2015 checked this implementation, realized it is wrong (Matteo and Leonardo)
+                     * else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < 6 + 3 * m)
                     {
                         l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6., (double)m ) + 1;
                         n = floor( ( (double)geotop::common::Variables::osnw[j] - 6.) / (double)m ) + 6;
@@ -2850,11 +2867,25 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         n = floor( ( (double)geotop::common::Variables::osnw[j] - 6. - 3.*(double)m) / (double)par->max_snow_layers ) + 6 + 3;
                         fprintf(f, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
                     }
+                    * end commented (Matteo and Leonardo)
+                    * */
                     else
                     {
                         fprintf(f, "None");
                     }
                 }
+                /* 13.08.2015 Matteo and Leonardo implemented new method from here:*/
+                if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+                	for (l=1; l<=(long)(par->snow_plot_depths.size()); l++) {
+                		fprintf(f, ",%f",par->snow_plot_depths[l]);
+                	}
+                }else{
+                	for(l=1;l<=par->max_snow_layers;l++){
+                		fprintf(f,",L%ld",l);
+                	}
+               	}
+                /* 13.08.2015 Matteo and Leonardo implemented new method until here*/
+
                 fprintf(f, "\n");
                 t_fclose(f);
             }
