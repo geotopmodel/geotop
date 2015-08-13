@@ -1161,7 +1161,7 @@ short copy_statevar_from3D_to1D(long r, long c, Statevar3D *origin, Statevar1D *
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& Dz, GeoTensor<double>& Q, short k)
+double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q, short k)
 {
 
     double q, z, z0 = 0.;
@@ -1187,15 +1187,15 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 
         if (l == 1)
         {
-            z = z0 + Dz[l][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l][r][c] / 2. + Dz[l - 1][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2. + Dz(l-1,r,c) / 2.;
         }
         else
         {
-            z = z0 + Dz[max][r][c] / 2.;
+            z = z0 + Dz(max,r,c)/ 2.;
         }
 
         if(fabs(h) <= z && fabs(h) > z0)
@@ -1204,11 +1204,11 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
             {
                 if (k == 0)
                 {
-                    q = Q[l][r][c];
+                    q = Q(l,r,c);
                 }
                 else
                 {
-                    q = Q[l][r][c] / Dz[l][r][c];
+                    q = Q(l,r,c) / Dz(l,r,c);
                 }
             }
             else if (l <= max)
@@ -1217,22 +1217,22 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
                 {
                     if (k == 0)
                     {
-                        q = ( Q[l - 1][r][c] * (h - z0) + Q[l][r][c] * (z - h) ) / (z - z0);
+                        q = ( Q(l-1,r,c) * (h - z0) + Q(l,r,c) * (z - h) ) / (z - z0);
                     }
                     else
                     {
-                        q = ( Q[l - 1][r][c] / Dz[l - 1][r][c] * (h - z0) + Q[l][r][c] / Dz[l][r][c] * (z - h) ) / (z - z0);
+                        q = ( Q(l-1,r,c) / Dz(l-1,r,c) * (h - z0) + Q(l,r,c) / Dz(l,r,c) * (z - h) ) / (z - z0);
                     }
                 }
                 else
                 {
                     if (k == 0)
                     {
-                        q = ( Q[l - 1][r][c] * (z - h) + Q[l][r][c] * (h - z0) ) / (z - z0);
+                        q = ( Q(l-1,r,c) * (z - h) + Q(l,r,c)* (h - z0) ) / (z - z0);
                     }
                     else
                     {
-                        q = ( Q[l - 1][r][c] / Dz[l - 1][r][c] * (z - h) + Q[l][r][c] / Dz[l][r][c] * (h - z0) ) / (z - z0);
+                        q = ( Q(l-1,r,c) / Dz(l-1,r,c) * (z - h) + Q(l,r,c) / Dz(l,r,c) * (h - z0) ) / (z - z0);
 
                     }
                 }
@@ -1241,11 +1241,11 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
             {
                 if (k == 0)
                 {
-                    q = Q[max][r][c];
+                    q = Q(max,r,c);
                 }
                 else
                 {
-                    q = Q[max][r][c] / Dz[max][r][c];
+                    q = Q(max,r,c) / Dz(max,r,c);
                 }
 
             }
@@ -1263,7 +1263,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 }
 
 //overloaded function noori
-double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& Dz, GeoTensor<double>& Q)
+double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q)
 {
 
     double q, z, z0 = 0.;
@@ -1289,37 +1289,37 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 
         if (l == 1)
         {
-            z = z0 + Dz[l][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l][r][c] / 2. + Dz[l - 1][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2. + Dz(l-1,r,c)/ 2.;
         }
         else
         {
-            z = z0 + Dz[max][r][c] / 2.;
+            z = z0 + Dz(max,r,c) / 2.;
         }
 
         if(fabs(h) <= z && fabs(h) > z0)
         {
             if (l == 1)
             {
-                q = Q[l][r][c];
+                q = Q(l,r,c);
             }
             else if (l <= max)
             {
                 if(u > 0)
                 {
-                    q = ( Q[l - 1][r][c] * (h - z0) + Q[l][r][c] * (z - h) ) / (z - z0);
+                    q = ( Q(l-1,r,c) * (h - z0) + Q(l,r,c) * (z - h) ) / (z - z0);
                 }
                 else
                 {
-                    q = ( Q[l - 1][r][c] * (z - h) + Q[l][r][c] * (h - z0) ) / (z - z0);
+                    q = ( Q(l-1,r,c) * (z - h) + Q(l,r,c) * (h - z0) ) / (z - z0);
                 }
             }
             else
             {
-                q = Q[max][r][c];
+                q = Q(max,r,c);
             }
         }
 
