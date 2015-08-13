@@ -429,347 +429,351 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         fprintf(geotop::common::Variables::ffpoint, "\n");
                     }
 
-                    //Snow
-                    if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
-                    {
-
-                        temp1 = geotop::common::Variables::files[fsatz] + string(NNNN);
-
-
-                        if (par->n_ContRecovery > 0)
-                        {
-
-                            temp2 = temp1 + crec;
-                            name = temp2 + textfile;
-
-                        }
-                        else
-                        {
-
-                            name = temp1 + textfile;
-                        }
-
-                        f = fopen(name.c_str() , "a");
-
-                        first_column = 1;
-                        for (j = 0; j < geotop::common::Variables::nosnw; j++)
-                        {
-                            if (first_column == 0)
-                            {
-                                fprintf(f, ",");
-                            }
-                            else
-                            {
-                                first_column = 0;
-                            }
-                            if (geotop::common::Variables::osnw[j] >= 0)
-                            {
-                                if (geotop::common::Variables::osnw[j] == 0)
-                                {
-                                    fprintf(f, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)day, (float)month, (float)year, (float)hour, (float)minute);
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 1)
-                                {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g", JDfrom0);
-#else
-                                    fprintf(f, "%f", JDfrom0);
-#endif
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 2)
-                                {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                    fprintf(f, "%12g", JDfrom0 - par->init_date);
-#else
-
-                                    fprintf(f, "%f", JDfrom0 - par->init_date);
-#endif
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 3)
-                                {
-                                    fprintf(f, "%ld", geotop::common::Variables::i_sim);
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
-                                {
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 5)
-                                {
-                                    fprintf(f, "%ld", par->IDpoint[i]);
-                                }
-                                /*2015.08.13: deleted code from here (totally wrong) Matteo and Leonardo
-                                 * else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
-#else
-                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(f, "%12g", snow->S->T[l][r][c]);
-#else
-
-                                        fprintf(f, "%f", snow->S->T[l][r][c]);
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 2 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 1 * m;
-
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
-#else
-
-                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(f, "%12g", snow->S->w_ice[l][r][c]);
-#else
-
-                                        fprintf(f, "%f", snow->S->w_ice[l][r][c]);
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 2 * m;
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
-#else
-
-                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(f, "%12g", snow->S->w_liq[l][r][c]);
-#else
-
-                                        fprintf(f, "%f", snow->S->w_liq[l][r][c]);
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m + par->max_snow_layers)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 3 * m;
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                    fprintf(f, "%12g", snow->S->Dzl[l][r][c]);
-#else
-
-                                    fprintf(f, "%f", snow->S->Dzl[l][r][c]);
-#endif
-                                }
-                               2015.08.13: deleted code until here (totally wrong) Matteo and Leonardo*/
-
-                            }else
-                            {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                fprintf(f, "%12g", geotop::input::gDoubleNoValue);
-#else
-                                fprintf(f, "%f", geotop::input::gDoubleNoValue);
-#endif
-                            }
-                        }
-
-
-                        /* 2015-08-13 new implementation (Matteo and Leonardo) from here */
-                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
-							m = par->snow_plot_depths.size();
-							for (l=1; l<=m; l++) {
-								fprintf(f, ",%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 1.));
-							}
-
-                        }else{
-
-							m = par->max_snow_layers;
-							for(l=1;l<=m;l++){
-								if (snow->S->Dzl[l][r][c] > 0) {
-									fprintf(f,",%f",snow->S->w_ice[l][r][c]/snow->S->Dzl[l][r][c]);
-								}else {
-									fprintf(f,",%f",(double)geotop::input::gDoubleNoValue);
-								}
-							}
-
-                        }
-                        /* 2015-08-13 new implementation (Matteo and Leonardo) until here  */
-
-                        fprintf(f, "\n");
-                        fclose(f);
-
-                    }
-
-                    if (geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
-                    {
-                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                        {
-                            m = par->snow_plot_depths.size();
-                        }
-                        else
-                        {
-                            m = par->max_snow_layers;
-                        }
-                        first_column = 1;
-                        for (j = 0; j < geotop::common::Variables::nosnw; j++)
-                        {
-                            if (first_column == 0)
-                            {
-                                fprintf(geotop::common::Variables::ffsnow, ",");
-                            }
-                            else
-                            {
-                                first_column = 0;
-                            }
-                            if (geotop::common::Variables::osnw[j] >= 0)
-                            {
-                                if (geotop::common::Variables::osnw[j] == 0)
-                                {
-                                    fprintf(geotop::common::Variables::ffsnow, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)day, (float)month, (float)year, (float)hour, (float)minute);
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 1)
-                                {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffsnow, "%12g", JDfrom0);
-#else
-                                    fprintf(geotop::common::Variables::ffsnow, "%f", JDfrom0);
-#endif
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 2)
-                                {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffsnow, "%12g", JDfrom0 - par->init_date);
-#else
-
-                                    fprintf(geotop::common::Variables::ffsnow, "%f", JDfrom0 - par->init_date);
-#endif
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 3)
-                                {
-                                    fprintf(geotop::common::Variables::ffsnow, "%ld", geotop::common::Variables::i_sim);
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
-                                {
-                                }
-                                else if (geotop::common::Variables::osnw[j] == 5)
-                                {
-
-                                    fprintf(geotop::common::Variables::ffsnow, "%ld", par->IDpoint[i]);
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
-
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->T[l][r][c]);
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->T[l][r][c]);
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 2 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 1 * m;
-
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->w_ice[l][r][c]);
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->w_ice[l][r][c]);
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 2 * m;
-
-                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
-#endif
-                                    }
-                                    else
-                                    {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->w_liq[l][r][c]);
-#else
-
-                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
-#endif
-                                    }
-                                }
-                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m + par->max_snow_layers)
-                                {
-                                    l = geotop::common::Variables::osnw[j] - 5 - 3 * m;
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->Dzl[l][r][c]);
-#else
-                                    fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->Dzl[l][r][c]);
-#endif
-                                }
-                            }
-                            else
-                            {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                fprintf(geotop::common::Variables::ffsnow, "%12g", geotop::input::gDoubleNoValue);
-#else
-                                fprintf(geotop::common::Variables::ffsnow, "%f", geotop::input::gDoubleNoValue);
-#endif
-                            }
-                        }
-                        fprintf(geotop::common::Variables::ffsnow, "\n");
-                    }
+//                    //Snow
+//                    if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
+//                    {
+//
+//                        temp1 = geotop::common::Variables::files[fsatz] + string(NNNN);
+//
+//
+//                        if (par->n_ContRecovery > 0)
+//                        {
+//
+//                            temp2 = temp1 + crec;
+//                            name = temp2 + textfile;
+//
+//                        }
+//                        else
+//                        {
+//
+//                            name = temp1 + textfile;
+//                        }
+//
+//                        f = fopen(name.c_str() , "a");
+//                        long actual_snow_layer_numb=snow->S->lnum[r][c];
+//                        long max_snow_layer_numb=par->max_snow_layers;
+//                        write_snow_file(1, par->IDpoint[i], r, c,actual_snow_layer_numb, max_snow_layer_numb, f, day, month, year, hour, minute, JDfrom0, par->init_date,
+//                        		par->snow_plot_depths, snow->S->Dzl, snow->S->w_ice, cosslope);
+//
+////                        first_column = 1;
+////                        for (j = 0; j < geotop::common::Variables::nosnw; j++)
+////                        {
+////                            if (first_column == 0)
+////                            {
+////                                fprintf(f, ",");
+////                            }
+////                            else
+////                            {
+////                                first_column = 0;
+////                            }
+////                            if (geotop::common::Variables::osnw[j] >= 0)
+////                            {
+////                                if (geotop::common::Variables::osnw[j] == 0)
+////                                {
+////                                    fprintf(f, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)day, (float)month, (float)year, (float)hour, (float)minute);
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] == 1)
+////                                {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////                                    fprintf(f, "%12g", JDfrom0);
+////#else
+////                                    fprintf(f, "%f", JDfrom0);
+////#endif
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] == 2)
+////                                {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                    fprintf(f, "%12g", JDfrom0 - par->init_date);
+////#else
+////
+////                                    fprintf(f, "%f", JDfrom0 - par->init_date);
+////#endif
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] == 3)
+////                                {
+////                                    fprintf(f, "%ld", geotop::common::Variables::i_sim);
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
+////                                {
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] == 5)
+////                                {
+////                                    fprintf(f, "%ld", par->IDpoint[i]);
+////                                }
+////                                /*2015.08.13: deleted code from here (totally wrong) Matteo and Leonardo
+////                                 * else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
+////                                {
+////                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
+////                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
+////#else
+////                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
+////#endif
+////                                    }
+////                                    else
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                        fprintf(f, "%12g", snow->S->T[l][r][c]);
+////#else
+////
+////                                        fprintf(f, "%f", snow->S->T[l][r][c]);
+////#endif
+////                                    }
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] <= 5 + 2 * m)
+////                                {
+////                                    l = geotop::common::Variables::osnw[j] - 5 - 1 * m;
+////
+////                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
+////#else
+////
+////                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
+////#endif
+////                                    }
+////                                    else
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                        fprintf(f, "%12g", snow->S->w_ice[l][r][c]);
+////#else
+////
+////                                        fprintf(f, "%f", snow->S->w_ice[l][r][c]);
+////#endif
+////                                    }
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m)
+////                                {
+////                                    l = geotop::common::Variables::osnw[j] - 5 - 2 * m;
+////                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                        fprintf(f, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
+////#else
+////
+////                                        fprintf(f, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
+////#endif
+////                                    }
+////                                    else
+////                                    {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                        fprintf(f, "%12g", snow->S->w_liq[l][r][c]);
+////#else
+////
+////                                        fprintf(f, "%f", snow->S->w_liq[l][r][c]);
+////#endif
+////                                    }
+////                                }
+////                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m + par->max_snow_layers)
+////                                {
+////                                    l = geotop::common::Variables::osnw[j] - 5 - 3 * m;
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////
+////                                    fprintf(f, "%12g", snow->S->Dzl[l][r][c]);
+////#else
+////
+////                                    fprintf(f, "%f", snow->S->Dzl[l][r][c]);
+////#endif
+////                                }
+////                               2015.08.13: deleted code until here (totally wrong) Matteo and Leonardo*/
+////
+////                            }else
+////                            {
+////#ifdef USE_DOUBLE_PRECISION_OUTPUT
+////                                fprintf(f, "%12g", geotop::input::gDoubleNoValue);
+////#else
+////                                fprintf(f, "%f", geotop::input::gDoubleNoValue);
+////#endif
+////                            }
+////                        }
+////
+////
+////                        /* 2015-08-13 new implementation (Matteo and Leonardo) from here */
+////                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+////							m = par->snow_plot_depths.size();
+////							for (l=1; l<=m; l++) {
+////								fprintf(f, ",%f",interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 1.));
+////							}
+////
+////                        }else{
+////
+////							m = par->max_snow_layers;
+////							for(l=1;l<=m;l++){
+////								if (snow->S->Dzl[l][r][c] > 0) {
+////									fprintf(f,",%f",snow->S->w_ice[l][r][c]/snow->S->Dzl[l][r][c]);
+////								}else {
+////									fprintf(f,",%f",(double)geotop::input::gDoubleNoValue);
+////								}
+////							}
+////
+////                        }
+////                        /* 2015-08-13 new implementation (Matteo and Leonardo) until here  */
+////
+////                        fprintf(f, "\n");
+//                        fclose(f);
+//
+//                    }
+//
+//                    if (geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue)
+//                    {
+//                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+//                        {
+//                            m = par->snow_plot_depths.size();
+//                        }
+//                        else
+//                        {
+//                            m = par->max_snow_layers;
+//                        }
+//                        first_column = 1;
+//                        for (j = 0; j < geotop::common::Variables::nosnw; j++)
+//                        {
+//                            if (first_column == 0)
+//                            {
+//                                fprintf(geotop::common::Variables::ffsnow, ",");
+//                            }
+//                            else
+//                            {
+//                                first_column = 0;
+//                            }
+//                            if (geotop::common::Variables::osnw[j] >= 0)
+//                            {
+//                                if (geotop::common::Variables::osnw[j] == 0)
+//                                {
+//                                    fprintf(geotop::common::Variables::ffsnow, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)day, (float)month, (float)year, (float)hour, (float)minute);
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] == 1)
+//                                {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//                                    fprintf(geotop::common::Variables::ffsnow, "%12g", JDfrom0);
+//#else
+//                                    fprintf(geotop::common::Variables::ffsnow, "%f", JDfrom0);
+//#endif
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] == 2)
+//                                {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//                                    fprintf(geotop::common::Variables::ffsnow, "%12g", JDfrom0 - par->init_date);
+//#else
+//
+//                                    fprintf(geotop::common::Variables::ffsnow, "%f", JDfrom0 - par->init_date);
+//#endif
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] == 3)
+//                                {
+//                                    fprintf(geotop::common::Variables::ffsnow, "%ld", geotop::common::Variables::i_sim);
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] == 4)    //Needed to balance the braces
+//                                {
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] == 5)
+//                                {
+//
+//                                    fprintf(geotop::common::Variables::ffsnow, "%ld", par->IDpoint[i]);
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] <= 5 + 1 * m)
+//                                {
+//                                    l = geotop::common::Variables::osnw[j] - 5 - 0 * m;
+//
+//                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->T, 0.));
+//#endif
+//                                    }
+//                                    else
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->T[l][r][c]);
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->T[l][r][c]);
+//#endif
+//                                    }
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] <= 5 + 2 * m)
+//                                {
+//                                    l = geotop::common::Variables::osnw[j] - 5 - 1 * m;
+//
+//                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_ice, 0.));
+//#endif
+//                                    }
+//                                    else
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->w_ice[l][r][c]);
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->w_ice[l][r][c]);
+//#endif
+//                                    }
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m)
+//                                {
+//                                    l = geotop::common::Variables::osnw[j] - 5 - 2 * m;
+//
+//                                    if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
+//#endif
+//                                    }
+//                                    else
+//                                    {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->w_liq[l][r][c]);
+//#else
+//
+//                                        fprintf(geotop::common::Variables::ffsnow, "%f", interpolate_snow(r, c, par->snow_plot_depths[l]*cosslope, snow->S->lnum[r][c], snow->S->Dzl, snow->S->w_liq, 0.));
+//#endif
+//                                    }
+//                                }
+//                                else if (geotop::common::Variables::osnw[j] <= 5 + 3 * m + par->max_snow_layers)
+//                                {
+//                                    l = geotop::common::Variables::osnw[j] - 5 - 3 * m;
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//                                    fprintf(geotop::common::Variables::ffsnow, "%12g", snow->S->Dzl[l][r][c]);
+//#else
+//                                    fprintf(geotop::common::Variables::ffsnow, "%f", snow->S->Dzl[l][r][c]);
+//#endif
+//                                }
+//                            }
+//                            else
+//                            {
+//#ifdef USE_DOUBLE_PRECISION_OUTPUT
+//                                fprintf(geotop::common::Variables::ffsnow, "%12g", geotop::input::gDoubleNoValue);
+//#else
+//                                fprintf(geotop::common::Variables::ffsnow, "%f", geotop::input::gDoubleNoValue);
+//#endif
+//                            }
+//                        }
+//                        fprintf(geotop::common::Variables::ffsnow, "\n");
+//                    }
 
                     //Glacier
                     if (par->max_glac_layers > 0)
@@ -1081,9 +1085,9 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
                     write_soil_output(i, par->IDpoint[i], par->init_date, JDfrom0, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, GTConst::PsiMin, cosslope);
 
-                    //snow output : this to enable at later stage (SC: 26.12.2013)
-//					write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[geotop::common::Variables::i_sim], par->end_date->co[geotop::common::Variables::i_sim], JDfrom0, JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);
-
+                    //snow output : this to enable at later stage (SC: 26.12.2013) // done by Matteo and Leonardo, 13.08.2015
+					write_snow_output(i, par->IDpoint[i], r, c, par->init_date, JDfrom0, day, month,
+							year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);
 
                     //	initialize
                     for (j = 0; j < otot; j++)
@@ -2806,89 +2810,91 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, "\n");
                 t_fclose(f);
             }
-            if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
-            {
-
-                temp = geotop::common::Variables::files[fsatz] + string(NNNN);
-
-                if (par->n_ContRecovery > 0)
-                {
-                    temp2 = temp + crec;
-                    name = temp2 + textfile;
-                }
-                else
-                {
-                    name = temp + textfile;
-                }
-
-                if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                {
-                    m = par->snow_plot_depths.size();
-                }
-                else
-                {
-                    m = par->max_snow_layers;
-                }
-
-                f = t_fopen(name.c_str(), "w");
-                first_column = 1;
-                for (j = 0; j < geotop::common::Variables::nosnw; j++)
-                {
-                	if (first_column == 0)
-                    {
-                        fprintf(f, ",");
-                    }
-                    else
-                    {
-                        first_column = 0;
-                    }
-                    if (geotop::common::Variables::osnw[j] >= 0 && geotop::common::Variables::osnw[j] <= 5)
-                    {
-                        fprintf(f, "%s", geotop::common::Variables::hsnw[geotop::common::Variables::osnw[j]].c_str());
-                    }
-
-                    /* 13.08.2015 checked this implementation, realized it is wrong (Matteo and Leonardo)
-                     * else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < 6 + 3 * m)
-                    {
-                        l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6., (double)m ) + 1;
-                        n = floor( ( (double)geotop::common::Variables::osnw[j] - 6.) / (double)m ) + 6;
-                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
-                        {
-                            fprintf(f, "%s(%f)", geotop::common::Variables::hsnw[n].c_str(), par->snow_plot_depths[l]);
-                        }
-                        else
-                        {
-                            fprintf(f, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
-                        }
-                    }
-                    else if (geotop::common::Variables::osnw[j] >= 6 + 3 * m)
-                    {
-                        l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6. - 3 * (double)m, (double)par->max_snow_layers ) + 1;
-                        n = floor( ( (double)geotop::common::Variables::osnw[j] - 6. - 3.*(double)m) / (double)par->max_snow_layers ) + 6 + 3;
-                        fprintf(f, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
-                    }
-                    * end commented (Matteo and Leonardo)
-                    * */
-                    else
-                    {
-                        fprintf(f, "None");
-                    }
-                }
-                /* 13.08.2015 Matteo and Leonardo implemented new method from here:*/
-                if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
-                	for (l=1; l<=(long)(par->snow_plot_depths.size()); l++) {
-                		fprintf(f, ",%f",par->snow_plot_depths[l]);
-                	}
-                }else{
-                	for(l=1;l<=par->max_snow_layers;l++){
-                		fprintf(f,",L%ld",l);
-                	}
-               	}
-                /* 13.08.2015 Matteo and Leonardo implemented new method until here*/
-
-                fprintf(f, "\n");
-                t_fclose(f);
-            }
+//            if (geotop::common::Variables::files[fsatz] != geotop::input::gStringNoValue)
+//            {
+//
+//                temp = geotop::common::Variables::files[fsatz] + string(NNNN);
+//
+//                if (par->n_ContRecovery > 0)
+//                {
+//                    temp2 = temp + crec;
+//                    name = temp2 + textfile;
+//                }
+//                else
+//                {
+//                    name = temp + textfile;
+//                }
+//
+//                if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+//                {
+//                    m = par->snow_plot_depths.size();
+//                }
+//                else
+//                {
+//                    m = par->max_snow_layers;
+//                }
+//
+//                f = t_fopen(name.c_str(), "w");
+//                write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
+//
+////                first_column = 1;
+////                for (j = 0; j < geotop::common::Variables::nosnw; j++)
+////                {
+////                	if (first_column == 0)
+////                    {
+////                        fprintf(f, ",");
+////                    }
+////                    else
+////                    {
+////                        first_column = 0;
+////                    }
+////                    if (geotop::common::Variables::osnw[j] >= 0 && geotop::common::Variables::osnw[j] <= 5)
+////                    {
+////                        fprintf(f, "%s", geotop::common::Variables::hsnw[geotop::common::Variables::osnw[j]].c_str());
+////                    }
+////
+////                    /* 13.08.2015 checked this implementation, realized it is wrong (Matteo and Leonardo)
+////                     * else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < 6 + 3 * m)
+////                    {
+////                        l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6., (double)m ) + 1;
+////                        n = floor( ( (double)geotop::common::Variables::osnw[j] - 6.) / (double)m ) + 6;
+////                        if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
+////                        {
+////                            fprintf(f, "%s(%f)", geotop::common::Variables::hsnw[n].c_str(), par->snow_plot_depths[l]);
+////                        }
+////                        else
+////                        {
+////                            fprintf(f, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
+////                        }
+////                    }
+////                    else if (geotop::common::Variables::osnw[j] >= 6 + 3 * m)
+////                    {
+////                        l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6. - 3 * (double)m, (double)par->max_snow_layers ) + 1;
+////                        n = floor( ( (double)geotop::common::Variables::osnw[j] - 6. - 3.*(double)m) / (double)par->max_snow_layers ) + 6 + 3;
+////                        fprintf(f, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
+////                    }
+////                    * end commented (Matteo and Leonardo)
+////                    * */
+////                    else
+////                    {
+////                        fprintf(f, "None");
+////                    }
+////                }
+////                /* 13.08.2015 Matteo and Leonardo implemented new method from here:*/
+////                if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+////                	for (l=1; l<=(long)(par->snow_plot_depths.size()); l++) {
+////                		fprintf(f, ",%f",par->snow_plot_depths[l]);
+////                	}
+////                }else{
+////                	for(l=1;l<=par->max_snow_layers;l++){
+////                		fprintf(f,",L%ld",l);
+////                	}
+////               	}
+////                /* 13.08.2015 Matteo and Leonardo implemented new method until here*/
+////
+////              fprintf(f, "\n");
+//                t_fclose(f);
+//            }
 
             if (par->max_glac_layers > 0)
             {
@@ -3129,8 +3135,82 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 t_fclose(f);
             }
 
-        }
+            // snow headers
+//          "SnowIceContentProfileFile",//fsniz
+			if (geotop::common::Variables::files[fsniz] != geotop::input::gStringNoValue){
+				temp = geotop::common::Variables::files[fsniz] + string(NNNN);
+				if (par->n_ContRecovery > 0){
+					temp2 = temp + crec;
+					name = temp2 + textfile;
+				}else{
+					name = temp + textfile;
+				}
+				if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+					m = par->snow_plot_depths.size();
+				}else{
+					m = par->max_snow_layers;
+				}
+				f = t_fopen(name.c_str(), "w");
+				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
+				t_fclose(f);
+			}
 
+			//"SnowTempProfileFile",//fsnTz
+			if (geotop::common::Variables::files[fsnTz] != geotop::input::gStringNoValue){
+				temp = geotop::common::Variables::files[fsnTz] + string(NNNN);
+				if (par->n_ContRecovery > 0){
+					temp2 = temp + crec;
+					name = temp2 + textfile;
+				}else{
+					name = temp + textfile;
+				}
+				if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+					m = par->snow_plot_depths.size();
+				}else{
+					m = par->max_snow_layers;
+				}
+				f = t_fopen(name.c_str(), "w");
+				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
+				t_fclose(f);
+			}
+			//"SnowLiqContentProfileFile",//fsnlz
+			if (geotop::common::Variables::files[fsnlz] != geotop::input::gStringNoValue){
+				temp = geotop::common::Variables::files[fsnlz] + string(NNNN);
+				if (par->n_ContRecovery > 0){
+					temp2 = temp + crec;
+					name = temp2 + textfile;
+				}else{
+					name = temp + textfile;
+				}
+				if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+					m = par->snow_plot_depths.size();
+				}else{
+					m = par->max_snow_layers;
+				}
+				f = t_fopen(name.c_str(), "w");
+				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
+				t_fclose(f);
+			}
+
+			//"SnowDepthLayersFile",//fsndz
+			if (geotop::common::Variables::files[fsndz] != geotop::input::gStringNoValue){
+				temp = geotop::common::Variables::files[fsndz] + string(NNNN);
+				if (par->n_ContRecovery > 0){
+					temp2 = temp + crec;
+					name = temp2 + textfile;
+				}else{
+					name = temp + textfile;
+				}
+				if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue){
+					m = par->snow_plot_depths.size();
+				}else{
+					m = par->max_snow_layers;
+				}
+				f = t_fopen(name.c_str(), "w");
+				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
+				t_fclose(f);
+			}
+        }
 
     }
 
@@ -3963,4 +4043,229 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
             }
         }
     }
+}
+
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+void write_snow_output(long IDpoint, long iname,long r, long c, double init_date, double JDfrom0, long day, long month,
+		long year, long hour, long minute, const GeoVector<double>& plot_depth, Statevar3D *Snow, Par *par, double cosslope)
+{
+
+    std::string NNNN = "NNNN" ;
+    string name, temp, temp2;
+
+    std::string rec = "_recNNNN" ;
+    std::string crec = "_crecNNNN" ;
+    FILE *f;
+
+    write_suffix(NNNN, iname, 0);
+
+    if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
+
+
+//    "SnowTempProfileFile",//fsnTz
+    if (geotop::common::Variables::files[fsnTz] != geotop::input::gStringNoValue){
+        temp = geotop::common::Variables::files[fsnTz] + string(NNNN);
+
+        if (par->n_ContRecovery > 0){
+            temp2 = temp + crec ;
+            name = temp2 + textfile;
+        }else{
+            name = temp + textfile ;
+        }
+
+        f = fopen(name.c_str(), "a");
+        long actual_snow_layer_numb=Snow->lnum(r,c);
+        long max_snow_layer_numb=par->max_snow_layers;
+        write_snow_file(0, IDpoint, r, c,actual_snow_layer_numb, max_snow_layer_numb, f, day, month, year, hour, minute, JDfrom0, init_date,
+                                		plot_depth, Snow->Dzl, Snow->T, cosslope);
+        fclose(f);
+    }
+//    //    "SnowTempProfileFileWriteEnd",//fsnTzwriteend
+//    if (geotop::common::Variables::files[fsnTzwriteend] != geotop::input::gStringNoValue){
+//		long actual_snow_layer_numb=Snow->lnum(r,c);
+//		long max_snow_layer_numb=par->max_snow_layers;
+//		write_snow_file(1, par->IDpoint[i], r, c,actual_snow_layer_numb, max_snow_layer_numb, ffsnowT, day, month, year, hour, minute, JDfrom0, init_date,
+//										par->snow_plot_depths, Snow->Dzl, Snow->T, cosslope);
+//        }
+// 		Hack: writeEnd possibility not implemented. In case, the above is reported a possible implementation. Consider to open the file connection elsewhere
+
+    	//    "SnowLiqContentProfileFile",//fsnlz
+    	if (geotop::common::Variables::files[fsnlz] != geotop::input::gStringNoValue){
+           temp = geotop::common::Variables::files[fsnlz] + string(NNNN);
+
+           if (par->n_ContRecovery > 0){
+               temp2 = temp + crec ;
+               name = temp2 + textfile;
+           }else{
+               name = temp + textfile ;
+           }
+
+           f = fopen(name.c_str(), "a");
+           long actual_snow_layer_numb=Snow->lnum(r,c);
+           long max_snow_layer_numb=par->max_snow_layers;
+           write_snow_file(1, IDpoint, r, c,actual_snow_layer_numb, max_snow_layer_numb, f, day, month, year, hour, minute, JDfrom0, init_date,
+                                   		plot_depth, Snow->Dzl, Snow->w_liq, cosslope);
+           fclose(f);
+       }
+        //    "SnowLiqContentProfileFileWriteEnd",//fsnlzwriteend NOT IMPLEMENTED
+
+        //    "SnowIceContentProfileFile",//fsniz
+    	if (geotop::common::Variables::files[fsniz] != geotop::input::gStringNoValue){
+		   temp = geotop::common::Variables::files[fsniz] + string(NNNN);
+
+		   if (par->n_ContRecovery > 0){
+			   temp2 = temp + crec ;
+			   name = temp2 + textfile;
+		   }else{
+			   name = temp + textfile ;
+		   }
+
+		   f = fopen(name.c_str(), "a");
+		   long actual_snow_layer_numb=Snow->lnum(r,c);
+		   long max_snow_layer_numb=par->max_snow_layers;
+		   write_snow_file(1, IDpoint, r, c,actual_snow_layer_numb, max_snow_layer_numb, f, day, month, year, hour, minute, JDfrom0, init_date,
+										plot_depth, Snow->Dzl, Snow->w_ice, cosslope);
+		   fclose(f);
+	   }
+        //    "SnowIceContentProfileFileWriteEnd",//fsnizwriteend NOT IMPLEMENTED
+
+        //    "SnowDepthLayersFile",//fsndz
+    	if (geotop::common::Variables::files[fsndz] != geotop::input::gStringNoValue){
+		   temp = geotop::common::Variables::files[fsndz] + string(NNNN);
+
+		   if (par->n_ContRecovery > 0){
+			   temp2 = temp + crec ;
+			   name = temp2 + textfile;
+		   }else{
+			   name = temp + textfile ;
+		   }
+
+		   f = fopen(name.c_str(), "a");
+		   long actual_snow_layer_numb=Snow->lnum(r,c);
+		   long max_snow_layer_numb=par->max_snow_layers;
+		   write_snow_file(2, IDpoint, r, c,actual_snow_layer_numb, max_snow_layer_numb, f, day, month, year, hour, minute, JDfrom0, init_date,
+										plot_depth, Snow->Dzl, Snow->Dzl, cosslope);
+		   fclose(f);
+	   }
+        //    "SnowDepthLayersFileWriteEnd",//fsndzwriteend NOT IMPLEMENTED
+
+}
+
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+void write_snow_file(short choice, long IDpoint, long r, long c, long actual_snow_layer_numb,long max_snow_layer_numb, FILE *f, long d, long m, long y, long h, long mi, double JDfrom0, double JDfrom0init,
+		const GeoVector<double>& plot_depth, const GeoTensor<double>& dz, const GeoTensor<double>& var_to_print, double cosslope)
+	//choice=0 snow(according to snow_depth_plot) and var used
+	//choice=1 snow(according to snow_depth_plot) and var/dz used
+	//choice=2 snow(according to layers) and var used
+	//choice=3 snow(according to layers) and var/dz used
+{
+
+    short first_column = 1;
+    long j;
+
+    for (j = 0; j < geotop::common::Variables::nosnw; j++){
+        if (first_column == 0){
+            fprintf(f, ",");
+        }else{
+            first_column = 0;
+        }
+        if (geotop::common::Variables::osnw[j] >= 0){
+            if (geotop::common::Variables::osnw[j] == 0){
+                fprintf(f, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)d, (float)m, (float)y, (float)h, (float)mi);
+            }else if (geotop::common::Variables::osnw[j] == 1){
+                fprintf(f, "%f", JDfrom0);
+            }else if (geotop::common::Variables::osnw[j] == 2){
+                fprintf(f, "%f", JDfrom0 - JDfrom0init);
+            }else if (geotop::common::Variables::osnw[j] == 3){
+                fprintf(f, "%ld", geotop::common::Variables::i_sim);
+            }else if (geotop::common::Variables::osnw[j] == 4){
+             // need to balance the braces
+            }else if (geotop::common::Variables::osnw[j] == 5){
+                fprintf(f, "%ld", IDpoint);
+            }
+        }else{
+            fprintf(f, "%f", geotop::input::gDoubleNoValue);
+        }
+    }
+
+    if ((choice==0 || choice==1) && (long)plot_depth[1] != geotop::input::gDoubleNoValue){
+    	// prints output for selected snow depth
+        for (size_t l = 1; l < plot_depth.size(); l++){
+            fprintf(f, ",%f", interpolate_snow(r, c, plot_depth[l]*cosslope, actual_snow_layer_numb, dz, var_to_print, choice));
+        }
+
+    }else{
+    	// prints output for all snow layers
+        if(choice==2 || choice==0){
+        	// var_to_print is NOT to be divided by layer depth
+			for (long l= 1; l <= (long)(max_snow_layer_numb); l++){
+				if(dz(l,r,c)>0){
+					fprintf(f,",%f",var_to_print(l,r,c));
+				}else{
+					fprintf(f,",%f",(double)geotop::input::gDoubleNoValue);
+				}
+			}
+
+        }else if(choice==3 || choice==1){
+        	// var_to_print is to be divided by layer depth
+			for (long l= 1; l <= (long)(max_snow_layer_numb); l++){
+				if(dz(l,r,c)>0){
+					fprintf(f,",%f",var_to_print(l,r,c)/dz(l,r,c));
+				}else{
+					fprintf(f,",%f",(double)geotop::input::gDoubleNoValue);
+				}
+			}
+        }
+
+    }
+
+    fprintf(f, "\n");
+}
+
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+void write_snow_header(FILE *f, const GeoVector<double>& plot_depth, size_t max_snow_layer)
+{
+
+    short first_column = 1;
+    long j;
+    size_t l;
+
+    for (j = 0; j < geotop::common::Variables::nosnw; j++){
+        if (first_column == 0){
+            fprintf(f, ",");
+        }else{
+            first_column = 0;
+        }
+        if (geotop::common::Variables::osnw[j] >= 0 && geotop::common::Variables::osnw[j] <= 5){
+            fprintf(f, "%s", geotop::common::Variables::hsnw[geotop::common::Variables::osnw[j]].c_str());
+        }else{
+            fprintf(f, "none");
+        }
+    }
+
+    if ((long)plot_depth[1] != geotop::input::gDoubleNoValue){
+        for (l = 1; l < plot_depth.size(); l++){
+            fprintf(f, ",%f", plot_depth[l]);
+        }
+    }else{
+        for (l = 1; l <= max_snow_layer; l++){
+            fprintf(f, ",L%ld",l);
+        }
+    }
+    fprintf(f, "\n");
 }
