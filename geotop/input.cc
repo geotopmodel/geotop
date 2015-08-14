@@ -308,7 +308,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names, flog);
-    success = fill_GTmeteostations_meta(par->init_date, iomanager, met);
+    mio::Config cfg = iomanager.getConfig();
+    std::string input_meteo_plugin = cfg.get("METEO", "Input");
+    if(input_meteo_plugin!="GEOTOP"){
+    	success = fill_GTmeteostations_meta(par->init_date, iomanager, met);
+    }
 
     //	horizon for meteo stations
     met->horizon=(double***)malloc(met->st->E.size()*sizeof(double**));
