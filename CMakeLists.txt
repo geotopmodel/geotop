@@ -55,6 +55,17 @@ ELSE(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 	SET(METEOIO_LIBRARIES "meteoio")
 ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 
+IF(BUILD_STATIC)
+  SET(PROJ_PATH "/usr" CACHE PATH "location of the Proj4 library" )
+  IF(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
+    MESSAGE(FATAL_ERROR "PROJ LIBRARY NOT FOUND")
+  ELSE(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
+    SET(PROJ_LIBRARY_PATH "${PROJ_PATH}/lib")
+    SET(PROJ_INCLUDE_PATH "${PROJ_PATH}/include")
+    SET(PROJ_LIBRARIES "proj")
+  ENDIF(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
+ENDIF(BUILD_STATIC)
+
 ###########################################################
 # libraries linking type and extension
 
@@ -81,9 +92,6 @@ IF(MSVC)
 	SET(ARCH_SAFE "")
 	SET(DEBUG "/Z7 /Od /D__DEBUG /MDd")
 	SET(_VERSION "/D_VERSION=\\\"${_versionString}\\\"")
-	IF(BUILD_SHARED_LIBS)
-		ADD_DEFINITIONS(/DMIO_DLL)
-	ENDIF(BUILD_SHARED_LIBS)
 	IF(GUI_EXCEPTIONS)
 		SET(MSG_BOX "/DMESG_BOX")
 	ENDIF(GUI_EXCEPTIONS)
@@ -107,9 +115,6 @@ ELSE(MSVC)
 	SET(ARCH_SAFE  "")
 	SET(DEBUG "-g3 -O0 -D__DEBUG")
 	SET(_VERSION "-D_VERSION=\\\"${_versionString}\\\"")
-	IF(BUILD_SHARED_LIBS)
-		ADD_DEFINITIONS(-DMIO_DLL)
-	ENDIF(BUILD_SHARED_LIBS)
 ENDIF(MSVC)
 
 #The following pre-processor variables are automatically defined:
