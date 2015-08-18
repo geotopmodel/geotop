@@ -412,11 +412,17 @@ double atm_transmittance_iqbal(double X, double P, double RH, double T, double L
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double taucloud, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double tau_cloud_distr, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
-				
+	double tau_cloud_to_use;
+
+	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
+		tau_cloud_to_use = tau_cloud_distr;
+	}else {
+		tau_cloud_to_use = tau_cloud;
+	}
 	if(state==1){
 		*eps_min = 1.24*pow((pvap/(T+GTConst::tk)),1./7.); //Brutsaert, 1975
 
@@ -454,8 +460,8 @@ void longwave_radiation(short state, double pvap, double RH, double T, double k1
 
 	}
 	
-	*eps = (*eps_min) * taucloud + 1.0 * (1.-taucloud);
-	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-taucloud);
+	*eps = (*eps_min) * tau_cloud_to_use + 1.0 * (1.-tau_cloud_to_use);
+	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-tau_cloud_to_use);
 		
 	/*double fcloud;
 	fcloud=pow((1.0-taucloud)/0.75,1/3.4);

@@ -564,16 +564,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	// inserted  Matteo suggestion
 
     if (!A->P->use_ilwr_wrf) {
-		if (!A->P->use_meteoio_cloud) {
-			  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-		}else {
-			longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
-		}
+    	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
 		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
     } else {
 	    LWin = ilwr_point;
-	    //printf("570: energy.balance.cc: ilwr_point: %f\n",ilwr_point);
     }
+    cout << "enbal:579-> epsa =" << epsa << endl;getchar();
     if(A->P->surroundings == 1){
     	/* LWin corrected with temperature of surrounding terrain,
     	* calculated as averaged. */
