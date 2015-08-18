@@ -358,9 +358,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         part_snow(Precpoint, &Prain_over, &Psnow_over, Tpoint, A->P->T_rain, A->P->T_snow);
     }
 
-    // added snow and rain correction factor
+#ifndef USE_INTERNAL_METEODISTR
+    // added snow and rain correction factor (meteodistr uses them internally)
     Psnow_over *= A->P->snowcorrfact;
     Prain_over *= A->P->raincorrfact;
+#endif
 
     //Adjusting snow precipitation in case of steep slope (contribution by Stephan Gruber)
     if (A->P->snow_curv > 0 && A->T->slope[r][c] > A->P->snow_smin){
@@ -497,7 +499,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     SWin=SWbeam+SWdiff;
 
-    //update snow albedo
+   //update snow albedo
    if(snowD>0){
 	   avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
 	   anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
@@ -762,9 +764,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
             snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE);
 
-            //	add new snow
-            // if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint); // Jordan
-            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_valt(Tpoint), Tpoint); // Valt
+            //	add new snow; TODO: choose if snow density is to be given according to Valt or Jordan
+            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint); // Jordan
+            //if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_valt(Tpoint), Tpoint); // Valt
 
             //	NET PRECIPITATION
             A->W->Pnet[r][c] += (Melt_snow + Melt_glac + Prain);
