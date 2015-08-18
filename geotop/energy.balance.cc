@@ -137,9 +137,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 	    A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
 
 #else
-
     find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
-    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 #endif
 
     //	POINT ENERGY BALANCE
@@ -409,11 +408,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 
         //in case of shortwave data not available
-        if(A->M->tau_cloud_yes==0)
-		A->M->tau_cloud = A->M->tau_cloud_av;
-
+        if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
-        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
+
+//        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
+
+
+
     }else{// meteoIO is activated
         if( (long)A->M->tau_cl_av_map[r][c] == geotop::input::gDoubleNoValue){// the map of average cloudiness from MeteoIO is all null
             A->M->tau_cl_av_map[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
@@ -487,7 +488,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
     shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
 		    A->E->SWrefl_surr[r][c],
-                        A->M->tau_cl_map[r][c], A->L->shadow[r][c],
+                        A->M->tau_cl_map[r][c],A->M->tau_cl_av_map[r][c], A->L->shadow[r][c],
 			&SWbeam, &SWdiff, &cosinc,
 			&tauatm_sinhsun, &SWb_yes);
 

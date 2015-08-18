@@ -179,7 +179,7 @@ double TauatmSinalpha(double JD, double *others){
 	
 	height = SolarHeight_(JD, others);
 	if (height>0) {
-		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.0);// Matteo, August 2015 corrected 0.5 with 0.0 according to UZH
 	}else {
 		return 0.0;
 	}
@@ -268,19 +268,26 @@ double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
 /******************************************************************************************************************************************/
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
+	double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
+	double tau_cloud_to_use;
+
+	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
+			tau_cloud_to_use = tau_cloud_distr;
+		}else {
+			tau_cloud_to_use = tau_cloud;
+		}
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 
-	kd=diff2glob(tau_cloud*tau_atm);
+	kd=diff2glob(tau_cloud_to_use*tau_atm);
 
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
 
-	*SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+	*SWd = GTConst::Isc*E0*tau_cloud_to_use*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
 	if (shadow == 1) {
 		cos_inc = 0.0;
@@ -292,7 +299,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		//tau_atm_cos_inc = tau_atm * cos_inc;
 		//cos_inc = sin_alpha;
 		//tau_atm_cos_inc = *tau_atm_sin_alpha;
-		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud*tau_atm_cos_inc;
+		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud_to_use*tau_atm_cos_inc;
 	}
 		
 	*cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -527,7 +534,7 @@ double dSB_dT(double T){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta, double dh, double RH, double T,
-						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr){
+						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo){
 	
 	double *others;
 	double tau_atm;// atmosphere transmittance
@@ -545,10 +552,10 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	others[3] = RH;
 	others[4] = T;
 	others[5] = P;
-//	others[8] = Lozone;
-//	others[9] = alpha;
-//	others[10] = beta;
-//	others[11] = albedo;
+	others[8] = Lozone;
+	others[9] = alpha;
+	others[10] = beta;
+	others[11] = albedo;
 	
 	tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
@@ -579,8 +586,8 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 				//SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				//Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				tau = ( SW - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
-				if(tau > 1) tau = 1.0;				
-				if(tau < 0) tau = 0.0;				
+				/*if(tau > 1) tau = 1.0;// commented after check against UZH (Matteo, August 2015)
+				if(tau < 0) tau = 0.0;*/
 				kd = diff2glob(tau * tau_atm);
 																
 			}while(fabs(kd0-kd)>0.005 && j<1000);
@@ -588,9 +595,9 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 		}
 	}
 		
-	if( (long)tau != geotop::input::gDoubleNoValue){
+	/*if( (long)tau != geotop::input::gDoubleNoValue){
 		if(tau<GTConst::min_tau_cloud) tau=GTConst::min_tau_cloud;
-	}
+	}*/
 	
 	free(others);
 		
@@ -603,7 +610,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 /******************************************************************************************************************************************/
 
 double find_tau_cloud_station(double JDbeg, double JDend, long station_number, Meteo *met, const std::vector<mio::MeteoData>& vec_meteo,
-                              double Delta, double E0, double Et, double ST, double SWrefl_surr)
+                              double Delta, double E0, double Et, double ST, double SWrefl_surr,double Lozone, double alpha, double beta, double albedo)
 {
 	double P, RH, T, c;
 	double tdew = geotop::input::gDoubleNoValue;
@@ -646,7 +653,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 
 	c = cloud_transmittance(JDbeg, JDend, current.meta.position.getLat()*GTConst::Pi/180., Delta,
 					    (current.meta.position.getLon() * GTConst::Pi/180. - ST * GTConst::Pi/12. + Et)/GTConst::omega, RH,
-					    T, P, swDiffuse, swDirect, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr);
+					    T, P, swDiffuse, swDirect, current(MeteoData::ISWR), E0, met->st->sky[station_number], SWrefl_surr, Lozone, alpha, beta, albedo);
 
 	return c;
 }
@@ -655,7 +662,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long station_number, M
 //						double Delta, double E0, double Et, double ST, double SWrefl_surr)
 
 double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Meteo *met, double Delta, double E0, double Et,
-							  double ST, double SWrefl_surr)//, double Lozone, double alpha, double beta, double albedo){
+							  double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
 	double P, RH, T, c;
 
@@ -678,7 +685,7 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 	if((long)T == geotop::input::gDoubleNoValue || (long)T == geotop::input::gDoubleAbsent) T=0.0;
 
 	c = cloud_transmittance(JDbeg, JDend, met->st->lat[i]*GTConst::Pi/180., Delta, (met->st->lon[i]*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
-							T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky[i], SWrefl_surr);//,Lozone, alpha, beta, albedo);
+							T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0, met->st->sky[i], SWrefl_surr,Lozone, alpha, beta, albedo);
 
 	return c;
 }
@@ -928,7 +935,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
-					   double E0, double Et, double ST, double SWrefl_surr)
+					   double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
 	short SWdata = 0; //flag indicating which type of SW data available: 0=none, 1=beam and diff measured, 2=global measured
 	double tc;
@@ -947,7 +954,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	}
 
 	if (SWdata > 0) { //we can calculate tau_cloud, because we have some SW measurement
-		tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta, E0, Et, ST, SWrefl_surr);
+		tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta, E0, Et, ST, SWrefl_surr,Lozone, alpha, beta, albedo);
 		if ((long)tc != geotop::input::gDoubleNoValue) {
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;
@@ -979,8 +986,8 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 }
 
 void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
-							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr){
-		//TODO HACK matteo: to add: double Lozone, double alpha, double beta, double albedo){
+							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
+{
 
 	//SWdata = flag -> 0= no radiation data measured, 1=beam and diff measured, 2=global measured
 	short SWdata;
@@ -1003,7 +1010,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	}
 
 	if(SWdata>0){
-		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr);//, Lozone, alpha, beta, albedo);
+		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr, Lozone, alpha, beta, albedo);
 		if ( (long)tc != geotop::input::gDoubleNoValue){
 			*tau_cloud_yes = 1;
 			*tau_cloud = tc;
@@ -1017,7 +1024,6 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	if( (long)met->var[met->nstcloud-1][iC]!=geotop::input::gDoubleAbsent && (long)met->var[met->nstcloud-1][iC]!=geotop::input::gDoubleNoValue ){
 
 		tc = met->var[met->nstcloud-1][iC];
-
 		*tau_cloud_av_yes = 1;
 		tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
 		if(tc > 1) tc = 1.;
@@ -1027,7 +1033,6 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	}else if( (long)met->var[met->nstcloud-1][itauC]!=geotop::input::gDoubleAbsent && (long)met->var[met->nstcloud-1][itauC]!=geotop::input::gDoubleNoValue ){
 
 		tc = met->var[met->nstcloud-1][itauC];
-
 		*tau_cloud_av_yes = 1;
 		if(tc > 1) tc = 1.;
 		if(tc < 0) tc = 0.;

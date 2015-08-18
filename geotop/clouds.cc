@@ -237,7 +237,7 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat, doub
 		
 	//cloudiness transmissivity
 	tau_cloud = cloud_transmittance(JDbegin, JDend, lat, Delta, (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega, RH, T, P, meteo[n][iSWd],
-									 meteo[n][iSWb], meteo[n][iSW], E0, sky, SWrefl_surr);
+									 meteo[n][iSWb], meteo[n][iSW], E0, sky, SWrefl_surr, Lozone, alpha, beta, albedo);
 	
 	//plotting
 	temp = geotop::common::Variables::WORKING_DIRECTORY + filecloud;
