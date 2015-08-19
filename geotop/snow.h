@@ -105,4 +105,6 @@ short copy_statevar_from3D_to1D(long r, long c, Statevar3D *origin, Statevar1D *
 double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q, short k);
 
 /*----------------------------------------------------------------------------------------------------------*/
+void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum_da_up,int *time_wo_prec,short *evento,
+		short *up_albedo, int tres_wo_prec, double tres_up_albedo, double Ts, double *tsnow_nondim);
 #endif

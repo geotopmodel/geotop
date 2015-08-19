@@ -441,9 +441,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //    		fprintf(f1,",%f,%f\n",A->M->tau_cl_av_map[r][c],A->M->tau_cl_map[r][c]);
 //    		fclose(f1);
 
+
     //albedo
     if(snowD>0){
-        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, A->P->minP_torestore_A, &(snowage[j]));
+        //if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, A->P->minP_torestore_A, &(snowage[j]));
+        if(i>A->P->total_channel) update_snow_age_cumEvent(Psnow_over, Dt,&(A->P->cum_prec), &(A->P->cum_da_up), &(A->P->time_wo_prec), &(A->P->evento),
+        		&(A->P->up_albedo), A->P->tres_wo_prec, A->P->minP_torestore_A, S->T[ns][r][c], &(snowage[j]));
+
         // from cosinc to 0 as matteo suggested 06.11.2013 SC
         avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], 0., (&Turbulence::Zero));
 	avis_b=avis_d;//approx

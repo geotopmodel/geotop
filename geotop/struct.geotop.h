@@ -615,6 +615,13 @@ class Par
         short DDchannel;
         short DDland;
 
+        double cum_prec;//cumulated precipitation since the beginning of an event [mm]
+        double cum_da_up;//cumulated precipitation since the reset of the albedo [mm]
+        int time_wo_prec;//time without precipitation after the previous event [sec]
+        short evento;//states whether at the previous time stamp the event was ongoing
+        short up_albedo;//states whether the albedo has already been reset for the ongoing event
+        double tres_wo_prec;//max time interval allowed to differentiate between two contiguous events
+
 };
 
 class Statevar3D

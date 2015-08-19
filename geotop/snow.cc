@@ -1339,3 +1339,86 @@ double interpolate_snow(long r, long c, double h, long max, const GeoTensor<doub
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+
+void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum_da_up,int *time_wo_prec,short *evento,
+		short *up_albedo, int tres_wo_prec, double tres_up_albedo, double Ts, double *tsnow_nondim)
+/*
+ * Author: Leonardo Perathoner & Matteo dall'Amico August, 2015
+ * Function that checks if a snow precipitation event is sufficient to trigger the albedo update
+ * Psnowi: solid precipitation [mm in Dt]
+ * Dt: calculation time [sec]
+ * cum_prec: cumulated precipitation since the beginning of an event [mm]
+ * cum_da_up: cumulated precipitation since the reset of the albedo [mm]
+ * time_wo_prec: time without precipitation after the previous event [sec]
+ * evento (bool): states whether at the previous time stamp the event was ongoing
+ * up_albedo (bool): states whether the albedo has already been reset for the ongoing event
+ * tres_wo_prec: max time interval allowed to differentiate between two contiguous events
+ * tres_up_albedo: cumulated precipitation [mm] necessary to trigger the reset of albedo
+ *
+ * returns a boolean (T or F) if the albedo reset has to be triggered
+ */
+{
+	//bool do_up_albedo=0;  //False
+	double old_cum=*cum_prec;
+	double Psnow_cum;
+	if(Psnowi>0 & *time_wo_prec<=tres_wo_prec){
+		// solid precipitation is positive
+		*cum_prec = *cum_prec + Psnowi;
+		*time_wo_prec=0;
+		*evento=1; //True
+
+		if(*cum_prec>tres_up_albedo & *up_albedo==0){
+			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
+			// and the albedo reset was not yet triggered
+			 //do_up_albedo=false; //True
+			Psnow_cum=*cum_prec;
+			*cum_da_up=0;
+			*up_albedo=1; //True
+		} else if(*cum_prec>tres_up_albedo & *up_albedo==1){
+			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
+			// and the albedo reset has already been triggered
+			*cum_da_up= *cum_da_up + Psnowi;
+			if(*cum_da_up>tres_up_albedo){
+				// cumulated precipitation since the reset of the albedo exceeds the threshold for the first time
+				//do_up_albedo=true; //True
+				Psnow_cum=*cum_da_up;
+				*cum_da_up=0;
+			 }
+		} else {
+		 *up_albedo=0; //False
+		}
+
+	} else if (*evento==1 & Psnowi==0 & *time_wo_prec<tres_wo_prec) {
+		// a precipitation event was ongoing, now it is ceased but too much time has passed => the ongoing precipitation may still recover
+		*time_wo_prec = *time_wo_prec + Dt;
+	} else if (*evento==1 & Psnowi==0 & *time_wo_prec>=tres_wo_prec){
+		// a precipitation event was ongoing, now it is ceased since lot of time => the ongoing precipitation event is over
+		*evento=0; //False
+		*cum_prec=0;
+		*time_wo_prec=0;
+		*up_albedo=0; //False
+
+	}
+
+	double r1, r2, r3;
+
+	//effect of grain growth due to vapour diffusion
+	r1 = exp(5000.0 * (1.0 / tk - 1.0 / (Ts + tk)));
+
+	//effect melt and refreezing*/
+	r2 = pow(r1, 10);
+	if(r2 > 1.0) r2 = 1.0;
+
+	//effect of dirt
+	r3 = 0.3;
+
+
+	if(old_cum==*cum_prec){
+		Psnow_cum=0;
+	}
+	//non-dimensional snow age: "tres_up_albedo" of snow precipitation restore snow age Dt(s)
+	*tsnow_nondim = Fmax( 0.0, (*tsnow_nondim + (r1 + r2 + r3) * Dt * 1.0E-6) * (1.0 - Psnow_cum / tres_up_albedo) );
+	if((*tsnow_nondim) != (*tsnow_nondim)) printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n", *tsnow_nondim, Psnow_cum, Ts, r1, r2, r3);
+
+
+}
