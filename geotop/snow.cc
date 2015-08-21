@@ -656,7 +656,7 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-
+// function added by Stefano Endrizzi according to Utah Energy Balance Snow Accumulation and Melt Model (UEB) David G. Tarboton Charles H. Luce (1996)
 double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(const double& x))
 {
     double A, Fage = 1.0 - 1.0 / (1.0 + tsnow), w;
@@ -664,7 +664,9 @@ double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow
     A += 0.4 * (1.0 - A) * (*F)(cosinc);
     if(snowD < AEP)                               //if snow is shallow (<AEP), interpolate between snow and ground albedo
     {
-    	w = (1.0 - snowD / AEP) * exp(-snowD *0.5 / AEP);
+    	w = (1.0 - snowD / AEP) * exp(-snowD *2 / AEP);
+    	/* w = (1.0 - snowD / AEP) * exp(-snowD *0.5 / AEP) is the original formula.
+    	 * We modified to snowD * 20.0/AEP according to simulation tuning*/
         A = w * ground_alb + (1.0 - w) * A;
 
     }
