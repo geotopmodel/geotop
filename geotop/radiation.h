@@ -100,7 +100,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 //					   double Et, double ST, double A);
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta, double E0,
-					   double Et, double ST, double A);
+					   double Et, double ST, double A, double Lozone, double alpha, double beta, double albedo);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate);
 
