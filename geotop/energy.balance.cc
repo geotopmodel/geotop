@@ -114,7 +114,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     for (i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
-							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
+							  JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 	    }
     }
 
@@ -443,25 +444,28 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
 
     //albedo
+    // update ground albedo
+    if (i<=A->P->total_channel) {
+		theta_sup = A->C->th[1][j];
+	}else {
+		theta_sup = A->S->th[1][j];
+	}
+    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+
     if(snowD>0){
+    	// update snow albedo
         //if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, A->P->minP_torestore_A, &(snowage[j]));
         if(i>A->P->total_channel) update_snow_age_cumEvent(Psnow_over, Dt,&(A->P->cum_prec), &(A->P->cum_da_up), &(A->P->time_wo_prec), &(A->P->evento),
         		&(A->P->up_albedo), A->P->tres_wo_prec, A->P->minP_torestore_A, S->T[ns][r][c], &(snowage[j]));
 
         // from cosinc to 0 as matteo suggested 06.11.2013 SC
         avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], 0., (&Turbulence::Zero));
-	avis_b=avis_d;//approx
+        avis_b=avis_d;//approx
         anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], 0., (&Turbulence::Zero));
-	anir_b=anir_d;//approx
+        anir_b=anir_d;//approx
     }else{
-	    if (i<=A->P->total_channel) {
-		    theta_sup = A->C->th[1][j];
-	    }else {
-		    theta_sup = A->S->th[1][j];
-	    }
-	    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-	    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-	    avis_b=avis_ground;
+	   	avis_b=avis_ground;
 	    avis_d=avis_ground;
 	    anir_b=anir_ground;
 	    anir_d=anir_ground;
@@ -505,6 +509,29 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
    //update snow albedo
    if(snowD>0){
+
+	   std::string filename;
+	   short openfile=0;
+	   filename = geotop::common::Variables::WORKING_DIRECTORY+ "log_albedo.txt";
+	   FILE *f1;
+	   long year,day,month,hour,minute;
+	   double JDfrom0,JD;
+	   JDfrom0 = convert_tfromstart_JDfrom0(A->I->time+A->P->Dt, A->P->init_date);
+	   convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
+	   convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
+
+	   if(openfile==0){
+		f1=fopen(filename.c_str(),"w");
+		fprintf(f1,"date, avisgnd, snowd, aep, avo, aging, snowage, cosinc\n");
+		fclose(f1);
+		openfile=1;
+	   } else{
+		f1=fopen(filename.c_str(),"a");
+				fprintf(f1,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,(float)year,(float)hour,(float)minute);
+				fprintf(f1,",%f, %f, %f, %f, %f, %f, %f\n",avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc);
+				fclose(f1);
+	   }
+
 	   avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
 	   anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
    }
