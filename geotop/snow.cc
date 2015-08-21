@@ -629,6 +629,7 @@ static void initialize_snow(long r, long c, long l, Statevar3D *snow)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+
 void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double *tsnow_nondim)
 {
 
@@ -655,6 +656,7 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+
 double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(const double& x))
 {
     double A, Fage = 1.0 - 1.0 / (1.0 + tsnow), w;
@@ -662,8 +664,9 @@ double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow
     A += 0.4 * (1.0 - A) * (*F)(cosinc);
     if(snowD < AEP)                               //if snow is shallow (<AEP), interpolate between snow and ground albedo
     {
-        w = (1.0 - snowD / AEP) * exp(-snowD * 0.5 / AEP);
+    	w = (1.0 - snowD / AEP) * exp(-snowD *0.5 / AEP);
         A = w * ground_alb + (1.0 - w) * A;
+
     }
     return(A);
 }
@@ -1359,8 +1362,8 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
  */
 {
 	//bool do_up_albedo=0;  //False
-	double old_cum=*cum_prec;
 	double Psnow_cum;
+	// cumulated snow since the  beginning of the event, resetted since the reset of the albedo exceeds the threshold
 	if(Psnowi>0 & *time_wo_prec<=tres_wo_prec){
 		// solid precipitation is positive
 		*cum_prec = *cum_prec + Psnowi;
@@ -1370,7 +1373,7 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 		if(*cum_prec>tres_up_albedo & *up_albedo==0){
 			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
 			// and the albedo reset was not yet triggered
-			 //do_up_albedo=false; //True
+			//do_up_albedo=false; //True
 			Psnow_cum=*cum_prec;
 			*cum_da_up=0;
 			*up_albedo=1; //True
@@ -1378,14 +1381,15 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
 			// and the albedo reset has already been triggered
 			*cum_da_up= *cum_da_up + Psnowi;
+			Psnow_cum=*cum_da_up;
 			if(*cum_da_up>tres_up_albedo){
 				// cumulated precipitation since the reset of the albedo exceeds the threshold for the first time
 				//do_up_albedo=true; //True
-				Psnow_cum=*cum_da_up;
 				*cum_da_up=0;
 			 }
 		} else {
-		 *up_albedo=0; //False
+		 	*up_albedo=0; //False
+		 	Psnow_cum=*cum_prec;
 		}
 
 	} else if (*evento==1 & Psnowi==0 & *time_wo_prec<tres_wo_prec) {
@@ -1400,6 +1404,7 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 
 	}
 
+	// Tarboton & Luce 1966
 	double r1, r2, r3;
 
 	//effect of grain growth due to vapour diffusion
@@ -1413,9 +1418,6 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 	r3 = 0.3;
 
 
-	if(old_cum==*cum_prec){
-		Psnow_cum=0;
-	}
 	//non-dimensional snow age: "tres_up_albedo" of snow precipitation restore snow age Dt(s)
 	*tsnow_nondim = Fmax( 0.0, (*tsnow_nondim + (r1 + r2 + r3) * Dt * 1.0E-6) * (1.0 - Psnow_cum / tres_up_albedo) );
 	if((*tsnow_nondim) != (*tsnow_nondim)) printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n", *tsnow_nondim, Psnow_cum, Ts, r1, r2, r3);
