@@ -1362,7 +1362,7 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
  */
 {
 	//bool do_up_albedo=0;  //False
-	double Psnow_cum;
+	double Psnow_cum=0;
 	// cumulated snow since the  beginning of the event, resetted since the reset of the albedo exceeds the threshold
 	if(Psnowi>0 & *time_wo_prec<=tres_wo_prec){
 		// solid precipitation is positive
