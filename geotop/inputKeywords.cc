@@ -919,7 +919,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderPointID", std::string("ID")) ;
     
-    initValue("SnowTempProfileFile", std::string("output_tabs/snowtemp")) ;
+    initValue("SnowTempProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SpecificPlotSurfaceTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
@@ -961,11 +961,11 @@ void geotop::input::ConfigStore::init()
     
     initValue("ThawedSoilDepthFromAboveMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowLiqContentProfileFile", std::string("output_tabs/snowliq")) ;
+    initValue("SnowLiqContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderHgUnvegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowDepthLayersFile", std::string("output_tabs/snowly")) ;
+    initValue("SnowDepthLayersFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("SpecificPlotIncomingLongwaveRadMapFile", std::string(geotop::input::gStringNoValue)) ;
     
@@ -1085,7 +1085,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("HeaderQAirPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("SnowIceContentProfileFile", std::string("output_tabs/snowice")) ;
+    initValue("SnowIceContentProfileFile", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderRunBasin", std::string(geotop::input::gStringNoValue)) ;
     
