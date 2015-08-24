@@ -1,48 +1,5 @@
 PROJECT(geotop)
 
-###########################################################
-# set variables for internal libraries
-
-# inputKeywords
-SET( INPUT_KEYWORDS_LIBRARIES
-    "inputKeywords" )
-
-# geotopOutPostProcessing
-SET( GEOTOP_OUT_POSTPROC_LIBRARIES
-    "geotopOutPostProcessing" )
-
-# geotopOutPostProcessingNew
-SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
-    "geotopOutPostProcessingNew" )
-
-# geotopMeteo
-SET( GEOTOP_METEO_LIBRARIES
-    "geotopMeteo" )
-
-# geotopWaterBalance
-SET( GEOTOP_WATER_BALANCE_LIBRARIES
-    "geotopWaterBalance" )
-
-# geotopPartSnow
-SET( GEOTOP_PART_SNOW_LIBRARIES
-    "geotopPartSnow" )
-
-# geotopEnergyBalance
-SET( GEOTOP_ENERGY_BALANCE_LIBRARIES
-    "geotopEnergyBalance" )
-
-# geotopCommon
-SET( GEOTOP_COMMON_LIBRARIES
-    "geotopCommon" )
-
-# logger
-SET( GEOTOP_LOGGER
-    "logger" )
-
-# geotopOutputFile
-SET( GEOTOP_OUTPUT_FILE
-    "geotopOutputFile" )
-
 ADD_EXECUTABLE(geotop
   geotop.cc
   )
