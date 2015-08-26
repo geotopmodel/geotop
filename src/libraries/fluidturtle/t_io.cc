@@ -60,8 +60,13 @@ int mkdirp(const char *pathname, mode_t mode)
     *p = '\0';
 
     /* try make parent directory */
-    if(p != parent && mkdirp(parent, mode) != 0)
+    if(p != parent && mkdirp(parent, mode) != 0) {
+#if defined(__CYGWIN__)
+        return 0;
+#else
         return -1;
+#endif
+    }
 
     /* make this one if parent has been made */
     if(mkdir(pathname, mode) == 0)
