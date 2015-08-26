@@ -56,14 +56,9 @@ ELSE(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 
 IF(BUILD_STATIC)
-  SET(PROJ_PATH "/usr/local/" CACHE PATH "location of the Proj4 library" )
-  IF(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
-    MESSAGE(FATAL_ERROR "PROJ LIBRARY NOT FOUND")
-  ELSE(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
-    SET(PROJ_LIBRARY_PATH "${PROJ_PATH}/lib")
-    SET(PROJ_INCLUDE_PATH "${PROJ_PATH}/include")
-    SET(PROJ_LIBRARIES "proj")
-  ENDIF(NOT EXISTS "${PROJ_PATH}/include/proj_api.h")
+  FIND_PATH(PROJ_INCLUDE_PATH "proj_api.h")
+  FIND_LIBRARY(PROJ_LIBRARIES proj)
+  INCLUDE_DIRECTORIES(${PROJ_INCLUDE_PATH})
 ENDIF(BUILD_STATIC)
 
 ###########################################################
