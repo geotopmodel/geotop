@@ -303,7 +303,11 @@ IF(UNIX)
 		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
 		SET(CPACK_DEBIAN_PACKAGE_NAME "geotop")
 		SET(CPACK_DEBIAN_PACKAGE_SECTION "devel")
-		SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-filesystem-dev, libboost-system-dev, libboost-iostreams-dev, libboost-regex-dev, libboost-program-options-dev, libboost-test-dev") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		IF(BUILD_STATIC)
+		  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libproj0, libstdc++6") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		ELSE(BUILD_STATIC)
+		  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-filesystem-dev, libboost-system-dev, libboost-iostreams-dev, libboost-regex-dev, libboost-program-options-dev, libboost-test-dev") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		ENDIF(BUILD_STATIC)
 		SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${CPACK_ARCH}) #dpkg --print-architecture
 		SET(CPACK_RPM_PACKAGE_NAME "GEOtop")
 		SET(CPACK_RPM_PACKAGE_LICENSE "LPGLv3")
