@@ -244,7 +244,7 @@ CONFIGURE_FILE(
 ## CPACK section
 ###########################################################
 SET(CPACK_PACKAGE_DESCRIPTION "Hydrological cycle model")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "TODO")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "GEOtop is a distributed model of the mass and energy balance of the hydrological cycle, which is applicable to simulations in continuum in small catchments. GEOtop deals with the effects of topography on the interaction between energy balance and hydrological cycle with peculiar solutions.")
 # SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/Welcome.txt")
 SET(CPACK_PACKAGE_NAME "GEOtop")
 SET(CPACK_PACKAGE_INSTALL_DIRECTORY "GEOtop")
