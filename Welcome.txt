@@ -1,0 +1,15 @@
+  ____  _____  ___   _                  ____      ___
+ / ___|| ____|/ _ \ | |_  ___   _ __   |___ \    / _ \
+| |  _ |  _| | | | || __|/ _ \ | '_ \    __) |  | | | |
+| |_| || |___| |_| || |_| (_) || |_) |  / __/  _| |_| |
+ \____||_____|\___/  \__|\___/ | .__/  |_____|(_)\___/
+                               |_|
+
+GEOtop is a fine-scale grid-based simulator that represents the heat and water budgets at and below
+the soil surface. It describes the three-dimensional water flow in the soil and the energy exchange
+with the atmosphere, considering the radiative and turbulent fluxes. Furthermore, it reproduces the
+highly non-linear interactions between the water and energy balance during soil freezing and thawing,
+and simulates the temporal evolution of the water and energy budgets in the snow cover and their ef-
+fects on soil temperature.
+
+GEOtop is a C++ source code provided under the GPL v3 license.
