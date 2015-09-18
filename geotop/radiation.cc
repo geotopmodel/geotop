@@ -567,8 +567,8 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 	//sin_alpha = Sinalpha( 0.5*(JDbeg+JDend), others);
 	//tau_atm_sin_alpha = tau_atm*sin_alpha;
-			
-	if (tau_atm_sin_alpha > 0) {
+	double minTauAtmSinAlpha = 0.03;
+	if (tau_atm_sin_alpha > minTauAtmSinAlpha) {// matteo added sept 2015 to avoid problems in calculating Tau at sunset when solarHeight is very low
 		if((long)SWd!=geotop::input::gDoubleAbsent && (long)SWd!=geotop::input::gDoubleNoValue && (long)SWb!=geotop::input::gDoubleAbsent && (long)SWb!=geotop::input::gDoubleNoValue){
 			if( SWb+SWd > 0 && SWd > 0){
 				kd = SWd / (Fmax(0.,SWb)+SWd);
