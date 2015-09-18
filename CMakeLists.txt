@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 
+###########################################################
+# general settings
+
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
 SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
@@ -7,48 +10,34 @@ SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 
-project("geotop")
+project(geotop)
+
+# Version of library
+SET(VERSION_MAJOR 2 CACHE INTERNAL "")
+SET(VERSION_MINOR 0 CACHE INTERNAL "")
+SET(VERSION_PATCH 1 CACHE INTERNAL "")
 
 # config.h variables
 SET(PACKAGE "geotop")
-SET(PACKAGE_VERSION "1.2.10")
-SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
+SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+SET(PACKAGE_STRING "${PACKAGE} ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
 
-SET(METEOIO_PATH "/usr/local" CACHE PATH "location of the MeteoIO library" )
+###########################################################
+# user options
 
+SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
-
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
-
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
-
 SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
-
-SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
-
+SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
-
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
-#find_package(PkgConfig REQUIRED)
-
-# use, i.e. don't skip the full RPATH for the build tree
-SET(CMAKE_SKIP_BUILD_RPATH FALSE)
-# when building, don't use the install RPATH already
-# (but later on when installing)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
-# add the automatically determined parts of the RPATH
-# which point to directories outside the build tree to the install RPATH
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-IF (BUILD_STATIC)
-	SET( LINKING_MODE STATIC)
-ELSE (BUILD_STATIC)
-	SET( LINKING_MODE SHARED)
-ENDIF (BUILD_STATIC)
-
-MESSAGE("Linking mode: ${LINKING_MODE}")
+###########################################################
+# find dependecies
 
 FIND_PACKAGE(Boost REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS regex REQUIRED)
@@ -65,6 +54,100 @@ ELSE(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
 	SET(METEOIO_INCLUDE_PATH "${METEOIO_PATH}/include")
 	SET(METEOIO_LIBRARIES "meteoio")
 ENDIF(NOT EXISTS "${METEOIO_PATH}/include/meteoio/MeteoIO.h")
+
+IF(BUILD_STATIC)
+  FIND_PATH(PROJ_INCLUDE_PATH "proj_api.h")
+  FIND_LIBRARY(PROJ_LIBRARIES proj)
+  INCLUDE_DIRECTORIES(${PROJ_INCLUDE_PATH})
+ENDIF(BUILD_STATIC)
+
+###########################################################
+# libraries linking type and extension
+
+IF (BUILD_STATIC)
+  SET(LINKING_MODE STATIC)
+  SET(BUILD_SHARED_LIBS OFF)
+ELSE (BUILD_STATIC)
+  SET(LINKING_MODE SHARED)
+  SET(BUILD_SHARED_LIBS ON)
+ENDIF (BUILD_STATIC)
+
+MESSAGE("Linking mode: ${LINKING_MODE}")
+
+# build code version
+INCLUDE("${CMAKE_SOURCE_DIR}/tools/cmake/BuildVersion.cmake")
+BuildVersion()
+
+IF(MSVC)
+	#SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "limited configs"  FORCE)
+	SET(WARNINGS "/W4 /D_CRT_SECURE_NO_WARNINGS /EHsc") #Za: strict ansi EHsc: handle c++ exceptions
+	#SET(EXTRA_WARNINGS "/Wp64") #/Wall
+	SET(OPTIM "/O2 /DNDEBUG /MD /DNOSAFECHECKS")
+	SET(ARCH_OPTIM "/arch:SSE2")
+	SET(ARCH_SAFE "")
+	SET(DEBUG "/Z7 /Od /D__DEBUG /MDd")
+	SET(_VERSION "/D_VERSION=\\\"${_versionString}\\\"")
+	IF(GUI_EXCEPTIONS)
+		SET(MSG_BOX "/DMESG_BOX")
+	ENDIF(GUI_EXCEPTIONS)
+ELSE(MSVC)
+	#we consider that all other compilers support "-" options and silently ignore what they don't know
+	SET(WARNINGS "-Wall -Wno-long-long")
+	SET(PROFILING "-pg -fprofile-arcs")
+	SET(DEEP_WARNINGS "-Wunused-value -Wshadow -Wpointer-arith -Wconversion -Winline -Wdisabled-optimization") #-Wfloat-equal -Wpadded
+	SET(EXTRA_WARNINGS "-Wextra -pedantic -Weffc++ ${DEEP_WARNINGS}") #-Weffc++
+	IF(CMAKE_COMPILER_IS_GNUCXX AND NOT ANDROID)
+		SET(EXTRA_WARNINGS "${EXTRA_WARNINGS} -ansi") #Android does not like ansi...
+		IF(WIN32) #for gcc on windows
+			SET(CMAKE_SHARED_LINKER_FLAGS "--enable-auto-import")
+		ENDIF(WIN32)
+	ENDIF(CMAKE_COMPILER_IS_GNUCXX AND NOT ANDROID)
+	SET(OPTIM "-g -O3 -DNDEBUG -DNOSAFECHECKS") #-flto for gcc>4.5?
+	EXECUTE_PROCESS(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+	IF (GCC_VERSION VERSION_GREATER 4.2 OR GCC_VERSION VERSION_EQUAL 4.2)
+		SET(ARCH_OPTIM  "-march=native -mtune=native")
+	ENDIF()
+	SET(ARCH_SAFE  "")
+	SET(DEBUG "-g3 -O0 -D__DEBUG")
+	SET(_VERSION "-D_VERSION=\\\"${_versionString}\\\"")
+ENDIF(MSVC)
+
+#The following pre-processor variables are automatically defined:
+# __linux, __GNUC__, __CYGWIN__, _WIN32, __MINGW32__, __APPLE__
+IF(UNIX)
+	IF(APPLE)
+		SET(DLL_EXT "dylib*")
+		SET(STAT_EXT "a")
+		SET(EXTRA_WARNINGS "${EXTRA_WARNINGS} -Wno-sign-conversion") #for now, keep clang quiet
+		SET(CMAKE_SHARED_LINKER_FLAGS "-framework CoreFoundation")
+
+		#set a full rpath for both build & install tree
+		SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+		SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+		SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+
+		# add the automatically determined parts of the RPATH
+		# which point to directories outside the build tree to the install RPATH
+		SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+		# the RPATH to be used when installing, but only if it's not a system directory
+		LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+		IF("${isSystemDir}" STREQUAL "-1")
+			SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+		ENDIF("${isSystemDir}" STREQUAL "-1")
+	ELSE(APPLE)
+		SET(DLL_EXT "so*")
+		SET(STAT_EXT "a")
+	ENDIF(APPLE)
+ELSE(UNIX)
+	IF(WIN32)
+		SET(DLL_EXT "dll")
+		SET(STAT_EXT "a")
+	ENDIF(WIN32)
+ENDIF(UNIX)
+
+###########################################################
+# set extra flags
 
 IF (PRINT_DOUBLE_PRECISION)
 	add_definitions(-DUSE_DOUBLE_PRECISION_OUTPUT)
@@ -94,146 +177,170 @@ IF (METEOIO_OUTPUT)
     add_definitions(-DMETEOIO_OUTPUT)
 ENDIF (METEOIO_OUTPUT)
 
-#add_definitions(
-#    "-std=c++11"
-#)
+#Add subdirectory, so it can inherit all variables defined above
+SUBDIRS(src)
 
-# ascii
-SET( ASCII_LIBRARIES
-    "ascii" )
-SET(ASCII_LIBRARY_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/ascii")
-SET(ASCII_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/ascii")
+###########################################################
+#for the install target
+FILE(GLOB hGeotop "src/geotop/*.h")
+FILE(GLOB hGeotopEnergy "src/geotop/Energy/*.h")
+FILE(GLOB hGeotopGlacier "src/geotop/Glacier/*.h")
+FILE(GLOB hGeotopMeteo "src/geotop/Meteo/*.h")
+FILE(GLOB hGeotopSnow "src/geotop/Snow/*.h")
+FILE(GLOB hGeotopSoil "src/geotop/Soil/*.h")
+FILE(GLOB hGeotopWater "src/geotop/Water/*.h")
+FILE(GLOB hGt_utilities "src/gt_utilities/*.h")
+FILE(GLOB hLibrariesAscii "src/libraries/ascii/*.h")
+FILE(GLOB hLibrariesFT "src/libraries/fluidturtle/*.h")
+FILE(GLOB hMeteoio_plugin "src/meteoio_plugin/*.h")
+FILE(GLOB hNetCDF "src/netCDF/*.h")
 
-# fluidturtle
-SET( FLUIDTURTLE_LIBRARIES
-    "fluidturtle" )
-SET( FLUIDTURTLE_LIBRARY_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/fluidturtle")
-SET( FLUIDTURTLE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/fluidturtle")
+INSTALL(FILES ${hGeotop} DESTINATION include/geotop/src/geotop COMPONENT headers)
+INSTALL(FILES ${hGeotopEnergy} DESTINATION include/geotop/src/geotop/Energy COMPONENT headers)
+INSTALL(FILES ${hGeotopGlacier} DESTINATION include/geotop/src/geotop/Glacier COMPONENT headers)
+INSTALL(FILES ${hGeotopMeteo} DESTINATION include/geotop/src/geotop/Meteo COMPONENT headers)
+INSTALL(FILES ${hGeotopSnow} DESTINATION include/geotop/src/geotop/Snow COMPONENT headers)
+INSTALL(FILES ${hGeotopSoil} DESTINATION include/geotop/src/geotop/Soil COMPONENT headers)
+INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPONENT headers)
+INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
+INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
+INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
+INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
+INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 
-# gt_utilities
-SET( GT_UTILITIES_LIBRARIES
-    "gt_utilities" )
-SET( GT_UTILITIES_LIBRARY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/gt_utilities)
-SET( GT_UTILITIES_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/gt_utilities)
+###########################################################
+#for the uninstall target
 
-# inputKeywords
-SET( INPUT_KEYWORDS_LIBRARIES
-    "inputKeywords" )
-SET( INPUT_KEYWORDS_LIBRARY_PATH ${CMAKE_CURRENT_LIST_DIR}/geotop)
-SET( INPUT_KEYWORDS_INCLUDE_PATH ${CMAKE_CURRENT_LIST_DIR}/geotop)
-
-# meteoio_plugin
-SET( METEOIO_PLUGIN_LIBRARIES 
-    "meteoioplugin" )
-SET( METEOIO_PLUGIN_LIBRARY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/meteoio_plugin)
-SET( METEOIO_PLUGIN_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/meteoio_plugin)
-
-# netCDF
-SET( NETCDF_LIBRARIES 
-    "netcdfio" )
-SET( NETCDF_LIBRARY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/netCDF)
-SET( NETCDF_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/netCDF)
-
-# geotop
-SET( GEOTOP_LIBRARIES
-    "geotopAll" )
-SET( GEOTOP_LIBRARY_PATH ${CMAKE_CURRENT_SOURCE_DIR}/geotop)
-SET( GEOTOP_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/geotop)
-
-# inputKeywords
-SET( INPUT_KEYWORDS_LIBRARIES
-    "inputKeywords" )
-
-# geotopOutPostProcessing
-SET( GEOTOP_OUT_POSTPROC_LIBRARIES
-    "geotopOutPostProcessing" )
-
-# geotopOutPostProcessingNew
-SET( GEOTOP_OUT_POSTPROC_LIBRARIES_NEW
-    "geotopOutPostProcessingNew" )
-
-# geotopMeteo
-SET( GEOTOP_METEO_LIBRARIES
-    "geotopMeteo" )
-
-# geotopWaterBalance
-SET( GEOTOP_WATER_BALANCE_LIBRARIES
-    "geotopWaterBalance" )
-
-# geotopPartSnow
-SET( GEOTOP_PART_SNOW_LIBRARIES
-    "geotopPartSnow" )
-
-# geotopEnergyBalance
-SET( GEOTOP_ENERGY_BALANCE_LIBRARIES
-    "geotopEnergyBalance" )
-
-# geotopCommon
-SET( GEOTOP_COMMON_LIBRARIES
-    "geotopCommon" )
-
-# logger
-SET( GEOTOP_LOGGER
-    "logger" )
-
-# geotopOutputFile
-SET( GEOTOP_OUTPUT_FILE
-    "geotopOutputFile" )
-
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${INPUT_KEYWORDS_INCLUDE_PATH}
-	${ASCII_INCLUDE_PATH}
-	${FLUIDTURTLE_INCLUDE_PATH}
-	${GEOTOP_INCLUDE_PATH}
-	${GT_UTILITIES_INCLUDE_PATH}
-	${METEOIO_INCLUDE_PATH}
-	${METEOIO_PLUGIN_INCLUDE_PATH}
-	${NETCDF_INCLUDE_PATH}
-	${WRF_INCLUDE_PATH}
-	${Boost_INCLUDE_DIRS}
-) 
-
-link_directories(
-        "/opt/local/lib"
-        "/usr/local/lib"
-	${ASCII_LIBRARY_PATH}
-	${INPUT_KEYWORDS_LIBRARY_PATH}
-	${FLUIDTURTLE_LIBRARY_PATH}
-	${GEOTOP_LIBRARY_PATH}
-	${GT_UTILITIES_LIBRARY_PATH}
-	${METEOIO_LIBRARY_PATH}
-	${METEOIO_PLUGIN_LIBRARY_PATH}
-	${NETCDF_LIBRARY_PATH}
-	${WRF_LIBRARY_PATH}
+ADD_CUSTOM_TARGET(distclean make clean
+	COMMAND cmake -E remove CMakeCache.txt cmake_install.cmake cmake_uninstall.cmake install_manifest.txt Makefile
+	COMMAND cmake -E remove "lib/libgeotop*.${DLL_EXT}" "lib/libgeotop*.${STAT_EXT}" "lib/libgeotop*.lib"
+	COMMAND cmake -E remove */CMakeCache.txt */CTestTestfile.cmake */cmake_install.cmake */Makefile
+	COMMAND cmake -E remove */*/CMakeCache.txt */*/CTestTestfile.cmake */*/cmake_install.cmake */*/Makefile
+	COMMAND cmake -E remove_directory CMakeFiles
+	COMMAND cmake -E remove_directory src/CMakeFiles
+	COMMAND cmake -E remove_directory src/app/CMakeFiles
+	COMMAND cmake -E remove_directory src/app/test/CMakeFiles
+	COMMAND cmake -E remove_directory src/app/test/testInputKeywords/CMakeFiles
+	COMMAND cmake -E remove_directory src/app/test/unit_test/CMakeFiles
+	COMMAND cmake -E remove_directory src/geotop/CMakeFiles
+	COMMAND cmake -E remove_directory src/gt_utilities/CMakeFiles
+	COMMAND cmake -E remove_directory src/libraries/CMakeFiles
+	COMMAND cmake -E remove_directory src/libraries/ascii/CMakeFiles
+	COMMAND cmake -E remove_directory src/libraries/fluidturtle/CMakeFiles
+	COMMAND cmake -E remove_directory src/meteoio_plugin/CMakeFiles
+	COMMAND cmake -E remove_directory src/netCDF/CMakeFiles
 )
 
-# generate test program
-## test_runner.py variables
-SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/geotop/geotop" )
-SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_sample_run")
-IF(ENABLE_INTERNAL_METEODISTR)
-    SET ( METEODISTR_RESULTS_DIR results.meteodistr )
-ELSE(ENABLE_INTERNAL_METEODISTR)
-    SET ( METEODISTR_RESULTS_DIR results )
-ENDIF(ENABLE_INTERNAL_METEODISTR)
-configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
-configure_file (${GEOTOP_TEST_DIR}/simple_runner.py.cmake.in ${GEOTOP_TEST_DIR}/simple_runner.py)
+###########################################################
+#for the uninstall target
+CONFIGURE_FILE(
+	"${PROJECT_SOURCE_DIR}/tools/cmake/cmake_uninstall.cmake.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+	IMMEDIATE @ONLY)
 
-# generate config include file
-## config.h variables
-SET(PACKAGE "geotop")
-SET(PACKAGE_VERSION "1.2.10")
-SET(PACKAGE_STRING "${PACKAGE} 1.2.10")
-SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/config_cmake.h.in ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+      ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
-SUBDIRS(
-	apps
-	geotop
-	gt_utilities
-	libraries
-	meteoio_plugin
-	netCDF
+###########################################################
+## CPACK section
+###########################################################
+SET(CPACK_PACKAGE_DESCRIPTION "Hydrological cycle model")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "GEOtop is a distributed model of the mass and energy balance of the hydrological cycle, which is applicable to simulations in continuum in small catchments. GEOtop deals with the effects of topography on the interaction between energy balance and hydrological cycle with peculiar solutions.")
+# SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/Welcome.txt")
+SET(CPACK_PACKAGE_NAME "GEOtop")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "GEOtop")
+SET(CPACK_PACKAGE_CONTACT "Francesco Serafin <f.serafin.1@unitn.it>")
+SET(CPACK_PACKAGE_VENDOR "Università degli Studi di Trento")
+# SET(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/icons\\\\icon.ico")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/doc/COPYING.txt")
+SET(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/Welcome.txt")
+SET(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
+
+IF (DEST MATCHES "par")
+	SET(PACKAGE_EXTRA "-par")
+ENDIF(DEST MATCHES "par")
+SET(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
+SET(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
+SET(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
+SET(VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+SET(CPACK_ARCH "${CMAKE_SYSTEM_PROCESSOR}")
+#SET(CPACK_ARCH "i386")
+SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}${PACKAGE_EXTRA}-${VERSION}-${CPACK_ARCH}")
+
+#installation by components for formats that support it
+#SET(CPACK_COMPONENTS_ALL_GROUPS_IN_ONE_PACKAGE 1)
+IF(APPLE)
+	SET(CPACK_COMPONENTS_ALL binary)
+ELSE(APPLE)
+	SET(CPACK_COMPONENTS_ALL libraries headers documentation examples binary)
+ENDIF(APPLE)
+SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "GEOtop")
+SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "GEOtop model")
+SET(CPACK_COMPONENT_LIBRARIES_GROUP Runtime)
+SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Header files")
+SET(CPACK_COMPONENT_HEADERS_DESCRIPTION "C++ header files")
+SET(CPACK_COMPONENT_HEADERS_GROUP Development)
+SET(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
+# IF(INSTALL_DOC)
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_DISPLAY_NAME "Documentation")
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_DESCRIPTION "Documentation")
+# 	SET(CPACK_COMPONENT_DOCUMENTATION_GROUP Docs)
+# 	SET(CPACK_COMPONENT_EXAMPLES_DISPLAY_NAME "Examples")
+# 	SET(CPACK_COMPONENT_EXAMPLES_DESCRIPTION "C++ Source code of various simple examples of applications with their example data")
+# 	SET(CPACK_COMPONENT_EXAMPLES_DEPENDS libraries headers)
+# 	SET(CPACK_COMPONENT_EXAMPLES_GROUP Docs)
+# 	SET(CPACK_COMPONENT_DOCS_GROUP "Documentation")
+# 	SET(CPACK_COMPONENT_GROUP_DOCS_DESCRIPTION "How to use GEOtop")
+# ENDIF(INSTALL_DOC)
+
+SET(CPACK_COMPONENT_RUNTIME_GROUP "Runtime")
+# SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION "What you need to run GEOtop")
+SET(CPACK_COMPONENT_DEVELOPMENT_GROUP "Development")
+# SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "What you need to develop GEOtop")
+SET(CPACK_PACKAGE_EXECUTABLES "geotop;GEOtop")
+
+IF(UNIX)
+	IF(APPLE)
+		SET(CPACK_GENERATOR "PackageMaker")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+	ELSE(APPLE)
+		SET(CPACK_GENERATOR "DEB;RPM;TGZ")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+		SET(CPACK_DEBIAN_PACKAGE_NAME "geotop")
+		SET(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+		IF(BUILD_STATIC)
+		  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libproj0, libstdc++6") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		ELSE(BUILD_STATIC)
+		  SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-filesystem-dev, libboost-system-dev, libboost-iostreams-dev, libboost-regex-dev, libboost-program-options-dev, libboost-test-dev") #objdump -p lib/libmeteoio.so | grep NEEDED | tr -s ' ' | cut -d' ' -f3 | tr '\n' ','
+		ENDIF(BUILD_STATIC)
+		SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${CPACK_ARCH}) #dpkg --print-architecture
+		SET(CPACK_RPM_PACKAGE_NAME "GEOtop")
+		SET(CPACK_RPM_PACKAGE_LICENSE "LPGLv3")
+		SET(CPACK_RPM_PACKAGE_REQUIRES "libstdc++6") #simply libproj for OpenSuse
+		SET(CPACK_RPM_PACKAGE_ARCHITECTURE ${CPACK_ARCH})
+		SET(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
+	ENDIF(APPLE)
+ELSE(UNIX)
+	# IF(WIN32)
+	# ENDIF(WIN32)
+ENDIF(UNIX)
+
+
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${VERSION}" CACHE INTERNAL "tarball basename")
+SET(CPACK_SOURCE_GENERATOR TGZ)
+# The following components are regex's to match anywhere (unless anchored)
+# in absolute path + filename to find files or directories to be excluded
+# from source tarball.
+SET(CPACK_SOURCE_IGNORE_FILES
+	"~$"
+	"\\\\.svn/"
+	"/CMakeFiles/"
+	"/CMakeCache*"
+	"/cmake_install\\\\.cmake$"
+	"/cmake_uninstall\\\\.cmake$"
+	"^_CPack_.*/"
+	"/CPack*"
+	"\\\\.o$"
+	"/m4/"
 )
 
+INCLUDE(CPack)
