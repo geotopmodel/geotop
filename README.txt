@@ -10,6 +10,16 @@ solutions.
 GEOtop is distributed under the GNU General Public License version 3.
 A copy of the license text can be found in the COPYING file.
 
+You can find more informations about GEOtop on the following website
+
+http://abouthydrology.blogspot.it/2015/02/geotop-essentials.html
+
+where the model is briefly described and links to papers and other useful
+websites have been collected.
+
+Installation
+============
+
 To install GEOtop you need the following libraries and tools:
 
 - CMake 2.6 or later (optional but recommended: ccmake ncurses ui)
