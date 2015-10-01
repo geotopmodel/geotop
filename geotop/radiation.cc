@@ -580,7 +580,6 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 			kd=0.2;
 			tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 			sin_alpha = adaptiveSimpsons2(Sinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
-			
 			j=0;
 			
 			do{
@@ -595,7 +594,6 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 				/*if(tau > 1) tau = 1.0;// commented after check against UZH (Matteo, August 2015)
 				if(tau < 0) tau = 0.0;*/
 				kd = diff2glob(tau * tau_atm);
-																
 			}while(fabs(kd0-kd)>0.005 && j<1000);
 			
 		}
@@ -943,7 +941,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
 					   double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
-	short SWdata = 0; //flag indicating which type of SW data available: 0=none, 1=beam and diff measured, 2=global measured
+	short SWdata = 0; //flag indicating which type of SW data available: 0=none, 1=global, 2=beam and diff measured
 	double tc;
 
 	const MeteoData& current = vec_meteo.at(meteo_stat_num-1); //MeteoIO starts counting at 0
@@ -958,8 +956,8 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	} else if (current(MeteoData::ISWR) != IOUtils::nodata) {
 		SWdata = 1;
 	}
-
-	if (SWdata > 0) { //we can calculate tau_cloud, because we have some SW measurement
+	//calculate tau_cloud instantaneous
+	if (SWdata > 0) {
 		tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta, E0, Et, ST, SWrefl_surr,Lozone, alpha, beta, albedo);
 		if ((long)tc != geotop::input::gDoubleNoValue) {
 			*tau_cloud_yes = 1;
@@ -970,7 +968,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	} else {
 		*tau_cloud_yes = 0;
 	}
-
+	//calculate tau_cloud average
 	if ((cloud_factor != IOUtils::npos) && (current(cloud_factor) != IOUtils::nodata)) {
 		tc = current(cloud_factor);
 
