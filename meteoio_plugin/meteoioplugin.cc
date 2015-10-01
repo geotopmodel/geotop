@@ -247,7 +247,7 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
 	double rain=.0, snow=.0, hnw=.0, ta=.0;
 	
 	for (size_t ii = 0; ii < meteo.size(); ii++) {
-		hnw = meteo[ii](MeteoData::HNW);
+		hnw = meteo[ii](MeteoData::PSUM);
 		
 		if (meteo[ii](MeteoData::TA) != IOUtils::nodata) { /* MeteoIO deals with temperature in Kelvin */
 			ta = meteo[ii](MeteoData::TA) - 273.15;
@@ -261,7 +261,7 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
 			part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow);
 
 			/* adding rain correction factor and snow correction factor */
-			meteo[ii](MeteoData::HNW) = par->raincorrfact * rain + par->snowcorrfact * snow;
+			meteo[ii](MeteoData::PSUM) = par->raincorrfact * rain + par->snowcorrfact * snow;
 		}
 	}
 }
@@ -297,7 +297,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 				}
 				
 				size_t hnw_matteo = (*it2).addParameter("HNW_MATTEO");
-				(*it2)(hnw_matteo)  = (*it)(MeteoData::HNW);
+				(*it2)(hnw_matteo)  = (*it)(MeteoData::PSUM);
 				
 				continue;
 			}
@@ -379,7 +379,7 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 		printf("#----------------------------------------------------------#\n");
 
-		if (i_param == MeteoData::HNW) {
+		if (i_param == MeteoData::PSUM) {
 
 			printf("DATASSIMILATION:\tPrecipitation\n");
 
@@ -463,11 +463,11 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 		   changeGrid(dwgrid, 90); //if something goes wrong, set to 90 degrees everywhere
 		}
 
-		io->getMeteoData(current_date, dem, MeteoData::HNW, hnwgrid);
+		io->getMeteoData(current_date, dem, MeteoData::PSUM, hnwgrid);
 
 		string cfgfile_datassim = "io_datassim.ini";
 		if (IOUtils::fileExists(cfgfile_datassim)) {
-			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::HNW, hnwgrid);
+			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::PSUM, hnwgrid);
 			pseudo_datassim_TA(cfgfile_datassim, current_date, hnwgrid, tagrid);
 
 			// ostringstream ss;
@@ -538,18 +538,18 @@ void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, c
 
 		printf("#----------------------------------------------------------#\n");
 
-		if (i_param == MeteoData::HNW) {
+		if (i_param == MeteoData::PSUM) {
 
 			printf("DATASSIMILATION:\tPrecipitation\n");
 
-			io->getMeteoData(current_date, dem, MeteoData::HNW, i_grid);
+			io->getMeteoData(current_date, dem, MeteoData::PSUM, i_grid);
 
 			compute_offsetGrid(current_date, i_param, i_grid, io_datassim, grid_diff);
 
 			std::ostringstream ss;
 
 			i_grid += grid_diff;
-			ss << current_date.toString(mio::Date::ISO) << "-HNW.asc";
+			ss << current_date.toString(mio::Date::ISO) << "-PSUM.asc";
 			// io->write2DGrid(i_grid, ss.str());
 
 			// std::ofstream fout;
@@ -820,12 +820,12 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 			}
 		}
 
-		io->interpolate(d1, dem, MeteoData::HNW, pointsVec, resultHnw);
+		io->interpolate(d1, dem, MeteoData::PSUM, pointsVec, resultHnw);
 
 		string cfgfile_datassim = "io_datassim.ini";
 		if (IOUtils::fileExists(cfgfile_datassim)) {
 
-			pseudo_datassim(cfgfile_datassim, d1, MeteoData::HNW, pointsVec, resultHnw);
+			pseudo_datassim(cfgfile_datassim, d1, MeteoData::PSUM, pointsVec, resultHnw);
 			pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
 
 			// pseudo_datassim(cfgfile_datassim, d1, MeteoData::ILWR, pointsVec, resultILWR);
@@ -1093,7 +1093,6 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		for (int i = 0; i < numOfStations; i++) {
 			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
-			// cout << i << ": " << tau_cloud_vec[i+1] << " == " << meteo[i](MeteoData::RSWR) << endl;getchar();
 		}
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector

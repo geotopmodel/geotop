@@ -39,10 +39,10 @@ RH::arg1 	= 0.05 1.0
 RH::filter2	= min_max
 RH::arg2	= soft 0.1 1.0
 
-HNW::filter1	= min_max
-HNW::arg1	=  0.0 50.0
-;HNW::filter2	= undercatch_wmo
-;HNW::arg2	= cst 1.3 1.2
+PSUM::filter1	= min_max
+PSUM::arg1	=  0.0 50.0
+;PSUM::filter2	= undercatch_wmo
+;PSUM::arg2	= cst 1.3 1.2
 
 ISWR::filter1	= min_max
 ISWR::arg1	= -10. 1500.
@@ -92,8 +92,8 @@ TAU_CLD::linear = 3600 extrapolate
 VW::resample = nearest
 VW::nearest = extrapolate
 
-HNW::resample = accumulate
-HNW::accumulate = 3600
+PSUM::resample = accumulate
+PSUM::accumulate = 3600
 
 [Interpolations2D]
 TA::algorithms = IDW_LAPSE
@@ -102,9 +102,9 @@ TA::cst_lapse = -0.0065 soft
 TA::user	= ./test
 ;ILWR::algorithms = IDW
 RH::algorithms	= IDW_LAPSE CST
-HNW::algorithms	=IDW
-;HNW::algorithms =IDW_LAPSE ; IDW IDW_LAPSE CST_LAPSE CST
-;HNW::idw_lapse  = 0.001 frac
+PSUM::algorithms	=IDW
+;PSUM::algorithms =IDW_LAPSE ; IDW IDW_LAPSE CST_LAPSE CST
+;PSUM::idw_lapse  = 0.001 frac
 TAU_CLD::algorithms = IDW CST
 TAU_CLD::cst = 0.5 soft
 DW::algorithms = IDW CST
