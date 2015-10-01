@@ -2109,17 +2109,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         *dH_dT+=(1.0-fc)*dHg_dT;
         *dE_dT+=(1.0-fc)*dEg_dT;
 
-        if(par->surroundings == 1){
-            /* LWin corrected with temperature of surrounding terrain,
-             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
-            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
-
-            /* FIXME: This should be corrected as well */
-            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
-        }else{
-            *LW += (1.0-fc)*( e*(LWin-point_sky*SB(Tg)) );
-            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
-        }
+	//modified LP 230915
+	*LW += (1.0-fc)*(LWin-e*point_sky*SB(Tg) );
+	*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
 
         *Hg0=Hg;
         *Eg0=Eg;
