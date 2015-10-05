@@ -1097,6 +1097,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 
 		// Bypass the internal reading of MeteoData and to performed processing and interpolation on the data of the given vector
 		// io->push_meteo_data(IOManager::filtered, d1, d1, vecMeteos);
+		io->clear_cache();
 		io->add_to_points_cache(d1, meteo);
 #endif
 
