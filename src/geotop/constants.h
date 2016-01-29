@@ -33,8 +33,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 405
-#define num_par_char 366
+#define num_par_number 406
+#define num_par_char 367
 
 //****************************************************
 // Fixed Parameters
@@ -99,7 +99,7 @@
 
 #define iDate12	0					//Date12 : DDMMYYYYhhmm
 #define iJDfrom0 iDate12+1			//Julian Day from year 0
-#define iPrecInt iJDfrom0+1				//Precipitation
+#define iPrecInt iJDfrom0+1			//Precipitation
 #define iPrec iPrecInt+1
 #define iWs iPrec+1					//Total wind speed
 #define iWdir iWs+1					//Wind direction
@@ -116,7 +116,8 @@
 #define iLWi iC+1					//Incoming longwave
 #define iSWn iLWi+1					//Net shortwave
 #define iTs iSWn+1					//Surface Temperature
-#define nmet iTs+1	
+#define iTbottom iTs+1				//Bottom Temperature
+#define nmet iTbottom+1	
 
 //****************************************************
 //soil data

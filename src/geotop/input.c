@@ -558,7 +558,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		fprintf(flog,"Longwave radiation measurements from station %ld\n",met->nstlrad);
 	}
 
-	//FIND A STATION WITH SURFACE TEMPERATURE
+	//FIND A STATION WITH SURFACE TEMPERATURE ABOVE
 	met->nstTs=0;
 	do{
 		met->nstTs++;
@@ -570,7 +570,22 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		fprintf(flog,"WARNING: NO Surface temperature measurements available\n");
 	}else{
 		printf("Surface temperature measurements from station %ld\n",met->nstTs);
-		fprintf(flog,"Surface temperature measurements from station %ld\n",met->nstTs);
+		fprintf(flog,"Surface temperature  measurements from station %ld\n",met->nstTs);
+	}
+
+	//FIND A STATION WITH BOTTOM TEMPERATURE ABOVE
+	met->nstTbottom=0;
+	do{
+		met->nstTbottom++;
+		a=0;
+		if( (long)met->data[met->nstTbottom-1][0][iTbottom]!=number_absent) a=1;
+	}while(met->nstTbottom<met->st->Z->nh && a==0);
+	if(a==0){
+		printf("WARNING: NO Bottom temperature measurements available\n");
+		fprintf(flog,"WARNING: NO Bottom temperature measurements available\n");
+	}else{
+		printf("Bottom temperature measurements from station %ld\n",met->nstTbottom);
+		fprintf(flog,"Bottom temperature measurements from station %ld\n",met->nstTbottom);
 	}
 	
 	/****************************************************************************************************/

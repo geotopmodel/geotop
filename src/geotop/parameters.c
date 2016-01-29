@@ -1513,6 +1513,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	
 	par->DDchannel = (short)assignation_number(flog, 403, 0, keyword, num_param, num_param_components, 1., 0);
 	par->DDland = (short)assignation_number(flog, 404, 0, keyword, num_param, num_param_components, 1., 0);
+	par->Tbottom = assignation_number(flog, 405, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
 }
 
 /***********************************************************/

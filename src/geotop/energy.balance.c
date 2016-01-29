@@ -203,7 +203,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 	double z0, z0veg = 0., d0, d0veg = 0., z0_z0t, hveg = 0.;
 	double rh, rv, rc, rb, ruc, Lobukhov;
 	double fc, fc0, decaycoeff, Locc, u_top, Qv;
-	double ea, Tdew, Qa, RHpoint, Vpoint, Ppoint, Tpoint, Precpoint, zmeas_T, zmeas_u, Tdirichlet;	
+	double ea, Tdew, Qa, RHpoint, Vpoint, Ppoint, Tpoint, Precpoint, zmeas_T, zmeas_u, Tdirichlet, Tdirichlet_bottom;	
 	double Ts, Qs, Qg;
 	long sy;
 	short lu;	
@@ -253,6 +253,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 			
 	Tdirichlet=A->M->var[A->M->nstTs-1][iTs];
 	if ((long)Tdirichlet == number_novalue || (long)Tdirichlet == number_absent) Tdirichlet=A->P->Tsup;
+	
+	Tdirichlet_bottom=A->M->var[A->M->nstTbottom-1][iTbottom];
+	if ((long)Tdirichlet_bottom == number_novalue || (long)Tdirichlet_bottom == number_absent) Tdirichlet_bottom=A->P->Tbottom;
 
 	//SNOW
 	snowD=DEPTH(r, c, S->lnum, S->Dzl);			
@@ -570,7 +573,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->E->Temp->co[0] = A->E->Temp->co[1];
 						
 		//ENERGY BALANCE	
-		sux=SolvePointEnergyBalance(surface, Tdirichlet, A->P->EB, A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, 
+		sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB, A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C, V, A->E, A->L, 
 									A->S, A->C, A->T, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], 
 									eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0], &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow, 
 									SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs, Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov, 
@@ -854,7 +857,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, 
+short SolvePointEnergyBalance(short surfacemelting, double Tgd, double Tbottom, double EBd, double Convd, short surfacebalance, double t, double Dt, long i, long j, long r, long c, SOIL_STATE *SL, 
 						SOIL_STATE *SC, STATE_VEG *V, ENERGY *egy, LAND *land, SOIL *sl, CHANNEL *cnet, TOPO *top, PAR *par, long ns, long ng, double zmu, double zmT, double z0s, double d0s, 
 						double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa, double P, double LR, double eps, double fc, double LSAI, 
 						double decaycoeff0, double *Wcrn, double Wcrnmax, double *Wcsn, double Wcsnmax, double SWin, double LWin, double SWv, double *LW, double *H, double *E, 
@@ -862,7 +865,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 						double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc, double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb, double *dUsl){
 	
 	
-	short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin = 0, sux, dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0;
+	short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin = 0, sux, dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0, dirichlet_bottom = 0;
 	long sur, sy, l, m, cont=0, cont2, n, cont_lambda_min=0;
 	double EB=0., dEB_dT=0., dH_dT, dE_dT, EB0, Tg, Tg0, psim0, psi0, Qg0=0., Tv0=0., dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
 	double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0., kub1=0., thi=0., thin, thw=0., thwn, sat=0., satn, kt=0., ktn;
@@ -876,10 +879,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 	lambda[2]=0.;
 	
 	//boundary condition
+	//up
 	if ((long)Tgd != number_novalue) dirichlet = 1;
 	if ((long)EBd != number_novalue) neumann = 1;
 	if ((long)Convd != number_novalue) micro_sempl = 1;
 	if (neumann == 0 && dirichlet == 0 && micro_sempl == 0) micro = 1;
+	//down
+	if ((long)Tbottom != number_novalue) dirichlet_bottom = 1;
 	
 	//Soil layer
 	n = Fminlong(par->Nl_spinup->co[i_sim],Nl) + ns + ng;
@@ -1050,7 +1056,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 		
 		//shortwave radiation penetrating under the surface
 		if(micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
-
+		
 	}
 	
 	//top boundary condition
@@ -1058,14 +1064,20 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 	if(dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*(1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / (egy->Dlayer->co[1]/2.);
 		
 	//bottom boundary condition (treated as sink)
+	egy->Fenergy->co[n] -= par->Fboundary;
+	
 	if (n <= ns+ng) {
 		kbb1 = k_thermal(1, par->snow_conductivity, thw, thi, sat, kt);
 	}else {
 		kbb1 = k_thermal(0, 1, thw, thi, sat, kt);
-	}
+	}		
 	kbb0 = kbb1;
-	egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 + (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.+par->Zboundary);
-	egy->Fenergy->co[n] -= par->Fboundary;
+		
+	if(dirichlet_bottom == 1){
+		egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 + (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.);
+	}else{
+		egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 + (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.+par->Zboundary);
+	}
 	
 	//include conduction in F(x0)
 	update_F_energy(sur, n, egy->Fenergy, 1.-KNe, egy->Kth1, egy->Temp->co);
@@ -1349,13 +1361,19 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double EBd, doub
 			if(dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*(1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / (egy->Dlayer->co[1]/2.);
 			
 			//bottom boundary condition (treated as sink)
+			egy->Fenergy->co[n] -= par->Fboundary;
+
 			if (n <= ns+ng) {
 				kbb1 = k_thermal(1, par->snow_conductivity, thw, thi, sat, kt);
 			}else {
 				kbb1 = k_thermal(0, 1, thw, thi, sat, kt);
+			}		
+		
+			if(dirichlet_bottom == 1){
+				egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 + (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.);
+			}else{
+				egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 + (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.+par->Zboundary);
 			}
-			egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 + (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / (egy->Dlayer->co[n]/2.+par->Zboundary);
-			egy->Fenergy->co[n] -= par->Fboundary;
 			
 			update_F_energy(sur, n, egy->Fenergy, 1.-KNe, egy->Kth1, egy->Temp->co);
 			update_F_energy(sur, n, egy->Fenergy, KNe, egy->Kth0, egy->T0->co);	

@@ -610,6 +610,7 @@ typedef struct {
 	double EB;
 	double Cair;
 	double Tsup;
+	double Tbottom;
 	
 	double Tair_default;
 	double RH_default;
@@ -751,6 +752,7 @@ typedef struct {
 	long nstlrad;
 	long nstcloud;
 	long nstTs;
+	long nstTbottom;
 	
 	LONGVECTOR *imeteo_stations;
 	

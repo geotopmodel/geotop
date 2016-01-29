@@ -17,7 +17,8 @@
  
  If you have satisfactorily used the code, please acknowledge the authors.
  */
-char *keywords_num[num_par_number] = {"TimeStepEnergyAndWater", 
+char *keywords_num[num_par_number] = {
+	"TimeStepEnergyAndWater", 
 	"InitDateDDMMYYYYhhmm", 
 	"EndDateDDMMYYYYhhmm", 
 	"NumSimulationTimes", 
@@ -421,9 +422,8 @@ char *keywords_num[num_par_number] = {"TimeStepEnergyAndWater",
 	"SnowThermalConductivityPar",
 	"WindCompaction1D",
 	"DDChannel",
-	"DDLand"};
-
-
+	"DDLand",
+	"BottomTemperature"};
 
 
 
@@ -517,6 +517,7 @@ char *keywords_char[num_par_char] = {
 	"HeaderLWin",
 	"HeaderSWnet", 
 	"HeaderSurfaceTemperature",
+	"HeaderBottomTemperature",
 	"HeaderSoilDz",
 	"HeaderSoilInitPres",
 	"HeaderSoilInitTemp",
