@@ -165,5 +165,6 @@ void initialize_veg_state(StateVeg *V, long n);
 
 void copy_veg_state(StateVeg *from, StateVeg *to);
 
+short fill_GTmeteostations_meta(const double& JDE, mio::IOManager& iomanager, Meteo *met);
 
 #endif

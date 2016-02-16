@@ -66,6 +66,20 @@ double rho_newlyfallensnow(double u, double Tatm)
 
 }
 
+//Valt et al., 2014 EGU
+double rho_valt(double Tatm)
+{
+
+    double rho;
+
+    if ( Tatm >=1) rho = 188;
+    else if (Tatm >= -4 && Tatm < 1) rho = 114+11*(Tatm+4);
+    else if (Tatm >= -21 && Tatm < -4) rho = 73+2.41*(Tatm+21);
+    else rho = 73;
+
+    return(rho);
+
+}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -615,6 +629,7 @@ static void initialize_snow(long r, long c, long l, Statevar3D *snow)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+
 void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double *tsnow_nondim)
 {
 
@@ -630,7 +645,7 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
     //effect of dirt
     r3 = 0.3;
 
-    //non-dimensional snow age: 10 mm of snow precipitation restore snow age Dt(s)
+    //non-dimensional snow age: "Prestore" of snow precipitation restore snow age Dt(s)
     *tsnow_nondim = Fmax( 0.0, (*tsnow_nondim + (r1 + r2 + r3) * Dt * 1.0E-6) * (1.0 - Psnow / Prestore) );
     if((*tsnow_nondim) != (*tsnow_nondim)) printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n", *tsnow_nondim, Psnow, Ts, r1, r2, r3);
 
@@ -641,6 +656,7 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+// function added by Stefano Endrizzi according to Utah Energy Balance Snow Accumulation and Melt Model (UEB) David G. Tarboton Charles H. Luce (1996)
 double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(const double& x))
 {
     double A, Fage = 1.0 - 1.0 / (1.0 + tsnow), w;
@@ -648,8 +664,11 @@ double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow
     A += 0.4 * (1.0 - A) * (*F)(cosinc);
     if(snowD < AEP)                               //if snow is shallow (<AEP), interpolate between snow and ground albedo
     {
-        w = (1.0 - snowD / AEP) * exp(-snowD * 0.5 / AEP);
+    	w = (1.0 - snowD / AEP) * exp(-snowD *2 / AEP);
+    	/* w = (1.0 - snowD / AEP) * exp(-snowD *0.5 / AEP) is the original formula.
+    	 * We modified to snowD * 20.0/AEP according to simulation tuning*/
         A = w * ground_alb + (1.0 - w) * A;
+
     }
     return(A);
 }
@@ -1147,7 +1166,7 @@ short copy_statevar_from3D_to1D(long r, long c, Statevar3D *origin, Statevar1D *
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& Dz, GeoTensor<double>& Q, short k)
+double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q, short k)
 {
 
     double q, z, z0 = 0.;
@@ -1173,15 +1192,15 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 
         if (l == 1)
         {
-            z = z0 + Dz[l][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l][r][c] / 2. + Dz[l - 1][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2. + Dz(l-1,r,c) / 2.;
         }
         else
         {
-            z = z0 + Dz[max][r][c] / 2.;
+            z = z0 + Dz(max,r,c)/ 2.;
         }
 
         if(fabs(h) <= z && fabs(h) > z0)
@@ -1190,11 +1209,11 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
             {
                 if (k == 0)
                 {
-                    q = Q[l][r][c];
+                    q = Q(l,r,c);
                 }
                 else
                 {
-                    q = Q[l][r][c] / Dz[l][r][c];
+                    q = Q(l,r,c) / Dz(l,r,c);
                 }
             }
             else if (l <= max)
@@ -1203,22 +1222,22 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
                 {
                     if (k == 0)
                     {
-                        q = ( Q[l - 1][r][c] * (h - z0) + Q[l][r][c] * (z - h) ) / (z - z0);
+                        q = ( Q(l-1,r,c) * (h - z0) + Q(l,r,c) * (z - h) ) / (z - z0);
                     }
                     else
                     {
-                        q = ( Q[l - 1][r][c] / Dz[l - 1][r][c] * (h - z0) + Q[l][r][c] / Dz[l][r][c] * (z - h) ) / (z - z0);
+                        q = ( Q(l-1,r,c) / Dz(l-1,r,c) * (h - z0) + Q(l,r,c) / Dz(l,r,c) * (z - h) ) / (z - z0);
                     }
                 }
                 else
                 {
                     if (k == 0)
                     {
-                        q = ( Q[l - 1][r][c] * (z - h) + Q[l][r][c] * (h - z0) ) / (z - z0);
+                        q = ( Q(l-1,r,c) * (z - h) + Q(l,r,c)* (h - z0) ) / (z - z0);
                     }
                     else
                     {
-                        q = ( Q[l - 1][r][c] / Dz[l - 1][r][c] * (z - h) + Q[l][r][c] / Dz[l][r][c] * (h - z0) ) / (z - z0);
+                        q = ( Q(l-1,r,c) / Dz(l-1,r,c) * (z - h) + Q(l,r,c) / Dz(l,r,c) * (h - z0) ) / (z - z0);
 
                     }
                 }
@@ -1227,11 +1246,11 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
             {
                 if (k == 0)
                 {
-                    q = Q[max][r][c];
+                    q = Q(max,r,c);
                 }
                 else
                 {
-                    q = Q[max][r][c] / Dz[max][r][c];
+                    q = Q(max,r,c) / Dz(max,r,c);
                 }
 
             }
@@ -1249,7 +1268,7 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 }
 
 //overloaded function noori
-double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& Dz, GeoTensor<double>& Q)
+double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q)
 {
 
     double q, z, z0 = 0.;
@@ -1275,37 +1294,37 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 
         if (l == 1)
         {
-            z = z0 + Dz[l][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l][r][c] / 2. + Dz[l - 1][r][c] / 2.;
+            z = z0 + Dz(l,r,c) / 2. + Dz(l-1,r,c)/ 2.;
         }
         else
         {
-            z = z0 + Dz[max][r][c] / 2.;
+            z = z0 + Dz(max,r,c) / 2.;
         }
 
         if(fabs(h) <= z && fabs(h) > z0)
         {
             if (l == 1)
             {
-                q = Q[l][r][c];
+                q = Q(l,r,c);
             }
             else if (l <= max)
             {
                 if(u > 0)
                 {
-                    q = ( Q[l - 1][r][c] * (h - z0) + Q[l][r][c] * (z - h) ) / (z - z0);
+                    q = ( Q(l-1,r,c) * (h - z0) + Q(l,r,c) * (z - h) ) / (z - z0);
                 }
                 else
                 {
-                    q = ( Q[l - 1][r][c] * (z - h) + Q[l][r][c] * (h - z0) ) / (z - z0);
+                    q = ( Q(l-1,r,c) * (z - h) + Q(l,r,c) * (h - z0) ) / (z - z0);
                 }
             }
             else
             {
-                q = Q[max][r][c];
+                q = Q(max,r,c);
             }
         }
 
@@ -1325,3 +1344,85 @@ double interpolate_snow(long r, long c, double h, long max, GeoTensor<double>& D
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+
+void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum_da_up,int *time_wo_prec,short *evento,
+		short *up_albedo, int tres_wo_prec, double tres_up_albedo, double Ts, double *tsnow_nondim)
+/*
+ * Author: Leonardo Perathoner & Matteo dall'Amico August, 2015
+ * Function that checks if a snow precipitation event is sufficient to trigger the albedo update
+ * Psnowi: solid precipitation [mm in Dt]
+ * Dt: calculation time [sec]
+ * cum_prec: cumulated precipitation since the beginning of an event [mm]
+ * cum_da_up: cumulated precipitation since the reset of the albedo [mm]
+ * time_wo_prec: time without precipitation after the previous event [sec]
+ * evento (bool): states whether at the previous time stamp the event was ongoing
+ * up_albedo (bool): states whether the albedo has already been reset for the ongoing event
+ * tres_wo_prec: max time interval allowed to differentiate between two contiguous events
+ * tres_up_albedo: cumulated precipitation [mm] necessary to trigger the reset of albedo
+ *
+ * returns a boolean (T or F) if the albedo reset has to be triggered
+ */
+{
+	//bool do_up_albedo=0;  //False
+	double Psnow_cum=0;
+	// cumulated snow since the  beginning of the event, resetted since the reset of the albedo exceeds the threshold
+	if(Psnowi>0 & *time_wo_prec<=tres_wo_prec){
+		// solid precipitation is positive
+		*cum_prec = *cum_prec + Psnowi;
+		*time_wo_prec=0;
+		*evento=1; //True
+
+		if(*cum_prec>tres_up_albedo & *up_albedo==0){
+			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
+			// and the albedo reset was not yet triggered
+			//do_up_albedo=false; //True
+			Psnow_cum=*cum_prec;
+			*cum_da_up=0;
+			*up_albedo=1; //True
+		} else if(*cum_prec>tres_up_albedo & *up_albedo==1){
+			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
+			// and the albedo reset has already been triggered
+			*cum_da_up= *cum_da_up + Psnowi;
+			Psnow_cum=*cum_da_up;
+			if(*cum_da_up>tres_up_albedo){
+				// cumulated precipitation since the reset of the albedo exceeds the threshold for the first time
+				//do_up_albedo=true; //True
+				*cum_da_up=0;
+			 }
+		} else {
+		 	*up_albedo=0; //False
+		 	Psnow_cum=*cum_prec;
+		}
+
+	} else if (*evento==1 & Psnowi==0 & *time_wo_prec<tres_wo_prec) {
+		// a precipitation event was ongoing, now it is ceased but too much time has passed => the ongoing precipitation may still recover
+		*time_wo_prec = *time_wo_prec + Dt;
+	} else if (*evento==1 & Psnowi==0 & *time_wo_prec>=tres_wo_prec){
+		// a precipitation event was ongoing, now it is ceased since lot of time => the ongoing precipitation event is over
+		*evento=0; //False
+		*cum_prec=0;
+		*time_wo_prec=0;
+		*up_albedo=0; //False
+
+	}
+
+	// Tarboton & Luce 1966
+	double r1, r2, r3;
+
+	//effect of grain growth due to vapour diffusion
+	r1 = exp(5000.0 * (1.0 / tk - 1.0 / (Ts + tk)));
+
+	//effect melt and refreezing*/
+	r2 = pow(r1, 10);
+	if(r2 > 1.0) r2 = 1.0;
+
+	//effect of dirt
+	r3 = 0.3;
+
+
+	//non-dimensional snow age: "tres_up_albedo" of snow precipitation restore snow age Dt(s)
+	*tsnow_nondim = Fmax( 0.0, (*tsnow_nondim + (r1 + r2 + r3) * Dt * 1.0E-6) * (1.0 - Psnow_cum / tres_up_albedo) );
+	if((*tsnow_nondim) != (*tsnow_nondim)) printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n", *tsnow_nondim, Psnow_cum, Ts, r1, r2, r3);
+
+
+}

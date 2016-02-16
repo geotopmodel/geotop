@@ -110,10 +110,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 #ifndef USE_INTERNAL_METEODISTR
 
-    for (i=1; i<A->M->st->Z.size(); i++){// for all meteo stations
+    //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
+    for (i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
-							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);
+							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
+							  JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 	    }
     }
 
@@ -136,9 +138,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 	    A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
 
 #else
-
     find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
-    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0.);//, A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 #endif
 
     //	POINT ENERGY BALANCE
@@ -156,7 +157,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 	    }
 
-        
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
 		    cnt++;
@@ -222,6 +222,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double rh, rv, rc, rb, ruc, Lobukhov;
     double fc, fc0, decaycoeff, Locc, u_top, Qv;
     double ea, Tdew, Qa, RHpoint, Vpoint, Ppoint, Tpoint, Precpoint, zmeas_T, zmeas_u, Tdirichlet ;
+    double ilwr_point; // Incoming Longwave Radiation in the point (r,c) as an interrogation from the map ILWRgrid that is given as input
     double Ts, Qs, Qg;
     long sy;
     short lu;
@@ -265,7 +266,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     Ppoint=A->M->Pgrid[r][c];
     RHpoint=A->M->RHgrid[r][c];
     Vpoint=A->M->Vgrid[r][c];
+    ilwr_point=A->M->ILWRgrid[r][c];//TODO: to be added once WRF has ilwr
 
+    
     Precpoint=A->W->PrecTot[r][c];
     //define prec as normal (not vertical)
     
@@ -356,6 +359,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         part_snow(Precpoint, &Prain_over, &Psnow_over, Tpoint, A->P->T_rain, A->P->T_snow);
     }
 
+#ifndef USE_INTERNAL_METEODISTR
+    // added snow and rain correction factor (meteodistr uses them internally)
+    Psnow_over *= A->P->snowcorrfact;
+    Prain_over *= A->P->raincorrfact;
+#endif
+
     //Adjusting snow precipitation in case of steep slope (contribution by Stephan Gruber)
     if (A->P->snow_curv > 0 && A->T->slope[r][c] > A->P->snow_smin){
         if (A->T->slope[r][c] <= A->P->snow_smax){
@@ -402,11 +411,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 
         //in case of shortwave data not available
-        if(A->M->tau_cloud_yes==0)
-		A->M->tau_cloud = A->M->tau_cloud_av;
-
+        if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
-        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
+
+//        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
+
+
+
     }else{// meteoIO is activated
         if( (long)A->M->tau_cl_av_map[r][c] == geotop::input::gDoubleNoValue){// the map of average cloudiness from MeteoIO is all null
             A->M->tau_cl_av_map[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
@@ -431,23 +442,48 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 //    		fprintf(f1,",%f,%f\n",A->M->tau_cl_av_map[r][c],A->M->tau_cl_map[r][c]);
 //    		fclose(f1);
 
+
     //albedo
+    // update ground albedo
+    if (i<=A->P->total_channel) {
+		theta_sup = A->C->th[1][j];
+	}else {
+		theta_sup = A->S->th[1][j];
+	}
+    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
+
     if(snowD>0){
-        if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, 10.0 /* A->P->minP_torestore_A */, &(snowage[j]));
-		// from cosinc to 0 as matteo suggested 06.11.2013 SC
+
+    /*
+     * This piece of code may be interesting in debugging snow_age and snow_albedo calculation
+     * To add the header, open the connection in input.cc
+     *  std::string filename;
+	    filename = geotop::common::Variables::WORKING_DIRECTORY+ "log_albedo.txt";
+	    FILE *f1;
+	    long year,day,month,hour,minute;
+	    double JDfrom0,JD;
+	    JDfrom0 = convert_tfromstart_JDfrom0(A->I->time+A->P->Dt, A->P->init_date);
+	    convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
+	    convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
+		f1=fopen(filename.c_str(),"a");
+		fprintf(f1,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,(float)year,(float)hour,(float)minute);
+		fprintf(f1,",%f, %f, %f, %f, %f, %f, %f\n",avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc);
+		fclose(f1);
+	*/
+
+    	// update snow albedo
+        //if(i>A->P->total_channel) update_snow_age(Psnow_over, S->T[ns][r][c], Dt, A->P->minP_torestore_A, &(snowage[j]));
+        if(i>A->P->total_channel) update_snow_age_cumEvent(Psnow_over, Dt,&(A->P->cum_prec), &(A->P->cum_da_up), &(A->P->time_wo_prec), &(A->P->evento),
+        		&(A->P->up_albedo), A->P->tres_wo_prec, A->P->minP_torestore_A, S->T[ns][r][c], &(snowage[j]));
+
+        // from cosinc to 0 as matteo suggested 06.11.2013 SC
         avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], 0., (&Turbulence::Zero));
-	avis_b=avis_d;//approx
+        avis_b=avis_d;//approx
         anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], 0., (&Turbulence::Zero));
-	anir_b=anir_d;//approx
+        anir_b=anir_d;//approx
     }else{
-	    if (i<=A->P->total_channel) {
-		    theta_sup = A->C->th[1][j];
-	    }else {
-		    theta_sup = A->S->th[1][j];
-	    }
-	    avis_ground = find_albedo(A->L->ty[lu][ja_vis_dry], A->L->ty[lu][ja_vis_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-	    anir_ground = find_albedo(A->L->ty[lu][ja_nir_dry], A->L->ty[lu][ja_nir_sat], theta_sup, A->S->pa[sy][jres][1], A->S->pa[sy][jsat][1]);
-	    avis_b=avis_ground;
+	   	avis_b=avis_ground;
 	    avis_d=avis_ground;
 	    anir_b=anir_ground;
 	    anir_d=anir_ground;
@@ -478,10 +514,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
 	
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
-
     shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
 		    A->E->SWrefl_surr[r][c],
-                        A->M->tau_cl_map[r][c], A->L->shadow[r][c],
+                        A->M->tau_cl_map[r][c],A->M->tau_cl_av_map[r][c], A->L->shadow[r][c],
 			&SWbeam, &SWdiff, &cosinc,
 			&tauatm_sinhsun, &SWb_yes);
 
@@ -490,8 +525,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 
     SWin=SWbeam+SWdiff;
 
-    //update snow albedo
+   //update snow albedo
    if(snowD>0){
+
 	   avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo, A->P->snow_aging_vis, snowage[j], cosinc, (*Fzen));
 	   anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo, A->P->snow_aging_nir, snowage[j], cosinc, (*Fzen));
    }
@@ -553,25 +589,20 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }else{
         eps=A->L->ty[lu][jemg];
     }
-  
-	// inserted  Matteo suggestion
-	
-	if (!A->P->use_meteoio_cloud) { 
-		  longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-		
-	}else {
-		longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint,A->P->k1,A->P->k2, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
-	}
 
-	
-
-    LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
-    if(A->P->surroundings == 1){
-        /* LWin corrected with temperature of surrounding terrain,
-         * calculated as averaged. */
-        LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+    if (!A->P->use_ilwr_wrf) {
+    	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
+		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+    } else {
+	    LWin = ilwr_point;
     }
 
+    if(A->P->surroundings == 1){
+    	/* LWin corrected with temperature of surrounding terrain,
+    	* calculated as averaged. */
+    	LWin += (1.-A->T->sky[r][c])*eps*SB(A->E->Tgskin_surr[r][c]);
+    }
+    
     //if incoming LW data are available, they are used (priority)
     //HACK: EGGER: the next line is superfluous for now, we're not reading iLWi:
     //TODO: merge it #LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
@@ -675,8 +706,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->E->Temp[0] = A->E->Temp[1];
 
         //ENERGY BALANCE
-
-		
         sux=SolvePointEnergyBalance(surface, Tdirichlet,
 										 A->P->EB, A->P->Cair, A->P->micro,
                                     JDb-A->P->init_date,
@@ -762,14 +791,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             }
             snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE);
 
-            //	add new snow
-            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint);
+            //	add new snow; TODO: choose if snow density is to be given according to Valt or Jordan
+            if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint), Tpoint); // Jordan
+            //if(Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow, Psnow*GTConst::rho_w/rho_valt(Tpoint), Tpoint); // Valt
 
             //	NET PRECIPITATION
             A->W->Pnet[r][c] += (Melt_snow + Melt_glac + Prain);
-            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint);
+            // A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint); // Jordan
+            A->W->HN[r][c] += Psnow*GTConst::rho_w/rho_valt(Tpoint); // Valt
             //VEGETATION
-           
+
             if( A->L->vegpar[jdLSAI]>=GTConst::LSAIthres && ng==0 ){
                 snowD = DEPTH(r, c, S->lnum, S->Dzl);
 
@@ -2078,17 +2109,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         *dH_dT+=(1.0-fc)*dHg_dT;
         *dE_dT+=(1.0-fc)*dEg_dT;
 
-        if(par->surroundings == 1){
-            /* LWin corrected with temperature of surrounding terrain,
-             * calculated as averaged. Also cfr. PointEnergyBalance() function. */
-            *LW += (1.0-fc)*( e*(LWin-SB(Tg)) );
-
-            /* FIXME: This should be corrected as well */
-            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
-        }else{
-            *LW += (1.0-fc)*( e*(LWin-point_sky*SB(Tg)) );
-            *LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
-        }
+	//modified LP 230915
+	*LW += (1.0-fc)*(LWin-e*point_sky*SB(Tg) );
+	*LWup_above_v+=(1.0-fc)*( (1.0-e)*LWin+e*SB(Tg) );
 
         *Hg0=Hg;
         *Eg0=Eg;

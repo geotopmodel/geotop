@@ -253,20 +253,12 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 
 
-	S = new Statevar3D(geotop::input::gDoubleNoValue,
-                       A->P->max_snow_layers,
-                       geotop::common::Variables::Nr,
-                       geotop::common::Variables::Nc);
-
-    if(A->P->max_glac_layers>0)
-    {
-
-        G = new Statevar3D(geotop::input::gDoubleNoValue,
-                           A->P->max_glac_layers,
-                           geotop::common::Variables::Nr,
-                           geotop::common::Variables::Nc);
-
-    }
+	S=new Statevar3D();
+	allocate_and_initialize_statevar_3D(S, geotop::input::gDoubleNoValue, A->P->max_snow_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+	if(A->P->max_glac_layers>0){
+		G=new Statevar3D();
+		allocate_and_initialize_statevar_3D(G, geotop::input::gDoubleNoValue, A->P->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+	}
 
 	L= new SoilState();
 	initialize_soil_state(L, A->P->total_pixel, geotop::common::Variables::Nl);

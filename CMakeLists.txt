@@ -40,7 +40,6 @@ SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experim
 
 ###########################################################
 # find dependecies
-
 FIND_PACKAGE(Boost REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS regex REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
@@ -343,6 +342,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 	"/CPack*"
 	"\\\\.o$"
 	"/m4/"
+
 )
 
 INCLUDE(CPack)

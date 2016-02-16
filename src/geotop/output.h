@@ -58,4 +58,12 @@ double interpolate_soil2(long lmin, double h, long max, const GeoTensor<double>&
 void write_tensorseries_soil(long lmin, std::string suf, std::string filename, short type, short format, GeoMatrix<double>& T, const GeoVector<double>& n, long **J, GeoMatrix<long>& RC, GeoTensor<double>& dz, GeoMatrix<double>& slope, short vertical);
 void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *glac, Water *wat, Meteo *met, Par *par, Times *time, Topo *top, Soil* sl);
 
+void write_snow_file(short choice, long IDpoint, long r, long c, long actual_snow_layer_numb,long max_snow_layer_numb, FILE *f, long d, long m, long y, long h, long mi, double JDfrom0, double JDfrom0init,
+		const GeoVector<double>& plot_depth, const GeoTensor<double>& dz, const GeoTensor<double>& var_to_print, double cosslope);
+void write_snow_output(long i, long iname,long r, long c, double init_date, double JDfrom0, long day, long month,
+		long year, long hour, long minute, const GeoVector<double>& plot_depth, Statevar3D *Snow, Par *par, double cosslope);
+
+void write_snow_header(FILE *f, const GeoVector<double>& plot_depth, size_t max_snow_layer);
+
+
 #endif
