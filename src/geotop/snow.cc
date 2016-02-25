@@ -942,7 +942,7 @@ void WBglacier(long ns, long ng, long r, long c, Statevar3D *glac, double *Melt,
         }
     }
 
-    glac->lnum[r][c] = ns;
+    glac->lnum[r][c] = ng;
 
 }
 
