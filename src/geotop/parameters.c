@@ -181,7 +181,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 	
 	//assign parameter
 	assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, keywords_num, flog);
-	
+		
 	//deallocate keyword arrays
 	for(i=0; i<num_par_number; i++){
 		free(num_param[i]);
@@ -1047,12 +1047,25 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	sl->pa->co[1][jkt][i] = assignation_number(flog, 182, i-1, keyword, num_param, num_param_components, 2.5, 0);  
 	sl->pa->co[1][jct][i] = assignation_number(flog, 183, i-1, keyword, num_param, num_param_components, 1.E6, 0);  
 	sl->pa->co[1][jss][i] = assignation_number(flog, 184, i-1, keyword, num_param, num_param_components, 1.E-7, 0);  
-
+	sl->pa->co[1][jexi][i] = assignation_number(flog, 407, i-1, keyword, num_param, num_param_components, 0., 0);  
+	
 	//other layers
-	for (i=2; i<=sl->pa->nch; i++) {
-		for (j=2; j<=sl->pa->nrh; j++) {
-			sl->pa->co[1][j][i] = assignation_number(flog, 171 + j-2, i-1, keyword, num_param, num_param_components, sl->pa->co[1][j][i-1], 0);
-		}
+	for (i=2; i<=nsoillayers; i++) {
+		sl->pa->co[1][jpsi][i] = assignation_number(flog, 171, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jpsi][i-1], 0);
+		sl->pa->co[1][jT][i] = assignation_number(flog, 172, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jT][i-1], 0);
+		sl->pa->co[1][jKn][i] = assignation_number(flog, 173, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jKn][i-1], 0);
+		sl->pa->co[1][jKl][i] = assignation_number(flog, 174, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jKl][i-1], 0);
+		sl->pa->co[1][jres][i] = assignation_number(flog, 175, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jres][i-1], 0);
+		sl->pa->co[1][jwp][i] = assignation_number(flog, 176, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jwp][i-1], 0);
+		sl->pa->co[1][jfc][i] = assignation_number(flog, 177, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jfc][i-1], 0);
+		sl->pa->co[1][jsat][i] = assignation_number(flog, 178, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jsat][i-1], 0);
+		sl->pa->co[1][ja][i] = assignation_number(flog, 179, i-1, keyword, num_param, num_param_components, sl->pa->co[1][ja][i-1], 0);
+		sl->pa->co[1][jns][i] = assignation_number(flog, 180, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jns][i-1], 0);
+		sl->pa->co[1][jv][i] = assignation_number(flog, 181, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jv][i-1], 0);
+		sl->pa->co[1][jkt][i] = assignation_number(flog, 182, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jkt][i-1], 0);
+		sl->pa->co[1][jct][i] = assignation_number(flog, 183, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jct][i-1], 0);
+		sl->pa->co[1][jss][i] = assignation_number(flog, 184, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jss][i-1], 0);
+		sl->pa->co[1][jexi][i] = assignation_number(flog, 407, i-1, keyword, num_param, num_param_components, sl->pa->co[1][jexi][i-1], 0);
 	}
 	
 	//field capacity (-0.333 bar) and wilting point (-15 bar)
@@ -1091,18 +1104,43 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	for (i=1; i<=nsoillayers; i++) {
 		itools->pa_bed->co[1][jdz][i] = sl->pa->co[1][jdz][i];
 	}
-	for (j=1; j<=nsoilprop; j++) {
-		if(j != jdz){
-			itools->pa_bed->co[1][j][1] = assignation_number(flog, cod+j-2, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
-		}
-	}
+	
+	itools->pa_bed->co[1][jpsi][1] = assignation_number(flog, 185, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jT][1] = assignation_number(flog, 186, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jKn][1] = assignation_number(flog, 187, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jKl][1] = assignation_number(flog, 188, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jres][1] = assignation_number(flog, 189, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jwp][1] = assignation_number(flog, 190, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jfc][1] = assignation_number(flog, 191, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jsat][1] = assignation_number(flog, 192, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][ja][1] = assignation_number(flog, 193, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jns][1] = assignation_number(flog, 194, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jv][1] = assignation_number(flog, 195, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jkt][1] = assignation_number(flog, 196, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jct][1] = assignation_number(flog, 197, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jss][1] = assignation_number(flog, 198, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	itools->pa_bed->co[1][jexi][1] = assignation_number(flog, 408, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+
 	for (i=2; i<=nsoillayers; i++) {
-		for (j=1; j<=nsoilprop; j++) {
-			if(j != jdz) itools->pa_bed->co[1][j][i] = assignation_number(flog, cod+j-2, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][j][i-1], 0);
-		}
-	}	
+		itools->pa_bed->co[1][jpsi][i] = assignation_number(flog, 185, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jpsi][i-1], 0);
+		itools->pa_bed->co[1][jT][i] = assignation_number(flog, 186, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jT][i-1], 0);
+		itools->pa_bed->co[1][jKn][i] = assignation_number(flog, 187, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jKn][i-1], 0);
+		itools->pa_bed->co[1][jKl][i] = assignation_number(flog, 188, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jKl][i-1], 0);
+		itools->pa_bed->co[1][jres][i] = assignation_number(flog, 189, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jres][i-1], 0);
+		itools->pa_bed->co[1][jwp][i] = assignation_number(flog, 190, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jwp][i-1], 0);
+		itools->pa_bed->co[1][jfc][i] = assignation_number(flog, 191, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jfc][i-1], 0);
+		itools->pa_bed->co[1][jsat][i] = assignation_number(flog, 192, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jsat][i-1], 0);
+		itools->pa_bed->co[1][ja][i] = assignation_number(flog, 193, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][ja][i-1], 0);
+		itools->pa_bed->co[1][jns][i] = assignation_number(flog, 194, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jns][i-1], 0);
+		itools->pa_bed->co[1][jv][i] = assignation_number(flog, 195, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jv][i-1], 0);
+		itools->pa_bed->co[1][jkt][i] = assignation_number(flog, 196, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jkt][i-1], 0);
+		itools->pa_bed->co[1][jct][i] = assignation_number(flog, 197, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jct][i-1], 0);
+		itools->pa_bed->co[1][jss][i] = assignation_number(flog, 198, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jss][i-1], 0);
+		itools->pa_bed->co[1][jexi][i] = assignation_number(flog, 408, i-1, keyword, num_param, num_param_components, itools->pa_bed->co[1][jexi][i-1], 0);
+	}
+
 	//field capacity (-0.333 bar) and wilting point (-15 bar)
-	for (i=1; i<=sl->pa->nch; i++){
+	for (i=1; i<=nsoillayers; i++){
 		if( (long)itools->pa_bed->co[1][jsat][i] != number_novalue && (long)itools->pa_bed->co[1][jres][i] != number_novalue && 
 			(long)itools->pa_bed->co[1][ja][i] != number_novalue && (long)itools->pa_bed->co[1][jns][i] != number_novalue &&
 			(long)itools->pa_bed->co[1][jss][i] ) {
@@ -1514,6 +1552,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->DDchannel = (short)assignation_number(flog, 403, 0, keyword, num_param, num_param_components, 1., 0);
 	par->DDland = (short)assignation_number(flog, 404, 0, keyword, num_param, num_param_components, 1., 0);
 	par->Tbottom = assignation_number(flog, 405, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
+	
+	par->excess_ice_density = assignation_number(flog, 406, 0, keyword, num_param, num_param_components, 917.0, 0);
 }
 
 /***********************************************************/
@@ -1633,7 +1673,6 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed, FILE 
 				t_error("Fatal Error! Geotop is closed. See failing report.");	
 			}
 		}
-
 			
 		free(temp);
 		i++;

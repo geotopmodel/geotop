@@ -1,4 +1,3 @@
-
 /* STATEMENT:
  
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
@@ -423,10 +422,10 @@ char *keywords_num[num_par_number] = {
 	"WindCompaction1D",
 	"DDChannel",
 	"DDLand",
-	"BottomTemperature"};
-
-
-
+	"BottomTemperature",
+	"ExcessIceDensity",
+	"ExcessIce",
+	"ExcessIceBedrock"};
 
 
 
@@ -533,6 +532,7 @@ char *keywords_char[num_par_char] = {
 	"HeaderKthSoilSolids",
 	"HeaderCthSoilSolids",
 	"HeaderSpecificStorativity",
+	"HeaderExcessIce",
 	"HeaderHorizonAngle",
 	"HeaderHorizonHeight" ,
 	"TimeStepsFile",

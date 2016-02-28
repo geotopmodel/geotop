@@ -120,6 +120,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	}
 	free_doublematrix(sl->th); 
 	free_longmatrix(sl->type);
+	free_doublematrix(sl->deltaw_exice);
 	free_doubletensor(sl->pa);
 	free_doubletensor(sl->ET);	
 	deallocate_soil_state(sl->SS);
@@ -406,6 +407,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublevector(egy->ice);
 	free_doublevector(egy->Temp); 
 	free_doublevector(egy->deltaw);
+	free_doublevector(egy->deltaw_exice);
+	free_doublevector(egy->w_exc_ice);
 	free_doublevector(egy->SWlayer);
 	free_doublevector(egy->soil_transp_layer);
 	free_doublevector(egy->dFenergy);
@@ -421,8 +424,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublevector(egy->soil_evap_layer_bare);
 	free_doublevector(egy->soil_evap_layer_veg);
 	free_doublematrix(egy->Tgskin_surr);
-	free_doublematrix(egy->SWrefl_surr);	
-		
+	free_doublematrix(egy->SWrefl_surr);			
 	free(egy);
 	
 	
@@ -574,6 +576,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	printf("Deallocating par\n"); 
 	free_shortvector(par->vegflag);
 	if(par->state_pixel == 1){
+		free_doublematrix(par->real_soil_plot_depths_per_point);
+		free_doublematrix(par->default_soil_plot_depths_per_point);
 		free_longvector(par->jplot);
 		free_longmatrix(par->rc);
 		free_longvector(par->IDpoint);
@@ -659,6 +663,7 @@ void deallocate_soil_state(SOIL_STATE *S){
 	free_doublematrix(S->T);
 	free_doublematrix(S->P);
 	free_doublematrix(S->thi);
+	free_doublematrix(S->w_exc_ice);
 	free(S);
 }
 

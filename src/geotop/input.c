@@ -98,14 +98,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	//printf("Copyright (c), 2013 - Stefano Endrizzi \n\n");	 
 	printf("Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
 	printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
- 	//printf("Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 2.0.0.\n");
-	//printf("Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
-	//printf("Riccardo Rigon and his research group are acknowledged as Geotop 2.0.0  uses most of their modelling achievements.\n");
-	//printf("John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-	//printf("Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in Geotop 2.0.0  are derived.\n");
-	//printf("However, the routine that distributes the meteo data in this Geotop version is named Meteodistr and it significantly differs from Micromet.\n\n");
-	//printf("If you have satisfactorily used the code, please acknowledge the authors.\n");	
-	printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
+ 	printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
 	printf("\nLOGFILE: %s\n",logfile);
 	
 	fprintf(flog,"STATEMENT:\n");
@@ -114,19 +107,17 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	//fprintf(flog,"Copyright (c), 2013 - Stefano Endrizzi \n\n");	 
 	fprintf(flog,"Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
 	fprintf(flog,"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-	//fprintf(flog,"Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 2.0.0.\n");
-	//fprintf(flog,"Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
-	//fprintf(flog,"Riccardo Rigon and his research group are acknowledged as Geotop 2.0.0  uses most of their modelling achievements.\n");
-	//fprintf(flog,"John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-	//fprintf(flog,"Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in Geotop 2.0.0  are derived.\n");
-	//fprintf(flog,"However, the routine that distributes the meteo data in this Geotop version is named Meteodistr and it significantly differs from Micromet.\n\n");
-	//fprintf(flog,"If you have satisfactorily used the code, please acknowledge the authors.\n");	 	
 	fprintf(flog,"\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
 	
 	//reads the parameters in __control_parameters
+	
 	temp = join_strings(WORKING_DIRECTORY, program_name);
+	
 	success = read_inpts_par(par, land, times, sl, met, IT, temp, flog); 
+	
 	free(temp);
+	
+
 	
 	//correct state pixel
 	par->Tzrun = 0;
@@ -179,9 +170,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	}	
 	
 	//soil parameters
+
+	
 	success = read_soil_parameters(files[fspar], IT, sl, par->soil_type_bedr_default, flog);	
 	Nl=sl->pa->nch;	
-	
+				
 	//pointlist files
 	success = read_point_file(files[fpointlist], IT->point_col_names, par, flog);
 	
@@ -835,10 +828,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	
 	sl->SS = (SOIL_STATE *)malloc(sizeof(SOIL_STATE));
 	initialize_soil_state(sl->SS, par->total_pixel, Nl);
-	
+		
 	sl->VS = (STATE_VEG *)malloc(sizeof(STATE_VEG));
 	initialize_veg_state(sl->VS, par->total_pixel);
 		
+	sl->deltaw_exice = new_doublematrix(Nl,par->total_pixel);
+	initialize_doublematrix(sl->deltaw_exice, 0.);
+	
 	sl->th=new_doublematrix(Nl,par->total_pixel);
 	initialize_doublematrix(sl->th,(double)number_novalue);
 	
@@ -935,6 +931,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 		for(l=1;l<=Nl;l++){
 			
 			sl->SS->T->co[l][i]=sl->pa->co[sy][jT][l];
+			sl->SS->w_exc_ice->co[l][i]=sl->pa->co[sy][jexi][l];
 					
 			sl->Ptot->co[l][i] = sl->SS->P->co[l][i];
 			sl->th->co[l][i] = teta_psi(sl->SS->P->co[l][i], 0.0, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], 
@@ -963,9 +960,40 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			
 		}
 	}
-	
-				
+		
 	if(par->state_pixel == 1){
+	
+		if((long)par->soil_plot_depths->co[1]!=number_novalue){
+			par->real_soil_plot_depths_per_point = new_doublematrix(par->rc->nrh, par->soil_plot_depths->nh);//used in output
+			par->default_soil_plot_depths_per_point = new_doublematrix(par->rc->nrh, par->soil_plot_depths->nh);//used now
+			initialize_doublematrix(par->real_soil_plot_depths_per_point,0.);
+			initialize_doublematrix(par->default_soil_plot_depths_per_point,0.);
+			for (i=1; i<=par->rc->nrh; i++) {
+				r = top->rc_cont->co[i][1];
+				c = top->rc_cont->co[i][2];
+				j = top->j_cont[r][c];
+				from_real_to_default(par->default_soil_plot_depths_per_point, Nl, sl->pa->co[1][jdz], par->soil_plot_depths->co, par->excess_ice_density, sl->SS->w_exc_ice->co, j, i);
+			}
+			
+		}else{
+			
+			par->real_soil_plot_depths_per_point = new_doublematrix(par->rc->nrh, Nl);//used in output
+			par->default_soil_plot_depths_per_point = new_doublematrix(par->rc->nrh, Nl);//used now
+			initialize_doublematrix(par->real_soil_plot_depths_per_point,0.);
+			initialize_doublematrix(par->default_soil_plot_depths_per_point,0.);
+			for (i=1; i<=par->rc->nrh; i++) {
+				r = top->rc_cont->co[i][1];
+				c = top->rc_cont->co[i][2];
+				j = top->j_cont[r][c];
+				z=0.;
+				for(l=1;l<=Nl;l++){
+					z+=sl->pa->co[1][jdz][l]/2.;
+					par->default_soil_plot_depths_per_point->co[i][l]=z;
+					z+=sl->pa->co[1][jdz][l]/2.;
+				}
+			}
+		}
+				
 		if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot = new_doublematrix(par->rc->nrh, Nl);
 		if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot = new_doublematrix(par->rc->nrh, Nl);
 		if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot = new_doublematrix(par->rc->nrh, Nl);
@@ -981,6 +1009,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			c = top->rc_cont->co[i][2];
 			j = top->j_cont[r][c];
 			sy = sl->type->co[r][c];
+			
 			for(l=1;l<=Nl;l++){
 				if(strcmp(files[fTz] , string_novalue) != 0 || strcmp(files[fTzwriteend] , string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][j];
 				if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) sl->Tzavplot->co[i][l] = sl->SS->T->co[l][j];
@@ -991,6 +1020,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 				if(strcmp(files[fpsiztot] , string_novalue) != 0 || strcmp(files[fpsiztotwriteend] , string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][j];
 				if(strcmp(files[fsatz], string_novalue) != 0) sl->satratio->co[i][l] = (sl->SS->thi->co[l][j] + sl->th->co[l][j] - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l] - sl->pa->co[sy][jres][l]);
 			}
+			
 			for(l=0;l<=Nl;l++) {
 				if(strcmp(files[fpsiz] , string_novalue) != 0 || strcmp(files[fpsizwriteend] , string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][j];
 			}
@@ -1245,6 +1275,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	egy->Temp = new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
 	egy->deltaw = new_doublevector( Nl + par->max_snow_layers + par->max_glac_layers );
 	
+	//excess ice
+	egy->deltaw_exice = new_doublevector( Nl );
+	egy->w_exc_ice = new_doublevector( Nl );
+	
 	egy->SWlayer = new_doublevector0( par->max_snow_layers + 1 );
 	
 	egy->soil_transp_layer = new_doublevector(land->root_fraction->nch);
@@ -1260,6 +1294,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	egy->T1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
 	egy->Tstar=new_doublevector(Nl); //soil temperature at which freezing begins
 	egy->THETA=new_doublevector(Nl);	//water content (updated in the iterations)
+	
 	
 	//allocate vector	of soil layer contributions to evaporation (up to z_evap)
 	z = 0.;
@@ -1998,14 +2033,14 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			
 			r = par->rc->co[j][1];
 			c = par->rc->co[j][2];		
-			
+
 			if(par->output_vertical_distances == 1){
 				cosslope = cos( Fmin(max_slope, top->slope->co[r][c]) * Pi/180. );
 			}else {
 				cosslope = 1.;
 			}
-			
-			write_soil_output(j, par->IDpoint->co[j], par->init_date->co[1], par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, (double)PsiMin, cosslope);
+	
+			write_soil_output(j, par->IDpoint->co[j], par->init_date->co[1], par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour, minute, sl, par, (double)PsiMin, cosslope, top->j_cont[r][c]);
 			write_snow_output(j, par->IDpoint->co[j], r, c, par->init_date->co[1], par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);
 		}
 	}
@@ -3313,6 +3348,8 @@ void initialize_soil_state(SOIL_STATE *S, long n, long nl){
 	initialize_doublematrix(S->P, 0.);
 	S->thi = new_doublematrix(nl, n);
 	initialize_doublematrix(S->thi, 0.);
+	S->w_exc_ice = new_doublematrix(nl, n);
+	initialize_doublematrix(S->w_exc_ice, 0.);
 
 }
 
@@ -3332,6 +3369,7 @@ void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to){
 			to->P->co[l][i] = from->P->co[l][i];
 			to->T->co[l][i] = from->T->co[l][i];
 			to->thi->co[l][i] = from->thi->co[l][i];
+			to->w_exc_ice->co[l][i] = from->w_exc_ice->co[l][i];
 		}
 	}
 }

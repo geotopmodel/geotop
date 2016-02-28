@@ -24,14 +24,14 @@ void write_output(TIMES *times,WATER *wat,CHANNEL *cnet,PAR *par,TOPO *top,LAND 
 
 void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac);
 
-void write_soil_output(long i, long iname, double init_date, double end_date, double JDfrom0, double JD, long day, long month, long year,
-					   long hour, long minute, DOUBLEVECTOR *n, SOIL *sl, PAR *par, double psimin, double cosslope);
-
+void write_soil_output(long i, long iname, double init_date, double end_date, double JDfrom0, double JD, long day, long month, long year, 
+					   long hour, long minute, SOIL *sl, PAR *par, double psimin, double cosslope, long j);
+					   
 void write_snow_output(long i, long iname, long r, long c, double init_date, double end_date, double JDfrom0, double JD, 
 					   long day, long month, long year, long hour, long minute, DOUBLEVECTOR *n, STATEVAR_3D *snow, PAR *par, double cosslope);
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h, long mi, double JDfrom0, double JDfrom0init, 
-					 double JDfrom0end, double *var, DOUBLEVECTOR *n, double *dz, double cosslope);
+					 double JDfrom0end, double *var, PAR *par, double *dz, double cosslope, DOUBLEMATRIX *excess_ice, long i_cont);
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f, long d, long m, long y, long h, long mi, double JDfrom0, 
 					 double JDfrom0init, double JDfrom0end, DOUBLEVECTOR *n, DOUBLETENSOR *snowDz, DOUBLETENSOR *var, double cosslope);
@@ -42,9 +42,15 @@ void write_snow_header(short a, long r, long c, FILE *f, DOUBLEVECTOR *n, DOUBLE
 
 void plot(char *name, long i_plot, DOUBLEVECTOR *V, short format, long **J);
 
+//double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
+
 double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
 
-double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long i);
+void from_real_to_default(DOUBLEMATRIX *default_depths, long max, double *Dz, double *real_depths, double ice_density, double **excess_ice, long i, long iplot);
+
+void from_default_to_real(double *real_depths, long n, long max, double *Dz, double *default_depths, double ice_density, double **excess_ice, long i);
+
+double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long iplot);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type, short format, DOUBLEMATRIX *T, DOUBLEVECTOR *n, long **J, 
 							 LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);

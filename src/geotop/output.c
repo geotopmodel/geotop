@@ -75,7 +75,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 				  
 {
 	/*internal auxiliary variables:*/
-	long i,j,r=0,c=0,l,m,sy; /*counters*/
+	long i,j,jj,r=0,c=0,l,m,sy; /*counters*/
 	long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
 	char NNNNN[ ]={"NNNNN"};
 	char RRRRR[ ]={"RRRRR"};
@@ -232,9 +232,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 					write_suffix(NNNN, par->IDpoint->co[i], 0);
 					r=par->rc->co[i][1];
 					c=par->rc->co[i][2];
-					j=top->j_cont[r][c];
+					jj=top->j_cont[r][c];
 					sy = sl->type->co[r][c];
-					
+										
 					if (par->output_vertical_distances == 1) {
 						cosslope = cos( Fmin(max_slope, top->slope->co[r][c]) * Pi/180. );
 					}else {
@@ -524,7 +524,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par, TOPO *top, 
 					}
 					
 					//sl output
-					write_soil_output(i, par->IDpoint->co[i], par->init_date->co[i_sim], par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute, par->soil_plot_depths, sl, par, (double)PsiMin, cosslope);
+					write_soil_output(i, par->IDpoint->co[i], par->init_date->co[i_sim], par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute, sl, par, (double)PsiMin, cosslope, jj);
 				
 					//snow output
 					write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[i_sim], par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute, par->snow_plot_depths, snow->S, par, cosslope);					
@@ -2809,7 +2809,8 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_soil_output(long i, long iname, double init_date, double end_date, double JDfrom0, double JD, long day, long month, long year, long hour, long minute, DOUBLEVECTOR *n, SOIL *sl, PAR *par, double psimin, double cosslope){
+void write_soil_output(long i, long iname, double init_date, double end_date, double JDfrom0, double JD, long day, long month, long year, 
+					   long hour, long minute, SOIL *sl, PAR *par, double psimin, double cosslope, long j){
 
 	char *name,*temp,*temp2,NNNN[ ]={"NNNN"};
 	char rec[ ]={"_recNNNN"},crec[ ]={"_crecNNNN"};
@@ -2838,14 +2839,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}
 		
 		f=fopen(name,"a");	
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 
 	if(strcmp(files[fTzwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[fTzav] , string_novalue) != 0){
@@ -2864,14 +2865,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");	
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 
 	if(strcmp(files[fTzavwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffTav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffTav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Tzavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[fpsiztot] , string_novalue) != 0){
@@ -2890,14 +2891,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Ptotzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Ptotzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 	
 	if(strcmp(files[fpsiztotwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffpsitot, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Ptotzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffpsitot, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Ptotzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[fpsiz] , string_novalue) != 0){
@@ -2916,14 +2917,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(0, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Pzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(0, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Pzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 
 	if(strcmp(files[fpsizwriteend] , string_novalue) != 0){
-		write_soil_file(0, iname, ffpsi, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Pzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(0, iname, ffpsi, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->Pzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[fliqz] , string_novalue) != 0){
@@ -2942,14 +2943,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 
 	if(strcmp(files[fliqzwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffliq, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffliq, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 
 	if(strcmp(files[fliqzav] , string_novalue) != 0){
@@ -2968,14 +2969,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 	
 	if(strcmp(files[fliqzavwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffliqav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffliqav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thzavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[ficez] , string_novalue) != 0){
@@ -2994,14 +2995,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 
 	if(strcmp(files[ficezwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, ffice, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, ffice, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 
 	if(strcmp(files[ficezav] , string_novalue) != 0){
@@ -3020,14 +3021,14 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
 	}
 	
 	if(strcmp(files[ficezavwriteend] , string_novalue) != 0){
-		write_soil_file(1, iname, fficeav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, fficeav, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->thizavplot->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 	}
 	
 	if(strcmp(files[fsatz] , string_novalue) != 0){
@@ -3046,7 +3047,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date, do
 		}		
 		
 		f=fopen(name,"a");		
-		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->satratio->co[i], n, sl->pa->co[1][jdz], cosslope);
+		write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0, init_date, end_date, sl->satratio->co[i], par, sl->pa->co[1][jdz], cosslope, sl->SS->w_exc_ice, j);
 		fclose(f);
 		free(name);
 		free(temp);
@@ -3192,10 +3193,10 @@ void write_snow_output(long i, long iname, long r, long c, double init_date, dou
 //***************************************************************************************************************
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h, long mi, double JDfrom0, double JDfrom0init, 
-					 double JDfrom0end, double *var, DOUBLEVECTOR *n, double *dz, double cosslope){
+					 double JDfrom0end, double *var, PAR *par, double *dz, double cosslope, DOUBLEMATRIX *excess_ice, long i_cont){
 
 	short first_column=1;
-	long j, l;
+	long j, l, n=par->real_soil_plot_depths_per_point->nch;
 	
 	for (j=0; j<nosl; j++) {
 		if(first_column==0){
@@ -3221,17 +3222,13 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y, long h,
 			fprintf(f,"%f",(double)number_novalue);
 		}
 	}
-
-	if ((long)n->co[1] != number_novalue) {
-		for (l=1; l<=n->nh; l++) {
-			fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, var));
-		}
-	}else{
-		for(l=1;l<=Nl;l++){
-			fprintf(f,",%f",var[l]);
-		}
-	}
 	
+	from_default_to_real(par->real_soil_plot_depths_per_point->co[i], n, Nl, dz, par->default_soil_plot_depths_per_point->co[i], par->excess_ice_density, excess_ice->co, i_cont);
+
+	for (l=1; l<=n; l++) {
+		fprintf(f, ",%f,%f",par->real_soil_plot_depths_per_point->co[i][l],interpolate_soil(lmin, par->default_soil_plot_depths_per_point->co[i][l]*cosslope, Nl, dz, var));
+	}
+
 	fprintf(f," \n");
 }
 
@@ -3329,12 +3326,12 @@ void write_soil_header(FILE *f, DOUBLEVECTOR *n, double *dz){
 
 	if ((long)n->co[1] != number_novalue ) {
 		for (l=1; l<=n->nh; l++) {
-			fprintf(f, ",%f",n->co[l]);
+			fprintf(f, ",DEPTH(%f),VALUE(%f)",n->co[l],n->co[l]);
 		}
 	}else{
 		for(l=1;l<=Nl;l++){
 			z += dz[l];
-			fprintf(f,",%f ",z-0.5*dz[l]);
+			fprintf(f,",DEPTH(%f),VALUE(%f)",z-0.5*dz[l],z-0.5*dz[l]);
 		}
 	}
 	
@@ -3406,7 +3403,7 @@ void plot(char *name, long i_plot, DOUBLEVECTOR *V, short format, long **J){
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q){
+/*double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q){
 	
 	double q, z, z0=0.;
 	long l;
@@ -3444,19 +3441,19 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q){
 	
 	return q;
 	
-}
+}*/
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long i){
+double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q){
 	
 	double q, z, z0=0.;
 	long l;
-	
-	l = lmin;
+		
+	l = lmin;	
 	q = (double)number_novalue;
 	
 	do{
@@ -3473,11 +3470,142 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX
 		
 		if(h < z && h >= z0){
 			if (l == lmin) {
-				q = Q->co[l][i];
+				q = Q[lmin];
 			}else if (l <= max) {
-				q = ( Q->co[l-1][i] * (z-h) + Q->co[l][i] * (h-z0) ) / (z - z0);
+				q = ( Q[l-1] * (z-h) + Q[l] * (h-z0) ) / (z - z0);
 			}else {
-				q = Q->co[max][i];
+				q = Q[max];
+			}
+		}
+		
+		z0 = z;
+		
+		l ++;
+		
+	}while ( (long)q == number_novalue && l <= max+1 );
+	
+	return q;
+	
+}
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//fills default_depths for point iplot
+void from_real_to_default(DOUBLEMATRIX *default_depths, long max, double *Dz, double *real_depths, double ice_density, double **excess_ice, long i, long iplot){
+	
+	double z, z0;
+	long m, l, n=default_depths->nch;
+			
+	for(m=1;m<=n;m++){
+
+		default_depths->co[iplot][m] = real_depths[m];
+		
+		if((long)default_depths->co[iplot][m] != number_novalue){
+
+			l = 1;	
+			z0 = 0.;
+
+			do{
+	
+				z = z0 + (Dz[l]+1.E3*excess_ice[l][i]/ice_density);
+			
+				if(real_depths[m] >= z){	
+					default_depths->co[iplot][m] -= 1.E3*excess_ice[l][i]/ice_density;
+				}else{
+					default_depths->co[iplot][m] -= (1.E3*excess_ice[l][i]/ice_density)*(real_depths[m]-z0)/(z-z0);
+				}
+						
+				z0 = z;
+		
+				l ++;
+		
+			}while ( real_depths[m] >= z && l <= max );
+			
+			//printf(" m:%ld REAL:%f DEFAULT:%f\n",m,real_depths[m],default_depths[m]);
+
+		}
+	}	
+}
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//fills real_depths for point iplot
+void from_default_to_real(double *real_depths, long n, long max, double *Dz, double *default_depths, double ice_density, double **excess_ice, long i){
+	
+	double z, z0;
+	long m, l;
+			
+	for(m=1;m<=n;m++){
+
+		real_depths[m] = default_depths[m];
+		
+		if((long)default_depths[m] != number_novalue){
+
+			l = 1;	
+			z0 = 0.;
+
+			do{
+	
+				z = z0 + Dz[l];
+			
+				if(default_depths[m] >= z){	
+					real_depths[m] += 1.E3*excess_ice[l][i]/ice_density;
+				}else{
+					real_depths[m] += (1.E3*excess_ice[l][i]/ice_density)*(default_depths[m]-z0)/(z-z0);
+				}
+						
+				z0 = z;
+				
+				//printf("l:%ld i:%ld excess_ice:%e\n",l,i,excess_ice[l][i]);
+		
+				l ++;
+		
+			}while ( default_depths[m] >= z && l <= max );
+		}
+		
+		//printf("OPPOSITE m:%ld REAL:%f DEFAULT:%f\n",m,real_depths[m],default_depths[m]);
+
+
+	}
+	
+}
+
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+//***************************************************************************************************************
+
+double interpolate_soil2(long lmin, double h, long max, double *Dz, DOUBLEMATRIX *Q, long iplot){
+	
+	double q, z, z0=0.;
+	long l;
+	
+	l = lmin;
+	q = (double)number_novalue;
+	
+	do{
+		
+		if (l == lmin){
+			z = z0;
+			if (l>0) z += (Dz[l])/2.;
+		}else if (l <= max) {
+			z = z0 + (Dz[l])/2.;
+			if (l>1) z += (Dz[l-1])/2.;
+		}else {
+			z = z0 + (Dz[max])/2.;
+		}
+		
+		if(h < z && h >= z0){
+			if (l == lmin) {
+				q = Q->co[l][iplot];
+			}else if (l <= max) {
+				q = ( Q->co[l-1][iplot] * (z-h) + Q->co[l][iplot] * (h-z0) ) / (z - z0);
+			}else {
+				q = Q->co[max][iplot];
 			}
 		}
 		

@@ -162,6 +162,7 @@ int main(int argc,char *argv[]){
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 		
+		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 		time_loop(adt);
 		
@@ -302,14 +303,14 @@ void time_loop(ALLDATA *A){
 						meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T, A->P, JD0, JDb, JDe);
 						tend=clock();
 						t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
-						
+												
 						if(A->P->en_balance == 1){
 							tstart=clock();
 							en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W);
 							tend=clock();
 							t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 						}
-						
+												
 						if(A->P->wat_balance == 1 && en == 0){
 							tstart=clock();
 							wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout, &Voutsub, &Voutsup, &Vbottom);
@@ -414,9 +415,7 @@ void time_loop(ALLDATA *A){
 					A->W->Voutbottom += Vbottom;
 					A->W->Voutlandsub += Voutsub;
 					A->W->Voutlandsup += Voutsup;
-					
-					//printf("%f\n",A->I->time);
-					
+										
 					//record time step
 					odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin->co[i_sim]);
 					
@@ -441,7 +440,7 @@ void time_loop(ALLDATA *A){
 				t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 				
 				A->I->time += A->P->Dt;//Increase TIME
-								
+																
 			}
 
 		}while(i_run <= A->P->run_times->co[i_sim]);//end of time-cycle

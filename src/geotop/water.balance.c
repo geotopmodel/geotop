@@ -1486,10 +1486,11 @@ int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L, SOIL_STAT
 			}
 		}
 		
-		//evaporation and precipitation
+		//evaporation and precipitation and excess ice
 		if(l>0){
 			if(i<=n){
-				f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+				f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;   //m^2 * mm / s
+				f->co[i] -= area*adt->S->deltaw_exice->co[l][i]*1.E3/(rho_w*Dt);
 			}else {
 				ch=adt->C->ch->co[r][c];
 				f->co[i] += area*adt->C->ET->co[l][ch]/Dt;
@@ -1559,12 +1560,12 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt, D
 		
 		//evaporation 
 		if(l>0){
-			f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+			f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;  
+			f->co[i] -= area*adt->S->deltaw_exice->co[l][c]*1.E3/(rho_w*Dt);
+			//if(adt->S->deltaw_exice->co[l][c]>0) printf("DI:%e T:%e\n",adt->S->deltaw_exice->co[l][c],area*adt->S->deltaw_exice->co[l][c]*1.E3/(rho_w*Dt));
 		}else {
 			f->co[i] -= area*adt->W->Pnet->co[r][c]/Dt;
 		}
-		
-		
 	}
 	return 0;
 }

@@ -33,8 +33,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 406
-#define num_par_char 367
+#define num_par_number 409
+#define num_par_char 368
 
 //****************************************************
 // Fixed Parameters
@@ -148,7 +148,8 @@
 #define jkt jv+1					//thermal conductivity
 #define jct jkt+1					//thermal capacity
 #define jss jct+1					//soil specific storativity
-#define nsoilprop jss				//number of soil properties considered
+#define jexi jss+1					//excess ice in kg/m2
+#define nsoilprop jexi				//number of soil properties considered
 
 //****************************************************
 //land use data	
@@ -530,4 +531,5 @@
 #define ptLON ptLAT+1
 #define ptBED ptLON+1
 #define ptTOT ptBED
+
 

@@ -108,6 +108,9 @@ typedef struct {
 	DOUBLEMATRIX *Tgskin_surr;
 	DOUBLEMATRIX *SWrefl_surr;
 	
+	DOUBLEVECTOR *deltaw_exice;
+	DOUBLEVECTOR *w_exc_ice;
+		
 } ENERGY;
 
 /*---------------------------------------------------------------------------*/
@@ -116,6 +119,7 @@ typedef struct {
 	DOUBLEMATRIX *P;
 	DOUBLEMATRIX *thi;
 	DOUBLEMATRIX *T;
+	DOUBLEMATRIX *w_exc_ice;
 } SOIL_STATE;
 
 /*---------------------------------------------------------------------------*/
@@ -139,6 +143,9 @@ typedef struct {
 	DOUBLEMATRIX *Ptot;
 	DOUBLEMATRIX *th;
 	DOUBLETENSOR *ET;
+	
+	DOUBLEMATRIX *deltaw_exice;
+
 	DOUBLEMATRIX *Tzplot;
 	DOUBLEMATRIX *Tzavplot;
 	DOUBLEMATRIX *Ptotzplot;
@@ -628,6 +635,10 @@ typedef struct {
 	short DDchannel;
 	short DDland;
 	
+	double excess_ice_density;
+	DOUBLEMATRIX *real_soil_plot_depths_per_point;
+	DOUBLEMATRIX *default_soil_plot_depths_per_point;
+
 } PAR;
 
 
