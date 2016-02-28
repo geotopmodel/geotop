@@ -638,6 +638,7 @@ typedef struct {
 	double excess_ice_density;
 	DOUBLEMATRIX *real_soil_plot_depths_per_point;
 	DOUBLEMATRIX *default_soil_plot_depths_per_point;
+	double TfreezingSoil;
 
 } PAR;
 

@@ -940,10 +940,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			th_oversat = Fmax( sl->SS->P->co[l][i] , 0.0 ) * sl->pa->co[sy][jss][l];
 			sl->th->co[l][i] -= th_oversat;
 											
-			if(sl->SS->T->co[l][i]<=Tfreezing){
+			if(sl->SS->T->co[l][i]<=par->TfreezingSoil){
 				
 				//Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-				sl->SS->thi->co[l][i] = sl->th->co[l][i] - teta_psi(Psif(sl->SS->T->co[l][i]), 0.0, sl->pa->co[sy][jsat][l], 
+				sl->SS->thi->co[l][i] = sl->th->co[l][i] - teta_psi(Psif(sl->SS->T->co[l][i],par->TfreezingSoil), 0.0, sl->pa->co[sy][jsat][l], 
 																		sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 
 																		1.-1./sl->pa->co[sy][jns][l], PsiMin, sl->pa->co[sy][jss][l]);
 										
@@ -1076,9 +1076,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 			th_oversat = Fmax( cnet->SS->P->co[l][j] , 0.0 ) * sl->pa->co[sy][jss][l];
 			cnet->th->co[l][j] -= th_oversat;
 			
-			if(cnet->SS->T->co[l][j]<=Tfreezing){
+			if(cnet->SS->T->co[l][j]<=par->TfreezingSoil){
 				//Theta_ice=Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-				cnet->SS->thi->co[l][j] = cnet->th->co[l][j] - teta_psi(Psif(cnet->SS->T->co[l][j]), 0.0, sl->pa->co[sy][jsat][l], 
+				cnet->SS->thi->co[l][j] = cnet->th->co[l][j] - teta_psi(Psif(cnet->SS->T->co[l][j],par->TfreezingSoil), 0.0, sl->pa->co[sy][jsat][l], 
 																		sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 
 																		1.-1./sl->pa->co[sy][jns][l], PsiMin, sl->pa->co[sy][jss][l]);
 				

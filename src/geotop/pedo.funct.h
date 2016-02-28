@@ -31,7 +31,7 @@ double Harmonic_Mean(double D1, double D2, double K1, double K2);
 double Arithmetic_Mean(double D1, double D2, double K1, double K2);
 double Mean(short a, double D1, double D2, double K1, double K2);
 
-double Psif(double T);
+double Psif(double T, double Tf);
 
 double theta_from_psi(double psi, double ice, long l, double **pa, double pmin);
 double psi_from_theta(double th, double ice, long l, double **pa, double pmin);

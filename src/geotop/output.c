@@ -4061,7 +4061,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par){
 			for (l=1; l<=n; l++) {
 				sl->SS->T->co[l][j] = sl->Tzrun->co[j][l];
 				sl->Ptot->co[l][j] = psi_from_theta(sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l], 0., l, sl->pa->co[sy], PsiMin);
-				sl->SS->P->co[l][j] = Fmin(Psif(sl->Tzrun->co[j][l]),sl->Ptot->co[l][j]);
+				sl->SS->P->co[l][j] = Fmin(Psif(sl->Tzrun->co[j][l],par->TfreezingSoil),sl->Ptot->co[l][j]);
 				sl->th->co[l][j] = theta_from_psi(sl->SS->P->co[l][j], 0., l, sl->pa->co[sy], PsiMin);
 				sl->SS->thi->co[l][j] = sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l] - sl->th->co[l][j];
 			}
@@ -4072,7 +4072,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par){
 		}else if (par->newperiodinit == 1) {
 			Tlow = sl->Tzrun->co[j][n];
 			Ptlow = psi_from_theta(sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n], 0., n, sl->pa->co[sy], PsiMin);
-			thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy], PsiMin);
+			thwlow = theta_from_psi(Fmin(Psif(Tlow,par->TfreezingSoil),Ptlow), 0., n, sl->pa->co[sy], PsiMin);
 			thilow = sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n] - thwlow;
 		}
 
@@ -4106,7 +4106,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par){
 			Tn = T;//first guess
 			
 			do{
-				psin = Fmin(Psif(Tn), sl->Ptot->co[l][j]);
+				psin = Fmin(Psif(Tn,par->TfreezingSoil), sl->Ptot->co[l][j]);
 				thwn = theta_from_psi(psin , 0., l, sl->pa->co[sy], PsiMin);
 				thin = theta_from_psi(sl->Ptot->co[l][j], 0., l, sl->pa->co[sy], PsiMin) - thwn;
 				kn = k_thermal(0, 1, thwn, thin, sl->pa->co[sy][jsat][l], sl->pa->co[sy][jkt][l]);

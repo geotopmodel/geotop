@@ -1554,6 +1554,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->Tbottom = assignation_number(flog, 405, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
 	
 	par->excess_ice_density = assignation_number(flog, 406, 0, keyword, num_param, num_param_components, 917.0, 0);
+	
+	par->TfreezingSoil = assignation_number(flog, 409, 0, keyword, num_param, num_param_components, 0., 0);
 }
 
 /***********************************************************/

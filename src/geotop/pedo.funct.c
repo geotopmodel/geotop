@@ -191,12 +191,12 @@ double Mean(short a, double D1, double D2, double K1, double K2)
 	
 /*------------------------------------------------------------------------------------------------------*/
 
-double Psif(double T){
+double Psif(double T, double Tf){
 	
 	double psi;
 	
 	if(T<0){
-		psi=T*(1000.0*Lf)/(g*(Tfreezing+tk));
+		psi=(T-Tf)*(1000.0*Lf)/(g*(Tf+tk));
 	}else{
 		psi=0;
 	}

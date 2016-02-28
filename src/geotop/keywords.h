@@ -425,8 +425,8 @@ char *keywords_num[num_par_number] = {
 	"BottomTemperature",
 	"ExcessIceDensity",
 	"ExcessIce",
-	"ExcessIceBedrock"};
-
+	"ExcessIceBedrock",
+	"TFreezingSoil"};
 
 
 
