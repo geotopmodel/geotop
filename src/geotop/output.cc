@@ -1434,7 +1434,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 V[i] = 0.;
                 for (l = 1; l <= glac->G->lnum[r][c]; l++)
                 {
-                    V[i] += (glac->G->w_liq[l][r][c] + glac->G->w_ice[l][r][c]);
+                    V[i] += glac->G->Dzl[l][r][c]; // LP like fsnowdepth
+                    //V[i] += (glac->G->w_liq[l][r][c] + glac->G->w_ice[l][r][c]);
                 }
             }
             temp1 = geotop::common::Variables::files[fglacdepth] + s2 ;
