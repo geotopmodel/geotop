@@ -1629,7 +1629,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                             if (a == 0) {
                                 snow->S->w_ice[n][r][c] = par->max_weq_snow;
                             }else {
-                                snow->S->w_ice[n][r][c] = ( SWE - par->max_weq_snow * ( par->max_snow_layers - par->inf_snow_layers.size() ) ) / par->inf_snow_layers.size();
+                                snow->S->w_ice[n][r][c] = ( SWE - par->max_weq_snow * ( par->max_snow_layers - (par->inf_snow_layers.size()-1) ) ) / (par->inf_snow_layers.size()-1);
                             }
                         }
                     }
@@ -1695,17 +1695,41 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum, Dzl. w_liq, w_ice, T and print matrices are defined, according to the respective flags
     if(par->max_glac_layers>0){
-
-        if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
-        lg->logf("Glacier initial condition from file %s",
-                geotop::common::Variables::files[fgl0+1].c_str());
-            meteoio_readMap(string(geotop::common::Variables::files[fgl0]), M);
-        }else{
-            copydoublematrix_const(IT->Dglac0, land->LC, M, geotop::input::gDoubleNoValue);
-        }
-
+    
         glac->G=new Statevar3D();
         allocate_and_initialize_statevar_3D(glac->G, geotop::input::gDoubleNoValue, par->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+
+           
+        if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
+        	 lg->logf("Glacier initial condition from file %s",
+           geotop::common::Variables::files[fgl0+1].c_str()); //TO FIX +1
+
+       	 meteoio_readMap(string(geotop::common::Variables::files[fgl0]), M);
+
+       	 for (r=1; r<=geotop::common::Variables::Nr; r++) {
+            for (c=1; c<=geotop::common::Variables::Nc; c++) {
+                glac->G->Dzl[1][r][c] = M[r][c];
+            }
+       	 }
+
+       	 for (r=1; r<=geotop::common::Variables::Nr; r++) {
+            for (c=1; c<=geotop::common::Variables::Nc; c++) {
+                if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue) glac->G->w_ice[1][r][c] = glac->G->Dzl[1][r][c]*IT->rhoglac0/GTConst::rho_w;
+            }
+      	 }
+
+        }else{
+       	 for (r=1; r<=geotop::common::Variables::Nr; r++) {
+            for (c=1; c<=geotop::common::Variables::Nc; c++) {
+                if ((long)land->LC[r][c] != geotop::input::gDoubleNoValue){
+                	glac->G->Dzl[1][r][c] = IT->Dglac0;	
+                    glac->G->w_ice[1][r][c] = IT->Dglac0*IT->rhoglac0/GTConst::rho_w;
+                }
+            }
+        	}
+        }
+
+
 
         if(par->output_glac_bin == 1){
             if(geotop::common::Variables::files[fglacmelt] != geotop::input::gStringNoValue){
@@ -1721,70 +1745,120 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         for(r=1;r<=geotop::common::Variables::Nr;r++){
             for(c=1;c<=geotop::common::Variables::Nc;c++){
                 if( (long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
+                
+                	//SKIP Adjusting snow init depth in case of steep slope
+                	
+                	D = glac->G->Dzl[1][r][c];
+                	SWE = glac->G->w_ice[1][r][c]; //phisically GWE but named SWE
+                         
+                  if(D<0 || SWE<0){
+                    f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+#ifdef USE_DOUBLE_PRECISION_OUTPUT
+                    fprintf(f, "Error: negative initial glacier depth %12g or glacier water equivalent %12g\n",D,SWE);
+#else
+                    fprintf(f, "Error: negative initial glacier depth %e or glacier water equivalent %e\n",D,SWE);
+#endif
 
-                    if(M[r][c]<0){
-                        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                        fprintf(f, "Error: negative glacier data\n");
-                        fclose(f);
-                        lg->log("Negative glacier data",
-                                geotop::logger::ERROR);
-                        lg->log("Geotop failed. See failing report (10).",
-                                geotop::logger::CRITICAL);
-                        exit(1);
+                    fclose(f);
+                    lg->logsf(geotop::logger::ERROR,
+                            "Error: negative initial glacier depth %12g or snow glacier equivalent %12g", D, SWE);
+                    lg->log("Geotop failed. See failing report (10).",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+                        
+                 }else if(D<1.E-5 && SWE>1.E-5){
+                    f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+#ifdef USE_DOUBLE_PRECISION_OUTPUT
+                    fprintf(f, "Error: Initial glacier water equivalent %12g > 0 and initial glacier depth %12g\n",SWE,D);
+#else
+                    fprintf(f, "Error: Initial glacier water equivalent %e > 0 and initial glacier depth %e\n",SWE,D);
+#endif
 
-                    }else if(M[r][c]>1.E-5){
+                    fclose(f);
+                    lg->logsf(geotop::logger::ERROR,
+                            "Initial glacier water equivalent %12g > 0 and initial glacier depth %12g", SWE, D);
+                    lg->log("Geotop failed. See failing report (11).",
+                            geotop::logger::CRITICAL);
+                    exit(1);          
+                    
+                 }else if(D>1.E-5 && SWE<1.E-5){
+                    f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+#ifdef USE_DOUBLE_PRECISION_OUTPUT
+                    fprintf(f, "Error: Initial glacier depth %12g > 0 and initial glacier water equivalent %12g\n",D,SWE);
+#else
+                    fprintf(f, "Error: Initial glacier depth %e > 0 and initial glacier water equivalent %e\n",D,SWE);
+#endif
+                    fclose(f);
+                    lg->logsf(geotop::logger::ERROR,
+                            "Initial glacier depth %12g > 0 and initial glacier water equivalent %12g\n", D,SWE);
+                    lg->log("Geotop failed. See failing report (12).",
+                            geotop::logger::CRITICAL);
+                    exit(1);
+                    
+                 }else if(D>1.E-5 || SWE>1.E-5){
 
-                        if (IT->rhoglac0 * M[r][c] / GTConst::rho_w < par->max_weq_glac * par->max_glac_layers ) {
+                    if (SWE < par->max_weq_glac * par->max_glac_layers) {
 
-                            n = 0;
-                            z = 0.;
+				    i = floor( SWE/par->max_weq_glac );
+				    
+                        if (i>0) {
 
-                            do{
+                            for (n=1; n<=i; n++) {
+                                glac->G->w_ice[n][r][c] = par->max_weq_glac;
+                            }
 
-                                n++;
-
-                                if (IT->rhoglac0 * M[r][c] / GTConst::rho_w < par->max_weq_glac * n) {
-                                    glac->G->w_ice[n][r][c] = par->max_weq_glac;
-                                }else {
-                                    glac->G->w_ice[n][r][c] = IT->rhoglac0 * M[r][c] / 1000. - z;
-                                }
-
-                                glac->G->Dzl[n][r][c] = GTConst::rho_w * glac->G->w_ice[n][r][c] / IT->rhoglac0;
-                                glac->G->T[n][r][c] = IT->Tglac0;
-
-                                z += glac->G->w_ice[n][r][c];
-
-                            }while (fabs(z - IT->rhoglac0 * M[r][c] / GTConst::rho_w) < 1.E-6);
-
-                            glac->G->lnum[r][c] = n;
+                            if (SWE - i * par->max_weq_glac > 0.1 * par->max_weq_glac) {
+                                glac->G->w_ice[i+1][r][c] =  SWE - i * par->max_weq_glac;
+                                glac->G->lnum[r][c] = i+1;
+                            }else {
+                                glac->G->w_ice[i][r][c] += (SWE - i * par->max_weq_glac);
+                                glac->G->lnum[r][c] = i;
+                            }
 
                         }else {
 
-                            glac->G->lnum[r][c] = par->max_glac_layers;
+                            glac->G->w_ice[1][r][c] = SWE;
+                            glac->G->lnum[r][c] = 1;
 
-                            for (n=1; n<=par->max_glac_layers; n++) {
+                        }         
+                        
+                     }else {
 
-                                a = 0;
+                        glac->G->lnum[r][c] = par->max_glac_layers;
 
-                                for (i = 1; (size_t)i < par->inf_glac_layers.size(); i++) {
-                                    if (n == i) a = 1;
-                                }
+                        for (n=1; n<=par->max_glac_layers; n++) {
 
-                                if (a == 0) {
-                                    glac->G->w_ice[n][r][c] = par->max_weq_glac;
-                                }else {
-                                    glac->G->w_ice[n][r][c] = ( IT->rhoglac0 * M[r][c] / GTConst::rho_w - par->max_weq_glac * ( par->max_glac_layers - par->inf_glac_layers.size() ) ) / par->inf_glac_layers.size();
-                                }
+                            a = 0;
 
-                                glac->G->Dzl[n][r][c] = GTConst::rho_w * glac->G->w_ice[n][r][c] / IT->rhoglac0;
-                                glac->G->T[n][r][c] = IT->Tglac0;
-
+                            for (size_t i=1; i<par->inf_glac_layers.size(); i++) {
+                                if (n == abs(par->inf_glac_layers[i])) a = 1;
                             }
-                        }
-                    }
 
-                    f = fopen(geotop::common::Variables::logfile.c_str(), "a");
-                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers, par->max_weq_glac, 1.E10);
+                            if (a == 0) {
+                                glac->G->w_ice[n][r][c] = par->max_weq_glac;
+                            }else {
+                                glac->G->w_ice[n][r][c] = ( SWE - par->max_weq_glac * ( par->max_glac_layers - (par->inf_glac_layers.size()-1) ) ) / (par->inf_glac_layers.size()-1);
+                            }
+                            
+                        }
+                     }                        
+                        
+                    for (n=1; n<=glac->G->lnum[r][c]; n++) {
+
+                        glac->G->Dzl[n][r][c] = D * (glac->G->w_ice[n][r][c] / SWE);
+                        glac->G->T[n][r][c] = IT->Tglac0;
+                        
+                    }                        
+                   }
+
+                if (par->point_sim == 1) {
+                    maxSWE = par->maxSWE[r][c]; // TO FIX // 1.E10
+                }else {
+                    maxSWE = 1.E10; // TO FIX //
+                }                        
+
+                    f = fopen(geotop::common::Variables::logfile.c_str(), "a");              
+                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers, par->max_weq_glac, maxSWE);
                     fclose(f);
 
                 }
@@ -1792,6 +1866,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
 
         if(par->delay_day_recover > 0){
+        	  glac->G->type.resize(glac->G->type.getRows(),glac->G->type.getCols(),2);
+        
             assign_recovered_map_long(par->recover, geotop::common::Variables::files[rni], glac->G->lnum);
             assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rDzi], glac->G->Dzl);
             assign_recovered_tensor(1, par->recover, geotop::common::Variables::files[rwli], glac->G->w_liq);
