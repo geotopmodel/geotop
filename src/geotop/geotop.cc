@@ -501,7 +501,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 ///////////////////////////////////////////////////// end of time-loop... 
 
 
-	if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);
+	//if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);
 
 }
 
