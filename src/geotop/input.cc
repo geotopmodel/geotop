@@ -1683,7 +1683,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     /***************************************************************************************************/
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
-    if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue && par->max_glac_layers==0){
+    if(geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue && par->max_glac_layers==0){
         lg->log("Glacier map present, but glacier represented with 0 layers",
                 geotop::logger::WARNING);
     }
@@ -1700,7 +1700,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         allocate_and_initialize_statevar_3D(glac->G, geotop::input::gDoubleNoValue, par->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
 
            
-        if( par->point_sim!=1 &&geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
+        if(geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
         	 lg->logf("Glacier initial condition from file %s",
            geotop::common::Variables::files[fgl0+1].c_str()); //TO FIX +1
 
