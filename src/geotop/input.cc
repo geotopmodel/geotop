@@ -1852,9 +1852,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                    }
 
                 if (par->point_sim == 1) {
-                    maxSWE = par->maxSWE[r][c]; // TO FIX // 1.E10
+                    maxSWE = 1.E10; //for snow: par->maxSWE[r][c]; // TODO
                 }else {
-                    maxSWE = 1.E10; // TO FIX //
+                    maxSWE = 1.E10;
                 }                        
 
                     f = fopen(geotop::common::Variables::logfile.c_str(), "a");              
