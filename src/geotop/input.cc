@@ -1702,7 +1702,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
            
         if(geotop::common::Variables::files[fgl0] != geotop::input::gStringNoValue ){
         	 lg->logf("Glacier initial condition from file %s",
-           geotop::common::Variables::files[fgl0+1].c_str()); //TO FIX +1
+           geotop::common::Variables::files[fgl0].c_str()); //FIXED fgl0+1
 
        	 meteoio_readMap(string(geotop::common::Variables::files[fgl0]), M);
 
@@ -2391,7 +2391,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         if(flag == 1){
         lg->logsf(geotop::logger::WARNING,
                 "Dem file %s present",
-                geotop::common::Variables::files[fdem+1].c_str());
+                geotop::common::Variables::files[fdem].c_str()); //FIXED fdem+1
 
             meteoio_readDEM(Z);
 
