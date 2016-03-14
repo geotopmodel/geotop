@@ -29,7 +29,6 @@ void meteoio_init(mio::IOManager& iomanager)
 	} catch (exception& e) {
 		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
 	}
-
 }
 
 void meteoio_deallocate()
@@ -37,49 +36,6 @@ void meteoio_deallocate()
 	if (io_prepocessing != NULL) {
 		delete io_prepocessing;
 	}
-}
-
-void parseDatAssim(const Config& cfg, Date& start_date, Date& end_date)
-{
-
-	std::string str_sd, str_ed, timezone;
-
-	cfg.getValue("TIME_ZONE", "Input", timezone);
-	double tz = atof(timezone.c_str());
-	cfg.getValue("DATE_START_HNW", "Datassim", str_sd);
-	IOUtils::convertString(start_date, str_sd, tz);
-	cfg.getValue("DATE_END_HNW", "Datassim", str_ed);
-	IOUtils::convertString(end_date, str_ed, tz);
-
-}
-
-void parseDatAssimTA(const Config& cfg, Date& start_date, Date& end_date, std::vector<std::pair<double, double> >& v_TAminmax)
-{
-
-	std::string str_sd, str_ed, timezone;
-	std::vector<std::string> min, max;
-
-	cfg.getValue("TIME_ZONE", "Input", timezone);
-	double tz = atof(timezone.c_str());
-	cfg.getValue("DATE_START_TA", "Datassim", str_sd);
-	IOUtils::convertString(start_date, str_sd, tz);
-	cfg.getValue("DATE_END_TA", "Datassim", str_ed);
-	IOUtils::convertString(end_date, str_ed, tz);
-	cfg.getValues("TAmin_ZONE", "Datassim", min);
-	cfg.getValues("TAmax_ZONE", "Datassim", max);
-
-	if (min.size() == max.size()) {
-
-		v_TAminmax.resize(max.size());
-		for (size_t i = 0; i<max.size(); i++) {
-
-			v_TAminmax[i].first = atof(min[i].c_str());
-			v_TAminmax[i].second = atof(max[i].c_str());
-
-		}
-
-	}
-
 }
 
 void meteoio_readDEM(GeoMatrix<double>& matrix)
@@ -230,13 +186,13 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
 /**
  * @brief The following piece of code is to handle snow/rain partition inside the precipitation by correcting
  * the precipitation at each station for the raincorrfact and the snowcorrfact GEOtop part_snow() method 
- * is used to perform the partitions. HNW and TA are read from the MeteoIO MeteoData and then convert TA 
+ * is used to perform the partitions. PSUM (old HNW) and TA are read from the MeteoIO MeteoData and then convert TA 
  * to celsius GEOtop part_snow() method is called for partitioning and then rain correction factor and 
  * snow correction factor are added
  *
  * NOTE: THIS FUNCTIONALITY IS IMPLEMENTED IN METEOIO, the appropriate filters need to be configured, e.g.:
- * HNW::filter3    = undercatch_wmo
- * HNW::arg3    = cst 1.3 1.1
+ * PSUM::filter3    = undercatch_wmo
+ * PSUM::arg3    = cst 1.3 1.1
  * where the arguments of the undercatch_wmo filter are "cst {factor for snow} {factor for mixed precipitation}"
  *
  * @param par      Pointer to GEOtop Par object, holding the values for rain and snow correction factors
@@ -257,7 +213,7 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
 
 		/* check for non-zero precipitation, temperature must be available */
 		if (hnw > 0 && hnw != IOUtils::nodata && ta != IOUtils::nodata) {
-			/* perform pre-processing on HNW using GEOtop part_snow method */
+			/* perform pre-processing on PSUM (old HNW) using GEOtop part_snow method */
 			part_snow(hnw, &rain, &snow, ta, par->T_rain, par->T_snow);
 
 			/* adding rain correction factor and snow correction factor */
@@ -269,7 +225,7 @@ void hnw_correction(Par* par, std::vector<mio::MeteoData>& meteo)
 /**
  * @brief This function sees if an extra IO source (io_ini_extra.ini) is configured and
  * if so attempts to get the MeteoData for the current date from the extra source. Finally
- * it copies the values for HNW and CloudFactor from the retrieved MeteoData into the already
+ * it copies the values for PSUM (old HNW) and CloudFactor from the retrieved MeteoData into the already
  * present MeteoData and copies it to the IOManager cache.
  *
  * @param current Date for the current timestep
@@ -308,547 +264,7 @@ void merge_meteo_data(Date& current, std::vector<MeteoData>& meteo)
 		cout << (*it2).toString() << endl;
 	}
 	*/
-	io->add_to_cache(current, meteo);
-}
-
-void compute_offsetGrid(const Date& current_date, const MeteoData::Parameters& i_param, const Grid2DObject& i_grid, IOManager* io_datassim, Grid2DObject& grid_diff)
-{
-
-	std::vector<MeteoData> md;
-	io_datassim->getMeteoData(current_date, md);
-
-	for (size_t station=0; station<md.size(); station++) {
-
-		MeteoData& tmpmd = md[station];
-		Coords tmpcoord = tmpmd.meta.position;
-
-		i_grid.gridify(tmpcoord);
-		size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-
-		if (tmpmd(i_param) == -9999)
-			tmpmd(MeteoData::DELTA_OFFSET) = 0;
-		else
-			tmpmd(MeteoData::DELTA_OFFSET) = tmpmd(i_param) - i_grid(j, i);
-
-	}
-
-	io_datassim->add_to_points_cache(current_date, md);
-	io_datassim->getMeteoData(current_date, dem, MeteoData::DELTA_OFFSET, grid_diff);
-
-}
-
-/**
- *
- * @brief This function is a very raw datassimilation
- * It takes info from an additional ini file -> io_datassim.ini. It needs:
- *
- * param: start_datassim The starting date of the precipitation
- * param: end_datassim   The ending date of the precipitation
- *
- * It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
- * this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
- * from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
- * value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
- * one and the WRF value, so the valid Datum is overwritten by a DELTA value.
- *
- * Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
- * object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
- * the map from WRF.
- *
- * @param[in] cfgfile_datassim The name of the ini file whit datassimilation info
- * @param[in] current_date The current date
- * @param[in] i_param The MeteoData parameter that has to be processed
- * @param[in] i_grid  The orginal map of data that has to be modified
- *
- * @author Francesco Serafin
- * @date   2015-02-25
- */
-void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, Grid2DObject& i_grid)
-{
-
-	IOManager* io_datassim = NULL;
-	mio::Config cfg(cfgfile_datassim);
-	io_datassim = new IOManager(cfg);
-
-	Date start_datassim, end_datassim;
-	Grid2DObject grid_diff;
-
-	parseDatAssim(cfg, start_datassim, end_datassim);
-
-	if (current_date >= start_datassim && current_date <= end_datassim) {
-
-		printf("#----------------------------------------------------------#\n");
-
-		if (i_param == MeteoData::PSUM) {
-
-			printf("DATASSIMILATION:\tPrecipitation\n");
-
-			compute_offsetGrid(current_date, i_param, i_grid, io_datassim, grid_diff);
-
-			i_grid += grid_diff;
-
-		} else if (i_param == MeteoData::ILWR) {
-
-			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
-
-			try {
-				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
-				i_grid *= grid_diff;
-			} catch (exception& e) {
-				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
-			}
-
-		}
-	}
-
-	delete io_datassim;
-
-}
-
-/**
- * @brief This function performs the 2D interpolations by calling the respective methods within MeteoIO
- * 1) Data is copied from MeteoIO objects to GEOtop structs
- * 2) Interpolation takes place
- * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
- * 4) TA, P and RH values need to be converted as well as nodata values
- *
- * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
- * @param matlabdate Matlab julian date for which interpolation is desired
- * @param met Pointer to the GEOtop Meteo object 
- * @param wat Pointer to the GEOtop Water object
- */
-void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
-	// We need some intermediate storage for storing the interpolated grid by MeteoIO
-	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
-	Grid2DObject ilwrgrid;// grid for the interpolated ILWR
-	Date current_date;
-	current_date.setMatlabDate(matlabdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
-
-	try {
-		// Intermediate storage for storing data sets for 1 timestep
-		std::vector<mio::MeteoData> meteo;
-
-		// Read the meteo data for the given timestep
-		io->getMeteoData(current_date, meteo);
-		merge_meteo_data(current_date, meteo);
-
-		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
-		//on the data of the given vector meteo
-		//hnw_correction(par, meteo);
-		//io->add_to_cache(current_date, meteo);
-
-		io->getMeteoData(current_date, dem, MeteoData::TA, tagrid);
-		convertToCelsius(tagrid);
-		// io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
-		
-		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
-#ifdef ILWR_PRESENT
-		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
-#endif
-		// io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
-
-		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
-		convertToMBar(pgrid); //convert from Pascal to mbar
-
-		try {
-			io->getMeteoData(current_date, dem, MeteoData::VW, vwgrid);
-			changeVWgrid(vwgrid, par->Vmin); 
-		} catch (exception& e) {
-			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
-		}
-
-		try {
-			io->getMeteoData(current_date, dem, MeteoData::DW, dwgrid);
-		} catch (exception& e) {
-		   changeGrid(dwgrid, 90); //if something goes wrong, set to 90 degrees everywhere
-		}
-
-		io->getMeteoData(current_date, dem, MeteoData::PSUM, hnwgrid);
-
-		string cfgfile_datassim = "io_datassim.ini";
-		if (IOUtils::fileExists(cfgfile_datassim)) {
-			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::PSUM, hnwgrid);
-			pseudo_datassim_TA(cfgfile_datassim, current_date, hnwgrid, tagrid);
-
-			// ostringstream ss;
-			// ss << current_date.toString(Date::ISO) << "_TA_DA.asc";
-			// io->write2DGrid(hnwgrid, MeteoGrids::HNW, current_date);
-			// io->write2DGrid(tagrid, ss.str());
-		}
-
-		//io.write2DGrid(vwgrid, "vw_change.asc");
-	} catch (exception& e) {
-		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
-	}
-
-	cout << "[MeteoIO] Start copying Grid to GEOtop format: " << endl;
-
-	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
-	// Now copy all that data to the appropriate GEOtop grids
-	copyGridToMatrix(tagrid, met->Tgrid);
-	copyGridToMatrix(rhgrid, met->RHgrid);
-	copyGridToMatrix(pgrid, met->Pgrid);
-	copyGridToMatrix(vwgrid, met->Vgrid);
-	copyGridToMatrix(dwgrid, met->Vdir);
-	copyGridToMatrix(hnwgrid, wat->PrecTot, thr_min, val_min, thr_max, val_max);
-#ifdef ILWR_PRESENT
-	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
-#endif
-}
-
-/**
- *
- * @brief This function is a very raw datassimilation
- * It takes info from an additional ini file -> io_datassim.ini. It needs:
- *
- * param: start_datassim The starting date of the precipitation
- * param: end_datassim   The ending date of the precipitation
- *
- * It gets Meteo Data from Meteo Stations for the current date. It obtains the Iprec value for every station,
- * this one is compared with the corresponding Iprec value got at the same coordinate of the interpolated map
- * from WRF data. If the station has NoData value, this is overwritten by 0 (assuming WRF value as correct
- * value), otherwise if the station has a valid Datum, this is overwritten by the difference between this last
- * one and the WRF value, so the valid Datum is overwritten by a DELTA value.
- *
- * Summarizing, now every Station (MeteoIO object) has a DELTA value of precipitation. Adding this MeteoIO
- * object to point cache, it is possible to get the interpolated map of DELTA values and sum this map at
- * the map from WRF.
- *
- * @param[in] cfgfile_datassim The name of the ini file whit datassimilation info
- * @param[in] current_date The current date
- * @param[in] i_param The MeteoData parameter that has to be processed
- * @param[in] i_grid  The orginal map of data that has to be modified
- *
- * @author francescoS
- */
-void pseudo_datassim(const string& cfgfile_datassim, const Date& current_date, const MeteoData::Parameters& i_param, std::vector<Coords>& pointsVec, std::vector<double>& i_result)
-{
-
-	IOManager* io_datassim = NULL;
-	mio::Config cfg(cfgfile_datassim);
-	io_datassim = new IOManager(cfg);
-
-	Date start_datassim, end_datassim;
-	Grid2DObject i_grid, grid_diff;
-	std::vector<double> v_diff;
-
-	parseDatAssim(cfg, start_datassim, end_datassim);
-
-	if (current_date >= start_datassim && current_date <= end_datassim) {
-
-		printf("#----------------------------------------------------------#\n");
-
-		if (i_param == MeteoData::PSUM) {
-
-			printf("DATASSIMILATION:\tPrecipitation\n");
-
-			io->getMeteoData(current_date, dem, MeteoData::PSUM, i_grid);
-
-			compute_offsetGrid(current_date, i_param, i_grid, io_datassim, grid_diff);
-
-			std::ostringstream ss;
-
-			i_grid += grid_diff;
-			ss << current_date.toString(mio::Date::ISO) << "-PSUM.asc";
-			// io->write2DGrid(i_grid, ss.str());
-
-			// std::ofstream fout;
-			// std::string name="Iprec_wrfda.txt";
-			// fout.open(name.c_str(), std::fstream::out | std::ofstream::app);
-
-			// fout << current_date.toString(mio::Date::ISO_TZ);
-
-			for (size_t point=0; point<pointsVec.size(); point++) {
-
-				Coords& tmpcoord = pointsVec[point];
-
-				// fout << "," << resultHnw[point];
-				grid_diff.gridify(tmpcoord);
-				size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-				i_result[point] += grid_diff(j, i);
-
-				// fout << "," << grid_diff(j,i) <<  "," << resultHnw[point];
-
-			}
-
-			// fout << "\n";
-			// fout.close();
-
-		} else if (i_param == MeteoData::ILWR) {
-
-			printf("DATASSIMILATION:\tIncoming Longwave Radiation\n");
-
-			try {
-				io_datassim->read2DGrid(grid_diff, "ilwr_perc.asc");
-
-				for (size_t point=0; point<pointsVec.size(); point++) {
-
-					Coords& tmpcoord = pointsVec[point];
-
-					grid_diff.gridify(tmpcoord);
-					size_t j = tmpcoord.getGridI(), i = tmpcoord.getGridJ();
-					double tmp = i_result[point] * grid_diff(j, i);
-					i_result[point] = i_result[point] - tmp;
-
-				}
-
-			} catch (exception& e) {
-				cerr << "[ERROR] MeteoIO: " << e.what() << endl;
-			}
-		}
-	}
-
-	delete io_datassim;
-
-}
-
-void pseudo_datassim_TA(string& cfg, Date& current_date, Grid2DObject& i_hnwgrid, Grid2DObject&  i_tagrid)
-{
-
-	Date start_datassim, end_datassim;
-	std::vector<std::pair<double, double> > v_TAminmax; // every element of this vector contains the min max threshold for snow elevation
-	parseDatAssimTA(cfg, start_datassim, end_datassim, v_TAminmax);
-
-	if (current_date >= start_datassim && current_date <= end_datassim) {
-
-		printf("#----------------------------------------------------------#\n");
-		printf("DATASSIMILATION:\tTemperature\n");
-
-		Coords tmpcoord(dem.llcorner);
-		double cellsize = dem.cellsize;
-		Grid2DObject ta_zone;
-		IOManager* io_datassim = new IOManager(cfg);
-		io_datassim->read2DGrid(ta_zone, "zone.asc");
-
-		tmpcoord.moveByXY(0.5*cellsize, 0.5*cellsize);
-
-		size_t ncols = dem.getNx();
-		size_t nrows = dem.getNy();
-		double thresh_prec = 0.5; // threshold on precipitation necessary to activate TA "assimilation"
-		for (size_t i=0; i<nrows; i++) {
-
-			for (size_t j=0; j<ncols; j++) {
-
-				dem.gridify(tmpcoord);
-				const size_t in_lon = tmpcoord.getGridI(), in_lat = tmpcoord.getGridJ();
-				float z = dem.grid2D(in_lon, in_lat);
-				if ( z != IOUtils::nodata && i_hnwgrid.grid2D(in_lon, in_lat) > thresh_prec) {
-
-					ta_zone.gridify(tmpcoord);
-					const size_t ta_lon = tmpcoord.getGridI(), ta_lat = tmpcoord.getGridJ();
-					double zone = ta_zone.grid2D(ta_lon, ta_lat);
-					if (zone != IOUtils::nodata && zone <= v_TAminmax.size()) {
-
-						double min = v_TAminmax[zone-1].first;
-						double max = v_TAminmax[zone-1].second;
-						i_tagrid.grid2D(in_lon, in_lat) = computeTA(z, i_tagrid.grid2D(in_lon, in_lat), tmpcoord, min, max);
-
-					}
-
-				}
-				tmpcoord.moveByXY(cellsize, 0);
-
-			}
-
-			tmpcoord.moveByXY(-cellsize*ncols, cellsize);
-		}
-
-	delete io_datassim;
-	
-	}
-
-}
-
-void pseudo_datassim_TA_pointwise(std::string& cfg, Date& current_date, std::vector<Coords>& pointsVec, std::vector<double>& resultHnw, std::vector<double>& resultTA)
-{
-
-	Date start_datassim, end_datassim;
-	std::vector<std::pair<double, double> > v_TAminmax; // every element of this vector contains the min max threshold for snow elevation
-	parseDatAssimTA(cfg, start_datassim, end_datassim, v_TAminmax);
-
-	if (current_date >= start_datassim && current_date <= end_datassim) {
-
-		printf("#----------------------------------------------------------#\n");
-		printf("DATASSIMILATION:\tTemperature\n");
-
-		IOManager* io_datassim = new IOManager(cfg);
-		Grid2DObject ta_zone;
-		io_datassim->read2DGrid(ta_zone, "zone.asc");
-
-		size_t npoint = pointsVec.size();
-		double thresh_prec = 0.5; // threshold on precipitation necessary to activate TA "assimilation"
-		for (size_t point=0; point<npoint; point++) {
-
-			if (resultHnw[point] > thresh_prec) {
-
-				Coords tmpcoord = pointsVec[point];
-				Coords ta_tmpcoord = pointsVec[point];
-				dem.gridify(tmpcoord);
-				size_t i = tmpcoord.getGridI(), j = tmpcoord.getGridJ();
-				float z = dem.grid2D(i, j);
-
-				ta_zone.gridify(ta_tmpcoord);
-				const size_t ta_lon = ta_tmpcoord.getGridI(), ta_lat = ta_tmpcoord.getGridJ();
-				double zone = ta_zone.grid2D(ta_lon, ta_lat);
-				if (zone != IOUtils::nodata && zone <= v_TAminmax.size()) {
-
-					double min = v_TAminmax[zone-1].first;
-					double max = v_TAminmax[zone-1].second;
-
-					// std::cout << "Prec: " << resultHnw[point] << std::endl;
-					resultTA[point] = computeTA(z, resultTA[point], tmpcoord, min, max);
-				}
-
-			}
-
-		}
-
-		delete io_datassim;
-
-	}
-
-}
-
-double computeTA(float& z, double& ta, Coords& point, double& zmin, double& zmax)
-{
-
-    // float zmin=min, zmax=max;
-    float t_snow=0, t_rain=2;
-    double t_out=ta;
-
-    if (z < zmin){
-       if(ta < t_rain) {//simulated snow when it actually rains
-	 t_out = t_rain;// correct temperature to rain threshold
-       }
-    }else if (z > zmax){
-       if(ta > t_snow){//simulated rain when it actually snows
-	  t_out = t_snow;// correct temperature to snow threshold
-       }
-    }else{
-	if (ta < t_snow || ta > t_rain){
-	    t_out = t_rain - (t_rain - t_snow) * (z - zmin) / (zmax - zmin);
-	}
-    }
-
-    // std::cout << "TA: " << ta << "Quota: " << z << "Tout: " << t_out << std::endl;getchar();
-
-    return t_out;
-
-}
-
-/**
- * @brief This function performs point wise interpolations by calling the respective methods within MeteoIO
- * 1) Data is copied from MeteoIO objects to GEOtop structs
- * 2) Interpolation takes place
- * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
- * 4) TA, P and RH values need to be converted as well as nodata values
- *
- * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
- * @param currentdate Matlab julian date for which interpolation is desired
- * @param met Pointer to the GEOtop Meteo object 
- * @param wat Pointer to the GEOtop Water object
- */
-void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Water* wat)
-{
-	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw, resultHnw;
-	std::vector<double> resultILWR;
-	Date d1;
-	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
-
-	try {
-		// Intermediate storage for storing data sets for 1 timestep
-		std::vector<mio::MeteoData> meteo;
-
-		// Read the meteo data for the given timestep
-		io->getMeteoData(d1, meteo);
-
-		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
-		//on the data of the given vector meteo
-		//hnw_correction(par, meteo);
-		//io->add_to_cache(d1, meteo);
-
-		//Prepare the points
-		Coords point;
-		double eastX, northY;
-		std::vector<Coords> pointsVec; //create a vector of Coords objects
-
-		//Read the X,Y points listed in the GEOtop ListPoint file and prepare a vector to push in the MeteoIO interpolation
-
-		for (size_t i = 1; i < par->chkpt.getRows(); i++) { 		//	for (int i = 1; i <= par->chkpt->nrh; i++) {
-			eastX = par->chkpt[i][ptX];  //eastX  = par->chkpt->co[i][ptX];
-			northY = par->chkpt[i][ptY]; //northY = par->chkpt->co[i][ptY];
-			point.setXY(eastX, northY, IOUtils::nodata);
-			pointsVec.push_back(point);
-		}
-
-		std::cout << "\n[MeteoIO] Time to interpolate Point wise: " << d1.toString(Date::ISO) << std::endl;
-
-		//Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them
-		io->interpolate(d1, dem, MeteoData::TA, pointsVec, resultTa);
-		for (size_t i = 0; i < resultTa.size(); i++) { //change TA values
-			if (resultTa[i] != IOUtils::nodata) resultTa[i] -= GTConst::tk; //back to celsius
-		}
-
-		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
-#ifdef ILWR_PRESENT
-		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
-#endif
-		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
-		for (size_t i = 0; i < resultP.size(); i++) { //change P values
-			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
-		}
-
-		try {
-			io->interpolate(d1, dem, MeteoData::VW, pointsVec, resultVw);
-		} catch (std::exception& e) {
-			/* change VW values, if the measured value is less than the user given vmin value then set the vmin */
-			for (size_t i = 0; i < resultVw.size(); i++) {
-				if (resultVw[i] != IOUtils::nodata && resultVw[i] < par->Vmin) {
-					resultVw[i] = par->Vmin; //set GEOtop vw min value
-				}
-			}
-		}
-
-		try {
-			io->interpolate(d1, dem, MeteoData::DW, pointsVec, resultDw);
-		} catch (std::exception& e) {
-			/* change DW values to a user given  value */
-			for (size_t i = 0; i < resultDw.size(); i++) {
-				if (resultDw[i] != IOUtils::nodata) {
-					resultDw[i] = 90;
-				}
-			}
-		}
-
-		io->interpolate(d1, dem, MeteoData::PSUM, pointsVec, resultHnw);
-
-		string cfgfile_datassim = "io_datassim.ini";
-		if (IOUtils::fileExists(cfgfile_datassim)) {
-
-			pseudo_datassim(cfgfile_datassim, d1, MeteoData::PSUM, pointsVec, resultHnw);
-			pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
-
-			// pseudo_datassim(cfgfile_datassim, d1, MeteoData::ILWR, pointsVec, resultILWR);
-
-		}
-
-	} catch (std::exception& e) {
-		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
-	}
-
-	cout << "[MeteoIO] Start copying point data to GEOtop format: " << endl;
-	/* Now copy all that MeteoIO interpolated data to the appropriate GEOtop grids */
-
-	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
-	copyGridToMatrixPointWise(resultTa, met->Tgrid);
-	copyGridToMatrixPointWise(resultRh, met->RHgrid);
-	copyGridToMatrixPointWise(resultP, met->Pgrid);
-	copyGridToMatrixPointWise(resultDw, met->Vdir);
-	copyGridToMatrixPointWise(resultVw, met->Vgrid);
-	copyGridToMatrixPointWise(resultHnw, wat->PrecTot, thr_min, val_min, thr_max, val_max);
-#ifdef ILWR_PRESENT
-	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
-#endif
+	io->add_to_points_cache(current, meteo);
 }
 
 double tDew(double T, double RH, double P)
@@ -1146,3 +562,212 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
 	}
 }
+
+/**
+ * @brief This function performs the 2D interpolations by calling the respective methods within MeteoIO
+ * 1) Data is copied from MeteoIO objects to GEOtop structs
+ * 2) Interpolation takes place
+ * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
+ * 4) TA, P and RH values need to be converted as well as nodata values
+ *
+ * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
+ * @param matlabdate Matlab julian date for which interpolation is desired
+ * @param met Pointer to the GEOtop Meteo object 
+ * @param wat Pointer to the GEOtop Water object
+ */
+void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
+	// We need some intermediate storage for storing the interpolated grid by MeteoIO
+	Grid2DObject tagrid, rhgrid, pgrid, vwgrid, dwgrid, hnwgrid, cloudwgrid;
+	Grid2DObject ilwrgrid;// grid for the interpolated ILWR
+	Date current_date;
+	current_date.setMatlabDate(matlabdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date 
+
+	try {
+		// Intermediate storage for storing data sets for 1 timestep
+		std::vector<mio::MeteoData> meteo;
+
+		// Read the meteo data for the given timestep
+		io->getMeteoData(current_date, meteo);
+		merge_meteo_data(current_date, meteo);
+
+		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
+		//on the data of the given vector meteo
+		//hnw_correction(par, meteo);
+		//io->add_to_cache(current_date, meteo);
+
+		io->getMeteoData(current_date, dem, MeteoData::TA, tagrid);
+		convertToCelsius(tagrid);
+		// io->write2DGrid(tagrid, MeteoGrids::TA, current_date);
+		
+		io->getMeteoData(current_date, dem, MeteoData::RH, rhgrid); //values as fractions from [0;1]
+#ifdef ILWR_PRESENT
+		io->getMeteoData(current_date, dem, MeteoData::ILWR, ilwrgrid); //TODO: to be added once WRF has ilwr
+#endif
+		// io->write2DGrid(ilwrgrid, MeteoGrids::ILWR, current_date);
+
+		io->getMeteoData(current_date, dem, MeteoData::P, pgrid);
+		convertToMBar(pgrid); //convert from Pascal to mbar
+
+		try {
+			io->getMeteoData(current_date, dem, MeteoData::VW, vwgrid);
+			changeVWgrid(vwgrid, par->Vmin); 
+		} catch (exception& e) {
+			changeVWgrid(vwgrid, par->Vmin); //if something goes wrong, set to Vmin everywhere
+		}
+
+		try {
+			io->getMeteoData(current_date, dem, MeteoData::DW, dwgrid);
+		} catch (exception& e) {
+		   changeGrid(dwgrid, 90); //if something goes wrong, set to 90 degrees everywhere
+		}
+
+		io->getMeteoData(current_date, dem, MeteoData::PSUM, hnwgrid);
+
+#ifdef USE_DA_PLUGIN
+		string cfgfile_datassim = "io_datassim.ini";
+		if (IOUtils::fileExists(cfgfile_datassim)) {
+			pseudo_datassim(cfgfile_datassim, current_date, MeteoData::PSUM, hnwgrid);
+			pseudo_datassim_TA(cfgfile_datassim, current_date, hnwgrid, tagrid);
+
+			// ostringstream ss;
+			// ss << current_date.toString(Date::ISO) << "_TA_DA.asc";
+			// io->write2DGrid(hnwgrid, MeteoGrids::PSUM, current_date);
+			// io->write2DGrid(tagrid, ss.str());
+		}
+#endif
+		//io.write2DGrid(vwgrid, "vw_change.asc");
+	} catch (exception& e) {
+		cerr << "[ERROR] MeteoIO: " << e.what() << endl;
+	}
+
+	cout << "[MeteoIO] Start copying Grid to GEOtop format: " << endl;
+
+	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
+	// Now copy all that data to the appropriate GEOtop grids
+	copyGridToMatrix(tagrid, met->Tgrid);
+	copyGridToMatrix(rhgrid, met->RHgrid);
+	copyGridToMatrix(pgrid, met->Pgrid);
+	copyGridToMatrix(vwgrid, met->Vgrid);
+	copyGridToMatrix(dwgrid, met->Vdir);
+	copyGridToMatrix(hnwgrid, wat->PrecTot, thr_min, val_min, thr_max, val_max);
+#ifdef ILWR_PRESENT
+	copyGridToMatrix(ilwrgrid, met->ILWRgrid);
+#endif
+}
+
+/**
+ * @brief This function performs point wise interpolations by calling the respective methods within MeteoIO
+ * 1) Data is copied from MeteoIO objects to GEOtop structs
+ * 2) Interpolation takes place
+ * 3) Gridded data copied back to GEOtop DOUBLEMATRIX
+ * 4) TA, P and RH values need to be converted as well as nodata values
+ *
+ * @param par Pointer to the GEOtop Par object, holding geotop.inpts configuration
+ * @param currentdate Matlab julian date for which interpolation is desired
+ * @param met Pointer to the GEOtop Meteo object 
+ * @param wat Pointer to the GEOtop Water object
+ */
+void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Water* wat)
+{
+	std::vector<double> resultTa, resultRh, resultP, resultVw, resultDw, resultHnw;
+	std::vector<double> resultILWR;
+	Date d1;
+	d1.setMatlabDate(currentdate, geotop::common::Variables::TZ); // GEOtop use matlab offset of julian date
+
+	try {
+		// Intermediate storage for storing data sets for 1 timestep
+		std::vector<mio::MeteoData> meteo;
+
+		// Read the meteo data for the given timestep
+		io->getMeteoData(d1, meteo);
+
+		//Bypass the internal reading of MeteoData and to performed processing and interpolation 
+		//on the data of the given vector meteo
+		//hnw_correction(par, meteo);
+		//io->add_to_cache(d1, meteo);
+
+		//Prepare the points
+		Coords point;
+		double eastX, northY;
+		std::vector<Coords> pointsVec; //create a vector of Coords objects
+
+		//Read the X,Y points listed in the GEOtop ListPoint file and prepare a vector to push in the MeteoIO interpolation
+
+		for (size_t i = 1; i < par->chkpt.getRows(); i++) { 		//	for (int i = 1; i <= par->chkpt->nrh; i++) {
+			eastX = par->chkpt[i][ptX];  //eastX  = par->chkpt->co[i][ptX];
+			northY = par->chkpt[i][ptY]; //northY = par->chkpt->co[i][ptY];
+			point.setXY(eastX, northY, IOUtils::nodata);
+			pointsVec.push_back(point);
+		}
+
+		std::cout << "\n[MeteoIO] Time to interpolate Point wise: " << d1.toString(Date::ISO) << std::endl;
+
+		//Push the coordinate list in the MeteoIO interpolate method tom perform the interpolation on them
+		io->interpolate(d1, dem, MeteoData::TA, pointsVec, resultTa);
+		for (size_t i = 0; i < resultTa.size(); i++) { //change TA values
+			if (resultTa[i] != IOUtils::nodata) resultTa[i] -= GTConst::tk; //back to celsius
+		}
+
+		io->interpolate(d1, dem, MeteoData::RH, pointsVec, resultRh);
+#ifdef ILWR_PRESENT
+		io->interpolate(d1, dem, MeteoData::ILWR, pointsVec, resultILWR);//TODO: to be added once WRF has ilwr
+#endif
+		io->interpolate(d1, dem, MeteoData::P, pointsVec, resultP);
+		for (size_t i = 0; i < resultP.size(); i++) { //change P values
+			if (resultP[i] != IOUtils::nodata) resultP[i] /= 100.0;
+		}
+
+		try {
+			io->interpolate(d1, dem, MeteoData::VW, pointsVec, resultVw);
+		} catch (std::exception& e) {
+			/* change VW values, if the measured value is less than the user given vmin value then set the vmin */
+			for (size_t i = 0; i < resultVw.size(); i++) {
+				if (resultVw[i] != IOUtils::nodata && resultVw[i] < par->Vmin) {
+					resultVw[i] = par->Vmin; //set GEOtop vw min value
+				}
+			}
+		}
+
+		try {
+			io->interpolate(d1, dem, MeteoData::DW, pointsVec, resultDw);
+		} catch (std::exception& e) {
+			/* change DW values to a user given  value */
+			for (size_t i = 0; i < resultDw.size(); i++) {
+				if (resultDw[i] != IOUtils::nodata) {
+					resultDw[i] = 90;
+				}
+			}
+		}
+
+		io->interpolate(d1, dem, MeteoData::PSUM, pointsVec, resultHnw);
+#ifdef USE_DA_PLUGIN
+		string cfgfile_datassim = "io_datassim.ini";
+		if (IOUtils::fileExists(cfgfile_datassim)) {
+
+			pseudo_datassim(cfgfile_datassim, d1, MeteoData::PSUM, pointsVec, resultHnw);
+			pseudo_datassim_TA_pointwise(cfgfile_datassim, d1, pointsVec, resultHnw, resultTa);
+
+			// pseudo_datassim(cfgfile_datassim, d1, MeteoData::ILWR, pointsVec, resultILWR);
+
+		}
+#endif
+	} catch (std::exception& e) {
+		std::cerr << "[ERROR] MeteoIO: " << e.what() << std::endl;
+	}
+
+	cout << "[MeteoIO] Start copying point data to GEOtop format: " << endl;
+	/* Now copy all that MeteoIO interpolated data to the appropriate GEOtop grids */
+
+	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
+	copyGridToMatrixPointWise(resultTa, met->Tgrid);
+	copyGridToMatrixPointWise(resultRh, met->RHgrid);
+	copyGridToMatrixPointWise(resultP, met->Pgrid);
+	copyGridToMatrixPointWise(resultDw, met->Vdir);
+	copyGridToMatrixPointWise(resultVw, met->Vgrid);
+	copyGridToMatrixPointWise(resultHnw, wat->PrecTot, thr_min, val_min, thr_max, val_max);
+#ifdef ILWR_PRESENT
+	copyGridToMatrixPointWise(resultILWR, met->ILWRgrid);//TODO: to be added once WRF has ilwr
+#endif
+}
+
+
