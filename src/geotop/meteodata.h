@@ -19,8 +19,8 @@
  
  */
 
-#ifndef METEODATA_H
-#define METEODATA_H
+#ifndef METEODATA2_H
+#define METEODATA2_H
 
 #include "struct.geotop.h"
 #include "constants.h"
