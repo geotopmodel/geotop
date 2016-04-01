@@ -49,9 +49,11 @@ OutputGlacierMaps	=	0
 
 NumberOfMeteoStations = 1
 ! order of stations: One rain gauge 
-MeteoStationCoordinateX = 0
-MeteoStationCoordinateY = 0
-MeteoStationElevation = 0
+MeteoStationCoordinateX=0
+MeteoStationCoordinateY=0
+MeteoStationLatitude=0
+MeteoStationLongitude=0
+MeteoStationElevation=0
 MeteoStationWindVelocitySensorHeight = 10
 MeteoStationTemperatureSensorHeight = 10
 
