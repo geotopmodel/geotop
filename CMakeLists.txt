@@ -346,3 +346,39 @@ SET(CPACK_SOURCE_IGNORE_FILES
 )
 
 INCLUDE(CPack)
+
+###################### CTEST ######################################
+### added by S.Cozzini: maybe it should be set in a separate file #
+###################################################################
+enable_testing()
+
+add_test(NAME small-example
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/small_example
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME small-example-channel
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/small_example-channel
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME prealpiC
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/prealpiC
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME Bro 
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Bro
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME Calabria
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Calabria
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME panola
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/panola
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME Mazia
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Mazia
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME example
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/example
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME no_reflection
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/no_reflection
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME PSQL_test 
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/PSQL_test
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
