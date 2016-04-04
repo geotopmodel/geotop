@@ -352,33 +352,61 @@ INCLUDE(CPack)
 ###################################################################
 enable_testing()
 
-add_test(NAME small-example
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/small_example
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME small-example-channel
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/small_example-channel
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME prealpiC
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/prealpiC
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME Bro 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Bro
+
+#1D tests 
+
+add_test(NAME Bro
+	 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Bro
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME Calabria
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Calabria
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Calabria
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME Jungfraujoch 
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Jungfraujoch
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME generic_1 
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/generic_1
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME ColdelaPorte
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+
+#3D tests
+
+
+add_test(NAME small-example
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME small-example-onlyEnergy
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-onlyEnergy
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME small-example-channel
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-channel
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME prealpiC
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/prealpiC
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME panola
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/panola
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/panola
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME Mazia
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/Mazia
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Mazia
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME example
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/example
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/example
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME no_reflection
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/no_reflection
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/no_reflection
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME PSQL_test 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/test_sample_run/PSQL_test
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/PSQL_test
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME bonn_1
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_1
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME bonn_2
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_2
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+add_test(NAME Borden05m_nopit_001 
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Borden05m_nopit_001
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )

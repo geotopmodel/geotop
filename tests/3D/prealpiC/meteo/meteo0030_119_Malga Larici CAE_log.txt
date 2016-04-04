@@ -1,0 +1,4 @@
+start date 2013-10-15 12:00:00 end date 2014-01-29 08:00:00 sum HNd 216 sum HNh 207
+sum Iprec 248.11 max Iprec 14.72
+start date 2013-10-15 12:00:00 end date 2014-01-29 08:00:00 sum HNd 216 sum HNh 207
+sum Iprec 248.11 max Iprec 14.72

@@ -1,0 +1,154 @@
+STATEMENT:
+
+GEOtop 2.0.0 'MOAB' - 9 Mar 2012
+
+Copyright (c), 2012 - Stefano Endrizzi 
+
+TN -EXACT version (tmp)
+
+GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/PSQL_test
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 6503 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 10, of which 2 at the bottom, 3 in the middle, and 5 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	3 4 5 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+
+Soil Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Soil Bedrock Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+[NOTICE]: /Users/cozzini/GEOTOP/github/geotop/tests/3D/PSQL_test/ListPoints.txt
+[NOTICE]: EXISTING in format 3
+[NOTICE]: EXISTING in format 3
+[NOTICE]: par->state_pixel=1
+
+[NOTICE]: EXISTING in format 3
+[NOTICE]: not present in file list
+[NOTICE]: EXISTING in format 3
+[NOTICE]: EXISTING in format 3
+[NOTICE]: Slope Min:           0 (           0 deg) Max:      2.0503 (          64 deg)
+[NOTICE]: EXISTING in format 3
+[NOTICE]: Curvature N-S Min:    -0.01595  Max:      0.0143 
+
+[NOTICE]: Curvature W-E Min:    -0.02015  Max:    0.017175 
+
+[NOTICE]: Curvature NW-SE Min:   -0.017925  Max:       0.015 
+
+[NOTICE]: Curvature NE-SW Min:   -0.029475  Max:    0.017475 
+
+[NOTICE]: not present in file list
+[NOTICE]: Valid pixels: 52154
+[NOTICE]: Number of nodes: 208616
+[NOTICE]: Novalue pixels: 946
+[NOTICE]: Basin area:      2086.16 km2
+[NOTICE]: Valid pixels: 52154
+[NOTICE]: Number of nodes: 208616
+[NOTICE]: Novalue pixels: 946
+[NOTICE]: Basin area:      2086.16 km2
+[WARNING]: Horizon file FOUND for meteo station #1
+[WARNING]: Horizon file FOUND for meteo station #2
+[WARNING]: Horizon file FOUND for meteo station #3
+[WARNING]: Horizon file FOUND for meteo station #4
+[WARNING]: Horizon file FOUND for meteo station #5
+[WARNING]: Horizon file FOUND for meteo station #6
+[WARNING]: Horizon file FOUND for meteo station #7
+[WARNING]: Horizon file FOUND for meteo station #8
+[WARNING]: Horizon file FOUND for meteo station #9
+[WARNING]: Horizon file FOUND for meteo station #10
+[NOTICE]: Shortwave radiation measurements from station 1
+
+[NOTICE]: Cloudiness measurements from station 1
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      676605, 5.12017e+06,     46.2122,     11.2896,         660,           1,           1,           2,           5
+2,      639928, 5.11488e+06,     46.1731,     10.8128,        1899,           1,           1,           2,           5
+3,      645148, 5.14402e+06,     46.4341,     10.8894,        1815,           1,           1,           2,           5
+4,      715504, 5.12701e+06,     46.2625,     11.7964,        1470,           1,           1,           2,           5
+5,      641429, 5.12299e+06,     46.2458,     10.8346,        1775,           1,           1,           2,           5
+6,      677362, 5.13517e+06,     46.3469,      11.305,         250,           1,           1,           2,           5
+7,      668504, 5.12262e+06,     46.2363,     11.1855,         212,           1,           1,           2,           5
+8,      635701, 5.11294e+06,     46.1565,     10.7575,         760,           1,           1,           2,           5
+9,      682420, 5.12759e+06,     46.2774,     11.3678,        1209,           1,           1,           2,           5
+10,      677634, 5.14181e+06,     46.4065,     11.3111,         226,           1,           1,           2,           5
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 2.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 11 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 3 layers
+[NOTICE]: Duration of simulation: 3.565837
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+

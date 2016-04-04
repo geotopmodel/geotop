@@ -1,0 +1,135 @@
+STATEMENT:
+
+GEOtop 2.0.0 'MOAB' - 9 Mar 2012
+
+Copyright (c), 2012 - Stefano Endrizzi 
+
+TN -EXACT version (tmp)
+
+GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/1D/Bro
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 4454 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 24, of which 4 at the bottom, 10 in the middle, and 10 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	5 6 7 8 9 10 11 12 13 14 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+
+Soil Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 300.000000(3.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 400.000000(4.00e+02), 400.000000(4.00e+02), 400.000000(4.00e+02), 500.000000(5.00e+02), 500.000000(5.00e+02), 500.000000(5.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01)
+HeaderNormalHydrConductivity: 0.039431(3.94e-02), 0.021344(2.13e-02), 0.013360(1.34e-02), 0.084523(8.45e-02), 0.093794(9.38e-02), 0.068928(6.89e-02), 0.035180(3.52e-02), 0.074933(7.49e-02), 0.083687(8.37e-02), 0.055853(5.59e-02)
+HeaderLateralHydrConductivity: 0.039315(3.93e-02), 0.021559(2.16e-02), 0.013467(1.35e-02), 0.020183(2.02e-02), 0.087159(8.72e-02), 0.066080(6.61e-02), 0.086226(8.62e-02), 0.089396(8.94e-02), 0.014179(1.42e-02), 0.037512(3.75e-02)
+HeaderThetaRes: 0.150652(1.51e-01), 0.101684(1.02e-01), 0.021219(2.12e-02), 0.195659(1.96e-01), 0.092257(9.23e-02), 0.031728(3.17e-02), 0.161518(1.62e-01), 0.087217(8.72e-02), 0.121868(1.22e-01), 0.005638(5.64e-03)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.467158(4.67e-01), 0.239392(2.39e-01), 0.722999(7.23e-01), 0.655764(6.56e-01), 0.299478(2.99e-01), 0.227873(2.28e-01), 0.818020(8.18e-01), 0.180142(1.80e-01), 0.813523(8.14e-01), 0.366966(3.67e-01)
+HeaderThetaSat: 0.465964(4.66e-01), 0.426451(4.26e-01), 0.382489(3.82e-01), 0.435836(4.36e-01), 0.377497(3.77e-01), 0.471783(4.72e-01), 0.434200(4.34e-01), 0.376873(3.77e-01), 0.355574(3.56e-01), 0.456236(4.56e-01)
+HeaderAlpha: 0.007628(7.63e-03), 0.007627(7.63e-03), 0.007586(7.59e-03), 0.007652(7.65e-03), 0.005253(5.25e-03), 0.001352(1.35e-03), 0.001526(1.53e-03), 0.005314(5.31e-03), 0.009132(9.13e-03), 0.001874(1.87e-03)
+HeaderN: 1.228751(1.23e+00), 1.150467(1.15e+00), 1.851114(1.85e+00), 1.650861(1.65e+00), 1.873253(1.87e+00), 2.270823(2.27e+00), 2.390076(2.39e+00), 2.386325(2.39e+00), 2.518239(2.52e+00), 1.523029(1.52e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.010777(1.08e-02), 0.099621(9.96e-02), 0.026698(2.67e-02), 0.048954(4.90e-02), 0.081497(8.15e-02), 0.064488(6.45e-02), 0.054913(5.49e-02), 0.021484(2.15e-02), 0.042151(4.22e-02), 0.083374(8.34e-02)
+
+Soil Bedrock Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 300.000000(3.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 400.000000(4.00e+02), 400.000000(4.00e+02), 400.000000(4.00e+02), 500.000000(5.00e+02), 500.000000(5.00e+02), 500.000000(5.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01), 15.000000(1.50e+01)
+HeaderNormalHydrConductivity: 0.039431(3.94e-02), 0.021344(2.13e-02), 0.013360(1.34e-02), 0.084523(8.45e-02), 0.093794(9.38e-02), 0.068928(6.89e-02), 0.035180(3.52e-02), 0.074933(7.49e-02), 0.083687(8.37e-02), 0.055853(5.59e-02)
+HeaderLateralHydrConductivity: 0.039315(3.93e-02), 0.021559(2.16e-02), 0.013467(1.35e-02), 0.020183(2.02e-02), 0.087159(8.72e-02), 0.066080(6.61e-02), 0.086226(8.62e-02), 0.089396(8.94e-02), 0.014179(1.42e-02), 0.037512(3.75e-02)
+HeaderThetaRes: 0.150652(1.51e-01), 0.101684(1.02e-01), 0.021219(2.12e-02), 0.195659(1.96e-01), 0.092257(9.23e-02), 0.031728(3.17e-02), 0.161518(1.62e-01), 0.087217(8.72e-02), 0.121868(1.22e-01), 0.005638(5.64e-03)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.467158(4.67e-01), 0.239392(2.39e-01), 0.722999(7.23e-01), 0.655764(6.56e-01), 0.299478(2.99e-01), 0.227873(2.28e-01), 0.818020(8.18e-01), 0.180142(1.80e-01), 0.813523(8.14e-01), 0.366966(3.67e-01)
+HeaderThetaSat: 0.465964(4.66e-01), 0.426451(4.26e-01), 0.382489(3.82e-01), 0.435836(4.36e-01), 0.377497(3.77e-01), 0.471783(4.72e-01), 0.434200(4.34e-01), 0.376873(3.77e-01), 0.355574(3.56e-01), 0.456236(4.56e-01)
+HeaderAlpha: 0.007628(7.63e-03), 0.007627(7.63e-03), 0.007586(7.59e-03), 0.007652(7.65e-03), 0.005253(5.25e-03), 0.001352(1.35e-03), 0.001526(1.53e-03), 0.005314(5.31e-03), 0.009132(9.13e-03), 0.001874(1.87e-03)
+HeaderN: 1.228751(1.23e+00), 1.150467(1.15e+00), 1.851114(1.85e+00), 1.650861(1.65e+00), 1.873253(1.87e+00), 2.270823(2.27e+00), 2.390076(2.39e+00), 2.386325(2.39e+00), 2.518239(2.52e+00), 1.523029(1.52e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.010777(1.08e-02), 0.099621(9.96e-02), 0.026698(2.67e-02), 0.048954(4.90e-02), 0.081497(8.15e-02), 0.064488(6.45e-02), 0.054913(5.49e-02), 0.021484(2.15e-02), 0.042151(4.22e-02), 0.083374(8.34e-02)
+
+[NOTICE]: /Users/cozzini/GEOTOP/github/geotop/tests/1D/Bro/listpoints.txt
+[NOTICE]: EXISTING in format 3
+[WARNING]: Dem file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Bro/input_maps/dem present
+[NOTICE]: EXISTING in format 3
+[NOTICE]: EXISTING in format 3
+[NOTICE]: EXISTING in format 3
+Slope Min:           0 (           0 deg) Max:     1.76777 (     60.5038 deg) 
+[NOTICE]: EXISTING in format 3
+[NOTICE]: EXISTING in format 3
+[NOTICE]: not present in file list
+[WARNING]: Bedrock depth file not present
+Curvature N-S Min:      -0.095  Max:      0.0825 
+Curvature W-E Min:     -0.0875  Max:      0.0825 
+Curvature NW-SE Min:     -0.0975  Max:      0.0925 
+Curvature NE-SW Min:        -0.1  Max:      0.0975 
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+272533.000000,4789643.000000,2.000000,326.000000,1.000000,1.000000,11.048352,219.805571,0.853552,0.010000,0.007500,0.007500,0.012500,0.000000,2.000000,10000000000.000000,40.800000,14.600000,
+[WARNING]: No horizon file found for point type #2. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 11
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 11
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[WARNING]: NO shortwave radiation measurements available
+[WARNING]: No cloudiness measurements available
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,1,1,         326,1,1,     11.0484,     219.806,    0.853552
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      272533, 4.78964e+06,        40.8,        14.6,         400,        0.88,           1,          10,           7
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 10 layers
+[NOTICE]: Duration of simulation: 22.143219
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
