@@ -1,1 +1,0 @@
-Date12[DDMMYYYYhhmm],JulianDayFromYear0[days],snow_depth[mm],snow_water_equivalent[mm],Tair[C],Tsurface[C],Surface_Energy_balance[W/m2],Soil_heat_flux[W/m2],SWin[W/m2],SWbeam[W/m2],SWdiff[W/m2],LWin[W/m2],Relative_Humidity[-],Tdew[C],Wind_speed[m/s],LWnet[W/m2],SWnet[W/m2]
