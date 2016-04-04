@@ -5,7 +5,7 @@
 !-- BASIC CONTROLS ----------------------------------------!
 TimeStepEnergyAndWater       = 3600
 InitDateDDMMYYYYhhmm         = 01/08/1983 00:00
-EndDateDDMMYYYYhhmm          = 31/07/1990 23:00 
+EndDateDDMMYYYYhhmm          = 31/08/1983 23:00 
 NumSimulationTimes           = 1
 DtPlotPoint                  = 1
 PointSim                     = 1
@@ -19,7 +19,11 @@ MeteoFile                    = "Jungfraujoch_"
 Latitude                     = 46.55
 Longitude                    =  7.99
 NumberOfMeteoStations        = 1
-MeteoStationElevation        = 3580
+MeteoStationCoordinateX=272533.
+MeteoStationCoordinateY=478964
+MeteoStationLatitude=46.55
+MeteoStationLongitude=7.99
+MeteoStationElevation=3580
 MeteoStationSkyViewFactor    = 1
 MeteoStationWindVelocitySensorHeight = 25
 MeteoStationTemperatureSensorHeight  = 25
