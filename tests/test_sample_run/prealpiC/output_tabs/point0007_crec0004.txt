@@ -1,2 +1,0 @@
-Date12[DDMMYYYYhhmm],Psnow_over_canopy[mm],Prain_over_canopy[mm],snow_depth[mm],snow_water_equivalent[mm],Tair[C],Tsurface[C]
-20/10/2013 08:00,0.000000,0.000000,0.000000,0.000000,7.818573,7.493993
