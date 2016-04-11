@@ -1,7 +1,9 @@
 !*******************************
 !******* CONFIGURATION *********
 !*******************************
-TimeStepEnergyAndWater = 1800
+!TimeStepEnergyAndWater = 1800: originally set to ths value but in this case 
+!energy_balance is NOT converging at the date of this commit 
+TimeStepEnergyAndWater = 300
 InitDateDDMMYYYYhhmm = 17/06/2014 12:00
 EndDateDDMMYYYYhhmm = 28/06/2014 21:00
 EnergyBalance =1
