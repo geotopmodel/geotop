@@ -9,7 +9,7 @@ EndDateDDMMYYYYhhmm          = 31/08/1983 23:00
 NumSimulationTimes           = 1
 DtPlotPoint                  = 1
 PointSim                     = 1
-WaterBalance                 = 1
+WaterBalance                 = 0
 EnergyBalance                = 1
 StandardTimeSimulation       = 0
 
@@ -91,7 +91,7 @@ LateralHydrConductivity             = 0.000001
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFileWriteend = "soil"
+SoilAveragedTempProfileFile = "output_tabs/soil"
 SoilPlotDepths = 100
 
 !--- VARIABLES ------------
