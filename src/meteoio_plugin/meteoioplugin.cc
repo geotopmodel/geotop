@@ -642,7 +642,14 @@ void meteoio_interpolate(Par* par, double matlabdate, Meteo* met, Water* wat) {
 
 	cout << "[MeteoIO] Start copying Grid to GEOtop format: " << endl;
 
-	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
+	double thr_min, val_min=0.0, thr_max=1000.0, val_max=1000.0; //thr_min val from ini
+	mio::Config cfg_it = io->getConfig();
+	std::string thr_str;
+	try {
+	cfg_it.getValue("PSUM_MIN_INTERPOLATED", "Interpolations2D", thr_str);
+	thr_min = atof(thr_str.c_str());
+	} catch (std::exception& e) {thr_min=0.0;} //set default value to zero	
+	
 	// Now copy all that data to the appropriate GEOtop grids
 	copyGridToMatrix(tagrid, met->Tgrid);
 	copyGridToMatrix(rhgrid, met->RHgrid);
@@ -757,8 +764,17 @@ void meteoio_interpolate_pointwise(Par* par, double currentdate, Meteo* met, Wat
 
 	cout << "[MeteoIO] Start copying point data to GEOtop format: " << endl;
 	/* Now copy all that MeteoIO interpolated data to the appropriate GEOtop grids */
+	
+	double thr_min, val_min=0.0, thr_max=1000.0, val_max=1000.0; //thr_min val from ini
+	mio::Config cfg_it = io->getConfig();
+	std::string thr_str;
+	try {
+	cfg_it.getValue("PSUM_MIN_INTERPOLATED", "Interpolations2D", thr_str);
+	thr_min = atof(thr_str.c_str());
+	} catch (std::exception& e) {thr_min=0.0;} //set default value to zero
 
-	double thr_min=0.5, val_min=0.0, thr_max=1000.0, val_max=1000.0;
+	//cout << " -- PSUM_THR_MIN:" << thr_min << endl;
+	
 	copyGridToMatrixPointWise(resultTa, met->Tgrid);
 	copyGridToMatrixPointWise(resultRh, met->RHgrid);
 	copyGridToMatrixPointWise(resultP, met->Pgrid);

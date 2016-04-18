@@ -1615,7 +1615,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         write_suffix(NNNNN, n_file, 1);
         s1 = NNNNN + string("");
         s2 = s1 + "";
-        s2 = s1 + SSSSS ;
+        //s2 = s1 + SSSSS ;
 
         //AIR TEMPERATURE
         if (geotop::common::Variables::files[fTa] != geotop::input::gStringNoValue)
@@ -3563,8 +3563,8 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
         {
             if (geotop::common::Variables::files[fprec] != geotop::input::gStringNoValue)
             {
-                wat->PrTOT_mean[j] = wat->Pt[j];
-                wat->PrSNW_mean[j] = wat->Ps[j];
+                wat->PrTOT_mean[j] += wat->Pt[j];
+                wat->PrSNW_mean[j] += wat->Ps[j];
             }
         }
 
