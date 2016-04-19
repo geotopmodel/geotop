@@ -33,7 +33,6 @@ SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
-SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
 SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
@@ -157,10 +156,6 @@ ENDIF (PRINT_DOUBLE_PRECISION)
 IF (VERBOSE)
 	add_definitions(-DVERBOSE)
 ENDIF (VERBOSE)
-
-IF (STAGED_FOR_REMOVING)
-	add_definitions(-DSTAGED_FOR_REMOVING)
-ENDIF (STAGED_FOR_REMOVING)
 
 IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)
@@ -363,9 +358,6 @@ add_test(NAME Calabria
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME Jungfraujoch 
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Jungfraujoch
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME generic_1 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/generic_1
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 add_test(NAME ColdelaPorte
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
