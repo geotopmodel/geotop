@@ -1564,7 +1564,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 							a = 0;
 							
 							for (i=1; i<=par->inf_snow_layers->nh; i++) {
-								if (n == abs(par->inf_snow_layers->co[i])) a = 1;
+								if (n == labs(par->inf_snow_layers->co[i])) a = 1;
 							}
 							
 							if (a == 0) {

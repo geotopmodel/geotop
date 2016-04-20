@@ -11,7 +11,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-char *WORKING_DIRECTORY='\0';
+char *WORKING_DIRECTORY="\0";
 
 /*WORKING_POSITION=SEEK_SET;*/
 

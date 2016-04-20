@@ -1,0 +1,2617 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /Users/stefano/Documents/GEOtop/templates/1D/
+
+TimeStepEnergyAndWater[1] = 3.600000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.071986e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.071990e+10 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 0.000000e+00 
+DtPlotDischarge[1] = 0.000000e+00 (default) 
+DtPlotPoint[1] = 2.400000e+01 
+DtPlotBasin[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 1.000000e+00 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 1.000000e+00 (default) 
+SoilRoughness[1] = 1.000000e+01 
+ThresSnowSoilRough[1] = 1.000000e+01 (default) 
+VegHeight[1] = 1.000000e+03 (default) 
+ThresSnowVegUp[1] = 1.000000e+03 (default) 
+ThresSnowVegDown[1] = 1.000000e+03 (default) 
+LSAI[1] = 1.000000e+00 (default) 
+CanopyFraction[1] = 0.000000e+00 (default) 
+DecayCoeffCanopy[1] = 2.500000e+00 (default) 
+VegSnowBurying[1] = 1.000000e+00 (default) 
+RootDepth[1] = 3.000000e+02 (default) 
+MinStomatalRes[1] = 6.000000e+01 (default) 
+VegReflectVis[1] = 2.000000e-01 (default) 
+VegReflNIR[1] = 2.000000e-01 (default) 
+VegTransVis[1] = 2.000000e-01 (default) 
+VegTransNIR[1] = 2.000000e-01 (default) 
+LeafAngles[1] = 0.000000e+00 (default) 
+CanDensSurface[1] = 2.000000e+00 (default) 
+SoilAlbVisDry[1] = 5.000000e-01 
+SoilAlbNIRDry[1] = 5.000000e-01 
+SoilAlbVisWet[1] = 5.000000e-01 
+SoilAlbNIRWet[1] = 5.000000e-01 
+SoilEmissiv[1] = 9.600000e-01 
+SurFlowResLand[1] = 5.000000e-01 (default) 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 (default) 
+RichardTol[1] = 1.000000e-06 (default) 
+RichardMaxIter[1] = 1.000000e+02 (default) 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 (default) 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.666667e-01 (default) 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-01 (default) 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e+00 (default) 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-02 (default) 
+Latitude[1] = 4.705389e+01 
+Longitude[1] = 1.295639e+01 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-04 (default) 
+HeatEqMaxIter[1] = 5.000000e+02 (default) 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 1.000000e+01 (default) 
+FreshSnowReflVis[1] = 9.000000e-01 (default) 
+FreshSnowReflNIR[1] = 6.500000e-01 (default) 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 3.600000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+01 
+MaxSnowLayersMiddle[1] = 1.000000e+01 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+01 
+MaxSnowLayersMiddle[1] = 2.000000e+00 (default) 
+SWEbottom[1] = 2.000000e+01 (default) 
+SWEtop[1] = 2.000000e+01 (default) 
+Max snow layer number: 2, of which 0 at the bottom, 2 in the middle, and 0 at the top.
+Infinite Snow layer numbers are numbers: 1 2 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 9.000000e+00 (default) 
+MoninObukhov[1] = 1.000000e+00 (default) 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 0.000000e+00 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = -9.999000e+03 (default) 
+CoordinatePointY[1] = -9.999000e+03 (default) 
+PointElevation[1] = -9.999000e+03 (default) 
+PointLandCoverType[1] = -9.999000e+03 (default) 
+PointSoilType[1] = -9.999000e+03 (default) 
+PointSlope[1] = -9.999000e+03 (default) 
+PointAspect[1] = -9.999000e+03 (default) 
+PointSkyViewFactor[1] = -9.999000e+03 (default) 
+PointCurvatureNorthSouthDirection[1] = -9.999000e+03 (default) 
+PointCurvatureWestEastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03 (default) 
+PointDepthFreeSurface[1] = -9.999000e+03 (default) 
+PointHorizon[1] = -9.999000e+03 (default) 
+PointMaxSWE[1] = -9.999000e+03 (default) 
+PointLatitude[1] = -9.999000e+03 (default) 
+PointLongitude[1] = -9.999000e+03 (default) 
+NONE[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 0.000000e+00 (default) 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 0.000000e+00 (default) 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 (default) 
+InitWaterTableDepth[1] = 1.000000e+03 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = 1.000000e+01 
+SoilLayerThicknesses[2] = 3.000000e+01 
+SoilLayerThicknesses[3] = 5.000000e+01 
+SoilLayerThicknesses[4] = 1.000000e+02 
+SoilLayerThicknesses[5] = 2.000000e+02 
+SoilLayerThicknesses[6] = 5.000000e+02 
+SoilLayerThicknesses[7] = 1.000000e+03 
+SoilLayerThicknesses[8] = 3.000000e+03 
+SoilLayerThicknesses[9] = 6.000000e+03 
+SoilLayerThicknesses[10] = 1.000000e+04 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 1.000000e+00 
+NormalHydrConductivity[1] = 1.000000e-04 
+LateralHydrConductivity[1] = 1.000000e-04 
+ThetaRes[1] = 2.000000e-02 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = 5.000000e-02 
+ThetaSat[1] = 2.000000e-01 
+AlphaVanGenuchten[1] = 3.000000e-03 
+NVanGenuchten[1] = 1.700000e+00 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 
+ThermalCapacitySoilSolids[1] = 1.000000e+06 
+SpecificStorativity[1] = 1.000000e-07 
+ExcessIce[1] = 0.000000e+00 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 2.000000e+00 
+NormalHydrConductivity[2] = 1.000000e-04 (default) 
+LateralHydrConductivity[2] = 1.000000e-04 (default) 
+ThetaRes[2] = 2.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = 5.000000e-02 (default) 
+ThetaSat[2] = 2.000000e-01 (default) 
+AlphaVanGenuchten[2] = 3.000000e-03 (default) 
+NVanGenuchten[2] = 1.700000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 1.000000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+ExcessIce[2] = 0.000000e+00 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 2.000000e+00 (default) 
+NormalHydrConductivity[3] = 1.000000e-04 (default) 
+LateralHydrConductivity[3] = 1.000000e-04 (default) 
+ThetaRes[3] = 2.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = 5.000000e-02 (default) 
+ThetaSat[3] = 2.000000e-01 (default) 
+AlphaVanGenuchten[3] = 3.000000e-03 (default) 
+NVanGenuchten[3] = 1.700000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 1.000000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+ExcessIce[3] = 0.000000e+00 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 2.000000e+00 (default) 
+NormalHydrConductivity[4] = 1.000000e-04 (default) 
+LateralHydrConductivity[4] = 1.000000e-04 (default) 
+ThetaRes[4] = 2.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = 5.000000e-02 (default) 
+ThetaSat[4] = 2.000000e-01 (default) 
+AlphaVanGenuchten[4] = 3.000000e-03 (default) 
+NVanGenuchten[4] = 1.700000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 1.000000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+ExcessIce[4] = 0.000000e+00 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 2.000000e+00 (default) 
+NormalHydrConductivity[5] = 1.000000e-04 (default) 
+LateralHydrConductivity[5] = 1.000000e-04 (default) 
+ThetaRes[5] = 2.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = 5.000000e-02 (default) 
+ThetaSat[5] = 2.000000e-01 (default) 
+AlphaVanGenuchten[5] = 3.000000e-03 (default) 
+NVanGenuchten[5] = 1.700000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 1.000000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+ExcessIce[5] = 0.000000e+00 (default) 
+InitSoilPressure[6] = -9.999000e+03 (default) 
+InitSoilTemp[6] = 2.000000e+00 (default) 
+NormalHydrConductivity[6] = 1.000000e-04 (default) 
+LateralHydrConductivity[6] = 1.000000e-04 (default) 
+ThetaRes[6] = 2.000000e-02 (default) 
+WiltingPoint[6] = -9.999000e+03 (default) 
+FieldCapacity[6] = 5.000000e-02 (default) 
+ThetaSat[6] = 2.000000e-01 (default) 
+AlphaVanGenuchten[6] = 3.000000e-03 (default) 
+NVanGenuchten[6] = 1.700000e+00 (default) 
+VMualem[6] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[6] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[6] = 1.000000e+06 (default) 
+SpecificStorativity[6] = 1.000000e-07 (default) 
+ExcessIce[6] = 0.000000e+00 (default) 
+InitSoilPressure[7] = -9.999000e+03 (default) 
+InitSoilTemp[7] = 2.000000e+00 (default) 
+NormalHydrConductivity[7] = 1.000000e-04 (default) 
+LateralHydrConductivity[7] = 1.000000e-04 (default) 
+ThetaRes[7] = 2.000000e-02 (default) 
+WiltingPoint[7] = -9.999000e+03 (default) 
+FieldCapacity[7] = 5.000000e-02 (default) 
+ThetaSat[7] = 2.000000e-01 (default) 
+AlphaVanGenuchten[7] = 3.000000e-03 (default) 
+NVanGenuchten[7] = 1.700000e+00 (default) 
+VMualem[7] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[7] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[7] = 1.000000e+06 (default) 
+SpecificStorativity[7] = 1.000000e-07 (default) 
+ExcessIce[7] = 0.000000e+00 (default) 
+InitSoilPressure[8] = -9.999000e+03 (default) 
+InitSoilTemp[8] = 2.000000e+00 (default) 
+NormalHydrConductivity[8] = 1.000000e-04 (default) 
+LateralHydrConductivity[8] = 1.000000e-04 (default) 
+ThetaRes[8] = 2.000000e-02 (default) 
+WiltingPoint[8] = -9.999000e+03 (default) 
+FieldCapacity[8] = 5.000000e-02 (default) 
+ThetaSat[8] = 2.000000e-01 (default) 
+AlphaVanGenuchten[8] = 3.000000e-03 (default) 
+NVanGenuchten[8] = 1.700000e+00 (default) 
+VMualem[8] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[8] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[8] = 1.000000e+06 (default) 
+SpecificStorativity[8] = 1.000000e-07 (default) 
+ExcessIce[8] = 0.000000e+00 (default) 
+InitSoilPressure[9] = -9.999000e+03 (default) 
+InitSoilTemp[9] = 2.000000e+00 (default) 
+NormalHydrConductivity[9] = 1.000000e-04 (default) 
+LateralHydrConductivity[9] = 1.000000e-04 (default) 
+ThetaRes[9] = 2.000000e-02 (default) 
+WiltingPoint[9] = -9.999000e+03 (default) 
+FieldCapacity[9] = 5.000000e-02 (default) 
+ThetaSat[9] = 2.000000e-01 (default) 
+AlphaVanGenuchten[9] = 3.000000e-03 (default) 
+NVanGenuchten[9] = 1.700000e+00 (default) 
+VMualem[9] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[9] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[9] = 1.000000e+06 (default) 
+SpecificStorativity[9] = 1.000000e-07 (default) 
+ExcessIce[9] = 0.000000e+00 (default) 
+InitSoilPressure[10] = -9.999000e+03 (default) 
+InitSoilTemp[10] = 2.000000e+00 (default) 
+NormalHydrConductivity[10] = 1.000000e-04 (default) 
+LateralHydrConductivity[10] = 1.000000e-04 (default) 
+ThetaRes[10] = 2.000000e-02 (default) 
+WiltingPoint[10] = -9.999000e+03 (default) 
+FieldCapacity[10] = 5.000000e-02 (default) 
+ThetaSat[10] = 2.000000e-01 (default) 
+AlphaVanGenuchten[10] = 3.000000e-03 (default) 
+NVanGenuchten[10] = 1.700000e+00 (default) 
+VMualem[10] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[10] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[10] = 1.000000e+06 (default) 
+SpecificStorativity[10] = 1.000000e-07 (default) 
+ExcessIce[10] = 0.000000e+00 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+ExcessIceBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+ExcessIceBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+ExcessIceBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+ExcessIceBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+ExcessIceBedrock[5] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[6] = -9.999000e+03 (default) 
+InitSoilTempBedrock[6] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+ThetaResBedrock[6] = -9.999000e+03 (default) 
+WiltingPointBedrock[6] = -9.999000e+03 (default) 
+FieldCapacityBedrock[6] = -9.999000e+03 (default) 
+ThetaSatBedrock[6] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+VMualemBedrock[6] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[6] = -9.999000e+03 (default) 
+ExcessIceBedrock[6] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[7] = -9.999000e+03 (default) 
+InitSoilTempBedrock[7] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+ThetaResBedrock[7] = -9.999000e+03 (default) 
+WiltingPointBedrock[7] = -9.999000e+03 (default) 
+FieldCapacityBedrock[7] = -9.999000e+03 (default) 
+ThetaSatBedrock[7] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+VMualemBedrock[7] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[7] = -9.999000e+03 (default) 
+ExcessIceBedrock[7] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[8] = -9.999000e+03 (default) 
+InitSoilTempBedrock[8] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+ThetaResBedrock[8] = -9.999000e+03 (default) 
+WiltingPointBedrock[8] = -9.999000e+03 (default) 
+FieldCapacityBedrock[8] = -9.999000e+03 (default) 
+ThetaSatBedrock[8] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+VMualemBedrock[8] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[8] = -9.999000e+03 (default) 
+ExcessIceBedrock[8] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[9] = -9.999000e+03 (default) 
+InitSoilTempBedrock[9] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+ThetaResBedrock[9] = -9.999000e+03 (default) 
+WiltingPointBedrock[9] = -9.999000e+03 (default) 
+FieldCapacityBedrock[9] = -9.999000e+03 (default) 
+ThetaSatBedrock[9] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+VMualemBedrock[9] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[9] = -9.999000e+03 (default) 
+ExcessIceBedrock[9] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[10] = -9.999000e+03 (default) 
+InitSoilTempBedrock[10] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+ThetaResBedrock[10] = -9.999000e+03 (default) 
+WiltingPointBedrock[10] = -9.999000e+03 (default) 
+FieldCapacityBedrock[10] = -9.999000e+03 (default) 
+ThetaSatBedrock[10] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+VMualemBedrock[10] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[10] = -9.999000e+03 (default) 
+ExcessIceBedrock[10] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 2.000000e+00 
+MeteoStationCoordinateX[1] = -9.999000e+03 (default) 
+MeteoStationCoordinateY[1] = -9.999000e+03 (default) 
+MeteoStationLatitude[1] = 4.705389e+01 (default) 
+MeteoStationLongitude[1] = 1.295639e+01 (default) 
+MeteoStationElevation[1] = 3.100000e+03 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 
+MeteoStationStandardTime[1] = 0.000000e+00 (default) 
+MeteoStationCoordinateX[2] = -9.999000e+03 (default) 
+MeteoStationCoordinateY[2] = -9.999000e+03 (default) 
+MeteoStationLatitude[2] = 4.705389e+01 (default) 
+MeteoStationLongitude[2] = 1.295639e+01 (default) 
+MeteoStationElevation[2] = 3.090000e+03 
+MeteoStationSkyViewFactor[2] = 1.000000e+00 
+MeteoStationStandardTime[2] = 0.000000e+00 (default) 
+MeteoStationWindVelocitySensorHeight[1] = 1.000000e+01 (default) 
+MeteoStationTemperatureSensorHeight[1] = 2.000000e+00 (default) 
+LapseRateTemp[1] = -9.999000e+03 (default) 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 0.000000e+00 (default) 
+DatePoint[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Point[1] = -1.000000e+00 (default) 
+TimeFromStartPoint[1] = -1.000000e+00 (default) 
+PeriodPoint[1] = -1.000000e+00 (default) 
+RunPoint[1] = -1.000000e+00 (default) 
+IDPointPoint[1] = -1.000000e+00 (default) 
+PsnowPoint[1] = -1.000000e+00 (default) 
+PrainPoint[1] = -1.000000e+00 (default) 
+PsnowNetPoint[1] = -1.000000e+00 (default) 
+PrainNetPoint[1] = -1.000000e+00 (default) 
+PrainOnSnowPoint[1] = -1.000000e+00 (default) 
+WindSpeedPoint[1] = -1.000000e+00 (default) 
+WindDirPoint[1] = -1.000000e+00 (default) 
+RHPoint[1] = -1.000000e+00 (default) 
+AirPressPoint[1] = -1.000000e+00 (default) 
+AirTempPoint[1] = -1.000000e+00 (default) 
+TDewPoint[1] = -1.000000e+00 (default) 
+TsurfPoint[1] = -1.000000e+00 (default) 
+TvegPoint[1] = -1.000000e+00 (default) 
+TCanopyAirPoint[1] = -1.000000e+00 (default) 
+SurfaceEBPoint[1] = -1.000000e+00 (default) 
+SoilHeatFluxPoint[1] = -1.000000e+00 (default) 
+SWinPoint[1] = -1.000000e+00 (default) 
+SWbeamPoint[1] = -1.000000e+00 (default) 
+SWdiffPoint[1] = -1.000000e+00 (default) 
+LWinPoint[1] = -1.000000e+00 (default) 
+LWinMinPoint[1] = -1.000000e+00 (default) 
+LWinMaxPoint[1] = -1.000000e+00 (default) 
+SWNetPoint[1] = -1.000000e+00 (default) 
+LWNetPoint[1] = -1.000000e+00 (default) 
+HPoint[1] = -1.000000e+00 (default) 
+LEPoint[1] = -1.000000e+00 (default) 
+CanopyFractionPoint[1] = -1.000000e+00 (default) 
+LSAIPoint[1] = -1.000000e+00 (default) 
+z0vegPoint[1] = -1.000000e+00 (default) 
+d0vegPoint[1] = -1.000000e+00 (default) 
+EstoredCanopyPoint[1] = -1.000000e+00 (default) 
+SWvPoint[1] = -1.000000e+00 (default) 
+LWvPoint[1] = -1.000000e+00 (default) 
+HvPoint[1] = -1.000000e+00 (default) 
+LEvPoint[1] = -1.000000e+00 (default) 
+HgUnvegPoint[1] = -1.000000e+00 (default) 
+LEgUnvegPoint[1] = -1.000000e+00 (default) 
+HgVegPoint[1] = -1.000000e+00 (default) 
+LEgVegPoint[1] = -1.000000e+00 (default) 
+EvapSurfacePoint[1] = -1.000000e+00 (default) 
+TraspCanopyPoint[1] = -1.000000e+00 (default) 
+WaterOnCanopyPoint[1] = -1.000000e+00 (default) 
+SnowOnCanopyPoint[1] = -1.000000e+00 (default) 
+QVegPoint[1] = -1.000000e+00 (default) 
+QSurfPoint[1] = -1.000000e+00 (default) 
+QAirPoint[1] = -1.000000e+00 (default) 
+QCanopyAirPoint[1] = -1.000000e+00 (default) 
+LObukhovPoint[1] = -1.000000e+00 (default) 
+LObukhovCanopyPoint[1] = -1.000000e+00 (default) 
+WindSpeedTopCanopyPoint[1] = -1.000000e+00 (default) 
+DecayKCanopyPoint[1] = -1.000000e+00 (default) 
+SWupPoint[1] = -1.000000e+00 (default) 
+LWupPoint[1] = -1.000000e+00 (default) 
+HupPoint[1] = -1.000000e+00 (default) 
+LEupPoint[1] = -1.000000e+00 (default) 
+SnowDepthPoint[1] = -1.000000e+00 (default) 
+SWEPoint[1] = -1.000000e+00 (default) 
+SnowDensityPoint[1] = -1.000000e+00 (default) 
+SnowTempPoint[1] = -1.000000e+00 (default) 
+SnowMeltedPoint[1] = -1.000000e+00 (default) 
+SnowSublPoint[1] = -1.000000e+00 (default) 
+SWEBlownPoint[1] = -1.000000e+00 (default) 
+SWESublBlownPoint[1] = -1.000000e+00 (default) 
+GlacDepthPoint[1] = -1.000000e+00 (default) 
+GWEPoint[1] = -1.000000e+00 (default) 
+GlacDensityPoint[1] = -1.000000e+00 (default) 
+GlacTempPoint[1] = -1.000000e+00 (default) 
+GlacMeltedPoint[1] = -1.000000e+00 (default) 
+GlacSublPoint[1] = -1.000000e+00 (default) 
+LowestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+HighestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+LowestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+HighestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+BasinAll[1] = 0.000000e+00 (default) 
+DateBasin[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Basin[1] = -1.000000e+00 (default) 
+TimeFromStartBasin[1] = -1.000000e+00 (default) 
+PeriodBasin[1] = -1.000000e+00 (default) 
+RunBasin[1] = -1.000000e+00 (default) 
+PRainNetBasin[1] = -1.000000e+00 (default) 
+PSnowNetBasin[1] = -1.000000e+00 (default) 
+PRainBasin[1] = -1.000000e+00 (default) 
+PSnowBasin[1] = -1.000000e+00 (default) 
+PNetBasin[1] = -1.000000e+00 (default) 
+AirTempBasin[1] = -1.000000e+00 (default) 
+TSurfBasin[1] = -1.000000e+00 (default) 
+TvegBasin[1] = -1.000000e+00 (default) 
+EvapSurfaceBasin[1] = -1.000000e+00 (default) 
+TraspCanopyBasin[1] = -1.000000e+00 (default) 
+LEBasin[1] = -1.000000e+00 (default) 
+HBasin[1] = -1.000000e+00 (default) 
+SWNetBasin[1] = -1.000000e+00 (default) 
+LWNetBasin[1] = -1.000000e+00 (default) 
+LEvBasin[1] = -1.000000e+00 (default) 
+HvBasin[1] = -1.000000e+00 (default) 
+SWvBasin[1] = -1.000000e+00 (default) 
+LWvBasin[1] = -1.000000e+00 (default) 
+SWinBasin[1] = -1.000000e+00 (default) 
+LWinBasin[1] = -1.000000e+00 (default) 
+MassErrorBasin[1] = -1.000000e+00 (default) 
+MeanTimeStep[1] = -1.000000e+00 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -5.000000e+01 
+SnowPlotDepths[2] = -1.000000e+02 
+SnowPlotDepths[3] = -2.000000e+02 
+SnowPlotDepths[4] = -5.000000e+02 
+SnowPlotDepths[5] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -5.000000e+01 
+SnowPlotDepths[2] = -1.000000e+02 
+SnowPlotDepths[3] = -2.000000e+02 
+SnowPlotDepths[4] = -5.000000e+02 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = 1.000000e+00 
+JulianDayFromYear0Snow[1] = 2.000000e+00 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 0.000000e+00 (default) 
+DateSoil[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Soil[1] = -1.000000e+00 (default) 
+TimeFromStartSoil[1] = -1.000000e+00 (default) 
+PeriodSoil[1] = -1.000000e+00 (default) 
+RunSoil[1] = -1.000000e+00 (default) 
+IDPointSoil[1] = -1.000000e+00 (default) 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+LinearInterpolation[2] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+ExcessIceDensity[1] = 9.170000e+02 (default) 
+TFreezingSoil[1] = 0.000000e+00 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = WindV
+HeaderWindDirection = WindD
+HeaderWindX = WindX
+HeaderWindY = WindY
+HeaderRH = relH
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = rad
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = CloudTrans
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = none
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = none
+HeaderLateralHydrConductivity = none
+HeaderThetaRes = none
+HeaderWiltingPoint = none
+HeaderFieldCapacity = none
+HeaderThetaSat = none
+HeaderAlpha = none
+HeaderN = none
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = none
+HeaderExcessIce = none
+HeaderHorizonAngle = none
+HeaderHorizonHeight = none
+TimeStepsFile = none
+SoilParFile = none
+MeteoFile = meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = none
+PointFile = listpoints
+HorizonPointFile = none
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = none
+LandCoverMapFile = none
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = none
+RiverNetwork = none
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = none
+BasinOutputFile = none
+BasinOutputFileWriteEnd = none
+PointOutputFile = none
+PointOutputFileWriteEnd = out/point
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = out/soil_tem
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = none
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = out/soil_liq
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = out/soil_ice
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = ID
+HeaderCoordinatePointX = none
+HeaderCoordinatePointY = none
+HeaderPointElevation = ele
+HeaderPointLandCoverType = landcover
+HeaderPointSoilType = soil
+HeaderPointSlope = slp
+HeaderPointAspect = asp
+HeaderPointSkyViewFactor = sky
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = free
+HeaderPointHorizon = hor
+HeaderPointMaxSWE = maxswe
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = none
+
+Soil Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 30.000000(3.00e+01), 50.000000(5.00e+01), 100.000000(1.00e+02), 200.000000(2.00e+02), 500.000000(5.00e+02), 1000.000000(1.00e+03), 3000.000000(3.00e+03), 6000.000000(6.00e+03), 10000.000000(1.00e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 1.000000(1.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00)
+HeaderNormalHydrConductivity: 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderLateralHydrConductivity: 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderThetaRes: 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02)
+HeaderWiltingPoint: 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02)
+HeaderFieldCapacity: 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02)
+HeaderThetaSat: 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01)
+HeaderAlpha: 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03)
+HeaderN: 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderExcessIce: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+
+Soil Bedrock Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 30.000000(3.00e+01), 50.000000(5.00e+01), 100.000000(1.00e+02), 200.000000(2.00e+02), 500.000000(5.00e+02), 1000.000000(1.00e+03), 3000.000000(3.00e+03), 6000.000000(6.00e+03), 10000.000000(1.00e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 1.000000(1.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00)
+HeaderNormalHydrConductivity: 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderLateralHydrConductivity: 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04), 0.000100(1.00e-04)
+HeaderThetaRes: 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02), 0.020000(2.00e-02)
+HeaderWiltingPoint: 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02), 0.022467(2.25e-02)
+HeaderFieldCapacity: 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02), 0.050000(5.00e-02)
+HeaderThetaSat: 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01), 0.200000(2.00e-01)
+HeaderAlpha: 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03), 0.003000(3.00e-03)
+HeaderN: 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00), 1.700000(1.70e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderExcessIce: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+
+Column 1 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to ID
+Column 2 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to ele
+Column 6 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to landcover
+Column 7 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to soil
+Column 3 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to slp
+Column 4 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to asp
+Column 5 in file /Users/stefano/Documents/GEOtop/templates/1D/listpoints.txt assigned to sky
+Warning: Not possible to read from dem because at least one point has no coordinates
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+1.000000,-9999.000000,-9999.000000,2500.000000,1.000000,1.000000,0.000000,360.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,10000000000.000000,47.053889,12.956389,-9999.000000
+
+Warning:: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Valid pixels: 1
+Number of nodes: 11
+Novalue pixels: 0
+Basin area: 0.000001 km2
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to date
+Column 2 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to WindV
+Column 3 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to WindD
+Column 4 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to relH
+Column 5 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to AirT
+Column 6 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to rad
+Column 7 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0001.txt assigned to CloudTrans
+
+Warning:: No horizon file found for meteo station #2. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0002.txt assigned to date
+Column 2 in file /Users/stefano/Documents/GEOtop/templates/1D/meteo0002.txt assigned to Iprec
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 4 layers
+Soil water transpires from the first 9 layers
+2/7/1986 0:00 0.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/1986 0:00 0.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/1986 0:00 0.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/1986 0:00 0.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/1986 0:00 0.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/7/1986 0:00 0.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/7/1986 0:00 0.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/7/1986 0:00 0.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/7/1986 0:00 0.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/7/1986 0:00 0.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/7/1986 0:00 0.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/7/1986 0:00 0.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/7/1986 0:00 0.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/7/1986 0:00 0.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/7/1986 0:00 1.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/7/1986 0:00 1.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/7/1986 0:00 1.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/7/1986 0:00 1.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/7/1986 0:00 1.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/7/1986 0:00 1.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/7/1986 0:00 1.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/7/1986 0:00 1.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/7/1986 0:00 1.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/7/1986 0:00 1.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/7/1986 0:00 1.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/7/1986 0:00 1.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/7/1986 0:00 1.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/7/1986 0:00 1.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/7/1986 0:00 1.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/7/1986 0:00 2.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/8/1986 0:00 2.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/8/1986 0:00 2.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/8/1986 0:00 2.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/8/1986 0:00 2.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/8/1986 0:00 2.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/8/1986 0:00 2.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/8/1986 0:00 2.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/8/1986 0:00 2.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/8/1986 0:00 2.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/8/1986 0:00 2.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/8/1986 0:00 2.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/8/1986 0:00 2.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/8/1986 0:00 2.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/8/1986 0:00 3.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/8/1986 0:00 3.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/8/1986 0:00 3.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1986 0:00 3.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1986 0:00 3.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1986 0:00 3.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1986 0:00 3.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1986 0:00 3.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1986 0:00 3.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1986 0:00 3.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1986 0:00 3.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1986 0:00 3.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1986 0:00 3.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1986 0:00 3.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1986 0:00 3.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1986 0:00 4.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1986 0:00 4.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1986 0:00 4.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/9/1986 0:00 4.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/9/1986 0:00 4.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/9/1986 0:00 4.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/9/1986 0:00 4.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/9/1986 0:00 4.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/9/1986 0:00 4.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/9/1986 0:00 4.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/9/1986 0:00 4.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/9/1986 0:00 4.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/9/1986 0:00 4.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/9/1986 0:00 4.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/9/1986 0:00 5.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/9/1986 0:00 5.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/9/1986 0:00 5.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/9/1986 0:00 5.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/9/1986 0:00 5.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/9/1986 0:00 5.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/9/1986 0:00 5.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/9/1986 0:00 5.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/9/1986 0:00 5.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/9/1986 0:00 5.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/9/1986 0:00 5.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/9/1986 0:00 5.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/9/1986 0:00 5.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/9/1986 0:00 5.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/9/1986 0:00 5.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/9/1986 0:00 6.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/9/1986 0:00 6.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/9/1986 0:00 6.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/9/1986 0:00 6.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/10/1986 0:00 6.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/10/1986 0:00 6.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/10/1986 0:00 6.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/10/1986 0:00 6.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/10/1986 0:00 6.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/10/1986 0:00 6.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/10/1986 0:00 6.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/10/1986 0:00 6.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/10/1986 0:00 6.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/10/1986 0:00 6.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/10/1986 0:00 6.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/10/1986 0:00 7.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/10/1986 0:00 7.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/10/1986 0:00 7.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/10/1986 0:00 7.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/10/1986 0:00 7.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/10/1986 0:00 7.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/10/1986 0:00 7.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/10/1986 0:00 7.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/10/1986 0:00 7.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/10/1986 0:00 7.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/10/1986 0:00 7.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/10/1986 0:00 7.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/10/1986 0:00 7.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/10/1986 0:00 7.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/10/1986 0:00 8.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/10/1986 0:00 8.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/10/1986 0:00 8.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/10/1986 0:00 8.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/10/1986 0:00 8.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/10/1986 0:00 8.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/11/1986 0:00 8.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/11/1986 0:00 8.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/11/1986 0:00 8.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/11/1986 0:00 8.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/11/1986 0:00 8.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/11/1986 0:00 8.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/11/1986 0:00 8.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/11/1986 0:00 8.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/11/1986 0:00 8.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/11/1986 0:00 9.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/11/1986 0:00 9.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/11/1986 0:00 9.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/11/1986 0:00 9.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/11/1986 0:00 9.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/11/1986 0:00 9.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/11/1986 0:00 9.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/11/1986 0:00 9.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/11/1986 0:00 9.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/11/1986 0:00 9.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/11/1986 0:00 9.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/11/1986 0:00 9.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/11/1986 0:00 9.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/11/1986 0:00 9.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/11/1986 0:00 9.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/11/1986 0:00 10.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/11/1986 0:00 10.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/11/1986 0:00 10.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/11/1986 0:00 10.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/11/1986 0:00 10.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/11/1986 0:00 10.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/12/1986 0:00 10.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/12/1986 0:00 10.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/12/1986 0:00 10.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/12/1986 0:00 10.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/12/1986 0:00 10.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/12/1986 0:00 10.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/12/1986 0:00 10.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+8/12/1986 0:00 10.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+9/12/1986 0:00 11.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+10/12/1986 0:00 11.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+11/12/1986 0:00 11.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+12/12/1986 0:00 11.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+13/12/1986 0:00 11.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+14/12/1986 0:00 11.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+15/12/1986 0:00 11.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/12/1986 0:00 11.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/12/1986 0:00 11.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/12/1986 0:00 11.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/12/1986 0:00 11.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/12/1986 0:00 11.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/12/1986 0:00 11.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/12/1986 0:00 11.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/12/1986 0:00 11.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/12/1986 0:00 12.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/12/1986 0:00 12.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/12/1986 0:00 12.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/12/1986 0:00 12.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/12/1986 0:00 12.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/12/1986 0:00 12.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/12/1986 0:00 12.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/12/1986 0:00 12.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/1/1987 0:00 12.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/1/1987 0:00 12.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/1/1987 0:00 12.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/1/1987 0:00 12.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/1/1987 0:00 12.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/1/1987 0:00 12.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/1/1987 0:00 13.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/1/1987 0:00 13.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/1/1987 0:00 13.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/1/1987 0:00 13.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/1/1987 0:00 13.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/1/1987 0:00 13.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/1/1987 0:00 13.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/1/1987 0:00 13.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/1/1987 0:00 13.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/1/1987 0:00 13.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/1/1987 0:00 13.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/1/1987 0:00 13.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/1/1987 0:00 13.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/1/1987 0:00 13.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/1/1987 0:00 13.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/1/1987 0:00 14.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/1/1987 0:00 14.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/1/1987 0:00 14.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/1/1987 0:00 14.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/1/1987 0:00 14.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/1/1987 0:00 14.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/1/1987 0:00 14.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/1/1987 0:00 14.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/1/1987 0:00 14.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/1/1987 0:00 14.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/2/1987 0:00 14.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/2/1987 0:00 14.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/2/1987 0:00 14.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/2/1987 0:00 14.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/2/1987 0:00 14.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/2/1987 0:00 15.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/2/1987 0:00 15.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/2/1987 0:00 15.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/2/1987 0:00 15.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/2/1987 0:00 15.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/2/1987 0:00 15.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/2/1987 0:00 15.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/2/1987 0:00 15.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/2/1987 0:00 15.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/2/1987 0:00 15.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/2/1987 0:00 15.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/2/1987 0:00 15.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/2/1987 0:00 15.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/2/1987 0:00 15.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/2/1987 0:00 16.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/2/1987 0:00 16.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/2/1987 0:00 16.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/2/1987 0:00 16.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/1987 0:00 16.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/2/1987 0:00 16.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/2/1987 0:00 16.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/2/1987 0:00 16.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/2/1987 0:00 16.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/3/1987 0:00 16.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/3/1987 0:00 16.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/3/1987 0:00 16.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/3/1987 0:00 16.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/3/1987 0:00 16.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/3/1987 0:00 16.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/3/1987 0:00 17.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/3/1987 0:00 17.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/3/1987 0:00 17.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/3/1987 0:00 17.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/3/1987 0:00 17.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/3/1987 0:00 17.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/3/1987 0:00 17.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/3/1987 0:00 17.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/3/1987 0:00 17.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/3/1987 0:00 17.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/3/1987 0:00 17.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/3/1987 0:00 17.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/3/1987 0:00 17.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/3/1987 0:00 17.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/3/1987 0:00 18.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/3/1987 0:00 18.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/3/1987 0:00 18.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/3/1987 0:00 18.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/3/1987 0:00 18.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/3/1987 0:00 18.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/3/1987 0:00 18.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/3/1987 0:00 18.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/3/1987 0:00 18.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/3/1987 0:00 18.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/3/1987 0:00 18.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/4/1987 0:00 18.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/4/1987 0:00 18.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/4/1987 0:00 18.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/4/1987 0:00 18.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/4/1987 0:00 19.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/4/1987 0:00 19.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/4/1987 0:00 19.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/4/1987 0:00 19.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/4/1987 0:00 19.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/4/1987 0:00 19.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/4/1987 0:00 19.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/4/1987 0:00 19.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/4/1987 0:00 19.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/4/1987 0:00 19.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/4/1987 0:00 19.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/4/1987 0:00 19.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/4/1987 0:00 19.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/4/1987 0:00 19.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/4/1987 0:00 19.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/4/1987 0:00 20.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/4/1987 0:00 20.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/4/1987 0:00 20.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/4/1987 0:00 20.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/4/1987 0:00 20.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/4/1987 0:00 20.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/4/1987 0:00 20.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/4/1987 0:00 20.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/4/1987 0:00 20.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/4/1987 0:00 20.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/4/1987 0:00 20.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/5/1987 0:00 20.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/5/1987 0:00 20.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/5/1987 0:00 20.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/5/1987 0:00 21.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/5/1987 0:00 21.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/5/1987 0:00 21.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/5/1987 0:00 21.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/5/1987 0:00 21.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/5/1987 0:00 21.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/5/1987 0:00 21.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/5/1987 0:00 21.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/5/1987 0:00 21.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/5/1987 0:00 21.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/5/1987 0:00 21.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/5/1987 0:00 21.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/5/1987 0:00 21.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/5/1987 0:00 21.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/5/1987 0:00 21.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/5/1987 0:00 22.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/5/1987 0:00 22.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/5/1987 0:00 22.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/5/1987 0:00 22.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/5/1987 0:00 22.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/5/1987 0:00 22.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/5/1987 0:00 22.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/5/1987 0:00 22.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/5/1987 0:00 22.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/5/1987 0:00 22.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/5/1987 0:00 22.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/5/1987 0:00 22.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/5/1987 0:00 22.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/6/1987 0:00 22.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/6/1987 0:00 23.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/6/1987 0:00 23.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/6/1987 0:00 23.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/6/1987 0:00 23.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/6/1987 0:00 23.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/6/1987 0:00 23.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/6/1987 0:00 23.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/6/1987 0:00 23.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/6/1987 0:00 23.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/6/1987 0:00 23.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/6/1987 0:00 23.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/6/1987 0:00 23.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/6/1987 0:00 23.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/6/1987 0:00 23.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/6/1987 0:00 23.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/6/1987 0:00 24.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/6/1987 0:00 24.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/6/1987 0:00 24.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/6/1987 0:00 24.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/6/1987 0:00 24.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/6/1987 0:00 24.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/6/1987 0:00 24.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/6/1987 0:00 24.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/6/1987 0:00 24.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/6/1987 0:00 24.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/6/1987 0:00 24.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/6/1987 0:00 24.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/6/1987 0:00 24.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/6/1987 0:00 24.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/7/1987 0:00 24.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/7/1987 0:00 25.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/7/1987 0:00 25.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/7/1987 0:00 25.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/7/1987 0:00 25.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/7/1987 0:00 25.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/7/1987 0:00 25.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/7/1987 0:00 25.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/7/1987 0:00 25.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/7/1987 0:00 25.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/7/1987 0:00 25.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/7/1987 0:00 25.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/7/1987 0:00 25.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/7/1987 0:00 25.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/7/1987 0:00 25.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/7/1987 0:00 26.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/7/1987 0:00 26.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/7/1987 0:00 26.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/7/1987 0:00 26.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/7/1987 0:00 26.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/7/1987 0:00 26.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/7/1987 0:00 26.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/7/1987 0:00 26.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/7/1987 0:00 26.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/7/1987 0:00 26.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/7/1987 0:00 26.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/7/1987 0:00 26.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/7/1987 0:00 26.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/7/1987 0:00 26.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/7/1987 0:00 26.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/7/1987 0:00 27.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/8/1987 0:00 27.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/8/1987 0:00 27.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/8/1987 0:00 27.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/8/1987 0:00 27.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/8/1987 0:00 27.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/8/1987 0:00 27.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/8/1987 0:00 27.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/8/1987 0:00 27.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/8/1987 0:00 27.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/8/1987 0:00 27.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/8/1987 0:00 27.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/8/1987 0:00 27.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/8/1987 0:00 27.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/8/1987 0:00 27.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/8/1987 0:00 28.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/8/1987 0:00 28.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/8/1987 0:00 28.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/8/1987 0:00 28.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/8/1987 0:00 28.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/8/1987 0:00 28.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/8/1987 0:00 28.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/8/1987 0:00 28.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/8/1987 0:00 28.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/8/1987 0:00 28.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/8/1987 0:00 28.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/8/1987 0:00 28.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/8/1987 0:00 28.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/8/1987 0:00 28.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/8/1987 0:00 29.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/8/1987 0:00 29.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/8/1987 0:00 29.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/9/1987 0:00 29.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/9/1987 0:00 29.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/9/1987 0:00 29.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/9/1987 0:00 29.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/9/1987 0:00 29.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/9/1987 0:00 29.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/9/1987 0:00 29.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/9/1987 0:00 29.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/9/1987 0:00 29.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/9/1987 0:00 29.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/9/1987 0:00 29.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/9/1987 0:00 29.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/9/1987 0:00 30.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/9/1987 0:00 30.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/9/1987 0:00 30.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/9/1987 0:00 30.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/9/1987 0:00 30.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/9/1987 0:00 30.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/9/1987 0:00 30.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/9/1987 0:00 30.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/9/1987 0:00 30.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/9/1987 0:00 30.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/9/1987 0:00 30.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/9/1987 0:00 30.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/9/1987 0:00 30.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/9/1987 0:00 30.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/9/1987 0:00 31.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/9/1987 0:00 31.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/9/1987 0:00 31.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/9/1987 0:00 31.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/10/1987 0:00 31.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/10/1987 0:00 31.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/10/1987 0:00 31.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/1987 0:00 31.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/10/1987 0:00 31.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/10/1987 0:00 31.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/10/1987 0:00 31.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/10/1987 0:00 31.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/10/1987 0:00 31.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/10/1987 0:00 31.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/10/1987 0:00 31.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/10/1987 0:00 32.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/10/1987 0:00 32.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/10/1987 0:00 32.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/10/1987 0:00 32.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/10/1987 0:00 32.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/10/1987 0:00 32.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/10/1987 0:00 32.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/10/1987 0:00 32.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/10/1987 0:00 32.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/10/1987 0:00 32.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/10/1987 0:00 32.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/10/1987 0:00 32.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/10/1987 0:00 32.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/10/1987 0:00 32.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/10/1987 0:00 32.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/10/1987 0:00 33.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/10/1987 0:00 33.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/10/1987 0:00 33.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/10/1987 0:00 33.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/10/1987 0:00 33.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/11/1987 0:00 33.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/11/1987 0:00 33.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/11/1987 0:00 33.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/11/1987 0:00 33.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/11/1987 0:00 33.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/11/1987 0:00 33.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/11/1987 0:00 33.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/11/1987 0:00 33.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/11/1987 0:00 33.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/11/1987 0:00 34.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/11/1987 0:00 34.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/11/1987 0:00 34.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/11/1987 0:00 34.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/11/1987 0:00 34.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/11/1987 0:00 34.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/11/1987 0:00 34.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/11/1987 0:00 34.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/11/1987 0:00 34.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/11/1987 0:00 34.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/11/1987 0:00 34.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/11/1987 0:00 34.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/11/1987 0:00 34.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/11/1987 0:00 34.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/11/1987 0:00 34.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/11/1987 0:00 35.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/11/1987 0:00 35.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/11/1987 0:00 35.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/11/1987 0:00 35.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/11/1987 0:00 35.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/11/1987 0:00 35.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/12/1987 0:00 35.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/12/1987 0:00 35.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/12/1987 0:00 35.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/12/1987 0:00 35.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/12/1987 0:00 35.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/12/1987 0:00 35.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/12/1987 0:00 35.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/12/1987 0:00 35.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/12/1987 0:00 36.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/12/1987 0:00 36.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/12/1987 0:00 36.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/12/1987 0:00 36.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/12/1987 0:00 36.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/12/1987 0:00 36.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/12/1987 0:00 36.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/12/1987 0:00 36.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/12/1987 0:00 36.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/12/1987 0:00 36.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/12/1987 0:00 36.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/12/1987 0:00 36.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/12/1987 0:00 36.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/12/1987 0:00 36.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/12/1987 0:00 36.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/12/1987 0:00 37.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/12/1987 0:00 37.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/12/1987 0:00 37.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/12/1987 0:00 37.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/12/1987 0:00 37.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/12/1987 0:00 37.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/12/1987 0:00 37.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/12/1987 0:00 37.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/1/1988 0:00 37.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/1/1988 0:00 37.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/1/1988 0:00 37.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/1/1988 0:00 37.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/1/1988 0:00 37.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/1/1988 0:00 37.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/1/1988 0:00 37.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/1/1988 0:00 38.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/1/1988 0:00 38.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/1/1988 0:00 38.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/1/1988 0:00 38.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/1/1988 0:00 38.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/1/1988 0:00 38.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/1/1988 0:00 38.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/1/1988 0:00 38.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/1/1988 0:00 38.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/1/1988 0:00 38.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/1/1988 0:00 38.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/1/1988 0:00 38.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/1/1988 0:00 38.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/1/1988 0:00 38.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/1/1988 0:00 39.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/1/1988 0:00 39.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/1/1988 0:00 39.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/1/1988 0:00 39.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/1/1988 0:00 39.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/1/1988 0:00 39.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/1/1988 0:00 39.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/1/1988 0:00 39.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/1/1988 0:00 39.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/1/1988 0:00 39.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/2/1988 0:00 39.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/2/1988 0:00 39.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/2/1988 0:00 39.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/2/1988 0:00 39.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/2/1988 0:00 39.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/2/1988 0:00 40.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/2/1988 0:00 40.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/2/1988 0:00 40.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/2/1988 0:00 40.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/2/1988 0:00 40.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/2/1988 0:00 40.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/2/1988 0:00 40.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/2/1988 0:00 40.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/2/1988 0:00 40.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/2/1988 0:00 40.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/2/1988 0:00 40.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/2/1988 0:00 40.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/2/1988 0:00 40.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/2/1988 0:00 40.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/2/1988 0:00 41.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/2/1988 0:00 41.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/2/1988 0:00 41.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/2/1988 0:00 41.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/1988 0:00 41.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/2/1988 0:00 41.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/2/1988 0:00 41.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/2/1988 0:00 41.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/2/1988 0:00 41.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/2/1988 0:00 41.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/3/1988 0:00 41.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/3/1988 0:00 41.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/3/1988 0:00 41.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/3/1988 0:00 41.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/3/1988 0:00 41.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/3/1988 0:00 42.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/3/1988 0:00 42.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/3/1988 0:00 42.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/3/1988 0:00 42.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/3/1988 0:00 42.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/3/1988 0:00 42.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/3/1988 0:00 42.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/3/1988 0:00 42.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/3/1988 0:00 42.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/3/1988 0:00 42.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/3/1988 0:00 42.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/3/1988 0:00 42.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/3/1988 0:00 42.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/3/1988 0:00 42.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/3/1988 0:00 42.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/3/1988 0:00 43.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/3/1988 0:00 43.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/3/1988 0:00 43.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/3/1988 0:00 43.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/3/1988 0:00 43.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/3/1988 0:00 43.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/3/1988 0:00 43.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/3/1988 0:00 43.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/3/1988 0:00 43.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/3/1988 0:00 43.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/3/1988 0:00 43.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/4/1988 0:00 43.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/4/1988 0:00 43.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/4/1988 0:00 43.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/4/1988 0:00 44.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/4/1988 0:00 44.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/4/1988 0:00 44.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/4/1988 0:00 44.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/4/1988 0:00 44.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/4/1988 0:00 44.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/4/1988 0:00 44.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/4/1988 0:00 44.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/4/1988 0:00 44.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/4/1988 0:00 44.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/4/1988 0:00 44.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/4/1988 0:00 44.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/4/1988 0:00 44.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/4/1988 0:00 44.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/4/1988 0:00 44.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/4/1988 0:00 45.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/4/1988 0:00 45.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/4/1988 0:00 45.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/4/1988 0:00 45.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/4/1988 0:00 45.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/4/1988 0:00 45.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/4/1988 0:00 45.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/4/1988 0:00 45.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/4/1988 0:00 45.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/4/1988 0:00 45.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/4/1988 0:00 45.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/4/1988 0:00 45.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/5/1988 0:00 45.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/5/1988 0:00 45.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/5/1988 0:00 46.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/5/1988 0:00 46.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/5/1988 0:00 46.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/5/1988 0:00 46.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/5/1988 0:00 46.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/5/1988 0:00 46.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/5/1988 0:00 46.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/5/1988 0:00 46.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/5/1988 0:00 46.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/5/1988 0:00 46.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/5/1988 0:00 46.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/5/1988 0:00 46.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/5/1988 0:00 46.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/5/1988 0:00 46.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/5/1988 0:00 46.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/5/1988 0:00 47.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/5/1988 0:00 47.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/5/1988 0:00 47.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/5/1988 0:00 47.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/5/1988 0:00 47.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/5/1988 0:00 47.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/5/1988 0:00 47.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/5/1988 0:00 47.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/5/1988 0:00 47.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/5/1988 0:00 47.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/5/1988 0:00 47.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/5/1988 0:00 47.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/5/1988 0:00 47.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+31/5/1988 0:00 47.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/6/1988 0:00 47.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/6/1988 0:00 48.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/6/1988 0:00 48.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/6/1988 0:00 48.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/6/1988 0:00 48.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/6/1988 0:00 48.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/6/1988 0:00 48.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/6/1988 0:00 48.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/6/1988 0:00 48.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/6/1988 0:00 48.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/6/1988 0:00 48.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/6/1988 0:00 48.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/6/1988 0:00 48.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+14/6/1988 0:00 48.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+15/6/1988 0:00 48.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+16/6/1988 0:00 49.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+17/6/1988 0:00 49.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+18/6/1988 0:00 49.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+19/6/1988 0:00 49.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+20/6/1988 0:00 49.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+21/6/1988 0:00 49.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+22/6/1988 0:00 49.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+23/6/1988 0:00 49.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/6/1988 0:00 49.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+25/6/1988 0:00 49.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/6/1988 0:00 49.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+27/6/1988 0:00 49.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+28/6/1988 0:00 49.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+29/6/1988 0:00 49.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+30/6/1988 0:00 49.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+1/7/1988 0:00 50.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+2/7/1988 0:00 50.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+3/7/1988 0:00 50.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/7/1988 0:00 50.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/7/1988 0:00 50.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/7/1988 0:00 50.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+7/7/1988 0:00 50.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+8/7/1988 0:00 50.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+9/7/1988 0:00 50.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+10/7/1988 0:00 50.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+11/7/1988 0:00 50.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+12/7/1988 0:00 50.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+13/7/1988 0:00 50.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/7/1988 0:00 50.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/7/1988 0:00 50.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/7/1988 0:00 51.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/7/1988 0:00 51.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/7/1988 0:00 51.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/7/1988 0:00 51.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/7/1988 0:00 51.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/7/1988 0:00 51.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/7/1988 0:00 51.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/7/1988 0:00 51.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/7/1988 0:00 51.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/7/1988 0:00 51.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/7/1988 0:00 51.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/7/1988 0:00 51.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/7/1988 0:00 51.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/7/1988 0:00 51.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/7/1988 0:00 52.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/7/1988 0:00 52.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/8/1988 0:00 52.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/8/1988 0:00 52.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/8/1988 0:00 52.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/8/1988 0:00 52.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/8/1988 0:00 52.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/8/1988 0:00 52.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/8/1988 0:00 52.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/8/1988 0:00 52.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/8/1988 0:00 52.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/8/1988 0:00 52.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/8/1988 0:00 52.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/8/1988 0:00 52.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/8/1988 0:00 52.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/8/1988 0:00 53.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/8/1988 0:00 53.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/8/1988 0:00 53.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/8/1988 0:00 53.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/8/1988 0:00 53.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/8/1988 0:00 53.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/8/1988 0:00 53.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/8/1988 0:00 53.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/8/1988 0:00 53.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/8/1988 0:00 53.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/8/1988 0:00 53.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/8/1988 0:00 53.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/8/1988 0:00 53.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/8/1988 0:00 53.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/8/1988 0:00 54.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/8/1988 0:00 54.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/8/1988 0:00 54.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/8/1988 0:00 54.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/9/1988 0:00 54.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/9/1988 0:00 54.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/9/1988 0:00 54.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/9/1988 0:00 54.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/9/1988 0:00 54.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/9/1988 0:00 54.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/9/1988 0:00 54.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/9/1988 0:00 54.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/9/1988 0:00 54.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/9/1988 0:00 54.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/9/1988 0:00 54.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/9/1988 0:00 55.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/9/1988 0:00 55.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/9/1988 0:00 55.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/9/1988 0:00 55.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/9/1988 0:00 55.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/9/1988 0:00 55.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/9/1988 0:00 55.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/9/1988 0:00 55.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/9/1988 0:00 55.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/9/1988 0:00 55.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/9/1988 0:00 55.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/9/1988 0:00 55.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/9/1988 0:00 55.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/9/1988 0:00 55.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/9/1988 0:00 55.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/9/1988 0:00 56.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/9/1988 0:00 56.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/9/1988 0:00 56.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/9/1988 0:00 56.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/10/1988 0:00 56.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/10/1988 0:00 56.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/10/1988 0:00 56.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/10/1988 0:00 56.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/10/1988 0:00 56.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/10/1988 0:00 56.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/10/1988 0:00 56.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/10/1988 0:00 56.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/10/1988 0:00 56.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/10/1988 0:00 56.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/10/1988 0:00 57.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/10/1988 0:00 57.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/10/1988 0:00 57.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/10/1988 0:00 57.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/10/1988 0:00 57.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/10/1988 0:00 57.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/10/1988 0:00 57.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/10/1988 0:00 57.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/10/1988 0:00 57.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/10/1988 0:00 57.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/10/1988 0:00 57.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/10/1988 0:00 57.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/10/1988 0:00 57.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/10/1988 0:00 57.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/10/1988 0:00 57.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/10/1988 0:00 58.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/10/1988 0:00 58.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/10/1988 0:00 58.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/10/1988 0:00 58.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/10/1988 0:00 58.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/10/1988 0:00 58.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/11/1988 0:00 58.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/11/1988 0:00 58.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/11/1988 0:00 58.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/11/1988 0:00 58.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/11/1988 0:00 58.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/11/1988 0:00 58.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/11/1988 0:00 58.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/11/1988 0:00 58.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/11/1988 0:00 59.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/11/1988 0:00 59.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/11/1988 0:00 59.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/11/1988 0:00 59.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/11/1988 0:00 59.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/11/1988 0:00 59.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/11/1988 0:00 59.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/11/1988 0:00 59.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/11/1988 0:00 59.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/11/1988 0:00 59.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/11/1988 0:00 59.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/11/1988 0:00 59.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/11/1988 0:00 59.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/11/1988 0:00 59.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/11/1988 0:00 59.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/11/1988 0:00 60.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/11/1988 0:00 60.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/11/1988 0:00 60.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/11/1988 0:00 60.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/11/1988 0:00 60.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/11/1988 0:00 60.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/11/1988 0:00 60.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/12/1988 0:00 60.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/12/1988 0:00 60.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/12/1988 0:00 60.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/12/1988 0:00 60.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/12/1988 0:00 60.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/12/1988 0:00 60.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/12/1988 0:00 60.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/12/1988 0:00 60.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/12/1988 0:00 61.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/12/1988 0:00 61.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/12/1988 0:00 61.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/12/1988 0:00 61.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/12/1988 0:00 61.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/12/1988 0:00 61.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/12/1988 0:00 61.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/12/1988 0:00 61.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/12/1988 0:00 61.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/12/1988 0:00 61.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/12/1988 0:00 61.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/12/1988 0:00 61.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/12/1988 0:00 61.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/12/1988 0:00 61.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/12/1988 0:00 62.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/12/1988 0:00 62.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/12/1988 0:00 62.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/12/1988 0:00 62.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/12/1988 0:00 62.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/12/1988 0:00 62.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/12/1988 0:00 62.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/12/1988 0:00 62.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/12/1988 0:00 62.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/1/1989 0:00 62.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/1/1989 0:00 62.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/1/1989 0:00 62.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/1/1989 0:00 62.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/1/1989 0:00 62.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/1/1989 0:00 62.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/1/1989 0:00 63.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/1/1989 0:00 63.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/1/1989 0:00 63.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/1/1989 0:00 63.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/1/1989 0:00 63.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/1/1989 0:00 63.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/1/1989 0:00 63.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/1/1989 0:00 63.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/1/1989 0:00 63.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/1/1989 0:00 63.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/1/1989 0:00 63.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/1/1989 0:00 63.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/1/1989 0:00 63.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/1/1989 0:00 63.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/1/1989 0:00 64.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/1/1989 0:00 64.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/1/1989 0:00 64.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/1/1989 0:00 64.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/1/1989 0:00 64.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/1/1989 0:00 64.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/1/1989 0:00 64.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/1/1989 0:00 64.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/1/1989 0:00 64.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/1/1989 0:00 64.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/1/1989 0:00 64.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/2/1989 0:00 64.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/2/1989 0:00 64.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/2/1989 0:00 64.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/2/1989 0:00 64.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/2/1989 0:00 65.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/2/1989 0:00 65.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/2/1989 0:00 65.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/2/1989 0:00 65.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/2/1989 0:00 65.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/2/1989 0:00 65.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/2/1989 0:00 65.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/2/1989 0:00 65.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/2/1989 0:00 65.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/2/1989 0:00 65.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/2/1989 0:00 65.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/2/1989 0:00 65.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/2/1989 0:00 65.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/2/1989 0:00 65.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/2/1989 0:00 65.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/2/1989 0:00 66.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/2/1989 0:00 66.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/2/1989 0:00 66.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/2/1989 0:00 66.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/2/1989 0:00 66.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/2/1989 0:00 66.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/2/1989 0:00 66.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/2/1989 0:00 66.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/2/1989 0:00 66.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/3/1989 0:00 66.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/3/1989 0:00 66.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/3/1989 0:00 66.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/3/1989 0:00 66.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/3/1989 0:00 66.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/3/1989 0:00 67.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/3/1989 0:00 67.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/3/1989 0:00 67.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/3/1989 0:00 67.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/3/1989 0:00 67.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/3/1989 0:00 67.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/3/1989 0:00 67.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/3/1989 0:00 67.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/3/1989 0:00 67.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/3/1989 0:00 67.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/3/1989 0:00 67.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/3/1989 0:00 67.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/3/1989 0:00 67.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/3/1989 0:00 67.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/3/1989 0:00 67.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/3/1989 0:00 68.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/3/1989 0:00 68.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/3/1989 0:00 68.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/3/1989 0:00 68.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/3/1989 0:00 68.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/3/1989 0:00 68.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/3/1989 0:00 68.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/3/1989 0:00 68.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/3/1989 0:00 68.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/3/1989 0:00 68.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/3/1989 0:00 68.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/4/1989 0:00 68.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/4/1989 0:00 68.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/4/1989 0:00 68.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/4/1989 0:00 68.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/4/1989 0:00 69.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/4/1989 0:00 69.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/4/1989 0:00 69.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/4/1989 0:00 69.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/4/1989 0:00 69.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/4/1989 0:00 69.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/4/1989 0:00 69.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/4/1989 0:00 69.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/4/1989 0:00 69.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/4/1989 0:00 69.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/4/1989 0:00 69.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/4/1989 0:00 69.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/4/1989 0:00 69.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/4/1989 0:00 69.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/4/1989 0:00 70.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/4/1989 0:00 70.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/4/1989 0:00 70.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/4/1989 0:00 70.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/4/1989 0:00 70.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/4/1989 0:00 70.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/4/1989 0:00 70.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/4/1989 0:00 70.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/4/1989 0:00 70.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/4/1989 0:00 70.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/4/1989 0:00 70.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/4/1989 0:00 70.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/5/1989 0:00 70.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/5/1989 0:00 70.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/5/1989 0:00 70.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/5/1989 0:00 71.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/5/1989 0:00 71.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/5/1989 0:00 71.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/5/1989 0:00 71.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/5/1989 0:00 71.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/5/1989 0:00 71.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/5/1989 0:00 71.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/5/1989 0:00 71.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/5/1989 0:00 71.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/5/1989 0:00 71.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/5/1989 0:00 71.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/5/1989 0:00 71.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/5/1989 0:00 71.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/5/1989 0:00 71.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/5/1989 0:00 72.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/5/1989 0:00 72.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/5/1989 0:00 72.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/5/1989 0:00 72.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/5/1989 0:00 72.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/5/1989 0:00 72.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/5/1989 0:00 72.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/5/1989 0:00 72.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/5/1989 0:00 72.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/5/1989 0:00 72.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/5/1989 0:00 72.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/5/1989 0:00 72.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/5/1989 0:00 72.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/5/1989 0:00 72.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/6/1989 0:00 72.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/6/1989 0:00 73.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/6/1989 0:00 73.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/6/1989 0:00 73.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/6/1989 0:00 73.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/6/1989 0:00 73.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/6/1989 0:00 73.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/6/1989 0:00 73.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/6/1989 0:00 73.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/6/1989 0:00 73.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/6/1989 0:00 73.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/6/1989 0:00 73.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/6/1989 0:00 73.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/6/1989 0:00 73.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/6/1989 0:00 73.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/6/1989 0:00 73.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/6/1989 0:00 74.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/6/1989 0:00 74.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/6/1989 0:00 74.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/6/1989 0:00 74.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/6/1989 0:00 74.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/6/1989 0:00 74.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/6/1989 0:00 74.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/6/1989 0:00 74.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/6/1989 0:00 74.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/6/1989 0:00 74.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/6/1989 0:00 74.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/6/1989 0:00 74.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/6/1989 0:00 74.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/6/1989 0:00 74.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/7/1989 0:00 75.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/7/1989 0:00 75.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/7/1989 0:00 75.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/7/1989 0:00 75.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/7/1989 0:00 75.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/7/1989 0:00 75.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/7/1989 0:00 75.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/7/1989 0:00 75.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/1989 0:00 75.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/7/1989 0:00 75.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/7/1989 0:00 75.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/7/1989 0:00 75.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/7/1989 0:00 75.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/7/1989 0:00 75.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/7/1989 0:00 75.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/7/1989 0:00 76.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/7/1989 0:00 76.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/7/1989 0:00 76.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/7/1989 0:00 76.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/7/1989 0:00 76.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/7/1989 0:00 76.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/7/1989 0:00 76.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/7/1989 0:00 76.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/7/1989 0:00 76.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/7/1989 0:00 76.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/7/1989 0:00 76.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/7/1989 0:00 76.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/7/1989 0:00 76.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/7/1989 0:00 76.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/7/1989 0:00 77.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/7/1989 0:00 77.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/8/1989 0:00 77.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/8/1989 0:00 77.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/8/1989 0:00 77.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/8/1989 0:00 77.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/8/1989 0:00 77.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/8/1989 0:00 77.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/8/1989 0:00 77.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/8/1989 0:00 77.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/8/1989 0:00 77.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/8/1989 0:00 77.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/8/1989 0:00 77.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/8/1989 0:00 77.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/8/1989 0:00 77.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/8/1989 0:00 78.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/8/1989 0:00 78.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/8/1989 0:00 78.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/8/1989 0:00 78.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/8/1989 0:00 78.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/8/1989 0:00 78.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/8/1989 0:00 78.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/8/1989 0:00 78.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/8/1989 0:00 78.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/8/1989 0:00 78.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/8/1989 0:00 78.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/8/1989 0:00 78.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/8/1989 0:00 78.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/8/1989 0:00 78.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/8/1989 0:00 78.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/8/1989 0:00 79.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/8/1989 0:00 79.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/8/1989 0:00 79.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/9/1989 0:00 79.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/9/1989 0:00 79.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/9/1989 0:00 79.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/9/1989 0:00 79.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/9/1989 0:00 79.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/9/1989 0:00 79.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/9/1989 0:00 79.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/9/1989 0:00 79.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/9/1989 0:00 79.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/9/1989 0:00 79.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/9/1989 0:00 79.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/9/1989 0:00 80.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/9/1989 0:00 80.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/9/1989 0:00 80.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/9/1989 0:00 80.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/9/1989 0:00 80.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/9/1989 0:00 80.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/9/1989 0:00 80.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/9/1989 0:00 80.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/9/1989 0:00 80.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/9/1989 0:00 80.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/9/1989 0:00 80.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/9/1989 0:00 80.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/9/1989 0:00 80.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/9/1989 0:00 80.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/9/1989 0:00 80.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/9/1989 0:00 81.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/9/1989 0:00 81.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/9/1989 0:00 81.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/9/1989 0:00 81.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/10/1989 0:00 81.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/10/1989 0:00 81.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/10/1989 0:00 81.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/10/1989 0:00 81.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/10/1989 0:00 81.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/10/1989 0:00 81.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/10/1989 0:00 81.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/10/1989 0:00 81.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/10/1989 0:00 81.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/10/1989 0:00 81.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/10/1989 0:00 82.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/10/1989 0:00 82.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/10/1989 0:00 82.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/10/1989 0:00 82.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/10/1989 0:00 82.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/10/1989 0:00 82.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/10/1989 0:00 82.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/10/1989 0:00 82.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/10/1989 0:00 82.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/10/1989 0:00 82.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/10/1989 0:00 82.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/10/1989 0:00 82.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/10/1989 0:00 82.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/10/1989 0:00 82.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/10/1989 0:00 82.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/10/1989 0:00 83.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/10/1989 0:00 83.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/10/1989 0:00 83.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/10/1989 0:00 83.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/10/1989 0:00 83.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/10/1989 0:00 83.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/11/1989 0:00 83.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/11/1989 0:00 83.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/11/1989 0:00 83.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/11/1989 0:00 83.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/11/1989 0:00 83.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/11/1989 0:00 83.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/11/1989 0:00 83.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/11/1989 0:00 83.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/11/1989 0:00 83.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/11/1989 0:00 84.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/11/1989 0:00 84.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/11/1989 0:00 84.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/11/1989 0:00 84.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/11/1989 0:00 84.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/11/1989 0:00 84.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/11/1989 0:00 84.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/11/1989 0:00 84.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/11/1989 0:00 84.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/11/1989 0:00 84.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/11/1989 0:00 84.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/11/1989 0:00 84.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/11/1989 0:00 84.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/11/1989 0:00 84.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/11/1989 0:00 85.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/11/1989 0:00 85.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/11/1989 0:00 85.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/11/1989 0:00 85.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/11/1989 0:00 85.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/11/1989 0:00 85.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/11/1989 0:00 85.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/12/1989 0:00 85.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/12/1989 0:00 85.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/12/1989 0:00 85.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/12/1989 0:00 85.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/12/1989 0:00 85.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/12/1989 0:00 85.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/12/1989 0:00 85.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/12/1989 0:00 85.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/12/1989 0:00 86.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/12/1989 0:00 86.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/12/1989 0:00 86.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/12/1989 0:00 86.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/12/1989 0:00 86.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/12/1989 0:00 86.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/12/1989 0:00 86.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/12/1989 0:00 86.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/12/1989 0:00 86.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/12/1989 0:00 86.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/12/1989 0:00 86.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/12/1989 0:00 86.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/12/1989 0:00 86.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/12/1989 0:00 86.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/12/1989 0:00 87.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/12/1989 0:00 87.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/12/1989 0:00 87.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/12/1989 0:00 87.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/12/1989 0:00 87.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/12/1989 0:00 87.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/12/1989 0:00 87.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/12/1989 0:00 87.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/12/1989 0:00 87.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/1/1990 0:00 87.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/1/1990 0:00 87.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/1/1990 0:00 87.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/1/1990 0:00 87.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/1/1990 0:00 87.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/1/1990 0:00 87.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/1/1990 0:00 88.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/1/1990 0:00 88.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/1/1990 0:00 88.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/1/1990 0:00 88.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/1/1990 0:00 88.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/1/1990 0:00 88.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/1/1990 0:00 88.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/1/1990 0:00 88.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/1/1990 0:00 88.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/1/1990 0:00 88.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/1/1990 0:00 88.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/1/1990 0:00 88.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/1/1990 0:00 88.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/1/1990 0:00 88.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/1/1990 0:00 88.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/1/1990 0:00 89.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/1/1990 0:00 89.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/1/1990 0:00 89.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/1/1990 0:00 89.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/1/1990 0:00 89.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/1/1990 0:00 89.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/1/1990 0:00 89.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+29/1/1990 0:00 89.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+30/1/1990 0:00 89.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+31/1/1990 0:00 89.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/2/1990 0:00 89.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/2/1990 0:00 89.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/2/1990 0:00 89.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/2/1990 0:00 89.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/2/1990 0:00 90.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/2/1990 0:00 90.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/2/1990 0:00 90.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/2/1990 0:00 90.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/2/1990 0:00 90.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/2/1990 0:00 90.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/2/1990 0:00 90.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/2/1990 0:00 90.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/2/1990 0:00 90.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+14/2/1990 0:00 90.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+15/2/1990 0:00 90.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+16/2/1990 0:00 90.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+17/2/1990 0:00 90.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+18/2/1990 0:00 90.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+19/2/1990 0:00 90.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+20/2/1990 0:00 91.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+21/2/1990 0:00 91.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+22/2/1990 0:00 91.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+23/2/1990 0:00 91.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+24/2/1990 0:00 91.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+25/2/1990 0:00 91.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+26/2/1990 0:00 91.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+27/2/1990 0:00 91.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+28/2/1990 0:00 91.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/3/1990 0:00 91.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+2/3/1990 0:00 91.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+3/3/1990 0:00 91.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+4/3/1990 0:00 91.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/3/1990 0:00 91.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/3/1990 0:00 91.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+7/3/1990 0:00 92.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+8/3/1990 0:00 92.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/3/1990 0:00 92.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+10/3/1990 0:00 92.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+11/3/1990 0:00 92.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+12/3/1990 0:00 92.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+13/3/1990 0:00 92.47% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+14/3/1990 0:00 92.54% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+15/3/1990 0:00 92.61% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+16/3/1990 0:00 92.68% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+17/3/1990 0:00 92.74% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+18/3/1990 0:00 92.81% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+19/3/1990 0:00 92.88% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+20/3/1990 0:00 92.95% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+21/3/1990 0:00 93.02% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+22/3/1990 0:00 93.09% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+23/3/1990 0:00 93.16% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+24/3/1990 0:00 93.22% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+25/3/1990 0:00 93.29% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+26/3/1990 0:00 93.36% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+27/3/1990 0:00 93.43% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+28/3/1990 0:00 93.50% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+29/3/1990 0:00 93.57% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+30/3/1990 0:00 93.63% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+31/3/1990 0:00 93.70% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+1/4/1990 0:00 93.77% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+2/4/1990 0:00 93.84% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+3/4/1990 0:00 93.91% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+4/4/1990 0:00 93.98% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+5/4/1990 0:00 94.05% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+6/4/1990 0:00 94.11% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+7/4/1990 0:00 94.18% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/4/1990 0:00 94.25% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+9/4/1990 0:00 94.32% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+10/4/1990 0:00 94.39% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+11/4/1990 0:00 94.46% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+12/4/1990 0:00 94.52% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+13/4/1990 0:00 94.59% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+14/4/1990 0:00 94.66% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+15/4/1990 0:00 94.73% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+16/4/1990 0:00 94.80% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+17/4/1990 0:00 94.87% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+18/4/1990 0:00 94.93% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+19/4/1990 0:00 95.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+20/4/1990 0:00 95.07% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+21/4/1990 0:00 95.14% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+22/4/1990 0:00 95.21% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+23/4/1990 0:00 95.28% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+24/4/1990 0:00 95.35% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+25/4/1990 0:00 95.41% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+26/4/1990 0:00 95.48% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+27/4/1990 0:00 95.55% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+28/4/1990 0:00 95.62% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+29/4/1990 0:00 95.69% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+30/4/1990 0:00 95.76% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+1/5/1990 0:00 95.82% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+2/5/1990 0:00 95.89% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+3/5/1990 0:00 95.96% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+4/5/1990 0:00 96.03% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+5/5/1990 0:00 96.10% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+6/5/1990 0:00 96.17% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+7/5/1990 0:00 96.24% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/5/1990 0:00 96.30% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+9/5/1990 0:00 96.37% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+10/5/1990 0:00 96.44% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+11/5/1990 0:00 96.51% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+12/5/1990 0:00 96.58% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+13/5/1990 0:00 96.65% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+14/5/1990 0:00 96.71% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+15/5/1990 0:00 96.78% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+16/5/1990 0:00 96.85% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+17/5/1990 0:00 96.92% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+18/5/1990 0:00 96.99% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+19/5/1990 0:00 97.06% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+20/5/1990 0:00 97.13% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+21/5/1990 0:00 97.19% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+22/5/1990 0:00 97.26% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+23/5/1990 0:00 97.33% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+24/5/1990 0:00 97.40% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+25/5/1990 0:00 97.47% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+26/5/1990 0:00 97.54% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+27/5/1990 0:00 97.60% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+28/5/1990 0:00 97.67% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+29/5/1990 0:00 97.74% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+30/5/1990 0:00 97.81% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+31/5/1990 0:00 97.88% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+1/6/1990 0:00 97.95% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+2/6/1990 0:00 98.02% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+3/6/1990 0:00 98.08% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+4/6/1990 0:00 98.15% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+5/6/1990 0:00 98.22% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+6/6/1990 0:00 98.29% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+7/6/1990 0:00 98.36% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/6/1990 0:00 98.43% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+9/6/1990 0:00 98.49% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+10/6/1990 0:00 98.56% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+11/6/1990 0:00 98.63% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+12/6/1990 0:00 98.70% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+13/6/1990 0:00 98.77% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+14/6/1990 0:00 98.84% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+15/6/1990 0:00 98.90% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+16/6/1990 0:00 98.97% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+17/6/1990 0:00 99.04% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+18/6/1990 0:00 99.11% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+19/6/1990 0:00 99.18% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+20/6/1990 0:00 99.25% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+21/6/1990 0:00 99.32% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+22/6/1990 0:00 99.38% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+23/6/1990 0:00 99.45% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+24/6/1990 0:00 99.52% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+25/6/1990 0:00 99.59% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+26/6/1990 0:00 99.66% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+27/6/1990 0:00 99.73% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+28/6/1990 0:00 99.79% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+29/6/1990 0:00 99.86% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+30/6/1990 0:00 99.93% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+1/7/1990 0:00 100.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1

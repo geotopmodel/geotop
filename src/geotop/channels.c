@@ -52,7 +52,7 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type
 				next_down_channel_pixel( r, c, Z->co, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
 				if(rnext>0){
 					i++;
-					if(fabs(rnext-r)==1 && fabs(cnext-c)==1){
+					if(labs(rnext-r)==1 && labs(cnext-c)==1){
 						cnet->length->co[i-1]+=0.5*sqrt(2.);
 						cnet->length->co[i]+=0.5*sqrt(2.);
 					}else{
@@ -71,7 +71,7 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC, SHORTMATRIX *pixel_type
 			}while(rnext>0);
 			
 			if(rnext<0){
-				if(fabs(-rnext-r)==1 && fabs(-cnext-c)==1){
+				if(labs(-rnext-r)==1 && labs(-cnext-c)==1){
 					cnet->length->co[i]+=0.5*sqrt(2.);
 				}else{
 					cnet->length->co[i]+=0.5;				

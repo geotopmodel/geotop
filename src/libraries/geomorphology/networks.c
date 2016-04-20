@@ -1652,10 +1652,10 @@ if(m->co[i][j]<9 && magn->co[i][j]>th){
 flow[0]=i;
 flow[1]=j;
 valore_prec=magn->co[flow[0]][flow[1]];
-/*viene memorizzato il valore di magn. del pixel in questione*/
-/*go_downstream(flow,m->co[flow[0]][flow[1]],m->nch);
-/*viene memorizzato il valore di magn. del pixel di drenaggio*/
-/*valore=magn->co[flow[0]][flow[1]];
+//viene memorizzato il valore di magn. del pixel in questione
+//go_downstream(flow,m->co[flow[0]][flow[1]],m->nch);
+//viene memorizzato il valore di magn. del pixel di drenaggio
+//valore=magn->co[flow[0]][flow[1]];
 if(valore_prec!=valore){
    omatrix->co[i][j]=imatrix->co[i][j];
    counter++;

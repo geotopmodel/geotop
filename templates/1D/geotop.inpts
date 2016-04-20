@@ -10,7 +10,7 @@ EndDateDDMMYYYYhhmm =  01/07/1990 00:00
 DtPlotPoint = 24
 ! in hours
 
-WaterBalance = 1
+WaterBalance = 0
 EnergyBalance = 1
 PointSim = 1
 ! 1 = ON, 0 = OFF
