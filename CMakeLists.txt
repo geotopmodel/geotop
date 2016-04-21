@@ -34,6 +34,7 @@ SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
+# these below to be checked 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
@@ -345,6 +346,18 @@ INCLUDE(CPack)
 ###################### CTEST ######################################
 ### added by S.Cozzini: maybe it should be set in a separate file #
 ###################################################################
+
+# generate test program
+## test_runner.py variables
+SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin/geotop" )
+SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/1D")
+IF(ENABLE_INTERNAL_METEODISTR)
+    SET ( METEOIOPREFIX  off )
+ELSE(ENABLE_INTERNAL_METEODISTR)
+     SET ( METEOIOPREFIX on )
+ENDIF(ENABLE_INTERNAL_METEODISTR)
+configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
+
 enable_testing()
 
 
