@@ -24,7 +24,7 @@ script:
 
         #build geotop with meteoio disabled
         #- mkdir build_meteoio_on && cd build_meteoio_on
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON ..
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
         - make
         #make tests with this environment
         - ctest .
@@ -33,7 +33,7 @@ script:
 
         #build geotop with meteoio enabled
         #- mkdir build_meteoio_off && cd build_meteoio_off
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF ..
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
         - make
         #make tests with this environment
         - ctest .
