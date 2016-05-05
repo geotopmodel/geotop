@@ -1,0 +1,4 @@
+# whitelist the branches you want to test
+branches:
+  only:
+    -geotop_dev
