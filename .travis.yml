@@ -2,6 +2,9 @@ language: cpp
 
 #installing the dependencies: proj and meteoio libraries
 before-install:
+	#install required boost libraries
+	- apt-get install libboost-all-dev
+
         #it's supposed to be run in a environment with the access to apt-get (following travis guide)
         - apt-get install libproj-dev
         #in case it is needed you can install a specific version of the library
