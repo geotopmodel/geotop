@@ -3,10 +3,10 @@ language: cpp
 #installing the dependencies: proj and meteoio libraries
 install:
         #install required boost libraries
-        - apt-get install libboost-all-dev
+        - sudo apt-get install libboost-all-dev
 
         #it's supposed to be run in a environment with the access to apt-get (following travis guide)
-        - apt-get install libproj-dev
+        - sudo apt-get install libproj-dev
         #in case it is needed you can install a specific version of the library
         #- apt-get install libproj-dev=version
  
@@ -16,7 +16,7 @@ install:
         - cd meteoio/
         #add dependency for proj4 in cmake for meteio
         - cmake -DPROJ4:BOOL=ON .
-        - make && make install
+        - make && sudo make install
         - cd ..
 
 #actually build the geotop program
