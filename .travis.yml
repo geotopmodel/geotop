@@ -30,8 +30,8 @@ script:
         - make
         #make tests with this environment
         #- ctest .
-	- ctest -R Bro .
-	- cat Testing/Temporary/LastTest.log
+        - ctest -R Bro .
+        - cat Testing/Temporary/LastTest.log
 
 
         #build geotop with meteoio enabled
@@ -39,8 +39,8 @@ script:
         - make
         #make tests with this environment
         #- ctest .
-	- ctest -R Bro .
-	- cat Testing/Temporary/LastTest.log
+        - ctest -R Bro .
+        - cat Testing/Temporary/LastTest.log
 
 
 #choosing the compiler
