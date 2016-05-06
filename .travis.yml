@@ -9,7 +9,7 @@ install:
         - sudo apt-get install libproj-dev
         #in case it is needed you can install a specific version of the library
         #- apt-get install libproj-dev=version
- 
+
         #meteio install
         - wget https://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz
         - tar xvf MeteoIO-2.5.1-src.tar.gz meteoio
@@ -30,8 +30,8 @@ script:
         - make
         #make tests with this environment
         #- ctest .
-	- ctest -R Bro .
-	- cat Testing/Temporary/LastTest.log
+        - ctest -R Bro .
+        - cat Testing/Temporary/LastTest.log
 
 
         #build geotop with meteoio enabled
@@ -39,8 +39,8 @@ script:
         - make
         #make tests with this environment
         #- ctest .
-	- ctest -R Bro .
-	- cat Testing/Temporary/LastTest.log
+        - ctest -R Bro .
+        - cat Testing/Temporary/LastTest.log
 
 
 #choosing the compiler
