@@ -16,7 +16,7 @@ install:
         - cd meteoio/
         #add dependency for proj4 in cmake for meteio
         - cmake -DPROJ4:BOOL=ON .
-        - cmake -LAH
+        #- cmake -LAH
         - make && sudo make install
         - cd ..
 
