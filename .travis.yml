@@ -4,6 +4,7 @@ language: cpp
 install:
         #install required boost libraries
         - sudo apt-get install libboost-all-dev
+        - sudo apt-get install doxygen
 
         #it's supposed to be run in a environment with the access to apt-get (following travis guide)
         - sudo apt-get install libproj-dev
@@ -16,7 +17,7 @@ install:
         - cd meteoio/
         #add dependency for proj4 in cmake for meteio
         - cmake -DPROJ4:BOOL=ON .
-        #- cmake -LAH
+        - cmake -LAH
         - make && sudo make install
         - cd ..
 
