@@ -42,3 +42,9 @@ config.h
 
 # Log files
 *.log
+
+#swap files
+*.swp
+
+#generated scripts
+tests/1D/test_runner.py
