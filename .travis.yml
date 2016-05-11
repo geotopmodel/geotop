@@ -32,22 +32,22 @@ script:
         #it's a good idea to put each different compilation of geotop in 2 different executables in order to test both of them without any problems
 
         #build geotop with meteoio disabled
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
-        - make
-        #make tests with this environment
-        #- ctest .
-        - ctest --exclude-regex bonn_1 . #bonn_1 is being terminated by travis because it seems to take to long to run
-        #- ctest -R Bro .
-        - cat Testing/Temporary/LastTest.log
-
-
-        #build geotop with meteoio enabled
-        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
+        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
         #- make
         #make tests with this environment
         #- ctest .
+        #- ctest --exclude-regex bonn_1 . #bonn_1 is being terminated by travis because it seems to take to long to run
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
+
+
+        #build geotop with meteoio enabled
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
+        - make
+        #make tests with this environment
+        - ctest .
+        #- ctest -R Bro .
+        - cat Testing/Temporary/LastTest.log
 
 
 #choosing the compiler
