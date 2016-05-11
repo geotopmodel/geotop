@@ -17,7 +17,11 @@ install:
         - cd meteoio/
         #add dependency for proj4 in cmake for meteio
         - cmake -DPROJ4:BOOL=ON .
+
+        # this command lists the variables set inside cmake, this is supposeto to not modify them, but without this meteoio doesn't work, it asks fot arcio plugin in meteoio, how is this possible?
         - cmake -LAH
+
+
         - make && sudo make install
         - cd ..
 
@@ -31,9 +35,9 @@ script:
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
         - make
         #make tests with this environment
-        #- ctest .
-        - ctest -R Bro .
-        - cat Testing/Temporary/LastTest.log
+        - ctest .
+        #- ctest -R Bro .
+        #- cat Testing/Temporary/LastTest.log
 
 
         #build geotop with meteoio enabled
@@ -41,8 +45,8 @@ script:
         - make
         #make tests with this environment
         #- ctest .
-        - ctest -R Bro .
-        - cat Testing/Temporary/LastTest.log
+        #- ctest -R Bro .
+        #- cat Testing/Temporary/LastTest.log
 
 
 #choosing the compiler
