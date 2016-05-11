@@ -37,7 +37,7 @@ script:
         #make tests with this environment
         - ctest .
         #- ctest -R Bro .
-        #- cat Testing/Temporary/LastTest.log
+        - cat Testing/Temporary/LastTest.log
 
 
         #build geotop with meteoio enabled
