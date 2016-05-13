@@ -7,9 +7,6 @@ cmake_install.cmake
 install_manifest.txt
 *.cmake
 
-config.h
-
-
 ### C++ ###
 # Compiled Object files
 *.slo
@@ -48,3 +45,17 @@ config.h
 
 #generated scripts
 tests/1D/test_runner.py
+config.h
+
+#virtualenv python
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+share/
