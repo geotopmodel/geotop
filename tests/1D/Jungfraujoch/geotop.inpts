@@ -91,7 +91,7 @@ LateralHydrConductivity             = 0.000001
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFile = "output_tabs/soil"
+SoilAveragedTempProfileFile = "output-tabs/soil"
 SoilPlotDepths = 100
 
 !--- VARIABLES ------------

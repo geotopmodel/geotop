@@ -146,9 +146,9 @@ SoilLiqWaterContentTensorFile="output_maps/waterCont"
 
 DtPlotDischarge = 0.5
 DtPlotPoint = 0.5
-SoilTempProfileFile="output_tabs/soiltemp"
-SoilLiqContentProfileFile="output_tabs/thetaliq"
-SoilLiqWaterPressProfileFile="output_tabs/soilpsi"
+SoilTempProfileFile="output-tabs/soiltemp"
+SoilLiqContentProfileFile="output-tabs/thetaliq"
+SoilLiqWaterPressProfileFile="output-tabs/soilpsi"
 !SoilPlotDepths=500,1000,2000
 
 !*******************************
