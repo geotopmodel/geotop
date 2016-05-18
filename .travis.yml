@@ -15,15 +15,15 @@ install:
         - wget https://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz
         - tar xvf MeteoIO-2.5.1-src.tar.gz meteoio
         - cd meteoio/
-        #add dependency for proj4 in cmake for meteio
+        #add dependency for proj4 in cmake for meteoio
         - cmake -DPROJ4:BOOL=ON .
-
-        # this command lists the variables set inside cmake, this is supposeto to not modify them, but without this meteoio doesn't work, it asks fot arcio plugin in meteoio, how is this possible?
         - cmake -LAH
-
-
         - make && sudo make install
         - cd ..
+
+        #install nosetests dependency
+        - sudo apt-get install python-pandas
+        - sudo apt-get install python-nose
 
 #actually build the geotop program
 script:
@@ -32,22 +32,23 @@ script:
         #it's a good idea to put each different compilation of geotop in 2 different executables in order to test both of them without any problems
 
         #build geotop with meteoio disabled
-        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
-        #- make
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
+        - make
         #make tests with this environment
         #- ctest .
-        #- ctest --exclude-regex bonn_1 . #bonn_1 is being terminated by travis because it seems to take to long to run
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
+        - cd tests/1D
+        - nosetests -v test_runner.py
 
 
         #build geotop with meteoio enabled
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
-        - make
+        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
+        #- make
         #make tests with this environment
-        - ctest .
+        #- ctest .
         #- ctest -R Bro .
-        - cat Testing/Temporary/LastTest.log
+        #- cat Testing/Temporary/LastTest.log
 
 
 #choosing the compiler
