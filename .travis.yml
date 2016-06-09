@@ -1,5 +1,9 @@
 language: cpp
 
+env:
+  - ENABLE_INTERNAL_METEODISTR=ON
+  - ENABLE_INTERNAL_METEODISTR=OFF
+
 #installing the dependencies: proj and meteoio libraries
 install:
         #install required boost libraries
@@ -27,29 +31,15 @@ install:
 
 #actually build the geotop program
 script:
-        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON -DMETEOIO_PATH:STRING="/usr/local/" .
-        
-        #it's a good idea to put each different compilation of geotop in 2 different executables in order to test both of them without any problems
-
         #build geotop with meteoio disabled
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=ON .
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
         - make
         #make tests with this environment
-        #- ctest .
+        - ctest .
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
-        - cd tests/1D
-        - nosetests -v test_runner.py
-
-
-        #build geotop with meteoio enabled
-        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=OFF .
-        #- make
-        #make tests with this environment
-        #- ctest .
-        #- ctest -R Bro .
-        #- cat Testing/Temporary/LastTest.log
-
+        #- cd tests/1D
+        #- nosetests -v test_runner.py
 
 #choosing the compiler
 compiler:
