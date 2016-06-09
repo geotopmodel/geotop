@@ -60,3 +60,10 @@ pyvenv.cfg
 pip-selfcheck.json
 share/
 man/
+
+#python 
+*.pyc
+
+#Testing
+_SUCCESSFUL_RUN*
+_TEST_FAILED*
