@@ -375,8 +375,8 @@ add_test(NAME Jungfraujoch
 add_test(NAME ColdelaPorte
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME ConstantMeteo
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ConstantMeteo
+add_test(NAME CostantMeteo
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/CostantMeteo
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 
 #3D tests
