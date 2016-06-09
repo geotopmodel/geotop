@@ -1,8 +1,25 @@
 language: cpp
 
 env:
-  - ENABLE_INTERNAL_METEODISTR=ON
-  - ENABLE_INTERNAL_METEODISTR=OFF
+        - ENABLE_INTERNAL_METEODISTR=ON
+        - ENABLE_INTERNAL_METEODISTR=OFF
+        - TEST_NAME=Bro
+        - TEST_NAME=Calabria
+        - TEST_NAME=no_reflection
+        - TEST_NAME=small-example-onlyEnergy
+        - TEST_NAME=ColdelaPorte
+        - TEST_NAME=small-example-channel
+        - TEST_NAME=CostantMeteo
+        - TEST_NAME=small-example-channel
+        - TEST_NAME=small-example
+        - TEST_NAME=PSQL_test
+        - TEST_NAME=panola
+        - TEST_NAME=example
+        - TEST_NAME=prealpiC
+        - TEST_NAME=Jungfraujoch
+        - TEST_NAME=bonn_2
+        - TEST_NAME=Mazia
+        - TEST_NAME=Borden05m_nopit_001
 
 #installing the dependencies: proj and meteoio libraries
 install:
@@ -35,7 +52,7 @@ script:
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
         - make
         #make tests with this environment
-        - ctest .
+        - ctest -R $TEST_NAME  .
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
         #- cd tests/1D
