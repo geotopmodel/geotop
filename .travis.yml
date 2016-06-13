@@ -35,7 +35,7 @@ script:
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
         - make
         #make tests with this environment
-        - ctest -R $TEST_NAME  .
+        - ctest .
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
         #- cd tests/1D
