@@ -974,7 +974,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double Tbottom, 
 				 decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, egy->THETA->co, sl->pa->co[sy], land->ty->co[lu], 
 				 land->root_fraction->co[lu], par, egy->soil_transp_layer, SWin, LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
 				 &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-				 egy->Temp->co, egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, top->sky->co[r][c]);
+				 egy->Temp->co, egy->soil_evap_layer_bare, egy->soil_evap_layer_veg, top->sky->co[r][c]);
 	
 		if(micro == 1){
 			EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
@@ -1319,7 +1319,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd, double Tbottom, 
 												   sl->pa->co[sy], land->ty->co[lu], land->root_fraction->co[lu], par, egy->soil_transp_layer, SWin,
 												   LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, 
 												   Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v, egy->Temp->co, 
-												   egy->soil_evap_layer_bare, egy->soil_evap_layer_bare, top->sky->co[r][c], flagTmin, cont);
+												   egy->soil_evap_layer_bare, egy->soil_evap_layer_veg, top->sky->co[r][c], flagTmin, cont);
 					
 					if(micro == 1){
 						EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
