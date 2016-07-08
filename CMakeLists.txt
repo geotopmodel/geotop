@@ -362,59 +362,80 @@ enable_testing()
 
 
 #1D tests 
+SET(1DTESTS "Bro" "Calabria" "Jungfraujoch" "ColdelaPorte" "CostantMeteo")	
 
-add_test(NAME Bro
-	 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Bro
+foreach(TEST ${1DTESTS})
+	add_test(NAME ${TEST}
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/${TEST}
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME Calabria
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Calabria
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME Jungfraujoch 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Jungfraujoch
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME ColdelaPorte
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME CostantMeteo
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/CostantMeteo
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+	
+	#testing with test_runner
+	#add_test(NAME ${TEST}
+    #     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/
+    #     COMMAND nosetests test_runner.py -i ${TEST}) #specify the test name in test_runner options like -m or -i
+	#these cli args seems to not work 
+ENDFOREACH()
+
+
+#add_test(NAME Bro
+#		 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Bro
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME Calabria
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Calabria
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME Jungfraujoch 
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Jungfraujoch
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME ColdelaPorte
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME CostantMeteo
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/CostantMeteo
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 
 #3D tests
+SET(3DTESTS "small_example" "small_example-onlyEnergy" "small_example-channel" "prealpiC" "panola" "Mazia" "example" "no_reflection" "PSQL_test" "bonn_1" "bonn_2" "Borden05m_nopit_001")	
+
+foreach(TEST ${3DTESTS})
+	add_test(NAME ${TEST}
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/${TEST}
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+ENDFOREACH()
 
 
-add_test(NAME small-example
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME small-example-onlyEnergy
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-onlyEnergy
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME small-example-channel
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-channel
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME prealpiC
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/prealpiC
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME panola
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/panola
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME Mazia
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Mazia
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME example
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/example
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME no_reflection
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/no_reflection
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME PSQL_test 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/PSQL_test
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME bonn_1
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_1
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME bonn_2
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_2
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-add_test(NAME Borden05m_nopit_001 
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Borden05m_nopit_001
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME small-example
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME small-example-onlyEnergy
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-onlyEnergy
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME small-example-channel
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-channel
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME prealpiC
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/prealpiC
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME panola
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/panola
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME Mazia
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Mazia
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME example
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/example
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME no_reflection
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/no_reflection
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME PSQL_test 
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/PSQL_test
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME bonn_1
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_1
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME bonn_2
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_2
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+#add_test(NAME Borden05m_nopit_001 
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Borden05m_nopit_001
+#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
