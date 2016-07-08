@@ -35,7 +35,7 @@ script:
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
         - make
         #make tests with this environment
-        - if [$ENABLE_INTERNAL_METEODISTR -eq "OFF"]; then ctest -E "bonn_1|bonn_2|CostantMeteo" . else ctest . fi
+        - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then ctest -j12 -E "bonn_1|bonn_2|CostantMeteo" .; else ctest .; fi
         #- ctest -E "bonn_1|bonn_2|CostantMeteo" .
         #- ctest -R Bro .
         #- cat Testing/Temporary/LastTest.log
