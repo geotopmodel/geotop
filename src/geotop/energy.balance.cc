@@ -1186,8 +1186,9 @@ short SolvePointEnergyBalance(
     short dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0;
     long sur, sy, l, m, cont=0, cont2, n=geotop::common::Variables::Nl+ns+ng, cont_lambda_min=0;
     double dH_dT, dE_dT, EB, dEB_dT, EB0, Tg, Tg0, psim0, psi0, Qg0, Tv0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
-    double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0., kub1=0, thi = 0.0,
+    double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0.0, kub1=0, thi = 0.0,
         thin = 0.0, thw = 0.0, thwn = 0.0, sat = 0.0, satn = 0.0, kt = 0.0, ktn = 0.0;
+	
 	double snowD_tmp=0.0 ;//to make it compile.. 
 	// SnowD is NOT used at all in this routine: it is taken from above and passed to energyfluxes routines to be printed out in case of NaN is happening on some variable...
 	
@@ -1887,7 +1888,7 @@ short SolvePointEnergyBalance(
 
  void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th){
 
-    long l;
+    //long l;//this variable is not used
     double th_oversat, psisat;
 
     //soil variables
@@ -1925,7 +1926,7 @@ short SolvePointEnergyBalance(
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoMatrix<double>& ET, GeoMatrix<double>& th){
 
-    long l;
+    //long l;//this variable is not used
     double th_oversat, psisat;
 
     //soil variables
