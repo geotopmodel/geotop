@@ -59,10 +59,11 @@ Energy::Energy(double novalue, size_t total_pixel)
     GeoVector<double> Tgp;
     GeoVector<double> Tsp;
 
-    double *sun;
-    double hsun;
-    double sinhsun;
-    double dsun;
+	//those variables are not used inside of this code
+    //double *sun;
+    //double hsun;
+	//double sinhsun;
+    //double dsun;
 
     GeoVector<double> Dlayer;
     GeoVector<double> liq;
@@ -143,10 +144,11 @@ void Energy::allocate_data(double novalue, size_t total_pixel)
     GeoVector<double> Tgp;
     GeoVector<double> Tsp;
 
-    double *sun;
-    double hsun;
-    double sinhsun;
-    double dsun;
+	//those variables are not used inside of this code
+    //double *sun;
+    //double hsun;
+    //double sinhsun;
+    //double dsun;
 
     GeoVector<double> Dlayer;
     GeoVector<double> liq;
