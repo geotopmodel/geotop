@@ -33,7 +33,7 @@ install:
 script:
         #build geotop with meteoio disabled
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
-        - make
+        - make -Wno-unused-parameter
         #make tests with this environment
         - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then ctest -j17 -E "bonn_1|bonn_2|CostantMeteo" .; else ctest -j17 .; fi
         #- ctest -E "bonn_1|bonn_2|CostantMeteo" .
