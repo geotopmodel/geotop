@@ -1366,25 +1366,25 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 	//bool do_up_albedo=0;  //False
 	double Psnow_cum=0;
 	// cumulated snow since the  beginning of the event, resetted since the reset of the albedo exceeds the threshold
-	if(Psnowi>0 & *time_wo_prec<=tres_wo_prec){
+	if((Psnowi>0 & (*time_wo_prec))<=tres_wo_prec){
 		// solid precipitation is positive
 		*cum_prec = *cum_prec + Psnowi;
 		*time_wo_prec=0;
 		*evento=1; //True
 
-		if(*cum_prec>tres_up_albedo & *up_albedo==0){
+		if(((*cum_prec)>tres_up_albedo) & ((*up_albedo)==0)){
 			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
 			// and the albedo reset was not yet triggered
 			//do_up_albedo=false; //True
 			Psnow_cum=*cum_prec;
 			*cum_da_up=0;
 			*up_albedo=1; //True
-		} else if(*cum_prec>tres_up_albedo & *up_albedo==1){
+		} else if(((*cum_prec)>tres_up_albedo) & ((*up_albedo)==1)){
 			// cumulated precipitation since the beginning of the event exceeds the threshold for the first time
 			// and the albedo reset has already been triggered
 			*cum_da_up= *cum_da_up + Psnowi;
 			Psnow_cum=*cum_da_up;
-			if(*cum_da_up>tres_up_albedo){
+			if((*cum_da_up)>tres_up_albedo){
 				// cumulated precipitation since the reset of the albedo exceeds the threshold for the first time
 				//do_up_albedo=true; //True
 				*cum_da_up=0;
@@ -1394,10 +1394,10 @@ void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum
 		 	Psnow_cum=*cum_prec;
 		}
 
-	} else if (*evento==1 & Psnowi==0 & *time_wo_prec<tres_wo_prec) {
+	} else if ((*evento==1) & (Psnowi==0) & ((*time_wo_prec)<tres_wo_prec)) {
 		// a precipitation event was ongoing, now it is ceased but too much time has passed => the ongoing precipitation may still recover
 		*time_wo_prec = *time_wo_prec + Dt;
-	} else if (*evento==1 & Psnowi==0 & *time_wo_prec>=tres_wo_prec){
+	} else if ((*evento==1) & (Psnowi==0) & ((*time_wo_prec)>=tres_wo_prec)){
 		// a precipitation event was ongoing, now it is ceased since lot of time => the ongoing precipitation event is over
 		*evento=0; //False
 		*cum_prec=0;

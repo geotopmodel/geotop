@@ -179,15 +179,13 @@ DOUBLETENSOR *new_doubletensor_flexlayer(long ndl,long ndh,long nrh,long nch)
 
 /*===============functions copied from utilities.c ===================*/
 
-void stop_execution(void)
+void stop_execution(void){
+	
+	char ch;
 
-{
-
-char ch;
-
-printf("\nPRESS RETURN TO CONTINUE\n");
-scanf("%c",&ch);
-
+	printf("\nPRESS RETURN TO CONTINUE\n");
+	scanf("%c",&ch);//this generates a warning
+	
 }
 
 
