@@ -13,8 +13,8 @@ DtPlotDischarge        = 1
 !=============================================================================
 !  RECOVERY
 !=============================================================================
-SuccessfulRunFile      = "out/_SUCCESSFUL_RUN"
-FailedRunFile          = "out/_FAILED_RUN"
+SuccessfulRunFile      = "_SUCCESSFUL_RUN"
+FailedRunFile          = "_FAILED_RUN"
 
 !=============================================================================
 !  MODEL SETTINGS

@@ -3,7 +3,7 @@
 !*******************************
 TimeStepEnergyAndWater = 1800
 InitDateDDMMYYYYhhmm = 09/10/2002 22:00
-EndDateDDMMYYYYhhmm =   31/12/2005 00:00
+EndDateDDMMYYYYhhmm =   31/12/2004 00:00
 EnergyBalance =1
 WaterBalance = 0
 PointSim = 1
@@ -27,7 +27,7 @@ MeteoStationWindVelocitySensorHeight=10.0
 MeteoStationTemperatureSensorHeight=7.0
 
 
-MeteoFile = "meteo/Meteo"
+MeteoFile = "meteo/meteo"
 HeaderDateDDMMYYYYhhmmMeteo = "Date"
 HeaderIPrec = "Iprec"
 HeaderWindVelocity = "WindSp"
@@ -123,9 +123,9 @@ RichardInitForc = 0.01
 DtPlotDischarge = 1800
 DtPlotPoint = 0.5
 SoilAll=1
-DischargeFile = "output_tabs/discharge"
-SoilLiqWaterPressProfileFile = "output_tabs/water_press"
-SoilLiqContentProfileFile = "output_tabs/water_content"
+DischargeFile = "output-tabs/discharge"
+SoilLiqWaterPressProfileFile = "output-tabs/water_press"
+SoilLiqContentProfileFile = "output-tabs/water_content"
 
 !SoilAveragedTempTensorFile = "output_maps/T"
 !SoilLiqContentTensorFile = "output_maps/thetaliq"

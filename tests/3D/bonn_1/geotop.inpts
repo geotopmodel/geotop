@@ -4,9 +4,9 @@
 
 !Calculation max time step dt in s 
 
-TimeStepEnergyAndWater = 900    
+TimeStepEnergyAndWater = 1800    
 InitDateDDMMYYYYhhmm = 01/01/2000 00:00 
-EndDateDDMMYYYYhhmm =  06/01/2000 00:00 
+EndDateDDMMYYYYhhmm =  01/01/2000 04:00 
 
 WaterBalance = 1
 
