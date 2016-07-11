@@ -183,7 +183,9 @@ static GeoVector<double>* extractSupervectorFromMap(GeoMatrix<double>* M, AllDat
     //We have t build a Supervector from HN
     GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel + 1);
     long r,c;
-    size_t i;
+    
+	//size_t i; //this generates warning, changed to signed, otherwise A->P->total_pixel should be unsigned
+	long i;
     for (i = 1; i <= A->P->total_pixel; i++)
     {
         r = A->T->rc_cont[i][1];
