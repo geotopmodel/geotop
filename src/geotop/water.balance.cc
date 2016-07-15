@@ -40,7 +40,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandsup, double *Voutlandbottom){
 
 	clock_t start, end;
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    //geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance(); //unused variable
 	double Pnet, loss;
 	long j;
 	short a;
@@ -48,10 +48,10 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 	// this below used only for checks..
 	double mm1, mm2, mmo;
 	
-	double MM1, MM2, MMR=0.0, MMo=0.0, MS1, MS2;
-	double m1=0., m2=0., mo=0.;
-	double ds, area, dz;
-	long r, c, l, sy;
+	//double MM1, MM2, MMR=0.0, MMo=0.0, MS1, MS2; //unused variables
+	//double m1=0., m2=0., mo=0.; //unused variables
+	//double ds, area, dz; //unused variables
+	//long r, c, l, sy; //unused variables
 	
 	
 	if(adt->P->qin==1){
@@ -156,9 +156,10 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
-	double psi;
+	//double psi; //unused variables
 	
-	long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
+	long i, j, ch, m, bc, sy, cont, cont2, iter;
+	long c = 0, r=0, l=0; //may be used uninitialized, set to 0
 	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
@@ -520,7 +521,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 
 short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
-	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu;
+	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon;
+	double mu=0; //may be used uninitialized, set to 0
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
 	
 	long i, l, r=1, m, bc, sy, cont, cont2, iter;
@@ -782,7 +784,7 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 	size_t n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), dn;
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp; //unused variables
 	
 
 	for(i=1;i<H.size();i++){
@@ -1185,9 +1187,10 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 	{
 	long l, r=1, I, sy, cnt=0;
     size_t i;
-	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
+	double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
+	//double k; //unused variable
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp; //unused variable
 	
 	for(i=1;i<H.size();i++){
 		
@@ -1685,7 +1688,8 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
 	
-	double m1=0.,m2=0.,mo=0.;
+	double m1=0.,mo=0.;
+	//double m2=0.; //unused variable
 	
 
 	for (j=1; j<=par->total_pixel; j++) {
