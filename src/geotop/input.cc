@@ -44,7 +44,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     InitTools *IT;
 
     size_t a;
-    short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0;
+    //short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0; //varible not used
     long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
 	short count_file_missing=0;  // needed to check if some output map files are present or not 
@@ -3202,7 +3202,7 @@ short fill_GTmeteostations_meta(const double& JDE, mio::IOManager& iomanager, Me
     std::vector<mio::MeteoData> vec_meteo;
     iomanager.getMeteoData(d1, vec_meteo);
 
-    mio::MeteoData& tmp = vec_meteo[1];
+    //mio::MeteoData& tmp = vec_meteo[1]; //varible not used
 
 #ifdef WRF_PLUGIN
     size_t i_sky = tmp.getParameterIndex("SKY");
