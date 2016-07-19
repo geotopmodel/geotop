@@ -111,7 +111,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 #ifndef USE_INTERNAL_METEODISTR
 
     //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
-    for (i=1; i< A->M->st->Z.size(); i++){
+    for (unsigned long i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
 							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
