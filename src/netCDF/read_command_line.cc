@@ -44,8 +44,8 @@ char *read_option_string(int argc,char *argv[], char *option_f,char *no_option_a
 	 *\return Returns the string followed by the string option_f in the command line
 	 *
 	*/
-	int i,s;
-	s=NO_SUCCESS;
+	int i;
+	//int s=NO_SUCCESS; //variable not used
 	for (i = 1; i < argc; i++)  /* Skip argv[0] (program name). */
 		{
 	        /*

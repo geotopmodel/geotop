@@ -32,15 +32,11 @@ install:
 #actually build the geotop program
 script:
         #build geotop with meteoio disabled
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
+        #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR -DCMAKE_CXX_FLAGS_RELEASE="-Wextra -Wall -O2 -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-but-set-variable" .
         - make
         #make tests with this environment
         - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then ctest -j17 -E "bonn_1|bonn_2|CostantMeteo" .; else ctest -j17 .; fi
-        #- ctest -E "bonn_1|bonn_2|CostantMeteo" .
-        #- ctest -R Bro .
-        #- cat Testing/Temporary/LastTest.log
-        #- cd tests/1D
-        #- nosetests -v test_runner.py
 
 #choosing the compiler
 compiler:

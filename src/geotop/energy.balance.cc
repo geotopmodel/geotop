@@ -111,7 +111,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 #ifndef USE_INTERNAL_METEODISTR
 
     //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
-    for (i=1; i< A->M->st->Z.size(); i++){
+    for (unsigned long i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
 							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
@@ -1185,9 +1185,10 @@ short SolvePointEnergyBalance(
     short iter_close, iter_close2, lu=land->LC[r][c], flagTmin=0, sux;
     short dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0;
     long sur, sy, l, m, cont=0, cont2, n=geotop::common::Variables::Nl+ns+ng, cont_lambda_min=0;
-    double dH_dT, dE_dT, EB, dEB_dT, EB0, Tg, Tg0, psim0, psi0, Qg0, Tv0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
-    double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0., kub1=0, thi = 0.0,
+    double dH_dT, dE_dT, EB=0.0, dEB_dT=0.0, EB0, Tg, Tg0, psim0, psi0, Qg0=0.0, Tv0=0.0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
+    double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0.0, kub1=0, thi = 0.0,
         thin = 0.0, thw = 0.0, thwn = 0.0, sat = 0.0, satn = 0.0, kt = 0.0, ktn = 0.0;
+	
 	double snowD_tmp=0.0 ;//to make it compile.. 
 	// SnowD is NOT used at all in this routine: it is taken from above and passed to energyfluxes routines to be printed out in case of NaN is happening on some variable...
 	
@@ -1887,7 +1888,7 @@ short SolvePointEnergyBalance(
 
  void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th){
 
-    long l;
+    //long l;//this variable is not used
     double th_oversat, psisat;
 
     //soil variables
@@ -1925,7 +1926,7 @@ short SolvePointEnergyBalance(
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoMatrix<double>& ET, GeoMatrix<double>& th){
 
-    long l;
+    //long l;//this variable is not used
     double th_oversat, psisat;
 
     //soil variables
