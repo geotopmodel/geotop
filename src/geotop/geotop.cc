@@ -1,4 +1,4 @@
-/* STATEMENT:
+/*
 
    GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
    GEOtop 2.0.0 - 9 Mar 2012
@@ -378,7 +378,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					tstart=clock();
 
 					en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
-
+                                        printf("Dt->%f,JD0->%f,JDb->%f,JDe->,%f",Dt, JD0, JDb, JDe);
 					tend=clock();
 					geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
@@ -400,13 +400,12 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					}else {
 						lg->log("Water balance not converging", geotop::logger::WARNING);
 					}
-					lg->logsf(geotop::logger::WARNING,
-                              "Reducing time step to %f s, t:%f s\n",Dt,t);
+					lg->logsf(geotop::logger::WARNING,"Reducing time step to %f s, t:%f s\n",Dt,t);
 
 				}else {
 					out = 1;
 				}
-
+                                printf("Dt:%f min:%f\n",Dt,A->P->min_Dt);
 			}while( out == 0 && Dt > A->P->min_Dt );
 
             //TODO: sort out this mess about _FAILED_RUN files (G.G.)

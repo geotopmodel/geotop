@@ -71,7 +71,7 @@ def assert_is_file(fname, msg=None):
     assert os.path.isfile(fname), msg or "%s is not a file" % fname
 
 # Directory containing this file
-TESTDIR = "@abs_top_builddir@/tests/test_sample_run"
+TESTDIR = "@abs_top_builddir@/tests/1D"
 
 # Path to the geotop binary
 GEOTOP = "@abs_top_builddir@/@GEOTOP_PROGRAM_PATH@"
