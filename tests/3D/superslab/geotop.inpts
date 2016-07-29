@@ -6,14 +6,14 @@
 
 TimeStepEnergyAndWater = 180    
 InitDateDDMMYYYYhhmm = 01/01/2000 00:00 
-EndDateDDMMYYYYhhmm =  03/01/2000 00:00 
+EndDateDDMMYYYYhhmm =  01/01/2000 03:00 
 
 WaterBalance = 1
 
 !Output timeseries Dt in hours 
 DtPlotDischarge = 0.016666666
 DtPlotPoint = 0.016666666
-OutputSoilMaps = 0.1
+OutputSoilMaps = 0.5
 
 DtPlotBasin = 1
 BasinAll = 1
