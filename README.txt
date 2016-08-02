@@ -25,8 +25,9 @@ To install GEOtop you need the following libraries and tools:
 - CMake 2.6 or later (optional but recommended: ccmake ncurses ui)
 - Boost 1.49 or later (filesystem, system, iostreams, regex,
   program_options, unit_test_framework and spirit_classic)
-- MeteoIO 2.4.2
-  (http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.4.2-src.tar.gz)
+- MeteoIO 2.5.1
+  (http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz)
+  (always use tagged relases, avoid using trunk)
 
 GEOtop is known to run under the following Operating Systems:
 
