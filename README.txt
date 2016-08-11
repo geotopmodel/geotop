@@ -12,7 +12,7 @@ A copy of the license text can be found in the COPYING file.
 
 You can find more informations about GEOtop on the following website
 
-http://abouthydrology.blogspot.it/2015/02/geotop-essentials.html
+                     www.geotop.org 
 
 where the model is briefly described and links to papers and other useful
 websites have been collected.
@@ -52,7 +52,6 @@ Compilation options
  METEOIO_OUTPUT                   OFF
  METEOIO_PATH                     
  PRINT_DOUBLE_PRECISION           OFF
- STAGED_FOR_REMOVING              OFF
  USE_NETCDF                       OFF
  VERBOSE                          OFF
 
@@ -73,9 +72,6 @@ METEOIO_PATH: Path to MeteoIO libraries
 
 PRINT_DOUBLE_PRECISION: If set to ON will print the output files and the
 recovery files in GEOtop 1.x compatibility mode. (This will be removed).
-
-STAGED_FOR_REMOVING: If set to ON will compile code that is going to be
-removed.
 
 USE_NETCDF: enables experimental NetCDF output.
 
