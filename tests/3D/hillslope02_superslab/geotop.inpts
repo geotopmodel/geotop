@@ -4,7 +4,7 @@
 
 !Calculation max time step dt in s 
 
-TimeStepEnergyAndWater = 180    
+TimeStepEnergyAndWater = 18   
 InitDateDDMMYYYYhhmm = 01/01/2000 00:00 
 EndDateDDMMYYYYhhmm =  01/01/2000 03:00 
 
@@ -23,7 +23,7 @@ BasinOutputFile = "out/tabs/basin"
 ! METEO HAEDERS 
 !======================================= 
 
-MeteoFile = "in/met"
+MeteoFile = "input_maps/met"
 HeaderDateDDMMYYYYhhmmMeteo ="Date"
 HeaderIPrec = "Prec"
 
@@ -64,7 +64,7 @@ HeaderKthSoilSolids	=	"Kth"
 HeaderCthSoilSolids	=	"Cth"
 HeaderSoilInitPres = "InitPsi"
  
- SoilParFile	=	"in/soil-classes/soil"
+ SoilParFile	=	"input_maps/soil-classes/soil"
  
 !======================================= 
 !Numerical parameters 
@@ -90,11 +90,11 @@ MinTimeStepSupFlow	=	1E-50
 
 ! Input files 
 
-DemFile = "in/dem"
-RiverNetwork = "in/net"
-LandCoverMapFile = "in/land"
-SlopeMapFile = "in/slope"
-SoilMapFile	=	"in/soiltype"
+DemFile = "input_maps/dem"
+RiverNetwork = "input_maps/net"
+LandCoverMapFile = "input_maps/land"
+SlopeMapFile = "input_maps/slope"
+SoilMapFile	=	"input_maps/soiltype"
 
 ! Output files
 
