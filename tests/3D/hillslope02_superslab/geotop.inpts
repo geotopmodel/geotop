@@ -20,12 +20,24 @@ BasinAll = 1
 BasinOutputFile = "output_tabs/basin" 
 
 !======================================= 
-! METEO HAEDERS 
+! METEO HEADERS 
 !======================================= 
 
 MeteoFile = "input_maps/met"
-HeaderDateDDMMYYYYhhmmMeteo ="Date"
+HeaderDateDDMMYYYYhhmmMeteo = "Date"
 HeaderIPrec = "IPrec"
+
+
+NumberOfMeteoStations = 1
+! order of stations: One rain gauge 
+MeteoStationCoordinateX=15
+MeteoStationCoordinateY=5
+MeteoStationLatitude=0
+MeteoStationLongitude=0
+MeteoStationElevation=0
+MeteoStationWindVelocitySensorHeight = 10
+MeteoStationTemperatureSensorHeight = 10
+
 
 !=======================================
 ! SOIL
