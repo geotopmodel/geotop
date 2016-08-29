@@ -13,11 +13,11 @@ WaterBalance = 1
 !Output timeseries Dt in hours 
 DtPlotDischarge = 0.016666666
 DtPlotPoint = 0.016666666
-OutputSoilMaps = 0.5
+OutputSoilMaps = 1.5
 
 DtPlotBasin = 1
 BasinAll = 1
-BasinOutputFile = "out/tabs/basin" 
+BasinOutputFile = "output_tabs/basin" 
 
 !======================================= 
 ! METEO HAEDERS 
@@ -25,7 +25,7 @@ BasinOutputFile = "out/tabs/basin"
 
 MeteoFile = "input_maps/met"
 HeaderDateDDMMYYYYhhmmMeteo ="Date"
-HeaderIPrec = "Prec"
+HeaderIPrec = "IPrec"
 
 !=======================================
 ! SOIL
@@ -99,20 +99,20 @@ SoilMapFile	=	"input_maps/soiltype"
 ! Output files
 
 ! Tabs 
-DischargeFile = "out/tabs/discharge"
+DischargeFile = "output_tabs/discharge"
 
-!PointOutputFile = "out/tabs/point"
-!SoilLiqWaterPressProfileFile = "out/tabs/P"
-!SoilLiqContentProfileFile = "out/tabs/L"
-!SoilIceContentProfileFile = "out/tabs/I"
-!SoilSaturationRatioProfileFile = "out/tabs/Sr"
+!PointOutputFile = "output_tabs/point"
+!SoilLiqWaterPressProfileFile = "output_tabs/P"
+!SoilLiqContentProfileFile = "output_tabs/L"
+!SoilIceContentProfileFile = "output_tabs/I"
+!SoilSaturationRatioProfileFile = "output_tabs/Sr"
 
 ! Maps
-LandSurfaceWaterDepthMapFile = "out/maps/hsup"
-WaterTableDepthMapFile  = "out/maps/wt"
-WaterTableDepthFromAboveMapFile  = "out/maps/wttop"
+LandSurfaceWaterDepthMapFile = "output_maps/hsup"
+WaterTableDepthMapFile  = "output_maps/wt"
+WaterTableDepthFromAboveMapFile  = "output_maps/wttop"
 
 ! Tens
-SoilLiqContentTensorFile = "out/maps3D/thetaliq"
-SoilLiqWaterPressTensorFile = "out/maps3D/Pw"
+SoilLiqContentTensorFile = "output_maps/thetaliq"
+SoilLiqWaterPressTensorFile = "output_maps/psiliq"
 
