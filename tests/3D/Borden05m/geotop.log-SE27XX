@@ -1,0 +1,2253 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/
+
+TimeStepEnergyAndWater[1] = 2.000000e+01 
+InitDateDDMMYYYYhhmm[1] = 1.062000e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.062000e+10 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 0.000000e+00 (default) 
+DtPlotDischarge[1] = 1.666667e-02 
+DtPlotPoint[1] = 1.666667e-02 
+DtPlotBasin[1] = 1.666667e-02 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 0.000000e+00 
+RecoverSim[1] = 0.000000e+00 
+NumLandCoverTypes[1] = 1.000000e+00 
+SoilRoughness[1] = 1.000000e+02 
+ThresSnowSoilRough[1] = 1.000000e+02 
+VegHeight[1] = 1.000000e+02 
+ThresSnowVegUp[1] = 5.000000e+01 
+ThresSnowVegDown[1] = 1.000000e+01 
+LSAI[1] = 0.000000e+00 
+CanopyFraction[1] = 0.000000e+00 
+DecayCoeffCanopy[1] = 2.500000e+00 
+VegSnowBurying[1] = 1.000000e+00 
+RootDepth[1] = 5.000000e+01 
+MinStomatalRes[1] = 6.000000e+01 
+VegReflectVis[1] = 1.000000e-01 
+VegReflNIR[1] = 5.800000e-01 
+VegTransVis[1] = 5.000000e-02 
+VegTransNIR[1] = 2.500000e-01 
+LeafAngles[1] = 0.000000e+00 
+CanDensSurface[1] = 5.000000e-01 
+SoilAlbVisDry[1] = 1.500000e-01 
+SoilAlbNIRDry[1] = 2.500000e-01 
+SoilAlbVisWet[1] = 1.500000e-01 
+SoilAlbNIRWet[1] = 2.500000e-01 
+SoilEmissiv[1] = 9.600000e-01 
+SurFlowResLand[1] = 3.330000e+01 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 
+RichardTol[1] = 1.000000e-06 (default) 
+RichardMaxIter[1] = 7.000000e+02 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 (default) 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.670000e-01 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 3.330000e+01 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 5.000000e-01 
+ChannelDepression[1] = 2.000000e+03 
+MaxCourantSupFlowLand[1] = 1.000000e-01 (default) 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 0.000000e+00 
+MinSupWaterDepthChannel[1] = 0.000000e+00 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-02 (default) 
+Latitude[1] = 4.675604e+01 
+Longitude[1] = 1.070311e+01 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+02 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-06 
+HeatEqMaxIter[1] = 5.000000e+02 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 1.000000e+01 (default) 
+FreshSnowReflVis[1] = 9.800000e-01 
+FreshSnowReflNIR[1] = 6.500000e-01 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 2.000000e+01 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+00 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+00 
+SWEbottom[1] = 2.000000e+01 
+SWEtop[1] = 4.000000e+01 
+Max snow layer number: 11, of which 2 at the bottom, 5 in the middle, and 4 at the top.
+Infinite Snow layer numbers are numbers: 3 4 5 6 7 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 7.000000e+02 
+InitGlacierTemp[1] = -5.000000e+00 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 3.000000e+00 
+GWEbottom[1] = 1.000000e+02 
+GWEtop[1] = 3.000000e+02 
+Max glac layer number: 83, of which 20 at the bottom, 3 in the middle, and 60 at the top.
+Infinite Glac layer numbers are numbers: 21 22 23 
+LWinParameterization[1] = 9.000000e+00 (default) 
+MoninObukhov[1] = 1.000000e+00 (default) 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 1.000000e+00 
+EnergyBalance[1] = 0.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = 6.202350e+05 
+CoordinatePointY[1] = 5.168008e+06 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 5.000000e-01 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 5.000000e-01 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 5.000000e-01 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 
+InitWaterTableDepth[1] = 5.000000e+03 (default) 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = -9.999000e+03 (default) 
+SoilLayerNumber[1] = 5.000000e+00 (default) 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 5.000000e+00 (default) 
+NormalHydrConductivity[1] = 1.000000e-04 (default) 
+LateralHydrConductivity[1] = 1.000000e-04 (default) 
+ThetaRes[1] = 5.000000e-02 (default) 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 5.000000e-01 (default) 
+AlphaVanGenuchten[1] = 4.000000e-03 (default) 
+NVanGenuchten[1] = 1.300000e+00 (default) 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[1] = 1.000000e+06 (default) 
+SpecificStorativity[1] = 1.000000e-07 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 5.000000e+00 (default) 
+NormalHydrConductivity[2] = 1.000000e-04 (default) 
+LateralHydrConductivity[2] = 1.000000e-04 (default) 
+ThetaRes[2] = 5.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 5.000000e-01 (default) 
+AlphaVanGenuchten[2] = 4.000000e-03 (default) 
+NVanGenuchten[2] = 1.300000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 1.000000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 5.000000e+00 (default) 
+NormalHydrConductivity[3] = 1.000000e-04 (default) 
+LateralHydrConductivity[3] = 1.000000e-04 (default) 
+ThetaRes[3] = 5.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 5.000000e-01 (default) 
+AlphaVanGenuchten[3] = 4.000000e-03 (default) 
+NVanGenuchten[3] = 1.300000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 1.000000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 5.000000e+00 (default) 
+NormalHydrConductivity[4] = 1.000000e-04 (default) 
+LateralHydrConductivity[4] = 1.000000e-04 (default) 
+ThetaRes[4] = 5.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 5.000000e-01 (default) 
+AlphaVanGenuchten[4] = 4.000000e-03 (default) 
+NVanGenuchten[4] = 1.300000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 1.000000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 5.000000e+00 (default) 
+NormalHydrConductivity[5] = 1.000000e-04 (default) 
+LateralHydrConductivity[5] = 1.000000e-04 (default) 
+ThetaRes[5] = 5.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 5.000000e-01 (default) 
+AlphaVanGenuchten[5] = 4.000000e-03 (default) 
+NVanGenuchten[5] = 1.300000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 1.000000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = 1.000000e-06 
+LateralHydrConductivityBedrock[1] = 1.000000e-06 
+ThetaResBedrock[1] = 6.750000e-02 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = 3.700000e-01 
+AlphaVanGenuchtenBedrock[1] = 1.900000e-03 
+NVanGenuchtenBedrock[1] = 6.000000e+00 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = 3.200000e-07 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = 1.000000e-06 (default) 
+LateralHydrConductivityBedrock[2] = 1.000000e-06 (default) 
+ThetaResBedrock[2] = 6.750000e-02 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = 3.700000e-01 (default) 
+AlphaVanGenuchtenBedrock[2] = 1.900000e-03 (default) 
+NVanGenuchtenBedrock[2] = 6.000000e+00 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = 3.200000e-07 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = 1.000000e-06 (default) 
+LateralHydrConductivityBedrock[3] = 1.000000e-06 (default) 
+ThetaResBedrock[3] = 6.750000e-02 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = 3.700000e-01 (default) 
+AlphaVanGenuchtenBedrock[3] = 1.900000e-03 (default) 
+NVanGenuchtenBedrock[3] = 6.000000e+00 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = 3.200000e-07 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = 1.000000e-06 (default) 
+LateralHydrConductivityBedrock[4] = 1.000000e-06 (default) 
+ThetaResBedrock[4] = 6.750000e-02 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = 3.700000e-01 (default) 
+AlphaVanGenuchtenBedrock[4] = 1.900000e-03 (default) 
+NVanGenuchtenBedrock[4] = 6.000000e+00 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = 3.200000e-07 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = 1.000000e-06 (default) 
+LateralHydrConductivityBedrock[5] = 1.000000e-06 (default) 
+ThetaResBedrock[5] = 6.750000e-02 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = 3.700000e-01 (default) 
+AlphaVanGenuchtenBedrock[5] = 1.900000e-03 (default) 
+NVanGenuchtenBedrock[5] = 6.000000e+00 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = 3.200000e-07 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 
+MeteoStationCoordinateX[1] = 6.204000e+05 
+MeteoStationCoordinateY[1] = 5.168100e+06 
+MeteoStationLatitude[1] = 4.665564e+01 
+MeteoStationLongitude[1] = 1.057361e+01 
+MeteoStationElevation[1] = 3.000000e+00 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 0.000000e+00 (default) 
+MeteoStationWindVelocitySensorHeight[1] = 2.500000e+00 
+MeteoStationTemperatureSensorHeight[1] = 2.500000e+00 
+LapseRateTemp[1] = -9.999000e+03 (default) 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 1.000000e+00 
+BasinAll[1] = 1.000000e+00 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+IDPointGlac[1] = -1.000000e+00 (default) 
+IDPointGlac[2] = -1.000000e+00 (default) 
+IDPointGlac[3] = -1.000000e+00 (default) 
+IDPointGlac[4] = -1.000000e+00 (default) 
+IDPointGlac[5] = -1.000000e+00 (default) 
+IDPointGlac[6] = -1.000000e+00 (default) 
+IDPointGlac[7] = -1.000000e+00 (default) 
+IDPointGlac[8] = -1.000000e+00 (default) 
+IDPointGlac[9] = -1.000000e+00 (default) 
+IDPointGlac[10] = -1.000000e+00 (default) 
+IDPointGlac[11] = -1.000000e+00 (default) 
+IDPointGlac[12] = -1.000000e+00 (default) 
+IDPointGlac[13] = -1.000000e+00 (default) 
+IDPointGlac[14] = -1.000000e+00 (default) 
+IDPointGlac[15] = -1.000000e+00 (default) 
+IDPointGlac[16] = -1.000000e+00 (default) 
+IDPointGlac[17] = -1.000000e+00 (default) 
+IDPointGlac[18] = -1.000000e+00 (default) 
+IDPointGlac[19] = -1.000000e+00 (default) 
+IDPointGlac[20] = -1.000000e+00 (default) 
+IDPointGlac[21] = -1.000000e+00 (default) 
+IDPointGlac[22] = -1.000000e+00 (default) 
+IDPointGlac[23] = -1.000000e+00 (default) 
+IDPointGlac[24] = -1.000000e+00 (default) 
+IDPointGlac[25] = -1.000000e+00 (default) 
+IDPointGlac[26] = -1.000000e+00 (default) 
+IDPointGlac[27] = -1.000000e+00 (default) 
+IDPointGlac[28] = -1.000000e+00 (default) 
+IDPointGlac[29] = -1.000000e+00 (default) 
+IDPointGlac[30] = -1.000000e+00 (default) 
+IDPointGlac[31] = -1.000000e+00 (default) 
+IDPointGlac[32] = -1.000000e+00 (default) 
+IDPointGlac[33] = -1.000000e+00 (default) 
+IDPointGlac[34] = -1.000000e+00 (default) 
+IDPointGlac[35] = -1.000000e+00 (default) 
+IDPointGlac[36] = -1.000000e+00 (default) 
+IDPointGlac[37] = -1.000000e+00 (default) 
+IDPointGlac[38] = -1.000000e+00 (default) 
+IDPointGlac[39] = -1.000000e+00 (default) 
+IDPointGlac[40] = -1.000000e+00 (default) 
+IDPointGlac[41] = -1.000000e+00 (default) 
+IDPointGlac[42] = -1.000000e+00 (default) 
+IDPointGlac[43] = -1.000000e+00 (default) 
+IDPointGlac[44] = -1.000000e+00 (default) 
+IDPointGlac[45] = -1.000000e+00 (default) 
+IDPointGlac[46] = -1.000000e+00 (default) 
+IDPointGlac[47] = -1.000000e+00 (default) 
+IDPointGlac[48] = -1.000000e+00 (default) 
+IDPointGlac[49] = -1.000000e+00 (default) 
+IDPointGlac[50] = -1.000000e+00 (default) 
+IDPointGlac[51] = -1.000000e+00 (default) 
+IDPointGlac[52] = -1.000000e+00 (default) 
+IDPointGlac[53] = -1.000000e+00 (default) 
+IDPointGlac[54] = -1.000000e+00 (default) 
+IDPointGlac[55] = -1.000000e+00 (default) 
+IDPointGlac[56] = -1.000000e+00 (default) 
+IDPointGlac[57] = -1.000000e+00 (default) 
+IDPointGlac[58] = -1.000000e+00 (default) 
+IDPointGlac[59] = -1.000000e+00 (default) 
+IDPointGlac[60] = -1.000000e+00 (default) 
+IDPointGlac[61] = -1.000000e+00 (default) 
+IDPointGlac[62] = -1.000000e+00 (default) 
+IDPointGlac[63] = -1.000000e+00 (default) 
+IDPointGlac[64] = -1.000000e+00 (default) 
+IDPointGlac[65] = -1.000000e+00 (default) 
+IDPointGlac[66] = -1.000000e+00 (default) 
+IDPointGlac[67] = -1.000000e+00 (default) 
+IDPointGlac[68] = -1.000000e+00 (default) 
+IDPointGlac[69] = -1.000000e+00 (default) 
+IDPointGlac[70] = -1.000000e+00 (default) 
+IDPointGlac[71] = -1.000000e+00 (default) 
+IDPointGlac[72] = -1.000000e+00 (default) 
+IDPointGlac[73] = -1.000000e+00 (default) 
+IDPointGlac[74] = -1.000000e+00 (default) 
+IDPointGlac[75] = -1.000000e+00 (default) 
+IDPointGlac[76] = -1.000000e+00 (default) 
+IDPointGlac[77] = -1.000000e+00 (default) 
+IDPointGlac[78] = -1.000000e+00 (default) 
+IDPointGlac[79] = -1.000000e+00 (default) 
+IDPointGlac[80] = -1.000000e+00 (default) 
+IDPointGlac[81] = -1.000000e+00 (default) 
+IDPointGlac[82] = -1.000000e+00 (default) 
+IDPointGlac[83] = -1.000000e+00 (default) 
+TempGlac[1] = -1.000000e+00 (default) 
+TempGlac[2] = -1.000000e+00 (default) 
+TempGlac[3] = -1.000000e+00 (default) 
+TempGlac[4] = -1.000000e+00 (default) 
+TempGlac[5] = -1.000000e+00 (default) 
+TempGlac[6] = -1.000000e+00 (default) 
+TempGlac[7] = -1.000000e+00 (default) 
+TempGlac[8] = -1.000000e+00 (default) 
+TempGlac[9] = -1.000000e+00 (default) 
+TempGlac[10] = -1.000000e+00 (default) 
+TempGlac[11] = -1.000000e+00 (default) 
+TempGlac[12] = -1.000000e+00 (default) 
+TempGlac[13] = -1.000000e+00 (default) 
+TempGlac[14] = -1.000000e+00 (default) 
+TempGlac[15] = -1.000000e+00 (default) 
+TempGlac[16] = -1.000000e+00 (default) 
+TempGlac[17] = -1.000000e+00 (default) 
+TempGlac[18] = -1.000000e+00 (default) 
+TempGlac[19] = -1.000000e+00 (default) 
+TempGlac[20] = -1.000000e+00 (default) 
+TempGlac[21] = -1.000000e+00 (default) 
+TempGlac[22] = -1.000000e+00 (default) 
+TempGlac[23] = -1.000000e+00 (default) 
+TempGlac[24] = -1.000000e+00 (default) 
+TempGlac[25] = -1.000000e+00 (default) 
+TempGlac[26] = -1.000000e+00 (default) 
+TempGlac[27] = -1.000000e+00 (default) 
+TempGlac[28] = -1.000000e+00 (default) 
+TempGlac[29] = -1.000000e+00 (default) 
+TempGlac[30] = -1.000000e+00 (default) 
+TempGlac[31] = -1.000000e+00 (default) 
+TempGlac[32] = -1.000000e+00 (default) 
+TempGlac[33] = -1.000000e+00 (default) 
+TempGlac[34] = -1.000000e+00 (default) 
+TempGlac[35] = -1.000000e+00 (default) 
+TempGlac[36] = -1.000000e+00 (default) 
+TempGlac[37] = -1.000000e+00 (default) 
+TempGlac[38] = -1.000000e+00 (default) 
+TempGlac[39] = -1.000000e+00 (default) 
+TempGlac[40] = -1.000000e+00 (default) 
+TempGlac[41] = -1.000000e+00 (default) 
+TempGlac[42] = -1.000000e+00 (default) 
+TempGlac[43] = -1.000000e+00 (default) 
+TempGlac[44] = -1.000000e+00 (default) 
+TempGlac[45] = -1.000000e+00 (default) 
+TempGlac[46] = -1.000000e+00 (default) 
+TempGlac[47] = -1.000000e+00 (default) 
+TempGlac[48] = -1.000000e+00 (default) 
+TempGlac[49] = -1.000000e+00 (default) 
+TempGlac[50] = -1.000000e+00 (default) 
+TempGlac[51] = -1.000000e+00 (default) 
+TempGlac[52] = -1.000000e+00 (default) 
+TempGlac[53] = -1.000000e+00 (default) 
+TempGlac[54] = -1.000000e+00 (default) 
+TempGlac[55] = -1.000000e+00 (default) 
+TempGlac[56] = -1.000000e+00 (default) 
+TempGlac[57] = -1.000000e+00 (default) 
+TempGlac[58] = -1.000000e+00 (default) 
+TempGlac[59] = -1.000000e+00 (default) 
+TempGlac[60] = -1.000000e+00 (default) 
+TempGlac[61] = -1.000000e+00 (default) 
+TempGlac[62] = -1.000000e+00 (default) 
+TempGlac[63] = -1.000000e+00 (default) 
+TempGlac[64] = -1.000000e+00 (default) 
+TempGlac[65] = -1.000000e+00 (default) 
+TempGlac[66] = -1.000000e+00 (default) 
+TempGlac[67] = -1.000000e+00 (default) 
+TempGlac[68] = -1.000000e+00 (default) 
+TempGlac[69] = -1.000000e+00 (default) 
+TempGlac[70] = -1.000000e+00 (default) 
+TempGlac[71] = -1.000000e+00 (default) 
+TempGlac[72] = -1.000000e+00 (default) 
+TempGlac[73] = -1.000000e+00 (default) 
+TempGlac[74] = -1.000000e+00 (default) 
+TempGlac[75] = -1.000000e+00 (default) 
+TempGlac[76] = -1.000000e+00 (default) 
+TempGlac[77] = -1.000000e+00 (default) 
+TempGlac[78] = -1.000000e+00 (default) 
+TempGlac[79] = -1.000000e+00 (default) 
+TempGlac[80] = -1.000000e+00 (default) 
+TempGlac[81] = -1.000000e+00 (default) 
+TempGlac[82] = -1.000000e+00 (default) 
+TempGlac[83] = -1.000000e+00 (default) 
+IceContentGlac[1] = -1.000000e+00 (default) 
+IceContentGlac[2] = -1.000000e+00 (default) 
+IceContentGlac[3] = -1.000000e+00 (default) 
+IceContentGlac[4] = -1.000000e+00 (default) 
+IceContentGlac[5] = -1.000000e+00 (default) 
+IceContentGlac[6] = -1.000000e+00 (default) 
+IceContentGlac[7] = -1.000000e+00 (default) 
+IceContentGlac[8] = -1.000000e+00 (default) 
+IceContentGlac[9] = -1.000000e+00 (default) 
+IceContentGlac[10] = -1.000000e+00 (default) 
+IceContentGlac[11] = -1.000000e+00 (default) 
+IceContentGlac[12] = -1.000000e+00 (default) 
+IceContentGlac[13] = -1.000000e+00 (default) 
+IceContentGlac[14] = -1.000000e+00 (default) 
+IceContentGlac[15] = -1.000000e+00 (default) 
+IceContentGlac[16] = -1.000000e+00 (default) 
+IceContentGlac[17] = -1.000000e+00 (default) 
+IceContentGlac[18] = -1.000000e+00 (default) 
+IceContentGlac[19] = -1.000000e+00 (default) 
+IceContentGlac[20] = -1.000000e+00 (default) 
+IceContentGlac[21] = -1.000000e+00 (default) 
+IceContentGlac[22] = -1.000000e+00 (default) 
+IceContentGlac[23] = -1.000000e+00 (default) 
+IceContentGlac[24] = -1.000000e+00 (default) 
+IceContentGlac[25] = -1.000000e+00 (default) 
+IceContentGlac[26] = -1.000000e+00 (default) 
+IceContentGlac[27] = -1.000000e+00 (default) 
+IceContentGlac[28] = -1.000000e+00 (default) 
+IceContentGlac[29] = -1.000000e+00 (default) 
+IceContentGlac[30] = -1.000000e+00 (default) 
+IceContentGlac[31] = -1.000000e+00 (default) 
+IceContentGlac[32] = -1.000000e+00 (default) 
+IceContentGlac[33] = -1.000000e+00 (default) 
+IceContentGlac[34] = -1.000000e+00 (default) 
+IceContentGlac[35] = -1.000000e+00 (default) 
+IceContentGlac[36] = -1.000000e+00 (default) 
+IceContentGlac[37] = -1.000000e+00 (default) 
+IceContentGlac[38] = -1.000000e+00 (default) 
+IceContentGlac[39] = -1.000000e+00 (default) 
+IceContentGlac[40] = -1.000000e+00 (default) 
+IceContentGlac[41] = -1.000000e+00 (default) 
+IceContentGlac[42] = -1.000000e+00 (default) 
+IceContentGlac[43] = -1.000000e+00 (default) 
+IceContentGlac[44] = -1.000000e+00 (default) 
+IceContentGlac[45] = -1.000000e+00 (default) 
+IceContentGlac[46] = -1.000000e+00 (default) 
+IceContentGlac[47] = -1.000000e+00 (default) 
+IceContentGlac[48] = -1.000000e+00 (default) 
+IceContentGlac[49] = -1.000000e+00 (default) 
+IceContentGlac[50] = -1.000000e+00 (default) 
+IceContentGlac[51] = -1.000000e+00 (default) 
+IceContentGlac[52] = -1.000000e+00 (default) 
+IceContentGlac[53] = -1.000000e+00 (default) 
+IceContentGlac[54] = -1.000000e+00 (default) 
+IceContentGlac[55] = -1.000000e+00 (default) 
+IceContentGlac[56] = -1.000000e+00 (default) 
+IceContentGlac[57] = -1.000000e+00 (default) 
+IceContentGlac[58] = -1.000000e+00 (default) 
+IceContentGlac[59] = -1.000000e+00 (default) 
+IceContentGlac[60] = -1.000000e+00 (default) 
+IceContentGlac[61] = -1.000000e+00 (default) 
+IceContentGlac[62] = -1.000000e+00 (default) 
+IceContentGlac[63] = -1.000000e+00 (default) 
+IceContentGlac[64] = -1.000000e+00 (default) 
+IceContentGlac[65] = -1.000000e+00 (default) 
+IceContentGlac[66] = -1.000000e+00 (default) 
+IceContentGlac[67] = -1.000000e+00 (default) 
+IceContentGlac[68] = -1.000000e+00 (default) 
+IceContentGlac[69] = -1.000000e+00 (default) 
+IceContentGlac[70] = -1.000000e+00 (default) 
+IceContentGlac[71] = -1.000000e+00 (default) 
+IceContentGlac[72] = -1.000000e+00 (default) 
+IceContentGlac[73] = -1.000000e+00 (default) 
+IceContentGlac[74] = -1.000000e+00 (default) 
+IceContentGlac[75] = -1.000000e+00 (default) 
+IceContentGlac[76] = -1.000000e+00 (default) 
+IceContentGlac[77] = -1.000000e+00 (default) 
+IceContentGlac[78] = -1.000000e+00 (default) 
+IceContentGlac[79] = -1.000000e+00 (default) 
+IceContentGlac[80] = -1.000000e+00 (default) 
+IceContentGlac[81] = -1.000000e+00 (default) 
+IceContentGlac[82] = -1.000000e+00 (default) 
+IceContentGlac[83] = -1.000000e+00 (default) 
+WatContentGlac[1] = -1.000000e+00 (default) 
+WatContentGlac[2] = -1.000000e+00 (default) 
+WatContentGlac[3] = -1.000000e+00 (default) 
+WatContentGlac[4] = -1.000000e+00 (default) 
+WatContentGlac[5] = -1.000000e+00 (default) 
+WatContentGlac[6] = -1.000000e+00 (default) 
+WatContentGlac[7] = -1.000000e+00 (default) 
+WatContentGlac[8] = -1.000000e+00 (default) 
+WatContentGlac[9] = -1.000000e+00 (default) 
+WatContentGlac[10] = -1.000000e+00 (default) 
+WatContentGlac[11] = -1.000000e+00 (default) 
+WatContentGlac[12] = -1.000000e+00 (default) 
+WatContentGlac[13] = -1.000000e+00 (default) 
+WatContentGlac[14] = -1.000000e+00 (default) 
+WatContentGlac[15] = -1.000000e+00 (default) 
+WatContentGlac[16] = -1.000000e+00 (default) 
+WatContentGlac[17] = -1.000000e+00 (default) 
+WatContentGlac[18] = -1.000000e+00 (default) 
+WatContentGlac[19] = -1.000000e+00 (default) 
+WatContentGlac[20] = -1.000000e+00 (default) 
+WatContentGlac[21] = -1.000000e+00 (default) 
+WatContentGlac[22] = -1.000000e+00 (default) 
+WatContentGlac[23] = -1.000000e+00 (default) 
+WatContentGlac[24] = -1.000000e+00 (default) 
+WatContentGlac[25] = -1.000000e+00 (default) 
+WatContentGlac[26] = -1.000000e+00 (default) 
+WatContentGlac[27] = -1.000000e+00 (default) 
+WatContentGlac[28] = -1.000000e+00 (default) 
+WatContentGlac[29] = -1.000000e+00 (default) 
+WatContentGlac[30] = -1.000000e+00 (default) 
+WatContentGlac[31] = -1.000000e+00 (default) 
+WatContentGlac[32] = -1.000000e+00 (default) 
+WatContentGlac[33] = -1.000000e+00 (default) 
+WatContentGlac[34] = -1.000000e+00 (default) 
+WatContentGlac[35] = -1.000000e+00 (default) 
+WatContentGlac[36] = -1.000000e+00 (default) 
+WatContentGlac[37] = -1.000000e+00 (default) 
+WatContentGlac[38] = -1.000000e+00 (default) 
+WatContentGlac[39] = -1.000000e+00 (default) 
+WatContentGlac[40] = -1.000000e+00 (default) 
+WatContentGlac[41] = -1.000000e+00 (default) 
+WatContentGlac[42] = -1.000000e+00 (default) 
+WatContentGlac[43] = -1.000000e+00 (default) 
+WatContentGlac[44] = -1.000000e+00 (default) 
+WatContentGlac[45] = -1.000000e+00 (default) 
+WatContentGlac[46] = -1.000000e+00 (default) 
+WatContentGlac[47] = -1.000000e+00 (default) 
+WatContentGlac[48] = -1.000000e+00 (default) 
+WatContentGlac[49] = -1.000000e+00 (default) 
+WatContentGlac[50] = -1.000000e+00 (default) 
+WatContentGlac[51] = -1.000000e+00 (default) 
+WatContentGlac[52] = -1.000000e+00 (default) 
+WatContentGlac[53] = -1.000000e+00 (default) 
+WatContentGlac[54] = -1.000000e+00 (default) 
+WatContentGlac[55] = -1.000000e+00 (default) 
+WatContentGlac[56] = -1.000000e+00 (default) 
+WatContentGlac[57] = -1.000000e+00 (default) 
+WatContentGlac[58] = -1.000000e+00 (default) 
+WatContentGlac[59] = -1.000000e+00 (default) 
+WatContentGlac[60] = -1.000000e+00 (default) 
+WatContentGlac[61] = -1.000000e+00 (default) 
+WatContentGlac[62] = -1.000000e+00 (default) 
+WatContentGlac[63] = -1.000000e+00 (default) 
+WatContentGlac[64] = -1.000000e+00 (default) 
+WatContentGlac[65] = -1.000000e+00 (default) 
+WatContentGlac[66] = -1.000000e+00 (default) 
+WatContentGlac[67] = -1.000000e+00 (default) 
+WatContentGlac[68] = -1.000000e+00 (default) 
+WatContentGlac[69] = -1.000000e+00 (default) 
+WatContentGlac[70] = -1.000000e+00 (default) 
+WatContentGlac[71] = -1.000000e+00 (default) 
+WatContentGlac[72] = -1.000000e+00 (default) 
+WatContentGlac[73] = -1.000000e+00 (default) 
+WatContentGlac[74] = -1.000000e+00 (default) 
+WatContentGlac[75] = -1.000000e+00 (default) 
+WatContentGlac[76] = -1.000000e+00 (default) 
+WatContentGlac[77] = -1.000000e+00 (default) 
+WatContentGlac[78] = -1.000000e+00 (default) 
+WatContentGlac[79] = -1.000000e+00 (default) 
+WatContentGlac[80] = -1.000000e+00 (default) 
+WatContentGlac[81] = -1.000000e+00 (default) 
+WatContentGlac[82] = -1.000000e+00 (default) 
+WatContentGlac[83] = -1.000000e+00 (default) 
+SoilAll[1] = 1.000000e+00 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 1.750000e-01 
+SnowAgingCoeffNIR[1] = 4.375000e-01 
+DepthFreeSurfaceAtTheBoundary[1] = 2.000000e+03 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = Date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = none
+HeaderWindDirection = none
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = none
+HeaderAirTemp = none
+HeaderDewTemp = none
+HeaderSWglobal = none
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = none
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = Dz
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = Kv
+HeaderLateralHydrConductivity = Kh
+HeaderThetaRes = res
+HeaderWiltingPoint = none
+HeaderFieldCapacity = none
+HeaderThetaSat = sat
+HeaderAlpha = a
+HeaderN = n
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = ss
+HeaderHorizonAngle = azimuth
+HeaderHorizonHeight = horizon_ele
+TimeStepsFile = none
+SoilParFile = soil
+MeteoFile = meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = hor_meteo/horizon
+PointFile = none
+HorizonPointFile = hor_points/horizon
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = dem_nopit_05m
+LandCoverMapFile = landcover05m
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = sky
+SlopeMapFile = slope
+RiverNetwork = net05
+AspectMapFile = aspect
+CurvaturesMapFile = none
+BedrockDepthMapFile = bedrock_nopit
+InitWaterTableDepthMapFile = InitWaterTable_nopit
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = output_tabs/discharge
+BasinOutputFile = output_tabs/basin
+BasinOutputFileWriteEnd = none
+PointOutputFile = output_tabs/point
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = output_tabs/soiltemp
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = output_tabs/soilwater
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = output_maps/thetaliq
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = output_maps/watersurf
+ChannelSurfaceWaterDepthMapFile = output_maps/waterchan
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = output_maps/Prec
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = output_maps/psiliq
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = output_maps/watertable
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = none
+HeaderCoordinatePointX = none
+HeaderCoordinatePointY = none
+HeaderPointElevation = none
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = none
+HeaderPointAspect = none
+HeaderPointSkyViewFactor = none
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = none
+Column 1 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to Dz
+Column 3 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to Kv
+Column 2 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to Kh
+Column 4 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to res
+Column 5 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to sat
+Column 6 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to a
+Column 7 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to n
+Column 8 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/soil0001.txt assigned to ss
+
+Soil Layers: 30
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 20.000000(2.00e+01), 40.000000(4.00e+01), 80.000000(8.00e+01), 100.000000(1.00e+02), 150.000000(1.50e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderLateralHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderThetaRes: 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01)
+HeaderThetaSat: 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01)
+HeaderAlpha: 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03)
+HeaderN: 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07)
+
+Soil Bedrock Layers: 30
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 20.000000(2.00e+01), 40.000000(4.00e+01), 80.000000(8.00e+01), 100.000000(1.00e+02), 150.000000(1.50e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderLateralHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderThetaRes: 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02), 0.067500(6.75e-02)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01)
+HeaderThetaSat: 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01)
+HeaderAlpha: 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03)
+HeaderN: 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07)
+
+Attempting to read 'DemFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/dem_nopit_05m': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/landcover05m': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/sky': EXISTING in format 3
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/slope': EXISTING in format 3
+Slope Min:0.006172 (0.353597 deg) Max:0.501013 (26.611481 deg) 
+Attempting to read 'AspectMapFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/aspect': EXISTING in format 3
+Curvature N-S Min:-0.375960  Max:0.950280 
+Curvature W-E Min:-0.331520  Max:0.563840 
+Curvature NW-SE Min:-0.509360  Max:1.037640 
+Curvature NE-SW Min:-0.462080  Max:1.248040 
+Attempting to read 'RiverNetwork' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/net05': EXISTING in format 3
+Attempting to read 'BedrockDepthMapFile' in the file '/home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/bedrock_nopit': EXISTING in format 3
+Valid pixels: 4089
+Number of nodes: 126759
+Novalue pixels: 1351
+Basin area: 0.001022 km2
+
+Horizon file FOUND for meteo station #1
+Column 1 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/hor_meteo/horizon0001.txt assigned to azimuth
+Column 2 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/hor_meteo/horizon0001.txt assigned to horizon_ele
+Column 1 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/meteo0001.txt assigned to Date
+Column 2 in file /home/ecor/local/geotop_dev/geotop/tests/3D/Borden05m/meteo0001.txt assigned to Iprec
+WARNING: NO shortwave radiation measurements available
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 4 layers
+Soil water transpires from the first 30 layers
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:01 1.67% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:12  
+
+1/6/2000 12:01 JD:152.500694 (1^ simulation day)  1.67% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 13.25 s, t_sub: 13.23 s, t_sup:  0.01 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.610875e-04 mm/h 
+ Tot Error Richards=1.435146e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:02 3.33% - Time elapsed (h:m:s)  0:00:25 Time remaining (h:m)  0:12  
+
+1/6/2000 12:02 JD:152.501389 (1^ simulation day)  3.33% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 26.52 s, t_sub: 26.47 s, t_sup:  0.05 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.749524e-04 mm/h 
+ Tot Error Richards=1.726733e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:03 5.00% - Time elapsed (h:m:s)  0:00:44 Time remaining (h:m)  0:13  
+
+1/6/2000 12:03 JD:152.502083 (1^ simulation day)  5.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 44.24 s, t_sub: 44.14 s, t_sup:  0.09 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.025412e-03 mm/h 
+ Tot Error Richards=3.435753e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:04 6.67% - Time elapsed (h:m:s)  0:00:53 Time remaining (h:m)  0:12  
+
+1/6/2000 12:04 JD:152.502778 (1^ simulation day)  6.67% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 54.37 s, t_sub: 54.21 s, t_sup:  0.15 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.991807e-04 mm/h 
+ Tot Error Richards=4.601055e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:05 8.33% - Time elapsed (h:m:s)  0:01:07 Time remaining (h:m)  0:12  
+
+1/6/2000 12:05 JD:152.503472 (1^ simulation day)  8.33% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 67.48 s, t_sub: 67.22 s, t_sup:  0.24 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.734220e-03 mm/h 
+ Tot Error Richards=7.491422e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:06 10.00% - Time elapsed (h:m:s)  0:01:15 Time remaining (h:m)  0:11  
+
+1/6/2000 12:06 JD:152.504167 (1^ simulation day) 10.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 74.98 s, t_sub: 74.60 s, t_sup:  0.37 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.872783e-04 mm/h 
+ Tot Error Richards=8.803552e-05 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:07 11.67% - Time elapsed (h:m:s)  0:01:22 Time remaining (h:m)  0:10  
+
+1/6/2000 12:07 JD:152.504861 (1^ simulation day) 11.67% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 81.01 s, t_sub: 80.47 s, t_sup:  0.52 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.808598e-03 mm/h 
+ Tot Error Richards=1.181788e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:08 13.33% - Time elapsed (h:m:s)  0:01:30 Time remaining (h:m)  0:09  
+
+1/6/2000 12:08 JD:152.505556 (1^ simulation day) 13.33% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 89.44 s, t_sub: 88.69 s, t_sup:  0.73 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.197539e-04 mm/h 
+ Tot Error Richards=1.235081e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:09 15.00% - Time elapsed (h:m:s)  0:01:37 Time remaining (h:m)  0:09  
+
+1/6/2000 12:09 JD:152.506250 (1^ simulation day) 15.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 96.22 s, t_sub: 95.23 s, t_sup:  0.97 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.265200e-04 mm/h 
+ Tot Error Richards=1.389501e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:10 16.67% - Time elapsed (h:m:s)  0:01:45 Time remaining (h:m)  0:08  
+
+1/6/2000 12:10 JD:152.506944 (1^ simulation day) 16.67% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:103.77 s, t_sub:102.51 s, t_sup:  1.24 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.031336e-03 mm/h 
+ Tot Error Richards=1.561390e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:11 18.33% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:08  
+
+1/6/2000 12:11 JD:152.507639 (1^ simulation day) 18.33% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:107.84 s, t_sub:106.28 s, t_sup:  1.53 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.712237e-04 mm/h 
+ Tot Error Richards=1.623260e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:12 20.00% - Time elapsed (h:m:s)  0:01:53 Time remaining (h:m)  0:07  
+
+1/6/2000 12:12 JD:152.508333 (1^ simulation day) 20.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:112.33 s, t_sub:110.43 s, t_sup:  1.87 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.883473e-04 mm/h 
+ Tot Error Richards=1.704652e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:13 21.67% - Time elapsed (h:m:s)  0:02:02 Time remaining (h:m)  0:07  
+
+1/6/2000 12:13 JD:152.509028 (1^ simulation day) 21.67% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:120.84 s, t_sub:118.57 s, t_sup:  2.24 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.449640e-04 mm/h 
+ Tot Error Richards=1.845479e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:14 23.33% - Time elapsed (h:m:s)  0:02:08 Time remaining (h:m)  0:07  
+
+1/6/2000 12:14 JD:152.509722 (1^ simulation day) 23.33% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:127.94 s, t_sub:125.25 s, t_sup:  2.66 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.047758e-04 mm/h 
+ Tot Error Richards=1.929608e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:15 25.00% - Time elapsed (h:m:s)  0:02:20 Time remaining (h:m)  0:06  
+
+1/6/2000 12:15 JD:152.510417 (1^ simulation day) 25.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:138.04 s, t_sub:134.90 s, t_sup:  3.11 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.533135e-04 mm/h 
+ Tot Error Richards=2.005161e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:16 26.67% - Time elapsed (h:m:s)  0:02:27 Time remaining (h:m)  0:06  
+
+1/6/2000 12:16 JD:152.511111 (1^ simulation day) 26.67% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:145.63 s, t_sub:141.94 s, t_sup:  3.65 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.453142e-04 mm/h 
+ Tot Error Richards=2.096046e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:17 28.33% - Time elapsed (h:m:s)  0:02:33 Time remaining (h:m)  0:06  
+
+1/6/2000 12:17 JD:152.511806 (1^ simulation day) 28.33% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:151.47 s, t_sub:147.20 s, t_sup:  4.23 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.062470e-04 mm/h 
+ Tot Error Richards=2.247087e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:18 30.00% - Time elapsed (h:m:s)  0:02:38 Time remaining (h:m)  0:06  
+
+1/6/2000 12:18 JD:152.512500 (1^ simulation day) 30.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:156.78 s, t_sub:151.90 s, t_sup:  4.84 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.010200e-04 mm/h 
+ Tot Error Richards=2.363924e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:19 31.67% - Time elapsed (h:m:s)  0:02:43 Time remaining (h:m)  0:05  
+
+1/6/2000 12:19 JD:152.513194 (1^ simulation day) 31.67% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:161.46 s, t_sub:155.93 s, t_sup:  5.49 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.128996e-04 mm/h 
+ Tot Error Richards=2.432741e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:20 33.33% - Time elapsed (h:m:s)  0:02:48 Time remaining (h:m)  0:05  
+
+1/6/2000 12:20 JD:152.513889 (1^ simulation day) 33.33% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:166.21 s, t_sub:159.96 s, t_sup:  6.20 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.116877e-04 mm/h 
+ Tot Error Richards=2.468022e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:21 35.00% - Time elapsed (h:m:s)  0:02:54 Time remaining (h:m)  0:05  
+
+1/6/2000 12:21 JD:152.514583 (1^ simulation day) 35.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:173.10 s, t_sub:166.09 s, t_sup:  6.97 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.715326e-04 mm/h 
+ Tot Error Richards=2.496611e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:22 36.67% - Time elapsed (h:m:s)  0:03:06 Time remaining (h:m)  0:05  
+
+1/6/2000 12:22 JD:152.515278 (1^ simulation day) 36.67% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:183.84 s, t_sub:176.00 s, t_sup:  7.79 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.066378e-04 mm/h 
+ Tot Error Richards=2.581050e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:23 38.33% - Time elapsed (h:m:s)  0:03:23 Time remaining (h:m)  0:05  
+
+1/6/2000 12:23 JD:152.515972 (1^ simulation day) 38.33% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:200.10 s, t_sub:191.37 s, t_sup:  8.67 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.689529e-04 mm/h 
+ Tot Error Richards=2.725876e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:24 40.00% - Time elapsed (h:m:s)  0:03:37 Time remaining (h:m)  0:05  
+
+1/6/2000 12:24 JD:152.516667 (1^ simulation day) 40.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:214.15 s, t_sub:204.47 s, t_sup:  9.63 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.263771e-03 mm/h 
+ Tot Error Richards=2.936504e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:25 41.67% - Time elapsed (h:m:s)  0:03:57 Time remaining (h:m)  0:05  
+
+1/6/2000 12:25 JD:152.517361 (1^ simulation day) 41.67% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:235.24 s, t_sub:224.62 s, t_sup: 10.56 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.586196e-03 mm/h 
+ Tot Error Richards=3.200870e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:26 43.33% - Time elapsed (h:m:s)  0:04:10 Time remaining (h:m)  0:05  
+
+1/6/2000 12:26 JD:152.518056 (1^ simulation day) 43.33% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:247.21 s, t_sub:235.59 s, t_sup: 11.56 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.950011e-04 mm/h 
+ Tot Error Richards=3.333371e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:27 45.00% - Time elapsed (h:m:s)  0:04:26 Time remaining (h:m)  0:05  
+
+1/6/2000 12:27 JD:152.518750 (1^ simulation day) 45.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:263.45 s, t_sub:250.81 s, t_sup: 12.57 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.353424e-04 mm/h 
+ Tot Error Richards=3.489261e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:28 46.67% - Time elapsed (h:m:s)  0:04:34 Time remaining (h:m)  0:05  
+
+1/6/2000 12:28 JD:152.519444 (1^ simulation day) 46.67% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:270.53 s, t_sub:256.81 s, t_sup: 13.65 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.903360e-04 mm/h 
+ Tot Error Richards=3.570984e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:29 48.33% - Time elapsed (h:m:s)  0:04:40 Time remaining (h:m)  0:04  
+
+1/6/2000 12:29 JD:152.520139 (1^ simulation day) 48.33% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:276.37 s, t_sub:261.59 s, t_sup: 14.71 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.615513e-04 mm/h 
+ Tot Error Richards=3.664576e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:30 50.00% - Time elapsed (h:m:s)  0:04:52 Time remaining (h:m)  0:04  
+
+1/6/2000 12:30 JD:152.520833 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:289.27 s, t_sub:273.37 s, t_sup: 15.82 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.287495e-03 mm/h 
+ Tot Error Richards=3.879158e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:31 51.67% - Time elapsed (h:m:s)  0:05:08 Time remaining (h:m)  0:04  
+
+1/6/2000 12:31 JD:152.521528 (1^ simulation day) 51.67% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:305.12 s, t_sub:288.09 s, t_sup: 16.95 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.388316e-04 mm/h 
+ Tot Error Richards=4.002297e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:32 53.33% - Time elapsed (h:m:s)  0:05:20 Time remaining (h:m)  0:04  
+
+1/6/2000 12:32 JD:152.522222 (1^ simulation day) 53.33% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:316.35 s, t_sub:298.17 s, t_sup: 18.11 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.242071e-04 mm/h 
+ Tot Error Richards=4.056331e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:33 55.00% - Time elapsed (h:m:s)  0:05:30 Time remaining (h:m)  0:04  
+
+1/6/2000 12:33 JD:152.522917 (1^ simulation day) 55.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:327.12 s, t_sub:307.72 s, t_sup: 19.31 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.812995e-04 mm/h 
+ Tot Error Richards=4.186548e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:34 56.67% - Time elapsed (h:m:s)  0:05:46 Time remaining (h:m)  0:04  
+
+1/6/2000 12:34 JD:152.523611 (1^ simulation day) 56.67% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:341.69 s, t_sub:321.05 s, t_sup: 20.55 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.096996e-03 mm/h 
+ Tot Error Richards=4.369380e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:35 58.33% - Time elapsed (h:m:s)  0:05:56 Time remaining (h:m)  0:04  
+
+1/6/2000 12:35 JD:152.524306 (1^ simulation day) 58.33% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:351.42 s, t_sub:329.42 s, t_sup: 21.91 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.235587e-04 mm/h 
+ Tot Error Richards=4.439974e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:36 60.00% - Time elapsed (h:m:s)  0:06:01 Time remaining (h:m)  0:04  
+
+1/6/2000 12:36 JD:152.525000 (1^ simulation day) 60.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:357.96 s, t_sub:334.64 s, t_sup: 23.23 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.090717e-04 mm/h 
+ Tot Error Richards=4.524819e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:37 61.67% - Time elapsed (h:m:s)  0:06:13 Time remaining (h:m)  0:03  
+
+1/6/2000 12:37 JD:152.525694 (1^ simulation day) 61.67% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:368.77 s, t_sub:344.14 s, t_sup: 24.54 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.845736e-04 mm/h 
+ Tot Error Richards=4.672248e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:38 63.33% - Time elapsed (h:m:s)  0:06:24 Time remaining (h:m)  0:03  
+
+1/6/2000 12:38 JD:152.526389 (1^ simulation day) 63.33% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:378.93 s, t_sub:352.94 s, t_sup: 25.90 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.095421e-04 mm/h 
+ Tot Error Richards=4.807171e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:39 65.00% - Time elapsed (h:m:s)  0:06:32 Time remaining (h:m)  0:03  
+
+1/6/2000 12:39 JD:152.527083 (1^ simulation day) 65.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:388.52 s, t_sub:361.15 s, t_sup: 27.28 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.667705e-04 mm/h 
+ Tot Error Richards=4.934967e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:40 66.67% - Time elapsed (h:m:s)  0:06:40 Time remaining (h:m)  0:03  
+
+1/6/2000 12:40 JD:152.527778 (1^ simulation day) 66.67% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:396.53 s, t_sub:367.78 s, t_sup: 28.65 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.821769e-04 mm/h 
+ Tot Error Richards=5.081996e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:41 68.33% - Time elapsed (h:m:s)  0:06:50 Time remaining (h:m)  0:03  
+
+1/6/2000 12:41 JD:152.528472 (1^ simulation day) 68.33% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:405.84 s, t_sub:375.69 s, t_sup: 30.05 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.037498e-04 mm/h 
+ Tot Error Richards=5.232621e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:42 70.00% - Time elapsed (h:m:s)  0:06:58 Time remaining (h:m)  0:02  
+
+1/6/2000 12:42 JD:152.529167 (1^ simulation day) 70.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:413.43 s, t_sub:381.89 s, t_sup: 31.44 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.499206e-04 mm/h 
+ Tot Error Richards=5.324274e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:43 71.67% - Time elapsed (h:m:s)  0:07:05 Time remaining (h:m)  0:02  
+
+1/6/2000 12:43 JD:152.529861 (1^ simulation day) 71.67% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:420.74 s, t_sub:387.76 s, t_sup: 32.87 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.918703e-04 mm/h 
+ Tot Error Richards=5.472920e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:44 73.33% - Time elapsed (h:m:s)  0:07:14 Time remaining (h:m)  0:02  
+
+1/6/2000 12:44 JD:152.530556 (1^ simulation day) 73.33% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:428.52 s, t_sub:394.07 s, t_sup: 34.34 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.932349e-04 mm/h 
+ Tot Error Richards=5.621792e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:45 75.00% - Time elapsed (h:m:s)  0:07:23 Time remaining (h:m)  0:02  
+
+1/6/2000 12:45 JD:152.531250 (1^ simulation day) 75.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:437.60 s, t_sub:401.68 s, t_sup: 35.81 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.226955e-03 mm/h 
+ Tot Error Richards=5.826285e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:46 76.67% - Time elapsed (h:m:s)  0:07:28 Time remaining (h:m)  0:02  
+
+1/6/2000 12:46 JD:152.531944 (1^ simulation day) 76.67% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:442.95 s, t_sub:405.55 s, t_sup: 37.29 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.418087e-04 mm/h 
+ Tot Error Richards=5.916586e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:47 78.33% - Time elapsed (h:m:s)  0:07:36 Time remaining (h:m)  0:02  
+
+1/6/2000 12:47 JD:152.532639 (1^ simulation day) 78.33% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:451.38 s, t_sub:412.34 s, t_sup: 38.93 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.009827e-03 mm/h 
+ Tot Error Richards=6.084891e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:48 80.00% - Time elapsed (h:m:s)  0:07:45 Time remaining (h:m)  0:01  
+
+1/6/2000 12:48 JD:152.533333 (1^ simulation day) 80.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:459.14 s, t_sub:418.57 s, t_sup: 40.45 s, t_out:  0.13 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.269724e-04 mm/h 
+ Tot Error Richards=6.222719e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:49 81.67% - Time elapsed (h:m:s)  0:07:52 Time remaining (h:m)  0:01  
+
+1/6/2000 12:49 JD:152.534028 (1^ simulation day) 81.67% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:466.53 s, t_sub:424.40 s, t_sup: 42.01 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.562321e-04 mm/h 
+ Tot Error Richards=6.365425e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:50 83.33% - Time elapsed (h:m:s)  0:08:00 Time remaining (h:m)  0:01  
+
+1/6/2000 12:50 JD:152.534722 (1^ simulation day) 83.33% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:473.52 s, t_sub:429.84 s, t_sup: 43.55 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.838943e-04 mm/h 
+ Tot Error Richards=6.529407e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:51 85.00% - Time elapsed (h:m:s)  0:08:02 Time remaining (h:m)  0:01  
+
+1/6/2000 12:51 JD:152.535417 (1^ simulation day) 85.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:476.77 s, t_sub:431.75 s, t_sup: 44.90 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.816234e-04 mm/h 
+ Tot Error Richards=6.609678e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:52 86.67% - Time elapsed (h:m:s)  0:08:06 Time remaining (h:m)  0:01  
+
+1/6/2000 12:52 JD:152.536111 (1^ simulation day) 86.67% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:479.61 s, t_sub:433.51 s, t_sup: 45.97 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.738024e-04 mm/h 
+ Tot Error Richards=6.655311e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:53 88.33% - Time elapsed (h:m:s)  0:08:09 Time remaining (h:m)  0:01  
+
+1/6/2000 12:53 JD:152.536806 (1^ simulation day) 88.33% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:482.29 s, t_sub:435.21 s, t_sup: 46.95 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.860860e-04 mm/h 
+ Tot Error Richards=6.719659e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:54 90.00% - Time elapsed (h:m:s)  0:08:11 Time remaining (h:m)  0:00  
+
+1/6/2000 12:54 JD:152.537500 (1^ simulation day) 90.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:484.78 s, t_sub:436.76 s, t_sup: 47.89 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.952446e-04 mm/h 
+ Tot Error Richards=6.818866e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:55 91.67% - Time elapsed (h:m:s)  0:08:13 Time remaining (h:m)  0:00  
+
+1/6/2000 12:55 JD:152.538194 (1^ simulation day) 91.67% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:487.18 s, t_sub:438.23 s, t_sup: 48.81 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.097786e-03 mm/h 
+ Tot Error Richards=7.001831e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:56 93.33% - Time elapsed (h:m:s)  0:08:15 Time remaining (h:m)  0:00  
+
+1/6/2000 12:56 JD:152.538889 (1^ simulation day) 93.33% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:489.60 s, t_sub:439.76 s, t_sup: 49.70 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.721426e-04 mm/h 
+ Tot Error Richards=7.130521e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:57 95.00% - Time elapsed (h:m:s)  0:08:18 Time remaining (h:m)  0:00  
+
+1/6/2000 12:57 JD:152.539583 (1^ simulation day) 95.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:491.91 s, t_sub:441.21 s, t_sup: 50.56 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.806345e-04 mm/h 
+ Tot Error Richards=7.277294e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:58 96.67% - Time elapsed (h:m:s)  0:08:20 Time remaining (h:m)  0:00  
+
+1/6/2000 12:58 JD:152.540278 (1^ simulation day) 96.67% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:494.20 s, t_sub:442.67 s, t_sup: 51.39 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.021904e-03 mm/h 
+ Tot Error Richards=7.447611e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 12:59 98.33% - Time elapsed (h:m:s)  0:08:24 Time remaining (h:m)  0:00  
+
+1/6/2000 12:59 JD:152.540972 (1^ simulation day) 98.33% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:496.50 s, t_sub:444.13 s, t_sup: 52.23 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.920288e-04 mm/h 
+ Tot Error Richards=7.596282e-04 mm Mean Time Step=20.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/6/2000 13:00 100.00% - Time elapsed (h:m:s)  0:08:26 Time remaining (h:m) -1:59  
+
+1/6/2000 13:00 JD:152.541667 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:498.78 s, t_sub:445.60 s, t_sup: 53.03 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.133177e-04 mm/h 
+ Tot Error Richards=7.715169e-04 mm Mean Time Step=20.000000 s
+
+Number of times the simulation #1 has been run: 1
