@@ -394,7 +394,7 @@ ENDFOREACH()
 #         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 
 #3D tests
-SET(3DTESTS "small_example" "small_example-onlyEnergy" "small_example-channel" "prealpiC" "panola" "Mazia" "example" "no_reflection" "PSQL_test" "bonn_1" "bonn_2" "Borden05m_nopit_001")	
+SET(3DTESTS "small_example" "small_example-onlyEnergy" "small_example-channel" "prealpiC" "panola" "Mazia" "example" "no_reflection" "PSQL_test" "bonn_1" "bonn_2" "Borden05m")	
 
 foreach(TEST ${3DTESTS})
 	add_test(NAME ${TEST}
