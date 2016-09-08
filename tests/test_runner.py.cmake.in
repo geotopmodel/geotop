@@ -75,8 +75,11 @@ TESTDIR = "${GEOTOP_TEST_DIR}"
 
 # Path to the geotop binary
 GEOTOP = "${GEOTOP_PROGRAM_PATH}"
-RESULTDIR ="output-tabs-METEOIO-""${METEOIOPREFIX}"
-OUTPUTDIR ="output-tabs" 
+METEOIO_ACTUAL_STATUS = "${METEOIOPREFIX}"
+OUTPUT_TABS = "output-tabs" 
+OUTPUT_MAPS = "output-maps" 
+COMPARE_TABS = [OUTPUT_TABS+"-METEOIO-on", OUTPUT_TABS+"-METEOIO-off", OUTPUT_TABS+"-SE27XX"]
+COMPARE_MAPS = [OUTPUT_MAPS+"-METEOIO-on", OUTPUT_MAPS+"-METEOIO-off", OUTPUT_MAPS+"-SE27XX"]
 
 def compare_files_exactly(fpath_ok, fpath_new, delta):
     """
@@ -176,7 +179,7 @@ class TestValidRun(object):
                 return func(fpath_ok, fpath_new, delta)
         return compare_files_exactly(fpath_ok, fpath_new, None)
 
-    def _test_template(self, directory):
+    def _tab_test_template(self, directory, tabs_dir):
         """
         This template function will run geotop on a specific test
         directory, check if the `_SUCCESSFUL_RUN` is created, and
@@ -191,19 +194,13 @@ class TestValidRun(object):
         # ``geotop.inpts`` files usually have relative paths.
         os.chdir(directory)
 
-        assert_is_file(GEOTOP)
-
-        # Run geotop
-        command = subprocess.Popen(
-            [GEOTOP, '.'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (stdout, stderr) = command.communicate()
-        assert_equal(command.returncode, 0, msg=stderr)
+	#assert_is_file(GEOTOP)
 
         # Check that _SUCCESSFUL_RUN file exists)
         assert_is_file(os.path.join(directory, '_SUCCESSFUL_RUN'))
 
-        resultdir = os.path.join(directory, RESULTDIR)
-	outputdir = os.path.join(directory, OUTPUTDIR) 
+        resultdir = os.path.join(directory, tabs_dir)
+        outputdir = os.path.join(directory, OUTPUT_TABS) 
         if not os.path.isdir(resultdir):
             # No `results` directory. Assume it's OK.
             raise SkipTest("Skipping test because no resultdir `%s` is "
@@ -222,12 +219,24 @@ class TestValidRun(object):
                 self.compare_files(fpath_ok, fpath_new)
 
     def test_generator(self):
-        for d in os.listdir(TESTDIR):
-            path = os.path.join(TESTDIR, d)
-            if os.path.isdir(path) and \
-              os.path.isfile(os.path.join(path, 'geotop.inpts')):
-                yield self._test_template, path
+        actual_dir = os.getcwd()
+        if os.path.isdir(actual_dir) and \
+            os.path.isfile(os.path.join(actual_dir, 'geotop.inpts')):
+            if os.path.isdir(os.path.join(actual_dir, OUTPUT_TABS)):
+                for tabs_dir in COMPARE_TABS:
+                    if os.path.isdir(os.path.join(actual_dir, tabs_dir)):
+                        yield self._tab_test_template, actual_dir, tabs_dir
+                    else:
+                        print("{} is not a candidate".format(tabs_dir))
+            else:
+                print("{} is not a candidate".format(actual_dir))
+
+            #if os.path.isdir(os.path.join(actual_dir, OUTPUT_MAPS)):
+            #    for maps in COMPARE_MAPS:
+            #        if os.path.isdir(os.path.join(actual_dir, maps))
+            #            yield self._test_template, path, maps
 
 if __name__ == "__main__":
     import nose
     nose.run()
+

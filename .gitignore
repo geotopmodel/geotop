@@ -44,7 +44,7 @@ install_manifest.txt
 *.swp
 
 #generated scripts
-tests/1D/test_runner.py
+test_runner.py
 config.h
 
 #virtualenv python
@@ -68,3 +68,11 @@ man/
 _SUCCESSFUL_RUN*
 _TEST_FAILED*
 Testing/
+output-tabs/*
+output-tabs/
+output-maps/*
+output-maps/
+output_tabs/*
+output_tabs/
+output_maps/*
+output_maps/

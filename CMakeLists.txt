@@ -350,7 +350,7 @@ INCLUDE(CPack)
 # generate test program
 ## test_runner.py variables
 SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin/geotop" )
-SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/1D")
+SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 IF(ENABLE_INTERNAL_METEODISTR)
     SET ( METEOIOPREFIX  off )
 ELSE(ENABLE_INTERNAL_METEODISTR)
@@ -358,84 +358,52 @@ ELSE(ENABLE_INTERNAL_METEODISTR)
 ENDIF(ENABLE_INTERNAL_METEODISTR)
 configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
 
+
+
 enable_testing()
 
 
-#1D tests 
-SET(1DTESTS "Bro" "Calabria" "Jungfraujoch" "ColdelaPorte" "CostantMeteo")	
+
+#this macro finds every subdirectory of the parameter if there is a geotop.inpts file inside, usage: SUBDIRLIST(SUBDIRS ${DIR})
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+      IF(EXISTS ${curdir}/${child}/geotop.inpts)
+        LIST(APPEND dirlist ${child})
+      ENDIF()
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+
+SET(TEST_DIRECTORY ${GEOTOP_TEST_DIR})
+SET(1D_DIRECTORY ${TEST_DIRECTORY}/1D)
+SET(3D_DIRECTORY ${TEST_DIRECTORY}/3D)
+SET(TEST_RUNNER ${TEST_DIRECTORY}/test_runner.py)
+
+SUBDIRLIST(1DTESTS ${1D_DIRECTORY})
+SUBDIRLIST(3DTESTS ${3D_DIRECTORY})
 
 foreach(TEST ${1DTESTS})
-	add_test(NAME ${TEST}
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/${TEST}
+	add_test(NAME "1D.${TEST}"
+         WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 	
 	#testing with test_runner
-	#add_test(NAME ${TEST}
-    #     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/
-    #     COMMAND nosetests test_runner.py -i ${TEST}) #specify the test name in test_runner options like -m or -i
-	#these cli args seems to not work 
+	add_test(NAME "1D.test_runner.${TEST}"
+         WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
+	 COMMAND nosetests --verbose ${TEST_RUNNER})
+ 	
+ 	set_tests_properties(
+		"1D.test_runner.${TEST}" PROPERTIES
+		DEPENDS "1D.${TEST}")
 ENDFOREACH()
-
-
-#add_test(NAME Bro
-#		 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Bro
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME Calabria
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Calabria
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME Jungfraujoch 
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/Jungfraujoch
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME ColdelaPorte
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/ColdelaPorte
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME CostantMeteo
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/1D/CostantMeteo
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-
-#3D tests
-SET(3DTESTS "small_example" "small_example-onlyEnergy" "small_example-channel" "prealpiC" "panola" "Mazia" "example" "no_reflection" "PSQL_test" "bonn_1" "bonn_2" "Borden05m")	
 
 foreach(TEST ${3DTESTS})
-	add_test(NAME ${TEST}
-         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/${TEST}
+	add_test(NAME "3D.${TEST}"
+         WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
 ENDFOREACH()
-
-
-#add_test(NAME small-example
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME small-example-onlyEnergy
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-onlyEnergy
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME small-example-channel
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/small_example-channel
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME prealpiC
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/prealpiC
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME panola
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/panola
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME Mazia
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Mazia
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME example
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/example
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME no_reflection
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/no_reflection
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME PSQL_test 
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/PSQL_test
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME bonn_1
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_1
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME bonn_2
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/bonn_2
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
-#add_test(NAME Borden05m_nopit_001 
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests/3D/Borden05m_nopit_001
-#         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
