@@ -70,9 +70,9 @@ from nose.plugins.skip import SkipTest
 def assert_is_file(fname, msg=None):
     assert os.path.isfile(fname), msg or "%s is not a file" % fname
 
+
 # Directory containing this file
 TESTDIR = "${GEOTOP_TEST_DIR}"
-
 # Path to the geotop binary
 GEOTOP = "${GEOTOP_PROGRAM_PATH}"
 METEOIO_ACTUAL_STATUS = "${METEOIOPREFIX}"
@@ -179,7 +179,7 @@ class TestValidRun(object):
                 return func(fpath_ok, fpath_new, delta)
         return compare_files_exactly(fpath_ok, fpath_new, None)
 
-    def _tab_test_template(self, directory, tabs_dir):
+    def _test_template(self, directory, results_dir):
         """
         This template function will run geotop on a specific test
         directory, check if the `_SUCCESSFUL_RUN` is created, and
@@ -199,7 +199,7 @@ class TestValidRun(object):
         # Check that _SUCCESSFUL_RUN file exists)
         assert_is_file(os.path.join(directory, '_SUCCESSFUL_RUN'))
 
-        resultdir = os.path.join(directory, tabs_dir)
+        resultdir = os.path.join(directory, results_dir)
         outputdir = os.path.join(directory, OUTPUT_TABS) 
         if not os.path.isdir(resultdir):
             # No `results` directory. Assume it's OK.
@@ -220,21 +220,15 @@ class TestValidRun(object):
 
     def test_generator(self):
         actual_dir = os.getcwd()
-        if os.path.isdir(actual_dir) and \
-            os.path.isfile(os.path.join(actual_dir, 'geotop.inpts')):
+        if os.path.isdir(actual_dir) and os.path.isfile(os.path.join(actual_dir, 'geotop.inpts')):
             if os.path.isdir(os.path.join(actual_dir, OUTPUT_TABS)):
                 for tabs_dir in COMPARE_TABS:
                     if os.path.isdir(os.path.join(actual_dir, tabs_dir)):
-                        yield self._tab_test_template, actual_dir, tabs_dir
-                    else:
-                        print("{} is not a candidate".format(tabs_dir))
-            else:
-                print("{} is not a candidate".format(actual_dir))
-
-            #if os.path.isdir(os.path.join(actual_dir, OUTPUT_MAPS)):
-            #    for maps in COMPARE_MAPS:
-            #        if os.path.isdir(os.path.join(actual_dir, maps))
-            #            yield self._test_template, path, maps
+                        yield self._test_template, actual_dir, tabs_dir
+            if os.path.isdir(os.path.join(actual_dir, OUTPUT_MAPS)):
+                for maps in COMPARE_MAPS:
+                    if os.path.isdir(os.path.join(actual_dir, maps)):
+                        yield self._test_template, actual_dir, maps
 
 if __name__ == "__main__":
     import nose

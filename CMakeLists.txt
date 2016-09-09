@@ -406,4 +406,13 @@ foreach(TEST ${3DTESTS})
 	add_test(NAME "3D.${TEST}"
          WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
          COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+
+	#testing with test_runner
+	add_test(NAME "3D.test_runner.${TEST}"
+         WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
+	 COMMAND nosetests --verbose ${TEST_RUNNER})
+ 	
+ 	set_tests_properties(
+		"3D.test_runner.${TEST}" PROPERTIES
+		DEPENDS "3D.${TEST}")
 ENDFOREACH()
