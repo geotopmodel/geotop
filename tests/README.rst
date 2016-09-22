@@ -6,7 +6,7 @@ Tests are automatically executed on `Travis <https://travis-ci.org/geotopmodel/g
 
 Since some test is generating an output larger than 4MB of text the complete log is disabled.
 
-How to Execute a Tests
+How to Execute Tests
 ======================
 
 In order to perform  *output-tabs* and *output-maps* check for every test you should install **nose** and **pandas** libraries. If **pandas** is missing the files are compared exactly without considering approximation deltas.
@@ -35,7 +35,7 @@ You can use Regex for filtering tests and execute only what you need:
 How to Add a test
 =================
 
-*Cmake* is configured to check if geotop.inpts file is present in each subdirectory of *tests/1D* and *tests/3D*.
+*CMake* is configured to check if geotop.inpts file is present in each subdirectory of *tests/1D* and *tests/3D*.
 Then the test is added in ctest.
 Files inside *output-tabs* and *output-maps* are compared with the outputs within the following directories, if present:
 
