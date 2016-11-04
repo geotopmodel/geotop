@@ -15,7 +15,7 @@ PointSim   = 0
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 04/10/2009 00:00
 !EndDateDDMMYYYYhhmm =  01/10/2011 23:00
-EndDateDDMMYYYYhhmm =  31/12/2009 23:00
+EndDateDDMMYYYYhhmm =  31/10/2009 23:00
 
 ! Catchment centroid (for Sun position) 
 Latitude = 46.75
