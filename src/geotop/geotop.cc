@@ -3,7 +3,7 @@
    GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
    GEOtop 2.1 - 31 December 2016
 
-   Copyright (c), 2016 - GEOtop Foundationb
+   Copyright (c), 2016 - GEOtop Foundation
 
    This file is part of GEOtop 2.1
 
