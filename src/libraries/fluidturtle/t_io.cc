@@ -1542,8 +1542,16 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 
 
 	norm_r0 = norm_2(r0, GTConst::nl, r0.size());
+    if (norm_r0 != norm_r0) {
 #ifdef VERBOSE
-	printf("BiCGSTAB_strict norm_r0: %f\n",norm_r0);
+        printf(" BiCGSTAB_strict norm_r0: %f\n",norm_r0);
+#endif
+        t_error("Fatal Error! NAN in a variable. See failing report.");
+
+        
+    }
+#ifdef VERBOSE
+	printf(" BiCGSTAB_strict norm_r0: %f\n",norm_r0);
 #endif 
 
 	rho = 1.;

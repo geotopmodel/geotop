@@ -39,12 +39,12 @@ CanopyStabCorrection	=	1
 !METEO STATIONS
 !=======================================
 
-NumberOfMeteoStations	=	1
-MeteoStationCoordinateX	=	620815
-MeteoStationCoordinateY	=	5171506
-MeteoStationElevation	=	1480
-MeteoStationWindVelocitySensorHeight	=	2.5
-MeteoStationTemperatureSensorHeight	=	2
+NumberOfMeteoStations=1
+MeteoStationCoordinateX=620815
+MeteoStationCoordinateY=5171506
+MeteoStationElevation=1480
+MeteoStationWindVelocitySensorHeight=2.5
+MeteoStationTemperatureSensorHeight=2
 
 MeteoStationLatitude=46.686205
 MeteoStationLongitude=10.579923
