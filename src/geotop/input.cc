@@ -74,10 +74,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     lg->writeAll("STATEMENT:\n");
     lg->writeAll("\n");
-    lg->writeAll("GEOtop 2.0.0 'MOAB' - 9 Mar 2012\n\n");
-    lg->writeAll("Copyright (c), 2012 - Stefano Endrizzi \n\n");
-    lg->writeAll("TN -EXACT version (tmp)\n\n");
-    lg->writeAll("GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    lg->writeAll("GEOtop 2.1  31 december 2016 \n\n");
+    lg->writeAll("Copyright (c), 2016 - GEOtop Foundation \n\n");
+    lg->writeAll("GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
     lg->writeAll("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
     lg->writefAll("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
     lg->log("Using Experimental Logger");
