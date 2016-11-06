@@ -5,7 +5,7 @@ Latitude               = 46.75604
 Longitude              = 10.70311
 TimeStepEnergyAndWater = 84600
 InitDateDDMMYYYYhhmm = 05/10/2009 00:00
-EndDateDDMMYYYYhhmm = 06/10/2009 23:00
+EndDateDDMMYYYYhhmm = 05/10/2009 23:30
 !EndDateDDMMYYYYhhmm =  24/11/2013 23:00
 !NumSimulationTimes     = 5
 NumSimulationTimes     = 1
@@ -73,9 +73,11 @@ PointElevation	= 1998,2332,3035
  
 NumberOfMeteoStations = 7
 ! order of stations: m4,b2, b3, m3 new location, b1, teufelsegg, grawand
-MeteoStationCoordinateX = 629601, 620815, 621733, 629776, 621671, 634696, 637174  
-MeteoStationCoordinateY = 5177788, 5171506, 5172112, 5180840, 5168733, 5182751, 5181201
-MeteoStationElevation = 1998, 1490, 1930, 2332, 990, 3035, 3220
+MeteoStationCoordinateX= 629601, 620815, 621733, 629776, 621671, 634696, 637174  
+MeteoStationCoordinateY= 5177788, 5171506, 5172112, 5180840, 5168733, 5182751, 5181201
+MeteoStationElevation= 1998, 1490, 1930, 2332, 990, 3035, 3220
+MeteoStationLatitude=46.741063,46.68620487902,46.6914887269,46.768485,46.66110089611,46.7847,46.770253
+MeteoStationLongitude=10.696545,10.57992303991,10.59207665567,10.69969169,10.59037474907,10.764660489734664,10.79664483
 
 MeteoStationWindVelocitySensorHeight = 5,5,5,5,5,5,5
 MeteoStationTemperatureSensorHeight = 5,5,5,5,5,5,5

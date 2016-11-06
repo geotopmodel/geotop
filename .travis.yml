@@ -36,7 +36,7 @@ script:
         - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR -DCMAKE_CXX_FLAGS_RELEASE="-Wextra -Wall -O2 -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-but-set-variable" .
         - make
         #make tests with this environment
-        - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then travis_wait 60 ctest -j19 -E "bonn_1|bonn_2|CostantMeteo" .; else travis_wait 60 ctest -j19 .; fi
+        - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then travis_wait 90 ctest -j19 -E "bonn_1|bonn_2|CostantMeteo" .; else travis_wait 90 ctest -j19 .; fi
 
 #choosing the compiler
 compiler:
