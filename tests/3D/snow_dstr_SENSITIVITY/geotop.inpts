@@ -55,11 +55,11 @@ FreeDrainageAtLateralBorder   = 1
 Vmin                         = 0.5
 RHmin                        = 10
 
- !======================================= 
+!======================================= 
 ! POINT SETTINGS 
 !======================================= 
  
- ! m4, m3 new location, point close to S3 at 3034m
+! m4, m3 new location, point close to S3 at 3034m
 CoordinatePointX = 629601,629776,630640
 CoordinatePointY = 5177788,5180840,5181474
 PointElevation	= 1998,2332,3035
@@ -126,7 +126,8 @@ HeaderLapseRatePrec = "LapseRatePrec"
 
 
 NumLandCoverTypes	=	9			
-SoilRoughness	=	100
+! this below modified from 100 to 10 to fix fpe problem.SC&SE 9.11.2016 
+SoilRoughness	=	10
 ThresSnowSoilRough	=	100
 VegHeight	=	0,0,4900,200,100,0,50,0,0			
 ThresSnowVegUp	=	50

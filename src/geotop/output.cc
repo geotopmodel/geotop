@@ -1386,7 +1386,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                     V[i] += (snow->S->w_liq[l][r][c] + snow->S->w_ice[l][r][c]);
                     D += snow->S->Dzl[l][r][c];
                 }
-                V[i] /= (1.E-3 * D);
+// temporary fix to avoid division by zero: to be better understood... 
+                if ( D !=0.) 
+                   {
+                     V[i] /= (1.E-3 * D);}
             }
             temp1 = geotop::common::Variables::files[fswe] + string("DENSITY");
             temp2 = temp1 + s2;
