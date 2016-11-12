@@ -355,6 +355,7 @@ SWEMapFile 							= 	"maps/SWE"
 !SnowDepthMapFile 					= 	"maps/snowdepth"
 !SnowDurationMapFile					=	"maps/snowduration"
 
+GlacAll = 1
 ! meteo
 AirTempMapFile 						= 	"maps/Ta"
 
