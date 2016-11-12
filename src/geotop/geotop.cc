@@ -55,6 +55,10 @@
 #include "output_new.h"
 
 #include "global_logger.h"
+#define _GNU_SOURCE
+#include <fenv.h>
+
+
 
 using namespace std;
 
@@ -70,6 +74,7 @@ int main(int argc,char *argv[]){
 
 	clock_t start, end;
 	double elapsed;
+        feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 	start = clock();
 
 	AllData *adt;
@@ -450,7 +455,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			A->W->Voutlandsup += Voutsup;
 
 			//	record time step : To further check: do we need the line below ? 
-			geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
+                        //   line commented: wgen fpe enable we get a division by zero:  S.C. 08.11.2016
+			// geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
 
 			//write output variables
 			fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);

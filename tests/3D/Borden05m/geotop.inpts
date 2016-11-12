@@ -226,7 +226,9 @@ SoilAll=1
 BasinOutputFile = "output_tabs/basin"
 DtPlotBasin=0.016666667
 BasinAll = 1
-   
+
+! 
+GlacAll = 1   
 
 !=============================================================================
 !  OUTPUT MAPS

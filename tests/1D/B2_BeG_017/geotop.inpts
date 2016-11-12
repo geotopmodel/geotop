@@ -1,231 +1,282 @@
-! Input for GEOtop 2.0 Endirzzi version
-! Plot simulation  
-! Station B2 in Montecini, Bolzano, LTER Mazia
- 
-!Simulation B2_BeG_017
-! provided by Giacomo Bertoldi, Institute for Alpine Environment
-! giacomo.bertoldi@eurac.edu
+! Input for GEOtop 2.0 Dev version
+! 1D simulation  water and enegry budget
+! Station B2 in Montecini LTER Mazia (Bz)
+! prepared by giacomo.bertoldi@eurac.edu 
+! 4 Nov 2016
+
+!=============================================================================
+!  RUN DEFINITION 
+!=============================================================================
+
+! Catchmentcentroid(for Sun position) ----------------
+Latitude = 46.668
+Longitude = 10.579
+
+! Simulation duration and maximum time stepping ------------
 ! Use exact date format i.e. not 1/4 but 01/04 not 0:00 but 00:00 
 ! Calculation max time step dt in s 
  
-TimeStepEnergyAndWater	=	900
-InitDateDDMMYYYYhhmm	=	09/04/2014 18:00  
-EndDateDDMMYYYYhhmm	=	01/01/2016 00:00
+TimeStepEnergyAndWater = 900
+InitDateDDMMYYYYhhmm   = 09/04/2014 18:00
+EndDateDDMMYYYYhhmm    = 01/01/2016 00:00
+StandardTimeSimulation = 1
 
-!Simulation settings
-RecoverSim	=	0
-PointSim	=	1
+! Output timeseries time stepping ----------
+DtPlotPoint            = 1
+DtPlotDischarge        = 1 
+DtPlotBasin = 1
 
-WaterBalance	=	1
-EnergyBalance	=	1
+!=============================================================================
+!  RECOVERY
+!=============================================================================
+SuccessfulRunFile      = "_SUCCESSFUL_RUN"
+FailedRunFile          = "_FAILED_RUN"
+RecoverSim = 0
 
-!Dt in hours
-DtPlotDischarge	=	1
-DtPlotBasin	=	1
-DtPlotPoint	=	1
-StandardTimeSimulation	=	1
-
-!Catchmentcentroid(for Sun position)
-Latitude	=	46.668
-Longitude	=	10.579
-
-!Energybudgetsettings
-FlagSkyViewFactor	=	1
-LWinParameterization	=	4
-MoninObukhov	=	2
-CanopyStabCorrection	=	1
- 
-!=======================================
-!METEO STATIONS
-!=======================================
-
-NumberOfMeteoStations=1
-MeteoStationCoordinateX=620815
-MeteoStationCoordinateY=5171506
-MeteoStationElevation=1480
-MeteoStationWindVelocitySensorHeight=2.5
-MeteoStationTemperatureSensorHeight=2
-
-MeteoStationLatitude=46.686205
-MeteoStationLongitude=10.579923
-
-!=======================================
-!METEO HAEDERS
-!=======================================
-
-HeaderDateDDMMYYYYhhmmMeteo	=	"Date"
-HeaderJulianDayfrom0Meteo	=	"JDfrom0"
-HeaderIPrec					= 	"Iprec"
-HeaderWindVelocity			= 	"WindSp"
-HeaderWindDirection			= 	"WindDir"
-HeaderWindX					= 	"WindX" 
-HeaderWindY					= 	"WindY"
-HeaderRH					= 	"RelHum"
-HeaderAirTemp				= 	"AirT" 
-HeaderDewTemp				= 	"DewT"
-HeaderAirPress				=	"AirP" 
-HeaderSWglobal				=	"Swglobal" 
-HeaderCloudSWTransmissivity	= 	"CloudTrans" 
-HeaderLWin					=	"LWin"
+!=============================================================================
+!  MODEL SETTINGS
+!=============================================================================
+PointSim      = 1
+WaterBalance  = 1
+EnergyBalance = 1
 
 !=======================================
 !POINT SETTINGS
 !=======================================
 
-CoordinatePointX	=	620815
-CoordinatePointY	=	5171506
-PointElevation		=	1480
-PointSlope			=	15
-PointAspect			=	225
+CoordinatePointX = 620815
+CoordinatePointY = 5171506
+PointElevation = 1480
+PointSlope   = 15
+PointAspect   = 225
 
+!=============================================================================
+!  INPUT METEO
+!=============================================================================
 
+!--- METEO STATIONS ---------------------------
+NumberOfMeteoStations        = 1
+
+MeteoStationCoordinateX=620815
+MeteoStationCoordinateY=5171506
+MeteoStationLatitude=46.668
+MeteoStationLongitude=10.579
+
+MeteoStationElevation=1480
+MeteoStationWindVelocitySensorHeight = 2.5
+MeteoStationTemperatureSensorHeight  = 2
+
+!--- METEO INPUT FILES---------------------------
+MeteoFile                   ="meteoB2_irr_dev_"
+
+!--- METEO FILE HEADERS---------------------------
+HeaderDateDDMMYYYYhhmmMeteo = "Date"     
+HeaderIPrec                 = "Iprec"
+HeaderAirPress              = "AirP"
+HeaderWindVelocity          = "WindSp"
+HeaderWindDirection         = "WindDir"
+HeaderRH                    = "RelHum"
+HeaderAirTemp               = "AirT"
+HeaderSWglobal              = "Swglobal"
+
+!--- HORIZON FILE ---------------------------
+HorizonMeteoStationFile = "horizon" 
 HeaderHorizonAngle          = "AngleFromNorthClockwise"
 HeaderHorizonHeight         = "HorizonHeight"
 
+!--- VEGETATION INPUT FILE---------------------------
+!TimeDependentVegetationParameterFile = "vegetation_par"
 
 
-!======================================= 
-! LAND COVER 
-!======================================= 
-! Meadow
+!=============================================================================
+!  MODEL SETTINGS
+!=============================================================================
 
-NumLandCoverTypes	=	1 
-SoilRoughness		=	100 
-ThresSnowSoilRough	=	100 
-VegHeight			=	400
-ThresSnowVegUp		=	50 
-ThresSnowVegDown	=	10 
-LSAI				=	4
-CanopyFraction		=	1 
-DecayCoeffCanopy	=	2.0 
-VegSnowBurying		=	1 
-RootDepth			=	250 
-MinStomatalRes		=	25 
-VegReflectVis		=	0.1 
-VegReflNIR			=	0.2 
-VegTransVis			=	0.07 
-VegTransNIR			=	0.25 
-LeafAngles			=	0 
-CanDensSurface		=	0.5 
-SoilAlbVisDry		=	0.15 
-SoilAlbNIRDry		=	0.25 
-SoilAlbVisWet		=	0.15 
-SoilAlbNIRWet		=	0.25 
-SoilEmissiv			=	0.96 
-SurFlowResLand		=	0.5 
-SurFlowResExp		=	0.667 
+!--- METEO SETTINGS -----------------------
+FlagSkyViewFactor      = 1
+CalculateCastShadow    = 1
+LWinParameterization = 4
 
-!======================================= 
-!Vegetation
-!======================================= 
-!TimeDependentVegetationParameterFile	=	"vegetation_par"
+MoninObukhov                 = 2
+Vmin                         = 0.5
+RHmin                        = 10
 
+!--- NUMERICAL SETTINGS -----------------------
 
-!======================================= 
-!Numerical parameters 
-!======================================= 
- RichardTol						=	1.E-7 
-MinLambdaWater 					= 	1.E-7 
-RichardMaxIter					=	100 
-MaxTimesHalvingTimeStepWater 	= 	20 
-MaxCourantSupFlowLand			=	0.1 
-MinSupWaterDepthLand			=	1 
-MinTimeStepSupFlow				=	1 
-HeatEqTol						=	1.E-4 
-HeatEqMaxIter					=	200 
-MaxTimesHalvingTimeStepEnergy 	= 	5 
-CanopyMaxIter					=	2
-BusingerMaxIter					=	2 
-TsMaxIter						=	2
-LocMaxIter						=	2
+! WATER
+MaxTimesHalvingTimeStepWater  =  20 
+MaxCourantSupFlowLand   = 0.1 
+MinSupWaterDepthLand   = 1 
+MinTimeStepSupFlow    = 1 
+RichardTol      = 1.E-7 
+MinLambdaWater      =  1.E-7 
+RichardMaxIter     = 100 
 
-!======================================= 
-! SNOW AND GLACIERS 
-!======================================= 
-NumMaxSnowLayers		=	5 
-InfiniteSnowLayer		=	2 
-MinLayerThicknessSnow	=	5,120,30,5,5 
-MaxLayerThicknessSnow	=	20,1.E10,150,50,10 
- 
-!======================================= 
-! SOIL 
-!======================================= 
-PointSoilType 						= 1
-SoilLayerTypes 						= 1
-! [mm]  
-InitWaterTableHeightOverTopoSurface	=	-2000 
-! [C] 
-InitSoilTemp						=	4 
-ThermalConductivitySoilSolids		=	1.9
-ThermalCapacitySoilSolids			=	2.16E+06
-! [mm^-1]  
-HeaderSoilDz					=	"Dz"
-HeaderLateralHydrConductivity	=	"Kh"
-HeaderNormalHydrConductivity	=	"Kv"
-HeaderThetaRes					=	"vwc_r"
-HeaderWiltingPoint				=	"vwc_w"
-HeaderFieldCapacity				=	"vwc_fc"
-HeaderThetaSat					=	"vwc_s"
-HeaderAlpha						=	"alpha"
-HeaderN							=	"n"
-HeaderSpecificStorativity		=	"stor"
-HeaderKthSoilSolids				=	"Kth"
-HeaderCthSoilSolids				=	"Cth"
+! ENERGY 
+HeatEqMaxIter = 200
+HeatEqTol = 1.E-4
+MinLambdaEnergy = 1.E-12
+MaxTimesHalvingTimeStepEnergy  =  5 
+BusingerMaxIter     = 2 
+TsMaxIter      = 2
+LocMaxIter      = 2
+
+! VEGETATION
+CanopyMaxIter    = 2
+CanopyStabCorrection = 1
+
+!=============================================================================
+!  LAND COVER SETTINGS
+!=============================================================================
+
+NumLandCoverTypes = 1 
+
+! Turbulent fluxes parameters ----------
+SoilRoughness  = 100.0
+ThresSnowSoilRough = 100 
+
+! Radiation parameters -----------
+SoilAlbVisDry  = 0.15
+SoilAlbNIRDry  = 0.25
+SoilAlbVisWet  = 0.15
+SoilAlbNIRWet  = 0.25
+SoilEmissiv    = 0.96
+
+! Surface water fluxes parameters -----------
+SurFlowResLand = 0.5
+SurFlowResExp  = 0.667 
+
+! vegetation parameters -----------
+VegHeight      = 400.0
+LSAI           = 4.0
+CanopyFraction = 1.0
+RootDepth      = 250.0
+ThresSnowVegUp  = 50 
+ThresSnowVegDown = 10 
+DecayCoeffCanopy = 2.0 
+VegSnowBurying  = 1  
+MinStomatalRes  = 25 
+VegReflectVis  = 0.1 
+VegReflNIR   = 0.2 
+VegTransVis   = 0.07 
+VegTransNIR   = 0.25 
+LeafAngles   = 0 
+CanDensSurface  = 0.5  
+
+!=============================================================================
+!  SNOW AND PRECIPITATION SETTINGS
+!=============================================================================
+
+!--- SNOW CHARACTERIZATION PARAMETERS
+SnowCorrFactor  = 1.0
+RainCorrFactor      = 1.0
+
+DewTempOrNormTemp =  0
+ThresTempRain  =  3
+ThresTempSnow  =  1
+SnowEmissiv   = 0.99
+
+IrriducibleWatSatSnow = 0.02 
+MaxSnowPorosity      = 0.7
+DrySnowDefRate   = 1
+SnowDensityCutoff  = 100
+WetSnowDefRate   = 1.5
+SnowViscosity   = 1.E6
+AlphaSnow    = 1.E5
+
+FreshSnowReflVis = 0.95
+FreshSnowReflNIR = 0.65
+AlbExtParSnow    = 10
+SnowRoughness    = 2.0
+
+!--- DISCRETIZATION ------------------
+MaxWaterEqSnowLayerContent = 10
+SWEtop                     = 2000
+SWEbottom                  = 50
+MaxSnowLayersMiddle        = 50
+
+NumMaxSnowLayers  = 5 
+InfiniteSnowLayer  = 2 
+MinLayerThicknessSnow = 5,120,30,5,5 
+MaxLayerThicknessSnow = 20,1.E10,150,50,10 
+
+!=============================================================================
+!  SOIL SETTINGS
+!=============================================================================
+PointSoilType       = 1
+SoilLayerTypes       = 1
+
+!--- SOIL DISCRETIZATION  ------------------
+! BUG IN THE GEOTOP DEV VERSION 
+!  THIS KEYWORD IS NEEDED TO INTIALIZE THE SOIL ARRAY
+! THEN IF YOU HAVE A SEPARATE SOIL FILE THE MODEL USES THE SOIL FILE DATA
+! BUT THIS KEYWORD ARRAY SHOULD BE LARGER THAN YOUR ACTUAL LAYER NUMBERS
+
+SoilLayerThicknesses   = 20, 60, 240, 480, 1200, 3000, 5000, 12000, 28000
+
+!--- SOIL WATER INIT AND BOUNDARY COND ------------------
+FreeDrainageAtLateralBorder = 1
+PointDepthFreeSurface       = 250
+FreeDrainageAtBottom          = 1
+InitWaterTableHeightOverTopoSurface = -2000 
+
+!--- SOIL THERMAL INIT AND BOUNDARY COND ------------------
+InitSoilTemp           = 4.0
+BottomBoundaryHeatFlux = 0
+
+!--- SOIL THERMAL PROPERTIES  --------------------------
+ThermalCapacitySoilSolids     = 2.16E+06
+ThermalConductivitySoilSolids = 1.9
+
+!--- SOIL HYDRAULIC PROPERTIES  --------------------------
+
+!---- INPUT SOIL FILE NAME
+SoilParFile    = "soil/soil"
+
+HeaderSoilDz     = "Dz"
+HeaderLateralHydrConductivity = "Kh"
+HeaderNormalHydrConductivity = "Kv"
+HeaderThetaRes     = "vwc_r"
+HeaderWiltingPoint    = "vwc_w"
+HeaderFieldCapacity    = "vwc_fc"
+HeaderThetaSat     = "vwc_s"
+HeaderAlpha      = "alpha"
+HeaderN       = "n"
+HeaderSpecificStorativity  = "stor"
+HeaderKthSoilSolids    = "Kth"
+HeaderCthSoilSolids    = "Cth"
 HeaderSoilInitPres = "InitPsi"
 
-FreeDrainageAtBottom	=	1
+!=============================================================================
+! POINT OUTPUT: SUBSURFACE
+!=============================================================================
 
-!======================================= 
-! FILE NAMES 
-!======================================= 
+!--- STRUCTURE ------------
+SoilAveragedTempProfileFile  = "tabs/soilTz" 
+SoilLiqWaterPressProfileFile = "tabs/psiz" 
+SoilLiqContentProfileFile  = "tabs/thetaliq" 
+SoilIceContentProfileFile  = "tabs/thetaice" 
 
-! Input files 
-
-DemFile					=	"dem"
-MeteoFile				=	"meteoB2_irr_"
-LandCoverMapFile		=	"landcover"
-SkyViewFactorMapFile	=	"sky"
-SlopeMapFile			=	"slope"
-AspectMapFile			=	"aspect"
-CurvaturesMapFile		=	"curvature" 
-HorizonMeteoStationFile	=	"horizon" 
-RiverNetwork			=	"net60"
-SoilMapFile				=	"soiltype"
-SoilParFile				=	"soil/soil"
- 
-! Output files 
-
-! Tabs 
-DischargeFile					=	"tabs/discharge"
-PointOutputFile					=	"tabs/point" 
-PointAll = 1
-!SnowProfileFile				=	"tabs/snow"
-SnowDepthLayersFile 			=   "tabs/snowDepth"
-SnowTempProfileFile 			=	"tabs/snowT"
-SnowLiqContentProfileFile 		= 	"tabs/snowLiq"
-SnowIceContentProfileFile 		= 	"tabs/snowIce"
-SnowAll = 1
-BasinOutputFile					=	"tabs/basin" 
-BasinAll = 1
-SoilAveragedTempProfileFile		=	"tabs/soilTz" 
-SoilLiqWaterPressProfileFile	=	"tabs/psiz" 
-SoilLiqContentProfileFile		=	"tabs/thetaliq" 
-SoilIceContentProfileFile		=	"tabs/thetaice" 
+!--- VARIABLES ------------
 SoilAll = 1
-! Maps
-SoilAveragedTempTensorFile		=	"maps/T"
-SoilLiqContentTensorFile		=	"maps/thetaliq"
-IceLiqContentTensorFile			=	"maps/thetaice"
-SoilLiqWaterPressTensorFile		=	"maps/psiz"
 
-LandSurfaceWaterDepthMapFile	=	"maps/hsup"
-WaterTableDepthMapFile			=	"maps/watertable"
+!=============================================================================
+! POINT OUTPUT: SURFACE FLUXES AND PROPERTIES 
+!=============================================================================
 
-SWEMapFile						=	"maps/SWE"
-SnowDepthMapFile				=	"maps/snowdepth"
+!--- STRUCTURE ------------
+PointOutputFile = "tabs/point"
+!--- VARIABLES ------------
+PointAll = 1
 
-SurfaceHeatFluxMapFile			=	"maps/EB"
-SurfaceSensibleHeatFluxMapFile	=	"maps/H"
-SurfaceLatentHeatFluxMapFile	=	"maps/LE"
-SurfaceTempMapFile				=	"maps/Ts"
+!=============================================================================
+! BASIN OUTPUT
+!=============================================================================
 
+BasinOutputFile     = "tabs/basin" 
+BasinAll = 1
+
+!=============================================================================
+! DISCHARGE OUTPUT
+!=============================================================================
+DischargeFile = "tabs/discharge"

@@ -9,6 +9,9 @@
 #include <boost/algorithm/string.hpp>
 #include "../../geotop/inputKeywords.h"
 
+#include <iostream>
+#include "global_logger.h"
+
 /*============================================================================*/
 /*                               Constants                                    */
 /*============================================================================*/
@@ -405,6 +408,7 @@ static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr
 
     long *coder, i, j;
     std::string lowercaseColDescr;
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
     //allocation
     coder = (long*)malloc(max_num_cols * sizeof(long));
@@ -426,9 +430,10 @@ static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr
 
             if (lowercaseColDescr == header[j] && coder[i] == -1 && geotop::input::gStringNoValue != header[j])
             {
-                coder[i] = j;
-                fprintf(flog, "Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
-                printf("Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
+              coder[i] = j;
+              lg->logf("Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
+ //             printf(flog, "Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
+              printf("Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
             }
             else if (lowercaseColDescr == header[j] && coder[i] != -1)
             {
