@@ -15,7 +15,9 @@ PointSim   = 0
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 04/10/2009 00:00
 !EndDateDDMMYYYYhhmm =  01/10/2011 23:00
-EndDateDDMMYYYYhhmm =  31/10/2009 23:00
+! Simulation time reduced to avoid overflow when example run with meteoio interpolation active
+! SC 14.11.2016
+EndDateDDMMYYYYhhmm =  19/10/2009 23:00
 
 ! Catchment centroid (for Sun position) 
 Latitude = 46.75

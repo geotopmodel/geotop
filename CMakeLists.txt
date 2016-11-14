@@ -1,13 +1,13 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 ###########################################################
 # general settings
 
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
-SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall-ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall-ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
-SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -g -O0 " CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2 " CACHE STRING "" )
 SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
@@ -16,8 +16,8 @@ project(geotop)
 
 # Version of library
 SET(VERSION_MAJOR 2 CACHE INTERNAL "")
-SET(VERSION_MINOR 0 CACHE INTERNAL "")
-SET(VERSION_PATCH 1 CACHE INTERNAL "")
+SET(VERSION_MINOR 1 CACHE INTERNAL "")
+SET(VERSION_PATCH 0 CACHE INTERNAL "")
 
 # config.h variables
 SET(PACKAGE "geotop")
