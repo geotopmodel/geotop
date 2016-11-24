@@ -61,7 +61,9 @@ MeteoStationCoordinateX=620815
 MeteoStationCoordinateY=5171506
 MeteoStationLatitude=46.668
 MeteoStationLongitude=10.579
-
+MeteoStationStandardTime=1
+!! this above introduced to fix bug in input.cc parser
+!! 24.11.2016 debug session by S&SE
 MeteoStationElevation=1480
 MeteoStationWindVelocitySensorHeight = 2.5
 MeteoStationTemperatureSensorHeight  = 2

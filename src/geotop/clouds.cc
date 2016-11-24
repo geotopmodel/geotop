@@ -45,6 +45,7 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 	}else if ( (long)meteo[0][iSW] != geotop::input::gDoubleAbsent || ( (long)meteo[0][iSWb] != geotop::input::gDoubleAbsent && (long)meteo[0][iSWd] != geotop::input::gDoubleAbsent ) ){
 
 		cloudtrans = (double*)malloc(meteolines*sizeof(double));
+// to clean                printf("%f %f\n",meteo[0][0], meteo[0][1]);
 		cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180., ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta, albedo);
 
 		for (n=0; n<meteolines; n++) {
@@ -118,7 +119,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	do{
 		tc0=tc;				
 		find_sunset(n00, &n0, &n1, meteo, meteolines, horizon, horizonlines, lat, lon, ST, rotation);
-		
+//                printf("n00:%d n0:%d n1:%d\n",n00,n0,n1);
 		ndiv[0]=n0;// line of the meteo data at which the sun rises
 		for(k=1;k<=ndivday-1;k++){
 			ndiv[k]=(long)(n0+k*(n1-n0)/(double)ndivday);
@@ -144,7 +145,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 			//assigns the values to the vector
 			for (n=ndiv[k-1]; n<ndiv[k]; n++) {
 				cloudtrans[n] = tc;
-				printf("n = %ld/%ld\n",n+1,meteolines);
+//				printf("n = %ld/%ld\n",n+1,meteolines);
 			}
 		}
 		
@@ -165,7 +166,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 		tc = geotop::input::gDoubleNoValue;
 	}
 	cloudtrans[n] = tc;
-	printf("n = %ld/%ld\n",n+1,meteolines);
+//	printf("n = %ld/%ld\n",n+1,meteolines);
 
 }
 
@@ -344,7 +345,7 @@ void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines,
 		
 		//from non-shadow to shadow = sunset
 		if(shad0==0 && shad==1) a=1;
-		
+                printf("n:%d JD:%f alpha:%f dir:%f shad:%d shad0:%d\n",n,meteo[n][iJDfrom0],alpha,direction/GTConst::Pi,shad,shad0);		
 		n++;
 		
 	}while(a==0 && n<meteolines);

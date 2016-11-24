@@ -1531,12 +1531,16 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationSkyViewFactor", 1., true, nmeteo_stations, false);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->sky[i] = lDoubleTempVector[i-1];
+//        printf("i:%d sky:%f\n",i,met->st->sky[i]);
+//        printf("lmete:%d\n",lMeteoStationContainerSize);
     }
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationStandardTime", par->ST, true, nmeteo_stations, false);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->ST[i] = lDoubleTempVector[i-1];
+// TO FIX: this seems NOT to take the correct default value..i 24.11.2016 (SC+SE) 
+//        printf("i:%d ST:%f st:%f\n",i,par->ST,met->st->ST[i]);
+//        printf("lmete:%d\n",lMeteoStationContainerSize);
     }
-
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationWindVelocitySensorHeight", geotop::input::gDoubleNoValue, true, nmeteo_stations, false) ;
 	for (size_t i=1; i<lMeteoStationContainerSize; i++) {
 		met->st->Vheight[i] = lDoubleTempVector[i-1];

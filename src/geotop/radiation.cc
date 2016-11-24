@@ -340,7 +340,9 @@ double diff2glob(double a){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
+// 24.11.2016: commented out the whole routine in favour of ther iqbal version: 
+// to check better what to do 
+ 
 /* Antonio + Stefano E.: The function `atm_transmittance` has been
    changed back from a previous modifcation in order to ease the
    merging between Trento and UZH branches. The old code is in
@@ -349,7 +351,7 @@ double diff2glob(double a){
    In the future, it would be better to add a keyword in order to
    allow the user to decide which one of the two functions must be
    used.
-*/
+
 double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 		
 	//X = angle of the sun above the horizon [rad]
@@ -359,7 +361,7 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	
 	/*
 	//from Mayers and Dale, Predicting Daily Insolation with Hourly Cloud Height and Coverage, 1983, pg 537, Journal of Climate and Applied Meteorology
-    */
+
 	double tau_sa;//Reyleigh scattering and gas absorption transmittance
 	double tau_w;//transmittance due to water vapor
 	double tau_a;//transmittance due to aerosol
@@ -375,8 +377,10 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	tau_atm = tau_sa*tau_w*tau_a;
 	return(tau_atm);
 }
+*/
 
-double atm_transmittance_iqbal(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
+//double atm_transmittance_iqbal(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
+double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g){
 	
 	//transmissivity under cloudless sky (Iqbal par. 7.5)
 	double mr, ma, w, U1, U3, tau_r, tau_o, tau_g, tau_w, tau_a, tau_aa, rho_a;
@@ -591,17 +595,18 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 				//SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				//Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
 				tau = ( SW - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
-				/*if(tau > 1) tau = 1.0;// commented after check against UZH (Matteo, August 2015)
-				if(tau < 0) tau = 0.0;*/
+				if(tau > 1) tau = 1.0; // commented after check against UZH (Matteo, August 2015)
+                                                       // decommented during debug session (S.C +S.E 24/11/2016)
+				if(tau < 0) tau = 0.0;
 				kd = diff2glob(tau * tau_atm);
 			}while(fabs(kd0-kd)>0.005 && j<1000);
 			
 		}
 	}
 		
-	/*if( (long)tau != geotop::input::gDoubleNoValue){
+	if( (long)tau != geotop::input::gDoubleNoValue){
 		if(tau<GTConst::min_tau_cloud) tau=GTConst::min_tau_cloud;
-	}*/
+	}
 	
 	free(others);
 		
