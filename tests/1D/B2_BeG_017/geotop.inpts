@@ -254,10 +254,10 @@ HeaderSoilInitPres = "InitPsi"
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFile  = "tabs/soilTz" 
-SoilLiqWaterPressProfileFile = "tabs/psiz" 
-SoilLiqContentProfileFile  = "tabs/thetaliq" 
-SoilIceContentProfileFile  = "tabs/thetaice" 
+SoilAveragedTempProfileFile  = "output-tabs/soilTz" 
+SoilLiqWaterPressProfileFile = "output-tabs/psiz" 
+SoilLiqContentProfileFile  = "output-tabs/thetaliq" 
+SoilIceContentProfileFile  = "output-tabs/thetaice" 
 
 !--- VARIABLES ------------
 SoilAll = 1
@@ -267,7 +267,7 @@ SoilAll = 1
 !=============================================================================
 
 !--- STRUCTURE ------------
-PointOutputFile = "tabs/point"
+PointOutputFile = "output-tabs/point"
 !--- VARIABLES ------------
 PointAll = 1
 
@@ -275,10 +275,10 @@ PointAll = 1
 ! BASIN OUTPUT
 !=============================================================================
 
-BasinOutputFile     = "tabs/basin" 
+BasinOutputFile     = "output-tabs/basin" 
 BasinAll = 1
 
 !=============================================================================
 ! DISCHARGE OUTPUT
 !=============================================================================
-DischargeFile = "tabs/discharge"
+DischargeFile = "output-tabs/discharge"

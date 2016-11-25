@@ -19,6 +19,7 @@ MeteoFile                    = "Jungfraujoch_"
 Latitude                     = 46.55
 Longitude                    =  7.99
 NumberOfMeteoStations        = 1
+MeteoStationStandardTime     = 0
 MeteoStationCoordinateX=272533.
 MeteoStationCoordinateY=478964
 MeteoStationLatitude=46.55

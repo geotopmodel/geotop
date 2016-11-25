@@ -37,6 +37,7 @@ RHmin = 10
 
 !--- METEO FILE ---------------------------
 NumberOfMeteoStations=1
+MeteoStationStandardTime=0
 MeteoStationElevation=1325
 MeteoStationWindVelocitySensorHeight=5
 MeteoStationTemperatureSensorHeight=5
