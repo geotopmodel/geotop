@@ -1,9 +1,9 @@
 Model: GEOtop
-Compiler: icc (ICC) 16.0.0 20150815 (Scientific Linux release 6.8 (Carbon)2.6.32-573.22.1.el6.x86_64)
-Storage: NFS
-Processor: AMD Opteron(tm) Processor 6132 HE
-Author: Giacomo Bertoldi (giacomo.bertoldi@eurac.edu)
-Date: 03-11-2016
+Compiler: Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1),icc (ICC) 16.0.0 20150815 (Scientific Linux release 6.8 (Carbon)2.6.32-573.22.1.el6.x86_64)
+Storage: non-specified,NFS
+Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz,AMD Opteron(tm) Processor 6132 HE
+Author: Giacomo Bertoldi (giacomo.bertoldi@eurac.edu),Emanuele Cordano (emanuele.cordano@rendena100.eu)
+Date: 25-11-2016,03-11-2016
 Name: B2_BeG_017
 Description: Simulation for the Muntatschini B2 LTER EURAC research site point 1D water and energy budget
 Output: hourly time series

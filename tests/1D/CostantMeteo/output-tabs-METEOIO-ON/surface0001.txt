@@ -1,0 +1,1 @@
+Date12[DDMMYYYYhhmm],Simulation_Period,Run,IDpoint,Tair[C],Tsurface[C],Prain_over_canopy[mm],Psnow_over_canopy[mm],snow_depth[mm],snow_water_equivalent[mm],snow_melted[mm],SWin[W/m2],SWup[W/m2],Soil_heat_flux[W/m2]

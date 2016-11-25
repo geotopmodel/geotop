@@ -115,7 +115,15 @@ AlbExtParSnow    = 10
 SnowRoughness    = 2.0
 
 !--- DISCRETIZATION ------------------
-MaxWaterEqSnowLayerContent = 10
+MaxWaterEqSnowLayerContModel: GEOtop
+Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1) 
+Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
+Author: Stafano Endrizzi (stefano.end@gmail.com),Emanuele Cordano (emanuele.cordano@rendena100.eu)
+Date: 25-11-2016
+Name: ConstantMeteo
+Oldname: ConstantMeteo
+Description: Test provided by S.Endrizzi 22.04.2016. It has constant input meteo data. 
+Output: ...ent = 10
 SWEtop                     = 2000
 SWEbottom                  = 50
 MaxSnowLayersMiddle        = 50
@@ -146,7 +154,7 @@ LateralHydrConductivity       = 0.005
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFileWriteend = "out/ground"
+SoilAveragedTempProfileFileWriteend = "output-tabs/ground"
 SoilPlotDepths = 100, 200, 500
 
 !--- VARIABLES ------------
@@ -163,7 +171,7 @@ TempSoil    = 5,6,7
 !=============================================================================
 
 !--- STRUCTURE ------------
-PointOutputFileWriteEnd = "out/surface"
+PointOutputFileWriteEnd = "output-tabs/surface"
 
 !--- VARIABLES ------------
 DefaultPoint                =  0
@@ -183,4 +191,4 @@ SWupPoint                   = 13
 SoilHeatFluxPoint           = 14
 
 
-DischargeFile = "out/discharge"
+DischargeFile = "output-tabs/discharge"

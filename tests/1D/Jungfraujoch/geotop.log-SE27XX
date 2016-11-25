@@ -1,0 +1,2789 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/
+
+TimeStepEnergyAndWater[1] = 3.600000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.081983e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 3.108198e+11 
+NumSimulationTimes[1] = 1.000000e+00 
+StandardTimeSimulation[1] = 0.000000e+00 
+DtPlotDischarge[1] = 0.000000e+00 (default) 
+DtPlotPoint[1] = 1.000000e+00 
+DtPlotBasin[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 1.000000e+00 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 1.000000e+00 (default) 
+SoilRoughness[1] = 1.000000e+01 
+ThresSnowSoilRough[1] = 2.000000e+00 
+VegHeight[1] = 1.000000e+03 (default) 
+ThresSnowVegUp[1] = 1.000000e+03 (default) 
+ThresSnowVegDown[1] = 1.000000e+03 (default) 
+LSAI[1] = 1.000000e+00 (default) 
+CanopyFraction[1] = 0.000000e+00 (default) 
+DecayCoeffCanopy[1] = 2.500000e+00 (default) 
+VegSnowBurying[1] = 1.000000e+00 (default) 
+RootDepth[1] = 3.000000e+02 (default) 
+MinStomatalRes[1] = 6.000000e+01 (default) 
+VegReflectVis[1] = 2.000000e-01 (default) 
+VegReflNIR[1] = 2.000000e-01 (default) 
+VegTransVis[1] = 2.000000e-01 (default) 
+VegTransNIR[1] = 2.000000e-01 (default) 
+LeafAngles[1] = 0.000000e+00 (default) 
+CanDensSurface[1] = 2.000000e+00 (default) 
+SoilAlbVisDry[1] = 2.500000e-01 
+SoilAlbNIRDry[1] = 2.500000e-01 
+SoilAlbVisWet[1] = 2.500000e-01 
+SoilAlbNIRWet[1] = 2.500000e-01 
+SoilEmissiv[1] = 9.700000e-01 
+SurFlowResLand[1] = 5.000000e-01 (default) 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 (default) 
+RichardTol[1] = 1.000000e-06 (default) 
+RichardMaxIter[1] = 1.000000e+02 (default) 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 (default) 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.666667e-01 (default) 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-01 (default) 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e+00 (default) 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-02 (default) 
+Latitude[1] = 4.655000e+01 
+Longitude[1] = 7.990000e+00 
+Vmin[1] = 5.000000e-01 
+RHmin[1] = 1.000000e+01 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-04 (default) 
+HeatEqMaxIter[1] = 5.000000e+02 (default) 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 2.000000e+00 
+FreshSnowReflVis[1] = 9.000000e-01 (default) 
+FreshSnowReflNIR[1] = 6.500000e-01 (default) 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 3.600000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 1.000000e+01 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 2.000000e+00 (default) 
+SWEbottom[1] = 2.000000e+01 (default) 
+SWEtop[1] = 2.000000e+01 (default) 
+Max snow layer number: 10, of which 4 at the bottom, 2 in the middle, and 4 at the top.
+Infinite Snow layer numbers are numbers: 5 6 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 9.000000e+00 
+MoninObukhov[1] = 2.000000e+00 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 0.000000e+00 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = -9.999000e+03 (default) 
+CoordinatePointY[1] = -9.999000e+03 (default) 
+PointElevation[1] = -9.999000e+03 (default) 
+PointLandCoverType[1] = -9.999000e+03 (default) 
+PointSoilType[1] = -9.999000e+03 (default) 
+PointSlope[1] = -9.999000e+03 (default) 
+PointAspect[1] = -9.999000e+03 (default) 
+PointSkyViewFactor[1] = -9.999000e+03 (default) 
+PointCurvatureNorthSouthDirection[1] = -9.999000e+03 (default) 
+PointCurvatureWestEastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03 (default) 
+PointDepthFreeSurface[1] = -9.999000e+03 (default) 
+PointHorizon[1] = -9.999000e+03 (default) 
+PointMaxSWE[1] = -9.999000e+03 (default) 
+PointLatitude[1] = -9.999000e+03 (default) 
+PointLongitude[1] = -9.999000e+03 (default) 
+NONE[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 0.000000e+00 (default) 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 0.000000e+00 (default) 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 (default) 
+InitWaterTableDepth[1] = 5.000000e+03 (default) 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = 1.500000e+01 
+SoilLayerThicknesses[2] = 2.000000e+01 
+SoilLayerThicknesses[3] = 2.700000e+01 
+SoilLayerThicknesses[4] = 3.700000e+01 
+SoilLayerThicknesses[5] = 5.000000e+01 
+SoilLayerThicknesses[6] = 6.700000e+01 
+SoilLayerThicknesses[7] = 9.100000e+01 
+SoilLayerThicknesses[8] = 1.230000e+02 
+SoilLayerThicknesses[9] = 1.650000e+02 
+SoilLayerThicknesses[10] = 2.230000e+02 
+SoilLayerThicknesses[11] = 3.020000e+02 
+SoilLayerThicknesses[12] = 4.070000e+02 
+SoilLayerThicknesses[13] = 5.500000e+02 
+SoilLayerThicknesses[14] = 7.420000e+02 
+SoilLayerThicknesses[15] = 1.002000e+03 
+SoilLayerThicknesses[16] = 1.179000e+03 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = -1.000000e+00 
+NormalHydrConductivity[1] = 1.000000e-06 
+LateralHydrConductivity[1] = 1.000000e-06 
+ThetaRes[1] = 2.000000e-03 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 3.000000e-02 
+AlphaVanGenuchten[1] = 1.000000e-03 
+NVanGenuchten[1] = 1.200000e+00 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.800000e+00 
+ThermalCapacitySoilSolids[1] = 2.000000e+06 
+SpecificStorativity[1] = 1.000000e-07 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = -1.000000e+00 (default) 
+NormalHydrConductivity[2] = 1.000000e-06 (default) 
+LateralHydrConductivity[2] = 1.000000e-06 (default) 
+ThetaRes[2] = 2.000000e-03 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 3.000000e-02 (default) 
+AlphaVanGenuchten[2] = 1.000000e-03 (default) 
+NVanGenuchten[2] = 1.200000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 2.000000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = -1.000000e+00 (default) 
+NormalHydrConductivity[3] = 1.000000e-06 (default) 
+LateralHydrConductivity[3] = 1.000000e-06 (default) 
+ThetaRes[3] = 2.000000e-03 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 3.000000e-02 (default) 
+AlphaVanGenuchten[3] = 1.000000e-03 (default) 
+NVanGenuchten[3] = 1.200000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 2.000000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = -1.000000e+00 (default) 
+NormalHydrConductivity[4] = 1.000000e-06 (default) 
+LateralHydrConductivity[4] = 1.000000e-06 (default) 
+ThetaRes[4] = 2.000000e-03 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 3.000000e-02 (default) 
+AlphaVanGenuchten[4] = 1.000000e-03 (default) 
+NVanGenuchten[4] = 1.200000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 2.000000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = -1.000000e+00 (default) 
+NormalHydrConductivity[5] = 1.000000e-06 (default) 
+LateralHydrConductivity[5] = 1.000000e-06 (default) 
+ThetaRes[5] = 2.000000e-03 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 3.000000e-02 (default) 
+AlphaVanGenuchten[5] = 1.000000e-03 (default) 
+NVanGenuchten[5] = 1.200000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 2.000000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+InitSoilPressure[6] = -9.999000e+03 (default) 
+InitSoilTemp[6] = -1.000000e+00 (default) 
+NormalHydrConductivity[6] = 1.000000e-06 (default) 
+LateralHydrConductivity[6] = 1.000000e-06 (default) 
+ThetaRes[6] = 2.000000e-03 (default) 
+WiltingPoint[6] = -9.999000e+03 (default) 
+FieldCapacity[6] = -9.999000e+03 (default) 
+ThetaSat[6] = 3.000000e-02 (default) 
+AlphaVanGenuchten[6] = 1.000000e-03 (default) 
+NVanGenuchten[6] = 1.200000e+00 (default) 
+VMualem[6] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[6] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[6] = 2.000000e+06 (default) 
+SpecificStorativity[6] = 1.000000e-07 (default) 
+InitSoilPressure[7] = -9.999000e+03 (default) 
+InitSoilTemp[7] = -1.000000e+00 (default) 
+NormalHydrConductivity[7] = 1.000000e-06 (default) 
+LateralHydrConductivity[7] = 1.000000e-06 (default) 
+ThetaRes[7] = 2.000000e-03 (default) 
+WiltingPoint[7] = -9.999000e+03 (default) 
+FieldCapacity[7] = -9.999000e+03 (default) 
+ThetaSat[7] = 3.000000e-02 (default) 
+AlphaVanGenuchten[7] = 1.000000e-03 (default) 
+NVanGenuchten[7] = 1.200000e+00 (default) 
+VMualem[7] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[7] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[7] = 2.000000e+06 (default) 
+SpecificStorativity[7] = 1.000000e-07 (default) 
+InitSoilPressure[8] = -9.999000e+03 (default) 
+InitSoilTemp[8] = -1.000000e+00 (default) 
+NormalHydrConductivity[8] = 1.000000e-06 (default) 
+LateralHydrConductivity[8] = 1.000000e-06 (default) 
+ThetaRes[8] = 2.000000e-03 (default) 
+WiltingPoint[8] = -9.999000e+03 (default) 
+FieldCapacity[8] = -9.999000e+03 (default) 
+ThetaSat[8] = 3.000000e-02 (default) 
+AlphaVanGenuchten[8] = 1.000000e-03 (default) 
+NVanGenuchten[8] = 1.200000e+00 (default) 
+VMualem[8] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[8] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[8] = 2.000000e+06 (default) 
+SpecificStorativity[8] = 1.000000e-07 (default) 
+InitSoilPressure[9] = -9.999000e+03 (default) 
+InitSoilTemp[9] = -1.000000e+00 (default) 
+NormalHydrConductivity[9] = 1.000000e-06 (default) 
+LateralHydrConductivity[9] = 1.000000e-06 (default) 
+ThetaRes[9] = 2.000000e-03 (default) 
+WiltingPoint[9] = -9.999000e+03 (default) 
+FieldCapacity[9] = -9.999000e+03 (default) 
+ThetaSat[9] = 3.000000e-02 (default) 
+AlphaVanGenuchten[9] = 1.000000e-03 (default) 
+NVanGenuchten[9] = 1.200000e+00 (default) 
+VMualem[9] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[9] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[9] = 2.000000e+06 (default) 
+SpecificStorativity[9] = 1.000000e-07 (default) 
+InitSoilPressure[10] = -9.999000e+03 (default) 
+InitSoilTemp[10] = -1.000000e+00 (default) 
+NormalHydrConductivity[10] = 1.000000e-06 (default) 
+LateralHydrConductivity[10] = 1.000000e-06 (default) 
+ThetaRes[10] = 2.000000e-03 (default) 
+WiltingPoint[10] = -9.999000e+03 (default) 
+FieldCapacity[10] = -9.999000e+03 (default) 
+ThetaSat[10] = 3.000000e-02 (default) 
+AlphaVanGenuchten[10] = 1.000000e-03 (default) 
+NVanGenuchten[10] = 1.200000e+00 (default) 
+VMualem[10] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[10] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[10] = 2.000000e+06 (default) 
+SpecificStorativity[10] = 1.000000e-07 (default) 
+InitSoilPressure[11] = -9.999000e+03 (default) 
+InitSoilTemp[11] = -1.000000e+00 (default) 
+NormalHydrConductivity[11] = 1.000000e-06 (default) 
+LateralHydrConductivity[11] = 1.000000e-06 (default) 
+ThetaRes[11] = 2.000000e-03 (default) 
+WiltingPoint[11] = -9.999000e+03 (default) 
+FieldCapacity[11] = -9.999000e+03 (default) 
+ThetaSat[11] = 3.000000e-02 (default) 
+AlphaVanGenuchten[11] = 1.000000e-03 (default) 
+NVanGenuchten[11] = 1.200000e+00 (default) 
+VMualem[11] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[11] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[11] = 2.000000e+06 (default) 
+SpecificStorativity[11] = 1.000000e-07 (default) 
+InitSoilPressure[12] = -9.999000e+03 (default) 
+InitSoilTemp[12] = -1.000000e+00 (default) 
+NormalHydrConductivity[12] = 1.000000e-06 (default) 
+LateralHydrConductivity[12] = 1.000000e-06 (default) 
+ThetaRes[12] = 2.000000e-03 (default) 
+WiltingPoint[12] = -9.999000e+03 (default) 
+FieldCapacity[12] = -9.999000e+03 (default) 
+ThetaSat[12] = 3.000000e-02 (default) 
+AlphaVanGenuchten[12] = 1.000000e-03 (default) 
+NVanGenuchten[12] = 1.200000e+00 (default) 
+VMualem[12] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[12] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[12] = 2.000000e+06 (default) 
+SpecificStorativity[12] = 1.000000e-07 (default) 
+InitSoilPressure[13] = -9.999000e+03 (default) 
+InitSoilTemp[13] = -1.000000e+00 (default) 
+NormalHydrConductivity[13] = 1.000000e-06 (default) 
+LateralHydrConductivity[13] = 1.000000e-06 (default) 
+ThetaRes[13] = 2.000000e-03 (default) 
+WiltingPoint[13] = -9.999000e+03 (default) 
+FieldCapacity[13] = -9.999000e+03 (default) 
+ThetaSat[13] = 3.000000e-02 (default) 
+AlphaVanGenuchten[13] = 1.000000e-03 (default) 
+NVanGenuchten[13] = 1.200000e+00 (default) 
+VMualem[13] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[13] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[13] = 2.000000e+06 (default) 
+SpecificStorativity[13] = 1.000000e-07 (default) 
+InitSoilPressure[14] = -9.999000e+03 (default) 
+InitSoilTemp[14] = -1.000000e+00 (default) 
+NormalHydrConductivity[14] = 1.000000e-06 (default) 
+LateralHydrConductivity[14] = 1.000000e-06 (default) 
+ThetaRes[14] = 2.000000e-03 (default) 
+WiltingPoint[14] = -9.999000e+03 (default) 
+FieldCapacity[14] = -9.999000e+03 (default) 
+ThetaSat[14] = 3.000000e-02 (default) 
+AlphaVanGenuchten[14] = 1.000000e-03 (default) 
+NVanGenuchten[14] = 1.200000e+00 (default) 
+VMualem[14] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[14] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[14] = 2.000000e+06 (default) 
+SpecificStorativity[14] = 1.000000e-07 (default) 
+InitSoilPressure[15] = -9.999000e+03 (default) 
+InitSoilTemp[15] = -1.000000e+00 (default) 
+NormalHydrConductivity[15] = 1.000000e-06 (default) 
+LateralHydrConductivity[15] = 1.000000e-06 (default) 
+ThetaRes[15] = 2.000000e-03 (default) 
+WiltingPoint[15] = -9.999000e+03 (default) 
+FieldCapacity[15] = -9.999000e+03 (default) 
+ThetaSat[15] = 3.000000e-02 (default) 
+AlphaVanGenuchten[15] = 1.000000e-03 (default) 
+NVanGenuchten[15] = 1.200000e+00 (default) 
+VMualem[15] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[15] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[15] = 2.000000e+06 (default) 
+SpecificStorativity[15] = 1.000000e-07 (default) 
+InitSoilPressure[16] = -9.999000e+03 (default) 
+InitSoilTemp[16] = -1.000000e+00 (default) 
+NormalHydrConductivity[16] = 1.000000e-06 (default) 
+LateralHydrConductivity[16] = 1.000000e-06 (default) 
+ThetaRes[16] = 2.000000e-03 (default) 
+WiltingPoint[16] = -9.999000e+03 (default) 
+FieldCapacity[16] = -9.999000e+03 (default) 
+ThetaSat[16] = 3.000000e-02 (default) 
+AlphaVanGenuchten[16] = 1.000000e-03 (default) 
+NVanGenuchten[16] = 1.200000e+00 (default) 
+VMualem[16] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[16] = 2.800000e+00 (default) 
+ThermalCapacitySoilSolids[16] = 2.000000e+06 (default) 
+SpecificStorativity[16] = 1.000000e-07 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[6] = -9.999000e+03 (default) 
+InitSoilTempBedrock[6] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+ThetaResBedrock[6] = -9.999000e+03 (default) 
+WiltingPointBedrock[6] = -9.999000e+03 (default) 
+FieldCapacityBedrock[6] = -9.999000e+03 (default) 
+ThetaSatBedrock[6] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+VMualemBedrock[6] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[6] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[7] = -9.999000e+03 (default) 
+InitSoilTempBedrock[7] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+ThetaResBedrock[7] = -9.999000e+03 (default) 
+WiltingPointBedrock[7] = -9.999000e+03 (default) 
+FieldCapacityBedrock[7] = -9.999000e+03 (default) 
+ThetaSatBedrock[7] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+VMualemBedrock[7] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[7] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[8] = -9.999000e+03 (default) 
+InitSoilTempBedrock[8] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+ThetaResBedrock[8] = -9.999000e+03 (default) 
+WiltingPointBedrock[8] = -9.999000e+03 (default) 
+FieldCapacityBedrock[8] = -9.999000e+03 (default) 
+ThetaSatBedrock[8] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+VMualemBedrock[8] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[8] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[9] = -9.999000e+03 (default) 
+InitSoilTempBedrock[9] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+ThetaResBedrock[9] = -9.999000e+03 (default) 
+WiltingPointBedrock[9] = -9.999000e+03 (default) 
+FieldCapacityBedrock[9] = -9.999000e+03 (default) 
+ThetaSatBedrock[9] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+VMualemBedrock[9] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[9] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[10] = -9.999000e+03 (default) 
+InitSoilTempBedrock[10] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+ThetaResBedrock[10] = -9.999000e+03 (default) 
+WiltingPointBedrock[10] = -9.999000e+03 (default) 
+FieldCapacityBedrock[10] = -9.999000e+03 (default) 
+ThetaSatBedrock[10] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+VMualemBedrock[10] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[10] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[11] = -9.999000e+03 (default) 
+InitSoilTempBedrock[11] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[11] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[11] = -9.999000e+03 (default) 
+ThetaResBedrock[11] = -9.999000e+03 (default) 
+WiltingPointBedrock[11] = -9.999000e+03 (default) 
+FieldCapacityBedrock[11] = -9.999000e+03 (default) 
+ThetaSatBedrock[11] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[11] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[11] = -9.999000e+03 (default) 
+VMualemBedrock[11] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[11] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[11] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[11] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[12] = -9.999000e+03 (default) 
+InitSoilTempBedrock[12] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[12] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[12] = -9.999000e+03 (default) 
+ThetaResBedrock[12] = -9.999000e+03 (default) 
+WiltingPointBedrock[12] = -9.999000e+03 (default) 
+FieldCapacityBedrock[12] = -9.999000e+03 (default) 
+ThetaSatBedrock[12] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[12] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[12] = -9.999000e+03 (default) 
+VMualemBedrock[12] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[12] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[12] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[12] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[13] = -9.999000e+03 (default) 
+InitSoilTempBedrock[13] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[13] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[13] = -9.999000e+03 (default) 
+ThetaResBedrock[13] = -9.999000e+03 (default) 
+WiltingPointBedrock[13] = -9.999000e+03 (default) 
+FieldCapacityBedrock[13] = -9.999000e+03 (default) 
+ThetaSatBedrock[13] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[13] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[13] = -9.999000e+03 (default) 
+VMualemBedrock[13] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[13] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[13] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[13] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[14] = -9.999000e+03 (default) 
+InitSoilTempBedrock[14] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[14] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[14] = -9.999000e+03 (default) 
+ThetaResBedrock[14] = -9.999000e+03 (default) 
+WiltingPointBedrock[14] = -9.999000e+03 (default) 
+FieldCapacityBedrock[14] = -9.999000e+03 (default) 
+ThetaSatBedrock[14] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[14] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[14] = -9.999000e+03 (default) 
+VMualemBedrock[14] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[14] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[14] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[14] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[15] = -9.999000e+03 (default) 
+InitSoilTempBedrock[15] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[15] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[15] = -9.999000e+03 (default) 
+ThetaResBedrock[15] = -9.999000e+03 (default) 
+WiltingPointBedrock[15] = -9.999000e+03 (default) 
+FieldCapacityBedrock[15] = -9.999000e+03 (default) 
+ThetaSatBedrock[15] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[15] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[15] = -9.999000e+03 (default) 
+VMualemBedrock[15] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[15] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[15] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[15] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[16] = -9.999000e+03 (default) 
+InitSoilTempBedrock[16] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[16] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[16] = -9.999000e+03 (default) 
+ThetaResBedrock[16] = -9.999000e+03 (default) 
+WiltingPointBedrock[16] = -9.999000e+03 (default) 
+FieldCapacityBedrock[16] = -9.999000e+03 (default) 
+ThetaSatBedrock[16] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[16] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[16] = -9.999000e+03 (default) 
+VMualemBedrock[16] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[16] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[16] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[16] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 
+MeteoStationCoordinateX[1] = 2.725330e+05 
+MeteoStationCoordinateY[1] = 4.789640e+05 
+MeteoStationLatitude[1] = 4.655000e+01 
+MeteoStationLongitude[1] = 7.990000e+00 
+MeteoStationElevation[1] = 3.580000e+03 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 
+MeteoStationStandardTime[1] = 0.000000e+00 
+MeteoStationWindVelocitySensorHeight[1] = 2.500000e+01 
+MeteoStationTemperatureSensorHeight[1] = 2.500000e+01 
+LapseRateTemp[1] = 5.500000e+00 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 0.000000e+00 (default) 
+DatePoint[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Point[1] = -1.000000e+00 (default) 
+TimeFromStartPoint[1] = -1.000000e+00 (default) 
+PeriodPoint[1] = -1.000000e+00 (default) 
+RunPoint[1] = -1.000000e+00 (default) 
+IDPointPoint[1] = -1.000000e+00 (default) 
+PsnowPoint[1] = -1.000000e+00 (default) 
+PrainPoint[1] = -1.000000e+00 (default) 
+PsnowNetPoint[1] = -1.000000e+00 (default) 
+PrainNetPoint[1] = -1.000000e+00 (default) 
+PrainOnSnowPoint[1] = -1.000000e+00 (default) 
+WindSpeedPoint[1] = -1.000000e+00 (default) 
+WindDirPoint[1] = -1.000000e+00 (default) 
+RHPoint[1] = -1.000000e+00 (default) 
+AirPressPoint[1] = -1.000000e+00 (default) 
+AirTempPoint[1] = -1.000000e+00 (default) 
+TDewPoint[1] = -1.000000e+00 (default) 
+TsurfPoint[1] = -1.000000e+00 (default) 
+TvegPoint[1] = -1.000000e+00 (default) 
+TCanopyAirPoint[1] = -1.000000e+00 (default) 
+SurfaceEBPoint[1] = -1.000000e+00 (default) 
+SoilHeatFluxPoint[1] = -1.000000e+00 (default) 
+SWinPoint[1] = -1.000000e+00 (default) 
+SWbeamPoint[1] = -1.000000e+00 (default) 
+SWdiffPoint[1] = -1.000000e+00 (default) 
+LWinPoint[1] = -1.000000e+00 (default) 
+LWinMinPoint[1] = -1.000000e+00 (default) 
+LWinMaxPoint[1] = -1.000000e+00 (default) 
+SWNetPoint[1] = -1.000000e+00 (default) 
+LWNetPoint[1] = -1.000000e+00 (default) 
+HPoint[1] = -1.000000e+00 (default) 
+LEPoint[1] = -1.000000e+00 (default) 
+CanopyFractionPoint[1] = -1.000000e+00 (default) 
+LSAIPoint[1] = -1.000000e+00 (default) 
+z0vegPoint[1] = -1.000000e+00 (default) 
+d0vegPoint[1] = -1.000000e+00 (default) 
+EstoredCanopyPoint[1] = -1.000000e+00 (default) 
+SWvPoint[1] = -1.000000e+00 (default) 
+LWvPoint[1] = -1.000000e+00 (default) 
+HvPoint[1] = -1.000000e+00 (default) 
+LEvPoint[1] = -1.000000e+00 (default) 
+HgUnvegPoint[1] = -1.000000e+00 (default) 
+LEgUnvegPoint[1] = -1.000000e+00 (default) 
+HgVegPoint[1] = -1.000000e+00 (default) 
+LEgVegPoint[1] = -1.000000e+00 (default) 
+EvapSurfacePoint[1] = -1.000000e+00 (default) 
+TraspCanopyPoint[1] = -1.000000e+00 (default) 
+WaterOnCanopyPoint[1] = -1.000000e+00 (default) 
+SnowOnCanopyPoint[1] = -1.000000e+00 (default) 
+QVegPoint[1] = -1.000000e+00 (default) 
+QSurfPoint[1] = -1.000000e+00 (default) 
+QAirPoint[1] = -1.000000e+00 (default) 
+QCanopyAirPoint[1] = -1.000000e+00 (default) 
+LObukhovPoint[1] = -1.000000e+00 (default) 
+LObukhovCanopyPoint[1] = -1.000000e+00 (default) 
+WindSpeedTopCanopyPoint[1] = -1.000000e+00 (default) 
+DecayKCanopyPoint[1] = -1.000000e+00 (default) 
+SWupPoint[1] = -1.000000e+00 (default) 
+LWupPoint[1] = -1.000000e+00 (default) 
+HupPoint[1] = -1.000000e+00 (default) 
+LEupPoint[1] = -1.000000e+00 (default) 
+SnowDepthPoint[1] = -1.000000e+00 (default) 
+SWEPoint[1] = -1.000000e+00 (default) 
+SnowDensityPoint[1] = -1.000000e+00 (default) 
+SnowTempPoint[1] = -1.000000e+00 (default) 
+SnowMeltedPoint[1] = -1.000000e+00 (default) 
+SnowSublPoint[1] = -1.000000e+00 (default) 
+SWEBlownPoint[1] = -1.000000e+00 (default) 
+SWESublBlownPoint[1] = -1.000000e+00 (default) 
+GlacDepthPoint[1] = -1.000000e+00 (default) 
+GWEPoint[1] = -1.000000e+00 (default) 
+GlacDensityPoint[1] = -1.000000e+00 (default) 
+GlacTempPoint[1] = -1.000000e+00 (default) 
+GlacMeltedPoint[1] = -1.000000e+00 (default) 
+GlacSublPoint[1] = -1.000000e+00 (default) 
+LowestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+HighestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+LowestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+HighestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+BasinAll[1] = 0.000000e+00 (default) 
+DateBasin[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Basin[1] = -1.000000e+00 (default) 
+TimeFromStartBasin[1] = -1.000000e+00 (default) 
+PeriodBasin[1] = -1.000000e+00 (default) 
+RunBasin[1] = -1.000000e+00 (default) 
+PRainNetBasin[1] = -1.000000e+00 (default) 
+PSnowNetBasin[1] = -1.000000e+00 (default) 
+PRainBasin[1] = -1.000000e+00 (default) 
+PSnowBasin[1] = -1.000000e+00 (default) 
+PNetBasin[1] = -1.000000e+00 (default) 
+AirTempBasin[1] = -1.000000e+00 (default) 
+TSurfBasin[1] = -1.000000e+00 (default) 
+TvegBasin[1] = -1.000000e+00 (default) 
+EvapSurfaceBasin[1] = -1.000000e+00 (default) 
+TraspCanopyBasin[1] = -1.000000e+00 (default) 
+LEBasin[1] = -1.000000e+00 (default) 
+HBasin[1] = -1.000000e+00 (default) 
+SWNetBasin[1] = -1.000000e+00 (default) 
+LWNetBasin[1] = -1.000000e+00 (default) 
+LEvBasin[1] = -1.000000e+00 (default) 
+HvBasin[1] = -1.000000e+00 (default) 
+SWvBasin[1] = -1.000000e+00 (default) 
+LWvBasin[1] = -1.000000e+00 (default) 
+SWinBasin[1] = -1.000000e+00 (default) 
+LWinBasin[1] = -1.000000e+00 (default) 
+MassErrorBasin[1] = -1.000000e+00 (default) 
+MeanTimeStep[1] = -1.000000e+00 (default) 
+SoilPlotDepths[1] = 1.000000e+02 
+SoilPlotDepths[2] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = 1.000000e+02 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 0.000000e+00 (default) 
+DateSoil[1] = 1.000000e+00 
+JulianDayFromYear0Soil[1] = -1.000000e+00 (default) 
+TimeFromStartSoil[1] = -1.000000e+00 (default) 
+PeriodSoil[1] = 2.000000e+00 
+RunSoil[1] = 3.000000e+00 
+IDPointSoil[1] = 4.000000e+00 
+RicalculateCloudiness[1] = 0.000000e+00 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = Date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = none
+HeaderPrec = none
+HeaderWindVelocity = WindS
+HeaderWindDirection = WindDir
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = RelHum
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = SWglobal
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = Cloud
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = none
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = none
+HeaderLateralHydrConductivity = none
+HeaderThetaRes = none
+HeaderWiltingPoint = none
+HeaderFieldCapacity = none
+HeaderThetaSat = none
+HeaderAlpha = none
+HeaderN = none
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = none
+HeaderHorizonAngle = az
+HeaderHorizonHeight = el
+TimeStepsFile = none
+SoilParFile = none
+MeteoFile = Jungfraujoch_
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = none
+PointFile = listpoints
+HorizonPointFile = hor_
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = none
+LandCoverMapFile = none
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = none
+RiverNetwork = none
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = none
+BasinOutputFile = none
+BasinOutputFileWriteEnd = none
+PointOutputFile = none
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = output-tabs/soil
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = none
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = ID
+HeaderCoordinatePointX = X
+HeaderCoordinatePointY = Y
+HeaderPointElevation = ele
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = slp
+HeaderPointAspect = asp
+HeaderPointSkyViewFactor = sky
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = hor
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = _SUCCESSFUL_RUN
+FailedRunFile = _FAILED_RUN
+SubfolderRecoveryFiles = none
+
+Soil Layers: 16
+-> Soil Type: 1
+HeaderSoilDz: 15.000000(1.50e+01), 20.000000(2.00e+01), 27.000000(2.70e+01), 37.000000(3.70e+01), 50.000000(5.00e+01), 67.000000(6.70e+01), 91.000000(9.10e+01), 123.000000(1.23e+02), 165.000000(1.65e+02), 223.000000(2.23e+02), 302.000000(3.02e+02), 407.000000(4.07e+02), 550.000000(5.50e+02), 742.000000(7.42e+02), 1002.000000(1.00e+03), 1179.000000(1.18e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00)
+HeaderNormalHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderLateralHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderThetaRes: 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03)
+HeaderWiltingPoint: 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02)
+HeaderFieldCapacity: 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02)
+HeaderThetaSat: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderAlpha: 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03)
+HeaderN: 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00)
+HeaderCthSoilSolids: 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+Soil Bedrock Layers: 16
+-> Soil Type: 1
+HeaderSoilDz: 15.000000(1.50e+01), 20.000000(2.00e+01), 27.000000(2.70e+01), 37.000000(3.70e+01), 50.000000(5.00e+01), 67.000000(6.70e+01), 91.000000(9.10e+01), 123.000000(1.23e+02), 165.000000(1.65e+02), 223.000000(2.23e+02), 302.000000(3.02e+02), 407.000000(4.07e+02), 550.000000(5.50e+02), 742.000000(7.42e+02), 1002.000000(1.00e+03), 1179.000000(1.18e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00), -1.000000(-1.00e+00)
+HeaderNormalHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderLateralHydrConductivity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+HeaderThetaRes: 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03), 0.002000(2.00e-03)
+HeaderWiltingPoint: 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02), 0.012235(1.22e-02)
+HeaderFieldCapacity: 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02), 0.023179(2.32e-02)
+HeaderThetaSat: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderAlpha: 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03)
+HeaderN: 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00), 1.200000(1.20e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00)
+HeaderCthSoilSolids: 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to X
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
+Attempting to read 'DemFile' in the file 'none': not present in file list
+Warning: Dem file not present
+Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
+Warning: Landuse file not present, uniform cover considered
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Warning: Soiltype file not present
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+Warning: Sky view factor file not present
+Warning: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+32.000000,0.000000,0.000000,3720.000000,1.000000,1.000000,70.000000,145.000000,0.570000,0.000000,0.000000,0.000000,0.000000,0.000000,32.000000,10000000000.000000,46.550000,7.990000,-9999.000000
+33.000000,0.000000,0.000000,3725.000000,1.000000,1.000000,55.000000,344.000000,0.770000,0.000000,0.000000,0.000000,0.000000,0.000000,33.000000,10000000000.000000,46.550000,7.990000,-9999.000000
+
+Horizon file FOUND for point type #32
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
+
+Horizon file FOUND for point type #33
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
+Valid pixels: 2
+Number of nodes: 34
+Novalue pixels: 0
+Basin area: 0.000002 km2
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 5 layers
+Soil water transpires from the first 16 layers
+No precipitation measurements, considered it 0.0
+1/8/1983 1:00 0.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 2:00 0.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 3:00 0.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 4:00 0.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 5:00 0.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 6:00 0.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 7:00 0.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 8:00 1.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 9:00 1.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 10:00 1.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 11:00 1.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 12:00 1.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 13:00 1.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 14:00 1.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 15:00 2.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 16:00 2.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 17:00 2.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 18:00 2.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 19:00 2.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 20:00 2.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 21:00 2.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 22:00 2.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+1/8/1983 23:00 3.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 0:00 3.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 1:00 3.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 2:00 3.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 3:00 3.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 4:00 3.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 5:00 3.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 6:00 4.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 7:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 8:00 4.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 9:00 4.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 10:00 4.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 11:00 4.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 12:00 4.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 13:00 4.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 14:00 5.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 15:00 5.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 16:00 5.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 17:00 5.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 18:00 5.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 19:00 5.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 20:00 5.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 21:00 6.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 22:00 6.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+2/8/1983 23:00 6.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 0:00 6.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 1:00 6.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 2:00 6.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 3:00 6.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 4:00 7.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 5:00 7.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 6:00 7.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 7:00 7.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 8:00 7.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 9:00 7.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 10:00 7.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 11:00 7.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 12:00 8.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 13:00 8.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 14:00 8.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 15:00 8.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 16:00 8.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 17:00 8.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 18:00 8.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 19:00 9.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 20:00 9.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 21:00 9.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 22:00 9.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+3/8/1983 23:00 9.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 0:00 9.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 1:00 9.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 2:00 9.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 3:00 10.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 4:00 10.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 5:00 10.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 6:00 10.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 7:00 10.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 8:00 10.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 9:00 10.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 10:00 11.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 11:00 11.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 12:00 11.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 13:00 11.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 14:00 11.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 15:00 11.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 16:00 11.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 17:00 11.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 18:00 12.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 19:00 12.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 20:00 12.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 21:00 12.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 22:00 12.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+4/8/1983 23:00 12.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 0:00 12.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 1:00 13.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 2:00 13.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 3:00 13.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 4:00 13.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 5:00 13.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 6:00 13.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 7:00 13.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 8:00 14.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 9:00 14.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 10:00 14.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 11:00 14.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 12:00 14.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 13:00 14.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 14:00 14.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 15:00 14.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 16:00 15.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 17:00 15.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 18:00 15.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 19:00 15.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 20:00 15.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 21:00 15.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 22:00 15.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+5/8/1983 23:00 16.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 0:00 16.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 1:00 16.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 2:00 16.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 3:00 16.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 4:00 16.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 5:00 16.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 6:00 16.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 7:00 17.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 8:00 17.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 9:00 17.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 10:00 17.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 11:00 17.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 12:00 17.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 13:00 17.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 14:00 18.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 15:00 18.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 16:00 18.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 17:00 18.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 18:00 18.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 19:00 18.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 20:00 18.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 21:00 18.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 22:00 19.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+6/8/1983 23:00 19.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 0:00 19.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 1:00 19.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 2:00 19.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 3:00 19.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 4:00 19.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 5:00 20.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 6:00 20.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 7:00 20.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 8:00 20.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 9:00 20.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 10:00 20.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 11:00 20.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 12:00 21.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 13:00 21.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 14:00 21.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 15:00 21.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 16:00 21.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 17:00 21.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 18:00 21.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 19:00 21.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 20:00 22.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 21:00 22.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 22:00 22.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+7/8/1983 23:00 22.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 0:00 22.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 1:00 22.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 2:00 22.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 3:00 23.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 4:00 23.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 5:00 23.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 6:00 23.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 7:00 23.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 8:00 23.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 9:00 23.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 10:00 23.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 11:00 24.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 12:00 24.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 13:00 24.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 14:00 24.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 15:00 24.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 16:00 24.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 17:00 24.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 18:00 25.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 19:00 25.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 20:00 25.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 21:00 25.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 22:00 25.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+8/8/1983 23:00 25.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 0:00 25.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 1:00 25.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 2:00 26.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 3:00 26.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 4:00 26.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 5:00 26.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 6:00 26.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 7:00 26.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 8:00 26.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 9:00 27.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 10:00 27.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 11:00 27.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 12:00 27.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 13:00 27.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 14:00 27.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 15:00 27.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 16:00 27.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 17:00 28.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 18:00 28.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 19:00 28.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 20:00 28.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 21:00 28.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 22:00 28.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+9/8/1983 23:00 28.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 0:00 29.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 1:00 29.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 2:00 29.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 3:00 29.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 4:00 29.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 5:00 29.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 6:00 29.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 7:00 30.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 8:00 30.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 9:00 30.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 10:00 30.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 11:00 30.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 12:00 30.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 13:00 30.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 14:00 30.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 15:00 31.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 16:00 31.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 17:00 31.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 18:00 31.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 19:00 31.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 20:00 31.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 21:00 31.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 22:00 32.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+10/8/1983 23:00 32.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 0:00 32.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 1:00 32.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 2:00 32.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 3:00 32.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 4:00 32.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 5:00 32.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 6:00 33.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 7:00 33.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 8:00 33.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 9:00 33.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 10:00 33.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 11:00 33.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 12:00 33.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 13:00 34.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 14:00 34.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 15:00 34.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 16:00 34.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 17:00 34.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 18:00 34.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 19:00 34.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 20:00 34.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 21:00 35.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 22:00 35.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+11/8/1983 23:00 35.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 0:00 35.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 1:00 35.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 2:00 35.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 3:00 35.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 4:00 36.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 5:00 36.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 6:00 36.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 7:00 36.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 8:00 36.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 9:00 36.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 10:00 36.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 11:00 37.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 12:00 37.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 13:00 37.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 14:00 37.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 15:00 37.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 16:00 37.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 17:00 37.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 18:00 37.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 19:00 38.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 20:00 38.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 21:00 38.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 22:00 38.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+12/8/1983 23:00 38.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 0:00 38.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 1:00 38.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 2:00 39.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 3:00 39.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 4:00 39.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 5:00 39.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 6:00 39.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 7:00 39.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 8:00 39.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 9:00 39.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 10:00 40.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 11:00 40.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 12:00 40.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 13:00 40.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 14:00 40.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 15:00 40.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 16:00 40.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 17:00 41.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 18:00 41.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 19:00 41.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 20:00 41.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 21:00 41.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 22:00 41.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+13/8/1983 23:00 41.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 0:00 41.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 1:00 42.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 2:00 42.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 3:00 42.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 4:00 42.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 5:00 42.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 6:00 42.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 7:00 42.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 8:00 43.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 9:00 43.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 10:00 43.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 11:00 43.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 12:00 43.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 13:00 43.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 14:00 43.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 15:00 44.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 16:00 44.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 17:00 44.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 18:00 44.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 19:00 44.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 20:00 44.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 21:00 44.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 22:00 44.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+14/8/1983 23:00 45.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 0:00 45.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 1:00 45.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 2:00 45.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 3:00 45.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 4:00 45.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 5:00 45.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 6:00 46.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 7:00 46.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 8:00 46.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 9:00 46.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 10:00 46.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 11:00 46.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 12:00 46.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 13:00 46.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 14:00 47.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 15:00 47.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 16:00 47.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 17:00 47.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 18:00 47.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 19:00 47.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 20:00 47.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 21:00 48.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 22:00 48.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+15/8/1983 23:00 48.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 0:00 48.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 1:00 48.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 2:00 48.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 3:00 48.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 4:00 48.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 5:00 49.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 6:00 49.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 7:00 49.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 8:00 49.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 9:00 49.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 10:00 49.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 11:00 49.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 12:00 50.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 13:00 50.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 14:00 50.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 15:00 50.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 16:00 50.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 17:00 50.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 18:00 50.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 19:00 51.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 20:00 51.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 21:00 51.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 22:00 51.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+16/8/1983 23:00 51.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 0:00 51.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 1:00 51.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 2:00 51.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 3:00 52.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 4:00 52.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 5:00 52.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 6:00 52.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 7:00 52.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 8:00 52.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 9:00 52.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 10:00 53.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 11:00 53.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 12:00 53.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 13:00 53.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 14:00 53.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 15:00 53.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 16:00 53.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 17:00 53.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 18:00 54.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 19:00 54.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 20:00 54.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 21:00 54.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 22:00 54.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+17/8/1983 23:00 54.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 0:00 54.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 1:00 55.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 2:00 55.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 3:00 55.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 4:00 55.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 5:00 55.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 6:00 55.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 7:00 55.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 8:00 55.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 9:00 56.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 10:00 56.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 11:00 56.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 12:00 56.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 13:00 56.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 14:00 56.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 15:00 56.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 16:00 57.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 17:00 57.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 18:00 57.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 19:00 57.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 20:00 57.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 21:00 57.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 22:00 57.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+18/8/1983 23:00 58.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 0:00 58.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 1:00 58.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 2:00 58.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 3:00 58.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 4:00 58.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 5:00 58.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 6:00 58.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 7:00 59.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 8:00 59.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 9:00 59.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 10:00 59.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 11:00 59.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 12:00 59.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 13:00 59.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 14:00 60.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 15:00 60.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 16:00 60.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 17:00 60.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 18:00 60.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 19:00 60.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 20:00 60.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 21:00 60.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 22:00 61.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+19/8/1983 23:00 61.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 0:00 61.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 1:00 61.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 2:00 61.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 3:00 61.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 4:00 61.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 5:00 62.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 6:00 62.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 7:00 62.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 8:00 62.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 9:00 62.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 10:00 62.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 11:00 62.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 12:00 62.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 13:00 63.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 14:00 63.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 15:00 63.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 16:00 63.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 17:00 63.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 18:00 63.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 19:00 63.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 20:00 64.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 21:00 64.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 22:00 64.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+20/8/1983 23:00 64.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 0:00 64.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 1:00 64.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 2:00 64.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 3:00 65.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 4:00 65.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 5:00 65.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 6:00 65.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 7:00 65.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 8:00 65.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 9:00 65.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 10:00 65.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 11:00 66.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 12:00 66.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 13:00 66.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 14:00 66.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 15:00 66.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 16:00 66.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 17:00 66.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 18:00 67.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 19:00 67.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 20:00 67.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 21:00 67.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 22:00 67.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+21/8/1983 23:00 67.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 0:00 67.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 1:00 67.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 2:00 68.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 3:00 68.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 4:00 68.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 5:00 68.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 6:00 68.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 7:00 68.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 8:00 68.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 9:00 69.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 10:00 69.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 11:00 69.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 12:00 69.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 13:00 69.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 14:00 69.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 15:00 69.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 16:00 69.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 17:00 70.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 18:00 70.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 19:00 70.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 20:00 70.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 21:00 70.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 22:00 70.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+22/8/1983 23:00 70.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 0:00 71.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 1:00 71.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 2:00 71.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 3:00 71.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 4:00 71.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 5:00 71.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 6:00 71.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 7:00 72.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 8:00 72.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 9:00 72.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 10:00 72.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 11:00 72.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 12:00 72.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 13:00 72.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 14:00 72.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 15:00 73.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 16:00 73.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 17:00 73.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 18:00 73.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 19:00 73.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 20:00 73.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 21:00 73.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 22:00 74.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+23/8/1983 23:00 74.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 0:00 74.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 1:00 74.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 2:00 74.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 3:00 74.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 4:00 74.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 5:00 74.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 6:00 75.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 7:00 75.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 8:00 75.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 9:00 75.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 10:00 75.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 11:00 75.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 12:00 75.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 13:00 76.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 14:00 76.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 15:00 76.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 16:00 76.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 17:00 76.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 18:00 76.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 19:00 76.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 20:00 76.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 21:00 77.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 22:00 77.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+24/8/1983 23:00 77.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 0:00 77.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 1:00 77.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 2:00 77.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 3:00 77.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 4:00 78.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 5:00 78.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 6:00 78.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 7:00 78.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 8:00 78.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 9:00 78.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 10:00 78.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 11:00 79.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 12:00 79.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 13:00 79.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 14:00 79.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 15:00 79.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 16:00 79.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 17:00 79.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 18:00 79.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 19:00 80.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 20:00 80.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 21:00 80.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 22:00 80.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+25/8/1983 23:00 80.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 0:00 80.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 1:00 80.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 2:00 81.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 3:00 81.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 4:00 81.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 5:00 81.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 6:00 81.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 7:00 81.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 8:00 81.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 9:00 81.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 10:00 82.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 11:00 82.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 12:00 82.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 13:00 82.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 14:00 82.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 15:00 82.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 16:00 82.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 17:00 83.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 18:00 83.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 19:00 83.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 20:00 83.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 21:00 83.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 22:00 83.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+26/8/1983 23:00 83.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 0:00 83.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 1:00 84.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 2:00 84.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 3:00 84.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 4:00 84.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 5:00 84.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 6:00 84.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 7:00 84.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 8:00 85.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 9:00 85.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 10:00 85.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 11:00 85.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 12:00 85.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 13:00 85.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 14:00 85.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 15:00 86.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 16:00 86.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 17:00 86.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 18:00 86.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 19:00 86.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 20:00 86.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 21:00 86.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 22:00 86.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+27/8/1983 23:00 87.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 0:00 87.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 1:00 87.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 2:00 87.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 3:00 87.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 4:00 87.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 5:00 87.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 6:00 88.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 7:00 88.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 8:00 88.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 9:00 88.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 10:00 88.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 11:00 88.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 12:00 88.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 13:00 88.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 14:00 89.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 15:00 89.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 16:00 89.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 17:00 89.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 18:00 89.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 19:00 89.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 20:00 89.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 21:00 90.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 22:00 90.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+28/8/1983 23:00 90.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 0:00 90.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 1:00 90.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 2:00 90.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 3:00 90.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 4:00 90.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 5:00 91.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 6:00 91.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 7:00 91.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 8:00 91.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 9:00 91.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 10:00 91.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 11:00 91.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 12:00 92.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 13:00 92.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 14:00 92.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 15:00 92.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 16:00 92.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 17:00 92.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 18:00 92.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 19:00 93.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 20:00 93.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 21:00 93.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 22:00 93.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+29/8/1983 23:00 93.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 0:00 93.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 1:00 93.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 2:00 93.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 3:00 94.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 4:00 94.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 5:00 94.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 6:00 94.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 7:00 94.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 8:00 94.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 9:00 94.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 10:00 95.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 11:00 95.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 12:00 95.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 13:00 95.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 14:00 95.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 15:00 95.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 16:00 95.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 17:00 95.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 18:00 96.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 19:00 96.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 20:00 96.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 21:00 96.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 22:00 96.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+30/8/1983 23:00 96.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 0:00 96.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 1:00 97.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 2:00 97.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 3:00 97.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 4:00 97.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 5:00 97.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 6:00 97.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 7:00 97.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 8:00 97.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 9:00 98.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 10:00 98.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 11:00 98.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 12:00 98.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 13:00 98.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 14:00 98.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 15:00 98.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 16:00 99.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 17:00 99.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 18:00 99.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 19:00 99.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 20:00 99.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 21:00 99.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 22:00 99.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No precipitation measurements, considered it 0.0
+31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
