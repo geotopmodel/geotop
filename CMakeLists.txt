@@ -34,9 +34,6 @@ if(CMAKE_COMPILER_IS_GNU_CC)
    SET( _GNU_SOURCE ON)
 endif()
 
-if (${CMAKE_C_COMPILER_ID} MATCHES "(GNU")
-
-
 ###########################################################
 # user options
 
