@@ -55,9 +55,11 @@
 #include "output_new.h"
 
 #include "global_logger.h"
-#define _GNU_SOURCE
-#include <fenv.h>
 
+// enabling fpe library for GNU compiler
+#ifdef _GNU_SOURCE
+#include <fenv.h>
+#endif 
 
 
 using namespace std;
@@ -74,7 +76,11 @@ int main(int argc,char *argv[]){
 
 	clock_t start, end;
 	double elapsed;
+
+#ifdef _GNU_SOURCE
         feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+#endif 
+
 	start = clock();
 
 	AllData *adt;

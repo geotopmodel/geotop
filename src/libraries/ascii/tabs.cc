@@ -10,7 +10,7 @@
 #include "../../geotop/inputKeywords.h"
 
 #include <iostream>
-#include "global_logger.h"
+#include "../../geotop/global_logger.h"
 
 /*============================================================================*/
 /*                               Constants                                    */

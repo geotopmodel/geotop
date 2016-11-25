@@ -26,6 +26,17 @@ SET(PACKAGE_STRING "${PACKAGE} ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
 
+
+####################
+# define _GNU_SOURCE if C compiler is gnu..
+
+if(CMAKE_COMPILER_IS_GNU_CC)
+   SET( _GNU_SOURCE ON)
+endif()
+
+if (${CMAKE_C_COMPILER_ID} MATCHES "(GNU")
+
+
 ###########################################################
 # user options
 
