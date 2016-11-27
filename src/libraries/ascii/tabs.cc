@@ -403,7 +403,7 @@ static std::vector<std::string> ReadHeader(FILE *f, std::string filename, long *
 
 static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr,
                          long max_num_cols, std::vector<std::string> header,
-                         long num_cols_header, FILE *flog)
+                         long num_cols_header)
 {
 
     long *coder, i, j;
@@ -432,8 +432,6 @@ static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr
             {
               coder[i] = j;
               lg->logf("Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
- //             printf(flog, "Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
-              printf("Column %ld in file %s assigned to %s\n", j + 1, filename.c_str(), ColDescr[i].c_str());
             }
             else if (lowercaseColDescr == header[j] && coder[i] != -1)
             {
@@ -539,7 +537,7 @@ static double **read_datamatrix(FILE *f, long comment_char, long sep_char, long 
 }
 
 
-double **read_txt_matrix(std::string filename, long comment_char, long sep_char, std::vector<std::string> Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog)
+double **read_txt_matrix(std::string filename, long comment_char, long sep_char, std::vector<std::string> Col_Descr, long ncolsCol_Descr, long *nlines)
 {
 
     /*Read header, and create a **double with the same columns as the header. Then fill with geotop::input::gDoubleAbsent the columns
@@ -560,7 +558,7 @@ double **read_txt_matrix(std::string filename, long comment_char, long sep_char,
     }
     Header = ReadHeader(f, filename, &ncols);
 
-    Coder = ColumnCoder(filename, Col_Descr, ncolsCol_Descr, Header, ncols, flog);
+    Coder = ColumnCoder(filename, Col_Descr, ncolsCol_Descr, Header, ncols);
     Data = read_datamatrix(f, comment_char, sep_char, *nlines, ncols);
     fclose(f);
 

@@ -86,13 +86,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         geotop::common::Variables::WORKING_DIRECTORY = temp + "/";
     }
 
-    //TODO: remove these lines AFTER correncting all the functions that
-    //use flog to log
-    //8<==================================
-    geotop::common::Variables::logfile = geotop::common::Variables::WORKING_DIRECTORY + logfile_name;
-    flog = fopen(geotop::common::Variables::logfile.c_str(), "w");
-    //8<==================================
-
+    
     std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
 
     //reads the parameters in __control_parameters
@@ -108,8 +102,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
     }
 
-    //TODO: correct this BEFORE the flog variable removal
-    success = read_inpts_par(par, land, times, sl, met, IT, flog);
+    //TODO: DONE 27.11.2016 correct this BEFORE the flog variable removal
+    success = read_inpts_par(par, land, times, sl, met, IT);
 
 	//correct state pixel
 	par->Tzrun = 0;
@@ -166,11 +160,11 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	}	
 
     std::cout << "SPAR: " << fspar << " : " << geotop::common::Variables::files[fspar] << std::endl ;
-    success = read_soil_parameters(geotop::common::Variables::files[fspar], IT, sl, par->soil_type_bedr_default, flog);
+    success = read_soil_parameters(geotop::common::Variables::files[fspar], IT, sl, par->soil_type_bedr_default);
 
     geotop::common::Variables::Nl = sl->pa.getCh() - 1;
 
-    success = read_point_file(geotop::common::Variables::files[fpointlist], IT->point_col_names, par, flog);
+    success = read_point_file(geotop::common::Variables::files[fpointlist], IT->point_col_names, par);
 
     geotop::common::Variables::max_time = 0.;
     geotop::common::Variables::max_time = (par->end_date - par->init_date)*86400.;//seconds
@@ -304,7 +298,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     //	number of line of meteo data
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
-    success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names, flog);
+    success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names);
     mio::Config cfg = iomanager.getConfig();
     std::string input_meteo_plugin = cfg.get("METEO", "Input");
     if(input_meteo_plugin!="GEOTOP"){
@@ -357,7 +351,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             //read matrix
             temp=namefile_i(geotop::common::Variables::files[fmet], ist);
 
-            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines, flog);
+            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
             if ((long)met->data[i-1][0][iDate12] == geotop::input::gDoubleAbsent && (long)met->data[i-1][0][iJDfrom0] == geotop::input::gDoubleAbsent) {
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
@@ -490,7 +484,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     geotop::logger::WARNING);
         }
         temp = geotop::common::Variables::files[fLRs] + string(textfile);
-        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot, &num_lines, flog);
+        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot, &num_lines);
         met->LRsnr = num_lines;
         par->LRflag=1;
         lg->log("Lapse rate file read");
@@ -634,7 +628,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         temp =geotop::common::Variables::files[fqin] + string(textfile);
         temp2.push_back("Time") ;
         temp2.push_back("Qx") ;
-        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines, flog);
+        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines);
         met->qinsnr = num_lines;
         par->qin = 1;
         met->qinline = 0;

@@ -358,8 +358,6 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 	//P = pressure [mbar]
 	//RH = relative humidity [0-1]
 	//T = air temperature [C]
-	
-	/*
 	//from Mayers and Dale, Predicting Daily Insolation with Hourly Cloud Height and Coverage, 1983, pg 537, Journal of Climate and Applied Meteorology
 
 	double tau_sa;//Reyleigh scattering and gas absorption transmittance

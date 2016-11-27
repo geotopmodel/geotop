@@ -84,7 +84,7 @@ std::string GlobalLogger::getLogFilePath()
     //TODO: once the migration will be complete use the correct path
     
     return append_path(geotop::common::Variables::WORKING_DIRECTORY,
-                       "geotop_new.log"/*geotop::common::Variables::logfile*/);
+                       "geotop2-1.log"/*geotop::common::Variables::logfile*/);
 
 }
 

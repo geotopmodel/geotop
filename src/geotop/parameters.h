@@ -34,12 +34,12 @@
 #include <meteoio/MeteoIO.h>
 #include <string>
 
-short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog) ;
+short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools);
 
-short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog);
+short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed);
 
-short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog);
+short read_point_file(std::string name, std::vector<std::string> key_header, Par *par);
 
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog);
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header);
 
 #endif

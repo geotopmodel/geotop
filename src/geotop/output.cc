@@ -25,6 +25,8 @@
 #include "geotop_common.h"
 #include "inputKeywords.h"
 
+#include "global_logger.h"
+
 using namespace std;
 
 //***************************************************************************************************************
@@ -48,6 +50,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     string name, temp1, temp2 , s1, s2;
     FILE *f = NULL, *flog = NULL;
 
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    
     //	time variables
     time_t stop_time;
     double percent_done = 0.0, remaining_time, total_time;
@@ -87,8 +91,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
     //DISCHARGE
-    //****************************************************************************************************************
-    //****************************************************************************************************************
+    //****************************************************************************************************
+    //************************************************************************************* **************
 
     if (par->state_discharge == 1 && par->Dtplot_discharge > 1.E-5 && geotop::common::Variables::files[fQ] != geotop::input::gStringNoValue)
     {
@@ -124,18 +128,10 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             f = fopen(name.c_str(), "a");
             fprintf(f, "%02.0f/%02.0f/%04.0f %02.0f:%02.0f", (float)day, (float)month, (float)year, (float)hour, (float)minute);
 
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, ",%12g,%12g,%12g", (times->time + par->Dt) / GTConst::secinday, JDfrom0, JD);
-            fprintf(f, ",%12g,%12g,%12g,%12g,%12g,%12g,%12g\n", cnet->Vout / (double)par->Dtplot_discharge, Vsup / (double)par->Dtplot_discharge,
-                    Vsub / (double)par->Dtplot_discharge, Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge,
-                    wat->Voutlandsub / (double)par->Dtplot_discharge, wat->Voutbottom / (double)par->Dtplot_discharge);
-#else
             fprintf(f, ",%f,%f,%f", (times->time + par->Dt) / GTConst::secinday, JDfrom0, JD);
             fprintf(f, ",%e,%e,%e,%e,%e,%e,%e\n", cnet->Vout / (double)par->Dtplot_discharge, Vsup / (double)par->Dtplot_discharge,
                     Vsub / (double)par->Dtplot_discharge, Vchannel, wat->Voutlandsup / (double)par->Dtplot_discharge,
                     wat->Voutlandsub / (double)par->Dtplot_discharge, wat->Voutbottom / (double)par->Dtplot_discharge);
-#endif
-
             fclose(f);
 
             t_discharge = 0.0;
@@ -152,8 +148,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     }
 
     //DATA POINT
-    //****************************************************************************************************************
-    //****************************************************************************************************************
+    //********************************************************************************************************
+    //*********************************************************************************************************
 
     if (par->Dtplot_point[geotop::common::Variables::i_sim] > 1.E-5)
     {
@@ -328,11 +324,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }
                                 else if (geotop::common::Variables::opnt[j] == oJDfrom0)
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g", JDfrom0);
-#else
                                     fprintf(f, "%f", JDfrom0);
-#endif
                                 }
                                 else if (geotop::common::Variables::opnt[j] == odaysfromstart)
                                 {
@@ -390,19 +382,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }
                                 else if (geotop::common::Variables::opnt[j] == oJDfrom0)
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffpoint, "%12g", JDfrom0);
-#else
                                     fprintf(geotop::common::Variables::ffpoint, "%f", JDfrom0);
-#endif
                                 }
                                 else if (geotop::common::Variables::opnt[j] == odaysfromstart)
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffpoint, "%12g", JDfrom0 - par->init_date);
-#else
                                     fprintf(geotop::common::Variables::ffpoint, "%f", JDfrom0 - par->init_date);
-#endif
                                 }
                                 else if (geotop::common::Variables::opnt[j] == operiod)
                                 {
@@ -414,11 +398,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }
                                 else
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
                                     fprintf(geotop::common::Variables::ffpoint, "%12g", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
-#else
                                     fprintf(geotop::common::Variables::ffpoint, "%f", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
-#endif
                                 }
                             }
                             else
@@ -483,20 +464,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 1)
                                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(f, "%12g", JDfrom0);
-#else
                                         fprintf(f, "%f", JDfrom0);
-#endif
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 2)
                                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(f, "%12g", JDfrom0 - par->init_date);
-#else
-
                                         fprintf(f, "%f", JDfrom0 - par->init_date);
-#endif
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 3)
                                     {
@@ -515,19 +487,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 0 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
-#else
                                             fprintf(f, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
-#endif
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", glac->G->T[l][r][c]);
-#else
                                             fprintf(f, "%f", glac->G->T[l][r][c]);
-#endif
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 2 * m)
@@ -535,19 +499,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 1 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
-#else
                                             fprintf(f, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
-#endif
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", glac->G->w_ice[l][r][c]);
-#else
                                             fprintf(f, "%f", glac->G->w_ice[l][r][c]);
-#endif
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 3 * m)
@@ -555,38 +511,25 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 2 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
-#else
                                             fprintf(f, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
-#endif
+
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(f, "%12g", glac->G->w_liq[l][r][c]);
-#else
                                             fprintf(f, "%f", glac->G->w_liq[l][r][c]);
-#endif
+
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 3 * m + par->max_glac_layers)
                                     {
                                         l = geotop::common::Variables::oglc[j] - 5 - 3 * m;
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
                                         fprintf(f, "%f", glac->G->Dzl[l][r][c]);
-#else
-                                        fprintf(f, "%f", glac->G->Dzl[l][r][c]);
-#endif
+
                                     }
                                 }
                                 else
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g", geotop::input::gDoubleNoValue);
-#else
                                     fprintf(f, "%f", geotop::input::gDoubleNoValue);
-#endif
                                 }
                             }
                             fprintf(f, "\n");
@@ -622,19 +565,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 1)
                                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(geotop::common::Variables::ffglac, "%12g", JDfrom0);
-#else
+
                                         fprintf(geotop::common::Variables::ffglac, "%f", JDfrom0);
-#endif
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 2)
                                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                        fprintf(geotop::common::Variables::ffglac, "%12g", JDfrom0 - par->init_date);
-#else
+
                                         fprintf(geotop::common::Variables::ffglac, "%f", JDfrom0 - par->init_date);
-#endif
                                     }
                                     else if (geotop::common::Variables::oglc[j] == 3)
                                     {
@@ -652,19 +589,14 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 0 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
-#else
+
                                             fprintf(geotop::common::Variables::ffglac, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->T, 0.));
-#endif
+
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", glac->G->T[l][r][c]);
-#else
+
                                             fprintf(geotop::common::Variables::ffglac, "%f", glac->G->T[l][r][c]);
-#endif
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 2 * m)
@@ -672,19 +604,13 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 1 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
-#else
                                             fprintf(geotop::common::Variables::ffglac, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_ice, 0.));
-#endif
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", glac->G->w_ice[l][r][c]);
-#else
+
                                             fprintf(geotop::common::Variables::ffglac, "%f", glac->G->w_ice[l][r][c]);
-#endif
+
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 3 * m)
@@ -692,42 +618,27 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                         l = geotop::common::Variables::oglc[j] - 5 - 2 * m;
                                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
-#else
                                             fprintf(geotop::common::Variables::ffglac, "%f", interpolate_snow(r, c, par->glac_plot_depths[l]*cosslope, glac->G->lnum[r][c], glac->G->Dzl, glac->G->w_liq, 0.));
-#endif
                                         }
                                         else
                                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
 
-                                            fprintf(geotop::common::Variables::ffglac, "%12g", glac->G->w_liq[l][r][c]);
-#else
 
                                             fprintf(geotop::common::Variables::ffglac, "%f", glac->G->w_liq[l][r][c]);
-#endif
                                         }
                                     }
                                     else if (geotop::common::Variables::oglc[j] <= 5 + 3 * m + par->max_glac_layers)
                                     {
                                         l = geotop::common::Variables::oglc[j] - 5 - 3 * m;
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
 
-                                        fprintf(geotop::common::Variables::ffglac, "%12g", glac->G->Dzl[l][r][c]);
-#else
 
                                         fprintf(geotop::common::Variables::ffglac, "%f", glac->G->Dzl[l][r][c]);
-#endif
+
                                     }
                                 }
                                 else
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(geotop::common::Variables::ffglac, "%12g", geotop::input::gDoubleNoValue);
-#else
                                     fprintf(geotop::common::Variables::ffglac, "%f", geotop::input::gDoubleNoValue);
-#endif
                                 }
                             }
                             fprintf(geotop::common::Variables::ffglac, "\n");
@@ -774,15 +685,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                    floor(geotop::common::Variables::elapsed_time / 3600.0), floor(((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60.),
                    floor((((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. - floor( ((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. )) * 60.),
                    floor(remaining_time / 3600.0), floor(((remaining_time / 3600) - floor(remaining_time / 3600.0)) * 60.) );
-            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-
-            fprintf(flog, "%ld/%ld/%ld %ld:%02.0f %.2f%% - Time elapsed (h:m:s) %2.0f:%02.0f:%02.0f Time remaining (h:m) %2.0f:%02.0f  \n",
-                    day, month, year, hour, (float)minute, percent_done,
-                    floor(geotop::common::Variables::elapsed_time / 3600.0), floor(((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60.),
-                    floor((((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. - floor( ((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. )) * 60.),
-                    floor(remaining_time / 3600.0), floor(((remaining_time / 3600) - floor(remaining_time / 3600.0)) * 60.) );
-
-            fclose(flog);
+// logging on file.. 
+            lg->logsf(geotop::logger::NOTICE, "%ld/%ld/%ld %ld:%02.0f %.2f%% - Time elapsed (h:m:s) %2.0f:%02.0f:%02.0f Time remaining (h:m) %2.0f:%02.0f  \n",
+                      day, month, year, hour, (float)minute, percent_done,
+                      floor(geotop::common::Variables::elapsed_time / 3600.0), floor(((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60.),
+                      floor((((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. - floor( ((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. )) * 60.),
+                      floor(remaining_time / 3600.0), floor(((remaining_time / 3600) - floor(remaining_time / 3600.0)) * 60.) );
 
             t_point = 0.0;
 
@@ -836,36 +744,28 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         }
                         else if (geotop::common::Variables::obsn[j] == ooJDfrom0)
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(f, "%12g", JDfrom0);
-#else
+
                             fprintf(f, "%f", JDfrom0);
-#endif
+
                         }
                         else if (geotop::common::Variables::obsn[j] == oodaysfromstart)
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(f, "%12g", JDfrom0 - par->init_date);
-#else
+
                             fprintf(f, "%f", JDfrom0 - par->init_date);
-#endif
+
                         }
                         else
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(f, "%12g", geotop::common::Variables::odbsn[geotop::common::Variables::obsn[j]]);
-#else
+
                             fprintf(f, "%f", geotop::common::Variables::odbsn[geotop::common::Variables::obsn[j]]);
-#endif
+
                         }
                     }
                     else
                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                        fprintf(f, "%12g", geotop::input::gDoubleNoValue);
-#else
+
                         fprintf(f, "%f", geotop::input::gDoubleNoValue);
-#endif
+
                     }
                 }
                 fprintf(f, "\n");
@@ -893,36 +793,23 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                         }
                         else if (geotop::common::Variables::obsn[j] == ooJDfrom0)
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(geotop::common::Variables::ffbas, "%12g", JDfrom0);
-#else
                             fprintf(geotop::common::Variables::ffbas, "%f", JDfrom0);
-#endif
+
                         }
                         else if (geotop::common::Variables::obsn[j] == oodaysfromstart)
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(geotop::common::Variables::ffbas, "%12g", JDfrom0 - par->init_[geotop::common::Variables::i_sim]);
-#else
                             fprintf(geotop::common::Variables::ffbas, "%f", JDfrom0 - par->init_date);
-#endif
                         }
                         else
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(geotop::common::Variables::ffbas, "%12g", geotop::common::Variables::odbsn[geotop::common::Variables::obsn[j]]);
-#else
                             fprintf(geotop::common::Variables::ffbas, "%f", geotop::common::Variables::odbsn[geotop::common::Variables::obsn[j]]);
-#endif
+
                         }
                     }
                     else
                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                        fprintf(geotop::common::Variables::ffbas, "%12g", geotop::input::gDoubleNoValue);
-#else
                         fprintf(geotop::common::Variables::ffbas, "%f", geotop::input::gDoubleNoValue);
-#endif
+
                     }
                 }
                 fprintf(geotop::common::Variables::ffbas, "\n");
@@ -938,19 +825,18 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             printf(" SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
                    geotop::common::Variables::odbsn[ooSW], geotop::common::Variables::odbsn[ooLW], geotop::common::Variables::odbsn[ooH], geotop::common::Variables::odbsn[ooLE], geotop::common::Variables::odbsn[oopnet], geotop::common::Variables::odbsn[oorainover],
                    geotop::common::Variables::odbsn[oosnowover], geotop::common::Variables::odbsn[oomasserror] * 3600.0 / par->Dtplot_basin[geotop::common::Variables::i_sim], mass_error_tot, geotop::common::Variables::odbsn[ootimestep]);
+// logging facility
 
-            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-            fprintf(flog, "\n%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
-                    day, month, year, hour, (float)minute, JD, (long)(floor(times->time / 86400)) + 1,
-                    percent_done);
-            fprintf(flog, " t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n", geotop::common::Variables::t_meteo, geotop::common::Variables::t_energy, geotop::common::Variables::t_blowingsnow, geotop::common::Variables::t_water, geotop::common::Variables::t_sub, geotop::common::Variables::t_sup, geotop::common::Variables::t_out);
 
-            fprintf(flog, " SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
+            lg->logsf(geotop::logger::NOTICE,"%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
+	                day, month, year, hour, (float)minute, JD, (long)(floor(times->time / 86400)) + 1, percent_done);
+            
+	    lg->logsf(geotop::logger::NOTICE," t_meteo:%6.2f s,t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n", geotop::common::Variables::t_meteo, geotop::common::Variables::t_energy, geotop::common::Variables::t_blowingsnow, geotop::common::Variables::t_water, geotop::common::Variables::t_sub, geotop::common::Variables::t_sup, geotop::common::Variables::t_out);
+	    lg->logsf(geotop::logger::NOTICE,"SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
                     geotop::common::Variables::odbsn[ooSW], geotop::common::Variables::odbsn[ooLW], geotop::common::Variables::odbsn[ooH], geotop::common::Variables::odbsn[ooLE], geotop::common::Variables::odbsn[oopnet], geotop::common::Variables::odbsn[oorainover],
                     geotop::common::Variables::odbsn[oosnowover], geotop::common::Variables::odbsn[oomasserror] * 3600.0 / par->Dtplot_basin[geotop::common::Variables::i_sim], mass_error_tot, geotop::common::Variables::odbsn[ootimestep]);
 
-            fclose(flog);
-
+// 
             for (j = 0; j < ootot; j++)
             {
                 geotop::common::Variables::odbsn[j] = 0.0;
@@ -2178,11 +2064,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         n = floor( ( (double)geotop::common::Variables::oglc[j] - 6.) / (double)m ) + 6;
                         if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                         {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                            fprintf(geotop::common::Variables::ffglac, "%s(%12g)", geotop::common::Variables::hglc[n].c_str(), par->glac_plot_depths[l]);
-#else
                             fprintf(geotop::common::Variables::ffglac, "%s(%f)", geotop::common::Variables::hglc[n].c_str(), par->glac_plot_depths[l]);
-#endif
                         }
                         else
                         {

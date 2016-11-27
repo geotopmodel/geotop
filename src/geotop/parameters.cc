@@ -169,7 +169,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
 /***********************************************************/
 /***********************************************************/
 
-short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog){
+short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools){
 
     std::vector<std::string> string_param;
 
@@ -1958,7 +1958,7 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 /***********************************************************/
 /***********************************************************/
 
-short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog){
+short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 	
 	short ok;
 	long i, j, k, n, nlines, nlinesprev;
@@ -2036,7 +2036,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 			
 			if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
 				temp = namefile_i(name, i);
-				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines, flog);
+				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines);
 			}else {
 				soildata = (double**)malloc(nlines*sizeof(double*));
 				for (j=0; j<nlines; j++) {
@@ -2212,7 +2212,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 /***********************************************************/		
 
 //TODO: check libraries/ascii  and see if it's possible to remove flog
-short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog){
+short read_point_file(std::string name, std::vector<std::string> key_header, Par *par){
 
 	GeoMatrix<double>  chkpt2;
 	double **points;
@@ -2224,7 +2224,7 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
 		temp = name + std::string(textfile);
 		lg->log(temp);
-		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines, flog);
+		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines);
 				
 		chkpt2.resize(par->chkpt.getRows() + 1, par->chkpt.getCols() + 1);
 
@@ -2280,14 +2280,14 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 /***********************************************************/
 /***********************************************************/		
 	
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog){
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header){
 	double **M;
 	long nlines, n, k;
     std::string temp;
 		
 	if (mio::IOUtils::fileExists(name + string(textfile))) {
 		temp = name + textfile ;
-		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
+		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines);
 				
 		for (size_t j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {

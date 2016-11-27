@@ -521,7 +521,7 @@ double **read_horizon(short a, long i, std::string name, std::vector<std::string
         }
 
         temp = namefile_i(name,i);
-        hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines, flog);
+        hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines);
 
         if ( (long)hor[0][0] == geotop::input::gDoubleAbsent || (long)hor[0][1] == geotop::input::gDoubleAbsent) {
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
