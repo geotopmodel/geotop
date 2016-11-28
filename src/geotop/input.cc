@@ -1852,7 +1852,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
                     f = fopen(geotop::common::Variables::logfile.c_str(), "a");              
                     snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers, par->max_weq_glac, maxSWE);
-                    fclose(f);
+//                    fclose(f);
 
                 }
             }
