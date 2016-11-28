@@ -1566,9 +1566,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         if ( fabs(par->init_date + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
         {
 
-            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-            fprintf(flog, "Printing plot number %ld \n", i);
-            fclose(flog);
+//            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
+//           lg->logsf ("Printing plot number %ld \n", i);
 
             printf("Printing plot number %ld \n", i);
 
@@ -1704,9 +1703,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             printf("Writing continuous-recovering files\n");
 
-            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-            fprintf(flog, "Writing continuous-recovering files\n");
-            fclose(flog);
+
+
+//            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
+//            fprintf(flog, "Writing continuous-recovering files\n");
+//            fclose(flog);
 
             if (geotop::common::Variables::files[rtime] != geotop::input::gStringNoValue)
             {

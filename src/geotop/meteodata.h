@@ -37,7 +37,7 @@ double integrate_meas_constant_beh(short flag, double t, long i, double **data, 
 long find_line_data(short flag, double t, long ibeg, double **data, long col_date, long nlines, short *a);
 double time_in_JDfrom0(short flag, long i, long col, double **data);
 long find_station(long metvar, long nstat, double **var);
-double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines, FILE *flog);
+double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines);
 short fixing_dates(long imeteo, double **data, double ST, double STstat, long nlines, long date12col, long JDfrom0col);
 short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWx, std::string HeaderWy);
 short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir, long Wx, long Wy, std::string HeaderWSpeed, std::string HeaderWdir);

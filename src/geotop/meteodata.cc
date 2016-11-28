@@ -429,7 +429,7 @@ long find_station(long metvar, long nstat, double **var){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines, FILE *flog){
+double **read_horizon(short a, long i, std::string name, std::vector<std::string> ColDescr, long *num_lines){
 
     FILE *f;
     long j;

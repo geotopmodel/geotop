@@ -39,7 +39,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 {
 
-    FILE *flog, *f;
+    FILE  *f;
     GeoMatrix<double> M;
     InitTools *IT;
 
@@ -230,9 +230,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     // ##################################################################################################################################
 
     if(par->point_sim!=1){  //distributed simulation
-        read_inputmaps(top, land, sl, par, flog, iomanager);
+        read_inputmaps(top, land, sl, par, iomanager);
     }else{
-        read_optionsfile_point(par, top, land, sl, times, IT, flog);
+        read_optionsfile_point(par, top, land, sl, times, IT);
     }
 
     geotop::common::Variables::Nr=top->Z0.getRows()-1;
@@ -331,7 +331,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
         
         //	read horizon
-        met->horizon[i-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines, flog);
+        met->horizon[i-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
         // ##################################################################################################################################
@@ -835,7 +835,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     //BEDROCK (adjusting soil properties)
     par->bedrock = 0;
-    if(geotop::common::Variables::files[fbed] != geotop::input::gStringNoValue) set_bedrock(IT, sl, cnet, par, top, land->LC, flog);
+    if(geotop::common::Variables::files[fbed] != geotop::input::gStringNoValue) set_bedrock(IT, sl, cnet, par, top, land->LC);
     
     /****************************************************************************************************/
     /*! Completing of the initialization of SOIL structure                               */
@@ -1642,9 +1642,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     maxSWE = 1.E10;
                 }
 
-                f = fopen(geotop::common::Variables::logfile.c_str(), "a");
+//                f = fopen(geotop::common::Variables::logfile.c_str(), "a");
                 snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1, par->inf_snow_layers, par->max_weq_snow, maxSWE);
-                fclose(f);
+//                fclose(f);
 
             }
         }
@@ -1669,7 +1669,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     		}
     	}
     }
-    fclose(f);
+//    fclose(f);
 
     /****************************************************************************************************/
     /*! Initialization of the struct "glac" (of the type GLACIER):*/
@@ -1956,7 +1956,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     wat->Klat.resize(top->BC_DepthFreeSurface.size(), geotop::common::Variables::Nl+1,0.0);
 
-    fclose(flog);
+//    fclose(flog);
 
 }
 
@@ -1965,7 +1965,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::IOManager& iomanager){
+void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& iomanager){
 
     long r, c, i, cont;
     GeoMatrix<double> M;
@@ -1999,9 +1999,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
 
     }else{
 
-        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-        fprintf(f, "Error: It is impossible to proceed without giving the digital elevation model\n");
-        fclose(f);
+//        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+//        fprintf(f, "Error: It is impossible to proceed without giving the digital elevation model\n");
+//        fclose(f);
         lg->log("It is impossible to proceed without giving the digital elevation model",
                 geotop::logger::ERROR);
         lg->log("Geotop failed. See failing report (11).",
@@ -2028,9 +2028,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
             for(c=1;c<land->LC.getCols();c++){
                 if (land->LC[r][c] != geotop::input::gDoubleNoValue) {
                     if (land->LC[r][c] < 1. || land->LC[r][c] > (double)(par->n_landuses)){
-                        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                        fprintf(f, "Error: It is not possible to assign Value < 1 or > n_landuses to the land cover type\n");
-                        fclose(f);
+//                        f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+//                        fprintf(f, "Error: It is not possible to assign Value < 1 or > n_landuses to the land cover type\n");
+//                        fclose(f);
                         lg->log("It is not possible to assign Value < 1 or > n_landuses to the land cover type",
                                 geotop::logger::ERROR);
                         lg->log("Geotop failed. See failing report (12).",
@@ -2085,9 +2085,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
                         "Point #%4ld is out of the domain",
                         i);
 
-                f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                fprintf(f, "Point #%4ld is out of the domain",i);
-                fclose(f);
+//               f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+//               fprintf(f, "Point #%4ld is out of the domain",i);
+//               fclose(f);
 
                 lg->log("Geotop failed. See failing report.",
                         geotop::logger::CRITICAL);
@@ -2099,9 +2099,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
                         "Point #%4ld corresponds to NOVALUE pixel",
                         i);
 
-                f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                fprintf(f, "Point #%4ld corresponds to NOVALUE pixel",i);
-                fclose(f);
+//                f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
+//                fprintf(f, "Point #%4ld corresponds to NOVALUE pixel",i);
+//                fclose(f);
                 lg->log("Geotop failed. See failing report.",
                         geotop::logger::CRITICAL);
                 exit(1);
@@ -2346,7 +2346,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT, FILE *flog){
+void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT){
 
     long i, r, c, num_lines;
     GeoMatrix<double> Q, P, R, S, T, Z, LU;
@@ -2852,7 +2852,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }while (flag == 1 && c < par->chkpt.getRows()-1);
 
         if (c < par->chkpt.getRows()-1) {
-            top->horizon_height[i-1] = read_horizon(0, i,geotop::common::Variables::files[fhorpoint], IT->horizon_col_names, &num_lines, flog);
+            top->horizon_height[i-1] = read_horizon(0, i,geotop::common::Variables::files[fhorpoint], IT->horizon_col_names, &num_lines);
             top->horizon_numlines[i-1] = num_lines;
         }else {
             top->horizon_height[i-1] = (double**)malloc(sizeof(double*));
@@ -2871,7 +2871,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 //***************************************************************************************************************
 
 
-void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC, FILE *flog){
+void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC){
 
 	GeoMatrix<double> B;
 	GeoTensor<double> T;
@@ -3088,6 +3088,7 @@ short file_exists(short key){
 
         if (is_present) {
             lg->logf("EXISTING in format %d", 3);
+            lg->log("File" + geotop::common::Variables::files[key] + " existing", geotop::logger::WARNING);
             return (1);
         }else{
             lg->log("File" + geotop::common::Variables::files[key] + " not existing", geotop::logger::WARNING);
