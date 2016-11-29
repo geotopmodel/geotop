@@ -23,6 +23,7 @@ PointSim      = 1
 WaterBalance  = 1
 EnergyBalance = 1
 StandardTimeSimulation = 0
+MeteoStationStandardTime=0
 FlagSkyViewFactor      = 1
 CalculateCastShadow    = 1
 HeatEqMaxIter = 1000
@@ -146,7 +147,7 @@ LateralHydrConductivity       = 0.005
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFileWriteend = "output-tabs/ground"
+SoilAveragedTempProfileFile = "output-tabs/ground"
 SoilPlotDepths = 100, 200, 500
 
 !--- VARIABLES ------------
@@ -163,7 +164,7 @@ TempSoil    = 5,6,7
 !=============================================================================
 
 !--- STRUCTURE ------------
-PointOutputFileWriteEnd = "output-tabs/surface"
+PointOutputFile = "output-tabs/surface"
 
 !--- VARIABLES ------------
 DefaultPoint                =  0
