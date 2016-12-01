@@ -229,11 +229,12 @@ shinyServer(function(input, output) {
 						
 					str(data)
 					str(residuals)
-						
+					colors <- RColorBrewer::brewer.pal(3, "Set1")
 						
 						
 					dygraph(data, ylab="[unit]") %>% dyRangeSelector() %>%
-								dyRoller() 		
+								dyRoller() %>%
+								dyOptions(colors = colors)
 						
 					})
 					
@@ -259,9 +260,10 @@ shinyServer(function(input, output) {
 								str(residuals)
 								
 								residuals <- data-data[,"-SE27XX"]
-								
+								colors <- RColorBrewer::brewer.pal(3, "Set1")
 								dygraph(residuals, ylab="[unit]") %>% dyRangeSelector() %>%
-										dyRoller() 		
+										dyRoller() 		 %>%
+										dyOptions(colors = colors)
 								
 							})
 			  output$info <- renderText({
