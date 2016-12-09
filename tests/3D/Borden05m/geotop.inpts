@@ -3,7 +3,7 @@
 !*******************************
 TimeStepEnergyAndWater = 20   
 InitDateDDMMYYYYhhmm = 01/06/2000 12:00
-EndDateDDMMYYYYhhmm =  01/06/2000 13:00
+EndDateDDMMYYYYhhmm =  01/06/2000 12:10
 EnergyBalance = 0
 WaterBalance=1
 PointSim=0

@@ -22,7 +22,7 @@ Installation
 
 To install GEOtop you need the following libraries and tools:
 
-- CMake 2.6 or later (optional but recommended: ccmake ncurses ui)
+- CMake 2.8 or later (optional but recommended: ccmake ncurses ui)
 - Boost 1.49 or later (filesystem, system, iostreams, regex,
   program_options, unit_test_framework and spirit_classic)
 - MeteoIO 2.5.1
@@ -34,8 +34,8 @@ GEOtop is known to run under the following Operating Systems:
     - Mac OS X 10.8 or later
     - CentOS 6.5 or later
     - Debian 7
+    - Ubuntu 14.04 LTS
 
-GEOtop has been reported to run also under Ubuntu 12.04 LTS.
 
 GEOtop has NOT been tested on Microsoft Windows either with Cygwin or
 MinGW compiler. This configuration therefore is NOT supported: you are
@@ -44,17 +44,17 @@ on your own.
 Compilation options
 ===================
 
-     Option                     Default
+ Cmake Option                     Default
  BUILD_STATIC                     OFF
  CMAKE_BUILD_TYPE                 RELEASE
  CMAKE_INSTALL_PREFIX             /usr/local
  ENABLE_INTERNAL_METEODISTR       ON
  METEOIO_OUTPUT                   OFF
  METEOIO_PATH                     
- PRINT_DOUBLE_PRECISION           OFF
+ PRINT_DOUBLE_PRECISION           OFF  
  USE_NETCDF                       OFF
  VERBOSE                          OFF
-
+ 
 BUILD_STATIC: If set to ON will build GEOtop as a single static binary.
 
 CMAKE_BUILD_TYPE: Can be RELEASE or DEBUG. The latter sets up GEOtop

@@ -148,8 +148,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, Channel *cnet, GeoMat
     M = m * (geotop::common::Variables::Nl + 1);
 
 #ifdef VERBOSE
-    geotop::logger::GlobalLogger* lg =
-        geotop::logger::GlobalLogger::getInstance();
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
     lg->logsf(geotop::logger::DEBUG,
               "cont_nonzero_values_matrix2: Nl:%ld n:%ld m:%ld N:%ld M:%ld",
@@ -242,7 +241,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
     geotop::logger::GlobalLogger* lg =
         geotop::logger::GlobalLogger::getInstance();
 
-    lg->logsf(geotop::logger::DEBUG,
+    lg->logsf(geotop::logger::TRACE,
               "cont_nonzero_values_matrix3: Nl:%ld n:%ld m:%ld N:%ld M:%ld",
               geotop::common::Variables::Nl, n, m, N, M);
 #endif
@@ -323,7 +322,7 @@ void cont_nonzero_values_matrix3(GeoVector<long>& Lp, GeoVector<long>& Li, Chann
         Lp[j] = cnt;
 
 #ifdef VERBOSE
-        lg->logsf(geotop::logger::DEBUG,
+        lg->logsf(geotop::logger::TRACE,
                   " nonzero_values_matrix3 j:%ld cnt:%ld Li:%ld l:%ld r:%ld c:%ld ch:%ld",
                   j, cnt, Li[cnt], l, r, c, cnet->ch[r][c]);
 #endif

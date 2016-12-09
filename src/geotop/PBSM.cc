@@ -13,6 +13,7 @@
  */
 #include "PBSM.h"
 #include "geotop_common.h"
+#include "global_logger.h"
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -40,7 +41,7 @@ static float CC5;
 //Prarie Blowing Snow Model - Pomeroy et al. (1993)
 
 void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V, double Ta, double RH, 
-		   double *Trans, double *Subl, double *Salt, double Dsnow, double slope, FILE *flog){
+		   double *Trans, double *Subl, double *Salt, double Dsnow, double slope){
 	
 	//     Modified Calculations for Mean Particle Mass in this version
 	//     program to calculate blowing snow horizontal flux, sublimation rate
@@ -85,6 +86,7 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 	SBsum = 0.0;
 	T = Ta+GTConst::tk; //Convert to Deg. K}
 	
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 	
 	if(Fetch>=300){
 		
@@ -127,8 +129,8 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv, double 
 		
 		if(fabs(F)>1.E-3 || Ustar<0 || Ustar>V){
 			Ustar = V/5.;
-			fprintf(flog,"Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",r,c,F,Ustar,V,Z0,Zstb, slope, Dsnow);
-			printf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",r,c,F,Ustar,V,Z0,Zstb,slope, Dsnow);
+            lg->logf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",r,c,F,Ustar,V,Z0,Zstb, slope, Dsnow);
+        
 		}
 		
 		// define saltation parameters and calculate saltation

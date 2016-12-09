@@ -29,6 +29,7 @@
 #include "../../config.h"
 #include "inputKeywords.h"
 #include <assert.h>
+#include "global_logger.h"
 
 using namespace std;
 
@@ -50,22 +51,17 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     assert(A->I->iplot >= 0);
     if(A->I->JD_plots.size() > 1 && (size_t)(A->I->iplot) <= A->I->JD_plots.size()){
         i=2*A->I->iplot-1;
-
+        
         if( A->P->init_date+A->I->time/GTConst::secinday+1.E-5 >= A->I->JD_plots[i] &&
-                A->P->init_date+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
-
+           A->P->init_date+(A->I->time+Dt)/GTConst::secinday-1.E-5 <= A->I->JD_plots[i+1] ){
+            
             Dtplot=(A->I->JD_plots[i+1]-A->I->JD_plots[i])*GTConst::secinday;
             *W = Dt / Dtplot;
             f = fopen(geotop::common::Variables::logfile.c_str(), "a");
-
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f,"Saving plot number %ld Weight:%12g \n",A->I->iplot,*W);
-            printf("Saving plot number %ld Weight:%12g \n",A->I->iplot,*W);
-#else
+            
             fprintf(f,"Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
             printf("Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
-#endif
-
+            
             fclose(f);
         }
     }
@@ -232,6 +228,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double ic=0., wa, rho=0.;
     long lpb;
 
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    
     //initialization of cumulated water volumes and set soil ancillary state vars
     if (i <= A->P->total_channel)
     {
@@ -541,20 +539,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     //shortwave radiation absorbed by canopy
     if(fc>0){
         if(A->E->hsun>0){
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            if(V->wsnow[j]<0) printf("Error wcansnow:%12g %ld %ld\n",V->wsnow[j],r,c);
-#else
             if(V->wsnow[j]<0) printf("Error wcansnow:%f %ld %ld\n",V->wsnow[j],r,c);
-#endif
-
+            
             if(V->wsnow[j]<0) V->wsnow[j]=0.0;
             fsnowcan=pow(V->wsnow[j]/max_wcan_snow, 2./3.);
             shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_vis, GTConst::Bsnd_vis, GTConst::Bsnb_vis, avis_d, avis_b, A->L->ty[lu][jvCh],
                                  A->L->ty[lu][jvR_vis], A->L->ty[lu][jvT_vis], A->L->vegpar[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
             shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_nir, GTConst::Bsnd_nir, GTConst::Bsnb_nir, anir_d, anir_b, A->L->ty[lu][jvCh],
                                  A->L->ty[lu][jvR_nir], A->L->ty[lu][jvT_nir], A->L->vegpar[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
-
-
+            
+            
         }else{
             SWv_vis=0.0;
             SWg_vis=0.0;
@@ -563,10 +557,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
             SWupabove_v_vis = 0.0;
             SWupabove_v_nir = 0.0;
         }
-
+        
         SW+=fc*(SWg_vis+SWg_nir);
         *SWupabove_v+=fc*(SWupabove_v_vis+SWupabove_v_nir);
-
+        
     }else{
 
         SWv_vis=0.0;
@@ -1106,24 +1100,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         return 0;
 
     }else {
-        f = fopen(geotop::common::Variables::logfile.c_str(), "a");
+
  
 #ifdef VERBOSE
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-        fprintf(f,"PointEnergyBalance not converging. surfacemelting=%d, time=%12g, Dt=%12g, i=%ld, j=%ld, r=%ld, c=%ld, elev=%12g, aspect=%12g, slope=%12g, soil type=%d, land cover=%d "
-                "snowD=%12g, ns=%ld, ng=%ld, zmu=%12g, zmT=%12g, z0s=%12g, d0s=%12g, rz0s=%12g,z0v=%12g, d0v=%12g, rz0v=%12g,"
-                "hveg=%12g, WindPoint=%12g, AirTPoint=%12g, Qa=%12g, AirPPoint=%12g, LapseRateAirT=%12g, eps=%12g, fc=%12g, LSAI=%12g, decaycoeff0=%12g, Wcrn=%12g,\n "
-                "Wcrnmax=%12g, Wcsn=%12g, Wcsnmax=%12g, SWin=%12g, LWin=%12g, SWv=%12g, LW=%12g, H=%12g, E=%12g, LWv=%12g, Hv=%12g,"
-                "LEv=%12g, Etrans=%12g, Ts=%12g, Qs=%12g, Hadv=%f, Hg0=%12g, Hg1=%12g, Eg0=%12g, Eg1=%12g, Qv=%12g, Qg=%12g,"
-                "Lobukhov=%12g, rh=%12g, rv=%f, rb=%12g, rc=%12g, ruc=%12g, u_top=%12g, decay=%12g, Locc=%12g, LWupabove_v=%12g, lpb=%ld\n",
-                surface, JDb-A->P->init_date, Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
-                snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
-                hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
-                max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
-                LEv, Etrans, Ts, Qs, Hadv, Hg0, Hg1, Eg0, Eg1, Qv, Qg,
-                Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
-#else
-        fprintf(f,"PointEnergyBalance not converging. surfacemelting=%d, time=%f, Dt=%f, i=%ld, j=%ld, r=%ld, c=%ld, elev=%f, aspect=%f, slope=%f, soil type=%d, land cover=%d "
+        lg->logf("PointEnergyBalance not converging. surfacemelting=%d, time=%f, Dt=%f, i=%ld, j=%ld, r=%ld, c=%ld, elev=%f, aspect=%f, slope=%f, soil type=%d, land cover=%d "
                 "snowD=%f, ns=%ld, ng=%ld, zmu=%f, zmT=%f, z0s=%f, d0s=%f, rz0s=%f,z0v=%f, d0v=%f, rz0v=%f,"
                 "hveg=%f, WindPoint=%f, AirTPoint=%f, Qa=%f, AirPPoint=%f, LapseRateAirT=%f, eps=%f, fc=%f, LSAI=%f, decaycoeff0=%f, Wcrn=%f,\n "
                 "Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
@@ -1135,10 +1115,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
                 LEv, Etrans, Ts, Qs, Hadv, Hg0, Hg1, Eg0, Eg1, Qv, Qg,
                 Lobukhov, rh, rv, rb, rc, ruc, u_top, decaycoeff, Locc, LWupabove_v, lpb);
-#endif //USE_DOUBLE_PRECISION_OUTPUT
 #endif //VERBOSE
-
-        fclose(f);
 
         return 1;
 
@@ -1157,31 +1134,31 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 /******************************************************************************************************************************************/
 
 short SolvePointEnergyBalance(
-
-		const short surfacemelting,
-		double Tgd, double EBd, double Convd,
-		short surfacebalance, 
-	    const double t, const double Dt, 
-	    const long i, const long j, const long r, const long c, 
-	    SoilState * SL, SoilState *SC,StateVeg *V, Energy *egy, 
-	    Land *land, Soil *sl,
-	    Channel *cnet,Topo * topog, Par *par, 
-	    const long ns, const long ng, const double zmu, const double zmT,
-		const double z0s, const double d0s,
-	    const double rz0s,const double z0v, const double d0v, const double rz0v,
-	    const double hveg, const double v,const double Ta, const double Qa, 
-	    const double P, const double LR, const double eps, const double fc, 
-	    const double LSAI,const double decaycoeff0, double *Wcrn, 
-	    const double Wcrnmax, double *Wcsn, const double Wcsnmax, 
-	    const double SWin, const double LWin,const double SWv, 
-	    double *LW, double *H, double *E, 
-	    double *LWv, double *Hv, double *LEv,
-	    double *Etrans, double *Ts, double *Qs,
-	    const double Eadd, double *Hg0, double *Hg1,
-	    double *Eg0, double *Eg1, double *Qv, double *Qg, 
-	    double *Lob, double *rh, double *rv,double *rb,
-	    double *rc, double *ruc, double *u_top, double *decay, 
-	    double *Locc, double *LWup_ab_v, long *lpb, double *dUsl)
+                              
+                              const short surfacemelting,
+                              double Tgd, double EBd, double Convd,
+                              short surfacebalance,
+                              const double t, const double Dt,
+                              const long i, const long j, const long r, const long c,
+                              SoilState * SL, SoilState *SC,StateVeg *V, Energy *egy,
+                              Land *land, Soil *sl,
+                              Channel *cnet,Topo * topog, Par *par,
+                              const long ns, const long ng, const double zmu, const double zmT,
+                              const double z0s, const double d0s,
+                              const double rz0s,const double z0v, const double d0v, const double rz0v,
+                              const double hveg, const double v,const double Ta, const double Qa,
+                              const double P, const double LR, const double eps, const double fc,
+                              const double LSAI,const double decaycoeff0, double *Wcrn,
+                              const double Wcrnmax, double *Wcsn, const double Wcsnmax,
+                              const double SWin, const double LWin,const double SWv,
+                              double *LW, double *H, double *E, 
+                              double *LWv, double *Hv, double *LEv,
+                              double *Etrans, double *Ts, double *Qs,
+                              const double Eadd, double *Hg0, double *Hg1,
+                              double *Eg0, double *Eg1, double *Qv, double *Qg, 
+                              double *Lob, double *rh, double *rv,double *rb,
+                              double *rc, double *ruc, double *u_top, double *decay, 
+                              double *Locc, double *LWup_ab_v, long *lpb, double *dUsl)
 {
 
     short iter_close, iter_close2, lu=land->LC[r][c], flagTmin=0, sux;
@@ -1195,6 +1172,7 @@ short SolvePointEnergyBalance(
 	// SnowD is NOT used at all in this routine: it is taken from above and passed to energyfluxes routines to be printed out in case of NaN is happening on some variable...
 	
     FILE *f;
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
 	//
 	
@@ -1415,7 +1393,7 @@ short SolvePointEnergyBalance(
     }
 
 #ifdef VERBOSE
-    printf("DEBUG_PRINT-energy-balance: NS(%ld)\n", ns);
+    lg->logsf(geotop::logger::DEBUG,"energy-balance: NS(%ld)\n", ns);
 	
     //top boundary condition
 	
@@ -1839,22 +1817,14 @@ short SolvePointEnergyBalance(
             fprintf(f, "Number of days after start:%f\n",t);
 
             
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "T no value, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d SoilType=%ld\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c]);
-#else
             fprintf(f, "T no value, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%f slope=%f aspect=%f sky=%f LC=%d SoilType=%ld\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c]);
-#endif
 
             fclose(f);
             t_error("Fatal Error! GEOtop is closed. See failing report.");
         }
 
         if(egy->Temp[l] < Tmin || egy->Temp[l] > Tmax){
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d SoilType=%ld snowD:%12g T:%f LW:%12g H:%12g LE:%12g Ta:%12g\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c],snowD_tmp, egy->Temp[l],*LW,*H,Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E),Ta);
-#else
             printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld elev=%f slope=%f aspect=%f sky=%f LC=%d SoilType=%ld snowD:%f T:%f LW:%f H:%f LE:%f Ta:%f\n",l,r,c,topog->Z0[r][c],topog->slope[r][c],topog->aspect[r][c],topog->sky[r][c],(int)land->LC[r][c],sl->type[r][c],snowD_tmp, egy->Temp[l],*LW,*H,Turbulence::latent(Tg, Turbulence::Levap(Tg))*(*E),Ta);
-#endif
         }
     }
 
@@ -2122,18 +2092,10 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Hg no value bare soil EnergyFluxes r=%ld c=%ld elev=%12g slope=%12g aspect=%12g sky=%12g LC=%d soil type=%ld snowD=%12g rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy,snowD, *rh_g,*rv_g,Hg,Eg);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%f zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%f Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t);
-            //	fprintf(f, "Hg no value bare soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%f Eg:%f\n",r,c,*rh_g,*rv_g,Hg,Eg);
             fprintf(f, "Hg no value bare soil EnergyFluxes r=%ld c=%ld elev=%f slope=%f aspect=%f sky=%f LC=%d soil type=%ld snowD=%f rh_g:%e rv_g:%e Hg:%f Eg:%f\n",r,c,point_elev, point_slope, point_aspect, point_sky, (int)point_lc, point_sy,snowD, *rh_g,*rv_g,Hg,Eg);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
 
             fclose(f);
             t_error("Fatal Error! GEOtop is closed. See failing report.");
@@ -2193,18 +2155,10 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%f Eg:%f\n",r,c,*rh_g,*rv_g,Hg,Eg);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
 
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
@@ -2213,17 +2167,10 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -2247,7 +2194,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 //									double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, DOUBLEVECTOR *soil_evap_layer_bare,
 //									DOUBLEVECTOR *soil_evap_layer_veg, short flagTmin, long cont){
 
-void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT, double z0s, 
+void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT, double z0s,
                                     double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa,
                                     double P, double LR, double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, GeoTensor<double>& soil, long sy,
@@ -2256,9 +2203,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, double *rv_g, double *Qg,
                                     double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, GeoVector<double>& soil_evap_layer_bare,
-								    GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont){
-
-
+                                    GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont){
+    
+    
     double Hg, dHg_dT, Eg, dEg_dT, LWg, LWup;
     double dQgdT;
     double dLWvdT,LWv_old;
@@ -2313,17 +2260,10 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Hg no value bare soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Hg no value bare soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%f Eg:%f\n",r,c,*rh_g,*rv_g,Hg,Eg);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -2331,17 +2271,10 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Eg no value bare soil %ld %ld \n",r,c);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Eg no value bare soil %ld %ld \n",r,c);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -2372,17 +2305,10 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
        if(Hg!=Hg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%12g Eg:%12g\n",r,c,*rh_g,*rv_g,Hg,Eg);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Hg no value vegetated soil EnergyFluxes %ld %ld rh_g:%e rv_g:%e Hg:%f Eg:%f\n",r,c,*rh_g,*rv_g,Hg,Eg);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
 
             fclose(f);
            t_error("Fatal Error! Geotop is closed. See failing report.");
@@ -2391,17 +2317,10 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
         if(Eg!=Eg){
             f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
             fprintf(f, "Simulation Period:%ld\n",geotop::common::Variables::i_sim);
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-            fprintf(f, "Number of days after start:%12g\n",t/86400.);
-            fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
-            fprintf(f, "Ta:%12g Tg:%12g\n",Ta,Tg);
-            fprintf(f, "zmu:%12g zmT:%12g z0s:%12g d0s:%12g rz0s:%12g v:%12g Ta:%12g Tg:%12g Qa:%12g Qg:%e P:%12g rm:%12g psi:%12g \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#else
             fprintf(f, "Number of days after start:%f\n",t/86400.);
             fprintf(f, "Eg no value vegetated soil %ld %ld \n",r,c);
             fprintf(f, "Ta:%f Tg:%f\n",Ta,Tg);
             fprintf(f, "zmu:%f zmT:%f z0s:%f d0s:%f rz0s:%f v:%f Ta:%f Tg:%f Qa:%f Qg:%e P:%f rm:%f psi:%f \n",zmu,zmT,z0s,d0s,rz0s,v,Ta,Tg,Qa,*Qg,P,rm,psi);
-#endif
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
@@ -2416,44 +2335,43 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 /******************************************************************************************************************************************/
 
 double k_thermal(short snow, short a, double th_liq, double th_ice, double th_sat, double k_solid){
-	
-	/*
-	 for soil:
-	 Quadratic parallel based on the analogy with electric lattice 
-	 (Cosenza et al., 2003, European Journal of Soil Science, September 2003, 54, 581–587)
-	 
-	 for snow:
-	 if a==1 Cosenza
-	 if a==2 Sturm(1997)
-	 if a==3 Jordan(1991)
-	 */
-	
-	double r, k=0.;
-	
-	if (snow==0 || (a!=2 && a!=3)) {
-		k = pow ( (1.-th_sat)*sqrt(k_solid) + th_liq*sqrt(GTConst::k_liq) + th_ice*sqrt(GTConst::k_ice) + (th_sat-th_liq-th_ice)*sqrt(GTConst::k_air) , 2. ) ;
-		if(k != k) {
-#ifdef VERBOSE
-			printf ("DEBUG_PRINT: th_sat(%.12g) th_liq(%.12g) th_ice(%.12g)\n", th_sat, th_liq, th_ice);
-#endif
-		}	
-	}else {
-
-		r = th_liq * GTConst::rho_w + th_ice * GTConst::rho_i ;
-
-		if (a==2) {
-			if (r < 156) {
-				k = 0.023 + 0.234 * r*1.E-3 ;
-			}else {
-				k = 0.138 - 1.01 * r*1.E-3 + 3.233 * r*r*1.E-6 ;
-			}
-		}else if(a==3){
-			k = GTConst::k_air + (7.75E-5 * r + 1.105E-6 * r*r) * (GTConst::k_ice-GTConst::k_air) ;
-		}
-		
-	}	
-	
-	return(k);
+    
+    /*
+     for soil:
+     Quadratic parallel based on the analogy with electric lattice
+     (Cosenza et al., 2003, European Journal of Soil Science, September 2003, 54, 581–587)
+     
+     for snow:
+     if a==1 Cosenza
+     if a==2 Sturm(1997)
+     if a==3 Jordan(1991)
+     */
+    
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    double r, k=0.;
+    
+    if (snow==0 || (a!=2 && a!=3)) {
+        k = pow ( (1.-th_sat)*sqrt(k_solid) + th_liq*sqrt(GTConst::k_liq) + th_ice*sqrt(GTConst::k_ice) + (th_sat-th_liq-th_ice)*sqrt(GTConst::k_air) , 2. ) ;
+        if(k != k) {
+            lg->logsf(geotop::logger::TRACE,"th_sat(%.12g) th_liq(%.12g) th_ice(%.12g)\n", th_sat, th_liq, th_ice);
+        }
+    }else {
+        
+        r = th_liq * GTConst::rho_w + th_ice * GTConst::rho_i ;
+        
+        if (a==2) {
+            if (r < 156) {
+                k = 0.023 + 0.234 * r*1.E-3 ;
+            }else {
+                k = 0.138 - 1.01 * r*1.E-3 + 3.233 * r*r*1.E-6 ;
+            }
+        }else if(a==3){
+            k = GTConst::k_air + (7.75E-5 * r + 1.105E-6 * r*r) * (GTConst::k_ice-GTConst::k_air) ;
+        }
+        
+    }	
+    
+    return(k);
 	
 }
 

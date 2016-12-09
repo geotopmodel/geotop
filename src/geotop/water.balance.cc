@@ -40,7 +40,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandsup, double *Voutlandbottom){
 
 	clock_t start, end;
-    //geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance(); //unused variable
 	double Pnet, loss;
 	long j;
 	short a;
@@ -65,7 +64,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
-                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+                adt->M, Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
 		
 		end=clock();
 		
@@ -74,7 +73,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
 
-		a = Richards3D(Dt, L, C, adt, NULL, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+		a = Richards3D(Dt, L, C, adt, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 		
 		end=clock();
 		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
@@ -88,7 +87,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
-                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+                adt->M, Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
 
 		end=clock();
 
@@ -99,7 +98,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		
 		start = clock();
 		for (j=1; j<=adt->P->total_pixel; j++) {			
-			a = Richards1D(j, Dt, L, adt, NULL, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+			a = Richards1D(j, Dt, L, adt, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 			if (a != 0){
 				return 1;
 			}			
@@ -151,7 +150,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
 
 
-short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
+short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
 	
 
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
@@ -519,7 +518,7 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
+short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon;
 	double mu=0; //may be used uninitialized, set to 0
@@ -1679,7 +1678,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 
 
 void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
-			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo )
+			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo )
 
 {
 	
@@ -1814,9 +1813,9 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			}
 		}			
 		
-		supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, flog, &cnt2);
+		supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, &cnt2);
 // parameter 1 here means DDch: TODO/TOFIX 30.05.2014 SC		
-		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, flog, &cnt3);
+		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, &cnt3);
 		
 	}while(te<Dt);
 
@@ -1898,7 +1897,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
+  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, long *cnt){
 	
 	long ch, r, c;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
@@ -2064,7 +2063,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
+void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, long *cnt){
 
 	long r,c,R,C;
     size_t ch;
