@@ -1,0 +1,149 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 5618 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 460, of which 10 at the bottom, 50 in the middle, and 400 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+
+Soil Layers: 12
+
+Soil Bedrock Layers: 12
+
+[WARNING]: Not possible to read from dem because at least one point has no coordinates
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+-9999.000000,-9999.000000,1.000000,1325.000000,1.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,250.000000,1.000000,10000000000.000000,45.300000,5.770000,
+[WARNING]: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 13
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 13
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Prec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Ws
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Wd
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Tair
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to SW
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to LW
+
+[NOTICE]: Shortwave radiation measurements from station 1
+
+[WARNING]: No cloudiness measurements available
+[NOTICE]: Longwave radiation measurements from station 1
+
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,1,1,        1325,1,1,           0,           0,           1
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      635863,      635864,      46.627,      46.627,        1325,           1,           0,           5,           5
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 4 layers
+[NOTICE]: Soil water transpires from the first 12 layers
+[NOTICE]: 1/8/1993 1:00 4.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 2:00 8.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 3:00 13.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 4:00 17.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 5:00 21.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 6:00 26.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 7:00 30.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 8:00 34.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 9:00 39.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 10:00 43.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 11:00 47.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 12:00 52.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 13:00 56.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 14:00 60.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 15:00 65.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 16:00 69.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 17:00 73.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 18:00 78.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 19:00 82.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 20:00 86.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 21:00 91.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 22:00 95.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/8/1993 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: Duration of simulation: 0.055112
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
