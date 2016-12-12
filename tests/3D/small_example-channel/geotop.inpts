@@ -218,26 +218,26 @@ SnowTempProfileFile="output_tabs/snowtemp"
 SnowLiqContentProfileFile="output_tabs/snowliq"
 SnowIceContentProfileFile="output_tabs/snowice"
 SnowDepthLayersFile="output_tabs/snowly"
-SnowAll=1
+!SnowAll=1
 
 !SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
+!SnowDepthMapFile = "output_maps/snowdepth"
+!FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
 !NetShortwaveRadiationMapFile = "output_maps/Rn"
 DischargeFile = "output_tabs/discharge"
 
 ! added to debug netCDF
-OutputSnowMaps = 1
-OutputSoilMaps=1
+!OutputSnowMaps = 1
+!OutputSoilMaps=1
 !OutputSurfEBALMaps=1
-SWEMapFile= "output_maps/SWE"
+!SWEMapFile= "output_maps/SWE"
 
 
-SoilAll=1
-SoilAveragedTempTensorFile = "output_maps/T"
-SoilLiqContentTensorFile = "output_maps/thetaliq"
-IceLiqContentTensorFile = "output_maps/thetaice"
-SoilLiqWaterPressTensorFile = "output_maps/psiz"
+!SoilAll=1
+!SoilAveragedTempTensorFile = "output_maps/T"
+!SoilLiqContentTensorFile = "output_maps/thetaliq"
+!IceLiqContentTensorFile = "output_maps/thetaice"
+!SoilLiqWaterPressTensorFile = "output_maps/psiz"
 !RadiationMapFile= "output_maps/Rad"
 InShortwaveRadiationMapFile= "output_maps/SWin"
 InLongwaveRadiationMapFile= "output_maps/LWin"

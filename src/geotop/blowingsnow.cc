@@ -151,7 +151,7 @@ void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, dou
 
                         Pbsm (r, c, PBSM_fetch, land->ty[lu][jN], 1.E-3 * land->ty[lu][jdv], canopy_height_over_snow, rho_snow_surface, zmeas,
                               met->Vgrid[r][c], met->Tgrid[r][c], met->RHgrid[r][c], &(snow->Qtrans[r][c]), &(snow->Qsub[r][c]),
-                              &(snow->Qsalt[r][c]), D, top->slope[r][c], f);
+                              &(snow->Qsalt[r][c]), D, top->slope[r][c]);
                     }
                     else
                     {

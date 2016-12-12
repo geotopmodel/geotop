@@ -41,6 +41,7 @@ SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
+SET(VERY_VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 # these below to be checked 
 SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
