@@ -1566,10 +1566,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
         if ( fabs(par->init_date + (times->time + par->Dt) / 86400. - times->JD_plots[j + 1]) < 1.E-5 )
         {
 
-//            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-//           lg->logsf ("Printing plot number %ld \n", i);
-
-            printf("Printing plot number %ld \n", i);
+            lg->logf("Printing plot number %ld \n", i);
 
             V.resize(par->total_pixel + 1);
 

@@ -51,9 +51,9 @@ Compilation options
  ENABLE_INTERNAL_METEODISTR       ON
  METEOIO_OUTPUT                   OFF
  METEOIO_PATH                     
- PRINT_DOUBLE_PRECISION           OFF  
- USE_NETCDF                       OFF
+ PRINT_DOUBLE_PRECISION           OFF
  VERBOSE                          OFF
+ VERY_VERBOSE                     OFF
  
 BUILD_STATIC: If set to ON will build GEOtop as a single static binary.
 
@@ -73,7 +73,6 @@ METEOIO_PATH: Path to MeteoIO libraries
 PRINT_DOUBLE_PRECISION: If set to ON will print the output files and the
 recovery files in GEOtop 1.x compatibility mode. (This will be removed).
 
-USE_NETCDF: enables experimental NetCDF output.
-
 VERBOSE: increases logging verbosity.
 
+VERY_VERBOSE: increases even more the logging verbosity

@@ -141,59 +141,6 @@ if(stream==NULL){
 
 }
 
-/*
-TODO: removeme
-char *get_workingdirectory(void )
-
-{
-
-    //char buffer[64*FILENAME_MAX];
-    char *bf=NULL,*pathfile="$WorkingPath";
-    //long len;
-    long i;
-    short a;
-    FILE *istream;
-
-    istream=fopen(pathfile,"r");
-    if(istream){
-
-        i=0;
-        a=0;
-        do{
-            if(i==0){
-                bf = (char *) malloc(sizeof(char));
-            }else{
-                bf = (char *)realloc(bf,(i+1)*sizeof(char));
-            }
-            bf[i]=fgetc(istream);
-            if(bf[i]==10 || bf[i]==-1){
-                a=1;
-                bf[i]=0;
-            }
-            i+=1;
-        }while(a==0);
-
-        fclose(istream);
-
-    }else{
-
-//		printf("ENTER THE WORKING DIRECTORY PATH:\n");
-//		scanf("%s",&buffer);
-//		len=64*FILENAME_MAX;
-//
-//    	if(len > (64*FILENAME_MAX)){
-//			t_error("Maximum path length exceeded");
-//		} else {
-//			bf=(char *)malloc(len*sizeof(char));
-//		}
-//
-//		strcpy(bf,buffer);
-
-        t_error("You have to specify aworking directory when you run the executable");
-    }
-    return bf;
-}
-*/
 
 std::string get_workingdirectory()
 {
@@ -219,596 +166,17 @@ std::string get_workingdirectory()
 }
 
 /**-------------------------------------------------------------------------*/
-
-/*
-char *join_strings(char const * const first, char const * const second)
-
-{
-
-	char *string;
-	int len=strlen(first)+strlen(second)+2;
-
-	string=(char*)malloc(len*sizeof(char));
-	string=strcpy(string,first);
-	string=strcat(string,second);
-
-	return string;
-}
-*/
-
-/*================functions copied from datamanipulation.c===========*/
-
-/*---------------------------------------------------------------------------*/
-void initialize_longvector(LONGVECTOR *L, long sign)
-
-{
-
-	long i;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nh; i++) {
-				L->co[i] = sign;
-			}
-		} else {
-			t_error("This longvector was no properly allocated");
-		}
-	} else {
-		t_error("A null vector was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_shortvector(SHORTVECTOR *L, short sign)
-
-{
-
-	long i;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nh; i++) {
-				L->co[i] = sign;
-			}
-		} else {
-			t_error("This shortvector was no properly allocated");
-		}
-	} else {
-		t_error("A null vector was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_doublevector(DOUBLEVECTOR *L, double sign)
-
-{
-
-	long i;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = L->nl; i <= L->nh; i++) {
-				L->co[i] = sign;
-			}
-		} else {
-			t_error("This doublevector was no properly allocated");
-		}
-	} else {
-		t_error("A null vector was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_floatvector(FLOATVECTOR *L, float sign)
-
-{
-
-	long i;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nh; i++) {
-				L->co[i] = sign;
-			}
-		} else {
-			t_error("This floatvector was no properly allocated");
-		}
-	} else {
-		t_error("A null vector was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_shortmatrix(SHORTMATRIX *L, short sign)
-
-{
-
-	long i, j;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nrh; i++) {
-				for (j = 1; j <= L->nch; j++) {
-					L->co[i][j] = sign;
-				}
-			}
-		} else {
-			t_error("This matrix was no properly allocated");
-		}
-	} else {
-		t_error("A null matrix was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_longmatrix(LONGMATRIX *L, long sign)
-
-{
-
-	long i, j;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nrh; i++) {
-				for (j = 1; j <= L->nch; j++) {
-					L->co[i][j] = sign;
-				}
-			}
-		} else {
-			t_error("This matrix was no properly allocated");
-		}
-	} else {
-		t_error("A null matrix was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_floatmatrix(FLOATMATRIX *L, float sign)
-
-{
-
-	long i, j;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nrh; i++) {
-				for (j = 1; j <= L->nch; j++) {
-					L->co[i][j] = sign;
-				}
-			}
-		} else {
-			t_error("This matrix was no properly allocated");
-		}
-	} else {
-		t_error("A null matrix was addressed");
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_doublematrix(DOUBLEMATRIX *L, double sign)
-
-{
-
-	long i, j;
-
-	if (L != NULL) {
-		if (L->isdynamic == 1) {
-			for (i = 1; i <= L->nrh; i++) {
-				for (j = 1; j <= L->nch; j++) {
-					L->co[i][j] = sign;
-				}
-			}
-		} else {
-			t_error("This matrix was no properly allocated");
-		}
-	} else {
-		t_error("A null matrix was addressed");
-	}
-}
-
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 
-void copy_shortmatrix(SHORTMATRIX *origin, SHORTMATRIX *destination)
 
-{
-
-	long i, j;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A matrix was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nrh < 1 || destination->nrh < 1 || origin->nch < 1
-			|| destination->nch < 1) {
-
-		t_error("A matrix was not allocated properly");
-
-	} else if (origin->nrh != destination->nrh || origin->nch
-			!= destination->nch) {
-
-		t_error("The matrixes do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nrh; i++) {
-		for (j = 1; j <= origin->nch; j++) {
-
-			destination->co[i][j] = origin->co[i][j];
-
-		}
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_intmatrix(INTMATRIX *origin, INTMATRIX *destination)
-
-{
-
-	long i, j;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A matrix was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nrh < 1 || destination->nrh < 1 || origin->nch < 1
-			|| destination->nch < 1) {
-
-		t_error("A matrix was not allocated properly");
-
-	} else if (origin->nrh != destination->nrh || origin->nch
-			!= destination->nch) {
-
-		t_error("The matrixes do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nrh; i++) {
-		for (j = 1; j <= origin->nch; j++) {
-
-			destination->co[i][j] = origin->co[i][j];
-
-		}
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_longmatrix(LONGMATRIX *origin, LONGMATRIX *destination)
-
-{
-
-	long i, j;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A matrix was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nrh < 1 || destination->nrh < 1 || origin->nch < 1
-			|| destination->nch < 1) {
-
-		t_error("A matrix was not allocated properly");
-
-	} else if (origin->nrh != destination->nrh || origin->nch
-			!= destination->nch) {
-
-		t_error("The matrixes do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nrh; i++) {
-		for (j = 1; j <= origin->nch; j++) {
-
-			destination->co[i][j] = origin->co[i][j];
-
-		}
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_floatmatrix(FLOATMATRIX *origin, FLOATMATRIX *destination)
-
-{
-
-	long i, j;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A matrix was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nrh < 1 || destination->nrh < 1 || origin->nch < 1
-			|| destination->nch < 1) {
-
-		t_error("A matrix was not allocated properly");
-
-	} else if (origin->nrh != destination->nrh || origin->nch
-			!= destination->nch) {
-
-		t_error("The matrixes do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nrh; i++) {
-		for (j = 1; j <= origin->nch; j++) {
-
-			destination->co[i][j] = origin->co[i][j];
-
-		}
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_doublematrix(DOUBLEMATRIX *origin, DOUBLEMATRIX *destination)
-
-{
-
-	long i, j;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A matrix was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nrh < 1 || destination->nrh < 1 || origin->nch < 1
-			|| destination->nch < 1) {
-
-		t_error("A matrix was not allocated properly");
-
-	} else if (origin->nrh != destination->nrh || origin->nch
-			!= destination->nch) {
-
-		t_error("The matrixes do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nrh; i++) {
-		for (j = 1; j <= origin->nch; j++) {
-
-			destination->co[i][j] = origin->co[i][j];
-
-		}
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_shortvector(SHORTVECTOR *origin, SHORTVECTOR *destination)
-
-{
-
-	long i;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nh < 1 || destination->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (origin->nh != destination->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nh; i++) {
-
-		destination->co[i] = origin->co[i];
-
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_intvector(INTVECTOR *origin, INTVECTOR *destination)
-
-{
-
-	long i;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nh < 1 || destination->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (origin->nh != destination->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nh; i++) {
-
-		destination->co[i] = origin->co[i];
-
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_longvector(LONGVECTOR *origin, LONGVECTOR *destination)
-
-{
-
-	long i;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nh < 1 || destination->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (origin->nh != destination->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nh; i++) {
-
-		destination->co[i] = origin->co[i];
-
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void copy_floatvector(FLOATVECTOR *origin, FLOATVECTOR *destination)
-
-{
-
-	long i;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nh < 1 || destination->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (origin->nh != destination->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nh; i++) {
-
-		destination->co[i] = origin->co[i];
-
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-//void copy_doublevector(DOUBLEVECTOR *origin, DOUBLEVECTOR *destination)
-void copy_doublevector(DOUBLEVECTOR *origin, DOUBLEVECTOR *destination)
-
-{
-
-	long i;
-
-	if (origin == NULL || destination == NULL || origin->co == NULL
-			|| destination->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (origin->isdynamic != 1 || destination->isdynamic != 1
-			|| origin->nh < 1 || destination->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (origin->nh != destination->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= origin->nh; i++) {
-
-		destination->co[i] = origin->co[i];
-
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-
-void add_doublevector(DOUBLEVECTOR *small1, DOUBLEVECTOR *big1)
-
-{
-
-	long i;
-
-	if (small1 == NULL || big1 == NULL || small1->co == NULL || big1->co == NULL) {
-
-		t_error("A vector was not allocated");
-
-	} else if (small1->isdynamic != 1 || big1->isdynamic != 1 || small1->nh < 1
-			|| big1->nh < 1) {
-
-		t_error("A vector was not allocated properly");
-
-	} else if (small1->nh != big1->nh) {
-
-		t_error("The vector do not have the same dimensions");
-
-	}
-
-	for (i = 1; i <= small1->nh; i++) {
-
-		big1->co[i] += small1->co[i];
-
-	}
-
-}
-
-void print_doublematrix_elements(DOUBLEMATRIX *m,long maxcols)
-/* Write a matrix of  double to the standard output */
-
-{
-
-long i,j;
-
-putchar('\n');
-
-if (m==NULL || m->co==NULL || m->isdynamic !=1){
-	t_error("The matrix was not allocated properly");
-}else if(m->nrl > m->nrh || m->ncl >m->nch ){
-	t_error("The matrix has no proper dimensions");
-} else {
-
-	for(i=m->nrl;i<=m->nrh;i++){
-		for(j=m->ncl;j<=m->nch;j++){
-			printf("%f ",m->co[i][j]);
-		    if(j%maxcols==0 && j!= m->nch) putchar('\n');
-		}
-		putchar('\n');
-	}
-	putchar('\n');
-}
-}
 //----------------------------
-//void multipass_topofilter(long ntimes, DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n){
 void multipass_topofilter(long ntimes, GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, long n){
 
     long i ;
-//	DOUBLEMATRIX *M;
 	GeoMatrix<double> M;
 
 //	M=new_doublematrix(Zin->nrh, Zin->nch);
@@ -835,28 +203,21 @@ void multipass_topofilter(long ntimes, GeoMatrix<double>& Zin, GeoMatrix<double>
 
 		topofilter(M, Zout, novalue, n);
 	}
-//	free_doublematrix(M);
 }
 
 //----------------------------------------
-//void find_min_max(DOUBLEMATRIX *M, long novalue, double *max, double *min){
+
 void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min){
 
-//	long r, c, nr=M->nrh, nc=M->nch;
 	long r, c, nr=M.getRows(), nc=M.getCols();
 
 	*max=-1.E99;
 	*min=1.E99;
 
-//	for (r=1; r<=nr; r++) {
 	for (r=1; r<nr; r++) {
-	//	for (c=1; c<=nc; c++) {
 		for (c=1; c<nc; c++) {
-		//	if ((long)M->co[r][c] != novalue) {
 			if ((long)M[r][c] != novalue) {
-			//	if(*max < M->co[r][c]) *max = M->co[r][c];
 				if(*max < M[r][c]) *max = M[r][c];
-			//	if(*min > M->co[r][c]) *min = M->co[r][c];
 				if(*min > M[r][c]) *min = M[r][c];
 			}
 		}
@@ -864,13 +225,11 @@ void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min){
 }
 
 //-----------------------------------------
-//double norm_1(DOUBLEVECTOR *V, long nbeg, long nend){
 double norm_1(const GeoVector<double>& V, long nbeg, long nend){
 
 	long l;
 	double N=0.0;
 	for(l=nbeg;l<=nend;l++){
-	//	N += fabs(V->co[l]);
 		N += fabs(V[l]);
 	}
 
@@ -891,150 +250,130 @@ double norm_1(const GeoVector<double>& V, long nbeg, long nend){
    program sky of Pegoretti
                                                  */
 
-//void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV, DOUBLEMATRIX *input, SHORTMATRIX *convess, long novalue)
+// adapted to GEOMatrix/Vector to get rid of fluidturtle datastructure: to double check if things are ok SC 13.12.2016
+
 void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
 {
- long i,j,t,m,n,p,q,h,k,r,s; //counter
- double deltateta; //amplitude of the angles in which the horizon is divided
- DOUBLEMATRIX *alfa; //matrices with the angles of the direction
- DOUBLEVECTOR *vv; //vector with the view factor of the current pixel for one of the N parts
- DOUBLEVECTOR *v; //vector with the minimum view factor of the current pixel for one of the N parts
- double vvv; //mean of the sky view for a pixel of the N parts
- long nr=input.getRows()-1;
- long nc=input.getCols()-1;
+    long i,j,t,m,n,p,q,h,k,r,s; //counters
+    double deltateta; //amplitude of the angles in which the horizon is divided
+    GeoMatrix<double> alfa; //matrices with the angles of the direction
+    GeoVector<double> v; //vector with the view factor of the current pixel for one of the N parts
+    GeoVector<double> vv; //vector with the minimum view factor of the current pixel for one of the N parts
+    double vvv; //mean of the sky view for a pixel of the N parts
+    long nr=input.getRows()-1;
+    long nc=input.getCols()-1;
+    
+    if(sky.getRows()-1!=nr) t_error("Sky view factor fatal error, number of rows not consistent");
+    if(sky.getCols()-1!=nc) t_error("Sky view factor fatal error, number of cols not consistent");
+    
+    // Computation of the matrix with the angles of the direction
+    // alfa=new_doublematrix(2*nr-1,2*nc-1);
+    // ALLOCATION: please note that I allocate 1 element more for columns and row.. " TO  double checks 
+    alfa.resize(2*nr,2*nc,-9999.0);
+    
 
-//	 if(sky->nrh!=input->nrh) t_error("Sky view factor fatal error, number of rows not consistent");
- 	 if(sky.getRows()-1!=nr) t_error("Sky view factor fatal error, number of rows not consistent");
-// 	 if(sky->nch!=input->nch) t_error("Sky view factor fatal error, number of cols not consistent");
- 	 if(sky.getCols()-1!=nc) t_error("Sky view factor fatal error, number of cols not consistent");
-
-// Computation of the matrix with the angles of the direction
-// alfa=new_doublematrix(2*input->nrh-1,2*input->nch-1);
-   alfa=new_doublematrix(2*nr-1,2*nc-1);
-   initialize_doublematrix(alfa,(double)novalue); //initialisation with novalue
-
-// for(i=1;i<=2*input->nrh-1;i++){
-   for(i=1;i<=2*nr-1;i++){
-   //  for(j=1;j<=2*input->nch-1;j++){
-	   for(j=1;j<=2*nc-1;j++){
-       //  if(i<=input->nrh && j<input->nch){
-		   if(i<=nr && j<nc){
-           //  alfa->co[i][j]=3.0/2.0*GTConst::Pi+atan(((input->nrh-i)*UV->U->co[1])/((input->nch-j)*UV->U->co[1]));
-			   alfa->co[i][j]=3.0/2.0*GTConst::Pi+atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
+    for(i=1;i<=2*nr-1;i++){
+        //  for(j=1;j<=2*input->nch-1;j++){
+        for(j=1;j<=2*nc-1;j++){
+            //  if(i<=input->nrh && j<input->nch){
+            if(i<=nr && j<nc){
+                //  alfa->co[i][j]=3.0/2.0*GTConst::Pi+atan(((input->nrh-i)*UV->U->co[1])/((input->nch-j)*UV->U->co[1]));
+                alfa[i][j]=3.0/2.0*GTConst::Pi+atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
             }
-         // if(i>input->nrh && j<=input->nch){
-		    if(i>nr && j<=nc){
-            //  alfa->co[i][j]=GTConst::Pi+atan(((input->nch-j)*UV->U->co[1])/((i-input->nrh)*UV->U->co[1]));
-		    	 alfa->co[i][j]=GTConst::Pi+atan(((nc-j)*UV->U[1])/((i-nr)*UV->U[1]));
+            // if(i>input->nrh && j<=input->nch){
+            if(i>nr && j<=nc){
+                //  alfa->co[i][j]=GTConst::Pi+atan(((input->nch-j)*UV->U->co[1])/((i-input->nrh)*UV->U->co[1]));
+                alfa[i][j]=GTConst::Pi+atan(((nc-j)*UV->U[1])/((i-nr)*UV->U[1]));
             }
-         // if(i>=input->nrh && j>input->nch){
-		    if(i>=nr && j>nc){
-            //  alfa->co[i][j]=GTConst::Pi/2.0+atan(((i-input->nrh)*UV->U->co[1])/
-            //                        ((j-input->nch)*UV->U->co[1]));
-		        alfa->co[i][j]=GTConst::Pi/2.0+atan(((i-nr)*UV->U[1])/
-		    	                                ((j-nc)*UV->U[1]));
-
+            // if(i>=input->nrh && j>input->nch){
+            if(i>=nr && j>nc){
+                //  alfa->co[i][j]=GTConst::Pi/2.0+atan(((i-input->nrh)*UV->U->co[1])/
+                //                        ((j-input->nch)*UV->U->co[1]));
+                alfa[i][j]=GTConst::Pi/2.0+atan(((i-nr)*UV->U[1])/
+                                                ((j-nc)*UV->U[1]));
+                
             }
-        //  if(i<input->nrh && j>=input->nch){
-		    if(i<nr && j>=nc){
-           //   alfa->co[i][j]=atan(((j-input->nch)*UV->U->co[1])/((input->nrh-i)*UV->U->co[1]));
-		    	alfa->co[i][j]=atan(((j-nc)*UV->U[1])/((nr-i)*UV->U[1]));
+            //  if(i<input->nrh && j>=input->nch){
+            if(i<nr && j>=nc){
+                //   alfa->co[i][j]=atan(((j-input->nch)*UV->U->co[1])/((input->nrh-i)*UV->U->co[1]));
+                alfa[i][j]=atan(((j-nc)*UV->U[1])/((nr-i)*UV->U[1]));
             }
-      }
- }
-
- // Computation of matrix with sky view factor:
-// for(i=1;i<=sky->nrh;i++){
-   for(i=1;i< sky.getRows();i++){
-	  //for(j=1;j<=sky->nch;j++){
-		for(j=1;j<sky.getCols();j++){
-	//	sky->co[i][j]=(double)novalue;
-		sky[i][j]=(double)novalue;
-	}
- }
-
- v=new_doublevector(N);
- vv=new_doublevector(N);
- deltateta=2.0*GTConst::Pi/N;
-
-// for(i=1;i<=input->nrh;i++){
-   for(i=1;i<=nr;i++){
-//	for(j=1;j<=input->nch;j++){
-	for(j=1;j<=nc;j++){
-	//	if ((long)input->co[i][j]!=novalue){ //computation only of novalue pixels
-		if ((long)input[i][j]!=novalue){ //computation only of novalue pixels
-		   	for(t=1;t<=N;t++){
-		       	v->co[t]=1.0;
-		   	}
-		//  m=input->nrh-i+1;
-		   	m=nr-i+1;
-		// 	n=input->nch-j+1;
-		 	n=nc-j+1;
-		// 	p=m+input->nrh-1;
-			p=m+nr-1;
-		//  q=n+input->nch-1;
-			q=n+nc-1;
-           	for(h=m;h<=p;h++){
-		      	for(k=n;k<=q;k++){
-		         	for(t=1;t<=N;t++){
-		               	if (alfa->co[h][k]>=(t-1)*deltateta && alfa->co[h][k]<t*deltateta){
-		                  	r=h-m+1;
-		                  	s=k-n+1;
-		                 // if (convess->co[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
-		                    if (convess[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
-//		                        vv->co[t]=1-sin(atan((input->co[r][s]-input->co[i][j])
-//		                         	          /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U->co[1])));
-		                        vv->co[t]=1-sin(atan((input[r][s]-input[i][j])
-		         		                         	          /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U[1])));
-                             	if (vv->co[t]<v->co[t]){
-                                   v->co[t]=vv->co[t];
-                             	}
-                          	}
-                          	break;
-                       	}
-                 	}
-              	}
-           	}
-           	vvv=0.0;
-           	for(t=1;t<=N;t++){
-               	vvv=vvv+v->co[t];
-           	}
-        //  sky->co[i][j]=(1.0/N*vvv);
-           	sky[i][j]=(1.0/N*vvv);
-         }
-   	}
-  // 	printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",100.0*(double)i/(double)sky->nrh);
- 		printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",100.0*(double)i/(double)sky.getRows()-1);
-}
-
-free_doublematrix(alfa);
-free_doublevector(v);
-free_doublevector(vv);
-
+        }
+    }
+    
+    // Computation of matrix with sky view factor:
+    // for(i=1;i<=sky->nrh;i++){
+    for(i=1;i< sky.getRows();i++){
+        //for(j=1;j<=sky->nch;j++){
+        for(j=1;j<sky.getCols();j++){
+            //	sky->co[i][j]=(double)novalue;
+            sky[i][j]=(double)novalue;
+        }
+    }
+    
+    // to carefully checking this below..
+    
+    v.resize(N+1);
+    vv.resize(N+1);
+    deltateta=2.0*GTConst::Pi/N;
+    
+    // for(i=1;i<=input->nrh;i++){
+    for(i=1;i<=nr;i++){
+        //	for(j=1;j<=input->nch;j++){
+        for(j=1;j<=nc;j++){
+            //	if ((long)input->co[i][j]!=novalue){ //computation only of novalue pixels
+            if ((long)input[i][j]!=novalue){ //computation only of novalue pixels
+                for(t=1;t<=N;t++){
+                    v[t]=1.0;
+                }
+                //  m=input->nrh-i+1;
+                m=nr-i+1;
+                // 	n=input->nch-j+1;
+                n=nc-j+1;
+                // 	p=m+input->nrh-1;
+                p=m+nr-1;
+                //  q=n+input->nch-1;
+                q=n+nc-1;
+                for(h=m;h<=p;h++){
+                    for(k=n;k<=q;k++){
+                        for(t=1;t<=N;t++){
+                            if (alfa[h][k]>=(t-1)*deltateta && alfa[h][k]<t*deltateta){
+                                r=h-m+1;
+                                s=k-n+1;
+                                // if (convess->co[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
+                                if (convess[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
+                                    //		                        vv->co[t]=1-sin(atan((input->co[r][s]-input->co[i][j])
+                                    //		                         	          /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U->co[1])));
+                                    vv[t]=1-sin(atan((input[r][s]-input[i][j])
+                                                     /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U[1])));
+                                    if (vv[t]<v[t]){
+                                        v[t]=vv[t];
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                vvv=0.0;
+                for(t=1;t<=N;t++){
+                    vvv=vvv+v[t];
+                }
+                //  sky->co[i][j]=(1.0/N*vvv);
+                sky[i][j]=(1.0/N*vvv);
+            }
+        }
+        // 	printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",100.0*(double)i/(double)sky->nrh);
+        printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",100.0*(double)i/(double)sky.getRows()-1);
+    }
+    
+    //#free_doublematrix(alfa);
+    //free_doublevector(v);
+    //free_doublevector(vv);
+    
 }
 
 //***************************************************************************
-//DOUBLEMATRIX *find_aspect(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef){
-void find_aspect(DOUBLEMATRIX *topo, GeoMatrix<double>& dzdx, GeoMatrix<double>& dzdy, long undef, GeoMatrix<double>& M){
-
-	long r, c;
-	long nc=topo->nch;
-	long nr=topo->nrh;
-//	DOUBLEMATRIX *M;
-//	M=new_doublematrix(nr, nc);
-
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if((long)topo->co[r][c]!=undef){
-			//	M->co[r][c] = (180./GTConst::Pi) * (3.0 / 2.0 * GTConst::Pi - atan2(dzdy->co[r][c], dzdx->co[r][c]));
-				M[r][c] = (180./GTConst::Pi) * (3.0 / 2.0 * GTConst::Pi - atan2(dzdy[r][c], dzdx[r][c]));
-				if (M[r][c]>=360.0) M[r][c] -= 360.0;
-			}else {
-				M[r][c] = (double)undef;
-			}
-		}
-	}
-}
 
 //overloaded function noori
 void find_aspect(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<double>& dzdy, long undef, GeoMatrix<double>& M){
@@ -1064,63 +403,15 @@ void find_aspect(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<dou
 }
 
 //---------------
-void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n){
-
-	long r, c, nr, nc, ir, ic, i;
-	DOUBLEVECTOR *values;
-	long cnt;
-
-	values=new_doublevector((2*n+1)*(2*n+1));
-
-	nr=Zin->nrh;
-	nc=Zin->nch;
-
-	for (r=1; r<=nr; r++) {
-		for (c=1; c<=nc; c++) {
-			if ((long)Zin->co[r][c] != novalue) {
-				cnt=0;
-				for (ir=-n; ir<=n; ir++) {
-					for (ic=-n; ic<=n; ic++) {
-						if (r+ir>=1 && r+ir<=nr && c+ic>=1 && c+ic<=nc) {
-							if((long)Zin->co[r+ir][c+ic]!=novalue){
-								cnt++;
-								values->co[cnt]=Zin->co[r+ir][c+ic];
-							}
-						}
-					}
-				}
-
-				/*order_values(values, cnt);
-				 if (fmod(cnt, 2)>1.E-5) {
-				 Zout->co[r][c] = values->co[(long)(0.5*(cnt+1))];
-				 }else{
-				 Zout->co[r][c] = 0.5*(values->co[(long)(0.5*(cnt))]+values->co[(long)(0.5*(cnt)+1)]);
-				 }*/
-
-				Zout->co[r][c] = 0.;
-				for (i=1; i<=cnt; i++) {
-					Zout->co[r][c] += values->co[i]/(double)cnt;
-				}
-
-			}else {
-
-				Zout->co[r][c] = (double)novalue;
-
-			}
-
-		}
-	}
-
-	free_doublevector(values);
-}
 // overloade function noori
 void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, long n){
 
 	long r, c, nr, nc, ir, ic, i;
-	DOUBLEVECTOR *values;
-	long cnt;
+//	DOUBLEVECTOR *values;
+    GeoVector<double> values;
+    long cnt;
 
-	values=new_doublevector((2*n+1)*(2*n+1));
+	values.resize((2*n+1)*(2*n+1));
 
 //	nr=Zin->nrh;
 	nr=Zin.getRows();
@@ -1141,7 +432,7 @@ void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, l
 							if((long)Zin[r+ir][c+ic]!=novalue){
 								cnt++;
 							//	values->co[cnt]=Zin->co[r+ir][c+ic];
-								values->co[cnt]=Zin[r+ir][c+ic];
+								values[cnt]=Zin[r+ir][c+ic];
 							}
 						}
 					}
@@ -1158,7 +449,7 @@ void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, l
 				Zout[r][c] = 0.;
 				for (i=1; i<=cnt; i++) {
 				//	Zout->co[r][c] += values->co[i]/(double)cnt;
-					Zout[r][c] += values->co[i]/(double)cnt;
+					Zout[r][c] += values[i]/(double)cnt;
 				}
 
 			}else {
@@ -1171,85 +462,7 @@ void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, l
 		}
 	}
 
-	free_doublevector(values);
-}
-
-//------------------------
-void find_slope(double deltax, double deltay, DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef){
-
-	long r,c,R1,C1,R2,C2;
-	long nc=topo->nch;
-	long nr=topo->nrh;
-	double a, delta;
-
-	// Find dzdx.
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if((long)topo->co[r][c]!=undef){
-
-				a=0.0;
-				R1=r;
-				R2=r;
-				C1=c-1;
-				C2=c+1;
-				delta=deltax;
-				if(R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc){
-					if((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef){
-						if( (topo->co[R2][C2] - topo->co[r][c]) * (topo->co[r][c] - topo->co[R1][C1]) < 0){
-							if( fabs(topo->co[r][c] - topo->co[R1][C1]) > fabs(topo->co[R2][C2] - topo->co[r][c]) ){
-								a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
-							}else {
-								a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
-							}
-						}else {
-							a += (topo->co[R2][C2] - topo->co[R1][C1]) / (2.*delta);
-						}
-					}else if((long)topo->co[R1][C1]==undef && (long)topo->co[R2][C2]!=undef){
-						a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
-					}else if((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]==undef){
-						a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
-					}
-				}
-				dzdx->co[r][c] = a;
-
-				a=0.0;
-				R1=r+1;
-				R2=r-1;
-				C1=c;
-				C2=c;
-				delta=deltay;
-				if(R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc){
-					if((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef){
-						if( (topo->co[R2][C2] - topo->co[r][c]) * (topo->co[r][c] - topo->co[R1][C1]) < 0){
-							if( fabs(topo->co[r][c] - topo->co[R1][C1]) > fabs(topo->co[R2][C2] - topo->co[r][c]) ){
-								a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
-							}else {
-								a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
-							}
-						}else {
-							a += (topo->co[R2][C2] - topo->co[R1][C1]) / (2.*delta);
-						}
-					}else if((long)topo->co[R1][C1]==undef && (long)topo->co[R2][C2]!=undef){
-						a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
-					}else if((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]==undef){
-						a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
-					}
-				}
-				dzdy->co[r][c] = a;
-
-				//Some compilers will not allow dzdx and dzdy to both be 0.0 in the atan2 computation.
-				//if (fabs(dzdx->co[r][c])<1.E-10) dzdx->co[r][c] = 1.E-10;
-				if (fabs(dzdy->co[r][c])<1.E-10) dzdy->co[r][c] = 1.E-10;
-
-			}else {
-
-				dzdx->co[r][c] = (double)undef;
-				dzdy->co[r][c] = (double)undef;
-
-			}
-
-		}
-	}
+//	free_doublevector(values);
 }
 
 
@@ -1362,39 +575,14 @@ void find_slope(double deltax, double deltay, GeoMatrix<double>& topo, GeoMatrix
 
 //---------------------------------
 
-DOUBLEMATRIX *find_max_slope(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef){
-
-	long r, c;
-	long nc=topo->nch;
-	long nr=topo->nrh;
-	DOUBLEMATRIX *M;
-
-	M=new_doublematrix(nr, nc);
-
-	for(r=1;r<=nr;r++){
-		for(c=1;c<=nc;c++){
-			if((long)topo->co[r][c]!=undef){
-				M->co[r][c] = (180./GTConst::Pi) * atan(pow(pow(dzdx->co[r][c], 2.0) + pow(dzdy->co[r][c], 2.0), 0.5));
-			}else {
-				M->co[r][c] = (double)undef;
-			}
-
-		}
-	}
-
-	return M;
-}
 
 
 //overloaded function noori
 void find_max_slope(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<double>& dzdy, long undef, GeoMatrix<double>& M){
 
 	long r, c;
-//	long nc=topo->nch;
 	long nc=topo.getCols();
-//	long nr=topo->nrh;
 	long nr=topo.getRows();
-//	DOUBLEMATRIX *M;
 
 //	M=new_doublematrix(nr, nc);
 	M.resize(nr, nc);
@@ -1461,9 +649,9 @@ void product_using_only_strict_lower_diagonal_part(GeoVector<double>& product, c
 			product[c] += Lx[i] * (x[r] - x[c]);
 			product[r] += Lx[i] * (x[c] - x[r]);
 			
-#ifdef VERBOSE				
-		//printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product[c],i,Lx[i],r,x[r],c,x[c],Lx[i] * (x[r] - x[c]));
-		//printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product[r],i,Lx[i],c,x[c],r,x[r],Lx[i] * (x[c] - x[r]));
+#ifdef VERY_VERBOSE				
+		printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product[c],i,Lx[i],r,x[r],c,x[c],Lx[i] * (x[r] - x[c]));
+		printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product[r],i,Lx[i],c,x[c],r,x[r],Lx[i] * (x[c] - x[r]));
 #endif		   
 			
 		}else if(r < c){
@@ -1614,17 +802,6 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
 		i++;
 	}
 
-	//free_doublevector(r0);
-	//free_doublevector(r);
-	//free_doublevector(p);
-	//free_doublevector(v);
-	//free_doublevector(s);
-	//free_doublevector(t);
-	//free_doublevector(diag);
-	//free_doublevector(udiag);
-	//free_doublevector(yy);
-	//free_doublevector(z);
-
 	return i;
 
 }
@@ -1678,10 +855,6 @@ return 1;
 
 }
 
-//void get_diag_strict_lower_matrix_plus_identity_by_vector(DOUBLEVECTOR *diag, DOUBLEVECTOR *udiag, DOUBLEVECTOR *y,
-//	LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
-
-
 
 void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& diag,  GeoVector<double>& udiag, const GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
 
@@ -1710,11 +883,6 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(GeoVector<double>& dia
 		}
 	}
 }
-
-
-
-//void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(DOUBLEVECTOR *product, DOUBLEVECTOR *x, DOUBLEVECTOR *y,
-//																	LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx){
 
 
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(GeoVector<double>& product, const GeoVector<double>& x, const GeoVector<double>& y,

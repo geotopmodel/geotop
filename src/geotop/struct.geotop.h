@@ -771,28 +771,6 @@ class Meteo
         GeoVector<long> imeteo_stations;
 };
 
-#ifdef USE_NETCDF
-class OutputNCData
-{
-    public:
-        // soil
-        GeoMatrix<double>  *soil_thw_cum;         // cumulated version of S->th
-        GeoMatrix<double>  *soil_thi_cum;         // cumulated version of S->thice
-        GeoMatrix<double>  *soil_T_cum;           // cumulated version of S->T
-        GeoMatrix<double>  *soil_P_cum;           // cumulated version of S->P
-        GeoMatrix<double>  *soil_Ptot_cum;        // cumulated version of S->Ptot
-        // snow
-        GeoTensor<double> *snowD_cum;             // cumulated version of snow->S->Dzl
-        GeoTensor<double> *snowT_cum;             // cumulated version of snow->S->T
-        GeoTensor<double> *snowI_cum;             // cumulated version of snow->S->w_ice
-        GeoTensor<double> *snowW_cum;             // cumulated version of snow->S->w_liq
-        // glacier
-        GeoTensor<double> *glacD_cum;             // cumulated version of glac->G->Dzl
-        GeoTensor<double> *glacT_cum;             // cumulated version of glac->G->T
-        GeoTensor<double> *glacI_cum;             // cumulated version of glac->G->w_ice
-        GeoTensor<double> *glacW_cum;             // cumulated version of glac->G->w_liq
-};
-#endif
 
 class AllData
 {
@@ -808,18 +786,6 @@ class AllData
         Glacier *G;
         Meteo *M;
         Times *I;
-#ifdef USE_NETCDF
-        int ncid;                                 // pointer to netCDF archive file
-        long counter_snow;                        // counter for time print of snow
-        long counter_surface_energy;              //counter for surface energy maps
-        long counter_soil;                        //counter for printing soil properties
-        long counter_glac;                        //counter for printing glacier properties
-        long counter_point;                       // counter for printing point data
-        int z_point_var_type;                     // variable type for z_point (e.g. temperature in depth in a point)
-        int point_var_type;                       // variable type (e.g. radiation in a point)
-        int unstruct_z_point_var_type;            // variable type for z_point (e.g. temperature in depth in a point) in unstructured grid
-        int unstruct_point_var_type;              // variable type (e.g. radiation in a point) in unstructured grid
-        OutputNCData *outnc;
-#endif
+
 };
 #endif

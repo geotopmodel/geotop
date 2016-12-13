@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8)
 
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
-SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall-ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2 " CACHE STRING "" )
 SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
@@ -42,9 +42,8 @@ SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(VERY_VERBOSE OFF CACHE BOOL "enable printing of verification data")
-SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
+SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
 # these below to be checked 
-SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
 ###########################################################
@@ -171,10 +170,6 @@ IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)
 ENDIF(ENABLE_INTERNAL_METEODISTR)
 
-IF (USE_NETCDF)
-	add_definitions(-DUSE_NETCDF)
-ENDIF (USE_NETCDF)
-
 IF (WITH_LOGGER)
     add_definitions(-DWITH_LOGGER)
 ENDIF (WITH_LOGGER)
@@ -199,7 +194,7 @@ FILE(GLOB hGt_utilities "src/gt_utilities/*.h")
 FILE(GLOB hLibrariesAscii "src/libraries/ascii/*.h")
 FILE(GLOB hLibrariesFT "src/libraries/fluidturtle/*.h")
 FILE(GLOB hMeteoio_plugin "src/meteoio_plugin/*.h")
-FILE(GLOB hNetCDF "src/netCDF/*.h")
+#FILE(GLOB hNetCDF "src/netCDF/*.h")
 
 INSTALL(FILES ${hGeotop} DESTINATION include/geotop/src/geotop COMPONENT headers)
 INSTALL(FILES ${hGeotopEnergy} DESTINATION include/geotop/src/geotop/Energy COMPONENT headers)
@@ -212,7 +207,7 @@ INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPO
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
 INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
-INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
+#INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 
 ###########################################################
 #for the uninstall target
@@ -234,7 +229,7 @@ ADD_CUSTOM_TARGET(distclean make clean
 	COMMAND cmake -E remove_directory src/libraries/ascii/CMakeFiles
 	COMMAND cmake -E remove_directory src/libraries/fluidturtle/CMakeFiles
 	COMMAND cmake -E remove_directory src/meteoio_plugin/CMakeFiles
-	COMMAND cmake -E remove_directory src/netCDF/CMakeFiles
+#	COMMAND cmake -E remove_directory src/netCDF/CMakeFiles
 )
 
 ###########################################################

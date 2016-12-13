@@ -56,31 +56,6 @@ This file is part of numerioc_solver.
 
 
 
-int rotate180_y_doublematrix(DOUBLEMATRIX *M) {
-/*
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (DOUBLEMATRIX *M) matrix to rotate
- */
-	long r,c;
-	double val=0.0;
-
-
-	long r_max=(M->nrh-M->nrl+1)/2;
-
-	for(r=M->nrl;r<=r_max;r++) {
-		for (c=M->ncl;c<=M->nch;c++) {
-			val=M->co[r][c];
-			M->co[r][c]=M->co[M->nrh-r+1][c];
-			M->co[M->nrh-r+1][c]=val;
-
-		}
-	}
-
-	return 0;
-}
-
 int rotate180_y_doublematrix(GeoMatrix<double>& M) {
 /*
  * \author Emanuele Cordano
@@ -111,30 +86,6 @@ int rotate180_y_doublematrix(GeoMatrix<double>& M) {
 	return 0;
 }
 
-int rotate180_y_doubletensor(DOUBLETENSOR *M) {
-/*!
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (DOUBLETENSOR *M) matrix to rotate
- */
-	long r,c,l;
-	double val=0.0;
-
-	long r_max=(M->nrh-M->nrl+1)/2;
-//	printf("r_max=%ld %ld %ld \n",r_max,M->nrh,M->nrl);
-
-	for(l=M->ndl;l<=M->ndh;l++) {
-		for(r=M->nrl;r<=r_max;r++) {
-			for (c=M->ncl;c<=M->nch;c++) {
-				val=M->co[l][r][c];
-				M->co[l][r][c]=M->co[l][M->nrh-r+1][c];
-				M->co[l][M->nrh-r+1][c]=val;
-			}
-		}
-	}
-	return 0;
-}
 
 int rotate180_y_doubletensor(GeoTensor<double>& M) {
 /*!
@@ -169,144 +120,9 @@ int rotate180_y_doubletensor(GeoTensor<double>& M) {
 }
 
 
-int rotate180_y_floatmatrix(FLOATMATRIX *M) {
-/*
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (DOUBLEMATRIX *M) matrix to rotate
- */
-	long r,c;
-	float val=0.0;
-
-	long r_max=(M->nrh-M->nrl+1)/2;
-
-	for(r=M->nrl;r<=r_max;r++) {
-		for (c=M->ncl;c<=M->nch;c++) {
-			val=M->co[r][c];
-			M->co[r][c]=M->co[M->nrh-r+1][c];
-			M->co[M->nrh-r+1][c]=val;
-
-		}
-	}
-
-	return 0;
-}
 
 
 
-int rotate180_y_longmatrix(LONGMATRIX *M) {
-/*!
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (LONGMATRIX *M) matrix to rotate
- */
-	long r,c;
-	long val=0;
 
-	long r_max=(M->nrh-M->nrl+1)/2;
-
-	for(r=M->nrl;r<=r_max;r++) {
-		for (c=M->ncl;c<=M->nch;c++) {
-			val=M->co[r][c];
-			M->co[r][c]=M->co[M->nrh-r+1][c];
-			M->co[M->nrh-r+1][c]=val;
-
-		}
-	}
-
-	return 0;
-}
-
-int rotate180_y_intmatrix(INTMATRIX *M) {
-/*!
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (INTMATRIX *M) matrix to rotate
- */
-	long r,c;
-	int val=0;
-
-	long r_max=(M->nrh-M->nrl+1)/2;
-
-	for(r=M->nrl;r<=r_max;r++) {
-		for (c=M->ncl;c<=M->nch;c++) {
-			val=M->co[r][c];
-			M->co[r][c]=M->co[M->nrh-r+1][c];
-			M->co[M->nrh-r+1][c]=val;
-
-		}
-	}
-
-	return 0;
-}
-
-int rotate180_y_shortmatrix(SHORTMATRIX *M) {
-/*!
- * \author Emanuele Cordano
- * \date October 2009
- *
- * \param (SHORTMATRIX *M) matrix to rotate
- */
-	long r,c;
-	short val=0;
-
-	long r_max=(M->nrh-M->nrl+1)/2;
-
-	for(r=M->nrl;r<=r_max;r++) {
-		for (c=M->ncl;c<=M->nch;c++) {
-			val=M->co[r][c];
-			M->co[r][c]=M->co[M->nrh-r+1][c];
-			M->co[M->nrh-r+1][c]=val;
-
-		}
-	}
-
-	return 0;
-}
-
-int invert_order_doublevector(DOUBLEVECTOR *v) {
-/*!
- *
- * \author Emanuele Cordano
- * \date October 2009
- *
- *\param (DOUBLEVECTOR *) the vector which is inverted
- */
-
-	long j;
-	long j_max=(v->nh-v->nl+1)/2;
-	double val=0.0;
-	for (j=v->nl;j<=j_max;j++) {
-		val=v->co[j];
-		v->co[j]=v->co[v->nh-j+1];
-		v->co[v->nh-j+1]=val;
-	}
-
-	return 0;
-}
-
-int invert_order_longvector(LONGVECTOR *v) {
-/*!
- *
- * \author Emanuele Cordano
- * \date October 2009
- *
- *\param (LONGVECTOR *) the vector which is inverted
- */
-
-	long j;
-	long j_max=(v->nh-v->nl+1)/2;
-	long val=0;
-	for (j=v->nl;j<=j_max;j++) {
-		val=v->co[j];
-		v->co[j]=v->co[v->nh-j+1];
-		v->co[v->nh-j+1]=val;
-	}
-
-	return 0;
-}
 
 #endif

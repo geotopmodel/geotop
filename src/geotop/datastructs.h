@@ -407,4 +407,12 @@ template<class T> unsigned int GeoTensor<T>::getCh() const
 	return this->nz;
 }
 
+class TInit {  	   /*header of maps in fluid turtle format*/
+public:
+     GeoVector<double> U;  /*dx,dy*/
+    GeoVector<double> V;  /*sign of novalue,novalue*/
+};
+
+
+
 #endif

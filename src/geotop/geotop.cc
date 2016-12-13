@@ -38,15 +38,6 @@
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #include <string>
-#ifdef USE_NETCDF
-//#include "../gt_utilities/gt_utilities.h"
-//#include "../gt_utilities/gt_symbols.h"
-//#include "../gt_utilities/ncgt_output.h"
-#include "../netCDF/netcdfIO.h"
-#include "../netCDF/read_command_line_netcdf.h"
-#include "../netCDF/gt_symbols.h"
-#include "output_nc.h"
-#endif
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
@@ -191,11 +182,7 @@ int main(int argc,char *argv[]){
 		geotop::common::Variables::t_out=0.;
 		geotop::common::Variables::t_blowingsnow=0.;
 
-#ifdef USE_NETCDF
-		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_DEFINE,GEOT_VERBOSE);
-		adt->ncid=ncid;
 
-#endif	
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
@@ -206,16 +193,9 @@ int main(int argc,char *argv[]){
 #endif
 
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
-#ifdef USE_NETCDF
-		set_output_nc(adt);
-#endif
+
 		time_loop(adt, iomanager);
 
-#ifdef USE_NETCDF
-
-		ncgt_close_geotop_archive(ncid);
-		deallocate_output_nc(adt->outnc);
-#endif	
 
 		end = clock();
 		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
@@ -292,24 +272,6 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 	long i_steps=0;
 
-#ifdef USE_NETCDF
-	// printing time counter initialization
-	//TODO please revisit into details the initialization procedure for counters according to time coordinates
-	A->counter_surface_energy=0;
-	A->counter_snow=0;
-	A->counter_soil=0;
-	A->counter_glac=0;
-	A->counter_point=0;
-	if(A->P->point_sim!=1) { //distributed simulation
-		A->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
-		A->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
-		A->unstruct_point_var_type=NC_GEOTOP_UNSTRUCT_MAP_IN_CONTROL_POINT;
-		A->unstruct_z_point_var_type=NC_GEOTOP_Z_UNSTRUCT_MAP_IN_CONTROL_POINT;
-	} else {// point simulation
-		A->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
-		A->point_var_type=NC_GEOTOP_POINT_VAR;
-	}
-#endif
 
 //////////////////////////////////////////////////////////////////////////////////
 //Still to DO:
@@ -418,7 +380,10 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				}else {
 					out = 1;
 				}
-                                printf("Dt:%f min:%f\n",Dt,A->P->min_Dt);
+#ifdef VERBOSE
+                lg->logsf(geotop::logger::NOTICE,"Dt:%f min:%f\n",Dt,A->P->min_Dt);
+#endif
+
 			}while( out == 0 && Dt > A->P->min_Dt );
 
             //TODO: sort out this mess about _FAILED_RUN files (G.G.)
@@ -482,19 +447,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 		tstart=clock();
 
-#ifdef USE_NETCDF
-		if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
-			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-			if(strcmp(geotop::common::Variables::files[fSCA] , geotop::input::gStringNoValue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
-			}
-		else {
-			write_output_nc(A);
-			}
-#else
 		write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
 		// line below to move in output..   
 		if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
-#endif
 		tend=clock();
 		geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 

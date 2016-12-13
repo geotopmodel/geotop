@@ -256,14 +256,7 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
 					   {"2","{","}"}};
 */
 //typedef struct { /*header of maps in fluid turtle format*/
-class TInit {  	   /*header of maps in fluid turtle format*/
-	public:
-//	DOUBLEVECTOR *U;      /*dx,dy*/
-	GeoVector<double> U;  /*dx,dy*/
-//	DOUBLEVECTOR *V;      /*sign of novalue,novalue*/
-	GeoVector<double> V;  /*sign of novalue,novalue*/
-};
-//} T_INIT;
+
 
 #include "t_alloc.h"
 #include "t_io.h"
