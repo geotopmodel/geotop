@@ -58,7 +58,8 @@ MeteoStationLongitude=10.59037474907,10.57992303991,10.59207665567,10.6160433161
 
 MeteoStationWindVelocitySensorHeight = 2.5
 MeteoStationTemperatureSensorHeight = 2.5
-
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
 !======================================= 
 ! METEO HAEDERS 
 !======================================= 
@@ -318,69 +319,69 @@ InitSWEMapFile 			= "INmaps500/SWE"
 ! Output files
 
 ! Tabs 
-DischargeFile 			= "tabs/discharge"
+DischargeFile 			= "output-tabs/discharge"
 
-PointOutputFile 		= "tabs/point" 
+PointOutputFile 		= "output-tabs/point" 
 PointAll = 1
 
-SnowTempProfileFile			= "tabs/snowTemp"
-SnowLiqContentProfileFile	= "tabs/snowLiqCont"
-SnowIceContentProfileFile	= "tabs/snowIceCont"
-SnowDepthLayersFile			= "tabs/snowDepth"
-!SnowProfileFile 		= "tabs/snow"
+SnowTempProfileFile			= "output-tabs/snowTemp"
+SnowLiqContentProfileFile	= "output-tabs/snowLiqCont"
+SnowIceContentProfileFile	= "output-tabs/snowIceCont"
+SnowDepthLayersFile			= "output-tabs/snowDepth"
+!SnowProfileFile 		= "output-tabs/snow"
 SnowAll  = 1
 
-BasinOutputFile 		= "tabs/basin"
+BasinOutputFile 		= "output-tabs/basin"
 BasinAll = 1
 
-SoilAveragedTempProfileFile		=	"tabs/soilTz" 
-SoilLiqContentProfileFile		=	"tabs/thetaliq" 
-SoilIceContentProfileFile		=	"tabs/thetaice" 
-SoilLiqWaterPressProfileFile	=	"tabs/psiz" 
+SoilAveragedTempProfileFile		=	"output-tabs/soilTz" 
+SoilLiqContentProfileFile		=	"output-tabs/thetaliq" 
+SoilIceContentProfileFile		=	"output-tabs/thetaice" 
+SoilLiqWaterPressProfileFile	=	"output-tabs/psiz" 
 SoilAll = 1
 
 ! Maps
 ! soil moisture & temperature
-!SoilAveragedTempTensorFile 			= 	"maps/T"
-!SurfaceTempMapFile 					= 	"maps/Ts"
+!SoilAveragedTempTensorFile 			= 	"output-maps/T"
+!SurfaceTempMapFile 					= 	"output-maps/Ts"
 
-SoilLiqContentTensorFile 			= 	"maps/thetaliq"
-SoilIceContentTensorFile 			= 	"maps/thetaice"
-!SoilTotWaterPressTensorFile 		= 	"maps/psi"
-!SoilLiqWaterPressTensorFile 		= 	"maps/psiliq"
+SoilLiqContentTensorFile 			= 	"output-maps/thetaliq"
+SoilIceContentTensorFile 			= 	"output-maps/thetaice"
+!SoilTotWaterPressTensorFile 		= 	"output-maps/psi"
+!SoilLiqWaterPressTensorFile 		= 	"output-maps/psiliq"
 
-!LandSurfaceWaterDepthMapFile 		= 	"maps/hsup"
-WaterTableDepthMapFile 				= 	"maps/watertable"
+!LandSurfaceWaterDepthMapFile 		= 	"output-maps/hsup"
+WaterTableDepthMapFile 				= 	"output-maps/watertable"
 
 ! snow & ice
-SWEMapFile 							= 	"maps/SWE"
-!SnowDepthMapFile 					= 	"maps/snowdepth"
-!SnowDurationMapFile					=	"maps/snowduration"
+SWEMapFile 							= 	"output-maps/SWE"
+!SnowDepthMapFile 					= 	"output-maps/snowdepth"
+!SnowDurationMapFile					=	"output-maps/snowduration"
 
 GlacAll = 1
 ! meteo
-AirTempMapFile 						= 	"maps/Ta"
+AirTempMapFile 						= 	"output-maps/Ta"
 
-!NetRadiationMapFile 				= 	"maps/Rn" 
-!NetLongwaveRadiationMapFile			=   "maps/Netlw"
-!NetShortwaveRadiationMapFile		=   "maps/Netsw"
-!InShortwaveRadiationMapFile 		= 	"maps/Rswin"
-!InLongwaveRadiationMapFile			= 	"maps/Rlwin"
-!SurfaceHeatFluxMapFile 				= 	"maps/EB"
-!SurfaceSensibleHeatFluxMapFile 		= 	"maps/H"
-!SurfaceLatentHeatFluxMapFile 		= 	"maps/LE"
-!DirectInShortwaveRadiationMapFile 	= 	"maps/DRswin"
+!NetRadiationMapFile 				= 	"output-maps/Rn" 
+!NetLongwaveRadiationMapFile			=   "output-maps/Netlw"
+!NetShortwaveRadiationMapFile		=   "output-maps/Netsw"
+!InShortwaveRadiationMapFile 		= 	"output-maps/Rswin"
+!InLongwaveRadiationMapFile			= 	"output-maps/Rlwin"
+!SurfaceHeatFluxMapFile 				= 	"output-maps/EB"
+!SurfaceSensibleHeatFluxMapFile 		= 	"output-maps/H"
+!SurfaceLatentHeatFluxMapFile 		= 	"output-maps/LE"
+!DirectInShortwaveRadiationMapFile 	= 	"output-maps/DRswin"
 
-PrecipitationMapFile 				= 	"maps/Prec"
-!CanopyInterceptedWaterMapFile 		= 	"maps/Int"
-NetPrecipitationFile 				= 	"maps/Pnet"
+PrecipitationMapFile 				= 	"output-maps/Prec"
+!CanopyInterceptedWaterMapFile 		= 	"output-maps/Int"
+NetPrecipitationFile 				= 	"output-maps/Pnet"
 
-!EvapotranspirationFromSoilMapFile	= 	"maps/ETsoil"
+!EvapotranspirationFromSoilMapFile	= 	"output-maps/ETsoil"
 
-!RelHumMapFile						= 	"maps/RH"
+!RelHumMapFile						= 	"output-maps/RH"
 
-!WindSpeedMapFile					= 	"maps/WindSp"
-!WindDirMapFile						= 	"maps/WindDir"
+!WindSpeedMapFile					= 	"output-maps/WindSp"
+!WindDirMapFile						= 	"output-maps/WindDir"
 
 !=============================================================================
 !  RECOVERY FILE NAMES

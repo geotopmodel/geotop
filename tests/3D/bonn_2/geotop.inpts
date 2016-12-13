@@ -17,15 +17,26 @@ DtPlotPoint = 0.25
 
 DtPlotBasin = 1
 BasinAll = 1
-BasinOutputFile = "output_tabs/basin" 
+BasinOutputFile = "output-tabs/basin" 
 
 !======================================= 
 ! METEO HAEDERS 
 !======================================= 
 
-MeteoFile = "input_maps/met"
+MeteoFile = "meteo/meteo"
 HeaderDateDDMMYYYYhhmmMeteo = "date"
 HeaderIPrec = "Prec"
+
+
+MeteoStationCoordinateX=15
+MeteoStationCoordinateY=5
+MeteoStationLatitude=0
+MeteoStationLongitude=0
+MeteoStationElevation=0
+MeteoStationWindVelocitySensorHeight = 10
+MeteoStationTemperatureSensorHeight = 10
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
 
 !=======================================
 ! SOIL
@@ -80,14 +91,14 @@ SlopeMapFile = "input_maps/slope"
 ! Output files
 
 ! Tabs 
-DischargeFile = "output_tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 
 !Maps
-!LandSurfaceWaterDepthMapFile = "output_maps/hsup"
-!WaterTableDepthMapFile  = "output_maps/wt"
-!WaterTableDepthFromAboveMapFile  = "output_maps/wttop"
+LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+!WaterTableDepthMapFile  = "output-maps/wt"
+!WaterTableDepthFromAboveMapFile  = "output-maps/wttop"
 
 !Tens
-!SoilLiqContentTensorFile = "output_tabs/thetaliq"
-!SoilLiqWaterPressTensorFile = "output_tabs/Pw"
+!SoilLiqContentTensorFile = "output-tabs/thetaliq"
+SoilLiqWaterPressTensorFile = "output-tabs/Pw"
 

@@ -5,7 +5,7 @@ Latitude               = 46.75604
 Longitude              = 10.70311
 TimeStepEnergyAndWater = 84600
 InitDateDDMMYYYYhhmm = 05/10/2009 00:00
-EndDateDDMMYYYYhhmm = 05/10/2009 23:30
+EndDateDDMMYYYYhhmm = 06/10/2009 01:00
 !EndDateDDMMYYYYhhmm =  24/11/2013 23:00
 !NumSimulationTimes     = 5
 NumSimulationTimes     = 1
@@ -23,8 +23,8 @@ OutputGlacierMaps	=	24
 !=============================================================================
 !  RECOVERY
 !=============================================================================
-!SuccessfulRunFile 	   = "out/_SUCCESSFUL_RUN"
-!FailedRunFile          = "out/_FAILED_RUN"
+!SuccessfulRunFile 	   = "_SUCCESSFUL_RUN"
+!FailedRunFile          = "_FAILED_RUN"
 RecoverSim = 0
 ContinuousRecovery = 50
 SubfolderRecoveryFiles = "rec"
@@ -63,7 +63,7 @@ RHmin                        = 10
 CoordinatePointX = 629601,629776,630640
 CoordinatePointY = 5177788,5180840,5181474
 PointElevation	= 1998,2332,3035
-
+PointID = 1,2,3
 !PointSlope	= 14.7,8,4,0,22.5,37.5,37.5,37.5,37.5,22.5,52.5
 
  
@@ -82,6 +82,8 @@ MeteoStationLongitude=10.696545,10.57992303991,10.59207665567,10.69969169,10.590
 MeteoStationWindVelocitySensorHeight = 5,5,5,5,5,5,5
 MeteoStationTemperatureSensorHeight = 5,5,5,5,5,5,5
  
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
 !======================================= 
 ! METEO HEADERS 
 !======================================= 
@@ -257,7 +259,7 @@ ThresWaterDepthChannelUp	=	50
 !=============================================================================
 
 !--- STRUCTURE ------------
-SoilAveragedTempProfileFileWriteend = "out/ground"
+!SoilAveragedTempProfileFileWriteend = "out/ground" !! NOT IMPLENTED FOR GEOTOPBRICKS
 SoilPlotDepths = 100, 200, 500
 
 !--- VARIABLES ------------
@@ -274,7 +276,7 @@ SoilPlotDepths = 100, 200, 500
 !=============================================================================
 
 !--- STRUCTURE ------------
-PointOutputFileWriteEnd = "out/surface"
+!!PointOutputFileWriteEnd = "out/surface"
 
 !--- VARIABLES ------------
 !DefaultPoint                =  0
@@ -321,56 +323,56 @@ RiverNetwork = "net100adpt"
  
 ! Output files 
  
-DischargeFile = "tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 
-PointOutputFile = "tabs/point" 
+PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "tabs/snow"
+SnowProfileFile = "output-tabs/snow"
 SnowAll = 1
 
 GlacAll=1
 
-SnowCoveredAreaFile = "tabs/snowcover"
+SnowCoveredAreaFile = "output-tabs/snowcover"
 
-BasinOutputFile = "tabs/basin" 
+BasinOutputFile = "output-tabs/basin" 
 
 BasinAll = 1
 
-SoilAveragedTempProfileFile = "tabs/soilTz" 
-SoilLiqContentProfileFile = "tabs/thetaliq" 
-SoilIceContentProfileFile = "tabs/thetaice" 
+SoilAveragedTempProfileFile = "output-tabs/soilTz" 
+SoilLiqContentProfileFile = "output-tabs/thetaliq" 
+SoilIceContentProfileFile = "output-tabs/thetaice" 
 SoilAll = 1
 
 
 
 
-AirTempMapFile = "maps/Ta"
+AirTempMapFile = "output-maps/Ta"
 
-EvapotranspirationFromSoilMapFile = "maps/ETsoil" 
+EvapotranspirationFromSoilMapFile = "output-maps/ETsoil" 
 
-NetLongwaveRadiationMapFile = "maps/netLW"
-NetPrecipitationMapFile = "maps/Pnet"
+NetLongwaveRadiationMapFile = "output-maps/netLW"
+NetPrecipitationMapFile = "output-maps/Pnet"
 
-NetRadiationMapFile = "maps/netRad"
-NetShortwaveRadiationMapFile = "maps/netSW"
-PrecipitationMapFile = "maps/P"
-RelHumMapFile = "maps/RHrel"
+NetRadiationMapFile = "output-maps/netRad"
+NetShortwaveRadiationMapFile = "output-maps/netSW"
+PrecipitationMapFile = "output-maps/P"
+RelHumMapFile = "output-maps/RHrel"
 
-SWEMapFile = "maps/SWE"
+SWEMapFile = "output-maps/SWE"
 
-SnowDepthMapFile ="maps/snowdepth"
-SnowDurationMapFile = "maps/snowduration"
-SnowMeltedMapFile = "maps/snowmelted"
-SnowSublMapFile = "maps/snowsubl"
+SnowDepthMapFile ="output-maps/snowdepth"
+SnowDurationMapFile = "output-maps/snowduration"
+SnowMeltedMapFile = "output-maps/snowmelted"
+SnowSublMapFile = "output-maps/snowsubl"
 
-GlacierDepthMapFile = "maps/glacierdepth"
-GlacierMeltedMapFile = "maps/glaciermelted"
-GlacierSublimatedMapFile = "maps/glaciersubl"
+GlacierDepthMapFile = "output-maps/glacierdepth"
+GlacierMeltedMapFile = "output-maps/glaciermelted"
+GlacierSublimatedMapFile = "output-maps/glaciersubl"
 
-SurfaceTempMapFile = "maps/SurfTemp"
-ThawedSoilDepthMapFile = "maps/thawedsoildepth"
-WaterTableDepthMapFile = "maps/watertable" 
+SurfaceTempMapFile = "output-maps/SurfTemp"
+ThawedSoilDepthMapFile = "output-maps/thawedsoildepth"
+WaterTableDepthMapFile = "output-maps/watertable" 
 
 
 !=============================================================================

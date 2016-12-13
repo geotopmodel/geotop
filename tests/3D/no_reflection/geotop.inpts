@@ -27,6 +27,10 @@ MeteoStationStandardTime=1
 MeteoStationWindVelocitySensorHeight=2,2,2
 MeteoStationTemperatureSensorHeight=5,5,5
 
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 MeteoFile = "meteo/meteo"
 
 !#######  header ##########
@@ -191,7 +195,7 @@ HeatEqMaxIter=700
 
 DtPlotPoint = 1
 
-PointOutputFile = "output_tabs/point"
+PointOutputFile = "output-tabs/point"
 DatePoint=1
 JulianDayFromYear0Point=2
 SnowDepthPoint=3
@@ -208,35 +212,35 @@ RHPoint=13
 TDewPoint=14
 WindSpeedPoint=15
 
-SoilTempProfileFile="output_tabs/soiltemp"
-SnowTempProfileFile="output_tabs/snowtemp"
-SnowLiqContentProfileFile="output_tabs/snowliq"
-SnowIceContentProfileFile="output_tabs/snowice"
-SnowDepthLayersFile="output_tabs/snowly"
+SoilTempProfileFile="output-tabs/soiltemp"
+SnowTempProfileFile="output-tabs/snowtemp"
+SnowLiqContentProfileFile="output-tabs/snowliq"
+SnowIceContentProfileFile="output-tabs/snowice"
+SnowDepthLayersFile="output-tabs/snowly"
 SnowAll=1
 
-!SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
-!NetShortwaveRadiationMapFile = "output_maps/Rn"
-!DischargeFile = "output_tabs/discharge"
+!SWEMapFile= "output-maps/SWE"
+SnowDepthMapFile = "output-maps/snowdepth"
+FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
+!NetShortwaveRadiationMapFile = "output-maps/Rn"
+!DischargeFile = "output-tabs/discharge"
 
 ! added to debug netCDF
 OutputSnowMaps = 1
 OutputSoilMaps=1
 !OutputSurfEBALMaps=1
-SWEMapFile= "output_maps/SWE"
+SWEMapFile= "output-maps/SWE"
 
 
 SoilAll=1
-SoilAveragedTempTensorFile = "output_maps/T"
-SoilLiqContentTensorFile = "output_maps/thetaliq"
-IceLiqContentTensorFile = "output_maps/thetaice"
-SoilLiqWaterPressTensorFile = "output_maps/psiz"
-!RadiationMapFile= "output_maps/Rad"
-InShortwaveRadiationMapFile= "output_maps/SWin"
-InLongwaveRadiationMapFile= "output_maps/LWin"
-NetRadiationMapFile= "output_maps/RadNet"
+SoilAveragedTempTensorFile = "output-maps/T"
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+IceLiqContentTensorFile = "output-maps/thetaice"
+SoilLiqWaterPressTensorFile = "output-maps/psiz"
+!RadiationMapFile= "output-maps/Rad"
+InShortwaveRadiationMapFile= "output-maps/SWin"
+InLongwaveRadiationMapFile= "output-maps/LWin"
+NetRadiationMapFile= "output-maps/RadNet"
 !=============================================================================
 !  RECOVERY FILE NAMES
 !=============================================================================

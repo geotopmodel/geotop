@@ -30,6 +30,10 @@ MeteoStationTemperatureSensorHeight=5,5,5,5,5,10,10
 
 MeteoFile = "meteo/meteo"
 
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 !#######  header ##########
 HeaderDateDDMMYYYYhhmmMeteo = "Date"
 !HeaderJulianDayfrom0Meteo = "JDfrom0"
@@ -191,8 +195,8 @@ HeatEqMaxIter=700
 !=============================================================================
 
 DtPlotPoint = 1
-PointOutputFile = "output_tabs/point"
-!SnowProfileFile = "output_tabs/snow"
+PointOutputFile = "output-tabs/point"
+!SnowProfileFile = "output-tabs/snow"
 DatePoint=1
 SnowDepthPoint=2
 SWEPoint=3
@@ -209,19 +213,19 @@ LWinPoint=11
 !!OutputSoilMaps = 24
 !!OutputSurfEBALMaps = 24
 
-!SWEMapFile= "output_maps/SWE"
-!SnowDepthMapFile = "output_maps/snowdepth"
-!!FirstSoilLayerAveragedTempMapFile="output_maps/MMGST"
-!NetShortwaveRadiationMapFile = "output_maps/Rn"
-!DischargeFile = "output_tabs/discharge"
+!SWEMapFile= "output-maps/SWE"
+!SnowDepthMapFile = "output-maps/snowdepth"
+!!FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
+!NetShortwaveRadiationMapFile = "output-maps/Rn"
+!DischargeFile = "output-tabs/discharge"
 
 ! added to debug netCDF
 OutputSnowMaps = 1
 OutputSoilMaps=1
 !OutputSurfEBALMaps=1
-SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-SoilTempProfileFile="output_maps/soiltemp"
+SWEMapFile= "output-maps/SWE"
+SnowDepthMapFile = "output-maps/snowdepth"
+SoilTempProfileFile="output-maps/soiltemp"
 
 
 !=============================================================================

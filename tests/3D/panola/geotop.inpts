@@ -57,6 +57,10 @@ MeteoStationElevation=0
 MeteoStationWindVelocitySensorHeight = 10
 MeteoStationTemperatureSensorHeight = 10
 
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 !======================================= 
 ! METEO HAEDERS 
 !======================================= 
@@ -270,64 +274,64 @@ BedrockDepthMapFile="bedrock_depth"
 ! Output files
 
 ! Tabs 
-DischargeFile = "output_tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 
-PointOutputFile = "output_tabs/point" 
+PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "output_tabs/snow"
+SnowProfileFile = "output-tabs/snow"
 SnowAll = 1
 
-SnowCoveredAreaFile = "output_tabs/snowcover"
+SnowCoveredAreaFile = "output-tabs/snowcover"
 
-BasinOutputFile = "output_tabs/basin" 
+BasinOutputFile = "output-tabs/basin" 
 
 BasinAll = 1
 
-SoilAveragedTempProfileFile = "output_tabs/soilTz" 
-SoilLiqContentProfileFile = "output_tabs/thetaliq" 
-SoilIceContentProfileFile = "output_tabs/thetaice" 
+SoilAveragedTempProfileFile = "output-tabs/soilTz" 
+SoilLiqContentProfileFile = "output-tabs/thetaliq" 
+SoilIceContentProfileFile = "output-tabs/thetaice" 
 SoilAll = 1
 
 
 
 ! Maps
 
-!SoilAveragedTempTensorFile = "output_maps/T"
-!SurfaceTempMapFile = "output_maps/Ts"
+!SoilAveragedTempTensorFile = "output-maps/T"
+!SurfaceTempMapFile = "output-maps/Ts"
 
-!SoilLiqContentTensorFile = "output_maps/thetaliq"
-SoilLiqWaterPressTensorFile="output_maps/psiliq"
-!IceLiqContentTensorFile = "output_maps/thetaice"
+!SoilLiqContentTensorFile = "output-maps/thetaliq"
+SoilLiqWaterPressTensorFile="output-maps/psiliq"
+!IceLiqContentTensorFile = "output-maps/thetaice"
 
-!LandSurfaceWaterDepthMapFile = "output_maps/hsup"
-!WaterTableDepthMapFile = "output_maps/watertable"
+!LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+!WaterTableDepthMapFile = "output-maps/watertable"
 
-!SWEMapFile = "output_maps/SWE"
-!SnowDepthMapFile = "output_maps/snowdepth"
+!SWEMapFile = "output-maps/SWE"
+!SnowDepthMapFile = "output-maps/snowdepth"
 
-! SnowDurationMapFile = "output_maps/snowdur"
-!SnowMeltedMapFile= "output_maps/snowmelt"
+! SnowDurationMapFile = "output-maps/snowdur"
+!SnowMeltedMapFile= "output-maps/snowmelt"
 
-! NetRadiationMapFile = "output_maps/Rn" ! gives segmentation fault
-!InShortwaveRadiationMapFile = "output_maps/Rswin"
-!SurfaceHeatFluxMapFile = "output_maps/EB"
-!SurfaceSensibleHeatFluxMapFile = "output_maps/H"
-!SurfaceLatentHeatFluxMapFile = "output_maps/LE"
+! NetRadiationMapFile = "output-maps/Rn" ! gives segmentation fault
+!InShortwaveRadiationMapFile = "output-maps/Rswin"
+!SurfaceHeatFluxMapFile = "output-maps/EB"
+!SurfaceSensibleHeatFluxMapFile = "output-maps/H"
+!SurfaceLatentHeatFluxMapFile = "output-maps/LE"
 
 
 
-PrecipitationMapFile = "output_maps/Prec"
-NetPrecipitationFile = "output_maps/Pnet"
-!EvapotranspirationFromSoilFile = "output_maps/ET"
+PrecipitationMapFile = "output-maps/Prec"
+NetPrecipitationFile = "output-maps/Pnet"
+!EvapotranspirationFromSoilFile = "output-maps/ET"
 
-!AirTempMapFile = "output_maps/Ta"
+!AirTempMapFile = "output-maps/Ta"
 
-!GlacierDepthMapFile = "output_maps/glacdepth"
-!GlacierWaterEqMapFile = "output_maps/GWE"
-!GlacierMeltedMapFile = "output_maps/glacmelt"
+!GlacierDepthMapFile = "output-maps/glacdepth"
+!GlacierWaterEqMapFile = "output-maps/GWE"
+!GlacierMeltedMapFile = "output-maps/glacmelt"
 
-! ChannelSurfaceWaterDepthMapFile = "output_maps/ch"
+! ChannelSurfaceWaterDepthMapFile = "output-maps/ch"
 
 
 !=============================================================================

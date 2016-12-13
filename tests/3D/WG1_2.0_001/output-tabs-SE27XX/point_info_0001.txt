@@ -92,22 +92,22 @@
  Kh_sat of layer 8 [mm/s]: 0.000100
  Kh_sat of layer 9 [mm/s]: 0.000100
  Terrain elevation [m]: 2559.360589
- Sky view factor [-]: 0.795210
- The pixel-type is 10 
+ Sky view factor [-]: 0.855057
+ The pixel-type is 0 
  Aspect [deg] [0=Nord, clockwise]: 125.325000 
- Mean slope of the pixel [deg]: 15.762642 
- Land use number is 4 
- The root fraction [-] of layer 1: 0.075000
- The root fraction [-] of layer 2: 0.250000
- The root fraction [-] of layer 3: 0.500000
- The root fraction [-] of layer 4: 0.175000
+ Mean slope of the pixel [deg]: 9.405510 
+ Land use number is 1 
+ The root fraction [-] of layer 1: 0.000000
+ The root fraction [-] of layer 2: 0.000000
+ The root fraction [-] of layer 3: 0.000000
+ The root fraction [-] of layer 4: 0.000000
  The root fraction [-] of layer 5: 0.000000
  The root fraction [-] of layer 6: 0.000000
  The root fraction [-] of layer 7: 0.000000
- The root fraction [-] of layer 8: 0.000000
- The root fraction [-] of layer 9: 0.000000
- Surface fraction of land covered by vegetation [-]: 1.000000 
- Leaf and Stem Area Index [-]: 5.000000 
+ The root fraction [-] of layer 8: 0.060000
+ The root fraction [-] of layer 9: 0.200000
+ Surface fraction of land covered by vegetation [-]: 0.000000 
+ Leaf and Stem Area Index [-]: 0.000000 
  Momentum roughness length z0soil [m]: 0.100000 
- Vegetation height [m]: 400.000000 
+ Vegetation height [m]: 0.000000 
  

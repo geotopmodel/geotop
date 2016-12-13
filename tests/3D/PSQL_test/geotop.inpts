@@ -31,6 +31,10 @@ MeteoStationStandardTime=1
 MeteoStationWindVelocitySensorHeight=2
 MeteoStationTemperatureSensorHeight=5
 
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 MeteoFile = "meteo/meteo"
 
 !#######  header ##########
@@ -189,8 +193,8 @@ HeatEqMaxIter=700
 !=============================================================================
 
 DtPlotPoint = 1
-PointOutputFile = "output_tabs/point"
-!SnowProfileFile = "output_tabs/snow"
+PointOutputFile = "output-tabs/point"
+!SnowProfileFile = "output-tabs/snow"
 DatePoint=1
 PsnowPoint=2
 PrainPoint=3
@@ -215,11 +219,11 @@ OutputMeteoMaps = 1
 OutputSurfEBALMaps = 1
 OutputSnowMaps = 1
 OutputSoilMaps = 1
-SWEMapFile= "output_maps/SWE"
-SnowDepthMapFile = "output_maps/snowdepth"
-HNMapFile = "output_maps/HN"
+SWEMapFile= "output-maps/SWE"
+SnowDepthMapFile = "output-maps/snowdepth"
+HNMapFile = "output-maps/HN"
 NetPrecipitationMapFile = "NetPrec/NetPrec"
-!InLongwaveRadiationMapFile = "output_maps/LWIN"
+!InLongwaveRadiationMapFile = "output-maps/LWIN"
 	
 !=============================================================================
 !  RECOVERY FILE NAMES

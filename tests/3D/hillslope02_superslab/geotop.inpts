@@ -11,13 +11,18 @@ EndDateDDMMYYYYhhmm =  01/01/2000 00:30
 WaterBalance = 1
 
 !Output timeseries Dt in hours 
-DtPlotDischarge = 0.016666666
-DtPlotPoint = 0.016666666
+DtPlotDischarge = 0.1
+DtPlotPoint = 0.1
 OutputSoilMaps = 1.5
 
-DtPlotBasin = 1
+DtPlotBasin = 0.1
 BasinAll = 1
-BasinOutputFile = "output_tabs/basin" 
+!BasinOutputFile = "output-tabs/basin" 
+
+CoordinatePointX = 2,8,40,50,60,90
+CoordinatePointY = 5,5,5,5,5,5
+PointID = 1,2,3,4,5,6
+
 
 !======================================= 
 ! METEO HEADERS 
@@ -37,6 +42,12 @@ MeteoStationLongitude=0
 MeteoStationElevation=0
 MeteoStationWindVelocitySensorHeight = 10
 MeteoStationTemperatureSensorHeight = 10
+
+
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 
 
 !=======================================
@@ -111,20 +122,20 @@ SoilMapFile	=	"input_maps/soiltype"
 ! Output files
 
 ! Tabs 
-DischargeFile = "output_tabs/discharge"
-
-!PointOutputFile = "output_tabs/point"
-!SoilLiqWaterPressProfileFile = "output_tabs/P"
-!SoilLiqContentProfileFile = "output_tabs/L"
-!SoilIceContentProfileFile = "output_tabs/I"
-!SoilSaturationRatioProfileFile = "output_tabs/Sr"
+DischargeFile = "output-tabs/discharge"
+SoilAll = 1
+!PointOutputFile = "output-tabs/point"
+SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
+SoilLiqContentProfileFile = "output-tabs/thetaliq"
+!SoilIceContentProfileFile = "output-tabs/I"
+!SoilSaturationRatioProfileFile = "output-tabs/Sr"
 
 ! Maps
-LandSurfaceWaterDepthMapFile = "output_maps/hsup"
-WaterTableDepthMapFile  = "output_maps/wt"
-WaterTableDepthFromAboveMapFile  = "output_maps/wttop"
+LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+!WaterTableDepthMapFile  = "output-maps/wt"
+!WaterTableDepthFromAboveMapFile  = "output-maps/wttop"
 
 ! Tens
-SoilLiqContentTensorFile = "output_maps/thetaliq"
-SoilLiqWaterPressTensorFile = "output_maps/psiliq"
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+SoilLiqWaterPressTensorFile = "output-maps/psiliq"
 

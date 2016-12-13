@@ -58,6 +58,10 @@ MeteoStationStandardTime=1
 MeteoStationWindVelocitySensorHeight=2
 MeteoStationTemperatureSensorHeight=2
 
+MeteoStationStandardTime = 1
+
+
+
 !======================================= 
 ! METEO HAEDERS 
 !======================================= 
@@ -293,73 +297,73 @@ BedrockDepthMapFile = "input_maps/bedrock2"
 ! Output files
 
 ! Tabs 
-DischargeFile = "tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 
-PointOutputFile = "tabs/point" 
+PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "tabs/snow"
+SnowProfileFile = "output-tabs/snow"
 SnowAll = 1
 
-SnowCoveredAreaFile = "tabs/snowcover"
+SnowCoveredAreaFile = "output-tabs/snowcover"
 
-BasinOutputFile = "tabs/basin" 
+BasinOutputFile = "output-tabs/basin" 
 
 BasinAll = 1
 
-SoilAveragedTempProfileFile = "tabs/soilTz" 
-SoilLiqContentProfileFile = "tabs/thetaliq" 
-SoilIceContentProfileFile = "tabs/thetaice" 
+SoilAveragedTempProfileFile = "output-tabs/soilTz" 
+SoilLiqContentProfileFile = "output-tabs/thetaliq" 
+SoilIceContentProfileFile = "output-tabs/thetaice" 
 SoilAll = 1
 
 
 
 ! Maps
 
-SoilAveragedTempTensorFile = "maps/T"
-SurfaceTempMapFile = "maps/Ts"
+SoilAveragedTempTensorFile = "output-maps/T"
+SurfaceTempMapFile = "output-maps/Ts"
 
 
 
 !SOIL
-SoilLiqContentTensorFile = "maps/thetaliq"
-IceLiqContentTensorFile = "maps/thetaice"
-SoilTotWaterPressTensorFile = "maps/psi"
-LandSurfaceWaterDepthMapFile = "maps/hsup"
-WaterTableDepthMapFile = "maps/watertable"
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+IceLiqContentTensorFile = "output-maps/thetaice"
+SoilTotWaterPressTensorFile = "output-maps/psi"
+LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+WaterTableDepthMapFile = "output-maps/watertable"
 
 
 !SNOW
-SWEMapFile = "maps/SWE"
-SnowDepthMapFile = "maps/snowdepth"
-! SnowDurationMapFile = "maps/snowdur"
-!SnowMeltedMapFile= "maps/snowmelt"
+SWEMapFile = "output-maps/SWE"
+SnowDepthMapFile = "output-maps/snowdepth"
+! SnowDurationMapFile = "output-maps/snowdur"
+!SnowMeltedMapFile= "output-maps/snowmelt"
 
 !SURFACE
-NetShortwaveRadiationMapFile = "maps/SWnet"
-InShortwaveRadiationMapFile= "maps/SWin"
-NetLongwaveRadiationMapFile = "maps/LWnet"
-InLongwaveRadiationMapFile= "maps/LWin"
-NetRadiationMapFile= "maps/RadNet"
-SurfaceHeatFluxMapFile = "maps/EB"
-SurfaceSensibleHeatFluxMapFile = "maps/H"
-SurfaceLatentHeatFluxMapFile = "maps/LE"
-EvapotranspirationFromSoilMapFile = "maps/ET"
+NetShortwaveRadiationMapFile = "output-maps/SWnet"
+InShortwaveRadiationMapFile= "output-maps/SWin"
+NetLongwaveRadiationMapFile = "output-maps/LWnet"
+InLongwaveRadiationMapFile= "output-maps/LWin"
+NetRadiationMapFile= "output-maps/RadNet"
+SurfaceHeatFluxMapFile = "output-maps/EB"
+SurfaceSensibleHeatFluxMapFile = "output-maps/H"
+SurfaceLatentHeatFluxMapFile = "output-maps/LE"
+EvapotranspirationFromSoilMapFile = "output-maps/ET"
 
 
 !METEO
-PrecipitationMapFile = "maps/Prec"
-NetPrecipitationFile = "maps/Pnet"
-AirTempMapFile = "maps/Ta"
+PrecipitationMapFile = "output-maps/Prec"
+NetPrecipitationFile = "output-maps/Pnet"
+AirTempMapFile = "output-maps/Ta"
 
-!GlacierDepthMapFile = "maps/glacdepth"
-!GlacierWaterEqMapFile = "maps/GWE"
-!GlacierMeltedMapFile = "maps/glacmelt"
-! ChannelSurfaceWaterDepthMapFile = "maps/ch"
+!GlacierDepthMapFile = "output-maps/glacdepth"
+!GlacierWaterEqMapFile = "output-maps/GWE"
+!GlacierMeltedMapFile = "output-maps/glacmelt"
+! ChannelSurfaceWaterDepthMapFile = "output-maps/ch"
 
 
 !=============================================================================
 !  RECOVERY FILE NAMES
 !=============================================================================
-SubfolderRecoveryFiles="rec"
-ContinuousRecovery=1
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery=1

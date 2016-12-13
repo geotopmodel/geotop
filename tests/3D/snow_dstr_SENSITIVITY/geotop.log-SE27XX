@@ -6,14 +6,14 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/
 
 TimeStepEnergyAndWater[1] = 8.460000e+04 
 InitDateDDMMYYYYhhmm[1] = 5.102009e+10 
 SimulationHours[1] = 1.000000e+00 (default) 
 EndDateDDMMYYYYhhmm[1] = 6.102009e+10 
 NumSimulationTimes[1] = 1.000000e+00 
-StandardTimeSimulation[1] = 0.000000e+00 
+StandardTimeSimulation[1] = 1.000000e+00 
 DtPlotDischarge[1] = 1.000000e+00 
 DtPlotPoint[1] = 1.000000e+00 
 DtPlotBasin[1] = 1.000000e+00 
@@ -24,7 +24,7 @@ FormatOutputMaps[1] = 3.000000e+00 (default)
 PointSim[1] = 0.000000e+00 
 RecoverSim[1] = 0.000000e+00 
 NumLandCoverTypes[1] = 9.000000e+00 
-SoilRoughness[1] = 1.000000e+02 
+SoilRoughness[1] = 1.000000e+01 
 ThresSnowSoilRough[1] = 1.000000e+02 
 VegHeight[1] = 0.000000e+00 
 ThresSnowVegUp[1] = 5.000000e+01 
@@ -49,7 +49,7 @@ SoilEmissiv[1] = 9.600000e-01
 SurFlowResLand[1] = 5.000000e-01 
 RoughElemXUnitArea[1] = 0.000000e+00 (default) 
 RoughElemDiam[1] = 5.000000e+01 (default) 
-SoilRoughness[2] = 1.000000e+02 (default) 
+SoilRoughness[2] = 1.000000e+01 (default) 
 ThresSnowSoilRough[2] = 1.000000e+02 (default) 
 VegHeight[2] = 0.000000e+00 
 ThresSnowVegUp[2] = 5.000000e+01 (default) 
@@ -74,7 +74,7 @@ SoilEmissiv[2] = 9.600000e-01 (default)
 SurFlowResLand[2] = 5.000000e-01 (default) 
 RoughElemXUnitArea[2] = 0.000000e+00 (default) 
 RoughElemDiam[2] = 5.000000e+01 (default) 
-SoilRoughness[3] = 1.000000e+02 (default) 
+SoilRoughness[3] = 1.000000e+01 (default) 
 ThresSnowSoilRough[3] = 1.000000e+02 (default) 
 VegHeight[3] = 4.900000e+03 
 ThresSnowVegUp[3] = 5.000000e+01 (default) 
@@ -99,7 +99,7 @@ SoilEmissiv[3] = 9.600000e-01 (default)
 SurFlowResLand[3] = 5.000000e-01 (default) 
 RoughElemXUnitArea[3] = 0.000000e+00 (default) 
 RoughElemDiam[3] = 5.000000e+01 (default) 
-SoilRoughness[4] = 1.000000e+02 (default) 
+SoilRoughness[4] = 1.000000e+01 (default) 
 ThresSnowSoilRough[4] = 1.000000e+02 (default) 
 VegHeight[4] = 2.000000e+02 
 ThresSnowVegUp[4] = 5.000000e+01 (default) 
@@ -124,7 +124,7 @@ SoilEmissiv[4] = 9.600000e-01 (default)
 SurFlowResLand[4] = 5.000000e-01 (default) 
 RoughElemXUnitArea[4] = 0.000000e+00 (default) 
 RoughElemDiam[4] = 5.000000e+01 (default) 
-SoilRoughness[5] = 1.000000e+02 (default) 
+SoilRoughness[5] = 1.000000e+01 (default) 
 ThresSnowSoilRough[5] = 1.000000e+02 (default) 
 VegHeight[5] = 1.000000e+02 
 ThresSnowVegUp[5] = 5.000000e+01 (default) 
@@ -149,7 +149,7 @@ SoilEmissiv[5] = 9.600000e-01 (default)
 SurFlowResLand[5] = 5.000000e-01 (default) 
 RoughElemXUnitArea[5] = 0.000000e+00 (default) 
 RoughElemDiam[5] = 5.000000e+01 (default) 
-SoilRoughness[6] = 1.000000e+02 (default) 
+SoilRoughness[6] = 1.000000e+01 (default) 
 ThresSnowSoilRough[6] = 1.000000e+02 (default) 
 VegHeight[6] = 0.000000e+00 
 ThresSnowVegUp[6] = 5.000000e+01 (default) 
@@ -174,7 +174,7 @@ SoilEmissiv[6] = 9.600000e-01 (default)
 SurFlowResLand[6] = 5.000000e-01 (default) 
 RoughElemXUnitArea[6] = 0.000000e+00 (default) 
 RoughElemDiam[6] = 5.000000e+01 (default) 
-SoilRoughness[7] = 1.000000e+02 (default) 
+SoilRoughness[7] = 1.000000e+01 (default) 
 ThresSnowSoilRough[7] = 1.000000e+02 (default) 
 VegHeight[7] = 5.000000e+01 
 ThresSnowVegUp[7] = 5.000000e+01 (default) 
@@ -199,7 +199,7 @@ SoilEmissiv[7] = 9.600000e-01 (default)
 SurFlowResLand[7] = 5.000000e-01 (default) 
 RoughElemXUnitArea[7] = 0.000000e+00 (default) 
 RoughElemDiam[7] = 5.000000e+01 (default) 
-SoilRoughness[8] = 1.000000e+02 (default) 
+SoilRoughness[8] = 1.000000e+01 (default) 
 ThresSnowSoilRough[8] = 1.000000e+02 (default) 
 VegHeight[8] = 0.000000e+00 
 ThresSnowVegUp[8] = 5.000000e+01 (default) 
@@ -224,7 +224,7 @@ SoilEmissiv[8] = 9.600000e-01 (default)
 SurFlowResLand[8] = 5.000000e-01 (default) 
 RoughElemXUnitArea[8] = 0.000000e+00 (default) 
 RoughElemDiam[8] = 5.000000e+01 (default) 
-SoilRoughness[9] = 1.000000e+02 (default) 
+SoilRoughness[9] = 1.000000e+01 (default) 
 ThresSnowSoilRough[9] = 1.000000e+02 (default) 
 VegHeight[9] = 0.000000e+00 
 ThresSnowVegUp[9] = 5.000000e+01 (default) 
@@ -352,13 +352,13 @@ WaterBalance[1] = 1.000000e+00
 EnergyBalance[1] = 1.000000e+00 
 BlowingSnow[1] = 0.000000e+00 (default) 
 MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
-PointID[1] = -9.999000e+03 (default) 
+PointID[1] = 1.000000e+00 
 CoordinatePointX[1] = 6.296010e+05 
 CoordinatePointY[1] = 5.177788e+06 
-PointID[2] = -9.999000e+03 (default) 
+PointID[2] = 2.000000e+00 
 CoordinatePointX[2] = 6.297760e+05 
 CoordinatePointY[2] = 5.180840e+06 
-PointID[3] = -9.999000e+03 (default) 
+PointID[3] = 3.000000e+00 
 CoordinatePointX[3] = 6.306400e+05 
 CoordinatePointY[3] = 5.181474e+06 
 SavingPoints[1] = 0.000000e+00 (default) 
@@ -726,53 +726,53 @@ MeteoStationsID[1] = -9.999000e+03 (default)
 NumberOfMeteoStations[1] = 7.000000e+00 
 MeteoStationCoordinateX[1] = 6.296010e+05 
 MeteoStationCoordinateY[1] = 5.177788e+06 
-MeteoStationLatitude[1] = 4.675604e+01 (default) 
-MeteoStationLongitude[1] = 1.070311e+01 (default) 
+MeteoStationLatitude[1] = 4.674106e+01 
+MeteoStationLongitude[1] = 1.069655e+01 
 MeteoStationElevation[1] = 1.998000e+03 
 MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
-MeteoStationStandardTime[1] = 0.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 
 MeteoStationCoordinateX[2] = 6.208150e+05 
 MeteoStationCoordinateY[2] = 5.171506e+06 
-MeteoStationLatitude[2] = 4.675604e+01 (default) 
-MeteoStationLongitude[2] = 1.070311e+01 (default) 
+MeteoStationLatitude[2] = 4.668620e+01 
+MeteoStationLongitude[2] = 1.057992e+01 
 MeteoStationElevation[2] = 1.490000e+03 
 MeteoStationSkyViewFactor[2] = 1.000000e+00 (default) 
-MeteoStationStandardTime[2] = 0.000000e+00 (default) 
+MeteoStationStandardTime[2] = 1.000000e+00 (default) 
 MeteoStationCoordinateX[3] = 6.217330e+05 
 MeteoStationCoordinateY[3] = 5.172112e+06 
-MeteoStationLatitude[3] = 4.675604e+01 (default) 
-MeteoStationLongitude[3] = 1.070311e+01 (default) 
+MeteoStationLatitude[3] = 4.669149e+01 
+MeteoStationLongitude[3] = 1.059208e+01 
 MeteoStationElevation[3] = 1.930000e+03 
 MeteoStationSkyViewFactor[3] = 1.000000e+00 (default) 
-MeteoStationStandardTime[3] = 0.000000e+00 (default) 
+MeteoStationStandardTime[3] = 1.000000e+00 (default) 
 MeteoStationCoordinateX[4] = 6.297760e+05 
 MeteoStationCoordinateY[4] = 5.180840e+06 
-MeteoStationLatitude[4] = 4.675604e+01 (default) 
-MeteoStationLongitude[4] = 1.070311e+01 (default) 
+MeteoStationLatitude[4] = 4.676849e+01 
+MeteoStationLongitude[4] = 1.069969e+01 
 MeteoStationElevation[4] = 2.332000e+03 
 MeteoStationSkyViewFactor[4] = 1.000000e+00 (default) 
-MeteoStationStandardTime[4] = 0.000000e+00 (default) 
+MeteoStationStandardTime[4] = 1.000000e+00 (default) 
 MeteoStationCoordinateX[5] = 6.216710e+05 
 MeteoStationCoordinateY[5] = 5.168733e+06 
-MeteoStationLatitude[5] = 4.675604e+01 (default) 
-MeteoStationLongitude[5] = 1.070311e+01 (default) 
+MeteoStationLatitude[5] = 4.666110e+01 
+MeteoStationLongitude[5] = 1.059037e+01 
 MeteoStationElevation[5] = 9.900000e+02 
 MeteoStationSkyViewFactor[5] = 1.000000e+00 (default) 
-MeteoStationStandardTime[5] = 0.000000e+00 (default) 
+MeteoStationStandardTime[5] = 1.000000e+00 (default) 
 MeteoStationCoordinateX[6] = 6.346960e+05 
 MeteoStationCoordinateY[6] = 5.182751e+06 
-MeteoStationLatitude[6] = 4.675604e+01 (default) 
-MeteoStationLongitude[6] = 1.070311e+01 (default) 
+MeteoStationLatitude[6] = 4.678470e+01 
+MeteoStationLongitude[6] = 1.076466e+01 
 MeteoStationElevation[6] = 3.035000e+03 
 MeteoStationSkyViewFactor[6] = 1.000000e+00 (default) 
-MeteoStationStandardTime[6] = 0.000000e+00 (default) 
+MeteoStationStandardTime[6] = 1.000000e+00 (default) 
 MeteoStationCoordinateX[7] = 6.371740e+05 
 MeteoStationCoordinateY[7] = 5.181201e+06 
-MeteoStationLatitude[7] = 4.675604e+01 (default) 
-MeteoStationLongitude[7] = 1.070311e+01 (default) 
+MeteoStationLatitude[7] = 4.677025e+01 
+MeteoStationLongitude[7] = 1.079664e+01 
 MeteoStationElevation[7] = 3.220000e+03 
 MeteoStationSkyViewFactor[7] = 1.000000e+00 (default) 
-MeteoStationStandardTime[7] = 0.000000e+00 (default) 
+MeteoStationStandardTime[7] = 1.000000e+00 (default) 
 MeteoStationWindVelocitySensorHeight[1] = 5.000000e+00 
 MeteoStationTemperatureSensorHeight[1] = 5.000000e+00 
 LapseRateTemp[1] = -9.999000e+03 (default) 
@@ -909,24 +909,24 @@ InitSnowDepthMapFile = none
 InitSWEMapFile = none
 InitSnowAgeMapFile = none
 InitGlacierDepthMapFile = none
-DischargeFile = tabs/discharge
-BasinOutputFile = tabs/basin
+DischargeFile = output-tabs/discharge
+BasinOutputFile = output-tabs/basin
 BasinOutputFileWriteEnd = none
-PointOutputFile = tabs/point
-PointOutputFileWriteEnd = out/surface
+PointOutputFile = output-tabs/point
+PointOutputFileWriteEnd = none
 SoilTempProfileFile = none
 SoilTempProfileFileWriteEnd = none
-SoilAveragedTempProfileFile = tabs/soilTz
-SoilAveragedTempProfileFileWriteEnd = out/ground
+SoilAveragedTempProfileFile = output-tabs/soilTz
+SoilAveragedTempProfileFileWriteEnd = none
 SoilLiqWaterPressProfileFile = none
 SoilLiqWaterPressProfileFileWriteEnd = none
 SoilTotWaterPressProfileFile = none
 SoilTotWaterPressProfileFileWriteEnd = none
-SoilLiqContentProfileFile = tabs/thetaliq
+SoilLiqContentProfileFile = output-tabs/thetaliq
 SoilLiqContentProfileFileWriteEnd = none
 SoilAveragedLiqContentProfileFile = none
 SoilAveragedLiqContentProfileFileWriteEnd = none
-SoilIceContentProfileFile = tabs/thetaice
+SoilIceContentProfileFile = output-tabs/thetaice
 SoilIceContentProfileFileWriteEnd = none
 SoilAveragedIceContentProfileFile = none
 SoilAveragedIceContentProfileFileWriteEnd = none
@@ -941,7 +941,7 @@ SnowIceContentProfileFileWriteEnd = none
 SnowDepthLayersFileWriteEnd = none
 GlacierProfileFile = none
 GlacierProfileFileWriteEnd = none
-SnowCoveredAreaFile = tabs/snowcover
+SnowCoveredAreaFile = output-tabs/snowcover
 RunSoilAveragedTemperatureFile = none
 RunSoilAveragedTotalSoilMoistureFile = none
 RunSoilAveragedInternalEnergyFile = none
@@ -962,40 +962,40 @@ FirstSoilLayerIceContentMapFile = none
 SoilAveragedIceContentTensorFile = none
 LandSurfaceWaterDepthMapFile = none
 ChannelSurfaceWaterDepthMapFile = none
-NetRadiationMapFile = maps/netRad
+NetRadiationMapFile = output-maps/netRad
 InLongwaveRadiationMapFile = none
-NetLongwaveRadiationMapFile = maps/netLW
-NetShortwaveRadiationMapFile = maps/netSW
+NetLongwaveRadiationMapFile = output-maps/netLW
+NetShortwaveRadiationMapFile = output-maps/netSW
 InShortwaveRadiationMapFile = none
 DirectInShortwaveRadiationMapFile = none
 ShadowFractionTimeMapFile = none
 SurfaceHeatFluxMapFile = none
 SurfaceSensibleHeatFluxMapFile = none
 SurfaceLatentHeatFluxMapFile = none
-SurfaceTempMapFile = maps/SurfTemp
-PrecipitationMapFile = maps/P
+SurfaceTempMapFile = output-maps/SurfTemp
+PrecipitationMapFile = output-maps/P
 CanopyInterceptedWaterMapFile = none
 SoilLiqWaterPressTensorFile = none
 SoilTotWaterPressTensorFile = none
-SnowDepthMapFile = maps/snowdepth
-GlacierDepthMapFile = maps/glacierdepth
-SnowMeltedMapFile = maps/snowmelted
-SnowSublMapFile = maps/snowsubl
-GlacierMeltedMapFile = maps/glaciermelted
-GlacierSublimatedMapFile = maps/glaciersubl
-AirTempMapFile = maps/Ta
+SnowDepthMapFile = output-maps/snowdepth
+GlacierDepthMapFile = output-maps/glacierdepth
+SnowMeltedMapFile = output-maps/snowmelted
+SnowSublMapFile = output-maps/snowsubl
+GlacierMeltedMapFile = output-maps/glaciermelted
+GlacierSublimatedMapFile = output-maps/glaciersubl
+AirTempMapFile = output-maps/Ta
 WindSpeedMapFile = none
 WindDirMapFile = none
-RelHumMapFile = maps/RHrel
-SWEMapFile = maps/SWE
+RelHumMapFile = output-maps/RHrel
+SWEMapFile = output-maps/SWE
 GlacierWaterEqMapFile = none
-SnowDurationMapFile = maps/snowduration
-ThawedSoilDepthMapFile = maps/thawedsoildepth
+SnowDurationMapFile = output-maps/snowduration
+ThawedSoilDepthMapFile = output-maps/thawedsoildepth
 ThawedSoilDepthFromAboveMapFile = none
-WaterTableDepthMapFile = maps/watertable
+WaterTableDepthMapFile = output-maps/watertable
 WaterTableDepthFromAboveMapFile = none
-NetPrecipitationMapFile = maps/Pnet
-EvapotranspirationFromSoilMapFile = maps/ETsoil
+NetPrecipitationMapFile = output-maps/Pnet
+EvapotranspirationFromSoilMapFile = output-maps/ETsoil
 SpecificPlotSurfaceHeatFluxMapFile = none
 SpecificPlotTotalSensibleHeatFluxMapFile = none
 SpecificPlotTotalLatentHeatFluxMapFile = none
@@ -1251,8 +1251,8 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06)
 HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
 
-Attempting to read 'DemFile' in the file './dem100': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './landcover100adpt': EXISTING in format 3
+Attempting to read 'DemFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/dem100': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/landcover100adpt': EXISTING in format 3
 Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
 Attempting to read 'SoilMapFile' in the file 'none': not present in file list
@@ -1263,7 +1263,7 @@ Curvature N-S Min:-0.017800  Max:0.016100
 Curvature W-E Min:-0.022200  Max:0.014900 
 Curvature NW-SE Min:-0.024000  Max:0.024800 
 Curvature NE-SW Min:-0.028000  Max:0.019900 
-Attempting to read 'RiverNetwork' in the file './net100adpt': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file '/home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/net100adpt': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Valid pixels: 6188
 Number of nodes: 80444
@@ -1271,92 +1271,92 @@ Novalue pixels: 3952
 Basin area: 61.880000 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file ./horizongis0001.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0001.txt assigned to HorizonHeight
-Column 1 in file ./meteo0001.txt assigned to Date
-Column 2 in file ./meteo0001.txt assigned to JDfrom0
-Column 3 in file ./meteo0001.txt assigned to Iprec
-Column 5 in file ./meteo0001.txt assigned to WindSp
-Column 4 in file ./meteo0001.txt assigned to WindDir
-Column 6 in file ./meteo0001.txt assigned to RelHum
-Column 7 in file ./meteo0001.txt assigned to AirT
-Column 8 in file ./meteo0001.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0001.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to Iprec
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to WindSp
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0001.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #2
-Column 1 in file ./horizongis0002.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0002.txt assigned to HorizonHeight
-Column 1 in file ./meteo0002.txt assigned to Date
-Column 2 in file ./meteo0002.txt assigned to JDfrom0
-Column 3 in file ./meteo0002.txt assigned to Iprec
-Column 4 in file ./meteo0002.txt assigned to WindSp
-Column 5 in file ./meteo0002.txt assigned to WindDir
-Column 6 in file ./meteo0002.txt assigned to RelHum
-Column 7 in file ./meteo0002.txt assigned to AirT
-Column 8 in file ./meteo0002.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0002.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0002.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0002.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #3
-Column 1 in file ./horizongis0003.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0003.txt assigned to HorizonHeight
-Column 1 in file ./meteo0003.txt assigned to Date
-Column 2 in file ./meteo0003.txt assigned to JDfrom0
-Column 3 in file ./meteo0003.txt assigned to Iprec
-Column 4 in file ./meteo0003.txt assigned to WindSp
-Column 5 in file ./meteo0003.txt assigned to WindDir
-Column 6 in file ./meteo0003.txt assigned to RelHum
-Column 7 in file ./meteo0003.txt assigned to AirT
-Column 8 in file ./meteo0003.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0003.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0003.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0003.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #4
-Column 1 in file ./horizongis0004.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0004.txt assigned to HorizonHeight
-Column 1 in file ./meteo0004.txt assigned to Date
-Column 2 in file ./meteo0004.txt assigned to JDfrom0
-Column 3 in file ./meteo0004.txt assigned to Iprec
-Column 4 in file ./meteo0004.txt assigned to WindSp
-Column 5 in file ./meteo0004.txt assigned to WindDir
-Column 6 in file ./meteo0004.txt assigned to RelHum
-Column 7 in file ./meteo0004.txt assigned to AirT
-Column 8 in file ./meteo0004.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0004.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0004.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0004.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #5
-Column 1 in file ./horizongis0005.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0005.txt assigned to HorizonHeight
-Column 1 in file ./meteo0005.txt assigned to Date
-Column 2 in file ./meteo0005.txt assigned to JDfrom0
-Column 3 in file ./meteo0005.txt assigned to Iprec
-Column 4 in file ./meteo0005.txt assigned to WindSp
-Column 5 in file ./meteo0005.txt assigned to WindDir
-Column 6 in file ./meteo0005.txt assigned to RelHum
-Column 7 in file ./meteo0005.txt assigned to AirT
-Column 8 in file ./meteo0005.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0005.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0005.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0005.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #6
-Column 1 in file ./horizongis0006.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0006.txt assigned to HorizonHeight
-Column 1 in file ./meteo0006.txt assigned to Date
-Column 2 in file ./meteo0006.txt assigned to JDfrom0
-Column 3 in file ./meteo0006.txt assigned to Iprec
-Column 4 in file ./meteo0006.txt assigned to WindSp
-Column 5 in file ./meteo0006.txt assigned to WindDir
-Column 6 in file ./meteo0006.txt assigned to RelHum
-Column 7 in file ./meteo0006.txt assigned to AirT
-Column 8 in file ./meteo0006.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0006.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0006.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0006.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #7
-Column 1 in file ./horizongis0007.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./horizongis0007.txt assigned to HorizonHeight
-Column 1 in file ./meteo0007.txt assigned to Date
-Column 2 in file ./meteo0007.txt assigned to JDfrom0
-Column 3 in file ./meteo0007.txt assigned to Iprec
-Column 4 in file ./meteo0007.txt assigned to WindSp
-Column 5 in file ./meteo0007.txt assigned to WindDir
-Column 6 in file ./meteo0007.txt assigned to RelHum
-Column 7 in file ./meteo0007.txt assigned to AirT
-Column 8 in file ./meteo0007.txt assigned to Swglobal
-Column 1 in file ./lapserate_20091001_20131125.txt assigned to Date
-Column 3 in file ./lapserate_20091001_20131125.txt assigned to LapseRateTemp
-Column 4 in file ./lapserate_20091001_20131125.txt assigned to LapseRateDewTemp
-Column 5 in file ./lapserate_20091001_20131125.txt assigned to LapseRatePrec
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0007.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/horizongis0007.txt assigned to HorizonHeight
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/meteo0007.txt assigned to Swglobal
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/lapserate_20091001_20131125.txt assigned to Date
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/lapserate_20091001_20131125.txt assigned to LapseRateTemp
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/lapserate_20091001_20131125.txt assigned to LapseRateDewTemp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/snow_dstr_SENSITIVITY/lapserate_20091001_20131125.txt assigned to LapseRatePrec
 Shortwave radiation measurements from station 1
 WARNING: NO cloudiness measurements available
 WARNING: NO longwave radiation measurements available
@@ -1365,22 +1365,22 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 593
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-5/10/2009 23:30 50.00% - Time elapsed (h:m:s)  0:01:54 Time remaining (h:m)  0:01  
+5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:43 Time remaining (h:m)  0:00  
 
-5/10/2009 23:30 JD:277.979167 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.00 s, t_energy:  2.41 s, t_blowingsnow:  0.00 s, t_water:111.84 s, t_sub:  2.73 s, t_sup:109.11 s, t_out:  0.00 s
- SW= 52.35 W/m2  LW:-40.82 W/m2  H=  1.63 W/m2  LE=  0.70 W/m2 
+5/10/2009 23:30 JD:277.979167 (1^ simulation day) 94.00% completed! 
+ t_meteo:  0.00 s, t_energy:  3.56 s, t_blowingsnow:  0.00 s, t_water: 99.45 s, t_sub:  1.29 s, t_sup: 98.16 s, t_out:  0.00 s
+ SW= 52.13 W/m2  LW:-41.01 W/m2  H=  1.44 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.241324e-10 mm/h 
- Tot Error Richards=1.936711e-08 mm Mean Time Step=84600.000000 s
+ Max Error Richards=7.055911e-10 mm/h 
+ Tot Error Richards=1.658139e-08 mm Mean Time Step=84600.000000 s
 
-6/10/2009 23:00 100.00% - Time elapsed (h:m:s)  0:04:51 Time remaining (h:m)  0:00  
+6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:24 Time remaining (h:m) -1:57  
 
-6/10/2009 23:00 JD:278.958333 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.50 s, t_blowingsnow:  0.00 s, t_water:286.11 s, t_sub:  7.01 s, t_sup:279.10 s, t_out:  0.00 s
- SW= 57.17 W/m2  LW:-36.77 W/m2  H=  4.83 W/m2  LE=  3.38 W/m2 
+6/10/2009 23:00 JD:278.958333 (1^ simulation day) 188.00% completed! 
+ t_meteo:  0.01 s, t_energy:  7.27 s, t_blowingsnow:  0.00 s, t_water:255.70 s, t_sub:  5.19 s, t_sup:250.50 s, t_out:  0.00 s
+ SW= 56.95 W/m2  LW:-36.74 W/m2  H=  4.94 W/m2  LE=  3.32 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.257156e-09 mm/h 
- Tot Error Richards=4.891027e-08 mm Mean Time Step=84600.000000 s
+ Max Error Richards=1.027629e-09 mm/h 
+ Tot Error Richards=4.073067e-08 mm Mean Time Step=84600.000000 s
 
 Number of times the simulation #1 has been run: 1

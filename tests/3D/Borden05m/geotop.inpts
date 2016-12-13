@@ -33,6 +33,10 @@ MeteoStationTemperatureSensorHeight = 2.5
  
 MeteoFile = "meteo"
 
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
 !#######  header ##########
 HeaderDateDDMMYYYYhhmmMeteo = "Date"
 HeaderIPrec = "Iprec"
@@ -211,19 +215,19 @@ RichardMaxIter=700
 !  OUTPUT TIME SERIES
 !=============================================================================
 
-PointOutputFile = "output_tabs/point"
+PointOutputFile = "output-tabs/point"
 DtPlotPoint = 0.016666667
 PointAll = 1
 
-DischargeFile = "output_tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 DtPlotDischarge=0.016666667
 
-SoilTempProfileFile="output_tabs/soiltemp"
-SoilLiqContentProfileFile = "output_tabs/soilwater"
-! SoilAveragedLiqContentProfileFile = "output_tabs/avesoilwater"
+SoilTempProfileFile="output-tabs/soiltemp"
+SoilLiqContentProfileFile = "output-tabs/soilwater"
+! SoilAveragedLiqContentProfileFile = "output-tabs/avesoilwater"
 SoilAll=1
 
-BasinOutputFile = "output_tabs/basin"
+BasinOutputFile = "output-tabs/basin"
 DtPlotBasin=0.016666667
 BasinAll = 1
 
@@ -241,40 +245,40 @@ OutputSurfEBALMaps=0.5
 OutputMeteoMaps = 0.5
 
 ! soil moisture & temperature
-!FirstSoilLayerAveragedTempMapFile = "output_maps/MMGST"
-SoilLiqContentTensorFile = "output_maps/thetaliq"
-SoilLiqWaterPressTensorFile = "output_maps/psiliq"
-WaterTableDepthMapFile = "output_maps/watertable"
-!FirstSoilLayerLiqContentMapFile = "output_maps/thetasurf"
-ChannelSurfaceWaterDepthMapFile = "output_maps/waterchan"  
-LandSurfaceWaterDepthMapFile = "output_maps/watersurf"			
+!FirstSoilLayerAveragedTempMapFile = "output-maps/MMGST"
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+SoilLiqWaterPressTensorFile = "output-maps/psiliq"
+WaterTableDepthMapFile = "output-maps/watertable"
+!FirstSoilLayerLiqContentMapFile = "output-maps/thetasurf"
+ChannelSurfaceWaterDepthMapFile = "output-maps/waterchan"  
+LandSurfaceWaterDepthMapFile = "output-maps/watersurf"			
 
 
 ! Surface fluxes
-!EvapotranspirationFromSoilMapFile = "output_maps/ET"
-!SurfaceHeatFluxMapFile = "output_maps/G"
-!SurfaceSensibleHeatFluxMapFile = "output_maps/H"
-!SurfaceLatentHeatFluxMapFile = "output_maps/LE"
-!LandSurfaceWaterDepthMapFile = "output_maps/watertable"
+!EvapotranspirationFromSoilMapFile = "output-maps/ET"
+!SurfaceHeatFluxMapFile = "output-maps/G"
+!SurfaceSensibleHeatFluxMapFile = "output-maps/H"
+!SurfaceLatentHeatFluxMapFile = "output-maps/LE"
+!LandSurfaceWaterDepthMapFile = "output-maps/watertable"
 
 ! Radiation
-!NetShortwaveRadiationMapFile = "output_maps/Rn"
-!RadiationMapFile = "output_maps/Rad"
-!InShortwaveRadiationMapFile = "output_maps/SWin"
-!InLongwaveRadiationMapFile = "output_maps/LWin"
-!NetRadiationMapFile = "output_maps/RadNet"
+!NetShortwaveRadiationMapFile = "output-maps/Rn"
+!RadiationMapFile = "output-maps/Rad"
+!InShortwaveRadiationMapFile = "output-maps/SWin"
+!InLongwaveRadiationMapFile = "output-maps/LWin"
+!NetRadiationMapFile = "output-maps/RadNet"
 
 ! Meteo
-PrecipitationMapFile = "output_maps/Prec"
-NetPrecipitationFile = "output_maps/Pnet"
-!RelHumMapFile = "output_maps/RH"
-!AirTempMapFile = "output_maps/Ta"
-!WindSpeedMapFile = "output_maps/WindSp"
+PrecipitationMapFile = "output-maps/Prec"
+NetPrecipitationFile = "output-maps/Pnet"
+!RelHumMapFile = "output-maps/RH"
+!AirTempMapFile = "output-maps/Ta"
+!WindSpeedMapFile = "output-maps/WindSp"
                           
 
-!SWEMapFile = "output_maps/SWE"
-!SnowDepthMapFile = "output_maps/snowdepth"
-!SnowDurationMapFile = "output_maps/snowduration"
+!SWEMapFile = "output-maps/SWE"
+!SnowDepthMapFile = "output-maps/snowdepth"
+!SnowDurationMapFile = "output-maps/snowduration"
 
 
 !=============================================================================
