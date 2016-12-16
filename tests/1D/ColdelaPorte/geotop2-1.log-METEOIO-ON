@@ -109,7 +109,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 
 [NOTICE]: 1/8/1993 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
-[NOTICE]: Duration of simulation: 0.294183
+[NOTICE]: Duration of simulation: 0.290717
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables

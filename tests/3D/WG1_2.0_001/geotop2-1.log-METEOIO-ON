@@ -1,0 +1,35 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 11878 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 11, of which 2 at the bottom, 5 in the middle, and 4 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	3 4 5 6 7 
+[NOTICE]: Max glac layer number: 83, of which 20 at the bottom, 3 in the middle, and 60 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	21 22 23 
+
+Soil Layers: 9
+
+Soil Bedrock Layers: 9
+
+[NOTICE]: /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/listpoints.txt
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/listpoints.txt assigned to xcoord
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/listpoints.txt assigned to ycoord
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/listpoints.txt assigned to id
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/INmaps500/dem existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/WG1_2.0_001/INmaps500/dem
+

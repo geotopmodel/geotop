@@ -1,0 +1,663 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 7340 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 12, of which 2 at the bottom, 5 in the middle, and 5 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	3 4 5 6 7 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to Dz
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to Kv
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to Kh
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to res
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to fc
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to sat
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to a
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to n
+
+[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/soil/soil0001.txt assigned to SS
+
+
+Soil Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Soil Bedrock Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+[NOTICE]: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/ListPoints.txt
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/ListPoints.txt assigned to Xwgs
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/ListPoints.txt assigned to Ywgs
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/ListPoints.txt assigned to ID
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/pit existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/pit
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/landcover existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/landcover
+
+[NOTICE]: par->state_pixel=1
+
+i:1 1.000000
+A i:1 1
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/sky existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/sky
+
+[NOTICE]: not present in file list
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/soiltype existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/soiltype
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/slope existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/slope
+
+[NOTICE]: Slope Min:   0.0499579 (        2.86 deg) Max:    0.222061 (       12.52 deg)
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/aspect existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/aspect
+
+[NOTICE]: Curvature N-S Min:    -0.00032  Max:     0.00044 
+
+[NOTICE]: Curvature W-E Min:    -0.00032  Max:      0.0004 
+
+[NOTICE]: Curvature NW-SE Min:    -0.00052  Max:     0.00056 
+
+[NOTICE]: Curvature NE-SW Min:    -0.00032  Max:     0.00068 
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/net existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/input_maps/net
+
+[NOTICE]: Channel networks has 8 pixels set to channel
+[NOTICE]: Valid pixels: 37
+[NOTICE]: Number of nodes: 148
+[NOTICE]: Novalue pixels: 51
+[NOTICE]: Basin area:         9.25 km2
+[NOTICE]: Valid pixels: 37
+[NOTICE]: Number of nodes: 148
+[NOTICE]: Novalue pixels: 51
+[NOTICE]: Basin area:         9.25 km2
+[WARNING]: Horizon file FOUND for meteo station #1
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0001.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0001.txt assigned to horizon_ele
+
+[WARNING]: Horizon file FOUND for meteo station #2
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0002.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0002.txt assigned to horizon_ele
+
+[WARNING]: Horizon file FOUND for meteo station #3
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0003.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/small_example-channel/hor_meteo/horizon0003.txt assigned to horizon_ele
+
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,10,4,         950,1,1,        4.92,         144,         0.5
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      641960, 5.00857e+06,     46.5563,     12.4259,        1200,           1,           1,           2,           5
+2,      643962, 5.01001e+06,      46.461,     12.4103,        1450,           1,           1,           2,           5
+3,      644544,  5.0065e+06,       46.45,      12.417,         990,           1,           1,           2,           5
+[NOTICE]: Channel pixels: 8
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 6 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 3 layers
+[NOTICE]: 19/2/2012 13:00 0.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 14:00 0.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 15:00 1.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 16:00 1.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 17:00 2.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 18:00 2.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 19:00 2.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 20:00 3.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 21:00 3.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 22:00 4.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 19/2/2012 23:00 4.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 0:00 5.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 1:00 5.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 2:00 5.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 3:00 6.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 4:00 6.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 5:00 7.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 6:00 7.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 7:00 7.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 8:00 8.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 9:00 8.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 10:00 9.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 11:00 9.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 12:00 10.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 13:00 10.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 14:00 10.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 15:00 11.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 16:00 11.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 17:00 12.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 18:00 12.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 19:00 12.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 20:00 13.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 21:00 13.75% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 22:00 14.17% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 20/2/2012 23:00 14.58% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 0:00 15.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 1:00 15.42% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 2:00 15.83% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 3:00 16.25% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 4:00 16.67% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 5:00 17.08% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 6:00 17.50% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 7:00 17.92% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 8:00 18.33% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 9:00 18.75% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 10:00 19.17% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 11:00 19.58% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 12:00 20.00% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 13:00 20.42% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 14:00 20.83% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 15:00 21.25% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 16:00 21.67% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 17:00 22.08% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 18:00 22.50% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 19:00 22.92% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 20:00 23.33% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 21:00 23.75% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 22:00 24.17% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 21/2/2012 23:00 24.58% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 0:00 25.00% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 1:00 25.42% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 2:00 25.83% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 3:00 26.25% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 4:00 26.67% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 5:00 27.08% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 6:00 27.50% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 7:00 27.92% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 8:00 28.33% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 9:00 28.75% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 10:00 29.17% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 11:00 29.58% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 12:00 30.00% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 13:00 30.42% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 14:00 30.83% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 15:00 31.25% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 16:00 31.67% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 17:00 32.08% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 18:00 32.50% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 19:00 32.92% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 20:00 33.33% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 21:00 33.75% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 22:00 34.17% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 22/2/2012 23:00 34.58% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 0:00 35.00% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 1:00 35.42% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 2:00 35.83% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 3:00 36.25% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 4:00 36.67% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 5:00 37.08% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 6:00 37.50% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 7:00 37.92% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 8:00 38.33% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 9:00 38.75% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 10:00 39.17% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 11:00 39.58% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 12:00 40.00% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 13:00 40.42% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 14:00 40.83% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 15:00 41.25% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 16:00 41.67% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 17:00 42.08% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 18:00 42.50% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 19:00 42.92% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 20:00 43.33% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 21:00 43.75% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 22:00 44.17% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 23/2/2012 23:00 44.58% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 0:00 45.00% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 1:00 45.42% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 2:00 45.83% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 3:00 46.25% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 4:00 46.67% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 5:00 47.08% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 6:00 47.50% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 7:00 47.92% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 8:00 48.33% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 9:00 48.75% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 10:00 49.17% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 11:00 49.58% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 12:00 50.00% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 13:00 50.42% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 14:00 50.83% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 15:00 51.25% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 16:00 51.67% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 17:00 52.08% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 18:00 52.50% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 19:00 52.92% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 20:00 53.33% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 21:00 53.75% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 22:00 54.17% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 24/2/2012 23:00 54.58% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 0:00 55.00% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 1:00 55.42% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 2:00 55.83% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 3:00 56.25% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 4:00 56.67% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 5:00 57.08% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 6:00 57.50% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 7:00 57.92% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 8:00 58.33% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 9:00 58.75% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 10:00 59.17% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 11:00 59.58% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 12:00 60.00% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 13:00 60.42% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 14:00 60.83% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 15:00 61.25% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 16:00 61.67% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 17:00 62.08% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 18:00 62.50% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 19:00 62.92% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 20:00 63.33% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 21:00 63.75% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 22:00 64.17% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 25/2/2012 23:00 64.58% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 0:00 65.00% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 1:00 65.42% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 2:00 65.83% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 3:00 66.25% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 4:00 66.67% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 5:00 67.08% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 6:00 67.50% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 7:00 67.92% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 8:00 68.33% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 9:00 68.75% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 10:00 69.17% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 11:00 69.58% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 12:00 70.00% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 13:00 70.42% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 14:00 70.83% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 15:00 71.25% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 16:00 71.67% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 17:00 72.08% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 18:00 72.50% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 19:00 72.92% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 20:00 73.33% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 21:00 73.75% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 22:00 74.17% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 26/2/2012 23:00 74.58% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 0:00 75.00% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 1:00 75.42% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 2:00 75.83% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 3:00 76.25% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 4:00 76.67% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 5:00 77.08% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 6:00 77.50% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 7:00 77.92% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 8:00 78.33% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 9:00 78.75% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 10:00 79.17% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 11:00 79.58% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 12:00 80.00% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 13:00 80.42% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 14:00 80.83% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 15:00 81.25% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 16:00 81.67% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 17:00 82.08% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 18:00 82.50% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 19:00 82.92% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 20:00 83.33% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 21:00 83.75% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 22:00 84.17% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 27/2/2012 23:00 84.58% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 0:00 85.00% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 1:00 85.42% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 2:00 85.83% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 3:00 86.25% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 4:00 86.67% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 5:00 87.08% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 6:00 87.50% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 7:00 87.92% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 8:00 88.33% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 9:00 88.75% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 10:00 89.17% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 11:00 89.58% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 12:00 90.00% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 13:00 90.42% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 14:00 90.83% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 15:00 91.25% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 16:00 91.67% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 17:00 92.08% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 18:00 92.50% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 19:00 92.92% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 20:00 93.33% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 21:00 93.75% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 22:00 94.17% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 28/2/2012 23:00 94.58% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 0:00 95.00% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 1:00 95.42% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 2:00 95.83% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 3:00 96.25% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 4:00 96.67% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 5:00 97.08% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 6:00 97.50% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 7:00 97.92% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 8:00 98.33% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 9:00 98.75% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 10:00 99.17% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 11:00 99.58% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:00  
+
+[NOTICE]: 29/2/2012 12:00 100.00% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:00  
+
+[NOTICE]: Duration of simulation: 19.952491
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+

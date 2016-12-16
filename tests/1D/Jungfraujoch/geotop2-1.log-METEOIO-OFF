@@ -1603,7 +1603,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 
 [NOTICE]: 31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
-[NOTICE]: Duration of simulation: 38.898775
+[NOTICE]: Duration of simulation: 39.369850
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables

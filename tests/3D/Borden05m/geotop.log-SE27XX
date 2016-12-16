@@ -841,10 +841,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:01 10.00% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:02  
+1/6/2000 12:01 10.00% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:02  
 
 1/6/2000 12:01 JD:152.500694 (1^ simulation day) 10.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 15.26 s, t_sub: 15.24 s, t_sup:  0.01 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 13.85 s, t_sub: 13.83 s, t_sup:  0.01 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.610875e-04 mm/h 
@@ -859,10 +859,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:02 20.00% - Time elapsed (h:m:s)  0:00:30 Time remaining (h:m)  0:02  
+1/6/2000 12:02 20.00% - Time elapsed (h:m:s)  0:00:28 Time remaining (h:m)  0:01  
 
 1/6/2000 12:02 JD:152.501389 (1^ simulation day) 20.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 29.33 s, t_sub: 29.28 s, t_sup:  0.05 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 28.00 s, t_sub: 27.95 s, t_sup:  0.05 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.749524e-04 mm/h 
@@ -877,10 +877,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:03 30.00% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:01  
+1/6/2000 12:03 30.00% - Time elapsed (h:m:s)  0:00:47 Time remaining (h:m)  0:01  
 
 1/6/2000 12:03 JD:152.502083 (1^ simulation day) 30.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 48.74 s, t_sub: 48.64 s, t_sup:  0.09 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 46.52 s, t_sub: 46.42 s, t_sup:  0.09 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.025412e-03 mm/h 
@@ -895,10 +895,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:04 40.00% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:01  
+1/6/2000 12:04 40.00% - Time elapsed (h:m:s)  0:00:58 Time remaining (h:m)  0:01  
 
 1/6/2000 12:04 JD:152.502778 (1^ simulation day) 40.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 60.78 s, t_sub: 60.61 s, t_sup:  0.16 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 57.52 s, t_sub: 57.36 s, t_sup:  0.15 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.991807e-04 mm/h 
@@ -913,10 +913,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:05 50.00% - Time elapsed (h:m:s)  0:01:16 Time remaining (h:m)  0:01  
+1/6/2000 12:05 50.00% - Time elapsed (h:m:s)  0:01:11 Time remaining (h:m)  0:01  
 
 1/6/2000 12:05 JD:152.503472 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 76.33 s, t_sub: 76.07 s, t_sup:  0.25 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 71.29 s, t_sub: 71.03 s, t_sup:  0.24 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.734220e-03 mm/h 
@@ -931,10 +931,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:06 60.00% - Time elapsed (h:m:s)  0:01:24 Time remaining (h:m)  0:00  
+1/6/2000 12:06 60.00% - Time elapsed (h:m:s)  0:01:19 Time remaining (h:m)  0:00  
 
 1/6/2000 12:06 JD:152.504167 (1^ simulation day) 60.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 83.84 s, t_sub: 83.45 s, t_sup:  0.37 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 78.50 s, t_sub: 78.13 s, t_sup:  0.36 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.872783e-04 mm/h 
@@ -949,10 +949,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:07 70.00% - Time elapsed (h:m:s)  0:01:30 Time remaining (h:m)  0:00  
+1/6/2000 12:07 70.00% - Time elapsed (h:m:s)  0:01:24 Time remaining (h:m)  0:00  
 
 1/6/2000 12:07 JD:152.504861 (1^ simulation day) 70.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 90.41 s, t_sub: 89.86 s, t_sup:  0.53 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 84.31 s, t_sub: 83.78 s, t_sup:  0.51 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.808598e-03 mm/h 
@@ -967,10 +967,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:08 80.00% - Time elapsed (h:m:s)  0:01:41 Time remaining (h:m)  0:00  
+1/6/2000 12:08 80.00% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:00  
 
 1/6/2000 12:08 JD:152.505556 (1^ simulation day) 80.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 99.96 s, t_sub: 99.19 s, t_sup:  0.76 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 92.63 s, t_sub: 91.89 s, t_sup:  0.72 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=3.197539e-04 mm/h 
@@ -985,10 +985,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:09 90.00% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:00  
+1/6/2000 12:09 90.00% - Time elapsed (h:m:s)  0:01:41 Time remaining (h:m)  0:00  
 
 1/6/2000 12:09 JD:152.506250 (1^ simulation day) 90.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:107.36 s, t_sub:106.34 s, t_sup:  1.00 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 99.63 s, t_sub: 98.65 s, t_sup:  0.96 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.265200e-04 mm/h 
@@ -1003,10 +1003,10 @@ No wind measurements, used the value of the previous time step
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/6/2000 12:10 100.00% - Time elapsed (h:m:s)  0:01:57 Time remaining (h:m)  0:00  
+1/6/2000 12:10 100.00% - Time elapsed (h:m:s)  0:01:47 Time remaining (h:m)  0:00  
 
 1/6/2000 12:10 JD:152.506944 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:115.23 s, t_sub:113.94 s, t_sup:  1.27 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:107.18 s, t_sub:105.93 s, t_sup:  1.22 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  0.33 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.031336e-03 mm/h 

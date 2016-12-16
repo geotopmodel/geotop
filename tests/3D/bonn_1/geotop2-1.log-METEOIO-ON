@@ -1,0 +1,145 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/bonn_1
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 2380 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 24, of which 4 at the bottom, 10 in the middle, and 10 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	5 6 7 8 9 10 11 12 13 14 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[WARNING]: SubfolderRecoveryFiles: rec doesn't exist. Attempting to create it...
+[WARNING]: rec successfully created
+
+Soil Layers: 10
+
+Soil Bedrock Layers: 10
+
+[WARNING]: The points to plot specific results are not completely specified
+Output for single point output is deactivated.
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/dem existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/dem
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/land existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/land
+
+[NOTICE]: par->state_pixel=0
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/sky not existing
+[NOTICE]: not present in file list
+[NOTICE]: not present in file list
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/slope existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/slope
+
+[NOTICE]: Slope Min:        0.02 (     1.14576 deg) Max:   0.0538517 (      3.0825 deg)
+[NOTICE]: not present in file list
+[NOTICE]: Curvature N-S Min:           0  Max:           0 
+
+[NOTICE]: Curvature W-E Min:           0  Max:        0.01 
+
+[NOTICE]: Curvature NW-SE Min:           0  Max:        0.01 
+
+[NOTICE]: Curvature NE-SW Min:           0  Max:        0.01 
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/net existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/bonn_1/input_maps/net
+
+[NOTICE]: Channel networks has 0 pixels set to channel
+[NOTICE]: Valid pixels: 110
+[NOTICE]: Number of nodes: 1210
+[NOTICE]: Novalue pixels: 46
+[NOTICE]: Basin area:        0.011 km2
+[NOTICE]: Valid pixels: 110
+[NOTICE]: Number of nodes: 1210
+[NOTICE]: Novalue pixels: 46
+[NOTICE]: Basin area:        0.011 km2
+[WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,          15,           5,           0,           0,           0,           1,           1,          10,          10
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 10 layers
+[NOTICE]: 1/1/2000 1:00 JD:0.041667 (1^ simulation day)  0.00% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:-18.78 W/m2  H= -1.83 W/m2  LE=  0.06 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.769407e-08 mm/h 
+ Tot Error Richards=2.769407e-08 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/1/2000 2:00 JD:0.083333 (1^ simulation day)  0.00% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:-18.64 W/m2  H= -1.85 W/m2  LE=  0.05 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.420451e-08 mm/h 
+ Tot Error Richards=5.189858e-08 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/1/2000 3:00 JD:0.125000 (1^ simulation day)  0.00% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:-18.51 W/m2  H= -1.86 W/m2  LE=  0.05 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.217401e-08 mm/h 
+ Tot Error Richards=8.407258e-08 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/1/2000 4:00 JD:0.166667 (1^ simulation day)  0.00% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:-18.39 W/m2  H= -1.88 W/m2  LE=  0.04 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.034937e-08 mm/h 
+ Tot Error Richards=1.044220e-07 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: Duration of simulation: 0.126048
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+

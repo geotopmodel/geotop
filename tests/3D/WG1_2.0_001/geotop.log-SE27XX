@@ -1394,21 +1394,21 @@ Soil water transpires from the first 7 layers
 4/10/2009 10:00 2.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 4/10/2009 11:00 2.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 4/10/2009 12:00 3.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 13:00 3.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 14:00 3.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 15:00 3.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 16:00 4.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 17:00 4.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 18:00 4.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 19:00 4.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 20:00 5.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 21:00 5.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 22:00 5.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/10/2009 13:00 3.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 14:00 3.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 15:00 3.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 16:00 4.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 17:00 4.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 18:00 4.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 19:00 4.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 20:00 5.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 21:00 5.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+4/10/2009 22:00 5.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 4/10/2009 23:00 6.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 5/10/2009 0:00 6.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 
 5/10/2009 0:00 JD:277.000000 (1^ simulation day)  6.27% completed! 
- t_meteo:  0.01 s, t_energy:  0.35 s, t_blowingsnow:  0.00 s, t_water:  0.39 s, t_sub:  0.38 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.33 s, t_blowingsnow:  0.00 s, t_water:  0.36 s, t_sub:  0.35 s, t_sup:  0.00 s, t_out:  0.01 s
  SW=102.53 W/m2  LW:-61.85 W/m2  H=  7.69 W/m2  LE= 12.03 W/m2 
  Pvert=  0.03 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.485290e-10 mm/h 
@@ -1433,22 +1433,22 @@ Soil water transpires from the first 7 layers
 5/10/2009 17:00 10.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 5/10/2009 18:00 10.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 5/10/2009 19:00 11.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-5/10/2009 20:00 11.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-5/10/2009 21:00 11.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-5/10/2009 22:00 12.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-5/10/2009 23:00 12.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-6/10/2009 0:00 12.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+5/10/2009 20:00 11.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/10/2009 21:00 11.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/10/2009 22:00 12.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+5/10/2009 23:00 12.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/10/2009 0:00 12.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 
 6/10/2009 0:00 JD:278.000000 (2^ simulation day) 12.53% completed! 
- t_meteo:  0.01 s, t_energy:  0.66 s, t_blowingsnow:  0.00 s, t_water:  0.82 s, t_sub:  0.82 s, t_sup:  0.01 s, t_out:  0.03 s
+ t_meteo:  0.01 s, t_energy:  0.61 s, t_blowingsnow:  0.00 s, t_water:  0.75 s, t_sub:  0.74 s, t_sup:  0.00 s, t_out:  0.02 s
  SW= 73.83 W/m2  LW:-48.86 W/m2  H=  5.11 W/m2  LE=  7.20 W/m2 
  Pvert=  0.04 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.225181e-11 mm/h 
  Tot Error Richards=3.858740e-09 mm Mean Time Step=3600.000000 s
 
-6/10/2009 1:00 12.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-6/10/2009 2:00 13.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-6/10/2009 3:00 13.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+6/10/2009 1:00 12.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/10/2009 2:00 13.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+6/10/2009 3:00 13.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 6/10/2009 4:00 13.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 6/10/2009 5:00 13.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 6/10/2009 6:00 14.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
@@ -1472,7 +1472,7 @@ Soil water transpires from the first 7 layers
 7/10/2009 0:00 18.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 
 7/10/2009 0:00 JD:279.000000 (3^ simulation day) 18.80% completed! 
- t_meteo:  0.02 s, t_energy:  0.95 s, t_blowingsnow:  0.00 s, t_water:  1.25 s, t_sub:  1.23 s, t_sup:  0.01 s, t_out:  0.04 s
+ t_meteo:  0.01 s, t_energy:  0.88 s, t_blowingsnow:  0.00 s, t_water:  1.13 s, t_sub:  1.12 s, t_sup:  0.01 s, t_out:  0.04 s
  SW= 66.02 W/m2  LW:-42.26 W/m2  H=  3.70 W/m2  LE=  4.73 W/m2 
  Pvert=  0.04 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.403303e-12 mm/h 
@@ -1504,7 +1504,7 @@ Soil water transpires from the first 7 layers
 8/10/2009 0:00 25.07% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 
 8/10/2009 0:00 JD:280.000000 (4^ simulation day) 25.07% completed! 
- t_meteo:  0.02 s, t_energy:  1.29 s, t_blowingsnow:  0.00 s, t_water:  1.78 s, t_sub:  1.76 s, t_sup:  0.01 s, t_out:  0.06 s
+ t_meteo:  0.02 s, t_energy:  1.13 s, t_blowingsnow:  0.00 s, t_water:  1.50 s, t_sub:  1.49 s, t_sup:  0.01 s, t_out:  0.05 s
  SW= 74.49 W/m2  LW:-45.01 W/m2  H=  4.24 W/m2  LE=  6.50 W/m2 
  Pvert=  0.04 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.266239e-12 mm/h 
@@ -1519,12 +1519,12 @@ Soil water transpires from the first 7 layers
 8/10/2009 7:00 26.89% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 8/10/2009 8:00 27.15% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 8/10/2009 9:00 27.42% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
-8/10/2009 10:00 27.68% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-8/10/2009 11:00 27.94% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-8/10/2009 12:00 28.20% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-8/10/2009 13:00 28.46% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-8/10/2009 14:00 28.72% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-8/10/2009 15:00 28.98% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+8/10/2009 10:00 27.68% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/10/2009 11:00 27.94% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/10/2009 12:00 28.20% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/10/2009 13:00 28.46% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/10/2009 14:00 28.72% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+8/10/2009 15:00 28.98% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 8/10/2009 16:00 29.24% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 8/10/2009 17:00 29.50% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 8/10/2009 18:00 29.77% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
@@ -1536,7 +1536,7 @@ Soil water transpires from the first 7 layers
 9/10/2009 0:00 31.33% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 
 9/10/2009 0:00 JD:281.000000 (5^ simulation day) 31.33% completed! 
- t_meteo:  0.03 s, t_energy:  1.55 s, t_blowingsnow:  0.00 s, t_water:  2.17 s, t_sub:  2.15 s, t_sup:  0.01 s, t_out:  0.08 s
+ t_meteo:  0.02 s, t_energy:  1.38 s, t_blowingsnow:  0.00 s, t_water:  1.87 s, t_sub:  1.85 s, t_sup:  0.01 s, t_out:  0.06 s
  SW= 59.17 W/m2  LW:-42.15 W/m2  H=  5.23 W/m2  LE=  4.60 W/m2 
  Pvert=  0.04 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.026534e-10 mm/h 
@@ -1559,16 +1559,16 @@ Soil water transpires from the first 7 layers
 9/10/2009 15:00 35.25% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 9/10/2009 16:00 35.51% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 9/10/2009 17:00 35.77% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
-9/10/2009 18:00 36.03% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
-9/10/2009 19:00 36.29% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
-9/10/2009 20:00 36.55% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
-9/10/2009 21:00 36.81% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+9/10/2009 18:00 36.03% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+9/10/2009 19:00 36.29% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+9/10/2009 20:00 36.55% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+9/10/2009 21:00 36.81% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
 9/10/2009 22:00 37.08% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 9/10/2009 23:00 37.34% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 10/10/2009 0:00 37.60% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 
 10/10/2009 0:00 JD:282.000000 (6^ simulation day) 37.60% completed! 
- t_meteo:  0.03 s, t_energy:  1.99 s, t_blowingsnow:  0.00 s, t_water:  2.58 s, t_sub:  2.56 s, t_sup:  0.02 s, t_out:  0.09 s
+ t_meteo:  0.03 s, t_energy:  1.78 s, t_blowingsnow:  0.00 s, t_water:  2.25 s, t_sub:  2.23 s, t_sup:  0.01 s, t_out:  0.07 s
  SW= 51.00 W/m2  LW:-38.84 W/m2  H=  6.20 W/m2  LE=  2.90 W/m2 
  Pvert=  1.89 mm Prain=  1.76 mm  Psnow=  0.38 mm  
  Max Error Richards=3.792641e-10 mm/h 
@@ -1587,20 +1587,20 @@ Soil water transpires from the first 7 layers
 10/10/2009 11:00 40.47% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 10/10/2009 12:00 40.73% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 10/10/2009 13:00 40.99% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
-10/10/2009 14:00 41.25% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 15:00 41.51% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 16:00 41.78% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 17:00 42.04% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 18:00 42.30% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 19:00 42.56% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 20:00 42.82% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 21:00 43.08% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-10/10/2009 22:00 43.34% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+10/10/2009 14:00 41.25% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 15:00 41.51% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 16:00 41.78% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 17:00 42.04% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 18:00 42.30% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 19:00 42.56% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 20:00 42.82% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 21:00 43.08% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+10/10/2009 22:00 43.34% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 10/10/2009 23:00 43.60% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 11/10/2009 0:00 43.86% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 
 11/10/2009 0:00 JD:283.000000 (7^ simulation day) 43.86% completed! 
- t_meteo:  0.04 s, t_energy:  2.51 s, t_blowingsnow:  0.00 s, t_water:  3.00 s, t_sub:  2.97 s, t_sup:  0.02 s, t_out:  0.11 s
+ t_meteo:  0.03 s, t_energy:  2.27 s, t_blowingsnow:  0.00 s, t_water:  2.64 s, t_sub:  2.61 s, t_sup:  0.02 s, t_out:  0.09 s
  SW= 45.63 W/m2  LW:-36.32 W/m2  H=  4.24 W/m2  LE=  1.80 W/m2 
  Pvert=  5.73 mm Prain=  5.04 mm  Psnow=  1.18 mm  
  Max Error Richards=4.302256e-10 mm/h 
@@ -1622,25 +1622,25 @@ Soil water transpires from the first 7 layers
 11/10/2009 14:00 47.52% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 11/10/2009 15:00 47.78% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 11/10/2009 16:00 48.04% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
-11/10/2009 17:00 48.30% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 18:00 48.56% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 19:00 48.83% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 20:00 49.09% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 21:00 49.35% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 22:00 49.61% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-11/10/2009 23:00 49.87% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-12/10/2009 0:00 50.13% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+11/10/2009 17:00 48.30% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 18:00 48.56% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 19:00 48.83% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 20:00 49.09% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 21:00 49.35% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 22:00 49.61% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+11/10/2009 23:00 49.87% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+12/10/2009 0:00 50.13% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 
 12/10/2009 0:00 JD:284.000000 (8^ simulation day) 50.13% completed! 
- t_meteo:  0.05 s, t_energy:  2.90 s, t_blowingsnow:  0.00 s, t_water:  3.40 s, t_sub:  3.36 s, t_sup:  0.02 s, t_out:  0.12 s
+ t_meteo:  0.04 s, t_energy:  2.64 s, t_blowingsnow:  0.00 s, t_water:  3.01 s, t_sub:  2.98 s, t_sup:  0.02 s, t_out:  0.10 s
  SW= 89.14 W/m2  LW:-64.35 W/m2  H=  8.86 W/m2  LE= 13.79 W/m2 
  Pvert=  0.36 mm Prain=  0.07 mm  Psnow=  0.03 mm  
  Max Error Richards=1.818822e-10 mm/h 
  Tot Error Richards=3.053942e-08 mm Mean Time Step=3600.000000 s
 
-12/10/2009 1:00 50.39% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-12/10/2009 2:00 50.65% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-12/10/2009 3:00 50.91% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+12/10/2009 1:00 50.39% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+12/10/2009 2:00 50.65% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+12/10/2009 3:00 50.91% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 12/10/2009 4:00 51.17% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 12/10/2009 5:00 51.44% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 12/10/2009 6:00 51.70% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
@@ -1658,28 +1658,28 @@ Soil water transpires from the first 7 layers
 12/10/2009 18:00 54.83% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 12/10/2009 19:00 55.09% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 12/10/2009 20:00 55.35% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
-12/10/2009 21:00 55.61% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-12/10/2009 22:00 55.87% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-12/10/2009 23:00 56.14% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 0:00 56.40% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+12/10/2009 21:00 55.61% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+12/10/2009 22:00 55.87% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+12/10/2009 23:00 56.14% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 0:00 56.40% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 
 13/10/2009 0:00 JD:285.000000 (9^ simulation day) 56.40% completed! 
- t_meteo:  0.05 s, t_energy:  3.20 s, t_blowingsnow:  0.00 s, t_water:  3.80 s, t_sub:  3.76 s, t_sup:  0.03 s, t_out:  0.14 s
+ t_meteo:  0.05 s, t_energy:  2.93 s, t_blowingsnow:  0.00 s, t_water:  3.39 s, t_sub:  3.36 s, t_sup:  0.02 s, t_out:  0.11 s
  SW= 14.39 W/m2  LW:-32.94 W/m2  H= -1.23 W/m2  LE=  1.42 W/m2 
  Pvert=  0.69 mm Prain=  0.55 mm  Psnow=  7.13 mm  
  Max Error Richards=9.679073e-11 mm/h 
  Tot Error Richards=3.286240e-08 mm Mean Time Step=3600.000000 s
 
-13/10/2009 1:00 56.66% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 2:00 56.92% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 3:00 57.18% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 4:00 57.44% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 5:00 57.70% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 6:00 57.96% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 7:00 58.22% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 8:00 58.49% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 9:00 58.75% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-13/10/2009 10:00 59.01% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+13/10/2009 1:00 56.66% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 2:00 56.92% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 3:00 57.18% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 4:00 57.44% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 5:00 57.70% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 6:00 57.96% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 7:00 58.22% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 8:00 58.49% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 9:00 58.75% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+13/10/2009 10:00 59.01% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
 13/10/2009 11:00 59.27% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 13/10/2009 12:00 59.53% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 13/10/2009 13:00 59.79% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
@@ -1696,7 +1696,7 @@ Soil water transpires from the first 7 layers
 14/10/2009 0:00 62.66% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 
 14/10/2009 0:00 JD:286.000000 (10^ simulation day) 62.66% completed! 
- t_meteo:  0.06 s, t_energy:  3.48 s, t_blowingsnow:  0.00 s, t_water:  4.16 s, t_sub:  4.12 s, t_sup:  0.03 s, t_out:  0.15 s
+ t_meteo:  0.05 s, t_energy:  3.22 s, t_blowingsnow:  0.00 s, t_water:  3.74 s, t_sub:  3.71 s, t_sup:  0.02 s, t_out:  0.13 s
  SW= 25.53 W/m2  LW:-42.30 W/m2  H= -4.61 W/m2  LE=  8.96 W/m2 
  Pvert=  0.04 mm Prain=  0.00 mm  Psnow=  0.01 mm  
  Max Error Richards=3.375382e-11 mm/h 
@@ -1709,26 +1709,26 @@ Soil water transpires from the first 7 layers
 14/10/2009 5:00 63.97% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 14/10/2009 6:00 64.23% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 14/10/2009 7:00 64.49% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
-14/10/2009 8:00 64.75% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 9:00 65.01% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 10:00 65.27% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 11:00 65.54% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 12:00 65.80% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 13:00 66.06% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 14:00 66.32% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 15:00 66.58% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 16:00 66.84% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 17:00 67.10% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 18:00 67.36% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 19:00 67.62% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/10/2009 20:00 67.89% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+14/10/2009 8:00 64.75% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 9:00 65.01% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 10:00 65.27% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 11:00 65.54% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 12:00 65.80% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 13:00 66.06% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 14:00 66.32% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 15:00 66.58% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 16:00 66.84% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 17:00 67.10% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 18:00 67.36% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 19:00 67.62% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+14/10/2009 20:00 67.89% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 14/10/2009 21:00 68.15% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 14/10/2009 22:00 68.41% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 14/10/2009 23:00 68.67% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 15/10/2009 0:00 68.93% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 
 15/10/2009 0:00 JD:287.000000 (11^ simulation day) 68.93% completed! 
- t_meteo:  0.06 s, t_energy:  3.79 s, t_blowingsnow:  0.00 s, t_water:  4.49 s, t_sub:  4.45 s, t_sup:  0.03 s, t_out:  0.16 s
+ t_meteo:  0.06 s, t_energy:  3.52 s, t_blowingsnow:  0.00 s, t_water:  4.07 s, t_sub:  4.04 s, t_sup:  0.03 s, t_out:  0.14 s
  SW= 29.45 W/m2  LW:-46.97 W/m2  H=  2.82 W/m2  LE= 10.12 W/m2 
  Pvert=  0.03 mm Prain=  0.00 mm  Psnow=  0.10 mm  
  Max Error Richards=3.500240e-11 mm/h 
@@ -1751,28 +1751,28 @@ Soil water transpires from the first 7 layers
 15/10/2009 15:00 72.85% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 15/10/2009 16:00 73.11% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 15/10/2009 17:00 73.37% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-15/10/2009 18:00 73.63% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-15/10/2009 19:00 73.89% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-15/10/2009 20:00 74.15% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-15/10/2009 21:00 74.41% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-15/10/2009 22:00 74.67% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-15/10/2009 23:00 74.93% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 0:00 75.20% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+15/10/2009 18:00 73.63% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+15/10/2009 19:00 73.89% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+15/10/2009 20:00 74.15% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+15/10/2009 21:00 74.41% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+15/10/2009 22:00 74.67% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+15/10/2009 23:00 74.93% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 0:00 75.20% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 
 16/10/2009 0:00 JD:288.000000 (12^ simulation day) 75.20% completed! 
- t_meteo:  0.07 s, t_energy:  4.09 s, t_blowingsnow:  0.00 s, t_water:  4.79 s, t_sub:  4.74 s, t_sup:  0.03 s, t_out:  0.18 s
+ t_meteo:  0.06 s, t_energy:  3.83 s, t_blowingsnow:  0.00 s, t_water:  4.37 s, t_sub:  4.33 s, t_sup:  0.03 s, t_out:  0.15 s
  SW= 35.99 W/m2  LW:-53.10 W/m2  H=  0.55 W/m2  LE= 14.47 W/m2 
  Pvert=  0.02 mm Prain=  0.00 mm  Psnow=  0.09 mm  
  Max Error Richards=1.406615e-11 mm/h 
  Tot Error Richards=3.485013e-08 mm Mean Time Step=3600.000000 s
 
-16/10/2009 1:00 75.46% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 2:00 75.72% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 3:00 75.98% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 4:00 76.24% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 5:00 76.50% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 6:00 76.76% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-16/10/2009 7:00 77.02% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+16/10/2009 1:00 75.46% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 2:00 75.72% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 3:00 75.98% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 4:00 76.24% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 5:00 76.50% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 6:00 76.76% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+16/10/2009 7:00 77.02% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 16/10/2009 8:00 77.28% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 16/10/2009 9:00 77.55% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 16/10/2009 10:00 77.81% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
@@ -1792,7 +1792,7 @@ Soil water transpires from the first 7 layers
 17/10/2009 0:00 81.46% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 
 17/10/2009 0:00 JD:289.000000 (13^ simulation day) 81.46% completed! 
- t_meteo:  0.07 s, t_energy:  4.38 s, t_blowingsnow:  0.00 s, t_water:  5.09 s, t_sub:  5.04 s, t_sup:  0.04 s, t_out:  0.19 s
+ t_meteo:  0.07 s, t_energy:  4.11 s, t_blowingsnow:  0.00 s, t_water:  4.67 s, t_sub:  4.63 s, t_sup:  0.03 s, t_out:  0.17 s
  SW= 32.09 W/m2  LW:-42.31 W/m2  H= -1.73 W/m2  LE= 12.83 W/m2 
  Pvert=  0.05 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.241548e-11 mm/h 
@@ -1803,18 +1803,18 @@ Soil water transpires from the first 7 layers
 17/10/2009 3:00 82.25% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 17/10/2009 4:00 82.51% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 17/10/2009 5:00 82.77% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
-17/10/2009 6:00 83.03% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 7:00 83.29% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 8:00 83.55% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 9:00 83.81% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 10:00 84.07% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 11:00 84.33% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 12:00 84.60% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 13:00 84.86% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 14:00 85.12% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 15:00 85.38% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 16:00 85.64% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-17/10/2009 17:00 85.90% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+17/10/2009 6:00 83.03% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 7:00 83.29% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 8:00 83.55% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 9:00 83.81% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 10:00 84.07% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 11:00 84.33% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 12:00 84.60% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 13:00 84.86% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 14:00 85.12% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 15:00 85.38% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 16:00 85.64% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+17/10/2009 17:00 85.90% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
 17/10/2009 18:00 86.16% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 17/10/2009 19:00 86.42% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 17/10/2009 20:00 86.68% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
@@ -1824,7 +1824,7 @@ Soil water transpires from the first 7 layers
 18/10/2009 0:00 87.73% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 
 18/10/2009 0:00 JD:290.000000 (14^ simulation day) 87.73% completed! 
- t_meteo:  0.08 s, t_energy:  4.66 s, t_blowingsnow:  0.00 s, t_water:  5.45 s, t_sub:  5.40 s, t_sup:  0.04 s, t_out:  0.20 s
+ t_meteo:  0.07 s, t_energy:  4.39 s, t_blowingsnow:  0.00 s, t_water:  5.04 s, t_sub:  4.99 s, t_sup:  0.03 s, t_out:  0.18 s
  SW= 23.22 W/m2  LW:-40.34 W/m2  H=  3.01 W/m2  LE=  8.55 W/m2 
  Pvert=  0.01 mm Prain=  0.00 mm  Psnow=  0.55 mm  
  Max Error Richards=1.502888e-11 mm/h 
@@ -1843,20 +1843,20 @@ Soil water transpires from the first 7 layers
 18/10/2009 11:00 90.60% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 18/10/2009 12:00 90.86% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 18/10/2009 13:00 91.12% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-18/10/2009 14:00 91.38% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 15:00 91.64% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 16:00 91.91% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 17:00 92.17% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 18:00 92.43% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 19:00 92.69% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 20:00 92.95% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 21:00 93.21% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 22:00 93.47% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-18/10/2009 23:00 93.73% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
-19/10/2009 0:00 93.99% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+18/10/2009 14:00 91.38% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 15:00 91.64% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 16:00 91.91% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 17:00 92.17% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 18:00 92.43% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 19:00 92.69% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 20:00 92.95% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 21:00 93.21% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 22:00 93.47% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+18/10/2009 23:00 93.73% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+19/10/2009 0:00 93.99% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 
 19/10/2009 0:00 JD:291.000000 (15^ simulation day) 93.99% completed! 
- t_meteo:  0.09 s, t_energy:  4.98 s, t_blowingsnow:  0.00 s, t_water:  5.84 s, t_sub:  5.78 s, t_sup:  0.04 s, t_out:  0.22 s
+ t_meteo:  0.08 s, t_energy:  4.70 s, t_blowingsnow:  0.00 s, t_water:  5.43 s, t_sub:  5.38 s, t_sup:  0.04 s, t_out:  0.19 s
  SW= 30.40 W/m2  LW:-44.04 W/m2  H=  1.97 W/m2  LE=  8.79 W/m2 
  Pvert=  0.02 mm Prain=  0.00 mm  Psnow=  0.78 mm  
  Max Error Richards=1.437280e-11 mm/h 

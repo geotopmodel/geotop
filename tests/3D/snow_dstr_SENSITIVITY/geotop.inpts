@@ -328,7 +328,10 @@ DischargeFile = "output-tabs/discharge"
 PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "output-tabs/snow"
+SnowTempProfileFile="output-tabs/snowtemp"
+SnowLiqContentProfileFile="output-tabs/snowliq"
+SnowIceContentProfileFile="output-tabs/snowice"
+SnowDepthLayersFile="output-tabs/snowly"
 SnowAll = 1
 
 GlacAll=1

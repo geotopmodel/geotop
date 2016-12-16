@@ -1,0 +1,344 @@
+ The main properties of the pixel E=     620235.000 N=    5168008.000, row=  18 col=  70 are:
+ Elevation above sea level:      3.112 m
+ Gauckler-Strickler [m^1/3/s]: 33.300000
+ Residual water content[-] of the layer 1: 0.067000
+ Residual water content[-] of the layer 2: 0.067000
+ Residual water content[-] of the layer 3: 0.067000
+ Residual water content[-] of the layer 4: 0.067000
+ Residual water content[-] of the layer 5: 0.067000
+ Residual water content[-] of the layer 6: 0.067000
+ Residual water content[-] of the layer 7: 0.067000
+ Residual water content[-] of the layer 8: 0.067000
+ Residual water content[-] of the layer 9: 0.067000
+ Residual water content[-] of the layer 10: 0.067000
+ Residual water content[-] of the layer 11: 0.067000
+ Residual water content[-] of the layer 12: 0.067000
+ Residual water content[-] of the layer 13: 0.067000
+ Residual water content[-] of the layer 14: 0.067000
+ Residual water content[-] of the layer 15: 0.067000
+ Residual water content[-] of the layer 16: 0.067000
+ Residual water content[-] of the layer 17: 0.067000
+ Residual water content[-] of the layer 18: 0.067000
+ Residual water content[-] of the layer 19: 0.067000
+ Residual water content[-] of the layer 20: 0.067000
+ Residual water content[-] of the layer 21: 0.067000
+ Residual water content[-] of the layer 22: 0.067000
+ Residual water content[-] of the layer 23: 0.067000
+ Residual water content[-] of the layer 24: 0.067000
+ Residual water content[-] of the layer 25: 0.067000
+ Residual water content[-] of the layer 26: 0.067000
+ Residual water content[-] of the layer 27: 0.067000
+ Residual water content[-] of the layer 28: 0.067000
+ Residual water content[-] of the layer 29: 0.067000
+ Residual water content[-] of the layer 30: 0.067000
+ Saturated water content[-] of the layer 1: 0.370000
+ Saturated water content[-] of the layer 2: 0.370000
+ Saturated water content[-] of the layer 3: 0.370000
+ Saturated water content[-] of the layer 4: 0.370000
+ Saturated water content[-] of the layer 5: 0.370000
+ Saturated water content[-] of the layer 6: 0.370000
+ Saturated water content[-] of the layer 7: 0.370000
+ Saturated water content[-] of the layer 8: 0.370000
+ Saturated water content[-] of the layer 9: 0.370000
+ Saturated water content[-] of the layer 10: 0.370000
+ Saturated water content[-] of the layer 11: 0.370000
+ Saturated water content[-] of the layer 12: 0.370000
+ Saturated water content[-] of the layer 13: 0.370000
+ Saturated water content[-] of the layer 14: 0.370000
+ Saturated water content[-] of the layer 15: 0.370000
+ Saturated water content[-] of the layer 16: 0.370000
+ Saturated water content[-] of the layer 17: 0.370000
+ Saturated water content[-] of the layer 18: 0.370000
+ Saturated water content[-] of the layer 19: 0.370000
+ Saturated water content[-] of the layer 20: 0.370000
+ Saturated water content[-] of the layer 21: 0.370000
+ Saturated water content[-] of the layer 22: 0.370000
+ Saturated water content[-] of the layer 23: 0.370000
+ Saturated water content[-] of the layer 24: 0.370000
+ Saturated water content[-] of the layer 25: 0.370000
+ Saturated water content[-] of the layer 26: 0.370000
+ Saturated water content[-] of the layer 27: 0.370000
+ Saturated water content[-] of the layer 28: 0.370000
+ Saturated water content[-] of the layer 29: 0.370000
+ Saturated water content[-] of the layer 30: 0.370000
+ Alpha of van Genuchten[mm^-1] of the layer 1: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 2: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 3: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 4: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 5: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 6: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 7: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 8: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 9: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 10: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 11: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 12: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 13: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 14: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 15: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 16: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 17: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 18: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 19: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 20: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 21: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 22: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 23: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 24: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 25: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 26: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 27: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 28: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 29: 0.001900
+ Alpha of van Genuchten[mm^-1] of the layer 30: 0.001900
+ n of van Genuchten[-] of the layer 1: 6.000000
+ n of van Genuchten[-] of the layer 2: 6.000000
+ n of van Genuchten[-] of the layer 3: 6.000000
+ n of van Genuchten[-] of the layer 4: 6.000000
+ n of van Genuchten[-] of the layer 5: 6.000000
+ n of van Genuchten[-] of the layer 6: 6.000000
+ n of van Genuchten[-] of the layer 7: 6.000000
+ n of van Genuchten[-] of the layer 8: 6.000000
+ n of van Genuchten[-] of the layer 9: 6.000000
+ n of van Genuchten[-] of the layer 10: 6.000000
+ n of van Genuchten[-] of the layer 11: 6.000000
+ n of van Genuchten[-] of the layer 12: 6.000000
+ n of van Genuchten[-] of the layer 13: 6.000000
+ n of van Genuchten[-] of the layer 14: 6.000000
+ n of van Genuchten[-] of the layer 15: 6.000000
+ n of van Genuchten[-] of the layer 16: 6.000000
+ n of van Genuchten[-] of the layer 17: 6.000000
+ n of van Genuchten[-] of the layer 18: 6.000000
+ n of van Genuchten[-] of the layer 19: 6.000000
+ n of van Genuchten[-] of the layer 20: 6.000000
+ n of van Genuchten[-] of the layer 21: 6.000000
+ n of van Genuchten[-] of the layer 22: 6.000000
+ n of van Genuchten[-] of the layer 23: 6.000000
+ n of van Genuchten[-] of the layer 24: 6.000000
+ n of van Genuchten[-] of the layer 25: 6.000000
+ n of van Genuchten[-] of the layer 26: 6.000000
+ n of van Genuchten[-] of the layer 27: 6.000000
+ n of van Genuchten[-] of the layer 28: 6.000000
+ n of van Genuchten[-] of the layer 29: 6.000000
+ n of van Genuchten[-] of the layer 30: 6.000000
+ m of van Genuchten[-] of the layer 1: 0.833333
+ m of van Genuchten[-] of the layer 2: 0.833333
+ m of van Genuchten[-] of the layer 3: 0.833333
+ m of van Genuchten[-] of the layer 4: 0.833333
+ m of van Genuchten[-] of the layer 5: 0.833333
+ m of van Genuchten[-] of the layer 6: 0.833333
+ m of van Genuchten[-] of the layer 7: 0.833333
+ m of van Genuchten[-] of the layer 8: 0.833333
+ m of van Genuchten[-] of the layer 9: 0.833333
+ m of van Genuchten[-] of the layer 10: 0.833333
+ m of van Genuchten[-] of the layer 11: 0.833333
+ m of van Genuchten[-] of the layer 12: 0.833333
+ m of van Genuchten[-] of the layer 13: 0.833333
+ m of van Genuchten[-] of the layer 14: 0.833333
+ m of van Genuchten[-] of the layer 15: 0.833333
+ m of van Genuchten[-] of the layer 16: 0.833333
+ m of van Genuchten[-] of the layer 17: 0.833333
+ m of van Genuchten[-] of the layer 18: 0.833333
+ m of van Genuchten[-] of the layer 19: 0.833333
+ m of van Genuchten[-] of the layer 20: 0.833333
+ m of van Genuchten[-] of the layer 21: 0.833333
+ m of van Genuchten[-] of the layer 22: 0.833333
+ m of van Genuchten[-] of the layer 23: 0.833333
+ m of van Genuchten[-] of the layer 24: 0.833333
+ m of van Genuchten[-] of the layer 25: 0.833333
+ m of van Genuchten[-] of the layer 26: 0.833333
+ m of van Genuchten[-] of the layer 27: 0.833333
+ m of van Genuchten[-] of the layer 28: 0.833333
+ m of van Genuchten[-] of the layer 29: 0.833333
+ m of van Genuchten[-] of the layer 30: 0.833333
+ v of van Genuchten[-] of the layer 1: 0.500000
+ v of van Genuchten[-] of the layer 2: 0.500000
+ v of van Genuchten[-] of the layer 3: 0.500000
+ v of van Genuchten[-] of the layer 4: 0.500000
+ v of van Genuchten[-] of the layer 5: 0.500000
+ v of van Genuchten[-] of the layer 6: 0.000000
+ v of van Genuchten[-] of the layer 7: 0.000000
+ v of van Genuchten[-] of the layer 8: 0.000000
+ v of van Genuchten[-] of the layer 9: 0.000000
+ v of van Genuchten[-] of the layer 10: 0.000000
+ v of van Genuchten[-] of the layer 11: 0.000000
+ v of van Genuchten[-] of the layer 12: 0.000000
+ v of van Genuchten[-] of the layer 13: 0.000000
+ v of van Genuchten[-] of the layer 14: 0.000000
+ v of van Genuchten[-] of the layer 15: 0.000000
+ v of van Genuchten[-] of the layer 16: 0.000000
+ v of van Genuchten[-] of the layer 17: 0.000000
+ v of van Genuchten[-] of the layer 18: 0.000000
+ v of van Genuchten[-] of the layer 19: 0.000000
+ v of van Genuchten[-] of the layer 20: 0.000000
+ v of van Genuchten[-] of the layer 21: 0.000000
+ v of van Genuchten[-] of the layer 22: 0.000000
+ v of van Genuchten[-] of the layer 23: 0.000000
+ v of van Genuchten[-] of the layer 24: 0.000000
+ v of van Genuchten[-] of the layer 25: 0.000000
+ v of van Genuchten[-] of the layer 26: 0.000000
+ v of van Genuchten[-] of the layer 27: 0.000000
+ v of van Genuchten[-] of the layer 28: 0.000000
+ v of van Genuchten[-] of the layer 29: 0.000000
+ v of van Genuchten[-] of the layer 30: 0.000000
+ Water content of wilting point [-] of the layer 1: 0.115651
+ Water content of wilting point [-] of the layer 2: 0.115651
+ Water content of wilting point [-] of the layer 3: 0.115651
+ Water content of wilting point [-] of the layer 4: 0.115651
+ Water content of wilting point [-] of the layer 5: 0.115651
+ Water content of wilting point [-] of the layer 6: 0.000000
+ Water content of wilting point [-] of the layer 7: 0.000000
+ Water content of wilting point [-] of the layer 8: 0.000000
+ Water content of wilting point [-] of the layer 9: 0.000000
+ Water content of wilting point [-] of the layer 10: 0.000000
+ Water content of wilting point [-] of the layer 11: 0.000000
+ Water content of wilting point [-] of the layer 12: 0.000000
+ Water content of wilting point [-] of the layer 13: 0.000000
+ Water content of wilting point [-] of the layer 14: 0.000000
+ Water content of wilting point [-] of the layer 15: 0.000000
+ Water content of wilting point [-] of the layer 16: 0.000000
+ Water content of wilting point [-] of the layer 17: 0.000000
+ Water content of wilting point [-] of the layer 18: 0.000000
+ Water content of wilting point [-] of the layer 19: 0.000000
+ Water content of wilting point [-] of the layer 20: 0.000000
+ Water content of wilting point [-] of the layer 21: 0.000000
+ Water content of wilting point [-] of the layer 22: 0.000000
+ Water content of wilting point [-] of the layer 23: 0.000000
+ Water content of wilting point [-] of the layer 24: 0.000000
+ Water content of wilting point [-] of the layer 25: 0.000000
+ Water content of wilting point [-] of the layer 26: 0.000000
+ Water content of wilting point [-] of the layer 27: 0.000000
+ Water content of wilting point [-] of the layer 28: 0.000000
+ Water content of wilting point [-] of the layer 29: 0.000000
+ Water content of wilting point [-] of the layer 30: 0.000000
+ Water content of field capacity [-] of the layer 1: 0.254134
+ Water content of field capacity [-] of the layer 2: 0.254134
+ Water content of field capacity [-] of the layer 3: 0.254134
+ Water content of field capacity [-] of the layer 4: 0.254134
+ Water content of field capacity [-] of the layer 5: 0.254134
+ Water content of field capacity [-] of the layer 6: 0.000000
+ Water content of field capacity [-] of the layer 7: 0.000000
+ Water content of field capacity [-] of the layer 8: 0.000000
+ Water content of field capacity [-] of the layer 9: 0.000000
+ Water content of field capacity [-] of the layer 10: 0.000000
+ Water content of field capacity [-] of the layer 11: 0.000000
+ Water content of field capacity [-] of the layer 12: 0.000000
+ Water content of field capacity [-] of the layer 13: 0.000000
+ Water content of field capacity [-] of the layer 14: 0.000000
+ Water content of field capacity [-] of the layer 15: 0.000000
+ Water content of field capacity [-] of the layer 16: 0.000000
+ Water content of field capacity [-] of the layer 17: 0.000000
+ Water content of field capacity [-] of the layer 18: 0.000000
+ Water content of field capacity [-] of the layer 19: 0.000000
+ Water content of field capacity [-] of the layer 20: 0.000000
+ Water content of field capacity [-] of the layer 21: 0.000000
+ Water content of field capacity [-] of the layer 22: 0.000000
+ Water content of field capacity [-] of the layer 23: 0.000000
+ Water content of field capacity [-] of the layer 24: 0.000000
+ Water content of field capacity [-] of the layer 25: 0.000000
+ Water content of field capacity [-] of the layer 26: 0.000000
+ Water content of field capacity [-] of the layer 27: 0.000000
+ Water content of field capacity [-] of the layer 28: 0.000000
+ Water content of field capacity [-] of the layer 29: 0.000000
+ Water content of field capacity [-] of the layer 30: 0.000000
+ Kv_sat of layer 1 [mm/s]: 0.010000
+ Kv_sat of layer 2 [mm/s]: 0.010000
+ Kv_sat of layer 3 [mm/s]: 0.010000
+ Kv_sat of layer 4 [mm/s]: 0.010000
+ Kv_sat of layer 5 [mm/s]: 0.010000
+ Kv_sat of layer 6 [mm/s]: 0.010000
+ Kv_sat of layer 7 [mm/s]: 0.010000
+ Kv_sat of layer 8 [mm/s]: 0.010000
+ Kv_sat of layer 9 [mm/s]: 0.010000
+ Kv_sat of layer 10 [mm/s]: 0.010000
+ Kv_sat of layer 11 [mm/s]: 0.010000
+ Kv_sat of layer 12 [mm/s]: 0.010000
+ Kv_sat of layer 13 [mm/s]: 0.010000
+ Kv_sat of layer 14 [mm/s]: 0.010000
+ Kv_sat of layer 15 [mm/s]: 0.010000
+ Kv_sat of layer 16 [mm/s]: 0.010000
+ Kv_sat of layer 17 [mm/s]: 0.010000
+ Kv_sat of layer 18 [mm/s]: 0.010000
+ Kv_sat of layer 19 [mm/s]: 0.010000
+ Kv_sat of layer 20 [mm/s]: 0.010000
+ Kv_sat of layer 21 [mm/s]: 0.010000
+ Kv_sat of layer 22 [mm/s]: 0.010000
+ Kv_sat of layer 23 [mm/s]: 0.010000
+ Kv_sat of layer 24 [mm/s]: 0.010000
+ Kv_sat of layer 25 [mm/s]: 0.010000
+ Kv_sat of layer 26 [mm/s]: 0.010000
+ Kv_sat of layer 27 [mm/s]: 0.010000
+ Kv_sat of layer 28 [mm/s]: 0.010000
+ Kv_sat of layer 29 [mm/s]: 0.010000
+ Kv_sat of layer 30 [mm/s]: 0.010000
+ Kh_sat of layer 1 [mm/s]: 0.010000
+ Kh_sat of layer 2 [mm/s]: 0.010000
+ Kh_sat of layer 3 [mm/s]: 0.010000
+ Kh_sat of layer 4 [mm/s]: 0.010000
+ Kh_sat of layer 5 [mm/s]: 0.010000
+ Kh_sat of layer 6 [mm/s]: 0.010000
+ Kh_sat of layer 7 [mm/s]: 0.010000
+ Kh_sat of layer 8 [mm/s]: 0.010000
+ Kh_sat of layer 9 [mm/s]: 0.010000
+ Kh_sat of layer 10 [mm/s]: 0.010000
+ Kh_sat of layer 11 [mm/s]: 0.010000
+ Kh_sat of layer 12 [mm/s]: 0.010000
+ Kh_sat of layer 13 [mm/s]: 0.010000
+ Kh_sat of layer 14 [mm/s]: 0.010000
+ Kh_sat of layer 15 [mm/s]: 0.010000
+ Kh_sat of layer 16 [mm/s]: 0.010000
+ Kh_sat of layer 17 [mm/s]: 0.010000
+ Kh_sat of layer 18 [mm/s]: 0.010000
+ Kh_sat of layer 19 [mm/s]: 0.010000
+ Kh_sat of layer 20 [mm/s]: 0.010000
+ Kh_sat of layer 21 [mm/s]: 0.010000
+ Kh_sat of layer 22 [mm/s]: 0.010000
+ Kh_sat of layer 23 [mm/s]: 0.010000
+ Kh_sat of layer 24 [mm/s]: 0.010000
+ Kh_sat of layer 25 [mm/s]: 0.010000
+ Kh_sat of layer 26 [mm/s]: 0.010000
+ Kh_sat of layer 27 [mm/s]: 0.010000
+ Kh_sat of layer 28 [mm/s]: 0.010000
+ Kh_sat of layer 29 [mm/s]: 0.010000
+ Kh_sat of layer 30 [mm/s]: 0.010000
+ Terrain elevation [m]: 3.112340
+ Sky view factor [-]: 1.000000
+ The pixel-type is 0 
+ Aspect [deg] [0=Nord, clockwise]: 354.321000 
+ Mean slope of the pixel [deg]: 7.546613 
+ Land use number is 1 
+ The root fraction [-] of layer 1: 0.200000
+ The root fraction [-] of layer 2: 0.400000
+ The root fraction [-] of layer 3: 0.400000
+ The root fraction [-] of layer 4: 0.000000
+ The root fraction [-] of layer 5: 0.000000
+ The root fraction [-] of layer 6: 0.000000
+ The root fraction [-] of layer 7: 0.000000
+ The root fraction [-] of layer 8: 0.000000
+ The root fraction [-] of layer 9: 0.000000
+ The root fraction [-] of layer 10: 0.000000
+ The root fraction [-] of layer 11: 0.000000
+ The root fraction [-] of layer 12: 0.000000
+ The root fraction [-] of layer 13: 0.000000
+ The root fraction [-] of layer 14: 0.000000
+ The root fraction [-] of layer 15: 0.000000
+ The root fraction [-] of layer 16: 0.000000
+ The root fraction [-] of layer 17: 0.000000
+ The root fraction [-] of layer 18: 0.000000
+ The root fraction [-] of layer 19: 0.000000
+ The root fraction [-] of layer 20: 0.000000
+ The root fraction [-] of layer 21: 0.000000
+ The root fraction [-] of layer 22: 0.000000
+ The root fraction [-] of layer 23: 0.000000
+ The root fraction [-] of layer 24: 0.000000
+ The root fraction [-] of layer 25: 0.000000
+ The root fraction [-] of layer 26: 0.000000
+ The root fraction [-] of layer 27: 0.000000
+ The root fraction [-] of layer 28: 0.000000
+ The root fraction [-] of layer 29: 0.000000
+ The root fraction [-] of layer 30: 0.000000
+ Surface fraction of land covered by vegetation [-]: 0.000000 
+ Leaf and Stem Area Index [-]: 0.000000 
+ Momentum roughness length z0soil [m]: 0.100000 
+ Vegetation height [m]: 100.000000 
+ 

@@ -931,10 +931,10 @@ SoilIceContentProfileFileWriteEnd = none
 SoilAveragedIceContentProfileFile = none
 SoilAveragedIceContentProfileFileWriteEnd = none
 SoilSaturationRatioProfileFile = none
-SnowTempProfileFile = none
-SnowLiqContentProfileFile = none
-SnowIceContentProfileFile = none
-SnowDepthLayersFile = none
+SnowTempProfileFile = output-tabs/snowtemp
+SnowLiqContentProfileFile = output-tabs/snowliq
+SnowIceContentProfileFile = output-tabs/snowice
+SnowDepthLayersFile = output-tabs/snowly
 SnowTempProfileFileWriteEnd = none
 SnowLiqContentProfileFileWriteEnd = none
 SnowIceContentProfileFileWriteEnd = none
@@ -1365,19 +1365,19 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 593
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:43 Time remaining (h:m)  0:00  
+5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:36 Time remaining (h:m)  0:00  
 
 5/10/2009 23:30 JD:277.979167 (1^ simulation day) 94.00% completed! 
- t_meteo:  0.00 s, t_energy:  3.56 s, t_blowingsnow:  0.00 s, t_water: 99.45 s, t_sub:  1.29 s, t_sup: 98.16 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  3.34 s, t_blowingsnow:  0.00 s, t_water: 92.10 s, t_sub:  1.33 s, t_sup: 90.78 s, t_out:  0.00 s
  SW= 52.13 W/m2  LW:-41.01 W/m2  H=  1.44 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.055911e-10 mm/h 
  Tot Error Richards=1.658139e-08 mm Mean Time Step=84600.000000 s
 
-6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:24 Time remaining (h:m) -1:57  
+6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:05 Time remaining (h:m) -1:58  
 
 6/10/2009 23:00 JD:278.958333 (1^ simulation day) 188.00% completed! 
- t_meteo:  0.01 s, t_energy:  7.27 s, t_blowingsnow:  0.00 s, t_water:255.70 s, t_sub:  5.19 s, t_sup:250.50 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  6.88 s, t_blowingsnow:  0.00 s, t_water:238.91 s, t_sub:  4.93 s, t_sup:233.98 s, t_out:  0.00 s
  SW= 56.95 W/m2  LW:-36.74 W/m2  H=  4.94 W/m2  LE=  3.32 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.027629e-09 mm/h 
