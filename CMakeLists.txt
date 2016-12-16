@@ -192,9 +192,7 @@ FILE(GLOB hGeotopSoil "src/geotop/Soil/*.h")
 FILE(GLOB hGeotopWater "src/geotop/Water/*.h")
 FILE(GLOB hGt_utilities "src/gt_utilities/*.h")
 FILE(GLOB hLibrariesAscii "src/libraries/ascii/*.h")
-FILE(GLOB hLibrariesFT "src/libraries/fluidturtle/*.h")
 FILE(GLOB hMeteoio_plugin "src/meteoio_plugin/*.h")
-#FILE(GLOB hNetCDF "src/netCDF/*.h")
 
 INSTALL(FILES ${hGeotop} DESTINATION include/geotop/src/geotop COMPONENT headers)
 INSTALL(FILES ${hGeotopEnergy} DESTINATION include/geotop/src/geotop/Energy COMPONENT headers)
@@ -205,7 +203,7 @@ INSTALL(FILES ${hGeotopSoil} DESTINATION include/geotop/src/geotop/Soil COMPONEN
 INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPONENT headers)
 INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
-INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
+#INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
 #INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 

@@ -1884,9 +1884,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             name = geotop::common::Variables::files[fQ] + string(textfile) ;
         }
 
-        f = t_fopen(name.c_str(), "w");
+        f = fopen(name.c_str(), "w");
         fprintf(f, "DATE[day/month/year hour:min],t[days],JDfrom0,JD,Qtot[m3/s],Vsup/Dt[m3/s],Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\n");
-        t_fclose(f);
+        fclose(f);
     }
 
     if (par->state_pixel == 1)
@@ -2031,7 +2031,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     name = geotop::common::Variables::files[fpointwriteend] + string(textfile);
                 }
 
-                geotop::common::Variables::ffglac = t_fopen(name.c_str(), "w");
+                geotop::common::Variables::ffglac = fopen(name.c_str(), "w");
 
                 if ((long)par->glac_plot_depths[1] != geotop::input::gDoubleNoValue)
                 {
@@ -2241,7 +2241,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 name = geotop::common::Variables::files[fpoint] + string("_info_");
                 temp = name + NNNN;
                 temp2 = temp + textfile;
-                f = t_fopen(temp2.c_str(), "w");
+                f = fopen(temp2.c_str(), "w");
 
                 fprintf(f, " The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n", par->chkpt[i][ptX], par->chkpt[i][ptY], r, c);
                 fprintf(f, " Elevation above sea level: %10.3f m\n", top->Z0[r][c]);
@@ -2305,7 +2305,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, " Vegetation height [m]: %f \n", land->ty[lu][jHveg]);
 
                 fprintf(f, " \n");
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fpoint] != geotop::input::gStringNoValue)
@@ -2324,7 +2324,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 first_column = 1;
                 for (j = 0; j < geotop::common::Variables::nopnt; j++)
                 {
@@ -2346,7 +2346,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     }
                 }
                 fprintf(f, "\n");
-                t_fclose(f);
+                fclose(f);
             }
 
             if (par->max_glac_layers > 0)
@@ -2376,7 +2376,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         m = par->max_glac_layers;
                     }
 
-                    f = t_fopen(name.c_str(), "w");
+                    f = fopen(name.c_str(), "w");
                     first_column = 1;
                     for (j = 0; j < geotop::common::Variables::noglc; j++)
                     {
@@ -2417,7 +2417,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         }
                     }
                     fprintf(f, "\n");
-                    t_fclose(f);
+                    fclose(f);
                 }
             }
 
@@ -2437,9 +2437,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue)
@@ -2458,9 +2458,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fpsiztot] != geotop::input::gStringNoValue)
@@ -2479,9 +2479,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fpsiz] != geotop::input::gStringNoValue)
@@ -2500,9 +2500,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fliqz] != geotop::input::gStringNoValue)
@@ -2520,9 +2520,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue)
@@ -2541,9 +2541,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue)
@@ -2562,9 +2562,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue)
@@ -2583,9 +2583,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 }
 
 
-                f = t_fopen(name.c_str(), "w");
+                f = fopen(name.c_str(), "w");
                 write_soil_header(f, par->soil_plot_depths, sl->pa);
-                t_fclose(f);
+                fclose(f);
             }
 
             // snow headers
@@ -2603,9 +2603,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 				}else{
 					m = par->max_snow_layers;
 				}
-				f = t_fopen(name.c_str(), "w");
+				f = fopen(name.c_str(), "w");
 				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
-				t_fclose(f);
+				fclose(f);
 			}
 
 			//"SnowTempProfileFile",//fsnTz
@@ -2622,9 +2622,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 				}else{
 					m = par->max_snow_layers;
 				}
-				f = t_fopen(name.c_str(), "w");
+				f = fopen(name.c_str(), "w");
 				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
-				t_fclose(f);
+				fclose(f);
 			}
 			//"SnowLiqContentProfileFile",//fsnlz
 			if (geotop::common::Variables::files[fsnlz] != geotop::input::gStringNoValue){
@@ -2640,9 +2640,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 				}else{
 					m = par->max_snow_layers;
 				}
-				f = t_fopen(name.c_str(), "w");
+				f = fopen(name.c_str(), "w");
 				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
-				t_fclose(f);
+				fclose(f);
 			}
 
 			//"SnowDepthLayersFile",//fsndz
@@ -2659,9 +2659,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 				}else{
 					m = par->max_snow_layers;
 				}
-				f = t_fopen(name.c_str(), "w");
+				f = fopen(name.c_str(), "w");
 				write_snow_header(f, par->snow_plot_depths, par->max_snow_layers);
-				t_fclose(f);
+				fclose(f);
 			}
         }
 
@@ -2732,7 +2732,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 name = geotop::common::Variables::files[fbas] + string(textfile);
             }
 
-            f = t_fopen(name.c_str(), "w");
+            f = fopen(name.c_str(), "w");
 
             first_column = 1;
             for (j = 0; j < geotop::common::Variables::nobsn; j++)
@@ -2756,7 +2756,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             }
             fprintf(f, "\n");
 
-            t_fclose(f);
+            fclose(f);
         }
 
     }
@@ -2775,9 +2775,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             name = geotop::common::Variables::files[fSCA] + string(textfile);
         }
 
-        f = t_fopen(name.c_str(), "w");
+        f = fopen(name.c_str(), "w");
         fprintf(f, "DATE[day/month/year hour:min],t[days],JDfrom0,JD,snowDav,SWEav,Tav,Tsav,perc.SFA,perc.SCA\n");
-        t_fclose(f);
+        fclose(f);
     }
 
 }

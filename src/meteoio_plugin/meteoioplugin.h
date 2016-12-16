@@ -5,6 +5,7 @@
 #include "../geotop/geotop_common.h"
 #include "../geotop/part_snow.h"
 #include "../geotop/inputKeywords.h"
+#include "../gt_utilities/read_command_line.h"
 
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>

@@ -21,12 +21,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include "struct.geotop.h"
-//#include "../libraries/geomorphology/geomorphology.0875.h"
-//#include "../libraries/geomorphology/geomorphology.h"
+
 #include "pedo.funct.h"
-//#include "../libraries/geomorphology/networks.h"
 #include "constants.h"
-//#include "../libraries/geomorphology/dtm_resolution.h"
 #include "../libraries/ascii/rw_maps.h"
 #include "../libraries/ascii/tabs.h"
 #include "snow.h"

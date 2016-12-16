@@ -5,26 +5,19 @@ IF(COMMAND CMAKE_POLICY)
 ENDIF(COMMAND CMAKE_POLICY)
 
 ADD_LIBRARY( gt_utilities ${LINKING_MODE}
-			gt_netcdf_utilities.h
-			gt_symbols.h
-			gt_utilities.h
-			ncgt_netcdf2turtle.cc
-			ncgt_netcdf2turtle.h
-			ncgt_output.cc
-			ncgt_output.h
-			ncgt_turtle2netcdf.cc
-			ncgt_turtle2netcdf.h
-			ncgt_utilities.cc
-			ncgt_utilities.h
 			read_command_line.cc
 			read_command_line.h
-			read_command_line_netcdf.cc
-			read_command_line_netcdf.h
 			path_utils.h
 			path_utils.c
+			t_io.h
+			t_io.cc
+			turtle.h
+			math_utils.h
+			math_utils.cc
 )
 
 TARGET_LINK_LIBRARIES( gt_utilities
+      ${METEOIO_LIBRARIES}
 )
 
 SET_TARGET_PROPERTIES(gt_utilities PROPERTIES
@@ -42,5 +35,5 @@ INSTALL(TARGETS gt_utilities
   LIBRARY DESTINATION lib/ COMPONENT libraries
   ARCHIVE DESTINATION lib/ COMPONENT libraries
   )
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 

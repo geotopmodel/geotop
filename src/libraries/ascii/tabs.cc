@@ -5,7 +5,8 @@
 #include <time.h>
 #include <ctype.h>
 
-#include "../fluidturtle/turtle.h"
+//#include "../fluidturtle/turtle.h"
+#include "../../gt_utilities/read_command_line.h"
 #include <boost/algorithm/string.hpp>
 #include "../../geotop/inputKeywords.h"
 

@@ -167,6 +167,50 @@ int gt_makeDirectory(const char* path)
 
     return ret;
 }
+    
+    
+    /*-----------------------------------------------------------------------*/
+    // Do we really need this function ?? TODO: remove it 15.12.2016
+    
+    int mkdirp(const char *pathname, mode_t mode)
+    {
+        /* From http://niallohiggins.com/2009/01/08/mkpath-mkdir-p-alike-in-c-for-unix/ */
+        char parent[256], *p;
+        
+        /* make a parent directory path */
+        strncpy(parent, pathname, sizeof(parent));
+        parent[sizeof(parent) - 1] = '\0';
+        for(p = parent + strlen(parent); *p != '/' && p != parent; p--);
+        *p = '\0';
+        
+        /* try make parent directory */
+        if(p != parent && mkdirp(parent, mode) != 0) {
+#if defined(__CYGWIN__)
+            return 0;
+#else
+            return -1;
+#endif
+        }
+        
+        /* make this one if parent has been made */
+        if(mkdir(pathname, mode) == 0)
+            return 0;
+        
+        /* if it already exists that is fine */
+        if(errno == EEXIST){
+            struct stat sb;
+            stat(pathname, &sb);
+            if(!S_ISDIR(sb.st_mode)){
+                /* pathname is NOT a directory! */
+                return -1;
+            }
+            return 0;
+        }
+        return -1;
+    }
+    //----------------------------------
+   
+    
 
 #ifdef __cplusplus
 }
