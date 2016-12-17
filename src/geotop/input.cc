@@ -2321,8 +2321,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }else{
 
             read_dem=0;
-        lg->log("Dem file not present",
-                geotop::logger::WARNING);
+        lg->log("Dem file not present",geotop::logger::WARNING);
         }
     }
 
@@ -2445,8 +2444,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             meteoio_readMap(string(geotop::common::Variables::files[fasp]), P); //HACK: add consitency check in meteoioplugin
         }else{
             if(read_dem==0){
-        lg->log("Aspect file not present",
-                geotop::logger::WARNING);
+        lg->log("Aspect file not present", geotop::logger::WARNING);
                 read_as=0;
             }else{
                 Q.resize(Z.getRows(),Z.getCols());
@@ -2481,8 +2479,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
             meteoio_readMap(string(geotop::common::Variables::files[fsky]), P); //HACK: add consitency check in meteoioplugin
         }else{
             if(read_dem==0){
-        lg->log("Sky view factor file not present",
-                geotop::logger::WARNING);
+        lg->log("Sky view factor file not present", geotop::logger::WARNING);
                 read_sk=0;
             }else{
                 P.resize(Z.getRows(),Z.getCols());

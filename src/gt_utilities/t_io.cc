@@ -196,7 +196,8 @@ void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, l
     GeoVector<double> values;
     long cnt;
     
-    values.resize((2*n+1)*(2*n+1));
+    values.resize((2*n+1)*(2*n+1)+1);
+    // the +1 above is needed to prevent a memory corruptions on glibc on Linux boxes (S.C. 16.12.2016)  
     nr=Zin.getRows();
     nc=Zin.getCols();
     

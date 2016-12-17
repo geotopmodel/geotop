@@ -259,19 +259,19 @@ LocMaxIter	=	3
 
 ! Input files 
  
-DemFile = "dtm_map"
+DemFile = "input-maps/dtm_map"
 MeteoFile = "meteo/meteo"
  ! MISINGLandCoverMapFile = "landcover500"
  !  MISSINGSkyViewFactorMapFile = "sky"
-SlopeMapFile = "slope"
-AspectMapFile = "aspect"
+SlopeMapFile = "input-maps/slope"
+AspectMapFile = "input-maps/aspect"
 !CurvaturesMapFile = "curvature"
 !HorizonMeteoStationFile = "horizon" !!!  horizon is unuseful for this case and it is commeterd (REMOVED?))
 !HeaderAngleFromNorthClockwise="azimuth"
 RiverNetwork = "net"
 !MISSINGInitGlacierDepthMapFile	=	"glacier500"
 !BedrockDepthMapFile = "soildepth"
-BedrockDepthMapFile="bedrock_depth"
+BedrockDepthMapFile="input-maps/bedrock_depth"
 ! Output files
 
 ! Tabs 
