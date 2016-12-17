@@ -93,7 +93,7 @@ Vmin	=	2
 		
 CoordinatePointX	= 621671,620815,621733,629601,623542,613582,626323,611860,635863,621152,652371,624957
 CoordinatePointY	= 5168733,5171506,5172112,5177788,5173274,5181426,5188431,5165895,5165317,5164300,5167937,5151212
-
+PointID = 1,2,3,4,5,6,7,8,9,10,11,12
 
 !======================================= 
 !RATES OF DECREASE WITH ELEVATION
@@ -302,7 +302,11 @@ DischargeFile = "output-tabs/discharge"
 PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "output-tabs/snow"
+
+SnowTempProfileFile="output-tabs/snowtemp"
+SnowLiqContentProfileFile="output-tabs/snowliq"
+SnowIceContentProfileFile="output-tabs/snowice"
+SnowDepthLayersFile="output-tabs/snowly"
 SnowAll = 1
 
 SnowCoveredAreaFile = "output-tabs/snowcover"
@@ -311,7 +315,7 @@ BasinOutputFile = "output-tabs/basin"
 
 BasinAll = 1
 
-SoilAveragedTempProfileFile = "output-tabs/soilTz" 
+SoilTempProfileFile="output-tabs/soiltemp"
 SoilLiqContentProfileFile = "output-tabs/thetaliq" 
 SoilIceContentProfileFile = "output-tabs/thetaice" 
 SoilAll = 1

@@ -266,7 +266,8 @@ MeteoFile = "meteo/meteo"
 SlopeMapFile = "slope"
 AspectMapFile = "aspect"
 !CurvaturesMapFile = "curvature"
-HorizonMeteoStationFile = "horizon"
+!HorizonMeteoStationFile = "horizon" !!!  horizon is unuseful for this case and it is commeterd (REMOVED?))
+!HeaderAngleFromNorthClockwise="azimuth"
 RiverNetwork = "net"
 !MISSINGInitGlacierDepthMapFile	=	"glacier500"
 !BedrockDepthMapFile = "soildepth"
@@ -279,7 +280,7 @@ DischargeFile = "output-tabs/discharge"
 PointOutputFile = "output-tabs/point" 
 PointAll = 1
 
-SnowProfileFile = "output-tabs/snow"
+
 SnowAll = 1
 
 SnowCoveredAreaFile = "output-tabs/snowcover"

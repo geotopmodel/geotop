@@ -99,6 +99,6 @@ LandSurfaceWaterDepthMapFile = "output-maps/hsup"
 !WaterTableDepthFromAboveMapFile  = "output-maps/wttop"
 
 !Tens
-!SoilLiqContentTensorFile = "output-tabs/thetaliq"
-SoilLiqWaterPressTensorFile = "output-tabs/Pw"
+!SoilLiqContentTensorFile = "output-maps/thetaliq"
+SoilLiqWaterPressTensorFile = "output-maps/Pw"
 

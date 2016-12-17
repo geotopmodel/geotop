@@ -1,0 +1,1487 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/examples/3D/Borden05m
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 7333 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 11, of which 2 at the bottom, 5 in the middle, and 4 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	3 4 5 6 7 
+[NOTICE]: Max glac layer number: 83, of which 20 at the bottom, 3 in the middle, and 60 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	21 22 23 
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to Dz
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to Kv
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to Kh
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to res
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to sat
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to a
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to n
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/soil0001.txt assigned to ss
+
+
+Soil Layers: 30
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 20.000000(2.00e+01), 40.000000(4.00e+01), 80.000000(8.00e+01), 100.000000(1.00e+02), 150.000000(1.50e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderNormalHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderLateralHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderThetaRes: 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderThetaSat: 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01)
+HeaderAlpha: 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03)
+HeaderN: 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderSpecificStorativity: 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07)
+
+Soil Bedrock Layers: 30
+-> Soil Type: 1
+HeaderSoilDz: 10.000000(1.00e+01), 20.000000(2.00e+01), 40.000000(4.00e+01), 80.000000(8.00e+01), 100.000000(1.00e+02), 150.000000(1.50e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderNormalHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderLateralHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderThetaRes: 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02), 0.067000(6.70e-02)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderThetaSat: 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01), 0.370000(3.70e-01)
+HeaderAlpha: 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03), 0.001900(1.90e-03)
+HeaderN: 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00), 6.000000(6.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderSpecificStorativity: 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07), 0.000000(3.20e-07)
+
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/dem_nopit_05m existing
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/landcover05m existing
+[NOTICE]: par->state_pixel=1
+
+i:1 -9999.000000
+B i:1 1
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/sky existing
+[NOTICE]: not present in file list
+[NOTICE]: not present in file list
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/slope existing
+[NOTICE]: Slope Min:  0.00617151 (    0.353597 deg) Max:    0.501013 (     26.6115 deg)
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/aspect existing
+[NOTICE]: Curvature N-S Min:    -0.37596  Max:     0.95028 
+
+[NOTICE]: Curvature W-E Min:    -0.33152  Max:     0.56384 
+
+[NOTICE]: Curvature NW-SE Min:    -0.50936  Max:     1.03764 
+
+[NOTICE]: Curvature NE-SW Min:    -0.46208  Max:     1.24804 
+
+[NOTICE]: EXISTING in format 3
+[WARNING]: File/home/ecor/local/src/geotop_dev/examples/3D/Borden05m/net05 existing
+[NOTICE]: Channel networks has 0 pixels set to channel
+[NOTICE]: Valid pixels: 4089
+[NOTICE]: Number of nodes: 126759
+[NOTICE]: Novalue pixels: 1351
+[NOTICE]: Basin area:   0.00102225 km2
+[NOTICE]: Valid pixels: 4089
+[NOTICE]: Number of nodes: 126759
+[NOTICE]: Novalue pixels: 1351
+[NOTICE]: Basin area:   0.00102225 km2
+[WARNING]: Horizon file FOUND for meteo station #1
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/hor_meteo/horizon0001.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/hor_meteo/horizon0001.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/meteo0001.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/meteo0001.txt assigned to Iprec
+
+[WARNING]: NO shortwave radiation measurements available
+[WARNING]: No cloudiness measurements available
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,18,70,     3.11234,1,1,     7.54661,     354.321,           1
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      620400,  5.1681e+06,     46.6556,     10.5736,           3,           1,           1,         2.5,         2.5
+[NOTICE]: Channel pixels: 0
+[NOTICE]: A bedrock depth map has been assigned and read from /home/ecor/local/src/geotop_dev/examples/3D/Borden05m/bedrock_nopit
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File NetRadiationMapFile [usually defined in output_maps/RadNet] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 11 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 4 layers
+[NOTICE]: Soil water transpires from the first 30 layers
+[NOTICE]: 1/6/2000 12:01 0.83% - Time elapsed (h:m:s)  0:00:34 Time remaining (h:m)  1:07  
+
+[NOTICE]: 1/6/2000 12:01 JD:152.500694 (1^ simulation day)  0.83% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 33.47 s, t_sub: 33.41 s, t_sup:  0.06 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.480757e-04 mm/h 
+ Tot Error Richards=1.246793e-05 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:02 1.67% - Time elapsed (h:m:s)  0:00:40 Time remaining (h:m)  0:39  
+
+[NOTICE]: 1/6/2000 12:02 JD:152.501389 (1^ simulation day)  1.67% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 39.59 s, t_sub: 39.42 s, t_sup:  0.17 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.352447e-03 mm/h 
+ Tot Error Richards=5.167538e-05 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:03 2.50% - Time elapsed (h:m:s)  0:00:45 Time remaining (h:m)  0:29  
+
+[NOTICE]: 1/6/2000 12:03 JD:152.502083 (1^ simulation day)  2.50% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 45.15 s, t_sub: 44.78 s, t_sup:  0.38 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.425436e-03 mm/h 
+ Tot Error Richards=7.543265e-05 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:04 3.33% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:24  
+
+[NOTICE]: 1/6/2000 12:04 JD:152.502778 (1^ simulation day)  3.33% completed! 
+
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 50.28 s, t_sub: 49.65 s, t_sup:  0.63 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.934204e-03 mm/h 
+ Tot Error Richards=1.076694e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:05 4.17% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:23  
+
+[NOTICE]: 1/6/2000 12:05 JD:152.503472 (1^ simulation day)  4.17% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 60.50 s, t_sub: 59.49 s, t_sup:  1.01 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.200166e-03 mm/h 
+ Tot Error Richards=2.110055e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:06 5.00% - Time elapsed (h:m:s)  0:01:06 Time remaining (h:m)  0:20  
+
+[NOTICE]: 1/6/2000 12:06 JD:152.504167 (1^ simulation day)  5.00% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 65.56 s, t_sub: 64.07 s, t_sup:  1.49 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.543898e-03 mm/h 
+ Tot Error Richards=2.534038e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:07 5.83% - Time elapsed (h:m:s)  0:01:11 Time remaining (h:m)  0:19  
+
+[NOTICE]: 1/6/2000 12:07 JD:152.504861 (1^ simulation day)  5.83% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 71.61 s, t_sub: 69.51 s, t_sup:  2.10 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.641149e-03 mm/h 
+ Tot Error Richards=2.807563e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:08 6.67% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:18  
+
+[NOTICE]: 1/6/2000 12:08 JD:152.505556 (1^ simulation day)  6.67% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 80.72 s, t_sub: 77.92 s, t_sup:  2.79 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.797574e-03 mm/h 
+ Tot Error Richards=3.440492e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:09 7.50% - Time elapsed (h:m:s)  0:01:26 Time remaining (h:m)  0:17  
+
+[NOTICE]: 1/6/2000 12:09 JD:152.506250 (1^ simulation day)  7.50% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 86.97 s, t_sub: 83.37 s, t_sup:  3.61 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.636996e-03 mm/h 
+ Tot Error Richards=3.713324e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:10 8.33% - Time elapsed (h:m:s)  0:01:32 Time remaining (h:m)  0:16  
+
+[NOTICE]: 1/6/2000 12:10 JD:152.506944 (1^ simulation day)  8.33% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 91.94 s, t_sub: 87.40 s, t_sup:  4.54 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.310769e-03 mm/h 
+ Tot Error Richards=3.931786e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:11 9.17% - Time elapsed (h:m:s)  0:01:38 Time remaining (h:m)  0:16  
+
+[NOTICE]: 1/6/2000 12:11 JD:152.507639 (1^ simulation day)  9.17% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 98.13 s, t_sub: 92.50 s, t_sup:  5.62 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.858042e-04 mm/h 
+ Tot Error Richards=4.046087e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:12 10.00% - Time elapsed (h:m:s)  0:01:43 Time remaining (h:m)  0:15  
+
+[NOTICE]: 1/6/2000 12:12 JD:152.508333 (1^ simulation day) 10.00% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:104.16 s, t_sub: 97.30 s, t_sup:  6.86 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.897725e-04 mm/h 
+ Tot Error Richards=4.194382e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:13 10.83% - Time elapsed (h:m:s)  0:01:52 Time remaining (h:m)  0:15  
+
+[NOTICE]: 1/6/2000 12:13 JD:152.509028 (1^ simulation day) 10.83% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:111.94 s, t_sub:103.70 s, t_sup:  8.24 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.614742e-03 mm/h 
+ Tot Error Richards=4.463506e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:14 11.67% - Time elapsed (h:m:s)  0:02:00 Time remaining (h:m)  0:15  
+
+[NOTICE]: 1/6/2000 12:14 JD:152.509722 (1^ simulation day) 11.67% completed! 
+
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:119.53 s, t_sub:109.70 s, t_sup:  9.83 s, t_out:  0.00 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.141359e-03 mm/h 
+ Tot Error Richards=4.653732e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:15 12.50% - Time elapsed (h:m:s)  0:02:07 Time remaining (h:m)  0:14  
+
+[NOTICE]: 1/6/2000 12:15 JD:152.510417 (1^ simulation day) 12.50% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:126.27 s, t_sub:114.71 s, t_sup: 11.56 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.091323e-03 mm/h 
+ Tot Error Richards=4.835619e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:16 13.33% - Time elapsed (h:m:s)  0:02:13 Time remaining (h:m)  0:14  
+
+[NOTICE]: 1/6/2000 12:16 JD:152.511111 (1^ simulation day) 13.33% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:133.09 s, t_sub:119.61 s, t_sup: 13.48 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.071775e-03 mm/h 
+ Tot Error Richards=5.014249e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:17 14.17% - Time elapsed (h:m:s)  0:02:18 Time remaining (h:m)  0:14  
+
+[NOTICE]: 1/6/2000 12:17 JD:152.511806 (1^ simulation day) 14.17% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:138.72 s, t_sub:123.27 s, t_sup: 15.44 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.002406e-03 mm/h 
+ Tot Error Richards=5.181316e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:18 15.00% - Time elapsed (h:m:s)  0:02:25 Time remaining (h:m)  0:13  
+
+[NOTICE]: 1/6/2000 12:18 JD:152.512500 (1^ simulation day) 15.00% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:144.69 s, t_sub:127.16 s, t_sup: 17.52 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.432657e-03 mm/h 
+ Tot Error Richards=5.420092e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:19 15.83% - Time elapsed (h:m:s)  0:02:31 Time remaining (h:m)  0:13  
+
+[NOTICE]: 1/6/2000 12:19 JD:152.513194 (1^ simulation day) 15.83% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:151.37 s, t_sub:131.58 s, t_sup: 19.79 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.334707e-04 mm/h 
+ Tot Error Richards=5.575671e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:20 16.67% - Time elapsed (h:m:s)  0:02:40 Time remaining (h:m)  0:13  
+
+[NOTICE]: 1/6/2000 12:20 JD:152.513889 (1^ simulation day) 16.67% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:160.96 s, t_sub:138.84 s, t_sup: 22.12 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.635771e-03 mm/h 
+ Tot Error Richards=5.848299e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:21 17.50% - Time elapsed (h:m:s)  0:02:49 Time remaining (h:m)  0:13  
+
+[NOTICE]: 1/6/2000 12:21 JD:152.514583 (1^ simulation day) 17.50% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:169.42 s, t_sub:144.86 s, t_sup: 24.56 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.619710e-04 mm/h 
+ Tot Error Richards=6.008628e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:22 18.33% - Time elapsed (h:m:s)  0:02:56 Time remaining (h:m)  0:13  
+
+[NOTICE]: 1/6/2000 12:22 JD:152.515278 (1^ simulation day) 18.33% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:175.85 s, t_sub:148.75 s, t_sup: 27.10 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.331643e-03 mm/h 
+ Tot Error Richards=6.230568e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:23 19.17% - Time elapsed (h:m:s)  0:03:04 Time remaining (h:m)  0:12  
+
+[NOTICE]: 1/6/2000 12:23 JD:152.515972 (1^ simulation day) 19.17% completed! 
+
+[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:183.39 s, t_sub:153.59 s, t_sup: 29.80 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.369878e-03 mm/h 
+ Tot Error Richards=6.458881e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:24 20.00% - Time elapsed (h:m:s)  0:03:12 Time remaining (h:m)  0:12  
+
+[NOTICE]: 1/6/2000 12:24 JD:152.516667 (1^ simulation day) 20.00% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:191.54 s, t_sub:159.01 s, t_sup: 32.54 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.399603e-03 mm/h 
+ Tot Error Richards=6.692148e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:25 20.83% - Time elapsed (h:m:s)  0:03:17 Time remaining (h:m)  0:12  
+
+[NOTICE]: 1/6/2000 12:25 JD:152.517361 (1^ simulation day) 20.83% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:198.03 s, t_sub:162.66 s, t_sup: 35.37 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.792783e-03 mm/h 
+ Tot Error Richards=6.990946e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:26 21.67% - Time elapsed (h:m:s)  0:03:23 Time remaining (h:m)  0:12  
+
+[NOTICE]: 1/6/2000 12:26 JD:152.518056 (1^ simulation day) 21.67% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:204.04 s, t_sub:165.73 s, t_sup: 38.31 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.862578e-04 mm/h 
+ Tot Error Richards=7.105322e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:27 22.50% - Time elapsed (h:m:s)  0:03:31 Time remaining (h:m)  0:12  
+
+[NOTICE]: 1/6/2000 12:27 JD:152.518750 (1^ simulation day) 22.50% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:211.26 s, t_sub:169.96 s, t_sup: 41.29 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.759572e-04 mm/h 
+ Tot Error Richards=7.217981e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:28 23.33% - Time elapsed (h:m:s)  0:03:39 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:28 JD:152.519444 (1^ simulation day) 23.33% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:218.78 s, t_sub:174.43 s, t_sup: 44.35 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.579953e-04 mm/h 
+ Tot Error Richards=7.327647e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:29 24.17% - Time elapsed (h:m:s)  0:03:45 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:29 JD:152.520139 (1^ simulation day) 24.17% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:225.01 s, t_sub:177.53 s, t_sup: 47.48 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.110130e-04 mm/h 
+ Tot Error Richards=7.479483e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:30 25.00% - Time elapsed (h:m:s)  0:03:50 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:30 JD:152.520833 (1^ simulation day) 25.00% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:231.08 s, t_sub:180.36 s, t_sup: 50.72 s, t_out:  0.01 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.224677e-04 mm/h 
+ Tot Error Richards=7.583227e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:31 25.83% - Time elapsed (h:m:s)  0:03:57 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:31 JD:152.521528 (1^ simulation day) 25.83% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:237.33 s, t_sub:183.36 s, t_sup: 53.97 s, t_out:  0.11 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.355252e-04 mm/h 
+ Tot Error Richards=7.655815e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:32 26.67% - Time elapsed (h:m:s)  0:04:05 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:32 JD:152.522222 (1^ simulation day) 26.67% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:246.03 s, t_sub:188.71 s, t_sup: 57.33 s, t_out:  0.11 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.439342e-03 mm/h 
+ Tot Error Richards=7.895705e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:33 27.50% - Time elapsed (h:m:s)  0:04:14 Time remaining (h:m)  0:11  
+
+[NOTICE]: 1/6/2000 12:33 JD:152.522917 (1^ simulation day) 27.50% completed! 
+
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:253.70 s, t_sub:192.98 s, t_sup: 60.71 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.357082e-04 mm/h 
+ Tot Error Richards=8.051657e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:34 28.33% - Time elapsed (h:m:s)  0:04:19 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:34 JD:152.523611 (1^ simulation day) 28.33% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:259.90 s, t_sub:195.70 s, t_sup: 64.20 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.385542e-04 mm/h 
+ Tot Error Richards=8.141416e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:35 29.17% - Time elapsed (h:m:s)  0:04:27 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:35 JD:152.524306 (1^ simulation day) 29.17% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:266.64 s, t_sub:198.88 s, t_sup: 67.76 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.857743e-03 mm/h 
+ Tot Error Richards=8.617706e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:36 30.00% - Time elapsed (h:m:s)  0:04:34 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:36 JD:152.525000 (1^ simulation day) 30.00% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:273.59 s, t_sub:202.20 s, t_sup: 71.38 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.375173e-03 mm/h 
+ Tot Error Richards=9.013568e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:37 30.83% - Time elapsed (h:m:s)  0:04:41 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:37 JD:152.525694 (1^ simulation day) 30.83% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:280.44 s, t_sub:205.39 s, t_sup: 75.05 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.240985e-04 mm/h 
+ Tot Error Richards=9.084251e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:38 31.67% - Time elapsed (h:m:s)  0:04:46 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:38 JD:152.526389 (1^ simulation day) 31.67% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:287.02 s, t_sub:208.25 s, t_sup: 78.77 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.945991e-04 mm/h 
+ Tot Error Richards=9.250018e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:39 32.50% - Time elapsed (h:m:s)  0:04:55 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:39 JD:152.527083 (1^ simulation day) 32.50% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:294.46 s, t_sub:211.81 s, t_sup: 82.64 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.215716e-03 mm/h 
+ Tot Error Richards=9.452637e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:40 33.33% - Time elapsed (h:m:s)  0:05:01 Time remaining (h:m)  0:10  
+
+[NOTICE]: 1/6/2000 12:40 JD:152.527778 (1^ simulation day) 33.33% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:301.16 s, t_sub:214.66 s, t_sup: 86.49 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.083672e-03 mm/h 
+ Tot Error Richards=9.799916e-04 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:41 34.17% - Time elapsed (h:m:s)  0:05:07 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:41 JD:152.528472 (1^ simulation day) 34.17% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:307.80 s, t_sub:217.44 s, t_sup: 90.36 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.188295e-03 mm/h 
+ Tot Error Richards=1.016463e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:42 35.00% - Time elapsed (h:m:s)  0:05:15 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:42 JD:152.529167 (1^ simulation day) 35.00% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:315.07 s, t_sub:220.74 s, t_sup: 94.33 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.818815e-04 mm/h 
+ Tot Error Richards=1.031161e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:43 35.83% - Time elapsed (h:m:s)  0:05:22 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:43 JD:152.529861 (1^ simulation day) 35.83% completed! 
+
+[NOTICE]:  t_meteo:  0.04 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:323.02 s, t_sub:224.60 s, t_sup: 98.41 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.158048e-03 mm/h 
+ Tot Error Richards=1.050462e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:44 36.67% - Time elapsed (h:m:s)  0:05:30 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:44 JD:152.530556 (1^ simulation day) 36.67% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:329.74 s, t_sub:227.19 s, t_sup:102.55 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.660819e-03 mm/h 
+ Tot Error Richards=1.078142e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:45 37.50% - Time elapsed (h:m:s)  0:05:37 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:45 JD:152.531250 (1^ simulation day) 37.50% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:336.58 s, t_sub:229.87 s, t_sup:106.71 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.135627e-03 mm/h 
+ Tot Error Richards=1.097069e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:46 38.33% - Time elapsed (h:m:s)  0:05:45 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:46 JD:152.531944 (1^ simulation day) 38.33% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:344.83 s, t_sub:233.95 s, t_sup:110.88 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.457399e-03 mm/h 
+ Tot Error Richards=1.121359e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:47 39.17% - Time elapsed (h:m:s)  0:05:52 Time remaining (h:m)  0:09  
+
+[NOTICE]: 1/6/2000 12:47 JD:152.532639 (1^ simulation day) 39.17% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:351.76 s, t_sub:236.68 s, t_sup:115.08 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.469646e-03 mm/h 
+ Tot Error Richards=1.145853e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:48 40.00% - Time elapsed (h:m:s)  0:05:59 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:48 JD:152.533333 (1^ simulation day) 40.00% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:358.99 s, t_sub:239.67 s, t_sup:119.32 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.429543e-03 mm/h 
+ Tot Error Richards=1.169679e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:49 40.83% - Time elapsed (h:m:s)  0:06:07 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:49 JD:152.534028 (1^ simulation day) 40.83% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:366.39 s, t_sub:242.60 s, t_sup:123.79 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.076746e-03 mm/h 
+ Tot Error Richards=1.187625e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:50 41.67% - Time elapsed (h:m:s)  0:06:14 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:50 JD:152.534722 (1^ simulation day) 41.67% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:373.94 s, t_sub:245.45 s, t_sup:128.49 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.895313e-04 mm/h 
+ Tot Error Richards=1.202451e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:51 42.50% - Time elapsed (h:m:s)  0:06:20 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:51 JD:152.535417 (1^ simulation day) 42.50% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:380.61 s, t_sub:248.35 s, t_sup:132.26 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.598068e-04 mm/h 
+ Tot Error Richards=1.208447e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:52 43.33% - Time elapsed (h:m:s)  0:06:26 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:52 JD:152.536111 (1^ simulation day) 43.33% completed! 
+
+[NOTICE]:  t_meteo:  0.05 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:385.56 s, t_sub:250.24 s, t_sup:135.32 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.134860e-04 mm/h 
+ Tot Error Richards=1.212005e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:53 44.17% - Time elapsed (h:m:s)  0:06:30 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:53 JD:152.536806 (1^ simulation day) 44.17% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:390.12 s, t_sub:252.08 s, t_sup:138.04 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.333983e-04 mm/h 
+ Tot Error Richards=1.215895e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:54 45.00% - Time elapsed (h:m:s)  0:06:34 Time remaining (h:m)  0:08  
+
+[NOTICE]: 1/6/2000 12:54 JD:152.537500 (1^ simulation day) 45.00% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:394.46 s, t_sub:253.83 s, t_sup:140.64 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.218574e-04 mm/h 
+ Tot Error Richards=1.226260e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:55 45.83% - Time elapsed (h:m:s)  0:06:39 Time remaining (h:m)  0:07  
+
+[NOTICE]: 1/6/2000 12:55 JD:152.538194 (1^ simulation day) 45.83% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:398.61 s, t_sub:255.49 s, t_sup:143.12 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.648876e-04 mm/h 
+ Tot Error Richards=1.234008e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:56 46.67% - Time elapsed (h:m:s)  0:06:43 Time remaining (h:m)  0:07  
+
+[NOTICE]: 1/6/2000 12:56 JD:152.538889 (1^ simulation day) 46.67% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:402.53 s, t_sub:257.02 s, t_sup:145.51 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.340207e-03 mm/h 
+ Tot Error Richards=1.289678e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:57 47.50% - Time elapsed (h:m:s)  0:06:47 Time remaining (h:m)  0:07  
+
+[NOTICE]: 1/6/2000 12:57 JD:152.539583 (1^ simulation day) 47.50% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:406.37 s, t_sub:258.53 s, t_sup:147.85 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.585508e-03 mm/h 
+ Tot Error Richards=1.366103e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:58 48.33% - Time elapsed (h:m:s)  0:06:50 Time remaining (h:m)  0:07  
+
+[NOTICE]: 1/6/2000 12:58 JD:152.540278 (1^ simulation day) 48.33% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:410.20 s, t_sub:260.06 s, t_sup:150.14 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.451885e-03 mm/h 
+ Tot Error Richards=1.456968e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 12:59 49.17% - Time elapsed (h:m:s)  0:06:54 Time remaining (h:m)  0:07  
+
+[NOTICE]: 1/6/2000 12:59 JD:152.540972 (1^ simulation day) 49.17% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:413.91 s, t_sub:261.58 s, t_sup:152.33 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.775171e-03 mm/h 
+ Tot Error Richards=1.553221e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:00 50.00% - Time elapsed (h:m:s)  0:06:58 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:00 JD:152.541667 (1^ simulation day) 50.00% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:417.51 s, t_sub:263.09 s, t_sup:154.42 s, t_out:  0.12 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.763314e-03 mm/h 
+ Tot Error Richards=1.632609e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:01 50.83% - Time elapsed (h:m:s)  0:07:01 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:01 JD:152.542361 (1^ simulation day) 50.83% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:421.11 s, t_sub:264.64 s, t_sup:156.47 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.711035e-03 mm/h 
+ Tot Error Richards=1.661126e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:02 51.67% - Time elapsed (h:m:s)  0:07:04 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:02 JD:152.543056 (1^ simulation day) 51.67% completed! 
+
+[NOTICE]:  t_meteo:  0.06 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:424.64 s, t_sub:266.16 s, t_sup:158.49 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.718402e-03 mm/h 
+ Tot Error Richards=1.689766e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:03 52.50% - Time elapsed (h:m:s)  0:07:09 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:03 JD:152.543750 (1^ simulation day) 52.50% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:428.13 s, t_sub:267.70 s, t_sup:160.43 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.650740e-04 mm/h 
+ Tot Error Richards=1.699184e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:04 53.33% - Time elapsed (h:m:s)  0:07:11 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:04 JD:152.544444 (1^ simulation day) 53.33% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:431.53 s, t_sub:269.19 s, t_sup:162.34 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.054529e-03 mm/h 
+ Tot Error Richards=1.783427e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:05 54.17% - Time elapsed (h:m:s)  0:07:15 Time remaining (h:m)  0:06  
+
+[NOTICE]: 1/6/2000 13:05 JD:152.545139 (1^ simulation day) 54.17% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:434.91 s, t_sub:270.70 s, t_sup:164.21 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.461714e-03 mm/h 
+ Tot Error Richards=1.874455e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:06 55.00% - Time elapsed (h:m:s)  0:07:18 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:06 JD:152.545833 (1^ simulation day) 55.00% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:438.25 s, t_sub:272.20 s, t_sup:166.05 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.991933e-03 mm/h 
+ Tot Error Richards=1.907654e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:07 55.83% - Time elapsed (h:m:s)  0:07:21 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:07 JD:152.546528 (1^ simulation day) 55.83% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:441.61 s, t_sub:273.74 s, t_sup:167.88 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.489327e-03 mm/h 
+ Tot Error Richards=1.932476e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:08 56.67% - Time elapsed (h:m:s)  0:07:25 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:08 JD:152.547222 (1^ simulation day) 56.67% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:444.83 s, t_sub:275.21 s, t_sup:169.62 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.272472e-03 mm/h 
+ Tot Error Richards=2.037017e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:09 57.50% - Time elapsed (h:m:s)  0:07:29 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:09 JD:152.547917 (1^ simulation day) 57.50% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:448.05 s, t_sub:276.72 s, t_sup:171.33 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.743060e-03 mm/h 
+ Tot Error Richards=2.066068e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:10 58.33% - Time elapsed (h:m:s)  0:07:31 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:10 JD:152.548611 (1^ simulation day) 58.33% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:451.19 s, t_sub:278.18 s, t_sup:173.01 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.518888e-03 mm/h 
+ Tot Error Richards=2.158050e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:11 59.17% - Time elapsed (h:m:s)  0:07:34 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:11 JD:152.549306 (1^ simulation day) 59.17% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:454.40 s, t_sub:279.69 s, t_sup:174.71 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.618696e-03 mm/h 
+ Tot Error Richards=2.251695e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:12 60.00% - Time elapsed (h:m:s)  0:07:37 Time remaining (h:m)  0:05  
+
+[NOTICE]: 1/6/2000 13:12 JD:152.550000 (1^ simulation day) 60.00% completed! 
+
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:457.55 s, t_sub:281.22 s, t_sup:176.33 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.310437e-04 mm/h 
+ Tot Error Richards=2.258879e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:13 60.83% - Time elapsed (h:m:s)  0:07:41 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:13 JD:152.550694 (1^ simulation day) 60.83% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:460.75 s, t_sub:282.85 s, t_sup:177.91 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.866073e-04 mm/h 
+ Tot Error Richards=2.263656e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:14 61.67% - Time elapsed (h:m:s)  0:07:44 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:14 JD:152.551389 (1^ simulation day) 61.67% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:463.85 s, t_sub:284.40 s, t_sup:179.45 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.509900e-04 mm/h 
+ Tot Error Richards=2.269505e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:15 62.50% - Time elapsed (h:m:s)  0:07:48 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:15 JD:152.552083 (1^ simulation day) 62.50% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:467.06 s, t_sub:286.10 s, t_sup:180.96 s, t_out:  0.23 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.566029e-04 mm/h 
+ Tot Error Richards=2.273782e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:16 63.33% - Time elapsed (h:m:s)  0:07:50 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:16 JD:152.552778 (1^ simulation day) 63.33% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:470.07 s, t_sub:287.62 s, t_sup:182.46 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.314743e-03 mm/h 
+ Tot Error Richards=2.295695e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:17 64.17% - Time elapsed (h:m:s)  0:07:53 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:17 JD:152.553472 (1^ simulation day) 64.17% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:473.03 s, t_sub:289.07 s, t_sup:183.96 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.911835e-03 mm/h 
+ Tot Error Richards=2.410892e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:18 65.00% - Time elapsed (h:m:s)  0:07:57 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:18 JD:152.554167 (1^ simulation day) 65.00% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:475.95 s, t_sub:290.52 s, t_sup:185.43 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.301179e-03 mm/h 
+ Tot Error Richards=2.532578e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:19 65.83% - Time elapsed (h:m:s)  0:08:00 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:19 JD:152.554861 (1^ simulation day) 65.83% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:478.97 s, t_sub:292.12 s, t_sup:186.85 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.029500e-03 mm/h 
+ Tot Error Richards=2.549736e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:20 66.67% - Time elapsed (h:m:s)  0:08:02 Time remaining (h:m)  0:04  
+
+[NOTICE]: 1/6/2000 13:20 JD:152.555556 (1^ simulation day) 66.67% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:481.97 s, t_sub:293.73 s, t_sup:188.24 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.799441e-03 mm/h 
+ Tot Error Richards=2.596394e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:21 67.50% - Time elapsed (h:m:s)  0:08:06 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:21 JD:152.556250 (1^ simulation day) 67.50% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:485.11 s, t_sub:295.47 s, t_sup:189.64 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.299542e-04 mm/h 
+ Tot Error Richards=2.600226e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:22 68.33% - Time elapsed (h:m:s)  0:08:09 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:22 JD:152.556944 (1^ simulation day) 68.33% completed! 
+
+[NOTICE]:  t_meteo:  0.08 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:488.75 s, t_sub:297.49 s, t_sup:191.26 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.235988e-04 mm/h 
+ Tot Error Richards=2.605620e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:23 69.17% - Time elapsed (h:m:s)  0:08:11 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:23 JD:152.557639 (1^ simulation day) 69.17% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:491.53 s, t_sub:298.95 s, t_sup:192.58 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.830937e-03 mm/h 
+ Tot Error Richards=2.736135e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:24 70.00% - Time elapsed (h:m:s)  0:08:15 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:24 JD:152.558333 (1^ simulation day) 70.00% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:494.54 s, t_sub:300.60 s, t_sup:193.94 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.940109e-03 mm/h 
+ Tot Error Richards=2.835137e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:25 70.83% - Time elapsed (h:m:s)  0:08:18 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:25 JD:152.559028 (1^ simulation day) 70.83% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:497.60 s, t_sub:302.25 s, t_sup:195.35 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.406714e-03 mm/h 
+ Tot Error Richards=2.875249e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:26 71.67% - Time elapsed (h:m:s)  0:08:20 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:26 JD:152.559722 (1^ simulation day) 71.67% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:500.38 s, t_sub:303.63 s, t_sup:196.75 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.923666e-02 mm/h 
+ Tot Error Richards=3.195860e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:27 72.50% - Time elapsed (h:m:s)  0:08:24 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:27 JD:152.560417 (1^ simulation day) 72.50% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:503.17 s, t_sub:305.08 s, t_sup:198.09 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.188578e-02 mm/h 
+ Tot Error Richards=3.393956e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:28 73.33% - Time elapsed (h:m:s)  0:08:26 Time remaining (h:m)  0:03  
+
+[NOTICE]: 1/6/2000 13:28 JD:152.561111 (1^ simulation day) 73.33% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:505.64 s, t_sub:306.30 s, t_sup:199.34 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.794058e-02 mm/h 
+ Tot Error Richards=3.859633e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:29 74.17% - Time elapsed (h:m:s)  0:08:29 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:29 JD:152.561806 (1^ simulation day) 74.17% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:508.51 s, t_sub:307.93 s, t_sup:200.58 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.720417e-04 mm/h 
+ Tot Error Richards=3.874167e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:30 75.00% - Time elapsed (h:m:s)  0:08:31 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:30 JD:152.562500 (1^ simulation day) 75.00% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:511.42 s, t_sub:309.50 s, t_sup:201.91 s, t_out:  0.24 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.957207e-03 mm/h 
+ Tot Error Richards=3.923453e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:31 75.83% - Time elapsed (h:m:s)  0:08:34 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:31 JD:152.563194 (1^ simulation day) 75.83% completed! 
+
+[NOTICE]:  t_meteo:  0.09 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:514.19 s, t_sub:311.04 s, t_sup:203.14 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.158629e-04 mm/h 
+ Tot Error Richards=3.938718e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:32 76.67% - Time elapsed (h:m:s)  0:08:38 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:32 JD:152.563889 (1^ simulation day) 76.67% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:517.07 s, t_sub:312.75 s, t_sup:204.32 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.493340e-04 mm/h 
+ Tot Error Richards=3.952873e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:33 77.50% - Time elapsed (h:m:s)  0:08:41 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:33 JD:152.564583 (1^ simulation day) 77.50% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:519.99 s, t_sub:314.41 s, t_sup:205.57 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.569932e-03 mm/h 
+ Tot Error Richards=3.979039e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:34 78.33% - Time elapsed (h:m:s)  0:08:43 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:34 JD:152.565278 (1^ simulation day) 78.33% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:522.90 s, t_sub:316.09 s, t_sup:206.81 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.233250e-04 mm/h 
+ Tot Error Richards=3.994428e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:35 79.17% - Time elapsed (h:m:s)  0:08:45 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:35 JD:152.565972 (1^ simulation day) 79.17% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:525.56 s, t_sub:317.49 s, t_sup:208.07 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.192490e-02 mm/h 
+ Tot Error Richards=4.193176e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:36 80.00% - Time elapsed (h:m:s)  0:08:48 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:36 JD:152.566667 (1^ simulation day) 80.00% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:528.29 s, t_sub:318.90 s, t_sup:209.39 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.221350e-02 mm/h 
+ Tot Error Richards=4.563401e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:37 80.83% - Time elapsed (h:m:s)  0:08:52 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:37 JD:152.567361 (1^ simulation day) 80.83% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:531.42 s, t_sub:320.71 s, t_sup:210.71 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.826491e-03 mm/h 
+ Tot Error Richards=4.693843e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:38 81.67% - Time elapsed (h:m:s)  0:08:54 Time remaining (h:m)  0:02  
+
+[NOTICE]: 1/6/2000 13:38 JD:152.568056 (1^ simulation day) 81.67% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:534.61 s, t_sub:322.63 s, t_sup:211.98 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.003940e-04 mm/h 
+ Tot Error Richards=4.705516e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:39 82.50% - Time elapsed (h:m:s)  0:08:58 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:39 JD:152.568750 (1^ simulation day) 82.50% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:537.18 s, t_sub:324.13 s, t_sup:213.05 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.649802e-03 mm/h 
+ Tot Error Richards=4.833012e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:40 83.33% - Time elapsed (h:m:s)  0:09:01 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:40 JD:152.569444 (1^ simulation day) 83.33% completed! 
+
+[NOTICE]:  t_meteo:  0.10 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:539.72 s, t_sub:325.56 s, t_sup:214.16 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.201762e-03 mm/h 
+ Tot Error Richards=4.953042e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:41 84.17% - Time elapsed (h:m:s)  0:09:03 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:41 JD:152.570139 (1^ simulation day) 84.17% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:542.26 s, t_sub:327.07 s, t_sup:215.19 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.859145e-03 mm/h 
+ Tot Error Richards=5.067361e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:42 85.00% - Time elapsed (h:m:s)  0:09:05 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:42 JD:152.570833 (1^ simulation day) 85.00% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:544.82 s, t_sub:328.58 s, t_sup:216.24 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.761637e-03 mm/h 
+ Tot Error Richards=5.096722e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:43 85.83% - Time elapsed (h:m:s)  0:09:08 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:43 JD:152.571528 (1^ simulation day) 85.83% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:547.40 s, t_sub:330.11 s, t_sup:217.29 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.778140e-03 mm/h 
+ Tot Error Richards=5.126357e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:44 86.67% - Time elapsed (h:m:s)  0:09:11 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:44 JD:152.572222 (1^ simulation day) 86.67% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:549.81 s, t_sub:331.41 s, t_sup:218.39 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.584077e-02 mm/h 
+ Tot Error Richards=5.390370e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:45 87.50% - Time elapsed (h:m:s)  0:09:13 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:45 JD:152.572917 (1^ simulation day) 87.50% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:552.30 s, t_sub:332.81 s, t_sup:219.50 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.148673e-02 mm/h 
+ Tot Error Richards=5.581815e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:46 88.33% - Time elapsed (h:m:s)  0:09:15 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:46 JD:152.573611 (1^ simulation day) 88.33% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:554.90 s, t_sub:334.33 s, t_sup:220.56 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.950960e-03 mm/h 
+ Tot Error Richards=5.680998e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:47 89.17% - Time elapsed (h:m:s)  0:09:18 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:47 JD:152.574306 (1^ simulation day) 89.17% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:557.59 s, t_sub:335.93 s, t_sup:221.66 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.993295e-03 mm/h 
+ Tot Error Richards=5.764220e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:48 90.00% - Time elapsed (h:m:s)  0:09:20 Time remaining (h:m)  0:01  
+
+[NOTICE]: 1/6/2000 13:48 JD:152.575000 (1^ simulation day) 90.00% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:560.26 s, t_sub:337.61 s, t_sup:222.65 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.293773e-04 mm/h 
+ Tot Error Richards=5.776376e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:49 90.83% - Time elapsed (h:m:s)  0:09:24 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:49 JD:152.575694 (1^ simulation day) 90.83% completed! 
+
+[NOTICE]:  t_meteo:  0.11 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:562.76 s, t_sub:339.14 s, t_sup:223.62 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.855879e-03 mm/h 
+ Tot Error Richards=5.857307e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:50 91.67% - Time elapsed (h:m:s)  0:09:26 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:50 JD:152.576389 (1^ simulation day) 91.67% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:565.09 s, t_sub:340.52 s, t_sup:224.56 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.574054e-03 mm/h 
+ Tot Error Richards=5.950208e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:51 92.50% - Time elapsed (h:m:s)  0:09:28 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:51 JD:152.577083 (1^ simulation day) 92.50% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:567.20 s, t_sub:341.72 s, t_sup:225.49 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.424715e-02 mm/h 
+ Tot Error Richards=6.187661e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:52 93.33% - Time elapsed (h:m:s)  0:09:30 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:52 JD:152.577778 (1^ simulation day) 93.33% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:569.33 s, t_sub:342.93 s, t_sup:226.41 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.483528e-02 mm/h 
+ Tot Error Richards=6.434915e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:53 94.17% - Time elapsed (h:m:s)  0:09:31 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:53 JD:152.578472 (1^ simulation day) 94.17% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:571.45 s, t_sub:344.13 s, t_sup:227.32 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.549783e-02 mm/h 
+ Tot Error Richards=6.693213e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:54 95.00% - Time elapsed (h:m:s)  0:09:33 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:54 JD:152.579167 (1^ simulation day) 95.00% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:573.60 s, t_sub:345.35 s, t_sup:228.25 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.531388e-02 mm/h 
+ Tot Error Richards=6.948444e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:55 95.83% - Time elapsed (h:m:s)  0:09:36 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:55 JD:152.579861 (1^ simulation day) 95.83% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:576.01 s, t_sub:346.85 s, t_sup:229.16 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.367466e-03 mm/h 
+ Tot Error Richards=6.971235e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:56 96.67% - Time elapsed (h:m:s)  0:09:39 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:56 JD:152.580556 (1^ simulation day) 96.67% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:578.10 s, t_sub:348.05 s, t_sup:230.05 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.369149e-02 mm/h 
+ Tot Error Richards=7.199426e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:57 97.50% - Time elapsed (h:m:s)  0:09:41 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:57 JD:152.581250 (1^ simulation day) 97.50% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:580.31 s, t_sub:349.37 s, t_sup:230.94 s, t_out:  0.35 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.019012e-02 mm/h 
+ Tot Error Richards=7.369262e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:58 98.33% - Time elapsed (h:m:s)  0:09:43 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:58 JD:152.581944 (1^ simulation day) 98.33% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:582.80 s, t_sub:351.00 s, t_sup:231.81 s, t_out:  0.36 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.096518e-03 mm/h 
+ Tot Error Richards=7.387537e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 13:59 99.17% - Time elapsed (h:m:s)  0:09:45 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 13:59 JD:152.582639 (1^ simulation day) 99.17% completed! 
+
+[NOTICE]:  t_meteo:  0.12 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:585.11 s, t_sub:352.45 s, t_sup:232.66 s, t_out:  0.36 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.127582e-03 mm/h 
+ Tot Error Richards=7.439664e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: 1/6/2000 14:00 100.00% - Time elapsed (h:m:s)  0:09:48 Time remaining (h:m)  0:00  
+
+[NOTICE]: 1/6/2000 14:00 JD:152.583333 (1^ simulation day) 100.00% completed! 
+
+[NOTICE]:  t_meteo:  0.13 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:587.39 s, t_sub:353.85 s, t_sup:233.54 s, t_out:  0.36 s
+
+[NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.714294e-03 mm/h 
+ Tot Error Richards=7.534902e-03 mm Mean Time Step=0.000000 s
+
+
+[NOTICE]: Duration of simulation: 588.470122
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
