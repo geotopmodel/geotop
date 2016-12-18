@@ -72,8 +72,6 @@ SHORTBIN, INTBIN, LONGBIN, DOUBLEBIN, STRING
 ---------------------------------------------------------------------*/
 
 
-#include "t_io.h"
-
 
 /* For the Numerical Recipes Random Generator  ran1 */
 //#define PI 3.141592654

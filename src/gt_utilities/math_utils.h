@@ -20,6 +20,7 @@ long Fmaxlong(long a, long b);
 short tridiag2(long nbeg, long nend, const GeoVector<double>& ld, const GeoVector<double>& d, const GeoVector<double>& ud, const GeoVector<double>& b, GeoVector<double>& e);
 
 double norm_inf(const GeoVector<double>& V, long nbeg, long nend);
+double norm_1(const GeoVector<double>& V, long nbeg, long nend);
 double norm_2(const GeoVector<double>& V, long nbeg, long nend);
 void Cramer_rule(double A, double B, double C, double D, double E, double F, double *x, double *y);
 double minimize_merit_function(double res0, double lambda1, double res1, double lambda2, double res2);

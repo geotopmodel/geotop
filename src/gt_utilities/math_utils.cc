@@ -136,6 +136,22 @@ double norm_inf(const GeoVector<double>& V, long nbeg, long nend){
 
 }
 
+//-----------------------------------------
+
+double norm_1(const GeoVector<double>& V, long nbeg, long nend){
+    
+    long l;
+    double N=0.0;
+    for(l=nbeg;l<=nend;l++){
+        N += fabs(V[l]);
+    }
+    
+    return(N);
+    
+}
+
+
+
 /*----------------------------------------------------------------------------------------------------------*/
 
 

@@ -9,8 +9,8 @@ ADD_LIBRARY( gt_utilities ${LINKING_MODE}
 			read_command_line.h
 			path_utils.h
 			path_utils.c
-			t_io.h
-			t_io.cc
+			geomorphology.h
+			geomorphology.cc
 			turtle.h
 			math_utils.h
 			math_utils.cc
