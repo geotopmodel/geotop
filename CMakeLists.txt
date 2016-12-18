@@ -27,6 +27,17 @@ SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
 
 ###########################################################
+
+IF(APPLE)
+    EXEC_PROGRAM(uname ARGS -v OUTPUT_VARIABLE DARWIN_VERSION)
+    STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+    MESSAGE("DARWIN_VERSION=${DARWIN_VERSION}")
+    IF (DARWIN_VERSION STRLESS 16)
+        SET(APPLE_OLD_OSX ON)
+    ENDIF(DARWIN_VERSION STRLESS 16)
+ENDIF(APPLE)
+
+###########################################################
 # user options
 
 SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
@@ -303,7 +314,7 @@ SET(CPACK_PACKAGE_EXECUTABLES "geotop;GEOtop")
 IF(UNIX)
 	IF(APPLE)
 		SET(CPACK_GENERATOR "PackageMaker")
-		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/opt/local")
 	ELSE(APPLE)
 		SET(CPACK_GENERATOR "DEB;RPM;TGZ")
 		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
