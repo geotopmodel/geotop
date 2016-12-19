@@ -2,6 +2,12 @@
 GEOtop Testing
 ##############
 
+This directory contains several tests (1D and 3D)  to check if geotop runs smoothly.
+Simulation are very short and just check if code runs without any problems.
+
+1D: contains Point simulation ( keyword PointSim=1)
+3D: contains distributed simulation (keyword PointSim=0 or not defined)
+
 Tests are automatically executed on `Travis <https://travis-ci.org/geotopmodel/geotop>`_ every push to github performed. A mail will be sent to the committer after the test is run with all the details regarding the test. You can check the log of the execution inside of Travis. 
 
 Since some test is generating an output larger than 4MB of text the complete log is disabled.
@@ -47,3 +53,8 @@ Files inside *output-tabs* and *output-maps* are compared with the outputs withi
         output-maps-METEOIO-off
         output-tabs-SE27XX
         output-maps-SE27XX
+
+Each directory does in general contains all the input files needed to run the examples.
+It also contains the log files for the three referenced version.
+
+

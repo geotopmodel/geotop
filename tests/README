@@ -1,7 +1,0 @@
-This directory contains several tests to check if geotop runs smoothly.
-Simulation are very short and just check if code runs without any problems.
-NO verification/validation tests are so far implemented
-
-
-1D: contains Point simulation ( keyword PointSim=1) 
-3D: contains distributed simulation (keyword PointSim=0 or not defined)
