@@ -23,9 +23,9 @@ BasinOutputFile = "output-tabs/basin"
 ! METEO HAEDERS 
 !======================================= 
 
-MeteoFile = "meteo/meteo"
+MeteoFile = "input-meteo/meteo"
 HeaderDateDDMMYYYYhhmmMeteo = "date"
-HeaderIPrec = "Prec"
+HeaderIPrec = "IPrec"
 
 
 MeteoStationCoordinateX=15
@@ -83,10 +83,10 @@ MinTimeStepSupFlow	=	1E-50
 
 ! Input files 
 
-DemFile = "input_maps/dem"
-RiverNetwork = "input_maps/net"
-LandCoverMapFile = "input_maps/land"
-SlopeMapFile = "input_maps/slope"
+DemFile = "input-maps/dem"
+RiverNetwork = "input-maps/net"
+LandCoverMapFile = "input-maps/land"
+SlopeMapFile = "input-maps/slope"
 
 ! Output files
 

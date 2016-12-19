@@ -18,6 +18,8 @@ WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/1D/CostantMeteo
 [NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
 [NOTICE]: Infinite Glac layer numbers are numbers: 
 	
+[WARNING]: SubfolderRecoveryFiles: rec doesn't exist. Attempting to create it...
+[WARNING]: rec successfully created
 
 Soil Layers: 6
 
