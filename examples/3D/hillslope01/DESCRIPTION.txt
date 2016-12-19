@@ -1,0 +1,8 @@
+Model: GEOtop
+Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1) 
+Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
+Author: Emanuele Cordano (emanuele.cordano@rendena100.eu)
+Date: 29-08-2016
+Name: hillslope01
+Description: Uniform hillslope (sand) (100 meters long 10% steep) with a heavy rainfall (50 mm/hr for 3 hours)
+Output: Soil Water Maps at 1.5 hours since the beginning

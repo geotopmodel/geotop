@@ -1,0 +1,151 @@
+!*******************************
+!******* CONFIGURATION *********
+!*******************************
+TimeStepEnergyAndWater = 1800
+InitDateDDMMYYYYhhmm = 09/10/2002 22:00
+EndDateDDMMYYYYhhmm =   31/12/2004 00:00
+EnergyBalance =1
+WaterBalance = 0
+PointSim = 1
+!*******************************
+!********* GEOGRAPHY ***********
+!*******************************
+Latitude = 40.8
+Longitude = 14.6
+
+!*******************************
+!****** METEO STATIONS *********
+!*******************************
+NumberOfMeteoStations=1
+MeteoStationCoordinateX=272533.0, 266336.0, 268097.0, 273450.0, 273450.0, 276285.0, 272390.0, 267532.0
+MeteoStationCoordinateY=4789643.0, 4790786.0, 4792471.0, 4795491.0, 4795491.0, 4791156.0, 4791298.0, 4777518.0
+MeteoStationElevation=400.0, 400.0, 400.0, 400.0, 400.0, 400.0, 400.0, 400.0
+MeteoStationLatitude=40.8,40.8,40.8,40.8,40.8,40.8,40.8,40.8
+MeteoStationLongitude=14.6,14.6,14.6,14.6,14.6,14.6,14.6,14.6
+MeteoStationStandardTime=1.0
+MeteoStationWindVelocitySensorHeight=10.0
+MeteoStationTemperatureSensorHeight=7.0
+
+
+MeteoFile = "meteo/meteo"
+HeaderDateDDMMYYYYhhmmMeteo = "Date"
+HeaderIPrec = "Iprec"
+HeaderWindVelocity = "WindSp"
+HeaderRH = "RelHum"
+HeaderAirTemp ="AirT"
+HeaderSWglobal = "SWglobal"
+!HeaderCloudSWTransmissivity = "CloudTrans"
+
+
+!********************************************
+!****** INIT AND BOUNDARY CONDITIONS ********
+!********************************************
+InitWaterTableHeightOverTopoSurface= -8605.0
+MeteoStationSkyViewFactor = 0.88
+FreeDrainageAtLateralBorder=1
+FreeDrainageAtBottom=1
+
+!************************************
+!******* POINTS OF INTEREST *********
+!************************************
+PointFile = "listpoints"
+HeaderPointID = "ID"
+HeaderCoordinatePointX = "xcoord"
+HeaderCoordinatePointY = "ycoord"
+
+!*******************************
+!******* INPUT MAPS ************
+!*******************************
+DemFile = "input_maps/dem"
+LandCoverMapFile = "input_maps/landcover"
+SkyViewFactorMapFile = "input_maps/SkyViewFactorMapFile"
+SlopeMapFile = "input_maps/slope"
+AspectMapFile = "input_maps/aspect"
+!BedrockDepthMapFile = "${BedrockDepthMapFile}"
+RiverNetwork = "input_maps/net"
+
+!*******************************
+!******** LAND COVER  **********
+!*******************************
+NumLandCoverTypes = 1
+SoilRoughness = 135.0
+SoilAlbVisDry = 0.09
+SoilAlbNIRDry = 0.1602520789826799
+SoilAlbVisWet = 0.18
+SoilAlbNIRWet = 0.05
+SoilEmissiv = 0.81
+
+
+!*******************************
+!*******  SOIL TYPE ************
+!*******************************
+
+SoilMapFile = "input_maps/soiltype"
+SoilParFile = "soil/soil"
+
+SoilLayerTypes = 1
+SoilLayerNumber = 10
+InitSoilTemp = 15.0
+!ThermalCapacitySoilSolids = ${ThermalCapacitySoilSolids}
+
+HeaderSoilDz = "Dz"
+HeaderLateralHydrConductivity = "Kh"
+HeaderNormalHydrConductivity = "Kv"
+HeaderThetaRes = "res"
+HeaderFieldCapacity = "fc"
+HeaderThetaSat = "sat"
+HeaderAlpha = "a"
+HeaderN = "n"
+HeaderSpecificStorativity = "SS"
+HeaderV = "VM"
+
+NormalHydrConductivityBedrock	= 0.07275954764748689
+LateralHydrConductivityBedrock	= 0.03
+ThetaSatBedrock	=	0.39905401345697167
+ThetaResBedrock	=	0.08563509608926037
+AlphaVanGenuchtenBedrock = 1.0018747563804752E-4
+NVanGenuchtenBedrock = 2.3126569565866744
+
+
+!*******************************
+!******* NUMERICS **********
+!*******************************
+HeatEqTol = 1.0E-6
+HeatEqMaxIter = 800.0
+RichardTol = 1.0E-6
+RichardMaxIter = 1500
+RichardInitForc = 0.01
+
+
+!*************************************
+!******* OUTPUT TIME SERIES **********
+!*************************************
+DtPlotDischarge = 1800
+DtPlotPoint = 0.5
+SoilAll=1
+DischargeFile = "output-tabs/discharge"
+SoilLiqWaterPressProfileFile = "output-tabs/water_press"
+SoilLiqContentProfileFile = "output-tabs/water_content"
+
+!SoilAveragedTempTensorFile = "output_maps/T"
+!SoilLiqContentTensorFile = "output_maps/thetaliq"
+!IceLiqContentTensorFile = "output_maps/thetaice"
+!SoilLiqWaterPressTensorFile = "output_maps/pressure"
+
+	
+!LandSurfaceWaterDepthMapFile = "output_maps/hsup"
+!WaterTableDepthMapFile = "output_maps/watertable"
+
+!SWEMapFile= "output_maps/SWE"
+!SnowDepthMapFile = "output_maps/snowdepth"
+
+!SurfaceHeatFluxMapFile = "output_maps/EB"
+!SurfaceSensibleHeatFluxMapFile = "output_maps/H"
+!SurfaceLatentHeatFluxMapFile = "output_maps/LE"
+!SurfaceTempMapFile = "output_maps/Ts"
+
+!*******************************
+!********* RECOVERY ************
+!*******************************
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery=0.0208333333333333

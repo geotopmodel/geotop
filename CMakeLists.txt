@@ -1,13 +1,13 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 ###########################################################
 # general settings
 
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
-SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
-SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2 " CACHE STRING "" )
 SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
@@ -16,8 +16,8 @@ project(geotop)
 
 # Version of library
 SET(VERSION_MAJOR 2 CACHE INTERNAL "")
-SET(VERSION_MINOR 0 CACHE INTERNAL "")
-SET(VERSION_PATCH 1 CACHE INTERNAL "")
+SET(VERSION_MINOR 1 CACHE INTERNAL "")
+SET(VERSION_PATCH 0 CACHE INTERNAL "")
 
 # config.h variables
 SET(PACKAGE "geotop")
@@ -25,6 +25,14 @@ SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_STRING "${PACKAGE} ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
+
+
+####################
+# define _GNU_SOURCE if C compiler is gnu..
+
+if(CMAKE_COMPILER_IS_GNU_CC)
+   SET( _GNU_SOURCE ON)
+endif()
 
 ###########################################################
 
@@ -44,14 +52,13 @@ SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
 SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
-SET(STAGED_FOR_REMOVING OFF CACHE BOOL "enable code staged for removing")
-SET(ENABLE_INTERNAL_METEODISTR OFF CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
-SET(USE_NETCDF OFF CACHE BOOL "enable the use of NETCDF")
+SET(VERY_VERBOSE OFF CACHE BOOL "enable printing of verification data")
+SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
+# these below to be checked 
 SET(METEOIO_OUTPUT OFF CACHE BOOL "enable the use of MeteoIO for output (Experimental)")
 
 ###########################################################
 # find dependecies
-
 FIND_PACKAGE(Boost REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS regex REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
@@ -170,17 +177,9 @@ IF (VERBOSE)
 	add_definitions(-DVERBOSE)
 ENDIF (VERBOSE)
 
-IF (STAGED_FOR_REMOVING)
-	add_definitions(-DSTAGED_FOR_REMOVING)
-ENDIF (STAGED_FOR_REMOVING)
-
 IF(ENABLE_INTERNAL_METEODISTR)
 	add_definitions(-DUSE_INTERNAL_METEODISTR)
 ENDIF(ENABLE_INTERNAL_METEODISTR)
-
-IF (USE_NETCDF)
-	add_definitions(-DUSE_NETCDF)
-ENDIF (USE_NETCDF)
 
 IF (WITH_LOGGER)
     add_definitions(-DWITH_LOGGER)
@@ -204,9 +203,7 @@ FILE(GLOB hGeotopSoil "src/geotop/Soil/*.h")
 FILE(GLOB hGeotopWater "src/geotop/Water/*.h")
 FILE(GLOB hGt_utilities "src/gt_utilities/*.h")
 FILE(GLOB hLibrariesAscii "src/libraries/ascii/*.h")
-FILE(GLOB hLibrariesFT "src/libraries/fluidturtle/*.h")
 FILE(GLOB hMeteoio_plugin "src/meteoio_plugin/*.h")
-FILE(GLOB hNetCDF "src/netCDF/*.h")
 
 INSTALL(FILES ${hGeotop} DESTINATION include/geotop/src/geotop COMPONENT headers)
 INSTALL(FILES ${hGeotopEnergy} DESTINATION include/geotop/src/geotop/Energy COMPONENT headers)
@@ -217,9 +214,9 @@ INSTALL(FILES ${hGeotopSoil} DESTINATION include/geotop/src/geotop/Soil COMPONEN
 INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPONENT headers)
 INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
-INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
+#INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
-INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
+#INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 
 ###########################################################
 #for the uninstall target
@@ -241,7 +238,7 @@ ADD_CUSTOM_TARGET(distclean make clean
 	COMMAND cmake -E remove_directory src/libraries/ascii/CMakeFiles
 	COMMAND cmake -E remove_directory src/libraries/fluidturtle/CMakeFiles
 	COMMAND cmake -E remove_directory src/meteoio_plugin/CMakeFiles
-	COMMAND cmake -E remove_directory src/netCDF/CMakeFiles
+#	COMMAND cmake -E remove_directory src/netCDF/CMakeFiles
 )
 
 ###########################################################
@@ -354,6 +351,81 @@ SET(CPACK_SOURCE_IGNORE_FILES
 	"/CPack*"
 	"\\\\.o$"
 	"/m4/"
+
 )
 
 INCLUDE(CPack)
+
+###################### CTEST ######################################
+### added by S.Cozzini: maybe it should be set in a separate file #
+###################################################################
+
+# generate test program
+## test_runner.py variables
+SET ( GEOTOP_PROGRAM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin/geotop" )
+SET ( GEOTOP_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests")
+IF(ENABLE_INTERNAL_METEODISTR)
+    SET ( METEOIOPREFIX  off )
+ELSE(ENABLE_INTERNAL_METEODISTR)
+     SET ( METEOIOPREFIX on )
+ENDIF(ENABLE_INTERNAL_METEODISTR)
+configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
+
+
+
+enable_testing()
+
+
+
+#this macro finds every subdirectory of the parameter if there is a geotop.inpts file inside, usage: SUBDIRLIST(SUBDIRS ${DIR})
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+      IF(EXISTS ${curdir}/${child}/geotop.inpts)
+        LIST(APPEND dirlist ${child})
+      ENDIF()
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+
+SET(TEST_DIRECTORY ${GEOTOP_TEST_DIR})
+SET(1D_DIRECTORY ${TEST_DIRECTORY}/1D)
+SET(3D_DIRECTORY ${TEST_DIRECTORY}/3D)
+SET(TEST_RUNNER ${TEST_DIRECTORY}/test_runner.py)
+
+SUBDIRLIST(1DTESTS ${1D_DIRECTORY})
+SUBDIRLIST(3DTESTS ${3D_DIRECTORY})
+
+foreach(TEST ${1DTESTS})
+	add_test(NAME "1D.${TEST}"
+         WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+	
+	#testing with test_runner
+	add_test(NAME "1D.test_runner.${TEST}"
+         WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
+	 COMMAND nosetests --verbose ${TEST_RUNNER})
+ 	
+ 	set_tests_properties(
+		"1D.test_runner.${TEST}" PROPERTIES
+		DEPENDS "1D.${TEST}")
+ENDFOREACH()
+
+foreach(TEST ${3DTESTS})
+	add_test(NAME "3D.${TEST}"
+         WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
+         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+
+	#testing with test_runner
+	add_test(NAME "3D.test_runner.${TEST}"
+         WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
+	 COMMAND nosetests --verbose ${TEST_RUNNER})
+ 	
+ 	set_tests_properties(
+		"3D.test_runner.${TEST}" PROPERTIES
+		DEPENDS "3D.${TEST}")
+ENDFOREACH()

@@ -1,7 +1,7 @@
 #include "rw_maps.h"
 
-#include "../fluidturtle/t_io.h"
-#include "../fluidturtle/tensors3D.h"
+//#include "../../gt_utilities/t_io.h"
+#include "../../gt_utilities/math_utils.h"
 
 #include "../../meteoio_plugin/meteoioplugin.h"
 
@@ -329,32 +329,6 @@ void write_tensorseries_vector(short a, long l, long i, std::string filename, sh
 
 //---------------------------------------------
 
-void write_tensorseries2(std::string suf, long l, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue)
-{
-
-    std::string LLLLL = "LLLLL" ;
-    std::string temp1, temp2;
-    long r, c;
-
-    GeoMatrix<double> M;
-
-    temp1 = LLLLL + suf ;
-    write_suffix(temp1, l, 1);
-
-    M.resize(T->nrh + 1, T->nch + 1);
-
-    for(r = 1; r <= T->nrh; r++)
-    {
-        for(c = 1; c <= T->nch; c++)
-        {
-            M[r][c] = T->co[l][r][c];
-        }
-    }
-
-    temp2 = filename + temp1 ;
-    write_map(temp2.c_str(), type, format, M, UV, novalue);
-
-}
 
 void write_tensorseries2_vector(std::string suf, long l, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
 {
@@ -381,15 +355,6 @@ void write_tensorseries2_vector(std::string suf, long l, std::string filename, s
 
 
 //---------------
-void write_tensorseries3(std::string suffix, std::string filename, short type, short format, DOUBLETENSOR *T, TInit *UV, long novalue)
-{
-
-    long l;
-    for(l = T->ndl; l <= T->ndh; l++)
-    {
-        write_tensorseries2(suffix, l, filename, type, format, T, UV, novalue);
-    }
-}
 
 //--------------------------
 void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
@@ -596,14 +561,16 @@ void write_esriascii_vector(string name, short type, const GeoVector<double>& DT
 
     temp = name + ascii_esri;
 
-    char * lStrBase = strdup(temp.c_str()) ;
-    basedir = dirname(lStrBase);
-    ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-    free(lStrBase) ;
-    if(-1 == ret)
-    {
-        t_error("write_esriascii_vector(): Unable to create parent directories of file" + temp);
-    }
+    // Commented out: TODO: understand why we should create a directory here S.Cozzini 15.12.2016
+    //    char * lStrBase = strdup(temp.c_str()) ;
+    //basedir = dirname(lStrBase);
+    //ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    //free(lStrBase) ;
+    //if(-1 == ret)
+    //{
+    //   t_error("write_esriascii_vector(): Unable to create parent directories of file" + temp);
+    //}
+    
     f = fopen(temp.c_str(), "w");
     if(NULL == f)
     {
@@ -852,6 +819,7 @@ long col(double E, long ncols, TInit *UV, long novalue)
 
 
 //Presa da geomorphology099 e modificato der_min
+
 void nablaquadro_mask(GeoMatrix<double>& Z0, GeoMatrix<short>& curv, GeoVector<double>& U, GeoVector<double>& V)
 
 {
@@ -926,6 +894,7 @@ void nablaquadro_mask(GeoMatrix<double>& Z0, GeoMatrix<short>& curv, GeoVector<d
 }
 
 /*====================copied function from init.c ==================*/
+/// ??? shall we need this ? called just once..
 
 void initmatrix(double val, GeoMatrix<double>& destination, GeoMatrix<double>& origin, double novalue)
 {

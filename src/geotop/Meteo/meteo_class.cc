@@ -19,7 +19,8 @@ Meteo::Meteo(size_t nrows, size_t ncols, double Vmin, double Pa)
    Vgrid = GeoMatrix<double>(nrows + 1, ncols + 1, Vmin);
    Vdir = GeoMatrix<double>(nrows + 1, ncols + 1, 0.);
    RHgrid = GeoMatrix<double>(nrows + 1, ncols + 1, 0.7);
-   // GeoVector<long> imeteo_stations; // SERAFIN: I don't know what to do, because this variable is allocated in parameters.cc
+   ILWRgrid = GeoMatrix<double>(nrows + 1, ncols + 1, 0);
+   GeoVector<long> imeteo_stations; // SERAFIN: I don't know what to do, because this variable is allocated in parameters.cc
 }
 
 //FIXME: Horrible hack needed to cope with legacy code structure
@@ -35,5 +36,6 @@ void Meteo::allocate_data(double novalue, size_t nrows, size_t ncols, size_t Z0n
    Vgrid.resize(nrows + 1, ncols + 1, Vmin);
    Vdir.resize(nrows + 1, ncols +1, 0.);
    RHgrid.resize(nrows + 1, ncols + 1, 0.7);
+   ILWRgrid.resize(nrows + 1, ncols + 1, novalue);
 }
 

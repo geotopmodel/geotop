@@ -73,6 +73,19 @@ int gt_makeDirectory(const char* path);
  */
 char* gt_popPath(const char* path);
 
+
+/**
+ * @brief Create parent dir 
+ *
+ * Moved here: still unclear if needed or not 
+ */
+    
+int mkdirp(const char *pathname, mode_t mode);
+    
+
+
+    
+
 #ifdef __cplusplus
 }
 #endif

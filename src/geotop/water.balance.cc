@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 2.0.0 - 9 Mar 2012
+ GEOtop 2.1 release candidate  (release date: 31 december 2016)
  
- Copyright (c), 2012 - Stefano Endrizzi 
+ Copyright (c), 2016 - GEOtop Foundation
  
- This file is part of GEOtop 2.0.0 
+ This file is part of GEOtop 2.1 
  
- GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -40,7 +40,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandsup, double *Voutlandbottom){
 
 	clock_t start, end;
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 	double Pnet, loss;
 	long j;
 	short a;
@@ -48,10 +47,10 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 	// this below used only for checks..
 	double mm1, mm2, mmo;
 	
-	double MM1, MM2, MMR=0.0, MMo=0.0, MS1, MS2;
-	double m1=0., m2=0., mo=0.;
-	double ds, area, dz;
-	long r, c, l, sy;
+	//double MM1, MM2, MMR=0.0, MMo=0.0, MS1, MS2; //unused variables
+	//double m1=0., m2=0., mo=0.; //unused variables
+	//double ds, area, dz; //unused variables
+	//long r, c, l, sy; //unused variables
 	
 	
 	if(adt->P->qin==1){
@@ -65,7 +64,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
-                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+                adt->M, Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
 		
 		end=clock();
 		
@@ -74,7 +73,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		//subsurface flow with time step Dt0 (decreasing if not converging)
 		start = clock();
 
-		a = Richards3D(Dt, L, C, adt, NULL, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+		a = Richards3D(Dt, L, C, adt, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 		
 		end=clock();
 		geotop::common::Variables::t_sub += (end-start)/(double)CLOCKS_PER_SEC;
@@ -88,7 +87,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
         supflow(Dt/2., adt->I->time, L->P, &adt->W->h_sup[0], C->P,
                 &adt->C->h_sup[0], adt->T, adt->L, adt->W, adt->C, adt->P,
-                adt->M, Vsup, Voutnet, Voutlandsup, NULL, &mm1, &mm2, &mmo);
+                adt->M, Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
 
 		end=clock();
 
@@ -99,7 +98,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 		
 		start = clock();
 		for (j=1; j<=adt->P->total_pixel; j++) {			
-			a = Richards1D(j, Dt, L, adt, NULL, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
+			a = Richards1D(j, Dt, L, adt, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
 			if (a != 0){
 				return 1;
 			}			
@@ -151,14 +150,15 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
 
 
-short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
+short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK){
 	
 
 	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0., hnew, hold=0.;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
-	double psi;
+	//double psi; //unused variables
 	
-	long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
+	long i, j, ch, m, bc, sy, cont, cont2, iter;
+	long c = 0, r=0, l=0; //may be used uninitialized, set to 0
 	long n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
@@ -518,9 +518,10 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
+short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK){
 	
-	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu;
+	double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon;
+	double mu=0; //may be used uninitialized, set to 0
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, dz, dn, dD;
 	
 	long i, l, r=1, m, bc, sy, cont, cont2, iter;
@@ -576,8 +577,8 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 	//Max iteration number
 	if( cont >= adt->P->MaxiterTol ) out=1;	
 	
-	//printf("Richards1D res:%e Tol:%e cont:%ld max:%ld\n",res,Fmin( epsilon , max_res_adm ),cont,adt->P->MaxiterTol);
-	//printf("out:%d\n",out);
+	printf("Richards1D res:%e Tol:%e cont:%ld max:%ld\n",res,Fmin( epsilon , max_res_adm ),cont,adt->P->MaxiterTol);
+	printf("out:%d\n",out);
 	
 	while (out==0) {
 		
@@ -601,7 +602,7 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, doub
 		
 		//CONJUGATED GRADIENTS ALGORITHM
 		iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC, tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp, adt->W->Lx);
-		//printf("iter:%ld\n",iter);
+		printf("iter:%ld\n",iter);
 		if(iter==-1){
 			return 1;	//does not converge 
 		}
@@ -782,7 +783,7 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 	size_t n=(geotop::common::Variables::Nl+1)*adt->P->total_pixel;
 	double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), dn;
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp; //unused variables
 	
 
 	for(i=1;i<H.size();i++){
@@ -1185,9 +1186,10 @@ int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, Geo
 	{
 	long l, r=1, I, sy, cnt=0;
     size_t i;
-	double dz=0.0, dzn=0.0, dD=0.0, k, kn=0.0, kmax=0.0, kmaxn=0.0;
+	double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
+	//double k; //unused variable
 	double area, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
-	double psi, ice, a, ns, res, sat, ss, Temp;
+	//double psi, ice, a, ns, res, sat, ss, Temp; //unused variable
 	
 	for(i=1;i<H.size();i++){
 		
@@ -1676,7 +1678,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 
 
 void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
-			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo )
+			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo )
 
 {
 	
@@ -1685,7 +1687,8 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
 	
-	double m1=0.,m2=0.,mo=0.;
+	double m1=0.,mo=0.;
+	//double m2=0.; //unused variable
 	
 
 	for (j=1; j<=par->total_pixel; j++) {
@@ -1810,9 +1813,9 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 			}
 		}			
 		
-		supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, flog, &cnt2);
+		supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, &cnt2);
 // parameter 1 here means DDch: TODO/TOFIX 30.05.2014 SC		
-		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, flog, &cnt3);
+		channel_flow(dt, t, 1, hch, dhch, top, cnet, par, land, Voutnet, &cnt3);
 		
 	}while(te<Dt);
 
@@ -1894,7 +1897,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt){
+  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, long *cnt){
 	
 	long ch, r, c;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
@@ -2060,7 +2063,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt){
+void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, long *cnt){
 
 	long r,c,R,C;
     size_t ch;

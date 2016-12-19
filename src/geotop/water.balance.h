@@ -2,16 +2,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 2.0.0 - 9 Mar 2012
+ GEOtop 2.1 release candidate  (release date: 31 december 2016)
  
- Copyright (c), 2012 - Stefano Endrizzi 
+ Copyright (c), 2016 - GEOtop Foundation
  
- This file is part of GEOtop 2.0.0 
+ This file is part of GEOtop 2.1 
  
- GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -39,19 +39,15 @@
 #define ni_wat 1.E-7
 #define maxITER_rec_K 10
 
-
-//short water_balance(double Dt, double JD0, double JD1, double JD2, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, DOUBLEVECTOR *Vsub, DOUBLEVECTOR *Vsup,
-//					double *Voutnet, double *Voutlandsub, double *Voutlandsup, double *Voutlandbottom);
-
 short water_balance(double Dt, double JD0, double JD1, double JD2, SoilState *L, SoilState *C, AllData *adt, GeoVector<double>& Vsub, GeoVector<double>& Vsup,
 					double *Voutnet, double *Voutlandsub, double *Voutlandsup, double *Voutlandbottom);
 
 
 //short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, FILE *flog, double *loss, DOUBLEVECTOR *Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK);
-short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, FILE *flog, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK);
+short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, double *loss, GeoVector<double>& Vsub, double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK);
 
 //short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK);
-short Richards1D(long c, double Dt, SoilState *L, AllData *adt, FILE *flog, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK);
+short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, double *Vbottom, double *Vlat, double *Total_Pnet, short updateK);
 
 double cm_h(double cm0, double h, double h_thres1, double h_thres2);
 
@@ -84,13 +80,13 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
 //void supflow(double Dt, double t, double *h, double *dV, double *hch, double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet,
 //			 PAR *par, METEO *met, DOUBLEVECTOR *Vsup, double *Voutnet, double *Voutland, FILE *flog);
-  void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, FILE *flog, double *mm1, double *mm2, double *mmo);
+  void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
 
 //void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog, long *cnt);
-  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, FILE *flog, long *cnt);
+  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, long *cnt);
 
 //void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f, long *cnt);
-  void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, FILE *f, long *cnt);
+  void channel_flow(double Dt, double t, short DDcomplex, GeoMatrix<double>& h, double *dV, Topo *top, Channel *cnet, Par *par, Land *land, double *Vout, long *cnt);
 
 //void find_dt_max_channel(short DDcomplex, double Courant, double *h, TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt);
   void find_dt_max_channel(short DDcomplex, double Courant, GeoMatrix<double>& h, Topo *top, Channel *cnet, Par *par, Land *land, double t, double *dt);

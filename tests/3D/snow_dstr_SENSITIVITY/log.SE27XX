@@ -1,0 +1,425 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Attempting to read 'DemFile' in the file './dem100': EXISTING in format 3
+./dem100
+Attempting to read 'LandCoverMapFile' in the file './landcover100adpt': EXISTING in format 3
+./landcover100adpt
+Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
+Percentage of the calculation of the sky view factor matrix:  0.77%
+Percentage of the calculation of the sky view factor matrix:  1.54%
+Percentage of the calculation of the sky view factor matrix:  2.31%
+Percentage of the calculation of the sky view factor matrix:  3.08%
+Percentage of the calculation of the sky view factor matrix:  3.85%
+Percentage of the calculation of the sky view factor matrix:  4.62%
+Percentage of the calculation of the sky view factor matrix:  5.38%
+Percentage of the calculation of the sky view factor matrix:  6.15%
+Percentage of the calculation of the sky view factor matrix:  6.92%
+Percentage of the calculation of the sky view factor matrix:  7.69%
+Percentage of the calculation of the sky view factor matrix:  8.46%
+Percentage of the calculation of the sky view factor matrix:  9.23%
+Percentage of the calculation of the sky view factor matrix: 10.00%
+Percentage of the calculation of the sky view factor matrix: 10.77%
+Percentage of the calculation of the sky view factor matrix: 11.54%
+Percentage of the calculation of the sky view factor matrix: 12.31%
+Percentage of the calculation of the sky view factor matrix: 13.08%
+Percentage of the calculation of the sky view factor matrix: 13.85%
+Percentage of the calculation of the sky view factor matrix: 14.62%
+Percentage of the calculation of the sky view factor matrix: 15.38%
+Percentage of the calculation of the sky view factor matrix: 16.15%
+Percentage of the calculation of the sky view factor matrix: 16.92%
+Percentage of the calculation of the sky view factor matrix: 17.69%
+Percentage of the calculation of the sky view factor matrix: 18.46%
+Percentage of the calculation of the sky view factor matrix: 19.23%
+Percentage of the calculation of the sky view factor matrix: 20.00%
+Percentage of the calculation of the sky view factor matrix: 20.77%
+Percentage of the calculation of the sky view factor matrix: 21.54%
+Percentage of the calculation of the sky view factor matrix: 22.31%
+Percentage of the calculation of the sky view factor matrix: 23.08%
+Percentage of the calculation of the sky view factor matrix: 23.85%
+Percentage of the calculation of the sky view factor matrix: 24.62%
+Percentage of the calculation of the sky view factor matrix: 25.38%
+Percentage of the calculation of the sky view factor matrix: 26.15%
+Percentage of the calculation of the sky view factor matrix: 26.92%
+Percentage of the calculation of the sky view factor matrix: 27.69%
+Percentage of the calculation of the sky view factor matrix: 28.46%
+Percentage of the calculation of the sky view factor matrix: 29.23%
+Percentage of the calculation of the sky view factor matrix: 30.00%
+Percentage of the calculation of the sky view factor matrix: 30.77%
+Percentage of the calculation of the sky view factor matrix: 31.54%
+Percentage of the calculation of the sky view factor matrix: 32.31%
+Percentage of the calculation of the sky view factor matrix: 33.08%
+Percentage of the calculation of the sky view factor matrix: 33.85%
+Percentage of the calculation of the sky view factor matrix: 34.62%
+Percentage of the calculation of the sky view factor matrix: 35.38%
+Percentage of the calculation of the sky view factor matrix: 36.15%
+Percentage of the calculation of the sky view factor matrix: 36.92%
+Percentage of the calculation of the sky view factor matrix: 37.69%
+Percentage of the calculation of the sky view factor matrix: 38.46%
+Percentage of the calculation of the sky view factor matrix: 39.23%
+Percentage of the calculation of the sky view factor matrix: 40.00%
+Percentage of the calculation of the sky view factor matrix: 40.77%
+Percentage of the calculation of the sky view factor matrix: 41.54%
+Percentage of the calculation of the sky view factor matrix: 42.31%
+Percentage of the calculation of the sky view factor matrix: 43.08%
+Percentage of the calculation of the sky view factor matrix: 43.85%
+Percentage of the calculation of the sky view factor matrix: 44.62%
+Percentage of the calculation of the sky view factor matrix: 45.38%
+Percentage of the calculation of the sky view factor matrix: 46.15%
+Percentage of the calculation of the sky view factor matrix: 46.92%
+Percentage of the calculation of the sky view factor matrix: 47.69%
+Percentage of the calculation of the sky view factor matrix: 48.46%
+Percentage of the calculation of the sky view factor matrix: 49.23%
+Percentage of the calculation of the sky view factor matrix: 50.00%
+Percentage of the calculation of the sky view factor matrix: 50.77%
+Percentage of the calculation of the sky view factor matrix: 51.54%
+Percentage of the calculation of the sky view factor matrix: 52.31%
+Percentage of the calculation of the sky view factor matrix: 53.08%
+Percentage of the calculation of the sky view factor matrix: 53.85%
+Percentage of the calculation of the sky view factor matrix: 54.62%
+Percentage of the calculation of the sky view factor matrix: 55.38%
+Percentage of the calculation of the sky view factor matrix: 56.15%
+Percentage of the calculation of the sky view factor matrix: 56.92%
+Percentage of the calculation of the sky view factor matrix: 57.69%
+Percentage of the calculation of the sky view factor matrix: 58.46%
+Percentage of the calculation of the sky view factor matrix: 59.23%
+Percentage of the calculation of the sky view factor matrix: 60.00%
+Percentage of the calculation of the sky view factor matrix: 60.77%
+Percentage of the calculation of the sky view factor matrix: 61.54%
+Percentage of the calculation of the sky view factor matrix: 62.31%
+Percentage of the calculation of the sky view factor matrix: 63.08%
+Percentage of the calculation of the sky view factor matrix: 63.85%
+Percentage of the calculation of the sky view factor matrix: 64.62%
+Percentage of the calculation of the sky view factor matrix: 65.38%
+Percentage of the calculation of the sky view factor matrix: 66.15%
+Percentage of the calculation of the sky view factor matrix: 66.92%
+Percentage of the calculation of the sky view factor matrix: 67.69%
+Percentage of the calculation of the sky view factor matrix: 68.46%
+Percentage of the calculation of the sky view factor matrix: 69.23%
+Percentage of the calculation of the sky view factor matrix: 70.00%
+Percentage of the calculation of the sky view factor matrix: 70.77%
+Percentage of the calculation of the sky view factor matrix: 71.54%
+Percentage of the calculation of the sky view factor matrix: 72.31%
+Percentage of the calculation of the sky view factor matrix: 73.08%
+Percentage of the calculation of the sky view factor matrix: 73.85%
+Percentage of the calculation of the sky view factor matrix: 74.62%
+Percentage of the calculation of the sky view factor matrix: 75.38%
+Percentage of the calculation of the sky view factor matrix: 76.15%
+Percentage of the calculation of the sky view factor matrix: 76.92%
+Percentage of the calculation of the sky view factor matrix: 77.69%
+Percentage of the calculation of the sky view factor matrix: 78.46%
+Percentage of the calculation of the sky view factor matrix: 79.23%
+Percentage of the calculation of the sky view factor matrix: 80.00%
+Percentage of the calculation of the sky view factor matrix: 80.77%
+Percentage of the calculation of the sky view factor matrix: 81.54%
+Percentage of the calculation of the sky view factor matrix: 82.31%
+Percentage of the calculation of the sky view factor matrix: 83.08%
+Percentage of the calculation of the sky view factor matrix: 83.85%
+Percentage of the calculation of the sky view factor matrix: 84.62%
+Percentage of the calculation of the sky view factor matrix: 85.38%
+Percentage of the calculation of the sky view factor matrix: 86.15%
+Percentage of the calculation of the sky view factor matrix: 86.92%
+Percentage of the calculation of the sky view factor matrix: 87.69%
+Percentage of the calculation of the sky view factor matrix: 88.46%
+Percentage of the calculation of the sky view factor matrix: 89.23%
+Percentage of the calculation of the sky view factor matrix: 90.00%
+Percentage of the calculation of the sky view factor matrix: 90.77%
+Percentage of the calculation of the sky view factor matrix: 91.54%
+Percentage of the calculation of the sky view factor matrix: 92.31%
+Percentage of the calculation of the sky view factor matrix: 93.08%
+Percentage of the calculation of the sky view factor matrix: 93.85%
+Percentage of the calculation of the sky view factor matrix: 94.62%
+Percentage of the calculation of the sky view factor matrix: 95.38%
+Percentage of the calculation of the sky view factor matrix: 96.15%
+Percentage of the calculation of the sky view factor matrix: 96.92%
+Percentage of the calculation of the sky view factor matrix: 97.69%
+Percentage of the calculation of the sky view factor matrix: 98.46%
+Percentage of the calculation of the sky view factor matrix: 99.23%
+Percentage of the calculation of the sky view factor matrix: 100.00%
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file 'none': not present in file list
+Slope Min:0.010000 (0.572939 deg) Max:2.004196 (63.482946 deg) 
+Attempting to read 'AspectMapFile' in the file 'none': not present in file list
+Curvature N-S Min:-0.017800  Max:0.016100 
+Curvature W-E Min:-0.022200  Max:0.014900 
+Curvature NW-SE Min:-0.024000  Max:0.024800 
+Curvature NE-SW Min:-0.028000  Max:0.019900 
+Attempting to read 'RiverNetwork' in the file './net100adpt': EXISTING in format 3
+./net100adpt
+Channel networks has 593 pixels set to channel
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+
+Valid pixels: 6188
+Number of nodes: 80444
+Novalue pixels: 3952
+Basin area: 61.880000 km2
+
+
+Horizon file FOUND for meteo station #1
+Column 1 in file ./horizongis0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0001.txt assigned to HorizonHeight
+Column 1 in file ./meteo0001.txt assigned to Date
+Column 2 in file ./meteo0001.txt assigned to JDfrom0
+Column 3 in file ./meteo0001.txt assigned to Iprec
+Column 5 in file ./meteo0001.txt assigned to WindSp
+Column 4 in file ./meteo0001.txt assigned to WindDir
+Column 6 in file ./meteo0001.txt assigned to RelHum
+Column 7 in file ./meteo0001.txt assigned to AirT
+Column 8 in file ./meteo0001.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #2
+Column 1 in file ./horizongis0002.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0002.txt assigned to HorizonHeight
+Column 1 in file ./meteo0002.txt assigned to Date
+Column 2 in file ./meteo0002.txt assigned to JDfrom0
+Column 3 in file ./meteo0002.txt assigned to Iprec
+Column 4 in file ./meteo0002.txt assigned to WindSp
+Column 5 in file ./meteo0002.txt assigned to WindDir
+Column 6 in file ./meteo0002.txt assigned to RelHum
+Column 7 in file ./meteo0002.txt assigned to AirT
+Column 8 in file ./meteo0002.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #3
+Column 1 in file ./horizongis0003.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0003.txt assigned to HorizonHeight
+Column 1 in file ./meteo0003.txt assigned to Date
+Column 2 in file ./meteo0003.txt assigned to JDfrom0
+Column 3 in file ./meteo0003.txt assigned to Iprec
+Column 4 in file ./meteo0003.txt assigned to WindSp
+Column 5 in file ./meteo0003.txt assigned to WindDir
+Column 6 in file ./meteo0003.txt assigned to RelHum
+Column 7 in file ./meteo0003.txt assigned to AirT
+Column 8 in file ./meteo0003.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #4
+Column 1 in file ./horizongis0004.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0004.txt assigned to HorizonHeight
+Column 1 in file ./meteo0004.txt assigned to Date
+Column 2 in file ./meteo0004.txt assigned to JDfrom0
+Column 3 in file ./meteo0004.txt assigned to Iprec
+Column 4 in file ./meteo0004.txt assigned to WindSp
+Column 5 in file ./meteo0004.txt assigned to WindDir
+Column 6 in file ./meteo0004.txt assigned to RelHum
+Column 7 in file ./meteo0004.txt assigned to AirT
+Column 8 in file ./meteo0004.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #5
+Column 1 in file ./horizongis0005.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0005.txt assigned to HorizonHeight
+Column 1 in file ./meteo0005.txt assigned to Date
+Column 2 in file ./meteo0005.txt assigned to JDfrom0
+Column 3 in file ./meteo0005.txt assigned to Iprec
+Column 4 in file ./meteo0005.txt assigned to WindSp
+Column 5 in file ./meteo0005.txt assigned to WindDir
+Column 6 in file ./meteo0005.txt assigned to RelHum
+Column 7 in file ./meteo0005.txt assigned to AirT
+Column 8 in file ./meteo0005.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #6
+Column 1 in file ./horizongis0006.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0006.txt assigned to HorizonHeight
+Column 1 in file ./meteo0006.txt assigned to Date
+Column 2 in file ./meteo0006.txt assigned to JDfrom0
+Column 3 in file ./meteo0006.txt assigned to Iprec
+Column 4 in file ./meteo0006.txt assigned to WindSp
+Column 5 in file ./meteo0006.txt assigned to WindDir
+Column 6 in file ./meteo0006.txt assigned to RelHum
+Column 7 in file ./meteo0006.txt assigned to AirT
+Column 8 in file ./meteo0006.txt assigned to Swglobal
+
+Horizon file FOUND for meteo station #7
+Column 1 in file ./horizongis0007.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./horizongis0007.txt assigned to HorizonHeight
+Column 1 in file ./meteo0007.txt assigned to Date
+Column 2 in file ./meteo0007.txt assigned to JDfrom0
+Column 3 in file ./meteo0007.txt assigned to Iprec
+Column 4 in file ./meteo0007.txt assigned to WindSp
+Column 5 in file ./meteo0007.txt assigned to WindDir
+Column 6 in file ./meteo0007.txt assigned to RelHum
+Column 7 in file ./meteo0007.txt assigned to AirT
+Column 8 in file ./meteo0007.txt assigned to Swglobal
+Column 1 in file ./lapserate_20091001_20131125.txt assigned to Date
+Column 3 in file ./lapserate_20091001_20131125.txt assigned to LapseRateTemp
+Column 4 in file ./lapserate_20091001_20131125.txt assigned to LapseRateDewTemp
+Column 5 in file ./lapserate_20091001_20131125.txt assigned to LapseRatePrec
+
+Lapse rate file read
+Shortwave radiation measurements from station 1
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 4 layers
+Soil water transpires from the first 12 layers
+cnt:1 res:3.431031e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:2 res:5.309043e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:2 res:2.599259e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:3 res:2.805765e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:3 res:1.383252e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:4 res:3.368241e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:4 res:1.493607e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:4 res:1.080700e+03 lambda:2.187251e-01 Dt:84600.000000 P:0.000000
+cnt:5 res:4.029084e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:5 res:1.841508e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:5 res:1.026665e+03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:6 res:4.027249e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:6 res:1.949969e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:6 res:9.753317e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:7 res:3.628240e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:7 res:1.789391e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:7 res:9.265651e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:8 res:2.955380e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:8 res:1.196301e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:8 res:7.788292e+02 lambda:1.594447e-01 Dt:84600.000000 P:0.000000
+cnt:9 res:3.085095e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:9 res:1.541634e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:9 res:7.398878e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:10 res:2.581082e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:10 res:1.199266e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:10 res:7.028934e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:11 res:2.622887e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:11 res:1.289260e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:11 res:6.677487e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:12 res:1.196490e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:12 res:4.314978e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:13 res:1.350319e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:13 res:5.001791e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:13 res:3.425852e+02 lambda:2.060557e-01 Dt:84600.000000 P:0.000000
+cnt:14 res:8.776249e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:14 res:2.831130e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:15 res:3.314663e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:15 res:1.415565e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:16 res:2.479605e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:16 res:9.745578e+01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:17 res:7.153764e+01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:18 res:1.005716e-02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:19 res:5.531521e-06 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:20 res:9.977719e-08 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+5/10/2009 23:30 50.00% - Times: Elapsed (h:m:s)  0:01:54 Remaining (h:m)  0:01  
+
+5/10/2009 23:30 JD:277.979167 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.00 s, t_energy:  2.41 s, t_blowingsnow:  0.00 s, t_water:111.84 s, t_sub:  2.73 s, t_sup:109.11 s, t_out:  0.00 s
+ SW= 52.35 W/m2  LW:-40.82 W/m2  H=  1.63 W/m2  LE=  0.70 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.241324e-10 mm/h 
+ Tot Error Richards=1.936711e-08 mm Mean Time Step=84600.000000 s
+
+cnt:1 res:3.316811e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:2 res:1.033888e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:3 res:1.041889e+04 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:3 res:2.791595e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:3 res:9.302204e+02 lambda:1.002701e-01 Dt:84600.000000 P:0.000000
+cnt:4 res:7.265948e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:4 res:5.179637e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:5 res:2.642834e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:6 res:2.732437e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:6 res:1.366218e+03 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:6 res:2.510692e+02 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:7 res:5.198264e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:7 res:2.711969e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:7 res:1.993597e+02 lambda:2.059572e-01 Dt:84600.000000 P:0.000000
+cnt:8 res:1.098714e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:9 res:1.245470e+02 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:9 res:7.979548e+01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:10 res:1.401532e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:10 res:2.330122e+02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:10 res:8.134284e+01 lambda:1.745463e-01 Dt:84600.000000 P:0.000000
+cnt:10 res:7.248685e+01 lambda:8.242524e-02 Dt:84600.000000 P:0.000000
+cnt:11 res:1.026051e+03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:11 res:4.860226e+01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:12 res:8.963219e+01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:12 res:6.538724e+01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:12 res:4.617215e+01 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:13 res:3.011804e+01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:14 res:2.857114e+00 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:15 res:1.823024e+00 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:16 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:17 res:7.242522e-03 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:18 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:18 res:3.167525e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:18 res:6.219480e-03 lambda:1.412549e-01 Dt:84600.000000 P:0.000000
+cnt:19 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:19 res:5.384162e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:19 res:5.908506e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:20 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:20 res:6.087937e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:20 res:5.613080e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:21 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:21 res:6.919783e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:21 res:5.332426e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:22 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:22 res:7.665471e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:22 res:5.065805e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:23 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:23 res:8.337121e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:23 res:4.812515e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:24 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:24 res:8.944656e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:24 res:4.571889e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:25 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:25 res:9.496287e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:25 res:4.343295e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:26 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:26 res:9.998871e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:26 res:7.859817e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:26 res:4.321578e-03 lambda:5.000000e-03 Dt:84600.000000 P:0.000000
+cnt:27 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:27 res:1.004558e-01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:27 res:6.984388e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:27 res:4.299970e-03 lambda:5.000000e-03 Dt:84600.000000 P:0.000000
+cnt:28 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:28 res:1.009188e-01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:28 res:8.117846e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:28 res:4.278470e-03 lambda:5.000000e-03 Dt:84600.000000 P:0.000000
+cnt:29 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:29 res:1.013778e-01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:29 res:9.237367e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:29 res:4.257078e-03 lambda:5.000000e-03 Dt:84600.000000 P:0.000000
+cnt:30 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:30 res:1.018328e-01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:30 res:4.044224e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:31 res:1.684475e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:31 res:1.062704e-01 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:31 res:3.218253e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:32 res:1.372152e-01 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:32 res:8.964075e-02 lambda:5.000000e-01 Dt:84600.000000 P:0.000000
+cnt:32 res:9.131174e-03 lambda:5.000000e-02 Dt:84600.000000 P:0.000000
+cnt:32 res:3.042991e-03 lambda:5.000000e-03 Dt:84600.000000 P:0.000000
+cnt:33 res:3.449586e-05 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+cnt:34 res:1.566563e-07 lambda:1.000000e+00 Dt:84600.000000 P:0.000000
+6/10/2009 23:00 100.00% - Times: Elapsed (h:m:s)  0:04:51 Remaining (h:m)  0:00  
+
+6/10/2009 23:00 JD:278.958333 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.01 s, t_energy:  4.50 s, t_blowingsnow:  0.00 s, t_water:286.11 s, t_sub:  7.01 s, t_sup:279.10 s, t_out:  0.00 s
+ SW= 57.17 W/m2  LW:-36.77 W/m2  H=  4.83 W/m2  LE=  3.38 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.257156e-09 mm/h 
+ Tot Error Richards=4.891027e-08 mm Mean Time Step=84600.000000 s
+
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!

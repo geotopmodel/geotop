@@ -1,0 +1,181 @@
+!! Test provided by S.Endrizzi 22.04.2016
+!! It has constant input meteo data. 
+!=============================================================================
+!  RUN DEFINITION 
+!=============================================================================
+Latitude = 45.3
+Longitude = 5.77
+TimeStepEnergyAndWater = 900
+InitDateDDMMYYYYhhmm = 01/08/1993 00:00
+EndDateDDMMYYYYhhmm = 01/08/1994 00:00
+DtPlotPoint = 1
+
+
+!=============================================================================
+!  RECOVERY
+!=============================================================================
+SuccessfulRunFile = "_SUCCESSFUL_RUN"
+FailedRunFile = "_FAILED_RUN"
+
+!=============================================================================
+!  MODEL SETTINGS
+!=============================================================================
+PointSim = 1
+WaterBalance = 1
+EnergyBalance = 1
+StandardTimeSimulation = 0
+
+
+!=============================================================================
+!  INPUT
+!=============================================================================
+
+!--- METEO SETTINGS -----------------------
+MoninObukhov = 1
+Vmin = 0.5
+RHmin = 10
+
+!--- METEO FILE ---------------------------
+NumberOfMeteoStations=1
+MeteoStationStandardTime=0
+MeteoStationElevation=1325
+MeteoStationWindVelocitySensorHeight=5
+MeteoStationTemperatureSensorHeight=5
+
+MeteoFile="input/meteo"
+
+HeaderDateDDMMYYYYhhmmMeteo = "Date"							
+HeaderIPrec = "Prec"
+HeaderAirPress = "Pair"
+HeaderWindVelocity = "Ws"
+HeaderWindDirection = "Wd"
+HeaderRH = "RH"
+HeaderAirTemp = "Tair"
+HeaderSWglobal = "SW"
+HeaderLWin = "LW"
+
+!=============================================================================
+!  SURFACE SETTINGS
+!=============================================================================
+
+PointElevation = 1325
+
+SoilRoughness = 10.0
+SoilAlbVisDry = 0.28
+SoilAlbNIRDry = 0.28
+SoilAlbVisWet = 0.22
+SoilAlbNIRWet = 0.22
+SoilEmissiv = 0.98
+
+
+!--- DISCRETIZATION AND INIT ------------------
+SoilLayerThicknesses = 10, 30, 100, 350, 800, 1500 
+InitWaterTableDepth = 20000
+InitSoilTemp = -1
+BottomBoundaryHeatFlux = 0.0
+
+! ExcessIce = 0
+! ExcessIceDensity = 700
+
+
+!=============================================================================
+!  SNOW AND PRECIPITATION SETTINGS
+!=============================================================================
+
+!--- SNOW CHARACTERIZATION PARAMETERS
+
+SnowCorrFactor = 0.0
+RainCorrFactor = 0.0
+
+DewTempOrNormTemp = 0
+ThresTempRain =  3
+ThresTempSnow =  1
+SnowEmissiv = 0.99
+
+IrriducibleWatSatSnow = 0.02	
+MaxSnowPorosity = 0.7
+DrySnowDefRate = 1
+SnowDensityCutoff = 100
+WetSnowDefRate = 1.5
+SnowViscosity = 1.E6
+AlphaSnow = 1.E5
+
+FreshSnowReflVis = 0.95
+FreshSnowReflNIR = 0.65
+AlbExtParSnow    = 10
+SnowRoughness    = 2.0
+
+!--- DISCRETIZATION ------------------
+MaxWaterEqSnowLayerContent = 10
+SWEtop = 2000
+SWEbottom = 50
+MaxSnowLayersMiddle = 50
+
+
+!=============================================================================
+!  SOIL SETTINGS
+!=============================================================================
+BottomBoundaryHeatFlux = 0
+ThermalCapacitySoilSolids = 1.8E6
+ThermalConductivitySoilSolids = 2.5
+FreeDrainageAtBottom = 0
+FreeDrainageAtLateralBorder = 1
+PointDepthFreeSurface = 0
+
+
+!--- SOIL PROPERTIES SILT --------------------------
+
+ThetaSat = 0.487
+ThetaRes = 0.057
+AlphaVanGenuchten = 0.001
+NVanGenuchten = 1.6
+NormalHydrConductivity = 0.005
+LateralHydrConductivity = 0.005
+
+! TfreezingSoil = 0
+
+
+!=============================================================================
+! POINT OUTPUT: SUBSURFACE
+!=============================================================================
+
+!--- STRUCTURE ------------
+SoilAveragedTempProfileFile = "output-tabs/Taveraged"
+SoilTempProfileFile = "output-tabs/T"
+SoilLiqWaterPressProfileFile = "output-tabs/Wliq"
+SoilTotWaterPressProfileFile = "output-tabs/Wice"
+SoilLiqContentProfileFile = "output-tabs/Wtot"
+
+! SoilPlotDepths = 10, 50, 100, 200, 500, 1000, 2000, 5000
+
+!--- VARIABLES ------------
+DefaultSoil = 0
+DateSoil = 1
+PeriodSoil = 2
+RunSoil = 3
+IDPointSoil = 4 
+
+
+!=============================================================================
+! POINT OUTPUT: SURFAEC FLUXES AND PROPERTIES 
+!=============================================================================
+
+!--- STRUCTURE ------------
+PointOutputFile = "output-tabs/surface"
+
+!--- VARIABLES ------------
+DefaultPoint =  0
+DatePoint =  1
+PeriodPoint =  2
+RunPoint =  3
+IDPointPoint =  4
+AirTempPoint =  5
+TsurfPoint =  6
+PrainPoint =  7
+PsnowPoint =  8
+SnowDepthPoint =  9
+SWEPoint = 10
+SnowMeltedPoint = 11
+SWinPoint = 12
+SWupPoint = 13
+SoilHeatFluxPoint = 14

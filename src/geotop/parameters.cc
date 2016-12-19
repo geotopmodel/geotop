@@ -1,7 +1,7 @@
  /*//3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+GEOtop 2.1
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
  
@@ -169,7 +169,7 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
 /***********************************************************/
 /***********************************************************/
 
-short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools, FILE *flog){
+short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, InitTools *itools){
 
     std::vector<std::string> string_param;
 
@@ -1477,23 +1477,36 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 		nmeteo_stations = (long) getDoubleValueWithDefault(lConfigStore, "NumberOfMeteoStations", geotop::input::gDoubleNoValue, false);
 	}
 
-    size_t lMeteoStationContainerSize = nmeteo_stations+1;
-    met->st = new MeteoStations(lMeteoStationContainerSize, geotop::input::gDoubleNoValue);
-    if(!met->st)
-    {
-        lg->log("meteo_stations were not allocated",
-                geotop::logger::CRITICAL);
-        exit(1);
-    }
-    // met->st->E.resize(lMeteoStationContainerSize);
-    // met->st->N.resize(lMeteoStationContainerSize);
-    // met->st->lat.resize(lMeteoStationContainerSize);
-    // met->st->lon.resize(lMeteoStationContainerSize);
-    // met->st->Z.resize(lMeteoStationContainerSize);
-    // met->st->sky.resize(lMeteoStationContainerSize);
-    // met->st->ST.resize(lMeteoStationContainerSize);
-    // met->st->Vheight.resize(lMeteoStationContainerSize);
-    // met->st->Theight.resize(lMeteoStationContainerSize);
+    //size_t lMeteoStationContainerSize = nmeteo_stations+1;
+    //met->st = new MeteoStations(lMeteoStationContainerSize, geotop::input::gDoubleNoValue);
+    //if(!met->st)
+    //{
+    //    lg->log("meteo_stations were not allocated",
+    //            geotop::logger::CRITICAL);
+    //    exit(1);
+    //}
+    //// met->st->E.resize(lMeteoStationContainerSize);
+    //// met->st->N.resize(lMeteoStationContainerSize);
+    //// met->st->lat.resize(lMeteoStationContainerSize);
+    //// met->st->lon.resize(lMeteoStationContainerSize);
+    //// met->st->Z.resize(lMeteoStationContainerSize);
+    //// met->st->sky.resize(lMeteoStationContainerSize);
+    //// met->st->ST.resize(lMeteoStationContainerSize);
+    //// met->st->Vheight.resize(lMeteoStationContainerSize);
+    //// met->st->Theight.resize(lMeteoStationContainerSize);
+    
+     met->st = new MeteoStations();
+     size_t lMeteoStationContainerSize = nmeteo_stations+1 ;
+     if(!met->st) t_error("meteo_stations was not allocated");
+     met->st->E.resize(lMeteoStationContainerSize);
+     met->st->N.resize(lMeteoStationContainerSize);
+     met->st->lat.resize(lMeteoStationContainerSize);
+     met->st->lon.resize(lMeteoStationContainerSize);
+     met->st->Z.resize(lMeteoStationContainerSize);
+     met->st->sky.resize(lMeteoStationContainerSize);
+     met->st->ST.resize(lMeteoStationContainerSize);
+     met->st->Vheight.resize(lMeteoStationContainerSize);
+     met->st->Theight.resize(lMeteoStationContainerSize);
     
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationCoordinateX", geotop::input::gDoubleNoValue, true, nmeteo_stations, true);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
@@ -1518,12 +1531,16 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationSkyViewFactor", 1., true, nmeteo_stations, false);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->sky[i] = lDoubleTempVector[i-1];
+//        printf("i:%d sky:%f\n",i,met->st->sky[i]);
+//        printf("lmete:%d\n",lMeteoStationContainerSize);
     }
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationStandardTime", par->ST, true, nmeteo_stations, false);
     for(size_t i=1 ; i < lMeteoStationContainerSize ; i++) {
         met->st->ST[i] = lDoubleTempVector[i-1];
+// TO FIX: this seems NOT to take the correct default value..i 24.11.2016 (SC+SE) 
+//        printf("i:%d ST:%f st:%f\n",i,par->ST,met->st->ST[i]);
+//        printf("lmete:%d\n",lMeteoStationContainerSize);
     }
-
     lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "MeteoStationWindVelocitySensorHeight", geotop::input::gDoubleNoValue, true, nmeteo_stations, false) ;
 	for (size_t i=1; i<lMeteoStationContainerSize; i++) {
 		met->st->Vheight[i] = lDoubleTempVector[i-1];
@@ -1941,7 +1958,7 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 /***********************************************************/
 /***********************************************************/
 
-short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, FILE *flog){
+short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 	
 	short ok;
 	long i, j, k, n, nlines, nlinesprev;
@@ -2019,7 +2036,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 			
 			if (mio::IOUtils::fileExists(string(temp) + string(textfile))) {
 				temp = namefile_i(name, i);
-				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines, flog);
+				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines);
 			}else {
 				soildata = (double**)malloc(nlines*sizeof(double*));
 				for (j=0; j<nlines; j++) {
@@ -2195,7 +2212,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed, 
 /***********************************************************/		
 
 //TODO: check libraries/ascii  and see if it's possible to remove flog
-short read_point_file(std::string name, std::vector<std::string> key_header, Par *par, FILE *flog){
+short read_point_file(std::string name, std::vector<std::string> key_header, Par *par){
 
 	GeoMatrix<double>  chkpt2;
 	double **points;
@@ -2207,7 +2224,7 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 	if (mio::IOUtils::fileExists(string(name) + string(textfile))) {
 		temp = name + std::string(textfile);
 		lg->log(temp);
-		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines, flog);
+		points = read_txt_matrix(temp, 34, 44, key_header, par->chkpt.getCols()-1, &nlines);
 				
 		chkpt2.resize(par->chkpt.getRows() + 1, par->chkpt.getCols() + 1);
 
@@ -2263,14 +2280,14 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 /***********************************************************/
 /***********************************************************/		
 	
-short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header, FILE *flog){
+short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::string name, std::vector<std::string> key_header){
 	double **M;
 	long nlines, n, k;
     std::string temp;
 		
 	if (mio::IOUtils::fileExists(name + string(textfile))) {
 		temp = name + textfile ;
-		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines, flog);
+		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines);
 				
 		for (size_t j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {

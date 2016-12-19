@@ -1,4 +1,3 @@
 SUBDIRS(
 	ascii
-	fluidturtle
 )

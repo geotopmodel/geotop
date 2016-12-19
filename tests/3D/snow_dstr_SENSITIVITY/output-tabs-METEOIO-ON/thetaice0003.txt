@@ -1,0 +1,2 @@
+Date12[DDMMYYYYhhmm],JulianDayFromYear0[days],TimeFromStart[days],Simulation_Period,Run,IDpoint,100.000000,200.000000,500.000000 
+05/10/2009 00:00,734051.000000,0.000000,1,0,3,0.000000,0.000000,0.000000 

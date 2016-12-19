@@ -1,20 +1,19 @@
-/* STATEMENT:
+/*
 
    GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
-   GEOtop 2.0.0 - 9 Mar 2012
+   GEOtop 2.1 - 31 December 2016
 
-   Copyright (c), 2012 - Stefano Endrizzi 
+   Copyright (c), 2016 - GEOtop Foundation
 
-   This file is part of GEOtop 2.0.0 
+   This file is part of GEOtop 2.1
 
-   GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+   GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 
-   GEOtop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
-   If you just use the code, please give feedback to the authors and the community.
-   Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
-
-   If you have satisfactorily used the code, please acknowledge the authors.
+   GEOtop 2.1 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+   If you just use the code, please give feedback to GEOtop Foundation and the community.
+   Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model.
+   Any feedback will be highly appreciated.
 
 */
 
@@ -39,15 +38,6 @@
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
 #include <string>
-#ifdef USE_NETCDF
-//#include "../gt_utilities/gt_utilities.h"
-//#include "../gt_utilities/gt_symbols.h"
-//#include "../gt_utilities/ncgt_output.h"
-#include "../netCDF/netcdfIO.h"
-#include "../netCDF/read_command_line_netcdf.h"
-#include "../netCDF/gt_symbols.h"
-#include "output_nc.h"
-#endif
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
@@ -56,6 +46,12 @@
 #include "output_new.h"
 
 #include "global_logger.h"
+
+// enabling fpe library for GNU compiler
+#ifdef _GNU_SOURCE
+#include <fenv.h>
+#endif 
+
 
 using namespace std;
 
@@ -71,6 +67,11 @@ int main(int argc,char *argv[]){
 
 	clock_t start, end;
 	double elapsed;
+
+#ifdef _GNU_SOURCE
+        feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+#endif 
+
 	start = clock();
 
 	AllData *adt;
@@ -181,11 +182,7 @@ int main(int argc,char *argv[]){
 		geotop::common::Variables::t_out=0.;
 		geotop::common::Variables::t_blowingsnow=0.;
 
-#ifdef USE_NETCDF
-		int ncid=ncgt_open_from_option_string(argc,argv,NC_GEOTOP_ARCHIVE_OPTION,NC_GEOTOP_DEFINE,GEOT_VERBOSE);
-		adt->ncid=ncid;
 
-#endif	
 		/*------------------    3.  Acquisition of input data and initialisation    --------------------*/
 
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I, iomanager);
@@ -196,16 +193,9 @@ int main(int argc,char *argv[]){
 #endif
 
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
-#ifdef USE_NETCDF
-		set_output_nc(adt);
-#endif
+
 		time_loop(adt, iomanager);
 
-#ifdef USE_NETCDF
-
-		ncgt_close_geotop_archive(ncid);
-		deallocate_output_nc(adt->outnc);
-#endif	
 
 		end = clock();
 		elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
@@ -253,20 +243,12 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 
 
-	S = new Statevar3D(geotop::input::gDoubleNoValue,
-                       A->P->max_snow_layers,
-                       geotop::common::Variables::Nr,
-                       geotop::common::Variables::Nc);
-
-    if(A->P->max_glac_layers>0)
-    {
-
-        G = new Statevar3D(geotop::input::gDoubleNoValue,
-                           A->P->max_glac_layers,
-                           geotop::common::Variables::Nr,
-                           geotop::common::Variables::Nc);
-
-    }
+	S=new Statevar3D();
+	allocate_and_initialize_statevar_3D(S, geotop::input::gDoubleNoValue, A->P->max_snow_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+	if(A->P->max_glac_layers>0){
+		G=new Statevar3D();
+		allocate_and_initialize_statevar_3D(G, geotop::input::gDoubleNoValue, A->P->max_glac_layers, geotop::common::Variables::Nr, geotop::common::Variables::Nc);
+	}
 
 	L= new SoilState();
 	initialize_soil_state(L, A->P->total_pixel, geotop::common::Variables::Nl);
@@ -290,24 +272,6 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 	long i_steps=0;
 
-#ifdef USE_NETCDF
-	// printing time counter initialization
-	//TODO please revisit into details the initialization procedure for counters according to time coordinates
-	A->counter_surface_energy=0;
-	A->counter_snow=0;
-	A->counter_soil=0;
-	A->counter_glac=0;
-	A->counter_point=0;
-	if(A->P->point_sim!=1) { //distributed simulation
-		A->point_var_type=NC_GEOTOP_2D_MAP_IN_CONTROL_POINT;
-		A->z_point_var_type=NC_GEOTOP_3D_MAP_IN_CONTROL_POINT;
-		A->unstruct_point_var_type=NC_GEOTOP_UNSTRUCT_MAP_IN_CONTROL_POINT;
-		A->unstruct_z_point_var_type=NC_GEOTOP_Z_UNSTRUCT_MAP_IN_CONTROL_POINT;
-	} else {// point simulation
-		A->z_point_var_type=NC_GEOTOP_Z_POINT_VAR;
-		A->point_var_type=NC_GEOTOP_POINT_VAR;
-	}
-#endif
 
 //////////////////////////////////////////////////////////////////////////////////
 //Still to DO:
@@ -386,7 +350,10 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					tstart=clock();
 
 					en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
-
+#ifdef VERBOSE
+                    lg->logsf(geotop::logger::NOTICE,
+                              "TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",Dt,JD0,JDb,JDe);
+#endif
 					tend=clock();
 					geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 					}
@@ -408,12 +375,14 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					}else {
 						lg->log("Water balance not converging", geotop::logger::WARNING);
 					}
-					lg->logsf(geotop::logger::WARNING,
-                              "Reducing time step to %f s, t:%f s\n",Dt,t);
+					lg->logsf(geotop::logger::WARNING,"Reducing time step to %f s, t:%f s\n",Dt,t);
 
 				}else {
 					out = 1;
 				}
+#ifdef VERBOSE
+                lg->logsf(geotop::logger::NOTICE,"Dt:%f min:%f\n",Dt,A->P->min_Dt);
+#endif
 
 			}while( out == 0 && Dt > A->P->min_Dt );
 
@@ -457,7 +426,8 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			A->W->Voutlandsup += Voutsup;
 
 			//	record time step : To further check: do we need the line below ? 
-			geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
+                        //   line commented: wgen fpe enable we get a division by zero:  S.C. 08.11.2016
+			// geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
 
 			//write output variables
 			fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T, A->S);
@@ -477,19 +447,9 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 
 		tstart=clock();
 
-#ifdef USE_NETCDF
-		if(A->ncid==NC_GEOTOP_MISSING) {// there is no GEOtop netCDF archive, then use ascii modality
-			write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
-			if(strcmp(geotop::common::Variables::files[fSCA] , geotop::input::gStringNoValue) != 0) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
-			}
-		else {
-			write_output_nc(A);
-			}
-#else
 		write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G, A->M);
 		// line below to move in output..   
 		if(geotop::common::Variables::files[fSCA] != geotop::input::gStringNoValue) find_SCA(A->N->S, A->P, A->L->LC, A->I->time+A->P->Dt);
-#endif
 		tend=clock();
 		geotop::common::Variables::t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
@@ -509,7 +469,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 ///////////////////////////////////////////////////// end of time-loop... 
 
 
-	if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);
+	//if(A->P->max_glac_layers>0) deallocate_statevar_3D(G);
 
 }
 

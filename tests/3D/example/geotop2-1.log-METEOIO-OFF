@@ -1,0 +1,365 @@
+STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/example
+[NOTICE]: Using Experimental Logger
+[NOTICE]: Configuration file parsing completed. 7044 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 12, of which 2 at the bottom, 5 in the middle, and 5 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	3 4 5 6 7 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to Dz
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to Kv
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to Kh
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to res
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to fc
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to sat
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to a
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to n
+
+[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/example/soil/soil0001.txt assigned to SS
+
+
+Soil Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Soil Bedrock Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+[NOTICE]: /home/ecor/local/src/geotop_dev/tests/3D/example/ListPoints.txt
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/ListPoints.txt assigned to Xwgs
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/ListPoints.txt assigned to Ywgs
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/ListPoints.txt assigned to ID
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/pit_CentroCad250m existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/pit_CentroCad250m
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/LC_CentroCad250m existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/LC_CentroCad250m
+
+[NOTICE]: par->state_pixel=1
+
+i:1 1.000000
+A i:1 1
+i:2 2.000000
+A i:2 2
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/sky_CentroCad250m existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/sky_CentroCad250m
+
+[NOTICE]: not present in file list
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/soil_CentroCad250m existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/soil_CentroCad250m
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/grad_CentroCad250m_deg existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/grad_CentroCad250m_deg
+
+[NOTICE]: Slope Min:           0 (           0 deg) Max:     1.77771 (     60.6413 deg)
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/asp_CentroCad250m existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/asp_CentroCad250m
+
+[NOTICE]: Curvature N-S Min:  -0.0117449  Max:  0.00915413 
+
+[NOTICE]: Curvature W-E Min:  -0.0171326  Max:   0.0114171 
+
+[NOTICE]: Curvature NW-SE Min:  -0.0149001  Max:   0.0129986 
+
+[NOTICE]: Curvature NE-SW Min:  -0.0160887  Max:   0.0127007 
+
+[WARNING]: File/home/ecor/local/src/geotop_dev/tests/3D/example/input_maps/net_CentroCad250m_geo.asc not existing
+[NOTICE]: Valid pixels: 12089
+[NOTICE]: Number of nodes: 48356
+[NOTICE]: Novalue pixels: 12445
+[NOTICE]: Basin area:      755.562 km2
+[NOTICE]: Valid pixels: 12089
+[NOTICE]: Number of nodes: 48356
+[NOTICE]: Novalue pixels: 12445
+[NOTICE]: Basin area:      755.562 km2
+[WARNING]: Horizon file FOUND for meteo station #1
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0001.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0001.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0001.txt assigned to CloudTrans
+
+[WARNING]: Horizon file FOUND for meteo station #2
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0002.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0002.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0002.txt assigned to CloudTrans
+
+[WARNING]: Horizon file FOUND for meteo station #3
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0003.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0003.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0003.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0003.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0003.txt assigned to AirT
+
+[WARNING]: Horizon file FOUND for meteo station #4
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0004.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0004.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0004.txt assigned to CloudTrans
+
+[WARNING]: Horizon file FOUND for meteo station #5
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0005.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0005.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0005.txt assigned to CloudTrans
+
+[WARNING]: Horizon file FOUND for meteo station #6
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0006.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0006.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0006.txt assigned to CloudTrans
+
+[WARNING]: Horizon file FOUND for meteo station #7
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0007.txt assigned to azimuth
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/hor_meteo/horizon0007.txt assigned to horizon_ele
+
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to Date
+
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to Iprec
+
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to WindSp
+
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to WindDir
+
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to RH
+
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to AirT
+
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to Swglob
+
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/example/meteo/meteo0007.txt assigned to CloudTrans
+
+[NOTICE]: Shortwave radiation measurements from station 1
+
+[NOTICE]: Cloudiness measurements from station 1
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:
+ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,91,110,     1884.97,8,1,     12.9303,         184,    0.965018
+2,52,150,      1211.7,1,1,     6.94671,         171,    0.921769
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      762596, 5.16156e+06,     46.5563,     12.4259,         849,           1,           1,           2,           5
+2,      761860, 5.15092e+06,      46.461,     12.4103,         841,           1,           1,           2,           5
+3,      775768, 5.17199e+06,     46.6447,     12.6036,        1940,           1,           1,           2,           5
+4,      761982, 5.17221e+06,     46.6522,     12.4239,        1620,           1,           1,           2,           5
+5,      784147, 5.16414e+06,     46.5707,     12.7081,        1264,           1,           1,           2,           5
+6,      771793, 5.15361e+06,     46.4676,     12.5512,        1899,           1,           1,           8,          10
+7,      763408, 5.17378e+06,     46.6032,        12.5,        1960,           1,           1,           8,          10
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 3 layers
+[NOTICE]: 15/10/2011 13:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 14:00 8.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 15:00 12.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 16:00 16.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 17:00 20.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 18:00 25.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 19:00 29.17% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 20:00 33.33% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 21:00 37.50% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 22:00 41.67% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 15/10/2011 23:00 45.83% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 0:00 50.00% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 1:00 54.17% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 2:00 58.33% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 3:00 62.50% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 4:00 66.67% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 5:00 70.83% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 6:00 75.00% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 7:00 79.17% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 8:00 83.33% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 9:00 87.50% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 10:00 91.67% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 11:00 95.83% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+
+[NOTICE]: 16/10/2011 12:00 100.00% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
+
+[NOTICE]: Duration of simulation: 12.754060
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+

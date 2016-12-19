@@ -1,4 +1,3 @@
-
 /* GEOTRIVIALUtilities is an under-construction set of  C functions which supports i/o interface
    and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
@@ -170,3 +169,40 @@ int read_flag(int argc, char *argv[], char *flag, short print)
     }
     return s;
 }
+
+void t_error(std::string error_text)
+{
+    
+    /* void exit(); */
+    fprintf(stderr,"\nError::Run time error\n");
+    fprintf(stderr,"Error::%s\n",error_text.c_str());
+    fprintf(stderr,"........exiting...\n");
+    exit(1);
+}
+
+//-----------------------------
+std::string get_workingdirectory()
+{
+    std::string retString ;
+    char const * const pathfile = getenv("WorkingPath");
+    
+    if(pathfile == NULL)
+    {
+        t_error("You need to export the WorkingPath environment variable before to run the program");
+        return retString ;
+    }
+    
+    std::ifstream inputFile ;
+    inputFile.open (pathfile, std::ifstream::in);
+    std::getline (inputFile, retString);
+    
+    if( retString == "" )
+    {
+        t_error(std::string("no valid path found on file: ") + pathfile);
+    }
+    
+    return retString;
+}
+
+
+

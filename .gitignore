@@ -1,0 +1,78 @@
+Make ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+*.cmake
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Log files
+*.log
+
+#swap files
+*.swp
+
+#generated scripts
+test_runner.py
+config.h
+
+#virtualenv python
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+share/
+man/
+
+#python 
+*.pyc
+
+#Testing
+_SUCCESSFUL_RUN*
+_TEST_FAILED*
+Testing/
+output-tabs/*
+output-tabs/
+output-maps/*
+output-maps/
+output_tabs/*
+output_tabs/
+output_maps/*
+output_maps/

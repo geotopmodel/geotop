@@ -6,7 +6,8 @@
 #include "times.h"
 #include <string>
 #include <vector>
-#include "../libraries/fluidturtle/turtle.h"
+#include "../gt_utilities/math_utils.h"
+#include "../gt_utilities/geomorphology.h"
 
 namespace geotop
 {
@@ -102,5 +103,7 @@ namespace geotop
 
     } // end namespace common
 } // end namespace geotop
+
+
 
 #endif //__GEOTOP_COMMON__

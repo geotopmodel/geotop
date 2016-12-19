@@ -5,6 +5,7 @@
 #include "../geotop/geotop_common.h"
 #include "../geotop/part_snow.h"
 #include "../geotop/inputKeywords.h"
+#include "../gt_utilities/read_command_line.h"
 
 #define __MATHOPTIM_H__
 #include <meteoio/MeteoIO.h>
@@ -31,7 +32,9 @@ void meteoio_interpolate_cloudiness(Par* par, const double& JDbeg, GeoMatrix<dou
 bool iswr_present(const std::vector<mio::MeteoData>& vec_meteo, const bool& first_check, AllData *A);
 
 void copyGridToMatrix(mio::Grid2DObject& gridObject, GeoMatrix<double>& myGrid);
+void copyGridToMatrix(mio::Grid2DObject& gridObject, GeoMatrix<double>& myGrid, double& thr_min, double& val_min, double& thr_max, double& val_max);
 void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid);
+void copyGridToMatrixPointWise(const std::vector<double>& pointValues, GeoMatrix<double>& myGrid, double& thr_min, double& val_min, double& thr_max, double& val_max);
 void changeRHgrid(mio::Grid2DObject& g2d);
 void convertToCelsius(mio::Grid2DObject& g2d);
 void convertToMBar(mio::Grid2DObject& g2d);

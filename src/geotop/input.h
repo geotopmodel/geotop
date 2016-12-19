@@ -1,16 +1,16 @@
 /* STATEMENT:
  
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 2.0.0 - 9 Mar 2012
+ GEOtop 2.1 release candidate  (release date: 31 december 2016)
  
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2016 - GEOtop Foundation
  
- This file is part of GEOtop 2.0.0 
+ This file is part of GEOtop 2.1 
  
- GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  
- GEOtop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
  
@@ -21,12 +21,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include "struct.geotop.h"
-//#include "../libraries/geomorphology/geomorphology.0875.h"
-//#include "../libraries/geomorphology/geomorphology.h"
+
 #include "pedo.funct.h"
-//#include "../libraries/geomorphology/networks.h"
 #include "constants.h"
-//#include "../libraries/geomorphology/dtm_resolution.h"
 #include "../libraries/ascii/rw_maps.h"
 #include "../libraries/ascii/tabs.h"
 #include "snow.h"
@@ -39,10 +36,6 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
-#ifdef USE_NETCDF
-//#include "../gt_utilities/gt_utilities.h"
-#include "../netCDF/read_command_line.h"
-#endif
 #include <iostream>
 #include <string>
 #include <vector>
@@ -145,11 +138,11 @@ typedef struct __INIT_TOOLS__
   void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Meteo *met, Water *wat, Channel *cnet,
 		  Par *par, Energy *egy, Snow *snow, Glacier *glac, Times *times, mio::IOManager& iomanager);
 
-  void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, FILE *flog, mio::IOManager& iomanager);
+  void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& iomanager);
 
-  void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT, FILE *flog);
+  void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT);
 
-  void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC, FILE *flog);
+  void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC);
 
   GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<double>& slope, GeoMatrix<double>& LC, Soil *sl, short point);
 
@@ -165,5 +158,6 @@ void initialize_veg_state(StateVeg *V, long n);
 
 void copy_veg_state(StateVeg *from, StateVeg *to);
 
+short fill_GTmeteostations_meta(const double& JDE, mio::IOManager& iomanager, Meteo *met);
 
 #endif

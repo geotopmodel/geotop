@@ -2,16 +2,16 @@
 /* STATEMENT:
 
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 2.0.0 - 9 Mar 2012
+ GEOtop 2.1 release candidate  (release date: 31 december 2016)
 
- Copyright (c), 2012 - Stefano Endrizzi
+ Copyright (c), 2016 - GEOtop Foundation
 
- This file is part of GEOtop 2.0.0
+ This file is part of GEOtop 2.1
 
- GEOtop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 
-GEOtop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
 If you just use the code, please give feedback to the authors and the community.
 Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
 
@@ -20,20 +20,140 @@ If you have satisfactorily used the code, please acknowledge the authors.
 */
 #ifndef STRUCT_GEOTOP_H
 #define STRUCT_GEOTOP_H
-
 #include "datastructs.h"
-#include "statevar.h"
-#include "Energy/energy_class.h"
-#include "Glacier/glacier_class.h"
-#include "Meteo/meteo_class.h"
-#include "Meteo/meteostations.h"
-#include "Soil/soil_class.h"
-#include "Soil/soilstatevar.h"
-#include "Soil/vegstatevar.h"
-#include "Snow/snow_class.h"
-#include "Water/water_class.h"
 
 #include <vector>
+
+/*---------------------------------------------------------------------------*/
+
+class Energy
+{
+    public:
+        GeoVector<double> Rn_mean;
+        GeoVector<double> LWin_mean;
+        GeoVector<double> LW_mean;
+        GeoVector<double> SW_mean;
+        GeoVector<double> ET_mean;
+        GeoVector<double> H_mean;
+        GeoVector<double> SEB_mean;
+        GeoVector<double> Ts_mean;                /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+        GeoVector<double> Rswdown_mean;
+        GeoVector<double> Rswbeam_mean;
+        GeoVector<long> nDt_shadow;
+        GeoVector<long> nDt_sun;
+        GeoVector<double> Rn;
+        GeoVector<double> LWin;
+        GeoVector<double> LW;
+        GeoVector<double> SW;
+        GeoVector<double> LE;
+        GeoVector<double> H;
+        GeoVector<double> G;
+        GeoVector<double> Ts;
+        GeoVector<double> SWin;
+        GeoVector<double> SWinb;
+        GeoVector<short> shad;
+        GeoVector<double> Hgplot;
+        GeoVector<double> LEgplot;
+        GeoVector<double> Hvplot;
+        GeoVector<double> LEvplot;
+        GeoVector<double> SWinplot;
+        GeoVector<double> SWgplot;
+        GeoVector<double> SWvplot;
+        GeoVector<double> LWinplot;
+        GeoVector<double> LWgplot;
+        GeoVector<double> LWvplot;
+        GeoVector<double> Tgplot;
+        GeoVector<double> Tsplot;
+        GeoVector<double> Tvplot;
+        GeoVector<double> Hgp;
+        GeoVector<double> LEgp;
+        GeoVector<double> Hvp;
+        GeoVector<double> LEvp;
+        GeoVector<double> SWinp;
+        GeoVector<double> SWgp;
+        GeoVector<double> SWvp;
+        GeoVector<double> LWinp;
+        GeoVector<double> LWgp;
+        GeoVector<double> LWvp;
+        GeoVector<double> Tgp;
+        GeoVector<double> Tsp;
+
+        double *sun;
+        double hsun;
+        double sinhsun;
+        double dsun;
+
+        GeoVector<double> Dlayer;
+        GeoVector<double> liq;
+        GeoVector<double> ice;
+        GeoVector<double> Temp;
+        GeoVector<double> deltaw;
+        GeoVector<double> SWlayer;
+        GeoVector<double> soil_transp_layer;
+        GeoVector<double> dFenergy;
+        GeoVector<double> udFenergy;
+        GeoVector<double> Kth0;
+        GeoVector<double> Kth1;
+        GeoVector<double> Fenergy;
+        GeoVector<double> Newton_dir;
+        GeoVector<double> T0;
+        GeoVector<double> T1;
+        GeoVector<double> Tstar;
+        GeoVector<double> THETA;
+        GeoVector<double> soil_evap_layer_bare;
+        GeoVector<double> soil_evap_layer_veg;
+        GeoMatrix<double> Tgskin_surr;
+        GeoMatrix<double> SWrefl_surr;
+};
+
+/*---------------------------------------------------------------------------*/
+
+class SoilState
+{
+    public:
+        GeoMatrix<double> P;
+        GeoMatrix<double> thi;
+        GeoMatrix<double> T;
+};
+
+/*---------------------------------------------------------------------------*/
+
+class StateVeg
+{
+    public:
+        GeoVector<double> Tv;
+        GeoVector<double> wrain;                  /*intercepted precipitation in mm*/
+        GeoVector<double> wsnow;                  /*intercepted precipitation in mm*/
+};
+
+/*---------------------------------------------------------------------------*/
+
+class Soil
+{
+    public:
+        GeoMatrix<long> type;
+        GeoVector<double> init_water_table_depth;
+        GeoTensor<double> pa;
+        GeoTensor<double> pa_bed;
+        GeoMatrix<double> T_av_tensor;
+        GeoMatrix<double> thw_av_tensor;
+        GeoMatrix<double> thi_av_tensor;
+        GeoMatrix<double> Ptot;
+        GeoMatrix<double> th;
+        GeoTensor<double> ET;
+        GeoMatrix<double> Tzplot;
+        GeoMatrix<double> Tzavplot;
+        GeoMatrix<double> Ptotzplot;
+        GeoMatrix<double> Pzplot;
+        GeoMatrix<double> thzplot;
+        GeoMatrix<double> thzavplot;
+        GeoMatrix<double> thizplot;
+        GeoMatrix<double> thizavplot;
+        SoilState *SS;
+        StateVeg *VS;
+        GeoVector<double> Pnetcum;                //TODO mattiu
+        GeoVector<double> ETcum;
+};
 
 /*---------------------------------------------------------------------------*/
 
@@ -133,6 +253,44 @@ class Channel
         GeoVector<double> Kbottom;
 
         SoilState *SS;
+};
+
+/*---------------------------------------------------------------------------*/
+
+class Water                                       /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,*/
+{
+    public:                                       /* R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
+        GeoMatrix<double> PrecTot;                /*total(snow+rain) precipitation in mm (in a Dt)*/
+
+        GeoMatrix<double> Pnet;                  /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+                                                   of "punctual_energy" subroutine, rain intensity in mm/s as output of the
+                                                   same subroutine and in "water.balance.c" module*/
+        GeoMatrix<double> HN;                     // map of new snow TODO mattiu
+        GeoVector<double> PrTOT_mean;             /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+        GeoVector<double> PrSNW_mean;
+        GeoVector<double> Pt;
+        GeoVector<double> Ps;
+
+        GeoVector<double> h_sup;
+
+        GeoMatrix<double> error;
+
+        GeoVector<double> Lx;
+
+        GeoVector<double> H0;
+        GeoVector<double> H1;
+        GeoVector<double> dH;
+
+        GeoVector<double> B;
+        GeoVector<double> f;
+        GeoVector<double> df;
+
+        GeoMatrix<double> Klat;
+        GeoMatrix<double> Kbottom;
+
+        double Voutlandsub;
+        double Voutlandsup;
+        double Voutbottom;
 };
 
 /*---------------------------------------------------------------------------*/
@@ -406,6 +564,7 @@ class Par
         short usemeteoio;                         // flag indicating whether MeteoIO library is used
         bool use_meteoio_cloud;
         short use_meteoio_meteodata;
+	bool use_ilwr_wrf;  // this flag enable ILWR from WRF plugin
 
         short qin;
         short flag1D;
@@ -456,30 +615,162 @@ class Par
         short DDchannel;
         short DDland;
 
+        double cum_prec;//cumulated precipitation since the beginning of an event [mm]
+        double cum_da_up;//cumulated precipitation since the reset of the albedo [mm]
+        int time_wo_prec;//time without precipitation after the previous event [sec]
+        short evento;//states whether at the previous time stamp the event was ongoing
+        short up_albedo;//states whether the albedo has already been reset for the ongoing event
+        double tres_wo_prec;//max time interval allowed to differentiate between two contiguous events
+
 };
 
-#ifdef USE_NETCDF
-class OutputNCData
+class Statevar3D
 {
     public:
-        // soil
-        GeoMatrix<double>  *soil_thw_cum;         // cumulated version of S->th
-        GeoMatrix<double>  *soil_thi_cum;         // cumulated version of S->thice
-        GeoMatrix<double>  *soil_T_cum;           // cumulated version of S->T
-        GeoMatrix<double>  *soil_P_cum;           // cumulated version of S->P
-        GeoMatrix<double>  *soil_Ptot_cum;        // cumulated version of S->Ptot
-        // snow
-        GeoTensor<double> *snowD_cum;             // cumulated version of snow->S->Dzl
-        GeoTensor<double> *snowT_cum;             // cumulated version of snow->S->T
-        GeoTensor<double> *snowI_cum;             // cumulated version of snow->S->w_ice
-        GeoTensor<double> *snowW_cum;             // cumulated version of snow->S->w_liq
-        // glacier
-        GeoTensor<double> *glacD_cum;             // cumulated version of glac->G->Dzl
-        GeoTensor<double> *glacT_cum;             // cumulated version of glac->G->T
-        GeoTensor<double> *glacI_cum;             // cumulated version of glac->G->w_ice
-        GeoTensor<double> *glacW_cum;             // cumulated version of glac->G->w_liq
+        GeoMatrix<short> type;
+        GeoMatrix<long> lnum;
+        GeoTensor<double> Dzl;
+        GeoTensor<double> w_liq;
+        GeoTensor<double> w_ice;
+        GeoTensor<double> T;
 };
-#endif
+
+class Statevar1D
+{
+    public:
+        short type;
+        long lnum;
+        GeoVector<double> Dzl;
+        GeoVector<double>  w_liq;
+        GeoVector<double> w_ice;
+        GeoVector<double> T;
+};
+
+class Snow
+{
+    public:
+        Statevar3D *S;
+        Statevar1D *S_for_BS;
+        GeoVector<double> age;
+        GeoVector<double> MELTED;
+        GeoVector<double> melted;
+        GeoVector<double> HNcum;                  // TODO mattiu
+        GeoVector<double> SUBL;
+        GeoVector<double> subl;
+        GeoVector<double> t_snow;
+        GeoVector<short> yes;
+        GeoMatrix<double> Qsub;
+        GeoMatrix<double> Qsub_x;
+        GeoMatrix<double> Qsub_y;
+        GeoMatrix<double> Nabla2_Qtrans;
+        GeoMatrix<double> Qtrans;
+        GeoMatrix<double> Qsalt;
+        GeoMatrix<double> Qtrans_x;
+        GeoMatrix<double> Qtrans_y;
+        GeoMatrix<double> Wsubl_plot;
+        GeoMatrix<double> Wtrans_plot;
+        GeoVector<double> Dplot;
+        GeoVector<long> change_dir_wind;
+};
+
+class Glacier
+{
+    public:
+        Statevar3D *G;
+        GeoVector<double> MELTED;
+        GeoVector<double> melted;
+        GeoVector<double> SUBL;
+        GeoVector<double> subl;
+};
+
+class MeteoStations
+{
+    public:
+        GeoVector<double> E;
+        GeoVector<double> N;
+        GeoVector<double> lat;
+        GeoVector<double> lon;
+        GeoVector<double> Z;
+
+        GeoVector<double> sky;
+        GeoVector<double> ST;
+        GeoVector<double> Vheight;
+        GeoVector<double> Theight;
+        GeoVector<double> tau_cloud_av_meteoST;   // vector containing the tau_cloud_av at each meteo stations measuring SW radiation
+        GeoVector<double> tau_cloud_meteoST;      // vector containing the tau_cloud at each meteo stations measuring SW radiation
+        GeoVector<short> tau_cloud_av_yes_meteoST;// flag indicating whether the tau_cloud_av at each meteo stations is available
+        GeoVector<short> tau_cloud_yes_meteoST;   // flag indicating whether the tau_cloud at each meteo stations is available
+        GeoVector<short> flag_SW_meteoST;         // flag vector saying whether a meteo station accounts for SW radiation (0: no SW, 1: SW available)
+};
+
+class Meteo
+{
+    public:
+        Meteo() : st(NULL), data(NULL), numlines(NULL), horizonlines(NULL),
+            var(NULL), line_interp_WEB(NULL), line_interp_Bsnow(NULL), line_interp_WEB_LR(0), line_interp_Bsnow_LR(0),
+            tau_cloud(0.), tau_cloud_av(0.), tau_cloud_yes(0), tau_cloud_av_yes(0) {}
+
+        MeteoStations *st;
+
+        double ***data;
+        long *numlines;
+        double ***horizon;
+        long *horizonlines;
+
+        double **var;
+        long *line_interp_WEB;
+        long *line_interp_Bsnow;
+        long line_interp_WEB_LR;
+        long line_interp_Bsnow_LR;
+        double **LRs;                             //matrix read from the external value
+        long LRsnr;                               //number of lines of the matrix
+        double *LRv;                              //vector of interpolated values
+        double **LRc;                             //cyclic values from the parameter file (one vector for each LR variable)
+        long *LRcnc;                              //number of components of the vector (for each component)
+        double *LRd;                              //vector of default values
+
+        double **qins;
+        double *qinv;
+        long qinsnr;
+        long qinline;
+
+        double tau_cloud;                         // tau_cloud for the chosen meteo station used to derive cloud
+        double tau_cloud_av;                      // tau_cloud for the chosen meteo station used to derive cloud
+        short tau_cloud_yes;
+        short tau_cloud_av_yes;
+        GeoMatrix<double> tau_cl_map;             // matrix containing the tau_cloud for each grid point
+        GeoMatrix<double> tau_cl_av_map;          // matrix containing the tau_cloud_av for each grid point
+        GeoMatrix<short> tau_cl_map_yes;          // boolean matrix saying whether the grid point has tau_cl value
+        GeoMatrix<short> tau_cl_av_map_yes;       // boolean matrix saying whether the grid point has tau_cl_av value
+
+        GeoMatrix<double> Tgrid;
+        GeoMatrix<double> Pgrid;
+        GeoMatrix<double> Vgrid;
+        GeoMatrix<double> Vdir;
+        GeoMatrix<double> RHgrid;
+	GeoMatrix<double> ILWRgrid;
+
+        GeoVector<double> Tamean;
+        GeoVector<double> Vspdmean;
+        GeoVector<double> Vdirmean;
+        GeoVector<double> RHmean;
+
+        GeoVector<double> Taplot;
+        GeoVector<double> Vxplot;
+        GeoVector<double> Vyplot;
+        GeoVector<double> RHplot;
+
+        double V;
+
+        long nstcloud;                            // meteo station ID (1...n) to use for the cloudiness
+        long numstcloud;                          // number of meteo stations measuring cloudiness
+        long nstsrad;
+        long nstlrad;
+        long nstTs;
+
+        GeoVector<long> imeteo_stations;
+};
+
 
 class AllData
 {
@@ -495,18 +786,6 @@ class AllData
         Glacier *G;
         Meteo *M;
         Times *I;
-#ifdef USE_NETCDF
-        int ncid;                                 // pointer to netCDF archive file
-        long counter_snow;                        // counter for time print of snow
-        long counter_surface_energy;              //counter for surface energy maps
-        long counter_soil;                        //counter for printing soil properties
-        long counter_glac;                        //counter for printing glacier properties
-        long counter_point;                       // counter for printing point data
-        int z_point_var_type;                     // variable type for z_point (e.g. temperature in depth in a point)
-        int point_var_type;                       // variable type (e.g. radiation in a point)
-        int unstruct_z_point_var_type;            // variable type for z_point (e.g. temperature in depth in a point) in unstructured grid
-        int unstruct_point_var_type;              // variable type (e.g. radiation in a point) in unstructured grid
-        OutputNCData *outnc;
-#endif
+
 };
 #endif

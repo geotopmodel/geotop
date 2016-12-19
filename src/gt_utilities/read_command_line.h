@@ -30,12 +30,19 @@ This file is part of GEOTRIVIALUtilities.
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include <fstream>
+#include <math.h>
+#include <time.h>
+#include <ctype.h>
 
 const int SUCCESS = 1;
 const int NO_SUCCESS = 0;
 
+std::string get_workingdirectory();
+void t_error(std::string error_text);
 
 char *read_option_string(int argc,char *argv[], char *option_f,char *no_option_argument,short print);
+
 std::string read_option_string(int argc,char *argv[], std::string option_f, std::string no_option_argument,short print);
 
 double read_option_double(int argc,char *argv[], char *option_f,char *no_option_argument,double default_value,short print);
