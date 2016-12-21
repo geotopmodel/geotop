@@ -28,7 +28,7 @@ PointID = 1,2,3,4,5,6
 ! METEO HEADERS 
 !======================================= 
 
-MeteoFile = "input_maps/met"
+MeteoFile = "input-meteo/meteo"
 HeaderDateDDMMYYYYhhmmMeteo = "Date"
 HeaderIPrec = "IPrec"
 
@@ -87,7 +87,7 @@ HeaderKthSoilSolids	=	"Kth"
 HeaderCthSoilSolids	=	"Cth"
 HeaderSoilInitPres = "InitPsi"
  
- SoilParFile	=	"input_maps/soil-classes/soil"
+ SoilParFile	=	"input/soil-classes/soil"
  
 !======================================= 
 !Numerical parameters 
@@ -113,11 +113,11 @@ MinTimeStepSupFlow	=	1E-50
 
 ! Input files 
 
-DemFile = "input_maps/dem"
-RiverNetwork = "input_maps/net"
-LandCoverMapFile = "input_maps/land"
-SlopeMapFile = "input_maps/slope"
-SoilMapFile	=	"input_maps/soiltype"
+DemFile = "input-maps/dem"
+RiverNetwork = "input-maps/net"
+LandCoverMapFile = "input-maps/land"
+SlopeMapFile = "input-maps/slope"
+SoilMapFile	=	"input-maps/soiltype"
 
 ! Output files
 
