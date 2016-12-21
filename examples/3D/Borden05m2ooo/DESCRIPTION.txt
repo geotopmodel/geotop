@@ -1,9 +1,0 @@
-Model: GEOtop
-Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1) 
-Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
-Author: Emanuele Cordano (emanuele.cordano@rendena100.eu)
-Date: 01-09-2016
-Name: Borden05m
-Oldname: Borden05m_nopit_001
-Description: Bored Experiment (initial waterdepth 20cm below ditch outlet - rainfall intensity 20 mm/hr duration 50 min). Inspired by the Burden Case (WRR, Kollet at al, submitted, Abdul and Gillham, 1989)
-Output: ...
