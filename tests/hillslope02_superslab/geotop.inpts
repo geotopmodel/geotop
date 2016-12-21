@@ -1,0 +1,141 @@
+!=======================================
+! GENERAL SETTINGS
+!=======================================
+
+!Calculation max time step dt in s 
+
+TimeStepEnergyAndWater = 18   
+InitDateDDMMYYYYhhmm = 01/01/2000 00:00 
+EndDateDDMMYYYYhhmm =  01/01/2000 00:30 
+
+WaterBalance = 1
+
+!Output timeseries Dt in hours 
+DtPlotDischarge = 0.1
+DtPlotPoint = 0.1
+OutputSoilMaps = 1.5
+
+DtPlotBasin = 0.1
+BasinAll = 1
+!BasinOutputFile = "output-tabs/basin" 
+
+CoordinatePointX = 2,8,40,50,60,90
+CoordinatePointY = 5,5,5,5,5,5
+PointID = 1,2,3,4,5,6
+
+
+!======================================= 
+! METEO HEADERS 
+!======================================= 
+
+MeteoFile = "input-meteo/meteo"
+HeaderDateDDMMYYYYhhmmMeteo = "Date"
+HeaderIPrec = "IPrec"
+
+
+NumberOfMeteoStations = 1
+! order of stations: One rain gauge 
+MeteoStationCoordinateX=15
+MeteoStationCoordinateY=5
+MeteoStationLatitude=0
+MeteoStationLongitude=0
+MeteoStationElevation=0
+MeteoStationWindVelocitySensorHeight = 10
+MeteoStationTemperatureSensorHeight = 10
+
+
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+
+
+
+
+!=======================================
+! SOIL
+!=======================================
+
+
+NumLandCoverTypes = 1
+SoilLayerTypes=100
+SurFlowResLand	=	277.78 
+
+!! m^(1/3)/s 
+
+!!2714.57  
+! In case units is mm^(1/3)/s
+!!277.78  m^(1/3)/s
+
+ !  m^0.33/s  ! n_c= 1.0e-6 hr/m^(1/3)
+
+SurFlowResExp=0.6666667
+
+
+
+FreeDrainageAtLateralBorder = 0.0
+ 
+HeaderSoilDz	=	"Dz"
+HeaderLateralHydrConductivity	=	"Kh"
+HeaderNormalHydrConductivity	=	"Kv"
+HeaderThetaRes	=	"vwc_r"
+HeaderWiltingPoint	=	"vwc_w"
+HeaderFieldCapacity	=	"vwc_fc"
+HeaderThetaSat	=	"vwc_s"
+HeaderAlpha	=	"alpha"
+HeaderN	=	"n"
+HeaderSpecificStorativity	=	"stor"
+HeaderKthSoilSolids	=	"Kth"
+HeaderCthSoilSolids	=	"Cth"
+HeaderSoilInitPres = "InitPsi"
+ 
+ SoilParFile	=	"input/soil-classes/soil"
+ 
+!======================================= 
+!Numerical parameters 
+!======================================= 
+ 
+RichardTol	=	1.E-8
+RichardInitForc = 1E-2
+MinLambdaWater = 1.E-8
+RichardMaxIter	=	1E3
+ExitMinLambdaWater = 1
+!UpdateHydraulicConductivity = 0
+!MinRatioKactualToKSat = 1E-5
+MinTimeStep = 1
+
+DDLand = 0
+MaxCourantSupFlowLand	=	1E-3
+MinSupWaterDepthLand	=	1E-10 
+MinTimeStepSupFlow	=	1E-50
+
+!=============================================================================
+!  FILE NAMES
+!=============================================================================
+
+! Input files 
+
+DemFile = "input-maps/dem"
+RiverNetwork = "input-maps/net"
+LandCoverMapFile = "input-maps/land"
+SlopeMapFile = "input-maps/slope"
+SoilMapFile	=	"input-maps/soiltype"
+
+! Output files
+
+! Tabs 
+DischargeFile = "output-tabs/discharge"
+SoilAll = 1
+!PointOutputFile = "output-tabs/point"
+SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
+SoilLiqContentProfileFile = "output-tabs/thetaliq"
+!SoilIceContentProfileFile = "output-tabs/I"
+!SoilSaturationRatioProfileFile = "output-tabs/Sr"
+
+! Maps
+LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+!WaterTableDepthMapFile  = "output-maps/wt"
+!WaterTableDepthFromAboveMapFile  = "output-maps/wttop"
+
+! Tens
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+SoilLiqWaterPressTensorFile = "output-maps/psiliq"
+
