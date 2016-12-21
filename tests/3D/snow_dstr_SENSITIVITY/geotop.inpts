@@ -112,7 +112,7 @@ HeaderHorizonHeight         = "HorizonHeight"
 
 ! Indication of the lapserate-file
 !mm/1000m K/1000m
-LapseRateFile = "lapserate_20091001_20131125"
+LapseRateFile = "input-meteo/lapserate_20091001_20131125"
 HeaderDateDDMMYYYYhhmmLapseRates = "Date"
 HeaderLapseRateTemp = "LapseRateTemp"
 HeaderLapseRateDewTemp = "LapseRateDewTemp"
@@ -171,41 +171,38 @@ BottomBoundaryHeatFlux = 0.0
 ! SENSITIVITY ANALYSIS 
 !======================================= 
 
-	SnowCorrFactor = 1 
+SnowCorrFactor = 1 
 
-	FreshSnowReflVis	=  0.95	
-	FreshSnowReflNIR	=  0.65
-	SnowAgingCoeffVis	=  0.2
+FreshSnowReflVis	=  0.95	
+FreshSnowReflNIR	=  0.65
+SnowAgingCoeffVis	=  0.2
 
-	AlbExtParSnow = 10
+AlbExtParSnow = 10
 
-	SnowRoughness = 2
+SnowRoughness = 2
 
-	IrriducibleWatSatSnow = 0.02
+IrriducibleWatSatSnow = 0.02
 
-	DrySnowDefRate = 1
-	WetSnowDefRate	= 1.5
+DrySnowDefRate = 1
+WetSnowDefRate	= 1.5
 
-	ThresTempRain		=  3
-	ThresTempSnow		=  1
+ThresTempRain		=  3
+ThresTempSnow		=  1
  
-	MoninObukhov          = 1
+MoninObukhov          = 1
 
 
-	RainCorrFactor      = 1.0
+RainCorrFactor      = 1.0
 
-	DewTempOrNormTemp	=  0
+DewTempOrNormTemp	=  0
 
-	SnowEmissiv			= 0.99
-
-
-	SnowDensityCutoff		= 100
-
-	SnowViscosity			= 1.E6
-	AlphaSnow			= 1.E5
+SnowEmissiv			= 0.99
 
 
+SnowDensityCutoff		= 100
 
+SnowViscosity			= 1.E6
+AlphaSnow			= 1.E5
 
 
 !--- DISCRETIZATION ------------------
@@ -302,12 +299,12 @@ SoilPlotDepths = 100, 200, 500
  
 ! Input files 
  
-DemFile = "dem100"
+DemFile = "input-maps/dem100"
 MeteoFile = "input-meteo/meteo"
 HorizonMeteoStationFile = "input-meteo/horizongis"
-LandCoverMapFile = "landcover100adpt"
-RiverNetwork = "net100adpt"
-!InitGlacierDepthMapFile	=	"glacier100adpt"
+LandCoverMapFile = "input-maps/landcover100adpt"
+RiverNetwork = "input-maps/net100adpt"
+!InitGlacierDepthMapFile	=	"input-maps/glacier100adpt"
 !BedrockDepthMapFile = "soildepth"
 
 ! Output files 
