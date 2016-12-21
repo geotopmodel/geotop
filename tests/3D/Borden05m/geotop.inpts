@@ -31,7 +31,7 @@ MeteoStationLongitude=10.57361
 MeteoStationWindVelocitySensorHeight = 2.5
 MeteoStationTemperatureSensorHeight = 2.5
  
-MeteoFile = "meteo"
+MeteoFile = "input-meteo/meteo"
 
 MeteoStationStandardTime = 1
 StandardTimeSimulation = 1
@@ -51,8 +51,8 @@ HeaderIPrec = "Iprec"
 !*******************************
 !******* HORIZON  *********
 !*******************************
-HorizonPointFile="hor_points/horizon"
-HorizonMeteoStationFile="hor_meteo/horizon"
+HorizonPointFile="input/horizon"
+HorizonMeteoStationFile="input-meteo/horizon"
 HeaderHorizonAngle="azimuth"
 HeaderHorizonHeight="horizon_ele"
 
@@ -71,14 +71,14 @@ CoordinatePointY	= 5168008
 !*******************************
 !******* INPUT MAPS ************
 !*******************************
-DemFile = "dem_nopit_05m"
-LandCoverMapFile = "landcover05m"
-SkyViewFactorMapFile = "sky"
-SlopeMapFile = "slope"
-AspectMapFile = "aspect"
-RiverNetwork = "net05"
-!SoilMapFile = "soil"
-BedrockDepthMapFile = "bedrock_nopit"
+DemFile = "input-maps/dem_nopit_05m"
+LandCoverMapFile = "input-maps/landcover05m"
+SkyViewFactorMapFile = "input-maps/sky"
+SlopeMapFile = "input-maps/slope"
+AspectMapFile = "input-maps/aspect"
+RiverNetwork = "input-maps/net05"
+!SoilMapFile = "input-maps/soil"
+BedrockDepthMapFile = "input-maps/bedrock_nopit"
 
 
 !*******************************
@@ -121,7 +121,7 @@ SoilLayerTypes = 1
 !*******************************
 !*******  SOIL TYPE ************
 !*******************************
-SoilParFile = "soil"
+SoilParFile = "input/soil"
 
 !#######  header ##########
 HeaderSoilDz = "Dz"
@@ -176,7 +176,7 @@ MinSupWaterDepthChannel = 0
 !*******************************
 
 ! InitWaterTableDepth = 200
-InitWaterTableDepthMapFile = "InitWaterTable_nopit"
+InitWaterTableDepthMapFile = "input-maps/InitWaterTable_nopit"
 FreeDrainageAtLateralBorder = 1
 DepthFreeSurfaceAtTheBoundary = 2000
 
