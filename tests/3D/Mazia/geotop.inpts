@@ -277,21 +277,21 @@ CanopyStabCorrection	=	1
 
 ! Input files 
 
-DemFile = "input_maps/dem"
+DemFile = "input-maps/dem"
 MeteoFile = "meteo/meteo"
-LandCoverMapFile = "input_maps/landcover"
-SkyViewFactorMapFile = "input_maps/sky"
-SlopeMapFile = "input_maps/slope"
-AspectMapFile = "input_maps/aspect"
-CurvaturesMapFile = "input_maps/curvature"
+LandCoverMapFile = "input-maps/landcover"
+SkyViewFactorMapFile = "input-maps/sky"
+SlopeMapFile = "input-maps/slope"
+AspectMapFile = "input-maps/aspect"
+CurvaturesMapFile = "input-maps/curvature"
 !HorizonMeteoStationFile = "horizon/horizon"
-RiverNetwork = "input_maps/net"
+RiverNetwork = "input-maps/net"
 !InitGlacierDepthMapFile	=	"glacier0"
-BedrockDepthMapFile = "input_maps/bedrock2"
+BedrockDepthMapFile = "input-maps/bedrock2"
 
-!InitSnowDepthMapFile = "input_maps/SnowDepth"
-!InitSWEMapFile = "input_maps/SWEglacier"
-!InitSnowAgeMapFile = "input_maps/SnowAge"
+!InitSnowDepthMapFile = "input-maps/SnowDepth"
+!InitSWEMapFile = "input-maps/SWEglacier"
+!InitSnowAgeMapFile = "input-maps/SnowAge"
 
 
 ! Output files
