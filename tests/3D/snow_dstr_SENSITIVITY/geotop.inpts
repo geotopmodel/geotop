@@ -302,25 +302,14 @@ SoilPlotDepths = 100, 200, 500
  
 ! Input files 
  
-!DemFile = "dem100studysite"
 DemFile = "dem100"
-MeteoFile = "meteo"
-!LandCoverMapFile = "landcover100studysite"
+MeteoFile = "input-meteo/meteo"
+HorizonMeteoStationFile = "input-meteo/horizongis"
 LandCoverMapFile = "landcover100adpt"
-!SkyViewFactorMapFile = "sky"
-!SlopeMapFile = "slope"
-!AspectMapFile = "aspect"
-!CurvaturesMapFile = "curvature"
-HorizonMeteoStationFile = "horizongis"
 RiverNetwork = "net100adpt"
 !InitGlacierDepthMapFile	=	"glacier100adpt"
 !BedrockDepthMapFile = "soildepth"
 
-!InitSnowDepthMapFile = "SnowDepth30"
-!InitSWEMapFile = "SWEglacier30"
-!InitSnowAgeMapFile = "SnowAge30"
-
- 
 ! Output files 
  
 DischargeFile = "output-tabs/discharge"
