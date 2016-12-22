@@ -225,7 +225,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     // ##################################################################################################################################
 
     if(par->point_sim!=1){  //distributed simulation
-        read_inputmaps(top, land, sl, par, iomanager);
+        read_inputmaps(top, land, sl, par, IT, iomanager);
     }else{
         read_optionsfile_point(par, top, land, sl, times, IT);
     }
@@ -1907,7 +1907,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& iomanager){
+void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mio::IOManager& iomanager){
 
     long r, c, i, cont;
     GeoMatrix<double> M;
@@ -1932,6 +1932,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& i
         //	calculate East and North
         top->East.resize(top->Z0.getRows(), top->Z0.getCols());
         top->North.resize(top->Z0.getRows(), top->Z0.getCols());
+// to check <= or just < ::TODO
         for (r=1; r<top->Z0.getRows(); r++) {
             for (c=1; c<top->Z0.getCols(); c++) {
                 top->East[r][c] = geotop::common::Variables::UV->U[4] + (c-0.5)*geotop::common::Variables::UV->U[2];
@@ -2005,8 +2006,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& i
         }
     }
 
-	lg->logf("par->state_pixel=%ld\n",
-            par->state_pixel);
+	lg->logf("par->state_pixel=%ld\n", par->state_pixel);
 	
     if(par->state_pixel == 1){
         par->rc.resize(par->chkpt.getRows(),2+1);
@@ -2017,20 +2017,14 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& i
             par->rc[i][2]=col(par->chkpt[i][ptX], top->Z0.getCols()-1, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
             if (par->rc[i][1] == geotop::input::gDoubleNoValue || par->rc[i][2] == geotop::input::gDoubleNoValue) {
-                lg->logsf(geotop::logger::ERROR,
-                        "Point #%4ld is out of the domain",
-                        i);
-                lg->log("Geotop failed. See failing report.",
-                        geotop::logger::CRITICAL);
+                lg->logsf(geotop::logger::ERROR, "Point #%4ld is out of the domain",i);
+                lg->log("Geotop failed. See failing report.", geotop::logger::CRITICAL);
                 exit(1);
             }
 
             if((long)land->LC[par->rc[i][1]][par->rc[i][2]]==geotop::input::gDoubleNoValue){
-                lg->logsf(geotop::logger::ERROR,
-                        "Point #%4ld corresponds to NOVALUE pixel",
-                        i);
-                lg->log("Geotop failed. See failing report.",
-                        geotop::logger::CRITICAL);
+                lg->logsf(geotop::logger::ERROR, "Point #%4ld corresponds to NOVALUE pixel", i);
+                lg->log("Geotop failed. See failing report.", geotop::logger::CRITICAL);
                 exit(1);
             }
 			
@@ -2264,6 +2258,30 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, mio::IOManager& i
     }else {
         top->BC_DepthFreeSurface.resize(2,geotop::input::gDoubleNoValue);
     }
+
+
+        lg->logf("Channel networks has %ld pixels set to channel",cont);
+
+        if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+
+
+// Bedrock NOT considered here...
+   //bedrock
+   flag = file_exists(fbed);
+//         if(flag == 1){
+//                 IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
+//         }else{
+//                 IT->bed=new_doublematrix(top->Z0->nrh, top->Z0->nch);
+//                 initialize_doublematrix(IT->bed, 1.E99);
+//         }
+//         if(flag>=0) write_map(files[fbed], 0, par->format_out, IT->bed, UV, number_novalue);
+
+   if(flag == 1){
+        meteoio_readMap(string(geotop::common::Variables::files[fbed]),IT->bed) ;
+//        copyshort_doublematrix(IT->bed, M);
+      } 
+
+
 
 }
 
@@ -2502,7 +2520,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     //f2. bedrock file
-	read_bed=0;cout << "par->chkpt.getRows()=" << par->chkpt.getRows() << " par->chkpt[i][ptBED]=" << par->chkpt[1][ptBED] <<  endl;
+	read_bed=1;cout << "par->chkpt.getRows()=" << par->chkpt.getRows() << " par->chkpt[i][ptBED]=" << par->chkpt[1][ptBED] <<  endl;
 	for(i=1;i<par->chkpt.getRows();i++){
 		if((long)par->chkpt[i][ptBED]==geotop::input::gDoubleNoValue) read_bed=1;
 	}
@@ -2512,9 +2530,8 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 		if(flag == 1){
 				meteoio_readMap(string(geotop::common::Variables::files[fbed]), P);
 		}else{
-        lg->log("Bedrock depth file not present",
-                geotop::logger::WARNING);
-			read_bed=0;
+                      lg->log("Bedrock depth file not present", geotop::logger::WARNING);
+		      read_bed=0;
 		}
 	}
 
