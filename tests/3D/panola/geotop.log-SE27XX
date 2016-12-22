@@ -804,24 +804,24 @@ HeaderHorizonAngle = none
 HeaderHorizonHeight = none
 TimeStepsFile = none
 SoilParFile = none
-MeteoFile = meteo/meteo
+MeteoFile = input-meteo/meteo
 MeteoStationsListFile = none
-LapseRateFile = lapserate
+LapseRateFile = input/lapserate
 HorizonMeteoStationFile = none
 PointFile = none
 HorizonPointFile = none
 TimeDependentVegetationParameterFile = none
 TimeDependentIncomingDischargeFile = none
-DemFile = dtm_map
+DemFile = input-maps/dtm_map
 LandCoverMapFile = none
 SoilMapFile = none
 DaysDelayMapFile = none
 SkyViewFactorMapFile = none
-SlopeMapFile = slope
-RiverNetwork = net
-AspectMapFile = aspect
+SlopeMapFile = input-maps/slope
+RiverNetwork = input-maps/net
+AspectMapFile = input-maps/aspect
 CurvaturesMapFile = none
-BedrockDepthMapFile = bedrock_depth
+BedrockDepthMapFile = input-maps/bedrock_depth
 InitWaterTableDepthMapFile = none
 InitSnowDepthMapFile = none
 InitSWEMapFile = none
@@ -1169,39 +1169,39 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
 
-Attempting to read 'DemFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/dtm_map': EXISTING in format 3
+Attempting to read 'DemFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/input-maps/dtm_map': EXISTING in format 3
 Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
 Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
 Attempting to read 'SoilMapFile' in the file 'none': not present in file list
-Attempting to read 'SlopeMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/slope': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/input-maps/slope': EXISTING in format 3
 Slope Min:0.105732 (6.035564 deg) Max:0.253756 (14.238626 deg) 
-Attempting to read 'AspectMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/aspect': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/input-maps/aspect': EXISTING in format 3
 Curvature N-S Min:-0.050065  Max:0.050065 
 Curvature W-E Min:-0.000000  Max:0.000000 
 Curvature NW-SE Min:-0.050065  Max:0.050065 
 Curvature NE-SW Min:-0.050065  Max:0.050065 
-Attempting to read 'RiverNetwork' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/net': not existing
-Attempting to read 'BedrockDepthMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/bedrock_depth': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/input-maps/net': not existing
+Attempting to read 'BedrockDepthMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola/input-maps/bedrock_depth': EXISTING in format 3
 Valid pixels: 2059
 Number of nodes: 24708
 Novalue pixels: 416
 Basin area: 0.002059 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to Date
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to JDfrom0
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to Iprec
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to WindSp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to WindDir
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to RelHum
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to AirT
-Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to SWglobal
-Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/meteo/meteo0001.txt assigned to CloudTrans
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/lapserate.txt assigned to Date
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/lapserate.txt assigned to LapseRateTemp
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/lapserate.txt assigned to LapseRateDewTemp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/lapserate.txt assigned to LapseRatePrec
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to Date
+Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to Iprec
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to WindSp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to WindDir
+Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to RelHum
+Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to AirT
+Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to SWglobal
+Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input-meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input/lapserate.txt assigned to Date
+Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input/lapserate.txt assigned to LapseRateTemp
+Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input/lapserate.txt assigned to LapseRateDewTemp
+Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola/input/lapserate.txt assigned to LapseRatePrec
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available
@@ -1213,7 +1213,7 @@ Soil water transpires from the first 11 layers
 1/2/2012 1:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 1/2/2012 2:00 8.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 1/2/2012 3:00 12.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-1/2/2012 4:00 16.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+1/2/2012 4:00 16.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 1/2/2012 5:00 20.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
 1/2/2012 6:00 25.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 1/2/2012 7:00 29.17% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:00  
@@ -1222,21 +1222,21 @@ Soil water transpires from the first 11 layers
 1/2/2012 10:00 41.67% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
 1/2/2012 11:00 45.83% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 1/2/2012 12:00 50.00% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:00  
-1/2/2012 13:00 54.17% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:00  
+1/2/2012 13:00 54.17% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:00  
 1/2/2012 14:00 58.33% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:00  
 1/2/2012 15:00 62.50% - Time elapsed (h:m:s)  0:00:22 Time remaining (h:m)  0:00  
 1/2/2012 16:00 66.67% - Time elapsed (h:m:s)  0:00:24 Time remaining (h:m)  0:00  
 1/2/2012 17:00 70.83% - Time elapsed (h:m:s)  0:00:26 Time remaining (h:m)  0:00  
-1/2/2012 18:00 75.00% - Time elapsed (h:m:s)  0:00:30 Time remaining (h:m)  0:00  
+1/2/2012 18:00 75.00% - Time elapsed (h:m:s)  0:00:29 Time remaining (h:m)  0:00  
 1/2/2012 19:00 79.17% - Time elapsed (h:m:s)  0:00:32 Time remaining (h:m)  0:00  
 1/2/2012 20:00 83.33% - Time elapsed (h:m:s)  0:00:35 Time remaining (h:m)  0:00  
-1/2/2012 21:00 87.50% - Time elapsed (h:m:s)  0:00:38 Time remaining (h:m)  0:00  
-1/2/2012 22:00 91.67% - Time elapsed (h:m:s)  0:00:41 Time remaining (h:m)  0:00  
+1/2/2012 21:00 87.50% - Time elapsed (h:m:s)  0:00:37 Time remaining (h:m)  0:00  
+1/2/2012 22:00 91.67% - Time elapsed (h:m:s)  0:00:40 Time remaining (h:m)  0:00  
 1/2/2012 23:00 95.83% - Time elapsed (h:m:s)  0:00:43 Time remaining (h:m)  0:00  
 2/2/2012 0:00 100.00% - Time elapsed (h:m:s)  0:00:46 Time remaining (h:m)  0:00  
 
 2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.11 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 46.49 s, t_sub:  7.55 s, t_sup: 38.94 s, t_out:  0.00 s
+ t_meteo:  0.11 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 46.24 s, t_sub:  7.53 s, t_sup: 38.72 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=240.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.088074e-09 mm/h 

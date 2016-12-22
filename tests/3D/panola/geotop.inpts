@@ -98,7 +98,7 @@ CoordinatePointY = 15
 
 ! Indication of the lapserate-file
 
-LapseRateFile = "lapserate"
+LapseRateFile = "input/lapserate"
 HeaderDateDDMMYYYYhhmmLapseRates = "Date"
 HeaderJulianDayfrom0Meteo = "JDfrom0"
 HeaderLapseRateTemp = "LapseRateTemp"
@@ -260,17 +260,17 @@ LocMaxIter	=	3
 ! Input files 
  
 DemFile = "input-maps/dtm_map"
-MeteoFile = "meteo/meteo"
+MeteoFile = "input-meteo/meteo"
  ! MISINGLandCoverMapFile = "landcover500"
  !  MISSINGSkyViewFactorMapFile = "sky"
 SlopeMapFile = "input-maps/slope"
 AspectMapFile = "input-maps/aspect"
 !CurvaturesMapFile = "curvature"
-!HorizonMeteoStationFile = "horizon" !!!  horizon is unuseful for this case and it is commeterd (REMOVED?))
+!HorizonMeteoStationFile = "input-meteo/horizon" !!!  horizon is unuseful for this case and it is commeterd (REMOVED?))
 !HeaderAngleFromNorthClockwise="azimuth"
-RiverNetwork = "net"
+RiverNetwork = "input-maps/net"
 !MISSINGInitGlacierDepthMapFile	=	"glacier500"
-!BedrockDepthMapFile = "soildepth"
+!BedrockDepthMapFile = "input-maps/soildepth"
 BedrockDepthMapFile="input-maps/bedrock_depth"
 ! Output files
 
