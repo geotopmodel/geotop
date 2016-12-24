@@ -154,7 +154,12 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
 	}	
 
-    std::cout << "SPAR: " << fspar << " : " << geotop::common::Variables::files[fspar] << std::endl ;
+    // do we need this ?? SC 23.12.2016
+    // TODO: write in the log
+    lg->logf("file index SPAR %d", fspar);
+    lg->logf("file name assigned : %s \n",geotop::common::Variables::files[fspar].c_str());
+
+    
     success = read_soil_parameters(geotop::common::Variables::files[fspar], IT, sl, par->soil_type_bedr_default);
 
     geotop::common::Variables::Nl = sl->pa.getCh() - 1;
@@ -260,32 +265,20 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         }
     }
 
+    lg->logf("INFO about the simulated basin:");
     lg->logf("Valid pixels: %ld", par->total_pixel);
-    lg->logf("Number of nodes: %ld",
-            (geotop::common::Variables::Nl+1) * par->total_pixel);
-    lg->logf("Novalue pixels: %ld",
-            (geotop::common::Variables::Nr * geotop::common::Variables::Nc-par->total_pixel)
-            );
+    lg->logf("Number of nodes: %ld", (geotop::common::Variables::Nl+1) * par->total_pixel);
+    lg->logf("Novalue pixels: %ld",geotop::common::Variables::Nr * geotop::common::Variables::Nc-par->total_pixel);
 
-
-    lg->logf("Basin area: %12g km2",
-            (double)par->total_pixel*geotop::common::Variables::UV->U[1] *
+    lg->logf("Basin area: %12g km2", (double)par->total_pixel*geotop::common::Variables::UV->U[1] *
             geotop::common::Variables::UV->U[2] / 1.E6);
 
-    lg->logf("Valid pixels: %ld", par->total_pixel);
-    lg->logf("Number of nodes: %ld",
-            (geotop::common::Variables::Nl+1) * par->total_pixel);
-    lg->logf("Novalue pixels: %ld",
-            (geotop::common::Variables::Nr *
-             geotop::common::Variables::Nc-par->total_pixel));
-
-    lg->logf("Basin area: %12g km2",
-            (double)par->total_pixel * geotop::common::Variables::UV->U[1] *
-            geotop::common::Variables::UV->U[2] / 1.E6);
-
+    
+    
     /****************************************************************************************************/
     //Reading of RAIN data file,	METEO data file, 	and CLOUD data file
-
+    lg->log("Start Reading RAIN/METEO/CLOUD data files...");
+    
     num_cols = (long)nmet;
 
     //	meteo data
@@ -541,11 +534,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	} while ((size_t)(met->nstcloud) < met->st->Z.size() - 1 && a == 0);
 
     if (a == 0) {
-        lg->log("No cloudiness measurements available",
-                geotop::logger::WARNING);
+        lg->log("No cloudiness measurements available",geotop::logger::WARNING);
     } else {
-        lg->logf("Cloudiness measurements from station %ld",
-                met->nstcloud);
+        lg->logf("Cloudiness measurements from station %ld",met->nstcloud);
     }
 	
 	//Find the first station with longwave radiation data
@@ -557,11 +548,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	} while ((size_t)(met->nstlrad) < met->st->Z.size() - 1 && a == 0);
 
     if (a == 0) {
-        lg->log("No longwave radiation measurements available",
-                geotop::logger::WARNING);
+        lg->log("No longwave radiation measurements available", geotop::logger::WARNING);
     } else {
-        lg->logf("Longwave radiation measurements from station %ld\n",
-                met->nstlrad);
+        lg->logf("Longwave radiation measurements from station %ld\n", met->nstlrad);
     }
 
 #endif //USE_INTERNAL_METEODISTR
@@ -587,7 +576,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->st->tau_cloud_meteoST.resize(met->st->Z.size(),geotop::input::gDoubleNoValue);
 
     //i.show details on checkpoints
-    lg->writeAll("\nCHECKPOINTS:\n");
+    lg->writeAll("\nCHECKPOINTS:");
     lg->writeAll("ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]\n");
 
     for(i=1;i<par->rc.getRows();i++){
@@ -661,8 +650,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         (jroot != jdroot + jHveg - 1)               ||
         (jrs != jdrs + jHveg - 1))
     {
-        lg->log("Vegetation variables not consistent",
-                geotop::logger::CRITICAL);
+        lg->log("Vegetation variables not consistent", geotop::logger::CRITICAL);
         exit(1);
     }
 
@@ -2204,8 +2192,8 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
         }
 
         lg->logf("Channel networks has %ld pixels set to channel",cont);
-
-        if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+        // this below WHY commented: why do we have to write back the files just read ?
+        // if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
     }else{
 
@@ -2258,14 +2246,14 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     }else {
         top->BC_DepthFreeSurface.resize(2,geotop::input::gDoubleNoValue);
     }
+    
+    
+    lg->logf("Channel networks has %ld pixels set to channel",cont);
+    // commented out: TODO check why we need it and why the map is not correct..  SC23.12.2016
+    //if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+    
 
-
-        lg->logf("Channel networks has %ld pixels set to channel",cont);
-
-        if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
-
-
-// Bedrock NOT considered here...
+// Bedrock NOT considered here... TODO: fix this mess..
    //bedrock
    flag = file_exists(fbed);
 //         if(flag == 1){
@@ -2276,10 +2264,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
 //         }
 //         if(flag>=0) write_map(files[fbed], 0, par->format_out, IT->bed, UV, number_novalue);
 
-   if(flag == 1){
-        meteoio_readMap(string(geotop::common::Variables::files[fbed]),IT->bed) ;
-//        copyshort_doublematrix(IT->bed, M);
-      } 
+    //   if(flag == 1){
+    //   meteoio_readMap(string(geotop::common::Variables::files[fbed]),IT->bed) ;
+    //  }
 
 
 
@@ -2319,8 +2306,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
         }
     }
     if(read_dem == 1 && coordinates == 0){
-        lg->log("Not possible to read from dem because at least one point has no coordinates",
-                geotop::logger::WARNING);
+        lg->log("Not possible to read from dem because at least one point has no coordinates", geotop::logger::WARNING);
         read_dem = 0;
     }
     if(read_dem==1){
@@ -2835,8 +2821,7 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
             exit(1);
 	}
 
-    lg->logf("A bedrock depth map has been assigned and read from %s",
-            geotop::common::Variables::files[fbed].c_str());
+    lg->logf("A bedrock depth map has been assigned and read from %s",geotop::common::Variables::files[fbed].c_str());
 
 	par->bedrock = 1;
 	meteoio_readMap(string(geotop::common::Variables::files[fbed]), B);
@@ -2863,10 +2848,8 @@ void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, Ge
                     "IT->init_water_table_depth.size()=%u sl->pa.getDh()=%u",
                     IT->init_water_table_depth.size(),
                     sl->pa.getDh());
-            lg->log("Error in bedrock calculations.",
-                    geotop::logger::ERROR);
-			lg->log(" Geotop failed. See failing report (19).",
-                    geotop::logger::CRITICAL);
+            lg->log("Error in bedrock calculations.",geotop::logger::ERROR);
+			lg->log(" Geotop failed. See failing report (19).",geotop::logger::CRITICAL);
             exit(1);
 		}
 
@@ -3021,17 +3004,17 @@ short file_exists(short key){
     //keyword and exists -> 1
 
     if(geotop::common::Variables::files[key] == geotop::input::gStringNoValue){
-        lg->log("not present in file list");
+        lg->logf("File for keyword : %s  not present in file list",geotop::common::Variables::filenames[key].c_str());
         return (-1);
     }else{
         bool is_present = mio::IOUtils::fileExists(string(geotop::common::Variables::files[key]) + string(ascii_esri));
 
         if (is_present) {
-            lg->log("File" + geotop::common::Variables::files[key] + " existing in format 3 (.asc) ", geotop::logger::WARNING);
+            lg->log("File " + geotop::common::Variables::files[key] + " existing in format 3 (.asc) ", geotop::logger::WARNING);
             lg->logf("The File is present: %s\n",geotop::common::Variables::files[key].c_str());
             return (1);
         }else{
-            lg->log("File" + geotop::common::Variables::files[key] + " not existing", geotop::logger::WARNING);
+            lg->log("File " + geotop::common::Variables::files[key] + " not existing", geotop::logger::WARNING);
             return (0);
         }
     }

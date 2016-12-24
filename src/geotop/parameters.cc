@@ -183,6 +183,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
 
 	//assign parameter
     std::vector<std::string> lKeys ;
+    
     lKeys += "HeaderDateDDMMYYYYhhmmMeteo", "HeaderJulianDayfrom0Meteo", "HeaderIPrec",
         "HeaderPrec", "HeaderWindVelocity", "HeaderWindDirection", "HeaderWindX",
         "HeaderWindY", "HeaderRH", "HeaderAirTemp", "HeaderDewTemp", "HeaderSWglobal",
@@ -367,7 +368,9 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
         		"RecoverRunSoilMinimumTotalSoilMoistureFile",//rwminrun
         		"RecoverTime",//rtime
         		"SuccessfulRecoveryFile";//rsux
+    
 	geotop::common::Variables::files = getStringValues(lConfigStore, lKeys) ;
+    geotop::common::Variables::filenames = lKeys;
     
     lKeys.clear() ;
     lKeys += "HeaderDatePoint", "HeaderJulianDayFromYear0Point", "HeaderTimeFromStartPoint", "HeaderPeriodPoint",
@@ -489,8 +492,7 @@ short read_inpts_par(Par *par, Land *land, Times *times, Soil *sl, Meteo *met, I
             }
             else
             {
-                lg->log("Unable to create recovery files directory. Aborting",
-                       geotop::logger::CRITICAL);
+                lg->log("Unable to create recovery files directory. Aborting", geotop::logger::CRITICAL);
                 exit(1);
             }
             break;
@@ -1967,8 +1969,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
     GeoTensor<double> old_sl_par;
     FILE *f ;
 
-    geotop::logger::GlobalLogger* lg =
-        geotop::logger::GlobalLogger::getInstance();
+    geotop::logger::GlobalLogger* lg =geotop::logger::GlobalLogger::getInstance();
 	
 	//look if there is at least 1 soil file
     i = 0;
@@ -2002,9 +2003,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 				f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
 				fprintf(f,"Error:: Soil file %s not existing.\n", name.c_str());
 				fclose(f);
-				lg->logsf(geotop::logger::CRITICAL,
-                          "Soil file %s not existing. Aborting.",
-                          name.c_str());
+				lg->logsf(geotop::logger::CRITICAL, "Soil file %s not existing. Aborting.",name.c_str());
                 exit(1);
 			}
 		}

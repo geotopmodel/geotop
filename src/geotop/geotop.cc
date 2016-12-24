@@ -426,7 +426,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 			A->W->Voutlandsup += Voutsup;
 
 			//	record time step : To further check: do we need the line below ? 
-                        //   line commented: wgen fpe enable we get a division by zero:  S.C. 08.11.2016
+                        //   line commented: when fpe enable we get a division by zero:  S.C. 08.11.2016
 			// geotop::common::Variables::odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin[geotop::common::Variables::i_sim]);
 
 			//write output variables
