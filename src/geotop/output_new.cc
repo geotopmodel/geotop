@@ -724,7 +724,10 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
     g2d.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], mio::IOUtils::nodata);
 
     // //Setting the grid (rows, columns, cellsize, lower left corner coordinates and grid data)
-    g2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
+    //   OLD meteoIO versiong2d.set(M.getRows(), M.getCols(), geotop::common::Variables::UV->U[1], g2d.llcorner, M);
+    // this below not yet tested: TODO in near future 26.12.2016 S.Cozzini
+    g2d.set(M.getRows(), M.getCols(),geotop::common::Variables::UV->U[1], g2d.llcorner);
+    g2d.set(geotop::common::Variables::UV->U[1], g2d.llcorner, M);
 
     iomanager.write2DGrid(g2d, filename);
 

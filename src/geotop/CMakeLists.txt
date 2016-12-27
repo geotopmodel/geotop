@@ -106,7 +106,7 @@ ADD_LIBRARY(${GEOTOP_LIBRARIES} ${LINKING_MODE}
   indices.h
   input.cc
   input.h
-  output_nc.h
+#//  output_nc.h
   parameters.cc
   parameters.h
   pure_gt.cc
@@ -119,7 +119,7 @@ ADD_LIBRARY(${GEOTOP_OUT_POSTPROC_LIBRARIES} ${LINKING_MODE}
   tables.cc
   tables.h
   output.cc
-  output_nc.cc
+#//  output_nc.cc
   output.h
   deallocate.cc
   deallocate.h
