@@ -4,7 +4,7 @@
 !TimeStepEnergyAndWater = 1800: originally set to ths value but in this case 
 !energy_balance is NOT converging at the date of this commit 
 TimeStepEnergyAndWater = 300
-InitDateDDMMYYYYhhmm = 17/06/2014 12:00
+InitDateDDMMYYYYhhmm = 17/06/2014 19:00
 EndDateDDMMYYYYhhmm = 28/06/2014 21:00
 EnergyBalance =1
 WaterBalance = 1
@@ -29,11 +29,12 @@ MeteoStationElevation=300
 !MeteoStationLatitude=${MeteoStationLatitude}
 !MeteoStationLongitud=${MeteoStationLongitude}
 MeteoStationStandardTime=1.0
+StandardTimeSimulation=1.0
 !MeteoStationWindVelocitySensorHeight=${MeteoStationWindVelocitySensorHeight}
 !MeteoStationTemperatureSensorHeight=${MeteoStationTemperatureSensorHeight}
 !MeteoStationSkyViewFactor = ${MeteoStationSkyViewFactor}
 !LapseRatePrec = ${}
-!LapseRateTemp = ${}
+LapseRateTemp = 0.0
 
 HeaderDateDDMMYYYYhhmmMeteo = "POSIX"
 HeaderIPrec = "Iprec"
@@ -145,11 +146,13 @@ SoilLiqWaterPressTensorFile="output_maps/waterPress"
 SoilLiqWaterContentTensorFile="output_maps/waterCont"	
 
 DtPlotDischarge = 0.5
-DtPlotPoint = 0.5
+DtPlotPoint = 0.0833333333333
 SoilTempProfileFile="output-tabs/soiltemp"
 SoilLiqContentProfileFile="output-tabs/thetaliq"
 SoilLiqWaterPressProfileFile="output-tabs/soilpsi"
 !SoilPlotDepths=500,1000,2000
+PointOutputFile="output-tabs/point"
+PointAll=1
 
 !*******************************
 !********* RECOVERY ************
