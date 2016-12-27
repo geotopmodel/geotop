@@ -394,16 +394,16 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 				fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);	
 
 				if (en != 0 && wt == 0) {
-					fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
+					fprintf(f, "WARNING: Energy balance does not converge, Dt:%f\n",Dt);
 				}else if (en == 0 && wt != 0) {
-					fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
+					fprintf(f, "WARNING: Water balance does not converge, Dt:%f\n",Dt);
 				
 				}else {
-					fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
+					fprintf(f, "WARNING: Water and energy balance do not converge, Dt:%f\n",Dt);
 				}
 
 				fclose(f);
-				t_error("Fatal Error! Geotop is closed. See failing report.");	
+                //				t_error("Fatal Error! Geotop is closed. See failing report.");
 			}
 
 			t += Dt;

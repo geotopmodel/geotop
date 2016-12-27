@@ -1920,6 +1920,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
         //	calculate East and North
         top->East.resize(top->Z0.getRows(), top->Z0.getCols());
         top->North.resize(top->Z0.getRows(), top->Z0.getCols());
+        
 // to check <= or just < ::TODO
         for (r=1; r<top->Z0.getRows(); r++) {
             for (c=1; c<top->Z0.getCols(); c++) {
@@ -1993,8 +1994,10 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
             land->LC[land->LC.getRows()-1][c]=geotop::input::gDoubleNoValue;
         }
     }
+    // missing write of file : To CHECK
 
 	lg->logf("par->state_pixel=%ld\n", par->state_pixel);
+    // plot results for a certain numbevr of pixel
 	
     if(par->state_pixel == 1){
         par->rc.resize(par->chkpt.getRows(),2+1);
@@ -2046,6 +2049,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
             sky_view_factor(top->sky, 36, geotop::common::Variables::UV, top->Z0, curv, geotop::input::gDoubleNoValue);
         }
     }
+    // missing writin of sky with respect to c se27xx version
 
     /****************************************************************************************************/
 
@@ -2114,8 +2118,9 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
         find_aspect(top->Z0, top->dzdE, top->dzdN, geotop::input::gDoubleNoValue,top->aspect);
     }
     // why this below ??? Why are we rewriting the ASPECT Map ???? WHY ???? S.C. 10.12.2016
+    // checked of  0 after discussion with S.Endrizzi
     
-	if(flag >= 0) write_map(geotop::common::Variables::files[fasp], 0, par->format_out, top->aspect, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+	if(flag == 0) write_map(geotop::common::Variables::files[fasp], 0, par->format_out, top->aspect, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
 
     /****************************************************************************************************/
@@ -2146,17 +2151,17 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     }
 
     find_min_max(top->curvature1, geotop::input::gDoubleNoValue, &max, &min);
-    lg->logf("Curvature N-S Min:%12g  Max:%12g \n",min,max);
+    lg->logf("Curvature N-S Min:%12g  Max:%12g",min,max);
 
     find_min_max(top->curvature2, geotop::input::gDoubleNoValue, &max, &min);
-    lg->logf("Curvature W-E Min:%12g  Max:%12g \n",min,max);
+    lg->logf("Curvature W-E Min:%12g  Max:%12g",min,max);
 
     find_min_max(top->curvature3, geotop::input::gDoubleNoValue, &max, &min);
-    lg->logf("Curvature NW-SE Min:%12g  Max:%12g \n",min,max);
+    lg->logf("Curvature NW-SE Min:%12g  Max:%12g",min,max);
 
     find_min_max(top->curvature4, geotop::input::gDoubleNoValue, &max, &min);
 
-    lg->logf("Curvature NE-SW Min:%12g  Max:%12g \n",min,max);
+    lg->logf("Curvature NE-SW Min:%12g  Max:%12g",min,max);
 
     /****************************************************************************************************/
     //Channel network (in top->pixel_type)
@@ -2164,7 +2169,8 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     //pixel type = 0 land pixel (if it is on the border, the border is impermeable, water is free only on the surface)
     //pixel type = 1 or 2 land pixel (it it is on the border, the border is permeable above an user-defined elevation in the saturated part, weir-wise)
     //pixel type = 10 channel pixel (if it is on the border, the border is impermeable, water is free only on the surface)
-    //pixel type = -1 land pixel where an incoming discharge from outside is considered (as rain)
+    //pixel type = -1 land pixel where an incoming discharge from outside is considered (as rain) (TO REMOVE: no longer used
+    //pixel type = 11 or 12 the sum of the previous two
 
     flag = file_exists(fnet);
     if(flag == 1){
@@ -2176,24 +2182,24 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
         for(r=1;r<top->Z0.getRows();r++){
             for(c=1;c<top->Z0.getCols();c++){
                 if((long)land->LC[r][c]!=geotop::input::gDoubleNoValue){
-                    if(top->pixel_type[r][c]!=0 && top->pixel_type[r][c]!=1 && top->pixel_type[r][c]!=2 && top->pixel_type[r][c]!=10){
+                    if(top->pixel_type[r][c]!=0 && top->pixel_type[r][c]!=1 && top->pixel_type[r][c]!=2 && top->pixel_type[r][c]!=10  && top->pixel_type[r][c]!=11 && top->pixel_type[r][c]!=12  ){
                         f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                        fprintf(f, "Error: Only the following values are admitted in the network map: 0, 1, 10\n");
+                        fprintf(f, "Error: Only the following values are admitted in the network map: 0, 1,2,10,11,12\n");
                         fclose(f);
-                        lg->log("Only the following values are admitted in the network map: 0, 1, 10",
+                        lg->log("Only the following values are admitted in the network map: 0,1,10,11,12",
                                 geotop::logger::ERROR);
                         lg->log("Geotop failed. See failing report (14).",
                                 geotop::logger::CRITICAL);
                         exit(1);
                     }
-                    if(top->pixel_type[r][c]==10) cont++;
+                    if(top->pixel_type[r][c]>=10) cont++;
                 }
             }
         }
 
         lg->logf("Channel networks has %ld pixels set to channel",cont);
         // this below WHY commented: why do we have to write back the files just read ?
-        // if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
+        //if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
 
     }else{
 
@@ -2215,13 +2221,13 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
         }
     }
 
-    //count the pixels having pixel_type = 1, 2 or -1
+    //count the pixels having pixel_type = 1, 2 or 11 ans 12
     cont = 0;
 
     for(r=1;r<top->Z0.getRows();r++){
         for(c=1;c<top->Z0.getCols();c++){
             if(top->is_on_border[r][c]==1){
-                if (top->pixel_type[r][c] == -1 || top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2) cont ++;
+                if (top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2 || top->pixel_type[r][c] == 11 || top->pixel_type[r][c] == 12 ) cont ++;
             }
         }
     }
@@ -2230,12 +2236,11 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
 
     if (cont > 0) {
         top->BC_DepthFreeSurface.resize(cont+1);
-
         cont = 0;
         for(r=1;r<top->Z0.getRows();r++){
             for(c=1;c<top->Z0.getCols();c++){
                 if(top->is_on_border[r][c]==1){
-                    if (top->pixel_type[r][c] == -1 || top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2){
+                    if (top->pixel_type[r][c] == 1 || top->pixel_type[r][c] == 2 || top->pixel_type[r][c] == 11 || top->pixel_type[r][c] == 12){
                         cont ++;
                         top->BC_counter[r][c] = cont;
                         top->BC_DepthFreeSurface[cont] = par->DepthFreeSurface; //[mm]
@@ -2248,7 +2253,7 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     }
     
     
-    lg->logf("Channel networks has %ld pixels set to channel",cont);
+    //    lg->logf("Channel networks has %ld pixels set to channel",cont);
     // commented out: TODO check why we need it and why the map is not correct..  SC23.12.2016
     //if(flag >= 0) write_map(geotop::common::Variables::files[fnet], 1, par->format_out, M, geotop::common::Variables::UV, geotop::input::gDoubleNoValue);
     

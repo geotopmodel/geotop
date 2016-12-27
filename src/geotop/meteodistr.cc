@@ -1,17 +1,17 @@
-
 /* STATEMENT:
+     
+     GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+     GEOtop 2.1 - 31 December 2016
 
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- GEOtop 2.1 release candidate  (release date: 31 december 2016)
+     Copyright (c), 2016 - GEOtop Foundation
+
+    This file is part of GEOtop 2.1
+
+   GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+
+   GEOtop 2.1 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
  
- Copyright (c), 2013 - Stefano Endrizzi
- 
-GEOtop 2.1
- 
-GEOtop 2.1
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
- 
-GEOtop 2.1
  If you just use the code, please give feedback to the authors and the community.
  Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
  
@@ -95,8 +95,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate);
 
     if(ok==0){
-        lg->log("No temperature measurements, used the value of the previous time step",
-                geotop::logger::DEBUG);
+        lg->log("No temperature measurements, used the value of the previous time step", geotop::logger::DEBUG);
     }
 
     ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate);

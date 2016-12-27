@@ -166,7 +166,7 @@
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-//double find_watertabledepth_dw(long i, long ty, SOIL *sl)
+
   double find_watertabledepth_dw(long i, long ty, Soil *sl)
 
 {
@@ -180,8 +180,7 @@
 	
 	n = 1;
 		
-//	if(sl->Ptot->co[n][i]<thresh){
-	if(sl->Ptot[n][i]<thresh){
+	if(sl->Ptot[n][i]<thresh && nmax>1){
 		
 		do{
 			n++;
