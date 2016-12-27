@@ -491,7 +491,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("Headerz0vegPoint", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderSWglobal", std::string("Swglob")) ;
+    initValue("HeaderSWglobal", std::string(geotop::input::gStringNoValue)) ;
     
     initValue("HeaderLWinPoint", std::string(geotop::input::gStringNoValue)) ;
     
@@ -711,7 +711,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("SpecificPlotCanopyAirTempMapFile", std::string(geotop::input::gStringNoValue)) ;
     
-    initValue("HeaderCloudSWTransmissivity", std::string("CloudTrans")) ;
+    initValue("HeaderCloudSWTransmissivity",std::string(geotop::input::gStringNoValue) ) ;
     
     initValue("SoilAveragedLiqContentTensorFile", std::string(geotop::input::gStringNoValue)) ;
     

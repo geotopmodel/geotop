@@ -179,7 +179,9 @@ double TauatmSinalpha(double JD, double *others){
 	
 	height = SolarHeight_(JD, others);
 	if (height>0) {
-		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.0);// Matteo, August 2015 corrected 0.5 with 0.0 according to UZH
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);// Matteo, August 2015 corrected 0.5 with 0.0 according to UZH
+    
+        
 	}else {
 		return 0.0;
 	}
@@ -282,12 +284,12 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 
-	kd=diff2glob(tau_cloud_to_use*tau_atm);
+	kd=diff2glob(tau_cloud*tau_atm);
 
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
 
-	*SWd = GTConst::Isc*E0*tau_cloud_to_use*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+	*SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
 	if (shadow == 1) {
 		cos_inc = 0.0;
@@ -299,7 +301,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		//tau_atm_cos_inc = tau_atm * cos_inc;
 		//cos_inc = sin_alpha;
 		//tau_atm_cos_inc = *tau_atm_sin_alpha;
-		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud_to_use*tau_atm_cos_inc;
+		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud*tau_atm_cos_inc;
 	}
 		
 	*cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -314,6 +316,11 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		*SWb_yes = -1;
 	}
 	
+    printf("tauatm:%f tau_cloud:%f kd:%f tausin:%f sky:%f SWrefl:%f  \n",tau_atm,tau_cloud,kd,*tau_atm_sin_alpha,sky,SWrefl_surr);
+    
+    printf("sh:%d cosinc:%f taucos:%f cosincbd:%f SWb:%f SWd:%f \n",shadow,cos_inc,tau_atm_cos_inc,*cos_inc_bd,*SWb,*SWd);
+    
+    
 }
 
 /******************************************************************************************************************************************/
@@ -569,7 +576,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 	//sin_alpha = Sinalpha( 0.5*(JDbeg+JDend), others);
 	//tau_atm_sin_alpha = tau_atm*sin_alpha;
-	double minTauAtmSinAlpha = 0.03;
+	double minTauAtmSinAlpha = 0.00;
 	if (tau_atm_sin_alpha > minTauAtmSinAlpha) {// matteo added sept 2015 to avoid problems in calculating Tau at sunset when solarHeight is very low
 		if((long)SWd!=geotop::input::gDoubleAbsent && (long)SWd!=geotop::input::gDoubleNoValue && (long)SWb!=geotop::input::gDoubleAbsent && (long)SWb!=geotop::input::gDoubleNoValue){
 			if( SWb+SWd > 0 && SWd > 0){

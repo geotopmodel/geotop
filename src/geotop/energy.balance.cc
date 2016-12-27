@@ -138,7 +138,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 #else
     find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
     							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
-#endif
+     printf("t:%f cl:%f clav:%f cly:%d clavy:%d",A->I->time,(A->M->tau_cloud), (A->M->tau_cloud_av), (A->M->tau_cloud_yes), (A->M->tau_cloud_av_yes));
+     #endif
 
     //	POINT ENERGY BALANCE
     for (i=1; i<= A->P->total_channel+A->P->total_pixel; i++) {
@@ -415,6 +416,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
         A->M->tau_cl_map[r][c]=A->M->tau_cloud;
 
 //        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
+       
+        printf("tcav:%f tc:%f Tp:%f Rh:%f Z:%f lsTa:%f lsTdew:%f \n",A->M->tau_cloud_av,A->M->tau_cloud,Tpoint,RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);
+
 
 
 
