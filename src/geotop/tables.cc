@@ -28,46 +28,42 @@
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-//double find_activelayerdepth_up(long i, long ty, SOIL *sl)
-  double find_activelayerdepth_up(long i, long ty, Soil *sl)
+
+double find_activelayerdepth_up(long i, long ty, Soil *sl)
 {
-	double table=0.0;	
-	double thresh=0.0;
-	long n;// number of layer below the threshold
-	//long nmax=sl->pa->nch;
-	long nmax = sl->pa.getCh()-1;
-	long l;//counter
-	short out=0;
-	
-	n = nmax;
-	
-//	if(sl->SS->T->co[n][i]>=thresh){
-	if(sl->SS->T[n][i]>=thresh){
-		for(l=1;l<=n;l++){
-			table += sl->pa[ty][jdz][l];
-		}
-	
-	}else{
-	
-		do{
-			n--;
-			if(n==1) out=-1;
-		//	if(sl->SS->T->co[n+1][i]<thresh && sl->SS->T->co[n][i]>=thresh) out=1;
-			if(sl->SS->T[n+1][i]<thresh && sl->SS->T[n][i]>=thresh) out=1;
-		}while(out==0);
-		
-		if(out==1){
-			
-			for(l=1;l<=n;l++){
-				table += sl->pa[ty][jdz][l];
-			}
-			
-		//	table += (1.-sl->SS->thi->co[n+1][i]/(sl->SS->thi->co[n+1][i]+sl->th->co[n+1][i]-sl->pa[ty][jres][n+1]))*sl->pa[ty][jdz][n+1];
-			table += (1.-sl->SS->thi[n+1][i]/(sl->SS->thi[n+1][i]+sl->th[n+1][i]-sl->pa[ty][jres][n+1]))*sl->pa[ty][jdz][n+1];
-		}
-	}
-	
-	return table;
+    double table=0.0;
+    double thresh=0.0;
+    long n;// number of layer below the threshold
+    long nmax = sl->pa.getCh()-1;
+    long l;//counter
+    short out=0;
+    
+    n = nmax;
+    
+    if(sl->SS->T[n][i]>=thresh){
+        for(l=1;l<=n;l++){
+            table += sl->pa[ty][jdz][l];
+        }
+        
+    }else{
+        
+        do{
+            n--;
+            if(n==1) out=-1;
+            //	if(sl->SS->T->co[n+1][i]<thresh && sl->SS->T->co[n][i]>=thresh) out=1;
+            if(sl->SS->T[n+1][i]<thresh && sl->SS->T[n][i]>=thresh) out=1;
+        }while(out==0);
+        
+        if(out==1){
+            
+            for(l=1;l<=n;l++){
+                table += sl->pa[ty][jdz][l];
+            }
+            table += (1.-sl->SS->thi[n+1][i]/(sl->SS->thi[n+1][i]+sl->th[n+1][i]-sl->pa[ty][jres][n+1]))*sl->pa[ty][jdz][n+1];
+        }
+    }
+    
+    return table;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -75,26 +71,23 @@
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-//double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
+
   double find_activelayerdepth_dw(long i, long ty, Soil *sl)
 {
 	double table=0.0;	
 	double thresh=0.0;
 	long n;// number of layer below the threshold
-	//long nmax=sl->pa->nch;
 	long nmax=sl->pa.getCh()-1;
 	long l;//counter
 	short out=0;
 	
 	n = 1;
 	
-//	if(sl->SS->T->co[n][i]<thresh){
 	if(sl->SS->T[n][i]<thresh){
 		
 		do{
 			n++;
 			if(n==nmax) out=-1;
-		//	if(sl->SS->T->co[n][i]>=thresh && sl->SS->T->co[n-1][i]<thresh) out=1;
 			if(sl->SS->T[n][i]>=thresh && sl->SS->T[n-1][i]<thresh) out=1;
 		}while(out==0);
 		

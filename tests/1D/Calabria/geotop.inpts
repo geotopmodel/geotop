@@ -5,7 +5,7 @@
 !energy_balance is NOT converging at the date of this commit 
 TimeStepEnergyAndWater = 300
 InitDateDDMMYYYYhhmm = 17/06/2014 19:00
-EndDateDDMMYYYYhhmm = 28/06/2014 21:00
+EndDateDDMMYYYYhhmm = 28/07/2014 21:00
 EnergyBalance =1
 WaterBalance = 1
 PointSim = 1
@@ -34,7 +34,6 @@ StandardTimeSimulation=1.0
 !MeteoStationTemperatureSensorHeight=${MeteoStationTemperatureSensorHeight}
 !MeteoStationSkyViewFactor = ${MeteoStationSkyViewFactor}
 !LapseRatePrec = ${}
-LapseRateTemp = 0.0
 
 HeaderDateDDMMYYYYhhmmMeteo = "POSIX"
 HeaderIPrec = "Iprec"
@@ -48,7 +47,7 @@ HeaderCloudSWTransmissivity = "CloudTrans"
 !********************************************
 !****** INIT AND BOUNDARY CONDITIONS ********
 !********************************************
-InitWaterTableHeightOverTopoSurface= -2000.0
+InitWaterTableDepth= 0.0
 !InitSoilPressureBedrock=${InitSoilPressureBedrock}
 FreeDrainageAtLateralBorder=1
 FreeDrainageAtBottom=1
