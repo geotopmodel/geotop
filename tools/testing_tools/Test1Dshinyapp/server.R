@@ -31,7 +31,7 @@ inpts.files <- inpts.files[igeotopsim]
 
 
 #### Search the output
-output_values <- c("output-tabs","output-maps")
+output_values <- c("output-tabs") ###,"output-maps")
 
 keywords <- lapply(X=wpaths,FUN=declared.geotop.inpts.keywords,inpts.file=inpts.file)
 
@@ -74,7 +74,7 @@ for (it in names(keywords.out)) {
 	keywords.out[[it]]$sim_name <- it
 	keywords.out[[it]]$sim_wpath <- wpaths[it]
 	keywords.out[[it]]$formatter <- "%04d"
-	keywords.out[[it]]$formatter[keywords.out[[it]]$Keyword %in% c("BasinOutputFile","DischargeFile")] <- ""
+	keywords.out[[it]]$formatter[keywords.out[[it]]$Keyword %in% c("BasinOutputFile","DischargeFile","SnowCoveredAreaFile")] <- ""
 	keywords.out[[it]]$tz <- timezone[[it]]
 	keywords.out[[it]]$level <- 1
 	if (it=="Jungfraujoch") keywords.out[[it]]$level <- "32,33"
@@ -85,15 +85,15 @@ for (it in names(keywords.out)) {
 #keywords.out <- keywords.out[names(keywords.out)!="Jungfraujoch"]
 #stop("HERE")
 #####
-suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF")
-
+suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF","")
+names(suffixes) <- suffixes
+names(suffixes)[suffixes==""] <- "latest"
 values.out <- list() 
 
 
-str(keywords.out)
 
 
-for (it_s in suffixes) {
+for (it_s in names(suffixes)) {
 	print(it_s)
 	values.out[[it_s]] <- lapply(X=keywords.out,FUN=function(x,add_suffix_dir,inpts.file) {
 
@@ -129,20 +129,30 @@ for (it_s in suffixes) {
 			
 			for (i in 1:length(vars)) {
 				
-				for (li in 1:length(level[[i]])) {
+				lic <- 1:length(level[[i]])
+				if (formatter[i]=="") lic <- 1
+				
+				date_field <- "Date12.DDMMYYYYhhmm."
+				if (vars[i]=="DischargeFile") date_field <- "DATE.day.month.year.hour.min."
+				for (li in lic) {
 				lll <- as.integer(level[[i]][li])
 				itn <- sprintf("%s%04d",vars[i],lll)
-				o[[itn]] <- get.geotop.inpts.keyword.value(vars[i],inpts.file=inpts.file,
-				wpath=wpath,data.frame=TRUE,date_field="Date12.DDMMYYYYhhmm.",tz=tz[1],
-				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll)
+				
+				if (formatter[i]=="") itn <- vars[i]
+				o[[itn]] <- try(get.geotop.inpts.keyword.value(vars[i],inpts.file=inpts.file,
+				wpath=wpath,data.frame=TRUE,date_field=date_field,tz=tz[1],
+				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll),silent=TRUE)
+
 				}
 			}
 			
+			oc <- sapply(X=o,FUN=class)	
 			
+			o <- o[which(oc!="try-error")] 
 			return(o)
 			
 			
-		},add_suffix_dir=it_s,inpts.file=inpts.file)
+		},add_suffix_dir=suffixes[it_s],inpts.file=inpts.file)
 
 
 }
@@ -229,7 +239,7 @@ shinyServer(function(input, output) {
 						
 					str(data)
 					str(residuals)
-					colors <- RColorBrewer::brewer.pal(3, "Set1")
+					colors <- RColorBrewer::brewer.pal(4, "Set1")
 						
 						
 					dygraph(data, ylab="[unit]") %>% dyRangeSelector() %>%
@@ -260,7 +270,7 @@ shinyServer(function(input, output) {
 								str(residuals)
 								
 								residuals <- data-data[,"-SE27XX"]
-								colors <- RColorBrewer::brewer.pal(3, "Set1")
+								colors <- RColorBrewer::brewer.pal(4, "Set1")
 								dygraph(residuals, ylab="[unit]") %>% dyRangeSelector() %>%
 										dyRoller() 		 %>%
 										dyOptions(colors = colors)
