@@ -85,7 +85,7 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 	
 	n = 1;
 		
-	if(sl->SS->T->co[n][i]<thresh){
+	if(sl->SS->T->co[n][i]<thresh && nmax>1){
 		
 		do{
 			n++;
