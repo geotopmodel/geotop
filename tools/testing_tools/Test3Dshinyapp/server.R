@@ -49,7 +49,6 @@ timezone <- sapply(X=keywords,FUN=function(x){
 			o <- c(o1,o2)
 			o <- o[!is.na(o)][1]
 			o <- -as.integer(o)
-			print(o)
 			if (o>=0) {
 				o <- sprintf("Etc/GMT+%d",o)
 			} else {
@@ -90,15 +89,15 @@ for (it in names(keywords.out)) {
 #keywords.out <- keywords.out[names(keywords.out)!="Jungfraujoch"]
 #stop("HERE")
 #####
-suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF")
-
+suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF","")
+names(suffixes) <- suffixes
+names(suffixes)[suffixes==""] <- "latest"
 values.out <- list() 
 
 
-print(keywords.out)
 
 
-for (it_s in suffixes) {
+for (it_s in names(suffixes)) {
 	print(it_s)
 	values.out[[it_s]] <- lapply(X=keywords.out,FUN=function(x,add_suffix_dir,inpts.file) {
 
@@ -142,10 +141,6 @@ for (it_s in suffixes) {
 				for (li in lic) {
 				lll <- as.integer(level[[i]][li])
 				itn <- sprintf("%s%04d",vars[i],lll)
-				print(vars[i])
-				print(lll)
-				print(formatter[i])
-				
 				
 				if (formatter[i]=="") itn <- vars[i]
 				o[[itn]] <- try(get.geotop.inpts.keyword.value(vars[i],inpts.file=inpts.file,
@@ -161,7 +156,7 @@ for (it_s in suffixes) {
 			return(o)
 			
 			
-		},add_suffix_dir=it_s,inpts.file=inpts.file)
+		},add_suffix_dir=suffixes[it_s],inpts.file=inpts.file)
 
 
 }
@@ -248,12 +243,12 @@ shinyServer(function(input, output) {
 						
 					str(data)
 					str(residuals)
-					colors <- RColorBrewer::brewer.pal(3, "Set1")
+					colors <- RColorBrewer::brewer.pal(4, "Set1")
 						
 						
 					dygraph(data, ylab="[unit]") %>% dyRangeSelector() %>%
 								dyRoller() %>%
-								dyOptions(colors = colors)
+								dyOptions(colors = colors,digitsAfterDecimal=5)
 						
 					})
 					
@@ -279,10 +274,10 @@ shinyServer(function(input, output) {
 								str(residuals)
 								
 								residuals <- data-data[,"-SE27XX"]
-								colors <- RColorBrewer::brewer.pal(3, "Set1")
+								colors <- RColorBrewer::brewer.pal(4, "Set1")
 								dygraph(residuals, ylab="[unit]") %>% dyRangeSelector() %>%
 										dyRoller() 		 %>%
-										dyOptions(colors = colors)
+										dyOptions(colors = colors,digitsAfterDecimal=5)
 								
 							})
 			  output$info <- renderText({
