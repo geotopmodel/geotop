@@ -316,10 +316,10 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		*SWb_yes = -1;
 	}
 	
+#ifdef VERY_VERBOSE	
     printf("tauatm:%f tau_cloud:%f kd:%f tausin:%f sky:%f SWrefl:%f  \n",tau_atm,tau_cloud,kd,*tau_atm_sin_alpha,sky,SWrefl_surr);
-    
     printf("sh:%d cosinc:%f taucos:%f cosincbd:%f SWb:%f SWd:%f \n",shadow,cos_inc,tau_atm_cos_inc,*cos_inc_bd,*SWb,*SWd);
-    
+#endif    
     
 }
 

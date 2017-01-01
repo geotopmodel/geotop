@@ -680,13 +680,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             remaining_time = (total_time - geotop::common::Variables::elapsed_time);
 
-            printf("%ld/%ld/%ld %ld:%02.0f %.2f%% - Times: Elapsed (h:m:s) %2.0f:%02.0f:%02.0f Remaining (h:m) %2.0f:%02.0f  \n",
-                   day, month, year, hour, (float)minute, percent_done,
-                   floor(geotop::common::Variables::elapsed_time / 3600.0), floor(((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60.),
-                   floor((((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. - floor( ((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. )) * 60.),
-                   floor(remaining_time / 3600.0), floor(((remaining_time / 3600) - floor(remaining_time / 3600.0)) * 60.) );
 // logging on file.. 
-            lg->logsf(geotop::logger::NOTICE, "%ld/%ld/%ld %ld:%02.0f %.2f%% - Time elapsed (h:m:s) %2.0f:%02.0f:%02.0f Time remaining (h:m) %2.0f:%02.0f  \n",
+            lg->logsf(geotop::logger::NOTICE, "%ld/%ld/%ld %ld:%02.0f %.2f%% - Time elapsed (h:m:s) %2.0f:%02.0f:%02.0f Time remaining (h:m) %2.0f:%02.0f" ,
                       day, month, year, hour, (float)minute, percent_done,
                       floor(geotop::common::Variables::elapsed_time / 3600.0), floor(((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60.),
                       floor((((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. - floor( ((geotop::common::Variables::elapsed_time / 3600) - floor(geotop::common::Variables::elapsed_time / 3600.0)) * 60. )) * 60.),
@@ -1690,22 +1685,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     {
 
         t_rec += par->Dt;
-
-        printf("t_rec: %f    par->Dt:%f  ContRecovery:%f\n", t_rec, par->Dt, par->ContRecovery);
-
         //used to be ContRecovery*secinday, replaced with timestep
         if (fabs(t_rec - par->ContRecovery * GTConst::secinday) < 1.E-5)
         {
+            lg->logsf(geotop::logger::NOTICE, "Writing continuous-recovering files at time (in day): %f par->Dt:%f  ContRecovery:%f\n", ((times->time + par->Dt) / GTConst::secinday), par->Dt, par->ContRecovery);
             t_rec = 0.;
-
-            printf("Writing continuous-recovering files\n");
-
-
-
-//            flog = fopen(geotop::common::Variables::logfile.c_str(), "a");
-//            fprintf(flog, "Writing continuous-recovering files\n");
-//            fclose(flog);
-
             if (geotop::common::Variables::files[rtime] != geotop::input::gStringNoValue)
             {
                 name = geotop::common::Variables::files[rtime] + string(textfile);

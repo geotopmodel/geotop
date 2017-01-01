@@ -352,7 +352,7 @@ void time_loop(AllData *A, mio::IOManager& iomanager){
 					en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W, vec_meteo);
 #ifdef VERBOSE
                     lg->logsf(geotop::logger::NOTICE,
-                              "TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f\n",Dt,JD0,JDb,JDe);
+                              "TIME-LOOP:Dtdefault:%f, JD0:%f,JDb:%f,JDe:%f",Dt,JD0,JDb,JDe);
 #endif
 					tend=clock();
 					geotop::common::Variables::t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
