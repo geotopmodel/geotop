@@ -48,7 +48,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
     std::string crec = "_crecNNNN";
 
     string name, temp1, temp2 , s1, s2;
-    FILE *f = NULL, *flog = NULL;
+    FILE *f = NULL;
 
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
     
@@ -328,11 +328,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }
                                 else if (geotop::common::Variables::opnt[j] == odaysfromstart)
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g", JDfrom0 - par->init_date);
-#else
+
                                     fprintf(f, "%f", JDfrom0 - par->init_date);
-#endif
                                 }
                                 else if (geotop::common::Variables::opnt[j] == operiod)
                                 {
@@ -344,11 +341,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                                 }
                                 else
                                 {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                                    fprintf(f, "%12g", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
-#else
                                     fprintf(f, "%f", geotop::common::Variables::odpnt[geotop::common::Variables::opnt[j]][i - 1]);
-#endif
                                 }
                             }
                             else
@@ -1853,6 +1846,8 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
     GeoVector<double> root_fraction;
     FILE *f;
 
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+    
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
 
     //DISCHARGE
@@ -1869,6 +1864,10 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
         }
 
         f = fopen(name.c_str(), "w");
+        if (f==NULL){
+            lg->logsf(geotop::logger::CRITICAL,"Error opening file: %s\n",name.c_str());
+            t_error("Error opening file...");
+        }
         fprintf(f, "DATE[day/month/year hour:min],t[days],JDfrom0,JD,Qtot[m3/s],Vsup/Dt[m3/s],Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\n");
         fclose(f);
     }
@@ -1975,12 +1974,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     n = floor( ( (double)geotop::common::Variables::osnw[j] - 6.) / (double)m ) + 6;
                     if ((long)par->snow_plot_depths[1] != geotop::input::gDoubleNoValue)
                     {
-#ifdef USE_DOUBLE_PRECISION_OUTPUT
-                        fprintf(geotop::common::Variables::ffsnow, "%s(%12g)", geotop::common::Variables::hsnw[n].c_str(), par->snow_plot_depths[l]);
-#else
+
                         fprintf(geotop::common::Variables::ffsnow, "%s(%f)", geotop::common::Variables::hsnw[n].c_str(), par->snow_plot_depths[l]);
-#endif
-                    }
+             }
                     else
                     {
                         fprintf(geotop::common::Variables::ffsnow, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);

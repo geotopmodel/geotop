@@ -507,7 +507,6 @@ double dSB_dT(double T){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R, STATEVAR_3D *snow){
   void rad_snow_absorption(long r, long c, GeoVector<double>& frac, double R, Statevar3D *snow){
 
 	long l, m;
@@ -711,14 +710,14 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 
 short shadows_point(double **hor, long n, double alpha, double azimuth, double tol_mount, double tol_flat)
 
-/*routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
- * Author: Matteo Dall'Amico, May 2011
- Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
- double alpha: solar altitude (degree)
- double azimuth: solar azimuth (degree)
- double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- Output: shad: 1=the point is in shadow, 0 the point is in sun
+/**routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
+ * @author: Matteo Dall'Amico, May 2011
+ *Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
+ *double alpha: solar altitude (degree)
+ *double azimuth: solar azimuth (degree)
+ *double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
+ *double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
+ * Output: shad: 1=the point is in shadow, 0 the point is in sun
  */
 {
 	double horiz_H;// horizon elevation at a defined solar azimuth
@@ -780,8 +779,8 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 //void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction, SHORTMATRIX *SH)
 void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatrix<short>& SH)
 
-/*	Author: Thomas Haiden, Year: 16 june 2003
- * 	Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
+/**	@Author: Thomas Haiden, Year: 16 june 2003
+ * 	@brief Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
  *  a solar elevation angle and a solar azimuth.
  *  Inputs:	top 		elevation DTM (m)
  *  		alpha:		solar elevation angle (radiants)
@@ -1065,6 +1064,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 //*****************************************************************************************************************
 
 // added from meteodirst.c
+
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate){
 
 	double fcloud, Z_ref, press_ratio, f_max, one_minus_RHe, f_1, Td, Td_700, Tair_700, rh_700;

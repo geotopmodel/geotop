@@ -308,14 +308,14 @@ double adaptiveSimpsons2(double (*f)(double x, void *p), void *arg,   // ptr to 
 
 void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<double>& out, const GeoVector<double>& y, const GeoVector<double>& x, const GeoVector<long>&  Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
     
-    //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
+    /// @brief calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
     
     size_t i;
     
     product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
     
     for(i=1;i<x.size();i++){
-#ifdef VERBOSE
+#ifdef VERY_VERBOSE
         printf("product_matrix_using_lower_part_by_vector_plus_vector-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out[i],y[i],k * (out[i] + y[i]));
 #endif
         out[i] = k * (out[i] + y[i]);
@@ -373,7 +373,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
                                                           const GeoVector<double>& b, GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
     
     
-    //solve sistem (A+Iy)*x = B, find x
+    /// @brief solve sistem (A+Iy)*x = B, find x
     //A M-matrix described by its lower diagonal part
     
     
