@@ -109,8 +109,8 @@ ADD_LIBRARY(${GEOTOP_LIBRARIES} ${LINKING_MODE}
 #//  output_nc.h
   parameters.cc
   parameters.h
-  pure_gt.cc
-  pure_gt.h
+#  pure_gt.cc
+#  pure_gt.h
   recovering.cc
   recovering.h
   )
