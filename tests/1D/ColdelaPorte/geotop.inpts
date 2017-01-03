@@ -3,7 +3,8 @@
 !=============================================================================
 Latitude               = 45.3
 Longitude              = 5.77
-TimeStepEnergyAndWater = 900
+StandardTimeSimulation = 0
+TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm   = 01/08/1993 00:00
 EndDateDDMMYYYYhhmm    = 01/08/1993 23:00
 DtPlotPoint            = 1
@@ -22,8 +23,6 @@ FailedRunFile          = "_FAILED_RUN"
 PointSim      = 1
 WaterBalance  = 1
 EnergyBalance = 1
-StandardTimeSimulation = 0
-MeteoStationStandardTime=0
 FlagSkyViewFactor      = 1
 CalculateCastShadow    = 1
 HeatEqMaxIter = 1000
@@ -47,6 +46,7 @@ RHmin                        = 10
 NumberOfMeteoStations        = 1
 MeteoStationCoordinateX=635863
 MeteoStationCoordinateY=635864
+MeteoStationStandardTime=0
 MeteoStationLatitude=46.627
 MeteoStationLongitude=46.627
 MeteoStationElevation=1325
@@ -94,8 +94,8 @@ BottomBoundaryHeatFlux = 0.0
 !=============================================================================
 
 !--- SNOW CHARACTERIZATION PARAMETERS
-SnowCorrFactor		= 1.0
-RainCorrFactor      = 1.0
+SnowCorrFactor		= 0.0
+RainCorrFactor      = 0.0
 
 DewTempOrNormTemp	=  0
 ThresTempRain		=  3
@@ -151,12 +151,7 @@ SoilAveragedTempProfileFile = "output-tabs/ground"
 SoilPlotDepths = 100, 200, 500
 
 !--- VARIABLES ------------
-DefaultSoil = 0
-DateSoil    = 1
-PeriodSoil  = 2
-RunSoil     = 3
-IDPointSoil = 4 
-TempSoil    = 5,6,7
+SoilAll = 1
 
 
 !=============================================================================
@@ -167,21 +162,7 @@ TempSoil    = 5,6,7
 PointOutputFile = "output-tabs/surface"
 
 !--- VARIABLES ------------
-DefaultPoint                =  0
-DatePoint                   =  1
-PeriodPoint                 =  2
-RunPoint                    =  3
-IDPointPoint                =  4
-AirTempPoint                =  5
-TsurfPoint                  =  6
-PrainPoint                  =  7
-PsnowPoint                  =  8
-SnowDepthPoint              =  9
-SWEPoint                    = 10
-SnowMeltedPoint             = 11
-SWinPoint                   = 12
-SWupPoint                   = 13
-SoilHeatFluxPoint           = 14
+PointAll                =  1
 
 
 DischargeFile = "output-tabs/discharge"
