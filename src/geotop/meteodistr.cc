@@ -84,7 +84,7 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
 				long cloudcode,
 				GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
                 GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
-				GeoMatrix<double>& tau_cloud_av_map,
+				GeoMatrix<double>& tau_cloud_av,
                 double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
                 short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor)
 {
@@ -126,7 +126,8 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
     get_pressure(topo, sfc_pressure, geotop::input::gDoubleNoValue);
 
 
-    ok = interpolate_meteo(0,	dE,	dN, E, N, met->st->E, met->st->N, met->var, cloudcode, tau_cloud_av_map, dn, iobsint);
+    //SE we should create a get_cloudiness, for the moment cloud is a scalar
+    //ok = interpolate_meteo(0,	dE,	dN, E, N, met->st->E, met->st->N, met->var, cloudcode, tau_cloud_av, dn, iobsint);
 
 
 }

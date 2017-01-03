@@ -555,13 +555,13 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
 #endif //USE_INTERNAL_METEODISTR
 
-    met->tau_cl_map.resize(top->Z0.getRows(),top->Z0.getCols(),geotop::input::gDoubleNoValue);
+    met->tau_cloud.resize(top->Z0.getRows(),top->Z0.getCols(),geotop::input::gDoubleNoValue);
 
-    met->tau_cl_av_map.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);
+    met->tau_cloud_av.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);
 
-    met->tau_cl_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+    met->tau_cloud_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
 
-    met->tau_cl_av_map_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+    met->tau_cloud_av_yes.resize(top->Z0.getRows(),top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
 
     //	vector defining which meteo station has the SW radiation information
 

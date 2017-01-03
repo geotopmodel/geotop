@@ -43,6 +43,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     long i=0, r, c, cnt=0;
     static long line_interp;
     double Dtplot=1., Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0., Tgskin_surr_ave=0.;
+    double tau_cloud, tau_cloud_av;
+    short tau_cloud_yes, tau_cloud_av_yes;
     FILE *f = NULL;
 
     //	calculation to be done before plotting maps
@@ -111,7 +113,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
     for (unsigned long i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
-		    find_actual_cloudiness(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
+		    find_actual_cloudiness_meteoio(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
 							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
 							  JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 	    }
@@ -119,28 +121,46 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
     //call the function that interpolates the cloudiness
     if (A->P->use_meteoio_cloud) {
-	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cl_map, A->M->st->tau_cloud_meteoST);
-	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cl_av_map, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
+	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud, A->M->st->tau_cloud_meteoST);
+	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud_av, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
     }
     
-    if (A->M->st->tau_cloud_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
-	    A->M->tau_cloud = A->M->st->tau_cloud_meteoST[A->M->nstcloud];
+    //tau_cloud and tau_cloud_av are available as matrices
+    
+    /*if (A->M->st->tau_cloud_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
+	    tau_cloud = A->M->st->tau_cloud_meteoST[A->M->nstcloud];
 
     if (A->M->st->tau_cloud_av_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
-	    A->M->tau_cloud_av = A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
+	    tau_cloud_av = A->M->st->tau_cloud_av_meteoST[A->M->nstcloud];
 
     if (A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
-	    A->M->tau_cloud_yes = A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
+	    tau_cloud_yes = A->M->st->tau_cloud_yes_meteoST[A->M->nstcloud];
 
     if (A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud] != geotop::input::gDoubleNoValue)
-	    A->M->tau_cloud_av_yes=A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];
+	    tau_cloud_av_yes = A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];*/
 
+    // tau_cloud(s) are available from meteoio, therefore tau_cloud_yes is always set at 1
+    tau_cloud = A->M->tau_cloud[r][c];
+    tau_cloud_av = A->M->tau_cloud_av[r][c];
+    if ((long)tau_cloud == geotop::input::gDoubleNoValue){
+        tau_cloud_yes = 0;
+    }else{
+        tau_cloud_yes = 1;
+    }
+    if ((long)tau_cloud_av == geotop::input::gDoubleNoValue){
+        tau_cloud_av_yes = 0;
+    }else{
+        tau_cloud_av_yes = 1;
+    }
+    
 #else
-    find_actual_cloudiness_meteodistr(&(A->M->tau_cloud), &(A->M->tau_cloud_av), &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), 
-    							   i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+    
+    find_actual_cloudiness(&tau_cloud, &tau_cloud_av, &tau_cloud_yes, &tau_cloud_av_yes, i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+    //TODO use tau_cloud tau_cloud_av as matrices
+
 
 #ifdef VERY_VERBOSE
-     printf("t:%f cl:%f clav:%f cly:%d clavy:%d",A->I->time,(A->M->tau_cloud), (A->M->tau_cloud_av), (A->M->tau_cloud_yes), (A->M->tau_cloud_av_yes));
+     printf("t:%f cl:%f clav:%f cly:%d clavy:%d",A->I->time,tau_cloud,tau_cloud_av,tau_cloud_yes,tau_cloud_av_yes);
 #endif
 #endif
 
@@ -162,7 +182,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
 		    cnt++;
-		    sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin);
+		    sux = PointEnergyBalance(i, r, c, Dt, JDb, JDe, L, C, S, G, V, snowage, A, E0, Et, Dtplot, *W, f, &SWup, &Tgskin, tau_cloud, tau_cloud_av, tau_cloud_yes, tau_cloud_av_yes);
 
 		    if(sux==1) return 1;
 	    }else {
@@ -206,7 +226,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
-		GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin){
+		GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin,
+                         double tau_cloud, double tau_cloud_av, short tau_cloud_yes, short tau_cloud_av_yes){
 
     long l=0, j=0, ns=0, ng=0;
     double SWin, SW, SWbeam, SWdiff, SWv_vis, SWv_nir, SWg_vis, SWg_nir, cosinc, avis_b, avis_d, anir_b, anir_d;
@@ -408,33 +429,24 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     SW=0.0;
     *SWupabove_v=0.0;
 
+#ifdef VERY_VERBOSE
+    printf("tcav:%f tc:%f Tp:%f Rh:%f Z:%f lsTa:%f lsTdew:%f \n",tau_cloud_av,tau_cloud,Tpoint,RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);
+#endif
+    
     // CURRENT CLOUDINESS
-    if(!A->P->use_meteoio_cloud) { // GEOtop classic method
-        //	if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
-        if(A->M->tau_cloud_av_yes==0)
-		A->M->tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
+    //	if averaged cloud transmissivity is not available it is estimated through this micromet subroutine
+    if(tau_cloud_av_yes==0) tau_cloud_av = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
 
-        //in case of shortwave data not available
-        if(A->M->tau_cloud_yes==0) A->M->tau_cloud = A->M->tau_cloud_av;
-        A->M->tau_cl_map[r][c]=A->M->tau_cloud;
+    //in case of shortwave data not available
+    if(tau_cloud_yes==0) tau_cloud = tau_cloud_av;
 
-//        A->M->tau_cl_av_map[r][c]=A->M->tau_cloud_av;
 
 #ifdef VERY_VERBOSE
-        printf("tcav:%f tc:%f Tp:%f Rh:%f Z:%f lsTa:%f lsTdew:%f \n",A->M->tau_cloud_av,A->M->tau_cloud,Tpoint,RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);
+        printf("tcav:%f tc:%f Tp:%f Rh:%f Z:%f lsTa:%f lsTdew:%f \n",tau_cloud_av,tau_cloud,Tpoint,RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);
 #endif
 
 
-
-    }else{// meteoIO is activated
-        if( (long)A->M->tau_cl_av_map[r][c] == geotop::input::gDoubleNoValue){// the map of average cloudiness from MeteoIO is all null
-            A->M->tau_cl_av_map[r][c] = 1. - 0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0[r][c], A->M->LRv[ilsTa], A->M->LRv[ilsTdew]);//Kimball(1928)
-        }
-        if((long)A->M->tau_cl_map[r][c]== geotop::input::gDoubleNoValue) {
-            A->M->tau_cl_map[r][c] = A->M->tau_cl_av_map[r][c];
-        }
-
-    }
+    
 //    std::string filename;
 //        filename = "TauCloud.txt";
 //        FILE * f1;
@@ -522,11 +534,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     A->E->sun[7] = A->T->aspect[r][c]*GTConst::Pi/180.;
 	
     // TODO: merge it #if(A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b + anir_d)/4.;
-    shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c],
-		    A->E->SWrefl_surr[r][c],
-                        A->M->tau_cl_map[r][c],A->M->tau_cl_av_map[r][c], A->L->shadow[r][c],
-			&SWbeam, &SWdiff, &cosinc,
-			&tauatm_sinhsun, &SWb_yes);
+    shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0, A->T->sky[r][c], A->E->SWrefl_surr[r][c], tau_cloud, A->L->shadow[r][c], &SWbeam, &SWdiff, &cosinc, &tauatm_sinhsun, &SWb_yes);
 
     //TODO: merge it #SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
     //TODO: merge it #SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0, (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
@@ -595,12 +603,15 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     }
 
     if (!A->P->use_ilwr_wrf) {
-    	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1,A->P->k2,A->M->tau_cloud_av, A->M->tau_cl_av_map[r][c], &epsa, &epsa_max, &epsa_min);
+    	longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2, tau_cloud_av, &epsa, &epsa_max, &epsa_min);
 		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
+        //if LWin is in the meteo file, usi this value instead
+        //double flux(long i, long icol, double **met, double k, double est){
+        LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
     } else {
 	    LWin = ilwr_point;
     }
-
+    
     if(A->P->surroundings == 1){
     	/* LWin corrected with temperature of surrounding terrain,
     	* calculated as averaged. */

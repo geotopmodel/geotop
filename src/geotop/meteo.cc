@@ -59,11 +59,11 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	}
 	
 	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS	
-	met->tau_cl_av_map.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);//initialize_doublematrix(met->tau_cl_av_map, (double)number_novalue);
+	met->tau_cloud_av.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);//initialize_doublematrix(met->tau_cl_av_map, (double)number_novalue);
 	Meteodistr(geotop::common::Variables::UV->U[2], geotop::common::Variables::UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
 			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt,itauC,met->Tgrid, met->RHgrid, met->Vgrid,
-			met->Vdir, met->Pgrid, wat->PrecTot,met->tau_cl_av_map,met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
+			met->Vdir, met->Pgrid, wat->PrecTot,met->tau_cloud_av,met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
 			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact);
 		
 	if(par->en_balance==0){

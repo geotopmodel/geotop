@@ -270,16 +270,10 @@ double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
 /******************************************************************************************************************************************/
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-	double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
+	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
 	double tau_cloud_to_use;
-
-	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
-			tau_cloud_to_use = tau_cloud_distr;
-		}else {
-			tau_cloud_to_use = tau_cloud;
-		}
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
@@ -315,8 +309,9 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	}else {
 		*SWb_yes = -1;
 	}
-	
-#ifdef VERY_VERBOSE	
+
+
+#ifdef VERY_VERBOSE
     printf("tauatm:%f tau_cloud:%f kd:%f tausin:%f sky:%f SWrefl:%f  \n",tau_atm,tau_cloud,kd,*tau_atm_sin_alpha,sky,SWrefl_surr);
     printf("sh:%d cosinc:%f taucos:%f cosincbd:%f SWb:%f SWd:%f \n",shadow,cos_inc,tau_atm_cos_inc,*cos_inc_bd,*SWb,*SWd);
 #endif    
@@ -421,18 +416,12 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double tau_cloud_distr, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
-	double tau_cloud_to_use;
 
-	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
-		tau_cloud_to_use = tau_cloud_distr;
-	}else {
-		tau_cloud_to_use = tau_cloud;
-	}
-	if(state==1){
+    if(state==1){
 		*eps_min = 1.24*pow((pvap/(T+GTConst::tk)),1./7.); //Brutsaert, 1975
 
 	}else if(state==2){
@@ -469,13 +458,16 @@ void longwave_radiation(short state, double pvap, double RH, double T, double k1
 
 	}
 	
-	*eps = (*eps_min) * tau_cloud_to_use + 1.0 * (1.-tau_cloud_to_use);
-	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-tau_cloud_to_use);
+	*eps = (*eps_min) * tau_cloud + 1.0 * (1.-tau_cloud);
+	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-tau_cloud);
 		
 	/*double fcloud;
 	fcloud=pow((1.0-taucloud)/0.75,1/3.4);
 	*eps=(*eps_min)*(1.0-pow(fcloud,6.0))+0.979*pow(fcloud,4.0); Pirazzini*/
-
+  
+#ifdef VERY_VERBOSE
+    printf("state:%d T:%f pvap:%f eps:%f taucloud:%f epsmin:%f epsmax:%f\n",state,T,pvap,*eps,tau_cloud,*eps_min,*eps_max);
+#endif
 
 }
 
@@ -946,7 +938,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
+void find_actual_cloudiness_meteoio(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
 					   double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
@@ -998,7 +990,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	}
 }
 
-void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
 							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
 
@@ -1021,7 +1013,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	}else{
 		SWdata=0;
 	}
-
+    
 	if(SWdata>0){
 		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr, Lozone, alpha, beta, albedo);
 		if ( (long)tc != geotop::input::gDoubleNoValue){
@@ -1030,6 +1022,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 		}else {
 			*tau_cloud_yes = 0;
 		}
+        
 	}else{
 		*tau_cloud_yes = 0;
 	}
@@ -1057,6 +1050,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 
 	}
 
+    
 }
 //*****************************************************************************************************************
 //*****************************************************************************************************************
@@ -1069,6 +1063,9 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, d
 
 	double fcloud, Z_ref, press_ratio, f_max, one_minus_RHe, f_1, Td, Td_700, Tair_700, rh_700;
 
+#ifdef VERY_VERBOSE
+    printf("Tair:%f RH:%f Z:%f LP1:%f LP2:%f\n",Tair,RH,Z,T_lapse_rate,Td_lapse_rate);
+#endif
 	//Assume that 700 mb is equivalent to 3000 m in a standard atmosphere.
 	Z_ref = 3000.0;
 
