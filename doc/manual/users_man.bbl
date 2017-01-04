@@ -1,0 +1,8 @@
+\begin{thebibliography}{0}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[2]{{#1}:\discretionary{}{}{}#2}\else
+  \providecommand{\doi}[1]{{#1}:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\end{thebibliography}

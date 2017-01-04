@@ -1,0 +1,309 @@
+%=============================================================%
+\author{Matteo Dall'Amico}
+%=============================================================%
+%*******************Dichiarazione della classe di documento e pacchetti usati***********
+\documentclass[11pt,a4paper,english]{book}  %uso carta a4 e dimnesione font: 11 punti, tipo di documento
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+
+%\usepackage{sfchap}
+%\usepackage{graphicx}
+\usepackage{longtable,lscape}
+\usepackage{caption}
+
+\usepackage[usenames]{color}
+\usepackage{times}
+
+\usepackage{setspace}
+\usepackage{makeidx}
+
+
+\usepackage{hyperref}
+\hypersetup{ %hyperref setup
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={},    % title
+    pdfauthor={},     % author
+    pdfsubject={},   % subject of the document
+    pdfcreator={-},   % creator of the document
+    pdfproducer={-}, % producer of the document
+    pdfkeywords={-}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=blue,        % color of links to bibliography
+    filecolor=blue,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% userpakage ex Fraccarollo %%%%%%%%%%%%%%%%%%%%
+%\usepackage{wsuipa}
+\usepackage{amsmath}
+\usepackage{textcomp}
+%\usepackage[T1]{fontenc}
+\usepackage{float}
+%\usepackage{colortbl}
+\usepackage{fancyhdr}
+%\usepackage{longtable}
+%\usepackage[tcidvi]{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{setspace}
+%\usepackage{caption}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{lastpage}
+\usepackage{natbib} % per mettere year, title or whatever you want for the bibliograpy
+
+%\usepackage{chicago}%
+%\usepackage{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse % we are not running PDFLaTeX
+\else
+\pdfoutput=1 % we are running PDFLaTeX
+\pdftrue
+\fi
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+%\usepackage{graphicx}
+\fi
+
+%*****************Tutta una serie di comandi di formattazione**************************
+\textwidth=16.5cm %larghezza corpo testo (l'intero paragrafo, non le parole singole)
+\textheight=23cm %altezza del corpo del testo (spazio occupato)
+\headsep=1cm %distanza del testo dall'intestazione in alto
+\topmargin=1.5cm %distanza dell'intestazione dal limite superiore (che non Ë il margine)*
+\footskip=1cm %distanza tra il testo e il piede di pagina inferiore
+\voffset=-2cm %zona tra il limite superiore e il margine del foglio (vedi manuale)
+\evensidemargin=-0.50cm
+\oddsidemargin=0cm
+
+
+%\providecommand{\geotop}{\lower-.25em\hbox{G}E\lower.25em\hbox{O}\lower-.25em\hbox{T}O\lower-.25em\hbox{P}\@}
+
+\makeindex  %per fare l'indice analitico
+
+%*****************Inizio descrizione del testo: indice, capitoli, elenchi**************
+
+\begin{document}
+
+
+%%% TITOLO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\thispagestyle{empty}
+\topmargin=0cm
+
+
+\vspace{1cm}
+\begin{center}
+{\Huge GEOtop Users Manual \\}
+%\vspace{0.2cm}
+%{\huge a protezione del traffico autostradale da colate di detriti\\}
+%\vspace{0.2cm}
+%{\huge km 31+600 - 34+400\\}
+
+%\vspace{2cm}
+%{\huge Progetto di Dettaglio}
+%\vspace{2.5cm}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=8.cm]{./images/titlepage/GEOtop_R.pdf}\\
+\vspace{0.5cm}
+\end{center}
+\end{figure}
+
+
+
+%{\large{\bf Mountain-eering S.r.l.}}\\ \vspace{0.2cm} 
+%{ Societ\`a di Ingegneria}\\ 
+%{ Via Siemens 19 - 39100 Bolzano}
+\end{center}
+
+%\vspace{0.5cm}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lp{3cm}l}
+ \scshape{} 	& & \scshape{Edition by:} \\ \\
+ \textsl{}	& & \textsl{Dr Stefano Endrizzi$^1$} \\
+ 						& & \textsl{Dr Matteo Dall'Amico$^2$} \\
+ 						& & \textsl{Dr Stefano Cozzini$^2$} \\
+ 						& & \textsl{Dr Emanuele Cordano$^2$} \\
+						& & \textsl{Dr Stephan Gruber$^1$} \\
+						& & \textsl{Prof Riccardo Rigon$^3$} \\
+\end{tabular}
+\end{table}
+
+\vspace{2.0cm}
+\noindent $^1$: {\footnotesize Department of Physical Geography, University of Zurich (Switzerland)}\\
+\noindent $^2$: {\footnotesize Mountain-eering S.r.l., Via Siemens 19 Bolzano (Italy)}\\
+\noindent $^3$: {\footnotesize Department of Civil and Environmental Engineering, University of Trento (Italy)}
+%=========
+\begin{center}
+\vspace{3.0cm}
+{\large User Manual for GEOtop 2.1 }
+
+\vspace{1cm}
+
+{\large January 2017}
+\end{center}
+
+\clearpage
+
+\thispagestyle{empty}
+
+\vspace{1cm}
+
+\mbox{ } \thispagestyle{empty}
+
+\end{titlepage}
+
+
+%*********************Fine modifica titolo******************************************
+
+\baselineskip=6mm %formattazione distanza tra le linee del testo
+
+\pagenumbering{roman} \setcounter{page}{1}
+\tableofcontents %questo genera l'indice
+
+%\clearpage
+
+%**************************NUOVA FORMATTAZIONE TITOLI E PARAGRAFI E SPAZIATURA TRA PARAGRAFI*****
+%\makeatletter %setto la @ come font comando
+
+%\renewcommand{\chapter}{\@startsection  %formattazione titolo capitolo
+ %      {chapter}                            %nome
+%       {0}                                  %livello
+%       {0mm}                                %rientro
+%       {10cm}                               %spazio prima
+%       {1cm}                              %spazio dopo
+%       {\normalfont\huge\bfseries\upshape}} %formattazione carattere
+
+%\renewcommand{\section}{\@startsection  %formattazione titolo sezione
+%       {section}                            %nome
+%       {1}                                  %livello
+%       {0mm}                                %rientro
+%       {2cm}                                %spazio prima
+%       {1cm}                                %spazio dopo
+%       {\normalfont\LARGE\bfseries\upshape}}%formattazione carattere
+
+%\renewcommand{\subsection}{\@startsection  %formattazione titolo subsezione
+%       {subsection}                           %nome
+%       {2}                                         %livello
+%       {0mm}                                  %rientro
+%      {1.5cm}                                %spazio prima
+%       {0.5cm}                                %spazio dopo
+ %      {\normalfont\Large\bfseries\upshape}}  %formattazione carattere
+
+%\renewcommand{\subsubsection}{\@startsection  %formattazione titolo subsubsezione
+%       {subsubsection}                        %nome
+%       {3}                                    %livello
+%       {0mm}                                  %rientro
+%       {1.5cm}                                %spazio prima
+%       {0.5cm}                                %spazio dopo
+%       {\normalfont\large\bfseries\upshape}}  %formattazione carattere
+
+%\renewcommand{\paragraph}{\@startsection      %formattazione titolo paragraph
+%       {paragraph}                            %nome
+%       {4}                                    %livello
+%       {0mm}                                  %rientro
+%       {1cm}                                  %spazio prima
+%       {0.7cm}                                %spazio dopo
+%       {\normalfont\normalsize\itshape}}      %formattazione carattere
+
+%\makeatother %riporto la @ a font normale
+%**************************FINE FORMATTAZIONE TITOLI E PARAGRAFI E SPAZIATURA TRA PARAGRAFI*****
+
+\parindent=0.5cm %formattaz. rientro dell'inizio paragrafo
+%\newpage
+%\clearpage
+\mbox{ }  \thispagestyle{empty}
+\pagenumbering{arabic} \setcounter{page}{1} %numerazioni pagine (testo)
+
+%\clearpage
+%\newpage
+\pagestyle{fancy} %stile di formattazione di pagina (per l'intestazione eil piË del documento)
+\fancyhead[LE,RO]{\footnotesize \slshape {\leftmark}} %formattazione intestazione (vedi man.)
+\fancyhead[LO,RE]{\footnotesize \slshape \rightmark } %come sopra (vedi manuale)
+%\fancyfoot[LE,RO]{\footnotesize \slshape {Mountain-eering S.r.l. \\ Societ\`a di Ingegneria}} 
+%\fancyfoot[RE,LO]{\footnotesize \slshape {www.mountain-eering.com \\ info@mountain-eering.com}} 
+\fancyfoot[CE,CO]{\footnotesize{page \thepage \hspace{.05cm}  of \pageref{LastPage}}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}} %come sopra
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\renewcommand{\captionfont}{\footnotesize} %formattazione didascalie foto e tabelle
+\renewcommand{\headrulewidth}{0.2pt}
+
+   %\include{0_Credits}  
+%\include{SnowTheory}
+\include{_Introduction}
+\include{_Compile}
+\include{_Theory}
+\include{_SimFlowChart}
+\include{_Keywords}
+\include{_1Ddomain}
+\include{_3Ddomain}
+\include{_General}
+\include{_MeteoForcing}
+\include{_Glacier}
+\include{_Snow}
+\include{_Vegetation}
+\include{_SurfaceFlux}
+\include{_Soil_infiltration}
+\include{_Soil_temperature}
+\include{_WaterFlow}
+%\include{_Parameters}
+%\include{_OneD}
+%\include{_threeD}
+\include{_Basin}
+\include{_BC_IC}
+%\include{_InOut}
+\include{_Template}
+%    \include{0_Credits}  
+%%
+%    \include{4_Compile}
+%     \include{4_Inputs_Logical}    %
+%    \include{4_Output_2}    %
+%    \include{4_Simulations_template}
+%    \include{5_Add}
+%    \include{5_Developer_Manual}
+%    \include{symbols}
+%    \include{stringhe}    %
+%    \include{5_Add}
+%    \include{5_Developer_Manual}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printindex % stampa qui l'indice analitico
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\appendix
+%    \include{progetto}
+
+
+%\clearpage
+\newpage
+\addcontentsline{toc}{chapter}{References} %\nocite{*}
+
+\bibliographystyle{tg-agu04} % (uses file "tg-agu04.bst")
+
+%\pagestyle{plain}
+%\renewcommand\bibname{References}
+\bibliography{/Users/matteo/Documents/Bibliografia/BibTex//bibliografia_generale}
+%\bibliography{references2}     % expects file "references.bib"
+
+\end{document}
+ 

@@ -27,8 +27,8 @@ cd ~/[...]/tools/Test1Dshinyapp
 Then , launch it:
 
 ```
-R -e 'shiny::runApp("./")'
+R -e 'shiny::runApp("./",port=4566)'
 ```
-
+where 4566 is the port number.
 Finally, it will appear a localhost http address.
 Please click on it  and view it with your own browser. 

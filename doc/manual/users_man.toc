@@ -1,0 +1,212 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}What is GEOtop}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}History}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}GEOtop 0.5}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}GEOtop 0.75}{8}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}GEOtop 0.875}{9}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}GEOtop 0.9375}{10}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Stefano Endrizzi's work}{11}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}GEOtop in Zurich}{11}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Future perspectives}{11}{subsection.1.2.7}
+\contentsline {chapter}{\numberline {2}Compiling Instructions}{13}{chapter.2}
+\contentsline {section}{\numberline {2.1}Compile GEOtop through a makefile}{13}{section.2.1}
+\contentsline {chapter}{\numberline {3}Basic theory}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}The calculation grid}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Planar grid}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Vertical grid}{15}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}The domain characterization}{17}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Land cover}{17}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Soil type}{18}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}The final 3D calculation grid}{18}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}The focus on some points}{18}{section.3.3}
+\contentsline {section}{\numberline {3.4}Meteorological forcing}{21}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Meteo station}{21}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Meteo data}{22}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Cloudiness}{22}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Lapse rates}{22}{subsection.3.4.4}
+\contentsline {chapter}{\numberline {4}Simulation flow chart}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}User point of view}{27}{section.4.1}
+\contentsline {paragraph}{Set general parameters}{27}{section*.20}
+\contentsline {paragraph}{Meteo station characterization}{27}{section*.21}
+\contentsline {paragraph}{Meteo data}{27}{section*.22}
+\contentsline {paragraph}{Topographic characterization}{27}{section*.23}
+\contentsline {paragraph}{Land cover characterization}{27}{section*.24}
+\contentsline {paragraph}{Soil type characterization}{27}{section*.25}
+\contentsline {paragraph}{Initial conditions}{27}{section*.26}
+\contentsline {paragraph}{Boundary conditions}{27}{section*.27}
+\contentsline {paragraph}{Physical parameters}{27}{section*.28}
+\contentsline {paragraph}{Output parameters}{27}{section*.29}
+\contentsline {section}{\numberline {4.2}1D simulations}{27}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Point horizon}{28}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}1D simulations: with or without maps}{30}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}1D simulations in steep topography}{30}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Model point of view}{30}{section.4.3}
+\contentsline {paragraph}{1. Read input data}{30}{section*.33}
+\contentsline {paragraph}{2. Create and initialize mesh}{30}{section*.34}
+\contentsline {paragraph}{3. Read meteo data}{31}{section*.35}
+\contentsline {paragraph}{1. Distribute meteorological forcing}{31}{section*.36}
+\contentsline {paragraph}{2. Energy balance}{31}{section*.37}
+\contentsline {paragraph}{3. Water balance}{31}{section*.38}
+\contentsline {paragraph}{4. Write output}{31}{section*.39}
+\contentsline {paragraph}{5. Update and check time}{31}{section*.40}
+\contentsline {section}{\numberline {4.4}How to Run GEOtop}{32}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}From Terminal}{32}{subsection.4.4.1}
+\contentsline {chapter}{\numberline {5}I/O scheme: the keywords}{33}{chapter.5}
+\contentsline {section}{\numberline {5.1}Keywords syntax}{33}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Keywords definition}{34}{subsection.5.1.1}
+\contentsline {subsubsection}{Readable characters}{34}{section*.44}
+\contentsline {subsubsection}{Strings or numerical keywords}{34}{section*.45}
+\contentsline {subsection}{\numberline {5.1.2}Dates and time}{35}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Keywords properties}{35}{section.5.2}
+\contentsline {paragraph}{self explanatory}{35}{section*.46}
+\contentsline {paragraph}{tacit}{35}{section*.47}
+\contentsline {paragraph}{conservative}{35}{section*.48}
+\contentsline {paragraph}{self learning}{36}{section*.49}
+\contentsline {paragraph}{organization}{36}{section*.50}
+\contentsline {chapter}{\numberline {6}1D: domain definition and characterization}{39}{chapter.6}
+\contentsline {section}{\numberline {6.1}Without maps}{39}{section.6.1}
+\contentsline {subsubsection}{Parameters}{39}{section*.51}
+\contentsline {subsubsection}{Files}{40}{section*.52}
+\contentsline {subsubsection}{Headers}{40}{section*.53}
+\contentsline {section}{\numberline {6.2}With maps}{41}{section.6.2}
+\contentsline {subsubsection}{Maps}{41}{section*.54}
+\contentsline {subsubsection}{Files}{41}{section*.55}
+\contentsline {subsubsection}{Parameters}{42}{section*.56}
+\contentsline {subsubsection}{Headers}{42}{section*.57}
+\contentsline {chapter}{\numberline {7}3D: domain definition and characterization}{43}{chapter.7}
+\contentsline {section}{\numberline {7.1}Planar domain definition}{43}{section.7.1}
+\contentsline {section}{\numberline {7.2}Z-coordinate domain definition}{43}{section.7.2}
+\contentsline {section}{\numberline {7.3}Topographical characterization}{43}{section.7.3}
+\contentsline {section}{\numberline {7.4}Land cover and soil depth characterization}{44}{section.7.4}
+\contentsline {section}{\numberline {7.5}Output}{44}{section.7.5}
+\contentsline {chapter}{\numberline {8}General features}{47}{chapter.8}
+\contentsline {section}{\numberline {8.1}Input}{47}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}File}{47}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Parameters}{47}{subsection.8.1.2}
+\contentsline {section}{\numberline {8.2}Output}{48}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Maps parameters}{48}{subsection.8.2.1}
+\contentsline {chapter}{\numberline {9}Meteo Forcing}{49}{chapter.9}
+\contentsline {section}{\numberline {9.1}Input}{49}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Files}{49}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Parameters for meteo station}{49}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Headers for meteo station}{50}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Parameters for meteo forcing}{50}{subsection.9.1.4}
+\contentsline {subsection}{\numberline {9.1.5}Headers for meteo forcing}{51}{subsection.9.1.5}
+\contentsline {section}{\numberline {9.2}Spatial distribution of meteorological forcing}{52}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Parameters}{52}{subsection.9.2.1}
+\contentsline {section}{\numberline {9.3}Output}{53}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Point}{53}{subsection.9.3.1}
+\contentsline {subsubsection}{File}{53}{section*.58}
+\contentsline {subsubsection}{Parameters}{53}{section*.59}
+\contentsline {subsubsection}{Headers}{54}{section*.60}
+\contentsline {subsection}{\numberline {9.3.2}Maps}{55}{subsection.9.3.2}
+\contentsline {subsubsection}{Map names}{55}{section*.61}
+\contentsline {subsubsection}{Parameters}{55}{section*.62}
+\contentsline {chapter}{\numberline {10}Glacier}{57}{chapter.10}
+\contentsline {section}{\numberline {10.1}Input}{57}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Parameters}{57}{subsection.10.1.1}
+\contentsline {section}{\numberline {10.2}Output}{57}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Point output}{57}{subsection.10.2.1}
+\contentsline {subsubsection}{Files}{57}{section*.63}
+\contentsline {subsubsection}{Headers}{58}{section*.64}
+\contentsline {subsubsection}{Parameters}{58}{section*.65}
+\contentsline {subsection}{\numberline {10.2.2}Map Output}{60}{subsection.10.2.2}
+\contentsline {subsubsection}{Parameters}{60}{section*.66}
+\contentsline {chapter}{\numberline {11}Snow}{61}{chapter.11}
+\contentsline {section}{\numberline {11.1}Input}{61}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Parameters}{61}{subsection.11.1.1}
+\contentsline {section}{\numberline {11.2}Output}{63}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Point output}{63}{subsection.11.2.1}
+\contentsline {subsubsection}{Files}{63}{section*.67}
+\contentsline {subsubsection}{Headers}{63}{section*.68}
+\contentsline {subsubsection}{Parameters}{64}{section*.69}
+\contentsline {subsection}{\numberline {11.2.2}Map Output}{66}{subsection.11.2.2}
+\contentsline {subsubsection}{Parameters}{66}{section*.70}
+\contentsline {chapter}{\numberline {12}Vegetation}{67}{chapter.12}
+\contentsline {section}{\numberline {12.1}Input}{67}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Parameters}{67}{subsection.12.1.1}
+\contentsline {section}{\numberline {12.2}Numerics}{67}{section.12.2}
+\contentsline {section}{\numberline {12.3}Output}{68}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Point}{68}{subsection.12.3.1}
+\contentsline {subsubsection}{Files}{68}{section*.71}
+\contentsline {subsubsection}{Headers}{68}{section*.72}
+\contentsline {subsubsection}{Parameters}{69}{section*.73}
+\contentsline {subsection}{\numberline {12.3.2}Map Output}{71}{subsection.12.3.2}
+\contentsline {subsubsection}{Parameters}{71}{section*.74}
+\contentsline {subsubsection}{Files}{71}{section*.75}
+\contentsline {chapter}{\numberline {13}Surface Fluxes}{73}{chapter.13}
+\contentsline {section}{\numberline {13.1}Input}{73}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Parameters}{73}{subsection.13.1.1}
+\contentsline {section}{\numberline {13.2}Numerics}{74}{section.13.2}
+\contentsline {section}{\numberline {13.3}Output}{74}{section.13.3}
+\contentsline {subsection}{\numberline {13.3.1}Point}{74}{subsection.13.3.1}
+\contentsline {subsubsection}{Files}{74}{section*.76}
+\contentsline {subsubsection}{Headers}{74}{section*.77}
+\contentsline {subsubsection}{Parameters}{75}{section*.78}
+\contentsline {subsection}{\numberline {13.3.2}Maps}{77}{subsection.13.3.2}
+\contentsline {subsubsection}{Parameters}{77}{section*.79}
+\contentsline {subsubsection}{File}{77}{section*.80}
+\contentsline {section}{\numberline {13.4}Values of reference}{78}{section.13.4}
+\contentsline {chapter}{\numberline {14}Soil/Rock Infiltration}{81}{chapter.14}
+\contentsline {section}{\numberline {14.1}Input}{81}{section.14.1}
+\contentsline {subsection}{\numberline {14.1.1}File}{81}{subsection.14.1.1}
+\contentsline {subsection}{\numberline {14.1.2}Headers}{81}{subsection.14.1.2}
+\contentsline {subsection}{\numberline {14.1.3}Parameters}{81}{subsection.14.1.3}
+\contentsline {subsubsection}{Numerics}{83}{section*.84}
+\contentsline {section}{\numberline {14.2}Output}{83}{section.14.2}
+\contentsline {subsection}{\numberline {14.2.1}Point output}{83}{subsection.14.2.1}
+\contentsline {subsubsection}{Files}{83}{section*.85}
+\contentsline {subsubsection}{Parameters}{83}{section*.86}
+\contentsline {subsection}{\numberline {14.2.2}Map Output}{84}{subsection.14.2.2}
+\contentsline {subsubsection}{Parameters}{84}{section*.87}
+\contentsline {subsection}{\numberline {14.2.3}Map names}{85}{subsection.14.2.3}
+\contentsline {subsection}{\numberline {14.2.4}Tensor names}{85}{subsection.14.2.4}
+\contentsline {chapter}{\numberline {15}Soil/rock temperature}{87}{chapter.15}
+\contentsline {section}{\numberline {15.1}Input}{87}{section.15.1}
+\contentsline {subsection}{\numberline {15.1.1}File}{87}{subsection.15.1.1}
+\contentsline {subsection}{\numberline {15.1.2}Headers}{87}{subsection.15.1.2}
+\contentsline {subsection}{\numberline {15.1.3}Parameters}{87}{subsection.15.1.3}
+\contentsline {subsubsection}{Numerics}{87}{section*.88}
+\contentsline {section}{\numberline {15.2}Output}{88}{section.15.2}
+\contentsline {subsection}{\numberline {15.2.1}Point output}{88}{subsection.15.2.1}
+\contentsline {subsubsection}{Files}{88}{section*.89}
+\contentsline {subsubsection}{Parameters}{88}{section*.90}
+\contentsline {subsection}{\numberline {15.2.2}Map Output}{89}{subsection.15.2.2}
+\contentsline {subsubsection}{Parameters}{89}{section*.91}
+\contentsline {subsection}{\numberline {15.2.3}Map names}{90}{subsection.15.2.3}
+\contentsline {subsection}{\numberline {15.2.4}Tensor names}{90}{subsection.15.2.4}
+\contentsline {chapter}{\numberline {16}Discharge at the outlet}{91}{chapter.16}
+\contentsline {section}{\numberline {16.1}Input}{91}{section.16.1}
+\contentsline {section}{\numberline {16.2}Output}{92}{section.16.2}
+\contentsline {subsection}{\numberline {16.2.1}Point}{92}{subsection.16.2.1}
+\contentsline {subsubsection}{Files}{92}{section*.92}
+\contentsline {subsubsection}{Parameters}{92}{section*.93}
+\contentsline {chapter}{\numberline {17}Basin synthetic outputs}{93}{chapter.17}
+\contentsline {section}{\numberline {17.1}Output}{93}{section.17.1}
+\contentsline {subsection}{\numberline {17.1.1}Files}{93}{subsection.17.1.1}
+\contentsline {subsection}{\numberline {17.1.2}Parameters}{93}{subsection.17.1.2}
+\contentsline {subsection}{\numberline {17.1.3}Headers}{94}{subsection.17.1.3}
+\contentsline {chapter}{\numberline {18}Boundary and Initial Conditions}{97}{chapter.18}
+\contentsline {section}{\numberline {18.1}Boundary Conditions}{97}{section.18.1}
+\contentsline {subsection}{\numberline {18.1.1}Energy balance equation}{97}{subsection.18.1.1}
+\contentsline {subsubsection}{Dirichlet}{97}{section*.94}
+\contentsline {subsubsection}{Neumann}{97}{section*.95}
+\contentsline {subsection}{\numberline {18.1.2}Water balance equation}{97}{subsection.18.1.2}
+\contentsline {subsubsection}{Neumann}{97}{section*.96}
+\contentsline {section}{\numberline {18.2}Initial Conditions}{98}{section.18.2}
+\contentsline {subsection}{\numberline {18.2.1}Snow}{98}{subsection.18.2.1}
+\contentsline {subsection}{\numberline {18.2.2}Glacier}{98}{subsection.18.2.2}
+\contentsline {subsection}{\numberline {18.2.3}Soil / Rock}{98}{subsection.18.2.3}
+\contentsline {subsubsection}{Water balance equation}{98}{section*.97}
+\contentsline {subsubsection}{Energy balance equation}{99}{section*.98}
+\contentsline {chapter}{\numberline {19}Templates}{101}{chapter.19}
+\contentsline {section}{\numberline {19.1}1D simulation}{101}{section.19.1}
+\contentsline {subsection}{\numberline {19.1.1}Parameter file: {\it geotop.inpts}}{102}{subsection.19.1.1}
+\contentsline {subsection}{\numberline {19.1.2}Input files}{106}{subsection.19.1.2}
+\contentsline {subsection}{\numberline {19.1.3}Output files}{106}{subsection.19.1.3}
+\contentsline {section}{\numberline {19.2}3D distributed simulation}{109}{section.19.2}
+\contentsline {subsection}{\numberline {19.2.1}Parameter file}{110}{subsection.19.2.1}
+\contentsline {subsection}{\numberline {19.2.2}Input maps and files}{113}{subsection.19.2.2}
+\contentsline {subsection}{\numberline {19.2.3}Outputs}{113}{subsection.19.2.3}
+\contentsline {chapter}{References}{116}{figure.caption.118}
