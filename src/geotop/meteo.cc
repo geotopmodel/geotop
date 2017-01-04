@@ -176,7 +176,7 @@ double TfromSatVapPressure(double e, double P){
 }
 
 double SpecHumidity(double e, double P){
-    printf("e:%f P:%f Q:%f\n",e,P,0.622*e/(P-0.378*e));
+    //printf("e:%f P:%f Q:%f\n",e,P,0.622*e/(P-0.378*e));
 	return 0.622*e/(P-0.378*e);
 }
 
@@ -184,7 +184,7 @@ void SpecHumidity_2(double *Q, double *dQ_dT, double RH, double T, double P){
 	double e, de_dT, dQ_de;
 	SatVapPressure_2(&e, &de_dT, T, P);
 	*Q=SpecHumidity(RH*e, P);
-    printf("RH:%f e:%f Q:%f\n",RH,e,*Q);
+    //printf("RH:%f e:%f Q:%f\n",RH,e,*Q);
 	dQ_de=0.622/(P-0.378*e)+0.235116*e/pow(P-0.378*e, 2.0); 
 	*dQ_dT=dQ_de*de_dT;
 }
