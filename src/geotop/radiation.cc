@@ -505,39 +505,26 @@ double dSB_dT(double T){
 	double res=R, z=0.0, rho, k;
 
 	frac.resize(frac.size(),0.);
-	//initialize_doublevector(frac, 0.);
-	
+		
 	//in case of snow
-//	if( snow->lnum->co[r][c] > 1){
 	if( snow->lnum[r][c] > 1){
 		
-	//	for(l=snow->lnum->co[r][c];l>=1;l--){
 		for(l=snow->lnum[r][c];l>=1;l--){
-		//	m=snow->lnum->co[r][c]-l+1;
 			m=snow->lnum[r][c]-l+1;
-		//	z+=0.001*snow->Dzl->co[l][r][c];
 			z+=0.001*snow->Dzl[l][r][c];
-		//	rho=(snow->w_ice->co[l][r][c]+snow->w_liq->co[l][r][c])/(0.001*snow->Dzl->co[l][r][c]);
 			rho=(snow->w_ice[l][r][c]+snow->w_liq[l][r][c])/(0.001*snow->Dzl[l][r][c]);
 			k=rho/3.0+50.0;
-		//	frac->co[m]=res-R*exp(-k*z);
-			frac[m]=res-R*exp(-k*z);
+            frac[m]=res-R*exp(-k*z);
 			res=R*exp(-k*z);
 		}
 	
-	//	frac->co[snow->lnum->co[r][c]+1]=res;
-		frac[snow->lnum[r][c]+1]=res;
+			frac[snow->lnum[r][c]+1]=res;
 		
 	}else {
-		
-	//	frac->co[0] = res;
-		frac[0] = res;
+           frac[0] = res;
 	}
 }
 	
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta, double dh, double RH, double T,
 						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo){
@@ -702,7 +689,7 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 
 short shadows_point(double **hor, long n, double alpha, double azimuth, double tol_mount, double tol_flat)
 
-/**routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
+/** routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
  * @author: Matteo Dall'Amico, May 2011
  *Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
  *double alpha: solar altitude (degree)
@@ -764,11 +751,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 }
 
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
 
-//void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction, SHORTMATRIX *SH)
 void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatrix<short>& SH)
 
 /**	@Author: Thomas Haiden, Year: 16 june 2003
