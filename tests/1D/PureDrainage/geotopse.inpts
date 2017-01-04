@@ -1,0 +1,131 @@
+!*******************************
+!******* CONFIGURATION *********
+!*******************************
+TimeStepEnergyAndWater = 3600
+InitDateDDMMYYYYhhmm = 18/06/2000 19:00
+EndDateDDMMYYYYhhmm = 07/07/2000 01:00
+EnergyBalance =1
+WaterBalance = 1
+PointSim = 1
+
+!*******************************
+!********* GEOGRAPHY ***********
+!*******************************
+Latitude = 40.25
+Longitude = 16.31
+StandardTimeSimulation=1.0
+
+!*******************************
+!****** METEO STATIONS *********
+!*******************************
+NumberOfMeteoStations=1
+MeteoStationCoordinateX=609904.1
+MeteoStationCoordinateY=4345653.1
+MeteoStationLatitude=40.25
+MeteoStationLongitude=16.31
+MeteoStationElevation=300
+MeteoStationStandardTime=1.0
+
+HeaderDateDDMMYYYYhhmmMeteo = "POSIX"
+HeaderJulianDayfrom0Meteo = "JD"
+HeaderIPrec = "Iprec"
+HeaderWindVelocity = "WindSp"
+HeaderWindDirection = "WindDir"
+HeaderRH = "RH"
+HeaderAirTemp = "AirT"
+HeaderSWglobal = "Swglob"
+HeaderCloudSWTransmissivity = "CloudTrans"
+
+!********************************************
+!****** INIT AND BOUNDARY CONDITIONS ********
+!********************************************
+
+InitWaterTableDepth= 5000.0
+FreeDrainageAtLateralBorder=0
+FreeDrainageAtBottom=0
+
+!************************************
+!******* POINTS OF INTEREST *********
+!************************************
+PointFile = "listpoints"
+HeaderPointID = "ID"
+HeaderCoordinatePointX = "xcoord"
+HeaderCoordinatePointY = "ycoord"
+HeaderPointElevation="zcoord"
+HeaderPointLandCoverType="landcover"
+HeaderPointSoilType="soiltype"
+HeaderPointSlope="slope"
+HeaderPointAspect="aspect"
+HeaderPointSkyViewFactor="sky"
+HeaderPointBedrockDepth="bedrock"
+
+!*******************************
+!******* INPUT  ************
+!*******************************
+MeteoFile = "meteo/meteo"
+
+!*******************************
+!******** LAND COVER  **********
+!*******************************
+NumLandCoverTypes = 1
+SoilRoughness = 100.0
+SoilAlbVisDry = 0.2
+SoilAlbNIRDry = 0.2
+SoilAlbVisWet = 0.2
+SoilAlbNIRWet = 0.2
+SoilEmissiv = 0.96
+SurFlowResLand = 0.5
+VegHeight =1800.0
+LSAI = 0.6
+CanopyFraction = 0.0
+RootDepth =1000.0
+VegReflectVis = 0.1
+VegReflNIR = 0.58
+VegTransVis = 0.05
+VegTransNIR = 0.25
+
+!*******************************
+!*******  SOIL TYPE ************
+!*******************************
+SoilParFile = "soil/soil"
+SoilLayerTypes = 1
+InitSoilTemp = 14.0
+InitSoilTempBedrock = 14.0
+ThermalConductivitySoilSolids = 2.5
+ThermalCapacitySoilSolids = 2300000.0
+
+HeaderSoilDz = "Dz"
+HeaderLateralHydrConductivity = "Kh"
+HeaderNormalHydrConductivity = "Kv"
+HeaderThetaRes = "res"
+HeaderFieldCapacity = "fc"
+HeaderThetaSat = "sat"
+HeaderAlpha = "a"
+HeaderN = "n"
+HeaderSpecificStorativity = "SS"
+
+!*******************************
+!******* NUMERICS **********
+!*******************************
+HeatEqTol = 1.0E-6
+RichardMaxIter = 1500
+RichardInitForc = 0.01
+
+!*************************************
+!******* OUTPUT TIME SERIES **********
+!*************************************
+DtPlotDischarge = 0.5
+DtPlotPoint = 1
+SoilTempProfileFile="output-tabs-SE27XX/soiltemp"
+SoilLiqContentProfileFile="output-tabs-SE27XX/thetaliq"
+SoilLiqWaterPressProfileFile="output-tabs-SE27XX/soilpsi"
+PointOutputFile="output-tabs-SE27XX/point"
+PointAll=1
+SoilAll=1
+
+!*******************************
+!********* RECOVERY ************
+!*******************************
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery=0.0208333333333333
+
