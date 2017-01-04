@@ -92,7 +92,7 @@ values.out <- list()
 
 #print("ccc")
 #print(suffixes)
-#print(keywords.out)
+print(keywords.out)
 for (it_s in names(suffixes)) {
 #	print(it_s)
 	values.out[[it_s]] <- lapply(X=keywords.out,FUN=function(x,add_suffix_dir,inpts.file) {
@@ -164,7 +164,7 @@ for (it_s in names(suffixes)) {
 }
 
 sim_names <- names(values.out[[1]])
-
+print(values.out)
 #stop("stop HERE")
 ## Search nemes of the simulations 
 #sim_names <- names(values.out[[1]])

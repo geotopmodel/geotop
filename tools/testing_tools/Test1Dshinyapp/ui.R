@@ -1,6 +1,6 @@
 library(dygraphs)
 library(shiny)
-library(shinyjs)
+
 
 shinyUI(
 
