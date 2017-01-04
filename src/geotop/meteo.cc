@@ -139,11 +139,16 @@ T: air temperature in [C]
 
 //Saturated vapour pressure
 double SatVapPressure(double T, double P){
-	double A, b, c;
+	double A, b, c, e;
 	A=6.1121*(1.0007+3.46E-6*P);
 	b=17.502;
 	c=240.97;
-	return A*exp(b*T/(c+T));
+    e=A*exp(b*T/(c+T));
+    if(e<0.5*P){  //vapour pressure limited to 0.5Patm
+        return e;
+    }else{
+        return 0.5*P;
+    }
 }
 
 //Finds the saturated vapour pressure and its derivative with respect to temperature
@@ -153,7 +158,12 @@ void SatVapPressure_2(double *e, double *de_dT, double T, double P){
 	b=17.502;
 	c=240.97;
 	*e=A*exp(b*T/(c+T));
-	*de_dT=(*e)*(b/(c+T)-b*T/pow(c+T,2.0));
+    if (*e<0.5*P){//vapour pressure limited to 0.5Patm
+        *de_dT=(*e)*(b/(c+T)-b*T/pow(c+T,2.0));
+    }else{
+        *e=0.5*P;
+        *de_dT=0.;
+    }
 }
 
 //Temperature from saturated water vapour
@@ -166,6 +176,7 @@ double TfromSatVapPressure(double e, double P){
 }
 
 double SpecHumidity(double e, double P){
+    printf("e:%f P:%f Q:%f\n",e,P,0.622*e/(P-0.378*e));
 	return 0.622*e/(P-0.378*e);
 }
 
@@ -173,6 +184,7 @@ void SpecHumidity_2(double *Q, double *dQ_dT, double RH, double T, double P){
 	double e, de_dT, dQ_de;
 	SatVapPressure_2(&e, &de_dT, T, P);
 	*Q=SpecHumidity(RH*e, P);
+    printf("RH:%f e:%f Q:%f\n",RH,e,*Q);
 	dQ_de=0.622/(P-0.378*e)+0.235116*e/pow(P-0.378*e, 2.0); 
 	*dQ_dT=dQ_de*de_dT;
 }
