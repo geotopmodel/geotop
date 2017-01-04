@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="2052" version="1.1" width="1710" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#00ffff" height="38" rx="40" ry="40" stroke="#00ffff" stroke-width="1" width="118" x="727" y="55"/>
+<rect fill="#ffffff" height="40" rx="40" ry="40" stroke="#ffffff" stroke-width="1" width="120" x="726" y="54"/>
+<rect fill="#ffffff" height="40" rx="40" ry="40" stroke="#000000" stroke-width="1" width="120" x="726" y="54"/>
+<text font-family="Dialog" font-size="12" x="761" y="76">
+GEOTOP</text>
+<rect fill="#00ffff" height="82" rx="84" ry="84" stroke="#00ffff" stroke-width="1" width="180" x="695" y="119"/>
+<rect fill="#ffffff" height="84" rx="84" ry="84" stroke="#ffffff" stroke-width="1" width="182" x="694" y="118"/>
+<rect fill="#ffffff" height="84" rx="84" ry="84" stroke="#000000" stroke-width="1" width="182" x="694" y="118"/>
+<text font-family="Dialog" font-size="12" x="759" y="140">
+startdate</text>
+<text font-family="Dialog" font-size="12" x="761" y="155">
+enddate</text>
+<text font-family="Dialog" font-size="12" x="760" y="170">
+timestep</text>
+<text font-family="Dialog" font-size="12" x="717" y="185">
+GENERAL PARAMETERS</text>
+<polyline fill="none" points="782,93 782,119" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="775" x2="782" y1="107" y2="119"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="789" x2="782" y1="107" y2="119"/>
+<rect fill="#00ffff" height="66" rx="68" ry="68" stroke="#00ffff" stroke-width="1" width="206" x="687" y="503"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#ffffff" stroke-width="1" width="208" x="686" y="502"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#000000" stroke-width="1" width="208" x="686" y="502"/>
+<text font-family="Dialog" font-size="12" x="736" y="524">
+CHOICE BETWEEN:</text>
+<text font-family="Dialog" font-size="12" x="731" y="539">
+DISTRIBUTED/POINT</text>
+<text font-family="Dialog" font-size="12" x="755" y="554">
+SIMULATION</text>
+<polygon fill="#ffffff" points="790,590 806,606 790,622 774,606" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="790,590 806,606 790,622 774,606" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="790,569 790,590" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="783" x2="790" y1="578" y2="590"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="797" x2="790" y1="578" y2="590"/>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="178" x="287" y="639"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="180" x="286" y="638"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="180" x="286" y="638"/>
+<text font-family="Dialog" font-size="12" x="301" y="660">
+DISTRIBUTED SIMULATION</text>
+<polyline fill="none" points="774,606 374,606 374,639" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="367" x2="374" y1="627" y2="639"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="381" x2="374" y1="627" y2="639"/>
+<text font-family="Dialog" font-size="12" x="570" y="600">
+point_sim=0</text>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="135" x="1119" y="639"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="137" x="1118" y="638"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="137" x="1118" y="638"/>
+<text font-family="Dialog" font-size="12" x="1131" y="660">
+POINT SIMULATION</text>
+<polyline fill="none" points="806,606 1190,606 1190,639" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1183" x2="1190" y1="627" y2="639"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1197" x2="1190" y1="627" y2="639"/>
+<text font-family="Dialog" font-size="12" x="978" y="602">
+point_sim=1</text>
+<polyline fill="none" points="374,673 374,718" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="367" x2="374" y1="706" y2="718"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="381" x2="374" y1="706" y2="718"/>
+<polygon fill="#ffffff" points="438,758 454,774 438,790 422,774" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="438,758 454,774 438,790 422,774" stroke="#000000" stroke-width="1"/>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="119" x="63" y="839"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="121" x="62" y="838"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="121" x="62" y="838"/>
+<text font-family="Dialog" font-size="12" x="75" y="860">
+WATERBALANCE</text>
+<polyline fill="none" points="126,790 126,839" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="119" x2="126" y1="827" y2="839"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="133" x2="126" y1="827" y2="839"/>
+<text font-family="Dialog" font-size="12" x="127" y="815">
+waterbalance=1</text>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="129" x="615" y="759"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="131" x="614" y="758"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="131" x="614" y="758"/>
+<text font-family="Dialog" font-size="12" x="629" y="780">
+ENERGYBALANCE</text>
+<polyline fill="none" points="454,774 615,774" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="603" x2="615" y1="781" y2="774"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="603" x2="615" y1="767" y2="774"/>
+<text font-family="Dialog" font-size="12" x="469" y="767">
+energybalance=1</text>
+<polyline fill="none" points="126,873 126,934" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="119" x2="126" y1="922" y2="934"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="133" x2="126" y1="922" y2="934"/>
+<rect fill="#00ffff" height="63" rx="65" ry="65" stroke="#00ffff" stroke-width="1" width="111" x="311" y="799"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#ffffff" stroke-width="1" width="113" x="310" y="798"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#000000" stroke-width="1" width="113" x="310" y="798"/>
+<text font-family="Dialog" font-size="12" x="348" y="820">
+define</text>
+<text font-family="Dialog" font-size="12" x="322" y="835">
+USE MICROMET</text>
+<text font-family="Dialog" font-size="12" x="330" y="850">
+micromet=1</text>
+<rect fill="#00ffff" height="66" rx="68" ry="68" stroke="#00ffff" stroke-width="1" width="143" x="607" y="911"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#ffffff" stroke-width="1" width="145" x="606" y="910"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#000000" stroke-width="1" width="145" x="606" y="910"/>
+<text font-family="Dialog" font-size="12" x="658" y="932">
+ask for</text>
+<text font-family="Dialog" font-size="12" x="621" y="947">
+GLACIERS ON BASIN</text>
+<text font-family="Dialog" font-size="12" x="623" y="962">
+glaclayer_max&gt;=1</text>
+<polyline fill="none" points="670,861 670,911" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="663" x2="670" y1="899" y2="911"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="677" x2="670" y1="899" y2="911"/>
+<rect fill="#00ffff" height="66" rx="68" ry="68" stroke="#00ffff" stroke-width="1" width="119" x="1103" y="911"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#ffffff" stroke-width="1" width="121" x="1102" y="910"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#000000" stroke-width="1" width="121" x="1102" y="910"/>
+<text font-family="Dialog" font-size="12" x="1142" y="932">
+define </text>
+<text font-family="Dialog" font-size="12" x="1128" y="947">
+WITH SNOW</text>
+<text font-family="Dialog" font-size="12" x="1114" y="962">
+snowcorrfract&gt;0</text>
+<polyline fill="none" points="1158,861 1158,911" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1151" x2="1158" y1="899" y2="911"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1165" x2="1158" y1="899" y2="911"/>
+<rect fill="#00ffff" height="66" rx="68" ry="68" stroke="#00ffff" stroke-width="1" width="141" x="599" y="1031"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#ffffff" stroke-width="1" width="143" x="598" y="1030"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#000000" stroke-width="1" width="143" x="598" y="1030"/>
+<text font-family="Dialog" font-size="12" x="657" y="1052">
+has </text>
+<text font-family="Dialog" font-size="12" x="645" y="1067">
+MAP OF </text>
+<text font-family="Dialog" font-size="12" x="611" y="1082">
+INITIAL CONDITIONS</text>
+<polyline fill="none" points="670,977 670,1031" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="663" x2="670" y1="1019" y2="1031"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="677" x2="670" y1="1019" y2="1031"/>
+<polygon fill="#ffffff" points="670,1134 686,1150 670,1166 654,1150" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="670,1134 686,1150 670,1166 654,1150" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="670,1097 670,1134" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="663" x2="670" y1="1122" y2="1134"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="677" x2="670" y1="1122" y2="1134"/>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="190" x="415" y="1191"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="192" x="414" y="1190"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="192" x="414" y="1190"/>
+<text font-family="Dialog" font-size="12" x="475" y="1212">
+INSERT MAP</text>
+<text font-family="Dialog" font-size="12" x="429" y="1227">
+I_CONDINIT_GLACIERDEPTH</text>
+<polyline fill="none" points="654,1150 486,1150 486,1191" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="479" x2="486" y1="1179" y2="1191"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="493" x2="486" y1="1179" y2="1191"/>
+<text font-family="Dialog" font-size="12" x="541" y="1145">
+YES</text>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="141" x="767" y="1191"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="143" x="766" y="1190"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="143" x="766" y="1190"/>
+<text font-family="Dialog" font-size="12" x="779" y="1212">
+INSERT PARAMETER</text>
+<text font-family="Dialog" font-size="12" x="810" y="1227">
+glac_0&gt;0</text>
+<polyline fill="none" points="686,1150 838,1150 838,1191" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="831" x2="838" y1="1179" y2="1191"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="845" x2="838" y1="1179" y2="1191"/>
+<text font-family="Dialog" font-size="12" x="773" y="1146">
+NO</text>
+<polygon fill="#ffffff" points="1166,1134 1182,1150 1166,1166 1150,1150" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="1166,1134 1182,1150 1166,1166 1150,1150" stroke="#000000" stroke-width="1"/>
+<rect fill="#00ffff" height="66" rx="68" ry="68" stroke="#00ffff" stroke-width="1" width="178" x="943" y="1175"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#ffffff" stroke-width="1" width="180" x="942" y="1174"/>
+<rect fill="#ffffff" height="68" rx="68" ry="68" stroke="#000000" stroke-width="1" width="180" x="942" y="1174"/>
+<text font-family="Dialog" font-size="12" x="997" y="1196">
+INSERT MAP</text>
+<text font-family="Dialog" font-size="12" x="966" y="1211">
+I_CONDINIT_SNOWAGE</text>
+<text font-family="Dialog" font-size="12" x="957" y="1226">
+I_CONDINITI_SNOWDEPTH</text>
+<polyline fill="none" points="1150,1150 1022,1150 1022,1175" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1015" x2="1022" y1="1163" y2="1175"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1029" x2="1022" y1="1163" y2="1175"/>
+<text font-family="Dialog" font-size="12" x="1064" y="1146">
+YES</text>
+<rect fill="#00ffff" height="60" rx="62" ry="62" stroke="#00ffff" stroke-width="1" width="141" x="1247" y="1183"/>
+<rect fill="#ffffff" height="62" rx="62" ry="62" stroke="#ffffff" stroke-width="1" width="143" x="1246" y="1182"/>
+<rect fill="#ffffff" height="62" rx="62" ry="62" stroke="#000000" stroke-width="1" width="143" x="1246" y="1182"/>
+<text font-family="Dialog" font-size="12" x="1259" y="1204">
+INSERT PARAMETER</text>
+<text font-family="Dialog" font-size="12" x="1281" y="1219">
+initDsnow&gt;0</text>
+<polyline fill="none" points="1182,1150 1318,1150 1318,1183" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1311" x2="1318" y1="1171" y2="1183"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1325" x2="1318" y1="1171" y2="1183"/>
+<text font-family="Dialog" font-size="12" x="1257" y="1146">
+NO</text>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="135" x="1111" y="1047"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="137" x="1110" y="1046"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="137" x="1110" y="1046"/>
+<text font-family="Dialog" font-size="12" x="1122" y="1068">
+has MAP OF INITIAL</text>
+<text font-family="Dialog" font-size="12" x="1142" y="1083">
+CONDITIONS</text>
+<polyline fill="none" points="1142,1013 1142,1047" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1135" x2="1142" y1="1035" y2="1047"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1149" x2="1142" y1="1035" y2="1047"/>
+<polyline fill="none" points="1166,1097 1166,1134" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1159" x2="1166" y1="1122" y2="1134"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1173" x2="1166" y1="1122" y2="1134"/>
+<rect fill="#00ffff" height="45" rx="47" ry="47" stroke="#00ffff" stroke-width="1" width="104" x="1519" y="1039"/>
+<rect fill="#ffffff" height="47" rx="47" ry="47" stroke="#ffffff" stroke-width="1" width="106" x="1518" y="1038"/>
+<rect fill="#ffffff" height="47" rx="47" ry="47" stroke="#000000" stroke-width="1" width="106" x="1518" y="1038"/>
+<text font-family="Dialog" font-size="12" x="1543" y="1060">
+USE PBSM</text>
+<polygon fill="#ffffff" points="1574,1110 1590,1126 1574,1142 1558,1126" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="1574,1110 1590,1126 1574,1142 1558,1126" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="1574,1084 1574,1110" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1567" x2="1574" y1="1098" y2="1110"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1581" x2="1574" y1="1098" y2="1110"/>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="104" x="1591" y="1159"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="106" x="1590" y="1158"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="106" x="1590" y="1158"/>
+<text font-family="Dialog" font-size="12" x="1613" y="1180">
+pbsm = 1</text>
+<polyline fill="none" points="1590,1126 1654,1126 1654,1159" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1647" x2="1654" y1="1147" y2="1159"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1661" x2="1654" y1="1147" y2="1159"/>
+<text font-family="Dialog" font-size="12" x="1605" y="1122">
+YES</text>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="104" x="1463" y="1159"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="106" x="1462" y="1158"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="106" x="1462" y="1158"/>
+<text font-family="Dialog" font-size="12" x="1485" y="1180">
+pbsm = 0</text>
+<polyline fill="none" points="1558,1126 1518,1126 1518,1159" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1511" x2="1518" y1="1147" y2="1159"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1525" x2="1518" y1="1147" y2="1159"/>
+<text font-family="Dialog" font-size="12" x="1515" y="1117">
+NO</text>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="126" x="1127" y="711"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="128" x="1126" y="710"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="128" x="1126" y="710"/>
+<text font-family="Dialog" font-size="12" x="1140" y="732">
+CHECK VARIABLE</text>
+<text font-family="Dialog" font-size="12" x="1148" y="747">
+Dt_outpixel&gt;0</text>
+<polyline fill="none" points="1190,673 1190,711" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1183" x2="1190" y1="699" y2="711"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1197" x2="1190" y1="699" y2="711"/>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="148" x="135" y="1007"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="150" x="134" y="1006"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="150" x="134" y="1006"/>
+<text font-family="Dialog" font-size="12" x="149" y="1028">
+SET WATERBALANCE</text>
+<text font-family="Dialog" font-size="12" x="170" y="1043">
+PARAMETERS</text>
+<polyline fill="none" points="222,941 222,1007" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="215" x2="222" y1="995" y2="1007"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="229" x2="222" y1="995" y2="1007"/>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="205" x="15" y="1087"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="207" x="14" y="1086"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="207" x="14" y="1086"/>
+<text font-family="Dialog" font-size="12" x="95" y="1108">
+SET Cm</text>
+<text font-family="Dialog" font-size="12" x="29" y="1123">
+OF VEGETATION PARAMETERS</text>
+<polyline fill="none" points="86,941 86,1087" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="79" x2="86" y1="1075" y2="1087"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="93" x2="86" y1="1075" y2="1087"/>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="162" x="839" y="911"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="164" x="838" y="910"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="164" x="838" y="910"/>
+<text font-family="Dialog" font-size="12" x="857" y="932">
+SET ENERGYBALANCE</text>
+<text font-family="Dialog" font-size="12" x="852" y="947">
+GENERAL PARAMETERS</text>
+<polyline fill="none" points="918,861 918,911" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="911" x2="918" y1="899" y2="911"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="925" x2="918" y1="899" y2="911"/>
+<rect fill="#00ffff" height="50" rx="52" ry="52" stroke="#00ffff" stroke-width="1" width="212" x="1207" y="1359"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#ffffff" stroke-width="1" width="214" x="1206" y="1358"/>
+<rect fill="#ffffff" height="52" rx="52" ry="52" stroke="#000000" stroke-width="1" width="214" x="1206" y="1358"/>
+<text font-family="Dialog" font-size="12" x="1254" y="1380">
+SET GENERAL SNOW</text>
+<text font-family="Dialog" font-size="12" x="1274" y="1395">
+PARAMETERS</text>
+<polyline fill="none" points="1030,1241 1030,1302" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1023" x2="1030" y1="1290" y2="1302"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1037" x2="1030" y1="1290" y2="1302"/>
+<polyline fill="none" points="1318,1243 1318,1302" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1311" x2="1318" y1="1290" y2="1302"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1325" x2="1318" y1="1290" y2="1302"/>
+<rect fill="#00ffff" height="82" rx="84" ry="84" stroke="#00ffff" stroke-width="1" width="166" x="1239" y="1455"/>
+<rect fill="#ffffff" height="84" rx="84" ry="84" stroke="#ffffff" stroke-width="1" width="168" x="1238" y="1454"/>
+<rect fill="#ffffff" height="84" rx="84" ry="84" stroke="#000000" stroke-width="1" width="168" x="1238" y="1454"/>
+<text font-family="Dialog" font-size="12" x="1273" y="1476">
+SET LANDCOVER</text>
+<text font-family="Dialog" font-size="12" x="1281" y="1491">
+PARAMETERS:</text>
+<text font-family="Dialog" font-size="12" x="1251" y="1506">
+snow_threshold_baresoil</text>
+<text font-family="Dialog" font-size="12" x="1264" y="1521">
+snow_threshold_veg</text>
+<polyline fill="none" points="1313,1409 1313,1455" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1306" x2="1313" y1="1443" y2="1455"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1320" x2="1313" y1="1443" y2="1455"/>
+<polyline fill="none" points="918,961 918,1590" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="911" x2="918" y1="1578" y2="1590"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="925" x2="918" y1="1578" y2="1590"/>
+<polyline fill="none" points="1318,1537 1318,1590" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1311" x2="1318" y1="1578" y2="1590"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1325" x2="1318" y1="1578" y2="1590"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="368" x="102" y="718"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="368" x="102" y="718"/>
+<polygon fill="#ffffff" points="126,758 142,774 126,790 110,774" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="126,758 142,774 126,790 110,774" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="126,725 126,758" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="119" x2="126" y1="746" y2="758"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="133" x2="126" y1="746" y2="758"/>
+<polyline fill="none" points="438,725 438,758" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="431" x2="438" y1="746" y2="758"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="445" x2="438" y1="746" y2="758"/>
+<ellipse cx="782" cy="22" fill="#000000" rx="8.0" ry="8.0" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="783,29 783,55" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="776" x2="783" y1="43" y2="55"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="790" x2="783" y1="43" y2="55"/>
+<ellipse cx="362" cy="2026" fill="#000000" rx="12.0" ry="12.0" stroke="#000000" stroke-width="1"/>
+<ellipse cx="362" cy="2026" fill="#ffffff" rx="11.0" ry="11.0" stroke="#ffffff" stroke-width="1"/>
+<ellipse cx="362" cy="2026" fill="#000000" rx="7.0" ry="7.0" stroke="#000000" stroke-width="1"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="632" x="550" y="854"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="632" x="550" y="854"/>
+<polyline fill="none" points="686,793 686,854" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="679" x2="686" y1="842" y2="854"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="693" x2="686" y1="842" y2="854"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="960" x="382" y="1590"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="960" x="382" y="1590"/>
+<polyline fill="none" points="518,1597 518,1702" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="511" x2="518" y1="1690" y2="1702"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="525" x2="518" y1="1690" y2="1702"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="640" x="1006" y="1302"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="640" x="1006" y="1302"/>
+<polyline fill="none" points="1294,1309 1294,1359" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1287" x2="1294" y1="1347" y2="1359"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1301" x2="1294" y1="1347" y2="1359"/>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="101" x="1135" y="791"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="103" x="1134" y="790"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="103" x="1134" y="790"/>
+<text font-family="Dialog" font-size="12" x="1179" y="812">
+...</text>
+<polyline fill="none" points="1185,761 1185,791" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1178" x2="1185" y1="779" y2="791"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1192" x2="1185" y1="779" y2="791"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="248" x="30" y="934"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="248" x="30" y="934"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="504" x="1054" y="1006"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="504" x="1054" y="1006"/>
+<polyline fill="none" points="1190,977 1190,1006" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1183" x2="1190" y1="994" y2="1006"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1197" x2="1190" y1="994" y2="1006"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="240" x="38" y="1190"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="240" x="38" y="1190"/>
+<polyline fill="none" points="110,1137 110,1190" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="103" x2="110" y1="1178" y2="1190"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="117" x2="110" y1="1178" y2="1190"/>
+<polyline fill="none" points="238,1057 238,1190" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="231" x2="238" y1="1178" y2="1190"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="245" x2="238" y1="1178" y2="1190"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="424" x="142" y="1702"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="424" x="142" y="1702"/>
+<polyline fill="none" points="158,1197 158,1702" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="151" x2="158" y1="1690" y2="1702"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="165" x2="158" y1="1690" y2="1702"/>
+<rect fill="#00ffff" height="34" rx="36" ry="36" stroke="#00ffff" stroke-width="1" width="162" x="279" y="1775"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#ffffff" stroke-width="1" width="164" x="278" y="1774"/>
+<rect fill="#ffffff" height="36" rx="36" ry="36" stroke="#000000" stroke-width="1" width="164" x="278" y="1774"/>
+<text font-family="Dialog" font-size="12" x="295" y="1796">
+SET SOIL PARAMETERS</text>
+<polyline fill="none" points="360,1709 360,1775" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="353" x2="360" y1="1763" y2="1775"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="367" x2="360" y1="1763" y2="1775"/>
+<rect fill="#00ffff" height="48" rx="50" ry="50" stroke="#00ffff" stroke-width="1" width="166" x="279" y="1903"/>
+<rect fill="#ffffff" height="50" rx="50" ry="50" stroke="#ffffff" stroke-width="1" width="168" x="278" y="1902"/>
+<rect fill="#ffffff" height="50" rx="50" ry="50" stroke="#000000" stroke-width="1" width="168" x="278" y="1902"/>
+<text font-family="Dialog" font-size="12" x="329" y="1924">
+SET METEO</text>
+<text font-family="Dialog" font-size="12" x="290" y="1939">
+DATA AND PARAMETERS</text>
+<polyline fill="none" points="360,1809 360,1903" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="353" x2="360" y1="1891" y2="1903"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="367" x2="360" y1="1891" y2="1903"/>
+<polyline fill="none" points="364,1951 364,2014" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="357" x2="364" y1="2002" y2="2014"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="371" x2="364" y1="2002" y2="2014"/>
+<polyline fill="none" points="374,725 374,799" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="367" x2="374" y1="787" y2="799"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="381" x2="374" y1="787" y2="799"/>
+<polygon fill="#ffffff" points="1374,1046 1390,1062 1374,1078 1358,1062" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="1374,1046 1390,1062 1374,1078 1358,1062" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="1374,1013 1374,1046" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1367" x2="1374" y1="1034" y2="1046"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1381" x2="1374" y1="1034" y2="1046"/>
+<polyline fill="none" points="1390,1062 1519,1062" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1507" x2="1519" y1="1069" y2="1062"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="1507" x2="1519" y1="1055" y2="1062"/>
+<text font-family="Dialog" font-size="12" x="1410" y="1050">
+if micromet=1</text>
+<polyline fill="none" points="366,862 366,1702" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="359" x2="366" y1="1690" y2="1702"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="373" x2="366" y1="1690" y2="1702"/>
+<rect fill="#00ffff" height="48" rx="50" ry="50" stroke="#00ffff" stroke-width="1" width="167" x="615" y="271"/>
+<rect fill="#ffffff" height="50" rx="50" ry="50" stroke="#ffffff" stroke-width="1" width="169" x="614" y="270"/>
+<rect fill="#ffffff" height="50" rx="50" ry="50" stroke="#000000" stroke-width="1" width="169" x="614" y="270"/>
+<text font-family="Dialog" font-size="12" x="628" y="292">
+DEFINE METEO STATION</text>
+<text font-family="Dialog" font-size="12" x="627" y="307">
+TO USE FOR SIMULATION</text>
+<rect fill="#00ffff" height="63" rx="65" ry="65" stroke="#00ffff" stroke-width="1" width="150" x="847" y="303"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#ffffff" stroke-width="1" width="152" x="846" y="302"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#000000" stroke-width="1" width="152" x="846" y="302"/>
+<text font-family="Dialog" font-size="12" x="873" y="324">
+DEFINE MORPHO</text>
+<text font-family="Dialog" font-size="12" x="870" y="339">
+MAPS TO USE FOR</text>
+<text font-family="Dialog" font-size="12" x="887" y="354">
+SIMULATION</text>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="256" x="670" y="230"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="256" x="670" y="230"/>
+<polyline fill="none" points="798,201 798,230" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="791" x2="798" y1="218" y2="230"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="805" x2="798" y1="218" y2="230"/>
+<polyline fill="none" points="698,237 698,271" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="691" x2="698" y1="259" y2="271"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="705" x2="698" y1="259" y2="271"/>
+<polyline fill="none" points="914,237 914,303" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="907" x2="914" y1="291" y2="303"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="921" x2="914" y1="291" y2="303"/>
+<rect fill="#000000" height="7" stroke="#000000" stroke-width="1" width="200" x="694" y="454"/>
+<rect fill="none" height="7" stroke="#000000" stroke-width="1" width="200" x="694" y="454"/>
+<polyline fill="none" points="878,366 878,454" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="871" x2="878" y1="442" y2="454"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="885" x2="878" y1="442" y2="454"/>
+<polyline fill="none" points="802,461 802,503" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="795" x2="802" y1="491" y2="503"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="809" x2="802" y1="491" y2="503"/>
+<rect fill="#00ffff" height="63" rx="65" ry="65" stroke="#00ffff" stroke-width="1" width="145" x="615" y="351"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#ffffff" stroke-width="1" width="147" x="614" y="350"/>
+<rect fill="#ffffff" height="65" rx="65" ry="65" stroke="#000000" stroke-width="1" width="147" x="614" y="350"/>
+<text font-family="Dialog" font-size="12" x="626" y="372">
+DEFINE METEO DATA</text>
+<text font-family="Dialog" font-size="12" x="653" y="387">
+TO USE FOR</text>
+<text font-family="Dialog" font-size="12" x="652" y="402">
+SIMULATION</text>
+<polyline fill="none" points="687,319 687,351" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="680" x2="687" y1="339" y2="351"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="694" x2="687" y1="339" y2="351"/>
+<polyline fill="none" points="718,414 718,454" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="711" x2="718" y1="442" y2="454"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="725" x2="718" y1="442" y2="454"/>
+</svg>

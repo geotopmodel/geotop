@@ -277,7 +277,8 @@ shinyServer(function(input, output) {
 					
 					dygraph(data, ylab="[unit]",main=main) %>% dyRangeSelector() %>%
 								dyRoller() %>%
-								dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal)
+								dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal) %>%
+								dyLegend(labelsSeparateLines = TRUE)
 						
 					})
 					
@@ -331,7 +332,8 @@ shinyServer(function(input, output) {
 								main <- paste(sim,kws,layer,sep="::")	
 								dygraph(residuals, ylab="[unit]",main=main) %>% dyRangeSelector() %>%
 										dyRoller() %>%
-										dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal)
+										dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal) %>%
+										dyLegend(labelsSeparateLines = TRUE)
 								
 								
 							})
