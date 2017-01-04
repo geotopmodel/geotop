@@ -34,6 +34,14 @@ if(CMAKE_COMPILER_IS_GNU_CC)
    SET( _GNU_SOURCE ON)
 endif()
 
+
+####################
+# set additional flag if using intel compiler
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+   SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2 -fp_speculation=safe" CACHE STRING "" FORCE)
+endif()
+
 ###########################################################
 
 IF(APPLE)

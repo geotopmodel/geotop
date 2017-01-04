@@ -43,6 +43,9 @@ install_manifest.txt
 #swap files
 *.swp
 
+#DS Store
+.DS_Store
+
 #generated scripts
 test_runner.py
 config.h
