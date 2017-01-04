@@ -22,8 +22,8 @@
 
 
 
-//Author: Stefano Endrizzi
-//Contents: Energy balance (and also mass balance for snow and glacier)
+// @author: Stefano Endrizzi
+// @brief Energy balance (and also mass balance for snow and glacier)
 #include "energy.balance.h"
 #include "geotop_common.h"
 #include "../../config.h"
@@ -110,7 +110,6 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 #ifndef USE_INTERNAL_METEODISTR
 
-    //for (size_t i=1; i<= vec_meteo.size(); i++){// for all meteo stations
     for (unsigned long i=1; i< A->M->st->Z.size(); i++){
 	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
 		    find_actual_cloudiness_meteoio(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
@@ -120,10 +119,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     }
 
     //call the function that interpolates the cloudiness
-    if (A->P->use_meteoio_cloud) {
-	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud, A->M->st->tau_cloud_meteoST);
-	    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud_av, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
-    }
+    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud, A->M->st->tau_cloud_meteoST);
+    meteoio_interpolate_cloudiness(A->P, JDe, A->M->tau_cloud_av, A->M->st->tau_cloud_av_meteoST);// Matteo: just added 17.4.2012
     
     //tau_cloud and tau_cloud_av are available as matrices
     
@@ -140,28 +137,17 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 	    tau_cloud_av_yes = A->M->st->tau_cloud_av_yes_meteoST[A->M->nstcloud];*/
 
     // tau_cloud(s) are available from meteoio, therefore tau_cloud_yes is always set at 1
-    tau_cloud = A->M->tau_cloud[r][c];
-    tau_cloud_av = A->M->tau_cloud_av[r][c];
-    if ((long)tau_cloud == geotop::input::gDoubleNoValue){
-        tau_cloud_yes = 0;
-    }else{
-        tau_cloud_yes = 1;
-    }
-    if ((long)tau_cloud_av == geotop::input::gDoubleNoValue){
-        tau_cloud_av_yes = 0;
-    }else{
-        tau_cloud_av_yes = 1;
-    }
     
 #else
     
     find_actual_cloudiness(&tau_cloud, &tau_cloud_av, &tau_cloud_yes, &tau_cloud_av_yes, i, A->M, JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
     //TODO use tau_cloud tau_cloud_av as matrices
 
+#endif
+
 
 #ifdef VERY_VERBOSE
      printf("t:%f cl:%f clav:%f cly:%d clavy:%d",A->I->time,tau_cloud,tau_cloud_av,tau_cloud_yes,tau_cloud_av_yes);
-#endif
 #endif
 
     //	POINT ENERGY BALANCE
@@ -178,6 +164,23 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 		    c = A->T->rc_cont[i - A->P->total_channel][2];
 
 	    }
+        
+#ifndef USE_INTERNAL_METEODISTR
+        // this temporary.. it sohuld be removed once we will work everywhere with tau matrices
+        tau_cloud = A->M->tau_cloud[r][c];
+        tau_cloud_av = A->M->tau_cloud_av[r][c];
+        if ((long)tau_cloud == geotop::input::gDoubleNoValue){
+            tau_cloud_yes = 0;
+        }else{
+            tau_cloud_yes = 1;
+        }
+        if ((long)tau_cloud_av == geotop::input::gDoubleNoValue){
+            tau_cloud_av_yes = 0;
+        }else{
+            tau_cloud_av_yes = 1;
+        }
+
+#endif
 
 	    if (A->L->delay[r][c] <= A->I->time/GTConst::secinday) {
 
@@ -219,10 +222,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 //end of "EnergyBalance" subroutine
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/ 
+//******************************************************************************************************************************************/
 
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
@@ -607,7 +607,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 		LWin=A->T->sky[r][c]*epsa*SB(Tpoint);
         //if LWin is in the meteo file, usi this value instead
         //double flux(long i, long icol, double **met, double k, double est){
+#ifdef USE_INTERNAL_METEODISTR
         LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, LWin);
+#endif
     } else {
 	    LWin = ilwr_point;
     }
