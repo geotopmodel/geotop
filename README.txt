@@ -36,6 +36,9 @@ GEOtop is known to run under the following Operating Systems:
     - Debian 7
     - Ubuntu 14.04 LTS
 
+GEOtop is known to work under following compilers:
+    - GCC
+    - Intel compiler 16.0
 
 GEOtop has NOT been tested on Microsoft Windows either with Cygwin or
 MinGW compiler. This configuration therefore is NOT supported: you are
