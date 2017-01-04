@@ -25,10 +25,7 @@
 #include "geotop_common.h"
 #include "inputKeywords.h"
 
-//*****************************************************************************************************************
-//*****************************************************************************************************************
-//*****************************************************************************************************************
-//*****************************************************************************************************************
+// *****************************************************************************************
 //lat and lon in [deg]
 short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat,
 									 double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday, double rotation,
@@ -65,9 +62,6 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines, double **
 }
 	
 //*****************************************************************************************************************
-//*****************************************************************************************************************
-//*****************************************************************************************************************
-//*****************************************************************************************************************
 
 void cloudiness(double **meteo, long meteolines, double **horizon, long horizonlines, double lat, double lon, 
 				double ST, double Z, double sky, double SWrefl_surr, double *cloudtrans, long ndivday, double rotation,
@@ -91,13 +85,13 @@ void cloudiness(double **meteo, long meteolines, double **horizon, long horizonl
 	double Delta;
 	double height_sun; // solar elevation angle
 	double direction;// solar azimuth angle
-	long n00;//line at which the computation begins
-	long n0;// line of the meteo file at which the sun rises
-	long n1;// line of the meteo file at which the sun sets
-	long k, n;// indexes
+	long n00; //line at which the computation begins
+	long n0;  // line of the meteo file at which the sun rises
+	long n1;  // line of the meteo file at which the sun sets
+	long k, n; // indexes
 	long *ndiv;
 	FILE *f;
-//	char *temp;
+
 	std::string temp;
 	
 	//file header
@@ -295,22 +289,22 @@ double average_cloudiness(long n0, long n1, double **meteo, long meteolines, dou
 //lat and lon in [rad]
 void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines, double **horizon, long horizonlines, 
 				 double lat, double lon, double ST, double rotation){
-	/* !
-	 * This function calculates the lines of a meteo file at which the sun rises and sets, according to the sorrounding topography given by the horizon file.
-	 * param nist: line at which the computation begins
-	 * param lat: latitude [rad] of the meteo station
-	 * param lon: longitude [rad] of the meteo station
-	 * param ST: time difference (hours) of the meteo station with respect of the UTM
-	 * param rotation:
-	 * param meteo: matrix of meteo data
-	 * param meteolines: number of lines of the meteo dataset
-	 * param horizon: horizon file of the meteo station
-	 * param horizonlines: number of the horizon file lines
+	/**
+	 * @brief This function calculates the lines of a meteo file at which the sun rises and sets, according to the sorrounding topography given by the horizon file.
+	 * @param nist: line at which the computation begins
+	 * @param lat: latitude [rad] of the meteo station
+	 * @param lon: longitude [rad] of the meteo station
+	 * @param ST: time difference (hours) of the meteo station with respect of the UTM
+	 * @param rotation:
+	 * @param meteo: matrix of meteo data
+	 * @param meteolines: number of lines of the meteo dataset
+	 * @param horizon: horizon file of the meteo station
+	 * @param horizonlines: number of the horizon file lines
 	 *
 	 *
 	 * Returns:
-	 * n0: line at which the sun rises
-	 * n1: line at which the sun sets
+	 * @n0: line at which the sun rises
+	 * @n1: line at which the sun sets
 	 * */
 	
 	short shad, shad0, a=0;
@@ -338,7 +332,7 @@ void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines,
 		
 		//from non-shadow to shadow = sunset
 		if(shad0==0 && shad==1) a=1;
-                printf("n:%d JD:%f alpha:%f dir:%f shad:%d shad0:%d\n",n,meteo[n][iJDfrom0],alpha,direction/GTConst::Pi,shad,shad0);		
+                printf("n:%d JD:%f alpha:%f dir:%f shad:%d shad0:%d\n",n,meteo[n][iJDfrom0],alpha,direction/GTConst::Pi,shad,shad0);
 		n++;
 		
 	}while(a==0 && n<meteolines);

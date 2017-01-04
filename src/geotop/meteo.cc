@@ -59,11 +59,11 @@ void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par
 	}
 	
 	//DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS	
-	met->tau_cl_av_map.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);//initialize_doublematrix(met->tau_cl_av_map, (double)number_novalue);
+	met->tau_cloud_av.resize(top->Z0.getRows(),top->Z0.getCols(), geotop::input::gDoubleNoValue);//initialize_doublematrix(met->tau_cl_av_map, (double)number_novalue);
 	Meteodistr(geotop::common::Variables::UV->U[2], geotop::common::Variables::UV->U[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2, top->curvature3,
 			top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD, par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
 			par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt,itauC,met->Tgrid, met->RHgrid, met->Vgrid,
-			met->Vdir, met->Pgrid, wat->PrecTot,met->tau_cl_av_map,met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
+			met->Vdir, met->Pgrid, wat->PrecTot,met->tau_cloud_av,met->LRv[ilsTa], met->LRv[ilsTdew], met->LRv[ilsPrec],
 			par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain, par->T_snow, par->snowcorrfact, par->raincorrfact);
 		
 	if(par->en_balance==0){
@@ -139,11 +139,16 @@ T: air temperature in [C]
 
 //Saturated vapour pressure
 double SatVapPressure(double T, double P){
-	double A, b, c;
+	double A, b, c, e;
 	A=6.1121*(1.0007+3.46E-6*P);
 	b=17.502;
 	c=240.97;
-	return A*exp(b*T/(c+T));
+    e=A*exp(b*T/(c+T));
+    if(e<0.5*P){  //vapour pressure limited to 0.5Patm
+        return e;
+    }else{
+        return 0.5*P;
+    }
 }
 
 //Finds the saturated vapour pressure and its derivative with respect to temperature
@@ -153,7 +158,12 @@ void SatVapPressure_2(double *e, double *de_dT, double T, double P){
 	b=17.502;
 	c=240.97;
 	*e=A*exp(b*T/(c+T));
-	*de_dT=(*e)*(b/(c+T)-b*T/pow(c+T,2.0));
+    if (*e<0.5*P){//vapour pressure limited to 0.5Patm
+        *de_dT=(*e)*(b/(c+T)-b*T/pow(c+T,2.0));
+    }else{
+        *e=0.5*P;
+        *de_dT=0.;
+    }
 }
 
 //Temperature from saturated water vapour
@@ -166,6 +176,7 @@ double TfromSatVapPressure(double e, double P){
 }
 
 double SpecHumidity(double e, double P){
+    //printf("e:%f P:%f Q:%f\n",e,P,0.622*e/(P-0.378*e));
 	return 0.622*e/(P-0.378*e);
 }
 
@@ -173,6 +184,7 @@ void SpecHumidity_2(double *Q, double *dQ_dT, double RH, double T, double P){
 	double e, de_dT, dQ_de;
 	SatVapPressure_2(&e, &de_dT, T, P);
 	*Q=SpecHumidity(RH*e, P);
+    //printf("RH:%f e:%f Q:%f\n",RH,e,*Q);
 	dQ_de=0.622/(P-0.378*e)+0.235116*e/pow(P-0.378*e, 2.0); 
 	*dQ_dT=dQ_de*de_dT;
 }

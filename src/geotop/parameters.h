@@ -22,10 +22,8 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 #include "struct.geotop.h"
-//#include "input.h"
 #include "constants.h"
 #include "../libraries/ascii/tabs.h"
-//#include "../libraries/ascii/extensions.h"
 #include "../libraries/ascii/rw_maps.h"
 #include "times.h"
 #include "pedo.funct.h"

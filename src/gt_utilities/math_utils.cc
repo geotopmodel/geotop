@@ -1,3 +1,23 @@
+/* STATEMENT:
+ 
+ GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ GEOtop 2.1 release candidate  (release date: 31 december 2016)
+ 
+ Copyright (c), 2016 - GEOtop Foundation
+ 
+ This file is part of GEOtop 2.1
+ 
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+ 
+ GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ If you just use the code, please give feedback to the authors and the community.
+ Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
+ 
+ If you have satisfactorily used the code, please acknowledge the authors.
+ 
+ */
+
 #include "math_utils.h"
 #include "read_command_line.h"
 
@@ -288,14 +308,14 @@ double adaptiveSimpsons2(double (*f)(double x, void *p), void *arg,   // ptr to 
 
 void product_matrix_using_lower_part_by_vector_plus_vector(double k, GeoVector<double>& out, const GeoVector<double>& y, const GeoVector<double>& x, const GeoVector<long>&  Li, const GeoVector<long>& Lp, GeoVector<double>& Lx){
     
-    //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
+    /// @brief calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
     
     size_t i;
     
     product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
     
     for(i=1;i<x.size();i++){
-#ifdef VERBOSE
+#ifdef VERY_VERBOSE
         printf("product_matrix_using_lower_part_by_vector_plus_vector-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out[i],y[i],k * (out[i] + y[i]));
 #endif
         out[i] = k * (out[i] + y[i]);
@@ -353,7 +373,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
                                                           const GeoVector<double>& b, GeoVector<double>& y, const GeoVector<long>& Li, const GeoVector<long>& Lp, const GeoVector<double>& Lx){
     
     
-    //solve sistem (A+Iy)*x = B, find x
+    /// @brief solve sistem (A+Iy)*x = B, find x
     //A M-matrix described by its lower diagonal part
     
     

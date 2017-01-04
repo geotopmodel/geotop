@@ -12,8 +12,8 @@ install.packages("devtools") ## It allows to install package directly from Githu
 install.packages("rgdal") 
 install.packages("shiny")
 install.packages("dygraphs")
+install.packages("RColorBrewer")
 devtools::install_github("ecor/geotopbricks") ## It is suggested to install "geotopbricks" from Github (the latest version) respected to the one from CRAN!!! 
-
 
 ```
 More details about the R packages are available on the respective CRAN page: https://cran.r-project.org/package=PACKAGE_NAME (e. g. https://cran.r-project.org/package=shiny) 

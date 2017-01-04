@@ -31,7 +31,7 @@ inpts.files <- inpts.files[igeotopsim]
 
 
 #### Search the output
-output_values <- c("output-tabs","output-maps")
+output_values <- c("output-tabs") ###,"output-maps")
 
 keywords <- lapply(X=wpaths,FUN=declared.geotop.inpts.keywords,inpts.file=inpts.file)
 
@@ -74,7 +74,7 @@ for (it in names(keywords.out)) {
 	keywords.out[[it]]$sim_name <- it
 	keywords.out[[it]]$sim_wpath <- wpaths[it]
 	keywords.out[[it]]$formatter <- "%04d"
-	keywords.out[[it]]$formatter[keywords.out[[it]]$Keyword %in% c("BasinOutputFile","DischargeFile")] <- ""
+	keywords.out[[it]]$formatter[keywords.out[[it]]$Keyword %in% c("BasinOutputFile","DischargeFile","SnowCoveredAreaFile")] <- ""
 	keywords.out[[it]]$tz <- timezone[[it]]
 	keywords.out[[it]]$level <- 1
 	if (it=="Jungfraujoch") keywords.out[[it]]$level <- "32,33"
@@ -85,26 +85,26 @@ for (it in names(keywords.out)) {
 #keywords.out <- keywords.out[names(keywords.out)!="Jungfraujoch"]
 #stop("HERE")
 #####
-suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF")
-
+suffixes <- c("-SE27XX","-METEOIO-ON","-METEOIO-OFF","")
+names(suffixes) <- suffixes
+names(suffixes)[suffixes==""] <- "latest"
 values.out <- list() 
 
-
-str(keywords.out)
-
-
-for (it_s in suffixes) {
-	print(it_s)
+#print("ccc")
+#print(suffixes)
+print(keywords.out)
+for (it_s in names(suffixes)) {
+#	print(it_s)
 	values.out[[it_s]] <- lapply(X=keywords.out,FUN=function(x,add_suffix_dir,inpts.file) {
 
-			print(x)
+		#	print(x)
 			vars <- x$Keyword
 			wpath <- x$sim_wpath[1]
 			formatter <- x$formatter
 			tz <- x$tz
 			
 			level <- x$level
-			print(level)
+	#		print(level)
 			if (is.character(level)) {
 				level <- str_split(level,",")
 				print(level)
@@ -114,12 +114,12 @@ for (it_s in suffixes) {
 				level <- as.list(level)
 			}
 			
-			print(length(wpath))
-			print(length(add_suffix_dir))
-			print(length(vars))
-			print(length(inpts.file))
-			print(length(formatter))
-			print(tz)
+	#		print(length(wpath))
+	#		print(length(add_suffix_dir))
+	#		print(length(vars))
+	#		print(length(inpts.file))
+	#		print(length(formatter))
+	#		print(tz)
 	#		o <- (mapply(keyword=vars,FUN=get.geotop.inpts.keyword.value,inpts.file=inpts.file,
     #        wpath=wpath,data.frame=TRUE,date_field="Date12.DDMMYYYYhhmm.",tz=tz,
     #        formatter=formatter,add_suffix_dir=add_suffix_dir,level=level))
@@ -129,39 +129,57 @@ for (it_s in suffixes) {
 			
 			for (i in 1:length(vars)) {
 				
-				for (li in 1:length(level[[i]])) {
+				lic <- 1:length(level[[i]])
+				if (formatter[i]=="") lic <- 1
+				
+				date_field <- "Date12.DDMMYYYYhhmm."
+				if (vars[i]=="DischargeFile") date_field <- "DATE.day.month.year.hour.min."
+				for (li in lic) {
 				lll <- as.integer(level[[i]][li])
 				itn <- sprintf("%s%04d",vars[i],lll)
-				o[[itn]] <- get.geotop.inpts.keyword.value(vars[i],inpts.file=inpts.file,
-				wpath=wpath,data.frame=TRUE,date_field="Date12.DDMMYYYYhhmm.",tz=tz[1],
+				
+				if (formatter[i]=="") itn <- vars[i]
+#				o[[itn]] <- try(get.geotop.inpts.keyword.value(keyword=vars[i],inpts.file=inpts.file,
+#				wpath=wpath,data.frame=TRUE,date_field=date_field,tz=tz[1],
+#				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll),silent=TRUE)
+				o[[itn]] <- list(keyword=vars[i],inpts.file=inpts.file,
+				wpath=wpath,data.frame=TRUE,date_field=date_field,tz=tz[1],
 				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll)
+				v <- o[[itn]]
+				v[["header.only"]] <- TRUE
+				attr(o[[itn]],"header") <- try(do.call(what=get.geotop.inpts.keyword.value,args=v),silent=TRUE)
+## TO GO ON ...
 				}
 			}
 			
+			oc <- sapply(X=o,FUN=function(x) {class(attr(x,"header"))})	
 			
+			o <- o[which(oc!="try-error")] 
 			return(o)
 			
 			
-		},add_suffix_dir=it_s,inpts.file=inpts.file)
+		},add_suffix_dir=suffixes[it_s],inpts.file=inpts.file)
 
 
 }
 
-
-## Search nemes of the simulations 
 sim_names <- names(values.out[[1]])
-sim_vars <- NULL
-for (it0 in sim_names) {
-	
-	sim_keywords <- names(values.out[[1]][[it0]])
-	for (it1 in sim_keywords) {
-		vars <- names(values.out[[1]][[it0]][[it1]])
-		sim_vars <- c(sim_vars,paste(it0,it1,vars,sep=";"))
-	}
-	
-}	
-
-sim_vars <<- sim_vars
+print(values.out)
+#stop("stop HERE")
+## Search nemes of the simulations 
+#sim_names <- names(values.out[[1]])
+#sim_vars <- NULL
+#for (it0 in sim_names) {
+#	
+#	sim_keywords <- names(values.out[[1]][[it0]])
+#	for (it1 in sim_keywords) {
+#		vars <- names(values.out[[1]][[it0]][[it1]])
+#		sim_vars <- c(sim_vars,paste(it0,it1,vars,sep=";"))
+#	}
+#	
+#}	
+#
+#sim_vars <<- sim_vars
 #print("Testing")
 #var <- sim_vars[10]
 #
@@ -202,22 +220,46 @@ shinyServer(function(input, output) {
 #				plot(x, y)
 #			})
 	##output$sim_vars <- reactive(c("LOADING",sim_vars))
-	output$sim_vars_ui  <-renderUI({selectInput('var', 'Variable',c("LOADING",sim_vars))})
+##	output$sim_vars_ui  <-renderUI({selectInput('var', 'Variable',c("LOADING",sim_vars))})
+
+  
 	output$sim_names_ui <-renderUI({selectInput('sim', 'GEOtop Simulation Test',c("LOADING",sim_names))})
 	output$sim_kws_ui <-renderUI({selectInput('kws', 'Variable / Keyword',c("LOADING",names(values.out[[1]][[input$sim]])))})
-	output$sim_layer_ui <-renderUI({selectInput('layer', 'Layer / Variable',c("LOADING",names(values.out[[1]][[input$sim]][[input$kws]])))})
+	output$sim_layer_ui <-renderUI({selectInput('layer', 'Layer / Variable',c("LOADING",attr(values.out[[1]][[input$sim]][[input$kws]],"header")))})
 	
 	###uiOutput("dupes")
 	
 	
 	output$dygraph <- 
 			renderDygraph({
+						
+					suffixes_ <- names(suffixes)
+					if (input$latest==FALSE) suffixes_ <- suffixes_[suffixes_!="latest"]
+					if (input$SE27XX==FALSE) suffixes_ <- suffixes_[suffixes_!="-SE27XX"]
+					if (input$METEOIO_ON==FALSE) suffixes_ <- suffixes_[suffixes_!="-METEOIO-ON"]
+					if (input$METEOIO_OFF==FALSE) suffixes_ <- suffixes_[suffixes_!="-METEOIO-OFF"]
+					
+					
+					icsf <- which(names(values.out) %in% suffixes_)	
+						
 					sim <- input$sim 
 					kws <- input$kws
 					layer <- input$layer
-					data_l <- lapply(X=values.out,FUN=function(x,sim,kws,layer){x[[sim]][[kws]][,layer]},
+					data_l <- lapply(X=values.out[icsf],FUN=function(x,sim,kws,layer){
+								o <- try(do.call(args=x[[sim]][[kws]],what=get.geotop.inpts.keyword.value),silent=TRUE)
+								if (class(o)=="try-error")  { 
+									o <- NULL
+								} else { 
+								#print(class(o))
+								#print(layer)
+									o <- o[,layer]
+								}
+								#str(o)
+								return(o)
+								},
 								sim=sim,kws=kws,layer=layer)
-						
+					print(data_l)
+					
 					data_time <- index(data_l[[1]])
 					names_n <- names(data_l)
 					data_l <- lapply(X=data_l,FUN=as.vector)
@@ -229,23 +271,48 @@ shinyServer(function(input, output) {
 						
 					str(data)
 					str(residuals)
-					colors <- RColorBrewer::brewer.pal(3, "Set1")
+					colors <- RColorBrewer::brewer.pal(4, "Set1")[icsf]
 						
-						
-					dygraph(data, ylab="[unit]") %>% dyRangeSelector() %>%
+					main <- paste(sim,kws,layer,sep="::")	
+					
+					dygraph(data, ylab="[unit]",main=main) %>% dyRangeSelector() %>%
 								dyRoller() %>%
-								dyOptions(colors = colors)
+								dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal) %>%
+								dyLegend(labelsSeparateLines = TRUE)
 						
 					})
 					
 					
-			output$dygraph_res <-		
+			output$dygraph_res <-	
+					
 					renderDygraph({
+								
+								suffixes_ <- names(suffixes)
+								if (input$latest==FALSE) suffixes_ <- suffixes_[suffixes_!="latest"]
+								if (input$SE27XX==FALSE) suffixes_ <- suffixes_[suffixes_!="-SE27XX"]
+								if (input$METEOIO_ON==FALSE) suffixes_ <- suffixes_[suffixes_!="-METEOIO-ON"]
+								if (input$METEOIO_OFF==FALSE) suffixes_ <- suffixes_[suffixes_!="-METEOIO-OFF"]
+								
+								
+								icsf <- which(names(values.out) %in% suffixes_)	
+								
 								sim <- input$sim 
 								kws <- input$kws
 								layer <- input$layer
-								data_l <- lapply(X=values.out,FUN=function(x,sim,kws,layer){x[[sim]][[kws]][,layer]},
+								data_l <- lapply(X=values.out[icsf],FUN=function(x,sim,kws,layer){
+											o <- try(do.call(args=x[[sim]][[kws]],what=get.geotop.inpts.keyword.value),silent=TRUE)
+											if (class(o)=="try-error")  { 
+												o <- NULL
+											} else { 
+												#print(class(o))
+												#print(layer)
+												o <- o[,layer]
+											}
+											#str(o)
+											return(o)
+										},
 										sim=sim,kws=kws,layer=layer)
+								print(data_l)
 								
 								data_time <- index(data_l[[1]])
 								names_n <- names(data_l)
@@ -258,14 +325,26 @@ shinyServer(function(input, output) {
 								
 								str(data)
 								str(residuals)
+								colors <- RColorBrewer::brewer.pal(4, "Set1")[icsf]
 								
 								residuals <- data-data[,"-SE27XX"]
-								colors <- RColorBrewer::brewer.pal(3, "Set1")
-								dygraph(residuals, ylab="[unit]") %>% dyRangeSelector() %>%
-										dyRoller() 		 %>%
-										dyOptions(colors = colors)
+								
+								main <- paste(sim,kws,layer,sep="::")	
+								dygraph(residuals, ylab="[unit]",main=main) %>% dyRangeSelector() %>%
+										dyRoller() %>%
+										dyOptions(colors = colors,digitsAfterDecimal=input$digitsAfterDecimal) %>%
+										dyLegend(labelsSeparateLines = TRUE)
+								
 								
 							})
+					
+					#renderDygraph({
+								
+						
+								
+							
+								
+					#		})
 			  output$info <- renderText({
 								"bla-bla"
 							})

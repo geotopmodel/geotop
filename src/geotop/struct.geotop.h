@@ -707,8 +707,7 @@ class Meteo
 {
     public:
         Meteo() : st(NULL), data(NULL), numlines(NULL), horizonlines(NULL),
-            var(NULL), line_interp_WEB(NULL), line_interp_Bsnow(NULL), line_interp_WEB_LR(0), line_interp_Bsnow_LR(0),
-            tau_cloud(0.), tau_cloud_av(0.), tau_cloud_yes(0), tau_cloud_av_yes(0) {}
+            var(NULL), line_interp_WEB(NULL), line_interp_Bsnow(NULL), line_interp_WEB_LR(0), line_interp_Bsnow_LR(0){}
 
         MeteoStations *st;
 
@@ -734,14 +733,17 @@ class Meteo
         long qinsnr;
         long qinline;
 
-        double tau_cloud;                         // tau_cloud for the chosen meteo station used to derive cloud
-        double tau_cloud_av;                      // tau_cloud for the chosen meteo station used to derive cloud
-        short tau_cloud_yes;
-        short tau_cloud_av_yes;
-        GeoMatrix<double> tau_cl_map;             // matrix containing the tau_cloud for each grid point
-        GeoMatrix<double> tau_cl_av_map;          // matrix containing the tau_cloud_av for each grid point
-        GeoMatrix<short> tau_cl_map_yes;          // boolean matrix saying whether the grid point has tau_cl value
-        GeoMatrix<short> tau_cl_av_map_yes;       // boolean matrix saying whether the grid point has tau_cl_av value
+        GeoMatrix<double> tau_cloud;                         // tau_cloud used for shortwave
+        GeoMatrix<double> tau_cloud_av;                      // tau_cloud used for longwave (averaged in a wider interval)
+        GeoMatrix<short> tau_cloud_yes;                      // it is read (1) or used default (0)
+        GeoMatrix<short> tau_cloud_av_yes;
+ 
+    
+//  MB 3.1.2017
+//        GeoMatrix<double> tau_cl_map;             // matrix containing the tau_cloud for each grid point
+//        GeoMatrix<double> tau_cl_av_map;          // matrix containing the tau_cloud_av for each grid point
+//        GeoMatrix<short> tau_cl_map_yes;          // boolean matrix saying whether the grid point has tau_cl value
+//        GeoMatrix<short> tau_cl_av_map_yes;       // boolean matrix saying whether the grid point has tau_cl_av value
 
         GeoMatrix<double> Tgrid;
         GeoMatrix<double> Pgrid;

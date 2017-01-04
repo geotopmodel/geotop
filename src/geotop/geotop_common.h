@@ -32,6 +32,7 @@ namespace geotop
 
             static std::string logfile;
             static std::vector<std::string> files;
+            static std::vector<std::string> filenames;
 
             static long Nl ;
             static long Nr ;

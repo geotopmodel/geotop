@@ -1,27 +1,14 @@
-
 /* STATEMENT:
  
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
  GEOtop 2.1 release candidate  (release date: 31 december 2016)
  
- Copyright (c), 2013 - Stefano Endrizzi 
- 
-GEOtop 2.1
- 
-GEOtop 2.1
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
- 
-GEOtop 2.1
- If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
- 
- If you have satisfactorily used the code, please acknowledge the authors.
  
  */
 
 
-//Author: Stefano Endrizzi
-//Date: 13 November 2005
+//@author: Stefano Endrizzi
+//@date: 13 November 2005
 //Contents: Snow subroutines
 #include <string>
 #include "snow.h"
@@ -1347,8 +1334,8 @@ double interpolate_snow(long r, long c, double h, long max, const GeoTensor<doub
 
 void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum_da_up,int *time_wo_prec,short *evento,
 		short *up_albedo, int tres_wo_prec, double tres_up_albedo, double Ts, double *tsnow_nondim)
-/*
- * Author: Leonardo Perathoner & Matteo dall'Amico August, 2015
+/**
+ * @Author: Leonardo Perathoner & Matteo dall'Amico August, 2015
  * Function that checks if a snow precipitation event is sufficient to trigger the albedo update
  * Psnowi: solid precipitation [mm in Dt]
  * Dt: calculation time [sec]

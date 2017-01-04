@@ -576,10 +576,11 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, do
 	if( res <= Fmin( epsilon , max_res_adm ) ) out=1;
 	//Max iteration number
 	if( cont >= adt->P->MaxiterTol ) out=1;	
-	
+
+#ifdef VERBOSE
 	printf("Richards1D res:%e Tol:%e cont:%ld max:%ld\n",res,Fmin( epsilon , max_res_adm ),cont,adt->P->MaxiterTol);
 	printf("out:%d\n",out);
-	
+#endif
 	while (out==0) {
 		
 		cont++;
@@ -602,7 +603,6 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, do
 		
 		//CONJUGATED GRADIENTS ALGORITHM
 		iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC, tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp, adt->W->Lx);
-		printf("iter:%ld\n",iter);
 		if(iter==-1){
 			return 1;	//does not converge 
 		}

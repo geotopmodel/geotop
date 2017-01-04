@@ -58,8 +58,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 //						 DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin);
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
-		 GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin);
-
+                         GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin,
+                         double tau_cloud, double tau_cloud_av, short tau_cloud_yes, short tau_cloud_av_yes);
 
 
 short SolvePointEnergyBalance(const short surfacemelting, double Tgd, double EBd, double Convd, short surfacebalance, const double t, const double Dt, const long i, const long j, const long r, const long c, SoilState * SL, SoilState *SC,

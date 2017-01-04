@@ -179,7 +179,9 @@ double TauatmSinalpha(double JD, double *others){
 	
 	height = SolarHeight_(JD, others);
 	if (height>0) {
-		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.0);// Matteo, August 2015 corrected 0.5 with 0.0 according to UZH
+		return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,albedo) * Fmax(sin(height),0.05);// Matteo, August 2015 corrected 0.5 with 0.0 according to UZH
+    
+        
 	}else {
 		return 0.0;
 	}
@@ -268,26 +270,20 @@ double Tauatm_(double JD, void *others){ return Tauatm(JD, (double *)others); }
 /******************************************************************************************************************************************/
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-	double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
+	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
 	double tau_cloud_to_use;
-
-	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
-			tau_cloud_to_use = tau_cloud_distr;
-		}else {
-			tau_cloud_to_use = tau_cloud;
-		}
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 
-	kd=diff2glob(tau_cloud_to_use*tau_atm);
+	kd=diff2glob(tau_cloud*tau_atm);
 
 	*tau_atm_sin_alpha = adaptiveSimpsons2(TauatmSinalpha_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//*tau_atm_sin_alpha = tau_atm * sin_alpha;
 
-	*SWd = GTConst::Isc*E0*tau_cloud_to_use*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+	*SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
 	if (shadow == 1) {
 		cos_inc = 0.0;
@@ -299,7 +295,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 		//tau_atm_cos_inc = tau_atm * cos_inc;
 		//cos_inc = sin_alpha;
 		//tau_atm_cos_inc = *tau_atm_sin_alpha;
-		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud_to_use*tau_atm_cos_inc;
+		*SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud*tau_atm_cos_inc;
 	}
 		
 	*cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -313,7 +309,13 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	}else {
 		*SWb_yes = -1;
 	}
-	
+
+
+#ifdef VERY_VERBOSE
+    printf("tauatm:%f tau_cloud:%f kd:%f tausin:%f sky:%f SWrefl:%f  \n",tau_atm,tau_cloud,kd,*tau_atm_sin_alpha,sky,SWrefl_surr);
+    printf("sh:%d cosinc:%f taucos:%f cosincbd:%f SWb:%f SWd:%f \n",shadow,cos_inc,tau_atm_cos_inc,*cos_inc_bd,*SWb,*SWd);
+#endif    
+    
 }
 
 /******************************************************************************************************************************************/
@@ -414,18 +416,12 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double tau_cloud_distr, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
-	double tau_cloud_to_use;
 
-	if ((long)tau_cloud_distr != geotop::input::gDoubleNoValue) {
-		tau_cloud_to_use = tau_cloud_distr;
-	}else {
-		tau_cloud_to_use = tau_cloud;
-	}
-	if(state==1){
+    if(state==1){
 		*eps_min = 1.24*pow((pvap/(T+GTConst::tk)),1./7.); //Brutsaert, 1975
 
 	}else if(state==2){
@@ -462,13 +458,16 @@ void longwave_radiation(short state, double pvap, double RH, double T, double k1
 
 	}
 	
-	*eps = (*eps_min) * tau_cloud_to_use + 1.0 * (1.-tau_cloud_to_use);
-	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-tau_cloud_to_use);
+	*eps = (*eps_min) * tau_cloud + 1.0 * (1.-tau_cloud);
+	*eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-tau_cloud);
 		
 	/*double fcloud;
 	fcloud=pow((1.0-taucloud)/0.75,1/3.4);
 	*eps=(*eps_min)*(1.0-pow(fcloud,6.0))+0.979*pow(fcloud,4.0); Pirazzini*/
-
+  
+#ifdef VERY_VERBOSE
+    printf("state:%d T:%f pvap:%f eps:%f taucloud:%f epsmin:%f epsmax:%f\n",state,T,pvap,*eps,tau_cloud,*eps_min,*eps_max);
+#endif
 
 }
 
@@ -500,46 +499,32 @@ double dSB_dT(double T){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-//void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R, STATEVAR_3D *snow){
   void rad_snow_absorption(long r, long c, GeoVector<double>& frac, double R, Statevar3D *snow){
 
 	long l, m;
 	double res=R, z=0.0, rho, k;
 
 	frac.resize(frac.size(),0.);
-	//initialize_doublevector(frac, 0.);
-	
+		
 	//in case of snow
-//	if( snow->lnum->co[r][c] > 1){
 	if( snow->lnum[r][c] > 1){
 		
-	//	for(l=snow->lnum->co[r][c];l>=1;l--){
 		for(l=snow->lnum[r][c];l>=1;l--){
-		//	m=snow->lnum->co[r][c]-l+1;
 			m=snow->lnum[r][c]-l+1;
-		//	z+=0.001*snow->Dzl->co[l][r][c];
 			z+=0.001*snow->Dzl[l][r][c];
-		//	rho=(snow->w_ice->co[l][r][c]+snow->w_liq->co[l][r][c])/(0.001*snow->Dzl->co[l][r][c]);
 			rho=(snow->w_ice[l][r][c]+snow->w_liq[l][r][c])/(0.001*snow->Dzl[l][r][c]);
 			k=rho/3.0+50.0;
-		//	frac->co[m]=res-R*exp(-k*z);
-			frac[m]=res-R*exp(-k*z);
+            frac[m]=res-R*exp(-k*z);
 			res=R*exp(-k*z);
 		}
 	
-	//	frac->co[snow->lnum->co[r][c]+1]=res;
-		frac[snow->lnum[r][c]+1]=res;
+			frac[snow->lnum[r][c]+1]=res;
 		
 	}else {
-		
-	//	frac->co[0] = res;
-		frac[0] = res;
+           frac[0] = res;
 	}
 }
 	
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta, double dh, double RH, double T,
 						   double P, double SWd, double SWb, double SW, double E0, double sky, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo){
@@ -569,7 +554,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
 	//sin_alpha = Sinalpha( 0.5*(JDbeg+JDend), others);
 	//tau_atm_sin_alpha = tau_atm*sin_alpha;
-	double minTauAtmSinAlpha = 0.03;
+	double minTauAtmSinAlpha = 0.00;
 	if (tau_atm_sin_alpha > minTauAtmSinAlpha) {// matteo added sept 2015 to avoid problems in calculating Tau at sunset when solarHeight is very low
 		if((long)SWd!=geotop::input::gDoubleAbsent && (long)SWd!=geotop::input::gDoubleNoValue && (long)SWb!=geotop::input::gDoubleAbsent && (long)SWb!=geotop::input::gDoubleNoValue){
 			if( SWb+SWd > 0 && SWd > 0){
@@ -704,14 +689,14 @@ double find_tau_cloud_station_meteodistr(double JDbeg, double JDend, long i, Met
 
 short shadows_point(double **hor, long n, double alpha, double azimuth, double tol_mount, double tol_flat)
 
-/*routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
- * Author: Matteo Dall'Amico, May 2011
- Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
- double alpha: solar altitude (degree)
- double azimuth: solar azimuth (degree)
- double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- Output: shad: 1=the point is in shadow, 0 the point is in sun
+/** routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
+ * @author: Matteo Dall'Amico, May 2011
+ *Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
+ *double alpha: solar altitude (degree)
+ *double azimuth: solar azimuth (degree)
+ *double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
+ *double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
+ * Output: shad: 1=the point is in shadow, 0 the point is in sun
  */
 {
 	double horiz_H;// horizon elevation at a defined solar azimuth
@@ -766,15 +751,11 @@ short shadows_point(double **hor, long n, double alpha, double azimuth, double t
 }
 
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
 
-//void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction, SHORTMATRIX *SH)
 void shadow_haiden(GeoMatrix<double>& Z, double alpha, double direction, GeoMatrix<short>& SH)
 
-/*	Author: Thomas Haiden, Year: 16 june 2003
- * 	Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
+/**	@Author: Thomas Haiden, Year: 16 june 2003
+ * 	@brief Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
  *  a solar elevation angle and a solar azimuth.
  *  Inputs:	top 		elevation DTM (m)
  *  		alpha:		solar elevation angle (radiants)
@@ -940,7 +921,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
+void find_actual_cloudiness_meteoio(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta,
 					   double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
@@ -992,7 +973,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_
 	}
 }
 
-void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
 							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
 
@@ -1015,7 +996,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 	}else{
 		SWdata=0;
 	}
-
+    
 	if(SWdata>0){
 		tc = find_tau_cloud_station_meteodistr(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST, SWrefl_surr, Lozone, alpha, beta, albedo);
 		if ( (long)tc != geotop::input::gDoubleNoValue){
@@ -1024,6 +1005,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 		}else {
 			*tau_cloud_yes = 0;
 		}
+        
 	}else{
 		*tau_cloud_yes = 0;
 	}
@@ -1051,6 +1033,7 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 
 	}
 
+    
 }
 //*****************************************************************************************************************
 //*****************************************************************************************************************
@@ -1058,10 +1041,14 @@ void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, 
 //*****************************************************************************************************************
 
 // added from meteodirst.c
+
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate){
 
 	double fcloud, Z_ref, press_ratio, f_max, one_minus_RHe, f_1, Td, Td_700, Tair_700, rh_700;
 
+#ifdef VERY_VERBOSE
+    printf("Tair:%f RH:%f Z:%f LP1:%f LP2:%f\n",Tair,RH,Z,T_lapse_rate,Td_lapse_rate);
+#endif
 	//Assume that 700 mb is equivalent to 3000 m in a standard atmosphere.
 	Z_ref = 3000.0;
 

@@ -63,14 +63,14 @@ double Tauatm(double JD, double *others);
 double Tauatm_(double JD, void *others);
 
 void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_alpha, double E0, double sky, double SWrefl_surr, 
-						 double tau_cloud, double tau_cloud_distr, short shadow, double *SWb, double *SWd, double *cos_inc_bd,
+						 double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd,
 						 double *tau_atm_sin_alpha, short *SWb_yes);
 	
 double diff2glob(double a);
 
 double atm_transmittance(double X, double P, double RH, double T, double Lozone, double a, double b, double rho_g);
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double taucloud_distr, double *eps, double *eps_max, double *eps_min);
+void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double *eps, double *eps_max, double *eps_min);
 
 double SB(double T);
 
@@ -98,12 +98,12 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content, dou
 //void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 //					   METEO *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta, double E0,
 //					   double Et, double ST, double A);
-void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
+void find_actual_cloudiness_meteoio(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes, int meteo_stat_num,
 					   Meteo *met, const std::vector<mio::MeteoData>& vec_meteo, double JDb, double JDe, double Delta, double E0,
 					   double Et, double ST, double A, double Lozone, double alpha, double beta, double albedo);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate, double Td_lapse_rate);
 
-void find_actual_cloudiness_meteodistr(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
 							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo);
 #endif

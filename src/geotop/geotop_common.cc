@@ -14,6 +14,7 @@ TInit *geotop::common::Variables::UV;
 
 std::string geotop::common::Variables::logfile;
 std::vector<std::string> geotop::common::Variables::files;
+std::vector<std::string> geotop::common::Variables::filenames;
 
 long geotop::common::Variables::Nl = 0 ;
 long geotop::common::Variables::Nr = 0 ;
