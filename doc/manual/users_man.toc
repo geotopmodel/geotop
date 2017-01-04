@@ -2,7 +2,7 @@
 \contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}What is GEOtop}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}History}{4}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}GEOtop 0.5}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.1}GEOtop 0.5}{5}{subsection.1.2.1}
 \contentsline {subsection}{\numberline {1.2.2}GEOtop 0.75}{8}{subsection.1.2.2}
 \contentsline {subsection}{\numberline {1.2.3}GEOtop 0.875}{9}{subsection.1.2.3}
 \contentsline {subsection}{\numberline {1.2.4}GEOtop 0.9375}{10}{subsection.1.2.4}

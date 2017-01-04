@@ -1,8 +1,136 @@
-\begin{thebibliography}{0}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[2]{{#1}:\discretionary{}{}{}#2}\else
   \providecommand{\doi}[1]{{#1}:\discretionary{}{}{}\begingroup
   \urlstyle{rm}\Url}\fi
+
+\bibitem[{\textit{Bertoldi et~al.}(2006)\textit{Bertoldi, Rigon, and
+  Over}}]{Bertoldi2006}
+Bertoldi, G., R.~Rigon, and T.~M. Over (2006), Impact of watershed geomorphic
+  characteristics on the energy and water budgets, \textit{J. Hydromet.},
+  \textit{7}, 389--403.
+
+\bibitem[{\textit{Bertoldi et~al.}(2010)\textit{Bertoldi, Notarnicola,
+  Leitinger, Endrizzi, Zebisch, Della~Chiesa, and
+  Tappeiner}}]{bertoldi2010topographical}
+Bertoldi, G., C.~Notarnicola, G.~Leitinger, S.~Endrizzi, M.~Zebisch,
+  S.~Della~Chiesa, and U.~Tappeiner (2010), {Topographical and ecohydrological
+  controls on land surface temperature in an alpine catchment},
+  \textit{Ecohydrology}, \textit{3}(2), 189--204.
+
+\bibitem[{\textit{Bradley}(1968)}]{bradley1968micrometeorological}
+Bradley, E. (1968), {A micrometeorological study of velocity profiles and
+  surface drag in the region modified by a change in surface roughness},
+  \textit{Quart. J. Roy. Meteorol. Soc}, \textit{94}, 361--379.
+
+\bibitem[{\textit{Brutsaert}(1982)}]{brutsaert1982evaporation}
+Brutsaert, W. (1982), \textit{{Evaporation into the atmosphere: theory,
+  history, and applications}}, D Reidel Pub Co.
+
+\bibitem[{\textit{Chamberlain}(1966)}]{chamberlain1966transport}
+Chamberlain, A. (1966), {Transport of gases to and from grass and grass-like
+  surfaces}, \textit{Proceedings of the Royal Society of London. Series A,
+  Mathematical and Physical Sciences}, \textit{290}(1421), 236--265.
+
+\bibitem[{\textit{Dall'Amico}(2010)}]{dallamico2010phd}
+Dall'Amico, M. (2010), {Coupled water and heat transfer in permafrost
+  modeling}, Ph.D. thesis, Institute of Civil and Environmental Engineering,
+  Universita' degli Studi di Trento, Trento. Available from
+  http://eprints-phd.biblio.unitn.it/335/.
+
+\bibitem[{\textit{Dall'Amico et~al.}(2011{\natexlab{a}})\textit{Dall'Amico,
+  Endrizzi, Gruber, and Rigon}}]{dall2010energy}
+Dall'Amico, M., S.~Endrizzi, S.~Gruber, and R.~Rigon (2011{\natexlab{a}}), {A
+  robust and energy-conserving model of freezing variably-saturated soil},
+  \textit{The Cryosphere}, \textit{5}, 469--484.
+
+\bibitem[{\textit{Dall'Amico et~al.}(2011{\natexlab{b}})\textit{Dall'Amico,
+  Endrizzi, and Rigon}}]{dallamico2011snow}
+Dall'Amico, M., S.~Endrizzi, and R.~Rigon (2011{\natexlab{b}}), {Snow mapping
+  of an alpine catchment through the hydrological model GEOtop}, in
+  \textit{Proceedings Conference Eaux en montagne, Lyon 16-17 mars}, pp.
+  255--261, Societe' hydroelectrique de France.
+
+\bibitem[{\textit{Endrizzi}(2007)}]{endrizzi2007phd}
+Endrizzi, S. (2007), {Snow cover modelling at local and distributed scale over
+  complex terrain}, Ph.D. thesis, Ph. D. dissertation, Institute of Civil and
+  Environmental Engineering, Universita' degli Studi di Trento, Trento.
+  Available from http://www.ing.unitn.it/~endrizzi/PhDthesis.pdf.
+
+\bibitem[{\textit{Endrizzi and Marsh}(2010)}]{endrizzi2010observations}
+Endrizzi, S., and P.~Marsh (2010), {Observations and modeling of turbulent
+  fluxes during melt at the shrub-tundra transition zone 1: point scale
+  variations}, \textit{Hydrology Research}, \textit{41}(6), 471--491.
+
+\bibitem[{\textit{Endrizzi et~al.}(submitted)\textit{Endrizzi, Quinton, and
+  Marsh}}]{EndrizziInvest2010}
+Endrizzi, S., W.~L.~B. Quinton, and P.~Marsh (submitted), Modelling the spatial
+  pattern of ground thaw in a small 2 basin in the arctic tundra,
+  \textit{Submitted to The Cryosphere}.
+
+\bibitem[{\textit{Essery et~al.}(1999)\textit{Essery, Li, and
+  Pomeroy}}]{essery1999distributed}
+Essery, R., L.~Li, and J.~Pomeroy (1999), {A distributed model of blowing snow
+  over complex terrain}, \textit{Hydrological Processes}, \textit{13}(14-15),
+  2423--2438.
+
+\bibitem[{\textit{Fichtl and McVehil}(1970)}]{fichtl1970longitudinal}
+Fichtl, G., and G.~McVehil (1970), {Longitudinal and lateral spectra of
+  turbulence in the atmospheric boundary layer at the Kennedy Space Center},
+  \textit{Journal of Applied Meteorology}, \textit{9}(1), 51--63.
+
+\bibitem[{\textit{Gebremichael et~al.}(2009)\textit{Gebremichael, Rigon,
+  Bertoldi, and Over}}]{gebremichael2009scaling}
+Gebremichael, M., R.~Rigon, G.~Bertoldi, and T.~Over (2009), {On the scaling
+  characteristics of observed and simulated spatial soil moisture fields},
+  \textit{Nonlinear Processes in Geophysics}, \textit{16}, 141--150.
+
+\bibitem[{\textit{Liston and Elder}(2006)}]{liston2006meteorological}
+Liston, G., and K.~Elder (2006), {A meteorological distribution system for
+  high-resolution terrestrial modeling (MicroMet)}, \textit{Journal of
+  Hydrometeorology}, \textit{7}(2), 217--234.
+
+\bibitem[{\textit{Noldin et~al.}(2010)\textit{Noldin, Endrizzi, Rigon, and
+  Dall'Amico}}]{NoldinNV2010}
+Noldin, I., S.~Endrizzi, R.~Rigon, and M.~Dall'Amico (2010), {Sistema di
+  drenaggio di un ghiacciaio alpino: modello GEOtop}, \textit{Neve e Valanghe},
+  \textit{69}, 48--54.
+
+\bibitem[{\textit{Pomeroy et~al.}(1993)\textit{Pomeroy, Gray, and
+  Landine}}]{pomeroy1993prairie}
+Pomeroy, J., D.~Gray, and P.~Landine (1993), {The prairie blowing snow model:
+  characteristics, validation, operation}, \textit{Journal of
+  hydrology(Amsterdam)}, \textit{144}(1-4), 165--192.
+
+\bibitem[{\textit{Rigon et~al.}(2006)\textit{Rigon, Bertoldi, and
+  Over}}]{Rigon06}
+Rigon, R., G.~Bertoldi, and T.~M. Over (2006), {GEOtop: a distributed
+  hydrological model with coupled water and energy budgets}, \textit{J.
+  Hydromet.}, \textit{7}, 371--388.
+
+\bibitem[{\textit{Schaap et~al.}(2001)\textit{Schaap, Leij, and van
+  Genuchten}}]{schaap2001rcp}
+Schaap, M., F.~Leij, and M.~van Genuchten (2001), {Rosetta: a computer program
+  for estimating soil hydraulic parameters with hierarchical pedotransfer
+  functions}, \textit{Journal of Hydrology}, \textit{251}(3-4), 163--176.
+
+\bibitem[{\textit{Sutton}(1953)}]{sutton1953micrometeorology}
+Sutton, O. (1953), \textit{{Micrometeorology}}, McGraw-Hill London.
+
+\bibitem[{\textit{{Van Genuchten}}(1980)}]{VanGenuchten1980}
+{Van Genuchten}, M.~T. (1980), A closed-form equation for predicting the
+  hydraulic conductivity of unsaturated soils., \textit{Soil Sci. Soc. Am. J.},
+  \textit{44}, 892--898.
+
+\bibitem[{\textit{YAMAMOTO and SHIMANUKI}(1964)}]{yamamoto1964profiles}
+YAMAMOTO, G., and A.~SHIMANUKI (1964), {Profiles of Wind and Temperature in the
+  Lowest 250 Meters in Tokyo}, \textit{Science reports of the T{\=o}hoku
+  University}.
+
+\bibitem[{\textit{Zanotti et~al.}(2004)\textit{Zanotti, Endrizzi, Bertoldi, and
+  Rigon}}]{zanotti2004geotop}
+Zanotti, F., S.~Endrizzi, G.~Bertoldi, and R.~Rigon (2004), {The GEOTOP snow
+  module}, \textit{Hydrological Processes}, \textit{18}(18), 3667--3679.
 
 \end{thebibliography}
