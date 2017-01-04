@@ -1,23 +1,28 @@
 Installation Instructions
 =========================
 
+:author: Stefano Cozzini (eXact-lab srl) /Emanuele Cordano 
+:date: last revision January 2017
+
+
 To install GEOtop you need the following libraries and tools:
 
     - Git
-    - CMake 2.6 or later (optional but recommended: ccmake ncurses ui)
+    - CMake 2.8 or later (optional but recommended: ccmake ncurses ui)
     - Boost 1.49 or later (filesystem, system, iostreams, regex,
       program_options, unit_test_framework and spirit_classic)
     - PROJ.4 libraries 4.7.0
-    - MeteoIO 2.4.2
+    - MeteoIO 2.5.1
 
 GEOtop is known to run under the following Operating Systems:
 
     - Mac OS X 10.8 or later
     - CentOS 6.5 or later
     - Debian 7
+    - Ubuntu 14.04 or later
 
-CentOS 6.5
-==========
+CentOS 6.5 and superior
+========================= 
 
 1. Install the tools via yum
     $ su
@@ -29,22 +34,23 @@ CentOS 6.5
    libraries
 
 4. Download the PROJ.4 libraries from 
-   http://download.osgeo.org/proj/proj-4.7.0.tar.gz
+    
+    http://download.osgeo.org/proj/proj-4.9.3.tar.gz
 
 5. Unpack the tar.gz and run the usual sequence:
-    $ tar -xvzf proj-4.7.0.tar.gz
-    $ cd proj-4.7.0
+    $ tar -xvzf proj-4.9.3.tar.gz
+    $ cd proj-4.9.3
     $ ./configure
     $ make
     $ su
     # make install
 
 6. Download the MeteoIO libraries from
-   http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.4.2-src.tar.gz
+   http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz
 
 7. Unpack the tar.gz, and run ccmake
-    $ tar -xvzf MeteoIO-2.4.2-src.tar.gz
-    $ cd MeteoIO-2.4.2
+    $ tar -xvzf MeteoIO-2.5.1-src.tar.gz
+    $ cd meteoio
     $ ccmake .
 
 8. IMPORTANT: Enable PROJ.4 support in MeteoIO and then configure and
@@ -73,21 +79,7 @@ Debian 7
 
     # apt-get install libproj-dev
 
-4. Download the MeteoIO libraries from
-   http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.4.2-src.tar.gz
-
-5. Unpack the tar.gz, and run ccmake
-    $ tar -xvzf MeteoIO-2.4.2-src.tar.gz
-    $ cd MeteoIO-2.4.2
-    $ ccmake .
-
-6. IMPORTANT: Enable PROJ.4 support in MeteoIO and then configure and
-   generate the makefiles.
-
-7. Compile and install MeteoIO:
-    $ make
-    $ su
-    # make install
+7. Compile and install MeteoIO, see above 
 
 Now you have installed all the dependecies for GEOtop.
 
@@ -95,7 +87,7 @@ Compiling GEOtop
 ================
 
 1. Get the sources from Github
-    $ git clone https://github.com/skyglobe/geotop.git
+    $ git clone https://github.com/geotopmodel/geotop.git
 
 2. Run ccmake
     $ cd geotop
@@ -114,11 +106,9 @@ CMake options
  CMAKE_INSTALL_PREFIX             /usr/local
  ENABLE_INTERNAL_METEODISTR       ON
  METEOIO_OUTPUT                   OFF
- METEOIO_PATH                     
- PRINT_DOUBLE_PRECISION           OFF
- STAGED_FOR_REMOVING              OFF
- USE_NETCDF                       OFF
+ METEOIO_PATH                     /usr/local
  VERBOSE                          OFF
+ VERY_VERBOSE                     OFF
 
 BUILD_STATIC: If set to ON will build GEOtop as a single static binary.
 
@@ -135,13 +125,7 @@ files.
 
 METEOIO_PATH: Path to MeteoIO libraries
 
-PRINT_DOUBLE_PRECISION: If set to ON will print the output files and the
-recovery files in GEOtop 1.x compatibility mode. (This will be removed).
-
-STAGED_FOR_REMOVING: If set to ON will compile code that is going to be
-removed.
-
-USE_NETCDF: enables experimental NetCDF output.
-
 VERBOSE: increases logging verbosity.
+
+VERY_VERBOSE: increases ieven more logging verbosity.
 
