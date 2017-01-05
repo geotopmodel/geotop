@@ -2305,6 +2305,11 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 
 
                 f = fopen(name.c_str(), "w");
+                if (f==NULL){
+                    lg->logsf(geotop::logger::CRITICAL,"Error opening file: %s\n",name.c_str());
+                    t_error("Error opening file...");
+                }
+
                 first_column = 1;
                 for (j = 0; j < geotop::common::Variables::nopnt; j++)
                 {
