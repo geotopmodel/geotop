@@ -69,7 +69,7 @@ MeteoStationWindVelocitySensorHeight = 2.5
 MeteoStationTemperatureSensorHeight  = 2
 
 !--- METEO INPUT FILES---------------------------
-MeteoFile                   ="meteoB2_irr_dev_"
+MeteoFile                   ="input-meteo/meteoB2_irr_dev_"
 
 !--- METEO FILE HEADERS---------------------------
 HeaderDateDDMMYYYYhhmmMeteo = "Date"     
@@ -82,12 +82,12 @@ HeaderAirTemp               = "AirT"
 HeaderSWglobal              = "Swglobal"
 
 !--- HORIZON FILE ---------------------------
-HorizonMeteoStationFile = "horizon" 
+HorizonMeteoStationFile = "./input/horizon" 
 HeaderHorizonAngle          = "AngleFromNorthClockwise"
 HeaderHorizonHeight         = "HorizonHeight"
 
 !--- VEGETATION INPUT FILE---------------------------
-!TimeDependentVegetationParameterFile = "vegetation_par"
+!TimeDependentVegetationParameterFile = "input/vegetation_par"
 
 
 !=============================================================================
