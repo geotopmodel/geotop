@@ -7,37 +7,35 @@ Installation Instructions
 
 To install GEOtop you need the following libraries and tools:
 
-    - Git
-    - CMake 2.8 or later (optional but recommended: ccmake ncurses ui)
-    - Boost 1.49 or later (filesystem, system, iostreams, regex,
-      program_options, unit_test_framework and spirit_classic)
-    - PROJ.4 libraries 4.7.0
-    - MeteoIO 2.5.1
+- Git
+- CMake 2.8 or later (optional but recommended: ccmake ncurses ui)
+- Boost 1.49 or later (filesystem, system, iostreams, regex,program_options, unit_test_framework and spirit_classic)
+- PROJ.4 libraries 4.7.0
+- MeteoIO 2.5.1
 
 GEOtop is known to run under the following Operating Systems:
 
-    - Mac OS X 10.8 or later
-    - CentOS 6.5 or later
-    - Debian 7
-    - Ubuntu 14.04 or later
+- Mac OS X 10.8 or later
+- CentOS 6.5 or later
+- Debian 7
+- Ubuntu 14.04 or later
 
 CentOS 6.5 and superior
 ========================= 
 
-1. Install the tools via yum
+1 Install the tools via yum::
+
     $ su
     # yum install cmake git
 
-2. Download the Boost libraries from www.boost.org
+2 Download the Boost libraries from www.boost.org
 
-3. Follow the Getting Started Guide on the Boost website to install the
-   libraries
+3 Follow the Getting Started Guide on the Boost website to install the libraries
 
-4. Download the PROJ.4 libraries from 
-    
-    http://download.osgeo.org/proj/proj-4.9.3.tar.gz
+4 Download the PROJ.4 libraries from  http://download.osgeo.org/proj/proj-4.9.3.tar.gz
 
-5. Unpack the tar.gz and run the usual sequence:
+5 Unpack the tar.gz and run the usual sequence::
+
     $ tar -xvzf proj-4.9.3.tar.gz
     $ cd proj-4.9.3
     $ ./configure
@@ -45,18 +43,17 @@ CentOS 6.5 and superior
     $ su
     # make install
 
-6. Download the MeteoIO libraries from
-   http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz
+6 Download the MeteoIO libraries from http://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.5.1-src.tar.gz
 
-7. Unpack the tar.gz, and run ccmake
+7 Unpack the tar.gz, and run ccmake::
     $ tar -xvzf MeteoIO-2.5.1-src.tar.gz
     $ cd meteoio
     $ ccmake .
 
-8. IMPORTANT: Enable PROJ.4 support in MeteoIO and then configure and
+8 IMPORTANT: Enable PROJ.4 support in MeteoIO and then configure and
    generate the makefiles.
 
-9. Compile and install MeteoIO:
+9 Compile and install MeteoIO::
     $ make
     $ su
     # make install
@@ -66,39 +63,44 @@ Now you have installed all the dependecies for GEOtop.
 Debian 7
 ========
 
-1. Install the tools via apt-get
+1 Install the tools via apt-get::
 
     $ su
     # apt-get install cmake-curses-gui git
 
-2. Install the Boost libraries via apt-get
+2 Install the Boost libraries via apt-get::
 
     # apt-get install libboost-all-dev
 
-3. Install the PROJ.4 librareis via apt-get
+3 Install the PROJ.4 librareis via apt-get
 
     # apt-get install libproj-dev
 
-7. Compile and install MeteoIO, see above 
+7 Compile and install MeteoIO, see above
 
 Now you have installed all the dependecies for GEOtop.
 
 Compiling GEOtop
 ================
 
-1. Get the sources from Github
+1 Get the sources from Github::
+
     $ git clone https://github.com/geotopmodel/geotop.git
 
-2. Run ccmake
+2 Run ccmake::
+
     $ cd geotop
     $ ccmake .
 
-3. Configure and generate the makefiles
+3 Configure and generate the makefiles
 
-4. Run make
+4 Run make
+5 Run make test to check that all tests work fine 
 
 CMake options
 =============
+
+Here the list of option you may specify when you configure Cmake::
 
      Option                     Default
  BUILD_STATIC                     OFF
@@ -109,6 +111,7 @@ CMake options
  METEOIO_PATH                     /usr/local
  VERBOSE                          OFF
  VERY_VERBOSE                     OFF
+
 
 BUILD_STATIC: If set to ON will build GEOtop as a single static binary.
 
