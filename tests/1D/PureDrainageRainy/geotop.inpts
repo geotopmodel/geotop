@@ -2,8 +2,8 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 18/06/2000 19:00
-EndDateDDMMYYYYhhmm = 07/07/2000 01:00
+InitDateDDMMYYYYhhmm = 18/06/2014 19:00
+EndDateDDMMYYYYhhmm = 07/07/2014 01:00
 EnergyBalance =1
 WaterBalance = 1
 PointSim = 1
