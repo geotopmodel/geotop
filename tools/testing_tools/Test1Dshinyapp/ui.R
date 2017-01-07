@@ -20,8 +20,8 @@ fluidPage(
 						checkboxInput(inputId = "SE27XX",label = strong("SE27XX"),value = TRUE),
 						checkboxInput(inputId = "METEOIO_OFF",label = strong("METEOIO-OFF"),value = TRUE),
 						checkboxInput(inputId = "METEOIO_ON",label = strong("METEOIO-ON"),value = FALSE),
-						sliderInput(inputId="digitsAfterDecimal", label=strong("Digits After Decimal:"),min=0, max=20, value=5)	
-								
+						sliderInput(inputId="digitsAfterDecimal", label=strong("Digits After Decimal:"),min=0, max=20, value=5),	
+						uiOutput("sim_meteo_ui")	
 #uiOutput("sim_vars_ui")
 						#selectInput('var', 'Variable',uiOutput("sim_vars"))
 						#sliderInput("n", "Number of points:",
@@ -40,12 +40,15 @@ fluidPage(
 				# input$n are accessed with dots, as in input.n
 				#showPanel("input.n >= 50",
 						dygraphOutput("dygraph"), ##, height = 300)
-						"",
+						"\n",
 						"",
 				 "residuals from SE27XX:",
 				 "",
 				 "",
-				        dygraphOutput("dygraph_res")
+				        dygraphOutput("dygraph_res"),
+						"\n",
+						"Meteorological Data:",
+						dygraphOutput("dygraph_meteo")
 				#)
 		)
 

@@ -76,7 +76,7 @@ for (it in names(keywords.out)) {
 	keywords.out[[it]]$formatter <- "%04d"
 	keywords.out[[it]]$formatter[keywords.out[[it]]$Keyword %in% c("BasinOutputFile","DischargeFile","SnowCoveredAreaFile")] <- ""
 	keywords.out[[it]]$tz <- timezone[[it]]
-	keywords.out[[it]]$level <- 1
+	keywords.out[[it]]$level <- 1 ##paste(c(1,32,33),collapse=",")
 	if (it=="Jungfraujoch") keywords.out[[it]]$level <- "32,33"
 }
 
@@ -92,7 +92,8 @@ values.out <- list()
 
 #print("ccc")
 #print(suffixes)
-print(keywords.out)
+#print(keywords.out)
+
 for (it_s in names(suffixes)) {
 #	print(it_s)
 	values.out[[it_s]] <- lapply(X=keywords.out,FUN=function(x,add_suffix_dir,inpts.file) {
@@ -114,16 +115,7 @@ for (it_s in names(suffixes)) {
 				level <- as.list(level)
 			}
 			
-	#		print(length(wpath))
-	#		print(length(add_suffix_dir))
-	#		print(length(vars))
-	#		print(length(inpts.file))
-	#		print(length(formatter))
-	#		print(tz)
-	#		o <- (mapply(keyword=vars,FUN=get.geotop.inpts.keyword.value,inpts.file=inpts.file,
-    #        wpath=wpath,data.frame=TRUE,date_field="Date12.DDMMYYYYhhmm.",tz=tz,
-    #        formatter=formatter,add_suffix_dir=add_suffix_dir,level=level))
-
+	
 			o <- list()
 			
 			
@@ -139,16 +131,13 @@ for (it_s in names(suffixes)) {
 				itn <- sprintf("%s%04d",vars[i],lll)
 				
 				if (formatter[i]=="") itn <- vars[i]
-#				o[[itn]] <- try(get.geotop.inpts.keyword.value(keyword=vars[i],inpts.file=inpts.file,
-#				wpath=wpath,data.frame=TRUE,date_field=date_field,tz=tz[1],
-#				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll),silent=TRUE)
 				o[[itn]] <- list(keyword=vars[i],inpts.file=inpts.file,
 				wpath=wpath,data.frame=TRUE,date_field=date_field,tz=tz[1],
 				formatter=formatter[i],add_suffix_dir=add_suffix_dir,level=lll)
 				v <- o[[itn]]
 				v[["header.only"]] <- TRUE
 				attr(o[[itn]],"header") <- try(do.call(what=get.geotop.inpts.keyword.value,args=v),silent=TRUE)
-## TO GO ON ...
+
 				}
 			}
 			
@@ -164,52 +153,47 @@ for (it_s in names(suffixes)) {
 }
 
 sim_names <- names(values.out[[1]])
-print(values.out)
-#stop("stop HERE")
-## Search nemes of the simulations 
-#sim_names <- names(values.out[[1]])
-#sim_vars <- NULL
-#for (it0 in sim_names) {
-#	
-#	sim_keywords <- names(values.out[[1]][[it0]])
-#	for (it1 in sim_keywords) {
-#		vars <- names(values.out[[1]][[it0]][[it1]])
-#		sim_vars <- c(sim_vars,paste(it0,it1,vars,sep=";"))
-#	}
-#	
-#}	
-#
-#sim_vars <<- sim_vars
-#print("Testing")
-#var <- sim_vars[10]
-#
-#
-#
-#data_l <- lapply(X=values.out,FUN=function(x,var){
-#			
-#			ss <- str_split(var,";")[[1]]
-#			sim <- ss[1]
-#			kw <- ss[2]
-#			col <- ss[3]
-#			
-#			return(x[[sim]][[kw]][,col])
-#			
-#			
-#			
-#		},var=var)
-#
-#data_time <- index(data_l[[1]])
-#names_n <- names(data_l)
-#data_l <- lapply(X=data_l,FUN=as.vector)
-#data <- as.zoo(as.data.frame(do.call(what="cbind",args=data_l)))
-#index(data) <- data_time 
-#
-#
-#
-#stop("Testing")
+
+# ...
+
+
+wpathm <- sapply(X=keywords.out,FUN=function(x){x$sim_wpath[1]})
+
+#### METEO DATA
+meteodata <- list()
+for (itme in sim_names) {
+	level <- 1
+	wpme <- keywords.out[[itme]]$sim_wpath[1]
+	tz <- keywords.out[[itme]]$tz[1]
+	date_field <- try(get.geotop.inpts.keyword.value("HeaderDateDDMMYYYYhhmmMeteo",wpath=wpme,inpts.file=inpts.file,exceptions="none"),silent=TRUE)
+	if (class(date_field)=="try-error") date_field <- "Date"
+	
+	start_date <-  get.geotop.inpts.keyword.value("InitDateDDMMYYYYhhmm",date=TRUE,wpath=wpme,tz=tz) 
+	end_date <- get.geotop.inpts.keyword.value("EndDateDDMMYYYYhhmm",date=TRUE,wpath=wpme,tz=tz) 
+	
+	
+	meteo.args  <- list(keyword="MeteoFile",wpath=wpme,data.frame=TRUE,level=level,date_field=date_field,tz=tz,inpts.file=inpts.file,start_date=start_date,end_date=end_date,MAXNROW=1)
+	meteodata[[itme]]  <- meteo.args   
+	meteo.args[["header.only"]] <- TRUE
+	
+	attr(meteodata[[itme]],"header") <- try(do.call(what=get.geotop.inpts.keyword.value,args=meteo.args),silent=TRUE)
+	
+	if (class(attr(meteodata[[itme]],"header"))=="try-error")    {
+		
+		msg <- sprintf("Issue in meteo dat%s",paste(unlist(meteodata[[itme]]),collapse=" "))
+		stop(msg)
+		
+	}                                                       
+		
+	
+	
+	
+	
+}
 
 
 
+## SERVER
 
 
 shinyServer(function(input, output) {
@@ -226,7 +210,7 @@ shinyServer(function(input, output) {
 	output$sim_names_ui <-renderUI({selectInput('sim', 'GEOtop Simulation Test',c("LOADING",sim_names))})
 	output$sim_kws_ui <-renderUI({selectInput('kws', 'Variable / Keyword',c("LOADING",names(values.out[[1]][[input$sim]])))})
 	output$sim_layer_ui <-renderUI({selectInput('layer', 'Layer / Variable',c("LOADING",attr(values.out[[1]][[input$sim]][[input$kws]],"header")))})
-	
+	output$sim_meteo_ui <-renderUI({selectInput('meteo', 'Meteorological Forcing Variable',c("LOADING",attr(meteodata[[input$sim]],"header")))})
 	###uiOutput("dupes")
 	
 	
@@ -323,8 +307,8 @@ shinyServer(function(input, output) {
 								
 								###	residuals <- data-data[,"-SE27XX"]
 								
-								str(data)
-								str(residuals)
+								#str(data)
+								#str(residuals)
 								colors <- RColorBrewer::brewer.pal(4, "Set1")[icsf]
 								
 								residuals <- data-data[,"-SE27XX"]
@@ -338,6 +322,32 @@ shinyServer(function(input, output) {
 								
 							})
 					
+							
+		output$dygraph_meteo <-	
+									
+				renderDygraph({
+							    meteocol <- input$meteo
+							    sim <- input$sim 
+								data <- try(do.call(args=meteodata[[sim]],what=get.geotop.inpts.keyword.value),silent=TRUE)
+								if (class(data)=="try-error")  { 
+									data <- NULL
+								} else { 
+									#print(class(o))
+									#print(layer)
+									data <- data[,meteocol]
+								}	
+							
+								data[data<=-9990.0] <- NA
+								main <- paste(sim,"meteo0001",meteocol,sep="::")
+								dygraph(data, ylab="[unit]",main=main) %>% dyRangeSelector() %>%
+										dyRoller() %>%
+										dyOptions(digitsAfterDecimal=input$digitsAfterDecimal) %>%
+										dyLegend(labelsSeparateLines = TRUE)
+												
+												
+												
+				})
+							
 					#renderDygraph({
 								
 						
@@ -345,6 +355,7 @@ shinyServer(function(input, output) {
 							
 								
 					#		})
+
 			  output$info <- renderText({
 								"bla-bla"
 							})
