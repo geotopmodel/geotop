@@ -5,7 +5,8 @@
 !energy_balance is NOT converging at the date of this commit 
 TimeStepEnergyAndWater = 300
 InitDateDDMMYYYYhhmm = 17/06/2014 19:00
-EndDateDDMMYYYYhhmm = 28/07/2014 21:00
+EndDateDDMMYYYYhhmm = 09/07/2014 21:00
+!! in order to correctly run with meteo-io on simulation period should be contained in meteo data period.
 EnergyBalance =1
 WaterBalance = 1
 PointSim = 1
