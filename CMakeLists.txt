@@ -43,11 +43,21 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
 endif()
 
 ###########################################################
+
+IF(APPLE)
+    EXEC_PROGRAM(uname ARGS -v OUTPUT_VARIABLE DARWIN_VERSION)
+    STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+    MESSAGE("DARWIN_VERSION=${DARWIN_VERSION}")
+    IF (DARWIN_VERSION STRLESS 16)
+        SET(APPLE_OLD_OSX ON)
+    ENDIF(DARWIN_VERSION STRLESS 16)
+ENDIF(APPLE)
+
+###########################################################
 # user options
 
 SET(METEOIO_PATH "/usr/local/" CACHE PATH "location of the MeteoIO library" )
 SET(BUILD_STATIC OFF CACHE BOOL "choose between static or dynamic linking")
-SET(PRINT_DOUBLE_PRECISION OFF CACHE BOOL "enable printing with 12 significant cyphers")
 SET(VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(VERY_VERBOSE OFF CACHE BOOL "enable printing of verification data")
 SET(ENABLE_INTERNAL_METEODISTR ON CACHE BOOL "Use internal meteo interpolation routine instead of using MeteoIO")
@@ -260,7 +270,7 @@ SET(CPACK_PACKAGE_VENDOR "Università degli Studi di Trento")
 # SET(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/icons\\\\icon.ico")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/doc/COPYING.txt")
 SET(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/Welcome.txt")
-SET(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
+SET(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.rst")
 
 IF (DEST MATCHES "par")
 	SET(PACKAGE_EXTRA "-par")
@@ -308,7 +318,7 @@ SET(CPACK_PACKAGE_EXECUTABLES "geotop;GEOtop")
 IF(UNIX)
 	IF(APPLE)
 		SET(CPACK_GENERATOR "PackageMaker")
-		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+		SET(CPACK_PACKAGING_INSTALL_PREFIX "/opt/local")
 	ELSE(APPLE)
 		SET(CPACK_GENERATOR "DEB;RPM;TGZ")
 		SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr")

@@ -6,46 +6,46 @@ PROJECT(geotop)
 # ascii
 SET( ASCII_LIBRARIES
     "ascii" )
-IF(APPLE)
+IF(APPLE_OLD_OSX)
 	SET(ASCII_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/libraries/ascii")
 	SET(ASCII_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/libraries/ascii")
-ELSE(APPLE)
+ELSE(APPLE_OLD_OSX)
 	SET(ASCII_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/src/libraries/ascii")
 	SET(ASCII_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/src/libraries/ascii")
-ENDIF(APPLE)
+ENDIF(APPLE_OLD_OSX)
 
 # gt_utilities
 SET( GT_UTILITIES_LIBRARIES
     "gt_utilities" )
-IF(APPLE)
+IF(APPLE_OLD_OSX)
 	SET( GT_UTILITIES_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/gt_utilities")
 	SET( GT_UTILITIES_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/gt_utilities")
-ELSE(APPLE)
+ELSE(APPLE_OLD_OSX)
 	SET( GT_UTILITIES_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/src/gt_utilities")
 	SET( GT_UTILITIES_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/src/gt_utilities")
-ENDIF(APPLE)
+ENDIF(APPLE_OLD_OSX)
 
 # meteoio_plugin
 SET( METEOIO_PLUGIN_LIBRARIES 
     "meteoioplugin" )
-IF(APPLE)
+IF(APPLE_OLD_OSX)
 	SET( METEOIO_PLUGIN_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/meteoio_plugin")
 	SET( METEOIO_PLUGIN_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/meteoio_plugin")
-ELSE(APPLE)
+ELSE(APPLE_OLD_OSX)
 	SET( METEOIO_PLUGIN_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/src/meteoio_plugin")
 	SET( METEOIO_PLUGIN_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/src/meteoio_plugin")
-ENDIF(APPLE)
+ENDIF(APPLE_OLD_OSX)
 
 # geotop
 SET( GEOTOP_LIBRARIES
     "geotopAll" )
-IF(APPLE)
+IF(APPLE_OLD_OSX)
 	SET( GEOTOP_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/geotop")
 	SET( GEOTOP_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/geotop")
-ELSE(APPLE)
+ELSE(APPLE_OLD_OSX)
 	SET( GEOTOP_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/src/geotop")
 	SET( GEOTOP_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/src/geotop")
-ENDIF(APPLE)
+ENDIF(APPLE_OLD_OSX)
 
 ###########################################################
 # set variables for internal libraries
@@ -104,7 +104,7 @@ include_directories(
 ) 
 
 link_directories(
-        # "/opt/local/lib"
+        "/opt/local/lib"
         "/usr/local/lib"
 	${ASCII_LIBRARY_PATH}
 	${GEOTOP_LIBRARY_PATH}

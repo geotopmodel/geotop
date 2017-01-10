@@ -155,8 +155,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	}	
 
     // do we need this ?? SC 23.12.2016
-    // TODO: write in the log
-    lg->logf("file index SPAR %d", fspar);
+    // TODO: write in the log DONE
+    lg->logf("file index SPAR (soil parameter) %d", fspar);
     lg->logf("file name assigned : %s \n",geotop::common::Variables::files[fspar].c_str());
 
     

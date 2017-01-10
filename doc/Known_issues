@@ -1,7 +1,0 @@
-KNOWN ISSUES
-
-1. In order to work properly, MeteoStandardTime and StandardTimeSimulation coherently should be explicitately written in geotop.inpts . 
-
-2. Observed different behavior between SE27XX and METEOIO-OFF, teke as exemple the 1D test PureDrainage. 
-
-3.  

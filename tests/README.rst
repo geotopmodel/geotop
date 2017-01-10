@@ -2,6 +2,9 @@
 GEOtop Testing
 ##############
 
+
+:date:  last revision january 2017 
+
 This directory contains several tests (1D and 3D)  to check if geotop runs smoothly.
 Simulation are very short and just check if code runs without any problems.
 
