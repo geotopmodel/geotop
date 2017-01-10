@@ -13,7 +13,7 @@ install.packages("rgdal")
 install.packages("shiny")
 install.packages("dygraphs")
 install.packages("RColorBrewer")
-devtools::install_github("ecor/geotopbricks") ## It is suggested to install "geotopbricks" from Github (the latest version:  1.4.8 or higher) respected to the one from CRAN!!! 
+devtools::install_github("ecor/geotopbricks") ## It is suggested to install "geotopbricks" from Github (the latest version:  1.4.9 or higher) respected to the one from CRAN!!! 
 
 
 ```
