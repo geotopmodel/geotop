@@ -1,9 +1,11 @@
 GEOtop
 ======
 
+|Build Status| |License (GPL version 3)|
+
 :date:  last revision January 2017
 
-|Build Status| |License (GPL version 3)|
+
 
 GEOtop is a distributed model of the mass and energy balance of the
 hydrological cycle, which is applicable to simulations in continuum in
@@ -41,7 +43,8 @@ Please use the github issues facility
 References
 ----------
 
-.. [Build Status](https://travis-ci.org/geotopmodel/geotop.svg?branch=master)](https://travis-ci.org/geotopmodel/geotop)
+.. |Build Stutus| image:: https://travis-ci.org/geotopmodel/geotop.svg?branch=master
+    :target: https://travis-ci.org/geotopmodel/geotop
 .. |License (GPL version 3)| image:: https://img.shields.io/badge/license-GNU%20GPL%20version%203-blue.svg
    :target: http://opensource.org/licenses/GPL-3.0
 
