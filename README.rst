@@ -43,7 +43,7 @@ Please use the github issues facility
 References
 ----------
 
-.. |Build Stutus| image:: https://travis-ci.org/geotopmodel/geotop.svg?branch=master
+.. |Build Status| image:: https://travis-ci.org/geotopmodel/geotop.svg?branch=master
     :target: https://travis-ci.org/geotopmodel/geotop
 .. |License (GPL version 3)| image:: https://img.shields.io/badge/license-GNU%20GPL%20version%203-blue.svg
    :target: http://opensource.org/licenses/GPL-3.0
