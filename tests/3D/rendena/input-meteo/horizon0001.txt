@@ -1,0 +1,12 @@
+! Horizon file for met station or point #1 
+! All measures in degrees
+
+AngleFromNorthClockwise,HorizonHeight
+0,5.47980558289688
+45,0
+90,7.66923740058768
+135,4.41444533069994
+180,0
+225,8.88774340523624
+270,18.0254636606798
+315,14.458387595746

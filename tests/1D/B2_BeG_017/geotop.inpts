@@ -18,7 +18,7 @@ Longitude = 10.579
  
 TimeStepEnergyAndWater = 900
 InitDateDDMMYYYYhhmm   = 09/04/2014 18:00
-EndDateDDMMYYYYhhmm    = 01/01/2016 00:00
+EndDateDDMMYYYYhhmm    = 15/04/2014 00:00
 StandardTimeSimulation = 1
 
 ! Output timeseries time stepping ----------
