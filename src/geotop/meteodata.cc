@@ -43,8 +43,7 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
     iend = find_line_data(flag, tend, ibeg, data, col_date, nlines, &aend);
 
 #ifdef VERY_VERBOSE
-    geotop::logger::GlobalLogger* lg =
-        geotop::logger::GlobalLogger::getInstance();
+    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
     lg->logsf(geotop::logger::TRACE,
              "time_interp_linear istart:%ld ibeg:%ld iend:%ld tbeg:%f tend:%f abeg:%ld aend:%ld",
@@ -64,8 +63,7 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out, double
             if ( (long)out[i] != geotop::input::gDoubleNoValue) {
                 add = integrate_meas_linear_beh(flag, tbeg, ibeg+1, data, i, col_date);
 #ifdef VERY_VERBOSE
-                lg->logsf(geotop::logger::TRACE,
-                          "0:tbeg:%f add:%f",tbeg,add);
+                lg->logsf(geotop::logger::TRACE, "0:tbeg:%f add:%f",tbeg,add);
 #endif
                 if ((long)add != geotop::input::gDoubleNoValue) {
                     out[i] += add;

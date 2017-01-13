@@ -581,6 +581,7 @@ double **read_txt_matrix(std::string filename, long comment_char, long sep_char,
     Header = ReadHeader(f, filename, &ncols);
 
     Coder = ColumnCoder(filename, Col_Descr, ncolsCol_Descr, Header, ncols);
+    
     Data = read_datamatrix(f, comment_char, sep_char, *nlines, ncols);
     fclose(f);
 

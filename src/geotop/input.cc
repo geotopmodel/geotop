@@ -21,7 +21,6 @@
 #include <unistd.h>
 #include "inputKeywords.h"
 #include "geotop_common.h"
-
 #include <iostream>
 #include "global_logger.h"
 
@@ -47,6 +46,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0; //varible not used, but set
     long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
+    double initial_date_meteo, end_date_meteo;
+    long d,m,y,mi,h;
 	short count_file_missing=0;  // needed to check if some output map files are present or not 
     std::vector<std::string> temp2 ;
     string temp;
@@ -276,10 +277,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     
     
     /****************************************************************************************************/
-    //Reading of RAIN data file,	METEO data file, 	and CLOUD data file
-    lg->log("Start Reading RAIN/METEO/CLOUD data files...");
+    //Reading METEO data file
+    lg->log("Start Reading METEO data files...");
     
-    num_cols = (long)nmet;
+    num_cols = (long)nmet; // number of possible columns of meteodata
 
     //	meteo data
     met->data=(double***)malloc(met->st->E.size()*sizeof(double**));
@@ -287,6 +288,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names);
+    if (success == 0) { lg->logf(" File for keyword %s is not assigned ", geotop::common::Variables::filenames[fmetstlist].c_str());}
     mio::Config cfg = iomanager.getConfig();
     std::string input_meteo_plugin = cfg.get("METEO", "Input");
     if(input_meteo_plugin!="GEOTOP"){
@@ -307,24 +309,26 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->line_interp_Bsnow_LR=0;
 #endif
     long num_met_stat=met->st->E.size()-1;
-
-    if(num_met_stat < 0)
-        num_met_stat = 0;
+    lg->logf("Numbers of Meteo Stations read: %d",num_met_stat);
+    
+    if(num_met_stat < 0)  num_met_stat = 0;
 
     for(size_t i=1; i <= (size_t)num_met_stat; i++){
+        // check if there is a list of meteostation
         if (met->imeteo_stations[1] != geotop::input::gDoubleNoValue) {
             ist = met->imeteo_stations[i];
         }else {
             ist = i;
         }
-        
+
+        lg->logf("Reading horizon for : %d meteo station",i);
         //	read horizon
         met->horizon[i-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
-        // ##################################################################################################################################
+
         // #####################Probably the next lines should not be necessary if we use meteoIO   #####################################
-        // ##################################################################################################################################
+      
 #ifdef USE_INTERNAL_METEODISTR
         //initialize
         met->line_interp_WEB[i-1] = 0;
@@ -353,7 +357,30 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 exit(1);
             }
             met->numlines[i-1] = num_lines;
+            lg->logf("Read meteo data for meteo station #: %d with number of lines=%d",i,num_lines);
 
+            // get initial and final dates and compares against simulation periods
+            // let us make comparison in JDfrom0 format.
+            
+            initial_date_meteo = convert_dateeur12_JDfrom0(met->data[i-1][1][iDate12]);
+            end_date_meteo= convert_dateeur12_JDfrom0(met->data[i-1][num_lines-1][iDate12]);
+            
+            convert_dateeur12_daymonthyearhourmin(met->data[i-1][0][iDate12], &d, &m, &y, &h, &mi);
+            lg->logf("Initial date of meteo data : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            
+            convert_dateeur12_daymonthyearhourmin(met->data[i-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
+            
+            lg->logf("Final date of meteo data :c%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            
+            if (initial_date_meteo > par->init_date) {
+            
+                lg->log("Initial date for meteo data greater that starting date of simulation",geotop::logger::WARNING);
+                     }
+            if (end_date_meteo <  par->end_date)  {
+                lg->log("Ending date for meteo data smaller than ending date of simulation",geotop::logger::WARNING);
+            }
+           
+            
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
             short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
 
@@ -374,7 +401,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     exit(666);
                     break;
             }
-
+        
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
             //find clouds
