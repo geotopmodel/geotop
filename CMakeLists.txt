@@ -176,9 +176,6 @@ ENDIF(UNIX)
 ###########################################################
 # set extra flags
 
-IF (PRINT_DOUBLE_PRECISION)
-	add_definitions(-DUSE_DOUBLE_PRECISION_OUTPUT)
-ENDIF (PRINT_DOUBLE_PRECISION)
 
 IF (VERBOSE)
 	add_definitions(-DVERBOSE)
@@ -195,6 +192,26 @@ ENDIF (WITH_LOGGER)
 IF (METEOIO_OUTPUT)
     add_definitions(-DMETEOIO_OUTPUT)
 ENDIF (METEOIO_OUTPUT)
+
+##### Version file to keep track on some variable 
+IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
+  FIND_PACKAGE(Git)
+  IF(GIT_FOUND)
+     EXECUTE_PROCESS(
+     COMMAND ${GIT_EXECUTABLE}  describe --tags --always --abbrev=8 
+     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+     OUTPUT_VARIABLE "GEOtop_BUILD_VERSION"
+     ERROR_QUIET
+     OUTPUT_STRIP_TRAILING_WHITESPACE)
+     MESSAGE( STATUS "Git version: ${GEOtop_BUILD_VERSION}" )
+     ELSE(GIT_FOUND)
+       SET(GEOtop_BUILD_VERSION 0)
+     ENDIF(GIT_FOUND)
+ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
+
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version.h)
+
 
 #Add subdirectory, so it can inherit all variables defined above
 SUBDIRS(src)
@@ -221,9 +238,7 @@ INSTALL(FILES ${hGeotopSoil} DESTINATION include/geotop/src/geotop/Soil COMPONEN
 INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPONENT headers)
 INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
-#INSTALL(FILES ${hLibrariesFT} DESTINATION include/geotop/src/libraries/fluidturtle COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
-#INSTALL(FILES ${hNetCDF} DESTINATION include/geotop/src/netCDF COMPONENT headers)
 
 ###########################################################
 #for the uninstall target

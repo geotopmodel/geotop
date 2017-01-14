@@ -26,10 +26,10 @@
 
 using namespace std ;
 
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
 
@@ -56,34 +56,17 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     IT = new InitTools();
 
-    if (geotop::common::Variables::WORKING_DIRECTORY != "")
-    {
-        
-    } else if(!argv[1]){
-        geotop::common::Variables::WORKING_DIRECTORY=get_workingdirectory();
-    }else if (argc==2){
-        // modified by Emanuele Cordano on Aug 2011
-        geotop::common::Variables::WORKING_DIRECTORY = argv[1] ;
-    }
     
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
-    lg->writeAll("STATEMENT:\n");
-    lg->writeAll("\n");
-    lg->writeAll("GEOtop 2.1  31 december 2016 \n\n");
-    lg->writeAll("Copyright (c), 2016 - GEOtop Foundation \n\n");
-    lg->writeAll("GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-    lg->writeAll("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-    lg->writefAll("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
-    lg->log("Using Experimental Logger");
-
+ 
     if (geotop::common::Variables::WORKING_DIRECTORY[strlen(geotop::common::Variables::WORKING_DIRECTORY.c_str())-1] != 47) {
         temp = geotop::common::Variables::WORKING_DIRECTORY;
         geotop::common::Variables::WORKING_DIRECTORY = temp + "/";
     }
 
     
-    std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
+   
 
     //reads the parameters in __control_parameters
  
@@ -98,7 +81,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
     }
 
-    //TODO: DONE 27.11.2016 correct this BEFORE the flog variable removal
     success = read_inpts_par(par, land, times, sl, met, IT);
 
 	//correct state pixel
@@ -155,8 +137,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
 	}	
 
-    // do we need this ?? SC 23.12.2016
-    // TODO: write in the log DONE
+
     lg->logf("file index SPAR (soil parameter) %d", fspar);
     lg->logf("file name assigned : %s \n",geotop::common::Variables::files[fspar].c_str());
 
@@ -201,7 +182,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->init_date += par->delay_day_recover;
     convert_JDfrom0_JDandYear(par->init_date, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
-
+    // TODO remove this, after having understood line above which contains i_run0
+    
 	geotop::common::Variables::i_run = geotop::common::Variables::i_run0;//Run index
 		
     /****************************************************************************************************/
@@ -214,8 +196,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	par->up_albedo=0;// false
 	par->tres_wo_prec=12*3600;
 
-	// ##################################################################################################################################
-    // ##################################################################################################################################
+	// ##########################################################################################################################
+    // #######################################################################################################################
     par->use_meteoio_cloud = false;
 #ifndef USE_INTERNAL_METEODISTR
     par->use_meteoio_cloud = true;
@@ -288,7 +270,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names);
-    if (success == 0) { lg->logf(" File for keyword %s is not assigned ", geotop::common::Variables::filenames[fmetstlist].c_str());}
+    if (success == 0) { lg->logf(" File for keyword %s is not assigned", geotop::common::Variables::filenames[fmetstlist].c_str());}
     mio::Config cfg = iomanager.getConfig();
     std::string input_meteo_plugin = cfg.get("METEO", "Input");
     if(input_meteo_plugin!="GEOTOP"){
@@ -312,7 +294,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     lg->logf("Numbers of Meteo Stations read: %d",num_met_stat);
     
     if(num_met_stat < 0)  num_met_stat = 0;
-
+    
+    // loop over meteo files..
+    
     for(size_t i=1; i <= (size_t)num_met_stat; i++){
         // check if there is a list of meteostation
         if (met->imeteo_stations[1] != geotop::input::gDoubleNoValue) {
@@ -327,7 +311,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         met->horizonlines[i-1] = num_lines;
 
 
-        // #####################Probably the next lines should not be necessary if we use meteoIO   #####################################
+        // ### Probably the next lines should not be necessary if we use meteoIO  ###
       
 #ifdef USE_INTERNAL_METEODISTR
         //initialize

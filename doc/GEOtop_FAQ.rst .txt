@@ -1,0 +1,19 @@
+GEOtop FAQ
+===============
+I
+:date: first version January 2017
+
+
+Q.How can I restart my simulation ? 
+
+A. you need to set two keywords::
+
+SubfolderRecoveryFiles="rec"
+ContinuousRecovery=1
+
+The first keyword sets the path to a folder (in this case called "rec") where GEOtop stores the recovery files. Make sure to create the directory if is not already present.
+The second keywords sets the frequency in time when GEOtop saves the state variables in the recovery files. It is in "days", therefore if you want to save the state variables every 12 hours, you need to put 0.5, if you want to save them every day just put 1.
+If the simulation suddenly breaks, you just need to re-launch it and it will start from the latest recovery time.
+Please note that if you use the recovery files and you are re-starting a simulation, don't change the InitDateDDMMYYYYhhmm keyword, as the time variables are always set from that initial time.
+
+[contributed by Matteo Dell’Amico]
