@@ -19,7 +19,7 @@
 
 /* @brief: Version file to define some variables: variables are set bt CMAKE 
    To add other variable please edit version_cmake.h.in file 
-/*
+*/
  
 
 #ifndef __VERSION_H__
