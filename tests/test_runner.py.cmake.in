@@ -64,8 +64,8 @@ if pandas:
     import warnings
     warnings.simplefilter(action = "ignore", category = FutureWarning)
 
-from nose.tools import assert_equal, assert_true
-from nose.plugins.skip import SkipTest
+#from nose.tools import assert_equal, assert_true
+#from nose.plugins.skip import SkipTest
 
 def assert_is_file(fname, msg=None):
     assert os.path.isfile(fname), msg or "%s is not a file" % fname
@@ -93,7 +93,6 @@ def compare_files_exactly(fpath_ok, fpath_new, delta):
     same files. Future implementations will also allow a numeric
     tolerance on the values, if needed.
     """
-#    assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
 
     assert filecmp.cmp(fpath_ok, fpath_new), "File %s and %s differ!" % (fpath_ok, fpath_new)
 
@@ -111,16 +110,15 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
     # check fields one by one
     for field in data_ok:
         if field in deltas:
-            assert (
-                (abs(data_ok[field] - data_new[field]) <= deltas[field]).all(),
-                msg="Field '%s' in file %s is too different: %d rows differ "
-                "more than %f from the correct ones (maxdiff=%f)." % (
-                    field, fpath_new, (abs(data_ok[field] - data_new[field]) > deltas[field]).sum(),
-                    deltas[field], abs(data_ok[field] - data_new[field]).max()))
+            assert (abs(data_ok[field] - data_new[field]) <= deltas[field]).all(), \
+                   "Field '%s' in file %s is too different: %d rows differ "  \
+                   "more than %f from the correct ones (maxdiff=%f)." %   \
+                   (field, fpath_new, (abs(data_ok[field] - data_new[field]) > deltas[field]).sum(),  \
+                   deltas[field], abs(data_ok[field] - data_new[field]).max())
         else:
             # Check that all the fields are equal
-            assert ((data_ok[field] == data_new[field]).all(),
-                        msg="Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new))
+            assert (data_ok[field] == data_new[field]).all(),  \
+                   "Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new)
 
 def compare_map_files(fpath_ok, fpath_new, deltas):
     """
@@ -135,11 +133,10 @@ def compare_map_files(fpath_ok, fpath_new, deltas):
         diff = (data_ok - data_new).apply(abs).fillna(0)
     except (ValueError, TypeError):
         return compare_files_exactly(fpath_ok, fpath_new, None)
-    assert(
-        (diff <= deltas).all().all(),
-        msg="File %s: %d fields are bigger than predefined delta: "
-        "%f > %f" % (fpath_new, (diff > deltas).count().sum(), diff.max().max(), deltas)
-    )
+    assert (diff <= deltas).all().all(), \
+           "File %s: %d fields are bigger than predefined delta: " \
+           "%f > %f" % (fpath_new, (diff > deltas).count().sum(), diff.max().max(), deltas)
+    
 
 class TestValidRun(object):
     cmp_functions = [
@@ -159,6 +156,7 @@ class TestValidRun(object):
             'LWin[W/m2]'                      : 0.0,
             'SWnet[W/m2]'                    : 20.0,
             'Run'                             : 0.0,
+            '100.000000'                     : 0.1, ############# <----
             '140.000000 '                     : 0.1,
             '530.000000 '                     : 0.1,
             '1780.000000  '                   : 0.1,
@@ -194,10 +192,14 @@ class TestValidRun(object):
         check that all the files stored in ``results`` have been
         created by the simulation and compare them.
         """
+
+        """
         if os.path.isfile(os.path.join(directory, 'DISABLE_TEST_RUNNER')):
             raise SkipTest(
                 "Skipping test `%s` because 'DISABLE_TEST_RUNNER' file is "
                 "present" % os.path.basename(directory))
+        """
+
         # Change the current working directory, because
         # ``geotop.inpts`` files usually have relative paths.
         os.chdir(directory)
@@ -209,14 +211,16 @@ class TestValidRun(object):
 
         resultdir = os.path.join(directory, results_dir)
         outputdir = os.path.join(directory, OUTPUT_TABS) 
+
+        """
         if not os.path.isdir(resultdir):
             # No `results` directory. Assume it's OK.
             raise SkipTest("Skipping test because no resultdir `%s` is "
                            "present" % resultdir)
+        """
 
         # and for each file in the RESULT directory...
         for fname in os.listdir(resultdir):
-            print fname 
             # fpath_ok is the file in ``results``
             fpath_ok = os.path.join(resultdir,fname)
             # fpath_new is the corresponding file just produced by geotop
@@ -233,19 +237,19 @@ class TestValidRun(object):
             if os.path.isdir(os.path.join(actual_dir, OUTPUT_TABS)):
                 for tabs_dir in COMPARE_TABS:
                     if os.path.isdir(os.path.join(actual_dir, tabs_dir)):
-                        yield self._test_template, actual_dir, tabs_dir
+                        self._test_template( actual_dir, tabs_dir )
             if os.path.isdir(os.path.join(actual_dir, OUTPUT_MAPS)):
                 for maps in COMPARE_MAPS:
                     if os.path.isdir(os.path.join(actual_dir, maps)):
-                        yield self._test_template, actual_dir, maps
+                        self._test_template( actual_dir, maps )
 
 if __name__ == "__main__":
     #import nose
     #nose.run()
 
-
     t = TestValidRun()
     t.test_generator()
+
 
 
 

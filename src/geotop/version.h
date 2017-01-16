@@ -28,7 +28,7 @@ To add other variable please edit version_cmake.h.in file
 #define PACKAGE "geotop"
 
 /* Git version */ 
-#define GEOtop_BUILD_VERSION "TRIEST_release-23-g601f6a03"
+#define GEOtop_BUILD_VERSION "TRIEST_release-24-g85ab2f3e"
 
 /* METEO-IO enabled */
 #define METEOIO_STATUS  "ON"
