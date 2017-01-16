@@ -78,8 +78,12 @@ GEOTOP = "${GEOTOP_PROGRAM_PATH}"
 METEOIO_ACTUAL_STATUS = "${METEOIOPREFIX}"
 OUTPUT_TABS = "output-tabs" 
 OUTPUT_MAPS = "output-maps" 
-COMPARE_TABS = [OUTPUT_TABS+"-METEOIO-on", OUTPUT_TABS+"-METEOIO-off", OUTPUT_TABS+"-SE27XX"]
-COMPARE_MAPS = [OUTPUT_MAPS+"-METEOIO-on", OUTPUT_MAPS+"-METEOIO-off", OUTPUT_MAPS+"-SE27XX"]
+#COMPARE_TABS = [OUTPUT_TABS+"-METEOIO-ON", OUTPUT_TABS+"-METEOIO-OFF", OUTPUT_TABS+"-SE27XX"]
+#COMPARE_MAPS = [OUTPUT_MAPS+"-METEOIO-ON", OUTPUT_MAPS+"-METEOIO-OFF", OUTPUT_MAPS+"-SE27XX"]
+COMPARE_TABS = [ OUTPUT_TABS+"-METEOIO-"+METEOIO_ACTUAL_STATUS.upper() ]
+COMPARE_MAPS = [ OUTPUT_MAPS+"-METEOIO-"+METEOIO_ACTUAL_STATUS.upper() ]
+
+
 
 def compare_files_exactly(fpath_ok, fpath_new, delta):
     """
@@ -89,7 +93,11 @@ def compare_files_exactly(fpath_ok, fpath_new, delta):
     same files. Future implementations will also allow a numeric
     tolerance on the values, if needed.
     """
-    assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
+#    assert_true(filecmp.cmp(fpath_ok, fpath_new), msg="File %s and %s differ!" % (fpath_ok, fpath_new))
+
+    assert filecmp.cmp(fpath_ok, fpath_new), "File %s and %s differ!" % (fpath_ok, fpath_new)
+
+
 
 def compare_tab_files(fpath_ok, fpath_new, deltas):
     """
@@ -103,7 +111,7 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
     # check fields one by one
     for field in data_ok:
         if field in deltas:
-            assert_true(
+            assert (
                 (abs(data_ok[field] - data_new[field]) <= deltas[field]).all(),
                 msg="Field '%s' in file %s is too different: %d rows differ "
                 "more than %f from the correct ones (maxdiff=%f)." % (
@@ -111,7 +119,7 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
                     deltas[field], abs(data_ok[field] - data_new[field]).max()))
         else:
             # Check that all the fields are equal
-            assert_true((data_ok[field] == data_new[field]).all(),
+            assert ((data_ok[field] == data_new[field]).all(),
                         msg="Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new))
 
 def compare_map_files(fpath_ok, fpath_new, deltas):
@@ -121,13 +129,13 @@ def compare_map_files(fpath_ok, fpath_new, deltas):
     """
     data_ok = pandas.read_csv(fpath_ok, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
     data_new = pandas.read_csv(fpath_new, sep=' ', skiprows=6, header=None, na_values=['nan', '-nan'])
-    assert_equal(data_ok.shape, data_new.shape)
+    assert data_ok.shape == data_new.shape
     # get the correct delta value/dictionary
     try:
         diff = (data_ok - data_new).apply(abs).fillna(0)
     except (ValueError, TypeError):
         return compare_files_exactly(fpath_ok, fpath_new, None)
-    assert_true(
+    assert(
         (diff <= deltas).all().all(),
         msg="File %s: %d fields are bigger than predefined delta: "
         "%f > %f" % (fpath_new, (diff > deltas).count().sum(), diff.max().max(), deltas)
@@ -158,7 +166,7 @@ class TestValidRun(object):
         # (r'(.*/)?SWEN.*.asc', compare_map_files, 1.0),
         (r'(.*/)?SWEDENSITYN.*.asc', compare_map_files, 100.0),
         # (r'(.*/)?MMGSTN.*.asc', compare_map_files, 7.4),
-        # (r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
+        # ?(r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
         (r'(.*/)?snowdepthN.*.asc', compare_map_files, 10.0),
         (r'(.*/)?.*.asc', compare_map_files, 1.0),
     ]
@@ -206,17 +214,18 @@ class TestValidRun(object):
             raise SkipTest("Skipping test because no resultdir `%s` is "
                            "present" % resultdir)
 
-          # and for each file in the RESULT directory...
-            for fname in os.listdir(resultdir):
-                # fpath_ok is the file in ``results``
-                fpath_ok = os.path.join(resultdir,fname)
-                # fpath_new is the corresponding file just produced by geotop
-                fpath_new = os.path.join(outputdir, fname)
-                # fpath_new has to exists and...
-                if not os.path.isfile(fpath_new): continue
-                assert_is_file(fpath_new)
-                # ...it has to be equal to the file in ``results``
-                self.compare_files(fpath_ok, fpath_new)
+        # and for each file in the RESULT directory...
+        for fname in os.listdir(resultdir):
+            print fname 
+            # fpath_ok is the file in ``results``
+            fpath_ok = os.path.join(resultdir,fname)
+            # fpath_new is the corresponding file just produced by geotop
+            fpath_new = os.path.join(outputdir, fname)
+            # fpath_new has to exists and...
+            #if not os.path.isfile(fpath_new): continue ##### FIX 
+            assert_is_file(fpath_new)
+            # ...it has to be equal to the file in ``results``
+            self.compare_files(fpath_ok, fpath_new)
 
     def test_generator(self):
         actual_dir = os.getcwd()
@@ -231,6 +240,13 @@ class TestValidRun(object):
                         yield self._test_template, actual_dir, maps
 
 if __name__ == "__main__":
-    import nose
-    nose.run()
+    #import nose
+    #nose.run()
+
+
+    t = TestValidRun()
+    t.test_generator()
+
+
+
 
