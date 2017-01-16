@@ -430,7 +430,7 @@ foreach(TEST ${1DTESTS})
 	#testing with test_runner
 	add_test(NAME "1D.test_runner.${TEST}"
          WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
-	 COMMAND python ${TEST_RUNNER})
+	 COMMAND python ${TEST_RUNNER} )
  	
  	set_tests_properties(
 		"1D.test_runner.${TEST}" PROPERTIES
@@ -445,7 +445,7 @@ foreach(TEST ${3DTESTS})
 	#testing with test_runner
 	add_test(NAME "3D.test_runner.${TEST}"
          WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
-	 COMMAND python ${TEST_RUNNER})
+	 COMMAND python ${TEST_RUNNER} )
  	
  	set_tests_properties(
 		"3D.test_runner.${TEST}" PROPERTIES
