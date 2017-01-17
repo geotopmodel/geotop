@@ -357,7 +357,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             
             convert_dateeur12_daymonthyearhourmin(met->data[i-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
             
-            lg->logf("Final date of meteo data   : c%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            lg->logf("Final date of meteo data   : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
             
             if (initial_date_meteo > par->init_date) {
             
