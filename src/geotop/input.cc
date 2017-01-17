@@ -1,20 +1,23 @@
-
-/* STATEMENT:
-
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 2.0.0 - 20 Jun 2013
+/*
  
- Copyright (c), 2013 - Stefano Endrizzi 
+ GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ GEOtop 2.1 - 31 December 2016
  
- This file is part of Geotop 2.0.0
+ Copyright (c), 2016 - GEOtop Foundation
  
- Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ This file is part of GEOtop 2.1
+ 
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
-  
- If you have satisfactorily used the code, please acknowledge the authors.
+ 
+ GEOtop 2.1 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ If you just use the code, please give feedback to GEOtop Foundation and the community.
+ Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model.
+ Any feedback will be highly appreciated.
  
  */
- 
+
+
 #include "../../config.h"
 #include "input.h"
 #include "parameters.h"
@@ -354,7 +357,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
             
             convert_dateeur12_daymonthyearhourmin(met->data[i-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
             
-            lg->logf("Final date of meteo data :c%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            lg->logf("Final date of meteo data   : c%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
             
             if (initial_date_meteo > par->init_date) {
             
@@ -1917,10 +1920,30 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     FILE *f;
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
+    // we check here  if DEM file read by meteoio is the same specified in geotop.inpts
+    // introduced here by S.C. 17.01.2017
+    // eventually we should merge geotop.intps ands io_it.ini and make this check useless
+    //
+    mio::Config cfg = iomanager.getConfig();
+    std::string filename_dem_path = cfg.get("DEMFILE", "Input");
+    std::string filename_dem = mio::IOUtils::getFilename(filename_dem_path);
+    std::string filename_geotop= mio::IOUtils::getFilename(geotop::common::Variables::files[fdem] + ".asc");
+    lg->logsf(geotop::logger::NOTICE, "DEM FILE used by METEO-IO (defined in io_it.ini)   : %s",filename_dem.c_str());
+    lg->logsf(geotop::logger::NOTICE, "DEM FILE used by GEOTOP   (defined in geotop.inpts): %s",filename_geotop.c_str());
+    if (filename_dem != filename_geotop) {
+        lg->log(" You specified two different file for DEM in two different files.. please define just one",
+                geotop::logger::ERROR);
+        lg->log("Geotop failed.",
+                geotop::logger::CRITICAL);
+        exit(1);
+    }
+    
     meteoio_readDEM(top->Z0);
-
+    
+ 
     //	reading TOPOGRAPHY
     flag = file_exists(fdem);
+    
     if(flag == 1){
 
         //filtering

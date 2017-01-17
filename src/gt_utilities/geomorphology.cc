@@ -201,7 +201,7 @@ void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double
 void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, long n)
 {
     
-    long r, c, nr, nc, ir, ic, i;
+    long r, c, nr, nc, ir=0, ic=0, i;
     GeoVector<double> values;
     long cnt;
     
