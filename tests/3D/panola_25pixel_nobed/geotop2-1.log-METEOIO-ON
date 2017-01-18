@@ -1,15 +1,22 @@
-STATEMENT:
+THIS IS THE INITIAL STATEMENT:
 
 GEOtop 2.1  31 december 2016 
 
 Copyright (c), 2016 - GEOtop Foundation 
 
+
 GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+########################## INFO ABOUT COMPILATION #################################
+This GEOtop version  was compiled at:  Jan 19 2017  00:14:16
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release_minimal 
+This version does USE METEO-IO library for interpolation: METEOIO-ON 
+This run starts at: Thu Jan 19 00:23:15 2017
+##### Please report the above lines if you ask for help ############################
 
-WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel
-[NOTICE]: Using Experimental Logger
+WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed
 [NOTICE]: Configuration file parsing completed. 8500 characters parsed.
 [NOTICE]: Full match!
 [NOTICE]: Max snow layer number: 11, of which 2 at the bottom, 5 in the middle, and 4 at the top.
@@ -18,7 +25,7 @@ WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel
 [NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
 [NOTICE]: Infinite Glac layer numbers are numbers: 
 	
-[NOTICE]: file index SPAR 1
+[NOTICE]: file index SPAR (soil parameter) 1
 [NOTICE]: file name assigned : none 
 
 
@@ -26,8 +33,10 @@ Soil Layers: 11
 
 Soil Bedrock Layers: 11
 
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/dtm_map existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/dtm_map
+[NOTICE]: DEM FILE used by METEO-IO (defined in io_it.ini)   : dtm_map.asc
+[NOTICE]: DEM FILE used by GEOTOP   (defined in geotop.inpts): dtm_map.asc
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/dtm_map existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/dtm_map
 
 [NOTICE]: File for keyword : LandCoverMapFile  not present in file list
 [NOTICE]: Land cover type assumed to be always 1
@@ -35,22 +44,22 @@ Soil Bedrock Layers: 11
 
 i:1 -9999.000000
 B i:1 1
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input_maps/sky not existing
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input_maps/sky not existing
 [NOTICE]: File for keyword : DaysDelayMapFile  not present in file list
 [NOTICE]: File for keyword : SoilMapFile  not present in file list
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/slope existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/slope
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/slope existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/slope
 
 [NOTICE]: Slope Min:    0.253756 (     14.2386 deg) Max:    0.253756 (     14.2386 deg)
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/aspect existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/aspect
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/aspect existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/aspect
 
-[NOTICE]: Curvature N-S Min: -0.00223553  Max:  0.00223553
-[NOTICE]: Curvature W-E Min:-4.91262e-05  Max: 4.91262e-05
-[NOTICE]: Curvature NW-SE Min: -0.00228436  Max:  0.00228364
-[NOTICE]: Curvature NE-SW Min: -0.00228301  Max:  0.00228499
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/net existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/net
+[NOTICE]: Curvature N-S Min: -0.00275791  Max:  0.00275791
+[NOTICE]: Curvature W-E Min:-3.55271e-15  Max: 7.10543e-15
+[NOTICE]: Curvature NW-SE Min: -0.00275791  Max:  0.00275791
+[NOTICE]: Curvature NE-SW Min: -0.00275791  Max:  0.00275791
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/net existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/net
 
 [NOTICE]: Channel networks has 0 pixels set to channel
 [NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
@@ -59,20 +68,19 @@ B i:1 1
 [NOTICE]: Number of nodes: 240
 [NOTICE]: Novalue pixels: 61
 [NOTICE]: Basin area:        2e-05 km2
-[NOTICE]: Start Reading RAIN/METEO/CLOUD data files...
+[NOTICE]: Start Reading METEO data files...
+[NOTICE]:  File for keyword MeteoStationsListFile is not assigned
+[NOTICE]: Numbers of Meteo Stations read: 1
+[NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to Date
-
-[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRateTemp
-
-[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRateDewTemp
-
-[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRatePrec
-
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to Date
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateTemp
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateDewTemp
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRatePrec
 [NOTICE]: Lapse rate file read
 
 CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
-1,5,5,     12.7037,1,1,     14.2386,         180,           1
+1,5,5,     12.7933,1,1,     14.2386,         180,           1
 
 METEO STATIONS:
 ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
@@ -95,64 +103,42 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 11 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 1 layers
 [NOTICE]: Soil water transpires from the first 11 layers
-[NOTICE]: 1/2/2012 1:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+[NOTICE]: Duration of preprocessing phase: 9.674574
 
-[NOTICE]: 1/2/2012 2:00 8.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 3:00 12.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 4:00 16.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 5:00 20.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 6:00 25.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 7:00 29.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 8:00 33.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 9:00 37.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 10:00 41.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 11:00 45.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 12:00 50.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 13:00 54.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 14:00 58.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 15:00 62.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 16:00 66.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 17:00 70.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 18:00 75.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 19:00 79.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 20:00 83.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 21:00 87.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 22:00 91.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 1/2/2012 23:00 95.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
-[NOTICE]: 2/2/2012 0:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-
+[NOTICE]: 1/2/2012 1:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 2:00 8.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 3:00 12.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 4:00 16.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 5:00 20.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 6:00 25.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 7:00 29.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 8:00 33.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 9:00 37.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 10:00 41.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 11:00 45.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 12:00 50.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 13:00 54.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 14:00 58.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 15:00 62.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 16:00 66.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 17:00 70.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 18:00 75.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 19:00 79.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 20:00 83.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 21:00 87.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 22:00 91.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/2/2012 23:00 95.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/2/2012 0:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.00 s
+[NOTICE]:  t_meteo:  0.07 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.983312e-08 mm/h 
- Tot Error Richards=4.759948e-07 mm Mean Time Step=0.000000 s
+ Max Error Richards=2.383897e-08 mm/h 
+ Tot Error Richards=5.721352e-07 mm Mean Time Step=0.000000 s
 
 
-[NOTICE]: Duration of simulation: 3.144144
+[NOTICE]: Duration of simulation: 9.835798
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables
