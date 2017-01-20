@@ -26,7 +26,14 @@ websites have been collected.
 Installation
 --------------
 
-see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
+If you want to build GEOtop from sources in your own machine:
+
+    see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
+
+If you prefer to install GEOtop via Docker to avoid manual installation of
+packages:
+
+    see here: https://hub.docker.com/r/omslab/geotop
 
 
 Usage
