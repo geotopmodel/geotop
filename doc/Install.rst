@@ -95,6 +95,7 @@ Compiling GEOtop
 3 Configure and generate the makefiles
 
 4 Run make
+
 5 Run make test to check that all tests work fine 
 
 CMake options
