@@ -128,7 +128,7 @@ int main(int argc,char *argv[]){
 
 	if (vm.count("version"))
 	{
-		std::cout << "This is Getop version 2.1" << std::endl;
+		std::cout << "This is Geotop version 2.1" << std::endl;
 		return 0;
 	}
 
