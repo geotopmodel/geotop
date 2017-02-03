@@ -105,7 +105,8 @@ int main(int argc,char *argv[]){
 		boost::program_options::notify(vm);
 	}
 	catch ( boost::program_options::unknown_option &u ){
-		std::cerr << "Option parsing error: " << u.what() << ": please use only valid flags"<< std::endl;
+		std::cerr << "Option parsing error: " << u.what() << ": please use only valid flags"<< std::endl
+		<< usage << std::endl;
 		return 10 ;
 	}
 	catch ( boost::program_options::invalid_command_line_syntax &u ){
