@@ -410,7 +410,7 @@ SUBDIRLIST(3DTESTS ${3D_DIRECTORY})
 foreach(TEST ${1DTESTS})
 	add_test(NAME "1D.${TEST}"
          WORKING_DIRECTORY ${1D_DIRECTORY}/${TEST}
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+         COMMAND $<TARGET_FILE:geotop> . )
 	
 	#testing with test_runner
 	add_test(NAME "1D.test_runner.${TEST}"
@@ -425,7 +425,7 @@ ENDFOREACH()
 foreach(TEST ${3DTESTS})
 	add_test(NAME "3D.${TEST}"
          WORKING_DIRECTORY ${3D_DIRECTORY}/${TEST}
-         COMMAND $<TARGET_FILE:geotop> geotops.inpts )
+         COMMAND $<TARGET_FILE:geotop> . )
 
 	#testing with test_runner
 	add_test(NAME "3D.test_runner.${TEST}"
