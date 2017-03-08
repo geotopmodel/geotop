@@ -54,6 +54,15 @@
 #endif 
 
 
+#include <boost/filesystem.hpp>
+#include <boost/program_options/option.hpp>
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/positional_options.hpp>
+#include <boost/program_options/value_semantic.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/program_options/version.hpp>
+
 using namespace std;
 
 void time_loop(AllData *A, mio::IOManager& iomanager);
@@ -82,13 +91,98 @@ int main(int argc,char *argv[]){
 	AllData *adt;
 	FILE *f;
 
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
+        geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+	
+	
+	boost::program_options::options_description usage("Options"); // name of help function
+	usage.add_options() //detailed specification of command line interface
+	("version,v", "print version string")
+	("help,h", "this help") // this option return boolean variable and is used to print command line help
+	("workdir,w", boost::program_options::value<std::string>(), "the working directory of the simulation");
+
+	boost::program_options::positional_options_description positionalOptions;
+	positionalOptions.add("workdir", -1);
+
+	// map for options/value
+	boost::program_options::variables_map vm;
+
+	// option parsing statements.
+	try{
+		boost::program_options::store(boost::program_options::command_line_parser(argc, argv).options(usage).positional(positionalOptions).run(), vm);
+		boost::program_options::notify(vm);
+	}
+	catch ( boost::program_options::unknown_option &u ){
+		std::cerr << "Option parsing error: " << u.what() << ": please use only valid flags"<< std::endl;
+		return 10 ;
+	}
+	catch ( boost::program_options::invalid_command_line_syntax &u ){
+		std::cerr << "Option parsing error: " << u.what() << ": please specificy a valid value for this option "<< std::endl;
+		return 11 ;
+	}
+	catch ( boost::program_options::error &u ){
+		std::cout << "Option parsing error: " << u.what() << std::endl;
+		return 12 ;
+	}
+
+	// if no options or --help or -h print help and exit.
+	if(argc <= 1 || vm.count("help"))
+	{
+		std::cout << "Geotop 2.1 usage" << std::endl
+		<< usage << std::endl;
+		return 13 ;
+	}
+
+	if (vm.count("version"))
+	{
+                lg->writefAll("This GEOtop version  was compiled at:  %s  %s\n", __DATE__,__TIME__);
+                lg->writefAll("The Git revision hash of the source code is: %s \n",GEOtop_BUILD_VERSION);
+		return 0;
+	}
+
+	std::string lDataPath ;
+	std::string lFilePath ;
 	string cfgfile = "io_it.ini";
-  
+    
     // header file at the beginning of the program: keep track of compilation time/version and option.
     //
+    //
     
+
+
+	if (vm.count("workdir"))
+	{
+		lDataPath = vm["workdir"].as<std::string>();
+	} else {
+		std::cerr << "The workdir must be specified" << std::endl ;
+		return 20  ;
+	}
+
+	if(not boost::filesystem::is_directory(lDataPath))
+	{
+		std::cerr << "Workdir " << lDataPath << " is not a directory or does not exist" << std::endl;
+		return 21;
+	}
+
+	lDataPath = boost::filesystem::canonical(lDataPath).c_str();
+	geotop::common::Variables::WORKING_DIRECTORY = lDataPath;
+	lFilePath = geotop::common::Variables::WORKING_DIRECTORY + "/" + program_name;
+	cfgfile = geotop::common::Variables::WORKING_DIRECTORY + "/" + cfgfile;	
+	boost::filesystem::path lInputFilePath (lFilePath.c_str());
+
+	if(not boost::filesystem::exists(lInputFilePath))
+	{
+		std::cerr << "geotop cfg file not found: " << lInputFilePath.string() << std::endl ;
+		return 21 ;
+	}
+
+	if(not boost::filesystem::exists(cfgfile))
+	{
+		std::cerr << "meteoio cfg file not found: " << cfgfile << std::endl ;
+		return 21 ;
+	}
+
+
 
     lg->writeAll("THIS IS THE INITIAL STATEMENT:\n");
     lg->writeAll("\n");
@@ -117,34 +211,30 @@ int main(int argc,char *argv[]){
 	   We should use getopt() to parse command line arguments 
      */
 
-	std::string lDataPath ;
-	if (argc >= 2)
-	{
-		lDataPath = argv[1] ;
-	} else {
-		lDataPath = get_workingdirectory() ;
-	}
+//	std::string lDataPath ;
+//	if (argc >= 2)
+//	{
+//		lDataPath = argv[1] ;
+//	} else {
+//		lDataPath = get_workingdirectory() ;
+//	}
 
-	if(lDataPath == "" )
-	{
-		std::cerr << "Error: data path is empty" << std::endl ;
-		exit (200) ;
-	}
+//	if(lDataPath == "" )
+//	{
+//		std::cerr << "Error: data path is empty" << std::endl ;
+//		exit (200) ;
+//	}
 
-	chdir(lDataPath.c_str());
-	char lCWD[8192] ;
-	char * lCwdStr = getcwd(lCWD, sizeof(lCWD));
-	if (lCWD == NULL)
-	{
-		std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
-		exit (201) ;
-	}
-	std::string lFullPath(lCwdStr) ;
-	geotop::common::Variables::WORKING_DIRECTORY = lFullPath ;
-    
-    lg->writefAll("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
-
-	cfgfile = geotop::common::Variables::WORKING_DIRECTORY + "/" + cfgfile;
+//	char lCWD[8192] ;
+//	char * lCwdStr = getcwd(lCWD, sizeof(lCWD));
+//	if (lCWD == NULL)
+//	{
+//		std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
+//		exit (201) ;
+//	}
+//	std::string lFullPath(lCwdStr) ;
+//	geotop::common::Variables::WORKING_DIRECTORY = lFullPath ;
+//	cfgfile = geotop::common::Variables::WORKING_DIRECTORY + "/" + cfgfile;
 
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");

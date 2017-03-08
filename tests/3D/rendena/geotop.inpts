@@ -5,7 +5,7 @@
 PointSim = 0
 TimeStepEnergyAndWater = 3600
 InitDateDDMMYYYYhhmm = 01/03/2014 00:00
-EndDateDDMMYYYYhhmm =  03/03/2014 23:00
+EndDateDDMMYYYYhhmm =  03/03/2014 10:00
 ! InitDateDDMMYYYYhhmm = 01/06/1989 00:00
 !! OLD DATE InitDateDDMMYYYYhhmm = 01/06/1992 00:00InitDateDDMMYYYYhhmm = 01/06/1992 00:00
 !! Test trial1
