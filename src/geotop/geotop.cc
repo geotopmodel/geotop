@@ -144,9 +144,6 @@ int main(int argc,char *argv[]){
 	std::string lFilePath ;
 	string cfgfile = "io_it.ini";
     
-    // header file at the beginning of the program: keep track of compilation time/version and option.
-    //
-    //
     
 
 
@@ -206,36 +203,7 @@ int main(int argc,char *argv[]){
     lg->writeAll("##### Please report the above lines if you ask for help ############################\n");
 
 
- 
-	/*
-	   We should use getopt() to parse command line arguments 
-     */
-
-//	std::string lDataPath ;
-//	if (argc >= 2)
-//	{
-//		lDataPath = argv[1] ;
-//	} else {
-//		lDataPath = get_workingdirectory() ;
-//	}
-
-//	if(lDataPath == "" )
-//	{
-//		std::cerr << "Error: data path is empty" << std::endl ;
-//		exit (200) ;
-//	}
-
-//	char lCWD[8192] ;
-//	char * lCwdStr = getcwd(lCWD, sizeof(lCWD));
-//	if (lCWD == NULL)
-//	{
-//		std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
-//		exit (201) ;
-//	}
-//	std::string lFullPath(lCwdStr) ;
-//	geotop::common::Variables::WORKING_DIRECTORY = lFullPath ;
-//	cfgfile = geotop::common::Variables::WORKING_DIRECTORY + "/" + cfgfile;
-
+    chdir(lDataPath.c_str());
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");
 	mio::IOManager iomanager(cfg);
