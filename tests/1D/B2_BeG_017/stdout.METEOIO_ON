@@ -1,0 +1,4538 @@
+par->chkpt.getRows()=2 par->chkpt[i][ptBED]=-9999
+WARNING: NO cloudiness measurements available
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:00:00
+
+9/4/2014 19:00 JD:98.791667 (1^ simulation day)  0.79% completed! 
+ t_meteo:  2.23 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.48 W/m2  LW: -6.60 W/m2  H=  1.25 W/m2  LE=  1.33 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.774779e-05 mm/h 
+ Tot Error Richards=1.774779e-05 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:00:00
+
+9/4/2014 20:00 JD:98.833333 (1^ simulation day)  1.59% completed! 
+ t_meteo:  4.44 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW: -6.02 W/m2  H=  1.04 W/m2  LE=  1.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.587775e-05 mm/h 
+ Tot Error Richards=3.362555e-05 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:00:00
+
+9/4/2014 21:00 JD:98.875000 (1^ simulation day)  2.38% completed! 
+ t_meteo:  6.67 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW: -5.86 W/m2  H=  0.94 W/m2  LE=  1.18 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.211867e-06 mm/h 
+ Tot Error Richards=3.683741e-05 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:00:00
+
+9/4/2014 22:00 JD:98.916667 (1^ simulation day)  3.17% completed! 
+ t_meteo:  8.87 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW: -5.58 W/m2  H=  0.84 W/m2  LE=  1.12 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.610965e-04 mm/h 
+ Tot Error Richards=1.979339e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:00:00
+
+9/4/2014 23:00 JD:98.958333 (1^ simulation day)  3.97% completed! 
+ t_meteo: 11.16 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -5.33 W/m2  H=  0.75 W/m2  LE=  1.07 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.517605e-05 mm/h 
+ Tot Error Richards=2.431099e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-09T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-09T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:00:00
+
+10/4/2014 0:00 JD:99.000000 (1^ simulation day)  4.76% completed! 
+ t_meteo: 13.39 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -5.12 W/m2  H=  0.68 W/m2  LE=  1.03 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.360266e-05 mm/h 
+ Tot Error Richards=2.567126e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T00:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T00:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T00:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T00:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T01:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:00:00
+
+10/4/2014 1:00 JD:99.041667 (1^ simulation day)  5.56% completed! 
+ t_meteo: 15.59 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -4.94 W/m2  H=  0.61 W/m2  LE=  1.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.609812e-06 mm/h 
+ Tot Error Richards=2.623224e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T01:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T01:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T01:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T01:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T02:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:00:00
+
+10/4/2014 2:00 JD:99.083333 (1^ simulation day)  6.35% completed! 
+ t_meteo: 17.79 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -4.79 W/m2  H=  0.56 W/m2  LE=  0.98 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.749323e-06 mm/h 
+ Tot Error Richards=2.650717e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T02:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T02:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T02:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T02:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T03:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:00:00
+
+10/4/2014 3:00 JD:99.125000 (1^ simulation day)  7.14% completed! 
+ t_meteo: 19.98 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -4.65 W/m2  H=  0.52 W/m2  LE=  0.96 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.505834e-06 mm/h 
+ Tot Error Richards=2.665775e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T03:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T03:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T03:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T03:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T04:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:00:00
+
+10/4/2014 4:00 JD:99.166667 (1^ simulation day)  7.94% completed! 
+ t_meteo: 22.21 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW: -4.54 W/m2  H=  0.48 W/m2  LE=  0.94 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.918920e-07 mm/h 
+ Tot Error Richards=2.674694e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T04:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T04:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T04:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T04:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T05:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:00:00
+
+10/4/2014 5:00 JD:99.208333 (1^ simulation day)  8.73% completed! 
+ t_meteo: 24.39 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW: -4.43 W/m2  H=  0.45 W/m2  LE=  0.92 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.600226e-07 mm/h 
+ Tot Error Richards=2.680295e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T05:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T05:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T05:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T05:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T06:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:00:00
+
+10/4/2014 6:00 JD:99.250000 (1^ simulation day)  9.52% completed! 
+ t_meteo: 26.62 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  0.05 W/m2  LW: -4.19 W/m2  H=  0.39 W/m2  LE=  0.91 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.679006e-07 mm/h 
+ Tot Error Richards=2.683974e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T06:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T06:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T06:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T06:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T07:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:00:00
+
+10/4/2014 7:00 JD:99.291667 (1^ simulation day) 10.32% completed! 
+ t_meteo: 28.87 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  1.05 W/m2  LW: -0.11 W/m2  H= -0.73 W/m2  LE=  0.90 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.506034e-07 mm/h 
+ Tot Error Richards=2.686480e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T07:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T07:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T07:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T07:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T08:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:00:00
+
+10/4/2014 8:00 JD:99.333333 (1^ simulation day) 11.11% completed! 
+ t_meteo: 31.13 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  3.21 W/m2  LW:  8.19 W/m2  H= -6.55 W/m2  LE=  1.33 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.758596e-07 mm/h 
+ Tot Error Richards=2.688238e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T08:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T08:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T08:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T08:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T09:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:00:00
+
+10/4/2014 9:00 JD:99.375000 (1^ simulation day) 11.90% completed! 
+ t_meteo: 33.39 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  5.43 W/m2  LW: 12.23 W/m2  H=-11.27 W/m2  LE=  2.63 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.265142e-07 mm/h 
+ Tot Error Richards=2.689503e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T09:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T09:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T09:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T09:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T10:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:00:00
+
+10/4/2014 10:00 JD:99.416667 (1^ simulation day) 12.70% completed! 
+ t_meteo: 35.68 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  7.58 W/m2  LW: 14.61 W/m2  H=-12.10 W/m2  LE=  3.64 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.304843e-08 mm/h 
+ Tot Error Richards=2.690434e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T10:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T10:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T10:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T10:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T11:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:00:00
+
+10/4/2014 11:00 JD:99.458333 (1^ simulation day) 13.49% completed! 
+ t_meteo: 37.96 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW=  9.46 W/m2  LW: 15.98 W/m2  H=-11.38 W/m2  LE=  4.64 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.980265e-08 mm/h 
+ Tot Error Richards=2.691132e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T11:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T11:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T11:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T11:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T12:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:00:00
+
+10/4/2014 12:00 JD:99.500000 (1^ simulation day) 14.29% completed! 
+ t_meteo: 40.34 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+ SW= 10.74 W/m2  LW: 16.41 W/m2  H= -9.88 W/m2  LE=  5.63 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.330531e-08 mm/h 
+ Tot Error Richards=2.691665e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T12:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T12:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T12:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T12:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T13:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:00:00
+
+10/4/2014 13:00 JD:99.541667 (1^ simulation day) 15.08% completed! 
+ t_meteo: 42.60 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW= 11.16 W/m2  LW: 15.73 W/m2  H= -7.95 W/m2  LE=  6.52 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.128654e-08 mm/h 
+ Tot Error Richards=2.692078e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T13:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T13:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T13:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T13:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T14:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:00:00
+
+10/4/2014 14:00 JD:99.583333 (1^ simulation day) 15.87% completed! 
+ t_meteo: 44.78 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW= 10.59 W/m2  LW: 14.06 W/m2  H= -6.00 W/m2  LE=  7.21 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.229807e-08 mm/h 
+ Tot Error Richards=2.692401e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T14:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T14:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T14:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T14:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T15:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:00:00
+
+10/4/2014 15:00 JD:99.625000 (1^ simulation day) 16.67% completed! 
+ t_meteo: 46.95 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW=  9.12 W/m2  LW: 11.57 W/m2  H= -4.19 W/m2  LE=  7.61 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.546672e-08 mm/h 
+ Tot Error Richards=2.692655e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T15:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T15:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T15:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T15:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T16:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:00:00
+
+10/4/2014 16:00 JD:99.666667 (1^ simulation day) 17.46% completed! 
+ t_meteo: 49.13 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW=  7.06 W/m2  LW:  8.31 W/m2  H= -2.47 W/m2  LE=  7.69 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.022950e-08 mm/h 
+ Tot Error Richards=2.692858e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T16:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T16:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T16:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T16:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T17:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:00:00
+
+10/4/2014 17:00 JD:99.708333 (1^ simulation day) 18.25% completed! 
+ t_meteo: 51.38 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW=  4.75 W/m2  LW:  4.37 W/m2  H= -0.65 W/m2  LE=  7.38 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.622617e-08 mm/h 
+ Tot Error Richards=2.693020e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T17:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T17:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T17:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T17:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T18:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:00:00
+
+10/4/2014 18:00 JD:99.750000 (1^ simulation day) 19.05% completed! 
+ t_meteo: 53.67 s, t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW=  2.46 W/m2  LW: -0.23 W/m2  H=  1.50 W/m2  LE=  6.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.314631e-08 mm/h 
+ Tot Error Richards=2.693151e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:00:00
+
+10/4/2014 19:00 JD:99.791667 (2^ simulation day) 19.84% completed! 
+ t_meteo: 55.91 s, t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+ SW=  0.51 W/m2  LW: -6.30 W/m2  H=  2.82 W/m2  LE=  3.20 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.081704e-08 mm/h 
+ Tot Error Richards=2.693260e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:00:00
+
+10/4/2014 20:00 JD:99.833333 (2^ simulation day) 20.63% completed! 
+ t_meteo: 58.17 s, t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -9.37 W/m2  H=  2.73 W/m2  LE=  2.20 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.927566e-09 mm/h 
+ Tot Error Richards=2.693349e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:00:00
+
+10/4/2014 21:00 JD:99.875000 (2^ simulation day) 21.43% completed! 
+ t_meteo: 60.46 s, t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -8.96 W/m2  H=  2.28 W/m2  LE=  1.86 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.435955e-09 mm/h 
+ Tot Error Richards=2.693423e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:00:00
+
+10/4/2014 22:00 JD:99.916667 (2^ simulation day) 22.22% completed! 
+ t_meteo: 62.69 s, t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -8.27 W/m2  H=  1.92 W/m2  LE=  1.66 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.156622e-09 mm/h 
+ Tot Error Richards=2.693485e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:00:00
+
+10/4/2014 23:00 JD:99.958333 (2^ simulation day) 23.02% completed! 
+ t_meteo: 64.90 s, t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -7.66 W/m2  H=  1.65 W/m2  LE=  1.52 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.264691e-09 mm/h 
+ Tot Error Richards=2.693537e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-10T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-10T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:00:00
+
+11/4/2014 0:00 JD:100.000000 (2^ simulation day) 23.81% completed! 
+ t_meteo: 67.12 s, t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -7.15 W/m2  H=  1.43 W/m2  LE=  1.41 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.422624e-09 mm/h 
+ Tot Error Richards=2.693582e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T00:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T00:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T00:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T00:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T01:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:00:00
+
+11/4/2014 1:00 JD:100.041667 (2^ simulation day) 24.60% completed! 
+ t_meteo: 69.40 s, t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -6.73 W/m2  H=  1.26 W/m2  LE=  1.33 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.743325e-09 mm/h 
+ Tot Error Richards=2.693619e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T01:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T01:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T01:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T01:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T02:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:00:00
+
+11/4/2014 2:00 JD:100.083333 (2^ simulation day) 25.40% completed! 
+ t_meteo: 71.64 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW: -6.38 W/m2  H=  1.13 W/m2  LE=  1.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.198457e-09 mm/h 
+ Tot Error Richards=2.693651e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T02:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T02:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T02:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T02:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T03:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:00:00
+
+11/4/2014 3:00 JD:100.125000 (2^ simulation day) 26.19% completed! 
+ t_meteo: 73.82 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  0.00 W/m2  LW: -6.08 W/m2  H=  1.02 W/m2  LE=  1.20 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.750897e-09 mm/h 
+ Tot Error Richards=2.693679e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T03:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T03:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T03:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T03:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T04:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:00:00
+
+11/4/2014 4:00 JD:100.166667 (2^ simulation day) 26.98% completed! 
+ t_meteo: 76.01 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  0.00 W/m2  LW: -5.83 W/m2  H=  0.92 W/m2  LE=  1.15 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.381374e-09 mm/h 
+ Tot Error Richards=2.693702e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T04:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T04:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T04:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T04:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T05:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:00:00
+
+11/4/2014 5:00 JD:100.208333 (2^ simulation day) 27.78% completed! 
+ t_meteo: 78.21 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  0.00 W/m2  LW: -5.62 W/m2  H=  0.85 W/m2  LE=  1.11 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.117135e-09 mm/h 
+ Tot Error Richards=2.693724e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T05:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T05:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T05:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T05:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T06:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:00:00
+
+11/4/2014 6:00 JD:100.250000 (2^ simulation day) 28.57% completed! 
+ t_meteo: 80.42 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  0.06 W/m2  LW: -5.26 W/m2  H=  0.74 W/m2  LE=  1.08 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.856242e-09 mm/h 
+ Tot Error Richards=2.693742e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T06:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T06:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T06:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T06:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T07:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:00:00
+
+11/4/2014 7:00 JD:100.291667 (2^ simulation day) 29.37% completed! 
+ t_meteo: 82.61 s, t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  1.10 W/m2  LW: -0.90 W/m2  H= -0.46 W/m2  LE=  1.08 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.599953e-09 mm/h 
+ Tot Error Richards=2.693758e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T07:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T07:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T07:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T07:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T08:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:00:00
+
+11/4/2014 8:00 JD:100.333333 (2^ simulation day) 30.16% completed! 
+ t_meteo: 84.81 s, t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  3.27 W/m2  LW:  7.30 W/m2  H= -6.18 W/m2  LE=  1.75 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.397631e-09 mm/h 
+ Tot Error Richards=2.693772e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T08:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T08:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T08:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T08:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T09:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:00:00
+
+11/4/2014 9:00 JD:100.375000 (2^ simulation day) 30.95% completed! 
+ t_meteo: 87.01 s, t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  5.50 W/m2  LW: 11.38 W/m2  H=-10.26 W/m2  LE=  3.09 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.228636e-09 mm/h 
+ Tot Error Richards=2.693784e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T09:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T09:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T09:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T09:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T10:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:00:00
+
+11/4/2014 10:00 JD:100.416667 (2^ simulation day) 31.75% completed! 
+ t_meteo: 89.19 s, t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+ SW=  7.66 W/m2  LW: 13.86 W/m2  H=-10.94 W/m2  LE=  4.07 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.215703e-09 mm/h 
+ Tot Error Richards=2.693797e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T10:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T10:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T10:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T10:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T11:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:00:00
+
+11/4/2014 11:00 JD:100.458333 (2^ simulation day) 32.54% completed! 
+ t_meteo: 91.36 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW=  9.53 W/m2  LW: 15.31 W/m2  H=-10.19 W/m2  LE=  5.05 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.198616e-09 mm/h 
+ Tot Error Richards=2.693809e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T11:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T11:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T11:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T11:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T12:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:00:00
+
+11/4/2014 12:00 JD:100.500000 (2^ simulation day) 33.33% completed! 
+ t_meteo: 93.53 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW= 10.82 W/m2  LW: 15.80 W/m2  H= -8.70 W/m2  LE=  6.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.298285e-09 mm/h 
+ Tot Error Richards=2.693822e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T12:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T12:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T12:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T12:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T13:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:00:00
+
+11/4/2014 13:00 JD:100.541667 (2^ simulation day) 34.13% completed! 
+ t_meteo: 95.73 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW= 11.24 W/m2  LW: 15.19 W/m2  H= -6.83 W/m2  LE=  6.86 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.264629e-09 mm/h 
+ Tot Error Richards=2.693834e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T13:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T13:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T13:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T13:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T14:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:00:00
+
+11/4/2014 14:00 JD:100.583333 (2^ simulation day) 34.92% completed! 
+ t_meteo: 97.98 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW= 10.66 W/m2  LW: 13.58 W/m2  H= -4.95 W/m2  LE=  7.51 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.128904e-09 mm/h 
+ Tot Error Richards=2.693845e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T14:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T14:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T14:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T14:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T15:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:00:00
+
+11/4/2014 15:00 JD:100.625000 (2^ simulation day) 35.71% completed! 
+ t_meteo:100.20 s, t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW=  9.19 W/m2  LW: 11.14 W/m2  H= -3.23 W/m2  LE=  7.88 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.738514e-10 mm/h 
+ Tot Error Richards=2.693854e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T15:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T15:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T15:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T15:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T16:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:00:00
+
+11/4/2014 16:00 JD:100.666667 (2^ simulation day) 36.51% completed! 
+ t_meteo:102.40 s, t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW=  7.11 W/m2  LW:  7.93 W/m2  H= -1.61 W/m2  LE=  7.94 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.330610e-10 mm/h 
+ Tot Error Richards=2.693862e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T16:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T16:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T16:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T16:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T17:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:00:00
+
+11/4/2014 17:00 JD:100.708333 (2^ simulation day) 37.30% completed! 
+ t_meteo:105.03 s, t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+ SW=  4.80 W/m2  LW:  4.04 W/m2  H=  0.09 W/m2  LE=  7.60 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.584241e-10 mm/h 
+ Tot Error Richards=2.693867e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T17:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T17:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T17:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T17:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T18:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:00:00
+
+11/4/2014 18:00 JD:100.750000 (2^ simulation day) 38.10% completed! 
+ t_meteo:107.64 s, t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+ SW=  2.50 W/m2  LW: -0.50 W/m2  H=  2.09 W/m2  LE=  6.51 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.896642e-10 mm/h 
+ Tot Error Richards=2.693872e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:00:00
+
+11/4/2014 19:00 JD:100.791667 (3^ simulation day) 38.89% completed! 
+ t_meteo:110.01 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+ SW=  0.53 W/m2  LW: -6.50 W/m2  H=  3.15 W/m2  LE=  3.45 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.422462e-10 mm/h 
+ Tot Error Richards=2.693876e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:00:00
+
+11/4/2014 20:00 JD:100.833333 (3^ simulation day) 39.68% completed! 
+ t_meteo:113.19 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+ SW=  0.00 W/m2  LW: -9.72 W/m2  H=  2.94 W/m2  LE=  2.29 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.858061e-10 mm/h 
+ Tot Error Richards=2.693880e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:00:00
+
+11/4/2014 21:00 JD:100.875000 (3^ simulation day) 40.48% completed! 
+ t_meteo:116.03 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+ SW=  0.00 W/m2  LW: -9.34 W/m2  H=  2.46 W/m2  LE=  1.94 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.516848e-10 mm/h 
+ Tot Error Richards=2.693884e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:00:00
+
+11/4/2014 22:00 JD:100.916667 (3^ simulation day) 41.27% completed! 
+ t_meteo:118.57 s, t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+ SW=  0.00 W/m2  LW: -8.65 W/m2  H=  2.10 W/m2  LE=  1.74 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.671155e-10 mm/h 
+ Tot Error Richards=2.693888e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:00:00
+
+11/4/2014 23:00 JD:100.958333 (3^ simulation day) 42.06% completed! 
+ t_meteo:121.38 s, t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -8.04 W/m2  H=  1.81 W/m2  LE=  1.60 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.995306e-10 mm/h 
+ Tot Error Richards=2.693891e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-11T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-11T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:00:00
+
+12/4/2014 0:00 JD:101.000000 (3^ simulation day) 42.86% completed! 
+ t_meteo:123.72 s, t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -7.54 W/m2  H=  1.59 W/m2  LE=  1.48 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.501281e-10 mm/h 
+ Tot Error Richards=2.693893e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T00:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T00:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T00:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T00:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T01:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:00:00
+
+12/4/2014 1:00 JD:101.041667 (3^ simulation day) 43.65% completed! 
+ t_meteo:125.98 s, t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -7.11 W/m2  H=  1.41 W/m2  LE=  1.39 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.609116e-10 mm/h 
+ Tot Error Richards=2.693896e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T01:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T01:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T01:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T01:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T02:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:00:00
+
+12/4/2014 2:00 JD:101.083333 (3^ simulation day) 44.44% completed! 
+ t_meteo:128.14 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -6.76 W/m2  H=  1.27 W/m2  LE=  1.32 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.449318e-10 mm/h 
+ Tot Error Richards=2.693898e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T02:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T02:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T02:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T02:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T03:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:00:00
+
+12/4/2014 3:00 JD:101.125000 (3^ simulation day) 45.24% completed! 
+ t_meteo:130.33 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -6.46 W/m2  H=  1.15 W/m2  LE=  1.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.272498e-10 mm/h 
+ Tot Error Richards=2.693900e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T03:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T03:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T03:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T03:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T04:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:00:00
+
+12/4/2014 4:00 JD:101.166667 (3^ simulation day) 46.03% completed! 
+ t_meteo:132.66 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -6.21 W/m2  H=  1.06 W/m2  LE=  1.21 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.324880e-10 mm/h 
+ Tot Error Richards=2.693903e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T04:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T04:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T04:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T04:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T05:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:00:00
+
+12/4/2014 5:00 JD:101.208333 (3^ simulation day) 46.83% completed! 
+ t_meteo:134.88 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+ SW=  0.00 W/m2  LW: -5.99 W/m2  H=  0.98 W/m2  LE=  1.17 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.082288e-10 mm/h 
+ Tot Error Richards=2.693905e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T05:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T05:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T05:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T05:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T06:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:00:00
+
+12/4/2014 6:00 JD:101.250000 (3^ simulation day) 47.62% completed! 
+ t_meteo:137.13 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  0.06 W/m2  LW: -5.62 W/m2  H=  0.87 W/m2  LE=  1.14 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.014168e-10 mm/h 
+ Tot Error Richards=2.693907e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T06:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T06:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T06:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T06:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T07:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:00:00
+
+12/4/2014 7:00 JD:101.291667 (3^ simulation day) 48.41% completed! 
+ t_meteo:139.33 s, t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  1.16 W/m2  LW: -1.03 W/m2  H= -0.40 W/m2  LE=  1.14 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.938441e-10 mm/h 
+ Tot Error Richards=2.693909e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T07:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T07:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T07:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T07:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T08:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:00:00
+
+12/4/2014 8:00 JD:101.333333 (3^ simulation day) 49.21% completed! 
+ t_meteo:141.59 s, t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  3.34 W/m2  LW:  7.07 W/m2  H= -6.10 W/m2  LE=  1.93 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.622153e-10 mm/h 
+ Tot Error Richards=2.693910e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T08:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T08:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T08:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T08:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T09:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:00:00
+
+12/4/2014 9:00 JD:101.375000 (3^ simulation day) 50.00% completed! 
+ t_meteo:144.00 s, t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  5.57 W/m2  LW: 11.10 W/m2  H= -9.86 W/m2  LE=  3.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.649122e-10 mm/h 
+ Tot Error Richards=2.693912e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T09:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T09:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T09:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T09:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T10:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:00:00
+
+12/4/2014 10:00 JD:101.416667 (3^ simulation day) 50.79% completed! 
+ t_meteo:146.25 s, t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  7.73 W/m2  LW: 13.58 W/m2  H=-10.42 W/m2  LE=  4.24 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.454156e-10 mm/h 
+ Tot Error Richards=2.693914e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T10:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T10:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T10:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T10:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T11:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:00:00
+
+12/4/2014 11:00 JD:101.458333 (3^ simulation day) 51.59% completed! 
+ t_meteo:148.50 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW=  9.61 W/m2  LW: 15.03 W/m2  H= -9.61 W/m2  LE=  5.21 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.810156e-10 mm/h 
+ Tot Error Richards=2.693918e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T11:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T11:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T11:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T11:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T12:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:00:00
+
+12/4/2014 12:00 JD:101.500000 (3^ simulation day) 52.38% completed! 
+ t_meteo:150.72 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+ SW= 10.90 W/m2  LW: 15.54 W/m2  H= -8.11 W/m2  LE=  6.15 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.383328e-10 mm/h 
+ Tot Error Richards=2.693924e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T12:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T12:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T12:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T12:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T13:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:00:00
+
+12/4/2014 13:00 JD:101.541667 (3^ simulation day) 53.17% completed! 
+ t_meteo:153.06 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW= 11.31 W/m2  LW: 14.94 W/m2  H= -6.24 W/m2  LE=  6.99 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.317889e-10 mm/h 
+ Tot Error Richards=2.693930e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T13:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T13:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T13:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T13:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T14:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:00:00
+
+12/4/2014 14:00 JD:101.583333 (3^ simulation day) 53.97% completed! 
+ t_meteo:155.34 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW= 10.73 W/m2  LW: 13.35 W/m2  H= -4.37 W/m2  LE=  7.62 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.578196e-10 mm/h 
+ Tot Error Richards=2.693936e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T14:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T14:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T14:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T14:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T15:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:00:00
+
+12/4/2014 15:00 JD:101.625000 (3^ simulation day) 54.76% completed! 
+ t_meteo:157.50 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  9.25 W/m2  LW: 10.93 W/m2  H= -2.69 W/m2  LE=  7.98 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.845116e-10 mm/h 
+ Tot Error Richards=2.693939e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T15:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T15:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T15:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T15:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T16:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:00:00
+
+12/4/2014 16:00 JD:101.666667 (3^ simulation day) 55.56% completed! 
+ t_meteo:159.69 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  7.17 W/m2  LW:  7.75 W/m2  H= -1.12 W/m2  LE=  8.03 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.393538e-10 mm/h 
+ Tot Error Richards=2.693942e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T16:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T16:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T16:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T16:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T17:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:00:00
+
+12/4/2014 17:00 JD:101.708333 (3^ simulation day) 56.35% completed! 
+ t_meteo:161.89 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  4.85 W/m2  LW:  3.89 W/m2  H=  0.51 W/m2  LE=  7.68 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.333239e-10 mm/h 
+ Tot Error Richards=2.693943e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T17:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T17:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T17:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T17:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T18:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:00:00
+
+12/4/2014 18:00 JD:101.750000 (3^ simulation day) 57.14% completed! 
+ t_meteo:164.08 s, t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  2.55 W/m2  LW: -0.61 W/m2  H=  2.40 W/m2  LE=  6.62 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.086785e-10 mm/h 
+ Tot Error Richards=2.693944e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:00:00
+
+12/4/2014 19:00 JD:101.791667 (4^ simulation day) 57.94% completed! 
+ t_meteo:166.28 s, t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  0.57 W/m2  LW: -6.53 W/m2  H=  3.33 W/m2  LE=  3.59 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.342396e-11 mm/h 
+ Tot Error Richards=2.693945e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:00:00
+
+12/4/2014 20:00 JD:101.833333 (4^ simulation day) 58.73% completed! 
+ t_meteo:168.56 s, t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+ SW=  0.00 W/m2  LW: -9.88 W/m2  H=  3.05 W/m2  LE=  2.35 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.212212e-10 mm/h 
+ Tot Error Richards=2.693946e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:00:00
+
+12/4/2014 21:00 JD:101.875000 (4^ simulation day) 59.52% completed! 
+ t_meteo:170.84 s, t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -9.55 W/m2  H=  2.57 W/m2  LE=  1.98 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.311308e-11 mm/h 
+ Tot Error Richards=2.693947e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:00:00
+
+12/4/2014 22:00 JD:101.916667 (4^ simulation day) 60.32% completed! 
+ t_meteo:173.01 s, t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -8.86 W/m2  H=  2.19 W/m2  LE=  1.78 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.745336e-11 mm/h 
+ Tot Error Richards=2.693948e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:00:00
+
+12/4/2014 23:00 JD:101.958333 (4^ simulation day) 61.11% completed! 
+ t_meteo:175.19 s, t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -8.25 W/m2  H=  1.90 W/m2  LE=  1.63 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.853116e-11 mm/h 
+ Tot Error Richards=2.693949e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-12T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-12T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:00:00
+
+13/4/2014 0:00 JD:102.000000 (4^ simulation day) 61.90% completed! 
+ t_meteo:177.37 s, t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -7.74 W/m2  H=  1.68 W/m2  LE=  1.52 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.844330e-11 mm/h 
+ Tot Error Richards=2.693950e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T00:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T00:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T00:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T00:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T01:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:00:00
+
+13/4/2014 1:00 JD:102.041667 (4^ simulation day) 62.70% completed! 
+ t_meteo:179.58 s, t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -7.32 W/m2  H=  1.50 W/m2  LE=  1.43 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.260353e-11 mm/h 
+ Tot Error Richards=2.693951e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T01:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T01:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T01:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T01:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T02:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:00:00
+
+13/4/2014 2:00 JD:102.083333 (4^ simulation day) 63.49% completed! 
+ t_meteo:181.89 s, t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+ SW=  0.00 W/m2  LW: -6.96 W/m2  H=  1.35 W/m2  LE=  1.35 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.578847e-11 mm/h 
+ Tot Error Richards=2.693952e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T02:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T02:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T02:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T02:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T03:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:00:00
+
+13/4/2014 3:00 JD:102.125000 (4^ simulation day) 64.29% completed! 
+ t_meteo:184.15 s, t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  0.00 W/m2  LW: -6.66 W/m2  H=  1.23 W/m2  LE=  1.29 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.280641e-11 mm/h 
+ Tot Error Richards=2.693953e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T03:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T03:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T03:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T03:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T04:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:00:00
+
+13/4/2014 4:00 JD:102.166667 (4^ simulation day) 65.08% completed! 
+ t_meteo:186.34 s, t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  0.00 W/m2  LW: -6.41 W/m2  H=  1.13 W/m2  LE=  1.24 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.073045e-10 mm/h 
+ Tot Error Richards=2.693954e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T04:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T04:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T04:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T04:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T05:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:00:00
+
+13/4/2014 5:00 JD:102.208333 (4^ simulation day) 65.87% completed! 
+ t_meteo:188.58 s, t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  0.00 W/m2  LW: -6.18 W/m2  H=  1.05 W/m2  LE=  1.20 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.040440e-11 mm/h 
+ Tot Error Richards=2.693954e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T05:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T05:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T05:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T05:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T06:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:00:00
+
+13/4/2014 6:00 JD:102.250000 (4^ simulation day) 66.67% completed! 
+ t_meteo:190.79 s, t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  0.07 W/m2  LW: -5.77 W/m2  H=  0.93 W/m2  LE=  1.17 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.471160e-11 mm/h 
+ Tot Error Richards=2.693955e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T06:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T06:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T06:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T06:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T07:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:00:00
+
+13/4/2014 7:00 JD:102.291667 (4^ simulation day) 67.46% completed! 
+ t_meteo:192.99 s, t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  1.22 W/m2  LW: -0.99 W/m2  H= -0.41 W/m2  LE=  1.17 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.560771e-11 mm/h 
+ Tot Error Richards=2.693956e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T07:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T07:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T07:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T07:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T08:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:00:00
+
+13/4/2014 8:00 JD:102.333333 (4^ simulation day) 68.25% completed! 
+ t_meteo:195.17 s, t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+ SW=  3.41 W/m2  LW:  7.00 W/m2  H= -6.11 W/m2  LE=  2.03 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.917717e-11 mm/h 
+ Tot Error Richards=2.693957e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T08:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T08:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T08:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T08:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T09:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:00:00
+
+13/4/2014 9:00 JD:102.375000 (4^ simulation day) 69.05% completed! 
+ t_meteo:197.39 s, t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW=  5.64 W/m2  LW: 10.96 W/m2  H= -9.62 W/m2  LE=  3.36 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.299160e-11 mm/h 
+ Tot Error Richards=2.693958e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T09:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T09:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T09:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T09:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T10:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:00:00
+
+13/4/2014 10:00 JD:102.416667 (4^ simulation day) 69.84% completed! 
+ t_meteo:199.57 s, t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW=  7.80 W/m2  LW: 13.47 W/m2  H=-10.11 W/m2  LE=  4.33 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.935293e-10 mm/h 
+ Tot Error Richards=2.693960e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T10:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T10:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T10:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T10:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T11:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:00:00
+
+13/4/2014 11:00 JD:102.458333 (4^ simulation day) 70.63% completed! 
+ t_meteo:201.74 s, t_energy:  0.22 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW=  9.69 W/m2  LW: 14.88 W/m2  H= -9.23 W/m2  LE=  5.29 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.229744e-10 mm/h 
+ Tot Error Richards=2.693963e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T11:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T11:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T11:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T11:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T12:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:00:00
+
+13/4/2014 12:00 JD:102.500000 (4^ simulation day) 71.43% completed! 
+ t_meteo:203.94 s, t_energy:  0.22 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW= 10.98 W/m2  LW: 15.39 W/m2  H= -7.70 W/m2  LE=  6.22 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.073580e-10 mm/h 
+ Tot Error Richards=2.693968e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T12:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T12:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T12:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T12:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T13:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:00:00
+
+13/4/2014 13:00 JD:102.541667 (4^ simulation day) 72.22% completed! 
+ t_meteo:206.15 s, t_energy:  0.22 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW= 11.39 W/m2  LW: 14.79 W/m2  H= -5.83 W/m2  LE=  7.05 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.720319e-10 mm/h 
+ Tot Error Richards=2.693974e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T13:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T13:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T13:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T13:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T14:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:00:00
+
+13/4/2014 14:00 JD:102.583333 (4^ simulation day) 73.02% completed! 
+ t_meteo:208.34 s, t_energy:  0.22 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW= 10.80 W/m2  LW: 13.21 W/m2  H= -3.98 W/m2  LE=  7.67 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.050199e-10 mm/h 
+ Tot Error Richards=2.693979e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T14:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T14:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T14:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T14:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T15:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:00:00
+
+13/4/2014 15:00 JD:102.625000 (4^ simulation day) 73.81% completed! 
+ t_meteo:210.51 s, t_energy:  0.23 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+ SW=  9.31 W/m2  LW: 10.81 W/m2  H= -2.32 W/m2  LE=  8.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.580491e-10 mm/h 
+ Tot Error Richards=2.693983e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T15:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T15:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T15:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T15:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T16:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:00:00
+
+13/4/2014 16:00 JD:102.666667 (4^ simulation day) 74.60% completed! 
+ t_meteo:212.68 s, t_energy:  0.23 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  7.22 W/m2  LW:  7.65 W/m2  H= -0.79 W/m2  LE=  8.06 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.800983e-10 mm/h 
+ Tot Error Richards=2.693984e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T16:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T16:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T16:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T16:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T17:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:00:00
+
+13/4/2014 17:00 JD:102.708333 (4^ simulation day) 75.40% completed! 
+ t_meteo:214.89 s, t_energy:  0.23 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  4.90 W/m2  LW:  3.82 W/m2  H=  0.79 W/m2  LE=  7.71 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.666706e-11 mm/h 
+ Tot Error Richards=2.693985e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T17:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T17:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T17:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T17:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T18:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:00:00
+
+13/4/2014 18:00 JD:102.750000 (4^ simulation day) 76.19% completed! 
+ t_meteo:217.36 s, t_energy:  0.23 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  2.60 W/m2  LW: -0.65 W/m2  H=  2.61 W/m2  LE=  6.67 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.740982e-11 mm/h 
+ Tot Error Richards=2.693986e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:00:00
+
+13/4/2014 19:00 JD:102.791667 (5^ simulation day) 76.98% completed! 
+ t_meteo:219.56 s, t_energy:  0.23 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  0.60 W/m2  LW: -6.51 W/m2  H=  3.45 W/m2  LE=  3.68 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.646093e-11 mm/h 
+ Tot Error Richards=2.693987e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:00:00
+
+13/4/2014 20:00 JD:102.833333 (5^ simulation day) 77.78% completed! 
+ t_meteo:221.75 s, t_energy:  0.24 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW: -9.97 W/m2  H=  3.13 W/m2  LE=  2.39 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.821204e-11 mm/h 
+ Tot Error Richards=2.693987e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:00:00
+
+13/4/2014 21:00 JD:102.875000 (5^ simulation day) 78.57% completed! 
+ t_meteo:223.96 s, t_energy:  0.24 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW: -9.68 W/m2  H=  2.64 W/m2  LE=  2.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.490361e-11 mm/h 
+ Tot Error Richards=2.693988e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:00:00
+
+13/4/2014 22:00 JD:102.916667 (5^ simulation day) 79.37% completed! 
+ t_meteo:226.19 s, t_energy:  0.24 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+ SW=  0.00 W/m2  LW: -8.99 W/m2  H=  2.26 W/m2  LE=  1.80 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.803074e-11 mm/h 
+ Tot Error Richards=2.693989e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:00:00
+
+13/4/2014 23:00 JD:102.958333 (5^ simulation day) 80.16% completed! 
+ t_meteo:228.40 s, t_energy:  0.24 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -8.38 W/m2  H=  1.96 W/m2  LE=  1.65 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.577553e-11 mm/h 
+ Tot Error Richards=2.693990e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-13T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-13T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:00:00
+
+14/4/2014 0:00 JD:103.000000 (5^ simulation day) 80.95% completed! 
+ t_meteo:230.58 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -7.87 W/m2  H=  1.73 W/m2  LE=  1.54 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.737997e-11 mm/h 
+ Tot Error Richards=2.693990e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T00:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T00:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T00:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T00:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T01:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:00:00
+
+14/4/2014 1:00 JD:103.041667 (5^ simulation day) 81.75% completed! 
+ t_meteo:232.78 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -7.45 W/m2  H=  1.55 W/m2  LE=  1.45 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.520428e-11 mm/h 
+ Tot Error Richards=2.693991e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T01:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T01:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T01:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T01:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T02:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:00:00
+
+14/4/2014 2:00 JD:103.083333 (5^ simulation day) 82.54% completed! 
+ t_meteo:235.06 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -7.09 W/m2  H=  1.40 W/m2  LE=  1.37 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.223672e-11 mm/h 
+ Tot Error Richards=2.693992e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T02:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T02:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T02:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T02:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T03:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:00:00
+
+14/4/2014 3:00 JD:103.125000 (5^ simulation day) 83.33% completed! 
+ t_meteo:237.29 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -6.79 W/m2  H=  1.28 W/m2  LE=  1.31 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.415949e-11 mm/h 
+ Tot Error Richards=2.693993e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T03:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T03:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T03:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T03:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T04:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:00:00
+
+14/4/2014 4:00 JD:103.166667 (5^ simulation day) 84.13% completed! 
+ t_meteo:239.53 s, t_energy:  0.25 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -6.53 W/m2  H=  1.18 W/m2  LE=  1.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.250312e-11 mm/h 
+ Tot Error Richards=2.693993e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T04:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T04:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T04:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T04:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T05:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:00:00
+
+14/4/2014 5:00 JD:103.208333 (5^ simulation day) 84.92% completed! 
+ t_meteo:241.78 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+ SW=  0.00 W/m2  LW: -6.31 W/m2  H=  1.09 W/m2  LE=  1.22 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.257307e-11 mm/h 
+ Tot Error Richards=2.693994e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T05:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T05:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T05:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T05:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T06:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:00:00
+
+14/4/2014 6:00 JD:103.250000 (5^ simulation day) 85.71% completed! 
+ t_meteo:244.03 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  0.08 W/m2  LW: -5.84 W/m2  H=  0.96 W/m2  LE=  1.19 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.913422e-11 mm/h 
+ Tot Error Richards=2.693995e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T06:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T06:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T06:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T06:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T07:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:00:00
+
+14/4/2014 7:00 JD:103.291667 (5^ simulation day) 86.51% completed! 
+ t_meteo:246.22 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  1.28 W/m2  LW: -0.87 W/m2  H= -0.45 W/m2  LE=  1.19 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.155339e-11 mm/h 
+ Tot Error Richards=2.693995e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T07:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T07:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T07:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T07:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T08:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:00:00
+
+14/4/2014 8:00 JD:103.333333 (5^ simulation day) 87.30% completed! 
+ t_meteo:248.42 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  3.47 W/m2  LW:  7.02 W/m2  H= -6.16 W/m2  LE=  2.11 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.236343e-11 mm/h 
+ Tot Error Richards=2.693996e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T08:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T08:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T08:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T08:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T09:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:00:00
+
+14/4/2014 9:00 JD:103.375000 (5^ simulation day) 88.10% completed! 
+ t_meteo:250.62 s, t_energy:  0.27 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  5.71 W/m2  LW: 10.90 W/m2  H= -9.47 W/m2  LE=  3.43 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.048806e-10 mm/h 
+ Tot Error Richards=2.693997e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T09:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T09:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T09:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T09:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T10:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:00:00
+
+14/4/2014 10:00 JD:103.416667 (5^ simulation day) 88.89% completed! 
+ t_meteo:252.87 s, t_energy:  0.27 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  7.87 W/m2  LW: 13.39 W/m2  H= -9.88 W/m2  LE=  4.38 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.337042e-04 mm/h 
+ Tot Error Richards=5.031039e-04 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T10:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T10:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T10:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T10:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T11:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:00:00
+
+14/4/2014 11:00 JD:103.458333 (5^ simulation day) 89.68% completed! 
+ t_meteo:255.08 s, t_energy:  0.27 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+ SW=  9.77 W/m2  LW: 14.79 W/m2  H= -8.95 W/m2  LE=  5.34 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.590286e-04 mm/h 
+ Tot Error Richards=1.462132e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T11:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T11:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T11:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T11:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T12:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:00:00
+
+14/4/2014 12:00 JD:103.500000 (5^ simulation day) 90.48% completed! 
+ t_meteo:257.28 s, t_energy:  0.27 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW= 11.06 W/m2  LW: 15.29 W/m2  H= -7.39 W/m2  LE=  6.26 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.893909e-04 mm/h 
+ Tot Error Richards=2.451523e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T12:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T12:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T12:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T12:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T13:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:00:00
+
+14/4/2014 13:00 JD:103.541667 (5^ simulation day) 91.27% completed! 
+ t_meteo:259.49 s, t_energy:  0.28 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW= 11.46 W/m2  LW: 14.70 W/m2  H= -5.51 W/m2  LE=  7.08 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.949511e-04 mm/h 
+ Tot Error Richards=3.446474e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T13:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T13:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T13:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T13:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T14:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:00:00
+
+14/4/2014 14:00 JD:103.583333 (5^ simulation day) 92.06% completed! 
+ t_meteo:261.71 s, t_energy:  0.28 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW= 10.87 W/m2  LW: 13.12 W/m2  H= -3.67 W/m2  LE=  7.69 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.687388e-04 mm/h 
+ Tot Error Richards=4.415213e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T14:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T14:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T14:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T14:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T15:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:00:00
+
+14/4/2014 15:00 JD:103.625000 (5^ simulation day) 92.86% completed! 
+ t_meteo:263.95 s, t_energy:  0.28 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW=  9.38 W/m2  LW: 10.73 W/m2  H= -2.03 W/m2  LE=  8.02 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.164525e-04 mm/h 
+ Tot Error Richards=5.331666e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T15:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T15:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T15:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T15:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T16:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:00:00
+
+14/4/2014 16:00 JD:103.666667 (5^ simulation day) 93.65% completed! 
+ t_meteo:266.13 s, t_energy:  0.28 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW=  7.28 W/m2  LW:  7.59 W/m2  H= -0.54 W/m2  LE=  8.06 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=8.508902e-04 mm/h 
+ Tot Error Richards=6.182556e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T16:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T16:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T16:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T16:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T17:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:00:00
+
+14/4/2014 17:00 JD:103.708333 (5^ simulation day) 94.44% completed! 
+ t_meteo:268.38 s, t_energy:  0.29 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW=  4.95 W/m2  LW:  3.78 W/m2  H=  1.00 W/m2  LE=  7.71 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.890937e-04 mm/h 
+ Tot Error Richards=6.971650e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T17:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T17:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T17:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T17:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T18:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:00:00
+
+14/4/2014 18:00 JD:103.750000 (5^ simulation day) 95.24% completed! 
+ t_meteo:270.60 s, t_energy:  0.29 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW=  2.64 W/m2  LW: -0.66 W/m2  H=  2.76 W/m2  LE=  6.70 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.468008e-04 mm/h 
+ Tot Error Richards=7.718451e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T18:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T18:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T18:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T18:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T19:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:00:00
+
+14/4/2014 19:00 JD:103.791667 (6^ simulation day) 96.03% completed! 
+ t_meteo:272.80 s, t_energy:  0.29 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+ SW=  0.63 W/m2  LW: -6.47 W/m2  H=  3.54 W/m2  LE=  3.75 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.332803e-04 mm/h 
+ Tot Error Richards=8.451731e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T19:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T19:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T19:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T19:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T20:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:00:00
+
+14/4/2014 20:00 JD:103.833333 (6^ simulation day) 96.83% completed! 
+ t_meteo:275.03 s, t_energy:  0.29 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+ SW=  0.00 W/m2  LW:-10.04 W/m2  H=  3.19 W/m2  LE=  2.41 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.234039e-04 mm/h 
+ Tot Error Richards=9.175135e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T20:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T20:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T20:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T20:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T21:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:00:00
+
+14/4/2014 21:00 JD:103.875000 (6^ simulation day) 97.62% completed! 
+ t_meteo:277.25 s, t_energy:  0.30 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+ SW=  0.00 W/m2  LW: -9.77 W/m2  H=  2.69 W/m2  LE=  2.02 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.100219e-04 mm/h 
+ Tot Error Richards=9.885157e-03 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T21:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T21:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T21:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T21:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T22:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:00:00
+
+14/4/2014 22:00 JD:103.916667 (6^ simulation day) 98.41% completed! 
+ t_meteo:279.47 s, t_energy:  0.30 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+ SW=  0.00 W/m2  LW: -9.08 W/m2  H=  2.30 W/m2  LE=  1.82 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.977367e-04 mm/h 
+ Tot Error Richards=1.058289e-02 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T22:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T22:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T22:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T22:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T23:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:00:00
+
+14/4/2014 23:00 JD:103.958333 (6^ simulation day) 99.21% completed! 
+ t_meteo:281.68 s, t_energy:  0.30 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+ SW=  0.00 W/m2  LW: -8.47 W/m2  H=  2.00 W/m2  LE=  1.67 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.862877e-04 mm/h 
+ Tot Error Richards=1.126918e-02 mm Mean Time Step=0.000000 s
+
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T23:15:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:15:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T23:30:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:30:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-14T23:45:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:45:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-14T23:45:00
+
+[MeteoIO] Time to interpolate Point wise: 2014-04-15T00:00:00
+[MeteoIO] Start copying point data to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-15T00:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2014-04-15T00:00:00
+
+15/4/2014 0:00 JD:104.000000 (6^ simulation day) 100.00% completed! 
+ t_meteo:283.90 s, t_energy:  0.30 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+ SW=  0.00 W/m2  LW: -7.96 W/m2  H=  1.77 W/m2  LE=  1.55 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.753701e-04 mm/h 
+ Tot Error Richards=1.194455e-02 mm Mean Time Step=0.000000 s
+

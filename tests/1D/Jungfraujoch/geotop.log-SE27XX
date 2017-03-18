@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/
+WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.081983e+10 
@@ -1249,14 +1249,14 @@ HeaderKthSoilSolids: 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00),
 HeaderCthSoilSolids: 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06)
 HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
 
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to X
-Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to X
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
 Attempting to read 'DemFile' in the file 'none': not present in file list
 Warning: Dem file not present
 Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
@@ -1273,25 +1273,25 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 33.000000,0.000000,0.000000,3725.000000,1.000000,1.000000,55.000000,344.000000,0.770000,0.000000,0.000000,0.000000,0.000000,0.000000,33.000000,10000000000.000000,46.550000,7.990000,-9999.000000
 
 Horizon file FOUND for point type #32
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
 
 Horizon file FOUND for point type #33
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
 Valid pixels: 2
 Number of nodes: 34
 Novalue pixels: 0
 Basin area: 0.000002 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available
@@ -2097,693 +2097,693 @@ No precipitation measurements, considered it 0.0
 No precipitation measurements, considered it 0.0
 17/8/1983 14:00 53.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 15:00 53.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 15:00 53.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 16:00 53.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 16:00 53.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 17:00 53.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 17:00 53.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 18:00 54.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 18:00 54.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 19:00 54.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 19:00 54.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 20:00 54.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 20:00 54.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 21:00 54.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 21:00 54.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 22:00 54.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 22:00 54.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-17/8/1983 23:00 54.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+17/8/1983 23:00 54.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 0:00 54.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 0:00 54.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 1:00 55.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 1:00 55.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 2:00 55.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 2:00 55.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 3:00 55.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 3:00 55.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 4:00 55.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 4:00 55.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 5:00 55.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 5:00 55.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 6:00 55.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 6:00 55.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 7:00 55.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 7:00 55.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 8:00 55.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 8:00 55.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 9:00 56.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 9:00 56.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 10:00 56.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 10:00 56.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 11:00 56.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 11:00 56.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 12:00 56.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 12:00 56.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 13:00 56.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 13:00 56.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 14:00 56.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 14:00 56.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 15:00 56.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 15:00 56.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 16:00 57.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 16:00 57.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 17:00 57.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 17:00 57.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 18:00 57.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 18:00 57.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 19:00 57.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 19:00 57.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 20:00 57.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 20:00 57.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 21:00 57.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 21:00 57.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 22:00 57.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 22:00 57.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-18/8/1983 23:00 58.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/8/1983 23:00 58.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 0:00 58.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 0:00 58.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 1:00 58.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 1:00 58.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 2:00 58.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 2:00 58.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 3:00 58.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 3:00 58.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 4:00 58.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 4:00 58.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 5:00 58.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 5:00 58.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 6:00 58.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 6:00 58.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 7:00 59.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 7:00 59.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 8:00 59.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 8:00 59.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 9:00 59.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 9:00 59.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 10:00 59.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 10:00 59.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 11:00 59.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 11:00 59.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 12:00 59.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 12:00 59.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 13:00 59.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 13:00 59.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 14:00 60.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 14:00 60.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 15:00 60.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 15:00 60.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 16:00 60.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 16:00 60.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 17:00 60.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 17:00 60.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 18:00 60.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 18:00 60.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 19:00 60.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 19:00 60.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 20:00 60.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 20:00 60.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 21:00 60.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 21:00 60.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 22:00 61.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 22:00 61.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-19/8/1983 23:00 61.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/8/1983 23:00 61.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 0:00 61.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 0:00 61.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 1:00 61.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 1:00 61.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 2:00 61.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 2:00 61.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 3:00 61.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 3:00 61.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 4:00 61.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 4:00 61.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 5:00 62.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 5:00 62.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 6:00 62.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 6:00 62.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 7:00 62.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 7:00 62.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 8:00 62.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 8:00 62.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 9:00 62.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 9:00 62.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 10:00 62.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 10:00 62.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 11:00 62.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 11:00 62.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 12:00 62.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 12:00 62.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 13:00 63.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 13:00 63.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 14:00 63.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 14:00 63.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 15:00 63.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 15:00 63.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 16:00 63.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 16:00 63.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 17:00 63.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 17:00 63.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 18:00 63.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 18:00 63.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 19:00 63.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 19:00 63.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 20:00 64.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 20:00 64.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 21:00 64.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 21:00 64.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 22:00 64.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 22:00 64.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-20/8/1983 23:00 64.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/8/1983 23:00 64.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 0:00 64.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 0:00 64.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 1:00 64.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 1:00 64.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 2:00 64.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 2:00 64.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 3:00 65.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 3:00 65.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 4:00 65.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 4:00 65.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 5:00 65.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 5:00 65.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 6:00 65.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 6:00 65.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 7:00 65.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 7:00 65.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 8:00 65.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 8:00 65.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 9:00 65.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 9:00 65.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 10:00 65.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 10:00 65.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 11:00 66.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 11:00 66.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 12:00 66.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 12:00 66.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 13:00 66.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 13:00 66.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 14:00 66.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 14:00 66.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 15:00 66.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 15:00 66.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 16:00 66.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 16:00 66.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 17:00 66.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 17:00 66.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 18:00 67.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 18:00 67.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 19:00 67.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 19:00 67.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 20:00 67.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 20:00 67.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 21:00 67.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 21:00 67.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 22:00 67.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 22:00 67.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-21/8/1983 23:00 67.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/8/1983 23:00 67.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 0:00 67.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 0:00 67.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 1:00 67.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 1:00 67.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 2:00 68.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 2:00 68.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 3:00 68.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 3:00 68.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 4:00 68.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 4:00 68.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 5:00 68.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 5:00 68.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 6:00 68.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 6:00 68.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 7:00 68.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 7:00 68.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 8:00 68.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 8:00 68.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 9:00 69.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 9:00 69.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 10:00 69.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 10:00 69.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 11:00 69.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 11:00 69.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 12:00 69.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 12:00 69.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 13:00 69.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 13:00 69.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 14:00 69.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 14:00 69.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 15:00 69.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 15:00 69.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 16:00 69.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 16:00 69.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 17:00 70.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 17:00 70.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 18:00 70.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 18:00 70.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 19:00 70.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 19:00 70.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 20:00 70.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 20:00 70.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 21:00 70.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 21:00 70.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 22:00 70.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 22:00 70.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-22/8/1983 23:00 70.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/8/1983 23:00 70.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 0:00 71.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 0:00 71.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 1:00 71.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 1:00 71.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 2:00 71.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 2:00 71.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 3:00 71.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 3:00 71.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 4:00 71.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 4:00 71.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 5:00 71.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 5:00 71.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 6:00 71.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 6:00 71.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 7:00 72.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 7:00 72.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 8:00 72.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 8:00 72.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 9:00 72.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 9:00 72.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 10:00 72.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 10:00 72.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 11:00 72.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 11:00 72.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 12:00 72.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 12:00 72.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 13:00 72.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 13:00 72.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 14:00 72.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 14:00 72.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 15:00 73.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 15:00 73.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 16:00 73.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 16:00 73.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 17:00 73.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 17:00 73.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 18:00 73.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 18:00 73.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 19:00 73.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 19:00 73.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 20:00 73.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 20:00 73.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 21:00 73.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 21:00 73.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 22:00 74.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 22:00 74.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-23/8/1983 23:00 74.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/8/1983 23:00 74.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 0:00 74.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 0:00 74.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 1:00 74.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 1:00 74.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 2:00 74.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 2:00 74.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 3:00 74.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 3:00 74.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 4:00 74.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 4:00 74.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 5:00 74.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 5:00 74.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 6:00 75.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 6:00 75.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 7:00 75.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 7:00 75.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 8:00 75.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 8:00 75.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 9:00 75.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 9:00 75.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 10:00 75.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 10:00 75.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 11:00 75.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 11:00 75.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 12:00 75.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 12:00 75.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 13:00 76.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 13:00 76.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 14:00 76.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 14:00 76.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 15:00 76.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 15:00 76.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 16:00 76.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 16:00 76.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 17:00 76.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 17:00 76.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 18:00 76.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 18:00 76.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 19:00 76.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 19:00 76.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 20:00 76.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 20:00 76.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 21:00 77.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 21:00 77.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 22:00 77.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 22:00 77.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-24/8/1983 23:00 77.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/8/1983 23:00 77.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 0:00 77.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 0:00 77.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 1:00 77.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 1:00 77.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 2:00 77.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 2:00 77.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 3:00 77.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 3:00 77.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 4:00 78.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 4:00 78.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 5:00 78.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 5:00 78.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 6:00 78.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 6:00 78.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 7:00 78.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 7:00 78.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 8:00 78.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 8:00 78.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 9:00 78.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 9:00 78.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 10:00 78.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 10:00 78.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 11:00 79.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 11:00 79.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 12:00 79.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 12:00 79.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 13:00 79.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 13:00 79.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 14:00 79.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 14:00 79.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 15:00 79.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 15:00 79.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 16:00 79.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 16:00 79.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 17:00 79.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 17:00 79.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 18:00 79.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 18:00 79.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 19:00 80.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 19:00 80.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 20:00 80.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 20:00 80.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 21:00 80.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 21:00 80.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 22:00 80.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 22:00 80.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-25/8/1983 23:00 80.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/8/1983 23:00 80.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 0:00 80.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 0:00 80.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 1:00 80.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 1:00 80.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 2:00 81.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 2:00 81.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 3:00 81.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 3:00 81.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 4:00 81.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 4:00 81.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 5:00 81.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 5:00 81.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 6:00 81.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 6:00 81.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 7:00 81.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 7:00 81.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 8:00 81.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 8:00 81.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 9:00 81.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 9:00 81.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 10:00 82.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 10:00 82.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 11:00 82.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 11:00 82.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 12:00 82.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 12:00 82.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 13:00 82.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 13:00 82.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 14:00 82.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 14:00 82.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 15:00 82.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 15:00 82.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 16:00 82.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 16:00 82.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 17:00 83.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 17:00 83.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 18:00 83.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 18:00 83.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 19:00 83.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 19:00 83.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 20:00 83.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 20:00 83.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 21:00 83.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 21:00 83.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 22:00 83.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 22:00 83.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-26/8/1983 23:00 83.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/8/1983 23:00 83.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 0:00 83.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 0:00 83.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 1:00 84.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 1:00 84.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 2:00 84.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 2:00 84.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 3:00 84.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 3:00 84.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 4:00 84.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 4:00 84.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 5:00 84.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 5:00 84.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 6:00 84.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 6:00 84.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 7:00 84.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 7:00 84.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 8:00 85.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 8:00 85.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 9:00 85.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 9:00 85.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 10:00 85.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 10:00 85.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 11:00 85.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 11:00 85.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 12:00 85.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 12:00 85.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 13:00 85.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 13:00 85.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 14:00 85.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 14:00 85.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 15:00 86.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 15:00 86.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 16:00 86.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 16:00 86.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 17:00 86.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 17:00 86.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 18:00 86.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 18:00 86.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 19:00 86.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 19:00 86.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 20:00 86.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 20:00 86.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 21:00 86.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 21:00 86.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 22:00 86.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 22:00 86.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-27/8/1983 23:00 87.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/8/1983 23:00 87.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 0:00 87.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 0:00 87.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 1:00 87.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 1:00 87.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 2:00 87.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 2:00 87.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 3:00 87.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 3:00 87.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 4:00 87.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 4:00 87.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 5:00 87.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 5:00 87.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 6:00 88.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 6:00 88.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 7:00 88.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 7:00 88.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 8:00 88.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 8:00 88.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 9:00 88.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 9:00 88.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 10:00 88.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 10:00 88.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 11:00 88.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 11:00 88.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 12:00 88.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 12:00 88.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 13:00 88.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 13:00 88.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 14:00 89.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 14:00 89.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 15:00 89.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 15:00 89.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 16:00 89.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 16:00 89.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 17:00 89.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 17:00 89.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 18:00 89.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 18:00 89.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 19:00 89.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 19:00 89.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 20:00 89.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 20:00 89.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 21:00 90.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 21:00 90.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 22:00 90.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 22:00 90.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-28/8/1983 23:00 90.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/8/1983 23:00 90.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 0:00 90.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 0:00 90.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 1:00 90.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 1:00 90.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 2:00 90.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 2:00 90.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 3:00 90.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 3:00 90.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 4:00 90.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 4:00 90.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 5:00 91.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 5:00 91.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 6:00 91.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 6:00 91.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 7:00 91.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 7:00 91.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 8:00 91.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 8:00 91.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 9:00 91.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 9:00 91.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 10:00 91.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 10:00 91.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 11:00 91.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 11:00 91.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 12:00 92.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 12:00 92.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 13:00 92.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 13:00 92.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 14:00 92.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 14:00 92.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 15:00 92.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 15:00 92.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 16:00 92.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 16:00 92.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 17:00 92.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 17:00 92.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 18:00 92.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 18:00 92.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 19:00 93.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 19:00 93.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 20:00 93.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 20:00 93.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 21:00 93.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 21:00 93.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 22:00 93.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 22:00 93.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-29/8/1983 23:00 93.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/8/1983 23:00 93.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 0:00 93.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 0:00 93.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 1:00 93.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 1:00 93.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 2:00 93.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 2:00 93.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 3:00 94.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 3:00 94.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 4:00 94.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 4:00 94.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 5:00 94.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 5:00 94.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 6:00 94.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 6:00 94.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 7:00 94.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 7:00 94.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 8:00 94.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 8:00 94.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 9:00 94.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 9:00 94.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 10:00 95.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 10:00 95.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 11:00 95.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 11:00 95.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 12:00 95.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 12:00 95.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 13:00 95.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 13:00 95.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 14:00 95.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 14:00 95.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 15:00 95.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 15:00 95.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 16:00 95.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 16:00 95.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 17:00 95.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 17:00 95.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 18:00 96.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 18:00 96.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 19:00 96.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 19:00 96.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 20:00 96.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 20:00 96.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 21:00 96.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 21:00 96.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 22:00 96.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 22:00 96.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-30/8/1983 23:00 96.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/8/1983 23:00 96.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 0:00 96.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 0:00 96.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 1:00 97.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 1:00 97.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 2:00 97.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 2:00 97.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 3:00 97.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 3:00 97.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 4:00 97.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 4:00 97.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 5:00 97.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 5:00 97.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 6:00 97.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 6:00 97.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 7:00 97.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 7:00 97.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 8:00 97.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 8:00 97.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 9:00 98.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 9:00 98.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 10:00 98.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 10:00 98.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 11:00 98.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 11:00 98.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 12:00 98.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 12:00 98.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 13:00 98.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 13:00 98.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 14:00 98.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 14:00 98.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 15:00 98.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 15:00 98.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 16:00 99.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 16:00 99.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 17:00 99.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 17:00 99.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 18:00 99.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 18:00 99.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 19:00 99.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 19:00 99.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 20:00 99.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 20:00 99.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 21:00 99.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 21:00 99.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 22:00 99.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 22:00 99.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No precipitation measurements, considered it 0.0
-31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 Number of times the simulation #1 has been run: 1

@@ -1,0 +1,130 @@
+THIS IS THE INITIAL STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+########################## INFO ABOUT COMPILATION #################################
+This GEOtop version  was compiled at:  Mar 18 2017  17:05:03
+The compiler gives a __cplusplus value of 
+The Git revision hash of the source code is: TRIEST_release-38-g28e42200 
+This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
+This run starts at: Sat Mar 18 17:22:06 2017
+##### Please report the above lines if you ask for help ############################
+[NOTICE]: Configuration file parsing completed. 8765 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 255, of which 5 at the bottom, 50 in the middle, and 200 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[NOTICE]: file index SPAR (soil parameter) 1
+[NOTICE]: file name assigned : /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil 
+
+[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Dz
+[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kv
+[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kh
+[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_r
+[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_w
+[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_fc
+[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_s
+[NOTICE]: Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to alpha
+[NOTICE]: Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to n
+
+Soil Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 20.000000(2.00e+01), 60.000000(6.00e+01), 240.000000(2.40e+02), 480.000000(4.80e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 28000.000000(2.80e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00)
+HeaderNormalHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderLateralHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderThetaRes: 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02)
+HeaderWiltingPoint: 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01)
+HeaderFieldCapacity: 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01)
+HeaderThetaSat: 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01)
+HeaderAlpha: 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03)
+HeaderN: 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00)
+HeaderCthSoilSolids: 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+Soil Bedrock Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 20.000000(2.00e+01), 60.000000(6.00e+01), 240.000000(2.40e+02), 480.000000(4.80e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 28000.000000(2.80e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00)
+HeaderNormalHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderLateralHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderThetaRes: 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02)
+HeaderWiltingPoint: 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01)
+HeaderFieldCapacity: 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01)
+HeaderThetaSat: 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01)
+HeaderAlpha: 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03)
+HeaderN: 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00)
+HeaderCthSoilSolids: 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+[NOTICE]: /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/ListPoints.txt
+[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/ListPoints.txt assigned to ID
+[ERROR] MeteoIO: [ARCIO.cc:174] FileNotFoundException: ./INmaps500/dem.asc
+
+[WARNING]: File /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input_maps/pit not existing
+[WARNING]: Dem file not present
+[NOTICE]: File for keyword : LandCoverMapFile  not present in file list
+[WARNING]: Landuse file not present, uniform cover considered
+[WARNING]: File /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input_maps/sky not existing
+[WARNING]: Sky view factor file not present
+[NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
+[WARNING]: Bedrock depth file not present
+[WARNING]: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+620815.000000,5171506.000000,1.000000,1480.000000,1.000000,1.000000,15.000000,225.000000,1.000000,0.000000,0.000000,0.000000,0.000000,250.000000,1.000000,10000000000.000000,46.668000,10.579000,
+[WARNING]: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: INFO about the simulated basin:
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 10
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[NOTICE]: Start Reading METEO data files...
+[NOTICE]:  File for keyword MeteoStationsListFile is not assigned
+[NOTICE]: Numbers of Meteo Stations read: 1
+[NOTICE]: Reading horizon for : 1 meteo station
+[WARNING]: Horizon file FOUND for meteo station #1
+[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to AngleFromNorthClockwise
+[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to HorizonHeight
+
+CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,1,1,        1480,1,1,          15,         225,           1
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      620815, 5.17151e+06,      46.668,      10.579,        1480,           1,           1,         2.5,           2
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 3 layers
+[NOTICE]: Soil water transpires from the first 7 layers
+[NOTICE]: Duration of preprocessing phase: 0.474513
+
