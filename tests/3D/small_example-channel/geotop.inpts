@@ -245,6 +245,16 @@ DischargeFile = "output-tabs/discharge"
 InShortwaveRadiationMapFile= "output-maps/SWin"
 InLongwaveRadiationMapFile= "output-maps/LWin"
 NetRadiationMapFile= "output-maps/RadNet"
+
+!!------new output test
+#Tables
+PathPrefix = "output-tables"
+SoilTemperature::1Dp::INS = 3600
+SoilTemperature::1Ds::INS = 86400
+#Maps
+PathPrefix = "output-maps"
+SoilTemperature::3D::INS = 86400
+
 !=============================================================================
 !  RECOVERY FILE NAMES
 !=============================================================================
