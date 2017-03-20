@@ -1,0 +1,80 @@
+
+1/6/2000 12:01 JD:152.500694 (1^ simulation day) 10.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:107.37 s, t_sub:107.20 s, t_sup:  0.16 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.490673e-04 mm/h 
+ Tot Error Richards=1.248445e-05 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:02 JD:152.501389 (1^ simulation day) 20.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:128.44 s, t_sub:127.90 s, t_sup:  0.54 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.352411e-03 mm/h 
+ Tot Error Richards=5.169130e-05 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:03 JD:152.502083 (1^ simulation day) 30.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:148.26 s, t_sub:147.09 s, t_sup:  1.17 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.425446e-03 mm/h 
+ Tot Error Richards=7.544873e-05 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:04 JD:152.502778 (1^ simulation day) 40.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:166.63 s, t_sub:164.59 s, t_sup:  2.04 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.934202e-03 mm/h 
+ Tot Error Richards=1.076854e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:05 JD:152.503472 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:203.30 s, t_sub:200.17 s, t_sup:  3.13 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.200092e-03 mm/h 
+ Tot Error Richards=2.110203e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:06 JD:152.504167 (1^ simulation day) 60.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:222.20 s, t_sub:217.56 s, t_sup:  4.64 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.543881e-03 mm/h 
+ Tot Error Richards=2.534183e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:07 JD:152.504861 (1^ simulation day) 70.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:243.87 s, t_sub:237.33 s, t_sup:  6.54 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.640829e-03 mm/h 
+ Tot Error Richards=2.807654e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:08 JD:152.505556 (1^ simulation day) 80.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:278.40 s, t_sub:269.64 s, t_sup:  8.76 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.795248e-03 mm/h 
+ Tot Error Richards=3.440196e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:09 JD:152.506250 (1^ simulation day) 90.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:303.14 s, t_sub:291.77 s, t_sup: 11.36 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.637089e-03 mm/h 
+ Tot Error Richards=3.713044e-04 mm Mean Time Step=0.000000 s
+
+
+1/6/2000 12:10 JD:152.506944 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:321.14 s, t_sub:306.76 s, t_sup: 14.38 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.43 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.310506e-03 mm/h 
+ Tot Error Richards=3.931462e-04 mm Mean Time Step=0.000000 s
+

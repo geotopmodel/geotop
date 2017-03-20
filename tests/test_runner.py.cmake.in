@@ -31,10 +31,10 @@ Specifically, each test run on a TEST_DIR will pass if and only if:
 
 * TEST_DIR/_SUCCESSFUL_RUN exists and is a file
 
-* for each OUTPUTDIR in TEST_DIR/results:
-    for each FILE in OUTPUTDIR:
-      - TEST_DIR/OUTPUTDIR/FILE exists and is a file,
-      - TEST_DIR/OUTPUTDIR/FILE is equal to TEST_DIR/results/OUTPUTDIR/FILE.
+* for each OUTPUT_TABS and OUTPUT_MAPS in TEST_DIR:
+    for each FILE in OUTPUT_TABS:
+      - TEST_DIR/COMPARE_TABS/FILE exists and is a file,
+      - TEST_DIR/COMPARE_TABS/FILE is equal to TEST_DIR/OUTPUT_TABS/FILE.
 
 Adding a new test should be as easy as:
 
@@ -62,7 +62,7 @@ if pandas:
 
 # path to the geotop binary
 GEOTOP = "${GEOTOP_PROGRAM_PATH}"
-# geotop compile flag 
+# geotop compile flag
 METEOIO_ACTUAL_STATUS = "${METEOIOPREFIX}"
 
 # directory containing this file
@@ -72,7 +72,7 @@ TESTDIR = "${GEOTOP_TEST_DIR}"
 OUTPUT_TABS = "output-tabs" 
 OUTPUT_MAPS = "output-maps" 
 
-# correct output directories
+#  reference output directories
 COMPARE_TABS = [ OUTPUT_TABS+"-METEOIO-"+METEOIO_ACTUAL_STATUS.upper() ]
 COMPARE_MAPS = [ OUTPUT_MAPS+"-METEOIO-"+METEOIO_ACTUAL_STATUS.upper() ]
 
@@ -178,20 +178,14 @@ class TestValidRun(object):
                 return func(fpath_ok, fpath_new, delta)
         return compare_files_exactly(fpath_ok, fpath_new, None)
 
-    def _test_template(self, directory, results_dir):
+    def _test_template(self, directory, referencedir, resultdir):
         """
         This template function will run geotop on a specific test
         directory, check if the `_SUCCESSFUL_RUN` is created, and
-        check that all the files stored in ``results`` have been
+        check that all the files stored in ``COMPARE_MAPS and COMPARE_TABS dir`` have been
         created by the simulation and compare them.
         """
 
-        """
-        if os.path.isfile(os.path.join(directory, 'DISABLE_TEST_RUNNER')):
-            raise SkipTest(
-                "Skipping test `%s` because 'DISABLE_TEST_RUNNER' file is "
-                "present" % os.path.basename(directory))
-        """
 
         # Change the current working directory, because
         # ``geotop.inpts`` files usually have relative paths.
@@ -202,22 +196,13 @@ class TestValidRun(object):
         # Check that _SUCCESSFUL_RUN file exists)
         assert_is_file(os.path.join(directory, '_SUCCESSFUL_RUN'))
 
-        resultdir = os.path.join(directory, results_dir)
-        outputdir = os.path.join(directory, OUTPUT_TABS) 
-
-        """
-        if not os.path.isdir(resultdir):
-            # No `results` directory. Assume it's OK.
-            raise SkipTest("Skipping test because no resultdir `%s` is "
-                           "present" % resultdir)
-        """
 
         # and for each file in the RESULT directory...
-        for fname in os.listdir(resultdir):
-            # fpath_ok is the file in ``results``
-            fpath_ok = os.path.join(resultdir,fname)
+        for fname in os.listdir(referencedir):
+            # fpath_ok is the file in ``reference``
+            fpath_ok = os.path.join(referencedir,fname)
             # fpath_new is the corresponding file just produced by geotop
-            fpath_new = os.path.join(outputdir, fname)
+            fpath_new = os.path.join(resultdir, fname)
             # fpath_new has to exists and...
             #if not os.path.isfile(fpath_new): continue ##### FIX 
             assert_is_file(fpath_new)
@@ -228,13 +213,17 @@ class TestValidRun(object):
         actual_dir = os.getcwd()
         if os.path.isdir(actual_dir) and os.path.isfile(os.path.join(actual_dir, 'geotop.inpts')):
             if os.path.isdir(os.path.join(actual_dir, OUTPUT_TABS)):
+	        resultdir=os.path.join(actual_dir, OUTPUT_TABS)
                 for tabs_dir in COMPARE_TABS:
+		    referencedir=os.path.join(actual_dir, tabs_dir)
                     if os.path.isdir(os.path.join(actual_dir, tabs_dir)):
-                        self._test_template( actual_dir, tabs_dir )
+                        self._test_template( actual_dir, referencedir, resultdir )
             if os.path.isdir(os.path.join(actual_dir, OUTPUT_MAPS)):
+	        resultdir=os.path.join(actual_dir, OUTPUT_MAPS)
                 for maps in COMPARE_MAPS:
+		    referencedir=os.path.join(actual_dir, maps)
                     if os.path.isdir(os.path.join(actual_dir, maps)):
-                        self._test_template( actual_dir, maps )
+                        self._test_template( actual_dir, referencedir, resultdir )
 
 if __name__ == "__main__":
     #import nose

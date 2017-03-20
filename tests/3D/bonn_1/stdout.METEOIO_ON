@@ -1,0 +1,73 @@
+WARNING: NO cloudiness measurements available
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:30:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T01:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T01:00:00
+
+1/1/2000 1:00 JD:0.041667 (1^ simulation day)  0.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.13 s, t_sub:  0.13 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-18.78 W/m2  H= -1.83 W/m2  LE=  0.06 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.769395e-08 mm/h 
+ Tot Error Richards=2.769395e-08 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T01:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T01:30:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T02:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T02:00:00
+
+1/1/2000 2:00 JD:0.083333 (1^ simulation day)  0.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.20 s, t_sub:  0.20 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-18.64 W/m2  H= -1.85 W/m2  LE=  0.05 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.420439e-08 mm/h 
+ Tot Error Richards=5.189835e-08 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T02:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T02:30:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T03:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T03:00:00
+
+1/1/2000 3:00 JD:0.125000 (1^ simulation day)  0.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.28 s, t_sub:  0.28 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-18.50 W/m2  H= -1.86 W/m2  LE=  0.05 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.217391e-08 mm/h 
+ Tot Error Richards=8.407226e-08 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T03:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T03:30:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T04:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T04:00:00
+
+1/1/2000 4:00 JD:0.166667 (1^ simulation day)  0.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.35 s, t_sub:  0.35 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:-18.38 W/m2  H= -1.88 W/m2  LE=  0.04 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.034949e-08 mm/h 
+ Tot Error Richards=1.044217e-07 mm Mean Time Step=0.000000 s
+

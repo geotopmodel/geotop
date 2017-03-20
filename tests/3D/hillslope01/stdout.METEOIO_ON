@@ -1,0 +1,541 @@
+WARNING: NO cloudiness measurements available
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:00:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:01:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:02:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:03:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:04:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:05:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:00
+
+1/1/2000 0:06 JD:0.004167 (1^ simulation day) 20.00% completed! 
+ t_meteo:  0.05 s, t_energy:  7.88 s, t_blowingsnow:  0.00 s, t_water: 74.56 s, t_sub: 74.53 s, t_sup:  0.03 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:-32.21 W/m2  H= -0.38 W/m2  LE=  0.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.361421e-05 mm/h 
+ Tot Error Richards=1.361421e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:06:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:07:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:08:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:09:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:10:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:11:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:00
+
+1/1/2000 0:12 JD:0.008333 (1^ simulation day) 40.00% completed! 
+ t_meteo:  0.09 s, t_energy: 15.82 s, t_blowingsnow:  0.00 s, t_water:129.92 s, t_sub:129.85 s, t_sup:  0.07 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:-32.00 W/m2  H= -0.40 W/m2  LE=  0.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.001595e-05 mm/h 
+ Tot Error Richards=3.363016e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:12:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:13:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:14:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:15:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:16:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:17:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:00
+
+1/1/2000 0:18 JD:0.012500 (1^ simulation day) 60.00% completed! 
+ t_meteo:  0.13 s, t_energy: 23.74 s, t_blowingsnow:  0.00 s, t_water:185.54 s, t_sub:185.44 s, t_sup:  0.10 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:-31.80 W/m2  H= -0.43 W/m2  LE=  0.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.211163e-05 mm/h 
+ Tot Error Richards=5.574178e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:18:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:19:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:20:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:21:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:22:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:23:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:00
+
+1/1/2000 0:24 JD:0.016667 (1^ simulation day) 80.00% completed! 
+ t_meteo:  0.16 s, t_energy: 31.56 s, t_blowingsnow:  0.00 s, t_water:242.21 s, t_sub:242.08 s, t_sup:  0.13 s, t_out:  0.03 s
+ SW=  0.00 W/m2  LW:-31.60 W/m2  H= -0.45 W/m2  LE=  0.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.220206e-05 mm/h 
+ Tot Error Richards=7.794384e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:24:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:25:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:26:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:00
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:18
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:18
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:36
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:36
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:54
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:27:54
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:12
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:12
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:30
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:30
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:48
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:28:48
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:06
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:06
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:24
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:24
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:42
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:29:42
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:30:00
+
+[MeteoIO] Time to interpolate : cloudiness 2000-01-01T00:30:00
+
+1/1/2000 0:30 JD:0.020833 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.20 s, t_energy: 39.47 s, t_blowingsnow:  0.00 s, t_water:301.05 s, t_sub:300.89 s, t_sup:  0.17 s, t_out:  0.04 s
+ SW=  0.00 W/m2  LW:-31.41 W/m2  H= -0.47 W/m2  LE=  0.01 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.116537e-05 mm/h 
+ Tot Error Richards=9.910921e-06 mm Mean Time Step=0.000000 s
+
