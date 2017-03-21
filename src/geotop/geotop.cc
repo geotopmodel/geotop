@@ -137,6 +137,11 @@ int main(int argc,char *argv[]){
 	{
                 lg->writefAll("This GEOtop version  was compiled at:  %s  %s\n", __DATE__,__TIME__);
                 lg->writefAll("The Git revision hash of the source code is: %s \n",GEOtop_BUILD_VERSION);
+#ifdef USE_INTERNAL_METEODISTR
+    lg->writeAll("This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF \n");
+#else
+    lg->writeAll("This version does USE METEO-IO library for interpolation: METEOIO-ON \n");
+#endif
 		return 0;
 	}
 
