@@ -36,7 +36,7 @@ for SUFFIX in  SE27XX METEOIO-ON METEOIO-OFF ; do
          rm -rf $1/output-tabs-$SUFFIX
          mv $1/output-tabs  $1/output-tabs-$SUFFIX
          rm $1/output-tabs-$SUFFIX/placeholder
-         git checkout $1/output-tabs/placeholder
+         git checkout output-tabs/placeholder
       fi 
       if [ -d "output-maps"  ]; then
          rm -rf $1/output-maps-$SUFFIX
@@ -64,8 +64,9 @@ done
 
 # personal setting: please define where geotop distribution is 
 
-GEOTOP_HOME=/Users/cozzini/GEOTOP/github/geotop
+GEOTOP_HOME=/home/ubuntu/geotopmodel/geotop
 
+test_to_be_run="not_set"
 #
 export GEOTOP_BIN_=${GEOTOP_HOME}/bin/geotop-
 export TEST_DIR=${GEOTOP_HOME}/tests
@@ -106,7 +107,7 @@ echo $TEST_XD_DIR
 cd  $TEST_XD_DIR
 
 
-if [ -n $test_to_be_run ]
+if [ $test_to_be_run != "not_set"  ]
 then  
  {  echo "ready to run test in '$test_to_be_run'"
     if [ -d $test_to_be_run ]
@@ -122,10 +123,11 @@ then
 fi
 
 for i in $( ls ); do
-    if [ -d $i ]
+    if [ -d $TEST_XD_DIR/$i ]
     	then 
           echo item: $i
           echo GEOTOP_SIM_DIR: $TEST_XD_DIR/$i
+	  run_3D  $TEST_XD_DIR/$i
     else 
            echo "$i is not a test directory"
 	   continue 

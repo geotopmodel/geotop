@@ -9,11 +9,11 @@ GEOtop 2.1 is a free software and is distributed under GNU General Public Licens
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ########################## INFO ABOUT COMPILATION #################################
-This GEOtop version  was compiled at:  Mar 18 2017  17:05:03
-The compiler gives a __cplusplus value of 
-The Git revision hash of the source code is: TRIEST_release-38-g28e42200 
+This GEOtop version  was compiled at:  Mar 22 2017  13:45:58
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release-56-g7273c642 
 This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
-This run starts at: Sat Mar 18 18:50:51 2017
+This run starts at: Fri Mar 24 14:09:24 2017
 ##### Please report the above lines if you ask for help ############################
 [NOTICE]: Configuration file parsing completed. 3561 characters parsed.
 [NOTICE]: Full match!
@@ -31,16 +31,16 @@ Soil Layers: 16
 
 Soil Bedrock Layers: 16
 
-[NOTICE]: /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt
-[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to X
-[NOTICE]: Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
-[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
-[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
-[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
-[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
-[WARNING]: File /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/input_maps/pit not existing
+[NOTICE]: /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt
+[NOTICE]: Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to X
+[NOTICE]: Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
+[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
+[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
+[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
+[NOTICE]: Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
+[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/input_maps/pit not existing
 [WARNING]: Dem file not present
 [NOTICE]: File for keyword : LandCoverMapFile  not present in file list
 [WARNING]: Landuse file not present, uniform cover considered
@@ -55,11 +55,11 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 0.000000,0.000000,32.000000,3720.000000,1.000000,1.000000,70.000000,145.000000,0.570000,0.000000,0.000000,0.000000,0.000000,0.000000,32.000000,10000000000.000000,46.550000,7.990000,
 0.000000,0.000000,33.000000,3725.000000,1.000000,1.000000,55.000000,344.000000,0.770000,0.000000,0.000000,0.000000,0.000000,0.000000,33.000000,10000000000.000000,46.550000,7.990000,
 [WARNING]: Horizon file FOUND for point type #32
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
 [WARNING]: Horizon file FOUND for point type #33
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
 [NOTICE]: INFO about the simulated basin:
 [NOTICE]: Valid pixels: 2
 [NOTICE]: Number of nodes: 34
@@ -70,13 +70,13 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 [NOTICE]: Numbers of Meteo Stations read: 1
 [NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
-[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
-[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
-[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
-[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
-[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
+[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
+[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
+[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
+[NOTICE]: Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
+[NOTICE]: Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
 [NOTICE]: Read meteo data for meteo station #: 1 with number of lines=254997
 [NOTICE]: Initial date of meteo data : 31/07/1983 00:40
 [NOTICE]: Final date of meteo data   : 31/08/2012 23:40
@@ -109,7 +109,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 10 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 5 layers
 [NOTICE]: Soil water transpires from the first 16 layers
-[NOTICE]: Duration of preprocessing phase: 67.206867
+[NOTICE]: Duration of preprocessing phase: 99.440329
 
 [NOTICE]: 1/8/1983 1:00 0.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1983 2:00 0.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
@@ -131,224 +131,224 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 1/8/1983 18:00 2.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1983 19:00 2.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1983 20:00 2.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 1/8/1983 21:00 2.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 1/8/1983 22:00 2.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 1/8/1983 23:00 3.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 0:00 3.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 1:00 3.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 2:00 3.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 3:00 3.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 4:00 3.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 5:00 3.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 6:00 4.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 7:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 8:00 4.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 9:00 4.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 10:00 4.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 11:00 4.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 12:00 4.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 13:00 4.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 14:00 5.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 15:00 5.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 16:00 5.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 17:00 5.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 18:00 5.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 19:00 5.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 20:00 5.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 21:00 6.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 22:00 6.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 2/8/1983 23:00 6.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 0:00 6.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 1:00 6.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 2:00 6.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 3:00 6.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 4:00 7.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 5:00 7.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 6:00 7.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 7:00 7.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 8:00 7.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 9:00 7.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 10:00 7.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 11:00 7.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 12:00 8.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 13:00 8.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 14:00 8.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 15:00 8.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 16:00 8.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 17:00 8.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 18:00 8.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 19:00 9.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 20:00 9.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 21:00 9.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 22:00 9.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 3/8/1983 23:00 9.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 0:00 9.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 1:00 9.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 2:00 9.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 3:00 10.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 4:00 10.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 5:00 10.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 6:00 10.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 7:00 10.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 8:00 10.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 9:00 10.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 10:00 11.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 11:00 11.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 12:00 11.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 13:00 11.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 14:00 11.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 15:00 11.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 16:00 11.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 17:00 11.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 18:00 12.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 19:00 12.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 20:00 12.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 21:00 12.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 22:00 12.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 4/8/1983 23:00 12.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 0:00 12.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 1:00 13.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 2:00 13.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 3:00 13.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 4:00 13.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 5:00 13.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 6:00 13.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 7:00 13.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 8:00 14.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 9:00 14.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 10:00 14.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 11:00 14.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 12:00 14.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 13:00 14.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 14:00 14.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 15:00 14.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 16:00 15.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 17:00 15.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 18:00 15.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 19:00 15.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 20:00 15.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 21:00 15.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 22:00 15.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 5/8/1983 23:00 16.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 0:00 16.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 1:00 16.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 2:00 16.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 3:00 16.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 4:00 16.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 5:00 16.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 6:00 16.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 7:00 17.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 8:00 17.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 9:00 17.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 10:00 17.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 11:00 17.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 12:00 17.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 13:00 17.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 14:00 18.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 15:00 18.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 16:00 18.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 17:00 18.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 18:00 18.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 19:00 18.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 20:00 18.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 21:00 18.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 22:00 19.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 6/8/1983 23:00 19.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 0:00 19.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 1:00 19.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 2:00 19.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 3:00 19.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 4:00 19.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 5:00 20.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 6:00 20.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 7:00 20.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 8:00 20.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 9:00 20.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 10:00 20.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 11:00 20.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 12:00 21.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 13:00 21.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 14:00 21.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 15:00 21.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 16:00 21.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 17:00 21.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 18:00 21.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 19:00 21.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 20:00 22.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 21:00 22.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 22:00 22.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 7/8/1983 23:00 22.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 0:00 22.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 1:00 22.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 2:00 22.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 3:00 23.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 4:00 23.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 5:00 23.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 6:00 23.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 7:00 23.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 8:00 23.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 9:00 23.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 10:00 23.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 11:00 24.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 12:00 24.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 13:00 24.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 14:00 24.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 15:00 24.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 16:00 24.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 17:00 24.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 18:00 25.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 19:00 25.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 20:00 25.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 21:00 25.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 22:00 25.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 8/8/1983 23:00 25.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 0:00 25.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 1:00 25.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 2:00 26.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 3:00 26.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 4:00 26.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 5:00 26.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 6:00 26.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 7:00 26.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 8:00 26.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 9:00 27.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 10:00 27.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 11:00 27.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 12:00 27.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 13:00 27.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 14:00 27.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 15:00 27.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 16:00 27.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 17:00 28.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 18:00 28.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 19:00 28.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 20:00 28.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 21:00 28.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 22:00 28.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 9/8/1983 23:00 28.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 0:00 29.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 1:00 29.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 2:00 29.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 3:00 29.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 4:00 29.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 5:00 29.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 6:00 29.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 7:00 30.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 8:00 30.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 9:00 30.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 10:00 30.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 11:00 30.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 12:00 30.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 13:00 30.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 14:00 30.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 15:00 31.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 16:00 31.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 17:00 31.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 18:00 31.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 19:00 31.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 20:00 31.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 21:00 31.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: 10/8/1983 22:00 32.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 21:00 2.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 22:00 2.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 23:00 3.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 0:00 3.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 1:00 3.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 2:00 3.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 3:00 3.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 4:00 3.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 5:00 3.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 6:00 4.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 7:00 4.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 8:00 4.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 9:00 4.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 10:00 4.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 11:00 4.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 12:00 4.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 13:00 4.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 14:00 5.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 15:00 5.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 16:00 5.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 17:00 5.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 18:00 5.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 19:00 5.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 20:00 5.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 21:00 6.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 22:00 6.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 23:00 6.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 0:00 6.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 1:00 6.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 2:00 6.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 3:00 6.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 4:00 7.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 5:00 7.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 6:00 7.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 7:00 7.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 8:00 7.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 9:00 7.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 10:00 7.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 11:00 7.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 12:00 8.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 13:00 8.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 14:00 8.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 15:00 8.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 16:00 8.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 17:00 8.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 18:00 8.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 19:00 9.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 20:00 9.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 21:00 9.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 22:00 9.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 23:00 9.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 0:00 9.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 1:00 9.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 2:00 9.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 3:00 10.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 4:00 10.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 5:00 10.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 6:00 10.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 7:00 10.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 8:00 10.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 9:00 10.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 10:00 11.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 11:00 11.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 12:00 11.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 13:00 11.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 14:00 11.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 15:00 11.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 16:00 11.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 17:00 11.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 18:00 12.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 19:00 12.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 20:00 12.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 21:00 12.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 22:00 12.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 23:00 12.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 0:00 12.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 1:00 13.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 2:00 13.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 3:00 13.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 4:00 13.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 5:00 13.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 6:00 13.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 7:00 13.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 8:00 14.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 9:00 14.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 10:00 14.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 11:00 14.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 12:00 14.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 13:00 14.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 14:00 14.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 15:00 14.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 16:00 15.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 17:00 15.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 18:00 15.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 19:00 15.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 20:00 15.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 21:00 15.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 22:00 15.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 23:00 16.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 0:00 16.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 1:00 16.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 2:00 16.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 3:00 16.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 4:00 16.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 5:00 16.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 6:00 16.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 7:00 17.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 8:00 17.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 9:00 17.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 10:00 17.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 11:00 17.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 12:00 17.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 13:00 17.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 14:00 18.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 15:00 18.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 16:00 18.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 17:00 18.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 18:00 18.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 19:00 18.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 20:00 18.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 21:00 18.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 22:00 19.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 23:00 19.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 0:00 19.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 1:00 19.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 2:00 19.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 3:00 19.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 4:00 19.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 5:00 20.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 6:00 20.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 7:00 20.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 8:00 20.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 9:00 20.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 10:00 20.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 11:00 20.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 12:00 21.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 13:00 21.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 14:00 21.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 15:00 21.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 16:00 21.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 17:00 21.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 18:00 21.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 19:00 21.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 20:00 22.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 21:00 22.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 22:00 22.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 23:00 22.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 0:00 22.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 1:00 22.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 2:00 22.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 3:00 23.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 4:00 23.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 5:00 23.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 6:00 23.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 7:00 23.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 8:00 23.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 9:00 23.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 10:00 23.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 11:00 24.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 12:00 24.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 13:00 24.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 14:00 24.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 15:00 24.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 16:00 24.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 17:00 24.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 18:00 25.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 19:00 25.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 20:00 25.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 21:00 25.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 22:00 25.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 23:00 25.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 0:00 25.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 1:00 25.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 2:00 26.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 3:00 26.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 4:00 26.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 5:00 26.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 6:00 26.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 7:00 26.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 8:00 26.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 9:00 27.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 10:00 27.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 11:00 27.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 12:00 27.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 13:00 27.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 14:00 27.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 15:00 27.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 16:00 27.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 17:00 28.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 18:00 28.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 19:00 28.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 20:00 28.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 21:00 28.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 22:00 28.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 23:00 28.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 0:00 29.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 1:00 29.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 2:00 29.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 3:00 29.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 4:00 29.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 5:00 29.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 6:00 29.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 7:00 30.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 8:00 30.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 9:00 30.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 10:00 30.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 11:00 30.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 12:00 30.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 13:00 30.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 14:00 30.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 15:00 31.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 16:00 31.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 17:00 31.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 18:00 31.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 19:00 31.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 20:00 31.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 21:00 31.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 22:00 32.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
 [NOTICE]: 10/8/1983 23:00 32.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
 [NOTICE]: 11/8/1983 0:00 32.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
 [NOTICE]: 11/8/1983 1:00 32.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
@@ -854,7 +854,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 31/8/1983 21:00 99.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
 [NOTICE]: 31/8/1983 22:00 99.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
 [NOTICE]: 31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
-[NOTICE]: Duration of simulation: 67.917920
+[NOTICE]: Duration of simulation: 100.165535
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables

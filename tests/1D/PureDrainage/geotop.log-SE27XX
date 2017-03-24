@@ -1,0 +1,1344 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/
+
+TimeStepEnergyAndWater[1] = 3.600000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.806201e+11 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 7.072014e+10 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 1.000000e+00 
+DtPlotDischarge[1] = 5.000000e-01 
+DtPlotPoint[1] = 1.000000e+00 
+DtPlotBasin[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 1.000000e+00 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 1.000000e+00 
+SoilRoughness[1] = 1.000000e+02 
+ThresSnowSoilRough[1] = 1.000000e+02 (default) 
+VegHeight[1] = 1.800000e+03 
+ThresSnowVegUp[1] = 1.800000e+03 (default) 
+ThresSnowVegDown[1] = 1.800000e+03 (default) 
+LSAI[1] = 6.000000e-01 
+CanopyFraction[1] = 0.000000e+00 
+DecayCoeffCanopy[1] = 2.500000e+00 (default) 
+VegSnowBurying[1] = 1.000000e+00 (default) 
+RootDepth[1] = 1.000000e+03 
+MinStomatalRes[1] = 6.000000e+01 (default) 
+VegReflectVis[1] = 1.000000e-01 
+VegReflNIR[1] = 5.800000e-01 
+VegTransVis[1] = 5.000000e-02 
+VegTransNIR[1] = 2.500000e-01 
+LeafAngles[1] = 0.000000e+00 (default) 
+CanDensSurface[1] = 2.000000e+00 (default) 
+SoilAlbVisDry[1] = 2.000000e-01 
+SoilAlbNIRDry[1] = 2.000000e-01 
+SoilAlbVisWet[1] = 2.000000e-01 
+SoilAlbNIRWet[1] = 2.000000e-01 
+SoilEmissiv[1] = 9.600000e-01 
+SurFlowResLand[1] = 5.000000e-01 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 
+FreeDrainageAtLateralBorder[1] = 0.000000e+00 
+RichardTol[1] = 1.000000e-06 (default) 
+RichardMaxIter[1] = 1.500000e+03 
+RichardInitForc[1] = 1.000000e-02 
+MinLambdaWater[1] = 1.000000e-07 (default) 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.666667e-01 (default) 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-01 (default) 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e+00 (default) 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-02 (default) 
+Latitude[1] = 4.025000e+01 
+Longitude[1] = 1.631000e+01 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-06 
+HeatEqMaxIter[1] = 5.000000e+02 (default) 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 1.000000e+01 (default) 
+FreshSnowReflVis[1] = 9.000000e-01 (default) 
+FreshSnowReflNIR[1] = 6.500000e-01 (default) 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 3.600000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 1.000000e+01 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 2.000000e+00 (default) 
+SWEbottom[1] = 2.000000e+01 (default) 
+SWEtop[1] = 2.000000e+01 (default) 
+Max snow layer number: 10, of which 4 at the bottom, 2 in the middle, and 4 at the top.
+Infinite Snow layer numbers are numbers: 5 6 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 9.000000e+00 (default) 
+MoninObukhov[1] = 1.000000e+00 (default) 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 1.000000e+00 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = -9.999000e+03 (default) 
+CoordinatePointY[1] = -9.999000e+03 (default) 
+PointElevation[1] = -9.999000e+03 (default) 
+PointLandCoverType[1] = -9.999000e+03 (default) 
+PointSoilType[1] = -9.999000e+03 (default) 
+PointSlope[1] = -9.999000e+03 (default) 
+PointAspect[1] = -9.999000e+03 (default) 
+PointSkyViewFactor[1] = -9.999000e+03 (default) 
+PointCurvatureNorthSouthDirection[1] = -9.999000e+03 (default) 
+PointCurvatureWestEastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03 (default) 
+PointDepthFreeSurface[1] = -9.999000e+03 (default) 
+PointHorizon[1] = -9.999000e+03 (default) 
+PointMaxSWE[1] = -9.999000e+03 (default) 
+PointLatitude[1] = -9.999000e+03 (default) 
+PointLongitude[1] = -9.999000e+03 (default) 
+NONE[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 0.000000e+00 (default) 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 0.000000e+00 (default) 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 
+InitWaterTableDepth[1] = 5.000000e+03 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = -9.999000e+03 (default) 
+SoilLayerNumber[1] = 5.000000e+00 (default) 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 1.400000e+01 
+NormalHydrConductivity[1] = 1.000000e-04 (default) 
+LateralHydrConductivity[1] = 1.000000e-04 (default) 
+ThetaRes[1] = 5.000000e-02 (default) 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 5.000000e-01 (default) 
+AlphaVanGenuchten[1] = 4.000000e-03 (default) 
+NVanGenuchten[1] = 1.300000e+00 (default) 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 
+ThermalCapacitySoilSolids[1] = 2.300000e+06 
+SpecificStorativity[1] = 1.000000e-07 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 1.400000e+01 (default) 
+NormalHydrConductivity[2] = 1.000000e-04 (default) 
+LateralHydrConductivity[2] = 1.000000e-04 (default) 
+ThetaRes[2] = 5.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 5.000000e-01 (default) 
+AlphaVanGenuchten[2] = 4.000000e-03 (default) 
+NVanGenuchten[2] = 1.300000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 2.300000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 1.400000e+01 (default) 
+NormalHydrConductivity[3] = 1.000000e-04 (default) 
+LateralHydrConductivity[3] = 1.000000e-04 (default) 
+ThetaRes[3] = 5.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 5.000000e-01 (default) 
+AlphaVanGenuchten[3] = 4.000000e-03 (default) 
+NVanGenuchten[3] = 1.300000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 2.300000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 1.400000e+01 (default) 
+NormalHydrConductivity[4] = 1.000000e-04 (default) 
+LateralHydrConductivity[4] = 1.000000e-04 (default) 
+ThetaRes[4] = 5.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 5.000000e-01 (default) 
+AlphaVanGenuchten[4] = 4.000000e-03 (default) 
+NVanGenuchten[4] = 1.300000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 2.300000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 1.400000e+01 (default) 
+NormalHydrConductivity[5] = 1.000000e-04 (default) 
+LateralHydrConductivity[5] = 1.000000e-04 (default) 
+ThetaRes[5] = 5.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 5.000000e-01 (default) 
+AlphaVanGenuchten[5] = 4.000000e-03 (default) 
+NVanGenuchten[5] = 1.300000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 2.300000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = 1.400000e+01 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = 1.400000e+01 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = 1.400000e+01 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = 1.400000e+01 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = 1.400000e+01 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 
+MeteoStationCoordinateX[1] = 6.099041e+05 
+MeteoStationCoordinateY[1] = 4.345653e+06 
+MeteoStationLatitude[1] = 4.025000e+01 
+MeteoStationLongitude[1] = 1.631000e+01 
+MeteoStationElevation[1] = 3.000000e+02 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 
+MeteoStationWindVelocitySensorHeight[1] = 1.000000e+01 (default) 
+MeteoStationTemperatureSensorHeight[1] = 2.000000e+00 (default) 
+LapseRateTemp[1] = -9.999000e+03 (default) 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 1.000000e+00 
+BasinAll[1] = 0.000000e+00 (default) 
+DateBasin[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Basin[1] = -1.000000e+00 (default) 
+TimeFromStartBasin[1] = -1.000000e+00 (default) 
+PeriodBasin[1] = -1.000000e+00 (default) 
+RunBasin[1] = -1.000000e+00 (default) 
+PRainNetBasin[1] = -1.000000e+00 (default) 
+PSnowNetBasin[1] = -1.000000e+00 (default) 
+PRainBasin[1] = -1.000000e+00 (default) 
+PSnowBasin[1] = -1.000000e+00 (default) 
+PNetBasin[1] = -1.000000e+00 (default) 
+AirTempBasin[1] = -1.000000e+00 (default) 
+TSurfBasin[1] = -1.000000e+00 (default) 
+TvegBasin[1] = -1.000000e+00 (default) 
+EvapSurfaceBasin[1] = -1.000000e+00 (default) 
+TraspCanopyBasin[1] = -1.000000e+00 (default) 
+LEBasin[1] = -1.000000e+00 (default) 
+HBasin[1] = -1.000000e+00 (default) 
+SWNetBasin[1] = -1.000000e+00 (default) 
+LWNetBasin[1] = -1.000000e+00 (default) 
+LEvBasin[1] = -1.000000e+00 (default) 
+HvBasin[1] = -1.000000e+00 (default) 
+SWvBasin[1] = -1.000000e+00 (default) 
+LWvBasin[1] = -1.000000e+00 (default) 
+SWinBasin[1] = -1.000000e+00 (default) 
+LWinBasin[1] = -1.000000e+00 (default) 
+MassErrorBasin[1] = -1.000000e+00 (default) 
+MeanTimeStep[1] = -1.000000e+00 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 1.000000e+00 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = POSIX
+HeaderJulianDayfrom0Meteo = JD
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = WindSp
+HeaderWindDirection = WindDir
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = RH
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = Swglob
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = CloudTrans
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = Dz
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = Kv
+HeaderLateralHydrConductivity = Kh
+HeaderThetaRes = res
+HeaderWiltingPoint = none
+HeaderFieldCapacity = fc
+HeaderThetaSat = sat
+HeaderAlpha = a
+HeaderN = n
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = SS
+HeaderHorizonAngle = none
+HeaderHorizonHeight = none
+TimeStepsFile = none
+SoilParFile = soil/soil
+MeteoFile = meteo/meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = none
+PointFile = listpoints
+HorizonPointFile = none
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = none
+LandCoverMapFile = none
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = none
+RiverNetwork = none
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = none
+BasinOutputFile = none
+BasinOutputFileWriteEnd = none
+PointOutputFile = output-tabs/point
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = output-tabs/soiltemp
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = output-tabs/soilpsi
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = output-tabs/thetaliq
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = ID
+HeaderCoordinatePointX = xcoord
+HeaderCoordinatePointY = ycoord
+HeaderPointElevation = zcoord
+HeaderPointLandCoverType = landcover
+HeaderPointSoilType = soiltype
+HeaderPointSlope = slope
+HeaderPointAspect = aspect
+HeaderPointSkyViewFactor = sky
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = bedrock
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = none
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to Dz
+Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to Kv
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to Kh
+Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to res
+Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to sat
+Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to a
+Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to n
+Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/soil/soil0001.txt assigned to SS
+
+Soil Layers: 7
+-> Soil Type: 1
+HeaderSoilDz: 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01)
+HeaderNormalHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderLateralHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderThetaRes: 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01)
+HeaderThetaSat: 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01)
+HeaderAlpha: 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03)
+HeaderN: 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Soil Bedrock Layers: 7
+-> Soil Type: 1
+HeaderSoilDz: 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03), 1000.000000(1.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01), 14.000000(1.40e+01)
+HeaderNormalHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderLateralHydrConductivity: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderThetaRes: 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01), 0.100000(1.00e-01)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01), 0.254134(2.54e-01)
+HeaderThetaSat: 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01), 0.600000(6.00e-01)
+HeaderAlpha: 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03), 0.001000(1.00e-03)
+HeaderN: 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00), 1.800000(1.80e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to ID
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to xcoord
+Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to ycoord
+Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to zcoord
+Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to landcover
+Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to soiltype
+Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to slope
+Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to aspect
+Column 9 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to sky
+Column 10 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/listpoints.txt assigned to bedrock
+Attempting to read 'DemFile' in the file 'none': not present in file list
+Warning: Dem file not present
+Warning: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+1.000000,609882.500000,4345618.000000,300.000000,1.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,10000000000.000000,40.250000,16.310000,1000000.000000
+
+Warning:: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Valid pixels: 1
+Number of nodes: 8
+Novalue pixels: 0
+Basin area: 0.000001 km2
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to POSIX
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to JD
+Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to Iprec
+Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to WindSp
+Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to WindDir
+Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to RH
+Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to AirT
+Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to Swglob
+Column 9 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainage/meteo/meteo0001.txt assigned to CloudTrans
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 7 layers
+18/6/2014 20:00 0.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/6/2014 21:00 0.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/6/2014 22:00 0.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+18/6/2014 23:00 0.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 0:00 1.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 1:00 1.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 2:00 1.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 3:00 1.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 4:00 2.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 5:00 2.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 6:00 2.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 7:00 2.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 8:00 2.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 9:00 3.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 10:00 3.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 11:00 3.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 12:00 3.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 13:00 4.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 14:00 4.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 15:00 4.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 16:00 4.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 17:00 5.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 18:00 5.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 19:00 5.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 20:00 5.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 21:00 5.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 22:00 6.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+19/6/2014 23:00 6.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 0:00 6.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 1:00 6.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 2:00 7.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 3:00 7.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 4:00 7.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 5:00 7.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 6:00 7.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 7:00 8.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 8:00 8.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 9:00 8.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 10:00 8.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 11:00 9.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 12:00 9.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 13:00 9.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 14:00 9.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 15:00 10.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 16:00 10.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No precipitation measurements, considered it 0.0
+20/6/2014 17:00 10.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No precipitation measurements, considered it 0.0
+20/6/2014 18:00 10.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 19:00 10.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No precipitation measurements, considered it 0.0
+20/6/2014 20:00 11.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 21:00 11.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 22:00 11.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+20/6/2014 23:00 11.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 0:00 12.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 1:00 12.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 2:00 12.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 3:00 12.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 4:00 13.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 5:00 13.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 6:00 13.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 7:00 13.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 8:00 13.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 9:00 14.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 10:00 14.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 11:00 14.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 12:00 14.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 13:00 15.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 14:00 15.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 15:00 15.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 16:00 15.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 17:00 15.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 18:00 16.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 19:00 16.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 20:00 16.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 21:00 16.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 22:00 17.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+21/6/2014 23:00 17.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 0:00 17.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 1:00 17.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 2:00 18.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 3:00 18.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 4:00 18.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 5:00 18.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 6:00 18.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 7:00 19.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 8:00 19.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 9:00 19.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 10:00 19.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 11:00 20.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 12:00 20.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 13:00 20.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 14:00 20.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 15:00 21.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 16:00 21.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 17:00 21.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 18:00 21.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 19:00 21.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 20:00 22.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 21:00 22.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 22:00 22.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+22/6/2014 23:00 22.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 0:00 23.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 1:00 23.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 2:00 23.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 3:00 23.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 4:00 23.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 5:00 24.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 6:00 24.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 7:00 24.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 8:00 24.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 9:00 25.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 10:00 25.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 11:00 25.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 12:00 25.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 13:00 26.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 14:00 26.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 15:00 26.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 16:00 26.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 17:00 26.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 18:00 27.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 19:00 27.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 20:00 27.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 21:00 27.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 22:00 28.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+23/6/2014 23:00 28.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 0:00 28.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 1:00 28.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 2:00 29.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 3:00 29.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 4:00 29.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 5:00 29.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 6:00 29.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 7:00 30.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 8:00 30.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 9:00 30.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 10:00 30.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 11:00 31.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 12:00 31.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 13:00 31.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 14:00 31.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 15:00 31.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 16:00 32.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 17:00 32.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 18:00 32.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 19:00 32.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 20:00 33.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 21:00 33.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 22:00 33.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/6/2014 23:00 33.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 0:00 34.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 1:00 34.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 2:00 34.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 3:00 34.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 4:00 34.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 5:00 35.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 6:00 35.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 7:00 35.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 8:00 35.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 9:00 36.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 10:00 36.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 11:00 36.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 12:00 36.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 13:00 36.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 14:00 37.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 15:00 37.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 16:00 37.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 17:00 37.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 18:00 38.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 19:00 38.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 20:00 38.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 21:00 38.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 22:00 39.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+25/6/2014 23:00 39.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 0:00 39.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 1:00 39.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 2:00 39.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 3:00 40.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 4:00 40.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 5:00 40.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 6:00 40.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 7:00 41.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 8:00 41.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 9:00 41.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 10:00 41.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 11:00 42.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 12:00 42.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:00 42.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:00 42.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:00 42.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:00 43.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:00 43.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:00 43.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:00 43.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:00 44.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:00 44.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:00 44.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:00 44.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:00 44.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:00 45.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:00 45.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:00 45.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:00 45.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:00 46.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:00 46.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:00 46.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:00 46.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:00 47.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:00 47.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:00 47.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:00 47.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:00 47.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:00 48.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:00 48.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:00 48.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:00 48.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:00 49.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:00 49.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:00 49.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:00 49.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:00 50.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:00 50.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 0:00 50.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 1:00 50.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 2:00 50.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 3:00 51.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 4:00 51.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 5:00 51.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 6:00 51.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 7:00 52.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 8:00 52.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 9:00 52.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 10:00 52.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 11:00 52.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 12:00 53.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 13:00 53.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 14:00 53.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 15:00 53.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 16:00 54.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 17:00 54.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 18:00 54.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 19:00 54.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 20:00 55.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 21:00 55.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 22:00 55.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+28/6/2014 23:00 55.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 0:00 55.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 1:00 56.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 2:00 56.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 3:00 56.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 4:00 56.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 5:00 57.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 6:00 57.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 7:00 57.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 8:00 57.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 9:00 57.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 10:00 58.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 11:00 58.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 12:00 58.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 13:00 58.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 14:00 59.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 15:00 59.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 16:00 59.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 17:00 59.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 18:00 60.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 19:00 60.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 20:00 60.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 21:00 60.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 22:00 60.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+29/6/2014 23:00 61.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 0:00 61.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 1:00 61.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 2:00 61.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 3:00 62.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 4:00 62.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 5:00 62.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 6:00 62.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 7:00 63.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 8:00 63.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 9:00 63.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 10:00 63.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 11:00 63.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 12:00 64.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 13:00 64.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 14:00 64.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 15:00 64.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 16:00 65.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 17:00 65.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 18:00 65.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 19:00 65.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 20:00 65.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 21:00 66.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 22:00 66.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+30/6/2014 23:00 66.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 0:00 66.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 1:00 67.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 2:00 67.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 3:00 67.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 4:00 67.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 5:00 68.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 6:00 68.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 7:00 68.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 8:00 68.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 9:00 68.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 10:00 69.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 11:00 69.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 12:00 69.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 13:00 69.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 14:00 70.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 15:00 70.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 16:00 70.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 17:00 70.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 18:00 71.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 19:00 71.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 20:00 71.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 21:00 71.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 22:00 71.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/7/2014 23:00 72.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 0:00 72.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 1:00 72.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 2:00 72.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 3:00 73.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 4:00 73.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 5:00 73.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 6:00 73.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 7:00 73.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 8:00 74.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 9:00 74.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 10:00 74.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 11:00 74.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 12:00 75.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 13:00 75.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 14:00 75.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 15:00 75.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 16:00 76.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 17:00 76.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 18:00 76.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 19:00 76.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 20:00 76.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 21:00 77.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 22:00 77.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+2/7/2014 23:00 77.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 0:00 77.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 1:00 78.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 2:00 78.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 3:00 78.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 4:00 78.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 5:00 79.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 6:00 79.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 7:00 79.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 8:00 79.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 9:00 79.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 10:00 80.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 11:00 80.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 12:00 80.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 13:00 80.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 14:00 81.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 15:00 81.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 16:00 81.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 17:00 81.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 18:00 81.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 19:00 82.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 20:00 82.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 21:00 82.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 22:00 82.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+3/7/2014 23:00 83.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 0:00 83.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 1:00 83.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 2:00 83.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 3:00 84.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 4:00 84.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 5:00 84.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 6:00 84.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 7:00 84.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 8:00 85.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 9:00 85.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 10:00 85.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 11:00 85.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 12:00 86.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 13:00 86.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 14:00 86.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 15:00 86.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 16:00 86.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 17:00 87.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 18:00 87.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 19:00 87.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 20:00 87.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 21:00 88.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 22:00 88.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+4/7/2014 23:00 88.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 0:00 88.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 1:00 89.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 2:00 89.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 3:00 89.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 4:00 89.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 5:00 89.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 6:00 90.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 7:00 90.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 8:00 90.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 9:00 90.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 10:00 91.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 11:00 91.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 12:00 91.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 13:00 91.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 14:00 92.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 15:00 92.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 16:00 92.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 17:00 92.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 18:00 92.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 19:00 93.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 20:00 93.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 21:00 93.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 22:00 93.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+5/7/2014 23:00 94.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 0:00 94.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 1:00 94.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 2:00 94.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 3:00 94.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 4:00 95.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 5:00 95.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 6:00 95.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 7:00 95.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 8:00 96.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 9:00 96.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 10:00 96.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 11:00 96.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 12:00 97.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 13:00 97.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 14:00 97.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 15:00 97.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 16:00 97.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 17:00 98.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 18:00 98.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 19:00 98.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 20:00 98.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 21:00 99.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 22:00 99.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+6/7/2014 23:00 99.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/7/2014 0:00 99.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+7/7/2014 1:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1

@@ -9,11 +9,11 @@ GEOtop 2.1 is a free software and is distributed under GNU General Public Licens
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ########################## INFO ABOUT COMPILATION #################################
-This GEOtop version  was compiled at:  Mar 22 2017  13:14:04
-The compiler gives a __cplusplus value of 
-The Git revision hash of the source code is: TRIEST_release-55-g2ee45f7e 
+This GEOtop version  was compiled at:  Mar 22 2017  13:45:58
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release-56-g7273c642 
 This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
-This run starts at: Wed Mar 22 13:15:58 2017
+This run starts at: Fri Mar 24 14:06:56 2017
 ##### Please report the above lines if you ask for help ############################
 [NOTICE]: Configuration file parsing completed. 5045 characters parsed.
 [NOTICE]: Full match!
@@ -47,13 +47,13 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 [NOTICE]: Numbers of Meteo Stations read: 1
 [NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Date
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Prec
-[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Ws
-[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Wd
-[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Tair
-[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to SW
-[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to LW
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Date
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Prec
+[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Ws
+[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Wd
+[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Tair
+[NOTICE]: Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to SW
+[NOTICE]: Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to LW
 [NOTICE]: Read meteo data for meteo station #: 1 with number of lines=212
 [NOTICE]: Initial date of meteo data : 01/08/1993 00:00
 [NOTICE]: Final date of meteo data   : 09/08/1993 19:00
@@ -87,7 +87,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 10 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 4 layers
 [NOTICE]: Soil water transpires from the first 12 layers
-[NOTICE]: Duration of preprocessing phase: 0.550971
+[NOTICE]: Duration of preprocessing phase: 0.088027
 
 [NOTICE]: 1/8/1993 1:00 4.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1993 2:00 8.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
@@ -112,7 +112,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 1/8/1993 21:00 91.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1993 22:00 95.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/8/1993 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: Duration of simulation: 0.576720
+[NOTICE]: Duration of simulation: 0.117260
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables

@@ -9,11 +9,11 @@ GEOtop 2.1 is a free software and is distributed under GNU General Public Licens
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ########################## INFO ABOUT COMPILATION #################################
-This GEOtop version  was compiled at:  Mar 18 2017  17:05:03
-The compiler gives a __cplusplus value of 
-The Git revision hash of the source code is: TRIEST_release-38-g28e42200 
+This GEOtop version  was compiled at:  Mar 22 2017  13:45:58
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release-56-g7273c642 
 This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
-This run starts at: Sat Mar 18 17:52:29 2017
+This run starts at: Fri Mar 24 14:04:57 2017
 ##### Please report the above lines if you ask for help ############################
 [NOTICE]: Configuration file parsing completed. 8765 characters parsed.
 [NOTICE]: Full match!
@@ -24,17 +24,17 @@ This run starts at: Sat Mar 18 17:52:29 2017
 [NOTICE]: Infinite Glac layer numbers are numbers: 
 	
 [NOTICE]: file index SPAR (soil parameter) 1
-[NOTICE]: file name assigned : /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil 
+[NOTICE]: file name assigned : /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil 
 
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Dz
-[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kv
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kh
-[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_r
-[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_w
-[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_fc
-[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_s
-[NOTICE]: Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to alpha
-[NOTICE]: Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to n
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Dz
+[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kv
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kh
+[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_r
+[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_w
+[NOTICE]: Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_fc
+[NOTICE]: Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_s
+[NOTICE]: Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to alpha
+[NOTICE]: Column 9 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to n
 
 Soil Layers: 9
 -> Soil Type: 1
@@ -72,13 +72,11 @@ HeaderKthSoilSolids: 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00),
 HeaderCthSoilSolids: 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06)
 HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
 
-[NOTICE]: /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/ListPoints.txt
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/ListPoints.txt assigned to ID
-[WARNING]: File /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input_maps/pit not existing
+[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input_maps/pit not existing
 [WARNING]: Dem file not present
 [NOTICE]: File for keyword : LandCoverMapFile  not present in file list
 [WARNING]: Landuse file not present, uniform cover considered
-[WARNING]: File /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input_maps/sky not existing
+[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input_maps/sky not existing
 [WARNING]: Sky view factor file not present
 [NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
 [WARNING]: Bedrock depth file not present
@@ -98,15 +96,15 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 [NOTICE]: Numbers of Meteo Stations read: 1
 [NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: Horizon file FOUND for meteo station #1
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to AngleFromNorthClockwise
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to HorizonHeight
-[NOTICE]: Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Date
-[NOTICE]: Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Iprec
-[NOTICE]: Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindSp
-[NOTICE]: Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindDir
-[NOTICE]: Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to RelHum
-[NOTICE]: Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to AirT
-[NOTICE]: Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Swglobal
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to AngleFromNorthClockwise
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to HorizonHeight
+[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Date
+[NOTICE]: Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Iprec
+[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindSp
+[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindDir
+[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to RelHum
+[NOTICE]: Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to AirT
+[NOTICE]: Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Swglobal
 [NOTICE]: Read meteo data for meteo station #: 1 with number of lines=55016
 [NOTICE]: Initial date of meteo data : 01/10/2009 23:00
 [NOTICE]: Final date of meteo data   : 11/01/2016 06:00
@@ -138,7 +136,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 10 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 3 layers
 [NOTICE]: Soil water transpires from the first 7 layers
-[NOTICE]: Duration of preprocessing phase: 14.744101
+[NOTICE]: Duration of preprocessing phase: 21.481523
 
 [NOTICE]: 9/4/2014 19:00 0.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 9/4/2014 19:00 JD:98.791667 (1^ simulation day)  0.79% completed! 
@@ -173,7 +171,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 9/4/2014 22:00 3.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 9/4/2014 22:00 JD:98.916667 (1^ simulation day)  3.17% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.49 W/m2  H= -4.14 W/m2  LE= 19.56 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.610965e-04 mm/h 
@@ -183,7 +181,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 9/4/2014 23:00 3.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 9/4/2014 23:00 JD:98.958333 (1^ simulation day)  3.97% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.47 W/m2  H= -4.16 W/m2  LE= 19.10 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=4.517607e-05 mm/h 
@@ -193,7 +191,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 0:00 4.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 0:00 JD:99.000000 (1^ simulation day)  4.76% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.30 W/m2  H= -4.59 W/m2  LE= 18.60 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.360267e-05 mm/h 
@@ -203,7 +201,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 1:00 5.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 1:00 JD:99.041667 (1^ simulation day)  5.56% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.84 W/m2  H= -5.74 W/m2  LE= 17.74 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.609820e-06 mm/h 
@@ -213,7 +211,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 2:00 6.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 2:00 JD:99.083333 (1^ simulation day)  6.35% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.43 W/m2  H= -2.89 W/m2  LE= 16.43 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.749327e-06 mm/h 
@@ -223,7 +221,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 3:00 7.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 3:00 JD:99.125000 (1^ simulation day)  7.14% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.91 W/m2  H= -4.94 W/m2  LE= 16.22 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.505840e-06 mm/h 
@@ -233,7 +231,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 4:00 7.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 4:00 JD:99.166667 (1^ simulation day)  7.94% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.25 W/m2  H=-10.40 W/m2  LE= 16.89 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.919065e-07 mm/h 
@@ -243,7 +241,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 5:00 8.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 5:00 JD:99.208333 (1^ simulation day)  8.73% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -1.16 W/m2  H=-12.79 W/m2  LE= 16.18 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.600219e-07 mm/h 
@@ -253,7 +251,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 6:00 9.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 6:00 JD:99.250000 (1^ simulation day)  9.52% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.14 W/m2  LW: -0.48 W/m2  H=-13.48 W/m2  LE= 14.75 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=3.679019e-07 mm/h 
@@ -263,7 +261,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 7:00 10.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 7:00 JD:99.291667 (1^ simulation day) 10.32% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  1.81 W/m2  LW:  3.16 W/m2  H=-18.61 W/m2  LE= 13.27 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.506109e-07 mm/h 
@@ -273,7 +271,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 8:00 11.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 8:00 JD:99.333333 (1^ simulation day) 11.11% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  3.62 W/m2  LW: 10.09 W/m2  H=-28.52 W/m2  LE= 11.39 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.760363e-07 mm/h 
@@ -283,7 +281,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 9:00 11.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 9:00 JD:99.375000 (1^ simulation day) 11.90% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  8.23 W/m2  LW: 18.38 W/m2  H=-38.87 W/m2  LE= 10.50 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.286654e-07 mm/h 
@@ -293,7 +291,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 10:00 12.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 10:00 JD:99.416667 (1^ simulation day) 12.70% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 21.20 W/m2  LW: 23.95 W/m2  H=-44.47 W/m2  LE= 13.24 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.073676e-07 mm/h 
@@ -303,7 +301,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 11:00 13.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 11:00 JD:99.458333 (1^ simulation day) 13.49% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 43.57 W/m2  LW: 26.66 W/m2  H=-43.47 W/m2  LE= 19.12 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.262814e-07 mm/h 
@@ -313,7 +311,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 12:00 14.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 12:00 JD:99.500000 (1^ simulation day) 14.29% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 66.03 W/m2  LW: 26.88 W/m2  H=-35.85 W/m2  LE= 24.92 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.663270e-07 mm/h 
@@ -323,7 +321,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 13:00 15.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 13:00 JD:99.541667 (1^ simulation day) 15.08% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.02 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 51.35 W/m2  LW: 20.44 W/m2  H=-24.90 W/m2  LE= 28.52 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.203823e-07 mm/h 
@@ -333,7 +331,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 14:00 15.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 14:00 JD:99.583333 (1^ simulation day) 15.87% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 63.70 W/m2  LW: 20.29 W/m2  H=-19.96 W/m2  LE= 31.64 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.405164e-07 mm/h 
@@ -343,7 +341,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 15:00 16.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 15:00 JD:99.625000 (1^ simulation day) 16.67% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 31.53 W/m2  LW: 14.86 W/m2  H=-15.40 W/m2  LE= 26.76 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.065911e-08 mm/h 
@@ -353,7 +351,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 16:00 17.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 16:00 JD:99.666667 (1^ simulation day) 17.46% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 11.08 W/m2  LW:  5.78 W/m2  H= -5.64 W/m2  LE= 24.53 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.615098e-08 mm/h 
@@ -363,7 +361,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 17:00 18.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 17:00 JD:99.708333 (1^ simulation day) 18.25% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  6.07 W/m2  LW:  1.82 W/m2  H= -3.43 W/m2  LE= 20.14 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.729878e-08 mm/h 
@@ -373,7 +371,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 18:00 19.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 18:00 JD:99.750000 (1^ simulation day) 19.05% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  1.31 W/m2  LW: -4.28 W/m2  H=  2.95 W/m2  LE= 19.99 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.321183e-08 mm/h 
@@ -383,7 +381,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 19:00 19.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 19:00 JD:99.791667 (2^ simulation day) 19.84% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.15 W/m2  LW: -5.01 W/m2  H=  2.10 W/m2  LE= 18.07 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.078367e-08 mm/h 
@@ -393,7 +391,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 20:00 20.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 20:00 JD:99.833333 (2^ simulation day) 20.63% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.17 W/m2  H= -0.45 W/m2  LE= 15.84 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.920539e-09 mm/h 
@@ -403,7 +401,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 21:00 21.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 21:00 JD:99.875000 (2^ simulation day) 21.43% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.03 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.35 W/m2  H= -2.34 W/m2  LE= 14.43 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.427571e-09 mm/h 
@@ -413,7 +411,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 22:00 22.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 22:00 JD:99.916667 (2^ simulation day) 22.22% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.91 W/m2  H= -3.60 W/m2  LE= 13.91 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.196020e-09 mm/h 
@@ -423,7 +421,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 10/4/2014 23:00 23.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 10/4/2014 23:00 JD:99.958333 (2^ simulation day) 23.02% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.59 W/m2  H= -4.36 W/m2  LE= 13.31 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.182271e-09 mm/h 
@@ -433,7 +431,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 11/4/2014 0:00 23.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 0:00 JD:100.000000 (2^ simulation day) 23.81% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.19 W/m2  H= -5.60 W/m2  LE= 12.85 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=4.432335e-09 mm/h 
@@ -443,7 +441,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 11/4/2014 1:00 24.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 1:00 JD:100.041667 (2^ simulation day) 24.60% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.16 W/m2  H= -5.97 W/m2  LE= 13.11 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=3.769897e-09 mm/h 
@@ -453,117 +451,117 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 11/4/2014 2:00 25.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 2:00 JD:100.083333 (2^ simulation day) 25.40% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -1.91 W/m2  H= -6.88 W/m2  LE= 12.88 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.216834e-09 mm/h 
+ Max Error Richards=3.216794e-09 mm/h 
  Tot Error Richards=2.997201e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 3:00 26.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 3:00 JD:100.125000 (2^ simulation day) 26.19% completed! 
 
-[NOTICE]:  t_meteo:  0.00 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.04 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -1.31 W/m2  H= -8.94 W/m2  LE= 12.75 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.755884e-09 mm/h 
+ Max Error Richards=2.755807e-09 mm/h 
  Tot Error Richards=2.997229e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 4:00 26.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 4:00 JD:100.166667 (2^ simulation day) 26.98% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -1.37 W/m2  H= -8.28 W/m2  LE= 12.53 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.370636e-09 mm/h 
+ Max Error Richards=2.370307e-09 mm/h 
  Tot Error Richards=2.997253e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 5:00 27.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 5:00 JD:100.208333 (2^ simulation day) 27.78% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -1.11 W/m2  H= -9.33 W/m2  LE= 12.53 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.096437e-09 mm/h 
+ Max Error Richards=2.096057e-09 mm/h 
  Tot Error Richards=2.997274e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 6:00 28.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 6:00 JD:100.250000 (2^ simulation day) 28.57% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  0.15 W/m2  LW: -1.43 W/m2  H= -6.73 W/m2  LE= 11.66 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.804782e-09 mm/h 
+ Max Error Richards=1.805029e-09 mm/h 
  Tot Error Richards=2.997292e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 7:00 29.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 7:00 JD:100.291667 (2^ simulation day) 29.37% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  1.83 W/m2  LW:  1.34 W/m2  H=-11.35 W/m2  LE= 11.39 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.623766e-09 mm/h 
+ Max Error Richards=1.623773e-09 mm/h 
  Tot Error Richards=2.997308e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 8:00 30.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 8:00 JD:100.333333 (2^ simulation day) 30.16% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  3.74 W/m2  LW:  9.12 W/m2  H=-24.89 W/m2  LE=  9.30 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.512874e-09 mm/h 
+ Max Error Richards=1.512883e-09 mm/h 
  Tot Error Richards=2.997323e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 9:00 30.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 9:00 JD:100.375000 (2^ simulation day) 30.95% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.05 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW=  8.48 W/m2  LW: 18.10 W/m2  H=-37.03 W/m2  LE=  8.91 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.045505e-09 mm/h 
+ Max Error Richards=4.045456e-09 mm/h 
  Tot Error Richards=2.997363e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 10:00 31.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 10:00 JD:100.416667 (2^ simulation day) 31.75% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 21.89 W/m2  LW: 24.42 W/m2  H=-45.13 W/m2  LE= 11.79 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.490811e-08 mm/h 
+ Max Error Richards=2.490849e-08 mm/h 
  Tot Error Richards=2.997612e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 11:00 32.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 11:00 JD:100.458333 (2^ simulation day) 32.54% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 44.16 W/m2  LW: 26.18 W/m2  H=-43.50 W/m2  LE= 20.30 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.015237e-07 mm/h 
+ Max Error Richards=1.015232e-07 mm/h 
  Tot Error Richards=2.998628e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 12:00 33.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 12:00 JD:100.500000 (2^ simulation day) 33.33% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 66.85 W/m2  LW: 26.31 W/m2  H=-37.54 W/m2  LE= 28.41 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.073668e-07 mm/h 
+ Max Error Richards=2.073671e-07 mm/h 
  Tot Error Richards=3.000701e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 13:00 34.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 13:00 JD:100.541667 (2^ simulation day) 34.13% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 60.83 W/m2  LW: 21.31 W/m2  H=-28.32 W/m2  LE= 32.67 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.802593e-07 mm/h 
@@ -573,497 +571,497 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 11/4/2014 14:00 34.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 14:00 JD:100.583333 (2^ simulation day) 34.92% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.01 s
 
 [NOTICE]: SW= 15.60 W/m2  LW:  8.59 W/m2  H=-15.14 W/m2  LE= 27.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.370123e-08 mm/h 
+ Max Error Richards=2.370105e-08 mm/h 
  Tot Error Richards=3.002741e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 15:00 35.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 15:00 JD:100.625000 (2^ simulation day) 35.71% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  6.89 W/m2  LW:  1.58 W/m2  H= -8.38 W/m2  LE= 22.38 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.219293e-09 mm/h 
+ Max Error Richards=3.219110e-09 mm/h 
  Tot Error Richards=3.002773e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 16:00 36.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 16:00 JD:100.666667 (2^ simulation day) 36.51% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  7.62 W/m2  LW:  3.62 W/m2  H=-12.30 W/m2  LE= 18.98 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.395716e-09 mm/h 
+ Max Error Richards=2.395538e-09 mm/h 
  Tot Error Richards=3.002797e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 17:00 37.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 17:00 JD:100.708333 (2^ simulation day) 37.30% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.06 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  3.68 W/m2  LW: -1.10 W/m2  H= -7.25 W/m2  LE= 20.97 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.676810e-10 mm/h 
+ Max Error Richards=8.676897e-10 mm/h 
  Tot Error Richards=3.002806e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 18:00 38.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 18:00 JD:100.750000 (2^ simulation day) 38.10% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  1.47 W/m2  LW: -3.20 W/m2  H= -5.05 W/m2  LE= 20.54 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.913900e-10 mm/h 
+ Max Error Richards=4.912375e-10 mm/h 
  Tot Error Richards=3.002811e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 19:00 38.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 19:00 JD:100.791667 (3^ simulation day) 38.89% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.16 W/m2  LW: -3.88 W/m2  H= -2.98 W/m2  LE= 18.85 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.421933e-10 mm/h 
+ Max Error Richards=4.420583e-10 mm/h 
  Tot Error Richards=3.002815e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 20:00 39.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 20:00 JD:100.833333 (3^ simulation day) 39.68% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.47 W/m2  H=  0.59 W/m2  LE= 16.12 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.231078e-10 mm/h 
+ Max Error Richards=4.232625e-10 mm/h 
  Tot Error Richards=3.002819e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 21:00 40.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 21:00 JD:100.875000 (3^ simulation day) 40.48% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.07 W/m2  H=  2.67 W/m2  LE= 13.01 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.242584e-10 mm/h 
+ Max Error Richards=4.242934e-10 mm/h 
  Tot Error Richards=3.002824e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 22:00 41.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 22:00 JD:100.916667 (3^ simulation day) 41.27% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.03 W/m2  H=  4.15 W/m2  LE= 11.96 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.477325e-10 mm/h 
+ Max Error Richards=3.477666e-10 mm/h 
  Tot Error Richards=3.002827e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 11/4/2014 23:00 42.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 11/4/2014 23:00 JD:100.958333 (3^ simulation day) 42.06% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.06 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.07 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.63 W/m2  H=  6.02 W/m2  LE=  9.80 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.658547e-10 mm/h 
+ Max Error Richards=3.659013e-10 mm/h 
  Tot Error Richards=3.002831e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 0:00 42.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 0:00 JD:101.000000 (3^ simulation day) 42.86% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.97 W/m2  H=  6.98 W/m2  LE=  8.08 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.490794e-10 mm/h 
+ Max Error Richards=3.496582e-10 mm/h 
  Tot Error Richards=3.002834e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 1:00 43.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 1:00 JD:101.041667 (3^ simulation day) 43.65% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.92 W/m2  H=  6.74 W/m2  LE=  7.23 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.180995e-10 mm/h 
+ Max Error Richards=3.187508e-10 mm/h 
  Tot Error Richards=3.002837e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 2:00 44.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 2:00 JD:101.083333 (3^ simulation day) 44.44% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.98 W/m2  H=  6.98 W/m2  LE=  7.10 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.067453e-10 mm/h 
- Tot Error Richards=3.002841e-04 mm Mean Time Step=0.000000 s
+ Max Error Richards=3.051463e-10 mm/h 
+ Tot Error Richards=3.002840e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 3:00 45.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 3:00 JD:101.125000 (3^ simulation day) 45.24% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.74 W/m2  H=  6.12 W/m2  LE=  6.35 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.949402e-10 mm/h 
+ Max Error Richards=2.950487e-10 mm/h 
  Tot Error Richards=3.002843e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 4:00 46.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 4:00 JD:101.166667 (3^ simulation day) 46.03% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.31 W/m2  H=  4.82 W/m2  LE=  7.51 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.235790e-10 mm/h 
+ Max Error Richards=2.237470e-10 mm/h 
  Tot Error Richards=3.002846e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 5:00 46.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 5:00 JD:101.208333 (3^ simulation day) 46.83% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.08 W/m2  H=  0.91 W/m2  LE=  9.07 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.235282e-10 mm/h 
+ Max Error Richards=2.233474e-10 mm/h 
  Tot Error Richards=3.002848e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 6:00 47.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 6:00 JD:101.250000 (3^ simulation day) 47.62% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.16 W/m2  LW: -1.91 W/m2  H= -3.03 W/m2  LE=  9.19 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.982199e-10 mm/h 
+ Max Error Richards=1.983330e-10 mm/h 
  Tot Error Richards=3.002850e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 7:00 48.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 7:00 JD:101.291667 (3^ simulation day) 48.41% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.08 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  1.86 W/m2  LW:  2.31 W/m2  H= -9.32 W/m2  LE=  7.16 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.785171e-10 mm/h 
+ Max Error Richards=1.786013e-10 mm/h 
  Tot Error Richards=3.002852e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 8:00 49.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 8:00 JD:101.333333 (3^ simulation day) 49.21% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  3.25 W/m2  LW:  3.93 W/m2  H= -8.87 W/m2  LE=  7.67 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.303706e-10 mm/h 
+ Max Error Richards=1.310109e-10 mm/h 
  Tot Error Richards=3.002853e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 9:00 50.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 9:00 JD:101.375000 (3^ simulation day) 50.00% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  7.20 W/m2  LW:  9.95 W/m2  H=-17.35 W/m2  LE=  8.56 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.249929e-10 mm/h 
+ Max Error Richards=2.253280e-10 mm/h 
  Tot Error Richards=3.002855e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 10:00 50.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 10:00 JD:101.416667 (3^ simulation day) 50.79% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW= 10.33 W/m2  LW: 14.71 W/m2  H=-26.08 W/m2  LE=  7.27 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=6.135840e-10 mm/h 
+ Max Error Richards=6.138284e-10 mm/h 
  Tot Error Richards=3.002861e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 11:00 51.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 11:00 JD:101.458333 (3^ simulation day) 51.59% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  5.22 W/m2  LW:  7.82 W/m2  H=-16.78 W/m2  LE=  8.87 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.593198e-10 mm/h 
+ Max Error Richards=1.594631e-10 mm/h 
  Tot Error Richards=3.002863e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 12:00 52.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 12:00 JD:101.500000 (3^ simulation day) 52.38% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW= 11.07 W/m2  LW: 13.88 W/m2  H=-23.49 W/m2  LE=  8.53 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=9.166449e-10 mm/h 
+ Max Error Richards=9.165989e-10 mm/h 
  Tot Error Richards=3.002872e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 13:00 53.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 13:00 JD:101.541667 (3^ simulation day) 53.17% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW= 25.93 W/m2  LW: 19.68 W/m2  H=-29.49 W/m2  LE= 11.06 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.134206e-08 mm/h 
+ Max Error Richards=1.134189e-08 mm/h 
  Tot Error Richards=3.002986e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 14:00 53.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 14:00 JD:101.583333 (3^ simulation day) 53.97% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.09 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW= 12.21 W/m2  LW: 12.01 W/m2  H=-20.49 W/m2  LE= 13.97 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.843220e-09 mm/h 
+ Max Error Richards=3.843233e-09 mm/h 
  Tot Error Richards=3.003024e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 15:00 54.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 15:00 JD:101.625000 (3^ simulation day) 54.76% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW= 11.18 W/m2  LW:  9.53 W/m2  H=-15.89 W/m2  LE= 15.17 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.593681e-09 mm/h 
+ Max Error Richards=2.593602e-09 mm/h 
  Tot Error Richards=3.003050e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 16:00 55.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 16:00 JD:101.666667 (3^ simulation day) 55.56% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  9.21 W/m2  LW:  7.35 W/m2  H=-14.83 W/m2  LE= 15.72 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.823516e-09 mm/h 
+ Max Error Richards=1.823128e-09 mm/h 
  Tot Error Richards=3.003068e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 17:00 56.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 17:00 JD:101.708333 (3^ simulation day) 56.35% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  7.72 W/m2  LW:  6.90 W/m2  H=-14.17 W/m2  LE= 14.75 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.093927e-09 mm/h 
+ Max Error Richards=1.093972e-09 mm/h 
  Tot Error Richards=3.003079e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 18:00 57.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 18:00 JD:101.750000 (3^ simulation day) 57.14% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  1.45 W/m2  LW: -2.53 W/m2  H= -0.99 W/m2  LE= 17.11 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.120869e-10 mm/h 
+ Max Error Richards=1.121257e-10 mm/h 
  Tot Error Richards=3.003080e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 19:00 57.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 19:00 JD:101.791667 (4^ simulation day) 57.94% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.17 W/m2  LW: -4.24 W/m2  H=  1.97 W/m2  LE= 14.86 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.023169e-10 mm/h 
+ Max Error Richards=1.022000e-10 mm/h 
  Tot Error Richards=3.003081e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 20:00 58.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 20:00 JD:101.833333 (4^ simulation day) 58.73% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.02 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.14 W/m2  H=  2.84 W/m2  LE= 12.88 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.233284e-10 mm/h 
+ Max Error Richards=1.230607e-10 mm/h 
  Tot Error Richards=3.003082e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 21:00 59.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 21:00 JD:101.875000 (4^ simulation day) 59.52% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.10 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.21 W/m2  H=  0.45 W/m2  LE= 11.33 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.281447e-10 mm/h 
+ Max Error Richards=1.279281e-10 mm/h 
  Tot Error Richards=3.003084e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 22:00 60.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 22:00 JD:101.916667 (4^ simulation day) 60.32% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.13 W/m2  H=  1.52 W/m2  LE= 10.89 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=9.623933e-11 mm/h 
+ Max Error Richards=9.638549e-11 mm/h 
  Tot Error Richards=3.003085e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 12/4/2014 23:00 61.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 12/4/2014 23:00 JD:101.958333 (4^ simulation day) 61.11% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.26 W/m2  H= -2.08 W/m2  LE= 10.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.096313e-10 mm/h 
+ Max Error Richards=1.095694e-10 mm/h 
  Tot Error Richards=3.003086e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 0:00 61.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 0:00 JD:102.000000 (4^ simulation day) 61.90% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.04 W/m2  H=  1.44 W/m2  LE=  8.01 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.051686e-10 mm/h 
+ Max Error Richards=1.048218e-10 mm/h 
  Tot Error Richards=3.003087e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 1:00 62.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 1:00 JD:102.041667 (4^ simulation day) 62.70% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.73 W/m2  H=  3.39 W/m2  LE=  7.07 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.150685e-10 mm/h 
+ Max Error Richards=1.149252e-10 mm/h 
  Tot Error Richards=3.003088e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 2:00 63.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 2:00 JD:102.083333 (4^ simulation day) 63.49% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -3.55 W/m2  H=  2.60 W/m2  LE=  7.31 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.116908e-10 mm/h 
+ Max Error Richards=1.117107e-10 mm/h 
  Tot Error Richards=3.003089e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 3:00 64.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 3:00 JD:102.125000 (4^ simulation day) 64.29% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.81 W/m2  H=  0.27 W/m2  LE=  7.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.086311e-10 mm/h 
+ Max Error Richards=1.088420e-10 mm/h 
  Tot Error Richards=3.003090e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 4:00 65.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 4:00 JD:102.166667 (4^ simulation day) 65.08% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.11 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.45 W/m2  H= -0.64 W/m2  LE=  6.74 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.123362e-10 mm/h 
+ Max Error Richards=1.123222e-10 mm/h 
  Tot Error Richards=3.003091e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 5:00 65.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 5:00 JD:102.208333 (4^ simulation day) 65.87% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -2.79 W/m2  H=  0.54 W/m2  LE=  6.08 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.605232e-11 mm/h 
+ Max Error Richards=8.616239e-11 mm/h 
  Tot Error Richards=3.003092e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 6:00 66.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 6:00 JD:102.250000 (4^ simulation day) 66.67% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.19 W/m2  LW: -2.95 W/m2  H=  1.54 W/m2  LE=  5.24 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.152284e-10 mm/h 
+ Max Error Richards=1.151325e-10 mm/h 
  Tot Error Richards=3.003093e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 7:00 67.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 7:00 JD:102.291667 (4^ simulation day) 67.46% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  1.89 W/m2  LW:  1.43 W/m2  H= -6.68 W/m2  LE=  7.30 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.146997e-11 mm/h 
+ Max Error Richards=8.154555e-11 mm/h 
  Tot Error Richards=3.003094e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 8:00 68.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 8:00 JD:102.333333 (4^ simulation day) 68.25% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  4.34 W/m2  LW:  6.08 W/m2  H=-12.73 W/m2  LE=  7.65 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.198394e-11 mm/h 
+ Max Error Richards=8.200228e-11 mm/h 
  Tot Error Richards=3.003095e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 9:00 69.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 9:00 JD:102.375000 (4^ simulation day) 69.05% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  5.94 W/m2  LW:  7.74 W/m2  H=-13.79 W/m2  LE=  9.14 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.350182e-10 mm/h 
+ Max Error Richards=1.349516e-10 mm/h 
  Tot Error Richards=3.003096e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 10:00 69.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 10:00 JD:102.416667 (4^ simulation day) 69.84% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  7.58 W/m2  LW:  8.44 W/m2  H=-14.61 W/m2  LE= 11.40 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.163480e-10 mm/h 
+ Max Error Richards=4.162930e-10 mm/h 
  Tot Error Richards=3.003101e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 11:00 70.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 11:00 JD:102.458333 (4^ simulation day) 70.63% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.12 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 19.27 W/m2  LW: 16.40 W/m2  H=-26.76 W/m2  LE= 12.93 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.494365e-09 mm/h 
+ Max Error Richards=7.494436e-09 mm/h 
  Tot Error Richards=3.003175e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 12:00 71.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 12:00 JD:102.500000 (4^ simulation day) 71.43% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 21.78 W/m2  LW: 15.53 W/m2  H=-24.47 W/m2  LE= 16.93 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.618881e-08 mm/h 
+ Max Error Richards=1.618857e-08 mm/h 
  Tot Error Richards=3.003337e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 13:00 72.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 13:00 JD:102.541667 (4^ simulation day) 72.22% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 40.86 W/m2  LW: 18.79 W/m2  H=-24.77 W/m2  LE= 19.95 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=4.976127e-08 mm/h 
+ Max Error Richards=4.976119e-08 mm/h 
  Tot Error Richards=3.003835e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 14:00 73.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 14:00 JD:102.583333 (4^ simulation day) 73.02% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 53.96 W/m2  LW: 18.92 W/m2  H=-17.50 W/m2  LE= 23.96 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.761383e-08 mm/h 
+ Max Error Richards=8.761341e-08 mm/h 
  Tot Error Richards=3.004711e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 15:00 73.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 15:00 JD:102.625000 (4^ simulation day) 73.81% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 19.60 W/m2  LW: 10.09 W/m2  H=-10.87 W/m2  LE= 23.52 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.986617e-08 mm/h 
@@ -1073,217 +1071,217 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 13/4/2014 16:00 74.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 16:00 JD:102.666667 (4^ simulation day) 74.60% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 22.99 W/m2  LW: 11.99 W/m2  H=-15.85 W/m2  LE= 22.11 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.073468e-08 mm/h 
+ Max Error Richards=2.073473e-08 mm/h 
  Tot Error Richards=3.005117e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 17:00 75.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 17:00 JD:102.708333 (4^ simulation day) 75.40% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW= 11.36 W/m2  LW:  7.67 W/m2  H=-11.66 W/m2  LE= 20.39 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=6.237766e-09 mm/h 
+ Max Error Richards=6.237811e-09 mm/h 
  Tot Error Richards=3.005179e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 18:00 76.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 18:00 JD:102.750000 (4^ simulation day) 76.19% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.13 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  2.38 W/m2  LW: -4.87 W/m2  H=  5.13 W/m2  LE= 21.05 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.481621e-10 mm/h 
+ Max Error Richards=1.482413e-10 mm/h 
  Tot Error Richards=3.005181e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 19:00 76.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 19:00 JD:102.791667 (5^ simulation day) 76.98% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.19 W/m2  LW: -7.92 W/m2  H=  8.04 W/m2  LE= 20.38 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=9.520031e-11 mm/h 
+ Max Error Richards=9.511413e-11 mm/h 
  Tot Error Richards=3.005182e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 20:00 77.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 20:00 JD:102.833333 (5^ simulation day) 77.78% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -7.81 W/m2  H=  7.15 W/m2  LE= 17.86 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.887502e-11 mm/h 
+ Max Error Richards=8.867928e-11 mm/h 
  Tot Error Richards=3.005183e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 21:00 78.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 21:00 JD:102.875000 (5^ simulation day) 78.57% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -7.58 W/m2  H=  7.68 W/m2  LE= 15.92 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=9.141154e-11 mm/h 
+ Max Error Richards=9.157593e-11 mm/h 
  Tot Error Richards=3.005184e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 22:00 79.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 22:00 JD:102.916667 (5^ simulation day) 79.37% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -7.06 W/m2  H=  6.56 W/m2  LE= 14.52 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.768250e-11 mm/h 
+ Max Error Richards=8.780705e-11 mm/h 
  Tot Error Richards=3.005185e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 13/4/2014 23:00 80.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 13/4/2014 23:00 JD:102.958333 (5^ simulation day) 80.16% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -7.11 W/m2  H=  8.19 W/m2  LE= 13.47 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=9.082127e-11 mm/h 
- Tot Error Richards=3.005186e-04 mm Mean Time Step=0.000000 s
+ Max Error Richards=9.070038e-11 mm/h 
+ Tot Error Richards=3.005185e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 0:00 80.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 0:00 JD:103.000000 (5^ simulation day) 80.95% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -6.39 W/m2  H=  6.37 W/m2  LE= 12.17 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.692692e-11 mm/h 
+ Max Error Richards=7.843796e-11 mm/h 
  Tot Error Richards=3.005186e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 1:00 81.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 1:00 JD:103.041667 (5^ simulation day) 81.75% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.14 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.03 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -5.79 W/m2  H=  3.87 W/m2  LE= 11.98 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.882423e-11 mm/h 
+ Max Error Richards=7.867403e-11 mm/h 
  Tot Error Richards=3.005187e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 2:00 82.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 2:00 JD:103.083333 (5^ simulation day) 82.54% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -5.83 W/m2  H=  4.51 W/m2  LE= 11.82 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=6.132803e-11 mm/h 
+ Max Error Richards=6.142054e-11 mm/h 
  Tot Error Richards=3.005188e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 3:00 83.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 3:00 JD:103.125000 (5^ simulation day) 83.33% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -5.25 W/m2  H=  3.15 W/m2  LE= 10.93 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=8.070823e-11 mm/h 
+ Max Error Richards=8.075856e-11 mm/h 
  Tot Error Richards=3.005188e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 4:00 84.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 4:00 JD:103.166667 (5^ simulation day) 84.13% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.82 W/m2  H=  1.79 W/m2  LE= 10.70 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.865796e-11 mm/h 
+ Max Error Richards=7.873593e-11 mm/h 
  Tot Error Richards=3.005189e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 5:00 84.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 5:00 JD:103.208333 (5^ simulation day) 84.92% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -4.34 W/m2  H=  0.12 W/m2  LE= 10.52 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=5.164868e-11 mm/h 
+ Max Error Richards=5.137494e-11 mm/h 
  Tot Error Richards=3.005190e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 6:00 85.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 6:00 JD:103.250000 (5^ simulation day) 85.71% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.21 W/m2  LW: -3.97 W/m2  H= -0.75 W/m2  LE= 10.82 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.453923e-11 mm/h 
+ Max Error Richards=7.441433e-11 mm/h 
  Tot Error Richards=3.005191e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 7:00 86.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 7:00 JD:103.291667 (5^ simulation day) 86.51% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  2.09 W/m2  LW: -0.22 W/m2  H= -6.77 W/m2  LE= 10.75 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.942622e-11 mm/h 
+ Max Error Richards=7.928813e-11 mm/h 
  Tot Error Richards=3.005191e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 8:00 87.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 8:00 JD:103.333333 (5^ simulation day) 87.30% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.15 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  3.88 W/m2  LW:  8.86 W/m2  H=-25.22 W/m2  LE=  9.72 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.258869e-10 mm/h 
+ Max Error Richards=1.254926e-10 mm/h 
  Tot Error Richards=3.005193e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 9:00 88.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 9:00 JD:103.375000 (5^ simulation day) 88.10% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  9.07 W/m2  LW: 18.15 W/m2  H=-38.34 W/m2  LE= 10.25 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.829779e-09 mm/h 
+ Max Error Richards=3.830089e-09 mm/h 
  Tot Error Richards=3.005231e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 10:00 88.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 10:00 JD:103.416667 (5^ simulation day) 88.89% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 23.61 W/m2  LW: 23.72 W/m2  H=-44.53 W/m2  LE= 14.78 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.811061e-08 mm/h 
+ Max Error Richards=3.811054e-08 mm/h 
  Tot Error Richards=3.005612e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 11:00 89.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 11:00 JD:103.458333 (5^ simulation day) 89.68% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.18 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 46.88 W/m2  LW: 25.26 W/m2  H=-41.32 W/m2  LE= 22.32 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.398419e-07 mm/h 
+ Max Error Richards=1.398420e-07 mm/h 
  Tot Error Richards=3.007010e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 12:00 90.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 12:00 JD:103.500000 (5^ simulation day) 90.48% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 70.35 W/m2  LW: 24.35 W/m2  H=-30.64 W/m2  LE= 31.45 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.011789e-07 mm/h 
+ Max Error Richards=3.011785e-07 mm/h 
  Tot Error Richards=3.010022e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 13:00 91.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 13:00 JD:103.541667 (5^ simulation day) 91.27% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 83.42 W/m2  LW: 22.08 W/m2  H=-19.51 W/m2  LE= 40.19 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=4.465583e-07 mm/h 
@@ -1293,27 +1291,27 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 14:00 92.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 14:00 JD:103.583333 (5^ simulation day) 92.06% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.16 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.07 s, t_sub:  0.07 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 77.68 W/m2  LW: 18.98 W/m2  H=-12.85 W/m2  LE= 41.77 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=3.706033e-07 mm/h 
+ Max Error Richards=3.706034e-07 mm/h 
  Tot Error Richards=3.018194e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 15:00 92.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 15:00 JD:103.625000 (5^ simulation day) 92.86% completed! 
 
-[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 58.02 W/m2  LW: 15.35 W/m2  H= -9.23 W/m2  LE= 37.70 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.995454e-07 mm/h 
+ Max Error Richards=1.995455e-07 mm/h 
  Tot Error Richards=3.020189e-04 mm Mean Time Step=0.000000 s
 
 
 [NOTICE]: 14/4/2014 16:00 93.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 16:00 JD:103.666667 (5^ simulation day) 93.65% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.19 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW= 11.44 W/m2  LW:  0.80 W/m2  H=  5.63 W/m2  LE= 27.73 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.064814e-03 mm/h 
@@ -1323,7 +1321,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 17:00 94.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 17:00 JD:103.708333 (5^ simulation day) 94.44% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  2.59 W/m2  LW: -8.84 W/m2  H= 16.33 W/m2  LE= 22.10 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.399135e-04 mm/h 
@@ -1333,7 +1331,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 18:00 95.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 18:00 JD:103.750000 (5^ simulation day) 95.24% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.72 W/m2  LW:-10.28 W/m2  H= 17.42 W/m2  LE= 18.10 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.971203e-04 mm/h 
@@ -1343,7 +1341,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 19:00 96.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 19:00 JD:103.791667 (6^ simulation day) 96.03% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.19 W/m2  LW:-10.42 W/m2  H= 14.18 W/m2  LE= 18.07 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.673430e-04 mm/h 
@@ -1353,7 +1351,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 20:00 96.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 20:00 JD:103.833333 (6^ simulation day) 96.83% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -9.86 W/m2  H= 10.98 W/m2  LE= 17.53 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.473110e-04 mm/h 
@@ -1363,7 +1361,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 21:00 97.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 21:00 JD:103.875000 (6^ simulation day) 97.62% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.17 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.20 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -8.76 W/m2  H= 13.30 W/m2  LE= 12.33 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.572276e-04 mm/h 
@@ -1373,7 +1371,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 22:00 98.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 22:00 JD:103.916667 (6^ simulation day) 98.41% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -8.98 W/m2  H= 13.53 W/m2  LE= 12.52 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.329508e-04 mm/h 
@@ -1383,7 +1381,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 14/4/2014 23:00 99.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 14/4/2014 23:00 JD:103.958333 (6^ simulation day) 99.21% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -8.64 W/m2  H= 13.40 W/m2  LE= 11.39 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.217265e-04 mm/h 
@@ -1393,14 +1391,14 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 15/4/2014 0:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 15/4/2014 0:00 JD:104.000000 (6^ simulation day) 100.00% completed! 
 
-[NOTICE]:  t_meteo:  0.02 s,t_energy:  0.15 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.18 s
+[NOTICE]:  t_meteo:  0.01 s,t_energy:  0.21 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.04 s
 
 [NOTICE]: SW=  0.00 W/m2  LW: -8.57 W/m2  H= 13.32 W/m2  LE= 11.07 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.072592e-04 mm/h 
  Tot Error Richards=7.437685e-03 mm Mean Time Step=0.000000 s
 
 
-[NOTICE]: Duration of simulation: 15.154281
+[NOTICE]: Duration of simulation: 21.834618
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables
