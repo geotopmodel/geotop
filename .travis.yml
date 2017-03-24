@@ -5,6 +5,8 @@ language: cpp
 env:
         - ENABLE_INTERNAL_METEODISTR=ON
         - ENABLE_INTERNAL_METEODISTR=OFF
+        - CMAKE_BUILD_TYPE="RELEASE"
+        - CMAKE_BUILD_TYPE="DEBUG"
 
 #installing the dependencies: proj and meteoio libraries
 install:
@@ -35,7 +37,7 @@ install:
 script:
         #build geotop with meteoio disabled
         #- cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR .
-        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR -DCMAKE_CXX_FLAGS_RELEASE="-Wextra -Wall -O2 -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-but-set-variable" .
+        - cmake -DENABLE_INTERNAL_METEODISTR:BOOL=$ENABLE_INTERNAL_METEODISTR -DCMAKE_BUILD_TYPE:STRING=$CMAKE_BUILD_TYPE .
         - make
         #make tests with this environment
         - if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then travis_wait 90 ctest -j19 -E "bonn_1|bonn_2|rendena|CostantMeteo|snow_dstr_SENSITIVITY" .; else travis_wait 90 ctest -j19 .; fi
@@ -43,3 +45,4 @@ script:
 #choosing the compiler
 compiler:
         - g++
+        - clang
