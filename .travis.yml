@@ -45,4 +45,3 @@ script:
 #choosing the compiler
 compiler:
         - g++
-        - clang
