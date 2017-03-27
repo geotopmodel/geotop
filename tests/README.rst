@@ -69,34 +69,34 @@ A typica 1D te5st case looks like the following:
 
 .. code-block:: text
      
-├── DESCRIPTION.txt
-├── geotop2-1.log-METEOIO-OFF
-├── geotop2-1.log-METEOIO-ON
-├── geotop.inpts
-├── geotop.log-SE27XX
-├── io_it.ini
-├── listpoints.txt
-├── meteo
-│   ├── meteo0001.txt
-├── output-tabs
-│   ├── placeholder
-├── output-tabs-METEOIO-OFF
-│   ├── point0001.txt
-│   ├── soilpsi0001.txt
-│   ├── soiltemp0001.txt
-│   └── thetaliq0001.txt
-├── output-tabs-METEOIO-ON
-│   ├── point0001.txt
-│   ├── soilpsi0001.txt
-│   ├── soiltemp0001.txt
-│   └── thetaliq0001.txt
-├── output-tabs-SE27XX
-│   ├── point0001.txt
-│   ├── soilpsi0001.txt
-│   ├── soiltemp0001.txt
-│   └── thetaliq0001.txt
-├── rec
-├── soil
-│   └── soil0001.txt
+      ├── DESCRIPTION.txt
+      ├── geotop2-1.log-METEOIO-OFF
+      ├── geotop2-1.log-METEOIO-ON
+      ├── geotop.inpts
+      ├── geotop.log-SE27XX
+      ├── io_it.ini
+      ├── listpoints.txt
+      ├── meteo
+      │   ├── meteo0001.txt
+      ├── output-tabs
+      │   ├── placeholder
+      ├── output-tabs-METEOIO-OFF
+      │   ├── point0001.txt
+      │   ├── soilpsi0001.txt
+      │   ├── soiltemp0001.txt
+      │   └── thetaliq0001.txt
+      ├── output-tabs-METEOIO-ON
+      │   ├── point0001.txt
+      │   ├── soilpsi0001.txt
+      │   ├── soiltemp0001.txt
+      │   └── thetaliq0001.txt
+      ├── output-tabs-SE27XX
+      │   ├── point0001.txt
+      │   ├── soilpsi0001.txt
+      │   ├── soiltemp0001.txt
+      │   └── thetaliq0001.txt
+      ├── rec
+      ├── soil
+      │ └── soil0001.txt
 
 
