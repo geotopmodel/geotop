@@ -230,8 +230,8 @@ FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
 !DischargeFile = "output-tabs/discharge"
 
 ! added to debug netCDF
-OutputSnowMaps = 1
-OutputSoilMaps=1
+OutputSnowMaps = 24 
+OutputSoilMaps= 24 
 !OutputSurfEBALMaps=1
 SWEMapFile= "output-maps/SWE"
 

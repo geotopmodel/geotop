@@ -2,7 +2,7 @@
 !******* CONFIGURATION *********
 !*******************************
 TimeStepEnergyAndWater = 3600
-InitDateDDMMYYYYhhmm = 19/02/2012 12:00
+InitDateDDMMYYYYhhmm = 20/02/2012 12:00
 EndDateDDMMYYYYhhmm =  29/02/2012 12:00
 EnergyBalance = 1
 WaterBalance=1
@@ -248,7 +248,7 @@ NetRadiationMapFile= "output-maps/RadNet"
 
 !!------new output test
 #Tables
-PathPrefix = "output-tables"
+PathPrefix = "output-tabs"
 SoilTemperature::1Dp::INS = 3600
 SoilTemperature::1Ds::INS = 86400
 #Maps
@@ -262,10 +262,4 @@ SoilTemperature::3D::INS = 86400
 !ContinuousRecovery=5
 ! every 1 days does an update of the simulation
 ! when you launch it again, it starts from the last recovery
-!RunIfAnOldRunIsPresent=1
-!se c'e' questa keywordk, rifa la simulazione anche se 
-!c'e' un failed run o un successful run
-! altrimenti, se c'e' un successfulrun o un failed run 
-! da un messaggio di errore
-!RecoverSim = 15
-!SavingPoints = 10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,165
+!RunIfAnOldRunIsPresent=1 !!NO LONGER SUPPORTED

@@ -6,14 +6,20 @@
 
 TimeStepEnergyAndWater = 18   
 InitDateDDMMYYYYhhmm = 01/01/2000 00:00 
-EndDateDDMMYYYYhhmm =  01/01/2000 00:30
+EndDateDDMMYYYYhhmm =  01/01/2000 00:03
 
 WaterBalance = 1
 
-!Output timeseries Dt in hours 
-DtPlotDischarge = 0.1
-DtPlotPoint = 0.1
-OutputSoilMaps = 1.5
+
+
+!Output timeseries Dt in hours
+## print discharge every 3 minutes (180/3600=0.05)
+DtPlotDischarge = 0.05
+## # print timeseries of Points every 18 seconds (18/3600=0.005)
+DtPlotPoint = 0.005
+
+## print timeseries of Maps every 3 minutes (18/3600=0.05)
+OutputSoilMaps =0.05
 
 DtPlotBasin = 0.1
 BasinAll = 1
