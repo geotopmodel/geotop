@@ -13,7 +13,7 @@ This GEOtop version  was compiled at:  Mar 25 2017  22:38:45
 The compiler gives a __cplusplus value of % 
 The Git revision hash of the source code is: TRIEST_release-59-g154972fa 
 This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
-This run starts at: Sat Mar 25 22:54:33 2017
+This run starts at: Sat Mar 25 22:56:22 2017
 ##### Please report the above lines if you ask for help ############################
 [NOTICE]: Configuration file parsing completed. 3367 characters parsed.
 [NOTICE]: Full match!
@@ -24,16 +24,16 @@ This run starts at: Sat Mar 25 22:54:33 2017
 [NOTICE]: Infinite Glac layer numbers are numbers: 
 	
 [NOTICE]: file index SPAR (soil parameter) 1
-[NOTICE]: file name assigned : /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil 
+[NOTICE]: file name assigned : /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil 
 
-[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to Dz
-[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to Kv
-[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to Kh
-[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to res
-[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to sat
-[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to a
-[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to n
-[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/soil/soil0001.txt assigned to SS
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to Dz
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to Kv
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to Kh
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to res
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to sat
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to a
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to n
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/soil/soil0001.txt assigned to SS
 
 Soil Layers: 7
 -> Soil Type: 1
@@ -71,18 +71,18 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 0.000000(0.00e+00), 0.000000(0.00e+00)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-[NOTICE]: /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt
-[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to xcoord
-[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to ycoord
-[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to ID
-[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to zcoord
-[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to landcover
-[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to soiltype
-[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to slope
-[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to aspect
-[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to sky
-[NOTICE]: Column 10 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/listpoints.txt assigned to bedrock
-[WARNING]: File /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/input_maps/pit not existing
+[NOTICE]: /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to xcoord
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to ycoord
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to ID
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to zcoord
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to landcover
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to soiltype
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to slope
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to aspect
+[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to sky
+[NOTICE]: Column 10 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/listpoints.txt assigned to bedrock
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/input_maps/pit not existing
 [WARNING]: Dem file not present
 [NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
 [WARNING]: Bedrock depth file not present
@@ -90,7 +90,7 @@ HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00
 
 POINTS:
 ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
-609882.500000,4345618.000000,1.000000,300.000000,1.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,10000000000.000000,40.250000,16.310000,
+609882.500000,4345618.000000,1.000000,300.000000,1.000000,1.000000,30.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,10000000000.000000,40.250000,16.310000,
 [WARNING]: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
 [NOTICE]: INFO about the simulated basin:
 [NOTICE]: Valid pixels: 1
@@ -102,15 +102,15 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 [NOTICE]: Numbers of Meteo Stations read: 1
 [NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to POSIX
-[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to JD
-[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to Iprec
-[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to WindSp
-[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to WindDir
-[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to RH
-[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to AirT
-[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to Swglob
-[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainy/meteo/meteorainy0001.txt assigned to CloudTrans
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to POSIX
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to JD
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to Iprec
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to WindSp
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to WindDir
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to RH
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to AirT
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to Swglob
+[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/1D/PureDrainageRainySlope/meteo/meteorainy0001.txt assigned to CloudTrans
 [NOTICE]: Read meteo data for meteo station #: 1 with number of lines=5743
 [NOTICE]: Initial date of meteo data : 17/06/2014 12:00
 [NOTICE]: Final date of meteo data   : 07/07/2014 10:30
@@ -120,7 +120,7 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 [WARNING]: No longwave radiation measurements available
 
 CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
-1,1,1,         300,1,1,           0,           0,           1
+1,1,1,         300,1,1,          30,           0,           1
 
 METEO STATIONS:
 ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
@@ -142,7 +142,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 10 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 1 layers
 [NOTICE]: Soil water transpires from the first 7 layers
-[NOTICE]: Duration of preprocessing phase: 0.933648
+[NOTICE]: Duration of preprocessing phase: 0.922623
 
 [NOTICE]: 18/6/2014 20:00 0.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 18/6/2014 21:00 0.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
@@ -582,7 +582,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 6/7/2014 23:00 99.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 7/7/2014 0:00 99.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 7/7/2014 1:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
-[NOTICE]: Duration of simulation: 1.029812
+[NOTICE]: Duration of simulation: 1.018435
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables
