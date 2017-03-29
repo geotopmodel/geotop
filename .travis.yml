@@ -5,7 +5,7 @@ language: cpp
 env:
         - ENABLE_INTERNAL_METEODISTR=ON
 #        - ENABLE_INTERNAL_METEODISTR=OFF  (deactivated to speed up checking )
-        - CMAKE_BUILD_TYPE="RELEASE"
+#        - CMAKE_BUILD_TYPE="RELEASE"
 #        - CMAKE_BUILD_TYPE="DEBUG"
 
 #installing the dependencies: proj and meteoio libraries
