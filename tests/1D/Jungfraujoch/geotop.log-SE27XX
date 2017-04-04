@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/
+WORKING DIRECTORY: /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.081983e+10 
@@ -1249,14 +1249,14 @@ HeaderKthSoilSolids: 2.800000(2.80e+00), 2.800000(2.80e+00), 2.800000(2.80e+00),
 HeaderCthSoilSolids: 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06), 2000000.000000(2.00e+06)
 HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
 
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to X
-Column 8 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
+Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to X
+Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
+Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
+Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
+Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
+Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
 Attempting to read 'DemFile' in the file 'none': not present in file list
 Warning: Dem file not present
 Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
@@ -1273,25 +1273,25 @@ ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg
 33.000000,0.000000,0.000000,3725.000000,1.000000,1.000000,55.000000,344.000000,0.770000,0.000000,0.000000,0.000000,0.000000,0.000000,33.000000,10000000000.000000,46.550000,7.990000,-9999.000000
 
 Horizon file FOUND for point type #32
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
 
 Horizon file FOUND for point type #33
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
 Valid pixels: 2
 Number of nodes: 34
 Novalue pixels: 0
 Basin area: 0.000002 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
+Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
+Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
+Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
+Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
+Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
+Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
+Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available

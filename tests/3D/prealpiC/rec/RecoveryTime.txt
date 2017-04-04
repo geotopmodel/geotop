@@ -1,2 +1,0 @@
-Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s]
-259200.000000,3.000000,3,1,1,259200.000000,757.000000

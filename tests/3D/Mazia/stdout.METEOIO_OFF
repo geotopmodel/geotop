@@ -1,0 +1,32 @@
+
+16/10/2010 13:00 JD:288.541667 (1^ simulation day) 25.00% completed! 
+ t_meteo:  0.03 s, t_energy:  0.40 s, t_blowingsnow:  0.00 s, t_water:  1.98 s, t_sub:  1.98 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW= 77.30 W/m2  LW:-34.90 W/m2  H= 20.37 W/m2  LE=-12.97 W/m2 
+ Pvert=  0.08 mm Prain=  0.10 mm  Psnow=  0.11 mm  
+ Max Error Richards=3.652842e-12 mm/h 
+ Tot Error Richards=3.652842e-12 mm Mean Time Step=0.000000 s
+
+
+16/10/2010 14:00 JD:288.583333 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.05 s, t_energy:  0.87 s, t_blowingsnow:  0.00 s, t_water: 39.16 s, t_sub: 39.15 s, t_sup:  0.01 s, t_out:  0.01 s
+ SW= 48.98 W/m2  LW:-24.54 W/m2  H= 19.46 W/m2  LE=-10.24 W/m2 
+ Pvert=  0.08 mm Prain=  0.10 mm  Psnow=  0.12 mm  
+ Max Error Richards=3.954232e-12 mm/h 
+ Tot Error Richards=7.607074e-12 mm Mean Time Step=0.000000 s
+
+
+16/10/2010 15:00 JD:288.625000 (1^ simulation day) 75.00% completed! 
+ t_meteo:  0.08 s, t_energy:  2.60 s, t_blowingsnow:  0.00 s, t_water: 76.84 s, t_sub: 76.82 s, t_sup:  0.01 s, t_out:  0.02 s
+ SW= 20.45 W/m2  LW:-14.44 W/m2  H=  4.41 W/m2  LE=  3.83 W/m2 
+ Pvert=  0.13 mm Prain=  0.09 mm  Psnow=  0.12 mm  
+ Max Error Richards=5.852173e-12 mm/h 
+ Tot Error Richards=1.345925e-11 mm Mean Time Step=0.000000 s
+
+
+16/10/2010 16:00 JD:288.666667 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.10 s, t_energy:  3.72 s, t_blowingsnow:  0.00 s, t_water:114.15 s, t_sub:114.13 s, t_sup:  0.02 s, t_out:  0.03 s
+ SW= 10.61 W/m2  LW:-12.74 W/m2  H=  2.39 W/m2  LE=  5.19 W/m2 
+ Pvert=  0.07 mm Prain=  0.08 mm  Psnow=  0.13 mm  
+ Max Error Richards=5.109480e-12 mm/h 
+ Tot Error Richards=1.856873e-11 mm Mean Time Step=0.000000 s
+

@@ -1,5 +1,5 @@
  The main properties of the pixel E=         15.000 N=         15.000, row=  36 col=  20 are:
- Elevation above sea level:      4.874 m
+ Elevation above sea level:      5.942 m
  Gauckler-Strickler [m^1/3/s]: 0.500000
  Residual water content[-] of the layer 1: 0.000000
  Residual water content[-] of the layer 2: 0.000000
@@ -111,7 +111,7 @@
  Kh_sat of layer 9 [mm/s]: 0.027800
  Kh_sat of layer 10 [mm/s]: 0.027800
  Kh_sat of layer 11 [mm/s]: 0.027800
- Terrain elevation [m]: 4.873715
+ Terrain elevation [m]: 5.941889
  Sky view factor [-]: 1.000000
  The pixel-type is 0 
  Aspect [deg] [0=Nord, clockwise]: 180.000000 

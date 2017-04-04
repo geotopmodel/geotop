@@ -1,0 +1,33 @@
+Cloudiness measurements from 1 stations: will be used data from station 1
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  4.54 s, t_sub:  4.42 s, t_sup:  0.13 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.888990e-07 mm/h 
+ Tot Error Richards=1.413358e-05 mm Mean Time Step=0.000000 s
+

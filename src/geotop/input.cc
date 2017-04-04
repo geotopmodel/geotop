@@ -1,36 +1,38 @@
-
-/* STATEMENT:
-
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 2.0.0 - 20 Jun 2013
+/*
  
- Copyright (c), 2013 - Stefano Endrizzi 
+ GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+ GEOtop 2.1 - 31 December 2016
  
- This file is part of Geotop 2.0.0
+ Copyright (c), 2016 - GEOtop Foundation
  
- Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+ This file is part of GEOtop 2.1
+ 
+ GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
-  
- If you have satisfactorily used the code, please acknowledge the authors.
+ 
+ GEOtop 2.1 is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+ If you just use the code, please give feedback to GEOtop Foundation and the community.
+ Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model.
+ Any feedback will be highly appreciated.
  
  */
- 
+
+
 #include "../../config.h"
 #include "input.h"
 #include "parameters.h"
 #include <unistd.h>
 #include "inputKeywords.h"
 #include "geotop_common.h"
-
 #include <iostream>
 #include "global_logger.h"
 
 using namespace std ;
 
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
-//***************************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
+//********************************************************************************************************
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
 
@@ -47,6 +49,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0; //varible not used, but set
     long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
+    double initial_date_meteo, end_date_meteo;
+    long d,m,y,mi,h;
 	short count_file_missing=0;  // needed to check if some output map files are present or not 
     std::vector<std::string> temp2 ;
     string temp;
@@ -55,34 +59,17 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     IT = new InitTools();
 
-    if (geotop::common::Variables::WORKING_DIRECTORY != "")
-    {
-        
-    } else if(!argv[1]){
-        geotop::common::Variables::WORKING_DIRECTORY=get_workingdirectory();
-    }else if (argc==2){
-        // modified by Emanuele Cordano on Aug 2011
-        geotop::common::Variables::WORKING_DIRECTORY = argv[1] ;
-    }
     
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
-    lg->writeAll("STATEMENT:\n");
-    lg->writeAll("\n");
-    lg->writeAll("GEOtop 2.1  31 december 2016 \n\n");
-    lg->writeAll("Copyright (c), 2016 - GEOtop Foundation \n\n");
-    lg->writeAll("GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-    lg->writeAll("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-    lg->writefAll("\nWORKING DIRECTORY: %s\n",geotop::common::Variables::WORKING_DIRECTORY.c_str());
-    lg->log("Using Experimental Logger");
-
+ 
     if (geotop::common::Variables::WORKING_DIRECTORY[strlen(geotop::common::Variables::WORKING_DIRECTORY.c_str())-1] != 47) {
         temp = geotop::common::Variables::WORKING_DIRECTORY;
         geotop::common::Variables::WORKING_DIRECTORY = temp + "/";
     }
 
     
-    std::clog << "\nLOGFILE: " << lg->getLogFilePath() << std::endl ;
+   
 
     //reads the parameters in __control_parameters
  
@@ -97,7 +84,6 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
     }
 
-    //TODO: DONE 27.11.2016 correct this BEFORE the flog variable removal
     success = read_inpts_par(par, land, times, sl, met, IT);
 
 	//correct state pixel
@@ -154,8 +140,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         exit(1);
 	}	
 
-    // do we need this ?? SC 23.12.2016
-    // TODO: write in the log DONE
+
     lg->logf("file index SPAR (soil parameter) %d", fspar);
     lg->logf("file name assigned : %s \n",geotop::common::Variables::files[fspar].c_str());
 
@@ -200,7 +185,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     par->init_date += par->delay_day_recover;
     convert_JDfrom0_JDandYear(par->init_date, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
-
+    // TODO remove this, after having understood line above which contains i_run0
+    
 	geotop::common::Variables::i_run = geotop::common::Variables::i_run0;//Run index
 		
     /****************************************************************************************************/
@@ -213,8 +199,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 	par->up_albedo=0;// false
 	par->tres_wo_prec=12*3600;
 
-	// ##################################################################################################################################
-    // ##################################################################################################################################
+	// ##########################################################################################################################
+    // #######################################################################################################################
     par->use_meteoio_cloud = false;
 #ifndef USE_INTERNAL_METEODISTR
     par->use_meteoio_cloud = true;
@@ -276,10 +262,10 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     
     
     /****************************************************************************************************/
-    //Reading of RAIN data file,	METEO data file, 	and CLOUD data file
-    lg->log("Start Reading RAIN/METEO/CLOUD data files...");
+    //Reading METEO data file
+    lg->log("Start Reading METEO data files...");
     
-    num_cols = (long)nmet;
+    num_cols = (long)nmet; // number of possible columns of meteodata
 
     //	meteo data
     met->data=(double***)malloc(met->st->E.size()*sizeof(double**));
@@ -287,6 +273,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->numlines=(long*)malloc(met->st->E.size()*sizeof(long));
 
     success = read_meteostations_file(met->imeteo_stations, met->st, geotop::common::Variables::files[fmetstlist], IT->meteostations_col_names);
+    if (success == 0) { lg->logf(" File for keyword %s is not assigned", geotop::common::Variables::filenames[fmetstlist].c_str());}
     mio::Config cfg = iomanager.getConfig();
     std::string input_meteo_plugin = cfg.get("METEO", "Input");
     if(input_meteo_plugin!="GEOTOP"){
@@ -307,24 +294,28 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     met->line_interp_Bsnow_LR=0;
 #endif
     long num_met_stat=met->st->E.size()-1;
-
-    if(num_met_stat < 0)
-        num_met_stat = 0;
-
+    lg->logf("Numbers of Meteo Stations read: %d",num_met_stat);
+    
+    if(num_met_stat < 0)  num_met_stat = 0;
+    
+    // loop over meteo files..
+    
     for(size_t i=1; i <= (size_t)num_met_stat; i++){
+        // check if there is a list of meteostation
         if (met->imeteo_stations[1] != geotop::input::gDoubleNoValue) {
             ist = met->imeteo_stations[i];
         }else {
             ist = i;
         }
-        
+
+        lg->logf("Reading horizon for : %d meteo station",i);
         //	read horizon
         met->horizon[i-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
-        // ##################################################################################################################################
-        // #####################Probably the next lines should not be necessary if we use meteoIO   #####################################
-        // ##################################################################################################################################
+
+        // ### Probably the next lines should not be necessary if we use meteoIO  ###
+      
 #ifdef USE_INTERNAL_METEODISTR
         //initialize
         met->line_interp_WEB[i-1] = 0;
@@ -353,7 +344,30 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                 exit(1);
             }
             met->numlines[i-1] = num_lines;
+            lg->logf("Read meteo data for meteo station #: %d with number of lines=%d",i,num_lines);
 
+            // get initial and final dates and compares against simulation periods
+            // let us make comparison in JDfrom0 format.
+            
+            initial_date_meteo = convert_dateeur12_JDfrom0(met->data[i-1][1][iDate12]);
+            end_date_meteo= convert_dateeur12_JDfrom0(met->data[i-1][num_lines-1][iDate12]);
+            
+            convert_dateeur12_daymonthyearhourmin(met->data[i-1][0][iDate12], &d, &m, &y, &h, &mi);
+            lg->logf("Initial date of meteo data : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            
+            convert_dateeur12_daymonthyearhourmin(met->data[i-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
+            
+            lg->logf("Final date of meteo data   : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
+            
+            if (initial_date_meteo > par->init_date) {
+            
+                lg->log("Initial date for meteo data greater that starting date of simulation",geotop::logger::WARNING);
+                     }
+            if (end_date_meteo <  par->end_date)  {
+                lg->log("Ending date for meteo data smaller than ending date of simulation",geotop::logger::WARNING);
+            }
+           
+            
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
             short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
 
@@ -374,7 +388,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
                     exit(666);
                     break;
             }
-
+        
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
             //find clouds
@@ -1906,10 +1920,30 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
     FILE *f;
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
+    // we check here  if DEM file read by meteoio is the same specified in geotop.inpts
+    // introduced here by S.C. 17.01.2017
+    // eventually we should merge geotop.intps ands io_it.ini and make this check useless
+    //
+    mio::Config cfg = iomanager.getConfig();
+    std::string filename_dem_path = cfg.get("DEMFILE", "Input");
+    std::string filename_dem = mio::IOUtils::getFilename(filename_dem_path);
+    std::string filename_geotop= mio::IOUtils::getFilename(geotop::common::Variables::files[fdem] + ".asc");
+    lg->logsf(geotop::logger::NOTICE, "DEM FILE used by METEO-IO (defined in io_it.ini)   : %s",filename_dem.c_str());
+    lg->logsf(geotop::logger::NOTICE, "DEM FILE used by GEOTOP   (defined in geotop.inpts): %s",filename_geotop.c_str());
+    if (filename_dem != filename_geotop) {
+        lg->log(" You specified two different file for DEM in two different files.. please define just one",
+                geotop::logger::ERROR);
+        lg->log("Geotop failed.",
+                geotop::logger::CRITICAL);
+        exit(1);
+    }
+    
     meteoio_readDEM(top->Z0);
-
+    
+ 
     //	reading TOPOGRAPHY
     flag = file_exists(fdem);
+    
     if(flag == 1){
 
         //filtering

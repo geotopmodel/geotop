@@ -1,0 +1,111 @@
+WARNING: NO cloudiness measurements available
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:01 JD:152.500694 (1^ simulation day) 10.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  6.29 s, t_sub:  6.26 s, t_sup:  0.03 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.157801e-04 mm/h 
+ Tot Error Richards=1.929669e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:02 JD:152.501389 (1^ simulation day) 20.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 11.45 s, t_sub: 11.38 s, t_sup:  0.07 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.776564e-04 mm/h 
+ Tot Error Richards=4.890609e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:03 JD:152.502083 (1^ simulation day) 30.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 16.40 s, t_sub: 16.30 s, t_sup:  0.10 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.504434e-04 mm/h 
+ Tot Error Richards=7.397999e-06 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:04 JD:152.502778 (1^ simulation day) 40.00% completed! 
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 21.19 s, t_sub: 21.06 s, t_sup:  0.13 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.019827e-04 mm/h 
+ Tot Error Richards=1.243104e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:05 JD:152.503472 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 25.99 s, t_sub: 25.83 s, t_sup:  0.16 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.361386e-04 mm/h 
+ Tot Error Richards=1.636669e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:06 JD:152.504167 (1^ simulation day) 60.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 30.51 s, t_sub: 30.32 s, t_sup:  0.19 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.005753e-04 mm/h 
+ Tot Error Richards=2.137628e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:07 JD:152.504861 (1^ simulation day) 70.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 35.00 s, t_sub: 34.77 s, t_sup:  0.23 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.824285e-04 mm/h 
+ Tot Error Richards=2.608342e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:08 JD:152.505556 (1^ simulation day) 80.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 39.46 s, t_sub: 39.20 s, t_sup:  0.26 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.658093e-04 mm/h 
+ Tot Error Richards=3.218024e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:09 JD:152.506250 (1^ simulation day) 90.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 43.64 s, t_sub: 43.35 s, t_sup:  0.29 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=5.277527e-04 mm/h 
+ Tot Error Richards=4.097612e-05 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+1/6/2000 12:10 JD:152.506944 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 47.53 s, t_sub: 47.21 s, t_sup:  0.32 s, t_out:  0.02 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.213967e-04 mm/h 
+ Tot Error Richards=5.133273e-05 mm Mean Time Step=0.000000 s
+

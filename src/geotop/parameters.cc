@@ -2292,11 +2292,17 @@ short read_meteostations_file(const GeoVector<long>& i, MeteoStations *S, std::s
 	double **M;
 	long nlines, n, k;
     std::string temp;
-		
+	std::vector<std::string>::iterator it;
+    
 	if (mio::IOUtils::fileExists(name + string(textfile))) {
 		temp = name + textfile ;
 		M = read_txt_matrix(temp, 33, 44, key_header, 8, &nlines);
-				
+        
+        std::cout << "key header contains:";
+        for (it=key_header.begin(); it<key_header.end(); it++)
+            std::cout << ' ' << *it;
+        std::cout << '\n';
+        
 		for (size_t j=1; j<i.size(); j++) {
 			for (n=1; n<=nlines; n++) {
 				if ((long)M[n-1][0] == i[j]) {

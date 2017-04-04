@@ -225,5 +225,5 @@ NetPrecipitationFile = "output-maps/NetPrec"
 !  RECOVERY FILE NAMES
 !=============================================================================
 SubfolderRecoveryFiles="rec"
-ContinuousRecovery=1
+!ContinuousRecovery=1
 !!

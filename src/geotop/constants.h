@@ -101,7 +101,7 @@ const int nl = 1;                             //TODO: noori- we use this constan
 
 
 //****************************************************
-//Meteo data
+//Meteo data: 18 possible columns..
 //****************************************************
 
 const unsigned int iDate12 = 0;                            /*Date12 : DDMMYYYYhhmm*/

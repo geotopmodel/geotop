@@ -1,0 +1,8 @@
+Model: GEOtop
+Compiler:  ccllang 
+Processor: Intel(R) Core(TM) i5 @ 2.40GHz
+Author: S.Endrizzi&S.Cozzini 
+Date: 28-12-2016
+Name: PureDrainage
+Description: Pure Drainage test case
+Output: ...

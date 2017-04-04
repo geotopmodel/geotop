@@ -1,6 +1,8 @@
 GEOtop
 ======
 
+|Build Status| |License (GPL version 3)|
+
 :date:  last revision January 2017
 
 
@@ -24,7 +26,14 @@ websites have been collected.
 Installation
 --------------
 
-see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
+If you want to build GEOtop from sources in your own machine:
+
+    see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
+
+If you prefer to install GEOtop via Docker to avoid manual installation of
+packages:
+
+    see here: https://hub.docker.com/r/omslab/geotop
 
 
 Usage
@@ -37,6 +46,14 @@ Report bugs/suggestion/issues
 -------------------------------
 
 Please use the github issues facility 
+
+References
+----------
+
+.. |Build Status| image:: https://travis-ci.org/geotopmodel/geotop.svg?branch=master
+    :target: https://travis-ci.org/geotopmodel/geotop
+.. |License (GPL version 3)| image:: https://img.shields.io/badge/license-GNU%20GPL%20version%203-blue.svg
+   :target: http://opensource.org/licenses/GPL-3.0
 
 
 

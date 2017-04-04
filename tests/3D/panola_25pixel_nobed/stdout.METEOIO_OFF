@@ -1,0 +1,8 @@
+
+2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.12 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.15 s, t_sub:  0.14 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=312.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.333549e-08 mm/h 
+ Tot Error Richards=1.040052e-06 mm Mean Time Step=0.000000 s
+

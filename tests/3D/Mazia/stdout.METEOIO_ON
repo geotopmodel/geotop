@@ -1,0 +1,53 @@
+Cloudiness measurements from 3 stations: will be used data from station 35
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T13:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T13:00:00
+
+16/10/2010 13:00 JD:288.541667 (1^ simulation day) 25.00% completed! 
+ t_meteo:  0.42 s, t_energy:  0.38 s, t_blowingsnow:  0.00 s, t_water:  1.17 s, t_sub:  1.16 s, t_sup:  0.01 s, t_out:  0.00 s
+ SW= 74.96 W/m2  LW:-29.59 W/m2  H= 22.53 W/m2  LE=-18.55 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.625822e-11 mm/h 
+ Tot Error Richards=1.625822e-11 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T14:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T14:00:00
+
+16/10/2010 14:00 JD:288.583333 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.82 s, t_energy:  0.77 s, t_blowingsnow:  0.00 s, t_water:  1.43 s, t_sub:  1.42 s, t_sup:  0.01 s, t_out:  0.01 s
+ SW= 69.05 W/m2  LW:-29.21 W/m2  H= 25.03 W/m2  LE=-18.62 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.829794e-10 mm/h 
+ Tot Error Richards=3.992377e-10 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T15:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T15:00:00
+
+16/10/2010 15:00 JD:288.625000 (1^ simulation day) 75.00% completed! 
+ t_meteo:  1.23 s, t_energy:  1.16 s, t_blowingsnow:  0.00 s, t_water:  1.70 s, t_sub:  1.68 s, t_sup:  0.02 s, t_out:  0.02 s
+ SW= 55.79 W/m2  LW:-28.76 W/m2  H= 25.37 W/m2  LE=-18.81 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.975739e-12 mm/h 
+ Tot Error Richards=4.012134e-10 mm Mean Time Step=0.000000 s
+
+[MeteoIO] Start copying Grid to GEOtop format: 
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T16:00:00
+
+[MeteoIO] Time to interpolate : cloudiness 2010-10-16T16:00:00
+
+16/10/2010 16:00 JD:288.666667 (1^ simulation day) 100.00% completed! 
+ t_meteo:  1.63 s, t_energy:  1.56 s, t_blowingsnow:  0.00 s, t_water:  1.97 s, t_sub:  1.95 s, t_sup:  0.02 s, t_out:  0.03 s
+ SW= 37.44 W/m2  LW:-27.23 W/m2  H= 23.13 W/m2  LE=-18.17 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.224355e-12 mm/h 
+ Tot Error Richards=4.034378e-10 mm Mean Time Step=0.000000 s
+

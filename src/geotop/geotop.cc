@@ -41,6 +41,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
+#include "version.h"
 
 #include "inputKeywords.h"
 #include "output_new.h"
@@ -81,12 +82,19 @@ int main(int argc,char *argv[]){
         feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #endif 
 
+    time_t now = time(0);
+    
+    // convert now to string form
+    char* dt = ctime(&now);
 	start = clock();
 
 	AllData *adt;
 	FILE *f;
 
 
+        geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+	
+	
 	boost::program_options::options_description usage("Options"); // name of help function
 	usage.add_options() //detailed specification of command line interface
 	("version,v", "print version string")
@@ -129,12 +137,23 @@ int main(int argc,char *argv[]){
 	if (vm.count("version"))
 	{
 		std::cout << "This is Geotop version 2.1" << std::endl;
+                lg->writefAll("This GEOtop version  was compiled at:  %s  %s\n", __DATE__,__TIME__);
+                lg->writefAll("The Git revision hash of the source code is: %s \n",GEOtop_BUILD_VERSION);
+#ifdef USE_INTERNAL_METEODISTR
+    lg->writeAll("This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF \n");
+#else
+    lg->writeAll("This version does USE METEO-IO library for interpolation: METEOIO-ON \n");
+#endif
 		return 0;
 	}
 
 	std::string lDataPath ;
 	std::string lFilePath ;
 	string cfgfile = "io_it.ini";
+    
+    
+
+
 	if (vm.count("workdir"))
 	{
 		lDataPath = vm["workdir"].as<std::string>();
@@ -168,46 +187,30 @@ int main(int argc,char *argv[]){
 	}
 
 
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+
+    lg->writeAll("THIS IS THE INITIAL STATEMENT:\n");
+    lg->writeAll("\n");
+    lg->writeAll("GEOtop 2.1  31 december 2016 \n\n");
+    lg->writeAll("Copyright (c), 2016 - GEOtop Foundation \n\n");
+    lg->writeAll("\nGEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
+    lg->writeAll("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
+    lg->writeAll("########################## INFO ABOUT COMPILATION #################################\n");
+    lg->writefAll("This GEOtop version  was compiled at:  %s  %s\n", __DATE__,__TIME__);
+    lg->writefAll("The compiler gives a __cplusplus value of %l \n",__cplusplus);
+    lg->writefAll("The Git revision hash of the source code is: %s \n",GEOtop_BUILD_VERSION);
+    
+#ifdef USE_INTERNAL_METEODISTR
+    lg->writeAll("This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF \n");
+#else
+    lg->writeAll("This version does USE METEO-IO library for interpolation: METEOIO-ON \n");
+#endif
+
+    lg->writefAll("This run starts at: %s", dt);
+    
+    lg->writeAll("##### Please report the above lines if you ask for help ############################\n");
 
 
-	/* ANTONIO: This is just crazy. We have *two* incompatible way of
-	   calling geotop, and part of the command line parsing is done
-	   later on, in ncgt_open_from_option_string(), but only if
-	   USE_NETCDF is defined, so if its not defined some of the
-	   command line options are just silently ignored !
-
-	   We should use getopt() to parse command line arguments, store
-	   ignored command line options and pass them to
-	   ncgt_open_from_option_string().
-	   */
-
-//	std::string lDataPath ;
-//	if (argc >= 2)
-//	{
-//		lDataPath = argv[1] ;
-//	} else {
-//		lDataPath = get_workingdirectory() ;
-//	}
-
-//	if(lDataPath == "" )
-//	{
-//		std::cerr << "Error: data path is empty" << std::endl ;
-//		exit (200) ;
-//	}
-
-	chdir(lDataPath.c_str());
-//	char lCWD[8192] ;
-//	char * lCwdStr = getcwd(lCWD, sizeof(lCWD));
-//	if (lCWD == NULL)
-//	{
-//		std::cerr << "Error: unable to get the current path: " << strerror(errno) << std::endl ;
-//		exit (201) ;
-//	}
-//	std::string lFullPath(lCwdStr) ;
-//	geotop::common::Variables::WORKING_DIRECTORY = lFullPath ;
-//	cfgfile = geotop::common::Variables::WORKING_DIRECTORY + "/" + cfgfile;
-
+    chdir(lDataPath.c_str());
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");
 	mio::IOManager iomanager(cfg);
@@ -282,6 +285,11 @@ int main(int argc,char *argv[]){
         output_file_preproc(adt);
 #endif
 
+        end = clock();
+        elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
+        
+        lg->logsf(geotop::logger::NOTICE, "Duration of preprocessing phase: %f\n", elapsed);
+        
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
 
 		time_loop(adt, iomanager);
