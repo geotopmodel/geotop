@@ -135,6 +135,11 @@ class TestValidRun(object):
     cmp_functions = [
         (r'(.*/)?point_info_[0-9]{4}.txt', compare_files_exactly, None),
         (r'(.*/)?.*[0-9]{4}.txt', compare_tab_files, {
+            'H[W/m2]'                         : 0.00001,
+            'highest_water_table_depth[mm]'   : 0.001,
+            'Hg_unveg[W/m2]'                  : 0.00001,
+            'LE[W/m2]'                        : 0.00001,
+            'lowest_water_table_depth[mm]'    : 0.001,
             'snow_depth[mm]'                  : 3.0,
             'snow_water_equivalent[mm]'       : 1.0,
             'Tair[C]'                         : 0.0,
@@ -148,6 +153,7 @@ class TestValidRun(object):
             'LWnet[W/m2]'                    : 15.0,
             'LWin[W/m2]'                      : 0.0,
             'SWnet[W/m2]'                    : 20.0,
+            'SWup[W/m2]'                      : 0.00001,
             'Run'                             : 0.0,
             '100.000000'                     : 0.1, ############# <----
             '140.000000 '                     : 0.1,
