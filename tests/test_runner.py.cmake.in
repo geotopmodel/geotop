@@ -177,6 +177,10 @@ class TestValidRun(object):
         # ?(r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
         (r'(.*/)?snowdepthN.*.asc', compare_map_files, 10.0),
         (r'(.*/)?.*.asc', compare_map_files, 1.0),
+        (r'(.*/)?.*discharge.txt', compare_tab_files, { #added for borden05
+		'Qoutlandsub[m3/s]'		: 0.000001, #added for borden05
+		'Qoutlandsup[m3/s]'		: 0.000001, #added for borden05
+            }),
     ]
 
     def setUp(self):
