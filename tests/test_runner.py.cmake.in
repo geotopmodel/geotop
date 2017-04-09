@@ -140,7 +140,7 @@ class TestValidRun(object):
             'Hg_unveg[W/m2]'                  : 0.00001, #for coldelaporte surface
             'LE[W/m2]'                        : 0.00001, #for coldelaporte surface
             'lowest_water_table_depth[mm]'    : 0.001, #for coldelaporte surface
-            'LObukhov[m]'                     : 0.00002,
+            'LObukhov[m]'                     : 0.00002, #for calabria point
             'snow_depth[mm]'                  : 3.0,
             'snow_water_equivalent[mm]'       : 1.0,
             'Tair[C]'                         : 0.0,
