@@ -135,6 +135,12 @@ class TestValidRun(object):
     cmp_functions = [
         (r'(.*/)?point_info_[0-9]{4}.txt', compare_files_exactly, None),
         (r'(.*/)?.*[0-9]{4}.txt', compare_tab_files, {
+            'H[W/m2]'                         : 0.00001, #for coldelaporte surface
+            'highest_water_table_depth[mm]'   : 0.001, #for coldelaporte surface
+            'Hg_unveg[W/m2]'                  : 0.00001, #for coldelaporte surface
+            'LE[W/m2]'                        : 0.00001, #for coldelaporte surface
+            'lowest_water_table_depth[mm]'    : 0.001, #for coldelaporte surface
+            'LObukhov[m]'                     : 0.00002, #for calabria point
             'snow_depth[mm]'                  : 3.0,
             'snow_water_equivalent[mm]'       : 1.0,
             'Tair[C]'                         : 0.0,
@@ -148,11 +154,22 @@ class TestValidRun(object):
             'LWnet[W/m2]'                    : 15.0,
             'LWin[W/m2]'                      : 0.0,
             'SWnet[W/m2]'                    : 20.0,
+            'SWup[W/m2]'                      : 0.00001, #for coldelaporte surface
             'Run'                             : 0.0,
+            '5.000000 '                       : 0.000002, #for costantmeteo wliq
+            '24.875930 '                      : 0.000002, #for hillslope02 psiliq
+            '25.000000 '                      : 0.000002, #for costantmeteo wliq
+            '74.627789 '                      : 0.000002, #for hillslope02 psiliq 
+            '90.000000 '                      : 0.000002, #for costantmeteo wliq
             '100.000000'                     : 0.1, ############# <----
             '140.000000 '                     : 0.1,
+            '150.000000 '                     : 0.000002, #for bro water_press
+            '174.131508 '                     : 0.000002, #for hillslope02 psiliq
+            '315.000000 '                     : 0.000002, #for costantmeteo wliq
             '530.000000 '                     : 0.1,
+            '890.000000 '                     : 0.000002, #for costantmeteo wliq
             '1780.000000  '                   : 0.1,
+            '2040.000000  '                   : 0.000002, #for costantmeteo wliq
             }),
         # (r'(.*/)?SWEN.*.asc', compare_map_files, 1.0),
         (r'(.*/)?SWEDENSITYN.*.asc', compare_map_files, 100.0),
@@ -160,6 +177,10 @@ class TestValidRun(object):
         # ?(r'(.*/)?TLLLLLN.*.asc', compare_map_files, 0.3),
         (r'(.*/)?snowdepthN.*.asc', compare_map_files, 10.0),
         (r'(.*/)?.*.asc', compare_map_files, 1.0),
+        (r'(.*/)?.*discharge.txt', compare_tab_files, { #added for borden05
+		'Qoutlandsub[m3/s]'		: 0.000001, #added for borden05
+		'Qoutlandsup[m3/s]'		: 0.000001, #added for borden05
+            }),
     ]
 
     def setUp(self):

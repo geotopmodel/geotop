@@ -92,7 +92,6 @@ int main(int argc,char *argv[]){
 	FILE *f;
 
 
-        geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 	
 	
 	boost::program_options::options_description usage("Options"); // name of help function
@@ -113,7 +112,8 @@ int main(int argc,char *argv[]){
 		boost::program_options::notify(vm);
 	}
 	catch ( boost::program_options::unknown_option &u ){
-		std::cerr << "Option parsing error: " << u.what() << ": please use only valid flags"<< std::endl;
+		std::cerr << "Option parsing error: " << u.what() << ": please use only valid flags"<< std::endl
+		<< usage << std::endl;
 		return 10 ;
 	}
 	catch ( boost::program_options::invalid_command_line_syntax &u ){
@@ -135,12 +135,13 @@ int main(int argc,char *argv[]){
 
 	if (vm.count("version"))
 	{
-                lg->writefAll("This GEOtop version  was compiled at:  %s  %s\n", __DATE__,__TIME__);
-                lg->writefAll("The Git revision hash of the source code is: %s \n",GEOtop_BUILD_VERSION);
+		std::cout << "This is " << PACKAGE_STRING << std::endl
+		<< "This GEOtop version  was compiled at:  " <<  __DATE__ << " " << __TIME__ << std::endl
+		<< "The Git revision hash of the source code is: " << GEOtop_BUILD_VERSION << std::endl
 #ifdef USE_INTERNAL_METEODISTR
-    lg->writeAll("This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF \n");
+		<< "This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF \n";
 #else
-    lg->writeAll("This version does USE METEO-IO library for interpolation: METEOIO-ON \n");
+		<< "This version does USE METEO-IO library for interpolation: METEOIO-ON \n";
 #endif
 		return 0;
 	}
@@ -185,6 +186,7 @@ int main(int argc,char *argv[]){
 	}
 
 
+        geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
     lg->writeAll("THIS IS THE INITIAL STATEMENT:\n");
     lg->writeAll("\n");
