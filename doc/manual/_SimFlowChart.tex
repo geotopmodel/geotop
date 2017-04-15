@@ -143,54 +143,119 @@ This phase updates the time with the calculation time step and compares the new 
 \newpage
 \section{How to Run GEOtop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{From Terminal}
+\subsection{From Terminal  on Linux/Mac platform}
 
-\noindent Open a terminal, go into the folder \textsl{Debug} by typing:
+\noindent  If you successfully installed GEOtop v.2.1 as explained in chapter 2 you should have executable at the command line 
 
-\footnotesize{
-\begin{verbatim}
-$ cd Debug
-\end{verbatim}
-}
 
-\noindent Write:
+\noindent Type:
 
 \footnotesize{
 \begin{verbatim}
-$ ./GEOtop1.2 
+$ geotop  
 \end{verbatim}
 }
 
-\noindent Leave one space and type now the path to the folder where the simulation files are:
+
+
+\noindent this should give as output something similar to this:
+
 
 \footnotesize{
 \begin{verbatim}
-$./GEOtop_1.2 /Users/matteo/Duron/
+>geotop
+Geotop 2.1 usage
+Options:
+  -v [ --version ]      print version string
+  -h [ --help ]         this help
+  -w [ --workdir ] arg  the working directory of the simulation
+
+\end{verbatim}
+}
+ 
+\noindent to get information about version and compilation time
+
+\footnotesize{
+\begin{verbatim}
+
+>geotop -v
+This GEOtop version  was compiled at:  Mar 22 2017  09:08:00
+The Git revision hash of the source code is: TRIEST_release-54-g3e20a0fa
+This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF
+
 \end{verbatim}
 }
 
-\noindent Remember to put a``/'' (slash) at the end and the type {\it Return}. The simulation should start.
+
+\noindent  To run a simulation  leave one space and type now the path to the folder where the simulation files are:
+
+\footnotesize{
+\begin{verbatim}
+$geotop   /directory/where/data/are
+\end{verbatim}
+}
+
+\noindent Remember to put a``/'' (slash) at the end and the type {\it Return}. The simulation should start and on the screen you should see somethinh like that..
 
 
-\begin{figure}[!h]
-\begin{center}
-  \begin{minipage}[c]{.8\textwidth}
-    \centering
-    \includegraphics[width=0.9\textwidth]{./images/pic_flowchart/13_terminale_trim.png}
-  \end{minipage}
-\end{center}
-    \textsl{\caption{SVN} \label{f:10}}
-\end{figure}
 
-\begin{figure}[!h]
-\begin{center}
-  \begin{minipage}[c]{.8\textwidth}
-    \centering
-    \includegraphics[width=0.9\textwidth]{./images/pic_flowchart/13_terminale_end.png}
-  \end{minipage}
-\end{center}
-    \textsl{\caption{SVN} \label{f:10}}
-\end{figure}
+
+\footnotesize{
+\begin{verbatim}
+geotop GEOTOP/geotop_examples/1D/InfiltrationTrench/
+THIS IS THE INITIAL STATEMENT:
+
+GEOtop 2.1  31 december 2016
+
+Copyright (c), 2016 - GEOtop Foundation
+
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+########################## INFO ABOUT COMPILATION #################################
+This GEOtop version  was compiled at:  Mar 22 2017  09:08:00
+The compiler gives a __cplusplus value of
+The Git revision hash of the source code is: TRIEST_release-54-g3e20a0fa
+This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF
+This run starts at: Sat Apr 15 12:08:44 2017
+##### Please report the above lines if you ask for help ############################
+[NOTICE]: Configuration file parsing completed. 3412 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: Max snow layer number: 24, of which 4 at the bottom, 10 in the middle, and 10 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers:
+	5 6 7 8 9 10 11 12 13 14
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers:
+.....
+
+[NOTICE]: 20/3/2012 10:00 99.86\% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00
+[NOTICE]: 20/3/2012 11:00 99.93\% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00
+[NOTICE]: 20/3/2012 12:00 100.00\% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:00
+[NOTICE]: Duration of simulation: 18.194097
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
+
+
+\end{verbatim}
+}
+
 
 
 

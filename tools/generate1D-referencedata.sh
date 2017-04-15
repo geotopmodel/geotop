@@ -1,8 +1,8 @@
 #!/bin/bash
 # This is part of the GEOtop 2.1 distribution 
 # Bash Script to run GEOtop for 1D test case with versions: 
-#  SE27XX , METEOIO-ON (geotop_dev), METEIO-OFF (geotop-dev)  
-#  and prepare reference data in the corrected directories 
+# SE27XX , METEOIO-ON (geotop_dev), METEIO-OFF (geotop-dev)  
+# and prepare reference data in the corrected directories 
 # See test case: https://github.com/geotopmodel/geotop/tree/geotop_dev/tests/1D
 #
 # @author: Emanuele Cordano (emanuele.cordano@gmail.com) / Stefano Cozzini (stefano.cozzini@exact-lab.it)
@@ -36,13 +36,15 @@ for i in $( ls ); do
 	   continue 
     fi
  
-
-## Run GEOTOP_SE27XX 
+# Run all within the directory:  
+    cd $i
+# first GEOTOP_SE27XX 
       echo "doing SE27XX for $i"
       $GEOTOP_BIN_SE27XX $TEST_1D_DIR/$i    1>$TEST_1D_DIR/$i/stdout.SE27XX 2>$TEST_1D_DIR/$i/stderr.SE27XX
       echo FINISHED: $GEOTOP_BIN_SE27XX $TEST_1D_DIR/$i
       rm -rf $TEST_1D_DIR/$i/output-tabs-SE27XX
       mv $TEST_1D_DIR/$i/output-tabs  $TEST_1D_DIR/$i/output-tabs-SE27XX
+      rm  $TEST_1D_DIR/$i/output-tabs-SE27XX/placeholder
       mv $TEST_1D_DIR/$i/geotop.log  $TEST_1D_DIR/$i/geotop.log-SE27XX
       git checkout $TEST_1D_DIR/$i/output-tabs/placeholder
 	
@@ -54,6 +56,7 @@ for i in $( ls ); do
       echo FINISHED: $GEOTOP_METEOIO_ON $TEST_1D_DIR/$i
       rm -rf $TEST_1D_DIR/$i/output-tabs-METEOIO-ON
       mv $TEST_1D_DIR/$i/output-tabs  $TEST_1D_DIR/$i/output-tabs-METEOIO-ON
+      rm  $TEST_1D_DIR/$i/output-tabs-METEOIO-ON/placeholder
       mv $TEST_1D_DIR/$i/geotop2-1.log  $TEST_1D_DIR/$i/geotop2-1.log-METEOIO-ON
       git checkout $TEST_1D_DIR/$i/output-tabs/placeholder
 
@@ -65,6 +68,7 @@ for i in $( ls ); do
       echo FINISHED: $GEOTOP_BIN_METEOIO_OFF $TEST_1D_DIR/$i
       rm -rf $TEST_1D_DIR/$i/output-tabs-METEOIO-OFF
       mv $TEST_1D_DIR/$i/output-tabs  $TEST_1D_DIR/$i/output-tabs-METEOIO-OFF
+      rm  $TEST_1D_DIR/$i/output-tabs-METEOIO-OFF/placeholder
       mv $TEST_1D_DIR/$i/geotop2-1.log  $TEST_1D_DIR/$i/geotop2-1.log-METEOIO-OFF
       git checkout $TEST_1D_DIR/$i/output-tabs/placeholder
  
