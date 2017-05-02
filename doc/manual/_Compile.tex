@@ -2,12 +2,12 @@
 \chapter{Compiling Instructions}\label{chap:User Manual}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\noindent Before you begin to use GEOtop, is advisable you subscribe to the
-%users mailing list. By doing it you will receive informations by developers and
-%other users, and you will be able to post your question to the community as
-%well. Follow the instruction at the following link:\\
+\noindent Before you begin to use GEOtop, is advisable you subscribe to the
+users mailing list. By doing it you will receive informations by developers and
+other users, and you will be able to post your question to the community as
+well. Follow the instruction at the following link:\\
 
-%\textcolor{blue}{\underline{{http://www.geotop.org/cgi-bin/moin.cgi/MailinglistUsers}}}\\
+\textcolor{blue}{\underline{{https://groups.google.com/forum/?pli=1\#!forum/geotopusers}}}\\
 
 
 \noindent GEOtop runs properly under:
@@ -18,29 +18,42 @@
 \end{itemize}
 
 
+If you want to build GEOtop from sources in your own machine (Linux and MacOSX):
+
+see here: 
+
+\textcolor{blue}{\underline{{https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst}}}\\
+
+If you prefer to install GEOtop via Docker to avoid manual installation of packages:
+
+see here: 
+
+\textcolor{blue}{\underline{{https://hub.docker.com/r/omslab/geotop}}}\\
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Compile GEOtop through a makefile}
+%\section{Compile GEOtop through a makefile}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The GEOtop source code can be downloaded through a terminal (or command prompt if you are using Windows) by typing, 
-as shown in \textsl{Figure \ref{cmp}}:\\
+%The GEOtop source code can be downloaded through a terminal (or command prompt if you are using Windows) by typing, 
+%as shown in \textsl{Figure \ref{cmp}}:\\
 
-\textsl{"svn co https://dev.fsc.bz.it/repos/geotop/trunk/0.9375KMacKenzie"}\\
-\begin{figure}[!h]
-\begin{center}
-  \begin{minipage}[c]{.80\textwidth}
-    \includegraphics[width=1\textwidth]{./images/pic_compile/compile.png}
-    \textsl{\caption{Download GEOtop source code through a terminal} \label{cmp}}
-  \end{minipage}
-\end{center}
-\end{figure}
+%\textsl{"svn co https://dev.fsc.bz.it/repos/geotop/trunk/0.9375KMacKenzie"}\\
+%\begin{figure}[!h]
+%\begin{center}
+%  \begin{minipage}[c]{.80\textwidth}
+%    \includegraphics[width=1\textwidth]{./images/pic_compile/compile.png}
+%    \textsl{\caption{Download GEOtop source code through a terminal} \label{cmp}}
+%  \end{minipage}
+%\end{center}
+%\end{figure}
 
 
-\noindent The downloaded folder contains the folders:
-\begin{itemize}
- \item Debug: which contains the object file created during the compilation and the makefile
- \item geotop: which contains the code
- \item Libraries: which contains the support libraries
-\end{itemize}
+%\noindent The downloaded folder contains the folders:
+%\begin{itemize}
+% \item Debug: which contains the object file created during the compilation and the makefile
+% \item geotop: which contains the code
+% \item Libraries: which contains the support libraries
+%\end{itemize}
 
 
 
@@ -113,14 +126,14 @@ as shown in \textsl{Figure \ref{cmp}}:\\
 %	rm -rf *.o *~ $(OBJ)
 %\end{verbatim}
 %}
-
-\noindent Open a terminal, go into the folder \textsl{Debug} by typing:
-
-\footnotesize{
-\begin{verbatim}
-$ cd Debug
-\end{verbatim}
-}
+%
+%\noindent Open a terminal, go into the folder \textsl{Debug} by typing:
+%
+%\footnotesize{
+%\begin{verbatim}
+%$ cd Debug
+%\end{verbatim}
+%}
 
 
 %By typing \textsl{"ls"} you should have the following files and folders \textsl{Figure \ref{fo}}:
@@ -132,16 +145,16 @@ $ cd Debug
 %  \end{minipage}
 %\end{center}
 %\end{figure}
-
-\noindent To compile GEOtop, type:
-
-\footnotesize{
-\begin{verbatim}
-$ make all
-\end{verbatim}
-}
-
-\noindent The executable file {\it GEOtop1.2} is now created in the {\it Debug} folder.
+%
+%\noindent To compile GEOtop, type:
+%
+%\footnotesize{
+%\begin{verbatim}
+%$ make all
+%\end{verbatim}
+%}
+%
+%\noindent The executable file {\it GEOtop1.2} is now created in the {\it Debug} folder.
 
 %\textsl{Figure \ref{fo_c}}.\\
 %\begin{figure}[!h]

@@ -1,5 +1,5 @@
 PROJECT_NAME           = GEOTOP
-PROJECT_NUMBER         = 1.0
+PROJECT_NUMBER         = 2.1
 SEARCHENGINE           = YES
 
 EXTRACT_ALL           = YES
