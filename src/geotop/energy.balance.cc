@@ -975,7 +975,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                                
                             }else if (geotop::common::Variables::opnt[l] == oRH) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = RHpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                               
-                            }else if (geotop::common::Variables::opnt[l] == oPa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Precpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
+                            }else if (geotop::common::Variables::opnt[l] == oPa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Ppoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                
                             }else if (geotop::common::Variables::opnt[l] == oTa) { geotop::common::Variables::odp[geotop::common::Variables::opnt[l]][A->P->jplot[j]-1] = Tpoint*Dt/A->P->Dtplot_point[geotop::common::Variables::i_sim];
                                 
