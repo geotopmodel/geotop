@@ -139,67 +139,6 @@ SoilEmissiv	=	0.96
 SurFlowResLand	=	0.5
 SurFlowResExp	=	0.667 
 
-
-
-
-!=======================================
-! SOIL
-!=======================================
-
-
-NumLandCoverTypes = 1
-SoilLayerTypes=1
-SurFlowResLand	=	277.78 
-
-!! m^(1/3)/s 
-
-!!2714.57  
-! In case units is mm^(1/3)/s
-!!277.78  m^(1/3)/s
-
- !  m^0.33/s  ! n_c= 1.0e-6 hr/m^(1/3)
-
-SurFlowResExp=0.6666667
-
-
-
-FreeDrainageAtLateralBorder = 0.0
- 
-HeaderSoilDz	=	"Dz"
-HeaderLateralHydrConductivity	=	"Kh"
-HeaderNormalHydrConductivity	=	"Kv"
-HeaderThetaRes	=	"vwc_r"
-HeaderWiltingPoint	=	"vwc_w"
-HeaderFieldCapacity	=	"vwc_fc"
-HeaderThetaSat	=	"vwc_s"
-HeaderAlpha	=	"alpha"
-HeaderN	=	"n"
-HeaderSpecificStorativity	=	"stor"
-HeaderKthSoilSolids	=	"Kth"
-HeaderCthSoilSolids	=	"Cth"
-HeaderSoilInitPres = "InitPsi"
- 
-SoilParFile	=	"input/soil-classes/soil"
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 !=======================================
 ! FREE BOUNDARY CONDITION
 !=======================================
@@ -213,26 +152,26 @@ DepthFreeSurfaceAtTheBoundary = 10000000000
 !=======================================
 FrozenSoilHydrCondReduction  = 0
 ! [mm] 
-!InitSoilPress = -800
-!InitSoilPressBedrock = -800
-!SoilLayerThicknesses	= 200,200,200,200,200,200,200,200,200,200,200 ! alpha
+SoilInitPres = -800
+SoilInitPresBedrock = -800
+SoilLayerThicknesses	= 200,200,200,200,200,200,200,200,200,200,200 ! alpha
 InitSoilTemp	=	0
 ! [mm/s]
-!NormalHydrConductivity	=	0.0278
-!LateralHydrConductivity	=	0.0278
-!NormalHydrConductivityBedrock	=	0.0
+NormalHydrConductivity	=	0.0278
+LateralHydrConductivity	=	0.0278
+NormalHydrConductivityBedrock	=	0.0
 LateralHydrConductivityBedrock	=	0.0
 ! [-]
-!ThetaRes	=	0.00
-!WiltingPoint	=	0.15
-!FieldCapacity	=	0.3
-!ThetaSat	=	0.4
-!ThetaSatBedrock	=	0.001
-!NVanGenuchten	=	3.0
-!NVanGenuchtenBedrock	=	3.0
+ThetaRes	=	0.00
+WiltingPoint	=	0.15
+FieldCapacity	=	0.3
+ThetaSat	=	0.4
+ThetaSatBedrock	=	0.001
+NVanGenuchten	=	3.0
+NVanGenuchtenBedrock	=	3.0
 ! [mm^-1]
-!AlphaVanGenuchten	=	0.01 
-!AlphaVanGenuchtenBedrock	=	0.01 
+AlphaVanGenuchten	=	0.01 
+AlphaVanGenuchtenBedrock	=	0.01 
 !
 ! 0.004
 ! 
@@ -240,7 +179,7 @@ ThermalConductivitySoilSolids	=	2.5
 !
 ThermalCapacitySoilSolids	=	2.30E+06
 ! [mm^-1]
-!SpecificStorativity	=	1.00E-05
+SpecificStorativity	=	1.00E-05
 !InitWaterTableHeightOverTopoSurface = -10
 !=======================================
 ! CHANNELS

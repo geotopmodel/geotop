@@ -9,13 +9,13 @@ GEOtop 2.1 is a free software and is distributed under GNU General Public Licens
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ########################## INFO ABOUT COMPILATION #################################
-This GEOtop version  was compiled at:  Mar 22 2017  12:28:56
+This GEOtop version  was compiled at:  May  9 2017  09:08:55
 The compiler gives a __cplusplus value of % 
-The Git revision hash of the source code is: TRIEST_release-56-g7273c642 
+The Git revision hash of the source code is: TRIEST_release-91-g026967c1 
 This version does USE METEO-IO library for interpolation: METEOIO-ON 
-This run starts at: Wed Mar 22 13:00:55 2017
+This run starts at: Tue May  9 09:28:17 2017
 ##### Please report the above lines if you ask for help ############################
-[NOTICE]: Configuration file parsing completed. 8500 characters parsed.
+[NOTICE]: Configuration file parsing completed. 9274 characters parsed.
 [NOTICE]: Full match!
 [NOTICE]: Max snow layer number: 11, of which 2 at the bottom, 5 in the middle, and 4 at the top.
 [NOTICE]: Infinite Snow layer numbers are numbers: 
@@ -24,17 +24,62 @@ This run starts at: Wed Mar 22 13:00:55 2017
 [NOTICE]: Infinite Glac layer numbers are numbers: 
 	
 [NOTICE]: file index SPAR (soil parameter) 1
-[NOTICE]: file name assigned : none 
+[NOTICE]: file name assigned : /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil 
 
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to Dz
+[NOTICE]: Column 13 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to InitPsi
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to Kv
+[NOTICE]: Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to Kh
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to vwc_r
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to vwc_w
+[NOTICE]: Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to vwc_fc
+[NOTICE]: Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to vwc_s
+[NOTICE]: Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to alpha
+[NOTICE]: Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to n
+[NOTICE]: Column 11 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to Kth
+[NOTICE]: Column 12 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to Cth
+[NOTICE]: Column 10 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/soil-classes/soil0001.txt assigned to stor
 
 Soil Layers: 11
+-> Soil Type: 1
+HeaderSoilDz: 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02)
+HeaderSoilInitTemp: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderNormalHydrConductivity: 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02)
+HeaderLateralHydrConductivity: 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01)
+HeaderFieldCapacity: 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01)
+HeaderThetaSat: 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01)
+HeaderAlpha: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderN: 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 23000000.000000(2.30e+07), 23000000.000000(2.30e+07), 23000000.000000(2.30e+07)
+HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
 
 Soil Bedrock Layers: 11
+-> Soil Type: 1
+HeaderSoilDz: 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02), 200.000000(2.00e+02)
+HeaderSoilInitPres: -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02), -800.000000(-8.00e+02)
+HeaderSoilInitTemp: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderNormalHydrConductivity: 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02)
+HeaderLateralHydrConductivity: 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02), 0.027800(2.78e-02)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01), 0.150000(1.50e-01)
+HeaderFieldCapacity: 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01), 0.300000(3.00e-01)
+HeaderThetaSat: 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01)
+HeaderAlpha: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02)
+HeaderN: 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00), 3.000000(3.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 23000000.000000(2.30e+07), 23000000.000000(2.30e+07), 23000000.000000(2.30e+07)
+HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
 
 [NOTICE]: DEM FILE used by METEO-IO (defined in io_it.ini)   : dtm_map.asc
 [NOTICE]: DEM FILE used by GEOTOP   (defined in geotop.inpts): dtm_map.asc
-[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/dtm_map existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/dtm_map
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/dtm_map existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/dtm_map
 
 [NOTICE]: File for keyword : LandCoverMapFile  not present in file list
 [NOTICE]: Land cover type assumed to be always 1
@@ -42,22 +87,22 @@ Soil Bedrock Layers: 11
 
 i:1 -9999.000000
 B i:1 1
-[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input_maps/sky not existing
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input_maps/sky not existing
 [NOTICE]: File for keyword : DaysDelayMapFile  not present in file list
 [NOTICE]: File for keyword : SoilMapFile  not present in file list
-[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/slope existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/slope
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/slope existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/slope
 
 [NOTICE]: Slope Min:    0.253756 (     14.2386 deg) Max:    0.253756 (     14.2386 deg)
-[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/aspect existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/aspect
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/aspect existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/aspect
 
 [NOTICE]: Curvature N-S Min: -0.00275791  Max:  0.00275791
 [NOTICE]: Curvature W-E Min:-3.55271e-15  Max: 7.10543e-15
 [NOTICE]: Curvature NW-SE Min: -0.00275791  Max:  0.00275791
 [NOTICE]: Curvature NE-SW Min: -0.00275791  Max:  0.00275791
-[WARNING]: File /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/net existing in format 3 (.asc) 
-[NOTICE]: The File is present: /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input-maps/net
+[WARNING]: File /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/net existing in format 3 (.asc) 
+[NOTICE]: The File is present: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input-maps/net
 
 [NOTICE]: Channel networks has 0 pixels set to channel
 [NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
@@ -71,10 +116,10 @@ B i:1 1
 [NOTICE]: Numbers of Meteo Stations read: 1
 [NOTICE]: Reading horizon for : 1 meteo station
 [WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-[NOTICE]: Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to Date
-[NOTICE]: Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateTemp
-[NOTICE]: Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateDewTemp
-[NOTICE]: Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRatePrec
+[NOTICE]: Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to Date
+[NOTICE]: Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateTemp
+[NOTICE]: Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRateDewTemp
+[NOTICE]: Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel_nobed/input/lapserate.txt assigned to LapseRatePrec
 [NOTICE]: Lapse rate file read
 
 CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
@@ -101,7 +146,7 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [WARNING]: 11 mapfiles undefined: see above for names of missing files
 [NOTICE]: Soil water evaporates from the first 1 layers
 [NOTICE]: Soil water transpires from the first 11 layers
-[NOTICE]: Duration of preprocessing phase: 8.819839
+[NOTICE]: Duration of preprocessing phase: 2.993122
 
 [NOTICE]: 1/2/2012 1:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 1/2/2012 2:00 8.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
@@ -129,14 +174,14 @@ ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],Wind
 [NOTICE]: 2/2/2012 0:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
 [NOTICE]: 2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
 
-[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.01 s
+[NOTICE]:  t_meteo:  0.03 s,t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.00 s
 
 [NOTICE]: SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.383897e-08 mm/h 
- Tot Error Richards=5.721352e-07 mm Mean Time Step=0.000000 s
+ Max Error Richards=5.672289e-07 mm/h 
+ Tot Error Richards=1.361349e-05 mm Mean Time Step=0.000000 s
 
 
-[NOTICE]: Duration of simulation: 8.942691
+[NOTICE]: Duration of simulation: 3.049373
 
 [NOTICE]: Close files
 [NOTICE]: Deallocating global variables

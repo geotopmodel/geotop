@@ -1,6 +1,6 @@
  The main properties of the pixel E=         -1.000 N=         42.000, row=   5 col=   5 are:
  Elevation above sea level:     12.793 m
- Gauckler-Strickler [m^1/3/s]: 0.500000
+ Gauckler-Strickler [m^1/3/s]: 277.780000
  Residual water content[-] of the layer 1: 0.000000
  Residual water content[-] of the layer 2: 0.000000
  Residual water content[-] of the layer 3: 0.000000
