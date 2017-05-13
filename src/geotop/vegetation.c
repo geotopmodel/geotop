@@ -586,33 +586,65 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	double fS, fe, fTemp, Rsmin, ea, ev;
 	long l;
 	
-	//CANOPY TRANSPIRATION (parameters from Best (1998))
-	//solar radiation [Best, (1998); Dolman et al., 1991]
-	fS=SWin/(SWin+250.0)*1.25;
+	// Variables to be introduced trough new keywords
+	 	
+	// parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
+	double VegVpdStess = 40;  // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
+	// parameters to control vegetation stomata temperature stress following Dickinson et al., 1991 fTemp=(Tv-TvegMin_)*( TvegMax-Tv)/TvegRes;
+	double TvegMin = 0; // Minumum working leaves temperature for stomata default 0 [C]
+	double TvegMax = 50; // Maximum working leaves temperature for stomata default 50 [C]
+	double TvegRes = 625; //Stomata temperature stress factor default 625  [C^2]
+	 								
+	// keywords as flag to  control Jarvis type stomatal representation 
+	// Jarvis, P. G., & Morrison, J. I. L. (1981). The control of transpiration and photosynthesis by the stomata. In P. G. Jarvis & T. A. Mansfield (Eds.), Stomatal Physiology (pp. 247â€“279). UK: Cambridge Univ. Press.
+	long VegRswStress  = 1;  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
+	long VegVPDStress = 1; //(default 1= p1ressure deficit [Best, (1998); Dickinson et al., 1991])
+	long VegTempStress = 1;  // (default =1 [temperature [Best, (1998); Dickinson et al., 1991])
+	long VegWaterStress = 1; // (default =1 [water content [Wigmosta et al., (1994); Feddes et al.(1978)])
 	
+	//CANOPY TRANSPIRATION (defaullt parameters from Best (1998))
+	//solar radiation stomatal resistance factor [Best, (1998); Dolman et al., 1991]
+	if(VegRswStress == 1){
+		fS=SWin/(SWin+250.0)*1.25;
+	}else{
+		fS=1;
+	}
+
 	//pressure deficit [Best, (1998); Dickinson et al., 1991]
-	ea = VapPressurefromSpecHumidity(Qa, Pa);
-	ev = SatVapPressure(Tv, Pa);
-	fe=1.0-(ev-ea)/40.0;
+	if(VegVPDStress == 1){
+		ea = VapPressurefromSpecHumidity(Qa, Pa);
+		ev = SatVapPressure(Tv, Pa);
+		fe=1.0-(ev-ea)/VegVpdStess;
+	}else{
+		fe=1;
+	}
 
 	//temperature [Best, (1998); Dickinson et al., 1991]
-	if(Tv<=0){
-		fTemp=1E-12;
-	}else if(Tv>=50.0){
-		fTemp=1E-12;
+	if(VegTempStress == 1){
+		if(Tv<=TvegMin){
+			fTemp=1E-12;
+		}else if(Tv>=TvegMax){
+			fTemp=1E-12;
+		}else{
+			fTemp=(Tv-TvegMin)*(TvegMax-Tv)/TvegRes;
+		}
 	}else{
-		fTemp=(Tv-0.0)*(50.0-Tv)/625.0;
+		fTemp=1;
 	}
 	
 	*f=0.0;
 	for(l=1;l<=fl->nh;l++){
 		//water content [Wigmosta et al., (1994); Feddes et al.(1978)]
-		if (theta[l] >= soil[jfc][l]){
-			fl->co[l] = 1.0;
-		}else if(theta[l] > soil[jwp][l]){
-			fl->co[l] = (theta[l]-soil[jwp][l])/(soil[jfc][l]-soil[jwp][l]);
+		if(VegWaterStress == 1){
+			if (theta[l] >= soil[jfc][l]){
+				fl->co[l] = 1.0;
+			}else if(theta[l] > soil[jwp][l]){
+				fl->co[l] = (theta[l]-soil[jwp][l])/(soil[jfc][l]-soil[jwp][l]);
+			}else{
+				fl->co[l] = 0.0;
+			}
 		}else{
-			fl->co[l] = 0.0;
+			fl->co[l] = 1.0;
 		}
 						
 		//stomata resistance for each layer
