@@ -610,12 +610,12 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	for(l=1;l<fl.size();l++){
 		//water content [Wigmosta et al., (1994); Feddes et al.(1978)]
 		if(VegWaterStress == 1){
-			if (theta[l] >= soil[jfc][l]){
-				fl->co[l] = 1.0;
-			}else if(theta[l] > soil[jwp][l]){
-				fl->co[l] = (theta[l]-soil[jwp][l])/(soil[jfc][l]-soil[jwp][l]);
+			if (theta[l] >= soil[sy][jfc][l]){
+				fl[l] = 1.0;
+			}else if(theta[l] > soil[sy][jwp][l]){
+				fl[l] = (theta[l]-soil[sy][jwp][l])/(soil[sy][jfc][l]-soil[sy][jwp][l]);
 			}else{
-				fl->co[l] = 0.0;
+				fl[l] = 0.0;
 			}
 		}else{
 			fl[l] = 1.0;
