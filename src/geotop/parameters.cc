@@ -72,8 +72,11 @@ static double getDoubleValueWithDefault(const boost::shared_ptr<geotop::input::C
             exit(1);
         } else {
             lValue = pDefaultValue ;
+            lg->logsf(geotop::logger::NOTICE, "%s[1] = %e (default)", pName.c_str(),lValue);
         }
 
+    } else {
+        lg->logsf(geotop::logger::NOTICE, "%s[1] = %e", pName.c_str(),lValue);
     }
     
     return lValue ;
@@ -118,6 +121,7 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
         if(i < lLength)
         {
             lElementValue = lValue[i];
+            lg->logsf(geotop::logger::NOTICE, "%s[1] = %e", pName.c_str(),lElementValue);
         }
         else
         {
@@ -126,9 +130,15 @@ static std::vector<double> getDoubleVectorValueWithDefault(const boost::shared_p
 
         if (lElementValue == geotop::input::gDoubleNoValue) {
             if(pUsePrevElement && i > 0)
+            {
                 lElementValue = lValue[i-1] ;
+                lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e", pName.c_str(),i,lElementValue);
+            }
             else
+            {
                 lElementValue = pDefaultValue ;
+                lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e (default)", pName.c_str(),i,lElementValue);
+            }
 
             if (!pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue)
             {
@@ -159,14 +169,15 @@ static std::vector<std::string> getStringValues(const boost::shared_ptr<geotop::
 	for (size_t i=0; i<pKeys.size(); i++) {
         std::string lValue;
         bool lGetResult = pConfigStore->get(pKeys[i], lValue) ;
+        geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
         if(lGetResult == false){
-            geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
             lg->logsf(geotop::logger::CRITICAL, 
                       "Mandatory value not assigned: %s",
                       pKeys[i].c_str());
             exit(1);
         }
         lVector.push_back(lValue);
+        lg->logsf(geotop::logger::NOTICE, "%s = %s", pKeys[i].c_str(),lValue.c_str());
 	}
     
 	return lVector ;
