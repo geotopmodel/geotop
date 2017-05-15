@@ -423,7 +423,15 @@ char *keywords_num[num_par_number] = {
 	"WindCompaction1D",
 	"DDChannel",
 	"DDLand",
-	"BottomTemperature"};
+	"BottomTemperature",
+	"VegVpdStess",
+	"TvegMin",
+	"TvegMax",
+	"TvegRes",
+	"VegRswStress",
+	"VegVPDStress",
+	"VegTempStress",
+	"VegWaterStress"};
 
 
 

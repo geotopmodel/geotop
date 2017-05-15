@@ -627,6 +627,15 @@ typedef struct {
 	
 	short DDchannel;
 	short DDland;
+
+	double VegVpdStess;
+	double TvegMin;
+	double TvegMax;
+	double TvegRes;
+	long VegRswStress;
+	long VegVPDStress;
+	long VegTempStress;
+	long VegWaterStress;
 	
 } PAR;
 
