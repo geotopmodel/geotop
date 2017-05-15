@@ -2217,6 +2217,22 @@ void geotop::input::ConfigStore::init()
     initValue("SurFlowResExp", double(0.666666666667)) ;
     
     initValue("MinPrecIncreaseFactorWithElev", double(0.1)) ;
+
+    initValue("VegVpdStess", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("TvegMin", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("TvegMax", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("TvegRes", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("VegRswStress", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("VegVPDStress", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("VegTempStress", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("VegWaterStress", double(geotop::input::gDoubleNoValue)) ;
     //END INITIALIZATION OF NUMERIC PARAMETERS
 }
 

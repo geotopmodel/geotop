@@ -622,6 +622,15 @@ class Par
         short up_albedo;//states whether the albedo has already been reset for the ongoing event
         double tres_wo_prec;//max time interval allowed to differentiate between two contiguous events
 
+        double VegVpdStess;
+        double TvegMin;
+        double TvegMax;
+        double TvegRes;
+        long VegRswStress;
+        long VegVPDStress;
+        long VegTempStress;
+        long VegWaterStress;
+
 };
 
 class Statevar3D
