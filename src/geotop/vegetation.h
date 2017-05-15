@@ -71,7 +71,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 void root(long n, double d, double slope, GeoTensor<double>& D, GeoMatrix<double>& root_fraction, long row);
 
 //void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land, double **soil, double *root, double *f, DOUBLEVECTOR *fl);
-void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, const GeoMatrix<double>& land, long lu, GeoTensor<double>& soil, long sy, const GeoMatrix<double>& root, double *f, GeoVector<double>& fl);
+void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, const GeoMatrix<double>& land, long lu, PAR *par, GeoTensor<double>& soil, long sy, const GeoMatrix<double>& root, double *f, GeoVector<double>& fl);
 
 void veg_transmittance(short stabcorr_incanopy, double v, double u_star, double u_top, double Hveg, double z0soil, double z0veg, double d0veg, 
 					   double LSAI, double decaycoeff0, double Lo, double Loc, double *rb, double *rh, double *decay);
