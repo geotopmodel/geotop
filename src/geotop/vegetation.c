@@ -268,7 +268,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 			if((*Qv)<(*Qs)){	//condensation	
 				R=1.0;	
 			}else{
-				canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, land, soil, froot, &ft, soil_transp_layer);		
+				canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, land, par, soil, froot, &ft, soil_transp_layer);		
 				R=fw+(1.0-fw)*ft;
 			}			
 			*rc = (*rb) / R;
@@ -580,7 +580,7 @@ void root(long n, double d, double slope, double *D, double *root_fraction){
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land, 
+void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land, PAR *par,
 							   double **soil, double *root, double *f, DOUBLEVECTOR *fl){
 
 	double fS, fe, fTemp, Rsmin, ea, ev;
@@ -589,18 +589,18 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	// Variables to be introduced trough new keywords
 	 	
 	// parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
-	double VegVpdStess = 40;  // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
+	double VegVpdStess = par->VegVpdStess;  // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
 	// parameters to control vegetation stomata temperature stress following Dickinson et al., 1991 fTemp=(Tv-TvegMin_)*( TvegMax-Tv)/TvegRes;
-	double TvegMin = 0; // Minumum working leaves temperature for stomata default 0 [C]
-	double TvegMax = 50; // Maximum working leaves temperature for stomata default 50 [C]
-	double TvegRes = 625; //Stomata temperature stress factor default 625  [C^2]
+	double TvegMin = par->TvegMin; // Minumum working leaves temperature for stomata default 0 [C]
+	double TvegMax = par->TvegMax; // Maximum working leaves temperature for stomata default 50 [C]
+	double TvegRes = par->TvegRes; //Stomata temperature stress factor default 625  [C^2]
 	 								
 	// keywords as flag to  control Jarvis type stomatal representation 
 	// Jarvis, P. G., & Morrison, J. I. L. (1981). The control of transpiration and photosynthesis by the stomata. In P. G. Jarvis & T. A. Mansfield (Eds.), Stomatal Physiology (pp. 247â€“279). UK: Cambridge Univ. Press.
-	long VegRswStress  = 1;  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
-	long VegVPDStress = 1; //(default 1= p1ressure deficit [Best, (1998); Dickinson et al., 1991])
-	long VegTempStress = 1;  // (default =1 [temperature [Best, (1998); Dickinson et al., 1991])
-	long VegWaterStress = 1; // (default =1 [water content [Wigmosta et al., (1994); Feddes et al.(1978)])
+	long VegRswStress  = par->VegRswStress;  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
+	long VegVPDStress = par->VegVPDStress; //(default 1= p1ressure deficit [Best, (1998); Dickinson et al., 1991])
+	long VegTempStress = par->VegTempStress;  // (default =1 [temperature [Best, (1998); Dickinson et al., 1991])
+	long VegWaterStress = par->VegWaterStress; // (default =1 [water content [Wigmosta et al., (1994); Feddes et al.(1978)])
 	
 	//CANOPY TRANSPIRATION (defaullt parameters from Best (1998))
 	//solar radiation stomatal resistance factor [Best, (1998); Dolman et al., 1991]
