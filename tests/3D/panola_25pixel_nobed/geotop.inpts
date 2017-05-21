@@ -1,5 +1,4 @@
 !=======================================
-! INPUT FOR GEOtop 1.225-8 Version(geotop/branches/stefano/1.225-8/src)
 ! Distributed simulation Panola13 catchment (Comparison with Boussinesq Model)
 ! Toy catchment 1 m resolution
 !=======================================
@@ -10,9 +9,9 @@
 
 !Calculation max time step dt in s 
 
-TimeStepEnergyAndWater = 9
+TimeStepEnergyAndWater = 18 
 InitDateDDMMYYYYhhmm = 01/02/2012 00:00
-EndDateDDMMYYYYhhmm =  02/02/2012 00:00
+EndDateDDMMYYYYhhmm =  01/02/2012 00:30
 
 ! Catchment centroid (for Sun position) 
 Latitude	=	46.75604 
@@ -34,18 +33,18 @@ FlagSkyViewFactor = 0
 
 !Output timeseries Dt in hours 
 DtPlotDischarge = 1
-DtPlotPoint = 1
+DtPlotPoint = 0.005 
 DtPlotBasin = 24
 
 !Output maps Dt in hours 
-OutputSoilMaps = 24
-OutputSurfEBALMaps = 24
+OutputSoilMaps = 0.005 
+OutputSurfEBALMaps = 1
 OutputMeteoMaps = 0
 OutputSnowMaps = 0
 OutputGlacierMaps	=	0
 
 !!CoordinatePointX = 2,8,40,50,60,90
-!!CoordinatePointY = 5,5,5,5,5,5
+!!CxoordinatePointY = 5,5,5,5,5,5
 !!PointID = 1,2,3,4,5,6
 
 
@@ -69,10 +68,16 @@ MeteoStationWindVelocitySensorHeight = 10
 MeteoStationTemperatureSensorHeight = 10
 
 
-eteoStationStandardTime = 1
+MeteoStationStandardTime = 1
 StandardTimeSimulation = 1
 
+!=======================================
+! OUTPUT POINT SETTINGS
+!=======================================
 
+! output check points corresponding to meteo station
+CoordinatePointX = -1
+CoordinatePointY = 42
 
 
 !=======================================
@@ -132,9 +137,9 @@ MaxCourantSupFlowLand	=	1E-3
 MinSupWaterDepthLand	=	1E-10 
 MinTimeStepSupFlow	=	1E-50
 
-!=============================================================================
+!========================
 !  FILE NAMES
-!=============================================================================
+!========================
 
 ! Input files 
 
@@ -144,16 +149,19 @@ LandCoverMapFile = "input-maps/land"
 SlopeMapFile = "input-maps/slope"
 !SoilMapFile	=	"input-maps/soiltype"
 
+!-------------------
 ! Output files
+!--------------------
 
 ! Tabs 
 !DischargeFile = "output-tabs/discharge"
 SoilAll = 1
-!PointOutputFile = "output-tabs/point"
-!SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
-!SoilLiqContentProfileFile = "output-tabs/thetaliq"
+PointOutputFile = "output-tabs/point"
+SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
+SoilLiqContentProfileFile = "output-tabs/thetaliq"
 !SoilIceContentProfileFile = "output-tabs/I"
 !SoilSaturationRatioProfileFile = "output-tabs/Sr"
+
 
 ! Maps
 LandSurfaceWaterDepthMapFile = "output-maps/hsup"
