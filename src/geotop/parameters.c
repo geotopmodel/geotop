@@ -1514,7 +1514,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->DDchannel = (short)assignation_number(flog, 403, 0, keyword, num_param, num_param_components, 1., 0);
 	par->DDland = (short)assignation_number(flog, 404, 0, keyword, num_param, num_param_components, 1., 0);
 	par->Tbottom = assignation_number(flog, 405, 0, keyword, num_param, num_param_components, (double)number_novalue, 0);
-	par->VegVpdStess = assignation_number(flog, 406, 0, keyword, num_param, num_param_components, 40., 0);
+	par->VpdvegMax = assignation_number(flog, 406, 0, keyword, num_param, num_param_components, 40., 0);
 	par->TvegMin = assignation_number(flog, 407, 0, keyword, num_param, num_param_components, 0., 0);
 	par->TvegMax = assignation_number(flog, 408, 0, keyword, num_param, num_param_components, 50., 0);
 	par->TvegRes = assignation_number(flog, 409, 0, keyword, num_param, num_param_components, 625., 0);

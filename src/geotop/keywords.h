@@ -424,7 +424,7 @@ char *keywords_num[num_par_number] = {
 	"DDChannel",
 	"DDLand",
 	"BottomTemperature",
-	"VegVpdStess",
+	"VpdvegMax",
 	"TvegMin",
 	"TvegMax",
 	"TvegRes",

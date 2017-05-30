@@ -628,7 +628,7 @@ typedef struct {
 	short DDchannel;
 	short DDland;
 
-	double VegVpdStess;
+	double VpdvegMax;
 	double TvegMin;
 	double TvegMax;
 	double TvegRes;

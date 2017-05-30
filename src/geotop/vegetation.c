@@ -589,7 +589,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	// Variables to be introduced trough new keywords
 	 	
 	// parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
-	double VegVpdStess = par->VegVpdStess;  // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
+	double VpdvegMax = par->VpdvegMax;  // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
 	// parameters to control vegetation stomata temperature stress following Dickinson et al., 1991 fTemp=(Tv-TvegMin_)*( TvegMax-Tv)/TvegRes;
 	double TvegMin = par->TvegMin; // Minumum working leaves temperature for stomata default 0 [C]
 	double TvegMax = par->TvegMax; // Maximum working leaves temperature for stomata default 50 [C]
@@ -614,7 +614,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	if(VegVPDStress == 1){
 		ea = VapPressurefromSpecHumidity(Qa, Pa);
 		ev = SatVapPressure(Tv, Pa);
-		fe=1.0-(ev-ea)/VegVpdStess;
+		fe=1.0-(ev-ea)/VpdvegMax;
 	}else{
 		fe=1;
 	}
