@@ -1,0 +1,15 @@
+New features introduced for vegetation:
+
+parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
+VpdvegMax // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/ VegVpdStress 
+parameters to control vegetation stomata temperature stress following Dickinson et al., 1991 fTemp=(Tv-TvegMin_)*( TvegMax-Tv)/TvegRes;
+TvegMin  // Minumum working leaves temperature for stomata default 0 [C]
+TvegMax // Maximum working leaves temperature for stomata default 50 [C]
+TvegRes //Stomata temperature stress factor default 625  [C^2]
+	 								
+keywords as flag to  control Jarvis type stomatal representation 
+Jarvis, P. G., & Morrison, J. I. L. (1981). The control of transpiration and photosynthesis by the stomata. In P. G. Jarvis & T. A. Mansfield (Eds.), Stomatal Physiology (pp. 247â€“279). UK: Cambridge Univ. Press.
+VegRswStress  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
+VegVPDStress //(default 1= p1ressure deficit [Best, (1998); Dickinson et al., 1991])
+VegTempStress // (default =1 [temperature [Best, (1998); Dickinson et al., 1991])
+VegWaterStress // (default =1 [water content [Wigmosta et al., (1994); Feddes et al.(1978)])
