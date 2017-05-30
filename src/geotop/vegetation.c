@@ -614,7 +614,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 	if(VegVPDStress == 1){
 		ea = VapPressurefromSpecHumidity(Qa, Pa);
 		ev = SatVapPressure(Tv, Pa);
-		if ev-ea>VpdvegMax {
+		if(ev-ea>VpdvegMax) {
 		fe=0;
 		}else{
 		fe=1.0-(ev-ea)/VpdvegMax;
