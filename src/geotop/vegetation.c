@@ -655,6 +655,8 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 		if(fS*fe*fTemp*fl->co[l]<6.0E-11){
 			fl->co[l]=1.0E12;
 		}else{
+		// add flag RsLAI in inputkeyword
+		// in this case Rsmin=land[jrs]/LSAI;
 			Rsmin=land[jrs];
 			fl->co[l]=Rsmin/(fS*fe*fTemp*fl->co[l]);
 		}
