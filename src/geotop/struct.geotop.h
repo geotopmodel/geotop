@@ -636,6 +636,7 @@ typedef struct {
 	long VegVPDStress;
 	long VegTempStress;
 	long VegWaterStress;
+	short RsLAI;
 	
 } PAR;
 

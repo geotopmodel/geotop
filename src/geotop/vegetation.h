@@ -50,7 +50,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt, doubl
 
 void root(long n, double d, double slope, double *D, double *root_fraction);
 
-void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land, PAR *par, double **soil, double *root, double *f, DOUBLEVECTOR *fl);
+void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, double *land, PAR *par, double **soil, double *root, double *f, DOUBLEVECTOR *fl, double LSAI);
 
 void veg_transmittance(short stabcorr_incanopy, double v, double u_star, double u_top, double Hveg, double z0soil, double z0veg, double d0veg, 
 					   double LSAI, double decaycoeff0, double Lo, double Loc, double *rb, double *rh, double *decay);

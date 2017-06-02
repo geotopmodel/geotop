@@ -431,7 +431,8 @@ char *keywords_num[num_par_number] = {
 	"VegRswStress",
 	"VegVPDStress",
 	"VegTempStress",
-	"VegWaterStress"};
+	"VegWaterStress",
+	"RsLAI"};
 
 
 

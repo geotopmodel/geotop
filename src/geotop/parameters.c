@@ -1522,6 +1522,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 	par->VegVPDStress = (long)assignation_number(flog, 411, 0, keyword, num_param, num_param_components, 1., 0);
 	par->VegTempStress = (long)assignation_number(flog, 412, 0, keyword, num_param, num_param_components, 1., 0);
 	par->VegWaterStress = (long)assignation_number(flog, 413, 0, keyword, num_param, num_param_components, 1., 0);
+	par->RsLAI = (short)assignation_number(flog, 414, 0, keyword, num_param, num_param_components, 0., 0);
 }
 
 /***********************************************************/
