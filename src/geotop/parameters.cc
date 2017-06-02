@@ -1974,7 +1974,7 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 	par->DDchannel = (short)getDoubleValueWithDefault(lConfigStore, "DDChannel", geotop::input::gDoubleNoValue, false) ;
 	par->DDland = (short)getDoubleValueWithDefault(lConfigStore, "DDLand", geotop::input::gDoubleNoValue, false) ;
 
-    par->VegVpdStess = getDoubleValueWithDefault(lConfigStore, "VegVpdStess", 40., true) ;
+    par->VpdvegMax = getDoubleValueWithDefault(lConfigStore, "VpdvegMax", 40., true) ;
     par->TvegMin = getDoubleValueWithDefault(lConfigStore, "TvegMin", 0., true) ;
     par->TvegMax = getDoubleValueWithDefault(lConfigStore, "TvegMax", 50., true) ;
     par->TvegRes = getDoubleValueWithDefault(lConfigStore, "TvegRes", 625., true) ;

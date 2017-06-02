@@ -2218,7 +2218,7 @@ void geotop::input::ConfigStore::init()
     
     initValue("MinPrecIncreaseFactorWithElev", double(0.1)) ;
 
-    initValue("VegVpdStess", double(geotop::input::gDoubleNoValue)) ;
+    initValue("VpdvegMax", double(geotop::input::gDoubleNoValue)) ;
 
     initValue("TvegMin", double(geotop::input::gDoubleNoValue)) ;
 
