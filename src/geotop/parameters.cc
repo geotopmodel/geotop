@@ -1982,6 +1982,7 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
     par->VegVPDStress = (long)getDoubleValueWithDefault(lConfigStore, "VegVPDStress", 1., true) ;
     par->VegTempStress = (long)getDoubleValueWithDefault(lConfigStore, "VegTempStress", 1., true) ;
     par->VegWaterStress = (long)getDoubleValueWithDefault(lConfigStore, "VegWaterStress", 1., true) ;
+    par->RsLAI = (short)getDoubleValueWithDefault(lConfigStore, "RsLAI", 0., true) ;
 }
 
 /***********************************************************/

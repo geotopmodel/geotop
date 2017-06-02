@@ -2233,6 +2233,8 @@ void geotop::input::ConfigStore::init()
     initValue("VegTempStress", double(geotop::input::gDoubleNoValue)) ;
 
     initValue("VegWaterStress", double(geotop::input::gDoubleNoValue)) ;
+
+    initValue("RsLAI", double(geotop::input::gDoubleNoValue)) ;
     //END INITIALIZATION OF NUMERIC PARAMETERS
 }
 

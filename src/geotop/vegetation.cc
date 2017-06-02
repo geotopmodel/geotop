@@ -252,7 +252,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta, double Qgsat
 			if((*Qv)<(*Qs)){	//condensation	
 				R=1.0;	
 			}else{
-				canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, land, lu, par, soil, sy, froot, &ft, soil_transp_layer);
+				canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, land, lu, par, soil, sy, froot, &ft, soil_transp_layer, LSAI);
 				R=fw+(1.0-fw)*ft;
 			}			
 			*rc = (*rb) / R;
@@ -555,7 +555,7 @@ void root(long n, double d, double slope, GeoTensor<double>& D, GeoMatrix<double
 /******************************************************************************************************************************************/
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, double SWin, double *theta, const GeoMatrix<double>& land, long lu, Par *par,
-						 GeoTensor<double>& soil, long sy, const GeoMatrix<double>& root, double *f, GeoVector<double>& fl){
+						 GeoTensor<double>& soil, long sy, const GeoMatrix<double>& root, double *f, GeoVector<double>& fl, double LSAI){
 
 	double fS, fe, fTemp, Rsmin, ea, ev;
 	size_t l;
@@ -629,7 +629,11 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 		if(fS*fe*fTemp*fl[l]<6.0E-11){
 			fl[l]=1.0E12;
 		}else{
-			Rsmin=land(lu,jrs);
+			if(par->RsLAI == 1){
+				Rsmin=land(lu,jrs)/LSAI;
+			}else{
+				Rsmin=land(lu,jrs);
+			}
 			fl[l]=Rsmin/(fS*fe*fTemp*fl[l]);
 		}
 			
