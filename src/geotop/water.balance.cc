@@ -1829,20 +1829,20 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 
 void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
 	
-	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, areach, Vmax, H, Hch, DH;
+	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, areach, Vmax, H, Hch, DH, cosineslope;
 	long r, c, ch;
 	
 	for (ch=1; ch<=par->total_channel; ch++) {
 		
 		r = cnet->r[ch];
 		c = cnet->c[ch];
-
+		cosineslope = cos(top->slope[r][c]*GTConst::Pi/180.);
         //h[i] is the pressure at the surface, H is the depth of water normal to the surface
-		H = Fmax(0.0 , h(0,ch)) / cos(top->slope[r][c]*GTConst::Pi/180.);
+		H = Fmax(0.0 , h(0,ch)) / cosineslope;
 		
-		area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
+		area = ds*ds/cosineslope - cnet->length[ch] * par->w_dx * ds;
 		
-		Hch = Fmax(0., hch(0,ch) ) / cos(top->slope[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope[r][c]*GTConst::Pi/180.);
+		Hch = Fmax(0., hch(0,ch) ) / cosineslope - par->depr_channel * cosineslope;
 		areach = cnet->length[ch] * par->w_dx * ds;
 		
 		if(H > par->min_hsup_land){
@@ -1901,7 +1901,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 	
 	long ch, r, c;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
-	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
+	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax, cosineslope;
 	
 	do{
 
@@ -1922,11 +1922,11 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 
 			r = cnet->r[ch];
 			c = cnet->c[ch];
-			
-			H = Fmax(0., h(0,top->j_cont[r][c])) / cos(top->slope[r][c]*GTConst::Pi/180.);
-			Hch = Fmax(0., hch(0,ch) ) / cos(top->slope[r][c]*GTConst::Pi/180.) - par->depr_channel * cos(top->slope[r][c]*GTConst::Pi/180.);
+			cosineslope = cos(top->slope[r][c]*GTConst::Pi/180.);
+			H = Fmax(0., h(0,top->j_cont[r][c])) / cosineslope;
+			Hch = Fmax(0., hch(0,ch) ) / cosineslope - par->depr_channel * cosineslope;
 
-			area = ds*ds/cos(top->slope[r][c]*GTConst::Pi/180.) - cnet->length[ch] * par->w_dx * ds;
+			area = ds*ds/cosineslope - cnet->length[ch] * par->w_dx * ds;
 			areach = cnet->length[ch] * par->w_dx * ds;
 
 			if (H > par->min_hsup_land) {  //H= water depth on the land 
@@ -1940,12 +1940,12 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 
 					Vsup[ch] += q*dt;
 				
-					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
+					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cosineslope;
 				
 					if(hch(0,ch)>0){
-						hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+						hch(0,ch) += (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}else{
-						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}				
 				
 				}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
@@ -1958,12 +1958,12 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 
 					Vsup[ch] += q*dt;
 				
-					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);
+					h(0,top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cosineslope;
 				
 					if(hch(0,ch)>0){
-						hch(0,ch) += (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+						hch(0,ch) += (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}else{
-						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+						if( q > 0 ) hch(0,ch) = (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}				
 				} 
 			}	
@@ -1977,12 +1977,12 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 				
 				Vsup[ch] -= q*dt;
 				
-				hch(0,ch) -= (1.E3 * q*dt/areach) * cos(top->slope[r][c]*GTConst::Pi/180.);
+				hch(0,ch) -= (1.E3 * q*dt/areach) * cosineslope;
 				
 				if(h(0,top->j_cont[r][c])>0){
-					h(0,top->j_cont[r][c]) += (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					h(0,top->j_cont[r][c]) += (1.E3 * q*dt/area) * cosineslope;	//mm;
 				}else{
-					if( q > 0 ) h(0,top->j_cont[r][c]) = (1.E3 * q*dt/area) * cos(top->slope[r][c]*GTConst::Pi/180.);	//mm;
+					if( q > 0 ) h(0,top->j_cont[r][c]) = (1.E3 * q*dt/area) * cosineslope;	//mm;
 				}
 			}
 		}
