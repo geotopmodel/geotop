@@ -11,10 +11,10 @@ Introduced new keywords for vegetation transpiration parameters controlling vege
 keywords as flag to  control Jarvis type stomatal representation 
 
 VegRswStress  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
-VegVPDStress //(default 1= air water vapour pressure deficit [Best, (1998); Dickinson et al., 1991])
-VegTempStress // (default =1 temperature [Best, (1998); Dickinson et al., 1991])
-VegWaterStress // (default =1 water content [Wigmosta et al., (1994); Feddes et al.(1978)])
-RsLAI
+VegVPDStress //(default 1= air water vapour pressure deficit stress [Best, (1998); Dickinson et al., 1991])
+VegTempStress // (default =1 air temperature stress [Best, (1998); Dickinson et al., 1991])
+VegWaterStress // (default =1 soil water content stress [Wigmosta et al., (1994); Feddes et al.(1978)])
+RsLAI // (default =0 )
 
 keywords for parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
 VpdvegMax // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/VpdvegMax 
