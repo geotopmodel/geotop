@@ -14,7 +14,7 @@ VegRswStress  //(default =1, solar radiation stress [Best, (1998); Dolman et al.
 VegVPDStress //(default 1= air water vapour pressure deficit stress [Best, (1998); Dickinson et al., 1991])
 VegTempStress // (default =1 air temperature stress [Best, (1998); Dickinson et al., 1991])
 VegWaterStress // (default =1 soil water content stress [Wigmosta et al., (1994); Feddes et al.(1978)])
-RsLAI // (default =0 )
+RsLAI // (default =0 ) if(par->RsLAI == 1){ Rsmin=land[jrs]/LSAI; } else { Rsmin=land[jrs];		}
 
 keywords for parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
 VpdvegMax // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/VpdvegMax 
