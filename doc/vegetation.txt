@@ -6,14 +6,15 @@ and apple orchards (Caldaro test site managed by LUB).
 
 In this file are described the major changes with respect GEOtop 2.0 (branch se27xx)
 
-Date 1.6.2017 Introduced new keywords for vegetation transpiration parameters controlling vegetation stress
+Introduced new keywords for vegetation transpiration parameters controlling vegetation stress
 
 keywords as flag to  control Jarvis type stomatal representation 
 
 VegRswStress  //(default =1, solar radiation stress [Best, (1998); Dolman et al., 1991])
-VegVPDStress //(default 1= p1ressure deficit [Best, (1998); Dickinson et al., 1991])
-VegTempStress // (default =1 [temperature [Best, (1998); Dickinson et al., 1991])
-VegWaterStress // (default =1 [water content [Wigmosta et al., (1994); Feddes et al.(1978)])
+VegVPDStress //(default 1= air water vapour pressure deficit [Best, (1998); Dickinson et al., 1991])
+VegTempStress // (default =1 temperature [Best, (1998); Dickinson et al., 1991])
+VegWaterStress // (default =1 water content [Wigmosta et al., (1994); Feddes et al.(1978)])
+RsLAI
 
 keywords for parameters to control vegetation stomata VPD stress following Dickinson et al., 1991
 VpdvegMax // Vegetation Vapor Pressure Deficit  stomata stress factor (default 40[hPa]) fe=1.0-(ev-ea)/VpdvegMax 
@@ -22,6 +23,8 @@ keywords for parameters to control vegetation stomata temperature stress followi
 TvegMin  // Minumum working leaves temperature for stomata default 0 [C]
 TvegMax // Maximum working leaves temperature for stomata default 50 [C]
 TvegRes //Stomata temperature stress factor default 625  [C^2]
+
+
 
 Bibliography
 
