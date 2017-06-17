@@ -171,6 +171,7 @@ class TestValidRun(object):
             '890.000000 '                     : 0.000002, #for costantmeteo wliq
             '1780.000000  '                   : 0.1,
             '2040.000000  '                   : 0.000002, #for costantmeteo wliq
+            'Pressure[mbar]'                  : 1.0, #added for calabria
             }),
         # (r'(.*/)?SWEN.*.asc', compare_map_files, 1.0),
         (r'(.*/)?SWEDENSITYN.*.asc', compare_map_files, 100.0),
