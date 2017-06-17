@@ -34,7 +34,7 @@
 #define max_charstring 200000
 #define max_numvect 200000
 #define num_par_number 415
-#define num_par_char 367
+#define num_par_char 368
 
 //****************************************************
 // Fixed Parameters
@@ -312,7 +312,8 @@
 #define ooLWin ooSWin+1
 #define oomasserror ooLWin+1
 #define ootimestep oomasserror+1
-#define ootot ootimestep+1 // TOTAL NUMBER
+#define ooSWE ootimestep+1
+#define ootot ooSWE+1 // TOTAL NUMBER
 
 //****************************************************
 //Files

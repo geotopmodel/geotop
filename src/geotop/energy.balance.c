@@ -830,6 +830,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 							}else if (obsn[l] == ooLWv) { odb[obsn[l]] += LWv*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)A->P->total_pixel;
 							}else if (obsn[l] == ooSWin) { odb[obsn[l]] += SWin*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)A->P->total_pixel;
 							}else if (obsn[l] == ooLWin) { odb[obsn[l]] += LWin*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)A->P->total_pixel;
+							}else if (obsn[l] == ooSWE) { odb[obsn[l]] += get_SWE(r, c, S->lnum, S->w_ice, S->w_liq)*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)A->P->total_pixel;
 							}
 						}
 					}

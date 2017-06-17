@@ -814,6 +814,7 @@ char *keywords_char[num_par_char] = {
 	"HeaderLWinBasin",
 	"HeaderMeanTimeStep",
 	"HeaderTimeStepAverage",
+	"HeaderSWEBasin",
 	"HeaderDateSnow",
 	"HeaderJulianDayFromYear0Snow",
 	"HeaderTimeFromStartSnow",

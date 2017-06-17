@@ -425,6 +425,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 			}else if(j==ooLWin){ hbsn[j] = assign_string("LWin[W/m2]");     	
 			}else if(j==oomasserror){ hbsn[j] = assign_string("Mass_balance_error[mm]");     	
 			}else if(j==ootimestep){ hbsn[j] = assign_string("Mean_Time_Step[s]");     					
+			}else if(j==ooSWE){ hbsn[j] = assign_string("snow_water_equivalent[mm]");
 			}
 		}
 	}
