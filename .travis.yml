@@ -44,7 +44,7 @@ script:
         - make
         #make tests with this environment
         #- if [ "$ENABLE_INTERNAL_METEODISTR" = "OFF" ]; then travis_wait 90 ctest -j19 -E "bonn_1|bonn_2|rendena|CostantMeteo|snow_dstr_SENSITIVITY" .; else travis_wait 90 ctest -j19 .; fi
-        - travis_wait 90 ctest -j19    
+        - travis_wait 90 CTEST_OUTPUT_ON_FAILURE=TRUE ctest -j19    
 #choosing the compiler
 compiler:
         - g++
