@@ -11,6 +11,7 @@ env:
 #installing the dependencies: proj and meteoio libraries
 install:
         #install required boost libraries
+        - pip list
         - sudo apt-get install libboost-all-dev
         - sudo apt-get install doxygen
 
