@@ -29,9 +29,11 @@ install:
         - make && sudo make install
         - cd ..
 
-        #install nosetests dependency
-        - sudo apt-get install python-pandas
-        - sudo apt-get install python-nose
+        #install ctest dependency
+        #- sudo apt-get install python-pandas
+        #- sudo apt-get install python-nose
+        - pip install pandas
+
 
 #actually build the geotop program
 script:
