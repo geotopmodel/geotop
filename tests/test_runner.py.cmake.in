@@ -109,8 +109,9 @@ def compare_tab_files(fpath_ok, fpath_new, deltas):
                    (field, fpath_new, (abs(data_ok[field] - data_new[field]) > deltas[field]).sum(),  \
                    deltas[field], abs(data_ok[field] - data_new[field]).max())
         else:
-            # Check that all the fields are equal
-            assert (data_ok[field] == data_new[field]).all(),  \
+            # Check that all the fields are almost equal
+            if not((data_ok[field] == data_new[field]).all()):
+                assert (abs(data_ok[field] - data_new[field]) <= 0.0002).all(),  \
                    "Field '%s' of files %s and %s differs!" % (field, fpath_ok, fpath_new)
 
 def compare_map_files(fpath_ok, fpath_new, deltas):
@@ -164,17 +165,13 @@ class TestValidRun(object):
             '90.000000 '                      : 0.000002, #for costantmeteo wliq
             '100.000000'                     : 0.1, ############# <----
             '140.000000 '                     : 0.1,
-            '149.255579 '                     : 0.000002, #for hillslope01 psiliq after july2017 fix
             '150.000000 '                     : 0.000002, #for bro water_press
             '174.131508 '                     : 0.000002, #for hillslope02 psiliq
-            '248.759298 '                     : 0.000002, #for hillslope01 psiliq after july2017 fix
             '315.000000 '                     : 0.000002, #for costantmeteo wliq
             '530.000000 '                     : 0.1,
             '890.000000 '                     : 0.000002, #for costantmeteo wliq
             '1780.000000  '                   : 0.1,
             '2040.000000  '                   : 0.000002, #for costantmeteo wliq
-            '6019.975001 '                    : 0.000002, #for hillslope01 psiliq after july2017 fix
-            '6816.004753 '                    : 0.000002, #for hillslope01 psiliq after july2017 fix
             'Pressure[mbar]'                  : 1.0, #added for calabria
             }),
         # (r'(.*/)?SWEN.*.asc', compare_map_files, 1.0),
