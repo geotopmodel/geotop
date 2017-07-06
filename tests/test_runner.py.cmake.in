@@ -167,6 +167,7 @@ class TestValidRun(object):
             '149.255579 '                     : 0.000002, #for hillslope01 psiliq after july2017 fix
             '150.000000 '                     : 0.000002, #for bro water_press
             '174.131508 '                     : 0.000002, #for hillslope02 psiliq
+            '248.759298 '                     : 0.000002, #for hillslope01 psiliq after july2017 fix
             '315.000000 '                     : 0.000002, #for costantmeteo wliq
             '530.000000 '                     : 0.1,
             '890.000000 '                     : 0.000002, #for costantmeteo wliq
