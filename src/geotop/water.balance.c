@@ -1787,18 +1787,18 @@ void supflow(short DDland, short DDch, double Dt, double t, double *h, double *d
 
 void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top, CHANNEL *cnet, PAR *par, double t, double *dt){
 	
-	double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, areach, Vmax, H, Hch, DH;
+	double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, areach, Vmax, H, Hch, DH, cosineslope;
 	long r, c, ch;
 	
 	for (ch=1; ch<=par->total_channel; ch++) {
 		
 		r = cnet->r->co[ch];
 		c = cnet->c->co[ch];
+		cosineslope = cos(top->slope->co[r][c]*Pi/180.);
+		H = Fmax(0.0 , h[ch]) / cosineslope;//h[i] is the pressure at the surface, H is the depth of water normal to the surface
+		area = ds*ds/cosineslope - cnet->length->co[ch] * par->w_dx * ds;				
 		
-		H = Fmax(0.0 , h[ch]) / cos(top->slope->co[r][c]*Pi/180.);//h[i] is the pressure at the surface, H is the depth of water normal to the surface
-		area = ds*ds/cos(top->slope->co[r][c]*Pi/180.) - cnet->length->co[ch] * par->w_dx * ds;				
-		
-		Hch = Fmax(0., hch[ch] ) / cos(top->slope->co[r][c]*Pi/180.) - par->depr_channel * cos(top->slope->co[r][c]*Pi/180.);
+		Hch = Fmax(0., hch[ch] ) / cosineslope - par->depr_channel * cosineslope;
 		areach = cnet->length->co[ch] * par->w_dx * ds;
 		
 		if(H > par->min_hsup_land){
@@ -1856,7 +1856,7 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 	
 	long ch, r, c;
 	double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
-	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
+	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax, cosineslope;
 	
 	do{
 		
@@ -1877,11 +1877,11 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 			
 			r = cnet->r->co[ch];
 			c = cnet->c->co[ch];
+			cosineslope = cos(top->slope->co[r][c]*Pi/180.);
+			H = Fmax(0., h[top->j_cont[r][c]]) / cosineslope;
+			Hch = Fmax(0., hch[ch] ) / cosineslope - par->depr_channel * cosineslope;
 			
-			H = Fmax(0., h[top->j_cont[r][c]]) / cos(top->slope->co[r][c]*Pi/180.);
-			Hch = Fmax(0., hch[ch] ) / cos(top->slope->co[r][c]*Pi/180.) - par->depr_channel * cos(top->slope->co[r][c]*Pi/180.);
-			
-			area = ds*ds/cos(top->slope->co[r][c]*Pi/180.) - cnet->length->co[ch] * par->w_dx * ds;
+			area = ds*ds/cosineslope - cnet->length->co[ch] * par->w_dx * ds;
 			areach = cnet->length->co[ch] * par->w_dx * ds;
 			
 			if(H > par->min_hsup_land){
@@ -1896,12 +1896,12 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 					
 					Vsup->co[ch] += q*dt;
 					
-					h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*Pi/180.);
+					h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cosineslope;
 					
 					if(hch[ch]>0){
-						hch[ch] += (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+						hch[ch] += (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}else{
-						if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+						if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}				
 					
 				}else if( H - Hch > par->min_dhsup_land_channel_in ){//submerged flow towards channel
@@ -1914,12 +1914,12 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 					
 					Vsup->co[ch] += q*dt;
 					
-					h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*Pi/180.);
+					h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cosineslope;
 					
 					if(hch[ch]>0){
-						hch[ch] += (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+						hch[ch] += (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}else{
-						if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+						if( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cosineslope;	//mm;
 					}		
 				}
 			}
@@ -1934,12 +1934,12 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER 
 				
 				Vsup->co[ch] -= q*dt;
 				
-				hch[ch] -= (1.E3 * q*dt/areach) * cos(top->slope->co[r][c]*Pi/180.);
+				hch[ch] -= (1.E3 * q*dt/areach) * cosineslope;
 				
 				if(h[top->j_cont[r][c]]>0){
-					h[top->j_cont[r][c]] += (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+					h[top->j_cont[r][c]] += (1.E3 * q*dt/area) * cosineslope;	//mm;
 				}else{
-					if( q > 0 ) h[top->j_cont[r][c]] = (1.E3 * q*dt/area) * cos(top->slope->co[r][c]*Pi/180.);	//mm;
+					if( q > 0 ) h[top->j_cont[r][c]] = (1.E3 * q*dt/area) * cosineslope;	//mm;
 				}
 			}
 		}
