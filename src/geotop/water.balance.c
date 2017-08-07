@@ -935,7 +935,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC, DOUBLEVECTOR *Lx
 			//lateral hydraulic conductivity
 			if(l>0){
 				k = k_from_psi(jKl, H->co[i] - adt->T->Z->co[l][r][c], SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
-				kmax = k_from_psi(jKl, psisat_from(SL->thi->co[l][j], l, adt->S->pa->co[sy]), SL->thi->co[l][l], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
+				kmax = k_from_psi(jKl, psisat_from(SL->thi->co[l][j], l, adt->S->pa->co[sy]), SL->thi->co[l][j], SL->T->co[l][j], l, adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);	
 				if(adt->T->BC_counter->co[r][c]>0){
 					if(adt->T->pixel_type->co[r][c] == 1 || adt->T->pixel_type->co[r][c] == 2 || adt->T->pixel_type->co[r][c] == 11 || adt->T->pixel_type->co[r][c] == 12) Klat->co[adt->T->BC_counter->co[r][c]][l] = k;
 				}
