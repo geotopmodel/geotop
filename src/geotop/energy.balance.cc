@@ -1130,7 +1130,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
                 "Wcrnmax=%f, Wcsn=%f, Wcsnmax=%f, SWin=%f, LWin=%f, SWv=%f, LW=%f, H=%f, E=%f, LWv=%f, Hv=%f,"
                 "LEv=%f, Etrans=%f, Ts=%f, Qs=%f, Hadv=%f, Hg0=%f, Hg1=%f, Eg0=%f, Eg1=%f, Qv=%f, Qg=%f,"
                 "Lobukhov=%f, rh=%f, rv=%f, rb=%f, rc=%f, ruc=%f, u_top=%f, decay=%f, Locc=%f, LWupabove_v=%f, lpb=%ld\n",
-                surface, JDb-A->P->init_date, Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[r][c],(int)A->L->LC[r][c],
+                surface, JDb-A->P->init_date, Dt, i, j, r, c, A->T->Z0[r][c],A->T->aspect[r][c], A->T->slope[r][c], (int)A->L->ty[lu][jz0],(int)A->L->LC[r][c],
                 snowD, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg, 1.0,
                 hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa], eps, fc, A->L->vegpar[jdLSAI], A->L->vegpar[jddecay0], V->wrain[j],
                 max_wcan_rain, V->wsnow[j], max_wcan_snow, SWin, LWin, SWv_vis+SWv_nir, LW, H, E, LWv, Hv,
