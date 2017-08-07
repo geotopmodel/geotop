@@ -18,6 +18,9 @@ wpaths <- wpaths[names(wpaths)!="PSQL_test"]
 wpaths <- wpaths[names(wpaths)!="no_reflection"]
 wpaths <- wpaths[names(wpaths)!="prealpiC"]
 
+## remove some simulation with no check points 
+wpaths <- wpaths[names(wpaths)!="panola_25pixel_nobed"]
+
 ## Check Simulation Occurence 
 
 inpts.files <- paste(wpaths,inpts.file,sep="/")
