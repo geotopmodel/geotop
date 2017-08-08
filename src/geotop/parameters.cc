@@ -2159,18 +2159,15 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
     "HeaderLateralHydrConductivity", "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
     "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV",
     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity" ;
-	lg->writeAll("\n");
 	k = (long)nmet;
-	lg->writefAll("Soil Layers: %u\n",sl->pa.getCh()-1);
+	lg->logf("Soil Layers: %u",sl->pa.getCh()-1);
 	for (i=1; i<sl->pa.getDh()-1; i++) {
-		lg->writefAll("-> Soil Type: %ld\n",i);
+		lg->logf("-> Soil Type: %ld",i);
 		for (size_t n=1; n <= lSoilParameters.size(); n++) {
-			lg->writefAll("%s: ",lSoilParameters[n-1].c_str());
+			lg->logf("%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				lg->writefAll("%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
-				if (j<sl->pa.getCh()-1) lg->writeAll(", ");
+				lg->logf("%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
 			}
-			lg->writeAll("\n");
 		}
 	}
 	
@@ -2205,21 +2202,17 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 		}		
 	}
 	
-	lg->writeAll("\n");
 	k = (long)nmet;
-	lg->writefAll("Soil Bedrock Layers: %u\n",sl->pa.getCh()-1);
+	lg->logf("Soil Bedrock Layers: %u",sl->pa.getCh()-1);
 	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
-		lg->writefAll("-> Soil Type: %ld\n",i);
+		lg->logf("-> Soil Type: %ld",i);
 		for (size_t n=1; n<=lSoilParameters.size(); n++) {
-			lg->writefAll("%s: ",lSoilParameters[n-1].c_str());
+			lg->logf("%s: ",lSoilParameters[n-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				lg->writefAll("%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
-				if(j < sl->pa.getCh()-1) lg->writeAll(", ");
+				lg->logf("%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
 			}
-			lg->writeAll("\n");
 		}
 	}
-	lg->writeAll("\n");
 	
 	return 1;
 	

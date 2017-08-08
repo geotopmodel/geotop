@@ -805,24 +805,18 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
             mass_error_tot += geotop::common::Variables::odbsn[oomasserror];
 
-            printf("\n%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
-                   day, month, year, hour, (float)minute, JD, (long)(floor(times->time / 86400)) + 1,
-                   percent_done);
 
-            printf(" t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n", geotop::common::Variables::t_meteo, geotop::common::Variables::t_energy, geotop::common::Variables::t_blowingsnow, geotop::common::Variables::t_water, geotop::common::Variables::t_sub, geotop::common::Variables::t_sup, geotop::common::Variables::t_out);
-            printf(" SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
-                   geotop::common::Variables::odbsn[ooSW], geotop::common::Variables::odbsn[ooLW], geotop::common::Variables::odbsn[ooH], geotop::common::Variables::odbsn[ooLE], geotop::common::Variables::odbsn[oopnet], geotop::common::Variables::odbsn[oorainover],
-                   geotop::common::Variables::odbsn[oosnowover], geotop::common::Variables::odbsn[oomasserror] * 3600.0 / par->Dtplot_basin[geotop::common::Variables::i_sim], mass_error_tot, geotop::common::Variables::odbsn[ootimestep]);
 // logging facility
 
 
-            lg->logsf(geotop::logger::NOTICE,"%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
+            lg->logsf(geotop::logger::NOTICE,"%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed!",
 	                day, month, year, hour, (float)minute, JD, (long)(floor(times->time / 86400)) + 1, percent_done);
             
-	    lg->logsf(geotop::logger::NOTICE," t_meteo:%6.2f s,t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n", geotop::common::Variables::t_meteo, geotop::common::Variables::t_energy, geotop::common::Variables::t_blowingsnow, geotop::common::Variables::t_water, geotop::common::Variables::t_sub, geotop::common::Variables::t_sup, geotop::common::Variables::t_out);
-	    lg->logsf(geotop::logger::NOTICE,"SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm Mean Time Step=%f s\n\n",
-                    geotop::common::Variables::odbsn[ooSW], geotop::common::Variables::odbsn[ooLW], geotop::common::Variables::odbsn[ooH], geotop::common::Variables::odbsn[ooLE], geotop::common::Variables::odbsn[oopnet], geotop::common::Variables::odbsn[oorainover],
-                    geotop::common::Variables::odbsn[oosnowover], geotop::common::Variables::odbsn[oomasserror] * 3600.0 / par->Dtplot_basin[geotop::common::Variables::i_sim], mass_error_tot, geotop::common::Variables::odbsn[ootimestep]);
+	    lg->logsf(geotop::logger::NOTICE," t_meteo:%6.2f s,t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s", geotop::common::Variables::t_meteo, geotop::common::Variables::t_energy, geotop::common::Variables::t_blowingsnow, geotop::common::Variables::t_water, geotop::common::Variables::t_sub, geotop::common::Variables::t_sup, geotop::common::Variables::t_out);
+	    lg->logsf(geotop::logger::NOTICE,"SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 Pvert=%6.2f mm Prain=%6.2f mm  Psnow=%6.2f mm",
+                    geotop::common::Variables::odbsn[ooSW], geotop::common::Variables::odbsn[ooLW], geotop::common::Variables::odbsn[ooH], geotop::common::Variables::odbsn[ooLE], geotop::common::Variables::odbsn[oopnet], geotop::common::Variables::odbsn[oorainover], geotop::common::Variables::odbsn[oosnowover]);
+            lg->logsf(geotop::logger::NOTICE,"Max Error Richards=%e mm/h", geotop::common::Variables::odbsn[oomasserror] * 3600.0 / par->Dtplot_basin[geotop::common::Variables::i_sim]);
+            lg->logsf(geotop::logger::NOTICE,"Tot Error Richards=%e mm Mean Time Step=%f s", mass_error_tot, geotop::common::Variables::odbsn[ootimestep]);
 
 // 
             for (j = 0; j < ootot; j++)

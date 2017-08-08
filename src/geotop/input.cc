@@ -2545,7 +2545,7 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
 
     //f2. bedrock file
-	read_bed=1;cout << "par->chkpt.getRows()=" << par->chkpt.getRows() << " par->chkpt[i][ptBED]=" << par->chkpt[1][ptBED] <<  endl;
+	read_bed=1;
 	for(i=1;i<par->chkpt.getRows();i++){
 		if((long)par->chkpt[i][ptBED]==geotop::input::gDoubleNoValue) read_bed=1;
 	}
