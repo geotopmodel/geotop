@@ -12,7 +12,7 @@
 
 TimeStepEnergyAndWater = 9
 InitDateDDMMYYYYhhmm = 01/02/2012 00:00
-EndDateDDMMYYYYhhmm =  02/02/2012 00:00
+EndDateDDMMYYYYhhmm =  05/02/2012 00:00
 
 ! Catchment centroid (for Sun position) 
 Latitude	=	46.75604 
@@ -44,9 +44,14 @@ OutputMeteoMaps = 0
 OutputSnowMaps = 0
 OutputGlacierMaps	=	0
 
-!!CoordinatePointX = 2,8,40,50,60,90
-!!CoordinatePointY = 5,5,5,5,5,5
-!!PointID = 1,2,3,4,5,6
+CoordinatePointX = -1
+!!0,0 
+!!2,8,40,50,60,90
+CoordinatePointY = 42
+!!,40 
+!!5,5,5,5,5,5
+PointID = 1
+!!,2 !! 
 
 
 !======================================= 
@@ -69,11 +74,12 @@ MeteoStationWindVelocitySensorHeight = 10
 MeteoStationTemperatureSensorHeight = 10
 
 
-eteoStationStandardTime = 1
+MeteoStationStandardTime = 1
 StandardTimeSimulation = 1
-
-
-
+!! ssenoner suggestion
+LapseRatePrec=0
+SnowCorrFactor=1
+!!
 
 !=======================================
 ! SOIL
@@ -111,7 +117,7 @@ HeaderSpecificStorativity	=	"stor"
 HeaderKthSoilSolids	=	"Kth"
 HeaderCthSoilSolids	=	"Cth"
 HeaderSoilInitPres = "InitPsi"
- 
+ SoilLayerNumber = 11
  SoilParFile	=	"input/soil-classes/soil"
  
 !======================================= 
@@ -150,8 +156,8 @@ SlopeMapFile = "input-maps/slope"
 !DischargeFile = "output-tabs/discharge"
 SoilAll = 1
 !PointOutputFile = "output-tabs/point"
-!SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
-!SoilLiqContentProfileFile = "output-tabs/thetaliq"
+SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
+SoilLiqContentProfileFile = "output-tabs/thetaliq"
 !SoilIceContentProfileFile = "output-tabs/I"
 !SoilSaturationRatioProfileFile = "output-tabs/Sr"
 

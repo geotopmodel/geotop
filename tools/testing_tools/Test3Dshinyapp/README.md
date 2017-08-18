@@ -26,7 +26,7 @@ cd ~/[...]/tools/Test3Dshinyapp
 Then , launch it:
 
 ```
-R -e 'shiny::runApp("./")'
+R -e 'shiny::runApp("./",port=4566)'
 ```
 
 Finally, it will appear a localhost http address.
