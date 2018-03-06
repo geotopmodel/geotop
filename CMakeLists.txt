@@ -12,7 +12,7 @@ SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 
-project(geotop)
+project(geotop LANGUAGES CXX C)
 
 # Version of library
 SET(VERSION_MAJOR 2 CACHE INTERNAL "")
@@ -142,26 +142,26 @@ ENDIF(MSVC)
 #The following pre-processor variables are automatically defined:
 # __linux, __GNUC__, __CYGWIN__, _WIN32, __MINGW32__, __APPLE__
 IF(UNIX)
+        #set a full rpath for both build & install tree
+        SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+        SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+        SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+
+        # add the automatically determined parts of the RPATH
+        # which point to directories outside the build tree to the install RPATH
+        SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+        # the RPATH to be used when installing, but only if it's not a system directory
+        LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+        IF("${isSystemDir}" STREQUAL "-1")
+                SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+        ENDIF("${isSystemDir}" STREQUAL "-1")
+
 	IF(APPLE)
 		SET(DLL_EXT "dylib*")
 		SET(STAT_EXT "a")
 		SET(EXTRA_WARNINGS "${EXTRA_WARNINGS} -Wno-sign-conversion") #for now, keep clang quiet
 		SET(CMAKE_SHARED_LINKER_FLAGS "-framework CoreFoundation")
-
-		#set a full rpath for both build & install tree
-		SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
-		SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-		SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-
-		# add the automatically determined parts of the RPATH
-		# which point to directories outside the build tree to the install RPATH
-		SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-		# the RPATH to be used when installing, but only if it's not a system directory
-		LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
-		IF("${isSystemDir}" STREQUAL "-1")
-			SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-		ENDIF("${isSystemDir}" STREQUAL "-1")
 	ELSE(APPLE)
 		SET(DLL_EXT "so*")
 		SET(STAT_EXT "a")
@@ -210,7 +210,10 @@ IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version.h)
+# the generated version.h file is placed under the build directory such that the source directory is left untouched
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
+# of course we need to inform the compiler where to look for the above header
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
 
 
 #Add subdirectory, so it can inherit all variables defined above
@@ -239,6 +242,8 @@ INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPON
 INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/src/geotop/version.h DESTINATION include/geotop/src/geotop COMPONENT headers)
+
 
 ###########################################################
 #for the uninstall target
