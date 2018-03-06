@@ -212,7 +212,9 @@ IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version.h)
+# the generated version.h file is placed under the build directory such that the source directory is left untouched
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
 
 
 #Add subdirectory, so it can inherit all variables defined above
@@ -241,6 +243,8 @@ INSTALL(FILES ${hGeotopWater} DESTINATION include/geotop/src/geotop/Water COMPON
 INSTALL(FILES ${hGt_utilities} DESTINATION include/geotop/src/gt_utilities COMPONENT headers)
 INSTALL(FILES ${hLibrariesAscii} DESTINATION include/geotop/src/libraries/ascii COMPONENT headers)
 INSTALL(FILES ${hMeteoio_plugin} DESTINATION include/geotop/src/meteoio_plugin COMPONENT headers)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/src/geotop/version.h DESTINATION include/geotop/src/geotop COMPONENT headers)
+
 
 ###########################################################
 #for the uninstall target
