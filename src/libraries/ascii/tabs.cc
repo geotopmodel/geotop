@@ -33,6 +33,7 @@
 
 #include <iostream>
 #include "../../geotop/global_logger.h"
+#include <sstream>
 
 /*============================================================================*/
 /*                               Constants                                    */
@@ -162,15 +163,15 @@ double find_number(long *vector, long lengthvector)
 std::string find_string(long *vector, long lengthvector)
 {
 
-    std::string string;
-    long i;
+  std::stringstream stream;
+   long i;
 
-    for (i = 0; i < lengthvector; i++)
-    {
-        string.push_back(vector[i]);
-    }
+   for (i = 0; i < lengthvector; i++)
+   {
+     stream << char(vector[i]);
+   }
 
-    return(string);
+   return stream.str();
 }
 
 

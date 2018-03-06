@@ -672,8 +672,8 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
     }
 
     //Header
-    fprintf(fp, "ncols         %u\n", M.getCols()-1);
-    fprintf(fp, "nrows         %u\n", M.getRows()-1);
+    fprintf(fp, "ncols         %zu\n", M.getCols()-1);
+    fprintf(fp, "nrows         %zu\n", M.getRows()-1);
     fprintf(fp, "xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
     fprintf(fp, "yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
     fprintf(fp, "cellsize      %f\n", geotop::common::Variables::UV->U[1]);

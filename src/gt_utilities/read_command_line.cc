@@ -22,6 +22,7 @@ This file is part of GEOTRIVIALUtilities.
 */
 
 #include "read_command_line.h"
+#include <iostream>
 
 char *read_option_string(int argc, char *argv[], char *option_f, char *no_option_argument, short print)
 {
@@ -130,7 +131,7 @@ double read_option_double(int argc, char *argv[], char *option_f, char *no_optio
 
     if (s == NO_SUCCESS && print == 1)
     {
-        printf("\nWARNING: No real value found for %s option, the default value %lf is set  \n", option_f, default_value);
+      std::cout<< "\nWARNING: No real value found for " <<option_f << " option, the default value "<< default_value<<" is set" <<std::endl;
         return default_value;
     }
 

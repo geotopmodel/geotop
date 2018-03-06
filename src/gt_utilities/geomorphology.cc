@@ -32,6 +32,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <meteoio/MeteoIO.h>
+#include <cmath>
 
 
 /*WORKING_POSITION=SEEK_SET;*/
@@ -99,16 +100,16 @@ void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min){
 
 // adapted to GEOMatrix/Vector to get rid of fluidturtle datastructure: to double check if things are ok SC 13.12.2016
 
-void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
+void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
 {
-    long i,j,t,m,n,p,q,h,k,r,s; //counters
+    size_t i,j,t,m,n,p,q,h,k,r,s; //counters
     double deltateta; //amplitude of the angles in which the horizon is divided
     GeoMatrix<double> alfa; //matrices with the angles of the direction
     GeoVector<double> v; //vector with the view factor of the current pixel for one of the N parts
     GeoVector<double> vv; //vector with the minimum view factor of the current pixel for one of the N parts
     double vvv; //mean of the sky view for a pixel of the N parts
-    long nr=input.getRows()-1;
-    long nc=input.getCols()-1;
+    size_t nr=input.getRows()-1;
+    size_t nc=input.getCols()-1;
     
     if(sky.getRows()-1!=nr) t_error("Sky view factor fatal error, number of rows not consistent");
     if(sky.getCols()-1!=nc) t_error("Sky view factor fatal error, number of cols not consistent");
@@ -122,7 +123,7 @@ void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double
     for(i=1;i<=2*nr-1;i++){
         for(j=1;j<=2*nc-1;j++){
               if(i<=nr && j<nc){
-                alfa[i][j]=3.0/2.0*GTConst::Pi+atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
+                alfa[i][j]=3.0/2.0*GTConst::Pi+std::atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
             }
             if(i>nr && j<=nc){
             

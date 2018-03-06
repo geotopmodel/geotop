@@ -1,18 +1,19 @@
 cmake_minimum_required(VERSION 2.8)
 
+project(geotop LANGUAGES CXX)
+
 ###########################################################
 # general settings
 
 #default compiler flags
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
-SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -ansi -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG "-Wextra -Wall -pedantic -g -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs  -O0" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_RELEASE "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_RELEASE "-Wextra -Wall -O2 " CACHE STRING "" )
 SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 
-project(geotop LANGUAGES CXX C)
 
 # Version of library
 SET(VERSION_MAJOR 2 CACHE INTERNAL "")

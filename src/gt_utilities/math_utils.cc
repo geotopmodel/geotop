@@ -379,7 +379,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
     
     GeoVector<double> r0, r, p, v, s, t, diag, udiag, yy, z;
     double rho, rho1, alpha, omeg, beta, norm_r0;
-    long i=0, maxiter;
+    size_t i=0, maxiter;
     short sux;
     size_t j;
     
@@ -429,7 +429,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel, double
     alpha = 1.;
     omeg = 1.;
     
-    maxiter = (long)(x.size()/100.);
+    maxiter = x.size()/100;
     if (maxiter < 100) maxiter = 100;
     
     

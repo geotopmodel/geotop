@@ -332,7 +332,7 @@ void find_sunset(long nist, long *n0, long *n1, double **meteo, long meteolines,
 		
 		//from non-shadow to shadow = sunset
 		if(shad0==0 && shad==1) a=1;
-                printf("n:%d JD:%f alpha:%f dir:%f shad:%d shad0:%d\n",n,meteo[n][iJDfrom0],alpha,direction/GTConst::Pi,shad,shad0);
+                printf("n:%li JD:%f alpha:%f dir:%f shad:%d shad0:%d\n",n,meteo[n][iJDfrom0],alpha,direction/GTConst::Pi,shad,shad0);
 		n++;
 		
 	}while(a==0 && n<meteolines);

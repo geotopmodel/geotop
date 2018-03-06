@@ -38,7 +38,7 @@ void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min);
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program sky of Pegoretti       */
 
-void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue);
+void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue);
 void find_aspect(GeoMatrix<double>& topo, GeoMatrix<double>& dzdx, GeoMatrix<double>& dzdy, long undef, GeoMatrix<double>& M);
 
 void topofilter(GeoMatrix<double>& Zin, GeoMatrix<double>& Zout, long novalue, long n);

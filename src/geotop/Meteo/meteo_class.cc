@@ -44,13 +44,11 @@ Meteo::Meteo(size_t nrows, size_t ncols, double Vmin, double Pa)
    tau_cloud_av = GeoMatrix<double>((int)nrows + 1, (int)ncols + 1, 1.0);
    tau_cloud_yes = GeoMatrix<short>((int)nrows + 1, (int)ncols + 1, 0);
    tau_cloud_av_yes = GeoMatrix<short>((int)nrows + 1, (int)ncols + 1, 0);
-    
-    
-   GeoVector<long> imeteo_stations; // SERAFIN: I don't know what to do, because this variable is allocated in parameters.cc
 }
 
 //FIXME: Horrible hack needed to cope with legacy code structure
-void Meteo::allocate_data(double novalue, size_t nrows, size_t ncols, size_t Z0nrows, size_t Z0ncols, double Vmin, double Pa)
+void Meteo::allocate_data(double novalue, size_t nrows, size_t ncols,
+                          size_t /*Z0nrows*/, size_t /*Z0ncols*/, double Vmin, double Pa)
 {
 
 //   tau_cl_map.resize(Z0nrows, Z0ncols, novalue);

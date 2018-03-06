@@ -412,8 +412,8 @@ void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *
     temp = name + ascii_esri ;
     f = fopen(temp.c_str(), "w");
 
-    fprintf(f, "ncols         %u\n", DTM.getCols() - 1);
-    fprintf(f, "nrows         %u\n", DTM.getRows() - 1);
+    fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
+    fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
     fprintf(f, "xllcorner     %f\n", UV->U[4]);
     fprintf(f, "yllcorner     %f\n", UV->U[3]);
     fprintf(f, "cellsize      %f\n", UV->U[1]);
@@ -467,8 +467,8 @@ void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit
     temp += ascii_esri;
     f = fopen(temp.c_str(), "w");
 
-    fprintf(f, "ncols         %u\n", DTM.getCols() - 1);
-    fprintf(f, "nrows         %u\n", DTM.getRows() - 1);
+    fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
+    fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
     fprintf(f, "xllcorner     %f\n", UV->U[4]);
     fprintf(f, "yllcorner     %f\n", UV->U[3]);
     fprintf(f, "cellsize      %f\n", UV->U[1]);

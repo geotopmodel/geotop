@@ -102,7 +102,7 @@ namespace geotop
                     std::cerr << "Error: runtime typechecking failed for item: " << pName << std::endl ;
                     return false;
                 }
-            } ;
+            }
 
             /** @brief configuration parameters getter accessor, case sensitive variant
              *  @param[in] pName the name of the parameter to get, case sensitive
@@ -127,7 +127,7 @@ namespace geotop
                 {
                     return false;
                 }
-            } ;
+            }
 
             /** @brief configuration parameters setter accessor, you must parse a
              *      file before to use this method otherwise you will no set any.
@@ -164,7 +164,7 @@ namespace geotop
                 (*mValueMap)[lName] = pValue ;
 
                 return true ;
-            } ;
+            }
 
             /** @brief parse a configuration file
              * @param[in] pFileName the configuration file path
@@ -183,7 +183,7 @@ namespace geotop
                     lStringV.push_back(lIter->first);
                 }
                 return lStringV ;
-            } ;
+            }
             
         private:
 
@@ -200,7 +200,7 @@ namespace geotop
                 (*mValueMap)[lName] = pValue ;
                 
                 return true ;
-            } ;
+            }
 
             void init() ;
             boost::shared_ptr<std::map<std::string, boost::any> > mValueMap ;
