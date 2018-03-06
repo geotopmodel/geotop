@@ -119,8 +119,8 @@ template<class T> void GeoVector<T>::setMetaData(const std::string& iname, const
 
 template<class T> void GeoVector<T>::reset(const T& val)
 {
-  const auto data_size = data.size();
-	for (unsigned int ii=0; ii<data_size; ii++) {
+  const size_t data_size = data.size();
+	for (size_t ii=0; ii<data_size; ii++) {
 		data[ii] = val;
 	}
 }
@@ -128,7 +128,7 @@ template<class T> void GeoVector<T>::reset(const T& val)
 template<class T> void GeoVector<T>::reset(const T& val, const T& val_to_omit)
 {
 	const double data_size = data.size();
-	for (unsigned int ii=0; ii<data_size; ii++) {
+	for (size_t ii=0; ii<data_size; ii++) {
 		if (data[ii] != val_to_omit) {
 			data[ii] = val;
 		}
