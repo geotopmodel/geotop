@@ -101,8 +101,6 @@ ENDIF (BUILD_STATIC)
 
 MESSAGE("Linking mode: ${LINKING_MODE}")
 
-
-
 # build code version
 INCLUDE("${CMAKE_SOURCE_DIR}/tools/cmake/BuildVersion.cmake")
 BuildVersion()
@@ -214,6 +212,7 @@ ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 
 # the generated version.h file is placed under the build directory such that the source directory is left untouched
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
+# of course we need to inform the compiler where to look for the above header
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
 
 
