@@ -22,8 +22,6 @@ TARGET_LINK_LIBRARIES( meteoioplugin
 #		${WRF_LIBRARIES}
 )
 
-message("--------------------------------------"${CMAKE_BINARY_DIR})
-
 SET_TARGET_PROPERTIES(meteoioplugin PROPERTIES
   MACOSX_RPATH "${CMAKE_INSTALL_RPATH}"
   PREFIX "${LIBPREFIX}"
