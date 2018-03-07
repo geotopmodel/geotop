@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(geotop LANGUAGES CXX)
-
 ###########################################################
 # general settings
 
@@ -14,6 +12,7 @@ SET( CMAKE_C_FLAGS_DEBUG "-Wextra -Wall -g3 -O0" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 SET( CMAKE_C_FLAGS_MINSIZEREL "-Wextra -Wall -O2" CACHE STRING "" )
 
+project(geotop LANGUAGES CXX)
 
 # Version of library
 SET(VERSION_MAJOR 2 CACHE INTERNAL "")
