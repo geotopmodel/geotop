@@ -1,8 +1,8 @@
 Installation Instructions
 =========================
 
-:author: Stefano Cozzini (eXact-lab srl) /Emanuele Cordano 
-:date: last revision January 2017
+:author: Stefano Cozzini (eXact-lab srl) /Emanuele Cordano / Alberto Sartori
+:date: last revision February 2018
 
 
 To install GEOtop you need the following libraries and tools:
@@ -10,7 +10,7 @@ To install GEOtop you need the following libraries and tools:
 - Git
 - CMake 2.8 or later (optional but recommended: ccmake ncurses ui)
 - Boost 1.49 or later (filesystem, system, iostreams, regex,program_options, unit_test_framework and spirit_classic)
-- PROJ.4 libraries 4.7.0
+- PROJ.4 libraries 4.7.0 or later
 - MeteoIO 2.5.1
 
 GEOtop is known to run under the following Operating Systems:
@@ -87,15 +87,24 @@ Compiling GEOtop
 
     $ git clone https://github.com/geotopmodel/geotop.git
 
-2 Run ccmake::
+2 Compile::
 
     $ cd geotop
-    $ ccmake .
+    $ mkdir build
+    $ cd build
+    $ cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
+    $ make
 
-3 Configure and generate the makefiles
+3 Check installation::
 
-4 Run make
-5 Run make test to check that all tests work fine 
+  $ ctest
+    
+
+4 (Optional) Install::
+
+    $ make install
+
+Note that if the CMAKE_INSTALL_PREFIX variable is not set by the user it will be /usr/local and you have to prepend sudo to the previous command.
 
 CMake options
 =============

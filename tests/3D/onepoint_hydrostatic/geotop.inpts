@@ -76,9 +76,10 @@ MeteoStationTemperatureSensorHeight = 10
 
 MeteoStationStandardTime = 1
 StandardTimeSimulation = 1
-
-
-
+!! ssenoner suggestion
+LapseRatePrec=0
+SnowCorrFactor=1
+!!
 
 !=======================================
 ! SOIL
