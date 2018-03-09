@@ -19,12 +19,18 @@ SET(VERSION_MAJOR 2 CACHE INTERNAL "")
 SET(VERSION_MINOR 1 CACHE INTERNAL "")
 SET(VERSION_PATCH 0 CACHE INTERNAL "")
 
-# config.h variables
 SET(PACKAGE "geotop")
 SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_STRING "${PACKAGE} ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
-CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/config_cmake.h.in ${PROJECT_SOURCE_DIR}/config.h)
+
+# the generated version.h file is placed under the build directory such that the source directory is left untouched
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
+# of course we need to inform the compiler where to look for the above header
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
+
+INCLUDE(${PROJECT_SOURCE_DIR}/cmake/check_compiler_features.cmake)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/config.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)
 
 
 ####################
@@ -208,12 +214,6 @@ IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
        SET(GEOtop_BUILD_VERSION 0)
      ENDIF(GIT_FOUND)
 ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
-
-
-# the generated version.h file is placed under the build directory such that the source directory is left untouched
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
-# of course we need to inform the compiler where to look for the above header
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
 
 
 #Add subdirectory, so it can inherit all variables defined above
@@ -611,4 +611,5 @@ MESSAGE( STATUS "CMAKE_RANLIB: " ${CMAKE_RANLIB} )
 #MESSAGE( STATUS ": " ${} )
 
 # ------------------------- End of Generic CMake Variable Logging ------------------\
+
 
