@@ -40,7 +40,8 @@ using namespace std;
 
 short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L, SoilState *C,
                     Statevar3D *S, Statevar3D *G, StateVeg *V,  GeoVector<double>& snowage, AllData *A, double *W,
-                    std::vector<mio::MeteoData>& /*vec_meteo*/){
+                    std::vector<mio::MeteoData>& vec_meteo){
+  (void)vec_meteo; // silence warning when we do not use METEIO
     short sux;
     size_t i=0, r, c, cnt=0;
     static long line_interp;

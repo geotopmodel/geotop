@@ -49,8 +49,19 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
     short success, /*added_JDfrom0=0,*/ added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0;
     long l, r, c, ist, i, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
+
+    // these variables are used wen METEOIO if OFF, so we cast them to void to silence warnings
+    // when using the METEOIO library
     double initial_date_meteo, end_date_meteo;
     long d,m,y,mi,h;
+    (void)initial_date_meteo;
+    (void)end_date_meteo;
+    (void)d;
+    (void)m;
+    (void)y;
+    (void)mi;
+    (void)h;
+
 	short count_file_missing=0;  // needed to check if some output map files are present or not 
     std::vector<std::string> temp2 ;
     string temp;
