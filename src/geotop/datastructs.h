@@ -21,11 +21,13 @@
 #ifndef DATASTRUCTS_H
 #define DATASTRUCTS_H
 
+#include <config.h>
 #include <vector>
 #include <string>
 #define __MATHOPTIM_H__
+DISABLE_WARNINGS
 #include <meteoio/MeteoIO.h>
-
+ENABLE_WARNINGS
 #if defined(__linux) && !defined(ANDROID) && !defined(__CYGWIN__)
 #include <execinfo.h>
 /* #define ENABLE_PRINT_STACK_FRAME 1 */

@@ -81,10 +81,10 @@ void Meteodistr(double dE, double dN, GeoMatrix<double>& E, GeoMatrix<double>& N
                 GeoMatrix<double>& curvature3, GeoMatrix<double>& curvature4, GeoMatrix<double>& terrain_slope, GeoMatrix<double>& slope_az, Meteo *met,
                 double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
                 long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode,
-				long cloudcode,
+        long /*cloudcode*/,
 				GeoMatrix<double>& Tair_grid, GeoMatrix<double>& RH_grid,
                 GeoMatrix<double>& windspd_grid, GeoMatrix<double>& winddir_grid, GeoMatrix<double>& sfc_pressure,GeoMatrix<double>& prec_grid,
-				GeoMatrix<double>& tau_cloud_av,
+        GeoMatrix<double>& /*tau_cloud_av*/,
                 double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate, double maxfactorP, double minfactorP,
                 short dew, double Train, double Tsnow, double snow_corr_factor, double rain_corr_factor)
 {

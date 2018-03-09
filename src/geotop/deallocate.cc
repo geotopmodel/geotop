@@ -294,7 +294,7 @@ void deallocate_veg_state(StateVeg *V)
 void reset_to_zero(Par *par, Soil *sl, Land *land, Snow *snow, Glacier *glac, Energy *egy, Meteo *met, Water *wat)
 {
 
-    long i, j;
+    size_t i, j;
 
     if(par->state_pixel == 1)
     {

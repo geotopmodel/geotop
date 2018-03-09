@@ -22,7 +22,10 @@
 #define ENERGY_BALANCE_H
 
 #define __MATHOPTIM_H__
+#include <config.h>
+DISABLE_WARNINGS
 #include <meteoio/MeteoIO.h>
+ENABLE_WARNINGS
 #include "constants.h"
 #include "struct.geotop.h"
 #include "meteo.h"
@@ -57,7 +60,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 //short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SOIL_STATE *L, SOIL_STATE *C, Statevar3D *S, Statevar3D *G, STATE_VEG *V,
 //						 DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin);
 
-short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
+short PointEnergyBalance(size_t i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
                          GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin,
                          double tau_cloud, double tau_cloud_av, short tau_cloud_yes, short tau_cloud_av_yes);
 

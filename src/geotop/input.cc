@@ -36,7 +36,7 @@ using namespace std ;
 
 //! Subroutine which reads input data, performs  geomporphological analisys and allocates data
 
-void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Meteo *met, Water *wat, Channel *cnet,
+void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *land, Meteo *met, Water *wat, Channel *cnet,
                    Par *par, Energy *egy, Snow *snow, Glacier *glac, Times *times, mio::IOManager& iomanager)
 
 {
@@ -46,8 +46,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     InitTools *IT;
 
     size_t a;
-    short success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0; //varible not used, but set
-    long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
+    short success, /*added_JDfrom0=0,*/ added_wind_xy=0, added_wind_dir=0, added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0;
+    long l, r, c, ist, i, j, n, sy, num_cols, num_lines, day, month, year, hour, minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
     double initial_date_meteo, end_date_meteo;
     long d,m,y,mi,h;
@@ -55,7 +55,14 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     std::vector<std::string> temp2 ;
     string temp;
 
-    maxSWE = 1.E10; //TODO: this has been placed here to quiet the compiler.
+    // silence some warnings about unused vars because they appear only inside and if branch
+    (void)added_wind_xy;
+    (void)added_wind_dir;
+    (void)added_Tdew;
+    (void)added_RH;
+    (void)added_Pint;
+    (void)added_cloud;
+    maxSWE = 1.E10; //silence warning about possibly uninitialized variable
 
     IT = new InitTools();
 
@@ -244,7 +251,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     top->Jdown.resize(par->total_pixel+1, 4+1);
     top->Qdown.resize(par->total_pixel+1, 4+1);
-    for (i=1; i<=par->total_pixel; i++) {
+    for (i=1; i<=long(par->total_pixel); i++) {
         for (j=1; j<=4; j++) {
             top->Jdown[i][j] = i;
             top->Qdown[i][j] = 0.;
@@ -593,7 +600,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     lg->writeAll("\nCHECKPOINTS:");
     lg->writeAll("ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]\n");
 
-    for(i=1;i<par->rc.getRows();i++){
+    for(i=1;i<long(par->rc.getRows());i++){
         r=par->rc[i][1];
         c=par->rc[i][2];
         lg->writefAll("%ld,%ld,%ld,%12g,%d,%ld,%12g,%12g,%12g\n", i, r, c,
@@ -811,8 +818,8 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     if(par->state_pixel == 1){
         par->jplot.resize(par->total_pixel+1, 0);
 
-        for (i=1; i<=par->total_pixel; i++) {
-            for (j=1; j<par->rc.getRows(); j++) {
+        for (i=1; i<=long(par->total_pixel); i++) {
+            for (j=1; j<long(par->rc.getRows()); j++) {
                 if (top->rc_cont[i][1] == par->rc[j][1] && top->rc_cont[i][2] == par->rc[j][2]) {
                     par->jplot[i] = j;
                 }
@@ -864,7 +871,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     if (!mio::IOUtils::fileExists(string(geotop::common::Variables::files[fwt0]) + string(ascii_esri))){
 
-        for (i=1; i<=par->total_pixel; i++) {
+        for (i=1; i<=long(par->total_pixel); i++) {
 
             r = top->rc_cont[i][1];
 		    c = top->rc_cont[i][2];
@@ -891,7 +898,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
         meteoio_readMap(string(geotop::common::Variables::files[fwt0]), M);
 
-        for (i=1; i<=par->total_pixel; i++) {
+        for (i=1; i<=long(par->total_pixel); i++) {
             r = top->rc_cont[i][1];
             c = top->rc_cont[i][2];
 
@@ -908,7 +915,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     }
 
-    for (i=1; i<=par->total_pixel; i++) {
+    for (i=1; i<=long(par->total_pixel); i++) {
 
         r = top->rc_cont[i][1];
         c = top->rc_cont[i][2];
@@ -960,7 +967,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         if(geotop::common::Variables::files[ficez] != geotop::input::gStringNoValue ||geotop::common::Variables::files[ficezwriteend] != geotop::input::gStringNoValue) sl->thizplot.resize(par->rc.getRows(), geotop::common::Variables::Nl+1);
         if(geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue ||geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot.resize(par->rc.getRows(), geotop::common::Variables::Nl+1);
 		
-        for (i=1; i<par->rc.getRows(); i++) {
+        for (i=1; i<long(par->rc.getRows()); i++) {
             
             r = top->rc_cont[i][1];
             c = top->rc_cont[i][2];
@@ -1004,7 +1011,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 
     cnet->Kbottom.resize(cnet->r.size(),0.0);
 
-    for(j=1;j<=par->total_channel;j++){
+    for(j=1;j<=long(par->total_channel);j++){
 
         sy=cnet->soil_type[j];
         r=cnet->r[j];
@@ -1047,7 +1054,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
         assign_recovered_tensor_channel(1, par->recover, geotop::common::Variables::files[ricegch], cnet->SS->thi, cnet->r, cnet->c);
         assign_recovered_tensor_channel(1, par->recover, geotop::common::Variables::files[rTgch], cnet->SS->T, cnet->r, cnet->c);
 
-        for(i=1; i<=par->total_channel; i++){
+        for(i=1; i<=long(par->total_channel); i++){
             for (l=1; l<=geotop::common::Variables::Nl; l++) {
                 sy = cnet->soil_type[i];
  
@@ -1064,7 +1071,7 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
     write_output_headers(met->st->Z.size(), times, wat, par, top, land, sl, egy, snow, glac);
 
     if(par->state_pixel == 1){
-        for(j=1;j<par->rc.getRows();j++){
+        for(j=1;j<long(par->rc.getRows());j++){
             if(par->output_vertical_distances == 1){
                 r = par->rc[j][1];
                 c = par->rc[j][2];
@@ -1909,9 +1916,9 @@ void get_all_input(long argc, char *argv[], Topo *top, Soil *sl, Land *land, Met
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mio::IOManager& iomanager){
+void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools */*IT*/, mio::IOManager& iomanager){
 
-    long r, c, i, cont;
+    size_t r, c, i, cont;
     GeoMatrix<double> M;
     GeoMatrix<short> curv;
     short flag;
@@ -2316,9 +2323,10 @@ void read_inputmaps(Topo *top, Land *land, Soil *sl, Par *par, InitTools *IT, mi
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *times, InitTools *IT){
+void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times */*times*/, InitTools *IT){
 
-    long i, r, c, num_lines;
+    size_t i, r, c;
+    long num_lines;
     GeoMatrix<double> Q, P, R, S, T, Z, LU;
     GeoMatrix<short> curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
@@ -2802,16 +2810,16 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
     }
     top->horizon_height=(double ***)malloc(top->num_horizon_point*sizeof(double**));
     top->horizon_numlines=(long *)malloc(top->num_horizon_point*sizeof(long));
-    for(i=1; i<=top->num_horizon_point; i++){
+    for(i=1; i<=size_t(top->num_horizon_point); i++){
 
         c=0;
         do{
             flag = 0;
             if (c < par->chkpt.getRows()-1) {
-                if (top->horizon_point[1][c+1] != i) c++;
+                if (top->horizon_point[1][c+1] != long(i)) c++;
             }
             if (c < par->chkpt.getRows()-1) {
-                if (top->horizon_point[1][c+1] != i) flag=1;
+                if (top->horizon_point[1][c+1] != long(i)) flag=1;
             }
 
         }while (flag == 1 && c < par->chkpt.getRows()-1);
@@ -2836,12 +2844,13 @@ void read_optionsfile_point(Par *par, Topo *top, Land *land, Soil *sl, Times *ti
 //***************************************************************************************************************
 
 
-void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& LC){
+void set_bedrock(InitTools *IT, Soil *sl, Channel *cnet, Par *par, Topo *top, GeoMatrix<double>& /*LC*/){
 
 	GeoMatrix<double> B;
 	GeoTensor<double> T;
 	GeoVector<double> WT;
-	long i, j, l, r, c, sy, synew;
+  long j, l, r, c, sy, synew;
+  size_t i;
 	double zlim, z;
 	short yes=0;
 	FILE *f;
@@ -2980,7 +2989,8 @@ GeoTensor<double> find_Z_of_any_layer(GeoMatrix<double>& Zsurface, GeoMatrix<dou
 
     GeoTensor<double> Z;
     double Zaverage = 0.0, z, cosine;
-    long l, r, c, n, sy;
+    size_t l, r, c, n;
+    long sy;
 
     if(point!=1){
         Zaverage=0.;

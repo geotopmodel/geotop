@@ -42,7 +42,7 @@ using namespace std;
 void copyshort_doublematrix(GeoMatrix<short>& S, GeoMatrix<double>& M)
 {
 
-    long r, c;
+    size_t r, c;
 
     S.resize(M.getRows() , M.getCols());
     for(r = 1; r < M.getRows(); r++)
@@ -67,7 +67,7 @@ void copyshort_doublematrix(GeoMatrix<short>& S, GeoMatrix<double>& M)
 void copylong_doublematrix(GeoMatrix<long>& L, GeoMatrix<double>& M)
 {
 
-    long r, c;
+    size_t r, c;
 
     L.resize(M.getRows(), M.getCols());
     for(r = 1; r < M.getRows(); r++)
@@ -83,7 +83,7 @@ void copylong_doublematrix(GeoMatrix<long>& L, GeoMatrix<double>& M)
 void copydoublematrix_const(double c0, GeoMatrix<double>& Mref, GeoMatrix<double>& M, double NOVALUE)
 {
 
-    long r, c;
+    size_t r, c;
 
     M.resize(Mref.getRows(), Mref.getCols());
     for(r = 1; r < M.getRows(); r++)
@@ -160,7 +160,7 @@ GeoVector<double> read_map_vector(std::string namefile, GeoMatrix<long>& rc)
 
     GeoMatrix<double> M;
     GeoVector<double> V;
-    long i, n = rc.getRows() - 1;
+    size_t i, n = rc.getRows() - 1;
 
     meteoio_readMap(string(namefile), M);
 
@@ -263,7 +263,7 @@ void write_tensorseries(short a, long l, long i, std::string filename, short typ
     std::string SSSSLLLLL = "SSSSLLLLL" ;
     std::string SSSS =  "SSSS" ;
     std::string name;
-    long r, c;
+    size_t r, c;
 
     GeoMatrix<double> M;
 
@@ -313,7 +313,7 @@ void write_tensorseries_vector(short a, long l, long i, std::string filename, sh
 
     string name;
 
-    long j, npoints = T.getCols();
+    size_t j, npoints = T.getCols();
 
     GeoVector<double> V;
 
@@ -355,7 +355,7 @@ void write_tensorseries2_vector(std::string suf, long l, std::string filename, s
 
     std::string LLLLL = "LLLLL" ;
     std::string temp1, temp2;
-    long i, npoints = T.getCols();
+    size_t i, npoints = T.getCols();
     GeoVector<double> V;
 
     temp1 = LLLLL + suf ;
@@ -380,7 +380,7 @@ void write_tensorseries2_vector(std::string suf, long l, std::string filename, s
 void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
 {
 
-    long l;
+    size_t l;
     // TODO: need check nrl
     for(l = 1; l < T.getRows(); l++)
     {
@@ -400,7 +400,7 @@ void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *
 //	type=1  integer
 
     FILE *f;
-    long r, c;
+    size_t r, c;
     std::string temp;
 
     if(UV->U[1] != UV->U[2])
@@ -454,7 +454,7 @@ void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit
 //	type=1  integer
 
     FILE *f;
-    long r, c;
+    size_t r, c;
     std::string temp;
 
     if(UV->U[1] != UV->U[2])
@@ -566,8 +566,8 @@ void write_esriascii_vector(string name, short type, const GeoVector<double>& DT
     //	type=0  floating point
     //	type=1  integer
 
-    char *basedir;
-    int ret = 0;
+//    char *basedir;
+//    int ret = 0;
 
     FILE *f;
     long r, c;
@@ -919,7 +919,7 @@ void nablaquadro_mask(GeoMatrix<double>& Z0, GeoMatrix<short>& curv, GeoVector<d
 void initmatrix(double val, GeoMatrix<double>& destination, GeoMatrix<double>& origin, double novalue)
 {
 
-    long r, c;
+    size_t r, c;
     for(r = 1; r < destination.getRows(); r++)
     {
         for(c = 1; c < destination.getCols(); c++)

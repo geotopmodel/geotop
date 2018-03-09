@@ -66,9 +66,10 @@ static double* readline_of_numbers(FILE *f, long comment_char,
                                    long sep_char, long *components,
                                    short *endoffile, short *success);
 
-static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr,
-                         long max_num_cols, std::vector<std::string> header,
-                         long num_cols_header, FILE *flog);
+// this function is never defined...
+//static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr,
+//                         long max_num_cols, std::vector<std::string> header,
+//                         long num_cols_header, FILE *flog);
 
 static double **read_datamatrix(FILE *f, long comment_char, long sep_char,
                                 long number_lines, long components_header);

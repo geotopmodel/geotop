@@ -30,7 +30,7 @@
 /******************************************************************************************************************************************/
 void meteo_distr(long *line, long lineLR, Meteo *met, Water *wat, Topo *top, Par *par, double JD0, double JDbeg, double JDend){
 
-	long r,c,year,j;
+  long r,c,year,j;
     size_t i;
 	double JD;
 	

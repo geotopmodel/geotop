@@ -38,9 +38,11 @@ using namespace std;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/ 
 
-short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,  GeoVector<double>& snowage, AllData *A, double *W, std::vector<mio::MeteoData>& vec_meteo){
+short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L, SoilState *C,
+                    Statevar3D *S, Statevar3D *G, StateVeg *V,  GeoVector<double>& snowage, AllData *A, double *W,
+                    std::vector<mio::MeteoData>& /*vec_meteo*/){
     short sux;
-    long i=0, r, c, cnt=0;
+    size_t i=0, r, c, cnt=0;
     static long line_interp;
     double Dtplot=1., Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0., Tgskin_surr_ave=0.;
     double tau_cloud, tau_cloud_av;
@@ -71,9 +73,9 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
     //	vegetation
 
     if(A->I->time==0) line_interp=0;
-    for(size_t i=1; i<=A->P->n_landuses; i++) {
-        if(A->P->vegflag[i]==1){
-            time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1], A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
+    for(size_t j=1; j<=A->P->n_landuses; j++) {
+        if(A->P->vegflag[j]==1){
+            time_interp_linear(JD0, JDb, JDe, A->L->vegparv[j-1], A->L->vegpars[j-1], A->L->NumlinesVegTimeDepData[j-1], jdvegprop+1, 0, 0, &line_interp);
         }
     }
 
@@ -99,8 +101,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
     //	INITIALIZE BASIN AVERAGES
     if(A->P->Dtplot_basin[geotop::common::Variables::i_sim]>0){
-        for (i=0; i<geotop::common::Variables::nobsn; i++) {
-            geotop::common::Variables::odb[i] = 0.;
+        for (long j=0; j<geotop::common::Variables::nobsn; j++) {
+            geotop::common::Variables::odb[j] = 0.;
         }
     }
 
@@ -225,8 +227,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 //******************************************************************************************************************************************/
 
 
-short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
-		GeoVector<double>& snowage, AllData *A, double E0, double Et, double Dtplot, double W, FILE *f, double *SWupabove_v, double *Tgskin,
+short PointEnergyBalance(size_t i, long r, long c, double Dt, double JDb, double JDe, SoilState *L, SoilState *C, Statevar3D *S, Statevar3D *G, StateVeg *V,
+    GeoVector<double>& snowage, AllData *A, double E0, double Et, double /*Dtplot*/, double W, FILE */*f*/, double *SWupabove_v, double *Tgskin,
                          double tau_cloud, double tau_cloud_av, short tau_cloud_yes, short tau_cloud_av_yes){
 
     long l=0, j=0, ns=0, ng=0;
@@ -253,7 +255,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
     double ic=0., wa, rho=0.;
     long lpb;
 
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+//    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
     
     //initialization of cumulated water volumes and set soil ancillary state vars
     if (i <= A->P->total_channel)
@@ -1188,12 +1190,12 @@ short SolvePointEnergyBalance(
     double dH_dT, dE_dT, EB=0.0, dEB_dT=0.0, EB0, Tg, Tg0, psim0, psi0, Qg0=0.0, Tv0=0.0, dWcsn=0.0, dWcrn=0.0, rh_g, rv_g;
     double res, res0[3], res_av, res_prev[MM], lambda[3], C0, C1, th0, th1, kbb0, kbb1, kub0=0.0, kub1=0, thi = 0.0,
         thin = 0.0, thw = 0.0, thwn = 0.0, sat = 0.0, satn = 0.0, kt = 0.0, ktn = 0.0;
-	
+  (void)kub0; // silence a warning about unused variable, since kub0 appears only in a if branch
 	double snowD_tmp=0.0 ;//to make it compile.. 
 	// SnowD is NOT used at all in this routine: it is taken from above and passed to energyfluxes routines to be printed out in case of NaN is happening on some variable...
 	
     FILE *f;
-    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
+//    geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
 
 	//
 	
@@ -1234,7 +1236,7 @@ short SolvePointEnergyBalance(
     }
 
 	//Initialize soil properties
-    if (i<=par->total_channel) {
+    if (i<=long(par->total_channel)) {
         sy = cnet->soil_type[j];
         psi0 = SC->P[0][j];
         for(l=1;l<=geotop::common::Variables::Nl;l++){
@@ -1552,7 +1554,7 @@ short SolvePointEnergyBalance(
                 if(l > ns+ng){
                     m=l-ns-ng;
 					
-                    if (i<=par->total_channel) {
+                    if (i<=long(par->total_channel)) {
 						
                         th0 = cnet->th[m][j];
 						
@@ -1604,7 +1606,7 @@ short SolvePointEnergyBalance(
 							
 							m=l-ns-ng;
 							
-							if (i<=par->total_channel) {
+              if (i<=long(par->total_channel)) {
 								egy->THETA[m] = cnet->th[m][j] + egy->deltaw[l]/(GTConst::rho_w*egy->Dlayer[l]);
 							} else {
 								egy->THETA[m] = sl->th[m][j] + egy->deltaw[l]/(GTConst::rho_w*egy->Dlayer[l]);
@@ -1879,7 +1881,8 @@ short SolvePointEnergyBalance(
 /******************************************************************************************************************************************/
 
 
- void update_soil_land(long nsurf, long n, long i, long r, long c, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th){
+ void update_soil_land(long /*nsurf*/, long n, long i, long r, long c, double fc, double Dt, Energy *egy,
+                       GeoTensor<double>& pa, long sy, SoilState *S, GeoTensor<double>& ET, GeoMatrix<double>& th){
 
     //long l;//this variable is not used
     double th_oversat, psisat;
@@ -1917,7 +1920,8 @@ short SolvePointEnergyBalance(
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt, Energy *egy, GeoTensor<double>& pa, long sy, SoilState *S, GeoMatrix<double>& ET, GeoMatrix<double>& th){
+void update_soil_channel(long /*nsurf*/, long n, long ch, double fc, double Dt, Energy *egy,
+                         GeoTensor<double>& pa, long sy, SoilState *S, GeoMatrix<double>& ET, GeoMatrix<double>& th){
 
     //long l;//this variable is not used
     double th_oversat, psisat;
@@ -2215,15 +2219,16 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0, doubl
 //									double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, DOUBLEVECTOR *soil_evap_layer_bare,
 //									DOUBLEVECTOR *soil_evap_layer_veg, short flagTmin, long cont){
 
-void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT, double z0s,
-                                    double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg, double v, double Ta, double Qa,
-                                    double P, double LR, double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
-                                    double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, GeoTensor<double>& soil, long sy,
-                                    const GeoMatrix<double>& land, long lu, const GeoMatrix<double>& root, Par *par, GeoVector<double>& soil_transp_layer, double SWin, double LWin, double SWv, double *LW,
-                                    double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, double *Etrans,
+void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double /*Tg0*/, double /*Qg0*/, double /*Tv0*/, double zmu, double zmT, double z0s,
+                                    double d0s, double rz0s, double /*z0v*/, double /*d0v*/, double /*rz0v*/, double /*hveg*/, double v, double Ta, double Qa,
+                                    double P, double LR, double psi, double e, double fc, double LSAI, double /*decaycoeff0*/, double /*Wcrn*/,
+                                    double /*Wcrnmax*/, double /*Wcsn*/, double /*Wcsnmax*/, double */*dWcrn*/, double */*dWcsn*/, double *theta, GeoTensor<double>& soil, long sy,
+                                    const GeoMatrix<double>& /*land*/, long /*lu*/, const GeoMatrix<double>& /*root*/, Par *par, GeoVector<double>& /*soil_transp_layer*/,
+                                    double /*SWin*/, double LWin, double /*SWv*/, double *LW,
+                                    double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double */*Hv*/, double */*LEv*/, double */*Etrans*/,
                                     double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g, double *rv_g, double *Qg,
-                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T, GeoVector<double>& soil_evap_layer_bare,
+                                    double */*u_top*/, double */*decay*/, double */*Locc*/, double *LWup_above_v, double *T, GeoVector<double>& soil_evap_layer_bare,
                                     GeoVector<double>& soil_evap_layer_veg, double point_sky, short flagTmin, long cont){
     
     

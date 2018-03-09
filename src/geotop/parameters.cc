@@ -1312,13 +1312,14 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 	}
 
 	//initial condition on the water pressure
-	par->nsoiltypes = (long)getDoubleValueWithDefault(lConfigStore, "SoilLayerTypes", geotop::input::gDoubleNoValue, false) ; ;
-    if (par->nsoiltypes < 1)
+  par->nsoiltypes = (long)getDoubleValueWithDefault(lConfigStore, "SoilLayerTypes", geotop::input::gDoubleNoValue, false) ;
+    if (par->nsoiltypes < 1){
         par->nsoiltypes = 1;
+    }
 
-	itools->init_water_table_depth.resize(par->nsoiltypes + 1, 0);
+  itools->init_water_table_depth.resize(par->nsoiltypes + 1, 0);
 
-    lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "InitWaterTableDepth", 0., true, par->nsoiltypes, false) ;
+  lDoubleTempVector = getDoubleVectorValueWithDefault(lConfigStore, "InitWaterTableDepth", 0., true, par->nsoiltypes, false) ;
 	for (size_t i=1; i< itools->init_water_table_depth.size(); i++) {
 		itools->init_water_table_depth[i] = lDoubleTempVector[i-1] ;
 	}
@@ -1983,7 +1984,9 @@ static void assign_numeric_parameters(Par *par, Land *land, Times *times, Soil *
 short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 	
 	short ok;
-	long i, j, k, n, nlines, nlinesprev;
+  size_t i, j, k, n;
+  long nlinesprev;
+  long nlines;
     std::string temp;
 	double **soildata;
     GeoTensor<double> old_sl_par;
@@ -2058,7 +2061,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 				soildata = read_txt_matrix(temp, 33, 44, IT->soil_col_names, nsoilprop, &nlines);
 			}else {
 				soildata = (double**)malloc(nlines*sizeof(double*));
-				for (j=0; j<nlines; j++) {
+        for (j=0; j<size_t(nlines); j++) {
 					k = (long)nsoilprop;
 					soildata[j] = (double*)malloc(k*sizeof(double));
 					for (n=0; n<k; n++) {
@@ -2075,7 +2078,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 			}
 			 
 			//deallocate soildata
-			for (j=0; j<nlines; j++) {
+      for (j=0; j<size_t(nlines); j++) {
 				free(soildata[j]);
 			}
 			free(soildata);
@@ -2143,7 +2146,7 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 
             if (ok == 1 )
             {
-                assert(i >= 0);
+//                assert(i >= 0);
                 if (IT->init_water_table_depth.size() <= (size_t)i ) {
                     IT->init_water_table_depth.resize(IT->init_water_table_depth.size() + 1);
                 }
@@ -2228,7 +2231,8 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 
 	GeoMatrix<double>  chkpt2;
 	double **points;
-	long nlines, n, j;
+  long nlines;
+  size_t n, j;
       std::string temp;
 
     geotop::logger::GlobalLogger* lg = geotop::logger::GlobalLogger::getInstance();
@@ -2243,7 +2247,7 @@ short read_point_file(std::string name, std::vector<std::string> key_header, Par
 		chkpt2=par->chkpt;
 		
 		par->chkpt.resize(nlines+1, chkpt2.getCols());
-		for (n=1; n<=nlines; n++) {
+    for (n=1; n<=size_t(nlines); n++) {
 			for (j=1; j< chkpt2.getCols(); j++) {
 				par->chkpt[n][j] = points[n-1][j-1];
 				if ( (long)par->chkpt[n][j] == geotop::input::gDoubleNoValue || (long)par->chkpt[n][j] == geotop::input::gDoubleAbsent ) {

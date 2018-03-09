@@ -18,7 +18,7 @@
  
  */
 
-
+#include <config.h>
 #include <string>
 #include "geomorphology.h"
 #include "read_command_line.h"
@@ -31,7 +31,9 @@
 #include <limits.h>
 #include <stdio.h>
 #include <iostream>
+DISABLE_WARNINGS
 #include <meteoio/MeteoIO.h>
+ENABLE_WARNINGS
 #include <cmath>
 
 
@@ -102,7 +104,8 @@ void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min){
 
 void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
 {
-    size_t i,j,t,m,n,p,q,h,k,r,s; //counters
+  size_t i=0, j=0, t=0, m=0, n=0, p=0, q=0, h=0, k=0, r=0, s=0; //counters
+  
     double deltateta; //amplitude of the angles in which the horizon is divided
     GeoMatrix<double> alfa; //matrices with the angles of the direction
     GeoVector<double> v; //vector with the view factor of the current pixel for one of the N parts
@@ -119,11 +122,10 @@ void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<doub
     // ALLOCATION: please note that I allocate 1 element more for columns and row.. " TODO  double checks
     alfa.resize(2*nr,2*nc,-9999.0);
     
-    
     for(i=1;i<=2*nr-1;i++){
         for(j=1;j<=2*nc-1;j++){
               if(i<=nr && j<nc){
-                alfa[i][j]=3.0/2.0*GTConst::Pi+std::atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
+                alfa[i][j]=3.0/2.0*GTConst::Pi+atan(((nr-i)*UV->U[1])/((nc-j)*UV->U[1]));
             }
             if(i>nr && j<=nc){
             
@@ -172,9 +174,11 @@ void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<doub
                             if (alfa[h][k]>=(t-1)*deltateta && alfa[h][k]<t*deltateta){
                                 r=h-m+1;
                                 s=k-n+1;
-                                if (convess[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
+				long r_i = r-i; //I need to convert to a signed variable since i can be greater than r
+				long s_j = s-j; // same here
+                                if (convess[r][s]==1 && sqrt(pow((r_i),2)+pow((s_j),2))!=0){
                                     vv[t]=1-sin(atan((input[r][s]-input[i][j])
-                                                     /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U[1])));
+                                                     /(sqrt(pow((r_i),2)+pow((s_j),2))*UV->U[1])));
                                     if (vv[t]<v[t]){
                                         v[t]=vv[t];
                                     }

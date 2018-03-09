@@ -98,7 +98,7 @@ void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long nl);
 void deallocate_statevar_1D(Statevar1D *V);
 
 /*----------------------------------------------------------------------------------------------------------*/
-short copy_statevar_from3D_to1D(long r, long c, Statevar3D *origin, Statevar1D *destination);
+short copy_statevar_from3D_to1D(size_t r, size_t c, Statevar3D *origin, Statevar1D *destination);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q, short k);

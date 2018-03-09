@@ -273,7 +273,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others, double sin_
 	double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd, double *tau_atm_sin_alpha, short *SWb_yes){
 
 	double kd, tau_atm, cos_inc, tau_atm_cos_inc;
-	double tau_cloud_to_use;
+//	double tau_cloud_to_use;
 	
 	tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6, 20) / (JDend - JDbeg);
 	//tau_atm = Tauatm( 0.5*(JDbeg+JDend), others);
@@ -416,7 +416,7 @@ double atm_transmittance(double X, double P, double RH, double T, double Lozone,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T, double k1, double k2, double tau_cloud, double *eps, double *eps_max, double *eps_min){
+void longwave_radiation(short state, double pvap, double /*RH*/, double T, double k1, double k2, double tau_cloud, double *eps, double *eps_max, double *eps_min){
 
 	double taucloud_overcast=0.29;//after Kimball(1928)
 	FILE *f;
@@ -532,7 +532,8 @@ double cloud_transmittance(double JDbeg, double JDend, double lat, double Delta,
 	double *others;
 	double tau_atm;// atmosphere transmittance
 	double tau_atm_sin_alpha;
-	double sin_alpha;// solar elevationa angle
+  double sin_alpha;// solar elevationa angle
+  (void)sin_alpha; // silence warning unused variable
 	double kd;
 	double kd0;
 	double tau = geotop::input::gDoubleNoValue;
@@ -973,7 +974,7 @@ void find_actual_cloudiness_meteoio(double *tau_cloud, double *tau_cloud_av, sho
 	}
 }
 
-void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int meteo_stat_num,
+void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av, short *tau_cloud_yes, short *tau_cloud_av_yes,int /*meteo_stat_num*/,
 							Meteo *met, double JDb, double JDe, double Delta, double E0, double Et, double ST, double SWrefl_surr, double Lozone, double alpha, double beta, double albedo)
 {
 

@@ -44,6 +44,7 @@ void windtrans_snow(Snow *snow, Meteo *met, Land *land, Topo *top, Par *par, dou
     long r, c, j, l;
     static long line_interp;
     short lu, yes, sux;
+    (void)sux; // silence warning about unused variable since sux appears only in a if-branch
     size_t lux;
     double t, Dt, Dt0;
     double zmeas, D, wice, fsnow, fc;
@@ -477,6 +478,7 @@ static void set_windtrans_snow(double Dt, double t, Snow *snow, Meteo *met, Land
     long i, l, r, c, ns;
     double Qsub, DW, DWl, Wtrans_tot = 0.0, Wsubl_tot = 0.0, Utot = 0.0;
     short ok = 1;
+    (void)ok; // silence warning unused var
 
     //density of wind transported snow
     float rho_wind_transported_snow = 400.0;
@@ -620,7 +622,7 @@ static void set_windtrans_snow(double Dt, double t, Snow *snow, Meteo *met, Land
 static void print_windtrans_snow(double Dt, Snow *snow, Par *par, Topo *top)
 {
 
-    long i, r, c;
+    size_t i, r, c;
     double Qsub;
 
     for(i = 1; i <= par->total_pixel; i++)

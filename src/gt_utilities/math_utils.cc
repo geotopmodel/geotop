@@ -28,7 +28,9 @@ void stop_execution(void){
 	char ch;
 
 	printf("\nPRESS RETURN TO CONTINUE\n");
-	scanf("%c",&ch);//this generates a warning
+  int ret = scanf("%c",&ch);
+  // silence warning
+  (void)ret;
 	
 }
 

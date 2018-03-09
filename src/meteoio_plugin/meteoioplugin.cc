@@ -526,7 +526,7 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
     size_t numOfStations = io->getMeteoData(d1, meteo); // Read the meteo data for the given timestep
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
-		for (int i = 0; i < numOfStations; i++) {
+    for (size_t i = 0; i < numOfStations; i++) {
 			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 		}

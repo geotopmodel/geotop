@@ -615,7 +615,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa, doub
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void veg_transmittance(short stabcorr_incanopy, double v, double u_star, double u_top, double Hveg, double z0soil, double z0veg, double d0veg, 
+void veg_transmittance(short stabcorr_incanopy, double /*v*/, double u_star, double u_top, double Hveg, double z0soil, double z0veg, double d0veg,
 					   double LSAI, double decaycoeff0, double Lo, double Loc, double *rb, double *rh, double *decay){
 
 	double Lc = 0.4;			//characteristic dimension of vegetation [m]
