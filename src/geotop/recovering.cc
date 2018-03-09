@@ -29,7 +29,7 @@ void assign_recovered_map_vector   (long n,
                                     GeoVector<double> &assign,
                                     GeoMatrix<long> &rc)
 {
-    long i, r, c;
+    size_t i, r, c;
     GeoMatrix<double> M;
     std::string temp;
 
@@ -57,7 +57,7 @@ void assign_recovered_map_long (long n,
                                 GeoMatrix<long> &assign)
 {
 
-    long r, c;
+    size_t r, c;
     GeoMatrix<double> M;
     std::string temp;
 
@@ -85,7 +85,7 @@ void assign_recovered_tensor   (long lbegin,
                                 GeoTensor<double> &assign)
 {
 
-    long r, c, l;
+    size_t  r, c, l;
     GeoMatrix < double >M;
 
     std::string temp1, temp2;
@@ -124,7 +124,7 @@ void assign_recovered_tensor_vector    (long lbegin,
 
 // lbegin 1 or 0 depending of the size of the data-structure considered (psi is 0)
 // this should disappear once we have all data structure correclty allocated (SC.       
-    long r, c, i, l;
+    size_t  r, c, i, l;
     GeoMatrix<double> M;
     std::string temp1, temp2;
 
@@ -160,7 +160,7 @@ void assign_recovered_tensor_channel   (long lbegin,
                                         const GeoVector<long> c)
 {
 
-    long l;
+    size_t l;
     size_t ch;
     GeoMatrix<double> M;
     std::string temp1, temp2;

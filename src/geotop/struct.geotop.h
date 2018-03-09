@@ -319,8 +319,8 @@ class Par
         double airo;                              /*NEW NEAR INFRARED BAND REFLECTANCE*/
         double Sr;                                /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
         double rho_ice;                           /*Ice density [kg/mc]*/
-        long total_pixel;                         /*The number of the valid pixel of the whole basin*/
-        long total_channel;
+        size_t total_pixel;                         /*The number of the valid pixel of the whole basin*/
+        size_t total_channel;
         double total_area;
 
         double max_weq_snow;

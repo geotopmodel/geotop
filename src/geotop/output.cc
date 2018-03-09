@@ -20,7 +20,7 @@
 
 #include <string>
 #include "output.h"
-#include "../../config.h"
+#include "version.h"
 #include "constants.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
@@ -38,7 +38,8 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 
 {
     /*internal auxiliary variables:*/
-    long i, j, r = 0L, c = 0L, l, m;              /*counters*/
+    size_t i;
+    long j, l, r = 0L, c = 0L, m;              /*counters*/
     long n_file;                                  /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
     std::string NNNNN = "NNNNN";
     std::string RRRRR = "RRRRR";                  /*TODO: remove this*/
@@ -103,7 +104,7 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
             Vchannel = 0.;
             Vsub = 0.;
             Vsup = 0.;
-            for (l = 1; l <= par->total_channel; l++)
+            for (l = 1; l <= long(par->total_channel); l++)
             {
 
                 r = cnet->r[l];
@@ -165,11 +166,11 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
                 c = par->rc[i][2];
                 j = top->j_cont[r][c];
 
-                for (l = 1; l <= geotop::common::Variables::Nl; l++)
+                for (long ll = 1; ll <= geotop::common::Variables::Nl; ll++)
                 {
-                    if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][l] += sl->SS->T[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
-                    if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][l] += sl->th[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
-                    if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][l] += sl->SS->thi[l][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[fTzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fTzavwriteend] != geotop::input::gStringNoValue) sl->Tzavplot[i][ll] += sl->SS->T[ll][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[fliqzav] != geotop::input::gStringNoValue || geotop::common::Variables::files[fliqzavwriteend] != geotop::input::gStringNoValue) sl->thzavplot[i][ll] += sl->th[ll][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
+                    if (geotop::common::Variables::files[ficezav] != geotop::input::gStringNoValue || geotop::common::Variables::files[ficezavwriteend] != geotop::input::gStringNoValue) sl->thizavplot[i][ll] += sl->SS->thi[ll][j] * (par->Dt / par->Dtplot_point[geotop::common::Variables::i_sim]);
                 }
 
                 D = find_activelayerdepth_up(j, sl->type[r][c], sl);
@@ -1825,11 +1826,12 @@ void write_output(Times *times, Water *wat, Channel *cnet, Par *par, Topo *top, 
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top, Land *land, Soil *sl, Energy *egy, Snow *snow, Glacier *glac)
+void write_output_headers(long n, Times */*times*/, Water */*wat*/, Par *par, Topo *top, Land *land, Soil *sl, Energy */*egy*/, Snow */*snow*/, Glacier */*glac*/)
 {
 
     /*internal auxiliary variables:*/
-    long i, l, m, j, r, c;
+    size_t i, m, r, c;
+    long l, j;
 
     std::string NNNN = "NNNN" ;
     std::string rec = "_recNNNN" ;
@@ -1878,7 +1880,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
             geotop::common::Variables::odpnt[i] = (double*)malloc(par->rc.getRows() * sizeof(double));
             geotop::common::Variables::odp[i] = (double*)malloc(par->rc.getRows() * sizeof(double));
             // to check: is this -1 below needed ? SC26.12.2013
-            for (j = 0; j < par->rc.getRows() - 1; j++)
+            for (j = 0; j < long(par->rc.getRows() - 1); j++)
             {
                 geotop::common::Variables::odpnt[i][j] = 0.;
                 geotop::common::Variables::odp[i][j] = 0.;
@@ -1962,7 +1964,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 {
                     fprintf(geotop::common::Variables::ffsnow, "%s", geotop::common::Variables::hsnw[geotop::common::Variables::osnw[j]].c_str());
                 }
-                else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < 6 + 3 * m)
+                else if (geotop::common::Variables::osnw[j] >= 6 && geotop::common::Variables::osnw[j] < long(6 + 3 * m))
                 {
                     l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6., (double)m ) + 1;
                     n = floor( ( (double)geotop::common::Variables::osnw[j] - 6.) / (double)m ) + 6;
@@ -1976,7 +1978,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         fprintf(geotop::common::Variables::ffsnow, "%s(%ld)", geotop::common::Variables::hsnw[n].c_str(), l);
                     }
                 }
-                else if (geotop::common::Variables::osnw[j] >= 6 + 3 * m)
+                else if (geotop::common::Variables::osnw[j] >= long(6 + 3 * m))
                 {
                     l = (long)fmod( (double)geotop::common::Variables::osnw[j] - 6. - 3 * (double)m, (double)par->max_snow_layers ) + 1;
                     n = floor( ( (double)geotop::common::Variables::osnw[j] - 6. - 3.*(double)m) / (double)par->max_snow_layers ) + 6 + 3;
@@ -2030,7 +2032,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                     {
                         fprintf(geotop::common::Variables::ffglac, "%s", geotop::common::Variables::hglc[geotop::common::Variables::oglc[j]].c_str());
                     }
-                    else if (geotop::common::Variables::oglc[j] >= 6 && geotop::common::Variables::oglc[j] < 6 + 3 * m)
+                    else if (geotop::common::Variables::oglc[j] >= 6 && geotop::common::Variables::oglc[j] < long(6 + 3 * m))
                     {
                         l = (long)fmod( (double)geotop::common::Variables::oglc[j] - 6., (double)m ) + 1;
                         n = floor( ( (double)geotop::common::Variables::oglc[j] - 6.) / (double)m ) + 6;
@@ -2043,7 +2045,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                             fprintf(geotop::common::Variables::ffglac, "%s(%ld)", geotop::common::Variables::hglc[n].c_str(), l);
                         }
                     }
-                    else if (geotop::common::Variables::oglc[j] >= 6 + 3 * m)
+                    else if (geotop::common::Variables::oglc[j] >= long(6 + 3 * m))
                     {
                         l = (long)fmod( (double)geotop::common::Variables::oglc[j] - 6. - 3 * (double)m, (double)par->max_glac_layers ) + 1;
                         n = floor( ( (double)geotop::common::Variables::oglc[j] - 6. - 3.*(double)m) / (double)par->max_glac_layers ) + 6 + 3;
@@ -2268,7 +2270,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                 fprintf(f, " Mean slope of the pixel [deg]: %f \n", top->slope[r][c]);
                 fprintf(f, " Land use number is %d \n", (short)land->LC[r][c]);
 
-                for (l = 1; l < land->root_fraction.getCols(); l++)
+                for (l = 1; l < long(land->root_fraction.getCols()); l++)
                 {
                     fprintf(f, " The root fraction [-] of layer %ld: %f\n", l, land->root_fraction[lu][l]);
                 }
@@ -2371,7 +2373,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                         {
                             fprintf(f, "%s", geotop::common::Variables::hglc[geotop::common::Variables::oglc[j]].c_str());
                         }
-                        else if (geotop::common::Variables::oglc[j] >= 6 && geotop::common::Variables::oglc[j] < 6 + 3 * m)
+                        else if (geotop::common::Variables::oglc[j] >= 6 && geotop::common::Variables::oglc[j] < long(6 + 3 * m))
                         {
                             l = (long)fmod( (double)geotop::common::Variables::oglc[j] - 6., (double)m ) + 1;
                             n = floor( ( (double)geotop::common::Variables::oglc[j] - 6.) / (double)m ) + 6;
@@ -2384,7 +2386,7 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
                                 fprintf(f, "%s(%ld)", geotop::common::Variables::hglc[n].c_str(), l);
                             }
                         }
-                        else if (geotop::common::Variables::oglc[j] >= 6 + 3 * m)
+                        else if (geotop::common::Variables::oglc[j] >= long(6 + 3 * m))
                         {
                             l = (long)fmod( (double)geotop::common::Variables::oglc[j] - 6. - 3 * (double)m, (double)par->max_glac_layers ) + 1;
                             n = floor( ( (double)geotop::common::Variables::oglc[j] - 6. - 3.*(double)m) / (double)par->max_glac_layers ) + 6 + 3;
@@ -2767,7 +2769,9 @@ void write_output_headers(long n, Times *times, Water *wat, Par *par, Topo *top,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_soil_output(long i, long iname, double init_date, double JDfrom0, double JD, long day, long month, long year, long hour, long minute, const GeoVector<double>& n, Soil *sl, Par *par, double psimin, double cosslope)
+void write_soil_output(long i, long iname, double init_date, double JDfrom0, double /*JD*/,
+                       long day, long month, long year, long hour, long minute, const GeoVector<double>& n,
+                       Soil *sl, Par *par, double /*psimin*/, double cosslope)
 {
 
     std::string NNNN = "NNNN" ;
@@ -3348,7 +3352,7 @@ void fill_output_vectors(double Dt, double W, Energy *egy, Snow *snow, Glacier *
 
     long i, j, r = 0, c = 0;
 
-    for (j = 1; j <= par->total_pixel; j++)
+    for (j = 1; j <= long(par->total_pixel); j++)
     {
 
         //TODO mattiu

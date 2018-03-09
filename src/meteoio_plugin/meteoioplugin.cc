@@ -143,8 +143,8 @@ void meteoio_writeEsriasciiMap(const string& filename, GeoMatrix<double>& gm)
 		t_error("Fatal error");
 	}
 
-	unsigned int ncols = gm.getCols()-1;
-	unsigned int nrows = gm.getRows()-1;
+  const size_t ncols = gm.getCols()-1;
+  const size_t nrows = gm.getRows()-1;
 
 	// gridObject.grid2D.resize(ncols, nrows, IOUtils::nodata);
 	// gridObject.llcorner.setXY(geotop::common::Variables::UV->U[4],geotop::common::Variables::UV->U[3], 0);
@@ -190,7 +190,7 @@ void meteoio_writeEsriasciiVector(const std::string& filenam, short type, const 
 		for(long jj= 0;jj< nc;jj++){
 			if (j[nr - ii][jj+1] > 0) {
 				if(type==1){
-					gridObject.grid2D(jj,ii) = (long)(DTM[j[ii][jj]]);
+          gridObject.grid2D(jj,ii) = (DTM[j[ii][jj]]);
 				}else{
 					gridObject.grid2D(jj,ii) = DTM[j[ nr - ii][jj+1]];
 				}
@@ -523,10 +523,10 @@ void meteoio_interpolate_cloudiness(Par* par, const double& currentdate, GeoMatr
 		// so in this case, this piece of code has to be avoided.
 		std::vector<std::vector<MeteoData> > vecMeteos;
 		std::vector<MeteoData> meteo; // Intermediate storage for storing data sets for 1 timestep
-		int numOfStations = io->getMeteoData(d1, meteo); // Read the meteo data for the given timestep
+    size_t numOfStations = io->getMeteoData(d1, meteo); // Read the meteo data for the given timestep
 		vecMeteos.insert(vecMeteos.begin(), meteo.size(), std::vector<MeteoData>()); // Allocation for the vectors
 
-		for (int i = 0; i < numOfStations; i++) {
+    for (size_t i = 0; i < numOfStations; i++) {
 			meteo[i](MeteoData::TAU_CLD) = (tau_cloud_vec[i+1] == geotop::input::gDoubleNoValue ? IOUtils::nodata : tau_cloud_vec[i+1]);
 			vecMeteos.at(i).push_back(meteo[i]); // fill the data into the vector of vectors
 		}

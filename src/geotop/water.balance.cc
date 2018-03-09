@@ -41,7 +41,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
 	clock_t start, end;
 	double Pnet, loss;
-	long j;
+  size_t j;
 	short a;
 	
 	// this below used only for checks..
@@ -163,7 +163,8 @@ short Richards3D(double Dt, SoilState *L, SoilState *C, AllData *adt, double *lo
 	long N=adt->W->H0.size();
 	long cont_lambda_min=0;
 	short out, out2;	
-	int sux;
+  int sux;
+  (void)sux; // silence warning
 	FILE *f;
 
 
@@ -528,7 +529,8 @@ short Richards1D(long c, double Dt, SoilState *L, AllData *adt, double *loss, do
 	long N=adt->W->H0.size()-1;
 	long cont_lambda_min=0;
 	short out, out2;	
-	int sux;
+  int sux;
+  (void)sux;
 	FILE *f;
 	
 	*Total_Pnet = 0.;
@@ -776,7 +778,8 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2){
 
 
 
-int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom_l, GeoVector<double>& Kbottom_ch, AllData *adt, const GeoVector<double>& H){
+int find_matrix_K_3D(double /*Dt*/, SoilState *SL, SoilState *SC, GeoVector<double>& Lx, GeoMatrix<double>& Klat,
+                     GeoMatrix<double>& Kbottom_l, GeoVector<double>& Kbottom_ch, AllData *adt, const GeoVector<double>& H){
 	
 	size_t i;
 	size_t l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
@@ -1182,7 +1185,7 @@ int find_matrix_K_3D(double Dt, SoilState *SL, SoilState *SC, GeoVector<double>&
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_matrix_K_1D(long c, double Dt, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H)
+int find_matrix_K_1D(long c, double /*Dt*/, SoilState *L, GeoVector<double>& Lx, GeoMatrix<double>& Klat, GeoMatrix<double>& Kbottom, AllData *adt, const GeoVector<double>& H)
 	{
 	long l, r=1, I, sy, cnt=0;
     size_t i;
@@ -1617,12 +1620,12 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 /******************************************************************************************************************************************/
 
 
-  void find_dt_max(double Courant, GeoMatrix<double>& h, Land *land, Topo *top, Channel *cnet, Par *par, Meteo *met, double t, double *dt){
+  void find_dt_max(double Courant, GeoMatrix<double>& h, Land *land, Topo *top, Channel *cnet, Par *par, Meteo* /*met*/, double /*t*/, double *dt){
 
     // t parameter is NOT used ??? 
 	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, Vmax, H;
 	short d;
-	long r, c, j, ch;
+  size_t r, c, j, ch;
 	
 	for (j=1; j<=par->total_pixel; j++) {
 		
@@ -1678,11 +1681,11 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance){
 
 
 void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<double>& hch, double *dhch, Topo *top, Land *land, Water *wat, Channel *cnet,
-			 Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo )
+       Par *par, Meteo *met, GeoVector<double>& Vsup, double *Voutnet, double *Voutland, double */*mm1*/, double */*mm2*/, double */*mmo*/ )
 
 {
 	
-	long d, r, c, j, R, C, ch;                                    
+  size_t d, r, c, j, R, C, ch;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, Vmax, H;
 	double q, q0, tb, te=0.0, dt;
 	long cnt=0,cnt2=0,cnt3=0;
@@ -1827,10 +1830,10 @@ void supflow(double Dt, double t, GeoMatrix<double>& h, double *dV, GeoMatrix<do
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double t, double *dt){
+void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Channel *cnet, Par *par, double /*t*/, double *dt){
 	
 	double q, ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]), area, areach, Vmax, H, Hch, DH, cosineslope;
-	long r, c, ch;
+  size_t r, c, ch;
 	
 	for (ch=1; ch<=par->total_channel; ch++) {
 		
@@ -1897,9 +1900,9 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water *wat, Channel *cnet, Par *par, GeoVector<double>& Vsup, long *cnt){
+  void supflow_chla(double Dt, double t, GeoMatrix<double>& h, GeoMatrix<double>& hch, Topo *top, Water */*wat*/, Channel *cnet, Par *par, GeoVector<double>& Vsup, long *cnt){
 	
-	long ch, r, c;
+  size_t ch, r, c;
 	double ds=sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
 	double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax, cosineslope;
 	
@@ -1997,9 +2000,9 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 /******************************************************************************************************************************************/
 
 
-  void find_dt_max_channel(short DDcomplex, double Courant, GeoMatrix<double>& h, Topo *top, Channel *cnet, Par *par, Land *land, double t, double *dt){
+  void find_dt_max_channel(short /*DDcomplex*/, double Courant, GeoMatrix<double>& h, Topo *top, Channel *cnet, Par *par, Land */*land*/, double /*t*/, double *dt){
 	
-	long r, c, ch, R, C;		
+  size_t r, c, ch, R, C;
 	double Ks, q, Vmax, i, H, dn, dD, ds;
 	
 	ds = sqrt(geotop::common::Variables::UV->U[1]*geotop::common::Variables::UV->U[2]);
@@ -2019,7 +2022,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 	
 			Vmax = 1.E-3*H*dn*cnet->length[ch];	//m3
 			
-			if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==ch){//outlet section
+      if(top->is_on_border[r][c] == 1 && cnet->ch_down[ch]==long(ch)){//outlet section
 
 				q = GTConst::Cd*(2./3.)*sqrt(2.*GTConst::GRAVITY*1.E-3*H)*(1.E-3*H)*dn;	//[m3/s]
 				
@@ -2029,7 +2032,7 @@ void find_dt_max_chla(double Courant, GeoMatrix<double>& h, GeoMatrix<double>& h
 				R = cnet->r[cnet->ch_down[ch]];
 				C = cnet->c[cnet->ch_down[ch]];
 				
-				if( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) ){
+        if( (int(R-r)==1 || int(R-r)==-1) && (int(C-c)==1 || int(C-c)==-1) ){
 					dD = find_3Ddistance(ds*sqrt(2.), top->Z0[r][c] - top->Z0[R][C]);
 				}else {
 					dD = find_3Ddistance(ds, top->Z0[r][c] - top->Z0[R][C]);

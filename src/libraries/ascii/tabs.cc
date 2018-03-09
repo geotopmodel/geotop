@@ -33,6 +33,7 @@
 
 #include <iostream>
 #include "../../geotop/global_logger.h"
+#include <sstream>
 
 /*============================================================================*/
 /*                               Constants                                    */
@@ -65,9 +66,10 @@ static double* readline_of_numbers(FILE *f, long comment_char,
                                    long sep_char, long *components,
                                    short *endoffile, short *success);
 
-static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr,
-                         long max_num_cols, std::vector<std::string> header,
-                         long num_cols_header, FILE *flog);
+// this function is never defined...
+//static long* ColumnCoder(std::string filename, std::vector<std::string> ColDescr,
+//                         long max_num_cols, std::vector<std::string> header,
+//                         long num_cols_header, FILE *flog);
 
 static double **read_datamatrix(FILE *f, long comment_char, long sep_char,
                                 long number_lines, long components_header);
@@ -162,15 +164,15 @@ double find_number(long *vector, long lengthvector)
 std::string find_string(long *vector, long lengthvector)
 {
 
-    std::string string;
-    long i;
+  std::stringstream stream;
+   long i;
 
-    for (i = 0; i < lengthvector; i++)
-    {
-        string.push_back(vector[i]);
-    }
+   for (i = 0; i < lengthvector; i++)
+   {
+     stream << char(vector[i]);
+   }
 
-    return(string);
+   return stream.str();
 }
 
 

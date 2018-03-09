@@ -21,11 +21,13 @@
 #ifndef DATASTRUCTS_H
 #define DATASTRUCTS_H
 
+#include <config.h>
 #include <vector>
 #include <string>
 #define __MATHOPTIM_H__
+DISABLE_WARNINGS
 #include <meteoio/MeteoIO.h>
-
+ENABLE_WARNINGS
 #if defined(__linux) && !defined(ANDROID) && !defined(__CYGWIN__)
 #include <execinfo.h>
 /* #define ENABLE_PRINT_STACK_FRAME 1 */
@@ -119,8 +121,8 @@ template<class T> void GeoVector<T>::setMetaData(const std::string& iname, const
 
 template<class T> void GeoVector<T>::reset(const T& val)
 {
-	const double data_size = data.size();
-	for (unsigned int ii=0; ii<data_size; ii++) {
+  const size_t data_size = data.size();
+	for (size_t ii=0; ii<data_size; ii++) {
 		data[ii] = val;
 	}
 }
@@ -128,7 +130,7 @@ template<class T> void GeoVector<T>::reset(const T& val)
 template<class T> void GeoVector<T>::reset(const T& val, const T& val_to_omit)
 {
 	const double data_size = data.size();
-	for (unsigned int ii=0; ii<data_size; ii++) {
+	for (size_t ii=0; ii<data_size; ii++) {
 		if (data[ii] != val_to_omit) {
 			data[ii] = val;
 		}
@@ -192,7 +194,7 @@ template <class T> class GeoMatrix : public mio::Array2D<T> {
 		* @param anx number of columns of the new matrix
 		* @param any number of rows of the new matrix
 		*/
-		GeoMatrix(const unsigned int& anx, const unsigned int& any);
+    GeoMatrix(const size_t& anx, const size_t &any);
 
 		/**
 		* A constructor that creates an array filled with constant values
@@ -200,10 +202,10 @@ template <class T> class GeoMatrix : public mio::Array2D<T> {
 		* @param any number of rows of the new array
 		* @param init initial value to fill the array with
 		*/
-		GeoMatrix(const unsigned int& anx, const unsigned int& any, const T& init);
+    GeoMatrix(const size_t& anx, const size_t& any, const T& init);
 
-		unsigned int getRows() const;
-		unsigned int getCols() const;
+    size_t getRows() const;
+    size_t getCols() const;
 
 		/**
 		* Calling this void procedure sets all elements in GeoMatrix to val
@@ -232,12 +234,12 @@ template<class T> GeoMatrix<T>::GeoMatrix() : mio::Array2D<T>()
 	setMetaData();
 }
 
-template<class T> GeoMatrix<T>::GeoMatrix(const unsigned int& anx, const unsigned int& any) : mio::Array2D<T>(anx, any)
+template<class T> GeoMatrix<T>::GeoMatrix(const size_t& anx, const size_t &any) : mio::Array2D<T>(anx, any)
 {
 	setMetaData();
 }
 
-template<class T> GeoMatrix<T>::GeoMatrix(const unsigned int& anx, const unsigned int& any, const T& init)  : mio::Array2D<T>(anx, any, init)
+template<class T> GeoMatrix<T>::GeoMatrix(const size_t &anx, const size_t& any, const T& init)  : mio::Array2D<T>(anx, any, init)
 {
 	setMetaData();
 }
@@ -269,7 +271,7 @@ template<class T> void GeoMatrix<T>::reset(const T& val, const T& val_to_omit)
 	}
 }
 
-template<class T> unsigned int GeoMatrix<T>::getRows() const 
+template<class T> size_t GeoMatrix<T>::getRows() const
 {
 #if defined(__linux)
     PRINT_FRAME_STACK
@@ -277,7 +279,7 @@ template<class T> unsigned int GeoMatrix<T>::getRows() const
 	return this->nx;
 }
 
-template<class T> unsigned int GeoMatrix<T>::getCols() const 
+template<class T> size_t GeoMatrix<T>::getCols() const
 {
 #if defined(__linux)
     PRINT_FRAME_STACK
@@ -298,7 +300,7 @@ template <class T> class GeoTensor : public mio::Array3D<T> {
 		* @param any number of rows of the new 3d array
 		* @param anz number of depths of the new 3d array
 		*/
-		GeoTensor(const unsigned int& anx, const unsigned int& any, const unsigned int& anz);
+    GeoTensor(const size_t& anx, const size_t& any, const size_t& anz);
 
 		/**
 		* A constructor that creates an array filled with constant values
@@ -307,11 +309,11 @@ template <class T> class GeoTensor : public mio::Array3D<T> {
 		* @param anz number of depths of the new 3d array
 		* @param init initial value to fill the array with
 		*/
-		GeoTensor(const unsigned int& anx, const unsigned int& any, const unsigned int& anz, const T& init);
+    GeoTensor(const size_t& anx, const size_t& any, const size_t& anz, const T& init);
 
-		unsigned int getDh() const;
-		unsigned int getCh() const;
-		unsigned int getRh() const;
+    size_t getDh() const;
+    size_t getCh() const;
+    size_t getRh() const;
 
 		/**
 		* Calling this void procedure sets all elements in GeoTensor to val
@@ -341,12 +343,12 @@ template<class T> GeoTensor<T>::GeoTensor() : mio::Array3D<T>()
 	setMetaData();
 }
 
-template<class T> GeoTensor<T>::GeoTensor(const unsigned int& anx, const unsigned int& any, const unsigned int& anz) : mio::Array3D<T>(anx, any, anz)
+template<class T> GeoTensor<T>::GeoTensor(const size_t &anx, const size_t &any, const size_t &anz) : mio::Array3D<T>(anx, any, anz)
 {
 	setMetaData();
 }
 
-template<class T> GeoTensor<T>::GeoTensor(const unsigned int& anx, const unsigned int& any, const unsigned int& anz, const T& init)  : mio::Array3D<T>(anx, any, anz, init)
+template<class T> GeoTensor<T>::GeoTensor(const size_t &anx, const size_t &any, const size_t &anz, const T& init)  : mio::Array3D<T>(anx, any, anz, init)
 {
 	setMetaData();
 }
@@ -383,7 +385,7 @@ template<class T> void GeoTensor<T>::reset(const T& val, const T& val_to_omit)
 	}
 }
 
-template<class T> unsigned int GeoTensor<T>::getDh() const 
+template<class T> size_t GeoTensor<T>::getDh() const
 {
 #if defined(__linux)
     PRINT_FRAME_STACK
@@ -391,7 +393,7 @@ template<class T> unsigned int GeoTensor<T>::getDh() const
 	return this->nx;
 }
 
-template<class T> unsigned int GeoTensor<T>::getRh() const 
+template<class T> size_t GeoTensor<T>::getRh() const
 {
 #if defined(__linux)
     PRINT_FRAME_STACK
@@ -399,7 +401,7 @@ template<class T> unsigned int GeoTensor<T>::getRh() const
 	return this->ny;
 }
 
-template<class T> unsigned int GeoTensor<T>::getCh() const 
+template<class T> size_t GeoTensor<T>::getCh() const
 {
 #if defined(__linux)
     PRINT_FRAME_STACK

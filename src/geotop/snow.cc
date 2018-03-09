@@ -1122,7 +1122,7 @@ void deallocate_statevar_1D(Statevar1D *V)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short copy_statevar_from3D_to1D(long r, long c, Statevar3D *origin, Statevar1D *destination)
+short copy_statevar_from3D_to1D(size_t r, size_t c, Statevar3D *origin, Statevar1D *destination)
 {
 
     size_t nl, l;

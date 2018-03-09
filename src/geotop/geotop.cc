@@ -20,7 +20,7 @@
 
 /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
 
-#include "../config.h"
+#include "version.h"
 
 #include <sys/stat.h>
 #include "struct.geotop.h"
@@ -209,8 +209,11 @@ int main(int argc,char *argv[]){
     
     lg->writeAll("##### Please report the above lines if you ask for help ############################\n");
 
-
-    chdir(lDataPath.c_str());
+    {
+      // silence a warning about ignoring return value of chdir
+      int ret =  chdir(lDataPath.c_str());
+      (void) ret;
+    }
 	mio::Config cfg(cfgfile);
 	cfg.addKey("GRID2DPATH", "Input", "");
 	mio::IOManager iomanager(cfg);
@@ -321,6 +324,7 @@ int main(int argc,char *argv[]){
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
 
 void time_loop(AllData *A, mio::IOManager& iomanager){
+  (void)iomanager; // silence warning of unused variable. The usage of this var depends on compile options
 
 	clock_t tstart, tend;
 	short en=0, wt=0, out;

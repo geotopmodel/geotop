@@ -207,7 +207,7 @@ void next_down_channel_pixel( long r, long c, GeoMatrix<double>& Z, GeoMatrix<do
 /// ~brief find highest channel pixel that has not been enumerated yet
 void find_max_constraint( GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<long>& CH, long novalue, long *R, long *C){
 	
-	long r, c;
+  size_t r, c;
 	double z = -1.E99;
 	
 	*R=0;
@@ -236,7 +236,7 @@ void find_max_constraint( GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix
 short neighboring_down_channel_pixel( long r, long c, long ir, long ic, GeoMatrix<double>& Z, GeoMatrix<double>& LC, GeoMatrix<short>& pixel_type, GeoMatrix<long>& CH, long novalue){
 	
 	short yes=0;
-	long R=r+ir, C=c+ic;
+  size_t R=r+ir, C=c+ic;
 	
 	if(R>=1 && R<CH.getRows() && C>=1 && C<CH.getCols()){
 		if((long)LC[R][C]!=novalue){

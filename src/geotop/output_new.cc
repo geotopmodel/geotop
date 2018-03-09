@@ -184,8 +184,7 @@ static GeoVector<double>* extractSupervectorFromMap(GeoMatrix<double>* M, AllDat
     GeoVector<double>* output = new GeoVector<double>(A->P->total_pixel + 1);
     long r,c;
     
-	//size_t i; //this generates warning, changed to signed, otherwise A->P->total_pixel should be unsigned
-	long i;
+  size_t i;
     for (i = 1; i <= A->P->total_pixel; i++)
     {
         r = A->T->rc_cont[i][1];
@@ -278,7 +277,7 @@ static GeoMatrix<double>* initTempValuesMatrix(size_t rows, size_t cols)
     return output;
 }
 
-static GeoTensor<double>* initTempValuesTensor(size_t layers, size_t rows, size_t cols)
+ GeoTensor<double>* initTempValuesTensor(size_t layers, size_t rows, size_t cols)
 {
     GeoTensor<double>* output = new GeoTensor<double>(layers,
                                                       rows,
@@ -600,9 +599,9 @@ static void refreshTemporaryValuesM(geotop::input::OutputFile* f, AllData* A)
     }
 }
 
-static double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
+double getPointValue(AllData* A, geotop::input::Variable what, long layer, long row, long col)
 {
-    long i;
+    size_t i;
     bool found = false;
     double output = geotop::input::gDoubleNoValue;
 
@@ -644,7 +643,7 @@ static double getPointValue(AllData* A, geotop::input::Variable what, long layer
 #ifndef METEOIO_OUTPUT
 static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
 {
-    long r,c;
+    size_t r,c;
     FILE* fp = NULL;
     GeoMatrix<double> M(geotop::common::Variables::Nr+1,
                         geotop::common::Variables::Nc+1,
@@ -672,8 +671,8 @@ static void printLayer(std::string filename, GeoVector<double>* V, AllData* A)
     }
 
     //Header
-    fprintf(fp, "ncols         %u\n", M.getCols()-1);
-    fprintf(fp, "nrows         %u\n", M.getRows()-1);
+    fprintf(fp, "ncols         %zu\n", M.getCols()-1);
+    fprintf(fp, "nrows         %zu\n", M.getRows()-1);
     fprintf(fp, "xllcorner     %f\n", geotop::common::Variables::UV->U[4]);
     fprintf(fp, "yllcorner     %f\n", geotop::common::Variables::UV->U[3]);
     fprintf(fp, "cellsize      %f\n", geotop::common::Variables::UV->U[1]);
@@ -1657,11 +1656,11 @@ static GeoMatrix<double>* getSupervectorVariableM(AllData* A, geotop::input::Var
 
 }
 
-static GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor<double>* T)
+ GeoVector<double> getSupervectorFromGeoTensor(AllData* A, GeoTensor<double>* T)
 {
 
     size_t l, layers;  //GeoTensor layer indexes
-    long r, c, i;      //Row/Column and Index needed to build the SuperVector
+    size_t r, c, i;      //Row/Column and Index needed to build the SuperVector
 
     GeoVector<double> output = GeoVector<double>(A->P->total_pixel + 1, 0.);
 

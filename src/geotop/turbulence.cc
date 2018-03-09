@@ -29,7 +29,7 @@ using namespace std;
 /******************************************************************************************************************************************/
 
 void Turbulence::aero_resistance(double zmu, double zmt, double z0, double d0, double z0_z0t, double v, double Ta, double T, double Qa, 
-						   double Q, double P, double gmT, double *Lobukhov, double *rm, double *rh, double *rv, short state_turb, 
+               double Q, double /*P*/, double gmT, double *Lobukhov, double *rm, double *rh, double *rv, short state_turb,
 						   short MO, long maxiter) 
 {
 	FILE *f;
@@ -280,7 +280,7 @@ double Turbulence::CZ(short state, double zmeas, double z0, double d0, double L,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void Turbulence::Star(short a, double zmeas, double z0, double d0, double L, double u, double delta, double M, double N, double R, 
+void Turbulence::Star(short a, double zmeas, double z0, double d0, double L, double /*u*/, double delta, double M, double N, double R,
 		  double *var, double *c, double *z0v, double (*Psi)(const double& z), double (*roughness)(const double& x, const double& y, const double& z))
 {	
 	*z0v=z0*(*roughness)(M, N, R);
@@ -455,7 +455,7 @@ double Turbulence::latent(const double& Ts, const double& Le)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void Turbulence::find_actual_evaporation_parameters(long R, long C, double *alpha, double *beta, GeoVector<double>& evap_layer, double *theta,
+void Turbulence::find_actual_evaporation_parameters(long /*R*/, long /*C*/, double *alpha, double *beta, GeoVector<double>& evap_layer, double *theta,
 										  //double **soil, double *T, double psi, double P, double rv, double Ta, double Qa, 
 										  GeoTensor<double>& soil, long sy, double *T, double psi, double P, double rv, double Ta, double Qa, 
 										  double Qgsat, long nsnow)

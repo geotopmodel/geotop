@@ -18,7 +18,7 @@
  
  */
 
-
+#include <config.h>
 #include <string>
 #include "geomorphology.h"
 #include "read_command_line.h"
@@ -31,7 +31,10 @@
 #include <limits.h>
 #include <stdio.h>
 #include <iostream>
+DISABLE_WARNINGS
 #include <meteoio/MeteoIO.h>
+ENABLE_WARNINGS
+#include <cmath>
 
 
 /*WORKING_POSITION=SEEK_SET;*/
@@ -99,16 +102,17 @@ void find_min_max(GeoMatrix<double>& M, long novalue, double *max, double *min){
 
 // adapted to GEOMatrix/Vector to get rid of fluidturtle datastructure: to double check if things are ok SC 13.12.2016
 
-void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
+void sky_view_factor(GeoMatrix<double>& sky, size_t N, TInit *UV, GeoMatrix<double>& input, GeoMatrix<short>& convess, long novalue)
 {
-    long i,j,t,m,n,p,q,h,k,r,s; //counters
+  size_t i=0, j=0, t=0, m=0, n=0, p=0, q=0, h=0, k=0, r=0, s=0; //counters
+  
     double deltateta; //amplitude of the angles in which the horizon is divided
     GeoMatrix<double> alfa; //matrices with the angles of the direction
     GeoVector<double> v; //vector with the view factor of the current pixel for one of the N parts
     GeoVector<double> vv; //vector with the minimum view factor of the current pixel for one of the N parts
     double vvv; //mean of the sky view for a pixel of the N parts
-    long nr=input.getRows()-1;
-    long nc=input.getCols()-1;
+    size_t nr=input.getRows()-1;
+    size_t nc=input.getCols()-1;
     
     if(sky.getRows()-1!=nr) t_error("Sky view factor fatal error, number of rows not consistent");
     if(sky.getCols()-1!=nc) t_error("Sky view factor fatal error, number of cols not consistent");
@@ -117,7 +121,6 @@ void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double
     // alfa=new_doublematrix(2*nr-1,2*nc-1);
     // ALLOCATION: please note that I allocate 1 element more for columns and row.. " TODO  double checks
     alfa.resize(2*nr,2*nc,-9999.0);
-    
     
     for(i=1;i<=2*nr-1;i++){
         for(j=1;j<=2*nc-1;j++){
@@ -171,9 +174,11 @@ void sky_view_factor(GeoMatrix<double>& sky, long N, TInit *UV, GeoMatrix<double
                             if (alfa[h][k]>=(t-1)*deltateta && alfa[h][k]<t*deltateta){
                                 r=h-m+1;
                                 s=k-n+1;
-                                if (convess[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0){
+				long r_i = r-i; //I need to convert to a signed variable since i can be greater than r
+				long s_j = s-j; // same here
+                                if (convess[r][s]==1 && sqrt(pow((r_i),2)+pow((s_j),2))!=0){
                                     vv[t]=1-sin(atan((input[r][s]-input[i][j])
-                                                     /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U[1])));
+                                                     /(sqrt(pow((r_i),2)+pow((s_j),2))*UV->U[1])));
                                     if (vv[t]<v[t]){
                                         v[t]=vv[t];
                                     }

@@ -36,9 +36,10 @@ MeteoStations::MeteoStations(size_t nmeteo_stations, double novalue)
     Vheight = GeoVector<double>(nmeteo_stations);
     Theight = GeoVector<double>(nmeteo_stations);
 
+
     tau_cloud_av_meteoST = GeoVector<double>(nmeteo_stations, novalue);
     tau_cloud_meteoST = GeoVector<double>(nmeteo_stations, novalue);
-    tau_cloud_av_yes_meteoST = GeoVector<short>(nmeteo_stations, novalue);
-    tau_cloud_yes_meteoST = GeoVector<short>(nmeteo_stations, novalue);
-    flag_SW_meteoST = GeoVector<short>(nmeteo_stations, novalue);
+    tau_cloud_av_yes_meteoST = GeoVector<short>(nmeteo_stations, short(novalue));
+    tau_cloud_yes_meteoST = GeoVector<short>(nmeteo_stations, short(novalue));
+    flag_SW_meteoST = GeoVector<short>(nmeteo_stations, short(novalue));
 }
