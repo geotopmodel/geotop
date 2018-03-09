@@ -25,16 +25,17 @@
 /****************************************************************************************************/
 #ifndef TIMES_H
 #define TIMES_H
+
+#include <exception>
 #include "struct.geotop.h"
 #include "constants.h"
 #include "meteo.h"
 #include "meteodata.h"
-#include <exception>
 
-class InvalidDateException : std::exception
+class InvalidDateException : public std::exception
 {
     public:
-        const char* what()
+        const char* what() const throw()
         {
             return "Invalid date.";
         }

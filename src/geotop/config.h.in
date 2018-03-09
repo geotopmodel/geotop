@@ -16,10 +16,6 @@ _Pragma("GCC diagnostic ignored \"-Wignored-attributes\"")              \
 _Pragma("GCC diagnostic ignored \"-Wignored-qualifiers\"")              \
 _Pragma("GCC diagnostic ignored \"-Wimplicit-fallthrough\"")            \
 _Pragma("GCC diagnostic ignored \"-Winfinite-recursion\"")              \
-_Pragma("GCC diagnostic ignored \"-Wint-in-bool-context\"")             \
-_Pragma("GCC diagnostic ignored \"-Wmisleading-indentation\"")          \
-_Pragma("GCC diagnostic ignored \"-Wmissing-field-initializers\"")      \
-_Pragma("GCC diagnostic ignored \"-Wnested-anon-types\"")               \
 _Pragma("GCC diagnostic ignored \"-Wnon-virtual-dtor\"")                \
 _Pragma("GCC diagnostic ignored \"-Woverflow\"")                        \
 _Pragma("GCC diagnostic ignored \"-Woverloaded-virtual\"")              \
