@@ -20,7 +20,7 @@
  */
 
 #include "meteodata.h"
-#include "../../config.h"
+#include "version.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
 #include "global_logger.h"

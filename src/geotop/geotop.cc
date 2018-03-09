@@ -20,7 +20,7 @@
 
 /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
 
-#include "../config.h"
+#include "version.h"
 
 #include <sys/stat.h>
 #include "struct.geotop.h"

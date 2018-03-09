@@ -18,7 +18,7 @@
  If you have satisfactorily used the code, please acknowledge the authors.
  
  */
-#include "../../config.h"
+#include "version.h"
 #include "geotop_common.h"
 #include "meteo.h"
 #include "inputKeywords.h"

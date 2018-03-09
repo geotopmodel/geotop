@@ -19,7 +19,7 @@
  
  */
 
-#include "../../config.h"
+#include "version.h"
 
 #include "blowingsnow.h"
 #include "inputKeywords.h"
