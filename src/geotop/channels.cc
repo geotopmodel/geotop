@@ -48,7 +48,7 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 				next_down_channel_pixel( r, c, Z, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
 				if(rnext>0){
 					i++;
-					if(fabs(rnext-r)==1 && fabs(cnext-c)==1){
+					if(std::abs(rnext-r)==1 && std::abs(cnext-c)==1){
 						cnet->length[i-1]+=0.5*sqrt(2.);
 						cnet->length[i]+=0.5*sqrt(2.);
 					}else{
@@ -67,7 +67,7 @@ void enumerate_channels(Channel *cnet, GeoMatrix<double>& LC, GeoMatrix<short>& 
 			}while(rnext>0);
 			
 			if(rnext<0){
-				if(fabs(-rnext-r)==1 && fabs(-cnext-c)==1){
+				if(std::abs(-rnext-r)==1 && std::abs(-cnext-c)==1){
 					cnet->length[i]+=0.5*sqrt(2.);
 				}else{
 					cnet->length[i]+=0.5;

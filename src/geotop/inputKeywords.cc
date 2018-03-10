@@ -7,6 +7,8 @@
  * Parse configuration file and store parameters on single container
  */
 
+#include <config.h>
+DISABLE_WARNINGS
 #include "inputKeywords.h"
 #include <boost/spirit/include/classic.hpp>
 #include <boost/foreach.hpp>
@@ -28,7 +30,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
+ENABLE_WARNINGS
 #include "output_file.h"
 
 #include "logger.h"
