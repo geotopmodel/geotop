@@ -318,29 +318,29 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
     
     // loop over meteo files..
     
-    for(size_t i=1; i <= (size_t)num_met_stat; i++){
+    for(size_t ii=1; ii <= (size_t)num_met_stat; ii++){
         // check if there is a list of meteostation
         if (met->imeteo_stations[1] != geotop::input::gDoubleNoValue) {
-            ist = met->imeteo_stations[i];
+            ist = met->imeteo_stations[ii];
         }else {
-            ist = i;
+            ist = ii;
         }
 
-        lg->logf("Reading horizon for : %d meteo station",i);
+        lg->logf("Reading horizon for : %d meteo station",ii);
         //	read horizon
-        met->horizon[i-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines);
-        met->horizonlines[i-1] = num_lines;
+        met->horizon[ii-1] = read_horizon(1, ist, geotop::common::Variables::files[fhormet], IT->horizon_col_names, &num_lines);
+        met->horizonlines[ii-1] = num_lines;
 
 
         // ### Probably the next lines should not be necessary if we use meteoIO  ###
       
 #ifdef USE_INTERNAL_METEODISTR
         //initialize
-        met->line_interp_WEB[i-1] = 0;
-        met->line_interp_Bsnow[i-1] = 0;
+        met->line_interp_WEB[ii-1] = 0;
+        met->line_interp_Bsnow[ii-1] = 0;
 
         //allocate var
-        met->var[i-1] = (double*)malloc(num_cols*sizeof(double));
+        met->var[ii-1] = (double*)malloc(num_cols*sizeof(double));
 
         //filename
         if (geotop::common::Variables::files[fmet] != geotop::input::gStringNoValue){
@@ -348,9 +348,9 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
             //read matrix
             temp=namefile_i(geotop::common::Variables::files[fmet], ist);
 
-            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
+            met->data[ii-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
-            if ((long)met->data[i-1][0][iDate12] == geotop::input::gDoubleAbsent && (long)met->data[i-1][0][iJDfrom0] == geotop::input::gDoubleAbsent) {
+            if ((long)met->data[ii-1][0][iDate12] == geotop::input::gDoubleAbsent && (long)met->data[ii-1][0][iJDfrom0] == geotop::input::gDoubleAbsent) {
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                 fprintf(f, "Error:: Date Column missing in file %s\n",temp.c_str());
                 fclose(f);
@@ -361,19 +361,19 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
                        geotop::logger::CRITICAL);
                 exit(1);
             }
-            met->numlines[i-1] = num_lines;
-            lg->logf("Read meteo data for meteo station #: %d with number of lines=%d",i,num_lines);
+            met->numlines[ii-1] = num_lines;
+            lg->logf("Read meteo data for meteo station #: %d with number of lines=%d",ii,num_lines);
 
             // get initial and final dates and compares against simulation periods
             // let us make comparison in JDfrom0 format.
             
-            initial_date_meteo = convert_dateeur12_JDfrom0(met->data[i-1][1][iDate12]);
-            end_date_meteo= convert_dateeur12_JDfrom0(met->data[i-1][num_lines-1][iDate12]);
+            initial_date_meteo = convert_dateeur12_JDfrom0(met->data[ii-1][1][iDate12]);
+            end_date_meteo= convert_dateeur12_JDfrom0(met->data[ii-1][num_lines-1][iDate12]);
             
-            convert_dateeur12_daymonthyearhourmin(met->data[i-1][0][iDate12], &d, &m, &y, &h, &mi);
+            convert_dateeur12_daymonthyearhourmin(met->data[ii-1][0][iDate12], &d, &m, &y, &h, &mi);
             lg->logf("Initial date of meteo data : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
             
-            convert_dateeur12_daymonthyearhourmin(met->data[i-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
+            convert_dateeur12_daymonthyearhourmin(met->data[ii-1][num_lines-1][iDate12], &d, &m, &y, &h, &mi);
             
             lg->logf("Final date of meteo data   : %02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)d,(float)m,(float)y,(float)h,(float)mi);
             
@@ -387,7 +387,7 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
            
             
             //fixing dates: converting times in the same standard time set for the simulation and fill JDfrom0
-            short added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST[i], met->numlines[i-1], iDate12, iJDfrom0);
+            short added_JDfrom0 = fixing_dates(ist, met->data[ii-1], par->ST, met->st->ST[ii], met->numlines[ii-1], iDate12, iJDfrom0);
 
             switch(added_JDfrom0)
             {
@@ -407,68 +407,68 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
                     break;
             }
         
-            check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
+            check_times(ist, met->data[ii-1], met->numlines[ii-1], iJDfrom0);
 
             //find clouds
             if(IT->met_col_names[itauC] != geotop::input::gStringNoValue){
-                if((long)met->data[i-1][0][itauC] == geotop::input::gDoubleAbsent || par->ric_cloud == 1){
-			added_cloud = fill_meteo_data_with_cloudiness(met->data[i-1], met->numlines[i-1], met->horizon[i-1], met->horizonlines[i-1], 
-			    met->st->lat[i], met->st->lon[i], par->ST, met->st->Z[i], met->st->sky[i], 0.0, par->ndivdaycloud, par->dem_rotation,
+                if((long)met->data[ii-1][0][itauC] == geotop::input::gDoubleAbsent || par->ric_cloud == 1){
+      added_cloud = fill_meteo_data_with_cloudiness(met->data[ii-1], met->numlines[ii-1], met->horizon[ii-1], met->horizonlines[ii-1],
+          met->st->lat[ii], met->st->lon[ii], par->ST, met->st->Z[ii], met->st->sky[ii], 0.0, par->ndivdaycloud, par->dem_rotation,
 			    par->Lozone, par->alpha_iqbal, par->beta_iqbal, 0.);
                 }
             }
 
             //calculate Wx and Wy if Wspeed and direction are given
             if (par->wind_as_xy == 1) {
-                added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+                added_wind_xy = fill_wind_xy(met->data[ii-1], met->numlines[ii-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
             }
 
             //calculate Wspeed and direction if Wx and Wy are given
             if (par->wind_as_dir == 1) {
-                added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
+                added_wind_dir = fill_wind_dir(met->data[ii-1], met->numlines[ii-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWs], IT->met_col_names[iWdir]);
             }
 
             // find Tdew
             if(par->vap_as_Td == 1){
-                added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+                added_Tdew = fill_Tdew(ii, met->st->Z, met->data[ii-1], met->numlines[ii-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
             // find RH
             if(par->vap_as_RH == 1){
-                added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
+                added_RH = fill_RH(ii,  met->st->Z, met->data[ii-1], met->numlines[ii-1], iRh, iT, iTdew, IT->met_col_names[iRh]);
             }
 
             //find Prec Intensity
-            if ( par->linear_interpolation_meteo[i] == 1 && (long)met->data[i-1][0][iPrec] != geotop::input::gDoubleAbsent) {
+            if ( par->linear_interpolation_meteo[ii] == 1 && (long)met->data[ii-1][0][iPrec] != geotop::input::gDoubleAbsent) {
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
-                fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",i);
+                fprintf(f,"Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.\n",ii);
                 fprintf(f,"If you want to use precipitation as volume, you cannot set keyword LinearInterpolation at 1.\n");
                 fclose(f);
                 lg->logsf(geotop::logger::ERROR,
                         "Meteo data for station %ld contain precipitation as volume, but Linear Interpolation is set. This is not possible, the precipitation data are removed.",
-                        i);
+                        ii);
                 lg ->log("Geotop failed. See failing report (3).",
                         geotop::logger::CRITICAL);
                 exit(1);
             }
 
             if(par->prec_as_intensity == 1){
-                added_Pint = fill_Pint(met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+                added_Pint = fill_Pint(met->data[ii-1], met->numlines[ii-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
             //calculate Wx and Wy if Wspeed and direction are given
             if (par->wind_as_xy != 1) {
-                added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
+                added_wind_xy = fill_wind_xy(met->data[ii-1], met->numlines[ii-1], iWs, iWdir, iWsx, iWsy, IT->met_col_names[iWsx], IT->met_col_names[iWsy]);
             }
 
             //find Prec Intensity
             if(par->prec_as_intensity != 1){
-                added_Pint = fill_Pint(met->data[i-1], met->numlines[i-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
+                added_Pint = fill_Pint(met->data[ii-1], met->numlines[ii-1], iPrec, iPrecInt, iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
             //find Tdew
             if(par->vap_as_Td != 1){
-                added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
+                added_Tdew = fill_Tdew(ii, met->st->Z, met->data[ii-1], met->numlines[ii-1], iRh, iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
             //free(temp);
@@ -478,17 +478,17 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
             lg->log("File meteo not in the list, meteo data not read, used default values",
                     geotop::logger::WARNING);
 
-            met->data[i-1] = (double**)malloc(2*sizeof(double*));
+            met->data[ii-1] = (double**)malloc(2*sizeof(double*));
 
             for (n=1; n<=2; n++) {
-                met->data[i-1][n-1] = (double*)malloc(num_cols*sizeof(double));
+                met->data[ii-1][n-1] = (double*)malloc(num_cols*sizeof(double));
                 for (j=1; j<=nmet; j++) {
-                    met->data[i-1][n-1][j-1] = (double)geotop::input::gDoubleAbsent;
+                    met->data[ii-1][n-1][j-1] = (double)geotop::input::gDoubleAbsent;
                 }
             }
 
-            met->data[i-1][0][iJDfrom0] = 0.;
-            met->data[i-1][1][iJDfrom0] = 1.E10;
+            met->data[ii-1][0][iJDfrom0] = 0.;
+            met->data[ii-1][1][iJDfrom0] = 1.E10;
 
         }
 #endif //USE_INTERNAL_METEODISTR
@@ -623,12 +623,12 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
     lg->writeAll("\nMETEO STATIONS:\n");
     lg->writeAll("ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]\n");
 
-    for(size_t r=1;r<met->st->E.size();r++){
+    for(size_t rr=1;rr<met->st->E.size();rr++){
 
         lg->writefAll("%ld,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g,%12g\n",
-                r, met->st->E[r], met->st->N[r], met->st->lat[r],
-                met->st->lon[r], met->st->Z[r], met->st->sky[r],
-                met->st->ST[r], met->st->Vheight[r], met->st->Theight[r]);
+                rr, met->st->E[rr], met->st->N[rr], met->st->lat[rr],
+                met->st->lon[rr], met->st->Z[rr], met->st->sky[rr],
+                met->st->ST[rr], met->st->Vheight[rr], met->st->Theight[rr]);
     }
 
     /****************************************************************************************************/
@@ -726,20 +726,20 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
         root(land->root_fraction.getCols(), land->ty[i][jroot], 0.0, sl->pa, land->root_fraction, i);
 
         //	error messages
-        for(size_t l=1;l<met->st->Z.size();l++){
-            if(0.001*land->ty[i][jHveg]>met->st->Vheight[l] || 0.001*land->ty[i][jHveg]>met->st->Theight[l]){
+        for(size_t ll=1;ll<met->st->Z.size();ll++){
+            if(0.001*land->ty[i][jHveg]>met->st->Vheight[ll] || 0.001*land->ty[i][jHveg]>met->st->Theight[ll]){
                 f = fopen(geotop::common::Variables::FailedRunFile.c_str(), "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - land cover %ld, meteo station %ld\n",
-                        0.001*land->ty[i][jHveg],met->st->Vheight[l],met->st->Theight[l],i,l);
+                        0.001*land->ty[i][jHveg],met->st->Vheight[ll],met->st->Theight[ll],i,ll);
                 fclose(f);
 
                 lg->logsf(geotop::logger::ERROR,
                         "hc:%12g m, zmu:%12g m, zmt:%12g m - hc must be lower than measurement height - land cover %ld, meteo station %ld",
                         0.001*land->ty[i][jHveg],
-                        met->st->Vheight[l],
-                        met->st->Theight[l],
+                        met->st->Vheight[ll],
+                        met->st->Theight[ll],
                         i,
-                        l);
+                        ll);
                 lg->log("Geotop failed. See failing report (5).",
                         geotop::logger::CRITICAL);
                 exit(1);
@@ -1593,8 +1593,8 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
 
                             a = 0;
 
-                            for (size_t i=1; i<par->inf_snow_layers.size(); i++) {
-                                if (n == abs(par->inf_snow_layers[i])) a = 1;
+                            for (size_t ii=1; ii<par->inf_snow_layers.size(); ii++) {
+                                if (n == abs(par->inf_snow_layers[ii])) a = 1;
                             }
 
                             if (a == 0) {
@@ -1785,8 +1785,8 @@ void get_all_input(long /*argc*/, char **/*argv*/, Topo *top, Soil *sl, Land *la
 
                             a = 0;
 
-                            for (size_t i=1; i<par->inf_glac_layers.size(); i++) {
-                                if (n == abs(par->inf_glac_layers[i])) a = 1;
+                            for (size_t ii=1; ii<par->inf_glac_layers.size(); ii++) {
+                                if (n == abs(par->inf_glac_layers[ii])) a = 1;
                             }
 
                             if (a == 0) {

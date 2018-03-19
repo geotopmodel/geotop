@@ -86,13 +86,13 @@ double theta_snow(double a, double b, double T);
 double dtheta_snow(double a, double b, double T);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void allocate_and_initialize_statevar_3D(Statevar3D *V, double nan, long nl, long nr, long nc);
+void allocate_and_initialize_statevar_3D(Statevar3D *V, double nan, long _nl, long nr, long nc);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void deallocate_statevar_3D(Statevar3D *V);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long nl);
+void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long _nl);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void deallocate_statevar_1D(Statevar1D *V);

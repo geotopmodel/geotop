@@ -626,11 +626,11 @@ double getPointValue(AllData* A, geotop::input::Variable what, long layer, long 
         }
         else
         {
-            GeoVector<double>* var = getSupervectorVariableV(A, what);
+            GeoVector<double>* _var = getSupervectorVariableV(A, what);
 
-            if (var != NULL)
+            if (_var != NULL)
             {
-                output = (*var)[i];
+                output = (*_var)[i];
             }
         }
 
@@ -1082,8 +1082,6 @@ static void printCumulates(AllData* A, geotop::input::OutputFile* of)
     lJDate += A->P->init_date;
     lJDate = convert_JDfrom0_dateeur12(lJDate);
 
-    std::string filename;
-
     switch(of->getDimension())
     {
         case geotop::input::D1Dp:
@@ -1150,8 +1148,6 @@ static void printAverages(AllData* A, geotop::input::OutputFile* of, size_t coun
     lJDate /= GTConst::secinday; //seconds to days
     lJDate += A->P->init_date;
     lJDate = convert_JDfrom0_dateeur12(lJDate);
-
-    std::string filename;
 
     switch(of->getDimension())
     {

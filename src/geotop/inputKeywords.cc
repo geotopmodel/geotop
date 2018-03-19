@@ -226,9 +226,9 @@ public:
             boost::any lAny = (*mMap)[*mKey] ;
             if(lAny.type() == typeid(std::vector<double>))
             {
-                std::vector<double> lValue ;
-                lValue.push_back(lDoubleEncodedDate) ;
-                (*mMap)[*mKey] = lValue;
+                std::vector<double> _lValue ;
+                _lValue.push_back(lDoubleEncodedDate) ;
+                (*mMap)[*mKey] = _lValue;
             } else {
                 (*mMap)[*mKey] = lDoubleEncodedDate;
             }
@@ -236,7 +236,7 @@ public:
             lg->log("actionValueDate : no key was pushed for the value, the value will be discarded", ERROR);
         }
         mKey->assign( "" ) ;
-    };
+    }
     
     void actionValueDouble(const double pValue) const
     {

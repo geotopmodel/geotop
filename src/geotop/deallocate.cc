@@ -145,17 +145,17 @@ void dealloc_all(Topo *top, Soil *sl, Land *land, Water *wat, Channel *cnet, Par
     /* Deallocation of struct LAND "land": */
     lg->log("Deallocating land");
 
-    for(size_t i = 0; i < par->n_landuses; i++)
+    for(size_t ii = 0; ii < par->n_landuses; ii++)
     {
-        free(land->vegparv[i]);
+        free(land->vegparv[ii]);
 
-        if(par->vegflag[i + 1] == 1)
+        if(par->vegflag[ii + 1] == 1)
         {
-            for(j = 0; j < land->NumlinesVegTimeDepData[i]; j++)
+            for(j = 0; j < land->NumlinesVegTimeDepData[ii]; j++)
             {
-                free(land->vegpars[i][j]);
+                free(land->vegpars[ii][j]);
             }
-            free(land->vegpars[i]);
+            free(land->vegpars[ii]);
         }
     }
 
