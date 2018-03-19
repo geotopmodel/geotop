@@ -201,12 +201,12 @@ namespace geotop
                
                 mPeriod = rounding(period);
 
-                std::vector<std::string> values = split_ext_key(extended_key);
+                std::vector<std::string> _values = split_ext_key(extended_key);
 
-                if (values.size() == 3)
+                if (_values.size() == 3)
                 {
                     //Variable
-                    std::string tmp = values.at(0);
+                    std::string tmp = _values.at(0);
                     mVariable = str2var(tmp);
 
                     if (mVariable == geotop::input::UNKNOWN_VAR)
@@ -223,14 +223,14 @@ namespace geotop
                     }
 
                     //Dimension
-                    tmp = values.at(1);
+                    tmp = _values.at(1);
                     if (tmp.compare("1Dp") == 0) mDimension = D1Dp;
                     if (tmp.compare("1Ds") == 0) mDimension = D1Ds;
                     if (tmp.compare("2D") == 0) mDimension = D2D;
                     if (tmp.compare("3D") == 0) mDimension = D3D;
 
                     //Integration Type
-                    tmp = values.at(2);
+                    tmp = _values.at(2);
                     if (tmp.compare("AVG") == 0) mType = AVG;
                     if (tmp.compare("CUM") == 0) mType = CUM;
                     if (tmp.compare("INS") == 0) mType = INS;

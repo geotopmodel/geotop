@@ -113,10 +113,10 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe, SoilState *L,
 
 #ifndef USE_INTERNAL_METEODISTR
 
-    for (unsigned long i=1; i< A->M->st->Z.size(); i++){
-	    if (A->M->st->flag_SW_meteoST[i]==1){// if that meteo station measures cloudiness
-		    find_actual_cloudiness_meteoio(&(A->M->st->tau_cloud_meteoST[i]), &(A->M->st->tau_cloud_av_meteoST[i]), 
-							  &(A->M->st->tau_cloud_yes_meteoST[i]), &(A->M->st->tau_cloud_av_yes_meteoST[i]), i, A->M, vec_meteo,
+    for (unsigned long ii=1; ii< A->M->st->Z.size(); ii++){
+      if (A->M->st->flag_SW_meteoST[ii]==1){// if that meteo station measures cloudiness
+        find_actual_cloudiness_meteoio(&(A->M->st->tau_cloud_meteoST[ii]), &(A->M->st->tau_cloud_av_meteoST[ii]),
+                &(A->M->st->tau_cloud_yes_meteoST[ii]), &(A->M->st->tau_cloud_av_yes_meteoST[ii]), ii, A->M, vec_meteo,
 							  JDb, JDe, Delta, E0, Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 	    }
     }
@@ -1603,29 +1603,29 @@ short SolvePointEnergyBalance(
 					//update egy->THETA taking into account evaporation (if there is not snow)
 					if(ns+ng == 0){
 						
-						for(size_t l=ns+ng+1;l<=(size_t)n;l++){
+            for(size_t ll=ns+ng+1;ll<=(size_t)n;ll++){
 							
-							m=l-ns-ng;
+              m=ll-ns-ng;
 							
               if (i<=long(par->total_channel)) {
-								egy->THETA[m] = cnet->th[m][j] + egy->deltaw[l]/(GTConst::rho_w*egy->Dlayer[l]);
+                egy->THETA[m] = cnet->th[m][j] + egy->deltaw[ll]/(GTConst::rho_w*egy->Dlayer[ll]);
 							} else {
-								egy->THETA[m] = sl->th[m][j] + egy->deltaw[l]/(GTConst::rho_w*egy->Dlayer[l]);
+                egy->THETA[m] = sl->th[m][j] + egy->deltaw[ll]/(GTConst::rho_w*egy->Dlayer[ll]);
 							}
 							
 							//add canopy transpiration
-							if(egy->THETA[m] > sl->pa[sy][jres][1] + 1.E-3 && l <= egy->soil_transp_layer.size() ){
-								egy->THETA[m] -= Fmax( Dt*fc*egy->soil_transp_layer[m]/(GTConst::rho_w*egy->Dlayer[l]), 0.0 );
+              if(egy->THETA[m] > sl->pa[sy][jres][1] + 1.E-3 && ll <= egy->soil_transp_layer.size() ){
+                egy->THETA[m] -= Fmax( Dt*fc*egy->soil_transp_layer[m]/(GTConst::rho_w*egy->Dlayer[ll]), 0.0 );
 								if(egy->THETA[m] < sl->pa[sy][jres][m]+1.E-3) egy->THETA[m] = sl->pa[sy][jres][m]+1.E-3;
 							}
 							
 							//add soil evaporation
 							
-							if(egy->THETA[m] > sl->pa[sy][jres][1] + 1.E-3 && l < egy->soil_evap_layer_bare.size() ){
+              if(egy->THETA[m] > sl->pa[sy][jres][1] + 1.E-3 && ll < egy->soil_evap_layer_bare.size() ){
 								
-								egy->THETA[m] -= Fmax( Dt*(1.-fc)*egy->soil_evap_layer_bare[m]/(GTConst::rho_w*egy->Dlayer[l]), 0.0 );
+                egy->THETA[m] -= Fmax( Dt*(1.-fc)*egy->soil_evap_layer_bare[m]/(GTConst::rho_w*egy->Dlayer[ll]), 0.0 );
 								
-								egy->THETA[m] -= Fmax( Dt*fc*egy->soil_evap_layer_veg[m]/(GTConst::rho_w*egy->Dlayer[l]), 0.0 );
+                egy->THETA[m] -= Fmax( Dt*fc*egy->soil_evap_layer_veg[m]/(GTConst::rho_w*egy->Dlayer[ll]), 0.0 );
 								if(egy->THETA[m] < sl->pa[sy][jres][m]+1.E-3) egy->THETA[m] = sl->pa[sy][jres][m]+1.E-3;
 							}
 						}

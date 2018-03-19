@@ -2166,10 +2166,10 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 	lg->logf("Soil Layers: %u",sl->pa.getCh()-1);
 	for (i=1; i<sl->pa.getDh()-1; i++) {
 		lg->logf("-> Soil Type: %ld",i);
-		for (size_t n=1; n <= lSoilParameters.size(); n++) {
-			lg->logf("%s: ",lSoilParameters[n-1].c_str());
+    for (size_t nn=1; nn <= lSoilParameters.size(); nn++) {
+      lg->logf("%s: ",lSoilParameters[nn-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				lg->logf("%f(%.2e)",sl->pa[i][n][j],sl->pa[i][n][j]);
+        lg->logf("%f(%.2e)",sl->pa[i][nn][j],sl->pa[i][nn][j]);
 			}
 		}
 	}
@@ -2209,10 +2209,10 @@ short read_soil_parameters(std::string name, InitTools *IT, Soil *sl, long bed){
 	lg->logf("Soil Bedrock Layers: %u",sl->pa.getCh()-1);
 	for (i=1; i<IT->pa_bed.getDh()-1; i++) {
 		lg->logf("-> Soil Type: %ld",i);
-		for (size_t n=1; n<=lSoilParameters.size(); n++) {
-			lg->logf("%s: ",lSoilParameters[n-1].c_str());
+    for (size_t nn=1; nn<=lSoilParameters.size(); nn++) {
+      lg->logf("%s: ",lSoilParameters[nn-1].c_str());
 			for (j=1; j<sl->pa.getCh(); j++) {
-				lg->logf("%f(%.2e)",IT->pa_bed[i][n][j],IT->pa_bed[i][n][j]);
+        lg->logf("%f(%.2e)",IT->pa_bed[i][nn][j],IT->pa_bed[i][nn][j]);
 			}
 		}
 	}

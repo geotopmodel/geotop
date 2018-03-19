@@ -1072,14 +1072,14 @@ double dtheta_snow(double a, double b, double T)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void allocate_and_initialize_statevar_3D(Statevar3D *V, double nan, long nl, long nr, long nc)
+void allocate_and_initialize_statevar_3D(Statevar3D *V, double nan, long _nl, long nr, long nc)
 {
     V->type.resize(nr + 1, nc + 1, 2);
     V->lnum.resize(nr + 1, nc + 1, 0);
-    V->Dzl.resize(nl + 1, nr + 1, nc + 1 , 0.);
-    V->T.resize(nl + 1, nr + 1, nc + 1, nan);
-    V->w_ice.resize(nl + 1, nr + 1, nc + 1, 0.);
-    V->w_liq.resize(nl + 1, nr + 1, nc + 1, 0.);
+    V->Dzl.resize(_nl + 1, nr + 1, nc + 1 , 0.);
+    V->T.resize(_nl + 1, nr + 1, nc + 1, nan);
+    V->w_ice.resize(_nl + 1, nr + 1, nc + 1, 0.);
+    V->w_liq.resize(_nl + 1, nr + 1, nc + 1, 0.);
 }
 
 /******************************************************************************************************************************************/
@@ -1097,13 +1097,13 @@ void deallocate_statevar_3D(Statevar3D *V)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long nl)
+void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long _nl)
 {
 
-    V->Dzl.resize(nl + 1, 0.0);
-    V->T.resize(nl + 1, nan);
-    V->w_ice.resize(nl + 1, 0.0);
-    V->w_liq.resize(nl + 1, 0.0);
+    V->Dzl.resize(_nl + 1, 0.0);
+    V->T.resize(_nl + 1, nan);
+    V->w_ice.resize(_nl + 1, 0.0);
+    V->w_liq.resize(_nl + 1, 0.0);
 
 }
 
@@ -1125,18 +1125,18 @@ void deallocate_statevar_1D(Statevar1D *V)
 short copy_statevar_from3D_to1D(size_t r, size_t c, Statevar3D *origin, Statevar1D *destination)
 {
 
-    size_t nl, l;
+    size_t _nl, l;
 
-    nl = origin->Dzl.getDh() - 1;
+    _nl = origin->Dzl.getDh() - 1;
 
     if(r < 1 || r > origin->type.getRows()) return 0;
     if(c < 1 || c > origin->type.getCols()) return 0;
 
-    if(nl != destination->Dzl.size()) return 0;
+    if(_nl != destination->Dzl.size()) return 0;
 
     destination->type = origin->type[r][c];
     destination->lnum = origin->lnum[r][c];
-    for (l = 1; l <= nl; l++)
+    for (l = 1; l <= _nl; l++)
     {
         destination->Dzl[l] = origin->Dzl[l][r][c];
         destination->T[l] = origin->T[l][r][c];
