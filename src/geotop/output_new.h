@@ -12,14 +12,13 @@
 #include "struct.geotop.h"
 
 #ifdef METEOIO_OUTPUT
-void output_file_preproc(AllData* A, mio::Config& mioConfig);
+void output_file_preproc(AllData *A, mio::Config &mioConfig);
 #else
-void output_file_preproc(AllData* A);
+void output_file_preproc(AllData *A);
 #endif
 
-void write_output_new(AllData* A);
+void write_output_new(AllData *A);
 
 void deallocate_output_new();
 
 #endif
-

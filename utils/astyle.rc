@@ -19,3 +19,5 @@
 --max-instatement-indent=60
 --suffix=none
 --quiet
+-Y
+--align-method-colon

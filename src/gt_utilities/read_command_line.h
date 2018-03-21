@@ -1,6 +1,6 @@
 
-/* GEOTRIVIALUtilities is an under-construction set of  C functions which supports i/o interface
-   and other utilities for models like GEOtop
+/* GEOTRIVIALUtilities is an under-construction set of  C functions which
+supports i/o interface and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
 file read_command_line.h
@@ -22,7 +22,6 @@ This file is part of GEOTRIVIALUtilities.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef READ_COMMANDLINE_H
 #define READ_COMMANDLINE_H
 
@@ -41,19 +40,31 @@ const int NO_SUCCESS = 0;
 std::string get_workingdirectory();
 void t_error(std::string error_text);
 
-char *read_option_string(int argc,char *argv[], char *option_f,char *no_option_argument,short print);
+char *read_option_string(int argc,
+                         char *argv[],
+                         char *option_f,
+                         char *no_option_argument,
+                         short print);
 
-std::string read_option_string(int argc,char *argv[], std::string option_f, std::string no_option_argument,short print);
+std::string read_option_string(int argc,
+                               char *argv[],
+                               std::string option_f,
+                               std::string no_option_argument,
+                               short print);
 
-double read_option_double(int argc,char *argv[], char *option_f,char *no_option_argument,double default_value,short print);
+double read_option_double(int argc,
+                          char *argv[],
+                          char *option_f,
+                          char *no_option_argument,
+                          double default_value,
+                          short print);
 
-int read_flag(int argc,char *argv[],char *flag,short print);
+int read_flag(int argc, char *argv[], char *flag, short print);
 
 /* debugging options */
-#define PRINT_FLAG   "-print"  /*!< flag which prints possible warning message	*/
-#define PRINT_ACTIVATED  read_flag(argc,argv,PRINT_FLAG,0)
+#define PRINT_FLAG "-print" /*!< flag which prints possible warning message */
+#define PRINT_ACTIVATED read_flag(argc, argv, PRINT_FLAG, 0)
 
 /* */
 #define MISSING_ARGUMENT "missing_argument"
 #endif
-

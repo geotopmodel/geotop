@@ -1,25 +1,29 @@
 /* STATEMENT:
- 
+
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
  GEOtop 2.1 release candidate  (release date: 31 december 2016)
- 
+
  Copyright (c), 2016 - GEOtop Foundation
- 
+
  This file is part of GEOtop 2.1
- 
- GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
- 
- GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
- If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
- 
+
+ GEOtop 2.1  is a free software and is distributed under GNU General Public
+ License v. 3.0 <http://www.gnu.org/licenses/> WITHOUT ANY WARRANTY; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE
+
+ GEOtop 2.1  is distributed as a free software in the hope to create and support
+ a community of developers and users that constructively interact. If you just
+ use the code, please give feedback to the authors and the community. Any way
+ you use the model, may be the most trivial one, is significantly helpful for
+ the future development of the GEOtop model. Any feedback will be highly
+ appreciated.
+
  If you have satisfactorily used the code, please acknowledge the authors.
- 
+
  */
 
 #include "rw_maps.h"
-
 
 #include "../../gt_utilities/math_utils.h"
 
@@ -39,22 +43,19 @@ using namespace std;
  * @param[out] S the matrix to fill
  * @param[in] M the matrix with the filling values
  */
-void copyshort_doublematrix(GeoMatrix<short>& S, GeoMatrix<double>& M)
+void copyshort_doublematrix(GeoMatrix<short> &S, GeoMatrix<double> &M)
 {
+  size_t r, c;
 
-    size_t r, c;
-
-    S.resize(M.getRows() , M.getCols());
-    for(r = 1; r < M.getRows(); r++)
+  S.resize(M.getRows(), M.getCols());
+  for (r = 1; r < M.getRows(); r++)
     {
-        for(c = 1; c < M.getCols(); c++)
+      for (c = 1; c < M.getCols(); c++)
         {
-            S[r][c] = (short)M[r][c];
+          S[r][c] = (short)M[r][c];
         }
     }
-
 }
-
 
 /**
  * @brief copies a GeoMatrix<double> in a GeoMatrix<long>
@@ -64,848 +65,902 @@ void copyshort_doublematrix(GeoMatrix<short>& S, GeoMatrix<double>& M)
  * @param[out] L the matrix to fill
  * @param[in] M the matrix with the filling values
  */
-void copylong_doublematrix(GeoMatrix<long>& L, GeoMatrix<double>& M)
+void copylong_doublematrix(GeoMatrix<long> &L, GeoMatrix<double> &M)
 {
+  size_t r, c;
 
-    size_t r, c;
-
-    L.resize(M.getRows(), M.getCols());
-    for(r = 1; r < M.getRows(); r++)
+  L.resize(M.getRows(), M.getCols());
+  for (r = 1; r < M.getRows(); r++)
     {
-        for(c = 1; c < M.getCols(); c++)
+      for (c = 1; c < M.getCols(); c++)
         {
-            L[r][c] = (long)M[r][c];
+          L[r][c] = (long)M[r][c];
         }
     }
-
 }
 
-void copydoublematrix_const(double c0, GeoMatrix<double>& Mref, GeoMatrix<double>& M, double NOVALUE)
+void copydoublematrix_const(double c0,
+                            GeoMatrix<double> &Mref,
+                            GeoMatrix<double> &M,
+                            double NOVALUE)
 {
+  size_t r, c;
 
-    size_t r, c;
-
-    M.resize(Mref.getRows(), Mref.getCols());
-    for(r = 1; r < M.getRows(); r++)
+  M.resize(Mref.getRows(), Mref.getCols());
+  for (r = 1; r < M.getRows(); r++)
     {
-        for(c = 1; c < M.getCols(); c++)
+      for (c = 1; c < M.getCols(); c++)
         {
-            if(Mref[r][c] == NOVALUE)
+          if (Mref[r][c] == NOVALUE)
             {
-                M[r][c] = NOVALUE;
+              M[r][c] = NOVALUE;
             }
-            else
+          else
             {
-                M[r][c] = c0;
+              M[r][c] = c0;
             }
         }
     }
-
 }
 //----------------------
 
 void write_suffix(std::string &suffix, long i, short start)
 {
-    std::stringstream lStream ;
-    lStream << std::setw(4) << std::setfill('0') << i ;
-    std::string lString = lStream.str();
-    suffix.replace(start, lString.size(), lString);
+  std::stringstream lStream;
+  lStream << std::setw(4) << std::setfill('0') << i;
+  std::string lString = lStream.str();
+  suffix.replace(start, lString.size(), lString);
 }
 
 std::string namefile_i(std::string name, long i)
 {
+  std::string SSSS = "SSSS";
+  std::string name_out;
 
-    std::string SSSS = "SSSS" ;
-    std::string name_out;
+  write_suffix(SSSS, i, 0);
 
-    write_suffix(SSSS, i, 0);
+  name_out = name + SSSS + textfile;
 
-    name_out = name + SSSS + textfile ;
-
-    return name_out;
+  return name_out;
 }
-
 
 std::string namefile_i_we(std::string name, long i)
 {
+  std::string SSSS = "LSSSS";
+  std::string name_out;
 
-    std::string SSSS = "LSSSS" ;
-    std::string name_out;
+  write_suffix(SSSS, i, 1);
 
-    write_suffix(SSSS, i, 1);
+  name_out = name + SSSS;
 
-    name_out = name + SSSS;
-
-    return name_out;
+  return name_out;
 }
-
 
 std::string namefile_i_we2(std::string name, long i)
 {
+  std::string SSSS = "SSSS";
+  std::string name_out;
 
-    std::string SSSS = "SSSS" ;
-    std::string name_out;
+  write_suffix(SSSS, i, 0);
 
-    write_suffix(SSSS, i, 0);
+  name_out = name + SSSS;
 
-    name_out = name + SSSS;
-
-    return name_out ;
-
+  return name_out;
 }
 
 // TODO: Noori - supposed to return a pointer
-GeoVector<double> read_map_vector(std::string namefile, GeoMatrix<long>& rc)
+GeoVector<double> read_map_vector(std::string namefile, GeoMatrix<long> &rc)
 {
+  GeoMatrix<double> M;
+  GeoVector<double> V;
+  size_t i, n = rc.getRows() - 1;
 
-    GeoMatrix<double> M;
-    GeoVector<double> V;
-    size_t i, n = rc.getRows() - 1;
+  meteoio_readMap(string(namefile), M);
 
-    meteoio_readMap(string(namefile), M);
+  V.resize(n);
 
-    V.resize(n);
-
-    for (i = 1; i < n; i++)
+  for (i = 1; i < n; i++)
     {
-        V[i] = M[rc[i][1]][rc[i][2]];
+      V[i] = M[rc[i][1]][rc[i][2]];
     }
 
-    return V;
-
+  return V;
 }
 
-
-
-void write_map(std::string filename, short type, short format, GeoMatrix<double>& M, TInit *UV, long novalue)
+void write_map(std::string filename,
+               short type,
+               short format,
+               GeoMatrix<double> &M,
+               TInit *UV,
+               long novalue)
 {
+  //  type=0  floating point
+  //  type=1  integer
 
-//	type=0  floating point
-//	type=1  integer
+  //  format=1 fluidturtle
+  //  format=2 grassascii
+  //  format=3 esriascii
 
-//	format=1 fluidturtle
-//	format=2 grassascii
-//	format=3 esriascii
-
-    if(format == 1)
+  if (format == 1)
     {
-        t_error("The fluidturtle format is not support any more");
+      t_error("The fluidturtle format is not support any more");
     }
-    else if(format == 2)
+  else if (format == 2)
     {
-        t_error("The Grass Ascii format not supported any more");
+      t_error("The Grass Ascii format not supported any more");
     }
-    else if(format == 3)
+  else if (format == 3)
     {
-        write_esriascii(filename, type, M, UV, novalue);
+      write_esriascii(filename, type, M, UV, novalue);
     }
-
 }
 
-void write_map(std::string filename, short type, short format, GeoMatrix<long>& M, TInit *UV, long novalue)
+void write_map(std::string filename,
+               short type,
+               short format,
+               GeoMatrix<long> &M,
+               TInit *UV,
+               long novalue)
 {
+  //  type=0  floating point
+  //  type=1  integer
 
-//	type=0  floating point
-//	type=1  integer
+  //  format=1 fluidturtle
+  //  format=2 grassascii
+  //  format=3 esriascii
 
-//	format=1 fluidturtle
-//	format=2 grassascii
-//	format=3 esriascii
-
-    if(format == 1)
+  if (format == 1)
     {
-        t_error("The fluidturtle format is not support any more");
+      t_error("The fluidturtle format is not support any more");
     }
-    else if(format == 2)
+  else if (format == 2)
     {
-        t_error("The Grass Ascii format not supported any more");
+      t_error("The Grass Ascii format not supported any more");
     }
-    else if(format == 3)
+  else if (format == 3)
     {
-        write_esriascii(filename, type, M, UV, novalue);
+      write_esriascii(filename, type, M, UV, novalue);
     }
-
 }
 
-void write_map_vector(std::string filename, short type, short format, const GeoVector<double>& V, TInit *UV, long novalue, long **j, long nr, long nc)
+void write_map_vector(std::string filename,
+                      short type,
+                      short format,
+                      const GeoVector<double> &V,
+                      TInit *UV,
+                      long novalue,
+                      long **j,
+                      long nr,
+                      long nc)
 {
-    //	type=0  floating point
-    //	type=1  integer
+  //  type=0  floating point
+  //  type=1  integer
 
-    //	format=1 fluidturtle
-    //	format=2 grassascii
-    //	format=3 esriascii
+  //  format=1 fluidturtle
+  //  format=2 grassascii
+  //  format=3 esriascii
 
-    if(format == 1)
+  if (format == 1)
     {
-        t_error("The fluidturtle format is not support any more");
+      t_error("The fluidturtle format is not support any more");
     }
-    else if(format == 2)
+  else if (format == 2)
     {
-        t_error("Grass ascii map format not supported any more");
+      t_error("Grass ascii map format not supported any more");
     }
-    else if(format == 3)
+  else if (format == 3)
     {
-        write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+      write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
     }
-
 }
 
 //------------------------------------
-void write_tensorseries(short a, long l, long i, std::string filename, short type, short format, GeoTensor<double>& T, TInit *UV, long novalue)
+void write_tensorseries(short a,
+                        long l,
+                        long i,
+                        std::string filename,
+                        short type,
+                        short format,
+                        GeoTensor<double> &T,
+                        TInit *UV,
+                        long novalue)
 {
+  //  a=0 non include "l" nel suffisso
+  //  a=1 include "l" nel suffisso
+  //  l:layer
+  //  i:temporal step
 
-//	a=0 non include "l" nel suffisso
-//	a=1 include "l" nel suffisso
-//	l:layer
-//	i:temporal step
+  std::string SSSSLLLLL = "SSSSLLLLL";
+  std::string SSSS = "SSSS";
+  std::string name;
+  size_t r, c;
 
-    std::string SSSSLLLLL = "SSSSLLLLL" ;
-    std::string SSSS =  "SSSS" ;
-    std::string name;
-    size_t r, c;
+  GeoMatrix<double> M;
 
-    GeoMatrix<double> M;
-
-    if(a == 0)
+  if (a == 0)
     {
-        write_suffix(SSSS, i, 0);
-        name = filename ;
-        name += SSSS ;
+      write_suffix(SSSS, i, 0);
+      name = filename;
+      name += SSSS;
     }
-    else if(a == 1)
+  else if (a == 1)
     {
-        write_suffix(SSSSLLLLL, i, 0);
-        write_suffix(SSSSLLLLL, l, 5);
-        name = filename;
-        name += SSSSLLLLL;
+      write_suffix(SSSSLLLLL, i, 0);
+      write_suffix(SSSSLLLLL, l, 5);
+      name = filename;
+      name += SSSSLLLLL;
     }
-    else
+  else
     {
-        t_error("Value not admitted");
+      t_error("Value not admitted");
     }
 
-
-    M.resize(T.getRh(), T.getCh());
-    for(r = 1; r < T.getRh(); r++)
+  M.resize(T.getRh(), T.getCh());
+  for (r = 1; r < T.getRh(); r++)
     {
-        for(c = 1; c < T.getCh(); c++)
+      for (c = 1; c < T.getCh(); c++)
         {
-            M[r][c] = T[l][r][c];
+          M[r][c] = T[l][r][c];
         }
     }
 
-    write_map(name, type, format, M, UV, novalue);
-
+  write_map(name, type, format, M, UV, novalue);
 }
 
-
-void write_tensorseries_vector(short a, long l, long i, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
+void write_tensorseries_vector(short a,
+                               long l,
+                               long i,
+                               std::string filename,
+                               short type,
+                               short format,
+                               GeoMatrix<double> &T,
+                               TInit *UV,
+                               long novalue,
+                               long **J,
+                               long nr,
+                               long nc)
 {
+  //  a=0 non include "l" nel suffisso
+  //  a=1 include "l" nel suffisso
+  //  l:layer
+  //  i:temporal step
 
-    //	a=0 non include "l" nel suffisso
-    //	a=1 include "l" nel suffisso
-    //	l:layer
-    //	i:temporal step
+  std::string SSSSLLLLL = "SSSSLLLLL";
+  std::string SSSS = "SSSS";
 
-    std::string SSSSLLLLL = "SSSSLLLLL" ;
-    std::string SSSS = "SSSS" ;
+  string name;
 
-    string name;
+  size_t j, npoints = T.getCols();
 
-    size_t j, npoints = T.getCols();
+  GeoVector<double> V;
 
-    GeoVector<double> V;
-
-    if(a == 0)
+  if (a == 0)
     {
-        write_suffix(SSSS, i, 0);
+      write_suffix(SSSS, i, 0);
 
-        name = filename + SSSS;
+      name = filename + SSSS;
     }
-    else if(a == 1)
+  else if (a == 1)
     {
-        write_suffix(SSSSLLLLL, i, 0);
-        write_suffix(SSSSLLLLL, l, 5);
+      write_suffix(SSSSLLLLL, i, 0);
+      write_suffix(SSSSLLLLL, l, 5);
 
-        name = filename + SSSSLLLLL;
+      name = filename + SSSSLLLLL;
     }
-    else
+  else
     {
-        t_error("Value not admitted");
-    }
-
-    V.resize(npoints + 1);
-
-    for(j = 1; j <= npoints - 1; j++)
-    {
-        V[j] = T[l][j];
+      t_error("Value not admitted");
     }
 
-    write_map_vector(name, type, format, V, UV, novalue, J, nr, nc);
+  V.resize(npoints + 1);
 
+  for (j = 1; j <= npoints - 1; j++)
+    {
+      V[j] = T[l][j];
+    }
+
+  write_map_vector(name, type, format, V, UV, novalue, J, nr, nc);
 }
-
 
 //---------------------------------------------
 
-
-void write_tensorseries2_vector(std::string suf, long l, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
+void write_tensorseries2_vector(std::string suf,
+                                long l,
+                                std::string filename,
+                                short type,
+                                short format,
+                                GeoMatrix<double> &T,
+                                TInit *UV,
+                                long novalue,
+                                long **J,
+                                long nr,
+                                long nc)
 {
+  std::string LLLLL = "LLLLL";
+  std::string temp1, temp2;
+  size_t i, npoints = T.getCols();
+  GeoVector<double> V;
 
-    std::string LLLLL = "LLLLL" ;
-    std::string temp1, temp2;
-    size_t i, npoints = T.getCols();
-    GeoVector<double> V;
+  temp1 = LLLLL + suf;
+  write_suffix(temp1, l, 1);
 
-    temp1 = LLLLL + suf ;
-    write_suffix(temp1, l, 1);
+  V.resize(npoints + 1);
 
-    V.resize(npoints + 1);
-
-    for(i = 1; i < npoints; i++)
+  for (i = 1; i < npoints; i++)
     {
-        V[i] = T[l][i];
+      V[i] = T[l][i];
     }
 
-    temp2 = filename + temp1;
-    write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
-
+  temp2 = filename + temp1;
+  write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
 }
-
 
 //---------------
 
 //--------------------------
-void write_tensorseries3_vector(std::string suffix, std::string filename, short type, short format, GeoMatrix<double>& T, TInit *UV, long novalue, long **J, long nr, long nc)
+void write_tensorseries3_vector(std::string suffix,
+                                std::string filename,
+                                short type,
+                                short format,
+                                GeoMatrix<double> &T,
+                                TInit *UV,
+                                long novalue,
+                                long **J,
+                                long nr,
+                                long nc)
 {
-
-    size_t l;
-    // TODO: need check nrl
-    for(l = 1; l < T.getRows(); l++)
+  size_t l;
+  // TODO: need check nrl
+  for (l = 1; l < T.getRows(); l++)
     {
-        write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
+      write_tensorseries2_vector(suffix, l, filename, type, format, T, UV,
+                                 novalue, J, nr, nc);
     }
 }
 
-
 /*===================================================================================*/
-/*===================functions copied from the file write_ascii.c====================*/
+/*===================functions copied from the file
+ * write_ascii.c====================*/
 /*===================================================================================*/
 
-void write_esriascii(std::string name, short type, GeoMatrix<long>& DTM, TInit *UV, long novalue)
+void write_esriascii(std::string name,
+                     short type,
+                     GeoMatrix<long> &DTM,
+                     TInit *UV,
+                     long novalue)
 {
+  //  type=0  floating point
+  //  type=1  integer
 
-//	type=0  floating point
-//	type=1  integer
+  FILE *f;
+  size_t r, c;
+  std::string temp;
 
-    FILE *f;
-    size_t r, c;
-    std::string temp;
-
-    if(UV->U[1] != UV->U[2])
+  if (UV->U[1] != UV->U[2])
     {
-        printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n", UV->U[2], UV->U[1]);
-        t_error("Fatal error");
+      printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
+             UV->U[2], UV->U[1]);
+      t_error("Fatal error");
     }
 
-    temp = name + ascii_esri ;
-    f = fopen(temp.c_str(), "w");
+  temp = name + ascii_esri;
+  f = fopen(temp.c_str(), "w");
 
-    fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
-    fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
-    fprintf(f, "xllcorner     %f\n", UV->U[4]);
-    fprintf(f, "yllcorner     %f\n", UV->U[3]);
-    fprintf(f, "cellsize      %f\n", UV->U[1]);
-    fprintf(f, "NODATA_value  %ld.0\n", novalue);
+  fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
+  fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
+  fprintf(f, "xllcorner     %f\n", UV->U[4]);
+  fprintf(f, "yllcorner     %f\n", UV->U[3]);
+  fprintf(f, "cellsize      %f\n", UV->U[1]);
+  fprintf(f, "NODATA_value  %ld.0\n", novalue);
 
-    for(r = 1; r < DTM.getRows(); r++)
+  for (r = 1; r < DTM.getRows(); r++)
     {
-        for(c = 1; c < DTM.getCols(); c++)
+      for (c = 1; c < DTM.getCols(); c++)
         {
-            if((long)DTM[r][c] == novalue)
+          if ((long)DTM[r][c] == novalue)
             {
-                fprintf(f, "%ld.0", novalue);
+              fprintf(f, "%ld.0", novalue);
             }
-            else
+          else
             {
-                if(type == 1)
+              if (type == 1)
                 {
-                    fprintf(f, "%ld", (long)(DTM[r][c]));
+                  fprintf(f, "%ld", (long)(DTM[r][c]));
                 }
-                else
+              else
                 {
-                    fprintf(f, "%ld", DTM[r][c]);
+                  fprintf(f, "%ld", DTM[r][c]);
                 }
             }
-            if(c < DTM.getCols()) fprintf(f, " ");
+          if (c < DTM.getCols()) fprintf(f, " ");
         }
-        if(r < DTM.getRows()) fprintf(f, "\n");
+      if (r < DTM.getRows()) fprintf(f, "\n");
     }
-    fprintf(f, "\n"); // added by Matteo to avoid warnings when reading with R
-    fclose(f);
+  fprintf(f, "\n");  // added by Matteo to avoid warnings when reading with R
+  fclose(f);
 }
 
-
-void write_esriascii(std::string name, short type, GeoMatrix<double>& DTM, TInit *UV, long novalue)
+void write_esriascii(std::string name,
+                     short type,
+                     GeoMatrix<double> &DTM,
+                     TInit *UV,
+                     long novalue)
 {
+  //  type=0  floating point
+  //  type=1  integer
 
-//	type=0  floating point
-//	type=1  integer
+  FILE *f;
+  size_t r, c;
+  std::string temp;
 
-    FILE *f;
-    size_t r, c;
-    std::string temp;
-
-    if(UV->U[1] != UV->U[2])
+  if (UV->U[1] != UV->U[2])
     {
-        printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n", UV->U[2], UV->U[1]);
-        t_error("Fatal error");
+      printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
+             UV->U[2], UV->U[1]);
+      t_error("Fatal error");
     }
 
-    temp = name ;
-    temp += ascii_esri;
-    f = fopen(temp.c_str(), "w");
+  temp = name;
+  temp += ascii_esri;
+  f = fopen(temp.c_str(), "w");
 
-    fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
-    fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
-    fprintf(f, "xllcorner     %f\n", UV->U[4]);
-    fprintf(f, "yllcorner     %f\n", UV->U[3]);
-    fprintf(f, "cellsize      %f\n", UV->U[1]);
-    fprintf(f, "NODATA_value  %ld.0\n", novalue);
+  fprintf(f, "ncols         %zu\n", DTM.getCols() - 1);
+  fprintf(f, "nrows         %zu\n", DTM.getRows() - 1);
+  fprintf(f, "xllcorner     %f\n", UV->U[4]);
+  fprintf(f, "yllcorner     %f\n", UV->U[3]);
+  fprintf(f, "cellsize      %f\n", UV->U[1]);
+  fprintf(f, "NODATA_value  %ld.0\n", novalue);
 
-    for(r = 1; r < DTM.getRows(); r++)
+  for (r = 1; r < DTM.getRows(); r++)
     {
-        for(c = 1; c < DTM.getCols(); c++)
+      for (c = 1; c < DTM.getCols(); c++)
         {
-            if((long)DTM[r][c] == novalue)
+          if ((long)DTM[r][c] == novalue)
             {
-                fprintf(f, "%ld.000", novalue);
+              fprintf(f, "%ld.000", novalue);
             }
-            else
+          else
             {
-                if(type == 1)
+              if (type == 1)
                 {
-                    fprintf(f, "%ld", (long)(DTM[r][c]));
-		}
-		else if (type== -1)
-		{
-			fprintf(f, "%.9f", DTM[r][c]);
-		}
-		else { 
-			fprintf(f, "%.3f", DTM[r][c]);
-		}
-	    }
-	    if(c < DTM.getCols()) fprintf(f, " ");
+                  fprintf(f, "%ld", (long)(DTM[r][c]));
+                }
+              else if (type == -1)
+                {
+                  fprintf(f, "%.9f", DTM[r][c]);
+                }
+              else
+                {
+                  fprintf(f, "%.3f", DTM[r][c]);
+                }
+            }
+          if (c < DTM.getCols()) fprintf(f, " ");
         }
-        if(r < DTM.getRows()) fprintf(f, "\n");
+      if (r < DTM.getRows()) fprintf(f, "\n");
     }
-    fprintf(f, "\n"); // added by Matteo to avoid warnings when reading with R
-    fclose(f);
+  fprintf(f, "\n");  // added by Matteo to avoid warnings when reading with R
+  fclose(f);
 }
 
 //===============
 
-void write_esriascii_vector(char *name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue)
+void write_esriascii_vector(char *name,
+                            short type,
+                            const GeoVector<double> &DTM,
+                            long **j,
+                            long nr,
+                            long nc,
+                            TInit *UV,
+                            long novalue)
 {
-    //	type=0  floating point
-    //	type=1  integer
+  //  type=0  floating point
+  //  type=1  integer
 
-    FILE *f;
-    long r, c;
-    std::string temp;
+  FILE *f;
+  long r, c;
+  std::string temp;
 
-    if(UV->U[1] != UV->U[2])
+  if (UV->U[1] != UV->U[2])
     {
-        printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n", UV->U[2], UV->U[1]);
-        t_error("Fatal error");
+      printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
+             UV->U[2], UV->U[1]);
+      t_error("Fatal error");
     }
 
-    temp = name ;
-    temp += ascii_esri;
-    f = fopen(temp.c_str(), "w");
+  temp = name;
+  temp += ascii_esri;
+  f = fopen(temp.c_str(), "w");
 
-    fprintf(f, "ncols         %ld\n", nc);
-    fprintf(f, "nrows         %ld\n", nr);
-    fprintf(f, "xllcorner     %f\n", UV->U[4]);
-    fprintf(f, "yllcorner     %f\n", UV->U[3]);
-    fprintf(f, "cellsize      %f\n", UV->U[1]);
-    fprintf(f, "NODATA_value  %ld.0\n", novalue);
+  fprintf(f, "ncols         %ld\n", nc);
+  fprintf(f, "nrows         %ld\n", nr);
+  fprintf(f, "xllcorner     %f\n", UV->U[4]);
+  fprintf(f, "yllcorner     %f\n", UV->U[3]);
+  fprintf(f, "cellsize      %f\n", UV->U[1]);
+  fprintf(f, "NODATA_value  %ld.0\n", novalue);
 
-    for(r = 1; r <= nr; r++)
+  for (r = 1; r <= nr; r++)
     {
-        for(c = 1; c <= nc; c++)
+      for (c = 1; c <= nc; c++)
         {
-            if (j[r][c] > 0)
+          if (j[r][c] > 0)
             {
-                if(type == 1)
+              if (type == 1)
                 {
-                    fprintf(f, "%ld", (long)(DTM[j[r][c]]));
+                  fprintf(f, "%ld", (long)(DTM[j[r][c]]));
                 }
-		else if (type== -1)
-		{
-			fprintf(f, "%.9f", DTM[j[r][c]]);
-		}
-		else { 
-			fprintf(f, "%.3f", DTM[j[r][c]]);
+              else if (type == -1)
+                {
+                  fprintf(f, "%.9f", DTM[j[r][c]]);
+                }
+              else
+                {
+                  fprintf(f, "%.3f", DTM[j[r][c]]);
                 }
             }
-            else
+          else
             {
-                fprintf(f, "%ld.000", novalue);
+              fprintf(f, "%ld.000", novalue);
             }
-            if(c < nc) fprintf(f, " ");
+          if (c < nc) fprintf(f, " ");
         }
-        if(r < nr) fprintf(f, "\n");
+      if (r < nr) fprintf(f, "\n");
     }
-    fclose(f);
+  fclose(f);
 }
 
-void write_esriascii_vector(string name, short type, const GeoVector<double>& DTM, long **j, long nr, long nc, TInit *UV, long novalue)
+void write_esriascii_vector(string name,
+                            short type,
+                            const GeoVector<double> &DTM,
+                            long **j,
+                            long nr,
+                            long nc,
+                            TInit *UV,
+                            long novalue)
 {
-    //	type=0  floating point
-    //	type=1  integer
+  //  type=0  floating point
+  //  type=1  integer
 
-//    char *basedir;
-//    int ret = 0;
+  //    char *basedir;
+  //    int ret = 0;
 
-    FILE *f;
-    long r, c;
-    string temp;
+  FILE *f;
+  long r, c;
+  string temp;
 
-    if(UV->U[1] != UV->U[2])
+  if (UV->U[1] != UV->U[2])
     {
-        printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n", UV->U[2], UV->U[1]);
-        t_error("Fatal error");
+      printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
+             UV->U[2], UV->U[1]);
+      t_error("Fatal error");
     }
 
-    temp = name + ascii_esri;
+  temp = name + ascii_esri;
 
-    // Commented out: TODO: understand why we should create a directory here S.Cozzini 15.12.2016
-    //    char * lStrBase = strdup(temp.c_str()) ;
-    //basedir = dirname(lStrBase);
-    //ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-    //free(lStrBase) ;
-    //if(-1 == ret)
-    //{
-    //   t_error("write_esriascii_vector(): Unable to create parent directories of file" + temp);
-    //}
-    
-    f = fopen(temp.c_str(), "w");
-    if(NULL == f)
+  // Commented out: TODO: understand why we should create a directory here
+  // S.Cozzini 15.12.2016
+  //    char * lStrBase = strdup(temp.c_str()) ;
+  // basedir = dirname(lStrBase);
+  // ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+  // free(lStrBase) ;
+  // if(-1 == ret)
+  //{
+  //   t_error("write_esriascii_vector(): Unable to create parent directories of
+  //   file" + temp);
+  //}
+
+  f = fopen(temp.c_str(), "w");
+  if (NULL == f)
     {
-        t_error("write_esriascii_vector(): Unable to open file `" + temp + "` in write mode.");
+      t_error("write_esriascii_vector(): Unable to open file `" + temp +
+              "` in write mode.");
     }
 
-    fprintf(f, "ncols         %ld\n", nc);
-    fprintf(f, "nrows         %ld\n", nr);
-    fprintf(f, "xllcorner     %f\n", UV->U[4]);
-    fprintf(f, "yllcorner     %f\n", UV->U[3]);
-    fprintf(f, "cellsize      %f\n", UV->U[1]);
-    fprintf(f, "NODATA_value  %ld.0\n", novalue);
+  fprintf(f, "ncols         %ld\n", nc);
+  fprintf(f, "nrows         %ld\n", nr);
+  fprintf(f, "xllcorner     %f\n", UV->U[4]);
+  fprintf(f, "yllcorner     %f\n", UV->U[3]);
+  fprintf(f, "cellsize      %f\n", UV->U[1]);
+  fprintf(f, "NODATA_value  %ld.0\n", novalue);
 
-    for(r = 1; r <= nr; r++)
+  for (r = 1; r <= nr; r++)
     {
-        for(c = 1; c <= nc; c++)
+      for (c = 1; c <= nc; c++)
         {
-            if (j[r][c] > 0)
+          if (j[r][c] > 0)
             {
-                if(type == 1)
+              if (type == 1)
                 {
-                    fprintf(f, "%ld", (long)(DTM[j[r][c]]));
+                  fprintf(f, "%ld", (long)(DTM[j[r][c]]));
                 }
-                else
+              else
                 {
-                    fprintf(f, "%.3f", DTM[j[r][c]]);
+                  fprintf(f, "%.3f", DTM[j[r][c]]);
                 }
             }
-            else
+          else
             {
-
-                fprintf(f, "%ld.000", novalue);
+              fprintf(f, "%ld.000", novalue);
             }
-            if(c < nc) fprintf(f, " ");
+          if (c < nc) fprintf(f, " ");
         }
-        if(r < nr) fprintf(f, "\n");
+      if (r < nr) fprintf(f, "\n");
     }
-    fclose(f);
-
-
+  fclose(f);
 }
 
-
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void error_message(short format, long n, long n1, long n2, long n3, char *name)
-//format=1 grassascii
-//format=2 esriascii
+void error_message(short format, long n, long n1, long n2, long n3,
+                   char *name)
+// format=1 grassascii
+// format=2 esriascii
 
 {
-    if(n == n1 || n == n2 || n == n3)
+  if (n == n1 || n == n2 || n == n3)
     {
-        std::string lFile0 = name ;
-        lFile0 += ascii_grass ;
+      std::string lFile0 = name;
+      lFile0 += ascii_grass;
 
-        std::string lFile1 = name ;
-        lFile1 += ascii_esri ;
+      std::string lFile1 = name;
+      lFile1 += ascii_esri;
 
-        if(format == 1) printf("File -3- %s incompleted, end of file or end of line reached", lFile0.c_str());
-        if(format == 2) printf("File -4- %s incompleted, end of file or end of line reached", lFile1.c_str());
-        t_error("Fatal error");
+      if (format == 1)
+        printf("File -3- %s incompleted, end of file or end of line reached",
+               lFile0.c_str());
+      if (format == 2)
+        printf("File -4- %s incompleted, end of file or end of line reached",
+               lFile1.c_str());
+      t_error("Fatal error");
     }
 }
-
 
 /*===================functions copied from geomorphology.0875.c============*/
 
-void curvature(double deltax, double deltay, GeoMatrix<double>& topo, GeoMatrix<double>& c1, GeoMatrix<double>& c2, GeoMatrix<double>& c3, GeoMatrix<double>& c4, long undef)
+void curvature(double deltax,
+               double deltay,
+               GeoMatrix<double> &topo,
+               GeoMatrix<double> &c1,
+               GeoMatrix<double> &c2,
+               GeoMatrix<double> &c3,
+               GeoMatrix<double> &c4,
+               long undef)
 {
+  long r, c;
+  long R1, R2, C1, C2;
+  long nc = topo.getCols() - 1;
+  long nr = topo.getRows() - 1;
+  double delta;
 
-    long r, c;
-    long R1, R2, C1, C2;
-    long nc = topo.getCols() - 1;
-    long nr = topo.getRows() - 1;
-    double delta;
-
-    // Compute the curvature.
-    for(r = 1; r <= nr; r++)
+  // Compute the curvature.
+  for (r = 1; r <= nr; r++)
     {
-        for(c = 1; c <= nc; c++)
+      for (c = 1; c <= nc; c++)
         {
-            if((long)topo[r][c] != undef)
+          if ((long)topo[r][c] != undef)
             {
-
-                c1[r][c] = 0.0;
-                R1 = r - 1;
-                R2 = r + 1;
-                C1 = c;
-                C2 = c;
-                delta = deltay;
-                if(R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc && C2 >= 1 && C2 <= nc)
+              c1[r][c] = 0.0;
+              R1 = r - 1;
+              R2 = r + 1;
+              C1 = c;
+              C2 = c;
+              delta = deltay;
+              if (R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc &&
+                  C2 >= 1 && C2 <= nc)
                 {
-                    if((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
+                  if ((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
                     {
-                        c1[r][c] += (topo[R1][C1] + topo[R2][C2] - 2.*topo[r][c]) / pow(delta, 2.);
+                      c1[r][c] +=
+                        (topo[R1][C1] + topo[R2][C2] - 2. * topo[r][c]) / pow(delta, 2.);
                     }
                 }
 
-                c2[r][c] = 0.0;
-                R1 = r;
-                R2 = r;
-                C1 = c + 1;
-                C2 = c - 1;
-                delta = deltax;
-                if(R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc && C2 >= 1 && C2 <= nc)
+              c2[r][c] = 0.0;
+              R1 = r;
+              R2 = r;
+              C1 = c + 1;
+              C2 = c - 1;
+              delta = deltax;
+              if (R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc &&
+                  C2 >= 1 && C2 <= nc)
                 {
-                    if((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
+                  if ((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
                     {
-                        c2[r][c] += (topo[R1][C1] + topo[R2][C2] - 2.*topo[r][c]) / pow(delta, 2.);
+                      c2[r][c] +=
+                        (topo[R1][C1] + topo[R2][C2] - 2. * topo[r][c]) / pow(delta, 2.);
                     }
                 }
 
-                c3[r][c] = 0.0;
-                R1 = r - 1;
-                R2 = r + 1;
-                C1 = c - 1;
-                C2 = c + 1;
-                delta = sqrt(deltax * deltay);
-                if(R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc && C2 >= 1 && C2 <= nc)
+              c3[r][c] = 0.0;
+              R1 = r - 1;
+              R2 = r + 1;
+              C1 = c - 1;
+              C2 = c + 1;
+              delta = sqrt(deltax * deltay);
+              if (R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc &&
+                  C2 >= 1 && C2 <= nc)
                 {
-                    if((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
+                  if ((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
                     {
-                        c3[r][c] += (topo[R1][C1] + topo[R2][C2] - 2.*topo[r][c]) / pow(delta, 2.);
+                      c3[r][c] +=
+                        (topo[R1][C1] + topo[R2][C2] - 2. * topo[r][c]) / pow(delta, 2.);
                     }
                 }
 
-                c4[r][c] = 0.0;
-                R1 = r - 1;
-                R2 = r + 1;
-                C1 = c + 1;
-                C2 = c - 1;
-                delta = sqrt(deltax * deltay);
-                if(R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc && C2 >= 1 && C2 <= nc)
+              c4[r][c] = 0.0;
+              R1 = r - 1;
+              R2 = r + 1;
+              C1 = c + 1;
+              C2 = c - 1;
+              delta = sqrt(deltax * deltay);
+              if (R1 >= 1 && R1 <= nr && R2 >= 1 && R2 <= nr && C1 >= 1 && C1 <= nc &&
+                  C2 >= 1 && C2 <= nc)
                 {
-                    if((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
+                  if ((long)topo[R1][C1] != undef && (long)topo[R2][C2] != undef)
                     {
-                        c4[r][c] += (topo[R1][C1] + topo[R2][C2] - 2.*topo[r][c]) / pow(delta, 2.);
+                      c4[r][c] +=
+                        (topo[R1][C1] + topo[R2][C2] - 2. * topo[r][c]) / pow(delta, 2.);
                     }
                 }
-
 
             }
-            else
+          else
             {
-
-                c1[r][c] = (double)undef;
-                c2[r][c] = (double)undef;
-                c3[r][c] = (double)undef;
-                c4[r][c] = (double)undef;
-
+              c1[r][c] = (double)undef;
+              c2[r][c] = (double)undef;
+              c3[r][c] = (double)undef;
+              c4[r][c] = (double)undef;
             }
-
         }
     }
 }
 
 //------------------------
-short is_boundary(long r, long c, GeoMatrix<double>& dem, long novalue)
+short is_boundary(long r, long c, GeoMatrix<double> &dem, long novalue)
 {
+  long ir, ic;
+  short yes = 0;
 
-    long ir, ic;
-    short yes = 0;
+  ir = -1;
+  ic = 0;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = -1;
-    ic = 0;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = -1;
+  ic = 1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = -1;
-    ic = 1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = 0;
+  ic = 1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = 0;
-    ic = 1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = 1;
+  ic = 1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = 1;
-    ic = 1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = 1;
+  ic = 0;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = 1;
-    ic = 0;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = 1;
+  ic = -1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = 1;
-    ic = -1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = 0;
+  ic = -1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = 0;
-    ic = -1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
+  ir = -1;
+  ic = -1;
+  if ((long)dem[r + ir][c + ic] == novalue) yes = 1;
 
-    ir = -1;
-    ic = -1;
-    if( (long)dem[r + ir][c + ic] == novalue ) yes = 1;
-
-    return yes;
-
+  return yes;
 }
-
 
 long row(double N, long nrows, TInit *UV, long novalue)
 {
+  long cnt;
 
-    long cnt;
-
-    if(N < UV->U[3] || N > UV->U[3] + nrows * UV->U[1])
+  if (N < UV->U[3] || N > UV->U[3] + nrows * UV->U[1])
     {
-        return novalue;
+      return novalue;
     }
-    else
+  else
     {
-        cnt = 0;
-        do
+      cnt = 0;
+      do
         {
-            cnt++;
+          cnt++;
         }
-        while(UV->U[3] + (nrows - cnt)*UV->U[1] > N);
-        return cnt;
+      while (UV->U[3] + (nrows - cnt) * UV->U[1] > N);
+      return cnt;
     }
 }
-
 
 long col(double E, long ncols, TInit *UV, long novalue)
 {
+  long cnt;
 
-    long cnt;
-
-    if(E < UV->U[4] || E > UV->U[4] + ncols * UV->U[2])
+  if (E < UV->U[4] || E > UV->U[4] + ncols * UV->U[2])
     {
-        return novalue;
+      return novalue;
     }
-    else
+  else
     {
-        cnt = 0;
-        do
+      cnt = 0;
+      do
         {
-            cnt++;
+          cnt++;
         }
-        while(UV->U[4] + cnt * UV->U[2] < E);
-        return cnt;
+      while (UV->U[4] + cnt * UV->U[2] < E);
+      return cnt;
     }
 }
 
+// Presa da geomorphology099 e modificato der_min
 
-
-//Presa da geomorphology099 e modificato der_min
-
-void nablaquadro_mask(GeoMatrix<double>& Z0, GeoMatrix<short>& curv, GeoVector<double>& U, GeoVector<double>& V)
+void nablaquadro_mask(GeoMatrix<double> &Z0,
+                      GeoMatrix<short> &curv,
+                      GeoVector<double> &U,
+                      GeoVector<double> &V)
 
 {
+  short y;
+  long i, j, h, rows, cols;
+  double grid[9], z[9], derivate2;
+  double der_min = 0.00001; /*limite per la limite per la planarita'*/
 
-    short y;
-    long i, j, h, rows, cols;
-    double grid[9], z[9], derivate2;
-    double der_min = 0.00001; /*limite per la limite per la planarita'*/
+  short v[13][2] = {{0, 0},  {0, 1},  {-1, 1}, {-1, 0}, {-1, -1},
+    {0, -1}, {1, -1}, {1, 0},  {1, 1},  {0, 0},
+    {0, 0},  {0, 0},  {0, 0}
+  };
 
-    short v[13][2] = {
-        { 0, 0},
-        { 0, 1},
-        { -1, 1},
-        { -1, 0},
-        { -1, -1},
-        { 0, -1},
-        { 1, -1},
-        { 1, 0},
-        { 1, 1},
-        { 0, 0},
-        { 0, 0},
-        { 0, 0},
-        { 0, 0}
-    };
+  grid[0] = 0;
+  grid[1] = grid[5] = U[1];
+  grid[3] = grid[7] = U[2];
+  grid[2] = grid[4] = grid[6] = grid[8] =
+                                  sqrt(grid[1] * grid[1] + grid[3] * grid[3]);
 
-    grid[0] = 0;
-    grid[1] = grid[5] = U[1];
-    grid[3] = grid[7] = U[2];
-    grid[2] = grid[4] = grid[6] = grid[8] = sqrt(grid[1] * grid[1] + grid[3] * grid[3]);
+  rows = Z0.getRows() - 1;
+  cols = Z0.getCols() - 1;
 
-    rows = Z0.getRows() - 1;
-    cols = Z0.getCols() - 1;
-
-    for(i = 2; i <= rows - 1; i++)
+  for (i = 2; i <= rows - 1; i++)
     {
-        for(j = 2; j <= cols - 1; j++)
+      for (j = 2; j <= cols - 1; j++)
         {
-            z[0] = Z0[i][j];
-            if(z[0] != V[2])
+          z[0] = Z0[i][j];
+          if (z[0] != V[2])
             {
-                y = 1;
-                for(h = 1; h <= 8; h++)
+              y = 1;
+              for (h = 1; h <= 8; h++)
                 {
-                    z[h] = Z0[i + v[h][0]][j + v[h][1]];
-                    if(z[h] == V[2])
+                  z[h] = Z0[i + v[h][0]][j + v[h][1]];
+                  if (z[h] == V[2])
                     {
-                        y = 0;
-                        break;
+                      y = 0;
+                      break;
                     }
                 }
-                if(y == 0)
+              if (y == 0)
                 {
-                    curv[i][j] = 1;
+                  curv[i][j] = 1;
                 }
-                else
+              else
                 {
-                    derivate2 = 0.5 * ((z[1] + z[5] - 2 * z[0]) / (grid[1] * grid[1]) + (z[3] + z[7] - 2 * z[0]) / (grid[3] * grid[3]));
-                    derivate2 = derivate2 + 0.5 * ((z[2] + z[4] + z[6] + z[8] - 4 * z[0]) / (grid[6] * grid[6]));
+                  derivate2 = 0.5 * ((z[1] + z[5] - 2 * z[0]) / (grid[1] * grid[1]) +
+                                     (z[3] + z[7] - 2 * z[0]) / (grid[3] * grid[3]));
+                  derivate2 =
+                    derivate2 + 0.5 * ((z[2] + z[4] + z[6] + z[8] - 4 * z[0]) /
+                                       (grid[6] * grid[6]));
 
-                    if(fabs(derivate2) <= der_min || derivate2 > der_min) //plane or concave
+                  if (fabs(derivate2) <= der_min ||
+                      derivate2 > der_min)  // plane or concave
                     {
-                        curv[i][j] = 0;
+                      curv[i][j] = 0;
                     }
-                    else
+                  else
                     {
-                        curv[i][j] = 1;		//convex
+                      curv[i][j] = 1;  // convex
                     }
                 }
             }
@@ -916,19 +971,19 @@ void nablaquadro_mask(GeoMatrix<double>& Z0, GeoMatrix<short>& curv, GeoVector<d
 /*====================copied function from init.c ==================*/
 /// ??? shall we need this ? called just once..
 
-void initmatrix(double val, GeoMatrix<double>& destination, GeoMatrix<double>& origin, double novalue)
+void initmatrix(double val,
+                GeoMatrix<double> &destination,
+                GeoMatrix<double> &origin,
+                double novalue)
 {
-
-    size_t r, c;
-    for(r = 1; r < destination.getRows(); r++)
+  size_t r, c;
+  for (r = 1; r < destination.getRows(); r++)
     {
-        for(c = 1; c < destination.getCols(); c++)
+      for (c = 1; c < destination.getCols(); c++)
         {
-            if(origin[r][c] != novalue) destination[r][c] = val;
+          if (origin[r][c] != novalue) destination[r][c] = val;
         }
     }
 }
-
-
 
 //----------------------------------
