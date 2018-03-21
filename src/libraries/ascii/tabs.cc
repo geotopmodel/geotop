@@ -231,7 +231,8 @@ static short readline(FILE *f,
                       short *endoffile)
 {
   long i, j;
-  char *c;
+  char cc;
+  char *c = &cc;
 
   *endoffile = 0;
 
@@ -247,7 +248,7 @@ static short readline(FILE *f,
     }
 
   // allocate character
-  c = (char *)malloc(sizeof(char));
+  // c = (char *)malloc(sizeof(char));
 
   // read first character
   do
@@ -263,7 +264,7 @@ static short readline(FILE *f,
   // end of file reached
   if (*endoffile == 1)
     {
-      free(c);
+      // free(c);
       return -1;
 
       // first character is the comment tag
@@ -279,7 +280,7 @@ static short readline(FILE *f,
 
       if (c[0] == -1) *endoffile = 1;
 
-      free(c);
+      // free(c);
       return -1;
 
     }
@@ -331,7 +332,7 @@ static short readline(FILE *f,
 
       *components = j;
 
-      free(c);
+      // free(c);
       return 1;
     }
 }
@@ -348,13 +349,13 @@ static std::vector<std::string> readline_of_strings(FILE *f,
   std::vector<std::string> line_of_strings;
 
   n = max_components;
-  string_length = (long *)malloc(n * sizeof(long));
-  string = (long **)malloc(n * sizeof(long *));
+  string_length = (long *)alloca(n * sizeof(long));
+  string = (long **)alloca(n * sizeof(long *));
 
   n = max_string_length;
   for (i = 0; i < max_components; i++)
     {
-      string[i] = (long *)malloc(n * sizeof(long));
+      string[i] = (long *)alloca(n * sizeof(long));
     }
 
   *success = readline(f, comment_char, sep_char, string, string_length,
@@ -368,13 +369,13 @@ static std::vector<std::string> readline_of_strings(FILE *f,
         }
     }
 
-  for (i = 0; i < max_components; i++)
-    {
-      free(string[i]);
-    }
+  // for (i = 0; i < max_components; i++)
+  //   {
+  //     free(string[i]);
+  //   }
 
-  free(string_length);
-  free(string);
+  // free(string_length);
+  // free(string);
 
   return line_of_strings;
 }
@@ -391,13 +392,13 @@ static double *readline_of_numbers(FILE *f,
   double *line_of_numbers = NULL;
 
   n = max_components;
-  string_length = (long *)malloc(n * sizeof(long));
-  string = (long **)malloc(n * sizeof(long *));
+  string_length = (long *)alloca(n * sizeof(long));
+  string = (long **)alloca(n * sizeof(long *));
 
   n = max_string_length;
   for (i = 0; i < max_components; i++)
     {
-      string[i] = (long *)malloc(n * sizeof(long));
+      string[i] = (long *)alloca(n * sizeof(long));
     }
 
   *success = readline(f, comment_char, sep_char, string, string_length,
@@ -413,13 +414,13 @@ static double *readline_of_numbers(FILE *f,
         }
     }
 
-  for (i = 0; i < max_components; i++)
-    {
-      free(string[i]);
-    }
+  // for (i = 0; i < max_components; i++)
+  //   {
+  //     free(string[i]);
+  //   }
 
-  free(string_length);
-  free(string);
+  // free(string_length);
+  // free(string);
 
   return line_of_numbers;
 }
