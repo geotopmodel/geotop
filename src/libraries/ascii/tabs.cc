@@ -42,8 +42,8 @@
 /*============================================================================*/
 /*                               Constants                                    */
 /*============================================================================*/
-const long max_components = 200;
-const long max_string_length = 200;
+constexpr long max_components = 200;
+constexpr long max_string_length = 200;
 
 /*============================================================================*/
 /*                      Private functions prototypes                          */
@@ -223,7 +223,7 @@ long *find_string_int(long *vector, long lengthvector)
 static short readline(FILE *f,
                       long comment_char,
                       long sep_char,
-                      long **string,
+                      long *string,
                       long *string_length,
                       long *components,
                       long maxcomponents,
@@ -243,7 +243,7 @@ static short readline(FILE *f,
 
       for (j = 0; j < maxstringlength; j++)
         {
-          string[i][j] = 0;
+          string[i*maxstringlength +j] = 0;
         }
     }
 
@@ -295,7 +295,7 @@ static short readline(FILE *f,
 
           if (j == 0)
             {
-              string[j][i] = c[0];
+              string[j*maxstringlength +i] = c[0];
               i++;
             }
 
@@ -315,7 +315,7 @@ static short readline(FILE *f,
                 {
                   if (i < maxstringlength)
                     {
-                      string[j][i] = c[0];
+                      string[j*maxstringlength +i] = c[0];
                       i++;
                     }
                 }
@@ -345,18 +345,19 @@ static std::vector<std::string> readline_of_strings(FILE *f,
                                                     short *success)
 {
   long i, n;
-  long **string, *string_length;
+  long string[max_components*max_string_length];
+  long string_length[max_components];
   std::vector<std::string> line_of_strings;
 
   n = max_components;
-  string_length = (long *)alloca(n * sizeof(long));
-  string = (long **)alloca(n * sizeof(long *));
+  // string_length = (long *)alloca(n * sizeof(long));
+  // string = (long **)alloca(n * sizeof(long *));
 
-  n = max_string_length;
-  for (i = 0; i < max_components; i++)
-    {
-      string[i] = (long *)alloca(n * sizeof(long));
-    }
+  // n = max_string_length;
+  // for (i = 0; i < max_components; i++)
+  //   {
+  //     string[i] = (long *)alloca(n * sizeof(long));
+  //   }
 
   *success = readline(f, comment_char, sep_char, string, string_length,
                       components, max_components, max_string_length, endoffile);
@@ -365,7 +366,16 @@ static std::vector<std::string> readline_of_strings(FILE *f,
     {
       for (i = 0; i < (*components); i++)
         {
-          line_of_strings.push_back(find_string(string[i], string_length[i]));
+	  std::stringstream stream;
+	  
+	  for (int j = 0; j < string_length[i]; ++j)
+	    {
+	      stream << char(string[i*max_string_length+j]);
+	    }
+
+
+          // line_of_strings.push_back(find_string(string[i], string_length[i]));
+          line_of_strings.push_back(stream.str());
         }
     }
 
@@ -388,18 +398,19 @@ static double *readline_of_numbers(FILE *f,
                                    short *success)
 {
   long i, n;
-  long **string, *string_length;
+  long string[max_components*max_string_length];
+  long string_length[max_components];
   double *line_of_numbers = NULL;
 
   n = max_components;
-  string_length = (long *)alloca(n * sizeof(long));
-  string = (long **)alloca(n * sizeof(long *));
+  // string_length = (long *)alloca(n * sizeof(long));
+  // string = (long **)alloca(n * sizeof(long *));
 
   n = max_string_length;
-  for (i = 0; i < max_components; i++)
-    {
-      string[i] = (long *)alloca(n * sizeof(long));
-    }
+  // for (i = 0; i < max_components; i++)
+  //   {
+  //     string[i] = (long *)alloca(n * sizeof(long));
+  //   }
 
   *success = readline(f, comment_char, sep_char, string, string_length,
                       components, max_components, max_string_length, endoffile);
@@ -410,7 +421,7 @@ static double *readline_of_numbers(FILE *f,
 
       for (i = 0; i < (*components); i++)
         {
-          line_of_numbers[i] = find_number(string[i], string_length[i]);
+          line_of_numbers[i] = find_number(&string[i*max_string_length], string_length[i]);
         }
     }
 
