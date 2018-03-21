@@ -1,5 +1,5 @@
-/* GEOTRIVIALUtilities is an under-construction set of  C functions which supports i/o interface
-   and other utilities for models like GEOtop
+/* GEOTRIVIALUtilities is an under-construction set of  C functions which
+supports i/o interface and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
 file read_command_line.c
@@ -24,121 +24,142 @@ This file is part of GEOTRIVIALUtilities.
 #include "read_command_line.h"
 #include <iostream>
 
-char *read_option_string(int argc, char *argv[], char *option_f, char *no_option_argument, short print)
+char *read_option_string(int argc,
+                         char *argv[],
+                         char *option_f,
+                         char *no_option_argument,
+                         short print)
 {
-    /*
-     * \author Emanuele Cordano
-     * \date July 2008
-     *
-     *\param (int) - argc
-     *\param (char *) - argv
-     *\param (char *) - option_f - a string related to the flag which can appear in the command
-     *\param (char *) - no_option_f - a string returned by the routine in case of MISSING option_field
-     *\param (short) -  print
-     *
-     *\return Returns the string followed by the string option_f in the command line
-     *
-     */
-    int i;
+  /*
+   * \author Emanuele Cordano
+   * \date July 2008
+   *
+   *\param (int) - argc
+   *\param (char *) - argv
+   *\param (char *) - option_f - a string related to the flag which can appear
+   *in the command \param (char *) - no_option_f - a string returned by the
+   *routine in case of MISSING option_field \param (short) -  print
+   *
+   *\return Returns the string followed by the string option_f in the command
+   *line
+   *
+   */
+  int i;
 
-    for (i = 1; i < argc; i++)                    /* Skip argv[0] (program name). */
+  for (i = 1; i < argc; i++) /* Skip argv[0] (program name). */
     {
-        /*
-         * Use the 'strcmp' function to compare the argv values
-         * to a string of your choice (here, it's the optional
-         * argument "-q").  When strcmp returns 0, it means that the
-         * two strings are identical.
-         */
+      /*
+       * Use the 'strcmp' function to compare the argv values
+       * to a string of your choice (here, it's the optional
+       * argument "-q").  When strcmp returns 0, it means that the
+       * two strings are identical.
+       */
 
-        if (!strcmp(argv[i], option_f))
+      if (!strcmp(argv[i], option_f))
         {
-            if (print == 1) printf(" \n READ ARGUMENT of %s : %s \n", argv[i], argv[i + 1]);
-            return argv[i + 1];
+          if (print == 1)
+            printf(" \n READ ARGUMENT of %s : %s \n", argv[i], argv[i + 1]);
+          return argv[i + 1];
         }
     }
-    /* warning message */
-    if (print == 1)  printf("\nWARNING: Option %s is set to default value %s", option_f, no_option_argument);
+  /* warning message */
+  if (print == 1)
+    printf("\nWARNING: Option %s is set to default value %s", option_f,
+           no_option_argument);
 
-    return no_option_argument;
+  return no_option_argument;
 }
 
-
-//overloaded function
-std::string read_option_string(int argc, char *argv[], std::string option_f, std::string no_option_argument, short print)
+// overloaded function
+std::string read_option_string(int argc,
+                               char *argv[],
+                               std::string option_f,
+                               std::string no_option_argument,
+                               short print)
 {
-    /*
-     * \author Noori
-     * \date July 2012
-     *
-     *\param (int) - argc
-     *\param (char *) - argv
-     *\param (char *) - option_f - a string related to the flag which can appear in the command
-     *\param (char *) - no_option_f - a string returned by the routine in case of MISSING option_field
-     *\param (short) -  print
-     *
-     *\return Returns the string followed by the string option_f in the command line
-     *
-     */
+  /*
+   * \author Noori
+   * \date July 2012
+   *
+   *\param (int) - argc
+   *\param (char *) - argv
+   *\param (char *) - option_f - a string related to the flag which can appear
+   *in the command \param (char *) - no_option_f - a string returned by the
+   *routine in case of MISSING option_field \param (short) -  print
+   *
+   *\return Returns the string followed by the string option_f in the command
+   *line
+   *
+   */
 
-    for (int i = 1; i < argc; i++)                /* Skip argv[0] (program name). */
+  for (int i = 1; i < argc; i++) /* Skip argv[0] (program name). */
     {
-        /*
-         * Use the 'strcmp' function to compare the argv values
-         * to a string of your choice (here, it's the optional
-         * argument "-q").  When strcmp returns 0, it means that the
-         * two strings are identical.
-         */
+      /*
+       * Use the 'strcmp' function to compare the argv values
+       * to a string of your choice (here, it's the optional
+       * argument "-q").  When strcmp returns 0, it means that the
+       * two strings are identical.
+       */
 
-        if (!strcmp(argv[i], option_f.c_str()))
+      if (!strcmp(argv[i], option_f.c_str()))
         {
-            if (print == 1) printf(" \n READ ARGUMENT of %s : %s \n", argv[i], argv[i + 1]);
-            return argv[i + 1];
+          if (print == 1)
+            printf(" \n READ ARGUMENT of %s : %s \n", argv[i], argv[i + 1]);
+          return argv[i + 1];
         }
     }
-    /* warning message */
-    if (print == 1)  printf("\nWARNING: Option %s is set to default value %s", option_f.c_str(), no_option_argument.c_str());
+  /* warning message */
+  if (print == 1)
+    printf("\nWARNING: Option %s is set to default value %s", option_f.c_str(),
+           no_option_argument.c_str());
 
-    return no_option_argument;
+  return no_option_argument;
 }
 
-
-double read_option_double(int argc, char *argv[], char *option_f, char *no_option_argument, double default_value, short print)
+double read_option_double(int argc,
+                          char *argv[],
+                          char *option_f,
+                          char *no_option_argument,
+                          double default_value,
+                          short print)
 {
-    /*
-     * \author Emanuele Cordano
-     * \date July 2008
-     *
-     *\param (int) - argc
-     *\param (char *) - argv
-     *\param (char *) - option_f - a string related to the flag which can appear in the command
-     *\param (char *) - no_option_f - a string returned by the routine in case of MISSING option_field
-     *\param (double)- default_value - the DOUBKLE value applied if option_f is missing
-     *\param (short) -  print
-     *
-     *\return Return the double value followed by the the string option_f in the command line
-     *
-     */
-    int s = NO_SUCCESS;
-    double d;
-    std::string argument;
+  /*
+   * \author Emanuele Cordano
+   * \date July 2008
+   *
+   *\param (int) - argc
+   *\param (char *) - argv
+   *\param (char *) - option_f - a string related to the flag which can appear
+   *in the command \param (char *) - no_option_f - a string returned by the
+   *routine in case of MISSING option_field \param (double)- default_value - the
+   *DOUBKLE value applied if option_f is missing \param (short) -  print
+   *
+   *\return Return the double value followed by the the string option_f in the
+   *command line
+   *
+   */
+  int s = NO_SUCCESS;
+  double d;
+  std::string argument;
 
-    argument = read_option_string(argc, argv, option_f, no_option_argument, print);
+  argument =
+    read_option_string(argc, argv, option_f, no_option_argument, print);
 
-    if (strcmp(argument.c_str(), no_option_argument) != 0)
+  if (strcmp(argument.c_str(), no_option_argument) != 0)
     {
-        s = sscanf(argument.c_str(), "%lf", &d);
+      s = sscanf(argument.c_str(), "%lf", &d);
     }
 
-    if (s == NO_SUCCESS && print == 1)
+  if (s == NO_SUCCESS && print == 1)
     {
-      std::cout<< "\nWARNING: No real value found for " <<option_f << " option, the default value "<< default_value<<" is set" <<std::endl;
-        return default_value;
+      std::cout << "\nWARNING: No real value found for " << option_f
+                << " option, the default value " << default_value << " is set"
+                << std::endl;
+      return default_value;
     }
 
-    return d;
-
+  return d;
 }
-
 
 int read_flag(int argc, char *argv[], char *flag, short print)
 /*
@@ -147,63 +168,60 @@ int read_flag(int argc, char *argv[], char *flag, short print)
  *
  */
 {
-    int i, s = NO_SUCCESS;
+  int i, s = NO_SUCCESS;
 
-    for (i = 1; i < argc; i++)                    /* Skip argv[0] (program name). */
+  for (i = 1; i < argc; i++) /* Skip argv[0] (program name). */
     {
-        /*
-         * Use the 'strcmp' function to compare the argv values
-         * to a string of your choice (here, it's the optional
-         * argument "-q").  When strcmp returns 0, it means that the
-         * two strings are identical.
-         */
+      /*
+       * Use the 'strcmp' function to compare the argv values
+       * to a string of your choice (here, it's the optional
+       * argument "-q").  When strcmp returns 0, it means that the
+       * two strings are identical.
+       */
 
-        if (strcmp(argv[i], flag) == 0) s = SUCCESS;
-
+      if (strcmp(argv[i], flag) == 0) s = SUCCESS;
     }
 
-    if (print == 1)
+  if (print == 1)
     {
-        if (s == NO_SUCCESS) printf("\nWARNING: flag %s is missing and not activated \n ", flag);
-        if (s == SUCCESS) printf("\nWARNING: flag %s is activated \n ", flag);
-
+      if (s == NO_SUCCESS)
+        printf("\nWARNING: flag %s is missing and not activated \n ", flag);
+      if (s == SUCCESS) printf("\nWARNING: flag %s is activated \n ", flag);
     }
-    return s;
+  return s;
 }
 
 void t_error(std::string error_text)
 {
-    
-    /* void exit(); */
-    fprintf(stderr,"\nError::Run time error\n");
-    fprintf(stderr,"Error::%s\n",error_text.c_str());
-    fprintf(stderr,"........exiting...\n");
-    exit(1);
+  /* void exit(); */
+  fprintf(stderr, "\nError::Run time error\n");
+  fprintf(stderr, "Error::%s\n", error_text.c_str());
+  fprintf(stderr, "........exiting...\n");
+  exit(1);
 }
 
 //-----------------------------
 std::string get_workingdirectory()
 {
-    std::string retString ;
-    char const * const pathfile = getenv("WorkingPath");
-    
-    if(pathfile == NULL)
+  std::string retString;
+  char const *const pathfile = getenv("WorkingPath");
+
+  if (pathfile == NULL)
     {
-        t_error("You need to export the WorkingPath environment variable before to run the program");
-        return retString ;
+      t_error(
+        "You need to export the WorkingPath environment variable before to run "
+        "the program");
+      return retString;
     }
-    
-    std::ifstream inputFile ;
-    inputFile.open (pathfile, std::ifstream::in);
-    std::getline (inputFile, retString);
-    
-    if( retString == "" )
+
+  std::ifstream inputFile;
+  inputFile.open(pathfile, std::ifstream::in);
+  std::getline(inputFile, retString);
+
+  if (retString == "")
     {
-        t_error(std::string("no valid path found on file: ") + pathfile);
+      t_error(std::string("no valid path found on file: ") + pathfile);
     }
-    
-    return retString;
+
+  return retString;
 }
-
-
-

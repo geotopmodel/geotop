@@ -1,0 +1,23 @@
+
+# astyle 3.0.1 indentation style for geotop
+
+--style=gnu
+
+--convert-tabs
+--indent-preprocessor
+--indent=spaces=2
+--indent-namespaces
+--keep-one-line-blocks
+--min-conditional-indent=0
+--pad-header
+--max-code-length=78
+
+# write things as 'char *p'
+--align-pointer=name
+--align-reference=name
+
+--max-instatement-indent=60
+--suffix=none
+--quiet
+-Y
+--align-method-colon

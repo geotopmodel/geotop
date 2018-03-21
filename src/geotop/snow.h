@@ -1,21 +1,26 @@
 /* STATEMENT:
- 
+
  GEOtop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
  GEOtop 2.1 release candidate  (release date: 31 december 2016)
- 
+
  Copyright (c), 2016 - GEOtop Foundation
- 
+
  This file is part of GEOtop 2.1
- 
- GEOtop 2.1  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
- 
- GEOtop 2.1  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
- If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the GEOtop model. Any feedback will be highly appreciated.
- 
+
+ GEOtop 2.1  is a free software and is distributed under GNU General Public
+ License v. 3.0 <http://www.gnu.org/licenses/> WITHOUT ANY WARRANTY; without
+ even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE
+
+ GEOtop 2.1  is distributed as a free software in the hope to create and support
+ a community of developers and users that constructively interact. If you just
+ use the code, please give feedback to the authors and the community. Any way
+ you use the model, may be the most trivial one, is significantly helpful for
+ the future development of the GEOtop model. Any feedback will be highly
+ appreciated.
+
  If you have satisfactorily used the code, please acknowledge the authors.
- 
+
  */
 
 #ifndef SNOW_H
@@ -28,26 +33,36 @@
 
 #include "PBSM.h"
 
-
-//Author: Stefano Endrizzi
-//Date: 13 November 2005
-//Contents: Snow subroutines
+// Author: Stefano Endrizzi
+// Date: 13 November 2005
+// Contents: Snow subroutines
 
 /*----------------------------------------------------------------------------------------------------------*/
 double rho_newlyfallensnow(double u, double Tatm);
 double rho_valt(double Tatm);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void snow_layer_combination(double a, long r, long c, Statevar3D *snow, double Ta, GeoVector<long>& inf, double SWEmax_layer, double SWEmax_tot);
+void snow_layer_combination(double a,
+                            long r,
+                            long c,
+                            Statevar3D *snow,
+                            double Ta,
+                            GeoVector<long> &inf,
+                            double SWEmax_layer,
+                            double SWEmax_tot);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double DEPTH(long r, long c, GeoMatrix<long>& n, GeoTensor<double>& Dz);
+double DEPTH(long r, long c, GeoMatrix<long> &n, GeoTensor<double> &Dz);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double internal_energy(double w_ice, double w_liq, double T);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void from_internal_energy(double a, double h, double *w_ice, double *w_liq, double *T);
+void from_internal_energy(double a,
+                          double h,
+                          double *w_ice,
+                          double *w_liq,
+                          double *T);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void write_snow_all(long r, long c, Statevar3D *snow);
@@ -56,28 +71,64 @@ void write_snow_all(long r, long c, Statevar3D *snow);
 short set_snowice_min(Statevar1D *snow, long l1, long l2, double wicemin);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double *tsnow_nondim) ;
+void update_snow_age(double Psnow,
+                     double Ts,
+                     double Dt,
+                     double Prestore,
+                     double *tsnow_nondim);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double snow_albedo(double ground_alb, double snowD, double AEP, double freshsnow_alb, double C, double tsnow, double cosinc, double ( *F)(const double& x));
+double snow_albedo(double ground_alb,
+                   double snowD,
+                   double AEP,
+                   double freshsnow_alb,
+                   double C,
+                   double tsnow,
+                   double cosinc,
+                   double (*F)(const double &x));
 
 /*----------------------------------------------------------------------------------------------------------*/
-double Fzen(const double& cosinc);
+double Fzen(const double &cosinc);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void non_dimensionalize_snowage(double *snowage, double Ta);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void WBsnow(double Dt, long ns, long r, long c, Statevar3D *snow, double *Melt, double *RainOnSnow, Par *par, double slope, double Rain, Energy *E, double Evap);
+void WBsnow(double Dt,
+            long ns,
+            long r,
+            long c,
+            Statevar3D *snow,
+            double *Melt,
+            double *RainOnSnow,
+            Par *par,
+            double slope,
+            double Rain,
+            Energy *E,
+            double Evap);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void new_snow(double a, long r, long c, Statevar3D *snow, double P, double Dz, double T);
+void new_snow(double a,
+              long r,
+              long c,
+              Statevar3D *snow,
+              double P,
+              double Dz,
+              double T);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void WBglacier(long ns, long ng, long r, long c, Statevar3D *glac, double *Melt, Par *par, Energy *E, double Evap);
+void WBglacier(long ns,
+               long ng,
+               long r,
+               long c,
+               Statevar3D *glac,
+               double *Melt,
+               Par *par,
+               Energy *E,
+               double Evap);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double>& Z, double t);
+void find_SCA(Statevar3D *snow, Par *par, GeoMatrix<double> &Z, double t);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double theta_snow(double a, double b, double T);
@@ -86,7 +137,11 @@ double theta_snow(double a, double b, double T);
 double dtheta_snow(double a, double b, double T);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void allocate_and_initialize_statevar_3D(Statevar3D *V, double nan, long _nl, long nr, long nc);
+void allocate_and_initialize_statevar_3D(Statevar3D *V,
+                                         double nan,
+                                         long _nl,
+                                         long nr,
+                                         long nc);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void deallocate_statevar_3D(Statevar3D *V);
@@ -98,12 +153,30 @@ void allocate_and_initialize_statevar_1D(Statevar1D *V, double nan, long _nl);
 void deallocate_statevar_1D(Statevar1D *V);
 
 /*----------------------------------------------------------------------------------------------------------*/
-short copy_statevar_from3D_to1D(size_t r, size_t c, Statevar3D *origin, Statevar1D *destination);
+short copy_statevar_from3D_to1D(size_t r,
+                                size_t c,
+                                Statevar3D *origin,
+                                Statevar1D *destination);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double interpolate_snow(long r, long c, double h, long max, const GeoTensor<double>& Dz, const GeoTensor<double>& Q, short k);
+double interpolate_snow(long r,
+                        long c,
+                        double h,
+                        long max,
+                        const GeoTensor<double> &Dz,
+                        const GeoTensor<double> &Q,
+                        short k);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void update_snow_age_cumEvent(double Psnowi, int Dt,double *cum_prec,double *cum_da_up,int *time_wo_prec,short *evento,
-		short *up_albedo, int tres_wo_prec, double tres_up_albedo, double Ts, double *tsnow_nondim);
+void update_snow_age_cumEvent(double Psnowi,
+                              int Dt,
+                              double *cum_prec,
+                              double *cum_da_up,
+                              int *time_wo_prec,
+                              short *evento,
+                              short *up_albedo,
+                              int tres_wo_prec,
+                              double tres_up_albedo,
+                              double Ts,
+                              double *tsnow_nondim);
 #endif

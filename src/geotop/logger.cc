@@ -11,143 +11,140 @@
 
 using namespace geotop::logger;
 
-Logger::Logger(std::ostream* stream)
+Logger::Logger(std::ostream *stream)
 {
-    struct LogStream ls;
-    ls.streamP = stream;
-    ls.severity = DEFAULT_SEVERITY;
-    mStreams.push_back(ls);
+  struct LogStream ls;
+  ls.streamP = stream;
+  ls.severity = DEFAULT_SEVERITY;
+  mStreams.push_back(ls);
 }
 
 Logger::Logger()
 {
-    struct LogStream ls;
-    ls.streamP = (std::ostream*)(&std::clog);
-    ls.severity = DEFAULT_SEVERITY;
-    mStreams.push_back(ls);
+  struct LogStream ls;
+  ls.streamP = (std::ostream *)(&std::clog);
+  ls.severity = DEFAULT_SEVERITY;
+  mStreams.push_back(ls);
 }
 
-Logger::Logger(std::ostream* stream, severity_levels minSeverity)
+Logger::Logger(std::ostream *stream, severity_levels minSeverity)
 {
-    struct LogStream ls;
-    ls.streamP = stream;
-    ls.severity = minSeverity;
-    mStreams.push_back(ls);
+  struct LogStream ls;
+  ls.streamP = stream;
+  ls.severity = minSeverity;
+  mStreams.push_back(ls);
 }
 
-Logger::~Logger()
-{
-}
+Logger::~Logger() {}
 
-void Logger::addOStream(std::ostream* stream, severity_levels minSeverity)
+void Logger::addOStream(std::ostream *stream, severity_levels minSeverity)
 {
-    struct LogStream ls;
-    ls.streamP = stream;
-    ls.severity = minSeverity;
+  struct LogStream ls;
+  ls.streamP = stream;
+  ls.severity = minSeverity;
 
-    //Checking for duplicates
-    bool foundDuplicate = false;
-    std::vector<LogStream>::iterator it = mStreams.begin();
-    while (it != mStreams.end())
+  // Checking for duplicates
+  bool foundDuplicate = false;
+  std::vector<LogStream>::iterator it = mStreams.begin();
+  while (it != mStreams.end())
     {
-        if (it->streamP == stream)
+      if (it->streamP == stream)
         {
-            foundDuplicate = true;
-            break;
+          foundDuplicate = true;
+          break;
         }
-        it++;
+      it++;
     }
 
-    if (!foundDuplicate)
-    {
-        mStreams.push_back(ls);
-    }
+  if (!foundDuplicate) { mStreams.push_back(ls); }
 }
 
 void Logger::log(std::string const &message, severity_levels severity)
 {
-    try
+  try
     {
-        std::ostream* myStream;
-        std::vector<LogStream>::iterator it = mStreams.begin();
-        while (it != mStreams.end()){
-            myStream = it->streamP;
-            if (severity >= it->severity)
-            *myStream << "[" << severity_labels[severity] << "]: "
-                     << message << std::endl;
-            myStream->flush();
-            it++;
+      std::ostream *myStream;
+      std::vector<LogStream>::iterator it = mStreams.begin();
+      while (it != mStreams.end())
+        {
+          myStream = it->streamP;
+          if (severity >= it->severity)
+            *myStream << "[" << severity_labels[severity] << "]: " << message
+                      << std::endl;
+          myStream->flush();
+          it++;
         }
     }
-    catch(...)
+  catch (...)
     {
-        //Catch and ignore any exception thrown
+      // Catch and ignore any exception thrown
     }
 }
 
-void Logger::logf(const char* format, ...)
+void Logger::logf(const char *format, ...)
 {
-    char buffer[MAXMESSAGESIZE];
-    va_list args;
-    int chs;
+  char buffer[MAXMESSAGESIZE];
+  va_list args;
+  int chs;
 
-    va_start(args, format);
-    chs = vsprintf(buffer, format, args);
+  va_start(args, format);
+  chs = vsprintf(buffer, format, args);
 
-    if (chs != -1 && chs < MAXMESSAGESIZE)
+  if (chs != -1 && chs < MAXMESSAGESIZE)
     {
-        std::string msg(buffer);
-        log(msg, DEFAULT_SEVERITY);
+      std::string msg(buffer);
+      log(msg, DEFAULT_SEVERITY);
     }
 }
 
-void Logger::logsf(severity_levels severity, const char* format, ...)
+void Logger::logsf(severity_levels severity, const char *format, ...)
 {
-    char buffer[MAXMESSAGESIZE];
-    va_list args;
-    int chs;
+  char buffer[MAXMESSAGESIZE];
+  va_list args;
+  int chs;
 
-    va_start(args, format);
-    chs = vsprintf(buffer, format, args);
+  va_start(args, format);
+  chs = vsprintf(buffer, format, args);
 
-    if (chs != -1 && chs < MAXMESSAGESIZE)
+  if (chs != -1 && chs < MAXMESSAGESIZE)
     {
-        std::string msg(buffer);
-        log(msg, severity);
+      std::string msg(buffer);
+      log(msg, severity);
     }
 }
 
 void Logger::writeAll(std::string const &message)
 {
-    try
+  try
     {
-        std::ostream* myStream;
-        std::vector<LogStream>::iterator it = mStreams.begin();
-        while (it != mStreams.end()){
-            myStream = it->streamP;
-            *myStream << message;
-            myStream->flush();
-            it++;
+      std::ostream *myStream;
+      std::vector<LogStream>::iterator it = mStreams.begin();
+      while (it != mStreams.end())
+        {
+          myStream = it->streamP;
+          *myStream << message;
+          myStream->flush();
+          it++;
         }
     }
-    catch(...)
+  catch (...)
     {
-        //Catch and ignore any exception thrown
+      // Catch and ignore any exception thrown
     }
 }
 
-void Logger::writefAll(const char* format, ...)
+void Logger::writefAll(const char *format, ...)
 {
-    char buffer[MAXMESSAGESIZE];
-    va_list args;
-    int chs;
+  char buffer[MAXMESSAGESIZE];
+  va_list args;
+  int chs;
 
-    va_start(args, format);
-    chs = vsprintf(buffer, format, args);
+  va_start(args, format);
+  chs = vsprintf(buffer, format, args);
 
-    if (chs != -1 && chs < MAXMESSAGESIZE)
+  if (chs != -1 && chs < MAXMESSAGESIZE)
     {
-        std::string msg(buffer);
-        writeAll(msg);
+      std::string msg(buffer);
+      writeAll(msg);
     }
 }

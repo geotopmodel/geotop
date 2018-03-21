@@ -1,6 +1,6 @@
 
-/* GEOTRIVIALUtilities is an under-construction set of  C functions which supports i/o interface
-   and other utilities for models like GEOtop
+/* GEOTRIVIALUtilities is an under-construction set of  C functions which
+supports i/o interface and other utilities for models like GEOtop
 GEOTRIVIALUtilities Version 1.0
 
 Copyright (c), 2011 Emanuele Cordano
@@ -22,7 +22,7 @@ This file is part of GEOTRIVIALUtilities.
 
 /**
  * @file path_utils.h
- * @Author Gianfranco Gallizia (skyglobe83@gmail.com) 
+ * @Author Gianfranco Gallizia (skyglobe83@gmail.com)
  * @brief Utility functions for path handling
  */
 
@@ -41,7 +41,7 @@ extern "C" {
 #include <stdlib.h>
 
 #if __STDC_VERSION__ >= 199901L
-    const size_t MAX_PATH_LENGTH = 254;
+const size_t MAX_PATH_LENGTH = 254;
 #else
 #define MAX_PATH_LENGTH 254
 #endif
@@ -53,14 +53,14 @@ extern "C" {
  *         filename is a directory, 3 if filename is a special file
  *         and -1 on error.
  */
-int gt_fileExists(const char* filename);
+int gt_fileExists(const char *filename);
 
 /**
  * @brief Attempts to create a directory
  * @param[in] path the path of the directory
  * @return 1 if successful 0 on error.
  */
-int gt_makeDirectory(const char* path);
+int gt_makeDirectory(const char *path);
 
 /**
  * @brief Removes the last element of a path
@@ -71,20 +71,15 @@ int gt_makeDirectory(const char* path);
  * @return a newly created string that must be freed with free() by the
  *         caller or NULL in case of error.
  */
-char* gt_popPath(const char* path);
-
+char *gt_popPath(const char *path);
 
 /**
- * @brief Create parent dir 
+ * @brief Create parent dir
  *
- * Moved here: still unclear if needed or not 
+ * Moved here: still unclear if needed or not
  */
-    
+
 int mkdirp(const char *pathname, mode_t mode);
-    
-
-
-    
 
 #ifdef __cplusplus
 }
