@@ -266,7 +266,7 @@ namespace geotop
 
     std::string OutputFile::getFileName(double dateeur12, long layer)
     {
-      char buffer[13] = {'\0'};
+      char buffer[17] = {'\0'};
       std::string output;
       long day = 0L, month = 0L, year = 0L, hour = 0L, min = 0L;
 
@@ -329,7 +329,7 @@ namespace geotop
       output.append("_");
 
       // Period
-      memset(buffer, 0, 13);
+      memset(buffer, 0, 16);
 
       if (mPeriod > 0 && mPeriod < 60) sprintf(buffer, "%.2lds", mPeriod);
 
@@ -347,7 +347,7 @@ namespace geotop
       if (layer != -1 && mDimension != D1Dp && mDimension != D1Ds)
         {
           output.append("_L");
-          memset(buffer, 0, 13);
+          memset(buffer, 0, 16);
           sprintf(buffer, "%.4ld", layer);
           output.append(buffer);
         }
