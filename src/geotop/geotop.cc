@@ -25,7 +25,6 @@
  * variables  -------*/
 
 #include "version.h"
-
 #include <sys/stat.h>
 #include "struct.geotop.h"
 #include "input.h"
@@ -45,7 +44,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
-#include "version.h"
 
 #include "inputKeywords.h"
 #include "output_new.h"

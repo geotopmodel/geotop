@@ -29,7 +29,6 @@
 // @brief Energy balance (and also mass balance for snow and glacier)
 #include "energy.balance.h"
 #include "geotop_common.h"
-#include "version.h"
 #include "inputKeywords.h"
 #include <assert.h>
 #include "global_logger.h"

@@ -24,7 +24,6 @@
 
  */
 
-#include "version.h"
 
 #include "blowingsnow.h"
 #include "inputKeywords.h"

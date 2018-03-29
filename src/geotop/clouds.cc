@@ -25,7 +25,6 @@
  */
 
 #include "clouds.h"
-#include "version.h"
 #include "geotop_common.h"
 #include "inputKeywords.h"
 

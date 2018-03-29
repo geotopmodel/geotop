@@ -21,7 +21,6 @@
 
  */
 
-#include "version.h"
 #include "input.h"
 #include "parameters.h"
 #include <unistd.h>
