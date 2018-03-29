@@ -23,7 +23,6 @@
  If you have satisfactorily used the code, please acknowledge the authors.
 
  */
-#include "version.h"
 #include "geotop_common.h"
 #include "meteo.h"
 #include "inputKeywords.h"

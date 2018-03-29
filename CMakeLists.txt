@@ -22,6 +22,23 @@ SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_STRING "${PACKAGE} ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 SET(PACKAGE_BUGREPORT "stefano.end@gmail.com")
 
+##### Version file to keep track on some variable 
+IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
+  FIND_PACKAGE(Git)
+  IF(GIT_FOUND)
+     EXECUTE_PROCESS(
+     COMMAND ${GIT_EXECUTABLE}  describe --tags --always --abbrev=8 
+     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+     OUTPUT_VARIABLE "GEOtop_BUILD_VERSION"
+     ERROR_QUIET
+     OUTPUT_STRIP_TRAILING_WHITESPACE)
+     MESSAGE( STATUS "Git version: ${GEOtop_BUILD_VERSION}" )
+     ELSE(GIT_FOUND)
+       SET(GEOtop_BUILD_VERSION 0)
+     ENDIF(GIT_FOUND)
+ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
+
+
 # the generated version.h file is placed under the build directory such that the source directory is left untouched
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version_cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
 # of course we need to inform the compiler where to look for the above header
@@ -197,21 +214,6 @@ IF (METEOIO_OUTPUT)
     add_definitions(-DMETEOIO_OUTPUT)
 ENDIF (METEOIO_OUTPUT)
 
-##### Version file to keep track on some variable 
-IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
-  FIND_PACKAGE(Git)
-  IF(GIT_FOUND)
-     EXECUTE_PROCESS(
-     COMMAND ${GIT_EXECUTABLE}  describe --tags --always --abbrev=8 
-     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-     OUTPUT_VARIABLE "GEOtop_BUILD_VERSION"
-     ERROR_QUIET
-     OUTPUT_STRIP_TRAILING_WHITESPACE)
-     MESSAGE( STATUS "Git version: ${GEOtop_BUILD_VERSION}" )
-     ELSE(GIT_FOUND)
-       SET(GEOtop_BUILD_VERSION 0)
-     ENDIF(GIT_FOUND)
-ENDIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
 
 
 #Add subdirectory, so it can inherit all variables defined above
