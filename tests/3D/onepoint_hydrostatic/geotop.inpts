@@ -1,10 +1,4 @@
 !=======================================
-! INPUT FOR GEOtop 1.225-8 Version(geotop/branches/stefano/1.225-8/src)
-! Distributed simulation Panola13 catchment (Comparison with Boussinesq Model)
-! Toy catchment 1 m resolution
-!=======================================
-
-!=======================================
 ! GENERAL SETTINGS
 !=======================================
 
@@ -76,10 +70,14 @@ MeteoStationTemperatureSensorHeight = 10
 
 MeteoStationStandardTime = 1
 StandardTimeSimulation = 1
+
+
 !! ssenoner suggestion
 LapseRatePrec=0
 SnowCorrFactor=1
-!!
+
+
+
 
 !=======================================
 ! SOIL
@@ -113,11 +111,14 @@ HeaderFieldCapacity	=	"vwc_fc"
 HeaderThetaSat	=	"vwc_s"
 HeaderAlpha	=	"alpha"
 HeaderN	=	"n"
+!! forced here to make these values equal for 2.1 and 2.0 versions
+HeaderV	=	"v"
+HeaderSoilInitTemp = "InitT"
 HeaderSpecificStorativity	=	"stor"
 HeaderKthSoilSolids	=	"Kth"
 HeaderCthSoilSolids	=	"Cth"
 HeaderSoilInitPres = "InitPsi"
- SoilLayerNumber = 11
+ 
  SoilParFile	=	"input/soil-classes/soil"
  
 !======================================= 
@@ -128,15 +129,21 @@ RichardTol	=	1.E-8
 RichardInitForc = 1E-2
 MinLambdaWater = 1.E-8
 RichardMaxIter	=	1E3
+
 ExitMinLambdaWater = 1
 !UpdateHydraulicConductivity = 0
 !MinRatioKactualToKSat = 1E-5
 MinTimeStep = 1
 
 DDLand = 0
-MaxCourantSupFlowLand	=	1E-3
+!!MaxCourantSupFlowLand	=	1E-3
 MinSupWaterDepthLand	=	1E-10 
-MinTimeStepSupFlow	=	1E-50
+!inTimeStepSupFlow	=	1E-50
+
+!!! added to force same parameter on both 2.0 and 2.1
+LapseRatePrec  = -2.000000e-01
+LapseRateTemp = 6.500000e+00
+SWEtop = 50 
 
 !=============================================================================
 !  FILE NAMES
@@ -155,7 +162,7 @@ SlopeMapFile = "input-maps/slope"
 ! Tabs 
 !DischargeFile = "output-tabs/discharge"
 SoilAll = 1
-!PointOutputFile = "output-tabs/point"
+PointOutputFile = "output-tabs/point"
 SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
 SoilLiqContentProfileFile = "output-tabs/thetaliq"
 !SoilIceContentProfileFile = "output-tabs/I"
