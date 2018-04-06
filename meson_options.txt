@@ -1,0 +1,10 @@
+option('meteoio_path', type: 'string', value: '/usr/local/',
+       description: 'Root directory where MeteoIO has been installed')
+
+option('build_static', type: 'boolean', value: false)
+option('verbose', type: 'boolean', value: false)
+option('very_verbose', type: 'boolean', value: false)
+option('enable_internal_meteodistr', type: 'boolean', value: true)
+option('meteoio_output', type: 'boolean', value: false,
+       description: 'Enable the use of MeteoIO for output (Experimental)')
+

@@ -1,0 +1,1 @@
+src_files = [src_files, files(['rw_maps.cc', 'tabs.cc'])]

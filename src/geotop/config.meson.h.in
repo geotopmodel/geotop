@@ -1,0 +1,17 @@
+#ifndef geotop_config_h
+#define geotop_config_h
+
+#mesondefine COMPILER_HAS_DIAGNOSTIC_PRAGMA
+
+#mesondefine VERBOSE
+
+#mesondefine VERY_VERBOSE
+
+#mesondefine USE_INTERNAL_METEODISTR
+
+#mesondefine METEOIO_OUTPUT
+
+// macros DISABLE_WARNINGS and ENABLE_WARNINGS
+#include "warnings.h"
+
+#endif

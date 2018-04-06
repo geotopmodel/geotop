@@ -34,7 +34,7 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void i_lrc_cont(GeoMatrix<double> &LC, long *** i, GeoMatrix<long> &lrc)
+void i_lrc_cont(GeoMatrix<double> &LC, long  ***i, GeoMatrix<long> &lrc)
 {
   long cont = 0;
   long l, r, c;
@@ -136,7 +136,7 @@ void cont_nonzero_values_matrix2(long *tot,
                                  Channel *cnet,
                                  GeoMatrix<double> &LC,
                                  GeoMatrix<long> &lrc,
-                                 long *** i,
+                                 long  ***i,
                                  long n)
 {
   long j, jj, l, r = 0, c = 0;
@@ -221,7 +221,7 @@ void cont_nonzero_values_matrix3(GeoVector<long> &Lp,
                                  Channel *cnet,
                                  GeoMatrix<double> &LC,
                                  GeoMatrix<long> &lrc,
-                                 long *** i,
+                                 long  ***i,
                                  long n)
 {
   long j, jj, l, r = 0, c = 0;

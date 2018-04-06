@@ -371,7 +371,7 @@ IF(ENABLE_INTERNAL_METEODISTR)
 ELSE(ENABLE_INTERNAL_METEODISTR)
      SET ( METEOIOPREFIX on )
 ENDIF(ENABLE_INTERNAL_METEODISTR)
-configure_file (${GEOTOP_TEST_DIR}/test_runner.py.cmake.in ${GEOTOP_TEST_DIR}/test_runner.py)
+configure_file (${GEOTOP_TEST_DIR}/test_runner.py.in ${GEOTOP_TEST_DIR}/test_runner.py @ONLY)
 
 
 

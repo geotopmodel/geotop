@@ -34,13 +34,13 @@ if test -z "`which astyle`" ; then
   echo "*** No astyle program found."
   echo "***"
   echo "*** You can download astyle from http://astyle.sourceforge.net/"
-  echo "*** Note that you will need exactly version 3.0.1 (no newer or"
+  echo "*** Note that you will need exactly version 3.1 (no newer or"
   echo "*** older version will yield the correct indentation)."
   exit 1
 fi
 
-if test "`astyle --version 2>&1`" != "Artistic Style Version 3.0.1" ; then
-  echo "*** Found a version of astyle different than the required version 3.0.1."
+if test "`astyle --version 2>&1`" != "Artistic Style Version 3.1" ; then
+  echo "*** Found a version of astyle different than the required version 3.1."
   exit 1
 fi
 
