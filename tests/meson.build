@@ -49,9 +49,7 @@ _tests = ['1D/B2_BeG_017',
 
 foreach _t : _tests
     _test_prefix = _prefix+'/'+_t
-    _dim = _t.split('/')[0]
-    _name = _t.split('/')[1]
-   test(_t, geotop, args:[_test_prefix], suite: [_dim, _name],
+   test(_t, geotop, args:[_test_prefix], suite: _t.split('/'),
         timeout: 900)
 endforeach
 
@@ -78,9 +76,7 @@ tr = meson.current_build_dir()+'/test_runner.py'
 
 foreach _t : _tests
     _test_prefix = _prefix+'/'+_t
-    _dim = _t.split('/')[0]
-    _name = _t.split('/')[1]
     test(_t+'.test_runner', py2, args:[tr],
-         workdir: _test_prefix, is_parallel: false, suite: [_dim, _name],
+         workdir: _test_prefix, is_parallel: false, suite: _t.split('/'),
          timeout: 900)
 endforeach
