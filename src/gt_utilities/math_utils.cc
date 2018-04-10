@@ -115,7 +115,7 @@ short tridiag2(long nbeg,
       e[j] -= gam[j + 1] * e[j + 1];
     }
 
-#ifdef VERYVERBOSE
+#ifdef VERY_VERBOSE
   printf("DEBUG_PRINT: nbeg(%ld),nend(%ld)\n", nbeg, nend);
   printf("DEBUG_PRINT: ld(");
   for (lIndex = 0; lIndex < ld.size(); lIndex++)
@@ -152,7 +152,7 @@ double norm_inf(const GeoVector<double> &V, long nbeg, long nend)
   long l;
   double N = 0.0;
 
-  for (l = nbeg; l <= nend; l++)
+  for (l = nbeg; l < nend; l++)
     {
       if (fabs(V[l]) > N) N = fabs(V[l]);
     }
@@ -166,7 +166,7 @@ double norm_1(const GeoVector<double> &V, long nbeg, long nend)
 {
   long l;
   double N = 0.0;
-  for (l = nbeg; l <= nend; l++)
+  for (l = nbeg; l < nend; l++)
     {
       N += fabs(V[l]);
     }
@@ -183,7 +183,7 @@ double norm_2(const GeoVector<double> &V, long nbeg, long nend)
 
   for (l = nbeg; l < nend; l++)
     {
-      N += pow(V[l], 2.0);
+      N += V[l]*V[l];
     }
   N = sqrt(N);
 
