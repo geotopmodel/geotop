@@ -77,12 +77,10 @@ public:
     mCurrentPrefix = boost::shared_ptr<std::string>(new std::string(""));
     mCurrentLayerIndex = boost::shared_ptr<double>(new double);
     *mCurrentLayerIndex = 0.;
-  };
+  }
 
   ~ConfGrammar()
-  {
-
-  };
+  {}
 
   void actionSection(char const *const pBegin, char const *const pEnd) const
   {
