@@ -169,7 +169,7 @@ public:
   double avo;         /*NEW SNOW VISIBLE BAND REFLECTANCE*/
   double airo;        /*NEW NEAR INFRARED BAND REFLECTANCE*/
   double Sr;          /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-//  double rho_ice;     /*Ice density [kg/mc]*/
+  //  double rho_ice;     /*Ice density [kg/mc]*/
   size_t total_pixel; /*The number of the valid pixel of the whole basin*/
   size_t total_channel;
   double total_area;
