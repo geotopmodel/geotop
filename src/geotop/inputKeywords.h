@@ -203,11 +203,11 @@ namespace geotop
        * return false.
        */
       template <typename T>
-      bool initValue(const std::string pName, const T &pValue)
+      bool initValue(const std::string pName, T &&pValue)
       {
         std::string lName(pName);
         boost::algorithm::to_lower(lName);
-        (*mValueMap)[lName] = pValue;
+        (*mValueMap)[lName] = std::forward<T>(pValue);
 
         return true;
       }
