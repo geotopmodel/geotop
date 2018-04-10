@@ -26,6 +26,9 @@ If you have satisfactorily used the code, please acknowledge the authors.
 #include "datastructs.h"
 
 #include <vector>
+#include <soil_class.h>
+#include <soilstatevar.h>
+#include <vegstatevar.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -111,54 +114,7 @@ public:
   GeoMatrix<double> SWrefl_surr;
 };
 
-/*---------------------------------------------------------------------------*/
 
-class SoilState
-{
-public:
-  GeoMatrix<double> P;
-  GeoMatrix<double> thi;
-  GeoMatrix<double> T;
-};
-
-/*---------------------------------------------------------------------------*/
-
-class StateVeg
-{
-public:
-  GeoVector<double> Tv;
-  GeoVector<double> wrain; /*intercepted precipitation in mm*/
-  GeoVector<double> wsnow; /*intercepted precipitation in mm*/
-};
-
-/*---------------------------------------------------------------------------*/
-
-class Soil
-{
-public:
-  GeoMatrix<long> type;
-  GeoVector<double> init_water_table_depth;
-  GeoTensor<double> pa;
-  GeoTensor<double> pa_bed;
-  GeoMatrix<double> T_av_tensor;
-  GeoMatrix<double> thw_av_tensor;
-  GeoMatrix<double> thi_av_tensor;
-  GeoMatrix<double> Ptot;
-  GeoMatrix<double> th;
-  GeoTensor<double> ET;
-  GeoMatrix<double> Tzplot;
-  GeoMatrix<double> Tzavplot;
-  GeoMatrix<double> Ptotzplot;
-  GeoMatrix<double> Pzplot;
-  GeoMatrix<double> thzplot;
-  GeoMatrix<double> thzavplot;
-  GeoMatrix<double> thizplot;
-  GeoMatrix<double> thizavplot;
-  SoilState *SS;
-  StateVeg *VS;
-  GeoVector<double> Pnetcum;  // TODO mattiu
-  GeoVector<double> ETcum;
-};
 
 /*---------------------------------------------------------------------------*/
 

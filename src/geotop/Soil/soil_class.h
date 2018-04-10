@@ -64,7 +64,8 @@ public:
   GeoVector<double> Pnetcum;  // TODO mattiu
   GeoVector<double> ETcum;
 
-  Soil() {};
+  Soil() {}
+
   Soil(double novalue,
        size_t layers,
        size_t nrows,
