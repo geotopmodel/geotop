@@ -8,28 +8,15 @@
  */
 
 #include <config.h>
-DISABLE_WARNINGS
 #include "inputKeywords.h"
-#include <boost/spirit/include/classic.hpp>
-#include <boost/foreach.hpp>
-#include <boost/algorithm/string/erase.hpp>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/bind.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/date_time/period.hpp>
 
+DISABLE_WARNINGS
+#include <boost/spirit/include/classic.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/bind.hpp>
 #include <boost/date_time/local_time/local_time.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/date_time/date.hpp>
-#include <boost/date_time/date_facet.hpp>
-#include <boost/date_time/time_parsing.hpp>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 ENABLE_WARNINGS
+
 #include "output_file.h"
 
 #include "logger.h"
@@ -351,10 +338,8 @@ public:
     boost::split(lTokenArray, lString, boost::algorithm::is_any_of(","));
 
     std::vector<double> lDoubleArray;
-    BOOST_FOREACH (std::string lToken, lTokenArray)
-    {
-      lDoubleArray.push_back(boost::lexical_cast<double>(lToken));
-    }
+    for (auto x : lTokenArray)
+      lDoubleArray.emplace_back(boost::lexical_cast<double>(x));
 
     if (mKey->compare("") != 0)
       {
