@@ -162,7 +162,7 @@ SlopeMapFile = "input-maps/slope"
 ! Tabs 
 !DischargeFile = "output-tabs/discharge"
 SoilAll = 1
-PointOutputFile = "output-tabs/point"
+!PointOutputFile = "output-tabs/point"
 SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
 SoilLiqContentProfileFile = "output-tabs/thetaliq"
 !SoilIceContentProfileFile = "output-tabs/I"
