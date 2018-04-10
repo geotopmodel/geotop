@@ -28,11 +28,8 @@
 
 #include "vegstatevar.h"
 
-StateVeg::StateVeg(size_t total_pixel)
-{
-  Tv = GeoVector<double>(total_pixel, 0.);
-  wrain =
-    GeoVector<double>(total_pixel, 0.); /*intercepted precipitation in mm*/
-  wsnow =
-    GeoVector<double>(total_pixel, 0.); /*intercepted precipitation in mm*/
-}
+StateVeg::StateVeg(size_t total_pixel):
+  Tv{total_pixel, 0.},
+  wrain{total_pixel, 0.}, /*intercepted precipitation in mm*/
+  wsnow{total_pixel, 0.} /*intercepted precipitation in mm*/
+{}
