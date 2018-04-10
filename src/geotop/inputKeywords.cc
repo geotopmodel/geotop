@@ -457,7 +457,7 @@ geotop::input::ConfigStore::ConfigStore()
                 new std::map<std::string, boost::any>());
 }
 
-bool geotop::input::ConfigStore::parse(const std::string pFileName)
+bool geotop::input::ConfigStore::parse(const std::string &pFileName)
 {
   GlobalLogger *lg = GlobalLogger::getInstance();
   std::ifstream fs(pFileName.c_str());
