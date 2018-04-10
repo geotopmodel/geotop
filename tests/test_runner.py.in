@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-#
 # @(#)test_runner.py.in
 #
@@ -61,12 +61,12 @@ if pandas:
     warnings.simplefilter(action = "ignore", category = FutureWarning)
 
 # path to the geotop binary
-GEOTOP = "${GEOTOP_PROGRAM_PATH}"
+GEOTOP = "@GEOTOP_PROGRAM_PATH@"
 # geotop compile flag
-METEOIO_ACTUAL_STATUS = "${METEOIOPREFIX}"
+METEOIO_ACTUAL_STATUS = "@METEOIOPREFIX@"
 
 # directory containing this file
-TESTDIR = "${GEOTOP_TEST_DIR}"
+TESTDIR = "@GEOTOP_TEST_DIR@"
 
 # output directories
 OUTPUT_TABS = "output-tabs" 

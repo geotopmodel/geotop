@@ -28,7 +28,7 @@
 
 #include "struct.geotop.h"
 
-void i_lrc_cont(GeoMatrix<double> &LC, long *** i, GeoMatrix<long> &lrc);
+void i_lrc_cont(GeoMatrix<double> &LC, long  ***i, GeoMatrix<long> &lrc);
 
 void j_rc_cont(GeoMatrix<double> &LC, long **j, GeoMatrix<long> &rc);
 
@@ -39,7 +39,7 @@ void cont_nonzero_values_matrix2(long *tot,
                                  Channel *cnet,
                                  GeoMatrix<double> &LC,
                                  GeoMatrix<long> &lrc,
-                                 long *** i,
+                                 long  ***i,
                                  long n);
 
 void cont_nonzero_values_matrix3(GeoVector<long> &Lp,
@@ -47,7 +47,7 @@ void cont_nonzero_values_matrix3(GeoVector<long> &Lp,
                                  Channel *cnet,
                                  GeoMatrix<double> &LC,
                                  GeoMatrix<long> &lrc,
-                                 long *** i,
+                                 long  ***i,
                                  long n);
 
 #endif
