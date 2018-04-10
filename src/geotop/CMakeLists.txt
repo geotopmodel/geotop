@@ -1,12 +1,5 @@
 PROJECT(geotop)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Energy)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Glacier)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Meteo)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Snow)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Soil)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Water)
-
 ADD_EXECUTABLE(geotop
   geotop.cc
   )
