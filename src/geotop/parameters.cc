@@ -2974,8 +2974,8 @@ static void assign_numeric_parameters(Par *par,
   par->DepthFreeSurface =
     getDoubleValueWithDefault(lConfigStore, "DepthFreeSurfaceAtTheBoundary",
                               geotop::input::gDoubleNoValue, false);
-  par->prec_as_intensity = getDoubleValueWithDefault(
-                             lConfigStore, "PrecAsIntensity", geotop::input::gDoubleNoValue, false);
+  par->prec_as_intensity = short(getDoubleValueWithDefault(
+                                   lConfigStore, "PrecAsIntensity", geotop::input::gDoubleNoValue, false));
 
   par->linear_interpolation_meteo.resize(nmeteo_stations + 1);
 
@@ -2983,7 +2983,7 @@ static void assign_numeric_parameters(Par *par,
                         lConfigStore, "LinearInterpolation", 0., true, nmeteo_stations, false);
   for (size_t i = 1; i < par->linear_interpolation_meteo.size(); i++)
     {
-      par->linear_interpolation_meteo[i] = lDoubleTempVector[i - 1];
+      par->linear_interpolation_meteo[i] = short(lDoubleTempVector[i - 1]);
     }
 
   par->output_vertical_distances = (short)getDoubleValueWithDefault(

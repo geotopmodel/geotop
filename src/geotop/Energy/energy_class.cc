@@ -40,8 +40,8 @@ Energy::Energy(double /*novalue*/, size_t total_pixel)
   Rswdown_mean = GeoVector<double>(total_pixel + 1, 0.);
   Rswbeam_mean = GeoVector<double>(total_pixel + 1, 0.);
 
-  nDt_shadow = GeoVector<long>(total_pixel + 1, 0.);
-  nDt_sun = GeoVector<long>(total_pixel + 1, 0.);
+  nDt_shadow = GeoVector<long>(total_pixel + 1, 0);
+  nDt_sun = GeoVector<long>(total_pixel + 1, 0);
   Rn = GeoVector<double>(total_pixel + 1);
   LWin = GeoVector<double>(total_pixel + 1);
   LW = GeoVector<double>(total_pixel + 1);
@@ -52,7 +52,7 @@ Energy::Energy(double /*novalue*/, size_t total_pixel)
   Ts = GeoVector<double>(total_pixel + 1);
   SWin = GeoVector<double>(total_pixel + 1);
   SWinb = GeoVector<double>(total_pixel + 1);
-  shad = GeoVector<short>(total_pixel + 1, 0.);
+  shad = GeoVector<short>(total_pixel + 1, 0);
 }
 
 // FIXME: Horrible hack needed to cope with legacy code structure

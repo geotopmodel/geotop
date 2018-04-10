@@ -5,9 +5,8 @@
 
 #include "soilstatevar.h"
 
-SoilState::SoilState(size_t total_pixel, size_t layers)
-{
-  P = GeoMatrix<double>(layers + 1, total_pixel + 1, 0.);
-  thi = GeoMatrix<double>(layers + 1, total_pixel + 1, 0.);
-  T = GeoMatrix<double>(layers + 1, total_pixel + 1);
-}
+SoilState::SoilState(size_t total_pixel, size_t layers):
+  P{layers + 1, total_pixel + 1, 0.},
+  thi{layers + 1, total_pixel + 1, 0.},
+  T{layers + 1, total_pixel + 1}
+{}

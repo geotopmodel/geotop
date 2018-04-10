@@ -1,7 +1,4 @@
 deps = [deps, dependency('boost',
-                         modules: ['regex',
-                                   'program_options',
+                         modules: ['program_options',
                                    'filesystem',
-                                   'system',
-                                   'iostreams',
-                                   'unit_test_framework'])]
+                                   'system'])]

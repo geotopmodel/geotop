@@ -81,7 +81,12 @@ include_directories(
 	${METEOIO_INCLUDE_PATH}
 	${METEOIO_PLUGIN_INCLUDE_PATH}
 	${Boost_INCLUDE_DIRS}
-) 
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Energy
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Glacier
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Meteo
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Snow
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Soil
+	${CMAKE_CURRENT_SOURCE_DIR}/geotop/Water)
 
 link_directories(
         "/opt/local/lib"
