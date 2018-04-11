@@ -21,6 +21,9 @@ ENABLE_WARNINGS
 
 #include "logger.h"
 #include "global_logger.h"
+
+#include <vector>
+
 using namespace geotop::logger;
 
 // Uncomment the following line to enable the trace log.
@@ -30,8 +33,6 @@ using namespace geotop::logger;
 static std::ofstream tlf("inputKeywords_trace.log");
 static Logger trace_log((std::ostream *)(&tlf), TRACE);
 #endif
-
-using namespace boost::assign;
 
 /** @internal
  * @brief convert a string to a double
@@ -53,15 +54,15 @@ enum Sections { GENERAL_SEC, OUTPUT_SEC };
 class ConfGrammar : public boost::spirit::classic::grammar<ConfGrammar>
 {
 public:
-  ConfGrammar(boost::shared_ptr<std::map<std::string, boost::any>> pMap)
+  ConfGrammar(std::shared_ptr<std::map<std::string, boost::any>> pMap)
   {
-    mCurrent_section = boost::shared_ptr<Sections>(new Sections);
+    mCurrent_section = std::shared_ptr<Sections>(new Sections);
     *mCurrent_section = GENERAL_SEC;
     mMap = pMap;
     mUnsupportedKeys.push_back("NumSimulationTimes");
-    mKey = boost::shared_ptr<std::string>(new std::string());
-    mCurrentPrefix = boost::shared_ptr<std::string>(new std::string(""));
-    mCurrentLayerIndex = boost::shared_ptr<double>(new double);
+    mKey = std::shared_ptr<std::string>(new std::string());
+    mCurrentPrefix = std::shared_ptr<std::string>(new std::string(""));
+    mCurrentLayerIndex = std::shared_ptr<double>(new double);
     *mCurrentLayerIndex = 0.;
   }
 
@@ -84,7 +85,7 @@ public:
         if (mMap->count("OUTPUT_SEC") == 0)
           {
             (*mMap)["OUTPUT_SEC"] =
-              boost::shared_ptr<std::vector<geotop::input::OutputFile>>(
+              std::shared_ptr<std::vector<geotop::input::OutputFile>>(
                 new std::vector<geotop::input::OutputFile>());
 #ifdef TRACELOG
             trace_log.log("actionSection: created OUTPUT_SEC key", TRACE);
@@ -285,10 +286,10 @@ public:
             // If it's not a LayerIndex key create a new OutputFile
             if (lcKey.compare("layerindex") != 0)
               {
-                boost::shared_ptr<std::vector<geotop::input::OutputFile>> files =
-                                                                         boost::any_cast<
-                                                                         boost::shared_ptr<std::vector<geotop::input::OutputFile>>>(
-                                                                           mMap->at("OUTPUT_SEC"));
+                std::shared_ptr<std::vector<geotop::input::OutputFile>> files =
+                                                                       boost::any_cast<
+                                                                       std::shared_ptr<std::vector<geotop::input::OutputFile>>>(
+                                                                         mMap->at("OUTPUT_SEC"));
                 files->push_back(geotop::input::OutputFile(
                                    *mKey, pValue, (long)(*mCurrentLayerIndex),
                                    (std::string)(*mCurrentPrefix)));
@@ -444,16 +445,16 @@ public:
 
 private:
   std::vector<std::string> mUnsupportedKeys;  // No longer supported keys
-  boost::shared_ptr<std::string> mKey;
-  boost::shared_ptr<std::string> mCurrentPrefix;
-  boost::shared_ptr<std::map<std::string, boost::any>> mMap;
-  boost::shared_ptr<Sections> mCurrent_section;
-  boost::shared_ptr<double> mCurrentLayerIndex;
+  std::shared_ptr<std::string> mKey;
+  std::shared_ptr<std::string> mCurrentPrefix;
+  std::shared_ptr<std::map<std::string, boost::any>> mMap;
+  std::shared_ptr<Sections> mCurrent_section;
+  std::shared_ptr<double> mCurrentLayerIndex;
 };
 
 geotop::input::ConfigStore::ConfigStore()
 {
-  mValueMap = boost::shared_ptr<std::map<std::string, boost::any>>(
+  mValueMap = std::shared_ptr<std::map<std::string, boost::any>>(
                 new std::map<std::string, boost::any>());
 }
 
@@ -2246,7 +2247,7 @@ void geotop::input::ConfigStore::init()
 
 geotop::input::ConfigStore::~ConfigStore() {}
 
-boost::shared_ptr<geotop::input::ConfigStore>
+std::shared_ptr<geotop::input::ConfigStore>
 geotop::input::ConfigStoreSingletonFactory::getInstance()
 {
   if (!mInstance)
@@ -2254,7 +2255,7 @@ geotop::input::ConfigStoreSingletonFactory::getInstance()
       mMutex.lock();
       if (!mInstance)
         {
-          boost::shared_ptr<geotop::input::ConfigStore> lTemp(
+          std::shared_ptr<geotop::input::ConfigStore> lTemp(
             new geotop::input::ConfigStore());
           mInstance = lTemp;
         }
@@ -2263,6 +2264,6 @@ geotop::input::ConfigStoreSingletonFactory::getInstance()
   return mInstance;
 }
 
-boost::shared_ptr<geotop::input::ConfigStore>
+std::shared_ptr<geotop::input::ConfigStore>
 geotop::input::ConfigStoreSingletonFactory::mInstance;
 boost::signals2::mutex geotop::input::ConfigStoreSingletonFactory::mMutex;
