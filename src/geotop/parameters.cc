@@ -131,17 +131,17 @@ static double getDoubleValueWithDefault(
  */
 static std::vector<double> getDoubleVectorValueWithDefault(
   const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore,
-  const std::string pName,
+  const std::string &pName,
   const double pDefaultValue,
   const bool pUsePrevElement,
   const size_t pLength,
   const bool pAllowNoValue = false)
 {
-  std::vector<double> lValue;
-  bool lGetResult = pConfigStore->get(pName, lValue);
+  std::vector<double> read_vector;
+  bool lGetResult = pConfigStore->get(pName, read_vector);
 
-  geotop::logger::GlobalLogger *lg =
-    geotop::logger::GlobalLogger::getInstance();
+  geotop::logger::GlobalLogger *lg;
+  lg = geotop::logger::GlobalLogger::getInstance();
 
   if (not lGetResult)
     {
@@ -150,51 +150,48 @@ static std::vector<double> getDoubleVectorValueWithDefault(
       exit(1);
     }
 
-  size_t lDesiredLength = pLength;
-  size_t lLength = lValue.size();
+  std::vector<double> desired_vector;
 
-  if (pLength == 0) lDesiredLength = lLength;
+  // we have to set the desired vector according to the passed arguments
+  // here we compute the size
+  size_t desired_length = pLength;
+  const size_t read_length = read_vector.size();
+  // self-learning
+  if (pLength == 0) desired_length = read_length;
 
-  for (size_t i = 0; i < lDesiredLength; i++)
+  // and here we first fill the vector with a default value,
+  // which can be either the pDefaultValue
+  // or the last element of the read_vector
+  double default_value = pDefaultValue;
+  if (pUsePrevElement) default_value = read_vector.back();
+
+  desired_vector.resize(desired_length, default_value);
+
+  // now we copy the required elements from read_vector into desired_vector
+  const size_t _size = std::min(read_length, desired_length);
+  for (size_t i = 0; i < _size; ++i)
+    desired_vector[i] = read_vector[i];
+
+  // now some logging and error check
+  for (size_t i = 0; i < desired_length; ++i)
     {
-      double lElementValue = geotop::input::gDoubleNoValue;
-
-      if (i < lLength)
+      if (!pAllowNoValue &&
+          (desired_vector[i] == geotop::input::gDoubleNoValue))
         {
-          lElementValue = lValue[i];
-          lg->logsf(geotop::logger::NOTICE, "%s[1] = %e", pName.c_str(),
-                    lElementValue);
+          lg->logsf(geotop::logger::CRITICAL,
+                    "Mandatory array value not assigned: %s", pName.c_str());
+          exit(1);
         }
+
+      if (i < read_length)
+        lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e", pName.c_str(), i,
+                  desired_vector[i]);
       else
-        {
-          lValue.push_back(geotop::input::gDoubleNoValue);
-        }
-
-      if (lElementValue == geotop::input::gDoubleNoValue)
-        {
-          if (pUsePrevElement && i > 0)
-            {
-              lElementValue = lValue[i - 1];
-              lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e", pName.c_str(), i,
-                        lElementValue);
-            }
-          else
-            {
-              lElementValue = pDefaultValue;
-              lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e (default)",
-                        pName.c_str(), i, lElementValue);
-            }
-
-          if (!pAllowNoValue && lElementValue == geotop::input::gDoubleNoValue)
-            {
-              lg->logsf(geotop::logger::CRITICAL,
-                        "Mandatory array value not assigned: %s", pName.c_str());
-              exit(1);
-            }
-        }
-      lValue[i] = lElementValue;
+        lg->logsf(geotop::logger::NOTICE, "%s[%ld] = %e (default)", pName.c_str(),
+                  i, desired_vector[i]);
     }
-  return lValue;
+
+  return desired_vector;
 }
 
 /***********************************************************/
@@ -1379,7 +1376,7 @@ static void assign_numeric_parameters(Par *par,
   n = (long)GTConst::max_cols_time_steps_file + 1;
   std::vector<double> lTimeStepEnergyAndWater = getDoubleVectorValueWithDefault(
                                                   lConfigStore, "TimeStepEnergyAndWater", geotop::input::gDoubleNoValue,
-                                                  false, (long)GTConst::max_cols_time_steps_file, true);
+                                                  false, 1, true);
   par->Dt = lTimeStepEnergyAndWater[0];
 
   // init date
@@ -3250,7 +3247,7 @@ short read_soil_parameters(std::string name,
           // assign soildata to soil->pa
           for (n = 1; n <= nsoilprop; n++)
             {
-              for (j = 1; j < sl->pa.getCh(); j++)    // j is the layer index
+              for (j = 1; j < sl->pa.getCh(); j++)  // j is the layer index
                 {
                   sl->pa[i][n][j] = soildata[j - 1][n - 1];
                 }
@@ -3265,7 +3262,7 @@ short read_soil_parameters(std::string name,
 
           // fix layer thickness
           n = jdz;
-          for (j = 1; j < sl->pa.getCh(); j++)    // j is the layer index
+          for (j = 1; j < sl->pa.getCh(); j++)  // j is the layer index
             {
               if ((long)sl->pa[i][n][j] != geotop::input::gDoubleNoValue &&
                   (long)sl->pa[i][n][j] != geotop::input::gDoubleAbsent)
@@ -3313,7 +3310,7 @@ short read_soil_parameters(std::string name,
             {
               if (n != jdz)
                 {
-                  for (j = 1; j < sl->pa.getCh(); j++)    // j is the layer index
+                  for (j = 1; j < sl->pa.getCh(); j++)  // j is the layer index
                     {
                       if ((long)sl->pa[i][n][j] == geotop::input::gDoubleNoValue ||
                           (long)sl->pa[i][n][j] == geotop::input::gDoubleAbsent)
@@ -3410,7 +3407,7 @@ short read_soil_parameters(std::string name,
     {
       for (n = 1; n < IT->pa_bed.getRh(); n++)
         {
-          if (i == jdz)    // TODO: to verify
+          if (i == jdz)  // TODO: to verify
             {
               for (j = 1; j < IT->pa_bed.getCh(); j++)
                 {
