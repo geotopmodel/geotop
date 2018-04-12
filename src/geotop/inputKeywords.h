@@ -12,14 +12,16 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/any.hpp>
-#include <boost/assign/std/vector.hpp>
-#include <boost/shared_ptr.hpp>
+//#include <boost/assign/std/vector.hpp>
+//#include <boost/shared_ptr.hpp>
 #include <boost/signals2/mutex.hpp>
 #include <map>
 #include <algorithm>
 #include <iterator>
 #include <string>
 #include <iostream>
+#include <memory>
+#include <vector>
 
 namespace geotop
 {
@@ -212,7 +214,7 @@ namespace geotop
       }
 
       void init();
-      boost::shared_ptr<std::map<std::string, boost::any>> mValueMap;
+      std::shared_ptr<std::map<std::string, boost::any>> mValueMap;
     };
 
     /** @internal
@@ -221,10 +223,10 @@ namespace geotop
     class ConfigStoreSingletonFactory
     {
     public:
-      static boost::shared_ptr<ConfigStore> getInstance();
+      static std::shared_ptr<ConfigStore> getInstance();
 
     private:
-      static boost::shared_ptr<ConfigStore> mInstance;
+      static std::shared_ptr<ConfigStore> mInstance;
       static boost::signals2::mutex mMutex;
     };
 

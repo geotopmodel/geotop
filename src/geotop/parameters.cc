@@ -35,7 +35,6 @@
 #include <assert.h>
 
 using namespace std;
-using namespace boost::assign;
 
 /*
  * Internal prototypes
@@ -67,7 +66,7 @@ static void assign_numeric_parameters(Par *par,
  * function will trigger a CRITICAL error and close the program
  */
 static double getDoubleValueWithDefault(
-  const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore,
+  const std::shared_ptr<geotop::input::ConfigStore> pConfigStore,
   const std::string pName,
   const double pDefaultValue,
   const bool pAllowNoValue = false)
@@ -130,7 +129,7 @@ static double getDoubleValueWithDefault(
  * close the program
  */
 static std::vector<double> getDoubleVectorValueWithDefault(
-  const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore,
+  const std::shared_ptr<geotop::input::ConfigStore> pConfigStore,
   const std::string &pName,
   const double pDefaultValue,
   const bool pUsePrevElement,
@@ -206,7 +205,7 @@ static std::vector<double> getDoubleVectorValueWithDefault(
  * @return the array with the requested parameters
  */
 static std::vector<std::string> getStringValues(
-  const boost::shared_ptr<geotop::input::ConfigStore> pConfigStore,
+  const std::shared_ptr<geotop::input::ConfigStore> pConfigStore,
   const std::vector<std::string> &pKeys)
 {
   std::vector<std::string> lVector;
@@ -248,37 +247,34 @@ short read_inpts_par(Par *par,
   std::string temp;
   std::string path_rec_files;
 
-  boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
+  std::shared_ptr<geotop::input::ConfigStore> lConfigStore =
     geotop::input::ConfigStoreSingletonFactory::getInstance();
 
   // assign parameter
   assign_numeric_parameters(par, land, times, sl, met, itools);
 
   // assign parameter
-  std::vector<std::string> lKeys;
-
-  lKeys += "HeaderDateDDMMYYYYhhmmMeteo", "HeaderJulianDayfrom0Meteo",
-           "HeaderIPrec", "HeaderPrec", "HeaderWindVelocity", "HeaderWindDirection",
-           "HeaderWindX", "HeaderWindY", "HeaderRH", "HeaderAirTemp", "HeaderDewTemp",
-           "HeaderSWglobal", "HeaderSWdirect", "HeaderSWdiffuse",
-           "HeaderCloudSWTransmissivity", "HeaderCloudFactor", "HeaderLWin",
-           "HeaderSWnet", "HeaderSurfaceTemperature";
+  std::vector<std::string> lKeys = {"HeaderDateDDMMYYYYhhmmMeteo", "HeaderJulianDayfrom0Meteo",
+                                    "HeaderIPrec", "HeaderPrec", "HeaderWindVelocity", "HeaderWindDirection",
+                                    "HeaderWindX", "HeaderWindY", "HeaderRH", "HeaderAirTemp", "HeaderDewTemp",
+                                    "HeaderSWglobal", "HeaderSWdirect", "HeaderSWdiffuse",
+                                    "HeaderCloudSWTransmissivity", "HeaderCloudFactor", "HeaderLWin",
+                                    "HeaderSWnet", "HeaderSurfaceTemperature"
+                                   };
   itools->met_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp",
+  lKeys = {"HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp",
            "HeaderNormalHydrConductivity", "HeaderLateralHydrConductivity",
            "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
            "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV",
-           "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity";
+           "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity"
+          };
   itools->soil_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderHorizonAngle", "HeaderHorizonHeight";
+  lKeys = {"HeaderHorizonAngle", "HeaderHorizonHeight"};
   itools->horizon_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "TimeStepsFile",                           // ftsteps
+  lKeys = {"TimeStepsFile",                           // ftsteps
            "SoilParFile",                                    // fspar
            "MeteoFile",                                      // fmet
            "MeteoStationsListFile",                          // fmetstlist
@@ -442,13 +438,13 @@ short read_inpts_par(Par *par,
            "RecoverRunSoilMaximumTotalSoilMoistureFile",     // rwmaxrun
            "RecoverRunSoilMinimumTotalSoilMoistureFile",     // rwminrun
            "RecoverTime",                                    // rtime
-           "SuccessfulRecoveryFile";                         // rsux
+           "SuccessfulRecoveryFile"
+          };                         // rsux
 
   geotop::common::Variables::files = getStringValues(lConfigStore, lKeys);
   geotop::common::Variables::filenames = lKeys;
 
-  lKeys.clear();
-  lKeys += "HeaderDatePoint", "HeaderJulianDayFromYear0Point",
+  lKeys = {"HeaderDatePoint", "HeaderJulianDayFromYear0Point",
            "HeaderTimeFromStartPoint", "HeaderPeriodPoint", "HeaderRunPoint",
            "HeaderIDPointPoint", "HeaderPsnowPoint", "HeaderPrainPoint",
            "HeaderPsnowNetPoint", "HeaderPrainNetPoint", "HeaderPrainOnSnowPoint",
@@ -475,11 +471,11 @@ short read_inpts_par(Par *par,
            "HeaderGWEPoint", "HeaderGlacDensityPoint", "HeaderGlacTempPoint",
            "HeaderGlacMeltedPoint", "HeaderGlacSublPoint",
            "HeaderLowestThawedSoilDepthPoint", "HeaderHighestThawedSoilDepthPoint",
-           "HeaderLowestWaterTableDepthPoint", "HeaderHighestWaterTableDepthPoint";
+           "HeaderLowestWaterTableDepthPoint", "HeaderHighestWaterTableDepthPoint"
+          };
   geotop::common::Variables::hpnt = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderDateBasin", "HeaderJulianDayFromYear0Basin",
+  lKeys = {"HeaderDateBasin", "HeaderJulianDayFromYear0Basin",
            "HeaderTimeFromStartBasin", "HeaderPeriodBasin", "HeaderRunBasin",
            "HeaderPRainNetBasin", "HeaderPSnowNetBasin", "HeaderPRainBasin",
            "HeaderPSnowBasin", "HeaderPNetBasin", "HeaderAirTempBasin",
@@ -487,31 +483,31 @@ short read_inpts_par(Par *par,
            "HeaderTraspCanopyBasin", "HeaderLEBasin", "HeaderHBasin",
            "HeaderSWNetBasin", "HeaderLWNetBasin", "HeaderLEvBasin", "HeaderHvBasin",
            "HeaderSWvBasin", "HeaderLWvBasin", "HeaderSWinBasin", "HeaderLWinBasin",
-           "HeaderMeanTimeStep", "HeaderTimeStepAverage";
+           "HeaderMeanTimeStep", "HeaderTimeStepAverage"
+          };
   geotop::common::Variables::hbsn = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderDateSnow", "HeaderJulianDayFromYear0Snow",
+  lKeys = {"HeaderDateSnow", "HeaderJulianDayFromYear0Snow",
            "HeaderTimeFromStartSnow", "HeaderPeriodSnow", "HeaderRunSnow",
            "HeaderIDPointSnow", "HeaderTempSnow", "HeaderIceContentSnow",
-           "HeaderWatContentSnow", "HeaderDepthSnow";
+           "HeaderWatContentSnow", "HeaderDepthSnow"
+          };
   geotop::common::Variables::hsnw = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderDateGlac", "HeaderJulianDayFromYear0Glac",
+  lKeys = {"HeaderDateGlac", "HeaderJulianDayFromYear0Glac",
            "HeaderTimeFromStartGlac", "HeaderPeriodGlac", "HeaderRunGlac",
            "HeaderIDPointGlac", "HeaderTempGlac", "HeaderIceContentGlac",
-           "HeaderWatContentGlac", "HeaderDepthGlac";
+           "HeaderWatContentGlac", "HeaderDepthGlac"
+          };
   geotop::common::Variables::hglc = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderDateSoil", "HeaderJulianDayFromYear0Soil",
+  lKeys = {"HeaderDateSoil", "HeaderJulianDayFromYear0Soil",
            "HeaderTimeFromStartSoil", "HeaderPeriodSoil", "HeaderRunSoil",
-           "HeaderIDPointSoil";
+           "HeaderIDPointSoil"
+          };
   geotop::common::Variables::hsl = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderCoordinatePointX", "HeaderCoordinatePointY", "HeaderPointID",
+  lKeys = {"HeaderCoordinatePointX", "HeaderCoordinatePointY", "HeaderPointID",
            "HeaderPointElevation", "HeaderPointLandCoverType", "HeaderPointSoilType",
            "HeaderPointSlope", "HeaderPointAspect", "HeaderPointSkyViewFactor",
            "HeaderPointCurvatureNorthSouthDirection",
@@ -519,39 +515,37 @@ short read_inpts_par(Par *par,
            "HeaderPointCurvatureNorthwestSoutheastDirection",
            "HeaderPointCurvatureNortheastSouthwestDirection",
            "HeaderPointDepthFreeSurface", "HeaderPointHorizon", "HeaderPointMaxSWE",
-           "HeaderPointLatitude", "HeaderPointLongitude", "HeaderPointBedrockDepth";
+           "HeaderPointLatitude", "HeaderPointLongitude", "HeaderPointBedrockDepth"
+          };
   itools->point_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderDateDDMMYYYYhhmmLapseRates", "HeaderLapseRateTemp",
-           "HeaderLapseRateDewTemp", "HeaderLapseRatePrec";
+  lKeys = {"HeaderDateDDMMYYYYhhmmLapseRates", "HeaderLapseRateTemp",
+           "HeaderLapseRateDewTemp", "HeaderLapseRatePrec"
+          };
   itools->lapserates_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "HeaderIDMeteoStation", "HeaderMeteoStationCoordinateX",
+  lKeys = {"HeaderIDMeteoStation", "HeaderMeteoStationCoordinateX",
            "HeaderMeteoStationCoordinateY", "HeaderMeteoStationLatitude",
            "HeaderMeteoStationLongitude", "HeaderMeteoStationElevation",
-           "HeaderMeteoStationSkyViewFactor", "HeaderMeteoStationStandardTime";
+           "HeaderMeteoStationSkyViewFactor", "HeaderMeteoStationStandardTime"
+          };
   itools->meteostations_col_names = getStringValues(lConfigStore, lKeys);
 
-  lKeys.clear();
-  lKeys += "SuccessfulRunFile";
+  lKeys = {"SuccessfulRunFile"};
   std::vector<std::string> lValues = getStringValues(lConfigStore, lKeys);
   temp = lValues[0];
   if (geotop::input::gStringNoValue == temp) { temp = "_SUCCESSFUL_RUN"; }
   geotop::common::Variables::SuccessfulRunFile =
     geotop::common::Variables::WORKING_DIRECTORY + temp;
 
-  lKeys.clear();
-  lKeys += "FailedRunFile";
+  lKeys = {"FailedRunFile"};
   lValues = getStringValues(lConfigStore, lKeys);
   temp = lValues[0];
   if (geotop::input::gStringNoValue == temp) { temp = "_FAILED_RUN"; }
   geotop::common::Variables::FailedRunFile =
     geotop::common::Variables::WORKING_DIRECTORY + temp;
 
-  lKeys.clear();
-  lKeys += "SubfolderRecoveryFiles";
+  lKeys = {"SubfolderRecoveryFiles"};
   lValues = getStringValues(lConfigStore, lKeys);
   path_rec_files = lValues[0];  // path of recovery files
 
@@ -1370,7 +1364,7 @@ static void assign_numeric_parameters(Par *par,
 
   par->print = 0;
 
-  boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
+  std::shared_ptr<geotop::input::ConfigStore> lConfigStore =
     geotop::input::ConfigStoreSingletonFactory::getInstance();
 
   n = (long)GTConst::max_cols_time_steps_file + 1;
@@ -2021,16 +2015,18 @@ static void assign_numeric_parameters(Par *par,
                               geotop::input::gDoubleNoValue, false);
 
   std::vector<std::string> lKeywordString;
-  lKeywordString += "CoordinatePointX", "CoordinatePointY", "PointID";
+  lKeywordString = {"CoordinatePointX", "CoordinatePointY", "PointID"};
   if (par->point_sim == 1)
     {
-      lKeywordString += "PointElevation", "PointLandCoverType", "PointSoilType",
-                        "PointSlope", "PointAspect", "PointSkyViewFactor",
-                        "PointCurvatureNorthSouthDirection", "PointCurvatureWestEastDirection",
-                        "PointCurvatureNorthwestSoutheastDirection",
-                        "PointCurvatureNortheastSouthwestDirection", "PointDepthFreeSurface",
-                        "PointHorizon", "PointMaxSWE", "PointLatitude", "PointLongitude",
-                        "PointBedrock";
+      std::vector<std::string> _aux = {"PointElevation", "PointLandCoverType", "PointSoilType",
+                                       "PointSlope", "PointAspect", "PointSkyViewFactor",
+                                       "PointCurvatureNorthSouthDirection", "PointCurvatureWestEastDirection",
+                                       "PointCurvatureNorthwestSoutheastDirection",
+                                       "PointCurvatureNortheastSouthwestDirection", "PointDepthFreeSurface",
+                                       "PointHorizon", "PointMaxSWE", "PointLatitude", "PointLongitude",
+                                       "PointBedrock"
+                                      };
+      lKeywordString.insert(lKeywordString.end(), _aux.begin(), _aux.end());
     }
 
   npoints = 0;
@@ -2292,12 +2288,12 @@ static void assign_numeric_parameters(Par *par,
                                   0, true)[lStartIndex - 1];
 
   // other layers
-  lKeywordString.clear();
-  lKeywordString += "InitSoilPressure", "InitSoilTemp",
+  lKeywordString = {"InitSoilPressure", "InitSoilTemp",
                     "NormalHydrConductivity", "LateralHydrConductivity", "ThetaRes",
                     "WiltingPoint", "FieldCapacity", "ThetaSat", "AlphaVanGenuchten",
                     "NVanGenuchten", "VMualem", "ThermalConductivitySoilSolids",
-                    "ThermalCapacitySoilSolids", "SpecificStorativity";
+                    "ThermalCapacitySoilSolids", "SpecificStorativity"
+                   };
 
   for (size_t j = 2; j < sl->pa.getRh(); j++)
     {
@@ -2366,8 +2362,7 @@ static void assign_numeric_parameters(Par *par,
     }
 
   // other layers
-  lKeywordString.clear();
-  lKeywordString += "InitSoilPressureBedrock",  // jpsi: initial psi [mm]
+  lKeywordString = {"InitSoilPressureBedrock",  // jpsi: initial psi [mm]
                     "InitSoilTempBedrock",                      // jT: initial temperature [C]
                     "NormalHydrConductivityBedrock",   // jKn: normal hydr. conductivity [mm/s]
                     "LateralHydrConductivityBedrock",  // jKl: lateral hydr. conductivity [mm/s]
@@ -2380,7 +2375,8 @@ static void assign_numeric_parameters(Par *par,
                     "VMualemBedrock",                  // jv: v
                     "ThermalConductivitySoilSolidsBedrock",  // jkt: thermal conductivity
                     "ThermalCapacitySoilSolidsBedrock",      // jct: thermal capacity
-                    "SpecificStorativityBedrock";            // jss: soil specific storativity
+                    "SpecificStorativityBedrock"
+                   };            // jss: soil specific storativity
 
   for (size_t j = 1; j < nsoilprop; j++)
     {
@@ -2646,8 +2642,7 @@ static void assign_numeric_parameters(Par *par,
           geotop::common::Variables::opnt[i] = -1;
         }
 
-      lKeywordString.clear();
-      lKeywordString += "DatePoint", "JulianDayFromYear0Point",
+      lKeywordString = {"DatePoint", "JulianDayFromYear0Point",
                         "TimeFromStartPoint", "PeriodPoint", "RunPoint", "IDPointPoint",
                         "PsnowPoint", "PrainPoint", "PsnowNetPoint", "PrainNetPoint",
                         "PrainOnSnowPoint", "WindSpeedPoint", "WindDirPoint", "RHPoint",
@@ -2666,7 +2661,8 @@ static void assign_numeric_parameters(Par *par,
                         "SWESublBlownPoint", "GlacDepthPoint", "GWEPoint", "GlacDensityPoint",
                         "GlacTempPoint", "GlacMeltedPoint", "GlacSublPoint",
                         "LowestThawedSoilDepthPoint", "HighestThawedSoilDepthPoint",
-                        "LowestWaterTableDepthPoint", "HighestWaterTableDepthPoint";
+                        "LowestWaterTableDepthPoint", "HighestWaterTableDepthPoint"
+                       };
 
       for (size_t i = 0; i < n; i++)
         {
@@ -2713,14 +2709,14 @@ static void assign_numeric_parameters(Par *par,
           geotop::common::Variables::obsn[i] = -1;
         }
 
-      lKeywordString.clear();
-      lKeywordString += "DateBasin", "JulianDayFromYear0Basin",
+      lKeywordString = {"DateBasin", "JulianDayFromYear0Basin",
                         "TimeFromStartBasin", "PeriodBasin", "RunBasin", "PRainNetBasin",
                         "PSnowNetBasin", "PRainBasin", "PSnowBasin", "PNetBasin", "AirTempBasin",
                         "TSurfBasin", "TvegBasin", "EvapSurfaceBasin", "TraspCanopyBasin",
                         "LEBasin", "HBasin", "SWNetBasin", "LWNetBasin", "LEvBasin", "HvBasin",
                         "SWvBasin", "LWvBasin", "SWinBasin", "LWinBasin", "MassErrorBasin",
-                        "MeanTimeStep";
+                        "MeanTimeStep"
+                       };
 
       for (size_t i = 0; i < n; i++)
         {
@@ -2804,9 +2800,9 @@ static void assign_numeric_parameters(Par *par,
           geotop::common::Variables::osnw[i] = -1;
         }
 
-      lKeywordString.clear();
-      lKeywordString += "DateSnow", "JulianDayFromYear0Snow", "TimeFromStartSnow",
-                        "PeriodSnow", "RunSnow", "IDPointSnow";
+      lKeywordString = {"DateSnow", "JulianDayFromYear0Snow", "TimeFromStartSnow",
+                        "PeriodSnow", "RunSnow", "IDPointSnow"
+                       };
 
       for (size_t i = 0; i < 6; i++)
         {
@@ -2856,9 +2852,9 @@ static void assign_numeric_parameters(Par *par,
           geotop::common::Variables::oglc[i] = -1;
         }
 
-      lKeywordString.clear();
-      lKeywordString += "SnowAll", "DateGlac", "JulianDayFromYear0Glac",
-                        "TimeFromStartGlac", "PeriodGlac", "RunGlac";
+      lKeywordString = {"SnowAll", "DateGlac", "JulianDayFromYear0Glac",
+                        "TimeFromStartGlac", "PeriodGlac", "RunGlac"
+                       };
       for (size_t i = 0; i < lKeywordString.size(); i++)
         {
           lColumnIndexJ = getDoubleValueWithDefault(
@@ -2867,8 +2863,7 @@ static void assign_numeric_parameters(Par *par,
             geotop::common::Variables::oglc[lColumnIndexJ - 1] = i;
         }
 
-      lKeywordString.clear();
-      lKeywordString += "IDPointGlac", "TempGlac", "IceContentGlac";
+      lKeywordString = {"IDPointGlac", "TempGlac", "IceContentGlac"};
       for (size_t i = 0; i < lKeywordString.size(); i++)
         {
           lDoubleTempVector = getDoubleVectorValueWithDefault(
@@ -2881,8 +2876,7 @@ static void assign_numeric_parameters(Par *par,
             }
         }
 
-      lKeywordString.clear();
-      lKeywordString += "WatContentGlac";
+      lKeywordString = {"WatContentGlac"};
       for (size_t i = 0; i < lKeywordString.size(); i++)
         {
           lDoubleTempVector = getDoubleVectorValueWithDefault(
@@ -2927,9 +2921,9 @@ static void assign_numeric_parameters(Par *par,
         {
           geotop::common::Variables::osl[i] = -1;
         }
-      lKeywordString.clear();
-      lKeywordString += "DateSoil", "JulianDayFromYear0Soil", "TimeFromStartSoil",
-                        "PeriodSoil", "RunSoil", "IDPointSoil";
+      lKeywordString = {"DateSoil", "JulianDayFromYear0Soil", "TimeFromStartSoil",
+                        "PeriodSoil", "RunSoil", "IDPointSoil"
+                       };
 
       for (size_t i = 0; i < n; i++)
         {
@@ -3371,11 +3365,12 @@ short read_soil_parameters(std::string name,
   // write on the screen the soil paramater
 
   std::vector<string> lSoilParameters;
-  lSoilParameters += "HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp",
+  lSoilParameters = {"HeaderSoilDz", "HeaderSoilInitPres", "HeaderSoilInitTemp",
                      "HeaderNormalHydrConductivity", "HeaderLateralHydrConductivity",
                      "HeaderThetaRes", "HeaderWiltingPoint", "HeaderFieldCapacity",
                      "HeaderThetaSat", "HeaderAlpha", "HeaderN", "HeaderV",
-                     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity";
+                     "HeaderKthSoilSolids", "HeaderCthSoilSolids", "HeaderSpecificStorativity"
+                    };
   k = (long)nmet;
   lg->logf("Soil Layers: %u", sl->pa.getCh() - 1);
   for (i = 1; i < sl->pa.getDh() - 1; i++)

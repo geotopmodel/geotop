@@ -111,7 +111,7 @@ void get_all_input(long /*argc*/,
 
   temp = geotop::common::Variables::WORKING_DIRECTORY + program_name;
 
-  boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
+  std::shared_ptr<geotop::input::ConfigStore> lConfigStore =
     geotop::input::ConfigStoreSingletonFactory::getInstance();
   const std::string lFilePath(temp);
   bool lParsingRes = lConfigStore->parse(lFilePath);

@@ -1257,7 +1257,7 @@ void output_file_preproc(AllData *A, mio::Config &mioConfig)
 void output_file_preproc(AllData *A)
 #endif
 {
-  boost::shared_ptr<std::vector<geotop::input::OutputFile>> output_files;
+  std::shared_ptr<std::vector<geotop::input::OutputFile>> output_files;
   std::vector<OutputFilesVector *> *lInstants =
     new std::vector<OutputFilesVector *>();
   std::vector<OutputFilesVector *> *lCumulates =
@@ -1278,7 +1278,7 @@ void output_file_preproc(AllData *A)
     geotop::logger::GlobalLogger::getInstance();
 
   // Get all output files from geotop.inpts OUTPUT_SEC
-  boost::shared_ptr<geotop::input::ConfigStore> lConfigStore =
+  std::shared_ptr<geotop::input::ConfigStore> lConfigStore =
     geotop::input::ConfigStoreSingletonFactory::getInstance();
 
   if (lConfigStore->case_sensitive_get("OUTPUT_SEC", output_files) == false)
