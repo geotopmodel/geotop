@@ -1,1 +1,2 @@
-src_files = [src_files, files('glacier_class.cc')]
+src_files += [files('glacier_class.cc')]
+
