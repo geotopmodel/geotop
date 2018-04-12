@@ -1,0 +1,6 @@
+For example:
+sed s/\\[NOTICE\\]:\ // geotop2-1.log-METEOIO-OFF > ./geotop2-1.logclean
+sed s/\(default\)// geotop.log-SE27XX > ./geotop.log-SE27XXclean
+sort geotop.log-SE27XXclean > geotop.log-SE27XXsorted
+sort geotop2-1.logclean > geotop2-1.logsorted
+diff geotop2-1.logsorted geotop.log-SE27XXsorted –ydw
