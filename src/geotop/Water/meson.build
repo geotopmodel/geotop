@@ -1,1 +1,1 @@
-src_files = [src_files, files('water_class.cc')]
+src_files += [files('water_class.cc')]
