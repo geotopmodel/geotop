@@ -21,13 +21,6 @@ wpaths <- wpaths[names(wpaths)!="prealpiC"]
 ## remove some simulation with no check points 
 # wpaths <- wpaths[names(wpaths)!="panola_25pixel_nobed"]
 
-
-### Analysis restricted to few simulations: 
-### EC 2018
-
-sims <- c("onepoint_hydrostatic","onepoint_hydrostatic_0")
-
-wpaths <- wpaths[names(wpaths) %in% sims]
 ## Check Simulation Occurence 
 
 inpts.files <- paste(wpaths,inpts.file,sep="/")
@@ -79,17 +72,9 @@ keywords.out <- lapply(X=keywords,FUN=function(x,keyword_values){
 			}
 			
 			x[cnt,]
-			
-			### MASS VERIFACATION 
-			
-			
-			
-			
-			
 			},keyword_values=output_values)
 
 
-	
 for (it in names(keywords.out)) {
 	
 	
