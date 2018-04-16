@@ -39,6 +39,8 @@
 
 #include <time.h>
 
+#include <memory>
+
 void time_loop(ALLDATA *A);
 
                
@@ -91,7 +93,7 @@ double MM1, MM2, MMR, MMo, MS1, MS2;
 
 int main(int argc,char *argv[]){
 	
-	ALLDATA *adt;
+	std::unique_ptr<ALLDATA> adt;
 	FILE *f;
 	
 	//assign novalues
@@ -112,44 +114,8 @@ int main(int argc,char *argv[]){
 	UV=(T_INIT *)malloc(sizeof(T_INIT));
 	if(!UV) t_error("UV was not allocated");
  
-	adt=(ALLDATA *)malloc(sizeof(ALLDATA));
-	if(!adt){
-		t_error("adt was not allocated");
-	}else {
-		
-		adt->I=(TIMES *)malloc(sizeof(TIMES));
-		if(!(adt->I)) t_error("times was not allocated");	
-		
-		adt->T=(TOPO *)malloc(sizeof(TOPO));
-		if(!(adt->T)) t_error("top was not allocated");
-		
-		adt->S=(SOIL *)malloc(sizeof(SOIL));
-		if(!(adt->S)) t_error("sl was not allocated");
-		
-		adt->L=(LAND *)malloc(sizeof(LAND));
-		if(!(adt->L)) t_error("land was not allocated");
-		
-		adt->W=(WATER *)malloc(sizeof(WATER));
-		if(!(adt->W)) t_error("water was not allocated");
-		
-		adt->P=(PAR *)malloc(sizeof(PAR));
-		if(!(adt->P)) t_error("par was not allocated");
-		
-		adt->C=(CHANNEL *)malloc(sizeof(CHANNEL));
-		if(!(adt->C)) t_error("channel was not allocated"); 
-		
-		adt->E=(ENERGY *)malloc(sizeof(ENERGY));
-		if(!(adt->E)) t_error("egy was not allocated");
-		
-		adt->N=(SNOW *)malloc(sizeof(SNOW));	
-		if(!(adt->N)) t_error("snow was not allocated");	
-		
-		adt->G=(GLACIER *)malloc(sizeof(GLACIER));	
-		if(!(adt->G)) t_error("glac was not allocated"); 
-		
-		adt->M=(METEO *)malloc(sizeof(METEO));	
-		if(!(adt->M)) t_error("met was not allocated"); 
-		
+	adt.reset(new ALLDATA);
+
 		t_meteo=0.;
 		t_energy=0.; 
 		t_water=0.;
@@ -163,16 +129,14 @@ int main(int argc,char *argv[]){
 		get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->I);
 		
 		/*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
-		time_loop(adt);
+		time_loop(adt.get());
 		
 		/*--------------------   5.Completion of the output files and deallocaions  --------------------*/
 		dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N, adt->G, adt->M, adt->I);
-		free(adt);
-
-	}
+		
 		
 	printf("End of simulation!\n");
-	
+
 	f = fopen(SuccessfulRunFile, "w");
 	fclose(f);
 	free(SuccessfulRunFile);

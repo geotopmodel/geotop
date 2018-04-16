@@ -145,7 +145,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		
 	}
 	
-	free(sl);
+//	free(sl);
 	
 	/* Deallocation of struct TOPO "top": */
 	printf("Deallocating top\n");
@@ -210,7 +210,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		free_doublematrix(top->longitude);
 	}
 	
-	free(top);
+//	free(top);
 	
 	
 	/* Deallocation of struct LAND "land": */
@@ -237,7 +237,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free(land->vegparv);
 	free(land->NumlinesVegTimeDepData);
 	
-	free(land);
+//	free(land);
 	
 	/* Deallocation of struct WATER "water": */
 	printf("Deallocating water\n"); 
@@ -261,7 +261,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublevector(wat->df);
 	free_doublematrix(wat->Klat);
 	free_doublematrix(wat->Kbottom);
-	free(wat);
+//	free(wat);
 	
 	/* Deallocation of struct CHANNEL "channel": */
 	printf("Deallocating channel network\n"); 
@@ -283,7 +283,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublematrix(cnet->ET);
 	free_doublevector(cnet->Kbottom);
 	deallocate_soil_state(cnet->SS);
-	free(cnet);
+//	free(cnet);
 	
 	/* Deallocation of struct T_INIT "UV": */
 	printf("Deallocating UV\n"); 
@@ -421,7 +421,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	free_doublematrix(egy->Tgskin_surr);
 	free_doublematrix(egy->SWrefl_surr);	
 		
-	free(egy);
+//	free(egy);
 	
 	
 	/* Deallocation of struct SNOW "snow": */
@@ -467,7 +467,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	}
 	
 	if(par->blowing_snow==1) free_longvector(snow->change_dir_wind);
-	free(snow);
+//	free(snow);
 	
 	printf("Deallocating glacier\n");
 	if(par->max_glac_layers>0){
@@ -483,7 +483,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 			}
 		}
 	}
-	free(glac);
+//	free(glac);
 	
 	printf("Deallocating met\n"); 
 	
@@ -555,7 +555,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		}
 	}
 	
-	free(met);
+//	free(met);
 	
 	printf("Deallocating times\n");
 	free_doublevector(times->JD_plots);
@@ -566,7 +566,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 		}
 		free(times->Dt_matrix);
 	}
-	free(times);
+//	free(times);
 	
 	/* Deallocation of struct PAR "par": */
 	printf("Deallocating par\n"); 
@@ -611,7 +611,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	
 	free_longvector(par->Nl_spinup);
 	
-	free(par);
+//	free(par);
 	
 	/* Deallocation of struct FILENAMES "filenames": */
 	printf("Deallocating files\n"); 
