@@ -107,6 +107,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land, MET
 	//printf("If you have satisfactorily used the code, please acknowledge the authors.\n");	
 	printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
 	printf("\nLOGFILE: %s\n",logfile);
+
+  free(logfile);
+
 	
 	fprintf(flog,"STATEMENT:\n");
 	fprintf(flog,"\n");	 

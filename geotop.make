@@ -36,6 +36,6 @@ CFLAGS	= -O3 -g -I$(HPATH1) -I$(HPATH2) -I$(HPATH3) -I$(HPATH4) -I$(HPATH0)
 DEBUG = -g
 CC	= gcc $(DEBUG)
 
-geotop2_0_0:$(SRC)
-			$(CC) $(CFLAGS) -o $(BINS) $(SRC) -lm
+$(BINS):$(SRC)
+			$(CC) $(CFLAGS) -o $@ $(SRC) -lm
 

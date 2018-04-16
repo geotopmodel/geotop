@@ -175,7 +175,8 @@ int main(int argc,char *argv[]){
 	
 	f = fopen(SuccessfulRunFile, "w");
 	fclose(f);
-	
+	free(SuccessfulRunFile);
+	free(FailedRunFile);
 	return 0;
 }
 

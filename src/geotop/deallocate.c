@@ -105,9 +105,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	}
 	free(hsl);
 	free(osl);
-	
-	free(WORKING_DIRECTORY);
-	
+
 	/* Deallocation of struct SOIL "sl": */
 	printf("Deallocating soil\n");
 	free_doublematrix(sl->Ptot);
@@ -625,7 +623,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,PAR *par
 	printf("Deallocating novalues\n"); 
 	free(string_novalue);
 	
-	
+free(WORKING_DIRECTORY);
 	
 }	
 

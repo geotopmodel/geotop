@@ -105,10 +105,13 @@ int ret = 0;
 ret = mkdirp(basedir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 if(-1 == ret){
     fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n", basedir);
+    free(basedir);
     exit(1);
 }
+free(basedir);
 
-if((fp=fopen(name,mode))==NULL){
+  fp=fopen(name,mode);
+if(fp==NULL){
 	printf("%s\n",name);    
 	t_error(" The specified file could not be opened ");
 
