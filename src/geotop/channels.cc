@@ -36,8 +36,6 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC,
 
   long r, c, rnext, cnext, i=0;
 
-  initialize_doublevector(cnet->length, 0.);
-
   do
     {
 

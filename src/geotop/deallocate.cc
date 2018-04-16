@@ -128,8 +128,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
                  string_novalue) != 0) free_doublematrix(sl->thw_av_tensor);
       if (strcmp(files[ficeav],
                  string_novalue) != 0) free_doublematrix(sl->thi_av_tensor);
-      if (strcmp(files[fpnet], string_novalue) != 0) free_doublevector(sl->Pnetcum);
-      if (strcmp(files[fevap], string_novalue) != 0) free_doublevector(sl->ETcum);
     }
   free_doublematrix(sl->th);
   free_longmatrix(sl->type);

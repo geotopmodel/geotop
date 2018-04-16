@@ -367,7 +367,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   else
     {
 
-      initialize_doublevector(A->L->vegpar, 0.0);
       fc = 0.0;
 
     }
