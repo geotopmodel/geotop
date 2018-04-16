@@ -42,4 +42,4 @@ output_tabs/
 output_maps/*
 output_maps/
 failing_output
-
+*.log
