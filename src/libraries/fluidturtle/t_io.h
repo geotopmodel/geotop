@@ -22,7 +22,7 @@ shortmatrix, intmatrix, longmatrix, floatmatrix, doublematrix, charmatrix,
 
 
 
-shortbin, intbin, longbin,doublebin ,stringbin. 
+shortbin, intbin, longbin,doublebin ,stringbin.
 
 
 
@@ -30,7 +30,7 @@ shortbin, intbin, longbin,doublebin ,stringbin.
 
 
 
-shortarray,intarray,longarray,chararray,floatarray,doublearray,stringarray 
+shortarray,intarray,longarray,chararray,floatarray,doublearray,stringarray
 
 
 
@@ -80,7 +80,7 @@ In this case it moves it to filename.old. Future inplementations will implement 
 
 
 
- 
+
 
 
 
@@ -130,13 +130,13 @@ Examples: 1.example.c
 
 
 
-FILE *t_fopen(const char * ,const char *);
+FILE *t_fopen(const char *,const char *);
 
 
 
 
 
-FILE *t_fclose(FILE * stream);
+FILE *t_fclose(FILE *stream);
 
 
 
@@ -166,7 +166,7 @@ Version: 1.0
 
 
 
-Synopsis: 
+Synopsis:
 
 
 
@@ -192,9 +192,9 @@ void print_shortvector_elements(SHORTVECTOR *,long );
 
 Description: For each data type four functions are given: 1) read_* to
 
-read (both in ascii or binary format) the elements of a vector, matrix or bin, 
+read (both in ascii or binary format) the elements of a vector, matrix or bin,
 
-from the specified FILE stream; 2) write_* to write it on the specified file; 
+from the specified FILE stream; 2) write_* to write it on the specified file;
 
 3) binarywrite_* to write in binary format and 4) print_* to print it on the screen.
 
@@ -206,7 +206,7 @@ negative numbers that are used to handle the errors. Thus, use of size_t would r
 
 a rewriting of the error handling part of the routines. Also, one could observe that, in the
 
-case of matrixes, the total number of elements (rows times columns) must be limited to 
+case of matrixes, the total number of elements (rows times columns) must be limited to
 
 the maximum of long, say MAX_LONG, in order to have correct return values even if one could theoretically
 
@@ -226,7 +226,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: read_ : The pointer to the opened file stream FILE *,  the pointer to the structure 
+Inputs: read_ : The pointer to the opened file stream FILE *,  the pointer to the structure
 
 
 
@@ -282,7 +282,7 @@ is returned.
 
 
 
-Examples: 1.examples.c, 2.examples.c 
+Examples: 1.examples.c, 2.examples.c
 
 
 
@@ -302,7 +302,7 @@ References:
 
 
 
-long read_shortvector_elements(FILE *  ,SHORTVECTOR *,char *);
+long read_shortvector_elements(FILE *,SHORTVECTOR *,char *);
 
 
 
@@ -322,7 +322,7 @@ void print_shortvector_elements(SHORTVECTOR *,long );
 
 
 
-long read_intvector_elements(FILE *  ,INTVECTOR *,char *);
+long read_intvector_elements(FILE *,INTVECTOR *,char *);
 
 
 
@@ -342,7 +342,7 @@ void print_intvector_elements(INTVECTOR *,long );
 
 
 
-long read_longvector_elements(FILE *  ,LONGVECTOR *,char *);
+long read_longvector_elements(FILE *,LONGVECTOR *,char *);
 
 
 
@@ -366,7 +366,7 @@ void print_longvector_elements(LONGVECTOR *,long );
 
 
 
-long read_floatvector_elements(FILE *  ,FLOATVECTOR *,char *);
+long read_floatvector_elements(FILE *,FLOATVECTOR *,char *);
 
 
 
@@ -386,7 +386,7 @@ void print_floatvector_elements(FLOATVECTOR *,long );
 
 
 
-long read_doublevector_elements(FILE *  ,DOUBLEVECTOR *,char *);
+long read_doublevector_elements(FILE *,DOUBLEVECTOR *,char *);
 
 
 
@@ -406,7 +406,7 @@ void print_doublevector_elements(DOUBLEVECTOR *,long );
 
 
 
-long read_charvector_elements(FILE *  ,CHARVECTOR *,char *);
+long read_charvector_elements(FILE *,CHARVECTOR *,char *);
 
 
 
@@ -490,7 +490,7 @@ void print_longmatrix_elements(LONGMATRIX *,long );
 
 
 
-long read_floatmatrix_elements(FILE *, FLOATMATRIX *,char *); 
+long read_floatmatrix_elements(FILE *, FLOATMATRIX *,char *);
 
 
 
@@ -542,7 +542,7 @@ long write_intbin_elements(FILE *, INTBIN *,long);
 
 
 
-long binarywrite_intbin_elements(FILE * output, INTBIN *l);
+long binarywrite_intbin_elements(FILE *output, INTBIN *l);
 
 
 
@@ -582,7 +582,7 @@ long write_shortbin_elements(FILE *, SHORTBIN *,long);
 
 
 
-long binarywrite_shortbin_elements(FILE * , SHORTBIN *);
+long binarywrite_shortbin_elements(FILE *, SHORTBIN *);
 
 
 
@@ -764,7 +764,7 @@ int copy_buffer_into_stringbin(char *,STRINGBIN *);
 
 
 
-Name: read_comment, readandstore_comment 
+Name: read_comment, readandstore_comment
 
 
 
@@ -784,7 +784,7 @@ Version: 1.0
 
 Description: reads a comment from a turtle file. read_comment prints it on the screen, readandstore_comment
 
-save it in a dynamically allocated buffer pointed by the return value. 
+save it in a dynamically allocated buffer pointed by the return value.
 
 
 
@@ -812,7 +812,7 @@ of the comment to be printed. If 1 the text read is checked to be a comment
 
 
 
- 
+
 
 
 
@@ -852,7 +852,7 @@ Examples: read_
 
 
 
-References: 
+References:
 
 
 
@@ -866,7 +866,7 @@ References:
 
 int read_comment(FILE *,int, long, short );
 
-char * readandstore_comment(FILE *,int, long);
+char *readandstore_comment(FILE *,int, long);
 
 
 
@@ -882,7 +882,7 @@ char * readandstore_comment(FILE *,int, long);
 
 
 
- 
+
 
 Names: read_buffer_from stdio
 
@@ -896,17 +896,17 @@ Version: 1.0
 
 
 
-Description: reads from the standard input a comment. It is opened by  and closed the same way 
+Description: reads from the standard input a comment. It is opened by  and closed the same way
 
-this comment is. 
+this comment is.
 
- 
+
 
 FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: maxbuffersize is the length of the  maximum number of characters 
+Inputs: maxbuffersize is the length of the  maximum number of characters
 
 
 
@@ -960,11 +960,11 @@ char *read_buffer_from_stdio(long );
 
 
 
-Name: iscomment 
+Name: iscomment
 
 
 
- 
+
 
 Synopsis: int iscomment(char *,FILE *);
 
@@ -974,7 +974,7 @@ Version: 1.0
 
 
 
-Description: inspect a file a look for the string that starts 
+Description: inspect a file a look for the string that starts
 
 
 
@@ -1032,7 +1032,7 @@ int iscomment(char *,FILE *);
 
 
 
- 
+
 
 Names: join_strings
 
@@ -1048,7 +1048,7 @@ Version: 1.0
 
 Description: joins two strings and store the results in a third string.
 
- 
+
 
 FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
@@ -1084,7 +1084,7 @@ Authors & Date: Riccardo Rigon, October 1997
 
 
 
-char * join_strings(char *,char *);
+char *join_strings(char *,char *);
 
 
 
@@ -1112,15 +1112,15 @@ Description: get_filename returns the full name of a file to work with. It is in
 
 independent way to store input/output file names in a file. Thus avoiding to specify them on the standard input every
 
-time the program is executed (this is particularly useful when the same program with the same inputs is executed several times). 
+time the program is executed (this is particularly useful when the same program with the same inputs is executed several times).
 
-The working directory (the variable: WORKING_DIRECTORY )is specified in the file 
+The working directory (the variable: WORKING_DIRECTORY )is specified in the file
 
-$PathFile that has to be placed in the directory where the programs are (Windows95/NT or Mac OS) or in the 
+$PathFile that has to be placed in the directory where the programs are (Windows95/NT or Mac OS) or in the
 
 current directory (Unixes). The file names are instead stored in a file whose name is $program where "program" is the
 
-name of the program being executed.  
+name of the program being executed.
 
 
 
@@ -1132,7 +1132,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: 
+Inputs:
 
 1) The pointer to working directory name
 
@@ -1162,9 +1162,11 @@ See Also: simplefind, get_parameter, get_string
 
 char *get_filename(char *,char *);
 
-STRINGBIN *read_filenames(char *working_directory,char *program, char *extension, char *position);
+STRINGBIN *read_filenames(char *working_directory,char *program,
+                          char *extension, char *position);
 
-DOUBLEVECTOR *read_parameters(char *working_directory,char *program, char *extension, char *position);
+DOUBLEVECTOR *read_parameters(char *working_directory,char *program,
+                              char *extension, char *position);
 
 /**
 
@@ -1190,9 +1192,9 @@ Description: get_parameter returns a requested parameter. It is intended to be a
 
 independent way to store program parameter values in a file without having to specify them on the standard input every
 
-time the program is executed. The working directory (the variable: WORKING_DIRECTORY )is specified in the file 
+time the program is executed. The working directory (the variable: WORKING_DIRECTORY )is specified in the file
 
-$PathFile that has to be placed in the directory where the programs are (Windows95/NT or Mac OS) or in the 
+$PathFile that has to be placed in the directory where the programs are (Windows95/NT or Mac OS) or in the
 
 current directory (Unixes). The file names are instead stored in a file whose name is $program where "program" is the
 
@@ -1210,7 +1212,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: 
+Inputs:
 
 1) The pointer to working directory name
 
@@ -1280,7 +1282,7 @@ independent way to store strings in a file without having to specify them on the
 
 time the program is executed. The strings are  stored in a file whose name is $program where "program" is the
 
-name of the program being executed.  
+name of the program being executed.
 
 
 
@@ -1292,7 +1294,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: 
+Inputs:
 
 1) The pointer to working directory name
 
@@ -1318,7 +1320,7 @@ See Also: simplefind, get_filename, get_parameter
 
 
 
-char * get_strings(char *,char *);
+char *get_strings(char *,char *);
 
 
 
@@ -1328,7 +1330,7 @@ char * get_strings(char *,char *);
 
 
 
- 
+
 
 Names: get_workingdirectory
 
@@ -1348,7 +1350,7 @@ This directory can be alternatively specified in a file $WorkingPaths to be foun
 
 (for Windows or Mac systems where it is useful. In Unix systems it can be also the directory from where
 
-the program containing this routine is called) 
+the program containing this routine is called)
 
 
 
@@ -1356,7 +1358,7 @@ the program containing this routine is called)
 
 FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
-  
+
 
 Inputs: void
 
@@ -1480,7 +1482,7 @@ Description: skips the whitespaces in a file and exits when a
 
 
 
-normal character or EOF is found. It is very similar to skip_whitespaces. 
+normal character or EOF is found. It is very similar to skip_whitespaces.
 
 
 
@@ -1532,7 +1534,7 @@ Name: read_header, print_header
 
 
 
- 
+
 
 Synopsis:
 
@@ -1546,7 +1548,7 @@ Version: 1.0
 
 
 
-Description: read in a turtle file the header 
+Description: read in a turtle file the header
 
 
 
@@ -1590,7 +1592,7 @@ the HEADER to be printed
 
 
 
-Return: a HEADER 
+Return: a HEADER
 
 
 
@@ -1600,7 +1602,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c 
+Examples: 1.example.c
 
 
 
@@ -1650,7 +1652,7 @@ Name: query_for_token, query_for_label, get_phrase
 
 
 
- 
+
 
 
 
@@ -1666,7 +1668,7 @@ or an unknown sequence of words terminated by a '{' (query for label) or
 
 
 
-a sequence of words terminated by a given separator (get_phrase). 
+a sequence of words terminated by a given separator (get_phrase).
 
 
 
@@ -1686,7 +1688,7 @@ Inputs: a pointer to a file, the word to be searched; a pointer to a file.
 
 
 
-get_phrase second input is the separator, for instance: ';'.  
+get_phrase second input is the separator, for instance: ';'.
 
 
 
@@ -1770,7 +1772,7 @@ Name: read_
 
 
 
- 
+
 
 Synopsis:
 
@@ -1800,7 +1802,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: a pointer to a file (FILE) where the data are,  the mode of reading and 1 if 
+Inputs: a pointer to a file (FILE) where the data are,  the mode of reading and 1 if
 
 the header is going to be printed , 0 otherwise
 
@@ -1810,7 +1812,7 @@ the header is going to be printed , 0 otherwise
 
 
 
-Return: the pointer to the appropriate structure where data are stored; 
+Return: the pointer to the appropriate structure where data are stored;
 
 
 
@@ -1846,7 +1848,7 @@ Examples: 1.example.c
 
 
 
-INTMATRIX *  read_intmatrix(FILE *, char *,short );
+INTMATRIX   *read_intmatrix(FILE *, char *,short );
 
 
 
@@ -1854,7 +1856,7 @@ INTMATRIX *  read_intmatrix(FILE *, char *,short );
 
 
 
-SHORTMATRIX *  read_shortmatrix(FILE *, char *,short );
+SHORTMATRIX   *read_shortmatrix(FILE *, char *,short );
 
 
 
@@ -1862,7 +1864,7 @@ SHORTMATRIX *  read_shortmatrix(FILE *, char *,short );
 
 
 
-LONGMATRIX *  read_longmatrix(FILE *, char *,short );
+LONGMATRIX   *read_longmatrix(FILE *, char *,short );
 
 
 
@@ -1870,7 +1872,7 @@ LONGMATRIX *  read_longmatrix(FILE *, char *,short );
 
 
 
-FLOATMATRIX *  read_floatmatrix(FILE *, char *,short);
+FLOATMATRIX   *read_floatmatrix(FILE *, char *,short);
 
 
 
@@ -1878,7 +1880,7 @@ FLOATMATRIX *  read_floatmatrix(FILE *, char *,short);
 
 
 
-DOUBLEMATRIX *  read_doublematrix(FILE *, char *,short );
+DOUBLEMATRIX   *read_doublematrix(FILE *, char *,short );
 
 
 
@@ -1886,7 +1888,7 @@ DOUBLEMATRIX *  read_doublematrix(FILE *, char *,short );
 
 
 
-CHARVECTOR * read_charvector(FILE *, char *,short );
+CHARVECTOR *read_charvector(FILE *, char *,short );
 
 
 
@@ -1894,7 +1896,7 @@ CHARVECTOR * read_charvector(FILE *, char *,short );
 
 
 
-INTVECTOR * read_intvector(FILE *, char *,short );
+INTVECTOR *read_intvector(FILE *, char *,short );
 
 
 
@@ -1902,7 +1904,7 @@ INTVECTOR * read_intvector(FILE *, char *,short );
 
 
 
-SHORTVECTOR * read_shortvector(FILE *, char *,short );
+SHORTVECTOR *read_shortvector(FILE *, char *,short );
 
 
 
@@ -1910,7 +1912,7 @@ SHORTVECTOR * read_shortvector(FILE *, char *,short );
 
 
 
-LONGVECTOR * read_longvector(FILE *, char *,short );
+LONGVECTOR *read_longvector(FILE *, char *,short );
 
 
 
@@ -1918,13 +1920,13 @@ LONGVECTOR * read_longvector(FILE *, char *,short );
 
 
 
-FLOATVECTOR * read_floatvector(FILE *, char *,short );
+FLOATVECTOR *read_floatvector(FILE *, char *,short );
 
 
 
 
 
-DOUBLEVECTOR * read_doublevector(FILE *, char *,short );
+DOUBLEVECTOR *read_doublevector(FILE *, char *,short );
 
 
 
@@ -1932,7 +1934,7 @@ DOUBLEVECTOR * read_doublevector(FILE *, char *,short );
 
 
 
-SHORTBIN * read_shortbin(FILE *, char *,short );
+SHORTBIN *read_shortbin(FILE *, char *,short );
 
 
 
@@ -1940,7 +1942,7 @@ SHORTBIN * read_shortbin(FILE *, char *,short );
 
 
 
-INTBIN * read_intbin(FILE *, char *,short );
+INTBIN *read_intbin(FILE *, char *,short );
 
 
 
@@ -1948,7 +1950,7 @@ INTBIN * read_intbin(FILE *, char *,short );
 
 
 
-LONGBIN * read_longbin(FILE *, char *,short );
+LONGBIN *read_longbin(FILE *, char *,short );
 
 
 
@@ -1956,7 +1958,7 @@ LONGBIN * read_longbin(FILE *, char *,short );
 
 
 
-DOUBLEBIN * read_doublebin(FILE *, char *,short );
+DOUBLEBIN *read_doublebin(FILE *, char *,short );
 
 
 
@@ -2012,7 +2014,7 @@ Inputs: a pointer to a file
 
 
 
-Return: the number of blocks or 0 if unsuccessful in reading 
+Return: the number of blocks or 0 if unsuccessful in reading
 
 
 
@@ -2024,7 +2026,7 @@ Keywords: turtle file
 
 
 
-Examples: 5.example.c 6.example.c 
+Examples: 5.example.c 6.example.c
 
 
 
@@ -2088,7 +2090,7 @@ Inputs: a pointer to a file
 
 
 
-Return: the structure read 
+Return: the structure read
 
 
 
@@ -2106,7 +2108,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c 
+Examples: 1.example.c
 
 
 
@@ -2126,7 +2128,7 @@ Examples: 1.example.c
 
 
 
-INTVECTOR * read_intarray(FILE *,short );
+INTVECTOR *read_intarray(FILE *,short );
 
 
 
@@ -2134,7 +2136,7 @@ INTVECTOR * read_intarray(FILE *,short );
 
 
 
-SHORTVECTOR * read_shortarray(FILE *,short);
+SHORTVECTOR *read_shortarray(FILE *,short);
 
 
 
@@ -2142,7 +2144,7 @@ SHORTVECTOR * read_shortarray(FILE *,short);
 
 
 
-FLOATVECTOR * read_floatarray(FILE *,short);
+FLOATVECTOR *read_floatarray(FILE *,short);
 
 
 
@@ -2150,7 +2152,7 @@ FLOATVECTOR * read_floatarray(FILE *,short);
 
 
 
-LONGVECTOR * read_longarray(FILE *,short);
+LONGVECTOR *read_longarray(FILE *,short);
 
 
 
@@ -2158,7 +2160,7 @@ LONGVECTOR * read_longarray(FILE *,short);
 
 
 
-CHARVECTOR * read_chararray(FILE *,short);
+CHARVECTOR *read_chararray(FILE *,short);
 
 
 
@@ -2166,7 +2168,7 @@ CHARVECTOR * read_chararray(FILE *,short);
 
 
 
-DOUBLEVECTOR * read_doublearray(FILE *,short);
+DOUBLEVECTOR *read_doublearray(FILE *,short);
 
 
 
@@ -2174,7 +2176,7 @@ DOUBLEVECTOR * read_doublearray(FILE *,short);
 
 
 
-STRINGBIN * read_stringarray(FILE *,short);
+STRINGBIN *read_stringarray(FILE *,short);
 
 
 
@@ -2224,7 +2226,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 Inputs: a pointer to a file, a pointer to the allocated strucure, PRINT or NOPRINT
 
-to indicate if the header specification are printed on the standard output 
+to indicate if the header specification are printed on the standard output
 
 
 
@@ -2232,7 +2234,7 @@ to indicate if the header specification are printed on the standard output
 
 
 
-Return: void 
+Return: void
 
 
 
@@ -2328,7 +2330,7 @@ FILE: LIBRARIES/BASICS/t_io.h, LIBRARIES/BASICS/t_io.c
 
 
 
-Inputs: the pointer to the file and the pointer to the data stored, 
+Inputs: the pointer to the file and the pointer to the data stored,
 
 
 
@@ -2482,7 +2484,7 @@ Return: 0 if the HEADER are equal, a suitable number
 
 
 
-if some difference is found. This number is the 
+if some difference is found. This number is the
 
 
 
@@ -2498,7 +2500,7 @@ if the two headers differ for type, 10 if they differ
 
 
 
-for gender, 1000 if they differ for category, 
+for gender, 1000 if they differ for category,
 
 
 
@@ -2526,7 +2528,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c 
+Examples: 1.example.c
 
 
 
@@ -2562,7 +2564,7 @@ Name: longvectorcmp
 
 
 
-Synopsis: long longvectorcmp(LONGVECTOR *, LONGVECTOR *); 
+Synopsis: long longvectorcmp(LONGVECTOR *, LONGVECTOR *);
 
 
 
@@ -2594,7 +2596,7 @@ Return: 0 if the longvector are equal, a suitable number
 
 
 
-if some difference is found. 
+if some difference is found.
 
 
 
@@ -2606,7 +2608,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c 
+Examples: 1.example.c
 
 
 
@@ -2620,7 +2622,7 @@ Examples: 1.example.c
 
 
 
-long longvectorcmp(LONGVECTOR *, LONGVECTOR *); 
+long longvectorcmp(LONGVECTOR *, LONGVECTOR *);
 
 
 
@@ -2644,7 +2646,7 @@ Version: 1.0
 
 
 
-Synopsis: 
+Synopsis:
 
 
 
@@ -2682,7 +2684,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c  
+Examples: 1.example.c
 
 
 
@@ -2778,7 +2780,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c 
+Examples: 1.example.c
 
 
 
@@ -2872,7 +2874,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c.  
+Examples: 1.example.c.
 
 
 
@@ -2890,7 +2892,7 @@ Examples: 1.example.c.
 
 
 
-void write_turtle(FILE * ,char *,char *);
+void write_turtle(FILE *,char *,char *);
 
 
 
@@ -2966,7 +2968,7 @@ Keywords: turtle file
 
 
 
-Examples:1.example.c 
+Examples:1.example.c
 
 
 
@@ -3058,7 +3060,7 @@ Keywords: turtle file
 
 
 
-Examples: 1.example.c  
+Examples: 1.example.c
 
 
 
@@ -3080,7 +3082,7 @@ void write_header_header(FILE *,HEADER *H);
 
 
 
-long write_doubletensor_elements(FILE * output,DOUBLETENSOR *m,long maxcols);
+long write_doubletensor_elements(FILE *output,DOUBLETENSOR *m,long maxcols);
 
 void print_doubletensor_elements(DOUBLETENSOR *m,long maxcols);
 

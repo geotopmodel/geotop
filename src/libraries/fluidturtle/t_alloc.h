@@ -110,9 +110,9 @@ LONGMATRIX *new_longmatrix( long,long);
 
 DOUBLEMATRIX *new_doublematrix( long,long);
 
-DOUBLEMATRIX *new_doublematrix0_(long ,long );
+DOUBLEMATRIX *new_doublematrix0_(long,long );
 
-DOUBLEMATRIX *new_doublematrix_0(long ,long );
+DOUBLEMATRIX *new_doublematrix_0(long,long );
 
 INTBIN *new_intbin(LONGVECTOR *);
 
@@ -195,12 +195,12 @@ void free_shortbin( SHORTBIN *);
 void free_longbin(  LONGBIN *);
 void free_doublebin( DOUBLEBIN *);
 
-void free_svector(short* v, long nl);
-void free_ivector(int* v, long nl);
-void free_vector(float * v, long nl);
-void free_lvector(long * v, long nl);
-void free_dvector(double * v, long nl);
-void free_cvector(char * v, long nl);
+void free_svector(short *v, long nl);
+void free_ivector(int *v, long nl);
+void free_vector(float *v, long nl);
+void free_lvector(long *v, long nl);
+void free_dvector(double *v, long nl);
+void free_cvector(char *v, long nl);
 void free_smatrix(short **m,long nrl,long ncl);
 void free_imatrix(int **m,long nrl,long ncl);
 void free_matrix(float **m,long nrl,long ncl);
@@ -243,7 +243,8 @@ void free_header(HEADER );
 
 
 
-double ***d3tensor( long nrl, long nrh, long ncl, long nch, long ndl, long ndh);
+double ***d3tensor( long nrl, long nrh, long ncl, long nch, long ndl,
+                    long ndh);
 DOUBLETENSOR *new_doubletensor(long nrh,long nch,long ndh);
 DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch);
 

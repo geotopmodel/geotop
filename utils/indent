@@ -1,0 +1,85 @@
+#!/bin/bash
+
+#
+# This script indents all source files of geotop according to our
+# usual code formatting standards. It is used to ensure that our
+# code base looks uniform, as uniformity helps make code easier to
+# read.
+#
+# While we're already touching every file, this script also makes
+# sure we set permissions correctly
+#
+# The script needs to be executed as 
+#   ./utils/indent
+# from the top-level directory of the source tree, or via
+#   make indent
+# from a build directory.
+#
+
+# Author: Alberto Sartori (2018). This script has been adapted from
+# the deal.II library (www.deal.II.org)
+
+
+if test ! -d src -o ! -d tests ; then
+  echo "*** This script must be run from the top-level directory of the repo."
+  exit 1
+fi
+
+if test ! -f utils/astyle.rc ; then
+  echo "*** No style file utils/astyle.rc found."
+  exit 1
+fi
+
+if test -z "`which astyle`" ; then
+  echo "*** No astyle program found."
+  echo "***"
+  echo "*** You can download astyle from http://astyle.sourceforge.net/"
+  echo "*** Note that you will need exactly version 3.1 (no newer or"
+  echo "*** older version will yield the correct indentation)."
+  exit 1
+fi
+
+if test "`astyle --version 2>&1`" != "Artistic Style Version 3.1" ; then
+  echo "*** Found a version of astyle different than the required version 3.1."
+  exit 1
+fi
+
+# execute on all source files the command passed as arguments of the
+# function
+do_on_files(){
+    find src tests    \
+	 \(                    \
+	 -name '*.cc' -o       \
+	 -name '*.h'  -o       \
+	 -name '*.c'           \
+	 \)                    \
+	 -print | $@
+}
+
+# collect all header and source files and process them in batches of 20 files
+# with up to 10 in parallel
+do_on_files xargs -n 20 -P 10 astyle --options=utils/astyle.rc
+
+# use the same process to set file permissions for all source files
+do_on_files xargs -n 20 -P 10 chmod 644
+
+# convert dos formatted files to unix file format by stripping out 
+# carriage returns (15=0x0D):
+dos_to_unix()
+{
+    f=$1
+    tr -d '\015' <$f >$f.tmp
+    diff -q $f $f.tmp >/dev/null || mv $f.tmp $f
+    rm -f $f.tmp
+}
+
+export -f dos_to_unix
+
+find src tests    \
+     \(                    \
+     -name '*.cc' -o       \
+     -name '*.h'  -o       \
+     -name '*.c'           \
+     \)                    \
+     -print | xargs -n 1 -P 10 -I {} bash -c 'dos_to_unix "$@"' _ {} 
+

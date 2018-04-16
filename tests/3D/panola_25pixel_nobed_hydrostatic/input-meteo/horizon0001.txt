@@ -1,0 +1,9 @@
+! Horizon file for met station or point #1 
+! All measures in degrees
+
+!AngleFromNorthClockwise,HorizonHeight
+azimuth,horizon_ele
+45.000000,0.000000
+135.000000,0.000000
+225.000000,0.000000
+315.000000,0.000000

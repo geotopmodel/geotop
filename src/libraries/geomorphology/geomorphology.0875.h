@@ -6,7 +6,8 @@
    Output: - (sky)     matrix with sky view factor
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program sky of Pegoretti                                                    */
-void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV, DOUBLEMATRIX *input, SHORTMATRIX *convess, long novalue);
+void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
+                     DOUBLEMATRIX *input, SHORTMATRIX *convess, long novalue);
 
 
 
@@ -14,11 +15,13 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use);
 
 
 
-void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,DOUBLEVECTOR *U,DOUBLEVECTOR *V);
+void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,DOUBLEVECTOR *U,
+                      DOUBLEVECTOR *V);
 
 
 
-void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,DOUBLEVECTOR *V);
+void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,
+                 DOUBLEVECTOR *V);
 
 
 
@@ -30,7 +33,8 @@ void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,DOUBLEVECT
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program aspetto of Pegoretti; this subroutine is more indipendent and needs
    less input                                                                   */
-void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *azimuth);
+void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+                DOUBLEMATRIX *azimuth);
 
 
 
@@ -40,7 +44,8 @@ void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *a
            - V         vector with the novalues
    Output: - slope    matrix with the mean slope
    Subroutine created by Davide Tamanini (June 2003)                                */
-void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *slope);
+void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+                DOUBLEMATRIX *slope);
 
 
 
@@ -54,7 +59,8 @@ void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *s
    subroutine profondita of Pegoretti; this subroutine is more indipendent
    and needs less input; it was modified by Davide Tamanini (April 2004)
    to eliminate the matrix of dranaige direction as input.                      */
-void soil_depth(double min_h, double h_crit, double P, double M, double prs, double k , T_INIT *UV, DOUBLEMATRIX *Z0, DOUBLEMATRIX *h);
+void soil_depth(double min_h, double h_crit, double P, double M, double prs,
+                double k, T_INIT *UV, DOUBLEMATRIX *Z0, DOUBLEMATRIX *h);
 
 
 
@@ -64,7 +70,8 @@ void soil_depth(double min_h, double h_crit, double P, double M, double prs, dou
            - V         vector with the novalues
    Output: - area      matrix with the mean slope
    Subroutine created by Davide Tamanini (June 2003)                                */
-void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *area);
+void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+              DOUBLEMATRIX *area);
 
 
 
@@ -74,30 +81,37 @@ void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,DOUBLEMATRIX *are
    Inputs   - Z0               matrix with elevation (DTM)
             - land_use         matrix with land use
             - UV               struct with vector of pixel dimensions and novalue
-   Outputs:	- directions       matrix with Drainage Direction                         */
-void DrainageDirections0875(DOUBLEMATRIX *elevations,SHORTMATRIX *land_use,T_INIT *UV,SHORTMATRIX *directions);
+   Outputs: - directions       matrix with Drainage Direction                         */
+void DrainageDirections0875(DOUBLEMATRIX *elevations,SHORTMATRIX *land_use,
+                            T_INIT *UV,SHORTMATRIX *directions);
 
 
 
 //presa uguale da geomorphology099
-void gradients(DOUBLEMATRIX *Z0,SHORTMATRIX *directions,DOUBLEMATRIX *dr_gradient,T_INIT *UV);
+void gradients(DOUBLEMATRIX *Z0,SHORTMATRIX *directions,
+               DOUBLEMATRIX *dr_gradient,T_INIT *UV);
 
 
 
 /* Calculation of channel network: this subroutine is a modification of select_hillslopes
    created by Davide Tamanini (August 2003)                                                */
-void select_hillslopes_mod(LONGMATRIX *ca,DOUBLEMATRIX *dr_gradient,DOUBLEMATRIX *curv,SHORTMATRIX *m,double threshold,DOUBLEVECTOR *pixelsize);
+void select_hillslopes_mod(LONGMATRIX *ca,DOUBLEMATRIX *dr_gradient,
+                           DOUBLEMATRIX *curv,SHORTMATRIX *m,double threshold,DOUBLEVECTOR *pixelsize);
 
 
 
 /*Computation of the trasversal slope of the channel pixel (created by Davide 30-8-2003):*/
-void channel_lateral_slope(DOUBLEMATRIX *Z0,SHORTMATRIX *DD,T_INIT *UV,DOUBLEMATRIX *i_ch);
+void channel_lateral_slope(DOUBLEMATRIX *Z0,SHORTMATRIX *DD,T_INIT *UV,
+                           DOUBLEMATRIX *i_ch);
 
 
 
-void distance_from_channel(DOUBLEMATRIX *dist, SHORTMATRIX *DD, SHORTMATRIX *ST);
+void distance_from_channel(DOUBLEMATRIX *dist, SHORTMATRIX *DD,
+                           SHORTMATRIX *ST);
 
-void distance_from_channel2(DOUBLEMATRIX *dist, SHORTMATRIX *ST, LONGVECTOR *rch, LONGVECTOR *cch);
+void distance_from_channel2(DOUBLEMATRIX *dist, SHORTMATRIX *ST,
+                            LONGVECTOR *rch, LONGVECTOR *cch);
 
-void set_boundary_condition(DOUBLEMATRIX *Z, DOUBLEMATRIX *LC, short code, SHORTMATRIX *pixel_type, double novalue);
+void set_boundary_condition(DOUBLEMATRIX *Z, DOUBLEMATRIX *LC, short code,
+                            SHORTMATRIX *pixel_type, double novalue);
 

@@ -5,67 +5,41 @@ project('geotop','cpp',
         default_options : ['c++std=c11',
 			   'buildtype=release',
 			   'warning_level=3' ],
-        version: '2.0.0')
+        version: '3.0.0')
 
 
-include_dirs = include_directories ([ 'src/geotop',
-                                      'src/libraries/ascii',
-                                      'src/libraries/fluidturtle',
-                                      'src/libraries/geomorphology',
-                                      'src/libraries/math'])
-src_files = ([
-        'src/geotop/blowingsnow.cc',
-        'src/geotop/channels.cc',
-        'src/geotop/clouds.cc',
-        'src/geotop/deallocate.cc',
-        'src/geotop/energy.balance.cc',
-        'src/geotop/indices.cc',
-        'src/geotop/input.cc',
-        'src/geotop/meteo.cc',
-        'src/geotop/meteodata.cc',
-        'src/geotop/meteodistr.cc',
-        'src/geotop/output.cc',
-        'src/geotop/parameters.cc',
-        'src/geotop/PBSM.cc',
-        'src/geotop/pedo.funct.cc',
-        'src/geotop/radiation.cc',
-        'src/geotop/recovering.cc',
-        'src/geotop/snow.cc',
-        'src/geotop/tables.cc',
-        'src/geotop/times.cc',
-        'src/geotop/turbulence.cc',
-        'src/geotop/vegetation.cc',
-        'src/geotop/water.balance.cc',
-        'src/libraries/ascii/import_ascii.cc',
-        'src/libraries/ascii/init.cc',
-        'src/libraries/ascii/rw_maps.cc',
-        'src/libraries/ascii/tabs.cc',
-        'src/libraries/ascii/write_ascii.cc',
-        'src/libraries/fluidturtle/alloc.cc',
-        'src/libraries/fluidturtle/datamanipulation.cc',
-        'src/libraries/fluidturtle/error.cc',
-        'src/libraries/fluidturtle/linearalgebra.cc',
-        'src/libraries/fluidturtle/list.cc',
-        'src/libraries/fluidturtle/probability.cc',
-        'src/libraries/fluidturtle/random.cc',
-        'src/libraries/fluidturtle/statistics.cc',
-        'src/libraries/fluidturtle/t_io.cc',
-        'src/libraries/fluidturtle/tensors3D.cc',
-        'src/libraries/fluidturtle/utilities.cc',
-        'src/libraries/fluidturtle/write_dem.cc',
-        'src/libraries/geomorphology/dtm_resolution.cc',
-        'src/libraries/geomorphology/geomorphology.0875.cc',
-        'src/libraries/geomorphology/geomorphology.cc',
-        'src/libraries/geomorphology/networks.cc',
-        'src/libraries/geomorphology/shadows.cc',
-        'src/libraries/math/sparse_matrix.cc',
-        'src/libraries/math/util_math.cc'])
+# the following lists will be populated through the inclusion of the
+# meson.build int the subfolders
 
+# include_dirs : all the folders with the header files
+# src_files    : all the files needed to compile geotop
+# deps         : all the external dependencies required (e.g., boost, meteoio)
+
+# we initialize them as empty lists
+
+include_dirs = []
+src_files    = []
+deps         = []
+
+# rpaths       : all the runpaths, it must be a string
+rpaths       = '/usr/local/lib:/usr/lib:/usr/lib64:/usr/local/lib64'
+
+# find all the source files, main, and include directories
+subdir('src')
+
+# find dependencise, set flags specific for the used compiler,
+# generate config.h and version.h files
+# set up the 'install' target
+subdir('meson')
 
 main = files('src/geotop/geotop.cc')
-# m = meson.get_compiler('c').find_library('m')
 
-geotop = executable('geotop-2.0.0', main, src_files,
-                    include_directories: include_dirs)
-                    # dependencies:m)
+geotop = executable('geotop', main, src_files,
+                    include_directories: include_dirs,
+                    dependencies: deps,
+                    install:true,
+                    install_rpath: rpaths)
+
+# set up tests
+subdir('tests')
 

@@ -1,0 +1,392 @@
+!=======================================
+! INPUT FOR GEOTOP V.1_225-15
+! Distributed simulation Mazia / Muntatschini basin 1
+! Used Maps resolution: 500m
+! provided by Giacomo Bertoldi, Institute for Alpine Environment
+! giacomo.bertoldi@eurac.edu
+!=======================================
+
+!=======================================
+! GENERAL SETTINGS
+!=======================================
+PointSim   = 0
+! Calculation max time step dt in s 
+
+TimeStepEnergyAndWater = 3600
+InitDateDDMMYYYYhhmm = 04/10/2009 00:00
+!EndDateDDMMYYYYhhmm =  01/10/2011 :00
+! Simulation time reduced to avoid overflow when example run with meteoio interpolation active
+! SC 14.11.2016
+! Simulation time further reduced to avoid instability with with meteoio interpolation active
+EndDateDDMMYYYYhhmm =  04/10/2009 11:00
+
+! Catchment centroid (for Sun position) 
+Latitude = 46.75
+Longitude= 10.70
+StandardTimeSimulation	=	1
+
+! Simulation settings
+WaterBalance = 1
+EnergyBalance = 1
+
+! Recovery files settings
+RecoverSim = 0
+! SavingPoints = 100
+
+! Output timeseries Dt in hours 
+DtPlotDischarge = 1
+DtPlotPoint = 1
+DtPlotBasin = 24
+
+! Output maps Dt in hours 
+OutputSoilMaps = 24
+OutputSurfEBALMaps = 24
+OutputMeteoMaps = 24
+OutputSnowMaps = 24
+
+!=======================================
+! METEO STATIONS Input
+!=======================================
+! B1, B2, B3, M5, P2, S2, S4, S5, M1, M3, Teufelsegg
+! additional M4, M2, M7, S3
+
+NumberOfMeteoStations = 11
+MeteoStationCoordinateX= 621671,620815,621733,623542,621227,623786,622601,623477,625443,629920,634696
+MeteoStationCoordinateY= 5168733,5171506,5172112,5173274,5171306,5172955,5173809,5173189,5174611,5180652,5182751
+MeteoStationElevation= 950,1480,1950,1823,1549,1629,2353,1775,1839,2332,3035
+MeteoStationLatitude=46.66110089611,46.68620487902,46.6914887269,46.70160862543,46.684328,46.69869390338,46.70659447426,46.70085599763,46.7132820917,46.76683821998,46.7847
+MeteoStationLongitude=10.59037474907,10.57992303991,10.59207665567,10.61604331616,10.585254691742163,10.61914795335,10.60388167279,10.61517059264,10.64126420347,10.7012007771,10.764660489734664
+
+MeteoStationWindVelocitySensorHeight = 2.5
+MeteoStationTemperatureSensorHeight = 2.5
+MeteoStationStandardTime = 1
+StandardTimeSimulation = 1
+!======================================= 
+! METEO HAEDERS 
+!======================================= 
+
+HeaderDateDDMMYYYYhhmmMeteo = "Date"
+HeaderJulianDayfrom0Meteo 	= "JDfrom0"
+HeaderIPrec 				= "Iprec"
+HeaderWindVelocity 			= "WindSp"
+HeaderWindDirection 		= "WindDir"
+HeaderWindX 				= "WindX"
+HeaderWindY 				= "WindY"
+HeaderRH 					= "RelHum"
+HeaderAirTemp 				= "AirT"
+HeaderAirPress 				= "AirP"
+HeaderSWglobal 				= "SWglobal"
+HeaderCloudSWTransmissivity = "CloudTrans"
+
+!======================================= 
+! OUTPUT POINT SETTINGS 
+!======================================= 
+! B1, B2, B3, P2, P1, P3, I1, I3, M1, M5, S2, S4, S5
+
+!CoordinatePointX = 621671,620815,621733,621227,621047,621253,620802,621105,625443,623542,623786,622601,623477
+!CoordinatePointY = 5168733,5171506,5172112,5171306,5171473,5171393,5171601,5171041,5174611,5173274,5172955,5173809,5173189
+
+! M3, M4
+!CoordinatePointX = 629920,629613
+!CoordinatePointY = 5180652,5177787
+
+PointFile 							= "listpoints"
+HeaderPointID						= "id"
+HeaderCoordinatePointX				= "xcoord"
+HeaderCoordinatePointY				= "ycoord"
+HeaderPointElevation     			= "ele"
+HeaderPointLandCoverType 			= "landcover"
+HeaderPointSoilType 				= "soil"
+HeaderPointSlope         			= "slp"
+HeaderPointAspect        			= "asp"
+HeaderPointSkyViewFactor 			= "svf"
+HeaderPointDrainageLateralDistance 	= "dist"
+HeaderPointDepthFreeSurface 		= "free"
+HeaderPointMaxSWE 					= "maxswe"
+HeaderPointHorizon 					= "hor"
+
+!=======================================
+! LAPSE RATES & CORRECTION
+!=======================================
+!K/1000m
+!LapseRateFile =   
+!LapseRateTemp	=	6.3
+!HeaderDateDDMMYYYYhhmmLapseRates = "Date"
+!HeaderLapseRateTemp = "LapseRateTemp"
+!HeaderLapseRateDewTemp = "LapseRateDewTemp"
+!HeaderLapseRatePrec = "LapseRatePrec"
+
+!LapseRateDewTemp	=	2.5
+
+!mm/1000m
+!LapseRatePrec	=	-0.3
+
+!SnowCorrFactor = 1.3
+
+
+!=======================================
+! LAND COVER
+!=======================================
+
+! for Muntatschini & Mazia Area: 
+! 1 Urban, 2 Forest, 3 Grassland(dry)/Pastures, 4 Meadows,
+! 5 Rocks, 6 Bare soil, 7 Larch Meadows, 8 Agriculture (Baumobst- und Weinbau),
+! 9 Glacier/Snow, 10 Lake/River/Bog
+
+NumLandCoverTypes	=	10
+SoilRoughness		=	100
+ThresSnowSoilRough	=	100
+VegHeight			=	0,2000,200,400,0,0,1000,1000,0,0
+ThresSnowVegUp		=	50
+ThresSnowVegDown	=	10
+LSAI				=	0,6,3,5,0,0,4,3,0,0
+CanopyFraction		=	0,1,0.8,1,0,0,1,0.4,0,0
+DecayCoeffCanopy	=	2.5
+VegSnowBurying		=	1
+RootDepth			=	0,500,150,400,0,0,500,500,0,0
+MinStomatalRes		=	30
+VegReflectVis		=	0.1
+VegReflNIR			=	0.2
+VegTransVis			=	0.07
+VegTransNIR			=	0.25
+LeafAngles			=	0
+CanDensSurface		=	0.5
+SoilAlbVisDry		=	0.15
+SoilAlbNIRDry		=	0.25
+SoilAlbVisWet		=	0.15
+SoilAlbNIRWet		=	0.25
+SoilEmissiv			=	0.96
+SurFlowResLand		=	0.05
+SurFlowResExp		=	0.667
+
+!=======================================
+! SOIL
+!=======================================
+
+!SoilLayerTypes 				= 	15
+
+!HeaderSoilDz					=	"Dz"
+!HeaderLateralHydrConductivity	=	"Kh"
+!HeaderNormalHydrConductivity	=	"Kv"
+!HeaderThetaRes					=	"vwc_r"
+!HeaderWiltingPoint				=	"vwc_w"
+!HeaderFieldCapacity			=	"vwc_fc"
+!HeaderThetaSat					=	"vwc_s"
+!HeaderAlpha					=	"alpha"
+!HeaderN						=	"n"
+
+InitWaterTableDepth 			= 	2000
+FreeDrainageAtBottom			= 	0
+SpecificStorativity				= 	1.00E-05
+InitSoilTemp					= 	0.5
+ThermalConductivitySoilSolids	= 	1.9
+ThermalCapacitySoilSolids		= 	2.16E+06
+
+! [mm] 
+FrozenSoilHydrCondReduction  	= 	0
+SoilLayerThicknesses			=	30,100,200,500,1200,3000,5000,12000,25000
+! [mm/s]
+NormalHydrConductivity			=	0.1,0.1,0.05,0.01,0.005,0.001,0.0005,0.0001,0.0001
+LateralHydrConductivity			=	0.1,0.1,0.05,0.01,0.005,0.001,0.0005,0.0001,0.0001
+! [-]
+ThetaRes						=	0.08
+WiltingPoint					=	0.15
+FieldCapacity					=	0.3
+ThetaSat						=	0.5
+NVanGenuchten					=	1.3
+! [mm^-1]
+AlphaVanGenuchten				=	0.004
+
+!======================================= 
+! SNOW AND GLACIERS 
+!======================================= 
+ 
+MaxWaterEqSnowLayerContent 	=	10
+SWEtop						=	40
+SWEbottom					=	20
+MaxSnowLayersMiddle			=	5
+
+!default of version 1.2
+AlphaSnow 					= 1.000000e+02
+
+DefaultGlac					= 0
+InitGlacierDensity			= 700
+InitGlacierTemp				= -5
+NumMaxGlacierLayers			= 5
+ 
+!NumMaxSnowLayers			= 5 
+!InfiniteSnowLayer			= 2 
+!MinLayerThicknessSnow		= 5,120,30,5,5 
+!MaxLayerThicknessSnow		= 20,1.E10,150,50,10 
+
+FreshSnowReflVis			= 0.98	
+FreshSnowReflNIR			= 0.65
+SnowAgingCoeffVis 			= 0.175
+SnowAgingCoeffNIR 			= 0.4375
+
+
+!MaxWaterEqGlacLayerContent	= 50
+GWEtop						= 300
+GWEbottom					= 100
+MaxGlacLayersMiddle			= 3
+
+!MinLayerThicknessGlacier	=	4000,100,10
+!MaxLayerThicknessGlacier	=	1.E10,8000,100
+
+!======================================= 
+! Energy budget settings 
+!======================================= 
+ 
+FlagSkyViewFactor		=	1 
+LWinParameterization	=	4 
+MoninObukhov			=	2 
+CanopyStabCorrection	=	1 
+
+!======================================= 
+! Morphological parameters
+!======================================= 
+
+SlopeWeight						= 	1 
+CurvatureWeight 				= 	100
+NumLowPassFilterOnDemForAll		=	2
+NumLowPassFilterOnDemForCurv	=	20
+
+!=======================================
+! CHANNELS
+!=======================================
+
+RatioChannelWidthPixelWidth		=	0.02
+! in [mm]
+ChannelDepression				=	2000
+ThresWaterDepthLandInf 			= 	5
+ThresWaterDepthLandSup 			= 	50
+SurFlowResChannel 				= 	20
+ThresWaterDepthChannel 			= 	100
+DepthFreeSurfaceAtTheBoundary 	= 	5000
+FreeDrainageAtLateralBorder 	= 	1
+
+!======================================= 
+!Numerical parameters 
+!======================================= 
+ 
+RichardTol						=	1.E-6
+MinLambdaWater					= 	1.E-15
+RichardMaxIter					=	500 
+ExitMinLambdaWater 				=   1
+MinRatioKactualToKSat 			=	1E-8
+MaxCourantSupFlowLand			=	0.1 
+MaxCourantSupFlowChannel		=	0.1
+MinSupWaterDepthLand			=	1 
+MinDiffSupWaterDepthLandChannel =	5
+MinTimeStepSupFlow				=	1 
+HeatEqTol						=	1.E-4 
+HeatEqMaxIter					=	200 
+MaxTimesHalvingTimeStepEnergy 	= 	5 
+CanopyMaxIter					=	3 
+BusingerMaxIter					=	3 
+TsMaxIter						=	3 
+LocMaxIter						=	3 
+
+!=============================================================================
+!  FILE NAMES
+!=============================================================================
+
+! Input files 
+
+MeteoFile 				= "INmeteo/meteo"
+HorizonMeteoStationFile = "INhorizon/horizon"
+HorizonPointFile		= "INhorizonPoint/horizon"
+HeaderHorizonAngle		= "AngleFromNorthClockwise"
+HeaderHorizonHeight		= "HorizonHeight"
+
+DemFile 				= "INmaps500/dem"
+
+SkyViewFactorMapFile 	= "INmaps500/svf"
+SlopeMapFile 			= "INmaps500/slope"
+AspectMapFile 			= "INmaps500/aspect"
+CurvaturesMapFile 		= "INmaps500/curv"
+RiverNetwork 			= "INmaps500/channelnet"
+!SoilMapFile 			= "INmaps500/soil"
+LandCoverMapFile 		= "INmaps500/landcover"
+!InitGlacierDepthMapFile		=	"INmaps500/glacier"
+!BedrockDepthMapFile 			= 	"INmaps500/soildepth"
+
+!SoilParFile					= "INsoil/soil"
+
+InitSnowDepthMapFile 	= "INmaps500/SnowDepth"
+InitSWEMapFile 			= "INmaps500/SWE"
+!InitSnowAgeMapFile 		= "INmaps500/SnowAge"
+
+! Output files
+
+! Tabs 
+DischargeFile 			= "output-tabs/discharge"
+
+PointOutputFile 		= "output-tabs/point" 
+PointAll = 1
+
+SnowTempProfileFile			= "output-tabs/snowTemp"
+SnowLiqContentProfileFile	= "output-tabs/snowLiqCont"
+SnowIceContentProfileFile	= "output-tabs/snowIceCont"
+SnowDepthLayersFile			= "output-tabs/snowDepth"
+!SnowProfileFile 		= "output-tabs/snow"
+SnowAll  = 1
+
+BasinOutputFile 		= "output-tabs/basin"
+BasinAll = 1
+
+SoilAveragedTempProfileFile		=	"output-tabs/soilTz" 
+SoilLiqContentProfileFile		=	"output-tabs/thetaliq" 
+SoilIceContentProfileFile		=	"output-tabs/thetaice" 
+SoilLiqWaterPressProfileFile	=	"output-tabs/psiz" 
+SoilAll = 1
+
+! Maps
+! soil moisture & temperature
+!SoilAveragedTempTensorFile 			= 	"output-maps/T"
+!SurfaceTempMapFile 					= 	"output-maps/Ts"
+
+SoilLiqContentTensorFile 			= 	"output-maps/thetaliq"
+SoilIceContentTensorFile 			= 	"output-maps/thetaice"
+!SoilTotWaterPressTensorFile 		= 	"output-maps/psi"
+!SoilLiqWaterPressTensorFile 		= 	"output-maps/psiliq"
+
+!LandSurfaceWaterDepthMapFile 		= 	"output-maps/hsup"
+WaterTableDepthMapFile 				= 	"output-maps/watertable"
+
+! snow & ice
+SWEMapFile 							= 	"output-maps/SWE"
+!SnowDepthMapFile 					= 	"output-maps/snowdepth"
+!SnowDurationMapFile					=	"output-maps/snowduration"
+
+GlacAll = 1
+! meteo
+AirTempMapFile 						= 	"output-maps/Ta"
+
+!NetRadiationMapFile 				= 	"output-maps/Rn" 
+!NetLongwaveRadiationMapFile			=   "output-maps/Netlw"
+!NetShortwaveRadiationMapFile		=   "output-maps/Netsw"
+!InShortwaveRadiationMapFile 		= 	"output-maps/Rswin"
+!InLongwaveRadiationMapFile			= 	"output-maps/Rlwin"
+!SurfaceHeatFluxMapFile 				= 	"output-maps/EB"
+!SurfaceSensibleHeatFluxMapFile 		= 	"output-maps/H"
+!SurfaceLatentHeatFluxMapFile 		= 	"output-maps/LE"
+!DirectInShortwaveRadiationMapFile 	= 	"output-maps/DRswin"
+
+PrecipitationMapFile 				= 	"output-maps/Prec"
+!CanopyInterceptedWaterMapFile 		= 	"output-maps/Int"
+NetPrecipitationFile 				= 	"output-maps/Pnet"
+
+!EvapotranspirationFromSoilMapFile	= 	"output-maps/ETsoil"
+
+!RelHumMapFile						= 	"output-maps/RH"
+
+!WindSpeedMapFile					= 	"output-maps/WindSp"
+!WindDirMapFile						= 	"output-maps/WindDir"
+
+!=============================================================================
+!  RECOVERY FILE NAMES
+!=============================================================================
+
+ContinuousRecovery 		= 120
+SubfolderRecoveryFiles 	= "rec"

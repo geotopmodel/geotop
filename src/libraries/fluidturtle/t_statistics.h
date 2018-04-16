@@ -1,14 +1,14 @@
 /**
- 
+
 Name: doublevector_correlation, floatvector_correlation, longvector_correlation
- 
-Synopsis: 
+
+Synopsis:
 double doublevector_correlation(DOUBLEVECTOR *,DOUBLEVECTOR *,double ,double ,long ,double );
 float floatvector_correlation(FLOATVECTOR *,FLOATVECTOR *u,float ,float ,long  ,float );
 float longvector_correlation(LONGVECTOR *,LONGVECTOR *,float,float ,long ,long);
 
 
-Description: It calculates the biased corretion between two vectors of the specified type. 
+Description: It calculates the biased corretion between two vectors of the specified type.
 
 Inputs:  1) the first vector; 2) the second vector; 3) the first vector mean; 4) the second
 vector mean; 5) the lag at which the correlation is calculated; 6) the value that identify
@@ -23,22 +23,24 @@ FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics
 Examples: hystogram.c
 
 
-Authors & Date: Paolo D'Odorico, Riccardo Rigon, February 1998. 
+Authors & Date: Paolo D'Odorico, Riccardo Rigon, February 1998.
 
-References: Probability, Statistics, and Reliability for Civil and Environmental Engineers 
+References: Probability, Statistics, and Reliability for Civil and Environmental Engineers
 
 */
 
 
-double doublevector_correlation(DOUBLEVECTOR *,DOUBLEVECTOR *,double ,double ,long ,double );
-float floatvector_correlation(FLOATVECTOR *,FLOATVECTOR *u,float ,float ,long  ,float );
-float longvector_correlation(LONGVECTOR *,LONGVECTOR *,float,float ,long ,long);
+double doublevector_correlation(DOUBLEVECTOR *,DOUBLEVECTOR *,double,double,
+                                long,double );
+float floatvector_correlation(FLOATVECTOR *,FLOATVECTOR *u,float,float,long,
+                              float );
+float longvector_correlation(LONGVECTOR *,LONGVECTOR *,float,float,long,long);
 
 /**
- 
+
 Name: _n_moment
- 
-Synopsis: 
+
+Synopsis:
 float longmatrix_n_moment(LONGMATRIX *, double ,double , long );
 double doublematrix_n_moment(DOUBLEMATRIX *, double ,double  , double );
 float floatmatrix_n_moment(FLOATMATRIX *, float ,float , float );
@@ -48,7 +50,7 @@ float longvector_n_moment(LONGVECTOR *, float ,float , long );
 
 
 Description: It calculates the biased n moment of a vector or a matrix of the specified
-type 
+type
 
 Inputs:  1) the first vector; 2) the second vector; 3) the first vector mean; 4) the second
 vector mean; 5) the value that identify "NO DATA" or "MISSING DATA" (a sequence of mesasured data
@@ -62,7 +64,7 @@ Examples: LIBRARIES/APPLICATIONS/DATA_MANIPULATION/hystogram.c
 
 See Also: doublevector_correlation
 
-Authors & date: Paolo D'Odorico, Riccardo Rigon, February 1998. 
+Authors & date: Paolo D'Odorico, Riccardo Rigon, February 1998.
 
 FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics.h
 
@@ -70,19 +72,19 @@ FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics
 
 */
 
-float longmatrix_n_moment(LONGMATRIX *, double ,double , long );
-double doublematrix_n_moment(DOUBLEMATRIX *, double ,double  , double );
-float floatmatrix_n_moment(FLOATMATRIX *, float ,float , float );
-double doublevector_n_moment(DOUBLEVECTOR *, float ,float , double );
-float floatvector_n_moment(FLOATVECTOR *, float ,float , float );
-float longvector_n_moment(LONGVECTOR *, float ,float , long );
-float floatmatrix_moment(FLOATMATRIX *, float ,float , float );
+float longmatrix_n_moment(LONGMATRIX *, double,double, long );
+double doublematrix_n_moment(DOUBLEMATRIX *, double,double, double );
+float floatmatrix_n_moment(FLOATMATRIX *, float,float, float );
+double doublevector_n_moment(DOUBLEVECTOR *, float,float, double );
+float floatvector_n_moment(FLOATVECTOR *, float,float, float );
+float longvector_n_moment(LONGVECTOR *, float,float, long );
+float floatmatrix_moment(FLOATMATRIX *, float,float, float );
 
 /**
- 
+
 Name:floatmatrix_restricted _n_moment
- 
-Synopsis: 
+
+Synopsis:
 float floatmatrix_n_moment(FLOATMATRIX *first,FLOATMATRIX *second, float ,float , float,float );
 
 
@@ -100,7 +102,7 @@ number of missing data)
 
 
 
-Authors & date: Paolo D'Odorico, Riccardo Rigon, February 1998. 
+Authors & date: Paolo D'Odorico, Riccardo Rigon, February 1998.
 
 FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics.h
 
@@ -108,10 +110,12 @@ Examples: LIBRARIES/APPLICATIONS/GEOMORPHOLOGY/RIVER_NETWORKS/sum_downstream.c
 
 */
 
-float floatmatrix_restricted_n_moment(FLOATMATRIX *,FLOATMATRIX*, float ,float , float, float );
+float floatmatrix_restricted_n_moment(FLOATMATRIX *,FLOATMATRIX *, float,
+                                      float, float, float );
 
 /**
 
 
 */
-double double_n_moment(double *m, long nh,double mean,double  NN, double novalue);
+double double_n_moment(double *m, long nh,double mean,double  NN,
+                       double novalue);

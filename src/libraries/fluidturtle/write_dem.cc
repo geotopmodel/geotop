@@ -18,65 +18,69 @@
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void shortmatrix_dem(SHORTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                     char *outputname, char *comment,short print)
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-	fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-	write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-	fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-	write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-	fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-	write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -89,65 +93,69 @@ if(print==1){
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void shortmatrix_dem3(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                      char *outputname, char *comment,short print)
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-	fprintf(outputfile,"1: double array pixels size  ");
+      fprintf(outputfile,"1: double array pixels size  ");
 
-	write_doublearray_elements(outputfile,U,600);
+      write_doublearray_elements(outputfile,U,600);
 
-	fprintf(outputfile,"2: double array novalues ");
+      fprintf(outputfile,"2: double array novalues ");
 
-	write_doublearray_elements(outputfile,V,600);
+      write_doublearray_elements(outputfile,V,600);
 
-	fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-	write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -162,67 +170,70 @@ if(print==1){
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void longmatrix_dem(LONGMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                    char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: long matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: long matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
 
-write_longmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_longmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -238,67 +249,70 @@ t_fclose(outputfile);
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void intmatrix_dem(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                   char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: int matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: int matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
 
-write_intmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_intmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -314,71 +328,75 @@ t_fclose(outputfile);
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void floatmatrix_dem(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                     char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-//char *newoname;
+  //char *newoname;
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
-//printf("i1qu\n");
+  //printf("i1qu\n");
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: float matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: float matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-write_floatmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_floatmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -394,67 +412,71 @@ t_fclose(outputfile);
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void doublematrix_dem(DOUBLEMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                      char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+      write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -466,67 +488,71 @@ t_fclose(outputfile);
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void doublematrix_dem3(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                       char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3,DEM}\n");
+      fprintf(outputfile,"index{3,DEM}\n");
 
-fprintf(outputfile,"1: double array pixels size  ");
+      fprintf(outputfile,"1: double array pixels size  ");
 
-write_doublearray_elements(outputfile,U,600);
+      write_doublearray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: double array novalues ");
+      fprintf(outputfile,"2: double array novalues ");
 
-write_doublearray_elements(outputfile,V,600);
+      write_doublearray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+      write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -542,57 +568,61 @@ t_fclose(outputfile);
 
 /* Stampa una matrice in un file in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void doublematrix_control(DOUBLEMATRIX *matrix,
 
-	char *outputname, char *comment,short print)
+                          char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{1}\n");
+      fprintf(outputfile,"index{1}\n");
 
-	fprintf(outputfile,"1: double matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"1: double matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-	write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+      write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -606,59 +636,62 @@ if(print==1){
 
 /* Stampa un vettore in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void floatvector_dem(FLOATVECTOR *vector_dem,
 
-	char *outputname, char *comment,short print)
+                     char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{1}\n");
+      fprintf(outputfile,"index{1}\n");
 
-	fprintf(outputfile,"1: float array vector  ");
+      fprintf(outputfile,"1: float array vector  ");
 
-	write_floatarray_elements(outputfile,vector_dem,vector_dem->nh+1);
+      write_floatarray_elements(outputfile,vector_dem,vector_dem->nh+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -674,59 +707,62 @@ if(print==1){
 
 /* Stampa un vettore in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void doublevector_dem(DOUBLEVECTOR *vector_dem,
 
-	char *outputname, char *comment,short print)
+                      char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputname=join_strings(WORKING_DIRECTORY,outputname);
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/** File %s */\n",outputname);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{1}\n");
+      fprintf(outputfile,"index{1}\n");
 
-	fprintf(outputfile,"1:double array vector  ");
+      fprintf(outputfile,"1:double array vector  ");
 
-	write_doublearray_elements(outputfile,vector_dem,vector_dem->nh+1);
+      write_doublearray_elements(outputfile,vector_dem,vector_dem->nh+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -744,17 +780,17 @@ if(print==1){
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
+  WORKING_DIRECTORY deve essere dichiarata come variabile esterna nel main()
 
-	Inputs:	tensor		tensor
+  Inputs: tensor    tensor
 
-	        layer		numero del livello del tensore che vuoi stampare
+          layer   numero del livello del tensore che vuoi stampare
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			outputname 	nome del file di output senza estensione
+      outputname  nome del file di output senza estensione
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
@@ -766,71 +802,76 @@ void doubletensor_dem(DOUBLETENSOR *tensor,long layer,DOUBLEVECTOR *U,
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-long r,c;
+  long r,c;
 
-FILE *outputfile;
+  FILE *outputfile;
 
-extern char *WORKING_DIRECTORY;
+  extern char *WORKING_DIRECTORY;
 
-DOUBLEMATRIX *matrix;
-
-
-
-/* Allocation and initialisation of matrix */
-
-matrix=new_doublematrix(tensor->nrh,tensor->nch);
-
-for(r=1;r<=tensor->nrh;r++){
-
-   for(c=1;c<=tensor->nch;c++){
-
-      matrix->co[r][c]=tensor->co[layer][r][c];
-
-   }
-
-}
+  DOUBLEMATRIX *matrix;
 
 
 
-/* Writes output file */
+  /* Allocation and initialisation of matrix */
 
-if(print==1){
+  matrix=new_doublematrix(tensor->nrh,tensor->nch);
 
-outputname=join_strings(WORKING_DIRECTORY,outputname);
+  for (r=1; r<=tensor->nrh; r++)
+    {
 
-outputfile=t_fopen(outputname,"w");
+      for (c=1; c<=tensor->nch; c++)
+        {
 
-fprintf(outputfile,"/** File %s */\n",outputname);
+          matrix->co[r][c]=tensor->co[layer][r][c];
 
-fprintf(outputfile,"/**  %s (layer %ld)*/\n",comment,layer);
+        }
 
-fprintf(outputfile,"index{3,DEM}\n");
+    }
 
-fprintf(outputfile,"1: float array pixels size  ");
 
-write_doublearray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+  /* Writes output file */
 
-write_doublearray_elements(outputfile,V,600);
+  if (print==1)
+    {
 
-fprintf(outputfile,"3: double matrix layer_%ld {%ld,%ld}\n",layer,matrix->nrh,
+      outputname=join_strings(WORKING_DIRECTORY,outputname);
 
-        matrix->nch);
+      outputfile=t_fopen(outputname,"w");
 
-write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+      fprintf(outputfile,"/** File %s */\n",outputname);
 
-t_fclose(outputfile);
+      fprintf(outputfile,"/**  %s (layer %ld)*/\n",comment,layer);
 
-free_doublematrix(matrix);
+      fprintf(outputfile,"index{3,DEM}\n");
 
-} else {
+      fprintf(outputfile,"1: float array pixels size  ");
 
-	return;
+      write_doublearray_elements(outputfile,U,600);
 
-}
+      fprintf(outputfile,"2: float array novalues ");
+
+      write_doublearray_elements(outputfile,V,600);
+
+      fprintf(outputfile,"3: double matrix layer_%ld {%ld,%ld}\n",layer,matrix->nrh,
+
+              matrix->nch);
+
+      write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+
+      t_fclose(outputfile);
+
+      free_doublematrix(matrix);
+
+    }
+  else
+    {
+
+      return;
+
+    }
 
 }
 
@@ -878,57 +919,61 @@ free_doublematrix(matrix);
 
    !!! non viene usata la WORKING_DIRECTORY !!!
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void shortmatrix_dem2(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                      char *outputname, char *comment,short print)
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-	outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-	fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-	fprintf(outputfile,"index{3}\n");
+      fprintf(outputfile,"index{3}\n");
 
-	fprintf(outputfile,"1: double array pixels size  ");
+      fprintf(outputfile,"1: double array pixels size  ");
 
-	write_doublearray_elements(outputfile,U,600);
+      write_doublearray_elements(outputfile,U,600);
 
-	fprintf(outputfile,"2: double array novalues ");
+      fprintf(outputfile,"2: double array novalues ");
 
-	write_doublearray_elements(outputfile,V,600);
+      write_doublearray_elements(outputfile,V,600);
 
-	fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: short matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-	write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_shortmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-	t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -946,59 +991,62 @@ if(print==1){
 
    !!! non viene usata la WORKING_DIRECTORY !!!
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void longmatrix_dem2(LONGMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                     char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3}\n");
+      fprintf(outputfile,"index{3}\n");
 
-fprintf(outputfile,"1: double array pixels size  ");
+      fprintf(outputfile,"1: double array pixels size  ");
 
-write_doublearray_elements(outputfile,U,600);
+      write_doublearray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: double array novalues ");
+      fprintf(outputfile,"2: double array novalues ");
 
-write_doublearray_elements(outputfile,V,600);
+      write_doublearray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: long matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: long matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
 
-write_longmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_longmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -1016,59 +1064,62 @@ t_fclose(outputfile);
 
    !!! non viene usata la WORKING_DIRECTORY !!!
 
-   Inputs:	matrix		matrice
+   Inputs:  matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void intmatrix_dem2(INTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                    char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3}\n");
+      fprintf(outputfile,"index{3}\n");
 
-fprintf(outputfile,"1: float array pixels size  ");
+      fprintf(outputfile,"1: float array pixels size  ");
 
-write_floatarray_elements(outputfile,U,600);
+      write_floatarray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: float array novalues ");
+      fprintf(outputfile,"2: float array novalues ");
 
-write_floatarray_elements(outputfile,V,600);
+      write_floatarray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: int matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: int matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
 
-write_intmatrix_elements(outputfile,matrix,matrix->nch+1);
+      write_intmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 
@@ -1086,67 +1137,71 @@ t_fclose(outputfile);
 
    !!! non viene usata la WORKING_DIRECTORY !!!
 
-   Inputs:	matrix		matrice
+   Inputs:  matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void floatmatrix_dem2(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                      char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
-
-
-
-/* Writes output file */
-
-if(print==1){
-
-outputfile=t_fopen(outputname,"w");
-
-fprintf(outputfile,"/**  %s */\n",comment);
-
-fprintf(outputfile,"index{3}\n");
-
-fprintf(outputfile,"1: float array pixels size  ");
+  FILE *outputfile;
 
 
 
-write_floatarray_elements(outputfile,U,600);
+  /* Writes output file */
+
+  if (print==1)
+    {
+
+      outputfile=t_fopen(outputname,"w");
+
+      fprintf(outputfile,"/**  %s */\n",comment);
+
+      fprintf(outputfile,"index{3}\n");
+
+      fprintf(outputfile,"1: float array pixels size  ");
 
 
 
-fprintf(outputfile,"2: float array novalues ");
+      write_floatarray_elements(outputfile,U,600);
 
 
 
-write_floatarray_elements(outputfile,V,600);
+      fprintf(outputfile,"2: float array novalues ");
 
 
 
-fprintf(outputfile,"3: float matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      write_floatarray_elements(outputfile,V,600);
 
-write_floatmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
 
-} else {
+      fprintf(outputfile,"3: float matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-	return;
+      write_floatmatrix_elements(outputfile,matrix,matrix->nch+1);
 
-}
+      t_fclose(outputfile);
+
+    }
+  else
+    {
+
+      return;
+
+    }
 
 }
 
@@ -1162,61 +1217,65 @@ t_fclose(outputfile);
 
 /* Stampa un file  DEM in formato Fluidturtle
 
-	!!! non viene usata la WORKING_DIRECTORY !!!
+  !!! non viene usata la WORKING_DIRECTORY !!!
 
-	Inputs:	matrix		matrice
+  Inputs: matrix    matrice
 
-			U,V 		vettori di header del DEM
+      U,V     vettori di header del DEM
 
-			otputname 	nome del file di output
+      otputname   nome del file di output
 
-			comment		eventuali commenti da scrivere nel file */
+      comment   eventuali commenti da scrivere nel file */
 
 
 
 void doublematrix_dem2(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
 
-	char *outputname, char *comment,short print)
+                       char *outputname, char *comment,short print)
 
 
 
 {
 
-/* Declaration variables */
+  /* Declaration variables */
 
-FILE *outputfile;
+  FILE *outputfile;
 
 
 
-/* Writes output file */
+  /* Writes output file */
 
-if(print==1){
+  if (print==1)
+    {
 
-outputfile=t_fopen(outputname,"w");
+      outputfile=t_fopen(outputname,"w");
 
-fprintf(outputfile,"/**  %s */\n",comment);
+      fprintf(outputfile,"/**  %s */\n",comment);
 
-fprintf(outputfile,"index{3}\n");
+      fprintf(outputfile,"index{3}\n");
 
-fprintf(outputfile,"1: double array pixels size  ");
+      fprintf(outputfile,"1: double array pixels size  ");
 
-write_doublearray_elements(outputfile,U,600);
+      write_doublearray_elements(outputfile,U,600);
 
-fprintf(outputfile,"2: double array novalues ");
+      fprintf(outputfile,"2: double array novalues ");
 
-write_doublearray_elements(outputfile,V,600);
+      write_doublearray_elements(outputfile,V,600);
 
-fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,matrix->nch);
+      fprintf(outputfile,"3: double matrix data {%ld,%ld}\n",matrix->nrh,
+              matrix->nch);
 
-write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
+      write_doublematrix_elements(outputfile,matrix,matrix->nch+1);
 
-t_fclose(outputfile);
+      t_fclose(outputfile);
 
-} else {
+    }
+  else
+    {
 
-	return;
+      return;
 
-}
+    }
 
 }
 

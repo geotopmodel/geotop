@@ -17,7 +17,7 @@
 
 
 #define BUFFERINCREMENT 256 /*Buffers memory is increases when necessary of this
-							 storage capability till MAXBUFFERSIZE*/
+               storage capability till MAXBUFFERSIZE*/
 
 
 #define LABELINCREMENT 64   /*The same as above */
@@ -25,7 +25,7 @@
 
 
 #define NR_END    1         /* Required by the Numerical Recipes' allocation routines
-							*/
+              */
 
 
 
@@ -56,11 +56,11 @@
 
 
 #define NL 1              /* Numerical Recipes allocation routines allow to have
-							 arbitrary  subscripts for vector and matrixes. The
-							 fluid turtle library restrict this freedom by setting
-						     their  lower value to NL  */
-						     
-						     
+               arbitrary  subscripts for vector and matrixes. The
+               fluid turtle library restrict this freedom by setting
+                 their  lower value to NL  */
+
+
 
 #define TEST 1
 
@@ -73,39 +73,41 @@
 
 /**-------------------------------------------------------------------
 VECTORS: essentially the same types as in Numerical Recipes, except
-that char and long are not unsigned as there. We have vector for short, 
-int,long , char, float, double.  
+that char and long are not unsigned as there. We have vector for short,
+int,long , char, float, double.
 
 ---------------------------------------------------------------------*/
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;          /* set to 1 when dynamically allocated */
+  short isdynamic;          /* set to 1 when dynamically allocated */
 
-	const char * name;        /* the name of the data structure      */
+  const char *name;         /* the name of the data structure      */
 
-	long nl,nh;               /* the lower bound, nl, and the upper, nh */
+  long nl,nh;               /* the lower bound, nl, and the upper, nh */
 
-	float *co;           /* the real stuff                      */
+  float *co;           /* the real stuff                      */
 
-	
+
 
 } FLOATVECTOR;
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nl,nh;
+  long nl,nh;
 
-	int *co;
+  int *co;
 
-	
+
 
 } INTVECTOR;
 
@@ -113,17 +115,18 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nl,nh;
+  long nl,nh;
 
-	long  *co;
+  long  *co;
 
-	
+
 
 } LONGVECTOR;
 
@@ -131,17 +134,18 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nl,nh;
+  long nl,nh;
 
-	short *co;
+  short *co;
 
-	
+
 
 } SHORTVECTOR;
 
@@ -149,35 +153,37 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nl,nh;
+  long nl,nh;
 
-	double *co;
+  double *co;
 
-	
+
 
 } DOUBLEVECTOR;
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nl,nh;
+  long nl,nh;
 
-	char *co;
+  char *co;
 
-	
 
-} CHARVECTOR;                   
+
+} CHARVECTOR;
 
 
 
@@ -192,37 +198,39 @@ SHORTMATRIX, INTMATRIX, LONGMATRIX, FLOATMATRIX, DOUBLEMATRIX
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;         /* see FLOATVECTOR */
+  short isdynamic;         /* see FLOATVECTOR */
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch;    /* lower and upper bound for rows: nrl, nrh;
+  long nrl,nrh,ncl,nch;    /* lower and upper bound for rows: nrl, nrh;
 
-	                            lower and upper bounds for columns: ncl, nch
+                              lower and upper bounds for columns: ncl, nch
 
-	                         */
+                           */
 
-	short **co;
+  short **co;
 
-	
+
 
 } SHORTMATRIX;
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch;
+  long nrl,nrh,ncl,nch;
 
-	int **co;
+  int **co;
 
-	
+
 
 } INTMATRIX;
 
@@ -230,17 +238,18 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch;
+  long nrl,nrh,ncl,nch;
 
-	float **co;
+  float **co;
 
-	
+
 
 } FLOATMATRIX;
 
@@ -248,17 +257,18 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch;
+  long nrl,nrh,ncl,nch;
 
-	double **co;
+  double **co;
 
-	
+
 
 } DOUBLEMATRIX;
 
@@ -266,15 +276,16 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch;
+  long nrl,nrh,ncl,nch;
 
-	long **co;
+  long **co;
 
 
 
@@ -286,8 +297,8 @@ typedef struct {
 
 /**-------------------------------------------------------------------
 
-BINS: A BIN is a collection of vectors of different lengths. 
-We have BINS for short, long and double, a BIN of char vectors is 
+BINS: A BIN is a collection of vectors of different lengths.
+We have BINS for short, long and double, a BIN of char vectors is
 here called STRINGBIN. Thus, we have:
 SHORTBIN, INTBIN, LONGBIN, DOUBLEBIN, STRING
 
@@ -295,23 +306,24 @@ SHORTBIN, INTBIN, LONGBIN, DOUBLEBIN, STRING
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	
 
-	LONGVECTOR  * index;      /* The index of the list: see  the
 
-	                             example file for more informations
+  LONGVECTOR   *index;      /* The index of the list: see  the
 
-	                          */
+                               example file for more informations
 
-	short **co;
+                            */
 
-	
+  short **co;
+
+
 
 } SHORTBIN;
 
@@ -319,73 +331,77 @@ typedef struct {
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	
 
-	LONGVECTOR  *index;
 
-	int **co;
+  LONGVECTOR  *index;
 
-	
+  int **co;
+
+
 
 } INTBIN;
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	
 
-	LONGVECTOR  *index;
 
-	long **co;
+  LONGVECTOR  *index;
 
-	
+  long **co;
+
+
 
 } LONGBIN;
 
 
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	
 
-	LONGVECTOR  * index;
 
-	float **co;
+  LONGVECTOR   *index;
 
-	
+  float **co;
+
+
 
 } FLOATBIN;
 
 
 
-typedef struct db{
+typedef struct db
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-		
 
-	LONGVECTOR  * index;
 
-	double **co;
+  LONGVECTOR   *index;
 
-	struct db *next;
+  double **co;
+
+  struct db *next;
 
 } DOUBLEBIN;
 
@@ -393,33 +409,35 @@ typedef struct db{
 
 
 
-typedef struct st{
+typedef struct st
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	LONGVECTOR  *index;
+  LONGVECTOR  *index;
 
-	char **co;
+  char **co;
 
-	struct st *next;
+  struct st *next;
 
 } STRINGBIN;
 
 /*  Tensor3D */
 
-typedef struct {
+typedef struct
+{
 
-	short isdynamic;
+  short isdynamic;
 
-	const char * name; 
+  const char *name;
 
-	long nrl,nrh,ncl,nch,ndl,ndh;
+  long nrl,nrh,ncl,nch,ndl,ndh;
 
-	double ***co;
+  double ***co;
 
-	
+
 
 } DOUBLETENSOR;
 
@@ -433,7 +451,7 @@ in a file between enclosing curling braces and separated by commas: i.e.
 {1,2,3} is an array of 3 integers. They are stored in memory as vectors of the
 appropriate type. Thus, they do no requires a special type to be defined.
 Other two special types defined in the fluid turtle library are the HEADER type
-and the t_keyword type below. The HEADER contains the description of a 
+and the t_keyword type below. The HEADER contains the description of a
 vector, matrix, array or BIN. See the file turtle.dat for more details.
 The structure t_keyword contains the keywords used by the turtle libraries.
 
@@ -442,41 +460,42 @@ The structure t_keyword contains the keywords used by the turtle libraries.
 
 
 
-typedef struct{
+typedef struct
+{
 
 
 
-	long number;                 /* Its position in file */
+  long number;                 /* Its position in file */
 
-	 
 
-    short   gender;               /* It can be ascii=1, binary=2 .... */
 
-    
+  short   gender;               /* It can be ascii=1, binary=2 .... */
 
-	short   type;                /* type of the vector to be stored:
 
-	                                 char=1,short=2, int=3, long=4, float=5
 
-	                                 double=6, string=7
+  short   type;                /* type of the vector to be stored:
 
-	                             */
+                                   char=1,short=2, int=3, long=4, float=5
 
-	
+                                   double=6, string=7
 
-	short  category;            /* array=1, vector=1, matrix=2,list=3 ,tensor3d=4*/
+                               */
 
-	
 
-	long dimensions[4];         /* The length for a vector, the number of
 
-	                                           rows and columns for a matrix, rows,colums,depth for a tensor3D     */
+  short  category;            /* array=1, vector=1, matrix=2,list=3 ,tensor3d=4*/
 
-	
 
-	char *name;                  /* Whatever name you choose or NULL */           
 
-    
+  long dimensions[4];         /* The length for a vector, the number of
+
+                                             rows and columns for a matrix, rows,colums,depth for a tensor3D     */
+
+
+
+  char *name;                  /* Whatever name you choose or NULL */
+
+
 
 } HEADER;
 
@@ -484,25 +503,26 @@ typedef struct{
 
 
 
-typedef struct {
+typedef struct
+{
 
 
 
-const char *gender[3];
+  const char *gender[3];
 
-const char *type[8];
+  const char *type[8];
 
-const char *category[6];
+  const char *category[6];
 
-const char *symbol[3];
+  const char *symbol[3];
 
-const char *separator[3];
+  const char *separator[3];
 
-const char *delimiter[3];
+  const char *delimiter[3];
 
 
 
-}t_keywords;
+} t_keywords;
 
 
 
@@ -518,27 +538,28 @@ const char *delimiter[3];
 
 t_keywords T_KEYWORDS={{"2","ascii","binary"},
 
-					   {"7","char","short","int","long","float","double","string"},
+             {"7","char","short","int","long","float","double","string"},
 
-					   {"4","array","vector","matrix","list"},
+             {"4","array","vector","matrix","list"},
 
-					   {"2","->","<-"},
+             {"2","->","<-"},
 
-					   {"2"," ",","},
+             {"2"," ",","},
 
-					   {"2","{","}"}};
+             {"2","{","}"}};
 
 
 
-							  
 
-							  
 
-*/							   
 
-typedef struct { /*header of maps in fluid turtle format*/
-DOUBLEVECTOR *U;  /*dx,dy*/
-DOUBLEVECTOR *V;  /*sign of novalue,novalue*/
+
+*/
+
+typedef struct   /*header of maps in fluid turtle format*/
+{
+  DOUBLEVECTOR *U;  /*dx,dy*/
+  DOUBLEVECTOR *V;  /*sign of novalue,novalue*/
 } T_INIT;
 
 

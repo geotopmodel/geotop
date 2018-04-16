@@ -1,0 +1,982 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/
+
+TimeStepEnergyAndWater[1] = 9.000000e+02 
+InitDateDDMMYYYYhhmm[1] = 9.042014e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.504201e+11 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 1.000000e+00 
+DtPlotDischarge[1] = 1.000000e+00 
+DtPlotPoint[1] = 1.000000e+00 
+DtPlotBasin[1] = 1.000000e+00 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 1.000000e+00 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 1.000000e+00 
+RecoverSim[1] = 0.000000e+00 
+NumLandCoverTypes[1] = 1.000000e+00 
+SoilRoughness[1] = 1.000000e+02 
+ThresSnowSoilRough[1] = 1.000000e+02 
+VegHeight[1] = 4.000000e+02 
+ThresSnowVegUp[1] = 5.000000e+01 
+ThresSnowVegDown[1] = 1.000000e+01 
+LSAI[1] = 4.000000e+00 
+CanopyFraction[1] = 1.000000e+00 
+DecayCoeffCanopy[1] = 2.000000e+00 
+VegSnowBurying[1] = 1.000000e+00 
+RootDepth[1] = 2.500000e+02 
+MinStomatalRes[1] = 2.500000e+01 
+VegReflectVis[1] = 1.000000e-01 
+VegReflNIR[1] = 2.000000e-01 
+VegTransVis[1] = 7.000000e-02 
+VegTransNIR[1] = 2.500000e-01 
+LeafAngles[1] = 0.000000e+00 
+CanDensSurface[1] = 5.000000e-01 
+SoilAlbVisDry[1] = 1.500000e-01 
+SoilAlbNIRDry[1] = 2.500000e-01 
+SoilAlbVisWet[1] = 1.500000e-01 
+SoilAlbNIRWet[1] = 2.500000e-01 
+SoilEmissiv[1] = 9.600000e-01 
+SurFlowResLand[1] = 5.000000e-01 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 1.000000e+00 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 
+RichardTol[1] = 1.000000e-07 
+RichardMaxIter[1] = 1.000000e+02 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.670000e-01 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-01 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e+00 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e+00 
+Latitude[1] = 4.666800e+01 
+Longitude[1] = 1.057900e+01 
+Vmin[1] = 5.000000e-01 
+RHmin[1] = 1.000000e+01 
+AlphaSnow[1] = 1.000000e+05 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-04 
+HeatEqMaxIter[1] = 2.000000e+02 
+MinLambdaEnergy[1] = 1.000000e-12 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 2.000000e+00 
+BusingerMaxIter[1] = 2.000000e+00 
+TsMaxIter[1] = 2.000000e+00 
+LocMaxIter[1] = 2.000000e+00 
+CanopyStabCorrection[1] = 1.000000e+00 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 
+ThresTempSnow[1] = 1.000000e+00 
+DewTempOrNormTemp[1] = 0.000000e+00 
+AlbExtParSnow[1] = 1.000000e+01 
+FreshSnowReflVis[1] = 9.500000e-01 
+FreshSnowReflNIR[1] = 6.500000e-01 
+IrriducibleWatSatSnow[1] = 2.000000e-02 
+SnowEmissiv[1] = 9.900000e-01 
+SnowRoughness[1] = 2.000000e+00 
+SnowCorrFactor[1] = 1.000000e+00 
+RainCorrFactor[1] = 1.000000e+00 
+MaxSnowPorosity[1] = 7.000000e-01 
+DrySnowDefRate[1] = 1.000000e+00 
+SnowDensityCutoff[1] = 1.000000e+02 
+WetSnowDefRate[1] = 1.500000e+00 
+SnowViscosity[1] = 1.000000e+06 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 9.000000e+02 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+01 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+01 
+SWEbottom[1] = 5.000000e+01 
+SWEtop[1] = 2.000000e+03 
+Max snow layer number: 255, of which 5 at the bottom, 50 in the middle, and 200 at the top.
+Infinite Snow layer numbers are numbers: 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 4.000000e+00 
+MoninObukhov[1] = 2.000000e+00 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 1.000000e+00 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = 6.208150e+05 
+CoordinatePointY[1] = 5.171506e+06 
+PointElevation[1] = 1.480000e+03 
+PointLandCoverType[1] = -9.999000e+03 (default) 
+PointSoilType[1] = 1.000000e+00 
+PointSlope[1] = 1.500000e+01 
+PointAspect[1] = 2.250000e+02 
+PointSkyViewFactor[1] = -9.999000e+03 (default) 
+PointCurvatureNorthSouthDirection[1] = -9.999000e+03 (default) 
+PointCurvatureWestEastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03 (default) 
+PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03 (default) 
+PointDepthFreeSurface[1] = 2.500000e+02 
+PointHorizon[1] = -9.999000e+03 (default) 
+PointMaxSWE[1] = -9.999000e+03 (default) 
+PointLatitude[1] = -9.999000e+03 (default) 
+PointLongitude[1] = -9.999000e+03 (default) 
+NONE[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 0.000000e+00 (default) 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 0.000000e+00 (default) 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 
+InitWaterTableDepth[1] = 5.000000e+03 (default) 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = 2.000000e+01 
+SoilLayerThicknesses[2] = 6.000000e+01 
+SoilLayerThicknesses[3] = 2.400000e+02 
+SoilLayerThicknesses[4] = 4.800000e+02 
+SoilLayerThicknesses[5] = 1.200000e+03 
+SoilLayerThicknesses[6] = 3.000000e+03 
+SoilLayerThicknesses[7] = 5.000000e+03 
+SoilLayerThicknesses[8] = 1.200000e+04 
+SoilLayerThicknesses[9] = 2.800000e+04 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 4.000000e+00 
+NormalHydrConductivity[1] = 1.000000e-04 (default) 
+LateralHydrConductivity[1] = 1.000000e-04 (default) 
+ThetaRes[1] = 5.000000e-02 (default) 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 5.000000e-01 (default) 
+AlphaVanGenuchten[1] = 4.000000e-03 (default) 
+NVanGenuchten[1] = 1.300000e+00 (default) 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 1.900000e+00 
+ThermalCapacitySoilSolids[1] = 2.160000e+06 
+SpecificStorativity[1] = 1.000000e-07 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 4.000000e+00 (default) 
+NormalHydrConductivity[2] = 1.000000e-04 (default) 
+LateralHydrConductivity[2] = 1.000000e-04 (default) 
+ThetaRes[2] = 5.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 5.000000e-01 (default) 
+AlphaVanGenuchten[2] = 4.000000e-03 (default) 
+NVanGenuchten[2] = 1.300000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 2.160000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 4.000000e+00 (default) 
+NormalHydrConductivity[3] = 1.000000e-04 (default) 
+LateralHydrConductivity[3] = 1.000000e-04 (default) 
+ThetaRes[3] = 5.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 5.000000e-01 (default) 
+AlphaVanGenuchten[3] = 4.000000e-03 (default) 
+NVanGenuchten[3] = 1.300000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 2.160000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 4.000000e+00 (default) 
+NormalHydrConductivity[4] = 1.000000e-04 (default) 
+LateralHydrConductivity[4] = 1.000000e-04 (default) 
+ThetaRes[4] = 5.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 5.000000e-01 (default) 
+AlphaVanGenuchten[4] = 4.000000e-03 (default) 
+NVanGenuchten[4] = 1.300000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 2.160000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 4.000000e+00 (default) 
+NormalHydrConductivity[5] = 1.000000e-04 (default) 
+LateralHydrConductivity[5] = 1.000000e-04 (default) 
+ThetaRes[5] = 5.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 5.000000e-01 (default) 
+AlphaVanGenuchten[5] = 4.000000e-03 (default) 
+NVanGenuchten[5] = 1.300000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 2.160000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+InitSoilPressure[6] = -9.999000e+03 (default) 
+InitSoilTemp[6] = 4.000000e+00 (default) 
+NormalHydrConductivity[6] = 1.000000e-04 (default) 
+LateralHydrConductivity[6] = 1.000000e-04 (default) 
+ThetaRes[6] = 5.000000e-02 (default) 
+WiltingPoint[6] = -9.999000e+03 (default) 
+FieldCapacity[6] = -9.999000e+03 (default) 
+ThetaSat[6] = 5.000000e-01 (default) 
+AlphaVanGenuchten[6] = 4.000000e-03 (default) 
+NVanGenuchten[6] = 1.300000e+00 (default) 
+VMualem[6] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[6] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[6] = 2.160000e+06 (default) 
+SpecificStorativity[6] = 1.000000e-07 (default) 
+InitSoilPressure[7] = -9.999000e+03 (default) 
+InitSoilTemp[7] = 4.000000e+00 (default) 
+NormalHydrConductivity[7] = 1.000000e-04 (default) 
+LateralHydrConductivity[7] = 1.000000e-04 (default) 
+ThetaRes[7] = 5.000000e-02 (default) 
+WiltingPoint[7] = -9.999000e+03 (default) 
+FieldCapacity[7] = -9.999000e+03 (default) 
+ThetaSat[7] = 5.000000e-01 (default) 
+AlphaVanGenuchten[7] = 4.000000e-03 (default) 
+NVanGenuchten[7] = 1.300000e+00 (default) 
+VMualem[7] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[7] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[7] = 2.160000e+06 (default) 
+SpecificStorativity[7] = 1.000000e-07 (default) 
+InitSoilPressure[8] = -9.999000e+03 (default) 
+InitSoilTemp[8] = 4.000000e+00 (default) 
+NormalHydrConductivity[8] = 1.000000e-04 (default) 
+LateralHydrConductivity[8] = 1.000000e-04 (default) 
+ThetaRes[8] = 5.000000e-02 (default) 
+WiltingPoint[8] = -9.999000e+03 (default) 
+FieldCapacity[8] = -9.999000e+03 (default) 
+ThetaSat[8] = 5.000000e-01 (default) 
+AlphaVanGenuchten[8] = 4.000000e-03 (default) 
+NVanGenuchten[8] = 1.300000e+00 (default) 
+VMualem[8] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[8] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[8] = 2.160000e+06 (default) 
+SpecificStorativity[8] = 1.000000e-07 (default) 
+InitSoilPressure[9] = -9.999000e+03 (default) 
+InitSoilTemp[9] = 4.000000e+00 (default) 
+NormalHydrConductivity[9] = 1.000000e-04 (default) 
+LateralHydrConductivity[9] = 1.000000e-04 (default) 
+ThetaRes[9] = 5.000000e-02 (default) 
+WiltingPoint[9] = -9.999000e+03 (default) 
+FieldCapacity[9] = -9.999000e+03 (default) 
+ThetaSat[9] = 5.000000e-01 (default) 
+AlphaVanGenuchten[9] = 4.000000e-03 (default) 
+NVanGenuchten[9] = 1.300000e+00 (default) 
+VMualem[9] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[9] = 1.900000e+00 (default) 
+ThermalCapacitySoilSolids[9] = 2.160000e+06 (default) 
+SpecificStorativity[9] = 1.000000e-07 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[6] = -9.999000e+03 (default) 
+InitSoilTempBedrock[6] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+ThetaResBedrock[6] = -9.999000e+03 (default) 
+WiltingPointBedrock[6] = -9.999000e+03 (default) 
+FieldCapacityBedrock[6] = -9.999000e+03 (default) 
+ThetaSatBedrock[6] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+VMualemBedrock[6] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[6] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[7] = -9.999000e+03 (default) 
+InitSoilTempBedrock[7] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+ThetaResBedrock[7] = -9.999000e+03 (default) 
+WiltingPointBedrock[7] = -9.999000e+03 (default) 
+FieldCapacityBedrock[7] = -9.999000e+03 (default) 
+ThetaSatBedrock[7] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+VMualemBedrock[7] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[7] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[8] = -9.999000e+03 (default) 
+InitSoilTempBedrock[8] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+ThetaResBedrock[8] = -9.999000e+03 (default) 
+WiltingPointBedrock[8] = -9.999000e+03 (default) 
+FieldCapacityBedrock[8] = -9.999000e+03 (default) 
+ThetaSatBedrock[8] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+VMualemBedrock[8] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[8] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[9] = -9.999000e+03 (default) 
+InitSoilTempBedrock[9] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+ThetaResBedrock[9] = -9.999000e+03 (default) 
+WiltingPointBedrock[9] = -9.999000e+03 (default) 
+FieldCapacityBedrock[9] = -9.999000e+03 (default) 
+ThetaSatBedrock[9] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+VMualemBedrock[9] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[9] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 
+MeteoStationCoordinateX[1] = 6.208150e+05 
+MeteoStationCoordinateY[1] = 5.171506e+06 
+MeteoStationLatitude[1] = 4.666800e+01 
+MeteoStationLongitude[1] = 1.057900e+01 
+MeteoStationElevation[1] = 1.480000e+03 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 
+MeteoStationWindVelocitySensorHeight[1] = 2.500000e+00 
+MeteoStationTemperatureSensorHeight[1] = 2.000000e+00 
+LapseRateTemp[1] = -9.999000e+03 (default) 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 1.000000e+00 
+BasinAll[1] = 1.000000e+00 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 1.000000e+00 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = Date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = WindSp
+HeaderWindDirection = WindDir
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = RelHum
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = Swglobal
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = none
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = Dz
+HeaderSoilInitPres = InitPsi
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = Kv
+HeaderLateralHydrConductivity = Kh
+HeaderThetaRes = vwc_r
+HeaderWiltingPoint = vwc_w
+HeaderFieldCapacity = vwc_fc
+HeaderThetaSat = vwc_s
+HeaderAlpha = alpha
+HeaderN = n
+HeaderV = none
+HeaderKthSoilSolids = Kth
+HeaderCthSoilSolids = Cth
+HeaderSpecificStorativity = stor
+HeaderHorizonAngle = AngleFromNorthClockwise
+HeaderHorizonHeight = HorizonHeight
+TimeStepsFile = none
+SoilParFile = soil/soil
+MeteoFile = input-meteo/meteoB2_irr_dev_
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = ./input/horizon
+PointFile = none
+HorizonPointFile = none
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = none
+LandCoverMapFile = none
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = none
+RiverNetwork = none
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = output-tabs/discharge
+BasinOutputFile = output-tabs/basin
+BasinOutputFileWriteEnd = none
+PointOutputFile = output-tabs/point
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = output-tabs/soilTz
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = output-tabs/psiz
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = output-tabs/thetaliq
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = output-tabs/thetaice
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = none
+HeaderCoordinatePointX = none
+HeaderCoordinatePointY = none
+HeaderPointElevation = none
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = none
+HeaderPointAspect = none
+HeaderPointSkyViewFactor = none
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = _SUCCESSFUL_RUN
+FailedRunFile = _FAILED_RUN
+SubfolderRecoveryFiles = none
+Column 1 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Dz
+Column 3 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kv
+Column 2 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to Kh
+Column 4 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_r
+Column 5 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_w
+Column 6 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_fc
+Column 7 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_s
+Column 8 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to alpha
+Column 9 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/soil/soil0001.txt assigned to n
+
+Soil Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 20.000000(2.00e+01), 60.000000(6.00e+01), 240.000000(2.40e+02), 480.000000(4.80e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 28000.000000(2.80e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00)
+HeaderNormalHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderLateralHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderThetaRes: 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02)
+HeaderWiltingPoint: 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01)
+HeaderFieldCapacity: 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01)
+HeaderThetaSat: 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01)
+HeaderAlpha: 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03)
+HeaderN: 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00)
+HeaderCthSoilSolids: 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+Soil Bedrock Layers: 9
+-> Soil Type: 1
+HeaderSoilDz: 20.000000(2.00e+01), 60.000000(6.00e+01), 240.000000(2.40e+02), 480.000000(4.80e+02), 1200.000000(1.20e+03), 3000.000000(3.00e+03), 5000.000000(5.00e+03), 12000.000000(1.20e+04), 28000.000000(2.80e+04)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00), 4.000000(4.00e+00)
+HeaderNormalHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderLateralHydrConductivity: 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02), 0.021000(2.10e-02)
+HeaderThetaRes: 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02), 0.060000(6.00e-02)
+HeaderWiltingPoint: 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01), 0.110000(1.10e-01)
+HeaderFieldCapacity: 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01), 0.210000(2.10e-01)
+HeaderThetaSat: 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01), 0.510000(5.10e-01)
+HeaderAlpha: 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03), 0.002100(2.10e-03)
+HeaderN: 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00), 1.400000(1.40e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00), 1.900000(1.90e+00)
+HeaderCthSoilSolids: 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06), 2160000.000000(2.16e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+
+Attempting to read 'DemFile' in the file 'none': not present in file list
+Warning: Dem file not present
+Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
+Warning: Landuse file not present, uniform cover considered
+Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
+Warning: Sky view factor file not present
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+Warning: Sky view factor file not present
+Warning: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+1.000000,620815.000000,5171506.000000,1480.000000,1.000000,1.000000,15.000000,225.000000,1.000000,0.000000,0.000000,0.000000,0.000000,250.000000,1.000000,10000000000.000000,46.668000,10.579000,-9999.000000
+
+Warning:: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Valid pixels: 1
+Number of nodes: 10
+Novalue pixels: 0
+Basin area: 0.000001 km2
+
+Horizon file FOUND for meteo station #1
+Column 1 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/./input/horizon0001.txt assigned to HorizonHeight
+Column 1 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Date
+Column 2 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Iprec
+Column 3 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindSp
+Column 4 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindDir
+Column 5 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to RelHum
+Column 6 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to AirT
+Column 7 in file /home/alberto/opt/src/geotop-2.0/tests/1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Swglobal
+Shortwave radiation measurements from station 1
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 3 layers
+Soil water transpires from the first 7 layers

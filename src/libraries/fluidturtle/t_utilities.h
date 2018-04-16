@@ -18,8 +18,8 @@ Authors & date: Riccardo Rigon, February 1998
 
 FILE: LIBRAIRES/BASICS/t_utilities.h, LIBRARIES/BASICS/utilities.c
 
-Inputs: 
-1) The pointer to the opened file; 
+Inputs:
+1) The pointer to the opened file;
 2) The type of the array
 3) The category of the array
 
@@ -28,7 +28,7 @@ Inputs:
 Return: the position in file of the searched array
 
 See Also: search_named_array, simple_find
- 
+
 
 */
 
@@ -53,8 +53,8 @@ Authors & date: Riccardo Rigon, February 1998
 
 FILE: LIBRAIRES/BASICS/t_utilities.h, LIBRARIES/BASICS/utilities.c
 
-Inputs: 
-1) The pointer to the opened file; 
+Inputs:
+1) The pointer to the opened file;
 2) The name of the array
 
 
@@ -67,7 +67,7 @@ See Also: search_array, simple_find
 
 */
 
-long search_named_array(FILE *,char* );
+long search_named_array(FILE *,char * );
 
 /**
 
@@ -88,7 +88,7 @@ Authors & date: Riccardo Rigon, February 1998
 FILE: LIBRAIRES/BASICS/t_utilities.h, LIBRARIES/BASICS/utilities.c
 
 
-Inputs: 
+Inputs:
 1) The pointer to the opened file
 2) The pointer to the searched string
 
@@ -120,7 +120,7 @@ Authors & Date: Riccardo Rigon, June 1998
 
 FILE: LIBRAIRES/BASICS/t_utilities.h, LIBRARIES/BASICS/utilities.c
 
-Inputs: A pointer to the  destination FILE, a pointer to the origin FILE 
+Inputs: A pointer to the  destination FILE, a pointer to the origin FILE
 
 */
 
@@ -142,7 +142,7 @@ Authors & Date: Riccardo Rigon, June 1998, December 1999.
 
 Inputs: A pointer to the buffer, the buffer length, the string to be searched
 
-Return: the position in buffer of the searched keyword 
+Return: the position in buffer of the searched keyword
 
 File: LIBRARIES/UTILITIES/utilities.c,   LIBRARIES/UTILITIES/t_utilities.h
 
@@ -183,13 +183,14 @@ Examples: tca
 
 */
 
-void meter( long  index, long rows,  short frequence,const char* message, const char* separator);
+void meter( long  index, long rows,  short frequence,const char *message,
+            const char *separator);
 
 /**
 
 Name: join_strings_into, join_3strings_into
 
-Synopsis: 
+Synopsis:
 short join_strings_into(char *str, char *first,char *second);
 short join_3strings_into(char *str, char *first,char *second,char* third);
 
@@ -213,14 +214,14 @@ Examples: make_doc
 short join_strings_into(char *string, char *first,char *second);
 
 
-short join_3strings_into(char *string, char *first,char *second,char* third);
+short join_3strings_into(char *string, char *first,char *second,char *third);
 
 /**
 
 
 Name:   stop_execution
 
-Synopsis:  
+Synopsis:
 void stop_execution(void);
 
 Version: 0.96
@@ -247,31 +248,32 @@ void stop_execution(void);
 
 /*--------------------------------------------------------------------------*/
 
-void time2date(float time, long *giulian, long *year, long *month, long *day, long *hour, long *min, float *sec);
+void time2date(float time, long *giulian, long *year, long *month, long *day,
+               long *hour, long *min, float *sec);
 
-/* given a inputs 
-	1:the time in second 
-	2:date (giulian day, year, month, day, hour, min, sec)
+/* given a inputs
+  1:the time in second
+  2:date (giulian day, year, month, day, hour, min, sec)
    return as outputs the date updated for the time given
-   	4:date (giulian day, year, month, day, hour, min, sec)
+    4:date (giulian day, year, month, day, hour, min, sec)
    bug: time have to be less than 1 year */
 
 /*--------------------------------------------------------------------------*/
 
 void giulian2day(long giulian, long year, long *month, long *day);
 
-/* given a inputs 
-	giulian day, year
+/* given a inputs
+  giulian day, year
    return as outputs the date
-   	month, day */
+    month, day */
 
 
 /*--------------------------------------------------------------------------*/
 
 void day2giulian(long year, long month, long day, long *giulian);
 
-/* given a inputs 
-	day, year, month
+/* given a inputs
+  day, year, month
    return as outputs the julian day */
 
 double Fmin(double a, double b);

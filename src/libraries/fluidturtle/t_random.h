@@ -1,6 +1,6 @@
 /**
 
-Name: 
+Name:
 
 Synopsis:
 
@@ -13,13 +13,13 @@ Authors & Date: Riccardo Rigon, 1998
 
 FILE: LIBRARIES/BASICS/t_random.h, LIBRARIES/BASICS/random.c
 
-Inputs:   
+Inputs:
 
-Return: 
+Return:
 
-See Also: 
+See Also:
 
-Keywords: 
+Keywords:
 
 Examples: 1.example.c, 2.example.c
 

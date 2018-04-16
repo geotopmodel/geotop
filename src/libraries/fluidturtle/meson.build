@@ -1,0 +1,12 @@
+src_files += [files(['alloc.cc',
+                     'datamanipulation.cc',
+                     'error.cc',
+                     'linearalgebra.cc',
+                     'list.cc',
+                     'probability.cc',
+                     'random.cc',
+                     'statistics.cc',
+                     't_io.cc',
+                     'tensors3D.cc',
+                     'utilities.cc',
+                     'write_dem.cc'])]

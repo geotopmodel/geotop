@@ -1,0 +1,6 @@
+stat_in_meteo_folder 112 Wind missing: it will be considered 1 m s^-1
+start date 2013-10-15 12:00:00 end date 2014-01-29 08:00:00 sum HNd 112 sum HNh 117
+sum Iprec 120.71 max Iprec 7.29
+stat_in_meteo_folder 112 Wind missing: it will be considered 1 m s^-1
+start date 2013-10-15 12:00:00 end date 2014-01-29 08:00:00 sum HNd 112 sum HNh 117
+sum Iprec 120.71 max Iprec 7.29

@@ -1,0 +1,104 @@
+! Comparison of 10cm rock temperatures at Jungfrau East
+! Ridge, simulated with Jungfraujoch data.
+! ---------------------------------------------------------!
+
+!-- BASIC CONTROLS ----------------------------------------!
+TimeStepEnergyAndWater       = 3600
+InitDateDDMMYYYYhhmm         = 01/08/1983 00:00
+EndDateDDMMYYYYhhmm          = 31/08/1983 23:00 
+NumSimulationTimes           = 1
+DtPlotPoint                  = 1
+PointSim                     = 1
+WaterBalance                 = 0
+EnergyBalance                = 1
+StandardTimeSimulation       = 0
+
+
+!-- INPUT FILES AND HEADERS -------------------------------!
+MeteoFile                    = "Jungfraujoch_"
+Latitude                     = 46.55
+Longitude                    =  7.99
+NumberOfMeteoStations        = 1
+MeteoStationStandardTime     = 0
+MeteoStationCoordinateX=272533.
+MeteoStationCoordinateY=478964
+MeteoStationLatitude=46.55
+MeteoStationLongitude=7.99
+MeteoStationElevation=3580
+MeteoStationSkyViewFactor    = 1
+MeteoStationWindVelocitySensorHeight = 25
+MeteoStationTemperatureSensorHeight  = 25
+!LapseRateTemp                = 5.85, 5.55, 5.87, 5.72, 5.47, 5.49, 5.58, 5.64, 5.32, 5.65, 6.01, 6.2
+LapseRateTemp                = 5.5
+Vmin                         = 0.5
+RHmin                        = 10
+
+HeaderDateDDMMYYYYhhmmMeteo  = "Date"
+HeaderAirTemp                = "AirT"
+HeaderWindVelocity           = "WindS"
+HeaderWindDirection          = "WindDir"
+HeaderRH                     = "RelHum"
+HeaderSWglobal               = "SWglobal"
+HeaderCloudSWTransmissivity  = "Cloud"
+RicalculateCloudiness        = 0
+
+PointFile                    = "listpoints"
+HeaderPointID                = "ID"
+HeaderCoordinatePointX 		 = "X"
+HeaderCoordinatePointY 		 = "Y"
+HeaderPointElevation         = "ele"
+HeaderPointSlope             = "slp"
+HeaderPointAspect            = "asp"
+HeaderPointSkyViewFactor     = "sky"
+HeaderPointHorizon 			 = "hor"
+
+SuccessfulRunFile 	   = "_SUCCESSFUL_RUN"
+FailedRunFile          = "_FAILED_RUN"
+
+!--- HORIZON FILES -----------------------
+HorizonPointFile            = "hor_"
+HeaderHorizonAngle          = "az"
+HeaderHorizonHeight         = "el"
+
+!-- ENERGY BALANCE ----------------------------------------!
+LWinParameterization         = 9
+MoninObukhov                 = 2
+
+!-- LAND COVER --------------------------------------------!
+SoilRoughness                = 10
+ThresSnowSoilRough           = 2
+AlbExtParSnow                = 2
+SoilAlbVisDry                = 0.25
+SoilAlbNIRDry                = 0.25
+SoilAlbVisWet                = 0.25
+SoilAlbNIRWet                = 0.25
+SoilEmissiv                  = 0.97
+
+!-- SOIL DEFINITION ---------------------------------------!
+SoilLayerThicknesses = 15,20,27,37,50,67,91,123,165,223,302,407,550,742,1002,1179
+InitSoilTemp                        = -1.0
+ThermalConductivitySoilSolids       = 2.8
+ThermalCapacitySoilSolids           = 2000000
+ThetaRes                            = 0.002
+ThetaSat                            = 0.03
+AlphaVanGenuchten                   = 0.001
+NVanGenuchten                       = 1.2
+NormalHydrConductivity              = 0.000001
+LateralHydrConductivity             = 0.000001
+
+
+!=============================================================================
+! POINT OUTPUT: SUBSURFACE
+!=============================================================================
+
+!--- STRUCTURE ------------
+SoilAveragedTempProfileFile = "output-tabs/soil"
+SoilPlotDepths = 100
+
+!--- VARIABLES ------------
+DefaultSoil = 0
+DateSoil    = 1
+PeriodSoil  = 2
+RunSoil     = 3
+IDPointSoil = 4 
+TempSoil    = 5

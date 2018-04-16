@@ -1,0 +1,2381 @@
+THIS IS THE INITIAL STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+########################## INFO ABOUT COMPILATION #################################
+This GEOtop version  was compiled at:  Apr 11 2018  22:06:55
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release-216-g9f45f8eb 
+This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
+This run starts at: Wed Apr 11 22:07:15 2018
+##### Please report the above lines if you ask for help ############################
+[NOTICE]: Configuration file parsing completed. 3561 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: TimeStepEnergyAndWater[1] = 3.600000e+03
+[NOTICE]: TimeStepEnergyAndWater[1] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[2] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[3] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[4] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[5] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[6] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[7] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[8] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[9] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[10] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[11] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[12] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[13] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[14] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[15] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[16] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[17] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[18] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[19] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[20] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[21] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[22] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[23] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[24] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[25] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[26] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[27] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[28] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[29] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[30] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[31] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[32] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[33] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[34] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[35] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[36] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[37] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[38] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[39] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[40] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[41] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[42] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[43] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[44] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[45] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[46] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[47] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[48] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[49] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[50] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[51] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[52] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[53] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[54] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[55] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[56] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[57] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[58] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[59] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[60] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[61] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[62] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[63] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[64] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[65] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[66] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[67] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[68] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[69] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[70] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[71] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[72] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[73] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[74] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[75] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[76] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[77] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[78] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[79] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[80] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[81] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[82] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[83] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[84] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[85] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[86] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[87] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[88] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[89] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[90] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[91] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[92] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[93] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[94] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[95] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[96] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[97] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[98] = -9.999000e+03 (default)
+[NOTICE]: TimeStepEnergyAndWater[99] = -9.999000e+03 (default)
+[NOTICE]: InitDateDDMMYYYYhhmm[1] = 1.081983e+10
+[NOTICE]: SimulationHours[1] = 1.000000e+00
+[NOTICE]: EndDateDDMMYYYYhhmm[1] = 3.108198e+11
+[NOTICE]: StandardTimeSimulation[1] = 0.000000e+00
+[NOTICE]: DtPlotDischarge[1] = 0.000000e+00
+[NOTICE]: DtPlotPoint[1] = 1.000000e+00
+[NOTICE]: DtPlotBasin[1] = 0.000000e+00
+[NOTICE]: NumLowPassFilterOnDemForAll[1] = 0.000000e+00
+[NOTICE]: NumLowPassFilterOnDemForCurv[1] = 0.000000e+00
+[NOTICE]: FlagSkyViewFactor[1] = 0.000000e+00
+[NOTICE]: FormatOutputMaps[1] = 3.000000e+00
+[NOTICE]: PointSim[1] = 1.000000e+00
+[NOTICE]: RecoverSim[1] = 0.000000e+00
+[NOTICE]: NumLandCoverTypes[1] = 1.000000e+00
+[NOTICE]: SoilRoughness[1] = 1.000000e+01
+[NOTICE]: ThresSnowSoilRough[1] = 2.000000e+00
+[NOTICE]: VegHeight[1] = 1.000000e+03
+[NOTICE]: ThresSnowVegUp[1] = 0.000000e+00
+[NOTICE]: ThresSnowVegDown[1] = 1.000000e+03
+[NOTICE]: LSAI[1] = 1.000000e+00
+[NOTICE]: CanopyFraction[1] = 0.000000e+00
+[NOTICE]: DecayCoeffCanopy[1] = 2.500000e+00
+[NOTICE]: VegSnowBurying[1] = 1.000000e+00
+[NOTICE]: RootDepth[1] = 3.000000e+02
+[NOTICE]: MinStomatalRes[1] = 6.000000e+01
+[NOTICE]: VegReflectVis[1] = 2.000000e-01
+[NOTICE]: VegReflNIR[1] = 2.000000e-01
+[NOTICE]: VegTransVis[1] = 2.000000e-01
+[NOTICE]: VegTransNIR[1] = 2.000000e-01
+[NOTICE]: LeafAngles[1] = 0.000000e+00
+[NOTICE]: CanDensSurface[1] = 2.000000e+00
+[NOTICE]: SoilAlbVisDry[1] = 2.500000e-01
+[NOTICE]: SoilAlbNIRDry[1] = 2.500000e-01
+[NOTICE]: SoilAlbVisWet[1] = 2.500000e-01
+[NOTICE]: SoilAlbNIRWet[1] = 2.500000e-01
+[NOTICE]: SoilEmissiv[1] = 9.700000e-01
+[NOTICE]: SurFlowResLand[1] = 5.000000e-01
+[NOTICE]: RoughElemXUnitArea[1] = 0.000000e+00
+[NOTICE]: RoughElemDiam[1] = 5.000000e+01
+[NOTICE]: FrozenSoilHydrCondReduction[1] = 7.000000e+00
+[NOTICE]: FreeDrainageAtBottom[1] = 0.000000e+00
+[NOTICE]: FreeDrainageAtLateralBorder[1] = 1.000000e+00
+[NOTICE]: RichardTol[1] = 1.000000e-06
+[NOTICE]: RichardMaxIter[1] = 1.000000e+02
+[NOTICE]: RichardInitForc[1] = 1.000000e-02
+[NOTICE]: MinLambdaWater[1] = 1.000000e-07
+[NOTICE]: MaxTimesMinLambdaWater[1] = 0.000000e+00
+[NOTICE]: ExitMinLambdaWater[1] = 1.000000e+00
+[NOTICE]: MinTimeStep[1] = 1.000000e+01
+[NOTICE]: SurFlowResExp[1] = 6.666667e-01
+[NOTICE]: ThresWaterDepthLandInf[1] = 0.000000e+00
+[NOTICE]: ThresWaterDepthLandSup[1] = 0.000000e+00
+[NOTICE]: SurFlowResChannel[1] = 2.000000e+01
+[NOTICE]: ThresWaterDepthChannel[1] = 5.000000e+01
+[NOTICE]: RatioChannelWidthPixelWidth[1] = 1.000000e-01
+[NOTICE]: ChannelDepression[1] = 5.000000e+02
+[NOTICE]: MaxCourantSupFlowLand[1] = 1.000000e-01
+[NOTICE]: MaxCourantSupFlowChannel[1] = 1.000000e-01
+[NOTICE]: MinSupWaterDepthLand[1] = 1.000000e+00
+[NOTICE]: MinSupWaterDepthChannel[1] = 1.000000e+00
+[NOTICE]: MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00
+[NOTICE]: MinTimeStepSupFlow[1] = 1.000000e-02
+[NOTICE]: Latitude[1] = 4.655000e+01
+[NOTICE]: Longitude[1] = 7.990000e+00
+[NOTICE]: Vmin[1] = 5.000000e-01
+[NOTICE]: RHmin[1] = 1.000000e+01
+[NOTICE]: AlphaSnow[1] = 1.000000e+05
+[NOTICE]: HighestNodeCorrespondsToLayer[1] = 0.000000e+00
+[NOTICE]: HeatEqTol[1] = 1.000000e-06
+[NOTICE]: HeatEqMaxIter[1] = 7.000000e+02
+[NOTICE]: MinLambdaEnergy[1] = 1.000000e-05
+[NOTICE]: MaxTimesMinLambdaEnergy[1] = 0.000000e+00
+[NOTICE]: ExitMinLambdaEnergy[1] = 0.000000e+00
+[NOTICE]: DEMRotationAngle[1] = 0.000000e+00
+[NOTICE]: CanopyMaxIter[1] = 3.000000e+00
+[NOTICE]: BusingerMaxIter[1] = 5.000000e+00
+[NOTICE]: TsMaxIter[1] = 2.000000e+00
+[NOTICE]: LocMaxIter[1] = 3.000000e+00
+[NOTICE]: CanopyStabCorrection[1] = 1.000000e+00
+[NOTICE]: Iobsint[1] = 1.000000e+00
+[NOTICE]: Dn[1] = 1.000000e+00
+[NOTICE]: SlopeWeight[1] = 0.000000e+00
+[NOTICE]: CurvatureWeight[1] = 0.000000e+00
+[NOTICE]: SlopeWeightD[1] = 0.000000e+00
+[NOTICE]: CurvatureWeightD[1] = 0.000000e+00
+[NOTICE]: SlopeWeightI[1] = 0.000000e+00
+[NOTICE]: CurvatureWeightI[1] = 0.000000e+00
+[NOTICE]: ZeroTempAmplitDepth[1] = 1.000000e+20
+[NOTICE]: ZeroTempAmplitTemp[1] = 2.000000e+01
+[NOTICE]: BottomBoundaryHeatFlux[1] = 0.000000e+00
+[NOTICE]: InitSWE[1] = 0.000000e+00
+[NOTICE]: InitSnowDensity[1] = 2.500000e+02
+[NOTICE]: InitSnowTemp[1] = 0.000000e+00
+[NOTICE]: InitSnowAge[1] = 0.000000e+00
+[NOTICE]: ThresTempRain[1] = 3.000000e+00
+[NOTICE]: ThresTempSnow[1] = 0.000000e+00
+[NOTICE]: DewTempOrNormTemp[1] = 0.000000e+00
+[NOTICE]: AlbExtParSnow[1] = 2.000000e+00
+[NOTICE]: FreshSnowReflVis[1] = 9.500000e-01
+[NOTICE]: FreshSnowReflNIR[1] = 6.500000e-01
+[NOTICE]: IrriducibleWatSatSnow[1] = 2.000000e-02
+[NOTICE]: SnowEmissiv[1] = 9.800000e-01
+[NOTICE]: SnowRoughness[1] = 1.000000e-01
+[NOTICE]: SnowCorrFactor[1] = 1.300000e+00
+[NOTICE]: RainCorrFactor[1] = 1.000000e+00
+[NOTICE]: MaxSnowPorosity[1] = 7.000000e-01
+[NOTICE]: DrySnowDefRate[1] = 1.000000e+00
+[NOTICE]: SnowDensityCutoff[1] = 1.000000e+02
+[NOTICE]: WetSnowDefRate[1] = 1.500000e+00
+[NOTICE]: SnowViscosity[1] = 1.000000e+06
+[NOTICE]: FetchUp[1] = 1.000000e+03
+[NOTICE]: FetchDown[1] = 1.000000e+02
+[NOTICE]: BlowingSnowSoftLayerIceContent[1] = 0.000000e+00
+[NOTICE]: TimeStepBlowingSnow[1] = 3.600000e+03
+[NOTICE]: SnowSMIN[1] = 3.000000e+01
+[NOTICE]: SnowSMAX[1] = 8.000000e+01
+[NOTICE]: SnowCURV[1] = -2.000000e+02
+[NOTICE]: MaxWaterEqSnowLayerContent[1] = 5.000000e+00
+[NOTICE]: MaxSnowLayersMiddle[1] = 1.000000e+01
+[NOTICE]: SWEbottom[1] = 2.000000e+01
+[NOTICE]: SWEtop[1] = 5.000000e+01
+[NOTICE]: Max snow layer number: 24, of which 4 at the bottom, 10 in the middle, and 10 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	5 6 7 8 9 10 11 12 13 14 
+[NOTICE]: InitGlacierDepth[1] = 0.000000e+00
+[NOTICE]: InitGlacierDensity[1] = 8.000000e+02
+[NOTICE]: InitGlacierTemp[1] = -3.000000e+00
+[NOTICE]: IrriducibleWatSatGlacier[1] = 2.000000e-02
+[NOTICE]: MaxWaterEqGlacLayerContent[1] = 5.000000e+00
+[NOTICE]: MaxGlacLayersMiddle[1] = 0.000000e+00
+[NOTICE]: GWEbottom[1] = 0.000000e+00
+[NOTICE]: GWEtop[1] = 0.000000e+00
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[NOTICE]: LWinParameterization[1] = 9.000000e+00
+[NOTICE]: MoninObukhov[1] = 2.000000e+00
+[NOTICE]: Surroundings[1] = 0.000000e+00
+[NOTICE]: WaterBalance[1] = 0.000000e+00
+[NOTICE]: EnergyBalance[1] = 1.000000e+00
+[NOTICE]: BlowingSnow[1] = 0.000000e+00
+[NOTICE]: MinIceContentForBlowingSnow[1] = 8.000000e+00
+[NOTICE]: CoordinatePointX[1] = -9.999000e+03
+[NOTICE]: CoordinatePointX[0] = -9.999000e+03 (default)
+[NOTICE]: CoordinatePointY[1] = -9.999000e+03
+[NOTICE]: CoordinatePointY[0] = -9.999000e+03 (default)
+[NOTICE]: PointID[1] = -9.999000e+03
+[NOTICE]: PointID[0] = -9.999000e+03 (default)
+[NOTICE]: PointElevation[1] = -9.999000e+03
+[NOTICE]: PointElevation[0] = -9.999000e+03 (default)
+[NOTICE]: PointLandCoverType[1] = -9.999000e+03
+[NOTICE]: PointLandCoverType[0] = -9.999000e+03 (default)
+[NOTICE]: PointSoilType[1] = -9.999000e+03
+[NOTICE]: PointSoilType[0] = -9.999000e+03 (default)
+[NOTICE]: PointSlope[1] = -9.999000e+03
+[NOTICE]: PointSlope[0] = -9.999000e+03 (default)
+[NOTICE]: PointAspect[1] = -9.999000e+03
+[NOTICE]: PointAspect[0] = -9.999000e+03 (default)
+[NOTICE]: PointSkyViewFactor[1] = -9.999000e+03
+[NOTICE]: PointSkyViewFactor[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNorthSouthDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthSouthDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureWestEastDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureWestEastDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointDepthFreeSurface[1] = -9.999000e+03
+[NOTICE]: PointDepthFreeSurface[0] = -9.999000e+03 (default)
+[NOTICE]: PointHorizon[1] = -9.999000e+03
+[NOTICE]: PointHorizon[0] = -9.999000e+03 (default)
+[NOTICE]: PointMaxSWE[1] = -9.999000e+03
+[NOTICE]: PointMaxSWE[0] = -9.999000e+03 (default)
+[NOTICE]: PointLatitude[1] = -9.999000e+03
+[NOTICE]: PointLatitude[0] = -9.999000e+03 (default)
+[NOTICE]: PointLongitude[1] = -9.999000e+03
+[NOTICE]: PointLongitude[0] = -9.999000e+03 (default)
+[NOTICE]: PointBedrock[1] = -9.999000e+03
+[NOTICE]: PointBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: CoordinatePointX[1] = -9.999000e+03
+[NOTICE]: CoordinatePointX[0] = -9.999000e+03 (default)
+[NOTICE]: CoordinatePointY[1] = -9.999000e+03
+[NOTICE]: CoordinatePointY[0] = -9.999000e+03 (default)
+[NOTICE]: PointID[1] = -9.999000e+03
+[NOTICE]: PointID[0] = -9.999000e+03 (default)
+[NOTICE]: PointElevation[1] = -9.999000e+03
+[NOTICE]: PointElevation[0] = -9.999000e+03 (default)
+[NOTICE]: PointLandCoverType[1] = -9.999000e+03
+[NOTICE]: PointLandCoverType[0] = -9.999000e+03 (default)
+[NOTICE]: PointSoilType[1] = -9.999000e+03
+[NOTICE]: PointSoilType[0] = -9.999000e+03 (default)
+[NOTICE]: PointSlope[1] = -9.999000e+03
+[NOTICE]: PointSlope[0] = -9.999000e+03 (default)
+[NOTICE]: PointAspect[1] = -9.999000e+03
+[NOTICE]: PointAspect[0] = -9.999000e+03 (default)
+[NOTICE]: PointSkyViewFactor[1] = -9.999000e+03
+[NOTICE]: PointSkyViewFactor[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNorthSouthDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthSouthDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureWestEastDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureWestEastDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[1] = -9.999000e+03
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[0] = -9.999000e+03 (default)
+[NOTICE]: PointDepthFreeSurface[1] = -9.999000e+03
+[NOTICE]: PointDepthFreeSurface[0] = -9.999000e+03 (default)
+[NOTICE]: PointHorizon[1] = -9.999000e+03
+[NOTICE]: PointHorizon[0] = -9.999000e+03 (default)
+[NOTICE]: PointMaxSWE[1] = -9.999000e+03
+[NOTICE]: PointMaxSWE[0] = -9.999000e+03 (default)
+[NOTICE]: PointLatitude[1] = -9.999000e+03
+[NOTICE]: PointLatitude[0] = -9.999000e+03 (default)
+[NOTICE]: PointLongitude[1] = -9.999000e+03
+[NOTICE]: PointLongitude[0] = -9.999000e+03 (default)
+[NOTICE]: PointBedrock[1] = -9.999000e+03
+[NOTICE]: PointBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: OutputSoilMaps[1] = 1.000000e+00
+[NOTICE]: OutputSnowMaps[1] = 1.000000e+00
+[NOTICE]: OutputGlacierMaps[1] = 0.000000e+00
+[NOTICE]: OutputSurfEBALMaps[1] = 0.000000e+00
+[NOTICE]: OutputVegetationMaps[1] = 0.000000e+00
+[NOTICE]: OutputMeteoMaps[1] = 0.000000e+00
+[NOTICE]: SpecialPlotBegin[1] = 0.000000e+00
+[NOTICE]: SpecialPlotEnd[1] = 0.000000e+00
+[NOTICE]: SoilLayerTypes[1] = 1.000000e+00
+[NOTICE]: InitWaterTableDepth[1] = 5.000000e+03
+[NOTICE]: DefaultSoilTypeLand[1] = 1.000000e+00
+[NOTICE]: DefaultSoilTypeChannel[1] = 1.000000e+00
+[NOTICE]: SoilLayerThicknesses[1] = 1.500000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 2.000000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 2.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 3.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 5.000000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 6.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 9.100000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 1.230000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 1.650000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 2.230000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 3.020000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 4.070000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 5.500000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 7.420000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 1.002000e+03
+[NOTICE]: SoilLayerThicknesses[1] = 1.179000e+03
+[NOTICE]: SoilLayerThicknesses[1] = 1.500000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 2.000000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 2.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 3.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 5.000000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 6.700000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 9.100000e+01
+[NOTICE]: SoilLayerThicknesses[1] = 1.230000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 1.650000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 2.230000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 3.020000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 4.070000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 5.500000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 7.420000e+02
+[NOTICE]: SoilLayerThicknesses[1] = 1.002000e+03
+[NOTICE]: SoilLayerThicknesses[1] = 1.179000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[0] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[2] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[3] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[4] = -9.999000e+03 (default)
+[NOTICE]: InitSoilTemp[1] = -1.000000e+00
+[NOTICE]: NormalHydrConductivity[1] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[1] = 1.000000e-06
+[NOTICE]: ThetaRes[1] = 2.000000e-03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[0] = -9.999000e+03 (default)
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03 (default)
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[2] = -9.999000e+03 (default)
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[3] = -9.999000e+03 (default)
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[4] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[0] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[2] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[3] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[4] = -9.999000e+03 (default)
+[NOTICE]: ThetaSat[1] = 3.000000e-02
+[NOTICE]: AlphaVanGenuchten[1] = 1.000000e-03
+[NOTICE]: NVanGenuchten[1] = 1.200000e+00
+[NOTICE]: VMualem[1] = 5.000000e-01
+[NOTICE]: ThermalConductivitySoilSolids[1] = 2.800000e+00
+[NOTICE]: ThermalCapacitySoilSolids[1] = 2.000000e+06
+[NOTICE]: SpecificStorativity[1] = 1.000000e-07
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[0] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[2] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[3] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[4] = -9.999000e+03
+[NOTICE]: InitSoilPressure[5] = -9.999000e+03
+[NOTICE]: InitSoilPressure[6] = -9.999000e+03
+[NOTICE]: InitSoilPressure[7] = -9.999000e+03
+[NOTICE]: InitSoilPressure[8] = -9.999000e+03
+[NOTICE]: InitSoilPressure[9] = -9.999000e+03
+[NOTICE]: InitSoilPressure[10] = -9.999000e+03
+[NOTICE]: InitSoilPressure[11] = -9.999000e+03
+[NOTICE]: InitSoilPressure[12] = -9.999000e+03
+[NOTICE]: InitSoilPressure[13] = -9.999000e+03
+[NOTICE]: InitSoilPressure[14] = -9.999000e+03
+[NOTICE]: InitSoilPressure[15] = -9.999000e+03
+[NOTICE]: InitSoilPressure[16] = -9.999000e+03
+[NOTICE]: InitSoilTemp[1] = -1.000000e+00
+[NOTICE]: InitSoilTemp[1] = -1.000000e+00
+[NOTICE]: InitSoilTemp[2] = -1.000000e+00
+[NOTICE]: InitSoilTemp[3] = -1.000000e+00
+[NOTICE]: InitSoilTemp[4] = -1.000000e+00
+[NOTICE]: InitSoilTemp[5] = -1.000000e+00
+[NOTICE]: InitSoilTemp[6] = -1.000000e+00
+[NOTICE]: InitSoilTemp[7] = -1.000000e+00
+[NOTICE]: InitSoilTemp[8] = -1.000000e+00
+[NOTICE]: InitSoilTemp[9] = -1.000000e+00
+[NOTICE]: InitSoilTemp[10] = -1.000000e+00
+[NOTICE]: InitSoilTemp[11] = -1.000000e+00
+[NOTICE]: InitSoilTemp[12] = -1.000000e+00
+[NOTICE]: InitSoilTemp[13] = -1.000000e+00
+[NOTICE]: InitSoilTemp[14] = -1.000000e+00
+[NOTICE]: InitSoilTemp[15] = -1.000000e+00
+[NOTICE]: InitSoilTemp[16] = -1.000000e+00
+[NOTICE]: NormalHydrConductivity[1] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[1] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[2] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[3] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[4] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[5] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[6] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[7] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[8] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[9] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[10] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[11] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[12] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[13] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[14] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[15] = 1.000000e-06
+[NOTICE]: NormalHydrConductivity[16] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[1] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[1] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[2] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[3] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[4] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[5] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[6] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[7] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[8] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[9] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[10] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[11] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[12] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[13] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[14] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[15] = 1.000000e-06
+[NOTICE]: LateralHydrConductivity[16] = 1.000000e-06
+[NOTICE]: ThetaRes[1] = 2.000000e-03
+[NOTICE]: ThetaRes[1] = 2.000000e-03
+[NOTICE]: ThetaRes[2] = 2.000000e-03
+[NOTICE]: ThetaRes[3] = 2.000000e-03
+[NOTICE]: ThetaRes[4] = 2.000000e-03
+[NOTICE]: ThetaRes[5] = 2.000000e-03
+[NOTICE]: ThetaRes[6] = 2.000000e-03
+[NOTICE]: ThetaRes[7] = 2.000000e-03
+[NOTICE]: ThetaRes[8] = 2.000000e-03
+[NOTICE]: ThetaRes[9] = 2.000000e-03
+[NOTICE]: ThetaRes[10] = 2.000000e-03
+[NOTICE]: ThetaRes[11] = 2.000000e-03
+[NOTICE]: ThetaRes[12] = 2.000000e-03
+[NOTICE]: ThetaRes[13] = 2.000000e-03
+[NOTICE]: ThetaRes[14] = 2.000000e-03
+[NOTICE]: ThetaRes[15] = 2.000000e-03
+[NOTICE]: ThetaRes[16] = 2.000000e-03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[0] = -9.999000e+03 (default)
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[2] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[3] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[4] = -9.999000e+03
+[NOTICE]: WiltingPoint[5] = -9.999000e+03
+[NOTICE]: WiltingPoint[6] = -9.999000e+03
+[NOTICE]: WiltingPoint[7] = -9.999000e+03
+[NOTICE]: WiltingPoint[8] = -9.999000e+03
+[NOTICE]: WiltingPoint[9] = -9.999000e+03
+[NOTICE]: WiltingPoint[10] = -9.999000e+03
+[NOTICE]: WiltingPoint[11] = -9.999000e+03
+[NOTICE]: WiltingPoint[12] = -9.999000e+03
+[NOTICE]: WiltingPoint[13] = -9.999000e+03
+[NOTICE]: WiltingPoint[14] = -9.999000e+03
+[NOTICE]: WiltingPoint[15] = -9.999000e+03
+[NOTICE]: WiltingPoint[16] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[0] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[2] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[3] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[4] = -9.999000e+03
+[NOTICE]: FieldCapacity[5] = -9.999000e+03
+[NOTICE]: FieldCapacity[6] = -9.999000e+03
+[NOTICE]: FieldCapacity[7] = -9.999000e+03
+[NOTICE]: FieldCapacity[8] = -9.999000e+03
+[NOTICE]: FieldCapacity[9] = -9.999000e+03
+[NOTICE]: FieldCapacity[10] = -9.999000e+03
+[NOTICE]: FieldCapacity[11] = -9.999000e+03
+[NOTICE]: FieldCapacity[12] = -9.999000e+03
+[NOTICE]: FieldCapacity[13] = -9.999000e+03
+[NOTICE]: FieldCapacity[14] = -9.999000e+03
+[NOTICE]: FieldCapacity[15] = -9.999000e+03
+[NOTICE]: FieldCapacity[16] = -9.999000e+03
+[NOTICE]: ThetaSat[1] = 3.000000e-02
+[NOTICE]: ThetaSat[1] = 3.000000e-02
+[NOTICE]: ThetaSat[2] = 3.000000e-02
+[NOTICE]: ThetaSat[3] = 3.000000e-02
+[NOTICE]: ThetaSat[4] = 3.000000e-02
+[NOTICE]: ThetaSat[5] = 3.000000e-02
+[NOTICE]: ThetaSat[6] = 3.000000e-02
+[NOTICE]: ThetaSat[7] = 3.000000e-02
+[NOTICE]: ThetaSat[8] = 3.000000e-02
+[NOTICE]: ThetaSat[9] = 3.000000e-02
+[NOTICE]: ThetaSat[10] = 3.000000e-02
+[NOTICE]: ThetaSat[11] = 3.000000e-02
+[NOTICE]: ThetaSat[12] = 3.000000e-02
+[NOTICE]: ThetaSat[13] = 3.000000e-02
+[NOTICE]: ThetaSat[14] = 3.000000e-02
+[NOTICE]: ThetaSat[15] = 3.000000e-02
+[NOTICE]: ThetaSat[16] = 3.000000e-02
+[NOTICE]: AlphaVanGenuchten[1] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[1] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[2] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[3] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[4] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[5] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[6] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[7] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[8] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[9] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[10] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[11] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[12] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[13] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[14] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[15] = 1.000000e-03
+[NOTICE]: AlphaVanGenuchten[16] = 1.000000e-03
+[NOTICE]: NVanGenuchten[1] = 1.200000e+00
+[NOTICE]: NVanGenuchten[1] = 1.200000e+00
+[NOTICE]: NVanGenuchten[2] = 1.200000e+00
+[NOTICE]: NVanGenuchten[3] = 1.200000e+00
+[NOTICE]: NVanGenuchten[4] = 1.200000e+00
+[NOTICE]: NVanGenuchten[5] = 1.200000e+00
+[NOTICE]: NVanGenuchten[6] = 1.200000e+00
+[NOTICE]: NVanGenuchten[7] = 1.200000e+00
+[NOTICE]: NVanGenuchten[8] = 1.200000e+00
+[NOTICE]: NVanGenuchten[9] = 1.200000e+00
+[NOTICE]: NVanGenuchten[10] = 1.200000e+00
+[NOTICE]: NVanGenuchten[11] = 1.200000e+00
+[NOTICE]: NVanGenuchten[12] = 1.200000e+00
+[NOTICE]: NVanGenuchten[13] = 1.200000e+00
+[NOTICE]: NVanGenuchten[14] = 1.200000e+00
+[NOTICE]: NVanGenuchten[15] = 1.200000e+00
+[NOTICE]: NVanGenuchten[16] = 1.200000e+00
+[NOTICE]: VMualem[1] = 5.000000e-01
+[NOTICE]: VMualem[1] = 5.000000e-01
+[NOTICE]: VMualem[2] = 5.000000e-01
+[NOTICE]: VMualem[3] = 5.000000e-01
+[NOTICE]: VMualem[4] = 5.000000e-01
+[NOTICE]: VMualem[5] = 5.000000e-01
+[NOTICE]: VMualem[6] = 5.000000e-01
+[NOTICE]: VMualem[7] = 5.000000e-01
+[NOTICE]: VMualem[8] = 5.000000e-01
+[NOTICE]: VMualem[9] = 5.000000e-01
+[NOTICE]: VMualem[10] = 5.000000e-01
+[NOTICE]: VMualem[11] = 5.000000e-01
+[NOTICE]: VMualem[12] = 5.000000e-01
+[NOTICE]: VMualem[13] = 5.000000e-01
+[NOTICE]: VMualem[14] = 5.000000e-01
+[NOTICE]: VMualem[15] = 5.000000e-01
+[NOTICE]: VMualem[16] = 5.000000e-01
+[NOTICE]: ThermalConductivitySoilSolids[1] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[1] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[2] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[3] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[4] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[5] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[6] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[7] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[8] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[9] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[10] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[11] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[12] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[13] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[14] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[15] = 2.800000e+00
+[NOTICE]: ThermalConductivitySoilSolids[16] = 2.800000e+00
+[NOTICE]: ThermalCapacitySoilSolids[1] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[1] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[2] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[3] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[4] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[5] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[6] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[7] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[8] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[9] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[10] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[11] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[12] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[13] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[14] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[15] = 2.000000e+06
+[NOTICE]: ThermalCapacitySoilSolids[16] = 2.000000e+06
+[NOTICE]: SpecificStorativity[1] = 1.000000e-07
+[NOTICE]: SpecificStorativity[1] = 1.000000e-07
+[NOTICE]: SpecificStorativity[2] = 1.000000e-07
+[NOTICE]: SpecificStorativity[3] = 1.000000e-07
+[NOTICE]: SpecificStorativity[4] = 1.000000e-07
+[NOTICE]: SpecificStorativity[5] = 1.000000e-07
+[NOTICE]: SpecificStorativity[6] = 1.000000e-07
+[NOTICE]: SpecificStorativity[7] = 1.000000e-07
+[NOTICE]: SpecificStorativity[8] = 1.000000e-07
+[NOTICE]: SpecificStorativity[9] = 1.000000e-07
+[NOTICE]: SpecificStorativity[10] = 1.000000e-07
+[NOTICE]: SpecificStorativity[11] = 1.000000e-07
+[NOTICE]: SpecificStorativity[12] = 1.000000e-07
+[NOTICE]: SpecificStorativity[13] = 1.000000e-07
+[NOTICE]: SpecificStorativity[14] = 1.000000e-07
+[NOTICE]: SpecificStorativity[15] = 1.000000e-07
+[NOTICE]: SpecificStorativity[16] = 1.000000e-07
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[2] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[3] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[4] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[5] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[6] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[7] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[8] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[9] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[10] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[11] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[12] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[13] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[14] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[15] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[2] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[3] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[4] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[5] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[6] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[7] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[8] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[9] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[10] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[11] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[12] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[13] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[14] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[15] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[2] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[3] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[4] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[5] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[6] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[7] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[8] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[9] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[10] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[11] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[12] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[13] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[14] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[15] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[2] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[3] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[4] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[5] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[6] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[7] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[8] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[9] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[10] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[11] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[12] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[13] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[14] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[15] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[2] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[3] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[4] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[5] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[6] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[7] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[8] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[9] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[10] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[11] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[12] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[13] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[14] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[15] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[2] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[3] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[4] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[5] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[6] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[7] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[8] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[9] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[10] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[11] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[12] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[13] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[14] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[15] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[2] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[3] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[4] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[5] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[6] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[7] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[8] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[9] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[10] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[11] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[12] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[13] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[14] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[15] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[2] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[3] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[4] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[5] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[6] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[7] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[8] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[9] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[10] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[11] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[12] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[13] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[14] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[15] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[2] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[3] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[4] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[5] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[6] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[7] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[8] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[9] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[10] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[11] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[12] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[13] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[14] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[15] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[2] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[3] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[4] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[5] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[6] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[7] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[8] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[9] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[10] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[11] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[12] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[13] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[14] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[15] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[2] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[3] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[4] = -9.999000e+03
+[NOTICE]: VMualemBedrock[5] = -9.999000e+03
+[NOTICE]: VMualemBedrock[6] = -9.999000e+03
+[NOTICE]: VMualemBedrock[7] = -9.999000e+03
+[NOTICE]: VMualemBedrock[8] = -9.999000e+03
+[NOTICE]: VMualemBedrock[9] = -9.999000e+03
+[NOTICE]: VMualemBedrock[10] = -9.999000e+03
+[NOTICE]: VMualemBedrock[11] = -9.999000e+03
+[NOTICE]: VMualemBedrock[12] = -9.999000e+03
+[NOTICE]: VMualemBedrock[13] = -9.999000e+03
+[NOTICE]: VMualemBedrock[14] = -9.999000e+03
+[NOTICE]: VMualemBedrock[15] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[10] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[11] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[12] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[13] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[14] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[15] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[10] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[11] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[12] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[13] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[14] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[15] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[0] = -9.999000e+03 (default)
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[2] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[3] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[4] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[5] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[6] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[7] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[8] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[9] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[10] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[11] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[12] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[13] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[14] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[15] = -9.999000e+03
+[NOTICE]: MeteoStationsID[1] = -9.999000e+03
+[NOTICE]: MeteoStationsID[0] = -9.999000e+03 (default)
+[NOTICE]: NumberOfMeteoStations[1] = 1.000000e+00
+[NOTICE]: MeteoStationCoordinateX[1] = 2.725330e+05
+[NOTICE]: MeteoStationCoordinateY[1] = 4.789640e+05
+[NOTICE]: MeteoStationLatitude[1] = 4.655000e+01
+[NOTICE]: MeteoStationLongitude[1] = 7.990000e+00
+[NOTICE]: MeteoStationElevation[1] = 3.580000e+03
+[NOTICE]: MeteoStationSkyViewFactor[1] = 1.000000e+00
+[NOTICE]: MeteoStationStandardTime[1] = 0.000000e+00
+[NOTICE]: MeteoStationWindVelocitySensorHeight[1] = 2.500000e+01
+[NOTICE]: MeteoStationTemperatureSensorHeight[1] = 2.500000e+01
+[NOTICE]: LapseRateTemp[1] = 5.500000e+00
+[NOTICE]: LapseRateDewTemp[1] = -9.999000e+03
+[NOTICE]: LapseRateDewTemp[0] = -9.999000e+03 (default)
+[NOTICE]: LapseRatePrec[1] = -2.000000e-01
+[NOTICE]: LapseRateTemp[1] = 5.500000e+00
+[NOTICE]: LapseRateDewTemp[1] = -9.999000e+03
+[NOTICE]: LapseRateDewTemp[0] = -9.999000e+03 (default)
+[NOTICE]: LapseRatePrec[1] = -2.000000e-01
+[NOTICE]: MinPrecIncreaseFactorWithElev[1] = 1.000000e-01
+[NOTICE]: MaxPrecDecreaseFactorWithElev[1] = 4.400000e+00
+[NOTICE]: PointAll[1] = 0.000000e+00
+[NOTICE]: DatePoint[1] = -1.000000e+00
+[NOTICE]: JulianDayFromYear0Point[1] = -1.000000e+00
+[NOTICE]: TimeFromStartPoint[1] = -1.000000e+00
+[NOTICE]: PeriodPoint[1] = -1.000000e+00
+[NOTICE]: RunPoint[1] = -1.000000e+00
+[NOTICE]: IDPointPoint[1] = -1.000000e+00
+[NOTICE]: PsnowPoint[1] = -1.000000e+00
+[NOTICE]: PrainPoint[1] = -1.000000e+00
+[NOTICE]: PsnowNetPoint[1] = -1.000000e+00
+[NOTICE]: PrainNetPoint[1] = -1.000000e+00
+[NOTICE]: PrainOnSnowPoint[1] = -1.000000e+00
+[NOTICE]: WindSpeedPoint[1] = -1.000000e+00
+[NOTICE]: WindDirPoint[1] = -1.000000e+00
+[NOTICE]: RHPoint[1] = -1.000000e+00
+[NOTICE]: AirPressPoint[1] = -1.000000e+00
+[NOTICE]: AirTempPoint[1] = -1.000000e+00
+[NOTICE]: TDewPoint[1] = -1.000000e+00
+[NOTICE]: TsurfPoint[1] = -1.000000e+00
+[NOTICE]: TvegPoint[1] = -1.000000e+00
+[NOTICE]: TCanopyAirPoint[1] = -1.000000e+00
+[NOTICE]: SurfaceEBPoint[1] = -1.000000e+00
+[NOTICE]: SoilHeatFluxPoint[1] = -1.000000e+00
+[NOTICE]: SWinPoint[1] = -1.000000e+00
+[NOTICE]: SWbeamPoint[1] = -1.000000e+00
+[NOTICE]: SWdiffPoint[1] = -1.000000e+00
+[NOTICE]: LWinPoint[1] = -1.000000e+00
+[NOTICE]: LWinMinPoint[1] = -1.000000e+00
+[NOTICE]: LWinMaxPoint[1] = -1.000000e+00
+[NOTICE]: SWNetPoint[1] = -1.000000e+00
+[NOTICE]: LWNetPoint[1] = -1.000000e+00
+[NOTICE]: HPoint[1] = -1.000000e+00
+[NOTICE]: LEPoint[1] = -1.000000e+00
+[NOTICE]: CanopyFractionPoint[1] = -1.000000e+00
+[NOTICE]: LSAIPoint[1] = -1.000000e+00
+[NOTICE]: z0vegPoint[1] = -1.000000e+00
+[NOTICE]: d0vegPoint[1] = -1.000000e+00
+[NOTICE]: EstoredCanopyPoint[1] = -1.000000e+00
+[NOTICE]: SWvPoint[1] = -1.000000e+00
+[NOTICE]: LWvPoint[1] = -1.000000e+00
+[NOTICE]: HvPoint[1] = -1.000000e+00
+[NOTICE]: LEvPoint[1] = -1.000000e+00
+[NOTICE]: HgUnvegPoint[1] = -1.000000e+00
+[NOTICE]: LEgUnvegPoint[1] = -1.000000e+00
+[NOTICE]: HgVegPoint[1] = -1.000000e+00
+[NOTICE]: LEgVegPoint[1] = -1.000000e+00
+[NOTICE]: EvapSurfacePoint[1] = -1.000000e+00
+[NOTICE]: TraspCanopyPoint[1] = -1.000000e+00
+[NOTICE]: WaterOnCanopyPoint[1] = -1.000000e+00
+[NOTICE]: SnowOnCanopyPoint[1] = -1.000000e+00
+[NOTICE]: QVegPoint[1] = -1.000000e+00
+[NOTICE]: QSurfPoint[1] = -1.000000e+00
+[NOTICE]: QAirPoint[1] = -1.000000e+00
+[NOTICE]: QCanopyAirPoint[1] = -1.000000e+00
+[NOTICE]: LObukhovPoint[1] = -1.000000e+00
+[NOTICE]: LObukhovCanopyPoint[1] = -1.000000e+00
+[NOTICE]: WindSpeedTopCanopyPoint[1] = -1.000000e+00
+[NOTICE]: DecayKCanopyPoint[1] = -1.000000e+00
+[NOTICE]: SWupPoint[1] = -1.000000e+00
+[NOTICE]: LWupPoint[1] = -1.000000e+00
+[NOTICE]: HupPoint[1] = -1.000000e+00
+[NOTICE]: LEupPoint[1] = -1.000000e+00
+[NOTICE]: SnowDepthPoint[1] = -1.000000e+00
+[NOTICE]: SWEPoint[1] = -1.000000e+00
+[NOTICE]: SnowDensityPoint[1] = -1.000000e+00
+[NOTICE]: SnowTempPoint[1] = -1.000000e+00
+[NOTICE]: SnowMeltedPoint[1] = -1.000000e+00
+[NOTICE]: SnowSublPoint[1] = -1.000000e+00
+[NOTICE]: SWEBlownPoint[1] = -1.000000e+00
+[NOTICE]: SWESublBlownPoint[1] = -1.000000e+00
+[NOTICE]: GlacDepthPoint[1] = -1.000000e+00
+[NOTICE]: GWEPoint[1] = -1.000000e+00
+[NOTICE]: GlacDensityPoint[1] = -1.000000e+00
+[NOTICE]: GlacTempPoint[1] = -1.000000e+00
+[NOTICE]: GlacMeltedPoint[1] = -1.000000e+00
+[NOTICE]: GlacSublPoint[1] = -1.000000e+00
+[NOTICE]: LowestThawedSoilDepthPoint[1] = -1.000000e+00
+[NOTICE]: HighestThawedSoilDepthPoint[1] = -1.000000e+00
+[NOTICE]: LowestWaterTableDepthPoint[1] = -1.000000e+00
+[NOTICE]: HighestWaterTableDepthPoint[1] = -1.000000e+00
+[NOTICE]: BasinAll[1] = 0.000000e+00
+[NOTICE]: DateBasin[1] = -1.000000e+00
+[NOTICE]: JulianDayFromYear0Basin[1] = -1.000000e+00
+[NOTICE]: TimeFromStartBasin[1] = -1.000000e+00
+[NOTICE]: PeriodBasin[1] = -1.000000e+00
+[NOTICE]: RunBasin[1] = -1.000000e+00
+[NOTICE]: PRainNetBasin[1] = -1.000000e+00
+[NOTICE]: PSnowNetBasin[1] = -1.000000e+00
+[NOTICE]: PRainBasin[1] = -1.000000e+00
+[NOTICE]: PSnowBasin[1] = -1.000000e+00
+[NOTICE]: PNetBasin[1] = -1.000000e+00
+[NOTICE]: AirTempBasin[1] = -1.000000e+00
+[NOTICE]: TSurfBasin[1] = -1.000000e+00
+[NOTICE]: TvegBasin[1] = -1.000000e+00
+[NOTICE]: EvapSurfaceBasin[1] = -1.000000e+00
+[NOTICE]: TraspCanopyBasin[1] = -1.000000e+00
+[NOTICE]: LEBasin[1] = -1.000000e+00
+[NOTICE]: HBasin[1] = -1.000000e+00
+[NOTICE]: SWNetBasin[1] = -1.000000e+00
+[NOTICE]: LWNetBasin[1] = -1.000000e+00
+[NOTICE]: LEvBasin[1] = -1.000000e+00
+[NOTICE]: HvBasin[1] = -1.000000e+00
+[NOTICE]: SWvBasin[1] = -1.000000e+00
+[NOTICE]: LWvBasin[1] = -1.000000e+00
+[NOTICE]: SWinBasin[1] = -1.000000e+00
+[NOTICE]: LWinBasin[1] = -1.000000e+00
+[NOTICE]: MassErrorBasin[1] = -1.000000e+00
+[NOTICE]: MeanTimeStep[1] = -1.000000e+00
+[NOTICE]: SoilPlotDepths[1] = 1.000000e+02
+[NOTICE]: SnowPlotDepths[1] = -9.999000e+03
+[NOTICE]: SnowPlotDepths[0] = -9.999000e+03 (default)
+[NOTICE]: GlacPlotDepths[1] = -9.999000e+03
+[NOTICE]: GlacPlotDepths[0] = -9.999000e+03 (default)
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: GlacAll[1] = 0.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: IDPointGlac[1] = -1.000000e+00
+[NOTICE]: TempGlac[1] = -1.000000e+00
+[NOTICE]: IceContentGlac[1] = -1.000000e+00
+[NOTICE]: WatContentGlac[1] = -1.000000e+00
+[NOTICE]: SoilAll[1] = 0.000000e+00
+[NOTICE]: DateSoil[1] = 1.000000e+00
+[NOTICE]: JulianDayFromYear0Soil[1] = -1.000000e+00
+[NOTICE]: TimeFromStartSoil[1] = -1.000000e+00
+[NOTICE]: PeriodSoil[1] = 2.000000e+00
+[NOTICE]: RunSoil[1] = 3.000000e+00
+[NOTICE]: IDPointSoil[1] = 4.000000e+00
+[NOTICE]: RicalculateCloudiness[1] = 0.000000e+00
+[NOTICE]: DewTemperatureAsRH[1] = 1.000000e+00
+[NOTICE]: RHAsDewTemperature[1] = 0.000000e+00
+[NOTICE]: NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00
+[NOTICE]: CalculateCastShadow[1] = 1.000000e+00
+[NOTICE]: WindAsSpeedAndDirection[1] = 1.000000e+00
+[NOTICE]: WindAsWindXAndWindY[1] = 0.000000e+00
+[NOTICE]: SnowAgingCoeffVis[1] = 2.000000e-01
+[NOTICE]: SnowAgingCoeffNIR[1] = 5.000000e-01
+[NOTICE]: DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00
+[NOTICE]: PrecAsIntensity[1] = 0.000000e+00
+[NOTICE]: LinearInterpolation[1] = 0.000000e+00
+[NOTICE]: OutputDepthsVertical[1] = 0.000000e+00
+[NOTICE]: UpwindBorderBlowingSnow[1] = 0.000000e+00
+[NOTICE]: UpdateHydraulicConductivity[1] = 0.000000e+00
+[NOTICE]: ContinuousRecovery[1] = 0.000000e+00
+[NOTICE]: ActualOrProjectedArea[1] = 0.000000e+00
+[NOTICE]: MinRatioKactualToKSat[1] = 0.000000e+00
+[NOTICE]: RunIfAnOldRunIsPresent[1] = 1.000000e+00
+[NOTICE]: MaxCourantSupFlowChannelLand[1] = 1.000000e-01
+[NOTICE]: MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00
+[NOTICE]: SpinUpLayerBottom[1] = 1.000000e+04
+[NOTICE]: InitInNewPeriods[1] = 0.000000e+00
+[NOTICE]: KonzelmannA[1] = 4.840000e-01
+[NOTICE]: KonzelmannB[1] = 8.000000e+00
+[NOTICE]: Lozone[1] = 3.000000e-01
+[NOTICE]: AngstromAlpha[1] = 1.300000e+00
+[NOTICE]: AngstromBeta[1] = 1.000000e-01
+[NOTICE]: ConsiderAlbedoInSWin[1] = 0.000000e+00
+[NOTICE]: ConsiderMicrometeorology[1] = 1.000000e+00
+[NOTICE]: SurfaceEnergyFlux[1] = -9.999000e+03 (default)
+[NOTICE]: ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default)
+[NOTICE]: SurfaceTemperature[1] = -9.999000e+03 (default)
+[NOTICE]: BaseAirTemperature[1] = 5.000000e+00
+[NOTICE]: BaseRelativeHumidity[1] = 7.000000e+01
+[NOTICE]: BaseWindSpeed[1] = 5.000000e-01
+[NOTICE]: BaseWindDirection[1] = 0.000000e+00
+[NOTICE]: BaseIPrec[1] = 0.000000e+00
+[NOTICE]: DefaultSoilTypeBedrock[1] = 1.000000e+00
+[NOTICE]: MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01
+[NOTICE]: SnowThermalConductivityPar[1] = 1.000000e+00
+[NOTICE]: WindCompaction1D[1] = 0.000000e+00
+[NOTICE]: DDChannel[1] = 1.000000e+00
+[NOTICE]: DDLand[1] = 1.000000e+00
+[NOTICE]: HeaderDateDDMMYYYYhhmmMeteo = Date
+[NOTICE]: HeaderJulianDayfrom0Meteo = none
+[NOTICE]: HeaderIPrec = Iprec
+[NOTICE]: HeaderPrec = none
+[NOTICE]: HeaderWindVelocity = WindS
+[NOTICE]: HeaderWindDirection = WindDir
+[NOTICE]: HeaderWindX = none
+[NOTICE]: HeaderWindY = none
+[NOTICE]: HeaderRH = RelHum
+[NOTICE]: HeaderAirTemp = AirT
+[NOTICE]: HeaderDewTemp = none
+[NOTICE]: HeaderSWglobal = SWglobal
+[NOTICE]: HeaderSWdirect = none
+[NOTICE]: HeaderSWdiffuse = none
+[NOTICE]: HeaderCloudSWTransmissivity = Cloud
+[NOTICE]: HeaderCloudFactor = none
+[NOTICE]: HeaderLWin = none
+[NOTICE]: HeaderSWnet = none
+[NOTICE]: HeaderSurfaceTemperature = none
+[NOTICE]: HeaderSoilDz = Dz
+[NOTICE]: HeaderSoilInitPres = none
+[NOTICE]: HeaderSoilInitTemp = none
+[NOTICE]: HeaderNormalHydrConductivity = Kv
+[NOTICE]: HeaderLateralHydrConductivity = Kh
+[NOTICE]: HeaderThetaRes = res
+[NOTICE]: HeaderWiltingPoint = none
+[NOTICE]: HeaderFieldCapacity = fc
+[NOTICE]: HeaderThetaSat = sat
+[NOTICE]: HeaderAlpha = a
+[NOTICE]: HeaderN = n
+[NOTICE]: HeaderV = none
+[NOTICE]: HeaderKthSoilSolids = none
+[NOTICE]: HeaderCthSoilSolids = none
+[NOTICE]: HeaderSpecificStorativity = SS
+[NOTICE]: HeaderHorizonAngle = az
+[NOTICE]: HeaderHorizonHeight = el
+[NOTICE]: TimeStepsFile = none
+[NOTICE]: SoilParFile = none
+[NOTICE]: MeteoFile = Jungfraujoch_
+[NOTICE]: MeteoStationsListFile = none
+[NOTICE]: LapseRateFile = none
+[NOTICE]: HorizonMeteoStationFile = none
+[NOTICE]: PointFile = listpoints
+[NOTICE]: HorizonPointFile = hor_
+[NOTICE]: TimeDependentVegetationParameterFile = none
+[NOTICE]: TimeDependentIncomingDischargeFile = none
+[NOTICE]: DemFile = input_maps/pit
+[NOTICE]: LandCoverMapFile = none
+[NOTICE]: SoilMapFile = none
+[NOTICE]: DaysDelayMapFile = none
+[NOTICE]: SkyViewFactorMapFile = input_maps/sky
+[NOTICE]: SlopeMapFile = none
+[NOTICE]: RiverNetwork = none
+[NOTICE]: AspectMapFile = none
+[NOTICE]: CurvaturesMapFile = none
+[NOTICE]: BedrockDepthMapFile = none
+[NOTICE]: InitWaterTableDepthMapFile = none
+[NOTICE]: InitSnowDepthMapFile = none
+[NOTICE]: InitSWEMapFile = none
+[NOTICE]: InitSnowAgeMapFile = none
+[NOTICE]: InitGlacierDepthMapFile = none
+[NOTICE]: DischargeFile = none
+[NOTICE]: BasinOutputFile = none
+[NOTICE]: BasinOutputFileWriteEnd = none
+[NOTICE]: PointOutputFile = none
+[NOTICE]: PointOutputFileWriteEnd = none
+[NOTICE]: SoilTempProfileFile = none
+[NOTICE]: SoilTempProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedTempProfileFile = output-tabs/soil
+[NOTICE]: SoilAveragedTempProfileFileWriteEnd = none
+[NOTICE]: SoilLiqWaterPressProfileFile = none
+[NOTICE]: SoilLiqWaterPressProfileFileWriteEnd = none
+[NOTICE]: SoilTotWaterPressProfileFile = none
+[NOTICE]: SoilTotWaterPressProfileFileWriteEnd = none
+[NOTICE]: SoilLiqContentProfileFile = none
+[NOTICE]: SoilLiqContentProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedLiqContentProfileFile = none
+[NOTICE]: SoilAveragedLiqContentProfileFileWriteEnd = none
+[NOTICE]: SoilIceContentProfileFile = none
+[NOTICE]: SoilIceContentProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedIceContentProfileFile = none
+[NOTICE]: SoilAveragedIceContentProfileFileWriteEnd = none
+[NOTICE]: SoilSaturationRatioProfileFile = none
+[NOTICE]: SnowTempProfileFile = none
+[NOTICE]: SnowLiqContentProfileFile = none
+[NOTICE]: SnowIceContentProfileFile = none
+[NOTICE]: SnowDepthLayersFile = none
+[NOTICE]: SnowTempProfileFileWriteEnd = none
+[NOTICE]: SnowLiqContentProfileFileWriteEnd = none
+[NOTICE]: SnowIceContentProfileFileWriteEnd = none
+[NOTICE]: SnowDepthLayersFileWriteEnd = none
+[NOTICE]: GlacierProfileFile = none
+[NOTICE]: GlacierProfileFileWriteEnd = none
+[NOTICE]: SnowCoveredAreaFile = none
+[NOTICE]: RunSoilAveragedTemperatureFile = none
+[NOTICE]: RunSoilAveragedTotalSoilMoistureFile = none
+[NOTICE]: RunSoilAveragedInternalEnergyFile = none
+[NOTICE]: RunSoilAveragedSnowWaterEquivalentFile = none
+[NOTICE]: RunSoilMaximumTemperatureFile = none
+[NOTICE]: RunSoilMinimumTemperatureFile = none
+[NOTICE]: RunSoilMaximumTotalSoilMoistureFile = none
+[NOTICE]: RunSoilMinimumTotalSoilMoistureFile = none
+[NOTICE]: SoilTempTensorFile = none
+[NOTICE]: FirstSoilLayerTempMapFile = none
+[NOTICE]: SoilAveragedTempTensorFile = none
+[NOTICE]: FirstSoilLayerAveragedTempMapFile = none
+[NOTICE]: SoilLiqContentTensorFile = none
+[NOTICE]: FirstSoilLayerLiqContentMapFile = none
+[NOTICE]: SoilAveragedLiqContentTensorFile = none
+[NOTICE]: SoilIceContentTensorFile = none
+[NOTICE]: FirstSoilLayerIceContentMapFile = none
+[NOTICE]: SoilAveragedIceContentTensorFile = none
+[NOTICE]: LandSurfaceWaterDepthMapFile = none
+[NOTICE]: ChannelSurfaceWaterDepthMapFile = none
+[NOTICE]: NetRadiationMapFile = none
+[NOTICE]: InLongwaveRadiationMapFile = none
+[NOTICE]: NetLongwaveRadiationMapFile = none
+[NOTICE]: NetShortwaveRadiationMapFile = none
+[NOTICE]: InShortwaveRadiationMapFile = none
+[NOTICE]: DirectInShortwaveRadiationMapFile = none
+[NOTICE]: ShadowFractionTimeMapFile = none
+[NOTICE]: SurfaceHeatFluxMapFile = none
+[NOTICE]: SurfaceSensibleHeatFluxMapFile = none
+[NOTICE]: SurfaceLatentHeatFluxMapFile = none
+[NOTICE]: SurfaceTempMapFile = none
+[NOTICE]: PrecipitationMapFile = none
+[NOTICE]: CanopyInterceptedWaterMapFile = none
+[NOTICE]: SoilLiqWaterPressTensorFile = none
+[NOTICE]: SoilTotWaterPressTensorFile = none
+[NOTICE]: SnowDepthMapFile = none
+[NOTICE]: GlacierDepthMapFile = none
+[NOTICE]: SnowMeltedMapFile = none
+[NOTICE]: SnowSublMapFile = none
+[NOTICE]: GlacierMeltedMapFile = none
+[NOTICE]: GlacierSublimatedMapFile = none
+[NOTICE]: AirTempMapFile = none
+[NOTICE]: WindSpeedMapFile = none
+[NOTICE]: WindDirMapFile = none
+[NOTICE]: RelHumMapFile = none
+[NOTICE]: SWEMapFile = none
+[NOTICE]: GlacierWaterEqMapFile = none
+[NOTICE]: SnowDurationMapFile = none
+[NOTICE]: ThawedSoilDepthMapFile = none
+[NOTICE]: ThawedSoilDepthFromAboveMapFile = none
+[NOTICE]: WaterTableDepthMapFile = none
+[NOTICE]: WaterTableDepthFromAboveMapFile = none
+[NOTICE]: HNMapFile = none
+[NOTICE]: NetPrecipitationMapFile = none
+[NOTICE]: EvapotranspirationFromSoilMapFile = none
+[NOTICE]: SpecificPlotSurfaceHeatFluxMapFile = none
+[NOTICE]: SpecificPlotTotalSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotTotalLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotSurfaceLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotVegSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotVegLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotIncomingShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetSurfaceShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetVegShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotIncomingLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetSurfaceLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetVegLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotCanopyAirTempMapFile = none
+[NOTICE]: SpecificPlotSurfaceTempMapFile = none
+[NOTICE]: SpecificPlotVegTempMapFile = none
+[NOTICE]: SpecificPlotAboveVegAirTempMapFile = none
+[NOTICE]: SpecificPlotWindSpeedMapFile = none
+[NOTICE]: SpecificPlotWindDirMapFile = none
+[NOTICE]: SpecificPlotRelHumMapFile = none
+[NOTICE]: SpecificPlotSnowDepthMapFile = none
+[NOTICE]: SpecificPlotSurfaceWaterContentMapFile = none
+[NOTICE]: RecoverSoilWatPres = none
+[NOTICE]: RecoverSoilIceCont = none
+[NOTICE]: RecoverSoilTemp = none
+[NOTICE]: RecoverSnowLayerThick = none
+[NOTICE]: RecoverSnowLiqMass = none
+[NOTICE]: RecoverSnowIceMass = none
+[NOTICE]: RecoverSnowTemp = none
+[NOTICE]: RecoverGlacierLayerThick = none
+[NOTICE]: RecoverGlacierLiqMass = none
+[NOTICE]: RecoverGlacierIceMass = none
+[NOTICE]: RecoverGlacierTemp = none
+[NOTICE]: RecoverSnowLayerNumber = none
+[NOTICE]: RecoverGlacierLayerNumber = none
+[NOTICE]: RecoverNonDimensionalSnowAge = none
+[NOTICE]: RecoverLiqWaterOnCanopy = none
+[NOTICE]: RecoverSnowOnCanopy = none
+[NOTICE]: RecoverVegTemp = none
+[NOTICE]: RecoverSoilWatPresChannel = none
+[NOTICE]: RecoverSoilIceContChannel = none
+[NOTICE]: RecoverSoilTempChannel = none
+[NOTICE]: RecoverRunSoilAveragedTemperatureFile = none
+[NOTICE]: RecoverRunSoilAveragedTotalSoilMoistureFile = none
+[NOTICE]: RecoverRunSoilAveragedInternalEnergyFile = none
+[NOTICE]: RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+[NOTICE]: RecoverRunSoilMaximumTemperatureFile = none
+[NOTICE]: RecoverRunSoilMinimumTemperatureFile = none
+[NOTICE]: RecoverRunSoilMaximumTotalSoilMoistureFile = none
+[NOTICE]: RecoverRunSoilMinimumTotalSoilMoistureFile = none
+[NOTICE]: RecoverTime = none
+[NOTICE]: SuccessfulRecoveryFile = none
+[NOTICE]: HeaderDatePoint = none
+[NOTICE]: HeaderJulianDayFromYear0Point = none
+[NOTICE]: HeaderTimeFromStartPoint = none
+[NOTICE]: HeaderPeriodPoint = none
+[NOTICE]: HeaderRunPoint = none
+[NOTICE]: HeaderIDPointPoint = none
+[NOTICE]: HeaderPsnowPoint = none
+[NOTICE]: HeaderPrainPoint = none
+[NOTICE]: HeaderPsnowNetPoint = none
+[NOTICE]: HeaderPrainNetPoint = none
+[NOTICE]: HeaderPrainOnSnowPoint = none
+[NOTICE]: HeaderWindSpeedPoint = none
+[NOTICE]: HeaderWindDirPoint = none
+[NOTICE]: HeaderRHPoint = none
+[NOTICE]: HeaderAirPressPoint = none
+[NOTICE]: HeaderAirTempPoint = none
+[NOTICE]: HeaderTDewPoint = none
+[NOTICE]: HeaderTsurfPoint = none
+[NOTICE]: HeaderTvegPoint = none
+[NOTICE]: HeaderTCanopyAirPoint = none
+[NOTICE]: HeaderSurfaceEBPoint = none
+[NOTICE]: HeaderSoilHeatFluxPoint = none
+[NOTICE]: HeaderSWinPoint = none
+[NOTICE]: HeaderSWbeamPoint = none
+[NOTICE]: HeaderSWdiffPoint = none
+[NOTICE]: HeaderLWinPoint = none
+[NOTICE]: HeaderLWinMinPoint = none
+[NOTICE]: HeaderLWinMaxPoint = none
+[NOTICE]: HeaderSWNetPoint = none
+[NOTICE]: HeaderLWNetPoint = none
+[NOTICE]: HeaderHPoint = none
+[NOTICE]: HeaderLEPoint = none
+[NOTICE]: HeaderCanopyFractionPoint = none
+[NOTICE]: HeaderLSAIPoint = none
+[NOTICE]: Headerz0vegPoint = none
+[NOTICE]: Headerd0vegPoint = none
+[NOTICE]: HeaderEstoredCanopyPoint = none
+[NOTICE]: HeaderSWvPoint = none
+[NOTICE]: HeaderLWvPoint = none
+[NOTICE]: HeaderHvPoint = none
+[NOTICE]: HeaderLEvPoint = none
+[NOTICE]: HeaderHgUnvegPoint = none
+[NOTICE]: HeaderLEgUnvegPoint = none
+[NOTICE]: HeaderHgVegPoint = none
+[NOTICE]: HeaderLEgVegPoint = none
+[NOTICE]: HeaderEvapSurfacePoint = none
+[NOTICE]: HeaderTraspCanopyPoint = none
+[NOTICE]: HeaderWaterOnCanopyPoint = none
+[NOTICE]: HeaderSnowOnCanopyPoint = none
+[NOTICE]: HeaderQVegPoint = none
+[NOTICE]: HeaderQSurfPoint = none
+[NOTICE]: HeaderQAirPoint = none
+[NOTICE]: HeaderQCanopyAirPoint = none
+[NOTICE]: HeaderLObukhovPoint = none
+[NOTICE]: HeaderLObukhovCanopyPoint = none
+[NOTICE]: HeaderWindSpeedTopCanopyPoint = none
+[NOTICE]: HeaderDecayKCanopyPoint = none
+[NOTICE]: HeaderSWupPoint = none
+[NOTICE]: HeaderLWupPoint = none
+[NOTICE]: HeaderHupPoint = none
+[NOTICE]: HeaderLEupPoint = none
+[NOTICE]: HeaderSnowDepthPoint = none
+[NOTICE]: HeaderSWEPoint = none
+[NOTICE]: HeaderSnowDensityPoint = none
+[NOTICE]: HeaderSnowTempPoint = none
+[NOTICE]: HeaderSnowMeltedPoint = none
+[NOTICE]: HeaderSnowSublPoint = none
+[NOTICE]: HeaderSWEBlownPoint = none
+[NOTICE]: HeaderSWESublBlownPoint = none
+[NOTICE]: HeaderGlacDepthPoint = none
+[NOTICE]: HeaderGWEPoint = none
+[NOTICE]: HeaderGlacDensityPoint = none
+[NOTICE]: HeaderGlacTempPoint = none
+[NOTICE]: HeaderGlacMeltedPoint = none
+[NOTICE]: HeaderGlacSublPoint = none
+[NOTICE]: HeaderLowestThawedSoilDepthPoint = none
+[NOTICE]: HeaderHighestThawedSoilDepthPoint = none
+[NOTICE]: HeaderLowestWaterTableDepthPoint = none
+[NOTICE]: HeaderHighestWaterTableDepthPoint = none
+[NOTICE]: HeaderDateBasin = none
+[NOTICE]: HeaderJulianDayFromYear0Basin = none
+[NOTICE]: HeaderTimeFromStartBasin = none
+[NOTICE]: HeaderPeriodBasin = none
+[NOTICE]: HeaderRunBasin = none
+[NOTICE]: HeaderPRainNetBasin = none
+[NOTICE]: HeaderPSnowNetBasin = none
+[NOTICE]: HeaderPRainBasin = none
+[NOTICE]: HeaderPSnowBasin = none
+[NOTICE]: HeaderPNetBasin = none
+[NOTICE]: HeaderAirTempBasin = none
+[NOTICE]: HeaderTSurfBasin = none
+[NOTICE]: HeaderTvegBasin = none
+[NOTICE]: HeaderEvapSurfaceBasin = none
+[NOTICE]: HeaderTraspCanopyBasin = none
+[NOTICE]: HeaderLEBasin = none
+[NOTICE]: HeaderHBasin = none
+[NOTICE]: HeaderSWNetBasin = none
+[NOTICE]: HeaderLWNetBasin = none
+[NOTICE]: HeaderLEvBasin = none
+[NOTICE]: HeaderHvBasin = none
+[NOTICE]: HeaderSWvBasin = none
+[NOTICE]: HeaderLWvBasin = none
+[NOTICE]: HeaderSWinBasin = none
+[NOTICE]: HeaderLWinBasin = none
+[NOTICE]: HeaderMeanTimeStep = none
+[NOTICE]: HeaderTimeStepAverage = none
+[NOTICE]: HeaderDateSnow = none
+[NOTICE]: HeaderJulianDayFromYear0Snow = none
+[NOTICE]: HeaderTimeFromStartSnow = none
+[NOTICE]: HeaderPeriodSnow = none
+[NOTICE]: HeaderRunSnow = none
+[NOTICE]: HeaderIDPointSnow = none
+[NOTICE]: HeaderTempSnow = none
+[NOTICE]: HeaderIceContentSnow = none
+[NOTICE]: HeaderWatContentSnow = none
+[NOTICE]: HeaderDepthSnow = none
+[NOTICE]: HeaderDateGlac = none
+[NOTICE]: HeaderJulianDayFromYear0Glac = none
+[NOTICE]: HeaderTimeFromStartGlac = none
+[NOTICE]: HeaderPeriodGlac = none
+[NOTICE]: HeaderRunGlac = none
+[NOTICE]: HeaderIDPointGlac = none
+[NOTICE]: HeaderTempGlac = none
+[NOTICE]: HeaderIceContentGlac = none
+[NOTICE]: HeaderWatContentGlac = none
+[NOTICE]: HeaderDepthGlac = none
+[NOTICE]: HeaderDateSoil = none
+[NOTICE]: HeaderJulianDayFromYear0Soil = none
+[NOTICE]: HeaderTimeFromStartSoil = none
+[NOTICE]: HeaderPeriodSoil = none
+[NOTICE]: HeaderRunSoil = none
+[NOTICE]: HeaderIDPointSoil = none
+[NOTICE]: HeaderCoordinatePointX = X
+[NOTICE]: HeaderCoordinatePointY = Y
+[NOTICE]: HeaderPointID = ID
+[NOTICE]: HeaderPointElevation = ele
+[NOTICE]: HeaderPointLandCoverType = none
+[NOTICE]: HeaderPointSoilType = none
+[NOTICE]: HeaderPointSlope = slp
+[NOTICE]: HeaderPointAspect = asp
+[NOTICE]: HeaderPointSkyViewFactor = sky
+[NOTICE]: HeaderPointCurvatureNorthSouthDirection = none
+[NOTICE]: HeaderPointCurvatureWestEastDirection = none
+[NOTICE]: HeaderPointCurvatureNorthwestSoutheastDirection = none
+[NOTICE]: HeaderPointCurvatureNortheastSouthwestDirection = none
+[NOTICE]: HeaderPointDepthFreeSurface = none
+[NOTICE]: HeaderPointHorizon = hor
+[NOTICE]: HeaderPointMaxSWE = none
+[NOTICE]: HeaderPointLatitude = none
+[NOTICE]: HeaderPointLongitude = none
+[NOTICE]: HeaderPointBedrockDepth = none
+[NOTICE]: HeaderDateDDMMYYYYhhmmLapseRates = none
+[NOTICE]: HeaderLapseRateTemp = none
+[NOTICE]: HeaderLapseRateDewTemp = none
+[NOTICE]: HeaderLapseRatePrec = none
+[NOTICE]: HeaderIDMeteoStation = none
+[NOTICE]: HeaderMeteoStationCoordinateX = none
+[NOTICE]: HeaderMeteoStationCoordinateY = none
+[NOTICE]: HeaderMeteoStationLatitude = none
+[NOTICE]: HeaderMeteoStationLongitude = none
+[NOTICE]: HeaderMeteoStationElevation = none
+[NOTICE]: HeaderMeteoStationSkyViewFactor = none
+[NOTICE]: HeaderMeteoStationStandardTime = none
+[NOTICE]: SuccessfulRunFile = _SUCCESSFUL_RUN
+[NOTICE]: FailedRunFile = _FAILED_RUN
+[NOTICE]: SubfolderRecoveryFiles = rec
+[NOTICE]: file index SPAR (soil parameter) 1
+[NOTICE]: file name assigned : none 
+
+[NOTICE]: Soil Layers: 16
+[NOTICE]: Soil Bedrock Layers: 16
+[NOTICE]: /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt
+[NOTICE]: Column 7 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to X
+[NOTICE]: Column 8 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to Y
+[NOTICE]: Column 1 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ID
+[NOTICE]: Column 2 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to ele
+[NOTICE]: Column 3 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to slp
+[NOTICE]: Column 4 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to asp
+[NOTICE]: Column 5 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to sky
+[NOTICE]: Column 6 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/listpoints.txt assigned to hor
+[WARNING]: File /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/input_maps/pit not existing
+[WARNING]: Dem file not present
+[NOTICE]: File for keyword : LandCoverMapFile  not present in file list
+[WARNING]: Landuse file not present, uniform cover considered
+[NOTICE]: File for keyword : SoilMapFile  not present in file list
+[WARNING]: Soiltype file not present
+[NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
+[WARNING]: Bedrock depth file not present
+[WARNING]: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+0.000000,0.000000,32.000000,3720.000000,1.000000,1.000000,70.000000,145.000000,0.570000,0.000000,0.000000,0.000000,0.000000,0.000000,32.000000,10000000000.000000,46.550000,7.990000,
+0.000000,0.000000,33.000000,3725.000000,1.000000,1.000000,55.000000,344.000000,0.770000,0.000000,0.000000,0.000000,0.000000,0.000000,33.000000,10000000000.000000,46.550000,7.990000,
+[WARNING]: Horizon file FOUND for point type #32
+[NOTICE]: Column 1 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to az
+[NOTICE]: Column 2 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/hor_0032.txt assigned to el
+[WARNING]: Horizon file FOUND for point type #33
+[NOTICE]: Column 1 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to az
+[NOTICE]: Column 2 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/hor_0033.txt assigned to el
+[NOTICE]: INFO about the simulated basin:
+[NOTICE]: Valid pixels: 2
+[NOTICE]: Number of nodes: 34
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        2e-06 km2
+[NOTICE]: Start Reading METEO data files...
+[NOTICE]:  File for keyword MeteoStationsListFile is not assigned
+[NOTICE]: Numbers of Meteo Stations read: 1
+[NOTICE]: Reading horizon for : 1 meteo station
+[WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: Column 1 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Date
+[NOTICE]: Column 2 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindS
+[NOTICE]: Column 3 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to WindDir
+[NOTICE]: Column 4 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to RelHum
+[NOTICE]: Column 5 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to AirT
+[NOTICE]: Column 6 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to SWglobal
+[NOTICE]: Column 7 in file /home/alberto/opt/src/geotop/tests/1D/Jungfraujoch/Jungfraujoch_0001.txt assigned to Cloud
+[NOTICE]: Read meteo data for meteo station #: 1 with number of lines=254997
+[NOTICE]: Initial date of meteo data : 31/07/1983 00:40
+[NOTICE]: Final date of meteo data   : 31/08/2012 23:40
+[NOTICE]: Shortwave radiation measurements from station 1
+
+[NOTICE]: Cloudiness measurements from station 1
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,1,1,        3720,1,1,          70,         145,        0.57
+2,1,2,        3725,1,1,          55,         344,        0.77
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      272533,      478964,       46.55,        7.99,        3580,           1,           0,          25,          25
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 5 layers
+[NOTICE]: Soil water transpires from the first 16 layers
+[NOTICE]: Duration of preprocessing phase: 11.027991
+
+[NOTICE]: 1/8/1983 1:00 0.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 2:00 0.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 3:00 0.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 4:00 0.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 5:00 0.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 6:00 0.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 7:00 0.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 8:00 1.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 9:00 1.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 10:00 1.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 11:00 1.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 12:00 1.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 13:00 1.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 14:00 1.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 15:00 2.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 16:00 2.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 17:00 2.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 18:00 2.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 19:00 2.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 20:00 2.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 21:00 2.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 22:00 2.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 1/8/1983 23:00 3.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 0:00 3.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 1:00 3.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 2:00 3.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 3:00 3.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 4:00 3.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 5:00 3.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 6:00 4.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 7:00 4.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 8:00 4.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 9:00 4.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 10:00 4.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 11:00 4.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 12:00 4.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 13:00 4.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 14:00 5.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 15:00 5.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 16:00 5.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 17:00 5.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 18:00 5.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 19:00 5.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 20:00 5.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 21:00 6.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 22:00 6.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 2/8/1983 23:00 6.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 0:00 6.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 1:00 6.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 2:00 6.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 3:00 6.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 4:00 7.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 5:00 7.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 6:00 7.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 7:00 7.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 8:00 7.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 9:00 7.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 10:00 7.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 11:00 7.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 12:00 8.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 13:00 8.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 14:00 8.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 15:00 8.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 16:00 8.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 17:00 8.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 18:00 8.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 19:00 9.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 20:00 9.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 21:00 9.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 22:00 9.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 3/8/1983 23:00 9.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 0:00 9.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 1:00 9.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 2:00 9.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 3:00 10.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 4:00 10.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 5:00 10.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 6:00 10.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 7:00 10.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 8:00 10.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 9:00 10.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 10:00 11.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 11:00 11.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 12:00 11.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 13:00 11.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 14:00 11.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 15:00 11.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 16:00 11.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 17:00 11.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 18:00 12.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 19:00 12.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 20:00 12.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 21:00 12.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 22:00 12.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 4/8/1983 23:00 12.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 0:00 12.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 1:00 13.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 2:00 13.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 3:00 13.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 4:00 13.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 5:00 13.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 6:00 13.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 7:00 13.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 8:00 14.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 9:00 14.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 10:00 14.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 11:00 14.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 12:00 14.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 13:00 14.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 14:00 14.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 15:00 14.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 16:00 15.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 17:00 15.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 18:00 15.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 19:00 15.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 20:00 15.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 21:00 15.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 22:00 15.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 5/8/1983 23:00 16.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 0:00 16.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 1:00 16.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 2:00 16.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 3:00 16.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 4:00 16.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 5:00 16.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 6:00 16.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 7:00 17.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 8:00 17.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 9:00 17.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 10:00 17.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 11:00 17.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 12:00 17.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 13:00 17.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 14:00 18.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 15:00 18.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 16:00 18.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 17:00 18.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 18:00 18.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 19:00 18.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 20:00 18.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 21:00 18.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 22:00 19.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 6/8/1983 23:00 19.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 0:00 19.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 1:00 19.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 2:00 19.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 3:00 19.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 4:00 19.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 5:00 20.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 6:00 20.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 7:00 20.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 8:00 20.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 9:00 20.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 10:00 20.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 11:00 20.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 12:00 21.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 13:00 21.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 14:00 21.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 15:00 21.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 16:00 21.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 17:00 21.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 18:00 21.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 19:00 21.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 20:00 22.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 21:00 22.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 22:00 22.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 7/8/1983 23:00 22.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 0:00 22.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 1:00 22.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 2:00 22.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 3:00 23.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 4:00 23.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 5:00 23.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 6:00 23.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 7:00 23.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 8:00 23.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 9:00 23.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 10:00 23.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 11:00 24.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 12:00 24.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 13:00 24.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 14:00 24.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 15:00 24.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 16:00 24.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 17:00 24.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 18:00 25.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 19:00 25.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 20:00 25.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 21:00 25.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 22:00 25.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 8/8/1983 23:00 25.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 0:00 25.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 1:00 25.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 2:00 26.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 3:00 26.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 4:00 26.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 5:00 26.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 6:00 26.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 7:00 26.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 8:00 26.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 9:00 27.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 10:00 27.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 11:00 27.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 12:00 27.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 13:00 27.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 14:00 27.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 15:00 27.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 16:00 27.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 17:00 28.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 18:00 28.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 19:00 28.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 20:00 28.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 21:00 28.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 22:00 28.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 9/8/1983 23:00 28.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 0:00 29.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 1:00 29.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 2:00 29.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 3:00 29.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 4:00 29.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 5:00 29.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 6:00 29.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 7:00 30.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 8:00 30.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 9:00 30.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 10:00 30.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 11:00 30.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 12:00 30.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 13:00 30.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 14:00 30.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 15:00 31.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 16:00 31.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 17:00 31.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 18:00 31.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 19:00 31.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 20:00 31.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 21:00 31.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 22:00 32.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 10/8/1983 23:00 32.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 0:00 32.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 1:00 32.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 2:00 32.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 3:00 32.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 4:00 32.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 5:00 32.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 6:00 33.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 7:00 33.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 8:00 33.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 9:00 33.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 10:00 33.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 11:00 33.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 12:00 33.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 13:00 34.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 14:00 34.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 15:00 34.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 16:00 34.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 17:00 34.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 18:00 34.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 19:00 34.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 20:00 34.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 21:00 35.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 22:00 35.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 11/8/1983 23:00 35.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 0:00 35.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 1:00 35.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 2:00 35.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 3:00 35.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 4:00 36.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 5:00 36.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 6:00 36.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 7:00 36.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 8:00 36.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 9:00 36.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 10:00 36.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 11:00 37.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 12:00 37.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 13:00 37.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 14:00 37.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 15:00 37.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 16:00 37.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 17:00 37.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 18:00 37.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 19:00 38.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 20:00 38.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 21:00 38.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 22:00 38.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 12/8/1983 23:00 38.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 0:00 38.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 1:00 38.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 2:00 39.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 3:00 39.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 4:00 39.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 5:00 39.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 6:00 39.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 7:00 39.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 8:00 39.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 9:00 39.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 10:00 40.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 11:00 40.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 12:00 40.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 13:00 40.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 14:00 40.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 15:00 40.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 16:00 40.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 17:00 41.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 18:00 41.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 19:00 41.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 20:00 41.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 21:00 41.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 22:00 41.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 13/8/1983 23:00 41.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 0:00 41.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 1:00 42.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 2:00 42.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 3:00 42.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 4:00 42.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 5:00 42.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 6:00 42.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 7:00 42.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 8:00 43.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 9:00 43.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 10:00 43.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 11:00 43.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 12:00 43.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 13:00 43.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 14:00 43.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 15:00 44.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 16:00 44.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 17:00 44.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 18:00 44.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 19:00 44.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 20:00 44.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 21:00 44.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 22:00 44.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 14/8/1983 23:00 45.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 0:00 45.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 1:00 45.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 2:00 45.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 3:00 45.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 4:00 45.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 5:00 45.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 6:00 46.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 7:00 46.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 8:00 46.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 9:00 46.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 10:00 46.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 11:00 46.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 12:00 46.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 13:00 46.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 14:00 47.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 15:00 47.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 16:00 47.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 17:00 47.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 18:00 47.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 19:00 47.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 20:00 47.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 21:00 48.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 22:00 48.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 15/8/1983 23:00 48.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 0:00 48.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 1:00 48.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 2:00 48.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 3:00 48.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 4:00 48.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 5:00 49.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 6:00 49.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 7:00 49.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 8:00 49.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 9:00 49.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 10:00 49.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 11:00 49.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 12:00 50.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 13:00 50.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 14:00 50.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 15:00 50.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 16:00 50.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 17:00 50.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 18:00 50.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 19:00 51.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 20:00 51.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 21:00 51.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 22:00 51.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 16/8/1983 23:00 51.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 0:00 51.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 1:00 51.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 2:00 51.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 3:00 52.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 4:00 52.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 5:00 52.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 6:00 52.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 7:00 52.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 8:00 52.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 9:00 52.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 10:00 53.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 11:00 53.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 12:00 53.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 13:00 53.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 14:00 53.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 15:00 53.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 16:00 53.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 17:00 53.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 18:00 54.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 19:00 54.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 20:00 54.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 21:00 54.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 22:00 54.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 17/8/1983 23:00 54.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 0:00 54.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 1:00 55.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 2:00 55.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 3:00 55.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 4:00 55.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 5:00 55.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 6:00 55.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 7:00 55.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 8:00 55.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 9:00 56.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 10:00 56.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 11:00 56.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 12:00 56.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 13:00 56.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 14:00 56.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 15:00 56.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 16:00 57.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 17:00 57.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 18:00 57.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 19:00 57.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 20:00 57.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 21:00 57.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 22:00 57.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/8/1983 23:00 58.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 0:00 58.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 1:00 58.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 2:00 58.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 3:00 58.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 4:00 58.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 5:00 58.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 6:00 58.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 7:00 59.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 8:00 59.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 9:00 59.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 10:00 59.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 11:00 59.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 12:00 59.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 13:00 59.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 14:00 60.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 15:00 60.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 16:00 60.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 17:00 60.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 18:00 60.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 19:00 60.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 20:00 60.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 21:00 60.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 22:00 61.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/8/1983 23:00 61.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 0:00 61.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 1:00 61.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 2:00 61.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 3:00 61.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 4:00 61.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 5:00 62.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 6:00 62.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 7:00 62.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 8:00 62.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 9:00 62.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 10:00 62.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 11:00 62.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 12:00 62.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 13:00 63.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 14:00 63.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 15:00 63.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 16:00 63.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 17:00 63.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 18:00 63.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 19:00 63.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 20:00 64.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 21:00 64.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 22:00 64.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/8/1983 23:00 64.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 0:00 64.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 1:00 64.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 2:00 64.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 3:00 65.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 4:00 65.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 5:00 65.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 6:00 65.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 7:00 65.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 8:00 65.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 9:00 65.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 10:00 65.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 11:00 66.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 12:00 66.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 13:00 66.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 14:00 66.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 15:00 66.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 16:00 66.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 17:00 66.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 18:00 67.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 19:00 67.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 20:00 67.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 21:00 67.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 22:00 67.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/8/1983 23:00 67.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 0:00 67.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 1:00 67.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 2:00 68.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 3:00 68.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 4:00 68.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 5:00 68.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 6:00 68.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 7:00 68.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 8:00 68.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 9:00 69.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 10:00 69.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 11:00 69.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 12:00 69.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 13:00 69.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 14:00 69.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 15:00 69.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 16:00 69.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 17:00 70.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 18:00 70.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 19:00 70.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 20:00 70.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 21:00 70.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 22:00 70.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/8/1983 23:00 70.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 0:00 71.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 1:00 71.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 2:00 71.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 3:00 71.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 4:00 71.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 5:00 71.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 6:00 71.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 7:00 72.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 8:00 72.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 9:00 72.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 10:00 72.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 11:00 72.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 12:00 72.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 13:00 72.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 14:00 72.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 15:00 73.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 16:00 73.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 17:00 73.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 18:00 73.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 19:00 73.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 20:00 73.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 21:00 73.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 22:00 74.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/8/1983 23:00 74.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 0:00 74.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 1:00 74.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 2:00 74.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 3:00 74.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 4:00 74.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 5:00 74.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 6:00 75.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 7:00 75.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 8:00 75.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 9:00 75.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 10:00 75.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 11:00 75.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 12:00 75.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 13:00 76.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 14:00 76.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 15:00 76.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 16:00 76.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 17:00 76.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 18:00 76.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 19:00 76.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 20:00 76.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 21:00 77.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 22:00 77.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/8/1983 23:00 77.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 0:00 77.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 1:00 77.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 2:00 77.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 3:00 77.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 4:00 78.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 5:00 78.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 6:00 78.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 7:00 78.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 8:00 78.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 9:00 78.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 10:00 78.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 11:00 79.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 12:00 79.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 13:00 79.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 14:00 79.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 15:00 79.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 16:00 79.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 17:00 79.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 18:00 79.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 19:00 80.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 20:00 80.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 21:00 80.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 22:00 80.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 25/8/1983 23:00 80.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 0:00 80.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 1:00 80.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 2:00 81.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 3:00 81.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 4:00 81.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 5:00 81.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 6:00 81.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 7:00 81.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 8:00 81.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 9:00 81.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 10:00 82.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 11:00 82.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 12:00 82.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 13:00 82.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 14:00 82.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 15:00 82.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 16:00 82.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 17:00 83.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 18:00 83.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 19:00 83.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 20:00 83.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 21:00 83.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 22:00 83.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 26/8/1983 23:00 83.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 0:00 83.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 1:00 84.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 2:00 84.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 3:00 84.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 4:00 84.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 5:00 84.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 6:00 84.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 7:00 84.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 8:00 85.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 9:00 85.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 10:00 85.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 11:00 85.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 12:00 85.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 13:00 85.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 14:00 85.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 15:00 86.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 16:00 86.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 17:00 86.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 18:00 86.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 19:00 86.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 20:00 86.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 21:00 86.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 22:00 86.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 27/8/1983 23:00 87.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 0:00 87.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 1:00 87.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 2:00 87.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 3:00 87.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 4:00 87.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 5:00 87.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 6:00 88.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 7:00 88.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 8:00 88.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 9:00 88.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 10:00 88.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 11:00 88.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 12:00 88.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 13:00 88.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 14:00 89.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 15:00 89.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 16:00 89.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 17:00 89.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 18:00 89.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 19:00 89.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 20:00 89.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 21:00 90.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 22:00 90.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 28/8/1983 23:00 90.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 0:00 90.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 1:00 90.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 2:00 90.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 3:00 90.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 4:00 90.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 5:00 91.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 6:00 91.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 7:00 91.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 8:00 91.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 9:00 91.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 10:00 91.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 11:00 91.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 12:00 92.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 13:00 92.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 14:00 92.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 15:00 92.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 16:00 92.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 17:00 92.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 18:00 92.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 19:00 93.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 20:00 93.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 21:00 93.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 22:00 93.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 29/8/1983 23:00 93.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 0:00 93.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 1:00 93.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 2:00 93.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 3:00 94.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 4:00 94.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 5:00 94.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 6:00 94.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 7:00 94.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 8:00 94.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 9:00 94.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 10:00 95.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 11:00 95.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 12:00 95.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 13:00 95.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 14:00 95.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 15:00 95.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 16:00 95.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 17:00 95.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 18:00 96.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 19:00 96.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 20:00 96.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 21:00 96.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 22:00 96.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 30/8/1983 23:00 96.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 0:00 96.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 1:00 97.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 2:00 97.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 3:00 97.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 4:00 97.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 5:00 97.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 6:00 97.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 7:00 97.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 8:00 97.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 9:00 98.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 10:00 98.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 11:00 98.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 12:00 98.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 13:00 98.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 14:00 98.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 15:00 98.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 16:00 99.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 17:00 99.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 18:00 99.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 19:00 99.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 20:00 99.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 21:00 99.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 22:00 99.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 31/8/1983 23:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: Duration of simulation: 11.209031
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
