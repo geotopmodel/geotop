@@ -184,9 +184,9 @@ void time_loop(ALLDATA *A)
   initialize_soil_state(C, A->C->r->nh, Nl);
   V=(STATE_VEG *)malloc(sizeof(STATE_VEG));
   initialize_veg_state(V, A->P->total_pixel);
-  a->reinit(A->P->total_pixel);
-  Vsub_ch->reinit(A->C->r->nh);
-  Vsup_ch->reinit(A->C->r->nh);
+  a.reset(new Vector<double>{A->P->total_pixel});
+  Vsub_ch.reset(new Vector<double>{A->C->r->nh});
+  Vsup_ch.reset(new Vector<double>{A->C->r->nh});
 
   time( &start_time );
 
@@ -261,7 +261,8 @@ void time_loop(ALLDATA *A)
 
                       //copy state variables on
                       copy_snowvar3D(A->N->S, S);
-                      copy_doublevector(A->N->age.get(), a.get());
+                      *a = *(A->N->age);
+//                      copy_doublevector(A->N->age.get(), a.get());
                       if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
                       copy_soil_state(A->S->SS, L);
                       copy_soil_state(A->C->SS, C);
@@ -416,7 +417,8 @@ void time_loop(ALLDATA *A)
 
                   //write state variables
                   copy_snowvar3D(S, A->N->S);
-                  copy_doublevector(a.get(), A->N->age.get());
+                  *(A->N->age) = *a;
+//                  copy_doublevector(a.get(), A->N->age.get());
                   if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
                   copy_soil_state(L, A->S->SS);
                   copy_soil_state(C, A->C->SS);

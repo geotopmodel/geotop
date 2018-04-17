@@ -15,13 +15,13 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use);
 
 
 
-void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,DOUBLEVECTOR *U,
-                      DOUBLEVECTOR *V);
+void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
+                      Vector<double>* V);
 
 
 
-void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,
-                 DOUBLEVECTOR *V);
+void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,Vector<double>* U,
+                 Vector<double>* V);
 
 
 
@@ -33,7 +33,7 @@ void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program aspetto of Pegoretti; this subroutine is more indipendent and needs
    less input                                                                   */
-void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void aspect0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
                 DOUBLEMATRIX *azimuth);
 
 
@@ -44,7 +44,7 @@ void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
            - V         vector with the novalues
    Output: - slope    matrix with the mean slope
    Subroutine created by Davide Tamanini (June 2003)                                */
-void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void slopes0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
                 DOUBLEMATRIX *slope);
 
 
@@ -70,7 +70,7 @@ void soil_depth(double min_h, double h_crit, double P, double M, double prs,
            - V         vector with the novalues
    Output: - area      matrix with the mean slope
    Subroutine created by Davide Tamanini (June 2003)                                */
-void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void area0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
               DOUBLEMATRIX *area);
 
 
@@ -96,7 +96,7 @@ void gradients(DOUBLEMATRIX *Z0,SHORTMATRIX *directions,
 /* Calculation of channel network: this subroutine is a modification of select_hillslopes
    created by Davide Tamanini (August 2003)                                                */
 void select_hillslopes_mod(LONGMATRIX *ca,DOUBLEMATRIX *dr_gradient,
-                           DOUBLEMATRIX *curv,SHORTMATRIX *m,double threshold,DOUBLEVECTOR *pixelsize);
+                           DOUBLEMATRIX *curv,SHORTMATRIX *m,double threshold,Vector<double>* pixelsize);
 
 
 

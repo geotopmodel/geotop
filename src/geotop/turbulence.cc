@@ -161,7 +161,7 @@ double PsiStab(double z)
 //Loius' scheme (Kot & Song, 1998)
 void Lewis(double zmu, double zmt, double d0, double z0, double z0_z0t,
            double Ta, double Ts, double v, double *rm, double *rh,
-           double *rv, DOUBLEVECTOR *w)
+           double *rv, Vector<double>* w)
 {
 
   double z0t, f, Rib;

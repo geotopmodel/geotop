@@ -25,10 +25,10 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
   long i,j,t,m,n,p,q,h,k,r,s; //counter
   double deltateta; //amplitude of the angles in which the horizon is divided
   DOUBLEMATRIX *alfa; //matrices with the angles of the direction
-  DOUBLEVECTOR
-  *vv; //vector with the view factor of the current pixel for one of the N parts
-  DOUBLEVECTOR
-  *v; //vector with the minimum view factor of the current pixel for one of the N parts
+  std::unique_ptr<Vector<double>>
+  vv; //vector with the view factor of the current pixel for one of the N parts
+  std::unique_ptr<Vector<double>>
+  v; //vector with the minimum view factor of the current pixel for one of the N parts
   double vvv; //mean of the sky view for a pixel of the N parts
 
   if (sky->nrh!=input->nrh)
@@ -75,8 +75,8 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
         }
     }
 
-  v=new_doublevector(N);
-  vv=new_doublevector(N);
+  v.reset(new Vector<double>{N});
+  vv.reset(new Vector<double>{N});
   deltateta=2.0*Pi/N;
 
   for (i=1; i<=input->nrh; i++)
@@ -130,8 +130,6 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
     }
 
   free_doublematrix(alfa);
-  free_doublevector(v);
-  free_doublevector(vv);
 
 }
 
@@ -157,7 +155,7 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
     {1,1},
   };
   LONGVECTOR *mod_i,*mod_j,*is,*js,*iclust,*jclust,*ior,*jor,*indcand;
-  DOUBLEVECTOR *nearel;
+  std::unique_ptr<Vector<double>> nearel;
 
   /*CALCOLO ORA QUANTI PITS INIZIALI SONO PRESENTI NELLA MIA MATRICE*/
   nx=Z0->nrh;
@@ -192,7 +190,7 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
                 (con elevazione posta a 10^-3)*/
               if (Z0->co[i][j]>0.0011 && Z0->co[i][j]<10000)
                 {
-                  nearel=new_doublevector(9);
+                  nearel.reset(new Vector<double>{9});
                   for (k=1; k<=8; k++)
                     {
                       ii=i+data[k][0];
@@ -216,7 +214,6 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
                     {
                       ISPIT=0;
                     }
-                  free_doublevector(nearel);
                   if (ISPIT==1)
                     {
                       N1+=1;
@@ -247,7 +244,7 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
               iclust->co[1]=is->co[m];
               jclust->co[1]=js->co[m];
               /*Valuto se il pit e' effettivamente ancora un pit*/
-              nearel=new_doublevector(9);
+              nearel.reset(new Vector<double>{9});
               for (k=1; k<=8; k++)
                 {
                   i=is->co[m]+data[k][0];
@@ -271,7 +268,6 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
                 {
                   ISPIT=0;
                 }
-              free_doublevector(nearel);
               if (ISPIT==1)
                 {
                   clustdim=1;
@@ -453,8 +449,8 @@ void pits_filler_0875(DOUBLEMATRIX *Z0,SHORTMATRIX *land_use)
 
 
 //Presa da geomorphology099 e modificato der_min
-void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,DOUBLEVECTOR *U,
-                      DOUBLEVECTOR *V)
+void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
+                      Vector<double>* V)
 
 {
 
@@ -554,7 +550,7 @@ void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,DOUBLEVECTOR *U,
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program aspetto of Pegoretti; this subroutine is more indipendent and needs
    less input                                                                   */
-void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void aspect0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
                 DOUBLEMATRIX *azimuth)
 {
   long i,j;
@@ -739,7 +735,7 @@ void aspect0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
            - V         vector with the novalues
    Output: - slope    matrix with the mean slope [radiants]
    Subroutine created by Davide Tamanini (June 2003)                                */
-void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void slopes0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
                 DOUBLEMATRIX *slope)
 {
   long i,j;
@@ -825,8 +821,8 @@ void slopes0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
 
 
 //presa uguale da geomorphology099
-void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,DOUBLEVECTOR *U,
-                 DOUBLEVECTOR *V)
+void nablaquadro(DOUBLEMATRIX *Z0,DOUBLEMATRIX *nabla,Vector<double>* U,
+                 Vector<double>* V)
 {
   short y,mode;
   long i,j,h,n;
@@ -970,7 +966,7 @@ void soil_depth(double min_h, double h_crit, double P, double M, double prs,
 
   /*Computation of matrix with the value of second derivative of elevation:*/
   D_z_sec=new_doublematrix(Z0->nrh,Z0->nch);
-  nablaquadro(Z0,D_z_sec,UV->U,UV->V);
+  nablaquadro(Z0,D_z_sec,UV->U.get(),UV->V.get());
 
   /*Computation of bedrock depth:*/
   for (i=2; i<=D_z_sec->nrh-1; i++)
@@ -1090,7 +1086,7 @@ void DrainageDirections0875(DOUBLEMATRIX *elevations,SHORTMATRIX *land_use,
               if (directions->co[i][j]==9)
                 {
                   /*Call of is_ontheborder(elevations,UV->V,i,j):*/
-                  if (is_ontheborder(elevations,UV->V,i,j))
+                  if (is_ontheborder(elevations,UV->V.get(),i,j))
                     {
                       directions->co[i][j]=10;
                       printf("Outlet at position %ld %ld\n", i,j);
@@ -1186,7 +1182,7 @@ void gradients(DOUBLEMATRIX *Z0,SHORTMATRIX *directions,
            - V         vector with the novalues
    Output: - area      matrix with the mean slope
    Subroutine created by Davide Tamanini (June 2003)                                */
-void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+void area0875(DOUBLEMATRIX *Z0,Vector<double>* U,Vector<double>* V,
               DOUBLEMATRIX *area)
 {
   long i,j;
@@ -1276,7 +1272,7 @@ void area0875(DOUBLEMATRIX *Z0,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
    created by Davide Tamanini (August 2003)                                                */
 void select_hillslopes_mod(LONGMATRIX *ca,DOUBLEMATRIX *dr_gradient,
                            DOUBLEMATRIX *curv,
-                           SHORTMATRIX *m,double threshold,DOUBLEVECTOR *pixelsize)
+                           SHORTMATRIX *m,double threshold,Vector<double>* pixelsize)
 
 {
   long i,j,flw[2],counter=0,hillslopecounter=0,max;

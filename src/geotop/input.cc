@@ -801,7 +801,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   land->vegparv=(double **)malloc(par->n_landuses*sizeof(double *));
   land->NumlinesVegTimeDepData=(long *)malloc(par->n_landuses*sizeof(long));
 
-  land->vegpar->reinit(jdvegprop);
+  land->vegpar.reset(new Vector<double>{jdvegprop});
 
   par->vegflag=new_shortvector(par->n_landuses);
   initialize_shortvector(par->vegflag, 0);
@@ -922,13 +922,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   cnet->ch_down=new_longvector(i);
   initialize_longvector(cnet->ch_down, 0);
 
-  cnet->length->reinit(i);
+  cnet->length.reset(new Vector<double>{i});
 
-  cnet->Vsup->reinit(i);
+  cnet->Vsup.reset(new Vector<double>{i});
 
-  cnet->Vsub->reinit(i);
+  cnet->Vsub.reset(new Vector<double>{i});
 
-  cnet->h_sup->reinit(i);
+  cnet->h_sup.reset(new Vector<double>{i});
 
   cnet->soil_type = new_longvector(i);
   initialize_longvector(cnet->soil_type, par->soil_type_chan_default);
@@ -1048,12 +1048,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
       if (strcmp(files[fpnet], string_novalue) != 0)
         {
-          sl->Pnetcum->reinit(par->total_pixel);
+          sl->Pnetcum.reset(new Vector<double>{par->total_pixel});
         }
 
       if (strcmp(files[fevap], string_novalue) != 0)
         {
-          sl->ETcum->reinit(par->total_pixel);
+          sl->ETcum.reset(new Vector<double>{par->total_pixel});
         }
 
     }
@@ -2510,10 +2510,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
           write_soil_output(j, par->IDpoint->co[j], par->init_date->co[1],
                             par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
-                            minute, par->soil_plot_depths, sl, par, (double)PsiMin, cosslope);
+                            minute, par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
           write_snow_output(j, par->IDpoint->co[j], r, c, par->init_date->co[1],
                             par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
-                            minute, par->snow_plot_depths, snow->S, par, cosslope);
+                            minute, par->snow_plot_depths.get(), snow->S, par, cosslope);
         }
     }
 
@@ -2522,7 +2522,6 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   //Free the struct allocated in this subroutine:
   free_doublematrix(par->chkpt);
 
-  free_doublevector(IT->init_water_table_depth);
   free_doublematrix(IT->bed);
   free_doubletensor(IT->pa_bed);
 
@@ -2572,7 +2571,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                                   top->i_cont, par->total_pixel, par->total_channel, n);
       top->Li = new_longvector(i);
       top->Lp = new_longvector(j);
-      wat->Lx = new_doublevector(i);
+      wat->Lx.reset(new Vector<double> {i});
       cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont,
                                   top->i_cont, par->total_pixel, par->total_channel, n);
     }
@@ -2582,7 +2581,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       j = n+1;
       top->Li = new_longvector(i);
       top->Lp = new_longvector(j);
-      wat->Lx = new_doublevector(i);
+      wat->Lx.reset(new Vector<double>{i});
       for (l=1; l<=n; l++)
         {
           top->Li->co[l] = l+1;
@@ -2591,12 +2590,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       top->Lp->co[j] = i;
     }
 
-  wat->H0 = new_doublevector(j);
-  wat->H1 = new_doublevector(j);
-  wat->dH = new_doublevector(j);
-  wat->B = new_doublevector(j);
-  wat->f = new_doublevector(j);
-  wat->df = new_doublevector(j);
+  wat->H0.reset(new Vector<double>{j});
+  wat->H1.reset(new Vector<double>{j});
+  wat->dH.reset(new Vector<double>{j});
+  wat->B.reset(new Vector<double>{j});
+  wat->f.reset(new Vector<double>{j});
+  wat->df.reset(new Vector<double>{j});
 
   wat->Kbottom = new_doublematrix(Nr, Nc);
   initialize_doublematrix(wat->Kbottom, 0.);
@@ -2814,7 +2813,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
       else
         {
           curv = new_shortmatrix(top->Z0->nrh,top->Z0->nch);
-          nablaquadro_mask(top->Z0, curv, UV->U, UV->V);
+          nablaquadro_mask(top->Z0, curv, UV->U.get(), UV->V.get());
           sky_view_factor(top->sky, 36, UV, top->Z0, curv, number_novalue);
           free_shortmatrix(curv);
         }
@@ -3061,7 +3060,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
 
   if (cont > 0)
     {
-      top->BC_DepthFreeSurface = new_doublevector(cont);
+      top->BC_DepthFreeSurface.reset(new Vector<double>{cont});
       cont = 0;
       for (r=1; r<=top->Z0->nrh; r++)
         {
@@ -3083,8 +3082,8 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
     }
   else
     {
-      top->BC_DepthFreeSurface = new_doublevector(1);
-      initialize_doublevector(top->BC_DepthFreeSurface, (double)number_novalue);
+      top->BC_DepthFreeSurface.reset(new Vector<double>{1});
+      *(top->BC_DepthFreeSurface) = double(number_novalue);
     }
 
   //bedrock
@@ -3479,7 +3478,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
             {
               P=new_doublematrix(Z->nrh,Z->nch);
               curv=new_shortmatrix(Z->nrh,Z->nch);
-              nablaquadro_mask(Z, curv, UV->U, UV->V);
+              nablaquadro_mask(Z, curv, UV->U.get(), UV->V.get());
               sky_view_factor(P, 36, UV, Z, curv, number_novalue);
               free_shortmatrix(curv);
               if (flag==0) write_map(files[fsky], 0, par->format_out, P, UV,
@@ -3686,8 +3685,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
   if (read_dem==0 && read_lu==0 && read_soil==0 && read_sl==0 && read_as==0
       && read_sk==0)
     {
-      UV->U=new_doublevector(4);
-      UV->V=new_doublevector(2);
+      UV->U.reset(new Vector<double>{4});
+      UV->V.reset(new Vector<double>{2});
     }
   UV->U->co[2]=1.0;
   UV->U->co[1]=1.0;
@@ -3740,7 +3739,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
   top->sky=new_doublematrix(1,par->chkpt->nrh);
   top->pixel_type=new_shortmatrix(1,par->chkpt->nrh);
   top->BC_counter=new_longmatrix(1,par->chkpt->nrh);
-  top->BC_DepthFreeSurface=new_doublevector(par->chkpt->nrh);
+  top->BC_DepthFreeSurface.reset(new Vector<double>{par->chkpt->nrh});
   par->maxSWE=new_doublematrix(1,par->chkpt->nrh);
   top->horizon_point=new_longmatrix(1,par->chkpt->nrh);
   top->dzdE=new_doublematrix(1,par->chkpt->nrh);
@@ -3886,7 +3885,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
 {
 
   DOUBLETENSOR *T;
-  DOUBLEVECTOR *WT;
+  std::unique_ptr<Vector<double>> WT;
   long i, j, l, r, c, sy, synew;
   double zlim, z;
   short yes=0;
@@ -3933,14 +3932,13 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
       sl->pa=new_doubletensor(par->total_pixel+par->total_channel, nsoilprop, Nl);
 
       //rewrite initial water table depth
-      WT=new_doublevector(IT->init_water_table_depth->nh);
+      WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
       for (i=1; i<=IT->init_water_table_depth->nh; i++)
         {
           WT->co[i]=IT->init_water_table_depth->co[i];
         }
-      free_doublevector(IT->init_water_table_depth);
-      IT->init_water_table_depth=new_doublevector(par->total_pixel
-                                                  +par->total_channel);
+      IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel
+                                                  +par->total_channel});
 
       //assign jdz (is needed later)
       for (i=1; i<=sl->pa->ndh; i++)
@@ -4007,7 +4005,6 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
         }
 
       free_doubletensor(T);
-      free_doublevector(WT);
     }
 }
 
@@ -4193,12 +4190,9 @@ void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to)
 void initialize_veg_state(STATE_VEG *V, long n)
 {
 
-  V->Tv = new_doublevector(n);
-  initialize_doublevector(V->Tv, 0.);
-  V->wsnow = new_doublevector(n);
-  initialize_doublevector(V->wsnow, 0.);
-  V->wrain = new_doublevector(n);
-  initialize_doublevector(V->wrain, 0.);
+  V->Tv.reset(new Vector<double>{n});
+  V->wsnow.reset(new Vector<double>{n});
+  V->wrain.reset(new Vector<double>{n});
 
 }
 

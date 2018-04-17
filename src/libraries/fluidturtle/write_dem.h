@@ -67,7 +67,7 @@ void shortmatrix_dem(SHORTMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
                      char *outputname, char *comment,short print);
 
 
-void shortmatrix_dem3(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
+void shortmatrix_dem3(SHORTMATRIX *matrix, Vector<double>* U, Vector<double>* V,
 
                       char *outputname, char *comment,short print);
 
@@ -95,7 +95,7 @@ void doublematrix_dem(DOUBLEMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
                       char *outputname, char *comment,short print);
 
 
-void doublematrix_dem3(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
+void doublematrix_dem3(DOUBLEMATRIX *matrix, Vector<double>* U, Vector<double>* V,
 
                        char *outputname, char *comment,short print);
 
@@ -113,25 +113,25 @@ void floatvector_dem(FLOATVECTOR *vector,
 
 
 
-void doublevector_dem(DOUBLEVECTOR *vector,
+void doublevector_dem(Vector<double>* vector,
 
                       char *outputname, char *comment,short print);
 
 
 
-void doubletensor_dem(DOUBLETENSOR *tensor,long layer,DOUBLEVECTOR *U,
+void doubletensor_dem(DOUBLETENSOR *tensor,long layer,Vector<double>* U,
 
-                      DOUBLEVECTOR *V,char *outputname,char *comment,short print);
+                      Vector<double>* V,char *outputname,char *comment,short print);
 
 
 
-void shortmatrix_dem2(SHORTMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
+void shortmatrix_dem2(SHORTMATRIX *matrix, Vector<double>* U, Vector<double>* V,
 
                       char *outputname, char *comment,short print);
 
 
 
-void longmatrix_dem2(LONGMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
+void longmatrix_dem2(LONGMATRIX *matrix, Vector<double>* U, Vector<double>* V,
 
                      char *outputname, char *comment,short print);
 
@@ -149,7 +149,7 @@ void floatmatrix_dem2(FLOATMATRIX *matrix, FLOATVECTOR *U, FLOATVECTOR *V,
 
 
 
-void doublematrix_dem2(DOUBLEMATRIX *matrix, DOUBLEVECTOR *U, DOUBLEVECTOR *V,
+void doublematrix_dem2(DOUBLEMATRIX *matrix, Vector<double>* U, Vector<double>* V,
 
                        char *outputname, char *comment,short print);
 

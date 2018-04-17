@@ -4,48 +4,6 @@
 //#include "t_statistics.h"
 #include "write_dem.h"
 
-/*-------------------------------------------------------------------------------*/
-
-
-
-DOUBLEVECTOR *vectorize_doublematrix(DOUBLEMATRIX *input)
-
-{
-
-  DOUBLEVECTOR *U;
-
-  U=(DOUBLEVECTOR *)malloc(sizeof(DOUBLEVECTOR));
-  if (!U)
-    {
-      t_error("This vector cannot be allocated");
-    }
-
-  U->nl=1;
-  U->nh=(input->nrh)*(input->nch);
-  U->isdynamic=1;
-  if (input->co==NULL || input->isdynamic!=1 )
-    {
-
-      t_error("This matrix is not properly allocated");
-
-    }
-  else
-    {
-
-      U->co=input->co[1];
-
-    }
-
-  /* print_doublevector_elements(U,10); */
-
-
-  free(input);
-
-  return U;
-
-
-}
-
 
 /*-------------------------------------------------------------------------------*/
 
@@ -79,7 +37,6 @@ LONGVECTOR *vectorize_longmatrix(LONGMATRIX *input)
 
     }
 
-  /* print_doublevector_elements(U,10); */
 
 
   free(input);
@@ -173,7 +130,7 @@ SHORTVECTOR *vectorize_shortmatrix(SHORTMATRIX *input)
 
 /*-------------------------------------------------------------------------------*/
 
-void sortreal(DOUBLEVECTOR *ra)
+void sortreal(Vector<double>* ra)
 
 {
 
@@ -222,7 +179,7 @@ void sortreal(DOUBLEVECTOR *ra)
 }
 
 /*-------------------------------------------------------------------------------*/
-void  sort2realvectors(DOUBLEVECTOR *ra,DOUBLEVECTOR *rb)
+void  sort2realvectors(Vector<double>* ra,Vector<double>* rb)
 
 {
 
@@ -414,7 +371,7 @@ Return: a matrix of double: the first column contains the number of elements
 in each mean, the second coulumns the mean abscissa of the data in the bin, the third
 the highest limit of each bin interval */
 
-DOUBLEMATRIX *simplehystogram(DOUBLEVECTOR *U,long N,long mn)
+DOUBLEMATRIX *simplehystogram(Vector<double>* U,long N,long mn)
 
 {
 
@@ -538,7 +495,7 @@ DOUBLEMATRIX *simplehystogram(DOUBLEVECTOR *U,long N,long mn)
 
 /*----------------------------------------------------------------------*/
 
-DOUBLEMATRIX *exponentialhystogram(DOUBLEVECTOR *U,long N,long mn,long base)
+DOUBLEMATRIX *exponentialhystogram(Vector<double>* U,long N,long mn,long base)
 
 {
 
@@ -783,7 +740,7 @@ void initialize_shortvector(SHORTVECTOR *L,short sign)
 }
 
 /*---------------------------------------------------------------------------*/
-void initialize_doublevector(DOUBLEVECTOR *L,double sign)
+void initialize_doublevector(DOUBLEVECTOR* L,double sign)
 
 {
 
@@ -1343,7 +1300,7 @@ void copy_floatvector(FLOATVECTOR *origin,FLOATVECTOR *destination)
 
 /*--------------------------------------------------------------------------*/
 
-void copy_doublevector(const Vector<double> *origin,Vector<double> *destination)
+void copy_doublevector(const DOUBLEVECTOR *origin, DOUBLEVECTOR *destination)
 
 {
 
@@ -1359,45 +1316,6 @@ void copy_doublevector(const Vector<double> *origin,Vector<double> *destination)
     {
       destination->co[i]=origin->co[i];
     }
-}
-
-/*--------------------------------------------------------------------------*/
-
-void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big)
-
-{
-
-  long i;
-
-  if (small==NULL || big==NULL || small->co==NULL || big->co==NULL)
-    {
-
-      t_error("A vector was not allocated");
-
-    }
-  else if (small->isdynamic!=1 || big->isdynamic!=1 || small->nh <1
-           || big->nh <1  )
-    {
-
-      t_error("A vector was not allocated properly");
-
-    }
-  else if ( small->nh != big->nh  )
-    {
-
-      t_error("The vector do not have the same dimensions");
-
-    }
-
-  for (i=small->nl; i<=small->nh; i++)
-    {
-
-
-      big->co[i] += small->co[i];
-
-
-    }
-
 }
 
 /*--------------------------------------------------------------------------*/
@@ -1609,33 +1527,6 @@ void floatvector_element_multiplication(FLOATVECTOR *dist,FLOATVECTOR *ca)
 
 }
 
-/*--------------------------------------------------------------------------*/
-void doublevector_element_multiplication(DOUBLEVECTOR *dist,DOUBLEVECTOR *ca)
-
-{
-
-  long i;
-
-  if (dist==NULL || ca==NULL || dist->co==NULL || ca->co==NULL)
-    {
-      t_error("Vectors were not allocated");
-    }
-  else if (dist->isdynamic!=1 || dist->isdynamic!=1 || dist->nh <2 )
-    {
-      t_error("Vectors were not properly allocated");
-    }
-  else if (dist->nh !=ca->nh )
-    {
-      t_error("These vectors do not have the same dimensions");
-    }
-
-  for (i=1; i<=dist->nh; i++)
-    {
-      dist->co[i]*=ca->co[i];
-    }
-
-
-}
 /*-----------------------------------------------------------------------*/
 
 
@@ -1707,7 +1598,7 @@ void clean_floatmatrix(FLOATMATRIX *iv,FLOATMATRIX *ov,FLOATVECTOR *U,
 
 /*---------------------------------------------------------------------------*/
 
-DOUBLEBIN *split(DOUBLEVECTOR *U,long N,FLOATVECTOR *novalue)
+DOUBLEBIN *split(DOUBLEVECTOR *U, long N, FLOATVECTOR *novalue)
 
 
 {
@@ -1863,7 +1754,7 @@ DOUBLEBIN *split(DOUBLEVECTOR *U,long N,FLOATVECTOR *novalue)
       if (!l->co) t_error("allocation failure in new_doublebin()");
       l+=NR_END-1;
 
-      l->co[1]=U->co+minposition-1;
+      l->co[1]=&U->co[0]+minposition-1;
       if (!(l->co[1])) t_error("Failure in splitting this vector");
       l->co[1]+=NR_END;
       l->co[1]-=1;
@@ -1891,702 +1782,6 @@ DOUBLEBIN *split(DOUBLEVECTOR *U,long N,FLOATVECTOR *novalue)
 
 }
 
-
-/*---------------------------------------------------------------------------*/
-
-DOUBLEBIN *esponentialsplit(DOUBLEVECTOR *U,long N,double base,
-                            FLOATVECTOR *novalue)
-
-
-{
-
-  double min=0,max=0,logdelta,logbase,logmin;
-  long i,count,count1,minposition=0,maxposition,bin_vuoti,num_max;
-  DOUBLEBIN *l;
-  LONGPAIR *head,*bins;
-  /*char ch;
-
-  minposition=1;
-  maxposition=U->nh;
-  printf("%d\n",N);
-  scanf("%c",&ch);*/
-  logbase=log10(base);
-
-  if (N <=1)
-    {
-      printf("This options is memory expensive\n");
-      printf("ENTER THE MAXIMUM NUMBER OF ALLOWED BIN\n");
-      scanf("%ld",&num_max);
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=1;
-      count=2;
-
-      while (count <= U->nh)
-        {
-          while (U->co[count]==U->co[count-1] && count <=U->nh)
-            {
-              count++;
-            }
-
-          bins->next=new_longpair();
-          bins=bins->next;
-          bins->i=count-count1;
-          /*    printf("%f -> %d-%d=%d\n",U->co[count-1],count,count1,bins->i);
-          scanf("%c",&ch);
-          */
-          bins->j=1;
-          count1=count-1;
-          head->i++;
-          count1=count;
-          count++;
-          if (head->i>num_max)
-            t_error("Il numero di bin eccede il numero massimo che hai consentito");
-        }
-    }
-  else if (N >1)
-    {
-      if (novalue->co[1]==0)
-        {
-          minposition=1;
-          if (U->co[minposition] <=0)
-            {
-              while (U->co[minposition]<=0)
-                {
-                  minposition++;
-                  if ( minposition > U->nh) t_error("No valid data for esponential binning");
-                }
-            }
-          maxposition=U->nh;
-        }
-      else if (novalue->co[1]==-1)
-        {
-          minposition=2;
-          /*      printf("*****%d\n",novalue); */
-          max=U->co[U->nh];
-          while (U->co[minposition]<=novalue->co[2])
-            {
-              minposition++;
-            }
-
-          min=U->co[minposition];
-          maxposition=U->nh;
-        }
-      else
-        {
-          maxposition=U->nh-1;
-          while (U->co[maxposition]>=novalue->co[2])
-            {
-              /*      printf("%d\n",maxposition);
-                    scanf("%c",&ch);
-              */      maxposition--;
-            }
-          max=U->co[maxposition];
-          minposition=1;
-          min=U->co[1];
-        }
-
-      printf("THE MINIMUM VALUE IS %f\n",min);
-      printf("THE MAXIMUM VALUE IS %f\n",max);
-      logdelta=(log10(max)-log10(min))/(logbase*(N-1));
-      printf("LOG_10  DELTA IS%f\n",logdelta);
-      /*  scanf("%c",&ch); */
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=minposition;
-      count=minposition+1;
-      logmin=log10(min);
-      bin_vuoti=0;
-
-      while (count <= maxposition)
-        {
-          if (log10(U->co[count]) < logmin+0.5*logdelta)
-            {
-              while (log10(U->co[count]) < logmin+0.5*logdelta  && count<=maxposition)
-                {
-                  count++;
-                }
-
-              bins->next=new_longpair();
-              bins=bins->next;
-              bins->i=count-count1;
-              /*      printf("%f -> %d-%d=%d\n",U->co[count-1],count,count1,bins->i);
-                    scanf("%c",&ch);
-              */
-              bins->j=1;
-              count1=count-1;
-              (head->i)++;
-              count1=count;
-              count++;
-            }
-          else
-            {
-              bin_vuoti++;
-              printf("\nWarning:: An empty bin was encountered\n");
-            }
-          logmin+=logdelta;
-        }
-      if (bin_vuoti!=0)
-        {
-          printf("\nThere was look for (%ld) empty bins\n",bin_vuoti);
-        }
-    }
-
-  l=(DOUBLEBIN *)malloc(sizeof(DOUBLEBIN));
-  if (!l) t_error("allocation failure in new_doublebin()");
-  l->isdynamic=isDynamic;
-  if (head->i < 2 )
-    {
-      t_error("Something wrong happened in binning");
-    }
-  else
-    {
-      l->index=new_longvector(head->i);
-      (l->index)->nl=1;
-      (l->index)->nh=head->i;
-      bins=head->next;
-      for (i=1; i<=head->i; i++)
-        {
-          (l->index)->co[i]=bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-      l->co=(double **)malloc((size_t) ((l->index->nh+NR_END)*sizeof(double *)));
-      if (!l->co) t_error("allocation failure in new_doublebin()");
-      l+=NR_END-1;
-
-      l->co[1]=U->co+minposition-1;
-      if (!(l->co[1])) t_error("Failure in splitting this vector");
-      l->co[1]+=NR_END;
-      l->co[1]-=1;
-      bins=head->next;
-      for (i=2; i<=l->index->nh; i++)
-        {
-          l->co[i]=l->co[i-1]+bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-
-    }
-
-
-  U->isdynamic=-1;
-  U->nl=-1;
-  U->nh=1;
-
-  free(U);
-
-  delete_longpair_list(head);
-
-  return l;
-
-
-}
-
-/*---------------------------------------------------------------------------*/
-
-double split2realvectors(DOUBLEVECTOR *U,DOUBLEVECTOR *T,DOUBLEBIN *l,
-                         DOUBLEBIN *m, long N,long num_max,FLOATVECTOR *novalue)
-
-
-{
-
-  double delta=0,min=0,max=0;
-  long i,count,count1,minposition,maxposition,bin_vuoti;
-  LONGPAIR *head,*bins;
-
-
-  minposition=1;
-  maxposition=U->nh;
-  /*printf("%d\n",N);*/
-  /*scanf("%c",&ch);*/
-  if (N <=1)
-    {
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=1;
-      count=2;
-      while (count <= U->nh)
-        {
-          while (U->co[count]==U->co[count-1] && count <=U->nh)
-            {
-              count++;
-            }
-
-          bins->next=new_longpair();
-          bins=bins->next;
-          bins->i=count-count1;
-          /*printf("%f -> %d-%d=%d\n",U->co[count-1],count,count1,bins->i);
-          scanf("%c",&ch);*/
-
-          bins->j=1;
-          count1=count-1;
-          head->i++;
-          count1=count;
-          count++;
-          if (head->i>num_max)
-            t_error("Il numero di bin eccede il numero massimo che hai consentito");
-
-        }
-
-    }
-  else if (N >1)
-    {
-      if (novalue->co[1]==0)
-        {
-          minposition=1;
-          maxposition=U->nh;
-        }
-      else if (novalue->co[1]==-1)
-        {
-          minposition=2;
-          /*printf("*****%d\n",novalue);*/
-          /*scanf("%hd",&ch);*/
-          max=U->co[U->nh];
-          while (U->co[minposition]<=novalue->co[2])
-            {
-              /*printf("%d\n",minposition);
-                scanf("%c",&ch);*/
-              minposition++;
-            }
-          min=U->co[minposition];
-          maxposition=U->nh;
-        }
-      else
-        {
-          maxposition=U->nh-1;
-          while (U->co[maxposition]>=novalue->co[2])
-            {
-              /*printf("%d\n",maxposition);
-                scanf("%c",&ch);*/
-              maxposition--;
-            }
-          max=U->co[maxposition];
-          minposition=1;
-          min=U->co[1];
-        }
-
-      printf("THE MINIMUM VALUE IS %f\n",min);
-      printf("THE MAXIMUM VALUE IS %f\n",max);
-      delta=(max-min)/(N-1);
-      printf("DELTA IS%f\n",delta);
-      /*  scanf("%c",&ch); */
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=minposition;
-      count=minposition+1;
-      bin_vuoti=0;
-      while (count <= maxposition)
-        {
-          if (U->co[count] < min +0.5*delta)
-            {
-              while (U->co[count] < min+0.5*delta  && count<=maxposition)
-                {
-                  count++;
-                }
-              bins->next=new_longpair();
-              bins=bins->next;
-              bins->i=count-count1;
-              /*printf("%f -> %d-%d=%d\n",U->co[count-1],count,count1,bins->i);
-                scanf("%c",&ch);*/
-
-              bins->j=1;
-              count1=count-1;
-              (head->i)++;
-              count1=count;
-              count++;
-
-            }
-          else
-            {
-              bin_vuoti++;
-              printf("\nWarning:: An empty bin was encountered\n");
-            }
-          min+=delta;
-        }
-      if (bin_vuoti!=0)
-        {
-          printf("\nThere was look for (%ld) empty bins\n",bin_vuoti);
-        }
-
-    }
-  if (head->i < 2 )
-    {
-      t_error("Something wrong happened in binning");
-    }
-  else
-    {
-      m->index=new_longvector(head->i);
-      l->index=new_longvector(head->i);
-      (l->index)->nl=1;
-      (l->index)->nh=head->i;
-      (m->index)->nl=1;
-      (m->index)->nh=head->i;
-
-      bins=head->next;
-      for (i=1; i<=head->i; i++)
-        {
-          (l->index)->co[i]=bins->i;
-          (m->index)->co[i]=bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-      l->co=(double **)malloc((size_t) ((l->index->nh+NR_END)*sizeof(double *)));
-      m->co=(double **)malloc((size_t) ((m->index->nh+NR_END)*sizeof(double *)));
-
-      if (!l->co || !m->co) t_error("allocation failure in new_doublebin()");
-      l+=NR_END-1;
-      l->co[1]=U->co+minposition-1;
-      m+=NR_END-1;
-      m->co[1]=T->co+minposition-1;
-
-      if (!(l->co[1]) || !(m->co[1])) t_error("Failure in splitting this vector");
-      l->co[1]+=NR_END;
-      l->co[1]-=1;
-      m->co[1]+=NR_END;
-      m->co[1]-=1;
-
-      bins=head->next;
-      for (i=2; i<=l->index->nh; i++)
-        {
-          l->co[i]=l->co[i-1]+bins->i;
-          m->co[i]=m->co[i-1]+bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-
-    }
-  U->isdynamic=-1;
-  U->nl=-1;
-  U->nh=1;
-
-  free(U);
-  T->isdynamic=-1;
-  T->nl=-1;
-  T->nh=1;
-
-  free(T);
-
-  delete_longpair_list(head);
-
-  if (N < 2) delta=0;
-  return delta;
-
-}
-
-
-
-/*---------------------------------------------------------------------------*/
-
-double esponentialsplit2realvectors(DOUBLEVECTOR *U,DOUBLEVECTOR *W,
-                                    DOUBLEBIN *l,DOUBLEBIN *m,long N,long num_max,double base,
-                                    FLOATVECTOR *novalue)
-
-
-{
-
-  double min=0,max=0,logdelta=0,logbase,logmin;
-  long i,j,count,count1,minposition,maxposition,bin_vuoti;
-  LONGPAIR *head,*bins;
-  short mode;
-  SHORTVECTOR *segna;
-  minposition=1;
-  maxposition=U->nh;
-  logbase=log10(base);
-
-  if (N <=1)
-    {
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=1;
-      count=2;
-
-      while (count <= U->nh)
-        {
-          while (U->co[count]==U->co[count-1] && count <=U->nh)
-            {
-              count++;
-            }
-
-          bins->next=new_longpair();
-          bins=bins->next;
-          bins->i=count-count1;
-          /*printf("%f -> %d-%d=%d\n",U->co[count-1],count,count1,bins->i);
-          scanf("%c",&ch);*/
-
-          bins->j=1;
-          count1=count-1;
-          head->i++;
-          count1=count;
-          count++;
-          if (head->i>num_max)
-            t_error("Il numero di bin eccede il numero massimo che hai consentito");
-        }
-    }
-  else if (N >1)
-    {
-      if (novalue->co[1]==0)
-        {
-          minposition=1;
-          if (U->co[minposition] <=0)
-            {
-              while (U->co[minposition]<=0)
-                {
-                  minposition++;
-                  if ( minposition > U->nh) t_error("No valid data for esponential binning");
-                }
-            }
-          maxposition=U->nh;
-        }
-      else if (novalue->co[1]==-1)
-        {
-          minposition=2;
-          /* printf("*****%d\n",novalue->co[1]); */
-          max=U->co[U->nh];
-          while (U->co[minposition]<=novalue->co[2])
-            {
-              minposition++;
-            }
-          min=U->co[minposition];
-          maxposition=U->nh;
-        }
-      else
-        {
-          maxposition=U->nh-1;
-          while (U->co[maxposition]>=novalue->co[2])
-            {
-              /*      printf("%d\n",maxposition);
-                    scanf("%c",&ch);
-              */      maxposition--;
-            }
-          max=U->co[maxposition];
-          minposition=1;
-          min=U->co[1];
-        }
-      printf("THE MINIMUM VALUE IS \t%f\n",min);
-      printf("THE MAXIMUM VALUE IS \t%f\n",max);
-      logdelta=(log10(max)-log10(min))/(logbase*(N-1));
-      printf("LOG_10  DELTA IS \t%f\t",logdelta);
-      /*scanf("%c",&ch); */
-      head=new_longpair();
-      head->i=0;
-      bins=head;
-      count1=minposition;
-      count=minposition+1;
-      logmin=log10(min);
-      segna=new_shortvector(N);
-      j=0;
-      bin_vuoti=0;
-      while (count <= maxposition)
-        {
-          mode=1;
-          j++;
-          segna->co[j]=0;
-          if (log10(U->co[count])<=logmin+0.5*logdelta)
-            {
-              while (log10(U->co[count]) <= logmin+0.5*logdelta  && count<=maxposition)
-                {
-                  count++;
-                }
-              bins->next=new_longpair();
-              bins=bins->next;
-              bins->i=count-count1;
-              /*printf("%d %f -> %d-%d=%d\n",j,U->co[count-1],count,count1,bins->i);
-                bins->j=1;*/
-              count1=count-1;
-              (head->i)++;
-              count1=count;
-              count++;
-            }
-          else
-            {
-              bin_vuoti++;
-              printf("\nWarning:: An empty bin was encountered\n");
-            }
-          logmin+=logdelta;
-        }
-      if (bin_vuoti!=0)
-        {
-          printf("\nThere was look for (%ld) empty bins\n",bin_vuoti);
-        }
-    }
-  if (head->i < 2 )
-    {
-      t_error("Something wrong happened in binning");
-    }
-  else
-    {
-      m->index=new_longvector(head->i);
-      l->index=new_longvector(head->i);
-      (l->index)->nl=1;
-      (l->index)->nh=head->i;
-      (m->index)->nl=1;
-      (m->index)->nh=head->i;
-      bins=head->next;
-      for (i=1; i<=head->i; i++)
-        {
-          (l->index)->co[i]=bins->i;
-          (m->index)->co[i]=bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-      l->co=(double **)malloc((size_t) ((l->index->nh+NR_END)*sizeof(double *)));
-      m->co=(double **)malloc((size_t) ((m->index->nh+NR_END)*sizeof(double *)));
-
-      if (!l->co || !m->co) t_error("allocation failure in new_doublebin()");
-      l+=NR_END-1;
-      l->co[1]=U->co+minposition-1;
-      m+=NR_END-1;
-      m->co[1]=W->co+minposition-1;
-
-      if (!(l->co[1]) || !(m->co[1])) t_error("Failure in splitting this vector");
-      l->co[1]+=NR_END;
-      l->co[1]-=1;
-      m->co[1]+=NR_END;
-      m->co[1]-=1;
-
-      bins=head->next;
-      for (i=2; i<=l->index->nh; i++)
-        {
-          l->co[i]=l->co[i-1]+bins->i;
-          m->co[i]=m->co[i-1]+bins->i;
-          bins=bins->next;
-          if (bins==NULL) break;
-        }
-
-    }
-
-  U->isdynamic=-1;
-  U->nl=-1;
-  U->nh=1;
-
-  free(U);
-  W->isdynamic=-1;
-  W->nl=-1;
-  W->nh=1;
-
-  free(W);
-
-  delete_longpair_list(head);
-
-  return logdelta;
-
-}
-
-
-
-
-DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q)
-
-{
-
-  long i,count=0;
-
-
-  DOUBLEMATRIX *newm;
-
-  if (Q->co[1]<0)
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] > Q->co[2])
-            {
-              count++;
-            }
-        }
-    }
-  else if (Q->co[1]>0)
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] < Q->co[2])
-            {
-              count++;
-            }
-        }
-
-    }
-  else
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] != Q->co[2])
-            {
-              count++;
-            }
-        }
-
-
-    }
-
-
-  newm=new_doublematrix(count,2);
-
-  count=1;
-
-  if (Q->co[1]<0)
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] > Q->co[2])
-            {
-              newm->co[count][1]=data->co[i][1];
-              newm->co[count][2]=data->co[i][2];
-
-              count++;
-            }
-        }
-    }
-  else if (Q->co[1]>0)
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] < Q->co[2])
-            {
-              newm->co[count][1]=data->co[i][1];
-              newm->co[count][2]=data->co[i][2];
-              count++;
-            }
-        }
-
-    }
-  else
-    {
-
-      for (i=1; i<=data->nrh; i++)
-        {
-
-          if (data->co[i][2] != Q->co[2])
-            {
-              newm->co[count][1]=data->co[i][1];
-              newm->co[count][2]=data->co[i][2];
-
-              count++;
-            }
-        }
-
-
-    }
-
-
-  return newm;
-
-}
 
 /* interpolating_function */
 
@@ -2719,7 +1914,7 @@ Outputs:vettore: vettore di float con i dati per quell'istante
 /* interpolate_doublematrix */
 
 void interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante,
-                              DOUBLEVECTOR *vettore)
+                              Vector<double>* vettore)
 
 /**
 Nuova subroutine che interpola da una matrice di dati double il valore all'istante scelto.

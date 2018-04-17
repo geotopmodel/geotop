@@ -142,76 +142,6 @@ float floatvector_n_moment(FLOATVECTOR *v, float mean,float NN, float novalue)
 
 
 /*----------------------------------------------------------------------------------*/
-double doublevector_n_moment(DOUBLEVECTOR *v, float mean,float NN,
-                             double novalue)
-{
-  unsigned i,n=0;
-  double  moment=0;
-
-
-  if (v==NULL || v->co==NULL )
-    {
-      t_error("this vector was never allocated");
-    }
-  else if (v->nh <1 ||  v->isdynamic !=1)
-    {
-      t_error("this vector was not properly allocated");
-    }
-
-
-  if (NN==1)
-    {
-
-      for (i=1; i<v->nh; i++)
-        {
-
-          if (v->co[i]!=novalue)
-            {
-              moment+=v->co[i];
-              n++;
-            }
-
-        }
-      moment/=n;
-
-    }
-  else if (NN==2)
-    {
-
-      for (i=1; i<v->nh; i++)
-        {
-
-          if (v->co[i]!=novalue)
-            {
-              moment+=(v->co[i])*(v->co[i]);
-              n++;
-            }
-
-        }
-
-      moment=(moment/n-mean*mean);
-
-    }
-  else
-    {
-      for (i=1; i<v->nh; i++)
-        {
-
-          if (v->co[i]!=novalue)
-            {
-              moment+=pow((v->co[i]-mean),NN);
-              n++;
-            }
-
-        }
-
-      moment/=n;
-
-    }
-  return moment;
-}
-
-/*----------------------------------------------------------------------------------*/
 
 /*... Double precision variables' vector n-moment estimation  */
 float floatmatrix_n_moment(FLOATMATRIX *m, float mean,float NN, float novalue)
@@ -597,46 +527,6 @@ float floatvector_correlation(FLOATVECTOR *v,FLOATVECTOR *u,float m1,float m2,
     {
 
       if (v->co[i]!=novalue && u->co[i]!=novalue)
-        {
-          correlation+=v->co[i]*u->co[i+r];
-          n++;
-        }
-    }
-
-
-
-
-  return correlation/n -m1*m2;
-
-
-
-}
-
-
-/*----------------------------------------------------------------------------------*/
-double doublevector_correlation(DOUBLEVECTOR *v,DOUBLEVECTOR *u,double m1,
-                                double m2,long r,double novalue)
-{
-  long i,n=0;
-  float correlation=0;
-
-
-  if (v==NULL || v->co==NULL || u==NULL || u->co==NULL )
-    {
-      t_error("this vector was never allocated");
-    }
-  else if (v->nh <1 ||  v->isdynamic !=1 || u->nh <1 ||  u->isdynamic !=1)
-    {
-      t_error("this vector was not properly allocated");
-    }
-
-
-
-
-  for (i=1; i<v->nh-r; i++)
-    {
-
-      if (v->co[i]!=novalue && v->co[i]!=novalue)
         {
           correlation+=v->co[i]*u->co[i+r];
           n++;

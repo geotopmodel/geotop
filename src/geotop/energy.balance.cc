@@ -2839,8 +2839,8 @@ double flux(long i, long icol, double **met, double k, double add, double est)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void check_errors(long r, long c, long n, DOUBLEVECTOR *adi, DOUBLEVECTOR *ad,
-                  DOUBLEVECTOR *ads, DOUBLEVECTOR *b, DOUBLEVECTOR *e,
+void check_errors(long r, long c, long n, Vector<double>* adi, Vector<double>* ad,
+                  Vector<double>* ads, Vector<double>* b, Vector<double>* e,
                   double *T, SHORTVECTOR *mf)
 {
 

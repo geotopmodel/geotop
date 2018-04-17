@@ -80,8 +80,8 @@ void split_layers(long r, long c, STATEVAR_3D *snow, long l1);
 void merge_layers(double a, long r, long c, STATEVAR_3D *snow, long l1);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void min_max_layer(long n, DOUBLEVECTOR *Dmin, DOUBLEVECTOR *Dmax,
-                   DOUBLEVECTOR *Dmin2, DOUBLEVECTOR *Dmax2, long linf);
+void min_max_layer(long n, Vector<double>* Dmin, Vector<double>* Dmax,
+                   Vector<double>* Dmin2, Vector<double>* Dmax2, long linf);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void initialize_snow(long r, long c, long l, STATEVAR_3D *snow);

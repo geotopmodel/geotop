@@ -949,7 +949,7 @@ void print_floatvector_elements(FLOATVECTOR *v,long maxcols)
 }
 
 /**-----------------------------------------------------------------------*/
-long read_doublevector_elements(FILE *input, DOUBLEVECTOR *v,char *mode)
+long read_doublevector_elements(FILE *input, Vector<double>* v,char *mode)
 /**
 It reads a vector of  float numbers and returns the number of
 elements read. Storage mode can be either ascii or binary.
@@ -965,7 +965,7 @@ elements read. Storage mode can be either ascii or binary.
     {
       t_error("The input file was not opened properly or is not allocated");
     }
-  else if (v==NULL || v->co==NULL || (v->isdynamic)!=1)
+  else if (v==NULL || v->co==NULL )
     {
       t_error("The vector was not allocated properly");
     }
@@ -1013,7 +1013,7 @@ elements read. Storage mode can be either ascii or binary.
 }
 
 /**-----------------------------------------------------------------------*/
-long write_doublevector_elements(FILE *output, DOUBLEVECTOR *v, long maxcols)
+long write_doublevector_elements(FILE *output, Vector<double>* v, long maxcols)
 /** Write a vector of  double to a file */
 
 {
@@ -1026,7 +1026,7 @@ long write_doublevector_elements(FILE *output, DOUBLEVECTOR *v, long maxcols)
     {
       t_error("The input file was not opened properly");
     }
-  else if (v==NULL || v->co==NULL || v->isdynamic !=1)
+  else if (v==NULL || v->co==NULL )
     {
       t_error("The vector was not allocated properly");
     }
@@ -1056,95 +1056,6 @@ long write_doublevector_elements(FILE *output, DOUBLEVECTOR *v, long maxcols)
 
 }
 
-
-
-/**-----------------------------------------------------------------------*/
-
-long binarywrite_doublevector_elements(FILE *output, DOUBLEVECTOR *v)
-/** Write a vector of  double to a file in binary mode */
-
-{
-
-  long tmp=0;
-  long count=0;
-
-
-
-  if (output==NULL)
-    {
-      t_error("The input file was not opened properly");
-    }
-  else if (v==NULL || v->co==NULL || v->isdynamic !=1)
-    {
-      t_error("The vector was not allocated properly");
-    }
-  else if (v->nl > v->nh )
-    {
-      t_error("The vector has no proper dimensions");
-    }
-  else
-    {
-      tmp=fwrite((double *)&(v->co[v->nl]),sizeof(double),v->nh-v->nl+1,output);
-      if (tmp!=EOF)
-        {
-          count+=tmp;
-        }
-      else
-        {
-          printf("Error in stored data::Unespected End of file encountered");
-          printf("after position %ld\n",count);
-          return -count;
-
-        }
-    }
-
-  if (count!=(v->nh-v->nl+1))
-    {
-      printf("Error in stored data::Stored data number does not match the request");
-      return -count;
-    }
-  else
-    {
-      return count;
-    }
-
-
-}
-
-
-/**-----------------------------------------------------------------------*/
-void print_doublevector_elements(DOUBLEVECTOR *v,long maxcols)
-/* Write a vector of double to the standard output */
-
-{
-
-  long i;
-
-  putchar('\n');
-
-  if (v==NULL || v->co==NULL || v->isdynamic !=1)
-    {
-      t_error("The vector was not allocated properly");
-    }
-  else if (v->nl > v->nh )
-    {
-      t_error("The vector has no proper dimensions");
-    }
-  else
-    {
-
-      for (i=v->nl; i<=v->nh; i++)
-        {
-          printf("%f ",v->co[i]);
-          if (i%maxcols==0 && i!=(v->nh)) putchar('\n');
-        }
-
-
-    }
-
-  putchar('\n');
-
-}
 
 /**-----------------------------------------------------------------------*/
 long read_charvector_elements(FILE *input, CHARVECTOR *v,char *mode)
@@ -4024,7 +3935,7 @@ double get_parameter(char *working_directory,char *program)
   //char *fullname="\0";
   char *pathfile="\0",*S=".inpts";
   FILE *istream;
-  static DOUBLEVECTOR *s;
+  static std::unique_ptr<Vector<double>> s;
   long position=-1;
   //short sign=0;
   double parameter=0;
@@ -4180,11 +4091,11 @@ STRINGBIN *read_filenames(char *working_directory,char *program,
 }
 
 /**-----------------------------------------------------------------------*/
-DOUBLEVECTOR *read_parameters(char *working_directory,char *program,
-                              char *extension, char *position)
+std::unique_ptr<Vector<double>> read_parameters(char *working_directory, char *program,
+                                                char *extension, char *position)
 {
 
-  DOUBLEVECTOR *v=NULL;
+  std::unique_ptr<Vector<double>> v{};
   FILE *istream;
   long pos=-1;
 
@@ -4195,7 +4106,7 @@ DOUBLEVECTOR *read_parameters(char *working_directory,char *program,
     {
       pos=simplefind(istream,position);
       if (pos==-1) t_error("string not found");
-      v=read_doublearray(istream, NOPRINT);
+      v=std::move(read_doublearray(istream, NOPRINT));
       fclose(istream);
     }
   else
@@ -6523,7 +6434,7 @@ FLOATVECTOR *read_floatarray(FILE *inputfile,short print)
 
 
 
-DOUBLEVECTOR *read_doublearray(FILE *inputfile,short print)
+std::unique_ptr<Vector<double>> read_doublearray(FILE *inputfile, short print)
 
 
 
@@ -6550,7 +6461,7 @@ DOUBLEVECTOR *read_doublearray(FILE *inputfile,short print)
   //long blocksnumber=0;
   double *numbers=NULL;
 
-  DOUBLEVECTOR *vec=NULL;
+  std::unique_ptr<Vector<double>> vec;
 
   HEADER h;
 
@@ -6840,7 +6751,7 @@ DOUBLEVECTOR *read_doublearray(FILE *inputfile,short print)
 
 
 
-  vec=new_doublevector(i);
+  vec.reset(new Vector<double>{i});
 
 
 
@@ -9274,17 +9185,14 @@ FLOATVECTOR *read_floatvector(FILE *inputfile,char *mode, short print)
 
 /**-----------------------------------------------------------------------*/
 
-DOUBLEVECTOR *read_doublevector(FILE *inputfile,char *mode, short print)
-
-
-
+std::unique_ptr<Vector<double>> read_doublevector(FILE *inputfile,char *mode, short print)
 {
 
 
 
   char ch;
   HEADER h;
-  DOUBLEVECTOR *C=NULL;
+  std::unique_ptr<Vector<double>> C;
   long u;
 
 
@@ -9317,7 +9225,7 @@ DOUBLEVECTOR *read_doublevector(FILE *inputfile,char *mode, short print)
         printf("\nWarning::the data being read are not stored as a vector of double\n");
 
 
-      C=new_doublevector(h.dimensions[1]);
+      C.reset(new Vector<double>{h.dimensions[1]});
 
       skip_whitespaces(inputfile);
 
@@ -9423,7 +9331,7 @@ DOUBLEVECTOR *read_doublevector(FILE *inputfile,char *mode, short print)
 
 
 
-                  read_doublevector_elements(EXTERNAL_FILE,C,mode);
+                  read_doublevector_elements(EXTERNAL_FILE,C.get(),mode);
 
 
 
@@ -9506,7 +9414,7 @@ DOUBLEVECTOR *read_doublevector(FILE *inputfile,char *mode, short print)
 
 
 
-          read_doublevector_elements(inputfile,C,mode);
+          read_doublevector_elements(inputfile,C.get(),mode);
 
 
 
@@ -11794,7 +11702,7 @@ void write_floatarray_elements(FILE *outputfile,FLOATVECTOR *V, long columns)
 
 /**-----------------------------------------------------------------------*/
 
-void write_doublearray_elements(FILE *outputfile,DOUBLEVECTOR *V,
+void write_doublearray_elements(FILE *outputfile,Vector<double>* V,
                                 long columns)
 
 
@@ -11813,7 +11721,7 @@ void write_doublearray_elements(FILE *outputfile,DOUBLEVECTOR *V,
 
 
 
-  if (V==NULL || V->co==NULL || V->isdynamic !=1)
+  if (V==NULL || V->co==NULL )
     {
 
       t_error("The vector was not allocated properly");

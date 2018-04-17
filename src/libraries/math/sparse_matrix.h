@@ -68,60 +68,60 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
                                LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx);
 /****************************************************************************************************/
 
-void get_diag_lower_matrix(DOUBLEVECTOR *diag, DOUBLEVECTOR *udiag,
-                           LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax);
+void get_diag_lower_matrix(Vector<double>* diag, Vector<double>* udiag,
+                           LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax);
 /****************************************************************************************************/
 
-void get_diag_upper_matrix(DOUBLEVECTOR *diag, DOUBLEVECTOR *udiag,
-                           LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax);
+void get_diag_upper_matrix(Vector<double>* diag, Vector<double>* udiag,
+                           LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax);
 
 /****************************************************************************************************/
 long BiCGSTAB_lower(double tol_rel, double tol_min, double tol_max,
-                    DOUBLEVECTOR *x, DOUBLEVECTOR *b,
-                    LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax);
+                    Vector<double>* x, Vector<double>* b,
+                    LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax);
 
 /****************************************************************************************************/
 long BiCGSTAB_upper(double tol_rel, double tol_min, double tol_max,
-                    DOUBLEVECTOR *x, DOUBLEVECTOR *b,
-                    LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax);
+                    Vector<double>* x, Vector<double>* b,
+                    LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax);
 
 /****************************************************************************************************/
 
-void solve_upper_diagonal_system(DOUBLEVECTOR *x, DOUBLEVECTOR *B,
-                                 LONGVECTOR *Ait, LONGVECTOR *Apt, DOUBLEVECTOR *Axt);
+void solve_upper_diagonal_system(Vector<double>* x, Vector<double>* B,
+                                 LONGVECTOR *Ait, LONGVECTOR *Apt, Vector<double>* Axt);
 /****************************************************************************************************/
 
-void solve_lower_diagonal_system(DOUBLEVECTOR *x, DOUBLEVECTOR *B,
-                                 LONGVECTOR *Ait, LONGVECTOR *Apt, DOUBLEVECTOR *Axt);
+void solve_lower_diagonal_system(Vector<double>* x, Vector<double>* B,
+                                 LONGVECTOR *Ait, LONGVECTOR *Apt, Vector<double>* Axt);
 
 /****************************************************************************************************/
-void solve_SSOR_preconditioning(double omeg, DOUBLEVECTOR *x, DOUBLEVECTOR *B,
-                                LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx,
-                                LONGVECTOR *Ui, LONGVECTOR *Up, DOUBLEVECTOR *Ux);
+void solve_SSOR_preconditioning(double omeg, Vector<double>* x, Vector<double>* B,
+                                LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx,
+                                LONGVECTOR *Ui, LONGVECTOR *Up, Vector<double>* Ux);
 
 /****************************************************************************************************/
 long BiCGSTAB_LU_SSOR(double omeg, double tol_rel, double tol_min,
-                      double tol_max, DOUBLEVECTOR *x, DOUBLEVECTOR *b,
-                      LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx, LONGVECTOR *Ui,
-                      LONGVECTOR *Up, DOUBLEVECTOR *Ux);
+                      double tol_max, Vector<double>* x, Vector<double>* b,
+                      LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx, LONGVECTOR *Ui,
+                      LONGVECTOR *Up, Vector<double>* Ux);
 
 /****************************************************************************************************/
 /****************************************************************************************************/
 /****************************************************************************************************/
 //FURTHER PERSONALIZATION OF THE FUNCTIONS ABOVE
 
-void product_using_only_strict_lower_diagonal_part(DOUBLEVECTOR *product,
-                                                   DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx);
+void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
+                                                   Vector<double>* x, LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx);
 
 /****************************************************************************************************/
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
-  DOUBLEVECTOR *product, DOUBLEVECTOR *x, DOUBLEVECTOR *y,
-  LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx);
+  Vector<double>* product, Vector<double>* x, Vector<double>* y,
+  LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx);
 
 /****************************************************************************************************/
-void get_diag_strict_lower_matrix_plus_identity_by_vector(DOUBLEVECTOR *diag,
-                                                          DOUBLEVECTOR *udiag, DOUBLEVECTOR *y,
-                                                          LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx);
+void get_diag_strict_lower_matrix_plus_identity_by_vector(Vector<double>* diag,
+                                                          Vector<double>* udiag, Vector<double>* y,
+                                                          LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx);
 
 /****************************************************************************************************/
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
@@ -136,5 +136,5 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx);
 
 /****************************************************************************************************/
-void product_using_only_lower_diagonal_part2(DOUBLEVECTOR *product,
-                                             DOUBLEVECTOR *x, LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx);
+void product_using_only_lower_diagonal_part2(Vector<double>* product,
+                                             Vector<double>* x, LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx);

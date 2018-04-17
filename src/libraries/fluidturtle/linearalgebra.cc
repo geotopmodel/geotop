@@ -119,10 +119,10 @@ void ludcmp(SHORTVECTOR *indx, DOUBLEMATRIX *var)
   short mode;
   long i,j,imax,k,n;
   double aamax,dum,sum;
-  DOUBLEVECTOR *vv;
+  std::unique_ptr<Vector<double>> vv;
   mode=1;
   n=var->nrh;
-  vv=new_doublevector(n);
+  vv.reset(new Vector<double>{n});
   /*calcolo l'elemento di modulo massimo nella riga i e divido tutti gli elementi
     per quel numero*/
   for (i=1; i<=n; i++)
@@ -194,12 +194,11 @@ void ludcmp(SHORTVECTOR *indx, DOUBLEMATRIX *var)
             }
         }
     }
-  free_doublevector(vv);
 }
 
 /*-----------------------------------------------------*/
 
-void lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,DOUBLEVECTOR *gam)
+void lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,Vector<double>* gam)
 
 {
   long i,j,k,ii,n;
@@ -473,7 +472,7 @@ void linbcg(long n, double b[], double x[], int itol, double tol,
   long j;
   double ak,akden,bk,bkden,bknum,bnrm,dxnrm,xnrm,zm1nrm,znrm;
 
-  DOUBLEVECTOR *P,*PP,*R,*RR,*Z,*ZZ;
+  Vector<double>* P,*PP,*R,*RR,*Z,*ZZ;
   double *p,*pp,*r,*rr,*z,*zz;
 
 

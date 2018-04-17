@@ -304,10 +304,10 @@ void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n)
 {
 
   long r, c, nr, nc, ir, ic, i;
-  DOUBLEVECTOR *values;
+  std::unique_ptr<Vector<double>> values;
   long cnt;
 
-  values=new_doublevector((2*n+1)*(2*n+1));
+  values.reset(new Vector<double>{(2*n+1)*(2*n+1)});
 
   nr=Zin->nrh;
   nc=Zin->nch;
@@ -358,7 +358,6 @@ void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n)
         }
     }
 
-  free_doublevector(values);
 }
 
 /******************************************************************************************************************************************/
@@ -366,7 +365,7 @@ void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void order_values(DOUBLEVECTOR *list, long n)
+void order_values(Vector<double>* list, long n)
 {
 
   long i,j,k=0;

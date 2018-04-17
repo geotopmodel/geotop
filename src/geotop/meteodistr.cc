@@ -591,7 +591,7 @@ short interpolate_meteo(short flag, double dX, double dY,
 
   long r, c, n, nstn;
   double dn;
-  std::unique_ptr<Vector<double>> var{new Vector<double>{}}, xst{new Vector<double>{}}, yst{new Vector<double>{}};
+  std::unique_ptr<Vector<double>> var, xst, yst;
 
   nstn = 0;
   for (n = 1; n <= Xst->nh; n++) {
@@ -602,9 +602,9 @@ short interpolate_meteo(short flag, double dX, double dY,
 
   if (nstn == 0) return 0;
 
-  var->reinit(nstn);
-  xst->reinit(nstn);
-  yst->reinit(nstn);
+  var.reset(new Vector<double>{nstn});
+  xst.reset(new Vector<double>{nstn});
+  yst.reset(new Vector<double>{nstn});
 
   nstn = 0;
   for (n = 1; n <= Xst->nh; n++) {
@@ -684,7 +684,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint,
   double dsq;         //delx**2 + dely**2
   double xa, ya;       //x, y coords of current station
   double xb, yb;       //x, y coords of current station
-  DOUBLEVECTOR *dvar;     //estimated error
+  std::unique_ptr<Vector<double>> dvar;     //estimated error
 
   double xkappa_1;    // Gauss constant for first pass
   double xkappa_2;    // Gauss constant for second pass
@@ -693,7 +693,7 @@ void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint,
   double anum_1;      // numerator, beyond scanning radius,
   double anum_2;      // for first and second passes
 
-  dvar = new_doublevector(nstns);
+  dvar.reset(new Vector<double>{nstns});
 
   // Compute the first and second pass values of the scaling parameter
   //   and the maximum scanning radius used by the Barnes scheme.

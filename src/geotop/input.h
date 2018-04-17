@@ -37,7 +37,7 @@ typedef struct
   char **meteostations_col_names;
   DOUBLEMATRIX *bed;
   DOUBLETENSOR *pa_bed;
-  DOUBLEVECTOR *init_water_table_depth;
+  std::unique_ptr<Vector<double>> init_water_table_depth;
 } INIT_TOOLS;
 
 

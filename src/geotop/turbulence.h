@@ -41,7 +41,7 @@ double PsiStab(double z);
 
 void Lewis(double zmu, double zmt, double d0, double z0, double z0_z0t,
            double Ta, double Ts, double v, double *rm, double *rh, double *rv,
-           DOUBLEVECTOR *w);
+           Vector<double>* w);
 
 double cz(double zmeas, double z0, double d0, double L,
           double (* unstab)(double z), double (* stab)(double z));

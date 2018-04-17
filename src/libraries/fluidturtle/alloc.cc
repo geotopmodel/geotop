@@ -1077,13 +1077,13 @@ LONGVECTOR *new_longvector( long nh)
 /*-----------------------------------------------------------------------*/
 
 
-DOUBLEVECTOR *new_doublevector(long nh)
+DOUBLEVECTOR* new_doublevector(long nh)
 
 {
 
-  DOUBLEVECTOR *m;
+  DOUBLEVECTOR* m;
 
-  m=(DOUBLEVECTOR *)malloc(sizeof(DOUBLEVECTOR));
+  m=(DOUBLEVECTOR* )malloc(sizeof(DOUBLEVECTOR));
 
   if (!m) t_error("allocation failure in DOUBLEVECTOR()");
 
@@ -1099,32 +1099,6 @@ DOUBLEVECTOR *new_doublevector(long nh)
 
 
 }
-
-
-
-DOUBLEVECTOR *new_doublevector0(long nh)
-
-{
-
-  DOUBLEVECTOR *m;
-
-  m=(DOUBLEVECTOR *)malloc(sizeof(DOUBLEVECTOR));
-
-  if (!m) t_error("allocation failure in DOUBLEVECTOR()");
-
-  m->isdynamic=isDynamic;
-
-  m->nl=0;
-
-  m->nh=nh;
-
-  m->co=dvector(m->nl,nh);
-
-  return m;
-
-
-}
-
 
 
 /*-----------------------------------------------------------------------*/
@@ -3105,7 +3079,7 @@ void free_longvector( LONGVECTOR *v)
 
 
 
-void free_doublevector( DOUBLEVECTOR *v)
+void free_doublevector( DOUBLEVECTOR* v)
 
 
 

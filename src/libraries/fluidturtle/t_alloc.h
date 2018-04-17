@@ -35,7 +35,7 @@ FLOATVECTOR *new_floatvector(long);
 
 LONGVECTOR *new_longvector(long);
 
-DOUBLEVECTOR *new_doublevector(long);
+Vector<double>* new_doublevector(long);
 
 CHARVECTOR *new_charvector(long);
 
@@ -94,8 +94,7 @@ FLOATVECTOR *new_floatvector(long);
 
 LONGVECTOR *new_longvector(long);
 
-DOUBLEVECTOR *new_doublevector(long);
-DOUBLEVECTOR *new_doublevector0(long);
+DOUBLEVECTOR* new_doublevector(long);
 
 CHARVECTOR *new_charvector(long);
 
@@ -144,7 +143,7 @@ void free_shortvector( SHORTVECTOR *);
 void free_intvector( INTVECTOR *);
 void free_longvector( LONGVECTOR *);
 void free_floatvector( FLOATVECTOR *);
-void free_doublevector( DOUBLEVECTOR *);
+void free_doublevector( Vector<double>* );
 void free_charvector( CHARVECTOR *);
 
 void free_shortmatrix( SHORTMATRIX *);
@@ -180,7 +179,7 @@ void free_shortvector( SHORTVECTOR *);
 void free_intvector( INTVECTOR *);
 void free_longvector( LONGVECTOR *);
 void free_floatvector( FLOATVECTOR *);
-void free_doublevector( DOUBLEVECTOR *);
+void free_doublevector( Vector<double>* );
 void free_charvector( CHARVECTOR *);
 
 void free_shortmatrix( SHORTMATRIX *);

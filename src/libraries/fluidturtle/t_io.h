@@ -386,24 +386,11 @@ void print_floatvector_elements(FLOATVECTOR *,long );
 
 
 
-long read_doublevector_elements(FILE *,DOUBLEVECTOR *,char *);
+long read_doublevector_elements(FILE *,Vector<double>* ,char *);
 
 
 
-long write_doublevector_elements(FILE *,DOUBLEVECTOR *,long );
-
-
-
-long binarywrite_doublevector_elements(FILE *,DOUBLEVECTOR *);
-
-
-
-void print_doublevector_elements(DOUBLEVECTOR *,long );
-
-
-
-
-
+long write_doublevector_elements(FILE *,Vector<double>* ,long );
 
 
 long read_charvector_elements(FILE *,CHARVECTOR *,char *);
@@ -1165,8 +1152,8 @@ char *get_filename(char *,char *);
 STRINGBIN *read_filenames(char *working_directory,char *program,
                           char *extension, char *position);
 
-DOUBLEVECTOR *read_parameters(char *working_directory,char *program,
-                              char *extension, char *position);
+std::unique_ptr<Vector<double>> read_parameters(char *working_directory, char *program,
+                                                char *extension, char *position);
 
 /**
 
@@ -1926,7 +1913,7 @@ FLOATVECTOR *read_floatvector(FILE *, char *,short );
 
 
 
-DOUBLEVECTOR *read_doublevector(FILE *, char *,short );
+std::unique_ptr<Vector<double>> read_doublevector(FILE *, char *,short );
 
 
 
@@ -2168,7 +2155,7 @@ CHARVECTOR *read_chararray(FILE *,short);
 
 
 
-DOUBLEVECTOR *read_doublearray(FILE *,short);
+std::unique_ptr<Vector<double>> read_doublearray(FILE *, short);
 
 
 
@@ -2372,7 +2359,7 @@ void write_floatarray_elements(FILE *,FLOATVECTOR *, long );
 
 
 
-void write_doublearray_elements(FILE *,DOUBLEVECTOR *, long );
+void write_doublearray_elements(FILE *,Vector<double>* , long );
 
 
 

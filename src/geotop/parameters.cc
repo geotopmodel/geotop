@@ -1122,7 +1122,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //init date
   cod = 1;
-  par->init_date->reinit(num_param_components[cod]);
+  par->init_date.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->init_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param,
@@ -1137,7 +1137,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //end date
   cod = 2;
-  par->end_date->reinit(num_param_components[cod]);
+  par->end_date.reset(new Vector<double>{num_param_components[cod]});
 
   if (par->end_date->nh != par->init_date->nh)
     {
@@ -1746,7 +1746,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   if (par->nsoiltypes < 1) par->nsoiltypes = 1;
 
   cod = 166;
-  itools->init_water_table_depth = new_doublevector(par->nsoiltypes);
+  itools->init_water_table_depth.reset(new Vector<double>{par->nsoiltypes});
   itools->init_water_table_depth->co[1] = assignation_number(flog, cod, 0,
                                                              keyword, num_param, num_param_components, 5000., 0);
   for (k=2; k<=par->nsoiltypes; k++)

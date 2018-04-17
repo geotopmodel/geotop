@@ -1,33 +1,5 @@
 #define RATIO 1000
 
-/**
-
-Name: vectorize_doublematrix
-
-Version: 1.0
-
-Synopsis: DOUBLEVECTOR *vectorize_doublematrix(DOUBLEMATRIX *input)
-
-
-Description: takes a double matrix and transforms it to a vector. Actually
-this is easy done cause the data of the matrix  are stored in adjacent addresses.
-Thus, the function allocat the vector structure; put the address of the vector
-elements to the first of the matrix elements. Free the memory used by the matrix structure
-(but not that used by data).
-
-Inputs:  the input matrix
-
-Return: the pointer to the doublevector containing now the data.
-
-Examples:  APPLICATIONS/DATA_MANIPULATION/coupledfield_moments.c
-
-Authors & Date: Riccardo Rigon, October 1997.
-
-FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
-
-*/
-
-DOUBLEVECTOR *vectorize_doublematrix(DOUBLEMATRIX *input);
 FLOATVECTOR *vectorize_floatmatrix(FLOATMATRIX *input);
 LONGVECTOR *vectorize_longmatrix(LONGMATRIX *input);
 SHORTVECTOR *vectorize_shortmatrix(SHORTMATRIX *input);
@@ -38,7 +10,7 @@ Name: sortreal
 
 Version: 1.0
 
-Synopsis: void sortreal(DOUBLEVECTOR *ra)
+Synopsis: void sortreal(Vector<double>* ra)
 
 
 Description: sort a vector of double. The routine is very similar to the heap sort
@@ -56,7 +28,7 @@ FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/data
 
 */
 
-void sortreal(DOUBLEVECTOR *);
+void sortreal(Vector<double>* );
 
 /**
 
@@ -64,7 +36,7 @@ Name: sort2realvectors
 
 Version: 1.0
 
-Synopsis: void sort2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *);
+Synopsis: void sort2realvectors(Vector<double>* ,Vector<double>* );
 
 Description: sort a vector of double and accorsingly a second
 vector. The routine is very similar to the heap sort
@@ -82,7 +54,7 @@ FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/data
 
 */
 
-void sort2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *);
+void sort2realvectors(Vector<double>* ,Vector<double>* );
 void  sort2floatvectors(FLOATVECTOR *ra,FLOATVECTOR *rb);
 void  sort2vectors(LONGVECTOR *,FLOATVECTOR *);
 /**
@@ -124,8 +96,8 @@ Name:  simplehystogram, loghystogram
 Version: 1.0
 
 Synopsis:
-DOUBLEMATRIX *simplehystogram(DOUBLEVECTOR *U,long N,long mn),
-DOUBLEMATRIX *loghystogram(DOUBLEVECTOR *U,long N,long mn, long base)
+DOUBLEMATRIX *simplehystogram(Vector<double>* U,long N,long mn),
+DOUBLEMATRIX *loghystogram(Vector<double>* U,long N,long mn, long base)
 
 
 Description: Doing the hystogram of a set of data is more art than science.
@@ -172,8 +144,8 @@ from the data vector.
 */
 
 
-DOUBLEMATRIX *simplehystogram(DOUBLEVECTOR *,long,long);
-DOUBLEMATRIX *exponentialhystogram(DOUBLEVECTOR *,long,long, long);
+DOUBLEMATRIX *simplehystogram(Vector<double>* ,long,long);
+DOUBLEMATRIX *exponentialhystogram(Vector<double>* ,long,long, long);
 
 /**
 
@@ -182,7 +154,7 @@ Name: initialize_
 Version: 1.0
 
 Synopsis:
-void initialize_doublevector(DOUBLEVECTOR *,double );
+void initialize_doublevector(Vector<double>* ,double );
 void initialize_longmatrix(LONGMATRIX *, long);
 
 
@@ -205,7 +177,7 @@ void initialize_longvector(LONGVECTOR *, long);
 void initialize_shortvector(SHORTVECTOR *,short );
 void initialize_intvector(INTVECTOR *,int );
 void initialize_floatvector(FLOATVECTOR *,float );
-void initialize_doublevector(DOUBLEVECTOR *,double );
+void initialize_doublevector(Vector<double>* ,double );
 
 void initialize_longmatrix(LONGMATRIX *, long);
 void initialize_shortmatrix(SHORTMATRIX *,short );
@@ -231,7 +203,7 @@ void copy_shortvector(SHORTVECTOR *,SHORTVECTOR *);
 void copy_intvector(INTVECTOR *,INTVECTOR *);
 void copy_longvector(LONGVECTOR *,LONGVECTOR *);
 void copy_floatvector(FLOATVECTOR *,FLOATVECTOR *);
-void copy_doublevector(DOUBLEVECTOR *,DOUBLEVECTOR *);
+void copy_doublevector(Vector<double>* ,Vector<double>* );
 
 Version: 0.8
 
@@ -261,8 +233,7 @@ void copy_shortvector(SHORTVECTOR *,SHORTVECTOR *);
 void copy_intvector(INTVECTOR *,INTVECTOR *);
 void copy_longvector(LONGVECTOR *,LONGVECTOR *);
 void copy_floatvector(FLOATVECTOR *,FLOATVECTOR *);
-void copy_doublevector(const Vector<double> *,Vector<double> *);
-void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big);
+void copy_doublevector(const DOUBLEVECTOR *, DOUBLEVECTOR *);
 
 /**
 
@@ -273,7 +244,7 @@ Name:  _element_multiplication
 Synopsis:
 void shortvector_element_multiplication(SHORTVECTOR* ,SHORTVECTOR *);
 void floatvector_element_multiplication(FLOATVECTOR* ,FLOATVECTOR *);
-void doublevector_element_multiplication(DOUBLEVECTOR* ,DOUBLEVECTOR *);
+void doublevector_element_multiplication(DOUBLEVECTOR* ,Vector<double>* );
 void longvector_element_multiplication(LONGVECTOR* ,LONGVECTOR *);
 
 void shortmatrix_element_multiplication(SHORTMATRIX* ,SHORTMATRIX *);
@@ -304,7 +275,7 @@ and calculation can  go out of range
 */
 void shortvector_element_multiplication(SHORTVECTOR *,SHORTVECTOR *);
 void floatvector_element_multiplication(FLOATVECTOR *,FLOATVECTOR *);
-void doublevector_element_multiplication(DOUBLEVECTOR *,DOUBLEVECTOR *);
+
 void longvector_element_multiplication(LONGVECTOR *,LONGVECTOR *);
 
 void shortmatrix_element_multiplication(SHORTMATRIX *,SHORTMATRIX *);
@@ -318,8 +289,8 @@ Name: split, exponentialsplit
 
 Synopsis:
 
-DOUBLEBIN *split(DOUBLEVECTOR *tobesplitted,long N ,double novalue);
-DOUBLEBIN *esponentialsplit(DOUBLEVECTOR *tobesplitted,long N ,double base,double novalue);
+DOUBLEBIN *split(Vector<double>* tobesplitted,long N ,double novalue);
+DOUBLEBIN *esponentialsplit(Vector<double>* tobesplitted,long N ,double base,double novalue);
 
 Version: 0.9
 
@@ -356,55 +327,8 @@ the vector into the bin the novalue part of the vector remain kind of hidden
 
 */
 
-DOUBLEBIN *split(DOUBLEVECTOR *,long,FLOATVECTOR *);
-DOUBLEBIN *esponentialsplit(DOUBLEVECTOR *,long,double,FLOATVECTOR *);
+DOUBLEBIN *split(DOUBLEVECTOR *, long, FLOATVECTOR *);
 
-
-/**
-
-Name: split2realvectors, exponentialspliterealvectors
-
-Version: 0.9
-
-Synopsis:
-
-void  split2realvectors(DOUBLEVECTOR *FIRST,DOUBLEVECTOR *SECOND,DOUBLEBIN *ONE,DOUBLEBIN *TWO,long N,double novalue);
-void  esponentialsplit2realvectors(DOUBLEVECTOR *FIRST,DOUBLEVECTOR *SECOND,DOUBLEBIN *ONE,DOUBLEBIN *TWO,long N,double base, double  novalue);
-
-
-
-Description: They works as split or exponentialsplit on the first of two real vectors. The second one is
-splitted in the same position the first one is splitted.
-
-Inputs:
-split2realvectors: 1) The first vector to be splitted; 2) The second vector to be splitted;
-3) The pointer to the first resulting bin; 4) The pointer to the second resulting bin; 5)  The number of bins; 6) the novalue.
-exponentialsplit2realvectors: 1) The first vector to be splitted; 2) The second vector to be splitted; 3) The pointer to the first resulting
-bin; 4) The pointer to the second resulting bin; 5)  The number of bins;6) the base of the logarithm; 7) the novalue.
-
-Authors & Hystory: Riccardo Rigon, Paolo D'Odorico, November 1997, February 1998
-
-FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
-
-Needs: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics.h
-
-Examples: coupledfield_moments.c
-
-See Also: hystogram, coupled_field_moments.c
-
-References: Fractal River Basins, I. Rodriguez-Iturbe and A. Rinaldo, C.U.P., 1997
-
-NOTES: Probably there is not a correct cleaning of memory ... when trasforming
-the vector into the bin the novalue part of the vector remains hidden. Instead of using a longpair
-list, it can be used a simpler type of linked list with only one value stored.
-Low testing.
-
-*/
-
-double  split2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *,DOUBLEBIN *,
-                          DOUBLEBIN *,long,long,FLOATVECTOR *);
-double    esponentialsplit2realvectors(DOUBLEVECTOR *,DOUBLEVECTOR *,
-                                       DOUBLEBIN *,DOUBLEBIN *,long,long, double,FLOATVECTOR * );
 
 /**-----------------------------------------------------------------------*/
 
@@ -433,35 +357,6 @@ Authors & Date: Riccardo Rigon, March 1, 1998
 
 void clean_floatmatrix(FLOATMATRIX *iv,FLOATMATRIX *ov,FLOATVECTOR *U,
                        FLOATVECTOR *V);
-
-/**
-
-Name: shrink_doublematrix
-
-Synopsis: DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
-
-
-Description: eliminates from the first matrix (data) those elements set to novalues
-and return a smaller matrix
-
-Inputs: 1) the pointer to the data matrix;  2)
-the novalue of the first matrix;
-
-Returns: the new "shrinked" matrix
-
-FILE: LIBRARIES/BASICMATHSTAT/t_datamanipulation.h, LIBRARIES/BASICMATHSTAT/datamanipulation.c
-
-Examples: simple_interpolation.c
-
-Authors & Date: Riccardo Rigon, March 1, 1998
-
-References:
-
-Notes: Has been thought for matrixes with 2 columns
-
-*/
-
-DOUBLEMATRIX *shrink_doublematrix(DOUBLEMATRIX *data,FLOATVECTOR *Q);
 
 /**
 
@@ -554,7 +449,7 @@ void interpolate_floatmatrix(FLOATMATRIX *matrice, float dt, float istante,
 /**
 Name: interpolate_doublematrix
 
-Synopsis: interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante, DOUBLEVECTOR *vettore);
+Synopsis: interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante, Vector<double>* vettore);
 
 Description: linearly interpolate at the instant "istante" the values of a temporal series spaced by "dt".
     It is assumed that each row of a matrix of double contain a set of variables measured at the same time.
@@ -579,7 +474,7 @@ References:
 Bugs & Limitations:
 */
 void interpolate_doublematrix(DOUBLEMATRIX *matrice, float dt, float istante,
-                              DOUBLEVECTOR *vettore);
+                              Vector<double>* vettore);
 
 /**
 

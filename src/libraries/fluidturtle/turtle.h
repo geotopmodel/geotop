@@ -86,6 +86,7 @@ struct Vector{
    long nl=0,nh=0;               /* the lower bound, nl, and the upper, nh */
 
   std::unique_ptr<T[]> co;
+
   void reinit(const long _nh){
     nl=1;
     nh=_nh;
@@ -599,8 +600,8 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
 
 typedef struct   /*header of maps in fluid turtle format*/
 {
-  DOUBLEVECTOR *U;  /*dx,dy*/
-  DOUBLEVECTOR *V;  /*sign of novalue,novalue*/
+  std::unique_ptr<Vector<double>> U;  /*dx,dy*/
+  std::unique_ptr<Vector<double>> V;  /*sign of novalue,novalue*/
 } T_INIT;
 
 

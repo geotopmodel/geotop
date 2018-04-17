@@ -38,7 +38,7 @@ void tca(SHORTMATRIX *,LONGMATRIX *);
 
 Name: outletdistance
 
-Synopsis: void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,DOUBLEVECTOR *U);
+Synopsis: void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,Vector<double>* U);
 
 
 Version: 0.9
@@ -57,7 +57,7 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 
 */
 
-void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,DOUBLEVECTOR *U);
+void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,Vector<double>* U);
 
 
 /**
@@ -120,7 +120,7 @@ void topological_hillslopes_channels_outletdistance(SHORTMATRIX *m,
 Name: h_c_outletdistance
 
 Synopsis: void hillslopes_channels_outletdistance(SHORTMATRIX *m,SHORTMATRIX* hillslopes,
-              DOUBLEMATRIX *dist,DOUBLEVECTOR *U)
+              DOUBLEMATRIX *dist,Vector<double>* U)
 
 
 Version: 0.9
@@ -143,7 +143,7 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 */
 
 void hillslopes_channels_outletdistance(SHORTMATRIX *m,
-                                        SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,DOUBLEVECTOR *U);
+                                        SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,Vector<double>* U);
 /* old veriosn with U float */
 void hillslopes_channels_outletdistance_f(SHORTMATRIX *m,
                                           SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,FLOATVECTOR *U);
@@ -678,7 +678,7 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 */
 
 void drainagedirections(DOUBLEMATRIX *elevations,SHORTMATRIX *directions,
-                        DOUBLEVECTOR *U,DOUBLEVECTOR *V);
+                        Vector<double>* U,Vector<double>* V);
 
 
 
@@ -718,8 +718,8 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 
 */
 
-void drainagedirections_modify(DOUBLEMATRIX *,SHORTMATRIX *, DOUBLEVECTOR *U,
-                               DOUBLEVECTOR *V,
+void drainagedirections_modify(DOUBLEMATRIX *,SHORTMATRIX *, Vector<double>* U,
+                               Vector<double>* V,
                                SHORTMATRIX *);
 
 /* old version with U, V floating point */
@@ -737,7 +737,7 @@ Name: is_ontheborder
 
 Version: 1.0
 
-Synopsis: short is_ontheborder(DOUBLEMATRIX *elevations,DOUBLEVECTOR *V,long i, long j);
+Synopsis: short is_ontheborder(DOUBLEMATRIX *elevations,Vector<double>* V,long i, long j);
 
 
 Description: is_ontheborder return 1 if the point is a basin border point
@@ -766,7 +766,7 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 
 */
 
-short is_ontheborder(DOUBLEMATRIX *elevations,DOUBLEVECTOR *V,long i, long j);
+short is_ontheborder(DOUBLEMATRIX *elevations,Vector<double>* V,long i, long j);
 /* old version with U, V floating point */
 short is_ontheborder_f(DOUBLEMATRIX *elevations,FLOATVECTOR *V,long i,
                        long j);
@@ -807,5 +807,5 @@ Banavar et al.,  Allometry of River Networks,  submitted for pubblication, 2000
 
 void sum_downstream(SHORTMATRIX *flow,DOUBLEMATRIX *la,DOUBLEMATRIX *dist);
 
-void dem_array_check(DOUBLEVECTOR *T, DOUBLEVECTOR *U );
+void dem_array_check(Vector<double>* T, Vector<double>* U );
 

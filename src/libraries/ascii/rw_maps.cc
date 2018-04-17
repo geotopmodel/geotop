@@ -683,8 +683,8 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
       else if (a==0)
         {
 
-          UVref->U=new_doublevector(4);
-          UVref->V=new_doublevector(2);
+          UVref->U.reset(new Vector<double>{4});
+          UVref->V.reset(new Vector<double>{2});
           UVref->U->co[2]=Dxmap;
           UVref->U->co[1]=Dymap;
           UVref->U->co[4]=X0map;

@@ -98,7 +98,7 @@ void ludcmp(SHORTVECTOR *indx, DOUBLEMATRIX *var);
 
 Name: lubksb
 
-Synopsis: int lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,DOUBLEVECTOR *gam)
+Synopsis: int lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,Vector<double>* gam)
 
 Description: Convolves or deconvolves a real data set data [1..n] with a responce function respns[1..n]
 The responce function must be stored in wrap-around order in the first element of respns, where m is an odd
@@ -124,7 +124,7 @@ e bilancio idrologico di bacino, 1997
 
 */
 
-void lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,DOUBLEVECTOR *gam);
+void lubksb(DOUBLEMATRIX *var, SHORTVECTOR *indx,Vector<double>* gam);
 
 /**
 

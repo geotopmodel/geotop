@@ -1,37 +1,4 @@
-/**
 
-Name: doublevector_correlation, floatvector_correlation, longvector_correlation
-
-Synopsis:
-double doublevector_correlation(DOUBLEVECTOR *,DOUBLEVECTOR *,double ,double ,long ,double );
-float floatvector_correlation(FLOATVECTOR *,FLOATVECTOR *u,float ,float ,long  ,float );
-float longvector_correlation(LONGVECTOR *,LONGVECTOR *,float,float ,long ,long);
-
-
-Description: It calculates the biased corretion between two vectors of the specified type.
-
-Inputs:  1) the first vector; 2) the second vector; 3) the first vector mean; 4) the second
-vector mean; 5) the lag at which the correlation is calculated; 6) the value that identify
-"NO DATA"
-
-Return: biased correlation (the division factor is the length of the vector minus the
-number of missing data)
-
-
-FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics.h
-
-Examples: hystogram.c
-
-
-Authors & Date: Paolo D'Odorico, Riccardo Rigon, February 1998.
-
-References: Probability, Statistics, and Reliability for Civil and Environmental Engineers
-
-*/
-
-
-double doublevector_correlation(DOUBLEVECTOR *,DOUBLEVECTOR *,double,double,
-                                long,double );
 float floatvector_correlation(FLOATVECTOR *,FLOATVECTOR *u,float,float,long,
                               float );
 float longvector_correlation(LONGVECTOR *,LONGVECTOR *,float,float,long,long);
@@ -44,7 +11,7 @@ Synopsis:
 float longmatrix_n_moment(LONGMATRIX *, double ,double , long );
 double doublematrix_n_moment(DOUBLEMATRIX *, double ,double  , double );
 float floatmatrix_n_moment(FLOATMATRIX *, float ,float , float );
-double doublevector_n_moment(DOUBLEVECTOR *, float ,float , double );
+double doublevector_n_moment(Vector<double>* , float ,float , double );
 float floatvector_n_moment(FLOATVECTOR *, float ,float , float );
 float longvector_n_moment(LONGVECTOR *, float ,float , long );
 
@@ -75,7 +42,7 @@ FILE: LIBRARIES/BASICMATHSTAT/statistics.c, LIBRARIES/BASICMATHSTAT/t_statistics
 float longmatrix_n_moment(LONGMATRIX *, double,double, long );
 double doublematrix_n_moment(DOUBLEMATRIX *, double,double, double );
 float floatmatrix_n_moment(FLOATMATRIX *, float,float, float );
-double doublevector_n_moment(DOUBLEVECTOR *, float,float, double );
+
 float floatvector_n_moment(FLOATVECTOR *, float,float, float );
 float longvector_n_moment(LONGVECTOR *, float,float, long );
 float floatmatrix_moment(FLOATMATRIX *, float,float, float );

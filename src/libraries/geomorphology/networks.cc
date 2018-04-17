@@ -186,7 +186,7 @@ LONGPAIR *initialize_flowdirections_with_outlets(SHORTMATRIX *m)
 
 
 void drainagedirections(DOUBLEMATRIX *elevations,SHORTMATRIX *directions,
-                        DOUBLEVECTOR *U,DOUBLEVECTOR *V)
+                        Vector<double>* U,Vector<double>* V)
 
 {
 
@@ -284,7 +284,7 @@ void drainagedirections(DOUBLEMATRIX *elevations,SHORTMATRIX *directions,
 /*--------------------------------------------------*/
 
 void drainagedirections_modify(DOUBLEMATRIX *elevations,
-                               SHORTMATRIX *directions,DOUBLEVECTOR *U,DOUBLEVECTOR *V,
+                               SHORTMATRIX *directions,Vector<double>* U,Vector<double>* V,
                                SHORTMATRIX *segna)
 /*
 Inputs:   1) Z0 matrice delle elevazioni
@@ -479,7 +479,7 @@ Outputs:  1) directions shortmatrix of directions
 
 /*--------------------------------------------------*/
 
-short is_ontheborder(DOUBLEMATRIX *elevations,DOUBLEVECTOR *V,long i, long j)
+short is_ontheborder(DOUBLEMATRIX *elevations,Vector<double>* V,long i, long j)
 
 /* serve per trovare i punti di uscita ed i pits */
 
@@ -829,7 +829,7 @@ void select_hillslopes_f(LONGMATRIX *ca,FLOATMATRIX *drainagedirections,
 
 /*---------------------------------------------------------------------*/
 
-void  outletdistance(SHORTMATRIX *m, DOUBLEMATRIX *dist, DOUBLEVECTOR *U)
+void  outletdistance(SHORTMATRIX *m, DOUBLEMATRIX *dist, Vector<double>* U)
 
 {
 
@@ -1092,7 +1092,7 @@ void topological_hillslopes_channels_outletdistance(SHORTMATRIX *m,
 /*-----------------------------------------------------*/
 
 void hillslopes_channels_outletdistance(SHORTMATRIX *m,
-                                        SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,DOUBLEVECTOR *U)
+                                        SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,Vector<double>* U)
 
 {
 
@@ -2786,7 +2786,7 @@ void sum_downstream(SHORTMATRIX *flow,DOUBLEMATRIX *la,DOUBLEMATRIX *dist)
 
 /*--------------------------------------------------------------------------------------*/
 
-void dem_array_check(DOUBLEVECTOR *T, DOUBLEVECTOR *U )
+void dem_array_check(Vector<double>* T, Vector<double>* U )
 
 {
 
