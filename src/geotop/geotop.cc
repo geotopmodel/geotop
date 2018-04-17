@@ -128,15 +128,15 @@ int main(int argc,char *argv[])
 
 
   /*------------------    3.  Acquisition of input data and initialisation    --------------------*/
-  get_all_input(argc, argv, adt->T, adt->S, adt->L, adt->M, adt->W, adt->C,
-                adt->P, adt->E, adt->N, adt->G, adt->I);
+  get_all_input(argc, argv, adt->T.get(), adt->S.get(), adt->L.get(), adt->M.get(), adt->W.get(), adt->C.get(),
+                adt->P.get(), adt->E.get(), adt->N.get(), adt->G.get(), adt->I.get());
 
   /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
   time_loop(adt.get());
 
   /*--------------------   5.Completion of the output files and deallocaions  --------------------*/
-  dealloc_all(adt->T, adt->S, adt->L, adt->W, adt->C, adt->P, adt->E, adt->N,
-              adt->G, adt->M, adt->I);
+  dealloc_all(adt->T.get(), adt->S.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->E.get(), adt->N.get(),
+              adt->G.get(), adt->M.get(), adt->I.get());
 
 
   printf("End of simulation!\n");
@@ -165,7 +165,7 @@ void time_loop(ALLDATA *A)
 
   STATEVAR_3D *S=NULL, *G=NULL;
   SOIL_STATE *L, *C;
-  STATE_VEG *V;
+  std::unique_ptr<STATE_VEG> V;
   std::unique_ptr<Vector<double>> a, Vsup_ch, Vsub_ch;
 
 
@@ -182,8 +182,8 @@ void time_loop(ALLDATA *A)
   initialize_soil_state(L, A->P->total_pixel, Nl);
   C=(SOIL_STATE *)malloc(sizeof(SOIL_STATE));
   initialize_soil_state(C, A->C->r->nh, Nl);
-  V=(STATE_VEG *)malloc(sizeof(STATE_VEG));
-  initialize_veg_state(V, A->P->total_pixel);
+  V.reset(new STATE_VEG);
+  initialize_veg_state(V.get(), A->P->total_pixel);
   a.reset(new Vector<double>{A->P->total_pixel});
   Vsub_ch.reset(new Vector<double>{A->C->r->nh});
   Vsup_ch.reset(new Vector<double>{A->C->r->nh});
@@ -212,7 +212,7 @@ void time_loop(ALLDATA *A)
                       i_run);
               fclose(f);
 
-              print_run_average(A->S, A->T, A->P);
+              print_run_average(A->S.get(), A->T.get(), A->P.get());
 
               i_run++;
               A->I->time = 0.0;//Initialize time
@@ -227,8 +227,8 @@ void time_loop(ALLDATA *A)
 
               if (i_run <= A->P->run_times->co[i_sim])
                 {
-                  reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
-                  init_run(A->S, A->P);
+                  reset_to_zero(A->P.get(), A->S.get(), A->L.get(), A->N.get(), A->G.get(), A->E.get(), A->M.get(), A->W.get());
+                  init_run(A->S.get(), A->P.get());
                 }
 
             }
@@ -236,7 +236,7 @@ void time_loop(ALLDATA *A)
             {
 
               //find time step from file or inpts
-              set_time_step(A->P, A->I);
+              set_time_step(A->P.get(), A->I.get());
 
               //time at the beginning of the time step
               JD0 = A->P->init_date->co[i_sim]+A->I->time/secinday;
@@ -266,7 +266,7 @@ void time_loop(ALLDATA *A)
                       if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
                       copy_soil_state(A->S->SS, L);
                       copy_soil_state(A->C->SS, C);
-                      copy_veg_state(A->S->VS, V);
+                      copy_veg_state(A->S->VS.get(), V.get());
 
                       /*for (j=1; j<=A->W->H1->nh; j++) {
                         l=A->T->lrc_cont->co[j][1];
@@ -283,15 +283,15 @@ void time_loop(ALLDATA *A)
 
                       //meteo
                       tstart=clock();
-                      meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M, A->W, A->T,
-                                  A->P, JD0, JDb, JDe);
+                      meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M.get(), A->W.get(), A->T.get(),
+                                  A->P.get(), JD0, JDb, JDe);
                       tend=clock();
                       t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
                       if (A->P->en_balance == 1)
                         {
                           tstart=clock();
-                          en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a.get(), A, &W);
+                          en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V.get(), a.get(), A, &W);
                           tend=clock();
                           t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                         }
@@ -422,7 +422,7 @@ void time_loop(ALLDATA *A)
                   if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
                   copy_soil_state(L, A->S->SS);
                   copy_soil_state(C, A->C->SS);
-                  copy_veg_state(V, A->S->VS);
+                  copy_veg_state(V.get(), A->S->VS.get());
                   *(A->C->Vsub) += *Vsub_ch;
                   *(A->C->Vsup) += *Vsup_ch;
                   A->C->Vout += Vout;
@@ -436,8 +436,8 @@ void time_loop(ALLDATA *A)
                   odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin->co[i_sim]);
 
                   //write output variables
-                  fill_output_vectors(Dt, W, A->E, A->N, A->G, A->W, A->M, A->P, A->I, A->T,
-                                      A->S);
+                  fill_output_vectors(Dt, W, A->E.get(), A->N.get(), A->G.get(), A->W.get(), A->M.get(), A->P.get(), A->I.get(), A->T.get(),
+                                      A->S.get());
 
                   //reset Dt
                   if (Dt < A->P->Dt) Dt *= 2.;
@@ -448,14 +448,14 @@ void time_loop(ALLDATA *A)
               if (A->P->blowing_snow==1)
                 {
                   tstart=clock();
-                  windtrans_snow(A->N, A->M, A->W, A->L, A->T, A->P, A->I->time);
+                  windtrans_snow(A->N.get(), A->M.get(), A->W.get(), A->L.get(), A->T.get(), A->P.get(), A->I->time);
                   tend=clock();
                   t_blowingsnow+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                 }
 
               tstart=clock();
-              write_output(A->I, A->W, A->C, A->P, A->T, A->L, A->S, A->E, A->N, A->G,
-                           A->M);
+              write_output(A->I.get(), A->W.get(), A->C.get(), A->P.get(), A->T.get(), A->L.get(), A->S.get(), A->E.get(), A->N.get(), A->G.get(),
+                           A->M.get());
               tend=clock();
               t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
@@ -466,12 +466,12 @@ void time_loop(ALLDATA *A)
         }
       while (i_run <= A->P->run_times->co[i_sim]);//end of time-cycle
 
-      if (A->P->newperiodinit != 0) end_period_1D(A->S, A->T, A->P);
-      if (i_sim < A->P->init_date->nh) change_grid(i_sim, i_sim+1, A->P, A->T, A->L,
-                                                     A->W, A->C);
+      if (A->P->newperiodinit != 0) end_period_1D(A->S.get(), A->T.get(), A->P.get());
+      if (i_sim < A->P->init_date->nh) change_grid(i_sim, i_sim+1, A->P.get(), A->T.get(), A->L.get(),
+                                                     A->W.get(), A->C.get());
 
-      reset_to_zero(A->P, A->S, A->L, A->N, A->G, A->E, A->M, A->W);
-      init_run(A->S, A->P);
+      reset_to_zero(A->P.get(), A->S.get(), A->L.get(), A->N.get(), A->G.get(), A->E.get(), A->M.get(), A->W.get());
+      init_run(A->S.get(), A->P.get());
 
       i_sim++;
       i_run0 = 1;
@@ -484,7 +484,6 @@ void time_loop(ALLDATA *A)
   if (A->P->max_glac_layers>0) deallocate_statevar_3D(G);
   deallocate_soil_state(L);
   deallocate_soil_state(C);
-  deallocate_veg_state(V);
 
 }
 

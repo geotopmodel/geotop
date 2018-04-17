@@ -92,8 +92,9 @@ struct Vector{
     nh=_nh;
     co.reset(new T[nh+1]{});
   }
+  ~Vector() = default;
 
-  Vector() = default;
+  Vector() = delete;
   explicit Vector(const long n, const long l=1): nl{l}, nh{n}, co{new T[nh-nl+1+1]{}} {}
 
   Vector(const Vector<T>& v): nl{v.nl}, nh{v.nh}, co{new T[nh-nl+1+1]}{
@@ -107,16 +108,19 @@ struct Vector{
     co.reset(new T[nh-nl+1+1]);
     for (auto i=nl; i<=nh;++i)
       co[i] = v.co[i];
+    return *this;
   }
 
   Vector<T>& operator=(const T v){
     for (auto i=nl; i<=nh;++i)
       co[i] = v;
+    return *this;
   }
 
   Vector<T>& operator+=(const Vector<T>& v){
     for (auto i=nl; i<=nh;++i)
       co[i] += v.co[i];
+    return *this;
   }
 };
 

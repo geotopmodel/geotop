@@ -123,18 +123,18 @@ typedef struct
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct
+struct STATE_VEG
 {
 
   std::unique_ptr<Vector<double>> Tv;
   std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
   std::unique_ptr<Vector<double>> wsnow;       /*intercepted precipitation in mm*/
 
-} STATE_VEG;
+};
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct
+struct SOIL
 {
   LONGMATRIX *type;
   DOUBLETENSOR *pa;
@@ -154,7 +154,7 @@ typedef struct
   DOUBLEMATRIX *thizavplot;
   DOUBLEMATRIX *satratio;
   SOIL_STATE *SS;
-  STATE_VEG *VS;
+  std::unique_ptr<STATE_VEG> VS;
 
   DOUBLEMATRIX *Tzrun;
   DOUBLEMATRIX *wzrun;
@@ -169,7 +169,7 @@ typedef struct
   std::unique_ptr<Vector<double>> Pnetcum;
   std::unique_ptr<Vector<double>> ETcum;
 
-} SOIL;
+};
 
 
 
@@ -781,52 +781,29 @@ typedef struct
 } METEO;
 
 
-class ALLDATA
+struct ALLDATA
 {
-  std::unique_ptr<SOIL> _S;
-  std::unique_ptr<WATER> _W;
-  std::unique_ptr<LAND> _L;
-  std::unique_ptr<PAR> _P;
-  std::unique_ptr<TOPO> _T;
-  std::unique_ptr<CHANNEL> _C;
-  std::unique_ptr<ENERGY> _E;
-  std::unique_ptr<SNOW> _N;
-  std::unique_ptr<GLACIER> _G;
-  std::unique_ptr<METEO> _M;
-  std::unique_ptr<TIMES> _I;
-public:
-  SOIL       *S;
-  WATER      *W;
-  LAND       *L;
-  PAR        *P;
-  TOPO       *T;
-  CHANNEL    *C;
-  ENERGY     *E;
-  SNOW       *N;
-  GLACIER    *G;
-  METEO      *M;
-  TIMES      *I;
-  ALLDATA():
-    _S{new SOIL},
-  _W{new WATER},
-  _L{new LAND},
-  _P{new PAR},
-  _T{new TOPO},
-  _C{new CHANNEL},
-  _E{new ENERGY},
-  _N{new SNOW},
-  _G{new GLACIER},
-  _M{new METEO},
-  _I{new TIMES},
-  S{_S.get()},
-  W{_W.get()},
-  L{_L.get()},
-  P{_P.get()},
-  T{_T.get()},
-  C{_C.get()},
-  E{_E.get()},
-  N{_N.get()},
-  G{_G.get()},
-  M{_M.get()},
-  I{_I.get()} {}
+  std::unique_ptr<SOIL> S;
+  std::unique_ptr<WATER> W;
+  std::unique_ptr<LAND> L;
+  std::unique_ptr<PAR> P;
+  std::unique_ptr<TOPO> T;
+  std::unique_ptr<CHANNEL> C;
+  std::unique_ptr<ENERGY> E;
+  std::unique_ptr<SNOW> N;
+  std::unique_ptr<GLACIER> G;
+  std::unique_ptr<METEO> M;
+  std::unique_ptr<TIMES> I;
+  ALLDATA():  S{new SOIL{}},
+  W{new WATER{}},
+  L{new LAND{}},
+  P{new PAR{}},
+  T{new TOPO{}},
+  C{new CHANNEL{}},
+  E{new ENERGY{}},
+  N{new SNOW{}},
+  G{new GLACIER{}},
+  M{new METEO{}},
+  I{new TIMES{}}
+ {}
 };

@@ -1013,8 +1013,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   sl->SS = (SOIL_STATE *)malloc(sizeof(SOIL_STATE));
   initialize_soil_state(sl->SS, par->total_pixel, Nl);
 
-  sl->VS = (STATE_VEG *)malloc(sizeof(STATE_VEG));
-  initialize_veg_state(sl->VS, par->total_pixel);
+  sl->VS.reset(new STATE_VEG{});
+  initialize_veg_state(sl->VS.get(), par->total_pixel);
 
   sl->th=new_doublematrix(Nl,par->total_pixel);
   initialize_doublematrix(sl->th,(double)number_novalue);

@@ -134,7 +134,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_doubletensor(sl->pa);
   free_doubletensor(sl->ET);
   deallocate_soil_state(sl->SS);
-  deallocate_veg_state(sl->VS);
 
   if (par->state_pixel == 1)
     {

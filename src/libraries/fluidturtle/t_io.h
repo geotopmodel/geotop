@@ -126,7 +126,7 @@ Examples: 1.example.c
 
 
 
-
+#include<cstdio>
 
 
 

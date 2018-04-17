@@ -145,7 +145,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
 
   //CLOUDINESS
   find_actual_cloudiness(&(A->M->tau_cloud), &(A->M->tau_cloud_av),
-                         &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), A->M, JDb, JDe, Delta, E0,
+                         &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), A->M.get(), JDb, JDe, Delta, E0,
                          Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
 
   //POINT ENERGY BALANCE
@@ -734,8 +734,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       //ENERGY BALANCE
       sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB,
                                   A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C,
-                                  V, A->E, A->L,
-                                  A->S, A->C, A->T, A->P, ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
+                                  V, A->E.get(), A->L.get(),
+                                  A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
                                   eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0],
                                   &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow,
@@ -757,14 +757,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       //snow melting issue
       if (ic > 0)
         {
-          sux_minus6_condition(ic, wa, rho, 1.E-3*A->S->pa->co[sy][jdz][1], A->E);
+          sux_minus6_condition(ic, wa, rho, 1.E-3*A->S->pa->co[sy][jdz][1], A->E.get());
           ns ++;
         }
 
       if (i<=A->P->total_channel)
         {
 
-          update_soil_channel(A->P->nsurface, ns+ng, i, fc, Dt, A->E, A->S->pa->co[sy],
+          update_soil_channel(A->P->nsurface, ns+ng, i, fc, Dt, A->E.get(), A->S->pa->co[sy],
                               C, A->C->ET, A->C->th);
 
         }
@@ -811,14 +811,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             }
 
           //soil
-          update_soil_land(A->P->nsurface, ns+ng, j, r, c, fc, Dt, A->E,
+          update_soil_land(A->P->nsurface, ns+ng, j, r, c, fc, Dt, A->E.get(),
                            A->S->pa->co[sy], L, A->S->ET, A->S->th);
 
           //glacier
           if (A->P->max_glac_layers>0)
             {
               //glacier melting
-              WBglacier(ns, ng, r, c, G, &Melt_glac, A->P, A->E, Evap_glac);
+              WBglacier(ns, ng, r, c, G, &Melt_glac, A->P.get(), A->E.get(), Evap_glac);
               //adjust glacier layers
               snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint,
                                      A->P->inf_glac_layers, A->P->max_weq_glac, 1.E10, f);
@@ -826,8 +826,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
           //SNOW
           //snow melting, compactation and percolation
-          WBsnow(Dt, ns, r, c, S, &Melt_snow, &RainOnSnow, A->P, A->T->slope->co[r][c],
-                 Prain, A->E, Evap_snow);
+          WBsnow(Dt, ns, r, c, S, &Melt_snow, &RainOnSnow, A->P.get(), A->T->slope->co[r][c],
+                 Prain, A->E.get(), Evap_snow);
 
           //adjust snow layers
           if (A->P->point_sim == 1)

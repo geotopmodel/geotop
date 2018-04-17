@@ -90,8 +90,8 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       //surface flow: 1st half of time step
       start=clock();
       supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T, adt->L, adt->W,
-              adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
+              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(),
+              adt->C.get(), adt->P.get(), adt->M.get(), Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
       end=clock();
 
       /*MMo += mmo;
@@ -158,8 +158,8 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       //surface flow: 2nd half of time step
       start=clock();
       supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T, adt->L, adt->W,
-              adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
+              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(),
+              adt->C.get(), adt->P.get(), adt->M.get(), Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
       end=clock();
 
       /*MMo += mmo;
