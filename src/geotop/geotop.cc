@@ -166,7 +166,7 @@ void time_loop(ALLDATA *A)
   STATEVAR_3D *S=NULL, *G=NULL;
   SOIL_STATE *L, *C;
   STATE_VEG *V;
-  DOUBLEVECTOR *a, *Vsup_ch, *Vsub_ch;
+  std::unique_ptr<Vector<double>> a, Vsup_ch, Vsub_ch;
 
 
   S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
@@ -184,9 +184,9 @@ void time_loop(ALLDATA *A)
   initialize_soil_state(C, A->C->r->nh, Nl);
   V=(STATE_VEG *)malloc(sizeof(STATE_VEG));
   initialize_veg_state(V, A->P->total_pixel);
-  a=new_doublevector(A->P->total_pixel);
-  Vsub_ch=new_doublevector(A->C->r->nh);
-  Vsup_ch=new_doublevector(A->C->r->nh);
+  a->reinit(A->P->total_pixel);
+  Vsub_ch->reinit(A->C->r->nh);
+  Vsup_ch->reinit(A->C->r->nh);
 
   time( &start_time );
 
@@ -261,7 +261,7 @@ void time_loop(ALLDATA *A)
 
                       //copy state variables on
                       copy_snowvar3D(A->N->S, S);
-                      copy_doublevector(A->N->age, a);
+                      copy_doublevector(A->N->age.get(), a.get());
                       if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
                       copy_soil_state(A->S->SS, L);
                       copy_soil_state(A->C->SS, C);
@@ -275,8 +275,6 @@ void time_loop(ALLDATA *A)
                       }*/
 
                       //init
-                      initialize_doublevector(Vsub_ch, 0.);
-                      initialize_doublevector(Vsup_ch, 0.);
                       Vout = 0.;
                       Voutsub = 0.;
                       Voutsup = 0.;
@@ -292,7 +290,7 @@ void time_loop(ALLDATA *A)
                       if (A->P->en_balance == 1)
                         {
                           tstart=clock();
-                          en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a, A, &W);
+                          en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V, a.get(), A, &W);
                           tend=clock();
                           t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                         }
@@ -300,7 +298,7 @@ void time_loop(ALLDATA *A)
                       if (A->P->wat_balance == 1 && en == 0)
                         {
                           tstart=clock();
-                          wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch, Vsup_ch, &Vout,
+                          wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch.get(), Vsup_ch.get(), &Vout,
                                              &Voutsub, &Voutsup, &Vbottom);
                           tend=clock();
                           t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
@@ -418,13 +416,13 @@ void time_loop(ALLDATA *A)
 
                   //write state variables
                   copy_snowvar3D(S, A->N->S);
-                  copy_doublevector(a, A->N->age);
+                  copy_doublevector(a.get(), A->N->age.get());
                   if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
                   copy_soil_state(L, A->S->SS);
                   copy_soil_state(C, A->C->SS);
                   copy_veg_state(V, A->S->VS);
-                  add_doublevector(Vsub_ch, A->C->Vsub);
-                  add_doublevector(Vsup_ch, A->C->Vsup);
+                  *(A->C->Vsub) += *Vsub_ch;
+                  *(A->C->Vsup) += *Vsup_ch;
                   A->C->Vout += Vout;
                   A->W->Voutbottom += Vbottom;
                   A->W->Voutlandsub += Voutsub;
@@ -485,9 +483,6 @@ void time_loop(ALLDATA *A)
   deallocate_soil_state(L);
   deallocate_soil_state(C);
   deallocate_veg_state(V);
-  free_doublevector(a);
-  free_doublevector(Vsub_ch);
-  free_doublevector(Vsup_ch);
 
 }
 

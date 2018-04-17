@@ -29,83 +29,83 @@
 typedef struct
 {
 
-  DOUBLEVECTOR *Rn_mean;
-  DOUBLEVECTOR *LWin_mean;
-  DOUBLEVECTOR *LW_mean;
-  DOUBLEVECTOR *SW_mean;
-  DOUBLEVECTOR *ET_mean;
-  DOUBLEVECTOR *H_mean;
-  DOUBLEVECTOR *SEB_mean;
+  std::unique_ptr<Vector<double>> Rn_mean;
+  std::unique_ptr<Vector<double>> LWin_mean;
+  std::unique_ptr<Vector<double>> LW_mean;
+  std::unique_ptr<Vector<double>> SW_mean;
+  std::unique_ptr<Vector<double>> ET_mean;
+  std::unique_ptr<Vector<double>> H_mean;
+  std::unique_ptr<Vector<double>> SEB_mean;
   DOUBLEVECTOR
   *Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
-  DOUBLEVECTOR *Rswdown_mean;
-  DOUBLEVECTOR *Rswbeam_mean;
+  std::unique_ptr<Vector<double>> Rswdown_mean;
+  std::unique_ptr<Vector<double>> Rswbeam_mean;
   LONGVECTOR *nDt_shadow;
   LONGVECTOR *nDt_sun;
 
-  DOUBLEVECTOR *Rn;
-  DOUBLEVECTOR *LWin;
-  DOUBLEVECTOR *LW;
-  DOUBLEVECTOR *SW;
-  DOUBLEVECTOR *LE;
-  DOUBLEVECTOR *H;
-  DOUBLEVECTOR *G;
-  DOUBLEVECTOR *Ts;
-  DOUBLEVECTOR *SWin;
-  DOUBLEVECTOR *SWinb;
+  std::unique_ptr<Vector<double>> Rn;
+  std::unique_ptr<Vector<double>> LWin;
+  std::unique_ptr<Vector<double>> LW;
+  std::unique_ptr<Vector<double>> SW;
+  std::unique_ptr<Vector<double>> LE;
+  std::unique_ptr<Vector<double>> H;
+  std::unique_ptr<Vector<double>> G;
+  std::unique_ptr<Vector<double>> Ts;
+  std::unique_ptr<Vector<double>> SWin;
+  std::unique_ptr<Vector<double>> SWinb;
   SHORTVECTOR *shad;
 
-  DOUBLEVECTOR *Hgplot;
-  DOUBLEVECTOR *LEgplot;
-  DOUBLEVECTOR *Hvplot;
-  DOUBLEVECTOR *LEvplot;
-  DOUBLEVECTOR *SWinplot;
-  DOUBLEVECTOR *SWgplot;
-  DOUBLEVECTOR *SWvplot;
-  DOUBLEVECTOR *LWinplot;
-  DOUBLEVECTOR *LWgplot;
-  DOUBLEVECTOR *LWvplot;
-  DOUBLEVECTOR *Tgplot;
-  DOUBLEVECTOR *Tsplot;
-  DOUBLEVECTOR *Tvplot;
+  std::unique_ptr<Vector<double>> Hgplot;
+  std::unique_ptr<Vector<double>> LEgplot;
+  std::unique_ptr<Vector<double>> Hvplot;
+  std::unique_ptr<Vector<double>> LEvplot;
+  std::unique_ptr<Vector<double>> SWinplot;
+  std::unique_ptr<Vector<double>> SWgplot;
+  std::unique_ptr<Vector<double>> SWvplot;
+  std::unique_ptr<Vector<double>> LWinplot;
+  std::unique_ptr<Vector<double>> LWgplot;
+  std::unique_ptr<Vector<double>> LWvplot;
+  std::unique_ptr<Vector<double>> Tgplot;
+  std::unique_ptr<Vector<double>> Tsplot;
+  std::unique_ptr<Vector<double>> Tvplot;
 
-  DOUBLEVECTOR *Hgp;
-  DOUBLEVECTOR *LEgp;
-  DOUBLEVECTOR *Hvp;
-  DOUBLEVECTOR *LEvp;
-  DOUBLEVECTOR *SWinp;
-  DOUBLEVECTOR *SWgp;
-  DOUBLEVECTOR *SWvp;
-  DOUBLEVECTOR *LWinp;
-  DOUBLEVECTOR *LWgp;
-  DOUBLEVECTOR *LWvp;
-  DOUBLEVECTOR *Tgp;
-  DOUBLEVECTOR *Tsp;
+  std::unique_ptr<Vector<double>> Hgp;
+  std::unique_ptr<Vector<double>> LEgp;
+  std::unique_ptr<Vector<double>> Hvp;
+  std::unique_ptr<Vector<double>> LEvp;
+  std::unique_ptr<Vector<double>> SWinp;
+  std::unique_ptr<Vector<double>> SWgp;
+  std::unique_ptr<Vector<double>> SWvp;
+  std::unique_ptr<Vector<double>> LWinp;
+  std::unique_ptr<Vector<double>> LWgp;
+  std::unique_ptr<Vector<double>> LWvp;
+  std::unique_ptr<Vector<double>> Tgp;
+  std::unique_ptr<Vector<double>> Tsp;
 
   double *sun;
   double hsun;
   double sinhsun;
   double dsun;
 
-  DOUBLEVECTOR *Dlayer;
-  DOUBLEVECTOR *liq;
-  DOUBLEVECTOR *ice;
-  DOUBLEVECTOR *Temp;
-  DOUBLEVECTOR *deltaw;
-  DOUBLEVECTOR *SWlayer;
-  DOUBLEVECTOR *soil_transp_layer;
-  DOUBLEVECTOR *dFenergy;
-  DOUBLEVECTOR *udFenergy;
-  DOUBLEVECTOR *Kth0;
-  DOUBLEVECTOR *Kth1;
-  DOUBLEVECTOR *Fenergy;
-  DOUBLEVECTOR *Newton_dir;
-  DOUBLEVECTOR *T0;
-  DOUBLEVECTOR *T1;
-  DOUBLEVECTOR *Tstar;
-  DOUBLEVECTOR *THETA;
-  DOUBLEVECTOR *soil_evap_layer_bare;
-  DOUBLEVECTOR *soil_evap_layer_veg;
+  std::unique_ptr<Vector<double>> Dlayer;
+  std::unique_ptr<Vector<double>> liq;
+  std::unique_ptr<Vector<double>> ice;
+  std::unique_ptr<Vector<double>> Temp;
+  std::unique_ptr<Vector<double>> deltaw;
+  std::unique_ptr<Vector<double>> SWlayer;
+  std::unique_ptr<Vector<double>> soil_transp_layer;
+  std::unique_ptr<Vector<double>> dFenergy;
+  std::unique_ptr<Vector<double>> udFenergy;
+  std::unique_ptr<Vector<double>> Kth0;
+  std::unique_ptr<Vector<double>> Kth1;
+  std::unique_ptr<Vector<double>> Fenergy;
+  std::unique_ptr<Vector<double>> Newton_dir;
+  std::unique_ptr<Vector<double>> T0;
+  std::unique_ptr<Vector<double>> T1;
+  std::unique_ptr<Vector<double>> Tstar;
+  std::unique_ptr<Vector<double>> THETA;
+  std::unique_ptr<Vector<double>> soil_evap_layer_bare;
+  std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
   DOUBLEMATRIX *Tgskin_surr;
   DOUBLEMATRIX *SWrefl_surr;
@@ -126,9 +126,9 @@ typedef struct
 typedef struct
 {
 
-  DOUBLEVECTOR *Tv;
-  DOUBLEVECTOR *wrain;       /*intercepted precipitation in mm*/
-  DOUBLEVECTOR *wsnow;       /*intercepted precipitation in mm*/
+  std::unique_ptr<Vector<double>> Tv;
+  std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
+  std::unique_ptr<Vector<double>> wsnow;       /*intercepted precipitation in mm*/
 
 } STATE_VEG;
 
@@ -166,8 +166,8 @@ typedef struct
   DOUBLEMATRIX *Tzminrun;
   DOUBLEMATRIX *wzminrun;
 
-  DOUBLEVECTOR *Pnetcum;
-  DOUBLEVECTOR *ETcum;
+  std::unique_ptr<Vector<double>> Pnetcum;
+  std::unique_ptr<Vector<double>> ETcum;
 
 } SOIL;
 
@@ -220,7 +220,7 @@ typedef struct
   DOUBLEMATRIX *North;
 
   LONGMATRIX *BC_counter;
-  DOUBLEVECTOR *BC_DepthFreeSurface;
+  std::unique_ptr<Vector<double>> BC_DepthFreeSurface;
 
   DOUBLEMATRIX *dzdE;
   DOUBLEMATRIX *dzdN;
@@ -241,7 +241,7 @@ typedef struct
 
   double ***vegpars;
   double **vegparv;
-  DOUBLEVECTOR *vegpar;
+  std::unique_ptr<Vector<double>> vegpar;
   long *NumlinesVegTimeDepData;
 
   DOUBLEMATRIX *root_fraction;
@@ -261,17 +261,17 @@ typedef struct
   *c;          /*array of columns of the channel-pixels; dimension=nch*/
   LONGMATRIX *ch;
   LONGVECTOR *ch_down;
-  DOUBLEVECTOR *Vsup;
-  DOUBLEVECTOR *Vsub;
-  DOUBLEVECTOR *h_sup;
-  DOUBLEVECTOR *length;
+  std::unique_ptr<Vector<double>> Vsup;
+  std::unique_ptr<Vector<double>> Vsub;
+  std::unique_ptr<Vector<double>> h_sup;
+  std::unique_ptr<Vector<double>> length;
   double Vout;
   long **ch3;
   LONGMATRIX *lch;
   LONGVECTOR *soil_type;
   DOUBLEMATRIX *th;
   DOUBLEMATRIX *ET;
-  DOUBLEVECTOR *Kbottom;
+  std::unique_ptr<Vector<double>> Kbottom;
   SOIL_STATE *SS;
 } CHANNEL;
 
@@ -292,23 +292,23 @@ typedef struct
 
   DOUBLEVECTOR
   *PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-  DOUBLEVECTOR *PrSNW_mean;
-  DOUBLEVECTOR *Pt;
-  DOUBLEVECTOR *Ps;
+  std::unique_ptr<Vector<double>> PrSNW_mean;
+  std::unique_ptr<Vector<double>> Pt;
+  std::unique_ptr<Vector<double>> Ps;
 
-  DOUBLEVECTOR *h_sup;
+  std::unique_ptr<Vector<double>> h_sup;
 
   DOUBLEMATRIX *error;
 
-  DOUBLEVECTOR *Lx;
-  DOUBLEVECTOR *Ux;
+  std::unique_ptr<Vector<double>> Lx;
+  std::unique_ptr<Vector<double>> Ux;
 
-  DOUBLEVECTOR *H0;
-  DOUBLEVECTOR *H1;
-  DOUBLEVECTOR *dH;
-  DOUBLEVECTOR *B;
-  DOUBLEVECTOR *f;
-  DOUBLEVECTOR *df;
+  std::unique_ptr<Vector<double>> H0;
+  std::unique_ptr<Vector<double>> H1;
+  std::unique_ptr<Vector<double>> dH;
+  std::unique_ptr<Vector<double>> B;
+  std::unique_ptr<Vector<double>> f;
+  std::unique_ptr<Vector<double>> df;
   DOUBLEMATRIX *Klat;
   DOUBLEMATRIX *Kbottom;
 
@@ -323,7 +323,7 @@ typedef struct
 typedef struct
 {
 
-  DOUBLEVECTOR *JD_plots;
+  std::unique_ptr<Vector<double>> JD_plots;
   double time;    /*time=current time from the begin of simulation [s]*/
   long iplot;
   double **Dt_matrix;
@@ -370,12 +370,12 @@ typedef struct
 
   double epsilon_snow;
 
-  DOUBLEVECTOR *output_soil;
-  DOUBLEVECTOR *output_snow;
-  DOUBLEVECTOR *output_glac;
-  DOUBLEVECTOR *output_surfenergy;
-  DOUBLEVECTOR *output_vegetation;
-  DOUBLEVECTOR *output_meteo;
+  std::unique_ptr<Vector<double>> output_soil;
+  std::unique_ptr<Vector<double>> output_snow;
+  std::unique_ptr<Vector<double>> output_glac;
+  std::unique_ptr<Vector<double>> output_surfenergy;
+  std::unique_ptr<Vector<double>> output_vegetation;
+  std::unique_ptr<Vector<double>> output_meteo;
 
   short output_soil_bin;
   short output_snow_bin;
@@ -399,7 +399,7 @@ typedef struct
   short format_out;
   short sky;
 
-  DOUBLEVECTOR *saving_points;
+  std::unique_ptr<Vector<double>> saving_points;
   double ContRecovery;
   long n_ContRecovery;
 
@@ -494,9 +494,9 @@ typedef struct
   SHORTVECTOR *plot_point_with_Dt_integration;
   SHORTVECTOR *plot_basin_with_Dt_integration;
 
-  DOUBLEVECTOR *Dtplot_point;
-  DOUBLEVECTOR *Dtplot_basin;
-  DOUBLEVECTOR *Dtplot_discharge;
+  std::unique_ptr<Vector<double>> Dtplot_point;
+  std::unique_ptr<Vector<double>> Dtplot_basin;
+  std::unique_ptr<Vector<double>> Dtplot_discharge;
 
   short state_pixel;
   short state_discharge;
@@ -509,8 +509,8 @@ typedef struct
 
   short dew;
 
-  DOUBLEVECTOR *init_date;
-  DOUBLEVECTOR *end_date;
+  std::unique_ptr<Vector<double>> init_date;
+  std::unique_ptr<Vector<double>> end_date;
   LONGVECTOR *run_times;
 
   double delay_day_recover;
@@ -560,9 +560,9 @@ typedef struct
 
   short surroundings;
 
-  DOUBLEVECTOR *soil_plot_depths;
-  DOUBLEVECTOR *snow_plot_depths;
-  DOUBLEVECTOR *glac_plot_depths;
+  std::unique_ptr<Vector<double>> soil_plot_depths;
+  std::unique_ptr<Vector<double>> snow_plot_depths;
+  std::unique_ptr<Vector<double>> glac_plot_depths;
 
   short ric_cloud;
   short vap_as_RH;
@@ -664,22 +664,22 @@ typedef struct
 {
   short type;
   long lnum;
-  DOUBLEVECTOR *Dzl;
-  DOUBLEVECTOR *w_liq;
-  DOUBLEVECTOR *w_ice;
-  DOUBLEVECTOR *T;
+  std::unique_ptr<Vector<double>> Dzl;
+  std::unique_ptr<Vector<double>> w_liq;
+  std::unique_ptr<Vector<double>> w_ice;
+  std::unique_ptr<Vector<double>> T;
 } STATEVAR_1D;
 
 typedef struct
 {
   STATEVAR_3D *S;
   STATEVAR_1D *S_for_BS;
-  DOUBLEVECTOR *age;
-  DOUBLEVECTOR *MELTED;
-  DOUBLEVECTOR *melted;
-  DOUBLEVECTOR *SUBL;
-  DOUBLEVECTOR *subl;
-  DOUBLEVECTOR *t_snow;
+  std::unique_ptr<Vector<double>> age;
+  std::unique_ptr<Vector<double>> MELTED;
+  std::unique_ptr<Vector<double>> melted;
+  std::unique_ptr<Vector<double>> SUBL;
+  std::unique_ptr<Vector<double>> subl;
+  std::unique_ptr<Vector<double>> t_snow;
   SHORTVECTOR *yes;
   DOUBLEMATRIX *Qsub;
   DOUBLEMATRIX *Qsub_x;
@@ -691,30 +691,30 @@ typedef struct
   DOUBLEMATRIX *Qtrans_y;
   DOUBLEMATRIX *Wsubl_plot;
   DOUBLEMATRIX *Wtrans_plot;
-  DOUBLEVECTOR *Dplot;
+  std::unique_ptr<Vector<double>> Dplot;
   LONGVECTOR *change_dir_wind;
 } SNOW;
 
 typedef struct
 {
   STATEVAR_3D *G;
-  DOUBLEVECTOR *MELTED;
-  DOUBLEVECTOR *melted;
-  DOUBLEVECTOR *SUBL;
-  DOUBLEVECTOR *subl;
+  std::unique_ptr<Vector<double>> MELTED;
+  std::unique_ptr<Vector<double>> melted;
+  std::unique_ptr<Vector<double>> SUBL;
+  std::unique_ptr<Vector<double>> subl;
 } GLACIER;
 
 typedef struct
 {
-  DOUBLEVECTOR *E;
-  DOUBLEVECTOR *N;
-  DOUBLEVECTOR *lat;
-  DOUBLEVECTOR *lon;
-  DOUBLEVECTOR *Z;
-  DOUBLEVECTOR *sky;
-  DOUBLEVECTOR *ST;
-  DOUBLEVECTOR *Vheight;
-  DOUBLEVECTOR *Theight;
+  std::unique_ptr<Vector<double>> E;
+  std::unique_ptr<Vector<double>> N;
+  std::unique_ptr<Vector<double>> lat;
+  std::unique_ptr<Vector<double>> lon;
+  std::unique_ptr<Vector<double>> Z;
+  std::unique_ptr<Vector<double>> sky;
+  std::unique_ptr<Vector<double>> ST;
+  std::unique_ptr<Vector<double>> Vheight;
+  std::unique_ptr<Vector<double>> Theight;
 } METEO_STATIONS;
 
 
@@ -755,15 +755,15 @@ typedef struct
   DOUBLEMATRIX *Vdir;
   DOUBLEMATRIX *RHgrid;
 
-  DOUBLEVECTOR *Tamean;
-  DOUBLEVECTOR *Vspdmean;
-  DOUBLEVECTOR *Vdirmean;
-  DOUBLEVECTOR *RHmean;
+  std::unique_ptr<Vector<double>> Tamean;
+  std::unique_ptr<Vector<double>> Vspdmean;
+  std::unique_ptr<Vector<double>> Vdirmean;
+  std::unique_ptr<Vector<double>> RHmean;
 
-  DOUBLEVECTOR *Taplot;
-  DOUBLEVECTOR *Vxplot;
-  DOUBLEVECTOR *Vyplot;
-  DOUBLEVECTOR *RHplot;
+  std::unique_ptr<Vector<double>> Taplot;
+  std::unique_ptr<Vector<double>> Vxplot;
+  std::unique_ptr<Vector<double>> Vyplot;
+  std::unique_ptr<Vector<double>> RHplot;
 
   double V;
 

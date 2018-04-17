@@ -245,7 +245,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longvector(top->Li);
 
   free_longmatrix(top->BC_counter);
-  free_doublevector(top->BC_DepthFreeSurface);
 
   if (par->point_sim==1)
     {
@@ -263,7 +262,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_shortmatrix(land->shadow);
   free_doublematrix(land->ty);
   free_doublematrix(land->root_fraction);
-  free_doublevector(land->vegpar);
 
   for (i=0; i<par->n_landuses; i++)
     {
@@ -290,24 +288,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_doublematrix(wat->PrecTot);
   free_doublematrix(wat->Pnet);
 
-  if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0)
-    {
-      free_doublevector(wat->PrTOT_mean);
-      free_doublevector(wat->PrSNW_mean);
-      free_doublevector(wat->Pt);
-      free_doublevector(wat->Ps);
-    }
-
-  free_doublevector(wat->h_sup);
-  free_doublevector(wat->Lx);
-  free_doublevector(wat->H0);
-  free_doublevector(wat->H1);
-  free_doublevector(wat->dH);
-  free_doublevector(wat->B);
-  free_doublevector(wat->f);
-  free_doublevector(wat->df);
-  free_doublematrix(wat->Klat);
-  free_doublematrix(wat->Kbottom);
   //  free(wat);
 
   /* Deallocation of struct CHANNEL "channel": */
@@ -316,10 +296,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longvector(cnet->c);
   free_longmatrix(cnet->ch);
   free_longvector(cnet->ch_down);
-  free_doublevector(cnet->Vsup);
-  free_doublevector(cnet->Vsub);
-  free_doublevector(cnet->h_sup);
-  free_doublevector(cnet->length);
   for (l=0; l<=Nl; l++)
     {
       free(cnet->ch3[l]);
@@ -329,14 +305,11 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longvector(cnet->soil_type);
   free_doublematrix(cnet->th);
   free_doublematrix(cnet->ET);
-  free_doublevector(cnet->Kbottom);
   deallocate_soil_state(cnet->SS);
   //  free(cnet);
 
   /* Deallocation of struct T_INIT "UV": */
   printf("Deallocating UV\n");
-  free_doublevector(UV->U);
-  free_doublevector(UV->V);
   free(UV);
 
   /* Deallocation of struct ENERGY "egy": */
@@ -345,61 +318,41 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fradnet], string_novalue) != 0)
         {
-          free_doublevector(egy->Rn_mean);
-          free_doublevector(egy->Rn);
         }
       if (strcmp(files[fradLWin], string_novalue) != 0)
         {
-          free_doublevector(egy->LWin_mean);
-          free_doublevector(egy->LWin);
         }
       if (strcmp(files[fradLW], string_novalue) != 0)
         {
-          free_doublevector(egy->LW_mean);
         }
       if (strcmp(files[fradLW], string_novalue) != 0
           || strcmp(files[fradnet], string_novalue) != 0)
         {
-          free_doublevector(egy->LW);
         }
       if (strcmp(files[fradSW], string_novalue) != 0)
         {
-          free_doublevector(egy->SW_mean);
         }
       if (strcmp(files[fradSW], string_novalue) != 0
           || strcmp(files[fradnet], string_novalue) != 0)
         {
-          free_doublevector(egy->SW);
         }
       if (strcmp(files[fradSWin], string_novalue) != 0)
         {
-          free_doublevector(egy->Rswdown_mean);
-          free_doublevector(egy->SWin);
         }
       if (strcmp(files[fradSWinbeam], string_novalue) != 0)
         {
-          free_doublevector(egy->Rswbeam_mean);
-          free_doublevector(egy->SWinb);
         }
       if (strcmp(files[fLE], string_novalue) != 0)
         {
-          free_doublevector(egy->ET_mean);
-          free_doublevector(egy->LE);
         }
       if (strcmp(files[fG], string_novalue) != 0)
         {
-          free_doublevector(egy->SEB_mean);
-          free_doublevector(egy->G);
         }
       if (strcmp(files[fH], string_novalue) != 0)
         {
-          free_doublevector(egy->H_mean);
-          free_doublevector(egy->H);
         }
       if (strcmp(files[fTs], string_novalue) != 0)
         {
-          free_doublevector(egy->Ts_mean);
-          free_doublevector(egy->Ts);
         }
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
@@ -417,92 +370,48 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
           || strcmp(files[pHg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          free_doublevector(egy->Hgplot);
-          free_doublevector(egy->Hgp);
         }
       if (strcmp(files[pLE], string_novalue) != 0
           || strcmp(files[pLEg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          free_doublevector(egy->LEgplot);
-          free_doublevector(egy->LEgp);
         }
       if (strcmp(files[pH], string_novalue) != 0
           || strcmp(files[pHv], string_novalue) != 0)
         {
-          free_doublevector(egy->Hvplot);
-          free_doublevector(egy->Hvp);
         }
       if (strcmp(files[pLE], string_novalue) != 0
           || strcmp(files[pLEv], string_novalue) != 0)
         {
-          free_doublevector(egy->LEvplot);
-          free_doublevector(egy->LEvp);
         }
       if (strcmp(files[pSWin], string_novalue) != 0)
         {
-          free_doublevector(egy->SWinplot);
-          free_doublevector(egy->SWinp);
         }
       if (strcmp(files[pSWg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          free_doublevector(egy->SWgplot);
-          free_doublevector(egy->SWgp);
         }
       if (strcmp(files[pSWv], string_novalue) != 0)
         {
-          free_doublevector(egy->SWvplot);
-          free_doublevector(egy->SWvp);
         }
       if (strcmp(files[pLWin], string_novalue) != 0)
         {
-          free_doublevector(egy->LWinplot);
-          free_doublevector(egy->LWinp);
         }
       if (strcmp(files[pLWg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          free_doublevector(egy->LWgplot);
-          free_doublevector(egy->LWgp);
         }
       if (strcmp(files[pLWv], string_novalue) != 0)
         {
-          free_doublevector(egy->LWvplot);
-          free_doublevector(egy->LWvp);
         }
       if (strcmp(files[pTs], string_novalue) != 0)
         {
-          free_doublevector(egy->Tsplot);
-          free_doublevector(egy->Tsp);
         }
       if (strcmp(files[pTg], string_novalue) != 0)
         {
-          free_doublevector(egy->Tgplot);
-          free_doublevector(egy->Tgp);
         }
-      if (strcmp(files[pTv], string_novalue) != 0) free_doublevector(egy->Tvplot);
     }
 
-  free_doublevector(egy->Dlayer);
-  free_doublevector(egy->liq);
-  free_doublevector(egy->ice);
-  free_doublevector(egy->Temp);
-  free_doublevector(egy->deltaw);
-  free_doublevector(egy->SWlayer);
-  free_doublevector(egy->soil_transp_layer);
-  free_doublevector(egy->dFenergy);
-  free_doublevector(egy->udFenergy);
-  free_doublevector(egy->Kth0);
-  free_doublevector(egy->Kth1);
-  free_doublevector(egy->Fenergy);
-  free_doublevector(egy->Newton_dir);
-  free_doublevector(egy->T0);
-  free_doublevector(egy->T1);
-  free_doublevector(egy->Tstar);
-  free_doublevector(egy->THETA);
-  free_doublevector(egy->soil_evap_layer_bare);
-  free_doublevector(egy->soil_evap_layer_veg);
   free_doublematrix(egy->Tgskin_surr);
   free_doublematrix(egy->SWrefl_surr);
 
@@ -514,7 +423,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   if (times->JD_plots->nh > 1)
     {
-      if (strcmp(files[pD], string_novalue) != 0) free_doublevector(snow->Dplot);
     }
 
   deallocate_statevar_3D(snow->S);
@@ -538,23 +446,17 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
     }
 
-  free_doublevector(snow->age);
   if (par->output_snow_bin == 1)
     {
       if (strcmp(files[fsndur], string_novalue) != 0)
         {
-          free_doublevector(snow->t_snow);
           free_shortvector(snow->yes);
         }
       if (strcmp(files[fsnowmelt], string_novalue) != 0)
         {
-          free_doublevector(snow->MELTED);
-          free_doublevector(snow->melted);
         }
       if (strcmp(files[fsnowsubl], string_novalue) != 0)
         {
-          free_doublevector(snow->SUBL);
-          free_doublevector(snow->subl);
         }
     }
 
@@ -569,13 +471,9 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         {
           if (strcmp(files[fglacmelt], string_novalue) != 0)
             {
-              free_doublevector(glac->MELTED);
-              free_doublevector(glac->melted);
             }
           if (strcmp(files[fglacsubl], string_novalue) != 0)
             {
-              free_doublevector(glac->SUBL);
-              free_doublevector(glac->subl);
             }
         }
     }
@@ -588,25 +486,13 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_doublematrix(met->Vgrid);
   free_doublematrix(met->Vdir);
   free_doublematrix(met->RHgrid);
-  if (par->output_meteo_bin == 1)
-    {
-      if (strcmp(files[fTa], string_novalue) != 0) free_doublevector(met->Tamean);
-      if (strcmp(files[fwspd],
-                 string_novalue) != 0) free_doublevector(met->Vspdmean);
-      if (strcmp(files[fwdir],
-                 string_novalue) != 0) free_doublevector(met->Vdirmean);
-      if (strcmp(files[frh], string_novalue) != 0) free_doublevector(met->RHmean);
-    }
+
   if (times->JD_plots->nh > 1)
     {
-      if (strcmp(files[pTa], string_novalue) != 0) free_doublevector(met->Taplot);
       if (strcmp(files[pVspd], string_novalue) != 0
           || strcmp(files[pVdir], string_novalue) != 0)
         {
-          free_doublevector(met->Vxplot);
-          free_doublevector(met->Vyplot);
         }
-      if (strcmp(files[pRH], string_novalue) != 0) free_doublevector(met->RHplot);
     }
 
   for (i=0; i<met->st->Z->nh; i++)
@@ -668,7 +554,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(met);
 
   printf("Deallocating times\n");
-  free_doublevector(times->JD_plots);
   free(times->Dt_vector);
   if (par->tsteps_from_file==1)
     {
@@ -690,10 +575,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
       free_longvector(par->IDpoint);
     }
 
-  free_doublevector(par->saving_points);
 
-  free_doublevector(par->init_date);
-  free_doublevector(par->end_date);
   free_longvector(par->run_times);
 
   if (par->point_sim == 1) free_doublematrix(par->maxSWE);
@@ -702,20 +584,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_shortvector(par->plot_point_with_Dt_integration);
   free_shortvector(par->plot_basin_with_Dt_integration);
 
-  free_doublevector(par->Dtplot_point);
-  free_doublevector(par->Dtplot_basin);
-  free_doublevector(par->Dtplot_discharge);
 
-  free_doublevector(par->output_soil);
-  free_doublevector(par->output_snow);
-  free_doublevector(par->output_glac);
-  free_doublevector(par->output_surfenergy);
-  free_doublevector(par->output_vegetation);
-  free_doublevector(par->output_meteo);
 
-  free_doublevector(par->soil_plot_depths);
-  free_doublevector(par->snow_plot_depths);
-  free_doublevector(par->glac_plot_depths);
 
   free_shortvector(par->linear_interpolation_meteo);
 
@@ -749,15 +619,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 void dealloc_meteostations(METEO_STATIONS *st)
 {
 
-  free_doublevector(st->E);
-  free_doublevector(st->N);
-  free_doublevector(st->lat);
-  free_doublevector(st->lon);
-  free_doublevector(st->Z);
-  free_doublevector(st->sky);
-  free_doublevector(st->ST);
-  free_doublevector(st->Vheight);
-  free_doublevector(st->Theight);
   free(st);
 
 }
@@ -784,9 +645,6 @@ void deallocate_soil_state(SOIL_STATE *S)
 void deallocate_veg_state(STATE_VEG *V)
 {
 
-  free_doublevector(V->Tv);
-  free_doublevector(V->wsnow);
-  free_doublevector(V->wrain);
   free(V);
 }
 
@@ -839,82 +697,29 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac,
                  string_novalue) != 0) initialize_doublematrix(sl->thi_av_tensor, 0.);
       if (strcmp(files[fliqav],
                  string_novalue) != 0) initialize_doublematrix(sl->thw_av_tensor, 0.);
-      if (strcmp(files[fpnet],
-                 string_novalue) != 0) initialize_doublevector(sl->Pnetcum, 0.);
-      if (strcmp(files[fevap],
-                 string_novalue) != 0) initialize_doublevector(sl->ETcum, 0.);
     }
 
   if (par->output_snow_bin == 1)
     {
-      if (strcmp(files[fsnowmelt],
-                 string_novalue) != 0) initialize_doublevector(snow->MELTED, 0.);
-      if (strcmp(files[fsnowsubl],
-                 string_novalue) != 0) initialize_doublevector(snow->SUBL, 0.);
+
       if (strcmp(files[fswe], string_novalue) != 0 && par->blowing_snow==1)
         {
           initmatrix(0.0, snow->Wtrans_plot, land->LC, number_novalue);
           initmatrix(0.0, snow->Wsubl_plot, land->LC, number_novalue);
         }
-      if (strcmp(files[fsndur],
-                 string_novalue) != 0) initialize_doublevector(snow->t_snow, 0.);
-    }
-
-  if (par->max_glac_layers>0 && par->output_glac_bin==1)
-    {
-      if (strcmp(files[fglacmelt],
-                 string_novalue) != 0) initialize_doublevector(glac->MELTED, 0.);
-      if (strcmp(files[fglacsubl],
-                 string_novalue) != 0) initialize_doublevector(glac->SUBL, 0.);
     }
 
   if (par->output_surfenergy_bin == 1)
     {
 
-      if (strcmp(files[fradnet],
-                 string_novalue) != 0) initialize_doublevector(egy->Rn_mean, 0.);
-      if (strcmp(files[fradLWin],
-                 string_novalue) != 0) initialize_doublevector(egy->LWin_mean, 0.);
-      if (strcmp(files[fradLW],
-                 string_novalue) != 0) initialize_doublevector(egy->LW_mean, 0.);
-      if (strcmp(files[fradSW],
-                 string_novalue) != 0) initialize_doublevector(egy->SW_mean, 0.);
-      if (strcmp(files[fradSWin],
-                 string_novalue) != 0) initialize_doublevector(egy->Rswdown_mean, 0.);
-      if (strcmp(files[fradSWinbeam],
-                 string_novalue) != 0) initialize_doublevector(egy->Rswbeam_mean, 0.);
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
           initialize_longvector(egy->nDt_shadow, 0);
           initialize_longvector(egy->nDt_sun, 0);
         }
 
-      if (strcmp(files[fG], string_novalue) != 0) initialize_doublevector(
-          egy->SEB_mean, 0.);
-      if (strcmp(files[fH], string_novalue) != 0) initialize_doublevector(
-          egy->H_mean, 0.);
-      if (strcmp(files[fLE], string_novalue) != 0) initialize_doublevector(
-          egy->ET_mean, 0.);
-      if (strcmp(files[fTs], string_novalue) != 0) initialize_doublevector(
-          egy->Ts_mean, 0.);
     }
 
-  if (par->output_meteo_bin == 1)
-    {
-      if (strcmp(files[fTa], string_novalue) != 0) initialize_doublevector(
-          met->Tamean, 0.);
-      if (strcmp(files[fwspd],
-                 string_novalue) != 0) initialize_doublevector(met->Vspdmean, 0.);
-      if (strcmp(files[fwdir],
-                 string_novalue) != 0) initialize_doublevector(met->Vdirmean, 0.);
-      if (strcmp(files[frh], string_novalue) != 0) initialize_doublevector(
-          met->RHmean, 0.);
-      if (strcmp(files[fprec], string_novalue) != 0)
-        {
-          initialize_doublevector(wat->PrTOT_mean, 0.);
-          initialize_doublevector(wat->PrSNW_mean, 0.);
-        }
-    }
 
 }
 

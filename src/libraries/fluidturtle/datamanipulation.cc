@@ -1343,27 +1343,12 @@ void copy_floatvector(FLOATVECTOR *origin,FLOATVECTOR *destination)
 
 /*--------------------------------------------------------------------------*/
 
-void copy_doublevector(DOUBLEVECTOR *origin,DOUBLEVECTOR *destination)
+void copy_doublevector(const Vector<double> *origin,Vector<double> *destination)
 
 {
 
   long i;
-
-  if (origin==NULL || destination==NULL || origin->co==NULL
-      || destination->co==NULL)
-    {
-
-      t_error("A vector was not allocated");
-
-    }
-  else if (origin->isdynamic!=1 || destination->isdynamic!=1 || origin->nh <1
-           || destination->nh <1  )
-    {
-
-      t_error("A vector was not allocated properly");
-
-    }
-  else if ( origin->nh != destination->nh  )
+  if ( origin->nh != destination->nh  )
     {
 
       t_error("The vector do not have the same dimensions");
@@ -1372,13 +1357,8 @@ void copy_doublevector(DOUBLEVECTOR *origin,DOUBLEVECTOR *destination)
 
   for (i=origin->nl; i<=origin->nh; i++)
     {
-
-
       destination->co[i]=origin->co[i];
-
-
     }
-
 }
 
 /*--------------------------------------------------------------------------*/

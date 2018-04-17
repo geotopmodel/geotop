@@ -85,16 +85,16 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
                         double Td_lapse_rate);
 
 short interpolate_meteo(short flag, double dX, double dY,
-                        DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, DOUBLEVECTOR *Xst,
-                        DOUBLEVECTOR *Yst,
+                        DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, Vector<double> *Xst,
+                        Vector<double> *Yst,
                         double **value, long metcod, double **grid, double dn0, short iobsint);
 
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns,
             double *dn);
 
 void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint,
-               DOUBLEVECTOR *xstnall, DOUBLEVECTOR *ystnall, DOUBLEVECTOR *xstn,
-               DOUBLEVECTOR *ystn,
-               DOUBLEVECTOR *var, double dn, double undef, double **grid,
+               Vector<double> *xstnall, Vector<double> *ystnall, Vector<double> *xstn,
+               Vector<double> *ystn,
+               Vector<double> *var, double dn, double undef, double **grid,
                double **value_station, long metcode);
 

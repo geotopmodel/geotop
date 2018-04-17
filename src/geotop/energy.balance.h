@@ -21,13 +21,13 @@
 
 short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
                     SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G, STATE_VEG *V,
-                    DOUBLEVECTOR *snowage,
+                    Vector<double> *snowage,
                     ALLDATA *A, double *W);
 
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          double JDe, SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G,
                          STATE_VEG *V,
-                         DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot,
+                         Vector<double> *snowage, ALLDATA *A, double E0, double Et, double Dtplot,
                          double W, FILE *f, double *SWupabove_v, double *Tgskin);
 
 short SolvePointEnergyBalance(short surfacemelting, double Tgd,
@@ -55,11 +55,11 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                          ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLEMATRIX *ET, DOUBLEMATRIX *th);
 
-void update_F_energy(long nbeg, long nend, DOUBLEVECTOR *F, double w,
-                     DOUBLEVECTOR *K, double *T);
+void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
+                     Vector<double> *K, double *T);
 
-void update_diag_dF_energy(long nbeg, long nend, DOUBLEVECTOR *dF, double w,
-                           DOUBLEVECTOR *K);
+void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
+                           Vector<double> *K);
 
 double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
               double *D, double **pa);
@@ -71,7 +71,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
                   double Wcrnmax, double Wcsn, double Wcsnmax,
                   double *dWcrn, double *dWcsn, double *theta, double **soil, double *land,
-                  double *root, PAR *par, DOUBLEVECTOR *soil_transp_layer,
+                  double *root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT,
                   double *E, double *dE_dT, double *LWv, double *Hv,
                   double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs,
@@ -80,7 +80,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double *ruc, double *rh_g,
                   double *rv_g, double *Qg, double *u_top, double *decay, double *Locc,
                   double *LWup_above_v, double *T,
-                  DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg,
+                  Vector<double> *soil_evap_layer_bare, Vector<double> *soil_evap_layer_veg,
                   double sky);
 
 void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
@@ -91,7 +91,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax,
                                     double *dWcrn, double *dWcsn, double *theta, double **soil, double *land,
-                                    double *root, PAR *par, DOUBLEVECTOR *soil_transp_layer,
+                                    double *root, PAR *par, Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT,
                                     double *E, double *dE_dT, double *LWv, double *Hv,
                                     double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs,
@@ -100,7 +100,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double *ruc, double *rh_g,
                                     double *rv_g, double *Qg, double *u_top, double *decay, double *Locc,
                                     double *LWup_above_v, double *T,
-                                    DOUBLEVECTOR *soil_evap_layer_bare, DOUBLEVECTOR *soil_evap_layer_veg,
+                                    Vector<double> *soil_evap_layer_bare, Vector<double> *soil_evap_layer_veg,
                                     double sky, short flagTmin, long cont);
 
 double k_thermal(short snow, short a, double th_liq, double th_ice,
@@ -123,8 +123,8 @@ void update_roughness_soil(double z0, double d0, double z0_z0t, double snowD,
 
 void check_continuity(long n, double *dw, double *wi, double *wl);
 
-void merge(double a, DOUBLEVECTOR *ice, DOUBLEVECTOR *liq, DOUBLEVECTOR *Temp,
-           DOUBLEVECTOR *D, long l, long lup, long ldw, long tot);
+void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *Temp,
+           Vector<double> *D, long l, long lup, long ldw, long tot);
 
 void sux_minus6_condition(double ic, double wa, double rho, double D1,
                           ENERGY *E);

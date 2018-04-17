@@ -261,7 +261,7 @@ void copy_shortvector(SHORTVECTOR *,SHORTVECTOR *);
 void copy_intvector(INTVECTOR *,INTVECTOR *);
 void copy_longvector(LONGVECTOR *,LONGVECTOR *);
 void copy_floatvector(FLOATVECTOR *,FLOATVECTOR *);
-void copy_doublevector(DOUBLEVECTOR *,DOUBLEVECTOR *);
+void copy_doublevector(const Vector<double> *,Vector<double> *);
 void add_doublevector(DOUBLEVECTOR *small, DOUBLEVECTOR *big);
 
 /**

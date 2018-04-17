@@ -192,8 +192,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
           t_discharge = 0.0;
 
-          initialize_doublevector(cnet->Vsub, 0.);
-          initialize_doublevector(cnet->Vsup, 0.);
 
           cnet->Vout = 0.;
           wat->Voutbottom = 0.;
@@ -741,7 +739,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                   //sl output
                   write_soil_output(i, par->IDpoint->co[i], par->init_date->co[i_sim],
                                     par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute,
-                                    par->soil_plot_depths, sl, par, (double)PsiMin, cosslope);
+                                    par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
 
                   //snow output
                   write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[i_sim],
@@ -3839,7 +3837,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par,
 
 void write_soil_output(long i, long iname, double init_date, double end_date,
                        double JDfrom0, double JD, long day, long month, long year, long hour,
-                       long minute, DOUBLEVECTOR *n, SOIL *sl, PAR *par, double psimin,
+                       long minute, Vector<double> *n, SOIL *sl, PAR *par, double psimin,
                        double cosslope)
 {
 

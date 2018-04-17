@@ -23,7 +23,7 @@ void assign_recovered_map(short old, long n, char *name, DOUBLEMATRIX *assign,
                           PAR *par, DOUBLEMATRIX *Zdistr);
 
 void assign_recovered_map_vector(short old, long n, char *name,
-                                 DOUBLEVECTOR *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
+                                 Vector<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
 
 void assign_recovered_map_long(short old, long n, char *name,
                                LONGMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr);

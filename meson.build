@@ -2,7 +2,7 @@
 # Author: Alberto Sartori (alberto.sartori86@gmail.com) 2018
 
 project('geotop','cpp',
-        default_options : ['c++std=c11',
+        default_options : ['cpp_std=c++11',
 			   'buildtype=release',
 			   'warning_level=3' ],
         version: '3.0.0')

@@ -22,8 +22,8 @@
 
 
 short water_balance(double Dt, double JD0, double JD1, double JD2,
-                    SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, DOUBLEVECTOR *Vsub,
-                    DOUBLEVECTOR *Vsup,
+                    SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, Vector<double> *Vsub,
+                    Vector<double> *Vsup,
                     double *Voutnet, double *Voutlandsub, double *Voutlandsup,
                     double *Voutlandbottom);
 

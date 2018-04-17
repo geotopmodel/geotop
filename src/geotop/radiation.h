@@ -18,6 +18,7 @@
  If you have satisfactorily used the code, please acknowledge the authors.
 
  */
+#include <turtle.h>
 
 void sun(double JDfrom0, double *E0, double *Et, double *Delta);
 
@@ -71,7 +72,7 @@ double SB(double T);
 
 double dSB_dT(double T);
 
-void rad_snow_absorption(long r, long c, DOUBLEVECTOR *frac, double R,
+void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
                          STATEVAR_3D *snow);
 
 double cloud_transmittance(double JDbeg, double JDend, double lat,

@@ -793,7 +793,7 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_Tdew(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines,
+short fill_Tdew(long imeteo, Vector<double> *Z, double **data, long nlines,
                 long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin)
 {
 
@@ -841,7 +841,7 @@ short fill_Tdew(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_RH(long imeteo, DOUBLEVECTOR *Z, double **data, long nlines,
+short fill_RH(long imeteo, Vector<double> *Z, double **data, long nlines,
               long RH, long Tair, long Tairdew, char *HeaderRH)
 {
 

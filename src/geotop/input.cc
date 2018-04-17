@@ -489,14 +489,14 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
           //find Tdew
           if (par->vap_as_Td == 1)
             {
-              added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh,
+              added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                      iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
           //find RH
           if (par->vap_as_RH == 1)
             {
-              added_RH = fill_RH(i,  met->st->Z, met->data[i-1], met->numlines[i-1], iRh,
+              added_RH = fill_RH(i,  met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                  iT, iTdew, IT->met_col_names[iRh]);
             }
 
@@ -542,7 +542,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
           //find Tdew
           if (par->vap_as_Td != 1)
             {
-              added_Tdew = fill_Tdew(i, met->st->Z, met->data[i-1], met->numlines[i-1], iRh,
+              added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                      iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
@@ -801,7 +801,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   land->vegparv=(double **)malloc(par->n_landuses*sizeof(double *));
   land->NumlinesVegTimeDepData=(long *)malloc(par->n_landuses*sizeof(long));
 
-  land->vegpar=new_doublevector(jdvegprop);
+  land->vegpar->reinit(jdvegprop);
 
   par->vegflag=new_shortvector(par->n_landuses);
   initialize_shortvector(par->vegflag, 0);
@@ -922,17 +922,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   cnet->ch_down=new_longvector(i);
   initialize_longvector(cnet->ch_down, 0);
 
-  cnet->length=new_doublevector(i);
-  initialize_doublevector(cnet->length, 0.);
+  cnet->length->reinit(i);
 
-  cnet->Vsup=new_doublevector(i);
-  initialize_doublevector(cnet->Vsup, 0.);
+  cnet->Vsup->reinit(i);
 
-  cnet->Vsub=new_doublevector(i);
-  initialize_doublevector(cnet->Vsub, 0.);
+  cnet->Vsub->reinit(i);
 
-  cnet->h_sup=new_doublevector(i);
-  initialize_doublevector(cnet->h_sup, 0.);
+  cnet->h_sup->reinit(i);
 
   cnet->soil_type = new_longvector(i);
   initialize_longvector(cnet->soil_type, par->soil_type_chan_default);
@@ -1052,14 +1048,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
       if (strcmp(files[fpnet], string_novalue) != 0)
         {
-          sl->Pnetcum=new_doublevector(par->total_pixel);
-          initialize_doublevector(sl->Pnetcum,0.);
+          sl->Pnetcum->reinit(par->total_pixel);
         }
 
       if (strcmp(files[fevap], string_novalue) != 0)
         {
-          sl->ETcum=new_doublevector(par->total_pixel);
-          initialize_doublevector(sl->ETcum,0.);
+          sl->ETcum->reinit(par->total_pixel);
         }
 
     }
@@ -1255,11 +1249,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P,
                                      top->rc_cont, par, land->LC);
 
-      assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain,
+      assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
                                   top->rc_cont, par, land->LC);
-      assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow,
+      assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
                                   top->rc_cont, par, land->LC);
-      assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv,
+      assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv.get(),
                                   top->rc_cont, par, land->LC);
 
     }
@@ -1274,8 +1268,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   cnet->ET = new_doublematrix(Nl, cnet->r->nh);
   initialize_doublematrix(cnet->ET, 0.0);
 
-  cnet->Kbottom = new_doublevector(cnet->r->nh);
-  initialize_doublevector(cnet->Kbottom, 0.0);
+  cnet->Kbottom.reset(new Vector<double>{cnet->r->nh});
 
   for (j=1; j<=par->total_channel; j++)
     {

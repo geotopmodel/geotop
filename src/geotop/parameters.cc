@@ -1122,7 +1122,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //init date
   cod = 1;
-  par->init_date = new_doublevector(num_param_components[cod]);
+  par->init_date->reinit(num_param_components[cod]);
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->init_date->co[i] = assignation_number(flog, cod, i-1, keyword, num_param,
@@ -1137,7 +1137,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //end date
   cod = 2;
-  par->end_date = new_doublevector(num_param_components[cod]);
+  par->end_date->reinit(num_param_components[cod]);
 
   if (par->end_date->nh != par->init_date->nh)
     {
@@ -1176,7 +1176,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                num_param_components, 0., 0);
 
   cod = 5;
-  par->Dtplot_discharge = new_doublevector(par->init_date->nh);
+  par->Dtplot_discharge.reset(new Vector<double> {par->init_date->nh});
   par->Dtplot_discharge->co[1] = assignation_number(flog, cod, 0, keyword,
                                                     num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
@@ -1202,7 +1202,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
 
   cod = 6;
-  par->Dtplot_point = new_doublevector(par->init_date->nh);
+  par->Dtplot_point.reset(new Vector<double>{par->init_date->nh});
   par->Dtplot_point->co[1] = assignation_number(flog, cod, 0, keyword,
                                                 num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
@@ -1227,7 +1227,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
 
   cod = 7;
-  par->Dtplot_basin = new_doublevector(par->init_date->nh);
+  par->Dtplot_basin.reset(new Vector<double>{par->init_date->nh});
   par->Dtplot_basin->co[1] = assignation_number(flog, cod, 0, keyword,
                                                 num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
@@ -1622,19 +1622,19 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
 
   cod = 156;
-  par->saving_points = new_doublevector(num_param_components[cod]);
+  par->saving_points.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->saving_points->nh; i++)
     {
       par->saving_points->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                      num_param, num_param_components, 0., 0);
     }
 
-  par->output_soil = new_doublevector(par->init_date->nh);
-  par->output_snow = new_doublevector(par->init_date->nh);
-  par->output_glac = new_doublevector(par->init_date->nh);
-  par->output_surfenergy = new_doublevector(par->init_date->nh);
-  par->output_vegetation = new_doublevector(par->init_date->nh);
-  par->output_meteo = new_doublevector(par->init_date->nh);
+  par->output_soil.reset(new Vector<double>{par->init_date->nh});
+  par->output_snow.reset(new Vector<double>{par->init_date->nh});
+  par->output_glac.reset(new Vector<double>{par->init_date->nh});
+  par->output_surfenergy.reset(new Vector<double>{par->init_date->nh});
+  par->output_vegetation.reset(new Vector<double>{par->init_date->nh});
+  par->output_meteo.reset(new Vector<double>{par->init_date->nh});
 
   cod = 157;
   par->output_soil->co[1] = assignation_number(flog, cod, 0, keyword, num_param,

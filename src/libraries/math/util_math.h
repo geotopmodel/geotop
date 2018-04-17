@@ -24,12 +24,12 @@ short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf,
               DOUBLEVECTOR *diag, DOUBLEVECTOR *diag_sup, DOUBLEVECTOR *b, DOUBLEVECTOR *e);
 
 short tridiag2(short a, long r, long c, long nbeg, long nend,
-               DOUBLEVECTOR *ld, DOUBLEVECTOR *d, DOUBLEVECTOR *ud, DOUBLEVECTOR *b,
-               DOUBLEVECTOR *e);
+               Vector<double> *ld, Vector<double> *d, Vector<double> *ud, Vector<double> *b,
+               Vector<double> *e);
 
 double norm_inf(DOUBLEVECTOR *V, long nbeg, long nend);
 
-double norm_2(DOUBLEVECTOR *V, long nbeg, long nend);
+double norm_2(Vector<double> *V, long nbeg, long nend);
 
 double norm_1(DOUBLEVECTOR *V, long nbeg, long nend);
 

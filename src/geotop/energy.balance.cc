@@ -69,7 +69,7 @@ extern char **files;
 
 short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
                     SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G, STATE_VEG *V,
-                    DOUBLEVECTOR *snowage, ALLDATA *A, double *W)
+                    Vector<double> *snowage, ALLDATA *A, double *W)
 {
 
   short sux;
@@ -222,7 +222,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          double JDe, SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G,
                          STATE_VEG *V,
-                         DOUBLEVECTOR *snowage, ALLDATA *A, double E0, double Et, double Dtplot,
+                         Vector<double> *snowage, ALLDATA *A, double E0, double Et, double Dtplot,
                          double W, FILE *f, double *SWupabove_v, double *Tgskin)
 {
 
@@ -585,7 +585,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   SW=flux(A->M->nstsrad, iSWn, A->M->var, 1.0, 0.0, SW);
 
   //Extinction coefficient for SW in the snow layers
-  rad_snow_absorption(r, c, A->E->SWlayer, SW, S);
+  rad_snow_absorption(r, c, A->E->SWlayer.get(), SW, S);
 
   //LONGWAVE RADIATION
   //soil-snow emissivity
@@ -669,7 +669,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
       else if (sux == -2)
         {
-          merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb,
+          merge(A->P->alpha_snow, A->E->ice.get(), A->E->liq.get(), A->E->Temp.get(), A->E->Dlayer.get(), lpb,
                 1, ns, ns+ng+Nl);
           ns--;
 
@@ -677,7 +677,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
       else if (sux == -3)
         {
-          merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, lpb,
+          merge(A->P->alpha_snow, A->E->ice.get(), A->E->liq.get(), A->E->Temp.get(), A->E->Dlayer.get(), lpb,
                 ns+1, ns+ng, ns+ng+Nl);
           ng --;
 
@@ -685,7 +685,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
       else if (sux == -4)
         {
-          merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns+ng,
+          merge(A->P->alpha_snow, A->E->ice.get(), A->E->liq.get(), A->E->Temp.get(), A->E->Dlayer.get(), ns+ng,
                 ns, ns+ng, ns+ng+Nl);
           ng --;
 
@@ -693,7 +693,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
       else if (sux == -5)
         {
-          merge(A->P->alpha_snow, A->E->ice, A->E->liq, A->E->Temp, A->E->Dlayer, ns,
+          merge(A->P->alpha_snow, A->E->ice.get(), A->E->liq.get(), A->E->Temp.get(), A->E->Dlayer.get(), ns,
                 ns, ns+1, ns+ng+Nl);
           ns --;
 
@@ -1486,13 +1486,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       //surface energy balance
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
-                   decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, egy->THETA->co,
+                   decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
                    sl->pa->co[sy], land->ty->co[lu],
-                   land->root_fraction->co[lu], par, egy->soil_transp_layer, SWin, LWin, SWv, LW,
+                   land->root_fraction->co[lu], par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-                   egy->Temp->co, egy->soil_evap_layer_bare, egy->soil_evap_layer_veg,
+                   &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
                    top->sky->co[r][c]);
 
       if (micro == 1)
@@ -1600,10 +1600,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       egy->Kth0->co[l-1] = egy->Kth1->co[l-1];
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
-      C0 = calc_C(l, ns+ng, 0.0, egy->ice->co, egy->liq->co, egy->deltaw->co,
-                  egy->Dlayer->co, sl->pa->co[sy]);
-      C1 = calc_C(l, ns+ng, 1.0, egy->ice->co, egy->liq->co, egy->deltaw->co,
-                  egy->Dlayer->co, sl->pa->co[sy]);
+      C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+                  &egy->Dlayer->co[0], sl->pa->co[sy]);
+      C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+                  &egy->Dlayer->co[0], sl->pa->co[sy]);
       if (l<=ns+ng
           && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
       egy->Fenergy->co[l] += ( Lf*egy->deltaw->co[l] +
@@ -1646,11 +1646,11 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     }
 
   //include conduction in F(x0)
-  update_F_energy(sur, n, egy->Fenergy, 1.-KNe, egy->Kth1, egy->Temp->co);
-  update_F_energy(sur, n, egy->Fenergy, KNe, egy->Kth0, egy->T0->co);
+  update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
+  update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
 
   //calculate the norm
-  res = norm_2(egy->Fenergy, sur, n);
+  res = norm_2(egy->Fenergy.get(), sur, n);
 
 
   do
@@ -1677,8 +1677,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         {
 
           //real thermal capacity
-          C1 = calc_C(l, ns+ng, 1.0, egy->ice->co, egy->liq->co, egy->deltaw->co,
-                      egy->Dlayer->co, sl->pa->co[sy]);
+          C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+                      &egy->Dlayer->co[0], sl->pa->co[sy]);
           if (l<=ns+ng
               && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
           //adds apparent thermal conductivity (due to phase change) for both snow and soil
@@ -1712,7 +1712,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                                +par->Zboundary);
 
       //Update the part of Jacobian due to conduction is included in Kth1 and Kth0
-      update_diag_dF_energy(sur, n, egy->dFenergy, 1.-KNe, egy->Kth1);
+      update_diag_dF_energy(sur, n, egy->dFenergy.get(), 1.-KNe, egy->Kth1.get());
 
       //Extradiagonal part of the Jacobian
       for (l=sur; l<=n-1; l++)
@@ -1721,8 +1721,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         }
 
       //Solve tridiagonal system
-      sux = tridiag2(1, r, c, sur, n, egy->udFenergy, egy->dFenergy, egy->udFenergy,
-                     egy->Fenergy, egy->Newton_dir);
+      sux = tridiag2(1, r, c, sur, n, egy->udFenergy.get(), egy->dFenergy.get(), egy->udFenergy.get(),
+                     egy->Fenergy.get(), egy->Newton_dir.get());
 
       if (sux == 1)
         {
@@ -1891,14 +1891,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0,
                                                  zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa,
                                                  P, LR, SL->P->co[0][j], eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,
-                                                 Wcsnmax, &dWcrn, &dWcsn, egy->THETA->co,
+                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
                                                  sl->pa->co[sy], land->ty->co[lu], land->root_fraction->co[lu], par,
-                                                 egy->soil_transp_layer, SWin,
+                                                 egy->soil_transp_layer.get(), SWin,
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv->co[j]),
                                                  Qv, Ts, Qs, Hg0, Hg1,
                                                  Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc,
-                                                 LWup_ab_v, egy->Temp->co,
-                                                 egy->soil_evap_layer_bare, egy->soil_evap_layer_veg, top->sky->co[r][c],
+                                                 LWup_ab_v, &egy->Temp->co[0],
+                                                 egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), top->sky->co[r][c],
                                                  flagTmin, cont);
 
                   if (micro == 1)
@@ -2000,10 +2000,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 }
 
               //diagonal part of F due to heat capacity and boundary condition (except conduction)
-              C0 = calc_C(l, ns+ng, 0.0, egy->ice->co, egy->liq->co, egy->deltaw->co,
-                          egy->Dlayer->co, sl->pa->co[sy]);
-              C1 = calc_C(l, ns+ng, 1.0, egy->ice->co, egy->liq->co, egy->deltaw->co,
-                          egy->Dlayer->co, sl->pa->co[sy]);
+              C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+                          &egy->Dlayer->co[0], sl->pa->co[sy]);
+              C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+                          &egy->Dlayer->co[0], sl->pa->co[sy]);
               if (l<=ns+ng
                   && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
               egy->Fenergy->co[l] += ( Lf*egy->deltaw->co[l] +
@@ -2302,8 +2302,8 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_F_energy(long nbeg, long nend, DOUBLEVECTOR *F, double w,
-                     DOUBLEVECTOR *K, double *T)
+void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
+                     Vector<double> *K, double *T)
 {
 
   long l;
@@ -2333,8 +2333,8 @@ void update_F_energy(long nbeg, long nend, DOUBLEVECTOR *F, double w,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_diag_dF_energy(long nbeg, long nend, DOUBLEVECTOR *dF, double w,
-                           DOUBLEVECTOR *K)
+void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
+                           Vector<double> *K)
 {
 
   long l;
@@ -2396,7 +2396,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double decaycoeff0, double Wcrn,
                   double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                   double *theta, double **soil,
-                  double *land, double *root, PAR *par, DOUBLEVECTOR *soil_transp_layer,
+                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, double LWin, double SWv, double *LW,
                   double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
                   double *LEv, double *Etrans,
@@ -2405,8 +2405,8 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                   double *rv_g, double *Qg,
                   double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
-                  DOUBLEVECTOR *soil_evap_layer_bare,
-                  DOUBLEVECTOR *soil_evap_layer_veg, double sky)
+                  Vector<double> *soil_evap_layer_bare,
+                  Vector<double> *soil_evap_layer_veg, double sky)
 {
 
 
@@ -2596,7 +2596,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                                     double *theta, double **soil,
-                                    double *land, double *root, PAR *par, DOUBLEVECTOR *soil_transp_layer,
+                                    double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
                                     double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
                                     double *LEv, double *Etrans,
@@ -2605,8 +2605,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg,
                                     double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
-                                    DOUBLEVECTOR *soil_evap_layer_bare,
-                                    DOUBLEVECTOR *soil_evap_layer_veg, double sky, short flagTmin, long cont)
+                                    Vector<double> *soil_evap_layer_bare,
+                                    Vector<double> *soil_evap_layer_veg, double sky, short flagTmin, long cont)
 {
 
 
@@ -2944,8 +2944,8 @@ void check_continuity(long n, double *dw, double *wi, double *wl)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void merge(double a, DOUBLEVECTOR *ice, DOUBLEVECTOR *liq, DOUBLEVECTOR *Temp,
-           DOUBLEVECTOR *D, long l, long lup, long ldw, long tot)
+void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *Temp,
+           Vector<double> *D, long l, long lup, long ldw, long tot)
 {
 
   long i, n, m;

@@ -28,7 +28,7 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par,
 
 void write_soil_output(long i, long iname, double init_date, double end_date,
                        double JDfrom0, double JD, long day, long month, long year,
-                       long hour, long minute, DOUBLEVECTOR *n, SOIL *sl, PAR *par, double psimin,
+                       long hour, long minute, Vector<double> *n, SOIL *sl, PAR *par, double psimin,
                        double cosslope);
 
 void write_snow_output(long i, long iname, long r, long c, double init_date,
