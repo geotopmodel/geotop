@@ -2049,9 +2049,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                            +par->Zboundary);
             }
 
-          update_F_energy(sur, n, egy->Fenergy, 1.-KNe, egy->Kth1, egy->Temp->co);
-          update_F_energy(sur, n, egy->Fenergy, KNe, egy->Kth0, egy->T0->co);
-          res = norm_2(egy->Fenergy, sur, n);
+          update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
+          update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
+          res = norm_2(egy->Fenergy.get(), sur, n);
 
           //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp->co[sur],egy->Temp->co[1],EB,egy->SWlayer->co[0],Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
           //printf("res:%e sur:%ld\n",res,sur);

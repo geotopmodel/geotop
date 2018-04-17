@@ -1372,71 +1372,61 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
       if (strcmp(files[fradnet], string_novalue) != 0)
         {
-          egy->Rn_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Rn_mean, 0.);
-          egy->Rn = new_doublevector(par->total_pixel);
+          egy->Rn_mean.reset(new Vector<double>{par->total_pixel});
+          egy->Rn.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradLWin], string_novalue) != 0)
         {
-          egy->LWin_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LWin_mean, 0.);
-          egy->LWin = new_doublevector(par->total_pixel);
+          egy->LWin_mean.reset(new Vector<double>{par->total_pixel});
+          egy->LWin.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradLW], string_novalue) != 0)
         {
-          egy->LW_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LW_mean, 0.);
+          egy->LW_mean.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradLW], string_novalue) != 0
           || strcmp(files[fradnet], string_novalue) != 0)
         {
-          egy->LW = new_doublevector(par->total_pixel);
+          egy->LW.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradSW], string_novalue) != 0)
         {
-          egy->SW_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->SW_mean, 0.);
+          egy->SW_mean.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradSW], string_novalue) != 0
           || strcmp(files[fradnet], string_novalue) != 0)
         {
-          egy->SW = new_doublevector(par->total_pixel);
+          egy->SW.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fLE], string_novalue) != 0)
         {
-          egy->ET_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->ET_mean, 0.);
-          egy->LE = new_doublevector(par->total_pixel);
+          egy->ET_mean.reset(new Vector<double>{par->total_pixel});
+          egy->LE.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fH], string_novalue) != 0)
         {
-          egy->H_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->H_mean, 0.);
-          egy->H = new_doublevector(par->total_pixel);
+          egy->H_mean.reset(new Vector<double>{par->total_pixel});
+          egy->H.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fG], string_novalue) != 0)
         {
-          egy->SEB_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->SEB_mean, 0.);
-          egy->G = new_doublevector(par->total_pixel);
+          egy->SEB_mean.reset(new Vector<double>{par->total_pixel});
+          egy->G.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fTs], string_novalue) != 0)
         {
-          egy->Ts_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Ts_mean, 0.);
-          egy->Ts = new_doublevector(par->total_pixel);
+          egy->Ts_mean.reset(new Vector<double>{par->total_pixel});
+          egy->Ts.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradSWin], string_novalue) != 0)
         {
-          egy->Rswdown_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Rswdown_mean, 0.);
-          egy->SWin = new_doublevector(par->total_pixel);
+          egy->Rswdown_mean.reset(new Vector<double>{par->total_pixel});
+          egy->SWin.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fradSWinbeam], string_novalue) != 0)
         {
-          egy->Rswbeam_mean = new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Rswbeam_mean, 0.);
-          egy->SWinb = new_doublevector(par->total_pixel);
+          egy->Rswbeam_mean.reset(new Vector<double>{par->total_pixel});
+          egy->SWinb.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
@@ -1456,86 +1446,73 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
           || strcmp(files[pHg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          egy->Hgplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Hgplot, 0.);
-          egy->Hgp=new_doublevector(par->total_pixel);
+          egy->Hgplot.reset(new Vector<double>{par->total_pixel});
+          egy->Hgp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pH], string_novalue) != 0
           || strcmp(files[pHv], string_novalue) != 0)
         {
-          egy->Hvplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Hvplot, 0.);
-          egy->Hvp=new_doublevector(par->total_pixel);
+          egy->Hvplot.reset(new Vector<double>{par->total_pixel});
+          egy->Hvp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pLE], string_novalue) != 0
           || strcmp(files[pLEg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          egy->LEgplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LEgplot, 0.);
-          egy->LEgp=new_doublevector(par->total_pixel);
+          egy->LEgplot.reset(new Vector<double>{par->total_pixel});
+          egy->LEgp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pLE], string_novalue) != 0
           || strcmp(files[pLEv], string_novalue) != 0)
         {
-          egy->LEvplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LEvplot, 0.);
-          egy->LEvp=new_doublevector(par->total_pixel);
+          egy->LEvplot.reset(new Vector<double>{par->total_pixel});
+          egy->LEvp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pSWin], string_novalue) != 0)
         {
-          egy->SWinplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->SWinplot, 0.);
-          egy->SWinp=new_doublevector(par->total_pixel);
+          egy->SWinplot.reset(new Vector<double>{par->total_pixel});
+          egy->SWinp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pSWg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          egy->SWgplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->SWgplot, 0.);
-          egy->SWgp=new_doublevector(par->total_pixel);
+          egy->SWgplot.reset(new Vector<double>{par->total_pixel});
+          egy->SWgp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pSWv], string_novalue) != 0)
         {
-          egy->SWvplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->SWvplot, 0.);
-          egy->SWvp=new_doublevector(par->total_pixel);
+          egy->SWvplot.reset(new Vector<double>{par->total_pixel});
+          egy->SWvp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pLWin], string_novalue) != 0)
         {
-          egy->LWinplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LWinplot, 0.);
-          egy->LWinp=new_doublevector(par->total_pixel);
+          egy->LWinplot.reset(new Vector<double>{par->total_pixel});
+          egy->LWinp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pLWg], string_novalue) != 0
           || strcmp(files[pG], string_novalue) != 0)
         {
-          egy->LWgplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LWgplot, 0.);
-          egy->LWgp=new_doublevector(par->total_pixel);
+          egy->LWgplot.reset(new Vector<double>{par->total_pixel});
+          egy->LWgp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pLWv], string_novalue) != 0)
         {
-          egy->LWvplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->LWvplot, 0.);
-          egy->LWvp=new_doublevector(par->total_pixel);
+          egy->LWvplot.reset(new Vector<double>{par->total_pixel});
+          egy->LWvp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pTs], string_novalue) != 0)
         {
-          egy->Tsplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Tsplot, 0.);
-          egy->Tsp=new_doublevector(par->total_pixel);
+          egy->Tsplot.reset(new Vector<double>{par->total_pixel});
+          egy->Tsp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pTg], string_novalue) != 0)
         {
-          egy->Tgplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Tgplot, 0.);
-          egy->Tgp=new_doublevector(par->total_pixel);
+          egy->Tgplot.reset(new Vector<double>{par->total_pixel});
+          egy->Tgp.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pTv], string_novalue) != 0)
         {
-          egy->Tvplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(egy->Tvplot, 0.);
+          egy->Tvplot.reset(new Vector<double>{par->total_pixel});
         }
     }
 
