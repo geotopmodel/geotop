@@ -220,47 +220,6 @@ FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
 */
 
 LONGPAIR *new_longpair(void);
-LONGPOKER *new_longpoker(void);
-REALPAIR *new_realpair(void);
-IX *new_ix(void);
-IJX *new_ijx(void);
-XYZ *new_xyz(void);
-PHRASE *new_word(long n,char *text);
-
-/**
-
-Name: print__elements
-
-Version: 1.0
-
-Synopsis:
-
-void print_longlist_elements(LONGPAIR * list,short columns);
-void print_reallist_elements(REALPAIR * list,short columns);
-void print_ix_elements(IX * list,short columns);
-void print_ijx_elements(IJX * list,short columns);
-void print_xyz_elements(XYZ * list,short columns);
-
-
-Description:  They print the specified type of linear linked list
-
- Inputs: 1) the head of the linear linked list, the number of columns that
- will be printed on the screen
-
-
-Authors & Date: Riccardo Rigon, 1997
-
-FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
-
-
-*/
-void print_pokerlist_elements(LONGPOKER *list,short columns);
-void print_longlist_elements(LONGPAIR *list,short columns);
-void print_reallist_elements(REALPAIR *list,short columns);
-void print_ix_elements(IX *list,short columns);
-void print_ijx_elements(IJX *list,short columns);
-void print_xyz_elements(XYZ *list,short columns);
-void print_phrase_elements(PHRASE *list,short columns);
 
 /**
 
@@ -336,15 +295,8 @@ REALPAIR *point2realpair(REALPAIR *head,long point);
 IX *point2ix(IX *head,long point);
 IJX *point2ijx(IJX *head,long point);
 XYZ *point2measure(XYZ *head,long point);
-LONGPOKER *delete_longpoker(LONGPOKER *head,LONGPOKER *ante);
-LONGPAIR *delete_longpair(LONGPAIR *head,LONGPAIR *ante);
-REALPAIR *delete_realpair(REALPAIR *head,REALPAIR *ante);
-IX *delete_ix(IX *head,IX *ante);
-IJX *delete_ijx(IJX *head,IJX *ante);
-XYZ *delete_xyz(XYZ *head,XYZ *ante);
-LONGPOKER *point2longpoker(LONGPOKER *head,long point);
 
-LONGPAIR *deleteshuffle_longpair(LONGPAIR *head,LONGPAIR *ante);
+LONGPOKER *point2longpoker(LONGPOKER *head,long point);
 
 /**
 
@@ -440,70 +392,6 @@ FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
 */
 
 LONGPAIR *appendto(LONGPAIR *head, LONGPAIR *element);
-PHRASE   *join_words(PHRASE *head, PHRASE *element);
-
-/**
-
-Name: prependto
-
-Version: 1.0
-
-Synopsis:
-
-LONGPAIR * prependto(LONGPAIR * head, LONGPAIR * element);
-
-
-Description:  append to the given element a the given linear linked list
-
-
- Inputs: 1) a pointer to the head of the linear linked list; 2) a pointer to the element to be
- prepend
-
- Return: a pointer to the head of the list
-
- Authors & Date: Riccardo Rigon, 1997
-
-Authors & Date: Riccardo Rigon, 1997
-
-FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
-
-
-*/
-
-LONGPAIR *prependto(LONGPAIR *head, LONGPAIR *element);
-
-/**
-
-Name: rotateleft
-
-Version: 1.0
-
-Synopsis:
-
-LONGPAIR *  rotateleft(LONGPAIR * head);
-
-
-Description:  Take a linear linked list and put the first element at the
-end of the list
-
- Inputs: the pointer to the head of the list
-
- Return: a pointer to the new head of the list
-
- Authors & Date: Riccardo Rigon, 1997
-
- References:
-
- Examples:  metropolis
-
-Authors & Date: Riccardo Rigon, 1997
-
-FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
-
-
-*/
-
-LONGPAIR   *rotateleft(LONGPAIR *head);
 
 /**
 
@@ -532,8 +420,4 @@ FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
 
 LONGPAIR   *rotate(LONGPAIR *head,int n);
 
-
-/** */
-void write_indexed_pokerlist_elements(FILE *ostream,LONGPOKER *list,
-                                      short columns);
 

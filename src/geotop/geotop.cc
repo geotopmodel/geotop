@@ -41,6 +41,9 @@
 
 #include <memory>
 
+//#include <cstdio>
+#include <stdio.h>
+
 void time_loop(ALLDATA *A);
 
 
@@ -96,7 +99,7 @@ int main(int argc,char *argv[])
 {
 
   std::unique_ptr<ALLDATA> adt;
-  FILE *f;
+  FILE* f;
 
   //assign novalues
   number_novalue = -9999;
@@ -159,7 +162,7 @@ void time_loop(ALLDATA *A)
   long i, sy, r, c, j, l;
   double t, Dt, JD0, JDb, JDe, W, th, th0;
   double Vout, Voutsub, Voutsup, Vbottom, C0, C1;
-  FILE *f;
+  FILE* f;
 
   //double mean;
 
