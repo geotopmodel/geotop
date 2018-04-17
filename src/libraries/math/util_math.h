@@ -20,18 +20,18 @@
  */
 
 
-short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf,
-              DOUBLEVECTOR *diag, DOUBLEVECTOR *diag_sup, DOUBLEVECTOR *b, DOUBLEVECTOR *e);
+short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
+              Vector<double> *diag, Vector<double> *diag_sup, Vector<double> *b, Vector<double> *e);
 
 short tridiag2(short a, long r, long c, long nbeg, long nend,
                Vector<double> *ld, Vector<double> *d, Vector<double> *ud, Vector<double> *b,
                Vector<double> *e);
 
-double norm_inf(DOUBLEVECTOR *V, long nbeg, long nend);
+double norm_inf(Vector<double> *V, long nbeg, long nend);
 
 double norm_2(Vector<double> *V, long nbeg, long nend);
 
-double norm_1(DOUBLEVECTOR *V, long nbeg, long nend);
+double norm_1(Vector<double> *V, long nbeg, long nend);
 
 void Cramer_rule(double A, double B, double C, double D, double E, double F,
                  double *x, double *y);
@@ -39,7 +39,7 @@ void Cramer_rule(double A, double B, double C, double D, double E, double F,
 double minimize_merit_function(double res0, double lambda1, double res1,
                                double lambda2, double res2);
 
-double product(DOUBLEVECTOR *a, DOUBLEVECTOR *b);
+double product(Vector<double> *a, Vector<double> *b);
 
 double adaptiveSimpsonsAux(double (*f)(double), double a, double b,
                            double epsilon, double S, double fa, double fb, double fc, int bottom);

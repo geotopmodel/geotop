@@ -30,12 +30,12 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
              double *LWg, double *Hv, double *Hg,
              double *dHgdT, double *LEv, double *Eg, double *dEgdT, double *Ts, double *Qs,
              double *froot, double *theta,
-             DOUBLEVECTOR *soil_transp_layer, double *Lobukhov, PAR *par, long n,
+             Vector<double> *soil_transp_layer, double *Lobukhov, PAR *par, long n,
              double *rm, double *rh, double *rv, double *rc,
              double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
              double *Qv, double *decay, double *Locc,
              double *LWup_above_v, double psi, double **soil, double *T,
-             DOUBLEVECTOR *soil_evap_layer);
+             Vector<double> *soil_evap_layer);
 
 void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Qgsat, double Qa, double zmu, double zmT, double z0,
@@ -45,12 +45,12 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Wcsnmax, double *Esubl, double *Etrans,
                    double *LWv, double *LWg, double *H, double *LE, double *h, double *dhdT,
                    double *Ts, double *Qs, double *Qv, double *ruc,
-                   double *froot, double *theta, DOUBLEVECTOR *soil_transp_layer, long chgsgn,
+                   double *froot, double *theta, Vector<double> *soil_transp_layer, long chgsgn,
                    double *Lobukhov, PAR *par, long n, double *rm,
                    double *rh, double *rv, double *rc, double *rb, double *u_top, double *decay,
                    double *Locc, double *LWup_above_v, double psi,
                    double **soil, double *alpha, double *beta, double *T,
-                   DOUBLEVECTOR *soil_evap_layer);
+                   Vector<double> *soil_evap_layer);
 
 void shortwave_vegetation(double Sd, double Sb, double x, double fwsn,
                           double wsn, double Bsnd, double Bsnb, double Agd,
@@ -74,7 +74,7 @@ void root(long n, double d, double slope, double *D, double *root_fraction);
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
                                double SWin, double *theta, double *land, double **soil, double *root,
-                               double *f, DOUBLEVECTOR *fl);
+                               double *f, Vector<double> *fl);
 
 void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
                        double u_top, double Hveg, double z0soil, double z0veg, double d0veg,

@@ -547,12 +547,12 @@ double latent(double Ts, double Le)
 /******************************************************************************************************************************************/
 
 void find_actual_evaporation_parameters(long R, long C, double *alpha,
-                                        double *beta, DOUBLEVECTOR *evap_layer, double *theta,
+                                        double *beta, Vector<double> *evap_layer, double *theta,
                                         double **soil, double *T, double psi, double P, double rv, double Ta,
                                         double Qa, double Qgsat, long nsnow)
 {
 
-  DOUBLEVECTOR *r;
+  std::unique_ptr<Vector<double>> r;
   double hs, F, A, B, Qs, D, Qsat, rho;
   long l, n = evap_layer->nh;
 
@@ -561,7 +561,7 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
 
       *alpha = 1.0;
       *beta = 1.0;
-      initialize_doublevector(evap_layer, 0.);
+      *evap_layer = 0.;
 
     }
   else
@@ -595,7 +595,7 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
           A = 0.;
           B = 0.;
 
-          r = new_doublevector(n);  ////molecular diffusivity resistances [s/m]
+          r.reset(new Vector<double>{n});  ////molecular diffusivity resistances [s/m]
 
           //calculates water vapor fluxes
           for (l=1; l<=n; l++)
@@ -633,8 +633,6 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
             {
               evap_layer->co[l] -= rho*(soil[jsat][l] - theta[l]) * Qs / r->co[l];
             }
-
-          free_doublevector(r);
 
           //calculates evaporation from the surface
           F = ( soil[jsat][1] ) / ( soil[jsat][1] - soil[jres][1] );

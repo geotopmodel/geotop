@@ -26,16 +26,14 @@
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf,
-              DOUBLEVECTOR *diag, DOUBLEVECTOR *diag_sup, DOUBLEVECTOR *b, DOUBLEVECTOR *e)
+short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
+              Vector<double> *diag, Vector<double> *diag_sup, Vector<double> *b, Vector<double> *e)
 
 {
 
   long j;
   double bet;
-  DOUBLEVECTOR *gam;
-
-  gam=new_doublevector(nx);
+  std::unique_ptr<Vector<double>> gam {new Vector<double>{nx}};
 
   /*for (j=1; j<=nx; j++) {
     printf("d[%ld]=%e\n",j,diag->co[j]);
@@ -73,8 +71,6 @@ short tridiag(short a, long r, long c, long nx, DOUBLEVECTOR *diag_inf,
       e->co[j]-=gam->co[j+1]*e->co[j+1];
     }
 
-  free_doublevector(gam);
-
   return 1;
 
 }
@@ -91,9 +87,7 @@ short tridiag2(short a, long r, long c, long nbeg, long nend,
 {
   long j;
   double bet;
-  DOUBLEVECTOR *gam;
-
-  gam = new_doublevector(nend);
+  std::unique_ptr<Vector<double>> gam{new Vector<double>{nend}};
 
   bet = d->co[nbeg];
   if (bet == 0.0)
@@ -125,15 +119,13 @@ short tridiag2(short a, long r, long c, long nbeg, long nend,
       e->co[j] -= gam->co[j+1]*e->co[j+1];
     }
 
-  free_doublevector(gam);
-
   return 0;
 
 }
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-double norm_inf(DOUBLEVECTOR *V, long nbeg, long nend)
+double norm_inf(Vector<double> *V, long nbeg, long nend)
 {
 
   long l;
@@ -168,7 +160,7 @@ double norm_2(Vector<double> *V, long nbeg, long nend)
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-double norm_1(DOUBLEVECTOR *V, long nbeg, long nend)
+double norm_1(Vector<double> *V, long nbeg, long nend)
 {
 
   long l;
@@ -248,7 +240,7 @@ double minimize_merit_function(double res0, double lambda1, double res1,
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-double product(DOUBLEVECTOR *a, DOUBLEVECTOR *b)
+double product(Vector<double> *a, Vector<double> *b)
 {
 
   double p=0.;

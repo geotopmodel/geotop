@@ -1718,8 +1718,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-  times->JD_plots = new_doublevector(num_param_components[cod] +
-                                     num_param_components[codn]);
+  times->JD_plots.reset(new Vector<double> {num_param_components[cod] +
+                                     num_param_components[codn]});
   for (i=1; i<=(long)(times->JD_plots->nh/2.); i++)
     {
       times->JD_plots->co[2*i-1] = assignation_number(flog, cod, i-1, keyword,
@@ -1730,9 +1730,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   if (times->JD_plots->nh == 2 && times->JD_plots->co[1] < 1.E-5
       && times->JD_plots->co[2] < 1.E-5)
     {
-      free_doublevector(times->JD_plots);
-      times->JD_plots = new_doublevector(1);
-      initialize_doublevector(times->JD_plots, 0.);
+      times->JD_plots.reset(new Vector<double>{1});
     }
   if (times->JD_plots->nh > 1)
     {
@@ -1976,15 +1974,15 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
   if (!met->st) t_error("meteo_stations was not allocated");
-  met->st->E=new_doublevector(nmeteo_stations);
-  met->st->N=new_doublevector(nmeteo_stations);
-  met->st->lat=new_doublevector(nmeteo_stations);
-  met->st->lon=new_doublevector(nmeteo_stations);
-  met->st->Z=new_doublevector(nmeteo_stations);
-  met->st->sky=new_doublevector(nmeteo_stations);
-  met->st->ST=new_doublevector(nmeteo_stations);
-  met->st->Vheight=new_doublevector(nmeteo_stations);
-  met->st->Theight=new_doublevector(nmeteo_stations);
+  met->st->E.reset(new Vector<double>{nmeteo_stations});
+  met->st->N.reset(new Vector<double>{nmeteo_stations});
+  met->st->lat.reset(new Vector<double>{nmeteo_stations});
+  met->st->lon.reset(new Vector<double>{nmeteo_stations});
+  met->st->Z.reset(new Vector<double>{nmeteo_stations});
+  met->st->sky.reset(new Vector<double>{nmeteo_stations});
+  met->st->ST.reset(new Vector<double>{nmeteo_stations});
+  met->st->Vheight.reset(new Vector<double>{nmeteo_stations});
+  met->st->Theight.reset(new Vector<double>{nmeteo_stations});
 
   i=1;
   met->st->E->co[i] = assignation_number(flog, 201, i-1, keyword, num_param,
@@ -2163,7 +2161,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
   while ((long)a != number_novalue && n<=1000000);
   if (n==0) n=1;
-  par->soil_plot_depths = new_doublevector(n);
+  par->soil_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->soil_plot_depths->nh; n++)
     {
       par->soil_plot_depths->co[n] = assignation_number(flog, cod, n-1, keyword,
@@ -2180,7 +2178,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
   while ((long)a != number_novalue && n<=1000000);
   if (n==0) n=1;
-  par->snow_plot_depths = new_doublevector(n);
+  par->snow_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->snow_plot_depths->nh; n++)
     {
       par->snow_plot_depths->co[n] = assignation_number(flog, cod, n-1, keyword,
@@ -2197,7 +2195,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
     }
   while ((long)a != number_novalue && n<=1000000);
   if (n==0) n=1;
-  par->glac_plot_depths = new_doublevector(n);
+  par->glac_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->glac_plot_depths->nh; n++)
     {
       par->glac_plot_depths->co[n] = assignation_number(flog, cod, n-1, keyword,

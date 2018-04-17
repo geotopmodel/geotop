@@ -81,7 +81,7 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void write_grassascii_vector(char *name, short type, DOUBLEVECTOR *DTM,
+void write_grassascii_vector(char *name, short type, Vector<double> *DTM,
                              long **j, long nr, long nc, T_INIT *UV, long novalue)
 {
 
@@ -195,7 +195,7 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void write_esriascii_vector(char *name, short type, DOUBLEVECTOR *DTM,
+void write_esriascii_vector(char *name, short type, Vector<double> *DTM,
                             long **j, long nr, long nc, T_INIT *UV, long novalue)
 {
 

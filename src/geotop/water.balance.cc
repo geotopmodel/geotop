@@ -90,7 +90,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       //surface flow: 1st half of time step
       start=clock();
       supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              adt->W->h_sup->co, C->P->co[0], adt->C->h_sup->co, adt->T, adt->L, adt->W,
+              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T, adt->L, adt->W,
               adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
       end=clock();
 
@@ -158,7 +158,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       //surface flow: 2nd half of time step
       start=clock();
       supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              adt->W->h_sup->co, C->P->co[0], adt->C->h_sup->co, adt->T, adt->L, adt->W,
+              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T, adt->L, adt->W,
               adt->C, adt->P, adt->M, Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
       end=clock();
 
@@ -234,7 +234,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
 
 short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
-                 FILE *flog, double *loss, DOUBLEVECTOR *Vsub, double *Vbottom,
+                 FILE *flog, double *loss, Vector<double> *Vsub, double *Vbottom,
                  double *Vlatsub, double *Total_Pnet, short updateK)
 {
 
@@ -323,16 +323,16 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
         }
     }
 
-  sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx, adt->W->Klat, adt->W->Kbottom,
-                         adt->C->Kbottom, adt, adt->W->H1);
+  sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx.get(), adt->W->Klat, adt->W->Kbottom,
+                         adt->C->Kbottom.get(), adt, adt->W->H1.get());
 
-  find_f_3D(Dt, adt->W->f, adt, L, C, adt->W->H1, adt->W->Klat, adt->W->Kbottom,
-            adt->C->Kbottom);
+  find_f_3D(Dt, adt->W->f.get(), adt, L, C, adt->W->H1.get(), adt->W->Klat, adt->W->Kbottom,
+            adt->C->Kbottom.get());
 
-  product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B,
-                                                        adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);
+  product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
+                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
 
-  res = norm_inf(adt->W->B, 1, N);
+  res = norm_inf(adt->W->B.get(), 1, N);
 
   res00 = res; //initial norm of the residual
   epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00, sqrt((double)N) );
@@ -371,13 +371,13 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
 
       //CALCOLATE AND STORE JACOBIAN AS SPARSE MATRIX
 
-      sux = find_dfdH_3D(Dt, adt->W->df, adt, L, C, adt->W->H1,
+      sux = find_dfdH_3D(Dt, adt->W->df.get(), adt, L, C, adt->W->H1.get(),
                          adt->W->Klat);  //it calcolates only df/dH, J = I*df/dH + K, K is calculated above
 
       //CONJUGATED GRADIENTS ALGORITHM
       iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC,
-                                                                  tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp,
-                                                                  adt->W->Lx);
+                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li, adt->T->Lp,
+                                                                  adt->W->Lx.get());
       if (iter==-1) return 1; //does not converge
 
       //non-monotonic line search (it is monotonic if M==1)
@@ -435,16 +435,16 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
             }
 
           if (updateK == 1
-              && cont <= maxITER_rec_K) sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx,
-                                                                 adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom, adt, adt->W->H1);
+              && cont <= maxITER_rec_K) sux = find_matrix_K_3D(Dt, L, C, adt->W->Lx.get(),
+                                                                 adt->W->Klat, adt->W->Kbottom, adt->C->Kbottom.get(), adt, adt->W->H1.get());
 
-          find_f_3D(Dt, adt->W->f, adt, L, C, adt->W->H1, adt->W->Klat, adt->W->Kbottom,
-                    adt->C->Kbottom);
+          find_f_3D(Dt, adt->W->f.get(), adt, L, C, adt->W->H1.get(), adt->W->Klat, adt->W->Kbottom,
+                    adt->C->Kbottom.get());
 
-          product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B,
-                                                                adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);
+          product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
+                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
 
-          res = norm_inf(adt->W->B, 1, N);
+          res = norm_inf(adt->W->B.get(), 1, N);
           //printf("..res:%e\n",res);
 
           out2=0;
@@ -482,7 +482,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
   if ( res > epsilon ) return 1;
 
   //it can be shown that massloss per unit pixel [mm] is the linear norm of B * Dt / total_pixel
-  *loss = norm_1(adt->W->B, 1, N)*Dt/adt->P->total_area;
+  *loss = norm_1(adt->W->B.get(), 1, N)*Dt/adt->P->total_area;
 
   //assign updated state variables
   for (i=1; i<=N; i++)
@@ -690,16 +690,16 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
 
     }
 
-  sux = find_matrix_K_1D(c, Dt, L, adt->W->Lx, adt->W->Klat, adt->W->Kbottom,
-                         adt, adt->W->H1);
+  sux = find_matrix_K_1D(c, Dt, L, adt->W->Lx.get(), adt->W->Klat, adt->W->Kbottom,
+                         adt, adt->W->H1.get());
 
-  find_f_1D(c, Dt, L, adt->W->f, adt, adt->W->H1, adt->W->Klat,
+  find_f_1D(c, Dt, L, adt->W->f.get(), adt, adt->W->H1.get(), adt->W->Klat,
             adt->W->Kbottom);
 
-  product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B,
-                                                        adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);
+  product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
+                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
 
-  res = norm_inf(adt->W->B, 1, N);
+  res = norm_inf(adt->W->B.get(), 1, N);
 
   res00 = res; //initial norm of the residual
   epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00, sqrt((double)N) );
@@ -735,13 +735,13 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
         }
 
       //CALCOLATE AND STORE JACOBIAN AS SPARSE MATRIX
-      sux = find_dfdH_1D(c, Dt, L, adt->W->df, adt, adt->W->H1,
+      sux = find_dfdH_1D(c, Dt, L, adt->W->df.get(), adt, adt->W->H1.get(),
                          adt->W->Klat);  //it calcolates only df/dH, J = I*df/dH + K, K is calculated above
 
       //CONJUGATED GRADIENTS ALGORITHM
       iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC,
-                                                                  tol_max_GC, adt->W->dH, adt->W->B, adt->W->df, adt->T->Li, adt->T->Lp,
-                                                                  adt->W->Lx);
+                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li, adt->T->Lp,
+                                                                  adt->W->Lx.get());
       if (iter==-1)
         {
           return 1; //does not converge
@@ -814,16 +814,16 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
             }
 
           if (updateK == 1
-              && cont <= maxITER_rec_K) sux = find_matrix_K_1D(c, Dt, L, adt->W->Lx,
-                                                                 adt->W->Klat, adt->W->Kbottom, adt, adt->W->H1);
+              && cont <= maxITER_rec_K) sux = find_matrix_K_1D(c, Dt, L, adt->W->Lx.get(),
+                                                                 adt->W->Klat, adt->W->Kbottom, adt, adt->W->H1.get());
 
-          find_f_1D(c, Dt, L, adt->W->f, adt, adt->W->H1, adt->W->Klat,
+          find_f_1D(c, Dt, L, adt->W->f.get(), adt, adt->W->H1.get(), adt->W->Klat,
                     adt->W->Kbottom);
 
-          product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B,
-                                                                adt->W->f, adt->W->H1, adt->T->Li, adt->T->Lp, adt->W->Lx);
+          product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
+                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
 
-          res = norm_inf(adt->W->B, 1, N);
+          res = norm_inf(adt->W->B.get(), 1, N);
 
           out2=0;
 
@@ -863,7 +863,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
     }
 
   //it can be shown that massloss per unit pixel [mm] is the linear norm of B * Dt / total_pixel
-  *loss = norm_1(adt->W->B, 1, N)*Dt/adt->P->total_area;
+  *loss = norm_1(adt->W->B.get(), 1, N)*Dt/adt->P->total_area;
 
   //assign updated state variables
   for (i=1; i<=N; i++)
@@ -951,8 +951,8 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2)
 //cnt is the counter of Li Lp Lx (lower diagonal without diagonal)
 
 int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
-                     DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
-                     DOUBLEVECTOR *Kbottom_ch, ALLDATA *adt, DOUBLEVECTOR *H)
+                     Vector<double> *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+                     Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H)
 {
 
   long i, l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
@@ -1507,8 +1507,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx,
-                     DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, DOUBLEVECTOR *H)
+int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
+                     DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, Vector<double> *H)
 {
 
   long i, l, r=1, I, sy, cnt=0;
@@ -1632,8 +1632,8 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L,
-                 SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat)
+int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
+                 SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat)
 {
 
   long i, l, r, c, j, sy, ch, bc;
@@ -1733,8 +1733,8 @@ int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *df,
-                 ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat)
+int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
+                 ALLDATA *adt, Vector<double> *H, DOUBLEMATRIX *Klat)
 {
 
   long i, r=1, l, sy, bc;
@@ -1796,9 +1796,9 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *df,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L,
-              SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
-              DOUBLEVECTOR *Kbottom_ch)
+int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
+              SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+              Vector<double> *Kbottom_ch)
 {
 
   long i, l, r, c, j, sy, ch, bc;
@@ -1951,8 +1951,8 @@ int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt,
-              DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom)
+int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
+              Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom)
 {
 
   long i, l, r=1, sy, bc;
@@ -2111,7 +2111,7 @@ void find_dt_max(short DD, double Courant, double *h, LAND *land, TOPO *top,
 
 void supflow(short DDland, short DDch, double Dt, double t, double *h,
              double *dV, double *hch, double *dhch, TOPO *top, LAND *land,
-             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, DOUBLEVECTOR *Vsup,
+             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup,
              double *Voutnet, double *Voutland, FILE *flog,
              double *mm1, double *mm2, double *mmo)
 {
@@ -2375,7 +2375,7 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
 /******************************************************************************************************************************************/
 
 void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top,
-                  WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog,
+                  WATER *wat, CHANNEL *cnet, PAR *par, Vector<double> *Vsup, FILE *flog,
                   long *cnt)
 {
 

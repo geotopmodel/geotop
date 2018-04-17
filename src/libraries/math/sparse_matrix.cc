@@ -32,14 +32,13 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, double dt,
+int get_diagonal(Vector<double> *diagonal, Vector<double> *x0, double dt,
                  t_Matrix_element_with_voidp Matrix, void *data)
 {
 
   long i;
-  DOUBLEVECTOR *x_v;
+  std::unique_ptr<Vector<double>> x_v{new Vector<double>{diagonal->nh}};
 
-  x_v=new_doublevector(diagonal->nh);
   for (i=x_v->nl; i<=x_v->nh; i++)
     {
       x_v->co[i]=0.0;
@@ -47,11 +46,9 @@ int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, double dt,
   for (i=x_v->nl; i<=x_v->nh; i++)
     {
       x_v->co[i]=1.0;
-      diagonal->co[i]=Fmax( (*Matrix)(i,x_v,x0,dt,data), MAX_VALUE_DIAG );
+      diagonal->co[i]=Fmax( (*Matrix)(i,x_v.get(),x0,dt,data), MAX_VALUE_DIAG );
       x_v->co[i]=0.0;
     }
-
-  free_doublevector(x_v);
 
 
   return 0;
@@ -62,7 +59,7 @@ int get_diagonal(DOUBLEVECTOR *diagonal, DOUBLEVECTOR *x0, double dt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, double dt,
+int get_upper_diagonal(Vector<double> *udiagonal, Vector<double> *x0, double dt,
                        t_Matrix_element_with_voidp Matrix, void *data)
 {
   /*
@@ -80,9 +77,7 @@ int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, double dt,
    */
 
   long i;
-  DOUBLEVECTOR *x_v;
-
-  x_v=new_doublevector(udiagonal->nh+1);
+  std::unique_ptr<Vector<double>> x_v{new Vector<double>{udiagonal->nh+1}};
   for (i=x_v->nl; i<=x_v->nh; i++)
     {
       x_v->co[i]=0.0;
@@ -90,12 +85,10 @@ int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, double dt,
   for (i=udiagonal->nl; i<=udiagonal->nh; i++)
     {
       x_v->co[i]=1.0;
-      udiagonal->co[i]=(*Matrix)(i+1,x_v,x0,dt,data);
+      udiagonal->co[i]=(*Matrix)(i+1,x_v.get(),x0,dt,data);
       //diagonal->co[i]=1.;
       x_v->co[i]=0.0;
     }
-
-  free_doublevector(x_v);
 
 
   return 0;
@@ -106,9 +99,9 @@ int get_upper_diagonal(DOUBLEVECTOR *udiagonal, DOUBLEVECTOR *x0, double dt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
-        DOUBLEVECTOR *x0, double dt,
-        DOUBLEVECTOR *b, t_Matrix_element_with_voidp function, void *data)
+long CG(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
+        Vector<double> *x0, double dt,
+        Vector<double> *b, t_Matrix_element_with_voidp function, void *data)
 {
 
   /*!
@@ -130,7 +123,7 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 
   short sux;
   double delta,alpha,beta,delta_new;
-  DOUBLEVECTOR *r, *d,*q,*y,*sr,*diag,*udiag;
+  std::unique_ptr<Vector<double>> r, d,q,y,sr,diag,udiag;
 
   long icnt_max;
   long icnt;
@@ -138,13 +131,13 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
   double p;
   double norm_r0;
 
-  r=new_doublevector(x->nh);
-  d=new_doublevector(x->nh);
-  q=new_doublevector(x->nh);
-  y=new_doublevector(x->nh);
-  sr=new_doublevector(x->nh);
-  diag=new_doublevector(x->nh);
-  udiag=new_doublevector(x->nh-1);
+  r.reset(new Vector<double> {x->nh});
+  d.reset(new Vector<double> {x->nh});
+  q.reset(new Vector<double> {x->nh});
+  y.reset(new Vector<double> {x->nh});
+  sr.reset(new Vector<double> {x->nh});
+  diag.reset(new Vector<double> {x->nh});
+  udiag.reset(new Vector<double> {x->nh-1});
 
   icnt=0;
   icnt_max=x->nh;
@@ -155,8 +148,8 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
       y->co[j]=(*function)(j,x,x0,dt,data);
     }
 
-  get_diagonal(diag,x0,dt,function,data);
-  get_upper_diagonal(udiag,x0,dt,function,data);
+  get_diagonal(diag.get(),x0,dt,function,data);
+  get_upper_diagonal(udiag.get(),x0,dt,function,data);
 
   delta_new=0.0;
 
@@ -175,7 +168,7 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 
     }
 
-  sux=tridiag(0,0,0,x->nh,udiag,diag,udiag,r,d);
+  sux=tridiag(0,0,0,x->nh,udiag.get(),diag.get(),udiag.get(),r.get(),d.get());
   if (sux==0) return (-1);
 
   for (j=y->nl; j<=y->nh; j++)
@@ -184,10 +177,10 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
       delta_new+=r->co[j]*d->co[j];
     }
 
-  norm_r0 = norm_2(r, r->nl, r->nh);
+  norm_r0 = norm_2(r.get(), r->nl, r->nh);
 
   while ( icnt<=icnt_max
-          && norm_2(r, r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -196,7 +189,7 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 
       for (j=q->nl; j<=q->nh; j++)
         {
-          q->co[j]=(*function)(j,d,x0,dt,data);
+          q->co[j]=(*function)(j,d.get(),x0,dt,data);
           p+=q->co[j]*d->co[j];
 
         }
@@ -221,7 +214,7 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
             }
         }
 
-      sux=tridiag(0,0,0,x->nh,udiag,diag,udiag,r,sr);
+      sux=tridiag(0,0,0,x->nh,udiag.get(),diag.get(),udiag.get(),r.get(),sr.get());
       if (sux==0) return (-1);
 
       for (j=y->nl; j<=y->nh; j++)
@@ -239,14 +232,6 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 
     }
 
-  free_doublevector(udiag);
-  free_doublevector(diag);
-  free_doublevector(sr);
-  free_doublevector(r);
-  free_doublevector(d);
-  free_doublevector(q);
-  free_doublevector(y);
-
 
   return icnt;
 
@@ -257,9 +242,9 @@ long CG(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
-              DOUBLEVECTOR *x0,
-              double dt, DOUBLEVECTOR *b, t_Matrix_element_with_voidp function, void *data)
+long BiCGSTAB(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
+              Vector<double> *x0,
+              double dt, Vector<double> *b, t_Matrix_element_with_voidp function, void *data)
 {
 
   /* \author Stefano Endrizzi
@@ -268,27 +253,27 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
      by H. A. VAN DER VORST - SIAM J. ScI. STAT. COMPUT. Vol. 13, No. 2, pp. 631-644, March 1992
   */
 
-  DOUBLEVECTOR *r0, *r, *p, *v, *s, *t, *diag, *udiag, *y, *z;
+  std::unique_ptr<Vector<double>> r0, r, p, v, s, t, diag, udiag, y, z;
   //DOUBLEVECTOR *tt, *ss;
   double rho, rho1, alpha, omeg, beta, norm_r0;
   long i=0, j;
   short sux;
 
-  r0 = new_doublevector(x->nh);
-  r = new_doublevector(x->nh);
-  p = new_doublevector(x->nh);
-  v = new_doublevector(x->nh);
-  s = new_doublevector(x->nh);
-  t = new_doublevector(x->nh);
-  diag = new_doublevector(x->nh);
-  udiag = new_doublevector(x->nh-1);
-  y = new_doublevector(x->nh);
-  z = new_doublevector(x->nh);
+  r0.reset(new Vector<double> {x->nh});
+  r.reset(new Vector<double> {x->nh});
+  p.reset(new Vector<double> {x->nh});
+  v.reset(new Vector<double> {x->nh});
+  s.reset(new Vector<double> {x->nh});
+  t.reset(new Vector<double> {x->nh});
+  diag.reset(new Vector<double> {x->nh});
+  udiag.reset(new Vector<double> {x->nh-1});
+  y.reset(new Vector<double> {x->nh});
+  z.reset(new Vector<double> {x->nh});
   //tt = new_doublevector(x->nh);
   //ss = new_doublevector(x->nh);
 
-  get_diagonal(diag,x0,dt,function,data);
-  get_upper_diagonal(udiag,x0,dt,function,data);
+  get_diagonal(diag.get(),x0,dt,function,data);
+  get_upper_diagonal(udiag.get(),x0,dt,function,data);
 
   for (j=x->nl; j<=x->nh; j++ )
     {
@@ -298,18 +283,18 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
       v->co[j] = 0.;
     }
 
-  norm_r0 = norm_2(r0, r0->nl, r0->nh);
+  norm_r0 = norm_2(r0.get(), r0->nl, r0->nh);
 
   rho = 1.;
   alpha = 1.;
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r, r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
-      rho1 = product(r0, r);
+      rho1 = product(r0.get(), r.get());
 
       beta = (rho1/rho)*(alpha/omeg);
 
@@ -320,34 +305,34 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
           p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
         }
 
-      sux=tridiag(0, 0, 0, x->nh, udiag, diag, udiag, p, y);
+      sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), p.get(), y.get());
       if (sux==0) return (-1);
 
       for (j=x->nl; j<=x->nh; j++ )
         {
-          v->co[j] = (*function)(j,y,x0,dt,data);
+          v->co[j] = (*function)(j,y.get(),x0,dt,data);
         }
 
-      alpha = rho/product(r0, v);
+      alpha = rho/product(r0.get(), v.get());
 
       for (j=x->nl; j<=x->nh; j++ )
         {
           s->co[j] = r->co[j] - alpha*v->co[j];
         }
 
-      sux=tridiag(0, 0, 0, x->nh, udiag, diag, udiag, s, z);
+      sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), s.get(), z.get());
       if (sux==0) return (-1);
 
       for (j=x->nl; j<=x->nh; j++ )
         {
-          t->co[j] = (*function)(j,z,x0,dt,data);
+          t->co[j] = (*function)(j,z.get(),x0,dt,data);
         }
 
       /*tridiag(0, 0, 0, x->nh, udiag, diag, udiag, t, tt);
       tridiag(0, 0, 0, x->nh, udiag, diag, udiag, s, ss);
       omeg = product(tt, ss)/product(tt, tt);*/
 
-      omeg = product(t, s)/product(t, t);
+      omeg = product(t.get(), s.get())/product(t.get(), t.get());
 
       for (j=x->nl; j<=x->nh; j++ )
         {
@@ -358,20 +343,6 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, DOUBLEVECTOR *x,
       i++;
 
     }
-
-
-  free_doublevector(r0);
-  free_doublevector(r);
-  free_doublevector(p);
-  free_doublevector(v);
-  free_doublevector(s);
-  free_doublevector(t);
-  free_doublevector(diag);
-  free_doublevector(udiag);
-  free_doublevector(y);
-  free_doublevector(z);
-  //free_doublevector(tt);
-  //free_doublevector(ss);
 
   return i;
 
@@ -390,8 +361,8 @@ by the Newton direction */
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void product_using_only_lower_diagonal_part(DOUBLEVECTOR *product,
-                                            DOUBLEVECTOR *x, LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax)
+void product_using_only_lower_diagonal_part(Vector<double> *product,
+                                            Vector<double> *x, LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -427,8 +398,8 @@ void product_using_only_lower_diagonal_part(DOUBLEVECTOR *product,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void product_using_only_upper_diagonal_part(DOUBLEVECTOR *product,
-                                            DOUBLEVECTOR *x, LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax)
+void product_using_only_upper_diagonal_part(Vector<double> *product,
+                                            Vector<double> *x, LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -463,8 +434,8 @@ void product_using_only_upper_diagonal_part(DOUBLEVECTOR *product,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void lower_matrix_product(DOUBLEVECTOR *product, DOUBLEVECTOR *x,
-                          LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax)
+void lower_matrix_product(Vector<double> *product, Vector<double> *x,
+                          LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -496,8 +467,8 @@ void lower_matrix_product(DOUBLEVECTOR *product, DOUBLEVECTOR *x,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void upper_matrix_product(DOUBLEVECTOR *product, DOUBLEVECTOR *x,
-                          LONGVECTOR *Ai, LONGVECTOR *Ap, DOUBLEVECTOR *Ax)
+void upper_matrix_product(Vector<double> *product, Vector<double> *x,
+                          LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -531,21 +502,21 @@ void upper_matrix_product(DOUBLEVECTOR *product, DOUBLEVECTOR *x,
 /******************************************************************************************************************************************/
 
 long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
-                               DOUBLEVECTOR *x, DOUBLEVECTOR *b,
-                               LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx)
+                               Vector<double> *x, Vector<double> *b,
+                               LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
 {
 
-  DOUBLEVECTOR *r0, *r, *p, *v, *s, *t;
+  std::unique_ptr<Vector<double>> r0, r, p, v, s, t;
 
   double rho, rho1, alpha, omeg, beta, norm_r0;
   long i=0, j;
 
-  r0 = new_doublevector(x->nh);
-  r = new_doublevector(x->nh);
-  p = new_doublevector(x->nh);
-  v = new_doublevector(x->nh);
-  s = new_doublevector(x->nh);
-  t = new_doublevector(x->nh);
+  r0.reset(new Vector<double> {x->nh});
+  r.reset(new Vector<double> {x->nh});
+  p.reset(new Vector<double> {x->nh});
+  v.reset(new Vector<double> {x->nh});
+  s.reset(new Vector<double> {x->nh});
+  t.reset(new Vector<double> {x->nh});
 
   product_using_only_lower_diagonal_part(r, x, Li, Lp, Lx);
 
@@ -557,18 +528,18 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
       v->co[j] = 0.;
     }
 
-  norm_r0 = norm_2(r0, r0->nl, r0->nh);
+  norm_r0 = norm_2(r0.get(), r0->nl, r0->nh);
 
   rho = 1.;
   alpha = 1.;
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r, r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
-      rho1 = product(r0, r);
+      rho1 = product(r0.get(), r.get());
 
       beta = (rho1/rho)*(alpha/omeg);
 
@@ -579,9 +550,9 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
           p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
         }
 
-      product_using_only_lower_diagonal_part(v, p, Li, Lp, Lx);
+      product_using_only_lower_diagonal_part(v.get(), p.get(), Li, Lp, Lx);
 
-      alpha = rho/product(r0, v);
+      alpha = rho/product(r0.get(), v.get());
 
       for (j=x->nl; j<=x->nh; j++ )
         {
@@ -620,8 +591,8 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
 /******************************************************************************************************************************************/
 
 long BiCGSTAB_diag(double tol_rel, double tol_min, double tol_max,
-                   DOUBLEVECTOR *x, DOUBLEVECTOR *b,
-                   LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx)
+                   Vector<double> *x, Vector<double> *b,
+                   LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
 {
 
   DOUBLEVECTOR *r0, *r, *p, *v, *s, *t, *y, *z, *d;
@@ -1382,9 +1353,10 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(DOUBLEVECTOR *diag,
 /******************************************************************************************************************************************/
 
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
-                                                          double tol_min, double tol_max, DOUBLEVECTOR *x,
-                                                          DOUBLEVECTOR *b, DOUBLEVECTOR *y, LONGVECTOR *Li, LONGVECTOR *Lp,
-                                                          DOUBLEVECTOR *Lx)
+                                                          double tol_min, double tol_max, Vector<double> *x,
+                                                          Vector<double> *b, Vector<double> *y, LONGVECTOR *Li,
+                                                          LONGVECTOR *Lp,
+                                                          Vector<double> *Lx)
 {
 
   //solve sistem (A+Iy)*x = B, find x
@@ -1512,8 +1484,8 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
 /******************************************************************************************************************************************/
 
 void product_matrix_using_lower_part_by_vector_plus_vector(double k,
-                                                           DOUBLEVECTOR *out, DOUBLEVECTOR *y, DOUBLEVECTOR *x,
-                                                           LONGVECTOR *Li, LONGVECTOR *Lp, DOUBLEVECTOR *Lx)
+                                                           Vector<double> *out, Vector<double> *y, Vector<double> *x,
+                                                           LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
 {
 
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part

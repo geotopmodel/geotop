@@ -733,17 +733,15 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
-                              T_INIT *grid, double no_value, LONGMATRIX *rc)
+std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
+                                                T_INIT *grid, double no_value, LONGMATRIX *rc)
 {
 
   DOUBLEMATRIX *M;
-  DOUBLEVECTOR *V;
   long i, n=rc->nrh;
+  std::unique_ptr<Vector<double>> V{new Vector<double>{n}};
 
   M = read_map(type, namefile, mask, grid, no_value);
-
-  V = new_doublevector(n);
 
   for (i=1; i<=n; i++)
     {
@@ -886,7 +884,7 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M,
 /******************************************************************************************************************************************/
 
 void write_map_vector(char *filename, short type, short format,
-                      DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc)
+                      Vector<double> *V, T_INIT *UV, long novalue, long **j, long nr, long nc)
 {
 
   //  type=0  floating point
@@ -1002,7 +1000,7 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
   char SSSS[ ]= {"SSSS"};
   char *name=NULL;
   long j, npoints=T->nch;
-  DOUBLEVECTOR *V;
+  std::unique_ptr<Vector<double>> V;
 
   if (a==0)
     {
@@ -1020,15 +1018,14 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
       t_error("Value not admitted");
     }
 
-  V=new_doublevector(npoints);
+  V.reset(new Vector<double>{npoints});
   for (j=1; j<=npoints; j++)
     {
       V->co[j]=T->co[l][j];
     }
 
-  write_map_vector(name, type, format, V, UV, novalue, J, nr, nc);
+  write_map_vector(name, type, format, V.get(), UV, novalue, J, nr, nc);
 
-  free_doublevector(V);
   free(name);
 
 }
@@ -1154,12 +1151,12 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
   char LLLLL[ ]= {"LLLLL"};
   char *temp1, *temp2;
   long i, npoints=T->nch;
-  DOUBLEVECTOR *V;
+  std::unique_ptr<Vector<double>> V;
 
   temp1 = join_strings(LLLLL, suf);
   write_suffix(temp1, l, 1);
 
-  V = new_doublevector(npoints);
+  V.reset(new Vector<double>{npoints});
 
   for (i=1; i<=npoints; i++)
     {
@@ -1167,9 +1164,8 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
     }
 
   temp2 = join_strings(filename, temp1);
-  write_map_vector(temp2, type, format, V, UV, novalue, J, nr, nc);
+  write_map_vector(temp2, type, format, V.get(), UV, novalue, J, nr, nc);
 
-  free_doublevector(V);
   free(temp1);
   free(temp2);
 

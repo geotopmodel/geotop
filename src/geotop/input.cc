@@ -1524,38 +1524,37 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   egy->SWrefl_surr = new_doublematrix(Nr, Nc);
   initialize_doublematrix(egy->SWrefl_surr, 0.);
 
-  egy->Dlayer = new_doublevector( Nl + par->max_snow_layers +
-                                  par->max_glac_layers );
-  egy->liq = new_doublevector( Nl + par->max_snow_layers +
-                               par->max_glac_layers );
-  egy->ice = new_doublevector( Nl + par->max_snow_layers +
-                               par->max_glac_layers );
-  egy->Temp = new_doublevector0( Nl + par->max_snow_layers +
-                                 par->max_glac_layers );
-  egy->deltaw = new_doublevector( Nl + par->max_snow_layers +
-                                  par->max_glac_layers );
+  egy->Dlayer.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                  par->max_glac_layers });
+  egy->liq.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                               par->max_glac_layers });
+  egy->ice.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                               par->max_glac_layers });
+  egy->Temp.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                 par->max_glac_layers,0} );
+  egy->deltaw.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                  par->max_glac_layers });
 
-  egy->SWlayer = new_doublevector0( par->max_snow_layers + 1 );
+  egy->SWlayer.reset(new Vector<double>{ par->max_snow_layers + 1,0} );
 
-  egy->soil_transp_layer = new_doublevector(land->root_fraction->nch);
-  initialize_doublevector(egy->soil_transp_layer, 0.);
+  egy->soil_transp_layer.reset(new Vector<double>{land->root_fraction->nch});
 
-  egy->dFenergy = new_doublevector0( Nl + par->max_snow_layers +
-                                     par->max_glac_layers );
-  egy->udFenergy = new_doublevector0( Nl + par->max_snow_layers +
-                                      par->max_glac_layers - 1);
-  egy->Kth0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers
-                               - 1 );
-  egy->Kth1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers
-                               - 1);
-  egy->Fenergy=new_doublevector0( Nl + par->max_snow_layers +
-                                  par->max_glac_layers );
-  egy->Newton_dir=new_doublevector0( Nl + par->max_snow_layers +
-                                     par->max_glac_layers );
-  egy->T0=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-  egy->T1=new_doublevector0( Nl + par->max_snow_layers + par->max_glac_layers );
-  egy->Tstar=new_doublevector(Nl); //soil temperature at which freezing begins
-  egy->THETA=new_doublevector(Nl);  //water content (updated in the iterations)
+  egy->dFenergy.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                     par->max_glac_layers,0} );
+  egy->udFenergy.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                      par->max_glac_layers - 1,0});
+  egy->Kth0.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers
+                               - 1 ,0});
+  egy->Kth1.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers
+                               - 1,0});
+  egy->Fenergy.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                  par->max_glac_layers ,0});
+  egy->Newton_dir.reset(new Vector<double>{ Nl + par->max_snow_layers +
+                                     par->max_glac_layers ,0});
+  egy->T0.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0} );
+  egy->T1.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0} );
+  egy->Tstar.reset(new Vector<double>{Nl}); //soil temperature at which freezing begins
+  egy->THETA.reset(new Vector<double>{Nl});  //water content (updated in the iterations)
 
   //allocate vector of soil layer contributions to evaporation (up to z_evap)
   z = 0.;
@@ -1566,10 +1565,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       z += sl->pa->co[1][jdz][l];
     }
   while (l<Nl && z < z_evap);
-  egy->soil_evap_layer_bare = new_doublevector(l);
-  egy->soil_evap_layer_veg = new_doublevector(l);
-  initialize_doublevector(egy->soil_evap_layer_bare, 0.);
-  initialize_doublevector(egy->soil_evap_layer_veg, 0.);
+  egy->soil_evap_layer_bare.reset(new Vector<double> {l});
+  egy->soil_evap_layer_veg.reset(new Vector<double> {l});
 
   printf("Soil water evaporates from the first %ld layers\n",
          egy->soil_evap_layer_bare->nh);
@@ -1598,16 +1595,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   /* Initialization of the matrices with the output of total precipitation and interception:*/
   if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0)
     {
-      wat->PrTOT_mean=new_doublevector(par->total_pixel);
-      initialize_doublevector(wat->PrTOT_mean, 0.);
-      wat->PrSNW_mean=new_doublevector(par->total_pixel);
-      initialize_doublevector(wat->PrSNW_mean, 0.);
-      wat->Pt=new_doublevector(par->total_pixel);
-      wat->Ps=new_doublevector(par->total_pixel);
+      wat->PrTOT_mean.reset(new Vector<double>{par->total_pixel});
+      wat->PrSNW_mean.reset(new Vector<double>{par->total_pixel});
+      wat->Pt.reset(new Vector<double>{par->total_pixel});
+      wat->Ps.reset(new Vector<double>{par->total_pixel});
     }
 
-  wat->h_sup=new_doublevector(par->total_pixel);
-  initialize_doublevector(wat->h_sup, 0.);
+  wat->h_sup.reset(new Vector<double>{par->total_pixel});
 
   /****************************************************************************************************/
   /*! Initialization of the struct "snow" (of the type SNOW):*/
@@ -1718,8 +1712,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
   else
     {
-      snow->age = new_doublevector(par->total_pixel);
-      initialize_doublevector(snow->age, IT->agesnow0);
+      snow->age.reset(new Vector<double>{par->total_pixel});
+    *(snow->age) = IT->agesnow0;
     }
 
 
@@ -1727,8 +1721,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
       if (strcmp(files[pD], string_novalue) != 0)
         {
-          snow->Dplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(snow->Dplot, 0.);
+          snow->Dplot.reset(new Vector<double>{par->total_pixel});
         }
     }
 
@@ -1784,20 +1777,17 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
       if (strcmp(files[fsnowmelt], string_novalue) != 0)
         {
-          snow->MELTED=new_doublevector(par->total_pixel);
-          initialize_doublevector(snow->MELTED,0.);
-          snow->melted=new_doublevector(par->total_pixel);
+          snow->MELTED.reset(new Vector<double>{par->total_pixel});
+          snow->melted.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fsnowsubl], string_novalue) != 0)
         {
-          snow->SUBL=new_doublevector(par->total_pixel);
-          initialize_doublevector(snow->SUBL,0.);
-          snow->subl=new_doublevector(par->total_pixel);
+          snow->SUBL.reset(new Vector<double>{par->total_pixel});
+          snow->subl.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fsndur], string_novalue) != 0)
         {
-          snow->t_snow=new_doublevector(par->total_pixel);
-          initialize_doublevector(snow->t_snow,0.);
+          snow->t_snow.reset(new Vector<double>{par->total_pixel});
           snow->yes=new_shortvector(par->total_pixel);
         }
     }
@@ -1962,7 +1952,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                                 land->LC);
       //initialize_longmatrix(snow->S->lnum, snow->S->Dzl->ndh);
 
-      assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age,
+      assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(),
                                   top->rc_cont, par, land->LC);
       assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl, par,
                               land->LC);
@@ -2029,15 +2019,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         {
           if (strcmp(files[fglacmelt], string_novalue) != 0)
             {
-              glac->MELTED=new_doublevector(par->total_pixel);
-              initialize_doublevector(glac->MELTED,0.);
-              glac->melted=new_doublevector(par->total_pixel);
+              glac->MELTED.reset(new Vector<double>{par->total_pixel});
+              glac->melted.reset(new Vector<double>{par->total_pixel});
             }
           if (strcmp(files[fglacsubl], string_novalue) != 0)
             {
-              glac->SUBL=new_doublevector(par->total_pixel);
-              initialize_doublevector(glac->SUBL, 0.);
-              glac->subl=new_doublevector(par->total_pixel);
+              glac->SUBL.reset(new Vector<double>{par->total_pixel});
+              glac->subl.reset(new Vector<double>{par->total_pixel});
             }
         }
 
@@ -2172,23 +2160,19 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
       if (strcmp(files[fTa], string_novalue) != 0)
         {
-          met->Tamean=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->Tamean, 0.);
+          met->Tamean.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fwspd], string_novalue) != 0)
         {
-          met->Vspdmean=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->Vspdmean, 0.);
+          met->Vspdmean.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[fwdir], string_novalue) != 0)
         {
-          met->Vdirmean=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->Vdirmean, 0.);
+          met->Vdirmean.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[frh], string_novalue) != 0)
         {
-          met->RHmean=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->RHmean, 0.);
+          met->RHmean.reset(new Vector<double>{par->total_pixel});
         }
     }
 
@@ -2198,21 +2182,17 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
       if (strcmp(files[pTa], string_novalue) != 0)
         {
-          met->Taplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->Taplot, 0.);
+          met->Taplot.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pRH], string_novalue) != 0)
         {
-          met->RHplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->RHplot, 0.);
+          met->RHplot.reset(new Vector<double>{par->total_pixel});
         }
       if (strcmp(files[pVspd], string_novalue) != 0
           || strcmp(files[pVdir], string_novalue) != 0)
         {
-          met->Vxplot=new_doublevector(par->total_pixel);
-          met->Vyplot=new_doublevector(par->total_pixel);
-          initialize_doublevector(met->Vxplot, 0.);
-          initialize_doublevector(met->Vyplot, 0.);
+          met->Vxplot.reset(new Vector<double>{par->total_pixel});
+          met->Vyplot.reset(new Vector<double>{par->total_pixel});
         }
     }
 

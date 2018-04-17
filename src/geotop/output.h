@@ -33,7 +33,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
 void write_snow_output(long i, long iname, long r, long c, double init_date,
                        double end_date, double JDfrom0, double JD,
-                       long day, long month, long year, long hour, long minute, DOUBLEVECTOR *n,
+                       long day, long month, long year, long hour, long minute, Vector<double> *n,
                        STATEVAR_3D *snow, PAR *par, double cosslope);
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
@@ -58,7 +58,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz,
                          DOUBLEMATRIX *Q, long i);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
-                             short format, DOUBLEMATRIX *T, DOUBLEVECTOR *n, long **J,
+                             short format, DOUBLEMATRIX *T, Vector<double> *n, long **J,
                              LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,

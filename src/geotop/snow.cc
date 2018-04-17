@@ -1473,14 +1473,11 @@ void deallocate_statevar_3D(STATEVAR_3D *V)
 void allocate_and_initialize_statevar_1D(STATEVAR_1D *V, double nan, long nl)
 {
 
-  V->Dzl = new_doublevector(nl);
-  initialize_doublevector(V->Dzl, 0.);
-  V->T = new_doublevector(nl);
-  initialize_doublevector(V->T, nan);
-  V->w_ice = new_doublevector(nl);
-  initialize_doublevector(V->w_ice, 0.);
-  V->w_liq = new_doublevector(nl);
-  initialize_doublevector(V->w_liq, 0.);
+  V->Dzl.reset(new Vector<double>{nl});
+  V->T.reset(new Vector<double>{nl});
+  *(V->T) = nan;
+  V->w_ice.reset(new Vector<double>{nl});
+  V->w_liq.reset(new Vector<double>{nl});
 }
 
 /******************************************************************************************************************************************/
@@ -1491,10 +1488,6 @@ void allocate_and_initialize_statevar_1D(STATEVAR_1D *V, double nan, long nl)
 void deallocate_statevar_1D(STATEVAR_1D *V)
 {
 
-  free_doublevector(V->Dzl);
-  free_doublevector(V->T);
-  free_doublevector(V->w_ice);
-  free_doublevector(V->w_liq);
   free(V);
 }
 

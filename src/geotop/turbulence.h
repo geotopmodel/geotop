@@ -67,6 +67,6 @@ double Levap(double T);
 double latent(double Ts, double Le);
 
 void find_actual_evaporation_parameters(long R, long C, double *alpha,
-                                        double *beta, DOUBLEVECTOR *evap_layer, double *theta,
+                                        double *beta, Vector<double> *evap_layer, double *theta,
                                         double **soil, double *T, double psi, double P, double rv, double Ta,
                                         double Qa, double Qgsat, long nsnow);

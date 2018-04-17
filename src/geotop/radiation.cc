@@ -585,7 +585,7 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
   long l, m;
   double res=R, z=0.0, rho, k;
 
-  initialize_doublevector(frac, 0.);
+  *frac=0.;
 
   //in case of snow
   if ( snow->lnum->co[r][c] > 1)

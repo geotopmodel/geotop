@@ -102,7 +102,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
   double Vchannel, Vsub, Vsup;
 
   //other variables
-  DOUBLEVECTOR *V;
+  std::unique_ptr<Vector<double>> V;
   DOUBLEMATRIX *M;
   double D, Dthaw, cosslope;
 
@@ -744,7 +744,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                   //snow output
                   write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[i_sim],
                                     par->end_date->co[i_sim], JDfrom0, JD, day, month, year, hour, minute,
-                                    par->snow_plot_depths, snow->S, par, cosslope);
+                                    par->snow_plot_depths.get(), snow->S, par, cosslope);
 
                   //initialize
                   for (j=0; j<otot; j++) { odpnt[j][i-1]=0.0; }
@@ -1041,8 +1041,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
 
-  V=new_doublevector(par->total_pixel);
-  initialize_doublevector(V, (double)number_novalue);
+  V.reset(new Vector<double>{par->total_pixel});
+  *V = double(number_novalue);
 
   //soil properties
   if (par->output_soil->co[i_sim]>0
@@ -1075,7 +1075,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th,
-                                      par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
+                                      par->soil_plot_depths.get(), top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
                                       top->slope, par->output_vertical_distances);
             }
           else
@@ -1094,7 +1094,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             }
 
           temp1=join_strings(files[fliqsup],s2);
-          write_map_vector(temp1, 0, par->format_out, V, UV, number_novalue,
+          write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
                            top->j_cont, Nr, Nc);
           free(temp1);
         }
@@ -1105,7 +1105,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
-                                      sl->thw_av_tensor, par->soil_plot_depths, top->j_cont, top->rc_cont,
+                                      sl->thw_av_tensor, par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
                                       sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
             }
           else
@@ -1125,7 +1125,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T,
-                                      par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
+                                      par->soil_plot_depths.get(), top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
                                       top->slope, par->output_vertical_distances);
             }
           else
@@ -1155,7 +1155,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
-                                      sl->T_av_tensor, par->soil_plot_depths, top->j_cont, top->rc_cont,
+                                      sl->T_av_tensor, par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
                                       sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
             }
           else
@@ -1190,7 +1190,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi,
-                                      par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
+                                      par->soil_plot_depths.get(), top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
                                       top->slope, par->output_vertical_distances);
             }
           else
@@ -1220,7 +1220,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
-                                      sl->thi_av_tensor, par->soil_plot_depths, top->j_cont, top->rc_cont,
+                                      sl->thi_av_tensor, par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
                                       sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
             }
           else
@@ -1240,7 +1240,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot,
-                                      par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
+                                      par->soil_plot_depths.get(), top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
                                       top->slope, par->output_vertical_distances);
             }
           else
@@ -1255,7 +1255,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           if ((long)par->soil_plot_depths->co[1] != number_novalue)
             {
               write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P,
-                                      par->soil_plot_depths, top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
+                                      par->soil_plot_depths.get(), top->j_cont, top->rc_cont, sl->pa->co[1][jdz],
                                       top->slope, par->output_vertical_distances);
             }
           else
@@ -1369,9 +1369,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
       if (strcmp(files[fpnet], string_novalue) != 0)
         {
           temp1=join_strings(files[fpnet], s2);
-          write_map_vector(temp1, 0, par->format_out, sl->Pnetcum, UV, number_novalue,
+          write_map_vector(temp1, 0, par->format_out, sl->Pnetcum.get(), UV, number_novalue,
                            top->j_cont, Nr, Nc);
-          initialize_doublevector(sl->Pnetcum, 0.);
+          *(sl->Pnetcum) = 0.0;
           free(temp1);
         }
 
@@ -4182,7 +4182,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
 void write_snow_output(long i, long iname, long r, long c, double init_date,
                        double end_date, double JDfrom0, double JD,
-                       long day, long month, long year, long hour, long minute, DOUBLEVECTOR *n,
+                       long day, long month, long year, long hour, long minute, Vector<double> *n,
                        STATEVAR_3D *snow, PAR *par, double cosslope)
 {
 
@@ -4780,7 +4780,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz,
 //***************************************************************************************************************
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
-                             short format, DOUBLEMATRIX *T, DOUBLEVECTOR *n, long **J, LONGMATRIX *RC,
+                             short format, DOUBLEMATRIX *T, Vector<double> *n, long **J, LONGMATRIX *RC,
                              double *dz, DOUBLEMATRIX *slope, short vertical)
 {
 

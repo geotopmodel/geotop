@@ -28,7 +28,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandbottom);
 
 short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
-                 FILE *flog, double *loss, DOUBLEVECTOR *Vsub, double *Vbottom,
+                 FILE *flog, double *loss, Vector<double> *Vsub, double *Vbottom,
                  double *Vlatsub, double *Total_Pnet, short updateK);
 
 short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
@@ -38,24 +38,24 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
 double cm_h(double cm0, double h, double h_thres1, double h_thres2);
 
 int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
-                     DOUBLEVECTOR *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
-                     DOUBLEVECTOR *Kbottom_ch, ALLDATA *adt, DOUBLEVECTOR *H);
+                     Vector<double> *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+                     Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H);
 
-int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *Lx,
-                     DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, DOUBLEVECTOR *H);
+int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
+                     DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, Vector<double> *H);
 
-int find_dfdH_3D(double Dt, DOUBLEVECTOR *df, ALLDATA *adt, SOIL_STATE *L,
-                 SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat);
+int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
+                 SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat);
 
-int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *df,
-                 ALLDATA *adt, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat);
+int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
+                 ALLDATA *adt, Vector<double> *H, DOUBLEMATRIX *Klat);
 
-int find_f_3D(double Dt, DOUBLEVECTOR *f, ALLDATA *adt, SOIL_STATE *L,
-              SOIL_STATE *C, DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
-              DOUBLEVECTOR *Kbottom_ch);
+int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
+              SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+              Vector<double> *Kbottom_ch);
 
-int find_f_1D(long c, double Dt, SOIL_STATE *L, DOUBLEVECTOR *f, ALLDATA *adt,
-              DOUBLEVECTOR *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom);
+int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
+              Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom);
 
 double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
@@ -67,12 +67,12 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
 
 void supflow(short DDland, short DDch, double Dt, double t, double *h,
              double *dV, double *hch, double *dhch, TOPO *top, LAND *land,
-             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, DOUBLEVECTOR *Vsup,
+             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup,
              double *Voutnet, double *Voutland, FILE *flog,
              double *mm1, double *mm2, double *mmo) ;
 
 void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top,
-                  WATER *wat, CHANNEL *cnet, PAR *par, DOUBLEVECTOR *Vsup, FILE *flog,
+                  WATER *wat, CHANNEL *cnet, PAR *par, Vector<double> *Vsup, FILE *flog,
                   long *cnt);
 
 void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,

@@ -80,8 +80,8 @@ char *namefile_i_we2(char *name, long i);
 DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
                        T_INIT *UVref, double no_value);
 
-DOUBLEVECTOR *read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
-                              T_INIT *grid, double no_value, LONGMATRIX *rc);
+std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
+                                                T_INIT *grid, double no_value, LONGMATRIX *rc);
 
 DOUBLEMATRIX *read_mapseries(long i, char *filename, DOUBLEMATRIX *Mref,
                              T_INIT *UVref, double no_value);
@@ -102,7 +102,7 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M,
                T_INIT *UV, long novalue);
 
 void write_map_vector(char *filename, short type, short format,
-                      DOUBLEVECTOR *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
+                      Vector<double> *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
 
 void write_mapseries(long i, char *filename, short type, short format,
                      DOUBLEMATRIX *M, T_INIT *UV, long novalue);
