@@ -11,7 +11,7 @@
 #include <stack>
 #include <sstream>
 
-class Logger :public std::streambuf{
+class Logger{
 public:
 
   /**
@@ -50,7 +50,9 @@ public:
   Logger();
 
   /**
-   * Add @param s to the stack of prefixes
+   * Add @param s to the stack of prefixes. Note that each element of the stack contains all the previous elements
+   * If first element is "first" and the second element is "second", the prefix associated to the second is
+   * "first:second:". While the prefix of the first element if "first:"
    */
   void push(const std::string &s);
 
@@ -59,24 +61,54 @@ public:
    */
   std::string pop();
 
+  /**
+   * @return the last prefix added
+   */
   const std::string &prefix() const;
 
+  /**
+   * this is necessary to handle functions like
+   * std::endl and std::flush
+   */
+  Logger& operator<<(std::ostream& (*p) (std::ostream &)) {
+    std::ostringstream os;
+    os << p;
+    *this << os.str();
+    return *this;
+  }
+
+  /**
+   * Attach @param o to the file stream @var ofile
+   */
+  void attach_file_stream(std::ostream& o);
+
+  /**
+   * Detach file stream. You may want to close the attached stream
+   */
+  void detach_file_stream();
 private:
+
+  /**
+   * stack of prefixes
+   */
   std::stack<std::string> prefixes;
 
+  /**
+   * pointer to a console channel. By default it points to std::cout
+   */
   std::ostream *std_out;
 
+  /**
+   * pointer to a second channel. It makes sense to use it to write to a file
+   */
   std::ostream *ofile;
+
+  /**
+   * If true, the last prefix is prepended to the string to print
+   */
   bool _at_new_line;
 public:
   template <typename T> friend Logger& operator<<(Logger&, const T&);
-
-  Logger& operator<<(std::ostream& (*p) (std::ostream &)){
-    std::ostringstream os;
-    os<<p;
-    *this<<os.str();
-    return *this;
-  }
 };
 
 template <typename T>
@@ -86,15 +118,12 @@ Logger& operator<<(Logger& l, const T& t){
   if(l._at_new_line) pre = l.prefix();
   std::ostringstream os;
   os << pre << t;
+  std::string s{os.str()};
   if(l.std_out)
-    *(l.std_out) << os.str();
+    *(l.std_out) << s;
   if(l.ofile)
-    *(l.ofile) << os.str();
-//  if (os.str().find('\n') != std::string::npos)
-  if (os.str() == "\n")
-    l._at_new_line = true;
-  else
-    l._at_new_line = false;
+    *(l.ofile) << s;
+  l._at_new_line = (s == "\n");
   return l;
 }
 

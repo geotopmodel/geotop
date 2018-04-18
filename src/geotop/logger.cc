@@ -36,6 +36,14 @@ const std::string &Logger::prefix() const {
     return s;
 }
 
+void Logger::attach_file_stream(std::ostream &o) {
+  ofile = &o;
+}
+
+void Logger::detach_file_stream() {
+  ofile = nullptr;
+}
+
 Logger::Prefix::Prefix(const std::string &s, Logger &l) : log{&l} { this->log->push(s); }
 
 Logger::Prefix::~Prefix() {

@@ -39,6 +39,8 @@
 #include <string>
 #include <iostream>
 #include <version.h>
+#include <logger.h>
+#include <fstream>
 
 void time_loop(ALLDATA *A);
 
@@ -96,8 +98,10 @@ int main(int argc,char *argv[])
   std::string wd;
   if (!argv[1])
   {
+    std::cerr << "Wrong number of arguments. Abort.\n"
+              << "Example of usage:\n"
+              << "$ ./geotop /path/to/a/folder" << std::endl;
     exit(9);
-//    WORKING_DIRECTORY=get_workingdirectory();
   }
   else
   {
@@ -107,6 +111,16 @@ int main(int argc,char *argv[])
   }
 
   WORKING_DIRECTORY = wd.c_str();
+
+  std::ofstream olog{wd+"geotop.log"};
+  geolog.attach_file_stream(olog);
+
+  geolog << "STATEMENT:\n\n"
+	 << "Geotop 3.0.0 - 2018\n\n"
+	 << "Geotop 3.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n"
+	 << "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+	 << "\nWORKING DIRECTORY: " << wd << "\n"
+	 << "\nLOGFILE: " << wd << "geotop.log\n" << std::endl;
 
   std::unique_ptr<ALLDATA> adt;
   FILE* f;
@@ -151,13 +165,12 @@ int main(int argc,char *argv[])
               adt->G.get(), adt->M.get(), adt->I.get());
 
 
-  printf("End of simulation!\n");
+  geolog << "End of simulation!" << std::endl;
 
   f = fopen(SuccessfulRunFile, "w");
   fclose(f);
   free(SuccessfulRunFile);
   free(FailedRunFile);
-  free(logfile);
   return 0;
 }
 
@@ -165,7 +178,7 @@ int main(int argc,char *argv[])
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
 void time_loop(ALLDATA *A)
 {
-
+Logger::Prefix p{"time_loop"};
   clock_t tstart, tend;
   short en=0, wt=0, out;
   long i, sy, r, c, j, l;
@@ -218,11 +231,11 @@ void time_loop(ALLDATA *A)
           if ( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim])
                *86400. - 1.E-5)
             {
-              printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
-              f=fopen(logfile, "a");
-              fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,
-                      i_run);
-              fclose(f);
+//              printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
+//              f=fopen(logfile, "a");
+//              fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,
+//                      i_run);
+//              fclose(f);
 
               print_run_average(A->S.get(), A->T.get(), A->P.get());
 
@@ -324,17 +337,15 @@ void time_loop(ALLDATA *A)
                           if (Dt > A->P->min_Dt) Dt *= 0.5;
                           out = 0;
 
-                          f = fopen(logfile, "a");
                           if (en != 0)
                             {
-                              fprintf(f,"Energy balance not converging\n");
+                              geolog << "Energy balance not converging" << std::endl;
                             }
                           else
                             {
-                              fprintf(f,"Water balance not converging\n");
+                              geolog << "Water balance not converging" << std::endl;
                             }
-                          fprintf(f,"Reducing time step to %f s, t:%f s\n",Dt,t);
-                          fclose(f);
+                          geolog << "Reducing time step to "<< Dt << "s, t: "<< t <<" s" << std::endl;
 
                         }
                       else
@@ -369,25 +380,23 @@ void time_loop(ALLDATA *A)
                     {
                       //f = fopen(FailedRunFile, "w");
 
-                      f = fopen(logfile, "a");
                       //fprintf(f, "Simulation Period:%ld\n",i_sim);
                       //fprintf(f, "Run Time:%ld\n",i_run);
                       //fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);
 
                       if (en != 0 && wt == 0)
                         {
-                          fprintf(f, "WARNING: Energy balance does not converge, Dt:%f\n",Dt);
+                          geolog <<"WARNING: Energy balance does not converge, Dt: " << Dt<< std::endl;
                         }
                       else if (en == 0 && wt != 0)
                         {
-                          fprintf(f, "WARNING: Water balance does not converge, Dt:%f\n",Dt);
+                          geolog <<"WARNING: Water balance does not converge, Dt: " << Dt<< std::endl;
                         }
                       else
                         {
-                          fprintf(f, "WARNING: Water and energy balance do not converge, Dt:%f\n",Dt);
+                          geolog <<"WARNING: Water and energy balance do not converge, Dt: " << Dt<< std::endl;
                         }
 
-                      fclose(f);
                       //t_error("Fatal Error! Geotop is closed. See failing report.");
                     }
 

@@ -29,6 +29,7 @@
 #include "times.h"
 #include "pedo.funct.h"
 #include "keywords.h"
+#include "logger.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -53,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-
+Logger::Prefix p{"read_inpts_par"};
   //variables
   FILE *f;
 
@@ -2573,10 +2574,12 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
       if (code_error==0)
         {
           a = default_value;
-          fprintf(flog,"%s[%ld] = %e (default) \n", keyword[i], j+1, a);
+          geolog << keyword[i]<<"[" <<j+1 << "] = " <<a <<" (default)" << std::endl;
+//          fprintf(flog,"%s[%ld] = %e (default) \n", keyword[i], j+1, a);
         }
       else
         {
+          geolog << keyword[i]<<"[" <<j+1 << "] not assigned"<< std::endl;
           fprintf(flog, "%s[%ld] not assigned\n", keyword[i], j+1);
           fclose(flog);
           t_error("Fatal Error, See geotop.log!");
@@ -2609,7 +2612,7 @@ char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
     }
   a[dimstring] = 0;
 
-  fprintf(f,"%s = %s\n", keyword[i], a);
+  geolog << keyword[i] << " = " << a << std::endl;
 
   return (a);
 }

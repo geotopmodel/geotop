@@ -2,4 +2,10 @@ src_files += [files(['import_ascii.cc',
                      'init.cc',
                      'rw_maps.cc',
                      'tabs.cc',
-                     'write_ascii.cc'])]
+                     'write_ascii.cc',
+                     'extensions.h',
+                     'import_ascii.h',
+                     'init.h',
+                     'rw_maps.h',
+                     'tabs.h',
+                     'write_ascii.h',])]

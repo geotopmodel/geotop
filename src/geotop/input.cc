@@ -39,6 +39,7 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
+#include "logger.h"
 #include <iostream>
 
 extern long number_novalue, number_absent;
@@ -64,6 +65,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
+  Logger::Prefix p{"get_all_input"};
 
   FILE *flog, *f;
   DOUBLEMATRIX *M;
@@ -81,44 +83,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
 
 
-  logfile = join_strings(WORKING_DIRECTORY, logfile_name);
-  flog = fopen(logfile, "w");
+  logfile =  nullptr;  //join_strings(WORKING_DIRECTORY, logfile_name);
+  flog = nullptr; //fopen(logfile, "w");
 
-  printf("STATEMENT:\n");
-  printf("\n");
-  printf("Geotop 2.0.0 - 31 Oct 2013\n\n");
-  //printf("Copyright (c), 2013 - Stefano Endrizzi \n\n");
-  printf("Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-  printf("WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-  //printf("Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 2.0.0.\n");
-  //printf("Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
-  //printf("Riccardo Rigon and his research group are acknowledged as Geotop 2.0.0  uses most of their modelling achievements.\n");
-  //printf("John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-  //printf("Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in Geotop 2.0.0  are derived.\n");
-  //printf("However, the routine that distributes the meteo data in this Geotop version is named Meteodistr and it significantly differs from Micromet.\n\n");
-  //printf("If you have satisfactorily used the code, please acknowledge the authors.\n");
-  printf("\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
-  printf("\nLOGFILE: %s\n",logfile);
-
-
-
-
-  fprintf(flog,"STATEMENT:\n");
-  fprintf(flog,"\n");
-  fprintf(flog,"Geotop 2.0.0 - 31 Oct 2013\n\n");
-  //fprintf(flog,"Copyright (c), 2013 - Stefano Endrizzi \n\n");
-  fprintf(flog,
-          "Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n");
-  fprintf(flog,
-          "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n");
-  //fprintf(flog,"Riccardo Rigon is acknowledged as he coded the Fluidturtle routines (GPL Licenced), which are used in Geotop 2.0.0.\n");
-  //fprintf(flog,"Riccardo Rigon is also acknowledged as first founder of the Geotop model in 1997.\n");
-  //fprintf(flog,"Riccardo Rigon and his research group are acknowledged as Geotop 2.0.0  uses most of their modelling achievements.\n");
-  //fprintf(flog,"John Pomeroy is acknowledged as he freely provided the Prairie Blowing Snow Model Code.\n");
-  //fprintf(flog,"Glen Liston and Kelly Elder are acknowledged as they freely provided their Micromet code, from which the routines that distribute wind-air temperature-relative humidity-precipitation in Geotop 2.0.0  are derived.\n");
-  //fprintf(flog,"However, the routine that distributes the meteo data in this Geotop version is named Meteodistr and it significantly differs from Micromet.\n\n");
-  //fprintf(flog,"If you have satisfactorily used the code, please acknowledge the authors.\n");
-  fprintf(flog,"\nWORKING DIRECTORY: %s\n",WORKING_DIRECTORY);
 
   //reads the parameters in __control_parameters
   temp = join_strings(WORKING_DIRECTORY, program_name);
