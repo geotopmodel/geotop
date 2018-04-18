@@ -59,13 +59,16 @@ endforeach
 _comp = find_program('compare.sh', required: false)
 _nd = find_program('numdiff', required: false)
 
-if(not _nd.found())
-    warning('In order to run the tests, install numdiff')
+if(_nd.found())
+    foreach _t : _tests
+        _test_prefix = _prefix+'/'+_t
+        test(_t+'.test_runner', _comp,
+             workdir: _test_prefix, is_parallel: false, suite: _t.split('/'),
+             timeout: 900)
+    endforeach
+else
+    warning('In order to properly check the output of the tests, please install numdiff')
 endif
 
-foreach _t : _tests
-    _test_prefix = _prefix+'/'+_t
-    test(_t+'.test_runner', _comp,
-         workdir: _test_prefix, is_parallel: false, suite: _t.split('/'),
-         timeout: 900)
-endforeach
+
+subdir('unit_tests')

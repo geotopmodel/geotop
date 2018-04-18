@@ -39,12 +39,13 @@
 #include "channels.h"
 #include "indices.h"
 #include "recovering.h"
+#include <iostream>
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
 extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 extern char **files, *logfile;
 extern long Nl, Nr, Nc;
 extern char *keywords_char[num_par_char];
@@ -66,7 +67,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
   FILE *flog, *f;
   DOUBLEMATRIX *M;
-  INIT_TOOLS *IT;
+  std::unique_ptr<INIT_TOOLS> IT;
 
   short a, success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0,
                     added_cloud=0, added_Tdew=0, added_RH=0, added_Pint=0, old=0, recovered=0;
@@ -76,25 +77,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   char *temp, *name, **temp2;
   char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
 
-  IT= new INIT_TOOLS;
+  IT.reset(new INIT_TOOLS{});
 
-  if (!argv[1])
-    {
-      WORKING_DIRECTORY=get_workingdirectory();
-    }
-  else
-    {
-      WORKING_DIRECTORY=assign_string(argv[1]);
-    }
 
-  //add "/" if it is missing
-  if (WORKING_DIRECTORY[strlen(WORKING_DIRECTORY)-1] != 47)
-    {
-      temp = assign_string(WORKING_DIRECTORY);
-      free(WORKING_DIRECTORY);
-      WORKING_DIRECTORY = join_strings(temp, "/");
-      free(temp);
-    }
 
   logfile = join_strings(WORKING_DIRECTORY, logfile_name);
   flog = fopen(logfile, "w");
@@ -137,7 +122,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
   //reads the parameters in __control_parameters
   temp = join_strings(WORKING_DIRECTORY, program_name);
-  success = read_inpts_par(par, land, times, sl, met, IT, temp, flog);
+  success = read_inpts_par(par, land, times, sl, met, IT.get(), temp, flog);
   free(temp);
 
   //correct state pixel
@@ -200,7 +185,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
   //soil parameters
-  success = read_soil_parameters(files[fspar], IT, sl,
+  success = read_soil_parameters(files[fspar], IT.get(), sl,
                                  par->soil_type_bedr_default, flog);
   Nl=sl->pa->nch;
 
@@ -328,11 +313,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
   if (par->point_sim!=1)  //distributed simulation
     {
-      read_inputmaps(top, land, sl, par, IT, flog);
+      read_inputmaps(top, land, sl, par, IT.get(), flog);
     }
   else
     {
-      read_optionsfile_point(par, top, land, sl, times, IT, flog);
+      read_optionsfile_point(par, top, land, sl, times, IT.get(), flog);
     }
 
   Nr=top->Z0->nrh;
@@ -1004,7 +989,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
   //BEDROCK (adjusting soil properties)
-  set_bedrock(IT, sl, cnet, par, top, land->LC, flog);
+  set_bedrock(IT.get(), sl, cnet, par, top, land->LC, flog);
 
   /****************************************************************************************************/
   /*! Completing of the initialization of SOIL structure                               */
@@ -2560,8 +2545,6 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       free(IT->meteostations_col_names[i]);
     }
   free(IT->meteostations_col_names);
-
-  delete IT;
 
   n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
 

@@ -601,12 +601,12 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
 
 
 */
-
-typedef struct   /*header of maps in fluid turtle format*/
+/*header of maps in fluid turtle format*/
+struct T_INIT
 {
   std::unique_ptr<Vector<double>> U;  /*dx,dy*/
   std::unique_ptr<Vector<double>> V;  /*sign of novalue,novalue*/
-} T_INIT;
+};
 
 
 /* #include "nr_util.h" */
@@ -628,7 +628,7 @@ typedef struct   /*header of maps in fluid turtle format*/
 
 */
 
-void t_error(char *error_text);
+void t_error(const char *error_text);
 
 
 

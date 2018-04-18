@@ -103,6 +103,12 @@ add_executable(geotop
         src/libraries/ascii/rw_maps.h
         src/libraries/ascii/init.h
         src/libraries/ascii/tabs.h
-        src/libraries/ascii/extensions.h)
+        src/libraries/ascii/extensions.h src/geotop/logger.cc src/geotop/logger.h)
 enable_testing()
 subdirs(tests)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/version.h.in ${CMAKE_BINARY_DIR}/src/geotop/version.h)
+# of course we need to inform the compiler where to look for the above header
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/geotop/config.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)

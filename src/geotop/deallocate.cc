@@ -33,7 +33,7 @@ extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
 extern long *oglc, noglc, *osl, nosl;
 extern short *ipnt, *ibsn;
 extern char **hpnt, * *hbsn, * *hsnw, * *hglc, * *hsl;
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 extern char *string_novalue;
 extern long number_novalue;
 extern long Nl, Nr, Nc;
@@ -309,50 +309,11 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct T_INIT "UV": */
   printf("Deallocating UV\n");
-  delete UV;
 
   /* Deallocation of struct ENERGY "egy": */
   printf("Deallocating egy\n");
   if (par->output_surfenergy_bin == 1)
     {
-      if (strcmp(files[fradnet], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradLWin], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradLW], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradLW], string_novalue) != 0
-          || strcmp(files[fradnet], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradSW], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradSW], string_novalue) != 0
-          || strcmp(files[fradnet], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradSWin], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fradSWinbeam], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fLE], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fG], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fH], string_novalue) != 0)
-        {
-        }
-      if (strcmp(files[fTs], string_novalue) != 0)
-        {
-        }
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
           free_longvector(egy->nDt_shadow);
@@ -606,7 +567,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   printf("Deallocating novalues\n");
   free(string_novalue);
 
-  free(WORKING_DIRECTORY);
 
 }
 

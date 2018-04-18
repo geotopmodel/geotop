@@ -2,7 +2,7 @@
 /* STATEMENT:
 
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 2.0.0 - 31 Oct 2013
+ Geotop 3.0.0 - 31 Oct 2013
 
  Copyright (c), 2013 - Stefano Endrizzi
 
@@ -36,6 +36,9 @@
 #include "tabs.h"
 #include "deallocate.h"
 #include "pedo.funct.h"
+#include <string>
+#include <iostream>
+#include <version.h>
 
 void time_loop(ALLDATA *A);
 
@@ -46,7 +49,7 @@ long number_novalue;
 long number_absent;
 char *string_novalue;
 
-T_INIT *UV;
+std::unique_ptr<T_INIT> UV;
 
 char *logfile;
 char **files;
@@ -79,6 +82,8 @@ long i_sim=0, i_run, i_sim0, i_run0;
 
 char *SuccessfulRunFile, *FailedRunFile;
 
+const char * WORKING_DIRECTORY;
+
 time_t start_time;
 double elapsed_time, elapsed_time_start, cum_time, max_time;
 
@@ -88,6 +93,20 @@ double MM1, MM2, MMR, MMo, MS1, MS2;
 
 int main(int argc,char *argv[])
 {
+  std::string wd;
+  if (!argv[1])
+  {
+    exit(9);
+//    WORKING_DIRECTORY=get_workingdirectory();
+  }
+  else
+  {
+    wd = argv[1];
+    if (wd.back() != '/')
+      wd.append("/");
+  }
+
+  WORKING_DIRECTORY = wd.c_str();
 
   std::unique_ptr<ALLDATA> adt;
   FILE* f;
@@ -107,8 +126,7 @@ int main(int argc,char *argv[])
   MMo=0.;
 
   /*dinamic allocations:*/
-  UV=new T_INIT{};
-  if (!UV) t_error("UV was not allocated");
+  UV.reset(new T_INIT{});
 
   adt.reset(new ALLDATA);
 
@@ -140,7 +158,6 @@ int main(int argc,char *argv[])
   free(SuccessfulRunFile);
   free(FailedRunFile);
   free(logfile);
-//  delete UV;
   return 0;
 }
 

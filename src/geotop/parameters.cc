@@ -33,7 +33,7 @@
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 
 extern char **files;
 

@@ -1,7 +1,7 @@
 #include "turtle.h"
 
 /*-----------------------------------------------------------------------*/
-void t_error(char *error_text)
+void t_error(const char *error_text)
 /* Error handling */
 {
 

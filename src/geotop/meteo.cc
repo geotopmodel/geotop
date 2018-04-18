@@ -30,7 +30,7 @@
 
 extern long number_novalue, number_absent;
 extern T_INIT *UV;
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 extern char *logfile;
 extern long Nl, Nr, Nc;
 extern long i_sim;

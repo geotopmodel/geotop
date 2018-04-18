@@ -19,7 +19,7 @@
 
 extern T_INIT *UV;
 extern long Nl, Nr, Nc;
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 
 //global variables
 double T, Ustar, Z0, Zr;

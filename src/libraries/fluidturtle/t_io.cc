@@ -5,7 +5,7 @@
 #include <libgen.h>
 #include <limits.h>
 
-char *WORKING_DIRECTORY ;
+extern const char *WORKING_DIRECTORY ;
 
 
 int mkdirp(const char *pathname, mode_t mode) {
@@ -289,59 +289,8 @@ long write_doublematrix_elements(FILE *output, DOUBLEMATRIX *m, long maxcols)
 
 
 /**-------------------------------------------------------------------------*/
-char *get_workingdirectory(void) {
 
-  //char buffer[64*FILENAME_MAX];
-  char *bf = NULL, *pathfile = "$WorkingPath";
-  //long len;
-  long i;
-  short a;
-  FILE *istream;
-
-  istream = fopen(pathfile, "r");
-  if (istream) {
-
-    i = 0;
-    a = 0;
-    do {
-      if (i == 0) {
-        bf = (char *) malloc(sizeof(char));
-      } else {
-        bf = (char *) realloc(bf, (i + 1) * sizeof(char));
-      }
-      bf[i] = fgetc(istream);
-      if (bf[i] == 10 || bf[i] == -1) {
-        a = 1;
-        bf[i] = 0;
-      }
-      i += 1;
-    } while (a == 0);
-
-    fclose(istream);
-
-  } else {
-
-    /*printf("ENTER THE WORKING DIRECTORY PATH:\n");
-    scanf("%s",&buffer);
-    len=64*FILENAME_MAX;
-
-      if(len > (64*FILENAME_MAX)){
-      t_error("Maximum path length exceeded");
-    } else {
-      bf=(char *)malloc(len*sizeof(char));
-    }
-
-    strcpy(bf,buffer);  */
-
-    t_error("You have to specify aworking directory when you run the executable");
-  }
-  return bf;
-}
-
-
-/**-------------------------------------------------------------------------*/
-
-char *join_strings(char *first, char *second) {
+char *join_strings(const char *first, const char *second) {
 
   char *string;
   int len = strlen(first) + strlen(second) + 2;
@@ -356,102 +305,6 @@ char *join_strings(char *first, char *second) {
 
 
 /**-----------------------------------------------------------------------*/
-
-
-
-
-
-/**-----------------------------------------------------------------------*/
-
-void write_floatarray_elements(FILE *outputfile, FLOATVECTOR *V, long columns) {
-
-
-  long i;
-
-
-  putchar(' ');
-
-
-  if (V == NULL || V->co == NULL || V->isdynamic != 1) {
-
-    t_error("The vector was not allocated properly");
-
-  } else if (V->nl > V->nh) {
-
-    t_error("The vector has no proper dimensions");
-
-  } else {
-
-
-    fprintf(outputfile, "{");
-
-
-    for (i = V->nl; i < V->nh; i++) {
-
-      fprintf(outputfile, "%f,", V->co[i]);
-
-      if (i % columns == 0) putchar('\n');
-
-    }
-
-
-    fprintf(outputfile, "%f}\n", V->co[i]);
-
-
-  }
-
-
-  putchar('\n');
-
-
-}
-
-
-/**-----------------------------------------------------------------------*/
-
-void write_doublearray_elements(FILE *outputfile, Vector<double> *V,
-                                long columns) {
-
-
-  long i;
-
-
-  putchar(' ');
-
-
-  if (V == NULL || V->co == NULL) {
-
-    t_error("The vector was not allocated properly");
-
-  } else if (V->nl > V->nh) {
-
-    t_error("The vector has no proper dimensions");
-
-  } else {
-
-
-    fprintf(outputfile, "{");
-
-
-    for (i = V->nl; i < V->nh; i++) {
-
-      fprintf(outputfile, "%lf,", V->co[i]);
-
-      if (i % columns == 0) putchar('\n');
-
-    }
-
-
-    fprintf(outputfile, "%lf}\n", V->co[i]);
-
-
-  }
-
-
-  putchar('\n');
-
-
-}
 
 
 

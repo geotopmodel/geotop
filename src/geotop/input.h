@@ -20,7 +20,7 @@
  */
 
 
-typedef struct
+struct INIT_TOOLS
 {
   double swe0;
   double Tsnow0;
@@ -38,7 +38,7 @@ typedef struct
   DOUBLEMATRIX *bed;
   DOUBLETENSOR *pa_bed;
   std::unique_ptr<Vector<double>> init_water_table_depth;
-} INIT_TOOLS;
+};
 
 
 

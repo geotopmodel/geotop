@@ -29,7 +29,7 @@
 #define filecloud "clouds.txt"
 
 extern long number_novalue, number_absent;
-extern char *WORKING_DIRECTORY;
+extern const char *WORKING_DIRECTORY;
 
 //*****************************************************************************************************************
 //*****************************************************************************************************************

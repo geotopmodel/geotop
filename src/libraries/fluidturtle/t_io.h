@@ -25,15 +25,6 @@ long write_floatmatrix_elements(FILE *, FLOATMATRIX *, long);
 long write_doublematrix_elements(FILE *, DOUBLEMATRIX *, long);
 
 
-char *join_strings(char *, char *);
-
-
-char *get_workingdirectory(void);
-
-
-void write_floatarray_elements(FILE *, FLOATVECTOR *, long);
-
-
-void write_doublearray_elements(FILE *, Vector<double> *, long);
+char *join_strings(const char *, const char *);
 
 
