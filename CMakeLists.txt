@@ -104,4 +104,5 @@ add_executable(geotop
         src/libraries/ascii/init.h
         src/libraries/ascii/tabs.h
         src/libraries/ascii/extensions.h)
-
+enable_testing()
+subdirs(tests)

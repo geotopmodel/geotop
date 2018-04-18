@@ -26,8 +26,7 @@
 #include <memory>
 
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
+typedef struct {
 
   std::unique_ptr<Vector<double>> Rn_mean;
   std::unique_ptr<Vector<double>> LWin_mean;
@@ -37,7 +36,7 @@ typedef struct
   std::unique_ptr<Vector<double>> H_mean;
   std::unique_ptr<Vector<double>> SEB_mean;
   std::unique_ptr<Vector<double>>
-  Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+          Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
   std::unique_ptr<Vector<double>> Rswdown_mean;
   std::unique_ptr<Vector<double>> Rswbeam_mean;
   LONGVECTOR *nDt_shadow;
@@ -114,8 +113,7 @@ typedef struct
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct
-{
+typedef struct {
   DOUBLEMATRIX *P;
   DOUBLEMATRIX *thi;
   DOUBLEMATRIX *T;
@@ -123,8 +121,7 @@ typedef struct
 
 /*---------------------------------------------------------------------------*/
 
-struct STATE_VEG
-{
+struct STATE_VEG {
 
   std::unique_ptr<Vector<double>> Tv;
   std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
@@ -134,8 +131,7 @@ struct STATE_VEG
 
 /*---------------------------------------------------------------------------*/
 
-struct SOIL
-{
+struct SOIL {
   LONGMATRIX *type;
   DOUBLETENSOR *pa;
   DOUBLEMATRIX *T_av_tensor;
@@ -172,10 +168,8 @@ struct SOIL
 };
 
 
-
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
+typedef struct {
   DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
   DOUBLETENSOR *Z;
 
@@ -232,8 +226,7 @@ typedef struct
 
 
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
+typedef struct {
   DOUBLEMATRIX *LC;            //land cover for each pixel
   DOUBLEMATRIX *delay;
   SHORTMATRIX *shadow;      //=1 if shadow, =0 if not
@@ -252,13 +245,12 @@ typedef struct
 /*---------------------------------------------------------------------------*/
 
 
-typedef struct
-{
+typedef struct {
   /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                     R=number of rows of the basin,C=number of columns in the basin*/
   LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
   LONGVECTOR
-  *c;          /*array of columns of the channel-pixels; dimension=nch*/
+          *c;          /*array of columns of the channel-pixels; dimension=nch*/
   LONGMATRIX *ch;
   LONGVECTOR *ch_down;
   std::unique_ptr<Vector<double>> Vsup;
@@ -276,22 +268,19 @@ typedef struct
 } CHANNEL;
 
 
-
-
 /*---------------------------------------------------------------------------*/
 
-typedef struct
-{
+typedef struct {
   /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
                      R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
   DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
   DOUBLEMATRIX
-  *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+          *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
 
   std::unique_ptr<Vector<double>>
-  PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+          PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
   std::unique_ptr<Vector<double>> PrSNW_mean;
   std::unique_ptr<Vector<double>> Pt;
   std::unique_ptr<Vector<double>> Ps;
@@ -320,8 +309,7 @@ typedef struct
 
 
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
+typedef struct {
 
   std::unique_ptr<Vector<double>> JD_plots;
   double time;    /*time=current time from the begin of simulation [s]*/
@@ -334,8 +322,7 @@ typedef struct
 
 
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
+typedef struct {
   double Dt;      /*Dt=the integration time interval [s]*/
   double ST;
   short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
@@ -647,12 +634,10 @@ typedef struct
 } PAR;
 
 
-
 /*---------------------------------------------------------------------------*/
-typedef struct
-{
-  SHORTMATRIX  *type;
-  LONGMATRIX   *lnum;
+typedef struct {
+  SHORTMATRIX *type;
+  LONGMATRIX *lnum;
   DOUBLETENSOR *Dzl;
   DOUBLETENSOR *w_liq;
   DOUBLETENSOR *w_ice;
@@ -660,8 +645,7 @@ typedef struct
 } STATEVAR_3D;
 
 
-typedef struct
-{
+typedef struct {
   short type;
   long lnum;
   std::unique_ptr<Vector<double>> Dzl;
@@ -670,8 +654,7 @@ typedef struct
   std::unique_ptr<Vector<double>> T;
 } STATEVAR_1D;
 
-typedef struct
-{
+typedef struct {
   STATEVAR_3D *S;
   STATEVAR_1D *S_for_BS;
   std::unique_ptr<Vector<double>> age;
@@ -695,8 +678,7 @@ typedef struct
   LONGVECTOR *change_dir_wind;
 } SNOW;
 
-typedef struct
-{
+typedef struct {
   STATEVAR_3D *G;
   std::unique_ptr<Vector<double>> MELTED;
   std::unique_ptr<Vector<double>> melted;
@@ -704,8 +686,7 @@ typedef struct
   std::unique_ptr<Vector<double>> subl;
 } GLACIER;
 
-typedef struct
-{
+typedef struct {
   std::unique_ptr<Vector<double>> E;
   std::unique_ptr<Vector<double>> N;
   std::unique_ptr<Vector<double>> lat;
@@ -718,9 +699,8 @@ typedef struct
 } METEO_STATIONS;
 
 
-typedef struct
-{
-  METEO_STATIONS *st;
+typedef struct {
+  std::unique_ptr<METEO_STATIONS> st;
 
   double ***data;
   long *numlines;
@@ -781,8 +761,7 @@ typedef struct
 } METEO;
 
 
-struct ALLDATA
-{
+struct ALLDATA {
   std::unique_ptr<SOIL> S;
   std::unique_ptr<WATER> W;
   std::unique_ptr<LAND> L;
@@ -794,16 +773,16 @@ struct ALLDATA
   std::unique_ptr<GLACIER> G;
   std::unique_ptr<METEO> M;
   std::unique_ptr<TIMES> I;
-  ALLDATA():  S{new SOIL{}},
-  W{new WATER{}},
-  L{new LAND{}},
-  P{new PAR{}},
-  T{new TOPO{}},
-  C{new CHANNEL{}},
-  E{new ENERGY{}},
-  N{new SNOW{}},
-  G{new GLACIER{}},
-  M{new METEO{}},
-  I{new TIMES{}}
- {}
+
+  ALLDATA() : S{new SOIL{}},
+              W{new WATER{}},
+              L{new LAND{}},
+              P{new PAR{}},
+              T{new TOPO{}},
+              C{new CHANNEL{}},
+              E{new ENERGY{}},
+              N{new SNOW{}},
+              G{new GLACIER{}},
+              M{new METEO{}},
+              I{new TIMES{}} {}
 };

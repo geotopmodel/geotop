@@ -477,39 +477,6 @@ SHORTVECTOR *new_shortvector(long nh) {
 /*-----------------------------------------------------------------------*/
 
 
-FLOATVECTOR *new_floatvector(long nh) {
-
-
-  FLOATVECTOR *m;
-
-
-  m = (FLOATVECTOR *) malloc(sizeof(FLOATVECTOR));
-
-
-  if (!m) t_error("allocation failure in FLOATVECTOR()");
-
-
-  m->isdynamic = isDynamic;
-
-
-  m->nl = NL;
-
-
-  m->nh = nh;
-
-
-  m->co = vector(m->nl, nh);
-
-
-  return m;
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
 LONGVECTOR *new_longvector(long nh) {
 
 
@@ -758,18 +725,6 @@ void free_svector(short *v, long nl) {
 /*-----------------------------------------------------------------------*/
 
 
-void free_vector(float *v, long nl) {
-
-
-  free((FREE_ARG) (v + nl - NR_END));
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
 void free_lvector(long *v, long nl) {
 
 
@@ -867,48 +822,6 @@ void free_shortvector(SHORTVECTOR *v) {
 
 
     printf("\nWarning::An attemp was made to free a non dynamic vector 1\n");
-
-
-  }
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-
-
-
-void free_floatvector(FLOATVECTOR *v) {
-
-
-  if (v == NULL || v->co == NULL) {
-
-
-    t_error("This floatvector was never allocated");
-
-
-  } else if (v->isdynamic == 1) {
-
-
-    free_vector(v->co, NL);
-
-
-    v->isdynamic = v->nl = v->nh = -1;
-
-
-    free(v);
-
-
-    return;
-
-
-  } else {
-
-
-    printf("\nWarning::An attemp was made to free a non dynamic vector 3\n");
 
 
   }

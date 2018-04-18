@@ -31,24 +31,4 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
                           METEO *met, DOUBLEMATRIX *LC);
 
-void extend_topography(DOUBLEMATRIX *M, double novalue);
-
-void extend_topography_row(DOUBLEMATRIX *M, double novalue);
-
-void extend_topography_column(DOUBLEMATRIX *M, double novalue);
-
-void find_the_nearest(long r, long c, double novalue, DOUBLEMATRIX *M,
-                      long *rr, long *cc);
-
-void find_the_nearest_row(long r, long c, double novalue, DOUBLEMATRIX *M,
-                          long *rr, long *cc);
-
-void find_the_nearest_column(long r, long c, double novalue, DOUBLEMATRIX *M,
-                             long *rr, long *cc);
-
-short no_novalue(long r, long c, DOUBLEMATRIX *M, double novalue, long *rr,
-                 long *cc);
-
-void set_no_value(DOUBLEMATRIX *M, DOUBLEMATRIX *N, double undef);
-
 void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt);

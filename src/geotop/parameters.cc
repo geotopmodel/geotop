@@ -28,6 +28,7 @@
 #include "rw_maps.h"
 #include "times.h"
 #include "pedo.funct.h"
+#include "keywords.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -1972,7 +1973,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                                  num_param_components, 1., 0);
     }
 
-  met->st=(METEO_STATIONS *)malloc(sizeof(METEO_STATIONS));
+  met->st.reset(new METEO_STATIONS{});
   if (!met->st) t_error("meteo_stations was not allocated");
   met->st->E.reset(new Vector<double>{nmeteo_stations});
   met->st->N.reset(new Vector<double>{nmeteo_stations});

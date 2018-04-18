@@ -37,19 +37,10 @@
 #include "deallocate.h"
 #include "pedo.funct.h"
 
-#include <time.h>
-
-#include <memory>
-
-//#include <cstdio>
-#include <stdio.h>
-
 void time_loop(ALLDATA *A);
 
 
 /*----------   1. Global variables  ------------*/
-
-#include "keywords.h" //contains the definition of char** keywords_num and char** keywords_char
 
 long number_novalue;
 long number_absent;
@@ -116,7 +107,7 @@ int main(int argc,char *argv[])
   MMo=0.;
 
   /*dinamic allocations:*/
-  UV=(T_INIT *)malloc(sizeof(T_INIT));
+  UV=new T_INIT{};
   if (!UV) t_error("UV was not allocated");
 
   adt.reset(new ALLDATA);
@@ -149,6 +140,7 @@ int main(int argc,char *argv[])
   free(SuccessfulRunFile);
   free(FailedRunFile);
   free(logfile);
+//  delete UV;
   return 0;
 }
 

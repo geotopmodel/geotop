@@ -76,7 +76,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   char *temp, *name, **temp2;
   char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
 
-  IT=(INIT_TOOLS *)malloc(sizeof(INIT_TOOLS));
+  IT= new INIT_TOOLS;
 
   if (!argv[1])
     {
@@ -407,7 +407,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   met->line_interp_WEB_LR=0;
   met->line_interp_Bsnow_LR=0;
 
-  success = read_meteostations_file(met->imeteo_stations, met->st,
+  success = read_meteostations_file(met->imeteo_stations, met->st.get(),
                                     files[fmetstlist], IT->meteostations_col_names, flog);
 
   for (i=1; i<=met->st->E->nh; i++)
@@ -2561,7 +2561,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
   free(IT->meteostations_col_names);
 
-  free(IT);
+  delete IT;
 
   n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
 

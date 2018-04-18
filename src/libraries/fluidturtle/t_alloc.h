@@ -86,8 +86,6 @@ Examples: 1.example.c, 2.example.c
 
 SHORTVECTOR *new_shortvector(long);
 
-FLOATVECTOR *new_floatvector(long);
-
 LONGVECTOR *new_longvector(long);
 
 
@@ -153,7 +151,7 @@ Examples: 1.example.c, 2.example.c
 void free_shortvector( SHORTVECTOR *);
 
 void free_longvector( LONGVECTOR *);
-void free_floatvector( FLOATVECTOR *);
+
 void free_doublevector( Vector<double>* );
 
 void free_shortmatrix( SHORTMATRIX *);
@@ -164,7 +162,6 @@ void free_doublematrix( DOUBLEMATRIX *);
 
 void free_svector(short *v, long nl);
 
-void free_vector(float *v, long nl);
 void free_lvector(long *v, long nl);
 
 void free_smatrix(short **m,long nrl,long ncl);

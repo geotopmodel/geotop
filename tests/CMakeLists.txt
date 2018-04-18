@@ -1,0 +1,40 @@
+
+set(_tests
+  1D/B2_BeG_017
+  1D/Bro 1D/Calabria
+  1D/ColdelaPorte 
+  1D/CostantMeteo 
+  1D/Jungfraujoch 
+  1D/Matsch_B2_Ref_007 
+  1D/Matsch_P2_Ref_007 
+  1D/PureDrainage 
+  1D/PureDrainageFaked 
+  1D/PureDrainageRainy 
+  1D/PureDrainageRainySlope 
+  3D/Borden05m 
+  3D/example 
+  3D/hillslope01 
+  3D/hillslope02_superslab 
+  3D/Mazia 
+  3D/no_reflection 
+  3D/onepoint_hydrostatic 
+  3D/panola 
+  3D/panola_25pixel 
+  3D/panola_25pixel_nobed 
+  3D/panola_25pixel_nobed_hydrostatic 
+  3D/prealpiC 
+  3D/PSQL_test 
+  3D/rendena 
+  3D/small_example 
+  3D/small_example-channel 
+  3D/small_example-onlyEnergy 
+  3D/snow_dstr_SENSITIVITY 
+  3D/Vshape 
+  3D/WG1_2.0_001)
+
+foreach(_t ${_tests})
+    message("setting up ${_t} in ${CMAKE_CURRENT_SOURCE_DIR}")
+        add_test(NAME "${_t}"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_t}
+                COMMAND $<TARGET_FILE:geotop> .)
+endforeach()
