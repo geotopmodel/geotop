@@ -309,7 +309,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct T_INIT "UV": */
   printf("Deallocating UV\n");
-  free(UV);
+  delete UV;
 
   /* Deallocation of struct ENERGY "egy": */
   printf("Deallocating egy\n");
