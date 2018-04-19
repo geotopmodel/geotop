@@ -3,3 +3,4 @@ gtest_without_main = dependency('gtest', main: false, fallback : ['gtest', 'gtes
 
 
 subdir('logger')
+subdir('vector')

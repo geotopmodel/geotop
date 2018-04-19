@@ -7,7 +7,8 @@
 #include <math.h>
 #include <time.h>
 #include <ctype.h>
-#include <memory>
+
+#include "vector.h"
 
 #define isDynamic 1         /*This number will be used to mark a dynamic allocates
                               quantity */
@@ -80,50 +81,6 @@ that char and long are not unsigned as there. We have vector for short,
 int,long , char, float, double.
 
 ---------------------------------------------------------------------*/
-
-template <typename T>
-struct Vector{
-   long nl=0,nh=0;               /* the lower bound, nl, and the upper, nh */
-
-  std::unique_ptr<T[]> co;
-
-  void reinit(const long _nh){
-    nl=1;
-    nh=_nh;
-    co.reset(new T[nh+1]{});
-  }
-  ~Vector() = default;
-
-  Vector() = delete;
-  explicit Vector(const long n, const long l=1): nl{l}, nh{n}, co{new T[nh-nl+1+1]{}} {}
-
-  Vector(const Vector<T>& v): nl{v.nl}, nh{v.nh}, co{new T[nh-nl+1+1]}{
-    for (auto i=nl; i<=nh;++i)
-      co[i] = v.co[i];
-  }
-
-  Vector<T>& operator=(const Vector<T>& v){
-    nl=v.nl;
-    nh=v.nh;
-    co.reset(new T[nh-nl+1+1]);
-    for (auto i=nl; i<=nh;++i)
-      co[i] = v.co[i];
-    return *this;
-  }
-
-  Vector<T>& operator=(const T v){
-    for (auto i=nl; i<=nh;++i)
-      co[i] = v;
-    return *this;
-  }
-
-  Vector<T>& operator+=(const Vector<T>& v){
-    for (auto i=nl; i<=nh;++i)
-      co[i] += v.co[i];
-    return *this;
-  }
-};
-
 
 typedef struct
 {
