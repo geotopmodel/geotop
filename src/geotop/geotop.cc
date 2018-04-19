@@ -53,7 +53,7 @@ char *string_novalue;
 
 std::unique_ptr<T_INIT> UV;
 
-char *logfile;
+char *logfile = "/tmp/geo.log";
 char **files;
 
 long Nl,Nr,Nc;
@@ -118,9 +118,10 @@ int main(int argc,char *argv[])
   geolog << "STATEMENT:\n\n"
 	 << "Geotop 3.0.0 - 2018\n\n"
 	 << "Geotop 3.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n"
-	 << "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
-	 << "\nWORKING DIRECTORY: " << wd << "\n"
-	 << "\nLOGFILE: " << wd << "geotop.log\n" << std::endl;
+	 << "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n" << std::endl;
+
+  geolog << "WORKING DIRECTORY: " << wd << std::endl;
+  geolog << "LOGFILE: " << wd << "geotop.log\n" << std::endl;
 
   std::unique_ptr<ALLDATA> adt;
   FILE* f;

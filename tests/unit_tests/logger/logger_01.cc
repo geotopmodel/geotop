@@ -25,6 +25,10 @@ TEST(Prefix, basic_test) {
     EXPECT_EQ(l.prefix(), "geotop:alberto:");
   }
   EXPECT_EQ(l.prefix(), "geotop:");
+  {
+    Logger::Prefix p{__func__}; // let us use the function name 
+    EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
+  }
 }
 
 TEST(Logger, output_operator){
@@ -63,5 +67,32 @@ TEST(Logger, detach_file_stream){
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "geotop:ciao alberto\ngeotop:nuova riga continua\ngeotop: queste righe \n sono molto \n piu' complicate\ngeotop:con jacopo\n");
   EXPECT_EQ(testing::internal::GetCapturedStderr(), "");
 }
+
+TEST(Logger, iomanip_functions){
+  // test the handlig of functions like std::setw, std::setfill
+  testing::internal::CaptureStdout();
+  std::ostringstream os;
+  os << std::setw(10) << 7; 
+  geolog << os.str() << std::endl;
+  geolog << 1234567890 << std::endl;
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "geotop:         7\ngeotop:1234567890\n");
+}
+
+TEST(Logger, for_loop){
+  testing::internal::CaptureStdout();
+  std::ostringstream os;
+  geolog << "entering " << std::endl;
+  {
+    Logger::Prefix p {"for"};
+    geolog << "vector elements: ";
+    for (auto x : {1, 2, 3})
+      geolog << x << " ";
+    geolog << std::endl;
+  }
+  geolog << "cycle ended" <<std::endl;
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "geotop:entering \ngeotop:for:vector elements: 1 2 3 \ngeotop:cycle ended\n");
+}
+
+
 
 

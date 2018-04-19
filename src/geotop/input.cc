@@ -65,7 +65,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
-  Logger::Prefix p{"get_all_input"};
+  Logger::Prefix p{__func__};
 
   FILE *flog, *f;
   DOUBLEMATRIX *M;
@@ -83,8 +83,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
 
 
-  logfile =  nullptr;  //join_strings(WORKING_DIRECTORY, logfile_name);
-  flog = nullptr; //fopen(logfile, "w");
+//  logfile =  nullptr;  //join_strings(WORKING_DIRECTORY, logfile_name);
+  flog = fopen(logfile, "w");
 
 
   //reads the parameters in __control_parameters

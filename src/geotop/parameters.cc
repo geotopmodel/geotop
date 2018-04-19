@@ -54,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-Logger::Prefix p{"read_inpts_par"};
+Logger::Prefix p{__func__};
   //variables
   FILE *f;
 
@@ -1085,13 +1085,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                METEO *met, INIT_TOOLS *itools, double **num_param,
                                long *num_param_components, char **keyword, FILE *flog)
 {
-
+  Logger::Prefix p {__func__};
   short occurring;
   long cod, codn, i, j, k, n, m, nsoillayers, nmeteo_stations, npoints;
   double a, minDt=1.E99;
-
-  fprintf(flog,"\n");
-
+  
   par->print=0;
 
   //find components of times->Dt_vector
@@ -1520,18 +1518,23 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   par->max_snow_layers = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                          (long)floor(par->SWE_top/par->max_weq_snow) + n;
   par->inf_snow_layers = new_longvector(n);
-  fprintf(flog,
-          "Max snow layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",
-          par->max_snow_layers,floor(par->SWE_bottom/par->max_weq_snow),n,
-          floor(par->SWE_top/par->max_weq_snow));
-  fprintf(flog,"Infinite Snow layer numbers are numbers: ");
+
+  geolog << "Max snow layer number: " << par->max_snow_layers
+         <<", of which " << floor(par->SWE_bottom/par->max_weq_snow)
+         << " at the bottom, " << n << " in the middle, and "
+         << floor(par->SWE_top/par->max_weq_snow) << " at the top." << std::endl;
+//  fprintf(flog,
+//          "Max snow layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",
+//          par->max_snow_layers,floor(par->SWE_bottom/par->max_weq_snow),n,
+//          floor(par->SWE_top/par->max_weq_snow));
+  geolog << "Infinite Snow layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
       par->inf_snow_layers->co[i] = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                                     i;
-      fprintf(flog, "%ld ",par->inf_snow_layers->co[i]);
+      geolog << par->inf_snow_layers->co[i] << " ";
     }
-  fprintf(flog,"\n");
+  geolog << std::endl;
 
   //former block 7
   itools->Dglac0 = assignation_number(flog, 122, 0, keyword, num_param,
@@ -1564,11 +1567,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   par->max_glac_layers = (long)floor(par->GWE_bottom/par->max_weq_glac) +
                          (long)floor(par->GWE_top/par->max_weq_glac) + n;
   par->inf_glac_layers = new_longvector(n);
-  fprintf(flog,
-          "Max glac layer number: %ld, of which %.0f at the bottom, %ld in the middle, and %.0f at the top.\n",
-          par->max_glac_layers,floor(par->GWE_bottom/par->max_weq_glac),n,
-          floor(par->GWE_top/par->max_weq_glac));
-  fprintf(flog,"Infinite Glac layer numbers are numbers: ");
+  geolog << "Max glac layer number: "<< par->max_glac_layers << ", of which "
+         << floor(par->GWE_bottom/par->max_weq_glac) << " at the bottom, "
+         << n << "in the middle, and " << floor(par->GWE_top/par->max_weq_glac) << "at the top." << std::endl;
+
+  geolog << "Infinite Glac layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
       par->inf_glac_layers->co[i] = (long)floor(par->GWE_bottom/par->max_weq_glac) +
@@ -2575,19 +2578,16 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
         {
           a = default_value;
           geolog << keyword[i]<<"[" <<j+1 << "] = " <<a <<" (default)" << std::endl;
-//          fprintf(flog,"%s[%ld] = %e (default) \n", keyword[i], j+1, a);
         }
       else
         {
           geolog << keyword[i]<<"[" <<j+1 << "] not assigned"<< std::endl;
-          fprintf(flog, "%s[%ld] not assigned\n", keyword[i], j+1);
-          fclose(flog);
           t_error("Fatal Error, See geotop.log!");
         }
     }
   else
     {
-      fprintf(flog,"%s[%ld] = %e \n", keyword[i], j+1, a);
+      geolog << keyword[i] << "[" << j+1 <<"] = " << a << std::endl;
     }
 
   return a;

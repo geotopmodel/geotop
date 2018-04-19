@@ -44,7 +44,9 @@ void Logger::detach_file_stream() {
   ofile = nullptr;
 }
 
-Logger::Prefix::Prefix(const std::string &s, Logger &l) : log{&l} { this->log->push(s); }
+Logger::Prefix::Prefix(const std::string &s, Logger &l) : log{&l} {
+  log->push(s);
+}
 
 Logger::Prefix::~Prefix() {
   log->pop();

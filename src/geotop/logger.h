@@ -10,6 +10,7 @@
 #include <string>
 #include <stack>
 #include <sstream>
+#include <iomanip>
 
 class Logger{
 public:
@@ -66,15 +67,24 @@ public:
    */
   const std::string &prefix() const;
 
+
   /**
    * this is necessary to handle functions like
    * std::endl and std::flush
+   *
+   * Note that if you need to use std::setw, std::setprecision and the like,
+   * you should adopt the following aproach
+   *
+   * std::ostringstream os;
+   * os << std::setw(10) << var << std::setprecision(99) << othervar << std::endl;
+   * geolog << os.str();
+   *
+   * otherwise geolog will not see the effect of std::setw, std::setprecision etc.
    */
   Logger& operator<<(std::ostream& (*p) (std::ostream &)) {
     std::ostringstream os;
     os << p;
-    *this << os.str();
-    return *this;
+    return *this << os.str();
   }
 
   /**
@@ -107,6 +117,7 @@ private:
    * If true, the last prefix is prepended to the string to print
    */
   bool _at_new_line;
+
 public:
   template <typename T> friend Logger& operator<<(Logger&, const T&);
 };
