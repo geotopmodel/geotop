@@ -504,9 +504,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
       else
         {
 
-          fprintf(flog,
-                  "Warning: File meteo not in the list, meteo data not read, used default values\n");
-          printf("Warning: File meteo not in the list, meteo data not read, used default values\n");
+          geolog << "Warning: File meteo not in the list, meteo data not read, used default values" << std::endl;
 
           met->data[i-1] = (double **)malloc(2*sizeof(double *));
 

@@ -43,7 +43,7 @@ TEST(Logger, ScopedFileLevel) {
   EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStderr());
 }
 
-TEST(ScopedPrefix, ScopedLevels){
+TEST(Logger, ScopedLevels){
   testing::internal::CaptureStdout();
   testing::internal::CaptureStderr();
   Logger log{};
@@ -66,7 +66,7 @@ TEST(ScopedPrefix, ScopedLevels){
   EXPECT_EQ("", testing::internal::GetCapturedStderr());
 }
 
-TEST(ScopedPrefix, ScopedLevels_mixed_01){
+TEST(Logger, ScopedLevels_mixed_01){
   testing::internal::CaptureStdout();
   testing::internal::CaptureStderr();
   Logger log{};
@@ -89,7 +89,7 @@ TEST(ScopedPrefix, ScopedLevels_mixed_01){
   
 }
 
-TEST(ScopedPrefix, ScopedLevels_mixed_02){
+TEST(Logger, ScopedLevels_mixed_02){
   testing::internal::CaptureStdout();
   testing::internal::CaptureStderr();
   Logger log{};
@@ -115,7 +115,7 @@ TEST(ScopedPrefix, ScopedLevels_mixed_02){
 }
 
 
-TEST(ScopedPrefix, ScopedLevels_mixed_03){
+TEST(ScopedLevels, ScopedLevels_mixed_03){
   testing::internal::CaptureStdout();
   testing::internal::CaptureStderr();
   Logger log{};
@@ -141,7 +141,7 @@ TEST(ScopedPrefix, ScopedLevels_mixed_03){
 }
 
 
-TEST(ScopedPrefix, ScopedLevels_mixed_geolog){
+TEST(ScopedLevels, mixed_geolog){
   testing::internal::CaptureStdout();
   testing::internal::CaptureStderr();
   geolog.attach_file_stream(std::cerr);
