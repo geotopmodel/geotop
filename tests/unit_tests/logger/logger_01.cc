@@ -18,15 +18,15 @@ TEST(Logger, geolog) {
   EXPECT_EQ(geolog.prefix(), "geotop:");
 }
 
-TEST(Prefix, basic_test) {
+TEST(ScopedPrefix, basic_test) {
   Logger l{};
   {
-    Logger::Prefix p{"alberto",l};
+    Logger::ScopedPrefix p{"alberto",l};
     EXPECT_EQ(l.prefix(), "geotop:alberto:");
   }
   EXPECT_EQ(l.prefix(), "geotop:");
   {
-    Logger::Prefix p{__func__}; // let us use the function name 
+    Logger::ScopedPrefix p{__func__}; // let us use the function name 
     EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
   }
 }
@@ -83,7 +83,7 @@ TEST(Logger, for_loop){
   std::ostringstream os;
   geolog << "entering " << std::endl;
   {
-    Logger::Prefix p {"for"};
+    Logger::ScopedPrefix p {"for"};
     geolog << "vector elements: ";
     for (auto x : {1, 2, 3})
       geolog << x << " ";

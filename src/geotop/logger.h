@@ -21,25 +21,25 @@ public:
    * In the destructor it pops the just added prefix.
    *
    * The idea is that once you enter a scope (either a function, a part of a function, etc.)
-   * you can create one Prefix object and you can forget to call pop() since it automatically does.
+   * you can create one ScopedPrefix object and you can forget to call pop() since it automatically does.
    */
-  class Prefix {
+  class ScopedPrefix {
   public:
 
     /**
      * Push string @param s to logger @param l
      */
-    Prefix(const std::string &s, Logger &l);
+    ScopedPrefix(const std::string &s, Logger &l);
 
     /**
      * Push string @param s to the default logger geolog
      */
-    Prefix(const std::string &s);
+    ScopedPrefix(const std::string &s);
 
     /**
      * Call log->pop();
      */
-    virtual ~Prefix();
+    virtual ~ScopedPrefix();
 
   private:
     Logger *log;

@@ -44,12 +44,12 @@ void Logger::detach_file_stream() {
   ofile = nullptr;
 }
 
-Logger::Prefix::Prefix(const std::string &s, Logger &l) : log{&l} {
+Logger::ScopedPrefix::ScopedPrefix(const std::string &s, Logger &l) : log{&l} {
   log->push(s);
 }
 
-Logger::Prefix::~Prefix() {
+Logger::ScopedPrefix::~ScopedPrefix() {
   log->pop();
 }
 
-Logger::Prefix::Prefix(const std::string &s): Prefix{s,geolog} {}
+Logger::ScopedPrefix::ScopedPrefix(const std::string &s): ScopedPrefix{s,geolog} {}

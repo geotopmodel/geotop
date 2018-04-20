@@ -54,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-Logger::Prefix p{__func__};
+Logger::ScopedPrefix p{__func__};
   //variables
   FILE *f;
 
@@ -1085,7 +1085,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                METEO *met, INIT_TOOLS *itools, double **num_param,
                                long *num_param_components, char **keyword, FILE *flog)
 {
-  Logger::Prefix p {__func__};
+  Logger::ScopedPrefix p {__func__};
   short occurring;
   long cod, codn, i, j, k, n, m, nsoillayers, nmeteo_stations, npoints;
   double a, minDt=1.E99;

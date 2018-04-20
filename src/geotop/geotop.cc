@@ -179,7 +179,7 @@ int main(int argc,char *argv[])
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
 void time_loop(ALLDATA *A)
 {
-Logger::Prefix p{"time_loop"};
+Logger::ScopedPrefix p{"time_loop"};
   clock_t tstart, tend;
   short en=0, wt=0, out;
   long i, sy, r, c, j, l;

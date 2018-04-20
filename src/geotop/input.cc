@@ -65,7 +65,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
-  Logger::Prefix p{__func__};
+  Logger::ScopedPrefix p{__func__};
 
   FILE *flog, *f;
   DOUBLEMATRIX *M;
