@@ -40,6 +40,13 @@ class Logger {
   class ScopedFileLevel;
 
   /**
+   * Helper class to set the console and file levels of a logger inside a scope
+   * to the given values. For example, this can be useful to either completely
+   * disable the logging inside a scope or to enable a finer logging.
+   */
+  class ScopedLevels;
+
+  /**
    * Adds "geotop" as first prefix. By default it prints to stdout and no file.
    * The depth levels for both console and file are not limited.
    */
@@ -98,14 +105,26 @@ class Logger {
    */
   unsigned int prefix_depth_level() const { return prefixes.size(); }
 
+  /**
+   * return the depth level of the console stream
+   */
   unsigned int console_level() const { return _console_level; }
 
+  /**
+   * set the depth level of the console stream
+   */
   void set_console_level(const unsigned int console_level) {
     _console_level = console_level;
   }
 
+  /**
+  * return the depth level of the file stream
+  */
   unsigned int file_level() const { return _file_level; }
 
+  /**
+  * set the depth level of the file stream
+  */
   void set_file_level(const unsigned int file_level) {
     _file_level = file_level;
   }
@@ -131,7 +150,9 @@ class Logger {
    */
   bool _at_new_line;
 
+  /** cosole depth level. if the prefix depth level is above this value, no output is produced on the console stream*/
   unsigned int _console_level;
+  /** file depth level. if the prefix depth level is above this value, no output is produced on the file stream*/
   unsigned int _file_level;
 
   template <typename T>
@@ -172,67 +193,87 @@ class Logger::ScopedPrefix {
   Logger* log;
 };
 
-class ScopedLevel {
-public:
-  ScopedLevel(std::function<unsigned int()> &logger_get_level,
-                std::function<void(const unsigned int)> &logger_set_level, const unsigned int level,
-                Logger &l);
+/** the default logger */
+extern Logger geolog;
 
-private:
+/** helper class to implement all the ScopedLevel classes */
+class ScopedLevel {
+ public:
+  /**
+   * Constructor. Needs a function to be called in order set the level to the passed value @param level
+   * and then restore it to  its original value.
+   * @param logger_set_level
+   * @param level
+   */
+  ScopedLevel(std::function<void(const unsigned int)> logger_set_level, const unsigned int level,
+              const unsigned int old_level)
+    : set_level{logger_set_level},
+      old_level{old_level} {
+    set_level(level);
+  }
+
+  /** Destructor: restore the level to the previous value */
+  ~ScopedLevel() { set_level(old_level); }
+
+ private:
   std::function<void(const unsigned int)> set_level;
-  std::function<unsigned int()> get_level;
-  Logger *log;
   const unsigned int old_level;
 };
 
-class Logger::ScopedConsoleLevel{
+class Logger::ScopedConsoleLevel {
  public:
   /**
    * set the console level of @param l to @param level
    */
-  ScopedConsoleLevel(const unsigned int level, Logger& l);
-
-  /**
-   * set the console level of the default logger geolog to @param level
-   */
-  ScopedConsoleLevel(const unsigned int level);
+  ScopedConsoleLevel(const unsigned int level, Logger& l = geolog);
 
   /**
    * restore the console level of the logger pointed to by @param log to it's
-   * previous value
+   * previous value. This is done automatically once che @param console is
+   * destructed
    */
-  ~ScopedConsoleLevel();
+  ~ScopedConsoleLevel() = default;
 
  private:
+  /** pointer to the logger */
   Logger* log;
-  const unsigned int old_level;
+
+  /** all the magic happens in the constructor and destructor of this member */
+  ScopedLevel console;
 };
 
 class Logger::ScopedFileLevel {
-public:
+ public:
   /**
    * set the file level of @param l to @param level
    */
-  ScopedFileLevel(const unsigned int level, Logger& l);
-
-  /**
-   * set the file level of the default logger geolog to @param level
-   */
-  ScopedFileLevel(const unsigned int level);
+  ScopedFileLevel(const unsigned int level, Logger& l = geolog);
 
   /**
    * restore the file level of the logger pointed to by @param log to it's
-   * previous value
+   * previous value. This is done automatically once che @param file is
+   * destructed
    */
-  ~ScopedFileLevel();
+  ~ScopedFileLevel() = default;
 
-private:
+ private:
+  /** pointer to the logger */
   Logger* log;
-  const unsigned int old_level;
+
+  /** all the magic happens in the constructor and destructor of this member */
+  ScopedLevel file;
 };
 
+class Logger::ScopedLevels {
+ public:
+  ScopedLevels(const unsigned int cl, const unsigned fl, Logger& l = geolog);
 
-/** the default logger */
-extern Logger geolog;
+  ScopedLevels(const unsigned int cl, Logger& l = geolog);
+
+ private:
+  Logger* log;
+  ScopedFileLevel _fl;
+  ScopedConsoleLevel _cl;
+};
 
 #endif  // GEOTOP_LOGGER_H

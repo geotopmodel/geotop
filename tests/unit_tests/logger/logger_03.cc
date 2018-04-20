@@ -43,111 +43,124 @@ TEST(Logger, ScopedFileLevel) {
   EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStderr());
 }
 
+TEST(ScopedPrefix, ScopedLevels){
+  testing::internal::CaptureStdout();
+  testing::internal::CaptureStderr();
+  Logger log{};
+  log.attach_file_stream(std::cerr);
+  //everything should be suppressed
+  Logger::ScopedLevels _l{0,log};
+  log << "this should not appear"<< std::endl;
+  {
+    Logger::ScopedPrefix p{"second",log};
+    log << "this should not appear" << std::endl;
+    {
+      Logger::ScopedPrefix p{"third",log};
+      log << "this should not appear" << std::endl;
+    }
+    log << "this should not appear" << std::endl;
+  }
+  log << "this should not appear" << std::endl;
 
-// TEST(ScopedPrefix, console_depth_level_0) {
-//   testing::internal::CaptureStdout();
-//   Logger l{};
+  EXPECT_EQ("", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("", testing::internal::GetCapturedStderr());
+}
 
-//   // no output on screen
-//   l.set_console_level(0);
-//   l << "first level"<< std::endl;
-//   {
-//     Logger::ScopedPrefix p{"second",l};
-//     l << "second level" << std::endl;
-//     {
-//       Logger::ScopedPrefix p{"third",l};
-//       l << "third level" << std::endl;
-//     }
-//     l << "back to second" << std::endl;
-//   }
-//   l << "back to first" << std::endl;
-//   EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
-// }
+TEST(ScopedPrefix, ScopedLevels_mixed_01){
+  testing::internal::CaptureStdout();
+  testing::internal::CaptureStderr();
+  Logger log{};
 
-// TEST(ScopedPrefix, console_depth_level_1) {
-//   testing::internal::CaptureStdout();
-//   Logger l{};
+  Logger::ScopedLevels _l{2,0,log};
+  log << "this should appear on stdout"<< std::endl;
+  {
+    Logger::ScopedPrefix p{"second",log};
+    log << "this should appear on stdout" << std::endl;
+    {
+      Logger::ScopedPrefix p{"third",log};
+      log << "this should not appear" << std::endl;
+    }
+    log << "this should appear on stdout" << std::endl;
+  }
+  log << "this should appear on stdout" << std::endl;
 
-//   // only first level
-//   l.set_console_level(1);
-//   l << "first level"<< std::endl;
-//   {
-//     Logger::ScopedPrefix p{"second",l};
-//     l << "you should not see this" << std::endl;
-//     {
-//       Logger::ScopedPrefix p{"third",l};
-//       l << "nor this" << std::endl;
-//     }
-//     l << "nor this one" << std::endl;
-//   }
-//   l << "back to first" << std::endl;
-//   EXPECT_EQ("geotop:first level\ngeotop:back to first\n", testing::internal::GetCapturedStdout());
-// }
+  EXPECT_EQ("geotop:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:this should appear on stdout\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("", testing::internal::GetCapturedStderr());
+  
+}
 
-// TEST(ScopedPrefix, console_depth_level_2) {
-//   testing::internal::CaptureStdout();
-//   Logger l{};
+TEST(ScopedPrefix, ScopedLevels_mixed_02){
+  testing::internal::CaptureStdout();
+  testing::internal::CaptureStderr();
+  Logger log{};
 
-//   // first and second level
-//   l.set_console_level(2);
-//   l << "first level"<< std::endl;
-//   {
-//     Logger::ScopedPrefix p{"second",l};
-//     l << "second level" << std::endl;
-//     {
-//       Logger::ScopedPrefix p{"third",l};
-//       l << "you should not see this" << std::endl;
-//     }
-//     l << "back to second" << std::endl;
-//   }
-//   l << "back to first" << std::endl;
-//   EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:back to second\ngeotop:back to first\n",
-// 	    testing::internal::GetCapturedStdout());
-// }
+  log.attach_file_stream(std::cerr);
+  
+  Logger::ScopedLevels _l{2,1,log};
+  log << "this should appear on stdout and stderr"<< std::endl;
+  {
+    Logger::ScopedPrefix p{"second",log};
+    log << "this should appear on stdout" << std::endl;
+    {
+      Logger::ScopedPrefix p{"third",log};
+      log << "this should not appear" << std::endl;
+    }
+    log << "this should appear on stdout" << std::endl;
+  }
+  log << "this should appear on stdout and stderr" << std::endl;
 
-
-// TEST(ScopedPrefix, console_depth_level_changed) {
-//   testing::internal::CaptureStdout();
-//   Logger l{};
-
-//   l << "first level"<< std::endl;
-//   {
-//     Logger::ScopedPrefix p{"second",l};
-//     l << "second level" << std::endl;
-//     {
-//       Logger::ScopedPrefix p{"third",l};
-//       l << "third level" << std::endl;
-//       l.set_console_level(0);
-//       // no output from now on
-//     }
-//     l << "you should never read this" << std::endl;
-//   }
-//   l << "nor this" << std::endl;
-//   EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\n", testing::internal::GetCapturedStdout());
-// }
+  EXPECT_EQ("geotop:this should appear on stdout and stderr\ngeotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:this should appear on stdout and stderr\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:this should appear on stdout and stderr\ngeotop:this should appear on stdout and stderr\n", testing::internal::GetCapturedStderr());
+  
+}
 
 
-// TEST(ScopedPrefix, console_and_file_levels) {
-//   testing::internal::CaptureStdout();
-//   testing::internal::CaptureStderr();
-//   Logger l{};
-//   l.attach_file_stream(std::cerr);
-//   l.set_console_level(1);
-//   l.set_file_level(2);
+TEST(ScopedPrefix, ScopedLevels_mixed_03){
+  testing::internal::CaptureStdout();
+  testing::internal::CaptureStderr();
+  Logger log{};
+  log.attach_file_stream(std::cerr);
+  //everything should be suppressed
+  Logger::ScopedLevels _l{0,log};
+  log << "this should not appear"<< std::endl;
+  {
+    Logger::ScopedLevels _sl{10,0,log};
+    Logger::ScopedPrefix p{"second",log};
+    log << "this should appear on stdout" << std::endl;
+    {
+      Logger::ScopedLevels _ssl{0,10,log};
+      Logger::ScopedPrefix p{"third",log};
+      log << "this should appear on stderr" << std::endl;
+    }
+    log << "this should appear on stdout again" << std::endl;
+  }
+  log << "this should not appear" << std::endl;
 
-//   l << "this should appear on screen and in file"<< std::endl;
-//   {
-//     Logger::ScopedPrefix p{"second",l};
-//     l << "this is only in file" << std::endl;
-//     {
-//       Logger::ScopedPrefix p{"third",l};
-//       l << "you should never see this" << std::endl;
-//     }
-//     l << "this is only in file again" << std::endl;
-//   }
-//   l << "this should appear on screen and in file again" << std::endl;
+  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
+}
 
-//   EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:this should appear on screen and in file again\n", testing::internal::GetCapturedStdout());
-//   EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:second:this is only in file\ngeotop:second:this is only in file again\ngeotop:this should appear on screen and in file again\n", testing::internal::GetCapturedStderr());
-// }
 
+TEST(ScopedPrefix, ScopedLevels_mixed_geolog){
+  testing::internal::CaptureStdout();
+  testing::internal::CaptureStderr();
+  geolog.attach_file_stream(std::cerr);
+  //everything should be suppressed
+  Logger::ScopedLevels _l{0};
+  geolog << "this should not appear"<< std::endl;
+  {
+    Logger::ScopedLevels _sl{10,0};
+    Logger::ScopedPrefix p{"second"};
+    geolog << "this should appear on stdout" << std::endl;
+    {
+      Logger::ScopedLevels _ssl{0,10};
+      Logger::ScopedPrefix p{"third"};
+      geolog << "this should appear on stderr" << std::endl;
+    }
+    geolog << "this should appear on stdout again" << std::endl;
+  }
+  geolog << "this should not appear" << std::endl;
+
+  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
+}

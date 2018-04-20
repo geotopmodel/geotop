@@ -61,36 +61,21 @@ Logger::ScopedPrefix::ScopedPrefix(const std::string& s)
   : ScopedPrefix{s, geolog} {}
 
 Logger::ScopedConsoleLevel::ScopedConsoleLevel(const unsigned int level,
-                                               Logger &l)
-  : log{&l}, old_level{l.console_level()} {
-  l.set_console_level(level);
-}
+                                               Logger& l)
+  : log{&l},
+    console{[this](const unsigned int ll) { log->set_console_level(ll); },
+            level,
+    l.console_level()} {}
 
-Logger::ScopedConsoleLevel::ScopedConsoleLevel(const unsigned int level)
-  : ScopedConsoleLevel{level, geolog} {}
+Logger::ScopedFileLevel::ScopedFileLevel(const unsigned int level, Logger& l)
+  : log{&l},
+    file{[this](const unsigned int ll) { log->set_file_level(ll); }, level,
+    l.file_level()} {}
 
-Logger::ScopedConsoleLevel::~ScopedConsoleLevel() {
-  log->set_console_level(old_level);
-}
+Logger::ScopedLevels::ScopedLevels(const unsigned int cl,
+                                   const unsigned fl,
+                                   Logger& l)
+  : log{&l}, _fl{fl, l}, _cl{cl, l} {}
 
-Logger::ScopedFileLevel::ScopedFileLevel(const unsigned int level,
-                                               Logger &l)
-        : log{&l}, old_level{l.file_level()} {
-  l.set_file_level(level);
-}
-
-Logger::ScopedFileLevel::ScopedFileLevel(const unsigned int level)
-        : ScopedFileLevel{level, geolog} {}
-
-Logger::ScopedFileLevel::~ScopedFileLevel() {
-  log->set_file_level(old_level);
-}
-
-ScopedLevel::ScopedLevel(std::function<unsigned int()> &logger_get_level,
-                         std::function<void(const unsigned int)> &logger_set_level,
-                         const unsigned int level,
-                         Logger &l)
-        : set_level{logger_set_level}, get_level{logger_get_level}, log{&l},
-          old_level{get_level()} {
-  l.set_file_level(level);
-}
+Logger::ScopedLevels::ScopedLevels(const unsigned int cl, Logger& l)
+  : log{&l}, _fl{cl, l}, _cl{cl, l} {}
