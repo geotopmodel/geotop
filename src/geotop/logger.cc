@@ -75,7 +75,7 @@ Logger::ScopedFileLevel::ScopedFileLevel(const unsigned int level, Logger& l)
 Logger::ScopedLevels::ScopedLevels(const unsigned int cl,
                                    const unsigned fl,
                                    Logger& l)
-  : log{&l}, _fl{fl, l}, _cl{cl, l} {}
+  : _fl{fl, l}, _cl{cl, l} {}
 
 Logger::ScopedLevels::ScopedLevels(const unsigned int cl, Logger& l)
-  : log{&l}, _fl{cl, l}, _cl{cl, l} {}
+  : _fl{cl, l}, _cl{cl, l} {}

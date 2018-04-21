@@ -271,7 +271,6 @@ class Logger::ScopedLevels {
   ScopedLevels(const unsigned int cl, Logger& l = geolog);
 
  private:
-  Logger* log;
   ScopedFileLevel _fl;
   ScopedConsoleLevel _cl;
 };
