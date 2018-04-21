@@ -29,6 +29,8 @@ TEST(ScopedPrefix, basic_test) {
     Logger::ScopedPrefix p{__func__}; // let us use the function name 
     EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
   }
+  l.pop();
+  EXPECT_EQ(l.prefix(), "");
 }
 
 TEST(Logger, output_operator){

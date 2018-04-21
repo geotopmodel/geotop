@@ -187,7 +187,7 @@ class Logger::ScopedPrefix {
   /**
    * Call log->pop();
    */
-  virtual ~ScopedPrefix();
+  ~ScopedPrefix();
 
  private:
   Logger* log;
