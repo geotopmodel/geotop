@@ -12,7 +12,7 @@ before_install:
   - export PATH="$PWD:$PATH"
   - wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
   - tar xvf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0
-  - configure && make -j4
+  - ./configure && make -j4
   - export PATH="$PWD:$PATH"
   - cd ..
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh; fi
