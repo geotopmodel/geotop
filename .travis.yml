@@ -10,7 +10,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
   - export PATH="$PWD:$PATH"
-  - http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
+  - wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
   - tar xvf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0
   - configure && make -j4
   - export PATH="$PWD:$PATH"
