@@ -1,0 +1,26 @@
+sudo: false
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - ninja-build
+      - meson
+      - numdiff
+
+language: cpp
+
+install:
+  - meson build
+  - cd build
+  - ninja
+
+script:
+  - meson test --suite geotop:unit_tests -v
+  - meson test --suite geotop:1D
+ 
+	
