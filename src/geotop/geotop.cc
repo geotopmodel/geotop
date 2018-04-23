@@ -53,7 +53,7 @@ char *string_novalue;
 
 std::unique_ptr<T_INIT> UV;
 
-char *logfile = "/tmp/geo.log";
+char *logfile = "/dev/null";
 char **files;
 
 long Nl,Nr,Nc;
