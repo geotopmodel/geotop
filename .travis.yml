@@ -2,16 +2,6 @@ sudo: false
 language:
   - cpp
 
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-precise-3.8
-      - ubuntu-toolchain-r-test
-      # - jonathonf-meson
-    packages:
-      - g++-6
-      - clang-3.8
-      - numdiff
 matrix:
   include:
     - os: linux
@@ -20,8 +10,11 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
   - export PATH="$PWD:$PATH"
-
-
+  - http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
+  - tar xvf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0
+  - configure && make -j4
+  - export PATH="$PWD:$PATH"
+  - cd ..
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh; fi
   - export PATH="$PWD/_miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
@@ -38,6 +31,6 @@ install:
 
 
 script:
-  - meson.py test -v --suite geotop:unit_tests
-  - meson.py test -v --suite geotop:1D
-  - meson.py test -v --suite geotop:3D
+  - meson.py test --suite geotop:unit_tests
+  - meson.py test --suite geotop:1D
+  - meson.py test --suite geotop:3D
