@@ -9,8 +9,14 @@ addons:
       - ubuntu-toolchain-r-test
       # - jonathonf-meson
     packages:
-      # - meson
+      - g++-6
+      - clang-3.8
       - numdiff
+
+env:
+  - COMPILER=g++-6
+  - COMPILER=clang++-3.8
+
 
 before_install:
   - wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
@@ -27,7 +33,7 @@ before_install:
   - export PATH="$PWD/_meson:$PATH"
 
 install:
-  - meson.py build
+  - CXX=$COMPILER meson.py build
   - cd build
   - ninja
 
