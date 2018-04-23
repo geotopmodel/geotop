@@ -1,7 +1,6 @@
 sudo: false
 language:
   - cpp
-  - python
 
 addons:
   apt:
@@ -12,11 +11,11 @@ addons:
     packages:
       # - meson
       - numdiff
-      - ninja-build
-
-python: 3.6
 
 before_install:
+  - wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
+  - unzip ninja-linux
+  - export PATH="$PWD:$PATH"
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
   - bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda
   - export PATH="$PWD/_miniconda/bin:$PATH"
