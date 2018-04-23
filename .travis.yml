@@ -8,7 +8,9 @@ addons:
     sources:
       - llvm-toolchain-precise-3.8
       - ubuntu-toolchain-r-test
+      # - jonathonf-meson
     packages:
+      # - meson
       - numdiff
       - ninja-build
 
@@ -20,8 +22,8 @@ before_install:
   - export PATH="$PWD/_meson:$PATH"
 
 script:
-  - meson.py build
+  - python3.6 meson.py build
   - cd build
   - ninja
-  - meson.py test --suite geotop:unit_tests
+  - python3.6 meson.py test --suite geotop:unit_tests
 
