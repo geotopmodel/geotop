@@ -1,5 +1,7 @@
 sudo: false
-language: cpp
+language:
+  - cpp
+  - python
 
 addons:
   apt:
@@ -11,8 +13,9 @@ addons:
       # - meson
       - numdiff
       - ninja-build
-      - python3.5
 
+python:
+  - "3.5"
 
 before_install:
   - git clone https://github.com/mesonbuild/meson.git _meson
