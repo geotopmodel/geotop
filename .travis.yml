@@ -11,8 +11,8 @@ addons:
       - ninja-build
 
 before_install:
-  - git clone https://github.com/mesonbuild/meson.git
-  - export PATH="$PWD/meson:$PATH"
+  - git clone https://github.com/mesonbuild/meson.git _meson
+  - export PATH="$PWD/_meson:$PATH"
 
 script:
   - meson.py build
