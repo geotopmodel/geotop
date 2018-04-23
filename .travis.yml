@@ -10,6 +10,9 @@ addons:
       - numdiff
       - ninja-build
 
+python:
+  - "3.6"
+
 before_install:
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
