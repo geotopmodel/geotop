@@ -1,5 +1,7 @@
 sudo: false
-language: cpp
+language:
+  - cpp
+  - python
 
 addons:
   apt:
