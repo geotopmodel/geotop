@@ -26,9 +26,13 @@ before_install:
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
 
-script:
+install:
   - meson.py build
   - cd build
   - ninja
-  - meson.py test --suite geotop:unit_tests
 
+
+script:
+  - meson.py test --suite geotop:unit_tests
+  - meson.py test --suite geotop:1D
+  - meson.py test --suite geotop:3D
