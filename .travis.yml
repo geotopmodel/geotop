@@ -4,13 +4,13 @@ notifications:
   email: false
 
 # addons:
-apt:
-  sources:
-    - ubuntu-toolchain-r-test
-  packages:
-    - ninja-build
-    - meson
-    - numdiff
+# apt:
+#   sources:
+#     - ubuntu-toolchain-r-test
+#   packages:
+#     - ninja-build
+#     - meson
+#     - numdiff
 
 language: cpp
 
