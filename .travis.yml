@@ -28,8 +28,8 @@ before_install:
   - export PATH="$PWD/_meson:$PATH"
 
 script:
-  - python meson.py build
+  - meson.py build
   - cd build
   - ninja
-  - python meson.py test --suite geotop:unit_tests
+  - meson.py test --suite geotop:unit_tests
 
