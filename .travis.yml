@@ -19,13 +19,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
   - export PATH="$PWD:$PATH"
-  #- wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
-  #- tar xvf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0
-  #- if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then brew update; brew install numdiff; fi
-  #- locate libintl.h
-  #- ./configure && make -j4
-  #- export PATH="$PWD:$PATH"
-  #- cd ..
+  - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then brew update; brew install numdiff; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh -b -p _miniconda; fi
   - export PATH="$PWD/_miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
@@ -39,6 +33,7 @@ install:
   - meson.py build
   - cd build
   - ninja
+  - ./geotop ../tests/1D/Calabria
 
 
 script:
