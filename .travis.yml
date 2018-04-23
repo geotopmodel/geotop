@@ -12,18 +12,23 @@ addons:
       - g++-6
       - clang-3.8
       - numdiff
-
-env:
-  - COMPILER=g++-6
-  - COMPILER=clang++-3.8
-
+matrix:
+  include:
+    - os: linux
+    - os: osx
 
 before_install:
-  - wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
-  - unzip ninja-linux
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip 
+  else
+    wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip
+  fi
   - export PATH="$PWD:$PATH"
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  - bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda
+
+
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda
+  else
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh
+  fi
   - export PATH="$PWD/_miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -33,7 +38,7 @@ before_install:
   - export PATH="$PWD/_meson:$PATH"
 
 install:
-  - CXX=$COMPILER meson.py build
+  - meson.py build
   - cd build
   - ninja
 
