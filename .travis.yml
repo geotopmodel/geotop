@@ -1,28 +1,20 @@
 sudo: false
-
-notifications:
-  email: false
-
-# addons:
-# apt:
-#   sources:
-#     - ubuntu-toolchain-r-test
-#   packages:
-#     - ninja-build
-#     - meson
-#     - numdiff
-
 language: cpp
 
-before_install: true
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise-3.8
+      - ubuntu-toolchain-r-test
+    packages:
+      - meson
+      - numdiff
+      - ninja-build
 
-install:
+
+script:
   - meson build
   - cd build
   - ninja
+  - meson test --suite geotop:unit_tests
 
-script:
-  - meson test --suite geotop:unit_tests -v
-  - meson test --suite geotop:1D
- 
-	
