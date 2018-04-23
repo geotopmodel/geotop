@@ -13,7 +13,6 @@ addons:
       # - meson
       - numdiff
       - ninja-build
-      - python3.5-minimal
 
 python: 3.6
 
