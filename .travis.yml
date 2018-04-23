@@ -15,16 +15,15 @@ addons:
       - ninja-build
       - python3.5-minimal
 
-python:
-  - "3.5"
+python: 3.6
 
 before_install:
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
 
 script:
-  - python3.5 meson.py build
+  - python3.6 meson.py build
   - cd build
   - ninja
-  - python3.5 meson.py test --suite geotop:unit_tests
+  - python3.6 meson.py test --suite geotop:unit_tests
 
