@@ -14,6 +14,8 @@ before_install:
   - export PATH="$PWD:$PATH"
   - wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz
   - tar xvf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0
+  - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then brew update; brew install gettext php55-gettext; fi
+  - locate libintl.h
   - ./configure && make -j4
   - export PATH="$PWD:$PATH"
   - cd ..
