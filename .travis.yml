@@ -5,7 +5,9 @@ language:
 matrix:
   include:
     - os: linux
+      compiler: gcc
     - os: osx
+      compiler: clang
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
