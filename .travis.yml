@@ -19,16 +19,16 @@ matrix:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip 
-  else
+   else
     wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip
-  fi
+   fi
   - export PATH="$PWD:$PATH"
 
 
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda
-  else
+   else
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh
-  fi
+   fi
   - export PATH="$PWD/_miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -44,6 +44,6 @@ install:
 
 
 script:
-  - meson.py test --suite geotop:unit_tests
-  - meson.py test --suite geotop:1D
-  - meson.py test --suite geotop:3D
+  - meson.py test -v --suite geotop:unit_tests
+  - meson.py test -v --suite geotop:1D
+  - meson.py test -v --suite geotop:3D
