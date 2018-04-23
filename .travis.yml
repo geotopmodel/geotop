@@ -3,14 +3,14 @@ sudo: false
 notifications:
   email: false
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - ninja-build
-      - meson
-      - numdiff
+# addons:
+apt:
+  sources:
+    - ubuntu-toolchain-r-test
+  packages:
+    - ninja-build
+    - meson
+    - numdiff
 
 language: cpp
 
