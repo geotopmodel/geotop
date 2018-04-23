@@ -7,14 +7,16 @@ addons:
       - llvm-toolchain-precise-3.8
       - ubuntu-toolchain-r-test
     packages:
-      - meson
       - numdiff
       - ninja-build
 
+before_install:
+  - git clone https://github.com/mesonbuild/meson.git
+  - export PATH="$PWD/meson:$PATH"
 
 script:
-  - meson build
+  - meson.py build
   - cd build
   - ninja
-  - meson test --suite geotop:unit_tests
+  - meson.py test --suite geotop:unit_tests
 
