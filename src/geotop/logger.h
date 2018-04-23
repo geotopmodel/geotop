@@ -58,12 +58,12 @@ class Logger {
    * second element is "second", the prefix associated to the second is
    * "first:second:". While the prefix of the first element if "first:"
    */
-  void push(const std::string& s);
+  void push(const std::string& s){  prefixes.emplace(prefix()+s+":"); }
 
   /**
    * Remove the last-added  and returns it
    */
-  std::string pop();
+  void pop();
 
   /**
    * @return the last prefix added
@@ -93,12 +93,14 @@ class Logger {
   /**
    * Attach @param o to the file stream @var ofile
    */
-  void attach_file_stream(std::ostream& o);
+  void attach_file_stream(std::ostream& o){
+    ofile = &o;
+  }
 
   /**
    * Detach file stream. You may want to close the attached stream
    */
-  void detach_file_stream();
+  void detach_file_stream(){ ofile = nullptr; }
 
   /**
    * return the depth level of the current prefix
@@ -159,6 +161,10 @@ class Logger {
   friend Logger& operator<<(Logger&, const T&);
 };
 
+/** the default logger */
+extern Logger geolog;
+
+
 template <typename T>
 inline Logger& operator<<(Logger& l, const T& t) {
   std::ostringstream os;
@@ -177,24 +183,24 @@ class Logger::ScopedPrefix {
   /**
    * Push string @param s to logger @param l
    */
-  ScopedPrefix(const std::string& s, Logger& l);
+  ScopedPrefix(const std::string& s, Logger& l) : log{&l} {
+    log->push(s);
+  }
 
   /**
    * Push string @param s to the default logger geolog
    */
-  ScopedPrefix(const std::string& s);
+  ScopedPrefix(const std::string& s) : ScopedPrefix{s, geolog} {}
 
   /**
    * Call log->pop();
    */
-  ~ScopedPrefix();
+  ~ScopedPrefix() { log->pop(); }
 
  private:
   Logger* log;
 };
 
-/** the default logger */
-extern Logger geolog;
 
 /** helper class to implement all the ScopedLevel classes */
 class ScopedLevel {
@@ -225,7 +231,11 @@ class Logger::ScopedConsoleLevel {
   /**
    * set the console level of @param l to @param level
    */
-  ScopedConsoleLevel(const unsigned int level, Logger& l = geolog);
+  ScopedConsoleLevel(const unsigned int level, Logger& l = geolog)
+          : log{&l},
+            console{[this](const unsigned int ll) { log->set_console_level(ll); },
+                    level,
+                    l.console_level()} {}
 
   /**
    * restore the console level of the logger pointed to by @param log to it's
@@ -247,7 +257,11 @@ class Logger::ScopedFileLevel {
   /**
    * set the file level of @param l to @param level
    */
-  ScopedFileLevel(const unsigned int level, Logger& l = geolog);
+  ScopedFileLevel(const unsigned int level, Logger& l = geolog)
+          : log{&l},
+            file{[this](const unsigned int ll) { log->set_file_level(ll); }, level,
+                 l.file_level()} {}
+
 
   /**
    * restore the file level of the logger pointed to by @param log to it's
@@ -266,11 +280,15 @@ class Logger::ScopedFileLevel {
 
 class Logger::ScopedLevels {
  public:
-  ScopedLevels(const unsigned int cl, const unsigned fl, Logger& l = geolog);
+  ScopedLevels(const unsigned int cl, const unsigned fl, Logger& l = geolog)
+          : _fl{fl, l}, _cl{cl, l} {}
 
-  ScopedLevels(const unsigned int cl, Logger& l = geolog);
 
- private:
+  ScopedLevels(const unsigned int cl, Logger& l = geolog)
+          : _fl{cl, l}, _cl{cl, l} {}
+
+  ~ScopedLevels() = default;
+private:
   ScopedFileLevel _fl;
   ScopedConsoleLevel _cl;
 };

@@ -1,17 +1,17 @@
 #include<gtest/gtest.h>
 #include <logger.h>
 
-
 TEST(Logger, default_constructor) {
   Logger l{};
-  EXPECT_EQ(l.pop(), "geotop:");
+  EXPECT_EQ(l.prefix(), "geotop:");
 }
 
 TEST(Logger, push_pop) {
   Logger l{};
   l.push("alberto");
-  EXPECT_EQ(l.pop(), "geotop:alberto:");
-  EXPECT_EQ(l.pop(), "geotop:");
+  EXPECT_EQ(l.prefix(), "geotop:alberto:");
+  l.pop();
+  EXPECT_EQ(l.prefix(), "geotop:");
 }
 
 TEST(Logger, geolog) {
