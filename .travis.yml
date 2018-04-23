@@ -17,12 +17,19 @@ addons:
 python: 3.6
 
 before_install:
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  - bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda
+  - export PATH="$PWD/_miniconda/bin:$PATH"
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda create --yes -n py36 python=3.6
+  - source activate py36
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
 
 script:
-  - python3.6 meson.py build
+  - python meson.py build
   - cd build
   - ninja
-  - python3.6 meson.py test --suite geotop:unit_tests
+  - python meson.py test --suite geotop:unit_tests
 
