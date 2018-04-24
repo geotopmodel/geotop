@@ -1,6 +1,6 @@
 sudo: false
-language:
-  - cpp
+language: cpp
+group: beta
 
 addons:
   apt:
@@ -13,27 +13,31 @@ matrix:
   include:
     - os: linux
       compiler: gcc
+      dist: trusty
     - os: osx
       compiler: clang
 
 before_install:
+  - export PATH="$PWD/build:$PATH"
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python3 gettext; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
   - export PATH="$PWD:$PATH"
+  - pip3 install meson
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.8.1.tar.gz && tar xf numdiff-5.8.1.tar.gz && cd numdiff-5.8.1 && ./configure && make -j2 && export PATH="$PWD:$PATH" && cd .. ; fi
   #- if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then brew update; brew install numdiff; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh -b -p _miniconda; fi
-  - export PATH="$PWD/_miniconda/bin:$PATH"
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda create --yes -n py36 python=3.6
-  - source activate py36
-  - git clone https://github.com/mesonbuild/meson.git _meson
-  - export PATH="$PWD/_meson:$PATH"
+  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh -b -p _miniconda; fi
+  # - export PATH="$PWD/_miniconda/bin:$PATH"
+  # - conda config --set always_yes yes --set changeps1 no
+  # - conda update -q conda
+  # - conda create --yes -n py36 python=3.6
+  # - source activate py36
+  # - git clone https://github.com/mesonbuild/meson.git _meson
+  # - export PATH="$PWD/_meson:$PATH"
 
 install:
-  - meson.py build
-  - cd build
+  - meson builddir
+  - cd builddir
   - ninja
-  - ./geotop ../tests/1D/Calabria
 
 
 script:
