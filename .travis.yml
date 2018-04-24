@@ -38,4 +38,4 @@ install:
 script:
   - meson.py test --suite geotop:unit_tests
   - meson.py test --suite geotop:1D
-  - meson.py test --suite geotop:3D
+#  - meson.py test --suite geotop:3D
