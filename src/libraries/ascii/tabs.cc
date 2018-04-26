@@ -30,6 +30,7 @@
 #include "t_utilities.h"
 
 #include "constants.h"
+#include "logger.h"
 
 #define max_components 200
 #define max_string_length 200
