@@ -49,6 +49,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
                    long *keylength, long *string, long *stringlength, double *number,
                    long *numberlength, short *endoffile)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long i, j, k, h, **string2;
   int c;
@@ -128,8 +129,9 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
               else if (i == maxcharstring)
                 {
                   keyword = find_string(key, maxcharstring);
-                  printf("Warning: Keyword %s has keyword string longer than %ld characters, only the first %ld characters can be read\n",
-                         keyword,maxcharstring,maxcharstring);
+                  geolog << "Warning: Keyword " << keyword  << " has keyword string longer than "
+			 << maxcharstring  << " characters, only the first " << maxcharstring
+			 << " characters can be read" << std::endl;
                   free(keyword);
                   i++;
                 }
@@ -176,8 +178,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
               else if (i == maxcharstring)
                 {
                   keyword = find_string(key, *keylength);
-                  printf("Warning: Keyword %s has argument string longer than %ld characters, only the first %ld characters are read\n",
-                         keyword,maxcharstring,maxcharstring);
+                  geolog << "Warning: Keyword " << keyword  << " has argument string longer than " << maxcharstring  << " characters, only the first " << maxcharstring  << " characters are read" << std::endl;
                   free(keyword);
                   i++;
                 }
@@ -239,8 +240,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
           if (h == maxnumvect)
             {
               keyword = find_string(key, *keylength);
-              printf("Warning: Keyword %s has number of vector components higher than %ld, only the first %ld components are read\n",
-                     keyword,maxnumvect,maxnumvect);
+              geolog <<"Warning: Keyword " << keyword  << " has number of vector components higher than " <<  maxnumvect << ", only the first " << maxnumvect << " components are read" << std::endl; 
               free(keyword);
             }
 
@@ -274,7 +274,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
 
 double find_number(long *vector, long lengthvector)
 {
-
+  Logger::ScopedPrefix _p{__func__};
   double N = 0.0, Nexp = 0.0;
   long i, ie, ids, cnt;
 
@@ -357,6 +357,7 @@ double find_number(long *vector, long lengthvector)
 
 char *find_string(long *vector, long lengthvector)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   char *string;
   long i;
@@ -377,6 +378,7 @@ char *find_string(long *vector, long lengthvector)
 
 double *find_number_vector(double *vector, long lengthvector)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   double *number_vector;
   long i;
@@ -396,6 +398,7 @@ double *find_number_vector(double *vector, long lengthvector)
 
 long *find_string_int(long *vector, long lengthvector)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long *string;
   long i;
@@ -417,6 +420,7 @@ short readline(FILE *f, long comment_char, long sep_char, long **string,
                long *string_length, long *components, long maxcomponents,
                long maxstringlength, short *endoffile)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long i, j;
   char *c;
@@ -531,6 +535,7 @@ short readline(FILE *f, long comment_char, long sep_char, long **string,
 char **readline_of_strings(FILE *f, long comment_char, long sep_char,
                            long *components, short *endoffile, short *success)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long i, n;
   long **string, *string_length;
@@ -580,6 +585,7 @@ char **readline_of_strings(FILE *f, long comment_char, long sep_char,
 double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
                             long *components, short *endoffile, short *success)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long i, n;
   long **string, *string_length;
@@ -628,6 +634,7 @@ double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
 
 char **ReadHeader(FILE *f, char *filename, long *num_cols)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   short endoffile, success;
   char **Header;
@@ -640,7 +647,7 @@ char **ReadHeader(FILE *f, char *filename, long *num_cols)
 
   if (endoffile == 1)
     {
-      printf("Error!! File %s contains only the header\n",filename);
+      geolog << "Error!! File " << filename  << " contains only the header" << std::endl;
       t_error("Impossible To Continue");
     }
 
@@ -656,6 +663,7 @@ char **ReadHeader(FILE *f, char *filename, long *num_cols)
 long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
                   char **header, long num_cols_header, FILE *flog)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   long *coder, i, j;
   char *lowercaseColDescr;
@@ -682,13 +690,12 @@ long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
               && strcmp(string_novalue, header[j]) != 0 )
             {
               coder[i] = j;
-              fprintf(flog,"Column %ld in file %s assigned to %s\n",j+1,filename,
-                      ColDescr[i]);
-              printf("Column %ld in file %s assigned to %s\n",j+1,filename,ColDescr[i]);
+              geolog << "Column " << j+1  << " in file " << filename  << " assigned to " << ColDescr[i]  << std::endl;
+
             }
           else if (strcmp(lowercaseColDescr, header[j]) == 0 && coder[i] != -1)
             {
-              //printf("Keyword %s presented twice in file %s\n",ColDescr[i],filename);
+	      geolog << "Keyword " << ColDescr[i]  << " presented twice in file " << filename  << std::endl;
               t_error("Column name DUPLICATED in a comma-separated-value tables!");
             }
         }
@@ -706,6 +713,7 @@ long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
 
 long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   FILE *f;
   char **header;
@@ -716,7 +724,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
   f = fopen(meteo_file_name, "r");
   if (f==NULL)
     {
-      printf("File %s not existing\n",meteo_file_name);
+      geolog << "File " << meteo_file_name  << " not existing" << std::endl;
       t_error("Fatal Error (10)");
     }
 
@@ -769,7 +777,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 double **read_datamatrix(FILE *f, char *filename, long comment_char,
                          long sep_char, long number_lines, long components_header)
 {
-
+  Logger::ScopedPrefix _p {__func__};
   double **data, *line;
   short endoffile, success;
   long i, cont, components;
@@ -822,7 +830,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
 double **read_txt_matrix(char *filename, long comment_char, long sep_char,
                          char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog)
 {
-
+  Logger::ScopedPrefix _p{__func__};
   /*Read header, and create a **double with the same columns as the header. Then fill with number_absent the columns
    missing with respect to Col_Descr*/
 
@@ -836,7 +844,7 @@ double **read_txt_matrix(char *filename, long comment_char, long sep_char,
   f = fopen(filename, "r");
   if (f==NULL)
     {
-      printf("File %s not existing\n",filename);
+      geolog << "File " << filename  << " not existing" << std::endl;
       t_error("Fatale Error (11)");
     }
   Header = ReadHeader(f, filename, &ncols);
@@ -883,7 +891,7 @@ double **read_txt_matrix(char *filename, long comment_char, long sep_char,
 double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
                            long ncolsCol_Descr, long *nlines)
 {
-
+  Logger::ScopedPrefix _p{__func__};
   /*Read header, and create a **double with the same columns as Col_Descr, filling with number_novalue the missing columns*/
 
   FILE *f;
@@ -896,7 +904,7 @@ double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
   f = fopen(filename, "r");
   if (f==NULL)
     {
-      printf("File %s not existing\n",filename);
+      geolog << "File " << filename  << " not existing" << std::endl;
       t_error("Fatale Error (13)");
     }
 

@@ -39,6 +39,7 @@
 #include "water.balance.h"
 #include "indices.h"
 #include "recovering.h"
+#include "logger.h"
 
 
 #include <time.h>
@@ -4805,7 +4806,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top,
                          SOIL *sl)
 {
-
+  Logger::ScopedLevels _l {100000,0};
+  Logger::ScopedPrefix p {__func__};
   long i, j, r=0, c=0;
   double w;
 

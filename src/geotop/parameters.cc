@@ -54,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-Logger::ScopedPrefix p{__func__};
+Logger::ScopedPrefix _p{__func__};
   //variables
   FILE *f;
 
@@ -1085,7 +1085,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                METEO *met, INIT_TOOLS *itools, double **num_param,
                                long *num_param_components, char **keyword, FILE *flog)
 {
-  Logger::ScopedPrefix p {__func__};
+  Logger::ScopedPrefix _p{__func__};
   short occurring;
   long cod, codn, i, j, k, n, m, nsoillayers, nmeteo_stations, npoints;
   double a, minDt=1.E99;
@@ -2560,6 +2560,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
                           double **num_param, long *num_param_components, double default_value,
                           short code_error)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   double a;
 
@@ -2600,6 +2601,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
 
 char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   char *a;
   long j, dimstring = strlen(string_param[i]);
@@ -2625,6 +2627,7 @@ char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
                            FILE *flog)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   short ok;
   long i, j, k, n, nlines, nlinesprev;
@@ -2651,13 +2654,8 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
           nlines = count_lines(temp, 33, 44);
           if (nlinesprev >= 0 && nlines != nlinesprev)
             {
-              f = fopen(FailedRunFile, "w");
-              fprintf(f,
-                      "Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",
-                      temp,nlines,nlinesprev);
-              fprintf(f,
-                      "In Geotop it is only possible to have the same number of layers in any soil parameter files\n");
-              fclose(f);
+              geolog << "Error:: The file "<< temp  <<" with soil paramaters has a number of layers "<< nlines <<", which different from the numbers "<< nlinesprev <<" of the other soil parameter files" << std::endl;
+              geolog << "In Geotop it is only possible to have the same number of layers in any soil parameter files" << std::endl;
               t_error("Fatal Error! Geotop is closed. See failing report.");
             }
           nlinesprev = nlines;
@@ -2666,9 +2664,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
         {
           if (i==0 && strcmp(name, string_novalue) != 0)
             {
-              f = fopen(FailedRunFile, "w");
-              fprintf(f,"Error:: Soil file %s not existing.\n",name);
-              fclose(f);
+              geolog << "Error:: Soil file "<< name <<" not existing." << std::endl;
               t_error("Fatal Error! Geotop is closed. See failing report.");
             }
         }
@@ -2754,13 +2750,8 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
                 {
                   if ( i > 1 && fabs( sl->pa->co[i][n][j] - sl->pa->co[i-1][n][j] ) > 1.E-5 )
                     {
-                      f = fopen(FailedRunFile, "w");
-                      fprintf(f,
-                              "Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.\n",
-                              i);
-                      fprintf(f,
-                              "In Geotop it is only possible to have the soil layer discretization in any soil parameter files.\n");
-                      fclose(f);
+		      geolog << "Error:: For soil type " << i  << " it has been given a set of soil layer thicknesses different from the other ones." << std::endl;
+		      geolog << "In Geotop it is only possible to have the soil layer discretization in any soil parameter files." << std::endl;
                       t_error("Fatal Error! Geotop is closed. See failing report.");
                     }
                 }
@@ -2838,21 +2829,21 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
     }
 
   //write on the screen the soil paramater
-  fprintf(flog,"\n");
+  
   k = (long)nmet;
-  fprintf(flog,"Soil Layers: %ld\n",sl->pa->nch);
+  geolog << "Soil Layers: " << sl->pa->nch  << std::endl;
   for (i=1; i<=sl->pa->ndh; i++)
     {
-      fprintf(flog,"-> Soil Type: %ld\n",i);
+      geolog << "-> Soil Type: " << i  << std::endl;
       for (n=1; n<=nsoilprop; n++)
         {
-          fprintf(flog,"%s: ",keywords_char[k+n-1]);
+          geolog << keywords_char[k+n-1]  << ": ";
           for (j=1; j<=sl->pa->nch; j++)
             {
-              fprintf(flog,"%f(%.2e)",sl->pa->co[i][n][j],sl->pa->co[i][n][j]);
-              if (j<sl->pa->nch)fprintf(flog,", ");
+	      geolog << sl->pa->co[i][n][j]  << "(" << sl->pa->co[i][n][j]  << ")";
+              if (j<sl->pa->nch) geolog << ", ";
             }
-          fprintf(flog,"\n");
+          geolog << std::endl;
         }
     }
 
@@ -2902,24 +2893,23 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
     }
   free_doubletensor(old_sl_par);
 
-  fprintf(flog,"\n");
   k = (long)nmet;
-  fprintf(flog,"Soil Bedrock Layers: %ld\n",sl->pa->nch);
+  geolog << "Soil Bedrock Layers: " << sl->pa->nch  << std::endl;
   for (i=1; i<=IT->pa_bed->ndh; i++)
     {
-      fprintf(flog,"-> Soil Type: %ld\n",i);
+      geolog << "-> Soil Type: " << i  << std::endl;
       for (n=1; n<=nsoilprop; n++)
         {
-          fprintf(flog,"%s: ",keywords_char[k+n-1]);
+	  geolog << keywords_char[k+n-1]  << ": ";
           for (j=1; j<=sl->pa->nch; j++)
             {
-              fprintf(flog,"%f(%.2e)",IT->pa_bed->co[i][n][j],IT->pa_bed->co[i][n][j]);
-              if (j<sl->pa->nch)fprintf(flog,", ");
+              geolog << IT->pa_bed->co[i][n][j]  << "(" << IT->pa_bed->co[i][n][j]  << ")";
+              if (j<sl->pa->nch) geolog << ", ";
             }
-          fprintf(flog,"\n");
+          geolog << std::endl;
         }
     }
-  fprintf(flog,"\n");
+  geolog << std::endl;
 
   return 1;
 
@@ -2932,6 +2922,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
 
 short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 {
+  Logger::ScopedPrefix _p{__func__};
 
   DOUBLEMATRIX *chkpt2;
   double **points;
@@ -2941,7 +2932,7 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
   if (existing_file_wext(name, textfile)==1)
     {
       temp = join_strings(name, textfile);
-      printf("%s\n",temp);
+      geolog << temp << std::endl;
       points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines,
                                flog);
       free(temp);
@@ -2994,11 +2985,8 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
           if ( (long)par->chkpt->co[n][ptX] == number_novalue
                || (long)par->chkpt->co[n][ptY] == number_novalue)
             {
-              fprintf(flog,
-                      "Warning: The points to plot specific results are not completely specified\n");
-              fprintf(flog,"Output for single point output is deactivated.\n");
-              printf("Warning: The points to plot specific results are not completely specified\n");
-              printf("Output for single point output is deactivated.\n");
+	      geolog << "Warning: The points to plot specific results are not completely specified\n"
+		     << "Output for single point output is deactivated." << std::endl;
               par->state_pixel = 0;
             }
         }
@@ -3016,6 +3004,7 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name,
                               char **key_header, FILE *flog)
 {
+  Logger::ScopedPrefix _p {__func__};
 
   double **M;
   long nlines, n, j, k;

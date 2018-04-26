@@ -113,8 +113,8 @@ int main(int argc,char *argv[])
   WORKING_DIRECTORY = wd.c_str();
 
   std::ofstream olog{wd+"geotop.log"};
-  geolog.attach_file_stream(olog);
-
+//  geolog.attach_file_stream(olog);
+  Logger::ScopedLevels _l{0};
   geolog << "STATEMENT:\n\n"
 	 << "Geotop 3.0.0 - 2018\n\n"
 	 << "Geotop 3.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n"
