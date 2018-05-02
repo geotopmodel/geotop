@@ -50,7 +50,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
                    long *keylength, long *string, long *stringlength, double *number,
                    long *numberlength, short *endoffile)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long i, j, k, h, **string2;
   int c;
@@ -275,7 +275,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
 
 double find_number(long *vector, long lengthvector)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
   double N = 0.0, Nexp = 0.0;
   long i, ie, ids, cnt;
 
@@ -358,7 +358,7 @@ double find_number(long *vector, long lengthvector)
 
 char *find_string(long *vector, long lengthvector)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   char *string;
   long i;
@@ -379,7 +379,7 @@ char *find_string(long *vector, long lengthvector)
 
 double *find_number_vector(double *vector, long lengthvector)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   double *number_vector;
   long i;
@@ -399,7 +399,7 @@ double *find_number_vector(double *vector, long lengthvector)
 
 long *find_string_int(long *vector, long lengthvector)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long *string;
   long i;
@@ -421,7 +421,7 @@ short readline(FILE *f, long comment_char, long sep_char, long **string,
                long *string_length, long *components, long maxcomponents,
                long maxstringlength, short *endoffile)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long i, j;
   char *c;
@@ -536,7 +536,7 @@ short readline(FILE *f, long comment_char, long sep_char, long **string,
 char **readline_of_strings(FILE *f, long comment_char, long sep_char,
                            long *components, short *endoffile, short *success)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long i, n;
   long **string, *string_length;
@@ -586,7 +586,7 @@ char **readline_of_strings(FILE *f, long comment_char, long sep_char,
 double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
                             long *components, short *endoffile, short *success)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long i, n;
   long **string, *string_length;
@@ -635,7 +635,7 @@ double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
 
 char **ReadHeader(FILE *f, char *filename, long *num_cols)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   short endoffile, success;
   char **Header;
@@ -664,7 +664,7 @@ char **ReadHeader(FILE *f, char *filename, long *num_cols)
 long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
                   char **header, long num_cols_header, FILE *flog)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   long *coder, i, j;
   char *lowercaseColDescr;
@@ -714,7 +714,7 @@ long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
 
 long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   FILE *f;
   char **header;
@@ -778,7 +778,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 double **read_datamatrix(FILE *f, char *filename, long comment_char,
                          long sep_char, long number_lines, long components_header)
 {
-  Logger::ScopedPrefix _p {__func__};
+  GEOLOG_PREFIX(__func__);
   double **data, *line;
   short endoffile, success;
   long i, cont, components;
@@ -831,7 +831,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
 double **read_txt_matrix(char *filename, long comment_char, long sep_char,
                          char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
   /*Read header, and create a **double with the same columns as the header. Then fill with number_absent the columns
    missing with respect to Col_Descr*/
 
@@ -892,7 +892,7 @@ double **read_txt_matrix(char *filename, long comment_char, long sep_char,
 double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
                            long ncolsCol_Descr, long *nlines)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
   /*Read header, and create a **double with the same columns as Col_Descr, filling with number_novalue the missing columns*/
 
   FILE *f;

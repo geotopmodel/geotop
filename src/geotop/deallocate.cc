@@ -133,7 +133,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longmatrix(sl->type);
   free_doubletensor(sl->pa);
   free_doubletensor(sl->ET);
-  deallocate_soil_state(sl->SS);
+  delete sl->SS;
 
   if (par->state_pixel == 1)
     {
@@ -304,7 +304,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longvector(cnet->soil_type);
   free_doublematrix(cnet->th);
   free_doublematrix(cnet->ET);
-  deallocate_soil_state(cnet->SS);
+  delete cnet->SS;
   //  free(cnet);
 
   /* Deallocation of struct T_INIT "UV": */
@@ -385,7 +385,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
     }
 
-  deallocate_statevar_3D(snow->S);
+  delete snow->S;
 
   if (par->blowing_snow==1)
     {
@@ -426,7 +426,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   printf("Deallocating glacier\n");
   if (par->max_glac_layers>0)
     {
-      deallocate_statevar_3D(glac->G);
+      delete glac->G;
       if (par->output_glac_bin == 1)
         {
           if (strcmp(files[fglacmelt], string_novalue) != 0)
@@ -573,28 +573,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void dealloc_meteostations(METEO_STATIONS *st)
-{
-
-  free(st);
-
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void deallocate_soil_state(SOIL_STATE *S)
-{
-
-  free_doublematrix(S->T);
-  free_doublematrix(S->P);
-  free_doublematrix(S->thi);
-  free(S);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

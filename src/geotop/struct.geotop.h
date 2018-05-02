@@ -113,11 +113,15 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 
-typedef struct {
+struct SOIL_STATE {
+  SOIL_STATE(const long n, const long nl);
+
+  virtual ~SOIL_STATE();
+
   DOUBLEMATRIX *P;
   DOUBLEMATRIX *thi;
   DOUBLEMATRIX *T;
-} SOIL_STATE;
+};
 
 /*---------------------------------------------------------------------------*/
 
@@ -635,14 +639,19 @@ typedef struct {
 
 
 /*---------------------------------------------------------------------------*/
-typedef struct {
+struct STATEVAR_3D {
+
+  STATEVAR_3D(double nan, long nl, long nr, long nc);
+
+  ~STATEVAR_3D();
+
   SHORTMATRIX *type;
   LONGMATRIX *lnum;
   DOUBLETENSOR *Dzl;
   DOUBLETENSOR *w_liq;
   DOUBLETENSOR *w_ice;
   DOUBLETENSOR *T;
-} STATEVAR_3D;
+};
 
 
 typedef struct {
@@ -686,7 +695,7 @@ typedef struct {
   std::unique_ptr<Vector<double>> subl;
 } GLACIER;
 
-typedef struct {
+struct METEO_STATIONS{
   std::unique_ptr<Vector<double>> E;
   std::unique_ptr<Vector<double>> N;
   std::unique_ptr<Vector<double>> lat;
@@ -696,10 +705,10 @@ typedef struct {
   std::unique_ptr<Vector<double>> ST;
   std::unique_ptr<Vector<double>> Vheight;
   std::unique_ptr<Vector<double>> Theight;
-} METEO_STATIONS;
+};
 
 
-typedef struct {
+struct METEO {
   std::unique_ptr<METEO_STATIONS> st;
 
   double ***data;
@@ -758,7 +767,7 @@ typedef struct {
 
   LONGVECTOR *imeteo_stations;
 
-} METEO;
+};
 
 
 struct ALLDATA {

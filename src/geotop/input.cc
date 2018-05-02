@@ -65,7 +65,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   FILE *flog, *f;
   DOUBLEMATRIX *M;
@@ -960,8 +960,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
   /*! Completing of the initialization of SOIL structure                               */
   /****************************************************************************************************/
 
-  sl->SS = (SOIL_STATE *)malloc(sizeof(SOIL_STATE));
-  initialize_soil_state(sl->SS, par->total_pixel, Nl);
+  sl->SS = new SOIL_STATE {par->total_pixel, Nl};
 
   sl->VS.reset(new STATE_VEG{});
   initialize_veg_state(sl->VS.get(), par->total_pixel);
@@ -1210,8 +1209,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
 
   //channel soil
-  cnet->SS = (SOIL_STATE *)malloc(sizeof(SOIL_STATE));
-  initialize_soil_state(cnet->SS, cnet->r->nh, Nl);
+  cnet->SS = new SOIL_STATE {cnet->r->nh, Nl};
 
   cnet->th = new_doublematrix(Nl, cnet->r->nh);
 
@@ -1558,8 +1556,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
   /***************************************************************************************************/
   snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-  allocate_and_initialize_statevar_3D(snow->S, (double)number_novalue,
-                                      par->max_snow_layers, Nr, Nc);
+  snow->S = new STATEVAR_3D{(double)number_novalue,
+                            par->max_snow_layers, Nr, Nc};
 
   //initial snow depth
   if ( strcmp(files[fsn0], string_novalue) != 0
@@ -1961,9 +1959,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
           M=copydoublematrix_const(IT->Dglac0, land->LC, (double)number_novalue);
         }
 
-      glac->G=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-      allocate_and_initialize_statevar_3D(glac->G, (double)number_novalue,
-                                          par->max_glac_layers, Nr, Nc);
+      glac->G = new STATEVAR_3D {(double)number_novalue,
+                                 par->max_glac_layers, Nr, Nc};
 
       if (par->output_glac_bin == 1)
         {
@@ -4071,41 +4068,10 @@ short file_exists(short key, FILE *flog)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-double peat_thickness(double dist_from_channel)
-{
-
-  double D;
-
-  if (dist_from_channel<45.23)
-    {
-      D = 10.*(47.383 - 0.928*dist_from_channel + 0.010*pow(dist_from_channel,2.));
-    }
-  else
-    {
-      D = 10.*26.406;
-    }
-
-  return (D);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void initialize_soil_state(SOIL_STATE *S, long n, long nl)
-{
-
-  S->T = new_doublematrix(nl, n);
-  initialize_doublematrix(S->T, 0.);
-  S->P = new_doublematrix0_(nl, n);
-  initialize_doublematrix(S->P, 0.);
-  S->thi = new_doublematrix(nl, n);
-  initialize_doublematrix(S->thi, 0.);
-
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

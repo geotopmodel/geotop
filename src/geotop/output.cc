@@ -4806,8 +4806,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top,
                          SOIL *sl)
 {
-  Logger::ScopedLevels _l {100000,0};
-  Logger::ScopedPrefix p {__func__};
+  GEOLOG_PREFIX(__func__);
   long i, j, r=0, c=0;
   double w;
 

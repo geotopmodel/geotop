@@ -89,8 +89,6 @@ const char * WORKING_DIRECTORY;
 time_t start_time;
 double elapsed_time, elapsed_time_start, cum_time, max_time;
 
-double MM1, MM2, MMR, MMo, MS1, MS2;
-
 /*----------   2.  Begin of main and declaration of its variables (several structs)   ----------*/
 
 int main(int argc,char *argv[])
@@ -113,8 +111,7 @@ int main(int argc,char *argv[])
   WORKING_DIRECTORY = wd.c_str();
 
   std::ofstream olog{wd+"geotop.log"};
-//  geolog.attach_file_stream(olog);
-  Logger::ScopedLevels _l{0};
+  geolog.attach_file_stream(olog);
   geolog << "STATEMENT:\n\n"
 	 << "Geotop 3.0.0 - 2018\n\n"
 	 << "Geotop 3.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>\n"
@@ -134,11 +131,6 @@ int main(int argc,char *argv[])
   i_run0 = 1;
   cum_time = 0.;
   elapsed_time_start = 0.;
-
-  MM1=0.;
-  MM2=0.;
-  MMR=0.;
-  MMo=0.;
 
   /*dinamic allocations:*/
   UV.reset(new T_INIT{});
@@ -179,7 +171,7 @@ int main(int argc,char *argv[])
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
 void time_loop(ALLDATA *A)
 {
-Logger::ScopedPrefix p{"time_loop"};
+  GEOLOG_PREFIX(__func__);
   clock_t tstart, tend;
   short en=0, wt=0, out;
   long i, sy, r, c, j, l;
@@ -189,25 +181,22 @@ Logger::ScopedPrefix p{"time_loop"};
 
   //double mean;
 
-  STATEVAR_3D *S=NULL, *G=NULL;
-  SOIL_STATE *L, *C;
+  std::unique_ptr<STATEVAR_3D> S, G;
+  std::unique_ptr<SOIL_STATE> L, C;
   std::unique_ptr<STATE_VEG> V;
   std::unique_ptr<Vector<double>> a, Vsup_ch, Vsub_ch;
 
 
-  S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-  allocate_and_initialize_statevar_3D(S, (double)number_novalue,
-                                      A->P->max_snow_layers, Nr, Nc);
+  S.reset(new STATEVAR_3D{(double)number_novalue,
+                     A->P->max_snow_layers, Nr, Nc});
+
   if (A->P->max_glac_layers>0)
     {
-      G=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
-      allocate_and_initialize_statevar_3D(G, (double)number_novalue,
-                                          A->P->max_glac_layers, Nr, Nc);
+      G.reset(new STATEVAR_3D{(double)number_novalue,
+                         A->P->max_glac_layers, Nr, Nc});
     }
-  L=(SOIL_STATE *)malloc(sizeof(SOIL_STATE));
-  initialize_soil_state(L, A->P->total_pixel, Nl);
-  C=(SOIL_STATE *)malloc(sizeof(SOIL_STATE));
-  initialize_soil_state(C, A->C->r->nh, Nl);
+  L.reset(new SOIL_STATE{A->P->total_pixel, Nl});
+  C.reset(new SOIL_STATE {A->C->r->nh, Nl});
   V.reset(new STATE_VEG);
   initialize_veg_state(V.get(), A->P->total_pixel);
   a.reset(new Vector<double>{A->P->total_pixel});
@@ -286,12 +275,12 @@ Logger::ScopedPrefix p{"time_loop"};
                       JDe = A->P->init_date->co[i_sim]+(A->I->time+t+Dt)/secinday;
 
                       //copy state variables on
-                      copy_snowvar3D(A->N->S, S);
+                      copy_snowvar3D(A->N->S, S.get());
                       *a = *(A->N->age);
 //                      copy_doublevector(A->N->age.get(), a.get());
-                      if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G);
-                      copy_soil_state(A->S->SS, L);
-                      copy_soil_state(A->C->SS, C);
+                      if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G.get());
+                      copy_soil_state(A->S->SS, L.get());
+                      copy_soil_state(A->C->SS, C.get());
                       copy_veg_state(A->S->VS.get(), V.get());
 
                       /*for (j=1; j<=A->W->H1->nh; j++) {
@@ -317,7 +306,7 @@ Logger::ScopedPrefix p{"time_loop"};
                       if (A->P->en_balance == 1)
                         {
                           tstart=clock();
-                          en = EnergyBalance(Dt, JD0, JDb, JDe, L, C, S, G, V.get(), a.get(), A, &W);
+                          en = EnergyBalance(Dt, JD0, JDb, JDe, L.get(), C.get(), S.get(), G.get(), V.get(), a.get(), A, &W);
                           tend=clock();
                           t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                         }
@@ -325,7 +314,7 @@ Logger::ScopedPrefix p{"time_loop"};
                       if (A->P->wat_balance == 1 && en == 0)
                         {
                           tstart=clock();
-                          wt = water_balance(Dt, JD0, JDb, JDe, L, C, A, Vsub_ch.get(), Vsup_ch.get(), &Vout,
+                          wt = water_balance(Dt, JD0, JDb, JDe, L.get(), C.get(), A, Vsub_ch.get(), Vsup_ch.get(), &Vout,
                                              &Voutsub, &Voutsup, &Vbottom);
                           tend=clock();
                           t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
@@ -438,12 +427,12 @@ Logger::ScopedPrefix p{"time_loop"};
                     }
 
                   //write state variables
-                  copy_snowvar3D(S, A->N->S);
+                  copy_snowvar3D(S.get(), A->N->S);
                   *(A->N->age) = *a;
 //                  copy_doublevector(a.get(), A->N->age.get());
-                  if (A->P->max_glac_layers>0) copy_snowvar3D(G, A->G->G);
-                  copy_soil_state(L, A->S->SS);
-                  copy_soil_state(C, A->C->SS);
+                  if (A->P->max_glac_layers>0) copy_snowvar3D(G.get(), A->G->G);
+                  copy_soil_state(L.get(), A->S->SS);
+                  copy_soil_state(C.get(), A->C->SS);
                   copy_veg_state(V.get(), A->S->VS.get());
                   *(A->C->Vsub) += *Vsub_ch;
                   *(A->C->Vsup) += *Vsup_ch;
@@ -501,11 +490,6 @@ Logger::ScopedPrefix p{"time_loop"};
 
     }
   while (i_sim <= A->P->init_date->nh);
-
-  deallocate_statevar_3D(S);
-  if (A->P->max_glac_layers>0) deallocate_statevar_3D(G);
-  deallocate_soil_state(L);
-  deallocate_soil_state(C);
 
 }
 

@@ -21,10 +21,10 @@ TEST(Vector, range_for){
   for (auto &x : v)
     x = ++c;
 
-  EXPECT_EQ(v[0], -9999);
-  EXPECT_EQ(v[1], 2);
-  EXPECT_EQ(v[2], 3);
-  EXPECT_EQ(v[3], 4);
+  EXPECT_DOUBLE_EQ(v[0], -9999);
+  EXPECT_DOUBLE_EQ(v[1], 2);
+  EXPECT_DOUBLE_EQ(v[2], 3);
+  EXPECT_DOUBLE_EQ(v[3], 4);
 
 }
 
@@ -37,10 +37,10 @@ TEST(Vector, range_for_zero){
   for (auto &x : v)
     x = ++c;
 
-  EXPECT_EQ(v[0], 1);
-  EXPECT_EQ(v[1], 2);
-  EXPECT_EQ(v[2], 3);
-  EXPECT_EQ(v[3], 4);
+  EXPECT_DOUBLE_EQ(v[0], 1);
+  EXPECT_DOUBLE_EQ(v[1], 2);
+  EXPECT_DOUBLE_EQ(v[2], 3);
+  EXPECT_DOUBLE_EQ(v[3], 4);
 
 }
 
@@ -54,10 +54,10 @@ TEST(Vector, copy_semantic){
     x = ++c;
 
   Vector<double> v1{v};
-  EXPECT_EQ(v1[0], 1);
-  EXPECT_EQ(v1[1], 2);
-  EXPECT_EQ(v1[2], 3);
-  EXPECT_EQ(v1[3], 4);
+  EXPECT_DOUBLE_EQ(v1[0], 1);
+  EXPECT_DOUBLE_EQ(v1[1], 2);
+  EXPECT_DOUBLE_EQ(v1[2], 3);
+  EXPECT_DOUBLE_EQ(v1[3], 4);
 
   Vector<double> v2{1};
   v2[1] = -9999;
@@ -70,18 +70,18 @@ TEST(Vector, copy_semantic){
 }
 
 TEST(Vector, set_value){
-  Vector<double> v(3,0);
+  Vector<double> v(3,0.);
   double c{0.0};
   
   for (auto &x : v)
     x = ++c;
 
-  v = -9999;
+  v = -9999.;
 
-  EXPECT_EQ(v[0], -9999);
-  EXPECT_EQ(v[1], -9999);
-  EXPECT_EQ(v[2], -9999);
-  EXPECT_EQ(v[3], -9999);
+  EXPECT_DOUBLE_EQ(v[0], -9999.);
+  EXPECT_DOUBLE_EQ(v[1], -9999.);
+  EXPECT_DOUBLE_EQ(v[2], -9999.);
+  EXPECT_DOUBLE_EQ(v[3], -9999.);
 }
 
 
@@ -129,7 +129,7 @@ TEST(Vector, summation){
   // vector lenght mismatch
   EXPECT_ANY_THROW(v_1 += v_0);
 
-  Vector<double> v_2(3,0);
+  Vector<double> v_2(3,0.);
   double c{0.0};  
   for (auto &x : v_1)
     x = ++c;
@@ -137,20 +137,20 @@ TEST(Vector, summation){
   for (auto &x : v_2)
     x = ++c;
 
-  EXPECT_EQ(v_2[0], 5);
-  EXPECT_EQ(v_2[1], 6);
-  EXPECT_EQ(v_2[2], 7);
-  EXPECT_EQ(v_2[3], 8);
+  EXPECT_DOUBLE_EQ(v_2[0], 5.);
+  EXPECT_DOUBLE_EQ(v_2[1], 6.);
+  EXPECT_DOUBLE_EQ(v_2[2], 7.);
+  EXPECT_DOUBLE_EQ(v_2[3], 8.);
 
   EXPECT_NO_THROW(v_2 += v_1);
   
-  EXPECT_EQ(v_1[0], 1);
-  EXPECT_EQ(v_1[1], 2);
-  EXPECT_EQ(v_1[2], 3);
-  EXPECT_EQ(v_1[3], 4);
+  EXPECT_DOUBLE_EQ(v_1[0], 1.);
+  EXPECT_DOUBLE_EQ(v_1[1], 2.);
+  EXPECT_DOUBLE_EQ(v_1[2], 3.);
+  EXPECT_DOUBLE_EQ(v_1[3], 4.);
 
-  EXPECT_EQ(v_2[0], 6);
-  EXPECT_EQ(v_2[1], 8);
-  EXPECT_EQ(v_2[2], 10);
-  EXPECT_EQ(v_2[3], 12);
+  EXPECT_DOUBLE_EQ(v_2[0], 6.);
+  EXPECT_DOUBLE_EQ(v_2[1], 8.);
+  EXPECT_DOUBLE_EQ(v_2[2], 10.);
+  EXPECT_DOUBLE_EQ(v_2[3], 12.);
 }

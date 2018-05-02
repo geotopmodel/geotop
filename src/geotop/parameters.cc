@@ -54,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
   //variables
   FILE *f;
 
@@ -1085,7 +1085,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                METEO *met, INIT_TOOLS *itools, double **num_param,
                                long *num_param_components, char **keyword, FILE *flog)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
   short occurring;
   long cod, codn, i, j, k, n, m, nsoillayers, nmeteo_stations, npoints;
   double a, minDt=1.E99;
@@ -2560,7 +2560,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
                           double **num_param, long *num_param_components, double default_value,
                           short code_error)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   double a;
 
@@ -2601,7 +2601,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
 
 char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   char *a;
   long j, dimstring = strlen(string_param[i]);
@@ -2627,7 +2627,7 @@ char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
                            FILE *flog)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   short ok;
   long i, j, k, n, nlines, nlinesprev;
@@ -2922,7 +2922,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
 
 short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 {
-  Logger::ScopedPrefix _p{__func__};
+  GEOLOG_PREFIX(__func__);
 
   DOUBLEMATRIX *chkpt2;
   double **points;
@@ -3004,7 +3004,7 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name,
                               char **key_header, FILE *flog)
 {
-  Logger::ScopedPrefix _p {__func__};
+  GEOLOG_PREFIX(__func__);
 
   double **M;
   long nlines, n, j, k;

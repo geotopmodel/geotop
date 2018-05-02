@@ -142,13 +142,6 @@ double dtheta_snow(double a, double b, double T);
 double max_dtheta_snow(double a, double b);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void allocate_and_initialize_statevar_3D(STATEVAR_3D *V, double nan, long nl,
-                                         long nr, long nc);
-
-/*----------------------------------------------------------------------------------------------------------*/
-void deallocate_statevar_3D(STATEVAR_3D *V);
-
-/*----------------------------------------------------------------------------------------------------------*/
 void allocate_and_initialize_statevar_1D(STATEVAR_1D *V, double nan, long nl);
 
 /*----------------------------------------------------------------------------------------------------------*/

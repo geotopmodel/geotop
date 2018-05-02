@@ -32,6 +32,7 @@ add_executable(geotop
         src/geotop/radiation.cc
         src/geotop/recovering.cc
         src/geotop/snow.cc
+        src/geotop/struct.geotop.cc
         src/geotop/tables.cc
         src/geotop/times.cc
         src/geotop/turbulence.cc

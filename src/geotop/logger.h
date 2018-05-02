@@ -293,4 +293,8 @@ private:
   ScopedConsoleLevel _cl;
 };
 
+#define GEOLOG_PREFIX(string) \
+ Logger::ScopedPrefix __geolog_prefix__{string};
+
+
 #endif  // GEOTOP_LOGGER_H
