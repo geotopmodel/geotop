@@ -5,7 +5,8 @@ _bt = get_option('buildtype')
 if _bt == 'debugoptimized' or _bt == 'release'
   add_global_arguments(['-funroll-loops',
                         '-fstrict-aliasing',
-                        '-O2'],
+                        '-O2',
+                        '-DNDEBUG'],
                        language : ['cpp','c'])
 endif
 

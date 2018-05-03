@@ -84,9 +84,9 @@ class Logger {
    * otherwise geolog will not see the effect of std::setw, std::setprecision
    * etc.
    */
-  Logger& operator<<(std::ostream& (*p)(std::ostream&)) {
+  Logger& operator<<(std::ostream& (*basic_manipulator)(std::ostream&)) {
     std::ostringstream os;
-    os << p;
+    os << basic_manipulator;
     return *this << os.str();
   }
 
@@ -214,16 +214,16 @@ class ScopedLevel {
   ScopedLevel(std::function<void(const unsigned int)> logger_set_level, const unsigned int level,
               const unsigned int old_level)
     : set_level{logger_set_level},
-      old_level{old_level} {
+      _old_level{old_level} {
     set_level(level);
   }
 
   /** Destructor: restore the level to the previous value */
-  ~ScopedLevel() { set_level(old_level); }
+  ~ScopedLevel() { set_level(_old_level); }
 
  private:
   std::function<void(const unsigned int)> set_level;
-  const unsigned int old_level;
+  const unsigned int _old_level;
 };
 
 class Logger::ScopedConsoleLevel {

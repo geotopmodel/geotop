@@ -104,7 +104,7 @@ add_executable(geotop
         src/libraries/ascii/rw_maps.h
         src/libraries/ascii/init.h
         src/libraries/ascii/tabs.h
-        src/libraries/ascii/extensions.h src/geotop/logger.cc src/geotop/logger.h src/geotop/vector.h)
+        src/libraries/ascii/extensions.h src/geotop/logger.cc src/geotop/logger.h src/geotop/vector.h src/geotop/geotop_asserts.h)
 enable_testing()
 subdirs(tests)
 
