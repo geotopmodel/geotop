@@ -9,23 +9,20 @@
 Logger geolog;
 
 Logger::Logger()
-  : std_out{&std::cout},
-    ofile{nullptr},
-    _at_new_line{true},
-    _console_level{std::numeric_limits<unsigned int>::max()},
-    _file_level{std::numeric_limits<unsigned int>::max()} {
+    : std_out{&std::cout}, ofile{nullptr}, _at_new_line{true},
+      _console_level{std::numeric_limits<unsigned int>::max()},
+      _file_level{std::numeric_limits<unsigned int>::max()} {
   push("geotop");
 }
 
 void Logger::pop() {
   if (prefixes.size() > 0) {
     prefixes.pop();
-  }
-  else
+  } else
     throw std::runtime_error{"You called pop() on and empty stack"};
 }
 
-const std::string& Logger::prefix() const {
+const std::string &Logger::prefix() const {
   static std::string s;
   if (prefixes.size() > 0)
     return prefixes.top();

@@ -5,21 +5,18 @@
 #ifndef GEOTOP_VECTOR_H
 #define GEOTOP_VECTOR_H
 
-#include <memory>
-#include <exception>
-#include <sstream>
-#include <cassert>
 #include "geotop_asserts.h"
+#include <cassert>
+#include <exception>
+#include <memory>
+#include <sstream>
 
-template<typename T>
-struct Vector {
+template <typename T> struct Vector {
 
   /**
    * @return the size of the vector
    */
-  std::size_t size() const noexcept {
-    return _size;
-  }
+  std::size_t size() const noexcept { return _size; }
 
   /** pointer to the first element accessible element */
   T *begin() noexcept { return &co[nl]; }
@@ -37,9 +34,7 @@ struct Vector {
   T &operator[](const std::size_t i) noexcept { return co[i]; }
 
   /** subscripting operator (non-checked) */
-  const T &operator[](const std::size_t i) const noexcept {
-    return co[i];
-  }
+  const T &operator[](const std::size_t i) const noexcept { return co[i]; }
 
   /** range-checked access operator */
   T &at(const std::size_t i) {
@@ -52,7 +47,6 @@ struct Vector {
     check(i);
     return co[i];
   }
-
 
   /** destructor. default is fine */
   ~Vector() = default;
@@ -67,17 +61,15 @@ struct Vector {
    *
    * you can access elements in the range [l,n] boundaries included
    */
-  explicit Vector(const std::size_t n, const std::size_t l = 1) :
-          nl{l},
-          nh{n},
-          co{new T[nh + 1]{}},
-          _size{nh - nl + 1} {}
+  explicit Vector(const std::size_t n, const std::size_t l = 1)
+      : nl{l}, nh{n}, co{new T[nh + 1]{}}, _size{nh - nl + 1} {}
 
   /**
    * Copy constructor
    * @param v
    */
-  Vector(const Vector<T> &v) : nl{v.nl}, nh{v.nh}, co{new T[nh + 1]}, _size{v._size} {
+  Vector(const Vector<T> &v)
+      : nl{v.nl}, nh{v.nh}, co{new T[nh + 1]}, _size{v._size} {
     for (auto i = nl; i <= nh; ++i)
       co[i] = v.co[i];
   }
@@ -122,6 +114,7 @@ struct Vector {
 
   /** the actual data */
   std::unique_ptr<T[]> co;
+
 private:
   /** size of the array */
   std::size_t _size;
@@ -132,10 +125,11 @@ private:
   void check(const std::size_t i) const {
     if (i < nl || i > nh) {
       std::ostringstream os;
-      os << i << " does not belong to range [" << nl << ", " << nh << "]." << std::endl;
+      os << i << " does not belong to range [" << nl << ", " << nh << "]."
+         << std::endl;
       throw std::out_of_range{os.str()};
     }
   }
 };
 
-#endif //GEOTOP_VECTOR_H
+#endif // GEOTOP_VECTOR_H
