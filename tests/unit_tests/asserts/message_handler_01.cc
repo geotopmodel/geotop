@@ -70,9 +70,3 @@ TEST(Assertions, assert_in_range){
   pos = (max + min)/2 ;
   EXPECT_NO_THROW(GEO_ASSERT_IN_RANGE(pos, min, max));
 }
-
-TEST(NullStream, test_1e8_assertions){
-  size_t volatile i ;
-  for(i=0; i < 1e8; ++ i )
-    internal::NullStream{} << "ciao " << true << std::endl;
-}
