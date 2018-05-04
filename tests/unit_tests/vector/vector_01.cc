@@ -127,8 +127,12 @@ TEST(Vector, summation){
   Vector<double> v_1(3,0);
 
   // vector lenght mismatch
+#ifndef NDEBUG
   EXPECT_ANY_THROW(v_1 += v_0);
-
+#else
+  EXPECT_NO_THROW(v_1 += v_0);
+#endif
+  
   Vector<double> v_2(3,0.);
   double c{0.0};  
   for (auto &x : v_1)

@@ -326,17 +326,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         }
     }
 
-  fprintf(flog,"Valid pixels: %ld\n",par->total_pixel);
-  fprintf(flog,"Number of nodes: %ld\n",(Nl+1)*par->total_pixel);
-  fprintf(flog,"Novalue pixels: %ld\n",(Nr*Nc-par->total_pixel));
-  fprintf(flog,"Basin area: %f km2\n",
-          (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6);
+  geolog << "Valid pixels: " << par->total_pixel << std::endl;
+  geolog << "Number of nodes: " << (Nl+1)*par->total_pixel << std::endl;
+  geolog << "Novalue pixels: " << (Nr*Nc-par->total_pixel) << std::endl;
+  geolog << "Basin area: " <<
+         (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6 << " km2" << std::endl;
 
-  printf("\nValid pixels: %ld\n",par->total_pixel);
-  printf("Number of nodes: %ld\n",(Nl+1)*par->total_pixel);
-  printf("Novalue pixels: %ld\n",(Nr*Nc-par->total_pixel));
-  printf("Basin area: %f km2\n\n",
-         (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6);
 
   /****************************************************************************************************/
   //Reading of RAIN data file,  METEO data file,  and CLOUD data file

@@ -9,6 +9,7 @@
 #include <exception>
 #include <sstream>
 #include <cassert>
+#include "geotop_asserts.h"
 
 template<typename T>
 struct Vector {
@@ -105,8 +106,10 @@ struct Vector {
    * Component-wise summation
    */
   Vector<T> &operator+=(const Vector<T> &v) {
-    if ((nl != v.nl) || (nh != v.nh))
-      throw std::runtime_error{"vector lenght mismatch"};
+
+    GEO_ASSERT_EQ(nl, v.nl) << "vector length mismatch\n";
+    GEO_ASSERT_EQ(nh, v.nh) << "vector length mismatch\n";
+
     for (auto i = nl; i <= nh; ++i)
       co[i] += v.co[i];
     return *this;
@@ -124,7 +127,7 @@ private:
   std::size_t _size;
 
   /**
-   * helper function used to check if @p i is in valid range
+   * helper function used to check if @param i is within the valid range
    */
   void check(const std::size_t i) const {
     if (i < nl || i > nh) {
