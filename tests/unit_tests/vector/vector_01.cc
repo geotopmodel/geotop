@@ -44,31 +44,6 @@ TEST(Vector, range_for_zero){
 
 }
 
-TEST(Vector, copy_semantic){
-  Vector<double> v(3,0);
-  double c{0.0};
-  v[0] = -9999;
-  v[3] = -9999;
-  
-  for (auto &x : v)
-    x = ++c;
-
-  Vector<double> v1{v};
-  EXPECT_DOUBLE_EQ(v1[0], 1);
-  EXPECT_DOUBLE_EQ(v1[1], 2);
-  EXPECT_DOUBLE_EQ(v1[2], 3);
-  EXPECT_DOUBLE_EQ(v1[3], 4);
-
-  Vector<double> v2{1};
-  v2[1] = -9999;
-
-  v2=v1;
-  EXPECT_EQ(v2[0], 1);
-  EXPECT_EQ(v2[1], 2);
-  EXPECT_EQ(v2[2], 3);
-  EXPECT_EQ(v2[3], 4);
-}
-
 TEST(Vector, set_value){
   Vector<double> v(3,0.);
   double c{0.0};
@@ -82,6 +57,43 @@ TEST(Vector, set_value){
   EXPECT_DOUBLE_EQ(v[1], -9999.);
   EXPECT_DOUBLE_EQ(v[2], -9999.);
   EXPECT_DOUBLE_EQ(v[3], -9999.);
+}
+
+
+
+TEST(Vector, copy_semantic){
+  Vector<double> v(3,0);
+  double c{0.0};
+  v[0] = -9999.;
+  v[3] = -9999.;
+  
+  for (auto &x : v)
+    x = ++c;
+  
+  Vector<double> v1{v};
+
+  v = -9999.0; // change v to check the vectors are not linked
+  EXPECT_DOUBLE_EQ(v1[0], 1);
+  EXPECT_DOUBLE_EQ(v1[1], 2);
+  EXPECT_DOUBLE_EQ(v1[2], 3);
+  EXPECT_DOUBLE_EQ(v1[3], 4);
+
+  Vector<double> v2{1};
+  v2[1] = -9999;
+
+  for (auto &x : v)
+    x = ++c;
+
+  v2=v1;
+  
+  v = -9999.0; // change v1 to check the vectors are not linked
+
+  ASSERT_EQ(v1.size(), v2.size());
+  EXPECT_DOUBLE_EQ(v2[0], 1);
+  EXPECT_DOUBLE_EQ(v2[1], 2);
+  EXPECT_DOUBLE_EQ(v2[2], 3);
+  EXPECT_DOUBLE_EQ(v2[3], 4);
+  
 }
 
 
