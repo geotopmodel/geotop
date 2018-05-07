@@ -10,7 +10,14 @@
 #include <string>
 
 /**
- * example of usage
+ * Validity of pre- and post-conditions and any other requirements must be
+ * properly checked. To this aim, Geotop offers a collection of GEO_ASSERT.
+ * These assertions (and checks) are performed only when the code is compiled
+ * in debug (or equivalent) mode. More precisely, they are skipped if the code
+ * is compiled with the -DNDEBUG flag. Assertions are never enough. Put as many
+ * assertions as you can without any worry for loss of performance (in release).
+ *
+ * Example of usage
  *
  * GEO_ASSERT(condition);
  *
@@ -61,6 +68,21 @@
  *
  * of course you are free to replace std::runtime_error to any
  * exception you like that can be constructed as explained before.
+ *
+ * If a condition must be always checked (i.e., also when the code is
+ * compiled in release mode), use the GEO_ERROR interface
+ *
+ * GEO_ERROR(condition);  // throws an std::rutime_erorr
+ *
+ * GEO_ERROR(condition) << "optional" << " message"
+ *    << std::endl;
+ *
+ * If you need to throw a particular exception, the syntax and the
+ * requirements are the same for the assertions explained above.
+ *
+ * GEO_ERROR(condition, exception_type);
+ * GEO_ERROR(condition, exception_type) << "optional" << " message"
+ *    << std::endl;
  *
  * The user should use only the above interface. All the rest of this
  * file are technical details and for this reason they are put inside
@@ -138,11 +160,12 @@ public:
 // of arguments
 #define SELECT_MACRO(_1, _2, NAME, ...) NAME
 
-#define GEO_ASSERT(...)                                                        \
-  SELECT_MACRO(__VA_ARGS__, GEO_ASSERT2, GEO_ASSERT1, dummy)(__VA_ARGS__)
+// when the condition is not satisfied, an exception is thrown
 
-#ifndef NDEBUG
-#define _GEO_ASSERT_(cond, exception_type)                                     \
+#define GEO_ERROR(...)                                                         \
+  SELECT_MACRO(__VA_ARGS__, _GEO_ERROR2, _GEO_ERROR1, dummy)(__VA_ARGS__)
+
+#define _GEO_ERROR2(cond, exception_type)                                      \
   if (!(cond))                                                                 \
   ::internal::AssertHelper<exception_type>() =                                 \
       internal::MessageHandler()                                               \
@@ -154,41 +177,71 @@ public:
       << "       file: " << __FILE__ << '\n'                                   \
       << "   function: " << __PRETTY_FUNCTION__ << '\n'                        \
       << "       line: " << __LINE__ << '\n'
+
+#define _GEO_ERROR1(cond) _GEO_ERROR2(cond, std::runtime_error)
+
+#define GEO_ASSERT(...)                                                        \
+  SELECT_MACRO(__VA_ARGS__, _GEO_ASSERT2, _GEO_ASSERT1, dummy)(__VA_ARGS__)
+
+#ifndef NDEBUG
+#define _GEO_ASSERT_(cond, exception_type) GEO_ERROR(cond, exception_type)
 #else
 #define _GEO_ASSERT_(cond, exception_type)                                     \
   internal::NullStream {}
 #endif
 
-#define GEO_ASSERT_(cond) _GEO_ASSERT_(cond, std::runtime_error)
+#define _GEO_ASSERT(cond) _GEO_ASSERT_(cond, std::runtime_error)
 
-#define GEO_ASSERT1(cond)                                                      \
-  GEO_ASSERT_(cond) << "  condition: " << #cond << " is not true\n\n"
-
-#define GEO_ASSERT2(cond, extype)                                              \
+#define _GEO_ASSERT2(cond, extype)                                             \
   _GEO_ASSERT_(cond, extype) << "  condition: " << #cond << " is not true\n\n"
 
+#define _GEO_ASSERT1(cond) _GEO_ASSERT2(cond, std::runtime_error)
+
 #define GEO_ASSERT_IN_RANGE(position, lower_bound, upper_bound)                \
-  GEO_ASSERT_((position >= lower_bound) && (position <= upper_bound))          \
+  _GEO_ASSERT((position >= lower_bound) && (position <= upper_bound))          \
       << "Out of range: " << position << " is not in range [" << lower_bound   \
       << ", " << upper_bound << "]\n\n"
 
 #define GEO_ASSERT_EQ(a, b)                                                    \
-  GEO_ASSERT_((a == b)) << a << " is not equal to " << b << std::endl
+  _GEO_ASSERT((a == b)) << a << " was expected to be equal to " << b           \
+                        << std::endl
 
 #define GEO_ASSERT_LT(a, b)                                                    \
-  GEO_ASSERT_((a < b)) << a << " was expected to be less than " << b           \
+  _GEO_ASSERT((a < b)) << a << " was expected to be less than " << b           \
                        << std::endl
 
 #define GEO_ASSERT_LE(a, b)                                                    \
-  GEO_ASSERT_((a <= b)) << a << " was expected to be less or equal than " << b \
+  _GEO_ASSERT((a <= b)) << a << " was expected to be less or equal than " << b \
                         << std::endl
 
 #define GEO_ASSERT_GT(a, b)                                                    \
-  GEO_ASSERT_((a > b)) << a << " was expected to be greater than " << b        \
+  _GEO_ASSERT((a > b)) << a << " was expected to be greater than " << b        \
                        << std::endl
 
 #define GEO_ASSERT_GE(a, b)                                                    \
-  GEO_ASSERT_((a >= b)) << a << " was expected to be greater or equal than "   \
+  _GEO_ASSERT((a >= b)) << a << " was expected to be greater or equal than "   \
                         << b << std::endl
 
+#define GEO_ERROR_IN_RANGE(position, lower_bound, upper_bound)                 \
+  GEO_ERROR((position >= lower_bound) && (position <= upper_bound))            \
+      << "Out of range: " << position << " is not in range [" << lower_bound   \
+      << ", " << upper_bound << "]\n\n"
+
+#define GEO_ERROR_EQ(a, b)                                                     \
+  GEO_ERROR((a == b)) << a << " was expected to be equal to " << b << std::endl
+
+#define GEO_ERROR_LT(a, b)                                                     \
+  GEO_ERROR((a < b)) << a << " was expected to be less than " << b << std::endl
+
+#define GEO_ERROR_LE(a, b)                                                     \
+  GEO_ERROR((a <= b)) << a << " was expected to be less or equal than " << b   \
+                      << std::endl
+
+#define GEO_ERROR_GT(a, b)                                                     \
+  GEO_ERROR((a > b)) << a << " was expected to be greater than " << b          \
+                     << std::endl
+
+#define GEO_ERROR_GE(a, b)                                                     \
+  GEO_ERROR((a >= b)) << a << " was expected to be greater or equal than "     \
+                      << b << std::endl
 #endif // GEOTOP_GEOTOP_ASSERTS_H

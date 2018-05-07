@@ -100,6 +100,23 @@ TEST(Vector, out_of_range){
   EXPECT_ANY_THROW(v.at(4));
   EXPECT_ANY_THROW(v.at(-3));
   EXPECT_ANY_THROW(v.at(5000));
+
+
+  EXPECT_NO_THROW(v(1));
+  EXPECT_NO_THROW(v(2));
+  EXPECT_NO_THROW(v(3));
+
+#ifndef NDEBUG
+  EXPECT_ANY_THROW(v(0));
+  EXPECT_ANY_THROW(v(4));
+  EXPECT_ANY_THROW(v(-3));
+  EXPECT_ANY_THROW(v(5000));
+#else
+  EXPECT_NO_THROW(v(0));
+  EXPECT_NO_THROW(v(4));
+  EXPECT_NO_THROW(v(-3));
+  EXPECT_NO_THROW(v(5000));
+#endif
   
 }
 

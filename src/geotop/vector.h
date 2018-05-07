@@ -38,14 +38,38 @@ template <typename T> struct Vector {
 
   /** range-checked access operator */
   T &at(const std::size_t i) {
-    check(i);
-    return co[i];
+    GEO_ERROR_IN_RANGE(i, nl, nh);
+    return (*this)[i];
   }
 
   /** range-checked access operator */
   const T &at(const std::size_t i) const {
-    check(i);
-    return co[i];
+    GEO_ERROR_IN_RANGE(i, nl, nh);
+    return (*this)[i];
+  }
+
+  /**
+   * access operator. When the code is compiled in debug mode, it performes
+   * a range check. No check is done when the code is compiled in release mode.
+   */
+  T &operator()(const std::size_t i) {
+#ifndef NDEBUG
+    return at(i);
+#else
+    return (*this)[i];
+#endif
+  }
+
+  /**
+   * access operator. When the code is compiled in debug mode, it performes
+   * a range check. No check is done when the code is compiled in release mode.
+   */
+  const T &operator()(const std::size_t i) const {
+#ifndef NDEBUG
+    return at(i);
+#else
+    return (*this)[i];
+#endif
   }
 
   /** destructor. default is fine */
@@ -89,8 +113,8 @@ template <typename T> struct Vector {
    * my_vector = 0
    */
   Vector<T> &operator=(const T v) {
-    for (auto i = nl; i <= nh; ++i)
-      co[i] = v;
+    for (auto &x : *this)
+      x = v;
     return *this;
   }
 
@@ -118,18 +142,6 @@ template <typename T> struct Vector {
 private:
   /** size of the array */
   std::size_t _size;
-
-  /**
-   * helper function used to check if @param i is within the valid range
-   */
-  void check(const std::size_t i) const {
-    if (i < nl || i > nh) {
-      std::ostringstream os;
-      os << i << " does not belong to range [" << nl << ", " << nh << "]."
-         << std::endl;
-      throw std::out_of_range{os.str()};
-    }
-  }
 };
 
 #endif // GEOTOP_VECTOR_H
