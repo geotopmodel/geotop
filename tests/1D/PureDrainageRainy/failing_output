@@ -172,9 +172,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##40      #:45  <== 9.936549
 ##40      #:45  ==> 9.936326
 @ Absolute error = 2.2300000000e-4, Relative error = 2.2442902940e-5
-##40      #:56  <== 0.276681
-##40      #:56  ==> 0.276671
-@ Absolute error = 1.0000000000e-5, Relative error = 3.6144012202e-5
 ----------------
 ##41      #:14  <== 1.861843
 ##41      #:14  ==> 1.861887
@@ -2504,9 +2501,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##136     #:56  ==> 0.025823
 @ Absolute error = 2.7000000000e-5, Relative error = 1.0455795221e-3
 ----------------
-##137     #:14  <== 0.964198
-##137     #:14  ==> 0.964188
-@ Absolute error = 1.0000000000e-5, Relative error = 1.0371421341e-5
 ##137     #:21  <== 19.721414
 ##137     #:21  ==> 19.720585
 @ Absolute error = 8.2900000000e-4, Relative error = 4.2037292504e-5
@@ -2554,9 +2548,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##139     #:45  <== 79.449403
 ##139     #:45  ==> 79.444549
 @ Absolute error = 4.8540000000e-3, Relative error = 6.1099220288e-5
-##139     #:53  <== 0.326823
-##139     #:53  ==> 0.326833
-@ Absolute error = 1.0000000000e-5, Relative error = 3.0597601760e-5
 ##139     #:56  <== 0.495452
 ##139     #:56  ==> 0.495366
 @ Absolute error = 8.6000000000e-5, Relative error = 1.7360900829e-4
@@ -4512,9 +4503,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##210     #:45  <== 81.358201
 ##210     #:45  ==> 81.351594
 @ Absolute error = 6.6070000000e-3, Relative error = 8.1215372375e-5
-##210     #:48  <== 0.126860
-##210     #:48  ==> 0.126850
-@ Absolute error = 1.0000000000e-5, Relative error = 7.8833267639e-5
 ##210     #:53  <== 0.394357
 ##210     #:53  ==> 0.394373
 @ Absolute error = 1.6000000000e-5, Relative error = 4.0572374777e-5
@@ -5071,12 +5059,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##232     #:45  <== 10.905367
 ##232     #:45  ==> 10.898813
 @ Absolute error = 6.5540000000e-3, Relative error = 6.0134989012e-4
-##232     #:48  <== 0.017008
-##232     #:48  ==> 0.016998
-@ Absolute error = 1.0000000000e-5, Relative error = 5.8830450641e-4
-##232     #:53  <== 0.398471
-##232     #:53  ==> 0.398481
-@ Absolute error = 1.0000000000e-5, Relative error = 2.5095929189e-5
 ##232     #:56  <== 0.040975
 ##232     #:56  ==> 0.040943
 @ Absolute error = 3.2000000000e-5, Relative error = 7.8157438390e-4
@@ -7412,9 +7394,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##313     #:56  ==> 638.451850
 @ Absolute error = 7.6013990000e+0, Relative error = 1.1905986332e-2
 ----------------
-##314     #:14  <== 0.537870
-##314     #:14  ==> 0.537860
-@ Absolute error = 1.0000000000e-5, Relative error = 1.8592198713e-5
 ##314     #:21  <== 23.943944
 ##314     #:21  ==> 23.943604
 @ Absolute error = 3.4000000000e-4, Relative error = 1.4200034381e-5
@@ -8032,9 +8011,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##336     #:56  ==> 1.701136
 @ Absolute error = 8.8700000000e-4, Relative error = 5.2141627712e-4
 ----------------
-##337     #:14  <== 0.584357
-##337     #:14  ==> 0.584347
-@ Absolute error = 1.0000000000e-5, Relative error = 1.7113119431e-5
 ##337     #:21  <== 24.044712
 ##337     #:21  ==> 24.044403
 @ Absolute error = 3.0900000000e-4, Relative error = 1.2851223630e-5
@@ -9219,9 +9195,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##383     #:24  ==> 32.181465
 @ Absolute error = 4.1500000000e-4, Relative error = 1.2895788049e-5
 ----------------
-##384     #:14  <== 0.604177
-##384     #:14  ==> 0.604187
-@ Absolute error = 1.0000000000e-5, Relative error = 1.6551441051e-5
 ##384     #:15  <== 31.089899
 ##384     #:15  ==> 31.089116
 @ Absolute error = 7.8300000000e-4, Relative error = 2.5185663047e-5
@@ -9775,9 +9748,6 @@ Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
 ##403     #:45  <== 123.715375
 ##403     #:45  ==> 123.708262
 @ Absolute error = 7.1130000000e-3, Relative error = 5.7498180679e-5
-##403     #:48  <== 0.184769
-##403     #:48  ==> 0.184759
-@ Absolute error = 1.0000000000e-5, Relative error = 5.4124562268e-5
 ##403     #:56  <== 12.941065
 ##403     #:56  ==> 12.935688
 @ Absolute error = 5.3770000000e-3, Relative error = 4.1567174471e-4
