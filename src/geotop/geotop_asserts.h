@@ -167,7 +167,7 @@ public:
 
 #define _GEO_ERROR2(cond, exception_type)                                      \
   if (!(cond))                                                                 \
-  ::internal::AssertHelper<exception_type>() =                                 \
+    ::internal::AssertHelper<exception_type>() =			\
       internal::MessageHandler()                                               \
       << "\n\n"                                                                \
       << "------------------------------------------------------------------"  \

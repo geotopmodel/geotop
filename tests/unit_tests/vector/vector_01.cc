@@ -6,7 +6,7 @@ TEST(Vector, constructors){
   EXPECT_EQ(v.size(), std::size_t{3});
   
   Vector<int> v0(3,0);
-  EXPECT_EQ(v0.size(), std::size_t{4});
+  EXPECT_EQ(std::size_t{4}, v0.size());
 
   Vector<int> vcopied{v0};
   EXPECT_EQ(vcopied.size(), std::size_t{4});
