@@ -1,7 +1,7 @@
 
 HM          = src
 BINPATH 	= bin
-NAME		= geotop-2.0.0
+NAME		= geotop-2.0.0-veg
 BINS		= $(BINPATH)/$(NAME)
 
 SCRSPATH1	= $(HM)/geotop
