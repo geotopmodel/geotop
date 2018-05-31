@@ -1,23 +1,23 @@
 
 /* STATEMENT:
 
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 3.0.0 - 31 Oct 2013
+   Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+   Geotop 3.0.0 - 31 Oct 2013
 
- Copyright (c), 2013 - Stefano Endrizzi
+   Copyright (c), 2013 - Stefano Endrizzi
 
- This file is part of Geotop 2.0.0
+   This file is part of Geotop 2.0.0
 
- Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+   Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 
- Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
- If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
+   Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+   If you just use the code, please give feedback to the authors and the community.
+   Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
 
- If you have satisfactorily used the code, please acknowledge the authors.
+   If you have satisfactorily used the code, please acknowledge the authors.
 
- */
+*/
 
 
 /*--------  1.  Include File, Prototype of the subroutine "time_loop", global variables  -------*/
@@ -78,7 +78,7 @@ long *osl, nosl;
 char **hsl;
 
 FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq, *ffliqav,
-     *ffice, *fficeav, *ffsnowT, *ffsnowl, *ffsnowi, *ffsnowd, *ffglac;
+  *ffice, *fficeav, *ffsnowT, *ffsnowl, *ffsnowi, *ffsnowd, *ffglac;
 
 long i_sim=0, i_run, i_sim0, i_run0;
 
@@ -95,18 +95,18 @@ int main(int argc,char *argv[])
 {
   std::string wd;
   if (!argv[1])
-  {
-    std::cerr << "Wrong number of arguments. Abort.\n"
-              << "Example of usage:\n"
-              << "$ ./geotop /path/to/a/folder" << std::endl;
-    exit(9);
-  }
+    {
+      std::cerr << "Wrong number of arguments. Abort.\n"
+		<< "Example of usage:\n"
+		<< "$ ./geotop /path/to/a/folder" << std::endl;
+      exit(9);
+    }
   else
-  {
-    wd = argv[1];
-    if (wd.back() != '/')
-      wd.append("/");
-  }
+    {
+      wd = argv[1];
+      if (wd.back() != '/')
+	wd.append("/");
+    }
 
   WORKING_DIRECTORY = wd.c_str();
 
@@ -188,12 +188,12 @@ void time_loop(ALLDATA *A)
 
 
   S.reset(new STATEVAR_3D{(double)number_novalue,
-                     A->P->max_snow_layers, Nr, Nc});
+	A->P->max_snow_layers, Nr, Nc});
 
   if (A->P->max_glac_layers>0)
     {
       G.reset(new STATEVAR_3D{(double)number_novalue,
-                         A->P->max_glac_layers, Nr, Nc});
+	    A->P->max_glac_layers, Nr, Nc});
     }
   L.reset(new SOIL_STATE{A->P->total_pixel, Nl});
   C.reset(new SOIL_STATE {A->C->r->nh, Nl});
@@ -221,11 +221,11 @@ void time_loop(ALLDATA *A)
           if ( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim])
                *86400. - 1.E-5)
             {
-//              printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
-//              f=fopen(logfile, "a");
-//              fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,
-//                      i_run);
-//              fclose(f);
+	      //              printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
+	      //              f=fopen(logfile, "a");
+	      //              fprintf(f,"Number of times the simulation #%ld has been run: %ld\n",i_sim,
+	      //                      i_run);
+	      //              fclose(f);
 
               print_run_average(A->S.get(), A->T.get(), A->P.get());
 
@@ -277,7 +277,7 @@ void time_loop(ALLDATA *A)
                       //copy state variables on
                       copy_snowvar3D(A->N->S, S.get());
                       *a = *(A->N->age);
-//                      copy_doublevector(A->N->age.get(), a.get());
+		      //                      copy_doublevector(A->N->age.get(), a.get());
                       if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G.get());
                       copy_soil_state(A->S->SS, L.get());
                       copy_soil_state(A->C->SS, C.get());
@@ -288,7 +288,7 @@ void time_loop(ALLDATA *A)
                         r=A->T->lrc_cont->co[j][2];
                         c=A->T->lrc_cont->co[j][3];
                         printf("START %ld %ld %ld %e\n",l,r,c,A->S->SS->P->co[l][A->T->j_cont[r][c]]);
-                      }*/
+			}*/
 
                       //init
                       Vout = 0.;
@@ -355,16 +355,16 @@ void time_loop(ALLDATA *A)
                     fprintf(f, "Number of days after start:%f\n",A->I->time/86400.);
 
                     if (en != 0 && wt == 0) {
-                      fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
+		    fprintf(f, "ERROR: Energy balance does not converge, Dt:%f\n",Dt);
                     }else if (en == 0 && wt != 0) {
-                      fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
+		    fprintf(f, "ERROR: Water balance does not converge, Dt:%f\n",Dt);
                     }else {
-                      fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
+		    fprintf(f, "ERROR: Water and energy balance do not converge, Dt:%f\n",Dt);
                     }
 
                     fclose(f);
                     t_error("Fatal Error! Geotop is closed. See failing report.");
-                  }*/
+		    }*/
 
                   if (en != 0 || wt != 0)
                     {
@@ -404,20 +404,22 @@ void time_loop(ALLDATA *A)
 
                               th = theta_from_psi(A->S->SS->P->co[l][A->T->j_cont[r][c]],
                                                   A->S->SS->thi->co[l][A->T->j_cont[r][c]], l, A->S->pa->co[sy], PsiMin);
+			      
                               if (th > A->S->pa->co[sy][jsat][l]-A->S->SS->thi->co[l][A->T->j_cont[r][c]])
                                 th = A->S->pa->co[sy][jsat][l]-A->S->SS->thi->co[l][A->T->j_cont[r][c]];
                               C0 = A->S->pa->co[sy][jct][l]*(1.-A->S->pa->co[sy][jsat][l])
-                                   *A->S->pa->co[sy][jdz][l] + c_ice*A->S->SS->thi->co[l][A->T->j_cont[r][c]] +
-                                   c_liq*th;
+				*A->S->pa->co[sy][jdz][l] + c_ice*A->S->SS->thi->co[l][A->T->j_cont[r][c]] +
+				c_liq*th;
                               th0 = th;
 
                               th = theta_from_psi(L->P->co[l][A->T->j_cont[r][c]],
                                                   L->thi->co[l][A->T->j_cont[r][c]], l, A->S->pa->co[sy], PsiMin);
-                              if (th > A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]]) th =
-                                  A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]];
+			      
+                              if (th > A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]])
+				th = A->S->pa->co[sy][jsat][l]-L->thi->co[l][A->T->j_cont[r][c]];
                               C1 = A->S->pa->co[sy][jct][l]*(1.-A->S->pa->co[sy][jsat][l])
-                                   *A->S->pa->co[sy][jdz][l] + c_ice*L->thi->co[l][A->T->j_cont[r][c]] +
-                                   c_liq*th;
+				*A->S->pa->co[sy][jdz][l] + c_ice*L->thi->co[l][A->T->j_cont[r][c]] +
+				c_liq*th;
 
                               A->S->dUzrun->co[j][l] += 1.E-6*( 0.5*(C0+C1)*(L->T->co[l][A->T->j_cont[r][c]]
                                                                              - A->S->SS->T->co[l][A->T->j_cont[r][c]]) + Lf*(th-th0)
@@ -429,7 +431,7 @@ void time_loop(ALLDATA *A)
                   //write state variables
                   copy_snowvar3D(S.get(), A->N->S);
                   *(A->N->age) = *a;
-//                  copy_doublevector(a.get(), A->N->age.get());
+		  //                  copy_doublevector(a.get(), A->N->age.get());
                   if (A->P->max_glac_layers>0) copy_snowvar3D(G.get(), A->G->G);
                   copy_soil_state(L.get(), A->S->SS);
                   copy_soil_state(C.get(), A->C->SS);
@@ -477,9 +479,10 @@ void time_loop(ALLDATA *A)
         }
       while (i_run <= A->P->run_times->co[i_sim]);//end of time-cycle
 
-      if (A->P->newperiodinit != 0) end_period_1D(A->S.get(), A->T.get(), A->P.get());
-      if (i_sim < A->P->init_date->nh) change_grid(i_sim, i_sim+1, A->P.get(), A->T.get(), A->L.get(),
-                                                     A->W.get(), A->C.get());
+      if (A->P->newperiodinit != 0)
+	end_period_1D(A->S.get(), A->T.get(), A->P.get());
+      if (i_sim < A->P->init_date->nh)
+	change_grid(i_sim, i_sim+1, A->P.get(), A->T.get(), A->L.get(), A->W.get(), A->C.get());
 
       reset_to_zero(A->P.get(), A->S.get(), A->L.get(), A->N.get(), A->G.get(), A->E.get(), A->M.get(), A->W.get());
       init_run(A->S.get(), A->P.get());
