@@ -527,7 +527,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct PAR "par": */
   printf("Deallocating par\n");
-  free_shortvector(par->vegflag);
   if (par->state_pixel == 1)
     {
       free_longvector(par->jplot);

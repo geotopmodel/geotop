@@ -435,7 +435,8 @@ typedef struct {
 
   short LRflag;
 
-  SHORTVECTOR *vegflag;
+  //SHORTVECTOR *vegflag;
+  std::unique_ptr<Vector<short>> vegflag;
 
   //short harm_or_arit_mean_normal;
   //short harm_or_arit_mean_parallel;
