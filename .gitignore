@@ -50,3 +50,6 @@ failing_output
 
 # Emacs back-up files
 *~
+
+# Ouput from IDEs
+.idea/
