@@ -48,10 +48,12 @@ Failing tests: 2/22.
 - 1D/PureDrainageRainy.test_runner
 - 1D/PureDrainageRainySlope.test_runner
 
-Anyway in both cases the absolute difference between the output of
-the 3.0 and 2.0 version are between e-5 and e+3
-and are related parameters such as
-Wind_direction[deg], LObukhov[m], LWin_min[W/m2] and others.
+Anyway in both cases the differences between the output of
+the 3.0 and 2.0 version are related to parameters such as
+Wind_direction[deg], LObukhov[m], LWin_min[W/m2] and others
+but are of the orders:
+- absolute error:  [e-5, e+3] (mostly e-4)
+- relative error: [e-5, e-1] (mostly e-5)
 
 __Error example__ (15:Wind_direction[deg]; 56:LObukhov[m])
 * 1D/PureDrainageRainy.test_runner
