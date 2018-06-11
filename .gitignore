@@ -53,3 +53,6 @@ failing_output
 
 # Ouput from IDEs
 .idea/
+
+# Doxygen folder
+*doxygen_generated_doc/*
