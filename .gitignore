@@ -29,7 +29,8 @@
 *.hex
 
 *build*
-#Testing
+
+# Testing
 _SUCCESSFUL_RUN*
 _FAILED_RUN*
 _TEST_FAILED*
@@ -46,3 +47,6 @@ output_maps/
 input*
 failing_output
 *.log
+
+# Emacs back-up files
+*~
