@@ -1,12 +1,15 @@
 # General infos
-Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
-Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
-Author: Elisa Bortoli (elisa.bortoli3@gmail.com)
-Date: 28-03-2018
+- Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+- Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+- Author: Elisa Bortoli (elisa.bortoli3@gmail.com)
+- Date: 11-06-2018
 
-# 1D tests
+## 1D tests
 
-## Cmake
+### Cmake
+Failing tests: 0/12.
+
+The full output is:
 ```
 elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/build-release-cmake[v3.0*] $ ctest -R "1D" -j4
 Test project /home/elisa/Scrivania/MHPC/geotop_3.0/build-release-cmake
@@ -40,7 +43,40 @@ Test project /home/elisa/Scrivania/MHPC/geotop_3.0/build-release-cmake
 Total Test time (real) =  19.92 sec
 ```
 
-## Meson
+### Meson
+Failing tests: 2/22.
+- 1D/PureDrainageRainy.test_runner
+- 1D/PureDrainageRainySlope.test_runner
+
+Anyway in both cases the absolute difference between the output of
+the 3.0 and 2.0 version are between e-5 and e+3
+and are related parameters such as
+Wind_direction[deg], LObukhov[m], LWin_min[W/m2] and others.
+
+__Error example__ (15:Wind_direction[deg]; 56:LObukhov[m])
+* 1D/PureDrainageRainy.test_runner
+```
+##48      #:15  <== 300.476188
+##48      #:15  ==> 268.296440
+@ Absolute error = 3.2179748000e+1, Relative error = 1.1994101748e-1
+
+##277     #:56  <== -5376.755682
+##277     #:56  ==> -8002.080200
+@ Absolute error = 2.6253245180e+3, Relative error = 4.8827297971e-1
+```
+
+* PureDrainageRainySlope.test_runner
+```
+##48      #:15  <== 295.126323
+##48      #:15  ==> 268.317256
+@ Absolute error = 2.6809067000e+1, Relative error = 9.9915552953e-2
+
+##289     #:56  <== 1619.510720
+##289     #:56  ==> 1578.573120
+@ Absolute error = 4.0937600000e+1, Relative error = 2.5933293480e-2
+```
+
+The full output is:
 ```
 elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/build-release-meson[v3.0*] $ meson test --suite geotop:1D
 ninja: Entering directory `/home/elisa/Scrivania/MHPC/geotop_3.0/build-release-meson'
@@ -76,10 +112,15 @@ SKIP:       0
 TIMEOUT:    0
 ```
 
-# 3D tests
+## 3D tests
 
+### Cmake
+Failing tests: 15/20.
 
-## Cmake
+The 3D case has still to be checked.
+
+The full output is:
+
 ```
 Test project /home/elisa/Scrivania/MHPC/geotop_3.0/build-release-cmake
       Start 13: 3D/Borden05m
@@ -146,7 +187,12 @@ The following tests FAILED:
 Errors while running CTest
 ```
 
-## Meson
+### Meson
+Failing tests: 28/40.
+
+The 3D case has still to be checked.
+
+The full output is:
 ```
 elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/build-release-meson[v3.0*] $ meson test --suite geotop:3D
 ninja: Entering directory `/home/elisa/Scrivania/MHPC/geotop_3.0/build-release-meson'
