@@ -1,0 +1,9 @@
+#ifndef geotop_config_h
+#define geotop_config_h
+
+#mesondefine COMPILER_HAS_DIAGNOSTIC_PRAGMA
+
+// macros DISABLE_WARNINGS and ENABLE_WARNINGS
+// #include "warnings.h"
+
+#endif
