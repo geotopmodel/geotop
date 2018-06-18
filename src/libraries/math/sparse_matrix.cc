@@ -67,10 +67,10 @@ int get_upper_diagonal(Vector<double> *udiagonal, Vector<double> *x0, double dt,
    * \author Emanuele Cordano,Stefano Endrizzi
    * \date May August 2009
    *
-   *\param diagonal (Vector<double>* ) - the upper diagonal doublevector of the matrix
+   *\param diagonal (Vector<double>* ) - the upper diagonal double vector of the matrix
    *\param Matrix (t_Matrix) - a matrix from which the diagonal is extracted
    *
-   *\brief it saved  the upper diagonal of Matrix in a doublevector
+   *\brief it saved  the upper diagonal of Matrix in a double vector
    *
    *\return 0 in case of success , -1 otherwise
    *
@@ -109,7 +109,7 @@ long CG(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
    *\param epsilon - (double) required tollerance (2-order norm of the residuals)
    *\param x     - (Vector<double>* ) vector of the unknowns x in Ax=b
    *\param b     - (Vector<double>* ) vector of b in Ax=b
-   *\param funz  - (t_Matrix_element_with_voidp) - (int) pointer to the application A (x and y doublevector y=A(param)x ) it return 0 in case of success, -1 otherwise.
+   *\param funz  - (t_Matrix_element_with_voidp) - (int) pointer to the application A (x and y double vector y=A(param)x ) it return 0 in case of success, -1 otherwise.
    *\param data - (void *) data and parameters related to the  argurment  t_Matrix_element_with_voidp funz
    *
    *
@@ -269,8 +269,6 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
   udiag.reset(new Vector<double> {x->nh-1});
   y.reset(new Vector<double> {x->nh});
   z.reset(new Vector<double> {x->nh});
-  //tt = new_doublevector(x->nh);
-  //ss = new_doublevector(x->nh);
 
   get_diagonal(diag.get(),x0,dt,function,data);
   get_upper_diagonal(udiag.get(),x0,dt,function,data);
@@ -604,8 +602,6 @@ long BiCGSTAB_diag(double tol_rel, double tol_min, double tol_max,
   y.reset(new Vector<double>{x->nh});
   z.reset(new Vector<double>{x->nh});
   d.reset(new Vector<double>{x->nh});
-  //ss = new_doublevector(x->nh);
-  //tt = new_doublevector(x->nh);
 
   for (j=1; j<=x->nh; j++)
     {
