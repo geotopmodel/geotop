@@ -1,7 +1,5 @@
 #define RATIO 1000
 
-void initialize_shortvector(SHORTVECTOR *,short );
-
 void initialize_longmatrix(LONGMATRIX *, long);
 void initialize_shortmatrix(SHORTMATRIX *,short );
 

@@ -98,22 +98,6 @@ typedef struct
 } FLOATVECTOR;
 
 
-typedef struct
-{
-
-  short isdynamic;
-
-  const char *name;
-
-  long nl,nh;
-
-  short *co;
-
-
-
-} SHORTVECTOR;
-
-
 /**-------------------------------------------------------------------
 
 MATRIXES: The same types as for vectors except for char:
