@@ -1711,9 +1711,9 @@ Mean Time Step=%f s\n\n",
         {
           for (i=1; i<=par->total_pixel; i++)
             {
-              if (egy->nDt_sun->co[i]>0)
+              if ((*egy->nDt_sun)(i)>0)
                 {
-                  V->co[i] = egy->nDt_shadow->co[i]/(double)(egy->nDt_sun->co[i]);
+                  V->co[i] = (*egy->nDt_shadow)(i)/(double)((*egy->nDt_sun)(i));
                 }
               else
                 {
@@ -1723,8 +1723,8 @@ Mean Time Step=%f s\n\n",
 
           name=join_strings(files[fshadow],s2);
           write_map_vector(name, 0, par->format_out, V.get(), UV, number_novalue, top->j_cont, Nr, Nc);
-          initialize_longvector(egy->nDt_shadow, 0.);
-          initialize_longvector(egy->nDt_sun, 0.);
+          (*egy->nDt_shadow) = 0;
+          (*egy->nDt_sun) = 0;
           free(name);
         }
 
@@ -4896,8 +4896,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
           if (strcmp(files[fshadow], string_novalue) != 0)
             {
-              if (egy->shad->co[j] >= 0) egy->nDt_sun->co[j] ++;
-              if (egy->shad->co[j] == 0) egy->nDt_shadow->co[j] ++;
+              if (egy->shad->co[j] >= 0) (*egy->nDt_sun)(j) ++;
+              if (egy->shad->co[j] == 0) (*egy->nDt_shadow)(j) ++;
             }
         }
       if (par->output_meteo->co[i_sim]>0)
@@ -5518,9 +5518,6 @@ void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
         }
       free(top->i_cont);
 
-      free_longvector(top->Li);
-      free_longvector(top->Lp);
-
       //reallocate vectors with n_next components
       top->i_cont=(long ***)malloc((n_next+1)*sizeof(long **));
       for (l=0; l<=n_next; l++)
@@ -5539,25 +5536,25 @@ void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
         {
           cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont,
                                       top->i_cont, par->total_pixel, par->total_channel, n_next);
-          top->Li = new_longvector(i);
-          top->Lp = new_longvector(j);
-          wat->Lx.reset(new Vector<double>{i});
-          cont_nonzero_values_matrix3(top->Lp, top->Li, cnet, land->LC, top->lrc_cont,
+            top->Li.reset(new Vector<long>{i});
+            top->Lp.reset(new Vector<long>{j});
+            wat->Lx.reset(new Vector<double>{i});
+          cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC, top->lrc_cont,
                                       top->i_cont, par->total_pixel, par->total_channel, n_next);
         }
       else
         {
           i = n_next;
           j = n_next+1;
-          top->Li = new_longvector(i);
-          top->Lp = new_longvector(j);
+            top->Li.reset(new Vector<long>{i});
+            top->Lp.reset(new Vector<long>{j});
           wat->Lx.reset(new Vector<double>{i});
           for (l=1; l<=n_next; l++)
             {
-              top->Li->co[l] = l+1;
-              top->Lp->co[l] = l;
+                (*top->Li)(l) = l+1;
+                (*top->Lp)(l) = l;
             }
-          top->Lp->co[j] = i;
+            (*top->Lp)(j) = i;
         }
 
       wat->H0.reset(new Vector<double> {j});

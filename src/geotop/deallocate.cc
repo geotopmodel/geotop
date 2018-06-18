@@ -239,10 +239,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free(top->j_cont);
 
   free_doubletensor(top->Z);
-
-  free_longvector(top->Lp);
-  free_longvector(top->Li);
-
+  
   free_longmatrix(top->BC_counter);
 
   if (par->point_sim==1)
@@ -316,8 +313,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
-          free_longvector(egy->nDt_shadow);
-          free_longvector(egy->nDt_sun);
           free_shortvector(egy->shad);
         }
     }
@@ -647,8 +642,8 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac,
 
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
-          initialize_longvector(egy->nDt_shadow, 0);
-          initialize_longvector(egy->nDt_sun, 0);
+          (*egy->nDt_shadow) = 0;
+          (*egy->nDt_sun) = 0;
         }
 
     }

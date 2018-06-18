@@ -330,7 +330,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
             adt->C->Kbottom.get());
 
   product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
-                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
+                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
   res = norm_inf(adt->W->B.get(), 1, N);
 
@@ -376,7 +376,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
 
       //CONJUGATED GRADIENTS ALGORITHM
       iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC,
-                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li, adt->T->Lp,
+                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li.get(), adt->T->Lp.get(),
                                                                   adt->W->Lx.get());
       if (iter==-1) return 1; //does not converge
 
@@ -442,7 +442,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
                     adt->C->Kbottom.get());
 
           product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
-                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
+                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
           res = norm_inf(adt->W->B.get(), 1, N);
           //printf("..res:%e\n",res);
@@ -697,7 +697,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
             adt->W->Kbottom);
 
   product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
-                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
+                                                        adt->W->f.get(), adt->W->H1.get(), adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
   res = norm_inf(adt->W->B.get(), 1, N);
 
@@ -740,7 +740,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
 
       //CONJUGATED GRADIENTS ALGORITHM
       iter = BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(mu, tol_min_GC,
-                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li, adt->T->Lp,
+                                                                  tol_max_GC, adt->W->dH.get(), adt->W->B.get(), adt->W->df.get(), adt->T->Li.get(), adt->T->Lp.get(),
                                                                   adt->W->Lx.get());
       if (iter==-1)
         {
@@ -821,7 +821,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
                     adt->W->Kbottom);
 
           product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(),
-                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li, adt->T->Lp, adt->W->Lx.get());
+                                                                adt->W->f.get(), adt->W->H1.get(), adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
           res = norm_inf(adt->W->B.get(), 1, N);
 

@@ -362,7 +362,7 @@ by the Newton direction */
 /******************************************************************************************************************************************/
 
 void product_using_only_lower_diagonal_part(Vector<double> *product,
-                                            Vector<double> *x, LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
+                                            Vector<double> *x, Vector<long> *Ai, Vector<long> *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -399,7 +399,7 @@ void product_using_only_lower_diagonal_part(Vector<double> *product,
 /******************************************************************************************************************************************/
 
 void product_using_only_upper_diagonal_part(Vector<double> *product,
-                                            Vector<double> *x, LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
+                                            Vector<double> *x, Vector<long> *Ai, Vector<long> *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -435,7 +435,7 @@ void product_using_only_upper_diagonal_part(Vector<double> *product,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 void lower_matrix_product(Vector<double> *product, Vector<double> *x,
-                          LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
+                          Vector<long> *Ai, Vector<long> *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -468,7 +468,7 @@ void lower_matrix_product(Vector<double> *product, Vector<double> *x,
 /******************************************************************************************************************************************/
 
 void upper_matrix_product(Vector<double> *product, Vector<double> *x,
-                          LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double> *Ax)
+                          Vector<long> *Ai, Vector<long> *Ap, Vector<double> *Ax)
 {
 
   long c, r, i;
@@ -503,7 +503,7 @@ void upper_matrix_product(Vector<double> *product, Vector<double> *x,
 
 long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
                                Vector<double> *x, Vector<double> *b,
-                               LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
+                               Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
 
   std::unique_ptr<Vector<double>> r0, r, p, v, s, t;
@@ -586,7 +586,7 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
 
 long BiCGSTAB_diag(double tol_rel, double tol_min, double tol_max,
                    Vector<double> *x, Vector<double> *b,
-                   LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
+                   Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
 
   std::unique_ptr<Vector<double>> r0, r, p, v, s, t, y, z, d;
@@ -687,8 +687,8 @@ long BiCGSTAB_diag(double tol_rel, double tol_min, double tol_max,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void get_diag_lower_matrix(Vector<double>* diag, Vector<double>* udiag,
-                           LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax)
+void get_diag_lower_matrix(Vector<double> *diag, Vector<double> *udiag,
+                           Vector<long> *Ai, Vector<long> *Ap, Vector<double> *Ax)
 {
 
   long i, ilim;
@@ -725,7 +725,7 @@ void get_diag_lower_matrix(Vector<double>* diag, Vector<double>* udiag,
 /******************************************************************************************************************************************/
 
 void get_diag_upper_matrix(Vector<double>* diag, Vector<double>* udiag,
-                           LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax)
+                           Vector<long> *Ai, Vector<long> *Ap, Vector<double>* Ax)
 {
 
   long i, ilim;
@@ -762,7 +762,7 @@ void get_diag_upper_matrix(Vector<double>* diag, Vector<double>* udiag,
 
 long BiCGSTAB_lower(double tol_rel, double tol_min, double tol_max,
                     Vector<double>* x, Vector<double>* b,
-                    LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax)
+                    Vector<long> *Ai, Vector<long> *Ap, Vector<double>* Ax)
 {
 
   std::unique_ptr<Vector<double>> r0, r, p, v, s, t, diag, udiag, y, z;
@@ -855,7 +855,7 @@ long BiCGSTAB_lower(double tol_rel, double tol_min, double tol_max,
 
 long BiCGSTAB_upper(double tol_rel, double tol_min, double tol_max,
                     Vector<double>* x, Vector<double>* b,
-                    LONGVECTOR *Ai, LONGVECTOR *Ap, Vector<double>* Ax)
+                    Vector<long> *Ai, Vector<long> *Ap, Vector<double>* Ax)
 {
 
   std::unique_ptr<Vector<double>> r0, r, p, v, s, t, diag, udiag, y, z;
@@ -946,8 +946,8 @@ long BiCGSTAB_upper(double tol_rel, double tol_min, double tol_max,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void solve_upper_diagonal_system(Vector<double>* x, Vector<double>* B,
-                                 LONGVECTOR *Ait, LONGVECTOR *Apt, Vector<double>* Axt)
+void solve_upper_diagonal_system(Vector<double> *x, Vector<double> *B,
+                                 Vector<long> *Ait, Vector<long> *Apt, Vector<double> *Axt)
 {
 
   //Ait, Apt, Axt are the transposed matrix (lower diagonal)
@@ -985,7 +985,7 @@ void solve_upper_diagonal_system(Vector<double>* x, Vector<double>* B,
 /******************************************************************************************************************************************/
 
 void solve_lower_diagonal_system(Vector<double>* x, Vector<double>* B,
-                                 LONGVECTOR *Ait, LONGVECTOR *Apt, Vector<double>* Axt)
+                                 Vector<long> *Ait, Vector<long> *Apt, Vector<double>* Axt)
 {
 
   //Ait, Apt, Axt are the transposed matrix (upper diagonal)
@@ -1023,8 +1023,8 @@ void solve_lower_diagonal_system(Vector<double>* x, Vector<double>* B,
 /******************************************************************************************************************************************/
 
 void solve_SSOR_preconditioning(double w, Vector<double>* x, Vector<double>* B,
-                                LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx,
-                                LONGVECTOR *Ui, LONGVECTOR *Up, Vector<double>* Ux)
+                                Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx,
+                                Vector<long> *Ui, Vector<long> *Up, Vector<double>* Ux)
 {
 
   //L D-1 U x  = B
@@ -1076,8 +1076,8 @@ void solve_SSOR_preconditioning(double w, Vector<double>* x, Vector<double>* B,
 
 long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
                       double tol_max, Vector<double>* x, Vector<double>* b,
-                      LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx, LONGVECTOR *Ui,
-                      LONGVECTOR *Up, Vector<double>* Ux)
+                      Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<long> *Ui,
+                      Vector<long> *Up, Vector<double>* Ux)
 {
 
   std::unique_ptr<Vector<double>> r0, r, p, v, s, t, y, z, ss, tt;
@@ -1169,7 +1169,7 @@ long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
 //FURTHER PERSONALIZATION OF THE FUNCTIONS ABOVE
 
 void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
-                                                   Vector<double>* x, LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx)
+                                                   Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
 
   long c, r, i;
@@ -1215,7 +1215,7 @@ void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
 
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
   Vector<double>* product, Vector<double>* x, Vector<double>* y,
-  LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx)
+  Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
 
   long i, r, c;
@@ -1260,7 +1260,7 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
 
 void get_diag_strict_lower_matrix_plus_identity_by_vector(Vector<double>* diag,
                                                           Vector<double>* udiag, Vector<double>* y,
-                                                          LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double>* Lx)
+                                                          Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
 
   long i, r, c;
@@ -1298,8 +1298,8 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(Vector<double>* diag,
 
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           double tol_min, double tol_max, Vector<double> *x,
-                                                          Vector<double> *b, Vector<double> *y, LONGVECTOR *Li,
-                                                          LONGVECTOR *Lp,
+                                                          Vector<double> *b, Vector<double> *y, Vector<long> *Li,
+                                                          Vector<long> *Lp,
                                                           Vector<double> *Lx)
 {
 
@@ -1419,7 +1419,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
 
 void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
-                                                           LONGVECTOR *Li, LONGVECTOR *Lp, Vector<double> *Lx)
+                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
 
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part

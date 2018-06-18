@@ -28,220 +28,221 @@
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-  std::unique_ptr<Vector<double>> Rn_mean;
-  std::unique_ptr<Vector<double>> LWin_mean;
-  std::unique_ptr<Vector<double>> LW_mean;
-  std::unique_ptr<Vector<double>> SW_mean;
-  std::unique_ptr<Vector<double>> ET_mean;
-  std::unique_ptr<Vector<double>> H_mean;
-  std::unique_ptr<Vector<double>> SEB_mean;
-  std::unique_ptr<Vector<double>>
-          Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
-  std::unique_ptr<Vector<double>> Rswdown_mean;
-  std::unique_ptr<Vector<double>> Rswbeam_mean;
-  LONGVECTOR *nDt_shadow;
-  LONGVECTOR *nDt_sun;
+    std::unique_ptr<Vector<double>> Rn_mean;
+    std::unique_ptr<Vector<double>> LWin_mean;
+    std::unique_ptr<Vector<double>> LW_mean;
+    std::unique_ptr<Vector<double>> SW_mean;
+    std::unique_ptr<Vector<double>> ET_mean;
+    std::unique_ptr<Vector<double>> H_mean;
+    std::unique_ptr<Vector<double>> SEB_mean;
+    std::unique_ptr<Vector<double>>
+            Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> Rswdown_mean;
+    std::unique_ptr<Vector<double>> Rswbeam_mean;
+    std::unique_ptr<Vector<long>> nDt_shadow;
+    std::unique_ptr<Vector<long>> nDt_sun;
 
-  std::unique_ptr<Vector<double>> Rn;
-  std::unique_ptr<Vector<double>> LWin;
-  std::unique_ptr<Vector<double>> LW;
-  std::unique_ptr<Vector<double>> SW;
-  std::unique_ptr<Vector<double>> LE;
-  std::unique_ptr<Vector<double>> H;
-  std::unique_ptr<Vector<double>> G;
-  std::unique_ptr<Vector<double>> Ts;
-  std::unique_ptr<Vector<double>> SWin;
-  std::unique_ptr<Vector<double>> SWinb;
-  SHORTVECTOR *shad;
+    std::unique_ptr<Vector<double>> Rn;
+    std::unique_ptr<Vector<double>> LWin;
+    std::unique_ptr<Vector<double>> LW;
+    std::unique_ptr<Vector<double>> SW;
+    std::unique_ptr<Vector<double>> LE;
+    std::unique_ptr<Vector<double>> H;
+    std::unique_ptr<Vector<double>> G;
+    std::unique_ptr<Vector<double>> Ts;
+    std::unique_ptr<Vector<double>> SWin;
+    std::unique_ptr<Vector<double>> SWinb;
+    SHORTVECTOR *shad;
 
-  std::unique_ptr<Vector<double>> Hgplot;
-  std::unique_ptr<Vector<double>> LEgplot;
-  std::unique_ptr<Vector<double>> Hvplot;
-  std::unique_ptr<Vector<double>> LEvplot;
-  std::unique_ptr<Vector<double>> SWinplot;
-  std::unique_ptr<Vector<double>> SWgplot;
-  std::unique_ptr<Vector<double>> SWvplot;
-  std::unique_ptr<Vector<double>> LWinplot;
-  std::unique_ptr<Vector<double>> LWgplot;
-  std::unique_ptr<Vector<double>> LWvplot;
-  std::unique_ptr<Vector<double>> Tgplot;
-  std::unique_ptr<Vector<double>> Tsplot;
-  std::unique_ptr<Vector<double>> Tvplot;
+    std::unique_ptr<Vector<double>> Hgplot;
+    std::unique_ptr<Vector<double>> LEgplot;
+    std::unique_ptr<Vector<double>> Hvplot;
+    std::unique_ptr<Vector<double>> LEvplot;
+    std::unique_ptr<Vector<double>> SWinplot;
+    std::unique_ptr<Vector<double>> SWgplot;
+    std::unique_ptr<Vector<double>> SWvplot;
+    std::unique_ptr<Vector<double>> LWinplot;
+    std::unique_ptr<Vector<double>> LWgplot;
+    std::unique_ptr<Vector<double>> LWvplot;
+    std::unique_ptr<Vector<double>> Tgplot;
+    std::unique_ptr<Vector<double>> Tsplot;
+    std::unique_ptr<Vector<double>> Tvplot;
 
-  std::unique_ptr<Vector<double>> Hgp;
-  std::unique_ptr<Vector<double>> LEgp;
-  std::unique_ptr<Vector<double>> Hvp;
-  std::unique_ptr<Vector<double>> LEvp;
-  std::unique_ptr<Vector<double>> SWinp;
-  std::unique_ptr<Vector<double>> SWgp;
-  std::unique_ptr<Vector<double>> SWvp;
-  std::unique_ptr<Vector<double>> LWinp;
-  std::unique_ptr<Vector<double>> LWgp;
-  std::unique_ptr<Vector<double>> LWvp;
-  std::unique_ptr<Vector<double>> Tgp;
-  std::unique_ptr<Vector<double>> Tsp;
+    std::unique_ptr<Vector<double>> Hgp;
+    std::unique_ptr<Vector<double>> LEgp;
+    std::unique_ptr<Vector<double>> Hvp;
+    std::unique_ptr<Vector<double>> LEvp;
+    std::unique_ptr<Vector<double>> SWinp;
+    std::unique_ptr<Vector<double>> SWgp;
+    std::unique_ptr<Vector<double>> SWvp;
+    std::unique_ptr<Vector<double>> LWinp;
+    std::unique_ptr<Vector<double>> LWgp;
+    std::unique_ptr<Vector<double>> LWvp;
+    std::unique_ptr<Vector<double>> Tgp;
+    std::unique_ptr<Vector<double>> Tsp;
 
-  double *sun;
-  double hsun;
-  double sinhsun;
-  double dsun;
+    double *sun;
+    double hsun;
+    double sinhsun;
+    double dsun;
 
-  std::unique_ptr<Vector<double>> Dlayer;
-  std::unique_ptr<Vector<double>> liq;
-  std::unique_ptr<Vector<double>> ice;
-  std::unique_ptr<Vector<double>> Temp;
-  std::unique_ptr<Vector<double>> deltaw;
-  std::unique_ptr<Vector<double>> SWlayer;
-  std::unique_ptr<Vector<double>> soil_transp_layer;
-  std::unique_ptr<Vector<double>> dFenergy;
-  std::unique_ptr<Vector<double>> udFenergy;
-  std::unique_ptr<Vector<double>> Kth0;
-  std::unique_ptr<Vector<double>> Kth1;
-  std::unique_ptr<Vector<double>> Fenergy;
-  std::unique_ptr<Vector<double>> Newton_dir;
-  std::unique_ptr<Vector<double>> T0;
-  std::unique_ptr<Vector<double>> T1;
-  std::unique_ptr<Vector<double>> Tstar;
-  std::unique_ptr<Vector<double>> THETA;
-  std::unique_ptr<Vector<double>> soil_evap_layer_bare;
-  std::unique_ptr<Vector<double>> soil_evap_layer_veg;
+    std::unique_ptr<Vector<double>> Dlayer;
+    std::unique_ptr<Vector<double>> liq;
+    std::unique_ptr<Vector<double>> ice;
+    std::unique_ptr<Vector<double>> Temp;
+    std::unique_ptr<Vector<double>> deltaw;
+    std::unique_ptr<Vector<double>> SWlayer;
+    std::unique_ptr<Vector<double>> soil_transp_layer;
+    std::unique_ptr<Vector<double>> dFenergy;
+    std::unique_ptr<Vector<double>> udFenergy;
+    std::unique_ptr<Vector<double>> Kth0;
+    std::unique_ptr<Vector<double>> Kth1;
+    std::unique_ptr<Vector<double>> Fenergy;
+    std::unique_ptr<Vector<double>> Newton_dir;
+    std::unique_ptr<Vector<double>> T0;
+    std::unique_ptr<Vector<double>> T1;
+    std::unique_ptr<Vector<double>> Tstar;
+    std::unique_ptr<Vector<double>> THETA;
+    std::unique_ptr<Vector<double>> soil_evap_layer_bare;
+    std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
-  DOUBLEMATRIX *Tgskin_surr;
-  DOUBLEMATRIX *SWrefl_surr;
+    DOUBLEMATRIX *Tgskin_surr;
+    DOUBLEMATRIX *SWrefl_surr;
 
 } ENERGY;
 
 /*---------------------------------------------------------------------------*/
 
 struct SOIL_STATE {
-  SOIL_STATE(const long n, const long nl);
+    SOIL_STATE(const long n, const long nl);
 
-  virtual ~SOIL_STATE();
+    virtual ~SOIL_STATE();
 
-  DOUBLEMATRIX *P;
-  DOUBLEMATRIX *thi;
-  DOUBLEMATRIX *T;
+    DOUBLEMATRIX *P;
+    DOUBLEMATRIX *thi;
+    DOUBLEMATRIX *T;
 };
 
 /*---------------------------------------------------------------------------*/
 
 struct STATE_VEG {
 
-  std::unique_ptr<Vector<double>> Tv;
-  std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
-  std::unique_ptr<Vector<double>> wsnow;       /*intercepted precipitation in mm*/
+    std::unique_ptr<Vector<double>> Tv;
+    std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
+    std::unique_ptr<Vector<double>> wsnow;       /*intercepted precipitation in mm*/
 
 };
 
 /*---------------------------------------------------------------------------*/
 
 struct SOIL {
-  LONGMATRIX *type;
-  DOUBLETENSOR *pa;
-  DOUBLEMATRIX *T_av_tensor;
-  DOUBLEMATRIX *thw_av_tensor;
-  DOUBLEMATRIX *thi_av_tensor;
-  DOUBLEMATRIX *Ptot;
-  DOUBLEMATRIX *th;
-  DOUBLETENSOR *ET;
-  DOUBLEMATRIX *Tzplot;
-  DOUBLEMATRIX *Tzavplot;
-  DOUBLEMATRIX *Ptotzplot;
-  DOUBLEMATRIX *Pzplot;
-  DOUBLEMATRIX *thzplot;
-  DOUBLEMATRIX *thzavplot;
-  DOUBLEMATRIX *thizplot;
-  DOUBLEMATRIX *thizavplot;
-  DOUBLEMATRIX *satratio;
-  SOIL_STATE *SS;
-  std::unique_ptr<STATE_VEG> VS;
+    LONGMATRIX *type;
+    DOUBLETENSOR *pa;
+    DOUBLEMATRIX *T_av_tensor;
+    DOUBLEMATRIX *thw_av_tensor;
+    DOUBLEMATRIX *thi_av_tensor;
+    DOUBLEMATRIX *Ptot;
+    DOUBLEMATRIX *th;
+    DOUBLETENSOR *ET;
+    DOUBLEMATRIX *Tzplot;
+    DOUBLEMATRIX *Tzavplot;
+    DOUBLEMATRIX *Ptotzplot;
+    DOUBLEMATRIX *Pzplot;
+    DOUBLEMATRIX *thzplot;
+    DOUBLEMATRIX *thzavplot;
+    DOUBLEMATRIX *thizplot;
+    DOUBLEMATRIX *thizavplot;
+    DOUBLEMATRIX *satratio;
+    SOIL_STATE *SS;
+    std::unique_ptr<STATE_VEG> VS;
 
-  DOUBLEMATRIX *Tzrun;
-  DOUBLEMATRIX *wzrun;
-  DOUBLEMATRIX *dUzrun;
-  DOUBLEMATRIX *SWErun;
+    DOUBLEMATRIX *Tzrun;
+    DOUBLEMATRIX *wzrun;
+    DOUBLEMATRIX *dUzrun;
+    DOUBLEMATRIX *SWErun;
 
-  DOUBLEMATRIX *Tzmaxrun;
-  DOUBLEMATRIX *wzmaxrun;
-  DOUBLEMATRIX *Tzminrun;
-  DOUBLEMATRIX *wzminrun;
+    DOUBLEMATRIX *Tzmaxrun;
+    DOUBLEMATRIX *wzmaxrun;
+    DOUBLEMATRIX *Tzminrun;
+    DOUBLEMATRIX *wzminrun;
 
-  std::unique_ptr<Vector<double>> Pnetcum;
-  std::unique_ptr<Vector<double>> ETcum;
+    std::unique_ptr<Vector<double>> Pnetcum;
+    std::unique_ptr<Vector<double>> ETcum;
 
 };
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-  DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
-  DOUBLETENSOR *Z;
+    DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
+    DOUBLETENSOR *Z;
 
-  DOUBLEMATRIX *sky;        //view factor (of the sky) for each pixel
-  SHORTMATRIX *pixel_type;
+    DOUBLEMATRIX *sky;        //view factor (of the sky) for each pixel
+    SHORTMATRIX *pixel_type;
 
-  //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
-  //LONGMATRIX *DDup;
-  //LONGVECTOR *DDdown;
-  //DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
+    //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
+    //LONGMATRIX *DDup;
+    //LONGVECTOR *DDdown;
+    //DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
 
-  DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/
-  DOUBLEMATRIX *slope;     /*slope of the pixels; ex: matr_ev->slope*/
+    DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/
+    DOUBLEMATRIX *slope;     /*slope of the pixels; ex: matr_ev->slope*/
 
-  DOUBLEMATRIX *curvature1;
-  DOUBLEMATRIX *curvature2;
-  DOUBLEMATRIX *curvature3;
-  DOUBLEMATRIX *curvature4;
+    DOUBLEMATRIX *curvature1;
+    DOUBLEMATRIX *curvature2;
+    DOUBLEMATRIX *curvature3;
+    DOUBLEMATRIX *curvature4;
 
-  double ***horizon_height;
-  long *horizon_numlines;
-  LONGMATRIX *horizon_point;
-  long num_horizon_point;
+    double ***horizon_height;
+    long *horizon_numlines;
+    LONGMATRIX *horizon_point;
+    long num_horizon_point;
 
-  long ***i_cont;
-  LONGMATRIX *lrc_cont;
+    long ***i_cont;
+    LONGMATRIX *lrc_cont;
 
-  long **j_cont;
-  LONGMATRIX *rc_cont;
+    long **j_cont;
+    LONGMATRIX *rc_cont;
 
-  LONGVECTOR *Lp;
-  LONGVECTOR *Li;
-  //LONGVECTOR *Up;
-  //LONGVECTOR *Ui;
+    std::unique_ptr<Vector<long>> Lp;
+    std::unique_ptr<Vector<long>> Li;
 
-  LONGMATRIX *Jdown;
-  DOUBLEMATRIX *Qdown;
+    std::unique_ptr<Vector<long>> Up;
+    std::unique_ptr<Vector<long>> Ui;
 
-  SHORTMATRIX *is_on_border;
+    LONGMATRIX *Jdown;
+    DOUBLEMATRIX *Qdown;
 
-  DOUBLEMATRIX *East;
-  DOUBLEMATRIX *North;
+    SHORTMATRIX *is_on_border;
 
-  LONGMATRIX *BC_counter;
-  std::unique_ptr<Vector<double>> BC_DepthFreeSurface;
+    DOUBLEMATRIX *East;
+    DOUBLEMATRIX *North;
 
-  DOUBLEMATRIX *dzdE;
-  DOUBLEMATRIX *dzdN;
+    LONGMATRIX *BC_counter;
+    std::unique_ptr<Vector<double>> BC_DepthFreeSurface;
 
-  DOUBLEMATRIX *latitude;
-  DOUBLEMATRIX *longitude;
+    DOUBLEMATRIX *dzdE;
+    DOUBLEMATRIX *dzdN;
+
+    DOUBLEMATRIX *latitude;
+    DOUBLEMATRIX *longitude;
 
 } TOPO;
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-  DOUBLEMATRIX *LC;            //land cover for each pixel
-  DOUBLEMATRIX *delay;
-  SHORTMATRIX *shadow;      //=1 if shadow, =0 if not
-  DOUBLEMATRIX *ty;
+    DOUBLEMATRIX *LC;            //land cover for each pixel
+    DOUBLEMATRIX *delay;
+    SHORTMATRIX *shadow;      //=1 if shadow, =0 if not
+    DOUBLEMATRIX *ty;
 
-  double ***vegpars;
-  double **vegparv;
-  std::unique_ptr<Vector<double>> vegpar;
-  long *NumlinesVegTimeDepData;
+    double ***vegpars;
+    double **vegparv;
+    std::unique_ptr<Vector<double>> vegpar;
+    long *NumlinesVegTimeDepData;
 
-  DOUBLEMATRIX *root_fraction;
+    DOUBLEMATRIX *root_fraction;
 
 } LAND;/*all this data are calculated on the basis of land use data and some other par*/
 
@@ -250,64 +251,64 @@ typedef struct {
 
 
 typedef struct {
-  /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
-                    R=number of rows of the basin,C=number of columns in the basin*/
-  LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
-  LONGVECTOR
-          *c;          /*array of columns of the channel-pixels; dimension=nch*/
-  LONGMATRIX *ch;
-  LONGVECTOR *ch_down;
-  std::unique_ptr<Vector<double>> Vsup;
-  std::unique_ptr<Vector<double>> Vsub;
-  std::unique_ptr<Vector<double>> h_sup;
-  std::unique_ptr<Vector<double>> length;
-  double Vout;
-  long **ch3;
-  LONGMATRIX *lch;
-  LONGVECTOR *soil_type;
-  DOUBLEMATRIX *th;
-  DOUBLEMATRIX *ET;
-  std::unique_ptr<Vector<double>> Kbottom;
-  SOIL_STATE *SS;
+    /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
+                      R=number of rows of the basin,C=number of columns in the basin*/
+    LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
+    LONGVECTOR
+            *c;          /*array of columns of the channel-pixels; dimension=nch*/
+    LONGMATRIX *ch;
+    LONGVECTOR *ch_down;
+    std::unique_ptr<Vector<double>> Vsup;
+    std::unique_ptr<Vector<double>> Vsub;
+    std::unique_ptr<Vector<double>> h_sup;
+    std::unique_ptr<Vector<double>> length;
+    double Vout;
+    long **ch3;
+    LONGMATRIX *lch;
+    LONGVECTOR *soil_type;
+    DOUBLEMATRIX *th;
+    DOUBLEMATRIX *ET;
+    std::unique_ptr<Vector<double>> Kbottom;
+    SOIL_STATE *SS;
 } CHANNEL;
 
 
 /*---------------------------------------------------------------------------*/
 
 typedef struct {
-  /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
-                     R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-  DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
-  DOUBLEMATRIX
-          *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+    /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
+                       R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
+    DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
+    DOUBLEMATRIX
+            *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
 
-  std::unique_ptr<Vector<double>>
-          PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
-  std::unique_ptr<Vector<double>> PrSNW_mean;
-  std::unique_ptr<Vector<double>> Pt;
-  std::unique_ptr<Vector<double>> Ps;
+    std::unique_ptr<Vector<double>>
+            PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> PrSNW_mean;
+    std::unique_ptr<Vector<double>> Pt;
+    std::unique_ptr<Vector<double>> Ps;
 
-  std::unique_ptr<Vector<double>> h_sup;
+    std::unique_ptr<Vector<double>> h_sup;
 
-  DOUBLEMATRIX *error;
+    DOUBLEMATRIX *error;
 
-  std::unique_ptr<Vector<double>> Lx;
-  std::unique_ptr<Vector<double>> Ux;
+    std::unique_ptr<Vector<double>> Lx;
+    std::unique_ptr<Vector<double>> Ux;
 
-  std::unique_ptr<Vector<double>> H0;
-  std::unique_ptr<Vector<double>> H1;
-  std::unique_ptr<Vector<double>> dH;
-  std::unique_ptr<Vector<double>> B;
-  std::unique_ptr<Vector<double>> f;
-  std::unique_ptr<Vector<double>> df;
-  DOUBLEMATRIX *Klat;
-  DOUBLEMATRIX *Kbottom;
+    std::unique_ptr<Vector<double>> H0;
+    std::unique_ptr<Vector<double>> H1;
+    std::unique_ptr<Vector<double>> dH;
+    std::unique_ptr<Vector<double>> B;
+    std::unique_ptr<Vector<double>> f;
+    std::unique_ptr<Vector<double>> df;
+    DOUBLEMATRIX *Klat;
+    DOUBLEMATRIX *Kbottom;
 
-  double Voutlandsub;
-  double Voutlandsup;
-  double Voutbottom;
+    double Voutlandsub;
+    double Voutlandsup;
+    double Voutbottom;
 
 } WATER;
 
@@ -315,326 +316,326 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
-  std::unique_ptr<Vector<double>> JD_plots;
-  double time;    /*time=current time from the begin of simulation [s]*/
-  long iplot;
-  double **Dt_matrix;
-  long numlinesDt_matrix;
-  double *Dt_vector;
+    std::unique_ptr<Vector<double>> JD_plots;
+    double time;    /*time=current time from the begin of simulation [s]*/
+    long iplot;
+    double **Dt_matrix;
+    long numlinesDt_matrix;
+    double *Dt_vector;
 
 } TIMES;
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-  double Dt;      /*Dt=the integration time interval [s]*/
-  double ST;
-  short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
-  short monin_obukhov;
-  double gamma_m;   /*Exponent of the law of uniform motion on the surface*/
-  double T_rain;    /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
-  double T_snow;    /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
-  double aep;       /*ALBEDO EXTINCTION PARAMETER [m]*/
-  double avo;       /*NEW SNOW VISIBLE BAND REFLECTANCE*/
-  double airo;      /*NEW NEAR INFRARED BAND REFLECTANCE*/
-  double Sr;      /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-  double rho_ice;     /*Ice density [kg/mc]*/
-  long total_pixel;    /*The number of the valid pixel of the whole basin*/
-  long total_channel;
-  double total_area;
+    double Dt;      /*Dt=the integration time interval [s]*/
+    double ST;
+    short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
+    short monin_obukhov;
+    double gamma_m;   /*Exponent of the law of uniform motion on the surface*/
+    double T_rain;    /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
+    double T_snow;    /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
+    double aep;       /*ALBEDO EXTINCTION PARAMETER [m]*/
+    double avo;       /*NEW SNOW VISIBLE BAND REFLECTANCE*/
+    double airo;      /*NEW NEAR INFRARED BAND REFLECTANCE*/
+    double Sr;      /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
+    double rho_ice;     /*Ice density [kg/mc]*/
+    long total_pixel;    /*The number of the valid pixel of the whole basin*/
+    long total_channel;
+    double total_area;
 
-  double max_weq_snow;
-  long max_snow_layers;
-  LONGVECTOR *inf_snow_layers;
+    double max_weq_snow;
+    long max_snow_layers;
+    LONGVECTOR *inf_snow_layers;
 
-  double max_weq_glac;
-  long max_glac_layers;
-  LONGVECTOR *inf_glac_layers;
+    double max_weq_glac;
+    long max_glac_layers;
+    LONGVECTOR *inf_glac_layers;
 
-  double Sr_glac;
+    double Sr_glac;
 
-  short state_turb;
-  short state_lwrad;
+    short state_turb;
+    short state_lwrad;
 
-  double imp;
-  double f_bound_Richards;
+    double imp;
+    double f_bound_Richards;
 
-  double epsilon_snow;
+    double epsilon_snow;
 
-  std::unique_ptr<Vector<double>> output_soil;
-  std::unique_ptr<Vector<double>> output_snow;
-  std::unique_ptr<Vector<double>> output_glac;
-  std::unique_ptr<Vector<double>> output_surfenergy;
-  std::unique_ptr<Vector<double>> output_vegetation;
-  std::unique_ptr<Vector<double>> output_meteo;
+    std::unique_ptr<Vector<double>> output_soil;
+    std::unique_ptr<Vector<double>> output_snow;
+    std::unique_ptr<Vector<double>> output_glac;
+    std::unique_ptr<Vector<double>> output_surfenergy;
+    std::unique_ptr<Vector<double>> output_vegetation;
+    std::unique_ptr<Vector<double>> output_meteo;
 
-  short output_soil_bin;
-  short output_snow_bin;
-  short output_glac_bin;
-  short output_surfenergy_bin;
-  short output_meteo_bin;
+    short output_soil_bin;
+    short output_snow_bin;
+    short output_glac_bin;
+    short output_surfenergy_bin;
+    short output_meteo_bin;
 
-  DOUBLEMATRIX *chkpt;
-  LONGMATRIX *rc;
-  LONGVECTOR *jplot;
+    DOUBLEMATRIX *chkpt;
+    LONGMATRIX *rc;
+    LONGVECTOR *jplot;
 
-  short recover;
+    short recover;
 
-  double Vmin;
+    double Vmin;
 
-  double snowcorrfact;
-  double raincorrfact;
+    double snowcorrfact;
+    double raincorrfact;
 
-  double RHmin;
+    double RHmin;
 
-  short format_out;
-  short sky;
+    short format_out;
+    short sky;
 
-  std::unique_ptr<Vector<double>> saving_points;
-  double ContRecovery;
-  long n_ContRecovery;
+    std::unique_ptr<Vector<double>> saving_points;
+    double ContRecovery;
+    long n_ContRecovery;
 
-  short point_sim;
+    short point_sim;
 
-  double snow_maxpor;
-  double snow_density_cutoff;
-  double drysnowdef_rate;
-  double wetsnowdef_rate;
-  double snow_viscosity;
+    double snow_maxpor;
+    double snow_density_cutoff;
+    double drysnowdef_rate;
+    double wetsnowdef_rate;
+    double snow_viscosity;
 
-  double latitude;
-  double longitude;
+    double latitude;
+    double longitude;
 
-  double z0_snow;
-  long n_landuses;
+    double z0_snow;
+    long n_landuses;
 
-  short blowing_snow;
+    short blowing_snow;
 
-  LONGVECTOR *r_points;
-  LONGVECTOR *c_points;
+    LONGVECTOR *r_points;
+    LONGVECTOR *c_points;
 
-  double psimin;
-  double stmin;
+    double psimin;
+    double stmin;
 
-  short wat_balance;
-  short en_balance;
+    short wat_balance;
+    short en_balance;
 
-  long nLC;
+    long nLC;
 
-  double fetch_up;
-  double fetch_down;
+    double fetch_up;
+    double fetch_down;
 
-  short iobsint;
-  double dn;
-  double slopewt;
-  double curvewt;
-  double slopewtI;
-  double curvewtI;
-  double slopewtD;
-  double curvewtD;
+    short iobsint;
+    double dn;
+    double slopewt;
+    double curvewt;
+    double slopewtI;
+    double curvewtI;
+    double slopewtD;
+    double curvewtD;
 
-  short LRflag;
+    short LRflag;
 
-  //SHORTVECTOR *vegflag;
-  std::unique_ptr<Vector<short>> vegflag;
+    //SHORTVECTOR *vegflag;
+    std::unique_ptr<Vector<short>> vegflag;
 
-  //short harm_or_arit_mean_normal;
-  //short harm_or_arit_mean_parallel;
+    //short harm_or_arit_mean_normal;
+    //short harm_or_arit_mean_parallel;
 
-  long MaxiterTol;
-  double MaxErrWb;
-  double TolVWb;
+    long MaxiterTol;
+    double MaxErrWb;
+    double TolVWb;
 
-  double incr_V_factor;
+    double incr_V_factor;
 
-  double alpha_snow;
-  double tol_energy;
-  long maxiter_energy;
-  long maxiter_canopy;
-  long maxiter_Ts;
-  long maxiter_Loc;
-  long maxiter_Businger;
-  short stabcorr_incanopy;
+    double alpha_snow;
+    double tol_energy;
+    long maxiter_energy;
+    long maxiter_canopy;
+    long maxiter_Ts;
+    long maxiter_Loc;
+    long maxiter_Businger;
+    short stabcorr_incanopy;
 
-  double TolCG;
-  long MaxiterCorr;
-  short UpdateK;
+    double TolCG;
+    long MaxiterCorr;
+    short UpdateK;
 
-  double thres_hsup_1;
-  double thres_hsup_2;
+    double thres_hsup_1;
+    double thres_hsup_2;
 
-  double thres_hchannel;
+    double thres_hchannel;
 
-  double w_dx;
+    double w_dx;
 
-  double RelTolVWb;
+    double RelTolVWb;
 
-  double snow_smin;
-  double snow_smax;
-  double snow_curv;
+    double snow_smin;
+    double snow_smax;
+    double snow_curv;
 
-  double Zboundary;
-  double Tboundary;
-  double Fboundary;
+    double Zboundary;
+    double Tboundary;
+    double Fboundary;
 
-  double Ks_channel;
-  double depr_channel;
+    double Ks_channel;
+    double depr_channel;
 
-  short tsteps_from_file;
+    short tsteps_from_file;
 
-  SHORTVECTOR *plot_discharge_with_Dt_integration;
-  SHORTVECTOR *plot_point_with_Dt_integration;
-  SHORTVECTOR *plot_basin_with_Dt_integration;
+    SHORTVECTOR *plot_discharge_with_Dt_integration;
+    SHORTVECTOR *plot_point_with_Dt_integration;
+    SHORTVECTOR *plot_basin_with_Dt_integration;
 
-  std::unique_ptr<Vector<double>> Dtplot_point;
-  std::unique_ptr<Vector<double>> Dtplot_basin;
-  std::unique_ptr<Vector<double>> Dtplot_discharge;
+    std::unique_ptr<Vector<double>> Dtplot_point;
+    std::unique_ptr<Vector<double>> Dtplot_basin;
+    std::unique_ptr<Vector<double>> Dtplot_discharge;
 
-  short state_pixel;
-  short state_discharge;
-  short state_basin;
+    short state_pixel;
+    short state_discharge;
+    short state_basin;
 
-  double Dt_PBSM;
+    double Dt_PBSM;
 
-  long lowpass;
-  long lowpass_curvatures;
+    long lowpass;
+    long lowpass_curvatures;
 
-  short dew;
+    short dew;
 
-  std::unique_ptr<Vector<double>> init_date;
-  std::unique_ptr<Vector<double>> end_date;
-  LONGVECTOR *run_times;
+    std::unique_ptr<Vector<double>> init_date;
+    std::unique_ptr<Vector<double>> end_date;
+    LONGVECTOR *run_times;
 
-  double delay_day_recover;
+    double delay_day_recover;
 
-  short all_point;
-  short all_basin;
-  short all_snow;
-  short all_glac;
-  short all_soil;
+    short all_point;
+    short all_basin;
+    short all_snow;
+    short all_glac;
+    short all_soil;
 
-  double Wice_PBSM;
+    double Wice_PBSM;
 
-  DOUBLEMATRIX *maxSWE;
+    DOUBLEMATRIX *maxSWE;
 
-  long soil_type_land_default;
-  long soil_type_chan_default;
-  long soil_type_bedr_default;
+    long soil_type_land_default;
+    long soil_type_chan_default;
+    long soil_type_bedr_default;
 
-  double MinIncrFactWithElev;
-  double MaxIncrFactWithElev;
+    double MinIncrFactWithElev;
+    double MaxIncrFactWithElev;
 
-  long nsurface;
+    long nsurface;
 
-  double max_courant_land;
-  double max_courant_channel;
-  double max_courant_land_channel;
-  double min_hsup_land;
-  double min_hsup_channel;
-  double min_dhsup_land_channel_in;
-  double min_dhsup_land_channel_out;
-  double dtmin_sup;
+    double max_courant_land;
+    double max_courant_channel;
+    double max_courant_land_channel;
+    double min_hsup_land;
+    double min_hsup_channel;
+    double min_dhsup_land_channel_in;
+    double min_dhsup_land_channel_out;
+    double dtmin_sup;
 
-  long nsoiltypes;
+    long nsoiltypes;
 
-  LONGVECTOR *IDpoint;
+    LONGVECTOR *IDpoint;
 
-  double min_lambda_en;
-  long max_times_min_lambda_en;
-  short exit_lambda_min_en;
+    double min_lambda_en;
+    long max_times_min_lambda_en;
+    short exit_lambda_min_en;
 
-  double min_lambda_wat;
-  long max_times_min_lambda_wat;
-  short exit_lambda_min_wat;
+    double min_lambda_wat;
+    long max_times_min_lambda_wat;
+    short exit_lambda_min_wat;
 
-  double free_drainage_bottom;
-  double free_drainage_lateral;
+    double free_drainage_bottom;
+    double free_drainage_lateral;
 
-  short surroundings;
+    short surroundings;
 
-  std::unique_ptr<Vector<double>> soil_plot_depths;
-  std::unique_ptr<Vector<double>> snow_plot_depths;
-  std::unique_ptr<Vector<double>> glac_plot_depths;
+    std::unique_ptr<Vector<double>> soil_plot_depths;
+    std::unique_ptr<Vector<double>> snow_plot_depths;
+    std::unique_ptr<Vector<double>> glac_plot_depths;
 
-  short ric_cloud;
-  short vap_as_RH;
-  short vap_as_Td;
-  long ndivdaycloud;
-  short cast_shadow;
-  short wind_as_dir;
-  short wind_as_xy;
+    short ric_cloud;
+    short vap_as_RH;
+    short vap_as_Td;
+    long ndivdaycloud;
+    short cast_shadow;
+    short wind_as_dir;
+    short wind_as_xy;
 
-  double snow_aging_vis;
-  double snow_aging_nir;
+    double snow_aging_vis;
+    double snow_aging_nir;
 
-  double DepthFreeSurface;
+    double DepthFreeSurface;
 
-  short prec_as_intensity;
+    short prec_as_intensity;
 
-  SHORTVECTOR *linear_interpolation_meteo;
+    SHORTVECTOR *linear_interpolation_meteo;
 
-  short output_vertical_distances;
+    short output_vertical_distances;
 
-  short upwindblowingsnow;
+    short upwindblowingsnow;
 
-  double Wmin_BS;
-  double SWE_top;
-  double SWE_bottom;
-  double GWE_top;
-  double GWE_bottom;
+    double Wmin_BS;
+    double SWE_top;
+    double SWE_bottom;
+    double GWE_top;
+    double GWE_bottom;
 
-  double min_Dt;
-  double dem_rotation;
+    double min_Dt;
+    double dem_rotation;
 
-  short qin;
-  short flag1D;
+    short qin;
+    short flag1D;
 
-  double k_to_ksat;
-  short RunIfAnOldRunIsPresent;
+    double k_to_ksat;
+    short RunIfAnOldRunIsPresent;
 
-  LONGVECTOR *Nl_spinup;
+    LONGVECTOR *Nl_spinup;
 
-  short newperiodinit;
+    short newperiodinit;
 
-  short Tzrun;
-  short wzrun;
-  short dUzrun;
-  short SWErun;
+    short Tzrun;
+    short wzrun;
+    short dUzrun;
+    short SWErun;
 
-  short Tzmaxrun;
-  short wzmaxrun;
-  short Tzminrun;
-  short wzminrun;
+    short Tzmaxrun;
+    short wzmaxrun;
+    short Tzminrun;
+    short wzminrun;
 
-  double k1;
-  double k2;
-  double Lozone;
-  double alpha_iqbal;
-  double beta_iqbal;
+    double k1;
+    double k2;
+    double Lozone;
+    double alpha_iqbal;
+    double beta_iqbal;
 
-  short albedoSWin;
-  short micro;
+    short albedoSWin;
+    short micro;
 
-  double EB;
-  double Cair;
-  double Tsup;
-  double Tbottom;
+    double EB;
+    double Cair;
+    double Tsup;
+    double Tbottom;
 
-  double Tair_default;
-  double RH_default;
-  double V_default;
-  double Vdir_default;
-  double IPrec_default;
+    double Tair_default;
+    double RH_default;
+    double V_default;
+    double Vdir_default;
+    double IPrec_default;
 
-  double simulation_hours;
+    double simulation_hours;
 
-  double minP_torestore_A;
-  short snow_conductivity;
-  short snow_wind_compaction_1D;
-  short snow_plot;
+    double minP_torestore_A;
+    short snow_conductivity;
+    short snow_wind_compaction_1D;
+    short snow_plot;
 
-  short DDchannel;
-  short DDland;
+    short DDchannel;
+    short DDland;
 
 } PAR;
 
@@ -642,157 +643,157 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 struct STATEVAR_3D {
 
-  STATEVAR_3D(double nan, long nl, long nr, long nc);
+    STATEVAR_3D(double nan, long nl, long nr, long nc);
 
-  ~STATEVAR_3D();
+    ~STATEVAR_3D();
 
-  SHORTMATRIX *type;
-  LONGMATRIX *lnum;
-  DOUBLETENSOR *Dzl;
-  DOUBLETENSOR *w_liq;
-  DOUBLETENSOR *w_ice;
-  DOUBLETENSOR *T;
+    SHORTMATRIX *type;
+    LONGMATRIX *lnum;
+    DOUBLETENSOR *Dzl;
+    DOUBLETENSOR *w_liq;
+    DOUBLETENSOR *w_ice;
+    DOUBLETENSOR *T;
 };
 
 
 typedef struct {
-  short type;
-  long lnum;
-  std::unique_ptr<Vector<double>> Dzl;
-  std::unique_ptr<Vector<double>> w_liq;
-  std::unique_ptr<Vector<double>> w_ice;
-  std::unique_ptr<Vector<double>> T;
+    short type;
+    long lnum;
+    std::unique_ptr<Vector<double>> Dzl;
+    std::unique_ptr<Vector<double>> w_liq;
+    std::unique_ptr<Vector<double>> w_ice;
+    std::unique_ptr<Vector<double>> T;
 } STATEVAR_1D;
 
 typedef struct {
-  STATEVAR_3D *S;
-  STATEVAR_1D *S_for_BS;
-  std::unique_ptr<Vector<double>> age;
-  std::unique_ptr<Vector<double>> MELTED;
-  std::unique_ptr<Vector<double>> melted;
-  std::unique_ptr<Vector<double>> SUBL;
-  std::unique_ptr<Vector<double>> subl;
-  std::unique_ptr<Vector<double>> t_snow;
-  SHORTVECTOR *yes;
-  DOUBLEMATRIX *Qsub;
-  DOUBLEMATRIX *Qsub_x;
-  DOUBLEMATRIX *Qsub_y;
-  DOUBLEMATRIX *Nabla2_Qtrans;
-  DOUBLEMATRIX *Qtrans;
-  DOUBLEMATRIX *Qsalt;
-  DOUBLEMATRIX *Qtrans_x;
-  DOUBLEMATRIX *Qtrans_y;
-  DOUBLEMATRIX *Wsubl_plot;
-  DOUBLEMATRIX *Wtrans_plot;
-  std::unique_ptr<Vector<double>> Dplot;
-  LONGVECTOR *change_dir_wind;
+    STATEVAR_3D *S;
+    STATEVAR_1D *S_for_BS;
+    std::unique_ptr<Vector<double>> age;
+    std::unique_ptr<Vector<double>> MELTED;
+    std::unique_ptr<Vector<double>> melted;
+    std::unique_ptr<Vector<double>> SUBL;
+    std::unique_ptr<Vector<double>> subl;
+    std::unique_ptr<Vector<double>> t_snow;
+    SHORTVECTOR *yes;
+    DOUBLEMATRIX *Qsub;
+    DOUBLEMATRIX *Qsub_x;
+    DOUBLEMATRIX *Qsub_y;
+    DOUBLEMATRIX *Nabla2_Qtrans;
+    DOUBLEMATRIX *Qtrans;
+    DOUBLEMATRIX *Qsalt;
+    DOUBLEMATRIX *Qtrans_x;
+    DOUBLEMATRIX *Qtrans_y;
+    DOUBLEMATRIX *Wsubl_plot;
+    DOUBLEMATRIX *Wtrans_plot;
+    std::unique_ptr<Vector<double>> Dplot;
+    LONGVECTOR *change_dir_wind;
 } SNOW;
 
 typedef struct {
-  STATEVAR_3D *G;
-  std::unique_ptr<Vector<double>> MELTED;
-  std::unique_ptr<Vector<double>> melted;
-  std::unique_ptr<Vector<double>> SUBL;
-  std::unique_ptr<Vector<double>> subl;
+    STATEVAR_3D *G;
+    std::unique_ptr<Vector<double>> MELTED;
+    std::unique_ptr<Vector<double>> melted;
+    std::unique_ptr<Vector<double>> SUBL;
+    std::unique_ptr<Vector<double>> subl;
 } GLACIER;
 
 struct METEO_STATIONS{
-  std::unique_ptr<Vector<double>> E;
-  std::unique_ptr<Vector<double>> N;
-  std::unique_ptr<Vector<double>> lat;
-  std::unique_ptr<Vector<double>> lon;
-  std::unique_ptr<Vector<double>> Z;
-  std::unique_ptr<Vector<double>> sky;
-  std::unique_ptr<Vector<double>> ST;
-  std::unique_ptr<Vector<double>> Vheight;
-  std::unique_ptr<Vector<double>> Theight;
+    std::unique_ptr<Vector<double>> E;
+    std::unique_ptr<Vector<double>> N;
+    std::unique_ptr<Vector<double>> lat;
+    std::unique_ptr<Vector<double>> lon;
+    std::unique_ptr<Vector<double>> Z;
+    std::unique_ptr<Vector<double>> sky;
+    std::unique_ptr<Vector<double>> ST;
+    std::unique_ptr<Vector<double>> Vheight;
+    std::unique_ptr<Vector<double>> Theight;
 };
 
 
 struct METEO {
-  std::unique_ptr<METEO_STATIONS> st;
+    std::unique_ptr<METEO_STATIONS> st;
 
-  double ***data;
-  long *numlines;
-  double ***horizon;
-  long *horizonlines;
-  double **var;
-  long *line_interp_WEB;
-  long *line_interp_Bsnow;
-  long line_interp_WEB_LR;
-  long line_interp_Bsnow_LR;
+    double ***data;
+    long *numlines;
+    double ***horizon;
+    long *horizonlines;
+    double **var;
+    long *line_interp_WEB;
+    long *line_interp_Bsnow;
+    long line_interp_WEB_LR;
+    long line_interp_Bsnow_LR;
 
-  double **LRs; //matrix read from the external value
-  long LRsnr;   //number of lines of the matrix
-  double *LRv;  //vector of interpolatedvalues
-  double **LRc; //cyclic values from the parameter file (one vector for each LR variable)
-  long *LRcnc;  //number of components of the vector (for each component)
-  double *LRd;  //vector of default values
+    double **LRs; //matrix read from the external value
+    long LRsnr;   //number of lines of the matrix
+    double *LRv;  //vector of interpolatedvalues
+    double **LRc; //cyclic values from the parameter file (one vector for each LR variable)
+    long *LRcnc;  //number of components of the vector (for each component)
+    double *LRd;  //vector of default values
 
-  double **qins;
-  double *qinv;
-  long qinsnr;
-  long qinline;
+    double **qins;
+    double *qinv;
+    long qinsnr;
+    long qinline;
 
-  double tau_cloud;
-  double tau_cloud_av;
-  short tau_cloud_yes;
-  short tau_cloud_av_yes;
+    double tau_cloud;
+    double tau_cloud_av;
+    short tau_cloud_yes;
+    short tau_cloud_av_yes;
 
-  DOUBLEMATRIX *Tgrid;
-  DOUBLEMATRIX *Pgrid;
-  DOUBLEMATRIX *Vgrid;
-  DOUBLEMATRIX *Vdir;
-  DOUBLEMATRIX *RHgrid;
+    DOUBLEMATRIX *Tgrid;
+    DOUBLEMATRIX *Pgrid;
+    DOUBLEMATRIX *Vgrid;
+    DOUBLEMATRIX *Vdir;
+    DOUBLEMATRIX *RHgrid;
 
-  std::unique_ptr<Vector<double>> Tamean;
-  std::unique_ptr<Vector<double>> Vspdmean;
-  std::unique_ptr<Vector<double>> Vdirmean;
-  std::unique_ptr<Vector<double>> RHmean;
+    std::unique_ptr<Vector<double>> Tamean;
+    std::unique_ptr<Vector<double>> Vspdmean;
+    std::unique_ptr<Vector<double>> Vdirmean;
+    std::unique_ptr<Vector<double>> RHmean;
 
-  std::unique_ptr<Vector<double>> Taplot;
-  std::unique_ptr<Vector<double>> Vxplot;
-  std::unique_ptr<Vector<double>> Vyplot;
-  std::unique_ptr<Vector<double>> RHplot;
+    std::unique_ptr<Vector<double>> Taplot;
+    std::unique_ptr<Vector<double>> Vxplot;
+    std::unique_ptr<Vector<double>> Vyplot;
+    std::unique_ptr<Vector<double>> RHplot;
 
-  double V;
+    double V;
 
-  DOUBLEMATRIX *Tday;
-  DOUBLEMATRIX *Tvar;
+    DOUBLEMATRIX *Tday;
+    DOUBLEMATRIX *Tvar;
 
-  long nstsrad;
-  long nstlrad;
-  long nstcloud;
-  long nstTs;
-  long nstTbottom;
+    long nstsrad;
+    long nstlrad;
+    long nstcloud;
+    long nstTs;
+    long nstTbottom;
 
-  LONGVECTOR *imeteo_stations;
+    LONGVECTOR *imeteo_stations;
 
 };
 
 
 struct ALLDATA {
-  std::unique_ptr<SOIL> S;
-  std::unique_ptr<WATER> W;
-  std::unique_ptr<LAND> L;
-  std::unique_ptr<PAR> P;
-  std::unique_ptr<TOPO> T;
-  std::unique_ptr<CHANNEL> C;
-  std::unique_ptr<ENERGY> E;
-  std::unique_ptr<SNOW> N;
-  std::unique_ptr<GLACIER> G;
-  std::unique_ptr<METEO> M;
-  std::unique_ptr<TIMES> I;
+    std::unique_ptr<SOIL> S;
+    std::unique_ptr<WATER> W;
+    std::unique_ptr<LAND> L;
+    std::unique_ptr<PAR> P;
+    std::unique_ptr<TOPO> T;
+    std::unique_ptr<CHANNEL> C;
+    std::unique_ptr<ENERGY> E;
+    std::unique_ptr<SNOW> N;
+    std::unique_ptr<GLACIER> G;
+    std::unique_ptr<METEO> M;
+    std::unique_ptr<TIMES> I;
 
-  ALLDATA() : S{new SOIL{}},
-              W{new WATER{}},
-              L{new LAND{}},
-              P{new PAR{}},
-              T{new TOPO{}},
-              C{new CHANNEL{}},
-              E{new ENERGY{}},
-              N{new SNOW{}},
-              G{new GLACIER{}},
-              M{new METEO{}},
-              I{new TIMES{}} {}
+    ALLDATA() : S{new SOIL{}},
+                W{new WATER{}},
+                L{new LAND{}},
+                P{new PAR{}},
+                T{new TOPO{}},
+                C{new CHANNEL{}},
+                E{new ENERGY{}},
+                N{new SNOW{}},
+                G{new GLACIER{}},
+                M{new METEO{}},
+                I{new TIMES{}} {}
 };
