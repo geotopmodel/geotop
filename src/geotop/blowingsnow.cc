@@ -655,7 +655,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
               wind_packing(snow, par, r, c, Dt);
 
               snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[r][c],
-                                     par->inf_snow_layers, par->max_weq_snow, 1.E10, f);
+                                     par->inf_snow_layers.get(), par->max_weq_snow, 1.E10, f);
 
             }
         }

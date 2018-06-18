@@ -821,7 +821,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               WBglacier(ns, ng, r, c, G, &Melt_glac, A->P.get(), A->E.get(), Evap_glac);
               //adjust glacier layers
               snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint,
-                                     A->P->inf_glac_layers, A->P->max_weq_glac, 1.E10, f);
+                                     A->P->inf_glac_layers.get(), A->P->max_weq_glac, 1.E10, f);
             }
 
           //SNOW
@@ -839,7 +839,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               maxSWE = 1.E10;
             }
           snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint,
-                                 A->P->inf_snow_layers, A->P->max_weq_snow, maxSWE, f);
+                                 A->P->inf_snow_layers.get(), A->P->max_weq_snow, maxSWE, f);
 
           //add new snow
           if (Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow,

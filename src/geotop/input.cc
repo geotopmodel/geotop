@@ -1828,7 +1828,7 @@ land cover %ld, meteo station %ld\n",
 
                             for (i=1; i<=par->inf_snow_layers->nh; i++)
                             {
-                                if (n == abs(par->inf_snow_layers->co[i]))
+                                if ( n == abs((*par->inf_snow_layers)(i)) )
                                     a = 1;
                             }
 
@@ -1866,7 +1866,7 @@ land cover %ld, meteo station %ld\n",
 
                 f = fopen(logfile, "a");
                 snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1,
-                                       par->inf_snow_layers, par->max_weq_snow, maxSWE, f);
+                                       par->inf_snow_layers.get(), par->max_weq_snow, maxSWE, f);
                 fclose(f);
 
             }
@@ -2047,7 +2047,7 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
 
                     f = fopen(logfile, "a");
                     snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1,
-                                           par->inf_glac_layers, par->max_weq_glac, 1.E10, f);
+                                           par->inf_glac_layers.get(), par->max_weq_glac, 1.E10, f);
                     fclose(f);
 
                 }

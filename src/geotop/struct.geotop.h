@@ -345,11 +345,11 @@ typedef struct {
 
     double max_weq_snow;
     long max_snow_layers;
-    LONGVECTOR *inf_snow_layers;
+    std::unique_ptr<Vector<long>> inf_snow_layers;
 
     double max_weq_glac;
     long max_glac_layers;
-    LONGVECTOR *inf_glac_layers;
+    std::unique_ptr<Vector<long>> inf_glac_layers;
 
     double Sr_glac;
 

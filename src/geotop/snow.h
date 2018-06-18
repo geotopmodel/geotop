@@ -34,7 +34,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
 
 /*----------------------------------------------------------------------------------------------------------*/
 void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow,
-                            double Ta, LONGVECTOR *inf, double SWEmax_layer, double SWEmax_tot,
+                            double Ta, Vector<long> *inf, double SWEmax_layer, double SWEmax_tot,
                             FILE *flog);
 
 /*----------------------------------------------------------------------------------------------------------*/

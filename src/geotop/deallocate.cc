@@ -539,9 +539,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   free_shortvector(par->linear_interpolation_meteo);
 
-  free_longvector(par->inf_snow_layers);
-  free_longvector(par->inf_glac_layers);
-
   free_longvector(par->Nl_spinup);
 
   //  free(par);

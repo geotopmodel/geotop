@@ -1517,8 +1517,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                     num_param_components, 20., 0);
   par->max_snow_layers = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                          (long)floor(par->SWE_top/par->max_weq_snow) + n;
-  par->inf_snow_layers = new_longvector(n);
-
+  par->inf_snow_layers.reset(new Vector<long>{n});
   geolog << "Max snow layer number: " << par->max_snow_layers
          <<", of which " << floor(par->SWE_bottom/par->max_weq_snow)
          << " at the bottom, " << n << " in the middle, and "
@@ -1530,9 +1529,9 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   geolog << "Infinite Snow layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
-      par->inf_snow_layers->co[i] = (long)floor(par->SWE_bottom/par->max_weq_snow) +
+      (*par->inf_snow_layers)(i) = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                                     i;
-      geolog << par->inf_snow_layers->co[i] << " ";
+      geolog << (*par->inf_snow_layers)(i) << " ";
     }
   geolog << std::endl;
 
@@ -1566,7 +1565,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   par->max_glac_layers = (long)floor(par->GWE_bottom/par->max_weq_glac) +
                          (long)floor(par->GWE_top/par->max_weq_glac) + n;
-  par->inf_glac_layers = new_longvector(n);
+  par->inf_glac_layers.reset(new Vector<long>{n});
   geolog << "Max glac layer number: "<< par->max_glac_layers << ", of which "
          << floor(par->GWE_bottom/par->max_weq_glac) << " at the bottom, "
          << n << "in the middle, and " << floor(par->GWE_top/par->max_weq_glac) << "at the top." << std::endl;
@@ -1574,9 +1573,9 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   geolog << "Infinite Glac layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
-      par->inf_glac_layers->co[i] = (long)floor(par->GWE_bottom/par->max_weq_glac) +
+      (*par->inf_glac_layers)(i) = (long)floor(par->GWE_bottom/par->max_weq_glac) +
                                     i;
-      fprintf(flog, "%ld ",par->inf_glac_layers->co[i]);
+      fprintf(flog, "%ld ",(*par->inf_glac_layers)(i));
     }
   fprintf(flog,"\n");
 
