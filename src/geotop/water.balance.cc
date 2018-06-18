@@ -304,7 +304,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
           l = adt->C->lch->co[i-n][1];
           ch = adt->C->lch->co[i-n][2];
           r = (*adt->C->r)(ch);
-          c = adt->C->c->co[ch];
+          c = (*adt->C->c)(ch);
 
           //solution guess
           if (adt->W->Pnet->co[r][c] > 0 && l == 0)
@@ -593,7 +593,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
           l = adt->C->lch->co[i-n][1];
           ch = adt->C->lch->co[i-n][2];
           r = (*adt->C->r)(ch);
-          c = adt->C->c->co[ch];
+          c = (*adt->C->c)(ch);
           sy = (*adt->C->soil_type)(ch);
 
           if (l==0)
@@ -1070,7 +1070,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
           l=adt->C->lch->co[i-n][1];
           ch=adt->C->lch->co[i-n][2];
           r=(*adt->C->r)(ch);
-          c=adt->C->c->co[ch];
+          c=(*adt->C->c)(ch);
           sy=(*adt->C->soil_type)(ch);
 
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
@@ -1667,7 +1667,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
           l=adt->C->lch->co[i-n][1];
           ch=adt->C->lch->co[i-n][2];
           r=(*adt->C->r)(ch);
-          c=adt->C->c->co[ch];
+          c=(*adt->C->c)(ch);
           sy=(*adt->C->soil_type)(ch);
           bc=0;
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
@@ -1831,7 +1831,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
           l=adt->C->lch->co[i-n][1];
           ch=adt->C->lch->co[i-n][2];
           r=(*adt->C->r)(ch);
-          c=adt->C->c->co[ch];
+          c=(*adt->C->c)(ch);
           sy=(*adt->C->soil_type)(ch);
           bc=0;
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
@@ -2306,7 +2306,7 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
     {
 
       r = (*cnet->r)(ch);
-      c = cnet->c->co[ch];
+      c = (*cnet->c)(ch);
 
       H = Fmax(0.0, h[ch]) / cos(
             top->slope->co[r][c]*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
@@ -2405,7 +2405,7 @@ void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top,
         {
 
           r = (*cnet->r)(ch);
-          c = cnet->c->co[ch];
+          c = (*cnet->c)(ch);
 
           H = Fmax(0., h[top->j_cont[r][c]]) / cos(top->slope->co[r][c]*Pi/180.);
           Hch = Fmax(0., hch[ch] ) / cos(top->slope->co[r][c]*Pi/180.) -
@@ -2522,7 +2522,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
       //if(DDcomplex!=1 && t==0) draining_channel(0., ch, top->Z0, h, cnet, &(cnet->ch_down->co[ch]));
 
       r = (*cnet->r)(ch);
-      c = cnet->c->co[ch];
+      c = (*cnet->c)(ch);
       H = Fmax(0., h[ch]) / cos(top->slope->co[r][c]*Pi/180.);
 
       if (H > par->min_hsup_channel)
@@ -2550,7 +2550,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
             {
 
               R = (*cnet->r)((*cnet->ch_down)(ch));
-              C = cnet->c->co[(*cnet->ch_down)(ch)];
+              C = (*cnet->c)((*cnet->ch_down)(ch));
 
               if ( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) )
                 {
@@ -2635,7 +2635,7 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
             {
 
               r = (*cnet->r)(ch);
-              c = cnet->c->co[ch];
+              c = (*cnet->c)(ch);
 
               dV[ch] = 0.0;
 
@@ -2645,7 +2645,7 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
                 {
 
                   R = (*cnet->r)((*cnet->ch_down)(ch));
-                  C = cnet->c->co[(*cnet->ch_down)(ch)];
+                  C = (*cnet->c)((*cnet->ch_down)(ch));
 
                   if (top->is_on_border->co[r][c] == 1
                       && (*cnet->ch_down)(ch)==ch) //outlet section
@@ -2686,7 +2686,7 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
             {
 
               r = (*cnet->r)(ch);
-              c = cnet->c->co[ch];
+              c = (*cnet->c)(ch);
 
               h[ch] -= (1.E3*dV[ch]/(dn*cnet->length->co[ch])) * cos(
                          top->slope->co[r][c]*Pi/180.);
@@ -2699,7 +2699,7 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
               else
                 {
                   R = (*cnet->r)((*cnet->ch_down)(ch));
-                  C = cnet->c->co[(*cnet->ch_down)(ch)];
+                  C = (*cnet->c)((*cnet->ch_down)(ch));
                   if (h[(*cnet->ch_down)(ch)]>0)
                     {
                       h[(*cnet->ch_down)(ch)] += (1.E3*dV[ch]/
@@ -2845,7 +2845,7 @@ void draining_channel(double alpha, long ch, DOUBLEMATRIX *Z, double *h,
   *CH = ch;
 
   r = (*cnet->r)(ch);
-  c = cnet->c->co[ch];
+  c = (*cnet->c)(ch);
   elev = Z->co[r][c] + alpha*1.E-3*Fmax(h[ch], 0.);
 
   for (d=1; d<=8; d++)

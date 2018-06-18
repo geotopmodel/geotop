@@ -288,7 +288,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct CHANNEL "channel": */
   printf("Deallocating channel network\n");
-  free_longvector(cnet->c);
   free_longmatrix(cnet->ch);
   for (l=0; l<=Nl; l++)
     {

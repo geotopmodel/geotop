@@ -149,7 +149,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
           for (l=1; l<=par->total_channel; l++)
             {
               r = (*cnet->r)(l);
-              c = cnet->c->co[l];
+              c = (*cnet->c)(l);
               Vchannel += 1.E-3 * Fmax(cnet->SS->P->co[0][l], 0.) / cos(top->slope->co[r][c]*Pi/180.) *
 		UV->U->co[1] * par->w_dx * cnet->length->co[l];
               Vsub += cnet->Vsub->co[l];
@@ -2238,7 +2238,7 @@ Mean Time Step=%f s\n\n",
                       for (i=1; i<=par->total_channel; i++)
                         {
                           r = (*cnet->r)(i);
-                          c = cnet->c->co[i];
+                          c = (*cnet->c)(i);
                           M->co[l][top->j_cont[r][c]] = cnet->SS->P->co[l][i];
                         }
                       write_tensorseries_vector(1, l, isavings, files[rpsich], 0, par->format_out,
@@ -2260,7 +2260,7 @@ Mean Time Step=%f s\n\n",
                       for (i=1; i<=par->total_channel; i++)
                         {
                           r = (*cnet->r)(i);
-                          c = cnet->c->co[i];
+                          c = (*cnet->c)(i);
                           M->co[l][top->j_cont[r][c]] = cnet->SS->T->co[l][i];
                         }
                       write_tensorseries_vector(1, l, isavings, files[rTgch], 0, par->format_out, M,
@@ -2282,7 +2282,7 @@ Mean Time Step=%f s\n\n",
                       for (i=1; i<=par->total_channel; i++)
                         {
                           r = (*cnet->r)(i);
-                          c = cnet->c->co[i];
+                          c = (*cnet->c)(i);
                           M->co[l][top->j_cont[r][c]] = cnet->SS->thi->co[l][i];
                         }
                       write_tensorseries_vector(1, l, isavings, files[ricegch], 0, par->format_out,
@@ -2490,7 +2490,7 @@ Mean Time Step=%f s\n\n",
                   for (i=1; i<=par->total_channel; i++)
                     {
                       r = (*cnet->r)(i);
-                      c = cnet->c->co[i];
+                      c = (*cnet->c)(i);
                       M->co[l][top->j_cont[r][c]] = cnet->SS->P->co[l][i];
                     }
                   write_tensorseries_vector(1, l, 0, files[rpsich], 0, par->format_out, M, UV,
@@ -2512,7 +2512,7 @@ Mean Time Step=%f s\n\n",
                   for (i=1; i<=par->total_channel; i++)
                     {
                       r = (*cnet->r)(i);
-                      c = cnet->c->co[i];
+                      c = (*cnet->c)(i);
                       M->co[l][top->j_cont[r][c]] = cnet->SS->T->co[l][i];
                     }
                   write_tensorseries_vector(1, l, 0, files[rTgch], 0, par->format_out, M, UV,
@@ -2534,7 +2534,7 @@ Mean Time Step=%f s\n\n",
                   for (i=1; i<=par->total_channel; i++)
                     {
                       r = (*cnet->r)(i);
-                      c = cnet->c->co[i];
+                      c = (*cnet->c)(i);
                       M->co[l][top->j_cont[r][c]] = cnet->SS->thi->co[l][i];
                     }
                   write_tensorseries_vector(1, l, 0, files[ricegch], 0, par->format_out, M, UV,

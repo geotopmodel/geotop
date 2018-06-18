@@ -35,7 +35,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name,
                                     DOUBLEMATRIX *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
 
 void assign_recovered_tensor_channel(short old, long n, char *name,
-                                     DOUBLEMATRIX *assign, Vector<long> *r, LONGVECTOR *c, DOUBLEMATRIX *Zdistr);
+                                     DOUBLEMATRIX *assign, Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr);
 
 void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
                           DOUBLEMATRIX *LC, LONGMATRIX *rc, PAR *par, long n);

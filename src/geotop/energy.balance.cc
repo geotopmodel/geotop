@@ -156,7 +156,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
       if (i<=A->P->total_channel)  //CHANNEL
         {
           r = (*A->C->r)(i);
-          c = A->C->c->co[i];
+          c = (*A->C->c)(i);
         }
       else   //LAND
         {

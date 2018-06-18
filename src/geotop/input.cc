@@ -861,9 +861,7 @@ land cover %ld, meteo station %ld\n",
     cnet->Vout = 0.;
 
     cnet->r.reset(new Vector<long>{i});
-
-    cnet->c=new_longvector(i);
-    initialize_longvector(cnet->c, 0);
+    cnet->c.reset(new Vector<long>{i});
 
     cnet->ch=new_longmatrix(Nr,Nc);
     initialize_longmatrix(cnet->ch, 0);
@@ -1217,7 +1215,7 @@ land cover %ld, meteo station %ld\n",
     {
         sy=(*cnet->soil_type)(j);
         r=(*cnet->r)(j);
-        c=cnet->c->co[j];
+        c=(*cnet->c)(j);
 
         cnet->SS->P->co[0][j] = sl->SS->P->co[0][top->j_cont[r][c]] +
                                 par->depr_channel;
@@ -1276,11 +1274,11 @@ land cover %ld, meteo station %ld\n",
     if (recovered > 0 && par->total_channel > 0)
     {
         assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P,
-                                        cnet->r.get(), cnet->c, top->Z0);
+                                        cnet->r.get(), cnet->c.get(), top->Z0);
         assign_recovered_tensor_channel(old, par->recover, files[ricegch],
-                                        cnet->SS->thi, cnet->r.get(), cnet->c, top->Z0);
+                                        cnet->SS->thi, cnet->r.get(), cnet->c.get(), top->Z0);
         assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T,
-                                        cnet->r.get(), cnet->c, top->Z0);
+                                        cnet->r.get(), cnet->c.get(), top->Z0);
 
         for (i=1; i<=par->total_channel; i++)
         {
@@ -3913,7 +3911,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
             else
             {
                 r = (*cnet->r)(i-par->total_pixel);
-                c = cnet->c->co[i-par->total_pixel];
+                c = (*cnet->c)(i-par->total_pixel);
                 sy = (*cnet->soil_type)(i-par->total_pixel);
                 synew = i;
                 (*cnet->soil_type)(i-par->total_pixel) = synew;

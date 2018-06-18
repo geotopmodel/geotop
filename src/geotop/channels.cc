@@ -46,7 +46,7 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC,
 
             i++;
             (*cnet->r)(i)=r;
-            cnet->c->co[i]=c;
+            (*cnet->c)(i)=c;
             cnet->ch->co[r][c]=i;
 
             do
@@ -69,7 +69,7 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC,
                     }
 
                     (*cnet->r)(i)=rnext;
-                    cnet->c->co[i]=cnext;
+                    (*cnet->c)(i)=cnext;
                     cnet->ch->co[rnext][cnext]=i;
                     r=rnext;
                     c=cnext;
@@ -102,7 +102,7 @@ void enumerate_channels(CHANNEL *cnet, DOUBLEMATRIX *LC,
     for (i=1; i<=cnet->r->nh; i++)
     {
         r = (*cnet->r)(i);
-        c = cnet->c->co[i];
+        c = (*cnet->c)(i);
         cnet->length->co[i] *= (UV->U->co[1]/cos(slope->co[r][c]*Pi/180.));
     }
 
