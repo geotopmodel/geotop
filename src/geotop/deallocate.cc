@@ -220,7 +220,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   free_longmatrix(top->lrc_cont);
 
-  n = Fminlong(par->Nl_spinup->co[par->init_date->nh],Nl);
+  n = Fminlong((*par->Nl_spinup)(par->init_date->nh),Nl);
   for (l=0; l<=n; l++)
     {
       for (r=1; r<=Nr; r++)
@@ -411,7 +411,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
     }
 
-  if (par->blowing_snow==1) free_longvector(snow->change_dir_wind);
   //  free(snow);
 
   printf("Deallocating glacier\n");
@@ -490,7 +489,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free(met->LRcnc);
   free(met->LRd);
 
-  free_longvector(met->imeteo_stations);
 //  dealloc_meteostations(met->st);
 
   free(met->qinv);
@@ -536,7 +534,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   free_shortvector(par->linear_interpolation_meteo);
 
-  free_longvector(par->Nl_spinup);
 
   //  free(par);
 

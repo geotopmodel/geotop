@@ -350,15 +350,15 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 
-    success = read_meteostations_file(met->imeteo_stations, met->st.get(),
+    success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(),
                                       files[fmetstlist], IT->meteostations_col_names, flog);
 
     for (i=1; i<=met->st->E->nh; i++)
     {
 
-        if (met->imeteo_stations->co[1] != number_novalue)
+        if ((*met->imeteo_stations)(1) != number_novalue)
         {
-            ist = met->imeteo_stations->co[i];
+            ist = (*met->imeteo_stations)(i);
         }
         else
         {
@@ -896,7 +896,7 @@ land cover %ld, meteo station %ld\n",
 
     /**************************************************************************************************/
     // Cont for Richards 3D
-    n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
+    n = Fminlong((*par->Nl_spinup)(i_sim0),Nl);
 
     // 3D
     top->i_cont=(long ***)malloc((n+1)*sizeof(long **));
@@ -1668,7 +1668,7 @@ land cover %ld, meteo station %ld\n",
         allocate_and_initialize_statevar_1D(snow->S_for_BS, (double)number_novalue,
                                             par->max_snow_layers);
 
-        snow->change_dir_wind=new_longvector(Fmaxlong(Nr,Nc));
+        snow->change_dir_wind.reset(new Vector<long>{Fmaxlong(Nr,Nc)});
 
         snow->Qtrans=new_doublematrix(Nr,Nc);
         snow->Qsub=new_doublematrix(Nr,Nc);
@@ -2495,7 +2495,7 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
     }
     free(IT->meteostations_col_names);
 
-    n = Fminlong(par->Nl_spinup->co[i_sim0],Nl);
+    n = Fminlong((*par->Nl_spinup)(i_sim0),Nl);
 
     if (par->point_sim != 1)
     {

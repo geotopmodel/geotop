@@ -1395,7 +1395,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   if ((long)Tbottom != number_novalue) dirichlet_bottom = 1;
 
   //Soil layer
-  n = Fminlong(par->Nl_spinup->co[i_sim],Nl) + ns + ng;
+  n = Fminlong((*par->Nl_spinup)(i_sim),Nl) + ns + ng;
 
   //Surface conditions
   sur = par->nsurface;

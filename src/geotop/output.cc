@@ -5032,7 +5032,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
   char *temp, *name;
   char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
 
-  n = Fminlong(par->Nl_spinup->co[i_sim],Nl);
+  n = Fminlong((*par->Nl_spinup)(i_sim),Nl);
 
   if (par->recover > 0) write_suffix(rec, par->recover, 4);
   if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
@@ -5373,7 +5373,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
   double Ptlow=0., thwlow=0., thilow=0., Tlow=0.;
   FILE *f;
 
-  n = Fminlong(par->Nl_spinup->co[i_sim],Nl);
+  n = Fminlong((*par->Nl_spinup)(i_sim),Nl);
 
   for (j=1; j<=par->total_pixel; j++)
     {
@@ -5500,8 +5500,8 @@ void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
 
   long n_previous, n_next, l, r, i, j;
 
-  n_previous = Fminlong(par->Nl_spinup->co[previous_sim],Nl);
-  n_next = Fminlong(par->Nl_spinup->co[next_sim],Nl);
+  n_previous = Fminlong((*par->Nl_spinup)(previous_sim),Nl);
+  n_next = Fminlong((*par->Nl_spinup)(next_sim),Nl);
 
   if (n_previous != n_next)
     {

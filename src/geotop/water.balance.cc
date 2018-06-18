@@ -887,7 +887,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
         }
 
       //volume lost at the bottom
-      if (l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl))
+      if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
         {
           area = ds*ds;
           *Vbottom = *Vbottom + area * adt->W->Kbottom->co[r][c] * 1.E-3 * Dt;
@@ -1528,14 +1528,14 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
       if (l>0)
         {
           dz = adt->S->pa->co[sy][jdz][l];
-          if (l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl)
+          if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl)
               && adt->P->free_drainage_bottom>0) Kbottom->co[r][c] = k_from_psi(jKn,
                                                                        H->co[i] - adt->T->Z->co[l][r][c], L->thi->co[l][c], L->T->co[l][c], l,
                                                                        adt->S->pa->co[sy], adt->P->imp, adt->P->k_to_ksat);
         }
 
       //flux from cell below
-      if (l<Fminlong(adt->P->Nl_spinup->co[i_sim],Nl))
+      if (l<Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
         {
 
           I = i+1;
@@ -1991,7 +1991,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
       f->co[i] = (V1-V0)/Dt;
 
       //drainage at the bottom
-      if (l==Fminlong(adt->P->Nl_spinup->co[i_sim],Nl))
+      if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
         {
           f->co[i] += area*Kbottom->co[r][c];
         }

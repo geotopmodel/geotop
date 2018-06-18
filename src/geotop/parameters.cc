@@ -1958,14 +1958,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //meteo stations
   cod = 199;
-  met->imeteo_stations = new_longvector(num_param_components[cod]);
-  met->imeteo_stations->co[1] = (long)assignation_number(flog, cod, 0, keyword,
+  met->imeteo_stations.reset(new Vector<long>{num_param_components[cod]});
+  (*met->imeteo_stations)(1) = (long)assignation_number(flog, cod, 0, keyword,
                                                          num_param, num_param_components, (double)number_novalue, 0);
-  if ( met->imeteo_stations->co[1] != number_novalue )
+  if ( (*met->imeteo_stations)(1) != number_novalue )
     {
       for (i=2; i<=num_param_components[cod]; i++)
         {
-          met->imeteo_stations->co[i] = (long)assignation_number(flog, cod, i-1,
+          (*met->imeteo_stations)(i) = (long)assignation_number(flog, cod, i-1,
                                                                  keyword, num_param, num_param_components, 0., 1);
         }
       nmeteo_stations = num_param_components[cod];
@@ -2440,15 +2440,15 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
 
   cod = 381;
-  par->Nl_spinup = new_longvector(par->end_date->nh);
-  par->Nl_spinup->co[1] = assignation_number(flog, cod, 0, keyword, num_param,
+  par->Nl_spinup.reset(new Vector<long>{par->end_date->nh});
+  (*par->Nl_spinup)(1) = assignation_number(flog, cod, 0, keyword, num_param,
                                              num_param_components, 10000., 0);
   for (i=2; i<=par->end_date->nh; i++)
     {
-      par->Nl_spinup->co[i] = assignation_number(flog, cod, i-1, keyword, num_param,
-                                                 num_param_components, par->Nl_spinup->co[i-1], 0);
+        (*par->Nl_spinup)(i) = assignation_number(flog, cod, i-1, keyword, num_param,
+                                                 num_param_components, (*par->Nl_spinup)(i-1), 0);
     }
-  if (par->Nl_spinup->co[1]<10000. && par->point_sim!=1)
+  if ((*par->Nl_spinup)(1)<10000. && par->point_sim!=1)
     {
       printf("You can use %s only if %s is set to 1\n",keyword[cod],keyword[12]);
       fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[cod],
@@ -3000,7 +3000,7 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 /***********************************************************/
 /***********************************************************/
 
-short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name,
+short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name,
                               char **key_header, FILE *flog)
 {
   GEOLOG_PREFIX(__func__);

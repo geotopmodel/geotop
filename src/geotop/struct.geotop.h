@@ -592,7 +592,7 @@ typedef struct {
     double k_to_ksat;
     short RunIfAnOldRunIsPresent;
 
-    LONGVECTOR *Nl_spinup;
+    std::unique_ptr<Vector<long>> Nl_spinup;
 
     short newperiodinit;
 
@@ -685,7 +685,7 @@ typedef struct {
     DOUBLEMATRIX *Wsubl_plot;
     DOUBLEMATRIX *Wtrans_plot;
     std::unique_ptr<Vector<double>> Dplot;
-    LONGVECTOR *change_dir_wind;
+    std::unique_ptr<Vector<long>> change_dir_wind;
 } SNOW;
 
 typedef struct {
@@ -766,7 +766,7 @@ struct METEO {
     long nstTs;
     long nstTbottom;
 
-    LONGVECTOR *imeteo_stations;
+    std::unique_ptr<Vector<long>> imeteo_stations;
 
 };
 
