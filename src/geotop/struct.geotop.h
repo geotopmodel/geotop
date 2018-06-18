@@ -253,7 +253,7 @@ typedef struct {
 typedef struct {
     /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                       R=number of rows of the basin,C=number of columns in the basin*/
-    LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
+    std::unique_ptr<Vector<long>> r;          /*array of rows of the channel-pixels; dimension=nch*/
     LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
     LONGMATRIX *ch;
     std::unique_ptr<Vector<long>> ch_down;
