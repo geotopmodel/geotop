@@ -165,7 +165,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     max_time = 0.;
     for (i=1; i<=par->init_date->nh; i++)
     {
-        max_time += par->run_times->co[i]*(par->end_date->co[i] -
+        max_time += (*par->run_times)(i)*(par->end_date->co[i] -
                                            par->init_date->co[i])*86400.;//seconds
     }
 
@@ -933,8 +933,7 @@ land cover %ld, meteo station %ld\n",
     // plotted points
     if (par->state_pixel == 1)
     {
-        par->jplot = new_longvector(par->total_pixel);
-        initialize_longvector(par->jplot, 0);
+        par->jplot.reset(new Vector<long>{par->total_pixel});
         for (i=1; i<=par->total_pixel; i++)
         {
             for (j=1; j<=par->rc->nrh; j++)
@@ -942,7 +941,7 @@ land cover %ld, meteo station %ld\n",
                 if (top->rc_cont->co[i][1] == par->rc->co[j][1]
                     && top->rc_cont->co[i][2] == par->rc->co[j][2])
                 {
-                    par->jplot->co[i] = j;
+                    (*par->jplot)(i) = j;
                 }
             }
         }
@@ -2445,10 +2444,10 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
                 cosslope = 1.;
             }
 
-            write_soil_output(j, par->IDpoint->co[j], par->init_date->co[1],
+            write_soil_output(j, (*par->IDpoint)(j), par->init_date->co[1],
                               par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
                               minute, par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
-            write_snow_output(j, par->IDpoint->co[j], r, c, par->init_date->co[1],
+            write_snow_output(j, (*par->IDpoint)(j), r, c, par->init_date->co[1],
                               par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
                               minute, par->snow_plot_depths.get(), snow->S, par, cosslope);
         }
@@ -2674,7 +2673,7 @@ to the land cover type\n");
     if (par->state_pixel == 1)
     {
         par->rc=new_longmatrix(par->chkpt->nrh,2);
-        par->IDpoint=new_longvector(par->chkpt->nrh);
+        par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
             par->rc->co[i][1]=row(par->chkpt->co[i][ptY], top->Z0->nrh, UV, number_novalue);
@@ -2707,11 +2706,11 @@ to the land cover type\n");
 
             if ((long)par->chkpt->co[i][ptID]!=number_novalue)
             {
-                par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
+                (*par->IDpoint)(i)=(long)par->chkpt->co[i][ptID];
             }
             else
             {
-                par->IDpoint->co[i]=i;
+                (*par->IDpoint)(i)=i;
             }
         }
     }
@@ -3108,14 +3107,14 @@ Not possible to read from dem because at least one point has no coordinates\n");
 
     if (read_dem==1)
     {
-        par->r_points=new_longvector(par->chkpt->nrh);
-        par->c_points=new_longvector(par->chkpt->nrh);
+        par->r_points.reset(new Vector<long>{par->chkpt->nrh});
+        par->c_points.reset(new Vector<long>{par->chkpt->nrh});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            par->r_points->co[i]=row(par->chkpt->co[i][ptY], Z->nrh, UV, number_novalue);
-            par->c_points->co[i]=col(par->chkpt->co[i][ptX], Z->nch, UV, number_novalue);
+            (*par->r_points)(i)=row(par->chkpt->co[i][ptY], Z->nrh, UV, number_novalue);
+            (*par->c_points)(i)=col(par->chkpt->co[i][ptX], Z->nch, UV, number_novalue);
             if ((long)par->chkpt->co[i][ptZ]==number_novalue)
-                par->chkpt->co[i][ptZ] = Z->co[par->r_points->co[i]][par->c_points->co[i]];
+                par->chkpt->co[i][ptZ] = Z->co[(*par->r_points)(i)][(*par->c_points)(i)];
             printf("ok");
         }
     }
@@ -3654,8 +3653,6 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
     // if(par->recover==0 && read_dem==1){
     if (read_dem==1)
     {
-        free_longvector(par->r_points);
-        free_longvector(par->c_points);
     }
 
     // 5. SET CHECKPOINT
@@ -3694,7 +3691,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
     top->dzdN=new_doublematrix(1,par->chkpt->nrh);
     top->latitude=new_doublematrix(1,par->chkpt->nrh);
     top->longitude=new_doublematrix(1,par->chkpt->nrh);
-    par->IDpoint=new_longvector(par->chkpt->nrh);
+    par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
     IT->bed=new_doublematrix(1,par->chkpt->nrh);
 
     for (i=1; i<=par->chkpt->nrh; i++)
@@ -3749,7 +3746,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
         par->maxSWE->co[1][i]=par->chkpt->co[i][ptMAXSWE];
         top->latitude->co[1][i]=par->chkpt->co[i][ptLAT];
         top->longitude->co[1][i]=par->chkpt->co[i][ptLON];
-        par->IDpoint->co[i]=(long)par->chkpt->co[i][ptID];
+        (*par->IDpoint)(i)=(long)par->chkpt->co[i][ptID];
 
         IT->bed->co[1][i]=par->chkpt->co[i][ptBED];
         if ( (long)IT->bed->co[1][i] == number_novalue )

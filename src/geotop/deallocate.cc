@@ -520,13 +520,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   printf("Deallocating par\n");
   if (par->state_pixel == 1)
     {
-      free_longvector(par->jplot);
       free_longmatrix(par->rc);
-      free_longvector(par->IDpoint);
     }
 
 
-  free_longvector(par->run_times);
 
   if (par->point_sim == 1) free_doublematrix(par->maxSWE);
 

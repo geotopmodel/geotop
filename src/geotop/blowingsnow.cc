@@ -694,11 +694,11 @@ void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
         }
 
       if (par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1
-          && par->jplot->co[i] > 0)
+          && (*par->jplot)(i) > 0)
         {
-          odp[oblowingsnowtrans][par->jplot->co[i]-1] -=
+          odp[oblowingsnowtrans][(*par->jplot)(i)-1] -=
             Dt*snow->Nabla2_Qtrans->co[r][c];
-          odp[oblowingsnowsubl][par->jplot->co[i]-1] += Dt*Qsub;
+          odp[oblowingsnowsubl][(*par->jplot)(i)-1] += Dt*Qsub;
         }
 
     }

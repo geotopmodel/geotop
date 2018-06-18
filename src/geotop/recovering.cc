@@ -278,11 +278,11 @@ void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
   assign_recovered_tensor_vector(old, par->recover, name, M, rc, par, LC);
   for (j=1; j<=par->total_pixel; j++)
     {
-      if (par->jplot->co[j] > 0)
+      if ((*par->jplot)(j) > 0)
         {
           for (l=1; l<=n; l++)
             {
-              A->co[par->jplot->co[j]][l] = M->co[l][j];
+              A->co[(*par->jplot)(j)][l] = M->co[l][j];
             }
         }
     }
@@ -305,11 +305,11 @@ void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name,
   initialize_doublematrix(M, (double)number_novalue);
   for (j=1; j<=par->total_pixel; j++)
     {
-      if (par->jplot->co[j] > 0)
+      if ((*par->jplot)(j) > 0)
         {
           for (l=1; l<=n; l++)
             {
-              M->co[l][j] = A->co[par->jplot->co[j]][l];
+              M->co[l][j] = A->co[(*par->jplot)(j)][l];
             }
         }
     }

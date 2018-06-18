@@ -243,7 +243,7 @@ void time_loop(ALLDATA *A)
                   A->M->line_interp_Bsnow[i-1] = 0;
                 }
 
-              if (i_run <= A->P->run_times->co[i_sim])
+              if (i_run <= (*A->P->run_times)(i_sim))
                 {
                   reset_to_zero(A->P.get(), A->S.get(), A->L.get(), A->N.get(), A->G.get(),
 				A->E.get(), A->M.get(), A->W.get());
@@ -481,7 +481,7 @@ void time_loop(ALLDATA *A)
               A->I->time += A->P->Dt; // Increase TIME
             }
         }
-      while (i_run <= A->P->run_times->co[i_sim]); // end of time-cycle
+      while (i_run <= (*A->P->run_times)(i_sim)); // end of time-cycle
 
       if (A->P->newperiodinit != 0)
 	end_period_1D(A->S.get(), A->T.get(), A->P.get());

@@ -376,7 +376,7 @@ typedef struct {
 
     DOUBLEMATRIX *chkpt;
     LONGMATRIX *rc;
-    LONGVECTOR *jplot;
+    std::unique_ptr<Vector<long>> jplot;
 
     short recover;
 
@@ -410,8 +410,8 @@ typedef struct {
 
     short blowing_snow;
 
-    LONGVECTOR *r_points;
-    LONGVECTOR *c_points;
+    std::unique_ptr<Vector<long>> r_points;
+    std::unique_ptr<Vector<long>> c_points;
 
     double psimin;
     double stmin;
@@ -503,7 +503,7 @@ typedef struct {
 
     std::unique_ptr<Vector<double>> init_date;
     std::unique_ptr<Vector<double>> end_date;
-    LONGVECTOR *run_times;
+    std::unique_ptr<Vector<long>> run_times;
 
     double delay_day_recover;
 
@@ -537,7 +537,7 @@ typedef struct {
 
     long nsoiltypes;
 
-    LONGVECTOR *IDpoint;
+    std::unique_ptr<Vector<long>> IDpoint;
 
     double min_lambda_en;
     long max_times_min_lambda_en;

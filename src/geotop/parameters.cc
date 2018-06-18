@@ -1163,13 +1163,13 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //run times
   cod = 3;
-  par->run_times = new_longvector(par->init_date->nh);
-  par->run_times->co[1] = (long)assignation_number(flog, cod, 0, keyword,
+  par->run_times.reset(new Vector<long>{par->init_date->nh});
+    (*par->run_times)(1) = (long)assignation_number(flog, cod, 0, keyword,
                                                    num_param, num_param_components, 1., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->run_times->co[i] = (long)assignation_number(flog, cod, i-1, keyword,
-                                                       num_param, num_param_components, (double)par->run_times->co[i-1], 0);
+        (*par->run_times)(i) = (long)assignation_number(flog, cod, i-1, keyword,
+                                                       num_param, num_param_components, (double)(*par->run_times)(i-1), 0);
     }
 
   par->ST = assignation_number(flog, 4, 0, keyword, num_param,

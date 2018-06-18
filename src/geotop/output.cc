@@ -267,7 +267,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
               for (i=1; i<=par->rc->nrh; i++)
                 {
-                  write_suffix(NNNN, par->IDpoint->co[i], 0);
+                  write_suffix(NNNN, (*par->IDpoint)(i), 0);
                   r=par->rc->co[i][1];
                   c=par->rc->co[i][2];
                   j=top->j_cont[r][c];
@@ -424,7 +424,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 }
                               else if (opnt[j] == opoint)
                                 {
-                                  fprintf(f, "%ld",par->IDpoint->co[i]);
+                                  fprintf(f, "%ld",(*par->IDpoint)(i));
                                 }
                               else
                                 {
@@ -481,7 +481,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 }
                               else if (opnt[j] == opoint)
                                 {
-                                  fprintf(ffpoint, "%ld",par->IDpoint->co[i]);
+                                  fprintf(ffpoint, "%ld",(*par->IDpoint)(i));
                                 }
                               else
                                 {
@@ -570,7 +570,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     }
                                   else if (oglc[j] == 5)
                                     {
-                                      fprintf(f, "%ld",par->IDpoint->co[i]);
+                                      fprintf(f, "%ld",(*par->IDpoint)(i));
                                     }
                                   else if (oglc[j] <= 5 + 1*m)
                                     {
@@ -693,7 +693,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     }
                                   else if (oglc[j] == 5)
                                     {
-                                      fprintf(ffglac, "%ld",par->IDpoint->co[i]);
+                                      fprintf(ffglac, "%ld",(*par->IDpoint)(i));
                                     }
                                   else if (oglc[j] <= 5 + 1*m)
                                     {
@@ -768,13 +768,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     }
 
                   // sl output
-                  write_soil_output(i, par->IDpoint->co[i], par->init_date->co[i_sim],
+                  write_soil_output(i, (*par->IDpoint)(i), par->init_date->co[i_sim],
                                     par->end_date->co[i_sim], JDfrom0, JD,
 				    day, month, year, hour, minute,
 				    par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
 
                   // snow output
-                  write_snow_output(i, par->IDpoint->co[i], r, c, par->init_date->co[i_sim],
+                  write_snow_output(i, (*par->IDpoint)(i), r, c, par->init_date->co[i_sim],
                                     par->end_date->co[i_sim], JDfrom0, JD,
 				    day, month, year, hour, minute,
                                     par->snow_plot_depths.get(), snow->S, par, cosslope);
@@ -1083,7 +1083,7 @@ Mean Time Step=%f s\n\n",
     {
       n_file=(long)((times->time+par->Dt)/(par->output_soil->co[i_sim]*3600.0));
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -1422,7 +1422,7 @@ Mean Time Step=%f s\n\n",
     {
       n_file=(long)((times->time+par->Dt)/(par->output_snow->co[i_sim]*3600.0));
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -1550,7 +1550,7 @@ Mean Time Step=%f s\n\n",
     {
       n_file=(long)((times->time+par->Dt)/(par->output_glac->co[i_sim]*3600.0));
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -1635,7 +1635,7 @@ Mean Time Step=%f s\n\n",
       n_file=(long)((times->time+par->Dt)/
                     (par->output_surfenergy->co[i_sim]*3600.0));
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -1780,7 +1780,7 @@ Mean Time Step=%f s\n\n",
       n_file=(long)((times->time+par->Dt)/
                     (par->output_vegetation->co[i_sim]*3600.0));
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -1825,7 +1825,7 @@ Mean Time Step=%f s\n\n",
       n_file=(long)((times->time+par->Dt)/(par->output_meteo->co[i_sim]*3600.0));
 
       write_suffix(NNNNN, n_file, 1);
-      if (par->run_times->co[i_sim] == 1)
+      if ((*par->run_times)(i_sim) == 1)
         {
           s1 = join_strings(NNNNN, "");
         }
@@ -3069,7 +3069,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
       // DATA POINTS
       for (i=1; i<=par->rc->nrh; i++)
         {
-          write_suffix(NNNN, par->IDpoint->co[i], 0);
+          write_suffix(NNNN, (*par->IDpoint)(i), 0);
           r=par->rc->co[i][1];
           c=par->rc->co[i][2];
           sy=sl->type->co[r][c];
@@ -4963,43 +4963,43 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         }
       if (par->state_pixel==1)
         {
-          if (par->jplot->co[j] > 0 && par->Dtplot_point->co[i_sim]>0)
+          if ((*par->jplot)(j) > 0 && par->Dtplot_point->co[i_sim]>0)
             {
               for (i=0; i<otot; i++)
                 {
-                  odpnt[i][par->jplot->co[j]-1] += odp[i][par->jplot->co[j]-1];
+                  odpnt[i][(*par->jplot)(j)-1] += odp[i][(*par->jplot)(j)-1];
                 }
             }
-          if (par->jplot->co[j] > 0)
+          if ((*par->jplot)(j) > 0)
             {
               for (i=1; i<=Nl; i++)
                 {
                   r = top->rc_cont->co[j][1];
                   c = top->rc_cont->co[j][2];
-                  if (par->Tzrun == 1) sl->Tzrun->co[par->jplot->co[j]][i] +=
+                  if (par->Tzrun == 1) sl->Tzrun->co[(*par->jplot)(j)][i] +=
                       sl->SS->T->co[i][j] * Dt / ((par->end_date->co[i_sim] -
                                                    par->init_date->co[i_sim])*86400.);
-                  if (par->Tzmaxrun == 1) {if (sl->Tzmaxrun->co[par->jplot->co[j]][i] < sl->SS->T->co[i][j]) sl->Tzmaxrun->co[par->jplot->co[j]][i] = sl->SS->T->co[i][j];}
-                  if (par->Tzminrun == 1) {if (sl->Tzminrun->co[par->jplot->co[j]][i] > sl->SS->T->co[i][j]) sl->Tzminrun->co[par->jplot->co[j]][i] = sl->SS->T->co[i][j];}
+                  if (par->Tzmaxrun == 1) {if (sl->Tzmaxrun->co[(*par->jplot)(j)][i] < sl->SS->T->co[i][j]) sl->Tzmaxrun->co[(*par->jplot)(j)][i] = sl->SS->T->co[i][j];}
+                  if (par->Tzminrun == 1) {if (sl->Tzminrun->co[(*par->jplot)(j)][i] > sl->SS->T->co[i][j]) sl->Tzminrun->co[(*par->jplot)(j)][i] = sl->SS->T->co[i][j];}
                   if (par->wzrun == 1 || par->wzmaxrun == 1 || par->wzminrun == 1)
                     {
                       w = (sl->SS->thi->co[i][j] + sl->th->co[i][j]) *
                           sl->pa->co[sl->type->co[r][c]][jdz][i];
-                      if (par->wzrun == 1) sl->wzrun->co[par->jplot->co[j]][i] += w * Dt / ((
+                      if (par->wzrun == 1) sl->wzrun->co[(*par->jplot)(j)][i] += w * Dt / ((
                             par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
-                      if (par->wzmaxrun == 1) {if (sl->wzmaxrun->co[par->jplot->co[j]][i] < w) sl->wzmaxrun->co[par->jplot->co[j]][i] = w;}
-                      if (par->wzminrun == 1) {if (sl->wzminrun->co[par->jplot->co[j]][i] > w) sl->wzminrun->co[par->jplot->co[j]][i] = w;}
+                      if (par->wzmaxrun == 1) {if (sl->wzmaxrun->co[(*par->jplot)(j)][i] < w) sl->wzmaxrun->co[(*par->jplot)(j)][i] = w;}
+                      if (par->wzminrun == 1) {if (sl->wzminrun->co[(*par->jplot)(j)][i] > w) sl->wzminrun->co[(*par->jplot)(j)][i] = w;}
                     }
                 }
               if (par->SWErun == 1)
                 {
                   w = get_SWE(r, c, snow->S->lnum, snow->S->w_ice, snow->S->w_liq);
-                  sl->SWErun->co[par->jplot->co[j]][1] += w * Dt / ((par->end_date->co[i_sim] -
+                  sl->SWErun->co[(*par->jplot)(j)][1] += w * Dt / ((par->end_date->co[i_sim] -
                                                                      par->init_date->co[i_sim])*86400.);
-                  if (sl->SWErun->co[par->jplot->co[j]][2]<w)
-                    sl->SWErun->co[par->jplot->co[j]][2]=w;
-                  if (sl->SWErun->co[par->jplot->co[j]][3]>w)
-                    sl->SWErun->co[par->jplot->co[j]][3]=w;
+                  if (sl->SWErun->co[(*par->jplot)(j)][2]<w)
+                    sl->SWErun->co[(*par->jplot)(j)][2]=w;
+                  if (sl->SWErun->co[(*par->jplot)(j)][3]>w)
+                    sl->SWErun->co[(*par->jplot)(j)][3]=w;
                 }
 
             }
@@ -5058,7 +5058,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=n; l++)
             {
               fprintf(f, ",%f",sl->Tzrun->co[j][l]);
@@ -5127,7 +5127,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=n; l++)
             {
               fprintf(f, ",%f",sl->Tzmaxrun->co[j][l]);
@@ -5165,7 +5165,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=n; l++)
             {
               fprintf(f, ",%f",sl->wzmaxrun->co[j][l]);
@@ -5204,7 +5204,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=n; l++)
             {
               fprintf(f, ",%f",sl->Tzminrun->co[j][l]);
@@ -5242,7 +5242,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=n; l++)
             {
               fprintf(f, ",%f",sl->wzminrun->co[j][l]);
@@ -5281,7 +5281,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=Nl; l++)
             {
               fprintf(f, ",%f",sl->dUzrun->co[j][l]);
@@ -5313,7 +5313,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
       f = fopen(name, "a");
       for (j=1; j<=par->rc->nrh; j++)
         {
-          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,par->IDpoint->co[j]);
+          fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
           for (l=1; l<=3; l++)
             {
               fprintf(f, ",%f",sl->SWErun->co[j][l]);
