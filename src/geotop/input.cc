@@ -764,7 +764,6 @@ used default values" << std::endl;
     land->vegpar.reset(new Vector<double>{jdvegprop});
 
     par->vegflag.reset(new Vector<short>{par->n_landuses});
-    // par->vegflag=new_shortvector(par->n_landuses);
 
     // time dependent vegetation parameters
     for (i=1; i<=par->n_landuses; i++)
@@ -1724,7 +1723,7 @@ land cover %ld, meteo station %ld\n",
         if (strcmp(files[fsndur], string_novalue) != 0)
         {
             snow->t_snow.reset(new Vector<double>{par->total_pixel});
-            snow->yes=new_shortvector(par->total_pixel);
+            snow->yes.reset(new Vector<short>{par->total_pixel});
         }
     }
 

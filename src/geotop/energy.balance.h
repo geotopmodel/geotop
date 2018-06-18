@@ -109,19 +109,9 @@ double k_thermal(short snow, short a, double th_liq, double th_ice,
 double flux(long i, long icol, double **met, double k, double add,
             double est);
 
-void check_errors(long r, long c, long n, Vector<double>* adi, Vector<double>* ad,
-                  Vector<double>* ads, Vector<double>* b, Vector<double>* e, double *T,
-                  SHORTVECTOR *mf);
-
-double soil_red_evap(double psi, double T);
-
-double red_evap(long n, double psi, double T);
-
 void update_roughness_soil(double z0, double d0, double z0_z0t, double snowD,
                            double thres, double z0snow, double *z0_ris, double *d0_ris,
                            double *z0_z0t_ris);
-
-void check_continuity(long n, double *dw, double *wi, double *wl);
 
 void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *Temp,
            Vector<double> *D, long l, long lup, long ldw, long tot);

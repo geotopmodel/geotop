@@ -400,7 +400,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fsndur], string_novalue) != 0)
         {
-          free_shortvector(snow->yes);
         }
       if (strcmp(files[fsnowmelt], string_novalue) != 0)
         {

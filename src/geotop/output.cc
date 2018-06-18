@@ -4853,7 +4853,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                      string_novalue) != 0) snow->SUBL->co[j] += snow->subl->co[j];
           if (strcmp(files[fsndur], string_novalue) != 0)
             {
-              if (snow->yes->co[j] == 1) snow->t_snow->co[j] += Dt/secinday;
+              if ((*snow->yes)(j) == 1) snow->t_snow->co[j] += Dt/secinday;
             }
         }
 

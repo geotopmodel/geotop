@@ -671,7 +671,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> SUBL;
     std::unique_ptr<Vector<double>> subl;
     std::unique_ptr<Vector<double>> t_snow;
-    SHORTVECTOR *yes;
+    std::unique_ptr<Vector<short>> yes;
     DOUBLEMATRIX *Qsub;
     DOUBLEMATRIX *Qsub_x;
     DOUBLEMATRIX *Qsub_y;
