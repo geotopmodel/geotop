@@ -13,7 +13,7 @@ double **dmatrix(long nrl, long nrh, long ncl,long nch);
 You will find for each method (function, routine) acting on a type a replica acting
 on the other types. To indicate collectively the replicas we will use "*". Thus
 in that context,   * substitutes:
-shortvector, intvector, longvector, floatvector, doublevector, charvector,
+shortvector, intvector, longvector, floatvector, charvector,
 shortmatrix, intmatrix, longmatrix, floatmatrix, doublematrix, charmatrix,
 shortbin, intbin, longbin,doublebin ,stringbin.
 ---------------------------------------------------------------------------------*/
@@ -32,8 +32,6 @@ INTVECTOR *new_intvector(long);
 FLOATVECTOR *new_floatvector(long);
 
 LONGVECTOR *new_longvector(long);
-
-Vector<double>* new_doublevector(long);
 
 CHARVECTOR *new_charvector(long);
 
@@ -116,7 +114,6 @@ void free_shortvector( SHORTVECTOR *);
 void free_intvector( INTVECTOR *);
 void free_longvector( LONGVECTOR *);
 void free_floatvector( FLOATVECTOR *);
-void free_doublevector( Vector<double>* );
 void free_charvector( CHARVECTOR *);
 
 void free_shortmatrix( SHORTMATRIX *);
@@ -151,8 +148,6 @@ Examples: 1.example.c, 2.example.c
 void free_shortvector( SHORTVECTOR *);
 
 void free_longvector( LONGVECTOR *);
-
-void free_doublevector( Vector<double>* );
 
 void free_shortmatrix( SHORTMATRIX *);
 

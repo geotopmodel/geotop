@@ -436,7 +436,6 @@ void time_loop(ALLDATA *A)
                   copy_snowvar3D(S.get(), A->N->S);
                   *(A->N->age) = *a;
 		  
-		  // copy_doublevector(a.get(), A->N->age.get());
                   if (A->P->max_glac_layers>0) copy_snowvar3D(G.get(), A->G->G);
                   copy_soil_state(L.get(), A->S->SS);
                   copy_soil_state(C.get(), A->C->SS);

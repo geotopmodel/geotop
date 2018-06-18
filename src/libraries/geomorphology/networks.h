@@ -655,7 +655,7 @@ Name: drainagedirections
 
 Version: 1.0
 
-Synopsis: void drainagedirections(DOUBLEMATRIX *,SHORTMATRIX *, DOUBLEVECTOR* U,DOUBLEVECTOR* V);
+Synopsis: void drainagedirections(DOUBLEMATRIX *,SHORTMATRIX *, Vector<double>* U,Vector<double>* V);
 
 
 Description: DrainageDirections find the steepest descent mark it as drainage direction
@@ -693,7 +693,7 @@ Name: drainagedirections_modify
 
 Version: 1.0
 
-Synopsis: void drainagedirections_modify(DOUBLEMATRIX *,SHORTMATRIX *, DOUBLEVECTOR* U,DOUBLEVECTOR* V
+Synopsis: void drainagedirections_modify(DOUBLEMATRIX *,SHORTMATRIX *, Vector<double>* U,Vector<double>* V
                                                             SHORTMATRIX *);
 
 

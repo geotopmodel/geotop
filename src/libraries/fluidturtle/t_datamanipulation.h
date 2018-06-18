@@ -7,7 +7,6 @@ Name: initialize_
 Version: 1.0
 
 Synopsis:
-void initialize_doublevector(Vector<double>* ,double );
 void initialize_longmatrix(LONGMATRIX *, long);
 
 

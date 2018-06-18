@@ -153,45 +153,6 @@ typedef struct
 } SHORTVECTOR;
 
 
-
-
-
-typedef struct
-{
-
-  short isdynamic;
-
-  const char *name;
-
-  long nl,nh;
-
-  double *co;
-
-
-
-} DOUBLEVECTOR;
-
-
-
-typedef struct
-{
-
-  short isdynamic;
-
-  const char *name;
-
-  long nl,nh;
-
-  char *co;
-
-
-
-} CHARVECTOR;
-
-
-
-
-
 /**-------------------------------------------------------------------
 
 MATRIXES: The same types as for vectors except for char:
