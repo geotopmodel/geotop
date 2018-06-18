@@ -457,7 +457,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
             }
 
             // find Prec Intensity
-            if ( par->linear_interpolation_meteo->co[i] == 1
+            if ( (*par->linear_interpolation_meteo)(i) == 1
                  && (long)met->data[i-1][0][iPrec] != number_absent)
             {
                 f = fopen(FailedRunFile, "w");
@@ -1388,7 +1388,7 @@ land cover %ld, meteo station %ld\n",
             egy->nDt_sun.reset(new Vector<long>{par->total_pixel});
             (*egy->nDt_shadow) = 0;
             (*egy->nDt_sun) = 0;
-            egy->shad = new_shortvector(par->total_pixel);
+            egy->shad.reset(new Vector<short>{par->total_pixel});
         }
     }
 

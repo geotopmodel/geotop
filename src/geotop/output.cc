@@ -4896,8 +4896,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
           if (strcmp(files[fshadow], string_novalue) != 0)
             {
-              if (egy->shad->co[j] >= 0) (*egy->nDt_sun)(j) ++;
-              if (egy->shad->co[j] == 0) (*egy->nDt_shadow)(j) ++;
+              if ((*egy->shad)(j) >= 0) (*egy->nDt_sun)(j) ++;
+              if ((*egy->shad)(j) == 0) (*egy->nDt_shadow)(j) ++;
             }
         }
       if (par->output_meteo->co[i_sim]>0)

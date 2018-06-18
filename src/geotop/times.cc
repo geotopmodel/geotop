@@ -70,11 +70,11 @@ void set_time_step(PAR *par, TIMES *times)
   par->Dt=times->Dt_vector[1+posix];
   posix++;
 
-  if (par->plot_discharge_with_Dt_integration->co[i_sim]==1)
+  if ((*par->plot_discharge_with_Dt_integration)(i_sim)==1)
     par->Dtplot_discharge->co[i_sim]=par->Dt;
-  if (par->plot_point_with_Dt_integration->co[i_sim]==1)
+  if ((*par->plot_point_with_Dt_integration)(i_sim)==1)
     par->Dtplot_point->co[i_sim]=par->Dt;
-  if (par->plot_basin_with_Dt_integration->co[i_sim]==1)
+  if ((*par->plot_basin_with_Dt_integration)(i_sim)==1)
     par->Dtplot_basin->co[i_sim]=par->Dt;
 
 }

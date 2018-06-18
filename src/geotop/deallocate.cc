@@ -309,7 +309,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
-          free_shortvector(egy->shad);
         }
     }
 
@@ -525,14 +524,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   if (par->point_sim == 1) free_doublematrix(par->maxSWE);
 
-  free_shortvector(par->plot_discharge_with_Dt_integration);
-  free_shortvector(par->plot_point_with_Dt_integration);
-  free_shortvector(par->plot_basin_with_Dt_integration);
 
-
-
-
-  free_shortvector(par->linear_interpolation_meteo);
 
 
   //  free(par);

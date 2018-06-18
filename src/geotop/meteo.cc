@@ -53,7 +53,7 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
   //INTERPOLATION OF METEO VARIABLES
   for (i=1; i<=met->st->Z->nh; i++)
     {
-      if (par->linear_interpolation_meteo->co[i] == 1)
+      if ( (*par->linear_interpolation_meteo)(i) == 1)
         {
           time_interp_linear(JD0, JDbeg, JDend, met->var[i-1], met->data[i-1],
                              met->numlines[i-1], nmet, iJDfrom0, 1, &(line[i-1]));

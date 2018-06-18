@@ -1184,7 +1184,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_discharge->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                         num_param, num_param_components, par->Dtplot_discharge->co[i-1], 0);
     }
-  par->plot_discharge_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_discharge_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_discharge = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
@@ -1192,11 +1192,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       if (par->Dtplot_discharge->co[i] > 1.E-5
           && par->Dtplot_discharge->co[i] <= minDt)
         {
-          par->plot_discharge_with_Dt_integration->co[i]=1;
+          (*par->plot_discharge_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_discharge_with_Dt_integration->co[i]=0;
+          (*par->plot_discharge_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_discharge->co[i] > 1.E-5) par->state_discharge = 1;
     }
@@ -1210,18 +1210,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_point->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                     num_param, num_param_components, par->Dtplot_point->co[i-1], 0);
     }
-  par->plot_point_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_point_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_pixel = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->Dtplot_point->co[i] *= 3600.;
       if (par->Dtplot_point->co[i] > 1.E-5 && par->Dtplot_point->co[i] <= minDt)
         {
-          par->plot_point_with_Dt_integration->co[i]=1;
+          (*par->plot_point_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_point_with_Dt_integration->co[i]=0;
+          (*par->plot_point_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
     }
@@ -1235,18 +1235,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_basin->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                     num_param, num_param_components, par->Dtplot_basin->co[i-1], 0);
     }
-  par->plot_basin_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_basin_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_basin = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->Dtplot_basin->co[i] *= 3600.;
       if (par->Dtplot_basin->co[i] > 1.E-5 && par->Dtplot_basin->co[i] <= minDt)
         {
-          par->plot_basin_with_Dt_integration->co[i]=1;
+          (*par->plot_basin_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_basin_with_Dt_integration->co[i]=0;
+          (*par->plot_basin_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_basin->co[i] > 1.E-5) par->state_basin = 1;
     }
@@ -2387,14 +2387,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                               num_param_components, 0., 0);
 
   cod = 370;
-  par->linear_interpolation_meteo = new_shortvector(nmeteo_stations);
-  par->linear_interpolation_meteo->co[1] = (short)assignation_number(flog, cod,
+  par->linear_interpolation_meteo.reset(new Vector<short>{nmeteo_stations});
+  (*par->linear_interpolation_meteo)(1) = (short)assignation_number(flog, cod,
                                            0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=nmeteo_stations; i++)
     {
-      par->linear_interpolation_meteo->co[i] = (short)assignation_number(flog, cod,
+      (*par->linear_interpolation_meteo)(i) = (short)assignation_number(flog, cod,
                                                i-1, keyword, num_param, num_param_components,
-                                               par->linear_interpolation_meteo->co[i-1], 0);
+                                               (*par->linear_interpolation_meteo)(i-1), 0);
     }
 
   cod = 371;

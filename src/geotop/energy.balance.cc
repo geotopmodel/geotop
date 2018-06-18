@@ -931,7 +931,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (strcmp(files[fradSWin], string_novalue) != 0) A->E->SWin->co[j] = SWin;
               if (strcmp(files[fradSWinbeam],
                          string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
-              if (strcmp(files[fshadow], string_novalue) != 0) A->E->shad->co[j] = SWb_yes;
+              if (strcmp(files[fshadow], string_novalue) != 0) (*A->E->shad)(j) = SWb_yes;
               if (strcmp(files[fG], string_novalue) != 0) A->E->G->co[j] = surfEB;
               if (strcmp(files[fH], string_novalue) != 0)  A->E->H->co[j] = H;
               if (strcmp(files[fLE], string_novalue) != 0)  A->E->LE->co[j] = LE;

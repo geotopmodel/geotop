@@ -52,7 +52,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> Ts;
     std::unique_ptr<Vector<double>> SWin;
     std::unique_ptr<Vector<double>> SWinb;
-    SHORTVECTOR *shad;
+    std::unique_ptr<Vector<short>> shad;
 
     std::unique_ptr<Vector<double>> Hgplot;
     std::unique_ptr<Vector<double>> LEgplot;
@@ -434,7 +434,6 @@ typedef struct {
 
     short LRflag;
 
-    //SHORTVECTOR *vegflag;
     std::unique_ptr<Vector<short>> vegflag;
 
     //short harm_or_arit_mean_normal;
@@ -481,9 +480,9 @@ typedef struct {
 
     short tsteps_from_file;
 
-    SHORTVECTOR *plot_discharge_with_Dt_integration;
-    SHORTVECTOR *plot_point_with_Dt_integration;
-    SHORTVECTOR *plot_basin_with_Dt_integration;
+    std::unique_ptr<Vector<short>> plot_discharge_with_Dt_integration;
+    std::unique_ptr<Vector<short>> plot_point_with_Dt_integration;
+    std::unique_ptr<Vector<short>> plot_basin_with_Dt_integration;
 
     std::unique_ptr<Vector<double>> Dtplot_point;
     std::unique_ptr<Vector<double>> Dtplot_basin;
@@ -570,7 +569,7 @@ typedef struct {
 
     short prec_as_intensity;
 
-    SHORTVECTOR *linear_interpolation_meteo;
+    std::unique_ptr<Vector<short>> linear_interpolation_meteo;
 
     short output_vertical_distances;
 
