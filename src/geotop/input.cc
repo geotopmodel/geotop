@@ -869,8 +869,7 @@ land cover %ld, meteo station %ld\n",
     cnet->ch=new_longmatrix(Nr,Nc);
     initialize_longmatrix(cnet->ch, 0);
 
-    cnet->ch_down=new_longvector(i);
-    initialize_longvector(cnet->ch_down, 0);
+    cnet->ch_down.reset(new Vector<long>{i});
 
     cnet->length.reset(new Vector<double>{i});
 
@@ -880,8 +879,8 @@ land cover %ld, meteo station %ld\n",
 
     cnet->h_sup.reset(new Vector<double>{i});
 
-    cnet->soil_type = new_longvector(i);
-    initialize_longvector(cnet->soil_type, par->soil_type_chan_default);
+    cnet->soil_type.reset(new Vector<long>{i});
+    (*cnet->soil_type) = par->soil_type_chan_default;
 
     if (par->total_channel>1)
         enumerate_channels(cnet, land->LC, top->pixel_type, top->Z0, top->slope, number_novalue);
@@ -1217,7 +1216,7 @@ land cover %ld, meteo station %ld\n",
 
     for (j=1; j<=par->total_channel; j++)
     {
-        sy=cnet->soil_type->co[j];
+        sy=(*cnet->soil_type)(j);
         r=cnet->r->co[j];
         c=cnet->c->co[j];
 
@@ -1288,7 +1287,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (l=1; l<=Nl; l++)
             {
-                sy = cnet->soil_type->co[i];
+                sy = (*cnet->soil_type)(i);
                 cnet->th->co[l][i] = teta_psi(Fmin(cnet->SS->P->co[l][i],
                                                    psi_saturation(cnet->SS->thi->co[l][i],
                                                                   sl->pa->co[sy][jsat][l],
@@ -3916,9 +3915,9 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
             {
                 r = cnet->r->co[i-par->total_pixel];
                 c = cnet->c->co[i-par->total_pixel];
-                sy = cnet->soil_type->co[i-par->total_pixel];
+                sy = (*cnet->soil_type)(i-par->total_pixel);
                 synew = i;
-                cnet->soil_type->co[i-par->total_pixel] = synew;
+                (*cnet->soil_type)(i-par->total_pixel) = synew;
                 z = par->depr_channel;
             }
 

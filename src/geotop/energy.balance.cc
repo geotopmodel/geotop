@@ -259,7 +259,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       j = i;
       lu = (short)A->L->LC->co[r][c];
-      sy = A->C->soil_type->co[j];
+      sy = (*A->C->soil_type)(j);
 
       for (l=1; l<=Nl; l++)
         {
@@ -1418,7 +1418,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   //Initialize soil properties
   if (i<=par->total_channel)
     {
-      sy = cnet->soil_type->co[j];
+      sy = (*cnet->soil_type)(j);
       psi0 = SC->P->co[0][j];
       for (l=1; l<=Nl; l++)
         {

@@ -594,7 +594,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
           ch = adt->C->lch->co[i-n][2];
           r = adt->C->r->co[ch];
           c = adt->C->c->co[ch];
-          sy = adt->C->soil_type->co[ch];
+          sy = (*adt->C->soil_type)(ch);
 
           if (l==0)
             {
@@ -1071,7 +1071,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
           ch=adt->C->lch->co[i-n][2];
           r=adt->C->r->co[ch];
           c=adt->C->c->co[ch];
-          sy=adt->C->soil_type->co[ch];
+          sy=(*adt->C->soil_type)(ch);
 
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
 
@@ -1464,7 +1464,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
             {
 
               ch = adt->C->ch->co[r][c];
-              syn = adt->C->soil_type->co[ch];
+              syn = (*adt->C->soil_type)(ch);
               I = n + adt->C->ch3[l][ch];
 
               if (H->co[I] > H->co[i])
@@ -1668,7 +1668,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
           ch=adt->C->lch->co[i-n][2];
           r=adt->C->r->co[ch];
           c=adt->C->c->co[ch];
-          sy=adt->C->soil_type->co[ch];
+          sy=(*adt->C->soil_type)(ch);
           bc=0;
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
           psi1 = H->co[i] - (adt->T->Z->co[l][r][c] - adt->P->depr_channel);
@@ -1832,7 +1832,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
           ch=adt->C->lch->co[i-n][2];
           r=adt->C->r->co[ch];
           c=adt->C->c->co[ch];
-          sy=adt->C->soil_type->co[ch];
+          sy=(*adt->C->soil_type)(ch);
           bc=0;
           area=adt->C->length->co[ch] * adt->P->w_dx * ds;
           psi0 = C->P->co[l][ch];
@@ -2540,7 +2540,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
           Vmax = 1.E-3*H*dn*cnet->length->co[ch]; //m3
 
           if (top->is_on_border->co[r][c] == 1
-              && cnet->ch_down->co[ch]==ch) //outlet section
+              && (*cnet->ch_down)(ch)==ch) //outlet section
             {
 
               q = Cd*(2./3.)*sqrt(2.*g*1.E-3*H)*(1.E-3*H)*dn; //[m3/s]
@@ -2549,8 +2549,8 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
           else
             {
 
-              R = cnet->r->co[cnet->ch_down->co[ch]];
-              C = cnet->c->co[cnet->ch_down->co[ch]];
+              R = cnet->r->co[(*cnet->ch_down)(ch)];
+              C = cnet->c->co[(*cnet->ch_down)(ch)];
 
               if ( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) )
                 {
@@ -2564,7 +2564,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
               Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
               i = ( (top->Z0->co[r][c] - top->Z0->co[R][C] ) + 1.E-3*(Fmax(0.0,
-                                                                      h[ch]) - Fmax(0.0, h[cnet->ch_down->co[ch]])) ) / dD;
+                                                                      h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
 
               if (i<0) i=0.;
 
@@ -2581,7 +2581,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
       else
         {
 
-          cnet->ch_down->co[ch] = ch;
+            (*cnet->ch_down)(ch) = ch;
 
         }
     }
@@ -2644,11 +2644,11 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
               if (H > par->min_hsup_channel)
                 {
 
-                  R = cnet->r->co[cnet->ch_down->co[ch]];
-                  C = cnet->c->co[cnet->ch_down->co[ch]];
+                  R = cnet->r->co[(*cnet->ch_down)(ch)];
+                  C = cnet->c->co[(*cnet->ch_down)(ch)];
 
                   if (top->is_on_border->co[r][c] == 1
-                      && cnet->ch_down->co[ch]==ch) //outlet section
+                      && (*cnet->ch_down)(ch)==ch) //outlet section
                     {
 
                       q = Cd*(2./3.)*sqrt(2.*g*1.E-3*H)*(1.E-3*H)*dn; //[m3/s]
@@ -2669,7 +2669,7 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
                       Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
                       i= ( (top->Z0->co[r][c] - top->Z0->co[R][C] ) + 1.E-3*(Fmax(0.0,
-                                                                                  h[ch]) - Fmax(0.0, h[cnet->ch_down->co[ch]])) ) / dD;
+                                                                                  h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
 
                       if (i<0) i=0.;
 
@@ -2692,24 +2692,24 @@ void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
                          top->slope->co[r][c]*Pi/180.);
 
               if (top->is_on_border->co[r][c] == 1
-                  && cnet->ch_down->co[ch]==ch) //outlet section
+                  && (*cnet->ch_down)(ch)==ch) //outlet section
                 {
                   *Vout = *Vout + dV[ch]; //m3
                 }
               else
                 {
-                  R = cnet->r->co[cnet->ch_down->co[ch]];
-                  C = cnet->c->co[cnet->ch_down->co[ch]];
-                  if (h[cnet->ch_down->co[ch]]>0)
+                  R = cnet->r->co[(*cnet->ch_down)(ch)];
+                  C = cnet->c->co[(*cnet->ch_down)(ch)];
+                  if (h[(*cnet->ch_down)(ch)]>0)
                     {
-                      h[cnet->ch_down->co[ch]] += (1.E3*dV[ch]/
-                                                   (dn*cnet->length->co[cnet->ch_down->co[ch]])) * cos(
+                      h[(*cnet->ch_down)(ch)] += (1.E3*dV[ch]/
+                                                   (dn*cnet->length->co[(*cnet->ch_down)(ch)])) * cos(
                                                     top->slope->co[R][C]*Pi/180.); //mm;
                     }
                   else
                     {
-                      if ( dV[ch] > 0) h[cnet->ch_down->co[ch]] = (1.E3*dV[ch]/
-                                                                     (dn*cnet->length->co[cnet->ch_down->co[ch]])) * cos(
+                      if ( dV[ch] > 0) h[(*cnet->ch_down)(ch)] = (1.E3*dV[ch]/
+                                                                     (dn*cnet->length->co[(*cnet->ch_down)(ch)])) * cos(
                                                                       top->slope->co[R][C]*Pi/180.);  //mm;
                     }
                 }

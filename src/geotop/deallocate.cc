@@ -291,14 +291,12 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longvector(cnet->r);
   free_longvector(cnet->c);
   free_longmatrix(cnet->ch);
-  free_longvector(cnet->ch_down);
   for (l=0; l<=Nl; l++)
     {
       free(cnet->ch3[l]);
     }
   free(cnet->ch3);
   free_longmatrix(cnet->lch);
-  free_longvector(cnet->soil_type);
   free_doublematrix(cnet->th);
   free_doublematrix(cnet->ET);
   delete cnet->SS;

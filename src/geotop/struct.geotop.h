@@ -254,10 +254,9 @@ typedef struct {
     /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
                       R=number of rows of the basin,C=number of columns in the basin*/
     LONGVECTOR *r;          /*array of rows of the channel-pixels; dimension=nch*/
-    LONGVECTOR
-            *c;          /*array of columns of the channel-pixels; dimension=nch*/
+    LONGVECTOR *c;          /*array of columns of the channel-pixels; dimension=nch*/
     LONGMATRIX *ch;
-    LONGVECTOR *ch_down;
+    std::unique_ptr<Vector<long>> ch_down;
     std::unique_ptr<Vector<double>> Vsup;
     std::unique_ptr<Vector<double>> Vsub;
     std::unique_ptr<Vector<double>> h_sup;
@@ -265,7 +264,7 @@ typedef struct {
     double Vout;
     long **ch3;
     LONGMATRIX *lch;
-    LONGVECTOR *soil_type;
+    std::unique_ptr<Vector<long>> soil_type;
     DOUBLEMATRIX *th;
     DOUBLEMATRIX *ET;
     std::unique_ptr<Vector<double>> Kbottom;
