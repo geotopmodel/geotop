@@ -182,7 +182,6 @@ typedef struct {
 
     //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
     //LONGMATRIX *DDup;
-    //LONGVECTOR *DDdown;
     //DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
 
     DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/

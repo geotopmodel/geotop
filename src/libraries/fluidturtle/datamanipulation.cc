@@ -8,24 +8,6 @@
 
 
 /*---------------------------------------------------------------------------*/
-void initialize_longvector(LONGVECTOR *L, long sign) {
-
-  long i;
-
-  if (L != NULL) {
-    if (L->isdynamic == 1) {
-      for (i = 1; i <= L->nh; i++) {
-        L->co[i] = sign;
-      }
-    } else {
-      t_error("This longvector was no properly allocated");
-    }
-  } else {
-    t_error("A null vector was addressed");
-  }
-}
-
-/*---------------------------------------------------------------------------*/
 void initialize_shortvector(SHORTVECTOR *L, short sign) {
 
   long i;

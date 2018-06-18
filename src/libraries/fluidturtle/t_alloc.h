@@ -13,7 +13,7 @@ double **dmatrix(long nrl, long nrh, long ncl,long nch);
 You will find for each method (function, routine) acting on a type a replica acting
 on the other types. To indicate collectively the replicas we will use "*". Thus
 in that context,   * substitutes:
-shortvector, intvector, longvector, floatvector, charvector,
+shortvector, intvector, floatvector, charvector,
 shortmatrix, intmatrix, longmatrix, floatmatrix, doublematrix, charmatrix,
 shortbin, intbin, longbin,doublebin ,stringbin.
 ---------------------------------------------------------------------------------*/
@@ -31,10 +31,7 @@ INTVECTOR *new_intvector(long);
 
 FLOATVECTOR *new_floatvector(long);
 
-LONGVECTOR *new_longvector(long);
-
 CHARVECTOR *new_charvector(long);
-
 
 SHORTMATRIX *new_shortmatrix( long,long);
 
@@ -45,17 +42,6 @@ FLOATMATRIX *new_floatmatrix( long,long);
 LONGMATRIX *new_longmatrix( long,long);
 
 DOUBLEMATRIX *new_doublematrix( long,long);
-
-
-INTBIN *new_intbin(LONGVECTOR *);
-
-STRINGBIN *new_stringbin(LONGVECTOR *);
-
-SHORTBIN *new_shortbin(LONGVECTOR *);
-
-LONGBIN *new_longbin(LONGVECTOR *);
-
-DOUBLEBIN *new_doublebin(LONGVECTOR *);
 
 Version: 1.0
 
@@ -70,7 +56,7 @@ Authors & Date: Paolo D'Odorico, Riccardo Rigon, 1996-1997
 FILE: LIBRARIES/BASICS/t_alloc.h, LIBRARIES/BASICS/alloc.c
 
 Inputs: the number of elements in the  vector, the number of rows and columns matrixes,
- a LONGVECTOR for bins.
+ a LONG VECTOR for bins.
 
 Return: a pointer to the allocated structure
 
@@ -83,8 +69,6 @@ Examples: 1.example.c, 2.example.c
 */
 
 SHORTVECTOR *new_shortvector(long);
-
-LONGVECTOR *new_longvector(long);
 
 
 SHORTMATRIX *new_shortmatrix( long,long);
@@ -112,7 +96,6 @@ Version: 1.0
 Synopsis:
 void free_shortvector( SHORTVECTOR *);
 void free_intvector( INTVECTOR *);
-void free_longvector( LONGVECTOR *);
 void free_floatvector( FLOATVECTOR *);
 void free_charvector( CHARVECTOR *);
 
@@ -146,8 +129,6 @@ Examples: 1.example.c, 2.example.c
 */
 
 void free_shortvector( SHORTVECTOR *);
-
-void free_longvector( LONGVECTOR *);
 
 void free_shortmatrix( SHORTMATRIX *);
 
