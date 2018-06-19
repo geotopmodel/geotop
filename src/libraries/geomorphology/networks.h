@@ -34,119 +34,7 @@ that uses the branching structure of the networks.
 
 void tca(SHORTMATRIX *,LONGMATRIX *);
 
-/**
 
-Name: outletdistance
-
-Synopsis: void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,Vector<double>* U);
-
-
-Version: 0.9
-
-Description: It returns the distance from the outlet or outlets of the given DEM. Diagonal  flowing directions are given distance according
-to the Pitagora theorem.  Outlet pixel is given null distance. Units are pixels.
-
-Authors & Date: Riccardo Rigon, January 1998
-
-
-Inputs: 1) the flowing direction matrix; 2) the matrix that will contain the distances; 3) The vector of novalues for the flowing directions
-
-FILE:  LIBRARIES/GEOMORPHOLOGYLIB/networks.c,   LIBRARIES/GEOMORPHOLOGYLIB/networks.h,
-
-References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
-
-*/
-
-void outletdistance(SHORTMATRIX *m,DOUBLEMATRIX *dist,Vector<double>* U);
-
-
-/**
-
-Name: topological_outletdistance
-
-Synopsis: void topological_outletdistance(SHORTMATRIX *m,LONGMATRIX *dist)
-
-Version: 0.9
-
-Inputs: 1) the flowing direction matrix; 2) the matrix that will contain the distances; 3) The vector of novalues for the flowing directions
-
-Description: It returns the distance from the outlet or outlets of the given DEM. Units are pixels.
-Diagonal  flowing directions are given distance 1.  Outlet pixel is given null distance.
-
-
-Authors & Date: Riccardo Rigon, January 1998
-
-FILE:  LIBRARIES/GEOMORPHOLOGYLIB/networks.c,   LIBRARIES/GEOMORPHOLOGYLIB/networks.h,
-
-References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
-
-
-*/
-
-void topological_outletdistance(SHORTMATRIX *m,LONGMATRIX *dist);
-
-/**
-
-Name:  tplgicl_hc_outletdistance
-
-Synopsis: void topological_hillslopes_channels_outletdistance(SHORTMATRIX *m,SHORTMATRIX* hillslopes,
-               LONGMATRIX *dist)
-
-Version: 0.1
-
-Description:  It returns the topological distance from the outlet .
-Hillslope pixels are marked with a  negative number whose absolute value is the distance
-from channels mesured along the pathway identified by steepest descent.    Outlet pixel has null distance.
-
-Authors & Date: Riccardo Rigon, January 1998
-
-Inputs: 1) the flowing direction matrix; 2) the matrix that distinguish hillslopes from channels ;3) the matrix that will contain the distances
-
-See Also: outlet_distance, topological_outletdistance
-
-FILE:  LIBRARIES/GEOMORPHOLOGYLIB/networks.c,   LIBRARIES/GEOMORPHOLOGYLIB/networks.h,
-
-References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
-
-
-*/
-
-void topological_hillslopes_channels_outletdistance(SHORTMATRIX *m,
-                                                    SHORTMATRIX *hillslopes,
-                                                    LONGMATRIX *dist);
-
-/**
-
-Name: h_c_outletdistance
-
-Synopsis: void hillslopes_channels_outletdistance(SHORTMATRIX *m,SHORTMATRIX* hillslopes,
-              DOUBLEMATRIX *dist,Vector<double>* U)
-
-
-Version: 0.9
-
-Description:   It returns the distance from the outlet .
-Hillslope pixels are marked with a  negative number whose absolute value is the distance
-from channels mesured along the pathway identified by steepest descent.   Outlet pixel has null distance.
-
-Authors & Date: Riccardo Rigon, January 1998
-
-Inputs: 1) the flowing direction matrix; 2) the matrix that marks hillslopes; 3) the matrix that will contain the distances; 4) The vector of novalues for the flowing directions
-
-See Also: outlet_distance, topological_outletdistance
-
-FILE:  LIBRARIES/GEOMORPHOLOGYLIB/networks.c,   LIBRARIES/GEOMORPHOLOGYLIB/networks.h,
-
-References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
-
-
-*/
-
-void hillslopes_channels_outletdistance(SHORTMATRIX *m,
-                                        SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,Vector<double>* U);
-/* old veriosn with U float */
-void hillslopes_channels_outletdistance_f(SHORTMATRIX *m,
-                                          SHORTMATRIX *hillslopes, DOUBLEMATRIX *dist,FLOATVECTOR *U);
 /**
 
 Name: select_channel
@@ -722,11 +610,6 @@ void drainagedirections_modify(DOUBLEMATRIX *,SHORTMATRIX *, Vector<double>* U,
                                Vector<double>* V,
                                SHORTMATRIX *);
 
-/* old version with U, V floating point */
-void drainagedirections_modify_f(DOUBLEMATRIX *,SHORTMATRIX *, FLOATVECTOR *U,
-                                 FLOATVECTOR *V,
-                                 SHORTMATRIX *);
-
 /**
 
 
@@ -767,9 +650,7 @@ References: I. Rodriguez_Iturbe and A. Rinaldo, Fractal River Basins, CUP 1997
 */
 
 short is_ontheborder(DOUBLEMATRIX *elevations,Vector<double>* V,long i, long j);
-/* old version with U, V floating point */
-short is_ontheborder_f(DOUBLEMATRIX *elevations,FLOATVECTOR *V,long i,
-                       long j);
+
 /**
 
 
