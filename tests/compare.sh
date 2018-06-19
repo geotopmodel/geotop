@@ -2,7 +2,7 @@
 
 declare -i st
 st=0
-for _f in $(ls -1 output-tabs/*.txt output-maps/*.txt)
+for _f in $(ls -1 output-tabs/* output-maps/*)
 do
     _orig=${_f/\//-SE27XX\/}
     numdiff -a 1e-5 -r 1e-5 -s ' \t\n=,:;<>[](){}^' $_f $_orig &> _out.$$
