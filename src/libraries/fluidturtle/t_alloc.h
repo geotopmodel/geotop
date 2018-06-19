@@ -10,7 +10,6 @@ double **dmatrix(long nrl, long nrh, long ncl,long nch);
 You will find for each method (function, routine) acting on a type a replica acting
 on the other types. To indicate collectively the replicas we will use "*". Thus
 in that context,   * substitutes:
-intvector, floatvector, charvector,
 shortmatrix, intmatrix, longmatrix, floatmatrix, doublematrix, charmatrix,
 shortbin, intbin, longbin,doublebin ,stringbin.
 ---------------------------------------------------------------------------------*/

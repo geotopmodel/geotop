@@ -76,29 +76,6 @@
 
 
 /**-------------------------------------------------------------------
-VECTORS: essentially the same types as in Numerical Recipes, except
-that char and long are not unsigned as there. We have vector for short,
-int,long , char, float, double.
-
----------------------------------------------------------------------*/
-
-typedef struct
-{
-
-  short isdynamic;          /* set to 1 when dynamically allocated */
-
-  const char *name;         /* the name of the data structure      */
-
-  long nl,nh;               /* the lower bound, nl, and the upper, nh */
-
-  float *co;           /* the real stuff                      */
-
-
-
-} FLOATVECTOR;
-
-
-/**-------------------------------------------------------------------
 
 MATRIXES: The same types as for vectors except for char:
 SHORTMATRIX, INTMATRIX, LONGMATRIX, FLOATMATRIX, DOUBLEMATRIX
@@ -110,7 +87,7 @@ SHORTMATRIX, INTMATRIX, LONGMATRIX, FLOATMATRIX, DOUBLEMATRIX
 typedef struct
 {
 
-  short isdynamic;         /* see FLOATVECTOR */
+  short isdynamic;         /* see FLOAT VECTOR */
 
   const char *name;
 
