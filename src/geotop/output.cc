@@ -249,8 +249,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
               D = find_watertabledepth_up(Dthaw, j, sl->type->co[r][c], sl);
               odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
-
+              std::cout << "333333333333333333333333333333" << std::endl;
               D = find_watertabledepth_dw(Dthaw, j, sl->type->co[r][c], sl);
+              std::cout << "44444444444444444444444444" << std::endl;
               odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
             }
         }
@@ -1320,8 +1321,11 @@ Mean Time Step=%f s\n\n",
             {
               r = top->rc_cont->co[i][1];
               c = top->rc_cont->co[i][2];
+              std::cout << "1111111111111111111111" << std::endl;
               V->co[i] = find_watertabledepth_dw(find_activelayerdepth_up(i, sl->type->co[r][c], sl),
 						 i, sl->type->co[r][c], sl); // normal
+              std::cout << "2222222222222222222222" << std::endl;
+
             }
           temp1=join_strings(files[fwtable_dw],s2);
           write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,

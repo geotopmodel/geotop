@@ -665,7 +665,6 @@ long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
                   char **header, long num_cols_header, FILE *flog)
 {
   GEOLOG_PREFIX(__func__);
-
   long *coder, i, j;
   char *lowercaseColDescr;
 
