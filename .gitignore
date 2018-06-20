@@ -47,6 +47,8 @@ output_maps/
 input*
 failing_output
 *.log
+rec/*
+NetPrec/*
 
 # Emacs back-up files
 *~
