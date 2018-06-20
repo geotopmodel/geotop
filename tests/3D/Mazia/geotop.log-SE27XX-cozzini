@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.610201e+11 
@@ -1334,96 +1334,96 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = none
-Column 1 in file ./soil/soil0001.txt assigned to Dz
-Column 3 in file ./soil/soil0001.txt assigned to Kv
-Column 2 in file ./soil/soil0001.txt assigned to Kh
-Column 4 in file ./soil/soil0001.txt assigned to res
-Column 5 in file ./soil/soil0001.txt assigned to wilt
-Column 6 in file ./soil/soil0001.txt assigned to fc
-Column 7 in file ./soil/soil0001.txt assigned to sat
-Column 8 in file ./soil/soil0001.txt assigned to a
-Column 9 in file ./soil/soil0001.txt assigned to n
-Column 10 in file ./soil/soil0001.txt assigned to SS
-Column 1 in file ./soil/soil0002.txt assigned to Dz
-Column 3 in file ./soil/soil0002.txt assigned to Kv
-Column 2 in file ./soil/soil0002.txt assigned to Kh
-Column 4 in file ./soil/soil0002.txt assigned to res
-Column 5 in file ./soil/soil0002.txt assigned to wilt
-Column 6 in file ./soil/soil0002.txt assigned to fc
-Column 7 in file ./soil/soil0002.txt assigned to sat
-Column 8 in file ./soil/soil0002.txt assigned to a
-Column 9 in file ./soil/soil0002.txt assigned to n
-Column 10 in file ./soil/soil0002.txt assigned to SS
-Column 1 in file ./soil/soil0003.txt assigned to Dz
-Column 3 in file ./soil/soil0003.txt assigned to Kv
-Column 2 in file ./soil/soil0003.txt assigned to Kh
-Column 4 in file ./soil/soil0003.txt assigned to res
-Column 5 in file ./soil/soil0003.txt assigned to wilt
-Column 6 in file ./soil/soil0003.txt assigned to fc
-Column 7 in file ./soil/soil0003.txt assigned to sat
-Column 8 in file ./soil/soil0003.txt assigned to a
-Column 9 in file ./soil/soil0003.txt assigned to n
-Column 10 in file ./soil/soil0003.txt assigned to SS
-Column 1 in file ./soil/soil0004.txt assigned to Dz
-Column 3 in file ./soil/soil0004.txt assigned to Kv
-Column 2 in file ./soil/soil0004.txt assigned to Kh
-Column 4 in file ./soil/soil0004.txt assigned to res
-Column 5 in file ./soil/soil0004.txt assigned to wilt
-Column 6 in file ./soil/soil0004.txt assigned to fc
-Column 7 in file ./soil/soil0004.txt assigned to sat
-Column 8 in file ./soil/soil0004.txt assigned to a
-Column 9 in file ./soil/soil0004.txt assigned to n
-Column 10 in file ./soil/soil0004.txt assigned to SS
-Column 1 in file ./soil/soil0005.txt assigned to Dz
-Column 3 in file ./soil/soil0005.txt assigned to Kv
-Column 2 in file ./soil/soil0005.txt assigned to Kh
-Column 4 in file ./soil/soil0005.txt assigned to res
-Column 5 in file ./soil/soil0005.txt assigned to wilt
-Column 6 in file ./soil/soil0005.txt assigned to fc
-Column 7 in file ./soil/soil0005.txt assigned to sat
-Column 8 in file ./soil/soil0005.txt assigned to a
-Column 9 in file ./soil/soil0005.txt assigned to n
-Column 10 in file ./soil/soil0005.txt assigned to SS
-Column 1 in file ./soil/soil0006.txt assigned to Dz
-Column 3 in file ./soil/soil0006.txt assigned to Kv
-Column 2 in file ./soil/soil0006.txt assigned to Kh
-Column 4 in file ./soil/soil0006.txt assigned to res
-Column 5 in file ./soil/soil0006.txt assigned to wilt
-Column 6 in file ./soil/soil0006.txt assigned to fc
-Column 7 in file ./soil/soil0006.txt assigned to sat
-Column 8 in file ./soil/soil0006.txt assigned to a
-Column 9 in file ./soil/soil0006.txt assigned to n
-Column 10 in file ./soil/soil0006.txt assigned to SS
-Column 1 in file ./soil/soil0007.txt assigned to Dz
-Column 3 in file ./soil/soil0007.txt assigned to Kv
-Column 2 in file ./soil/soil0007.txt assigned to Kh
-Column 4 in file ./soil/soil0007.txt assigned to res
-Column 5 in file ./soil/soil0007.txt assigned to wilt
-Column 6 in file ./soil/soil0007.txt assigned to fc
-Column 7 in file ./soil/soil0007.txt assigned to sat
-Column 8 in file ./soil/soil0007.txt assigned to a
-Column 9 in file ./soil/soil0007.txt assigned to n
-Column 10 in file ./soil/soil0007.txt assigned to SS
-Column 1 in file ./soil/soil0008.txt assigned to Dz
-Column 3 in file ./soil/soil0008.txt assigned to Kv
-Column 2 in file ./soil/soil0008.txt assigned to Kh
-Column 4 in file ./soil/soil0008.txt assigned to res
-Column 5 in file ./soil/soil0008.txt assigned to wilt
-Column 6 in file ./soil/soil0008.txt assigned to fc
-Column 7 in file ./soil/soil0008.txt assigned to sat
-Column 8 in file ./soil/soil0008.txt assigned to a
-Column 9 in file ./soil/soil0008.txt assigned to n
-Column 10 in file ./soil/soil0008.txt assigned to SS
-Column 1 in file ./soil/soil0009.txt assigned to Dz
-Column 3 in file ./soil/soil0009.txt assigned to Kv
-Column 2 in file ./soil/soil0009.txt assigned to Kh
-Column 4 in file ./soil/soil0009.txt assigned to res
-Column 5 in file ./soil/soil0009.txt assigned to wilt
-Column 6 in file ./soil/soil0009.txt assigned to fc
-Column 7 in file ./soil/soil0009.txt assigned to sat
-Column 8 in file ./soil/soil0009.txt assigned to a
-Column 9 in file ./soil/soil0009.txt assigned to n
-Column 10 in file ./soil/soil0009.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to SS
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Dz
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Kv
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Kh
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to res
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to wilt
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to fc
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to sat
+Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to a
+Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to n
+Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to SS
 
 Soil Layers: 8
 -> Soil Type: 1
@@ -1717,238 +1717,238 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './input-maps/landcover': EXISTING in format 3
-Attempting to read 'SkyViewFactorMapFile' in the file './input-maps/sky': EXISTING in format 3
+Attempting to read 'DemFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/landcover': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/sky': EXISTING in format 3
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file './soiltype': EXISTING in format 3
-Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
+Attempting to read 'SoilMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soiltype': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/slope': EXISTING in format 3
 Slope Min:0.010755 (0.616192 deg) Max:0.922823 (42.701544 deg) 
-Attempting to read 'AspectMapFile' in the file './input-maps/aspect': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/aspect': EXISTING in format 3
 Curvature N-S Min:-0.001038  Max:0.001225 
 Curvature W-E Min:-0.000934  Max:0.001191 
 Curvature NW-SE Min:-0.001269  Max:0.001477 
 Curvature NE-SW Min:-0.001451  Max:0.001674 
-Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
-Attempting to read 'BedrockDepthMapFile' in the file './input-maps/bedrock2': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/net': EXISTING in format 3
+Attempting to read 'BedrockDepthMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/bedrock2': EXISTING in format 3
 Valid pixels: 1703
 Number of nodes: 15327
 Novalue pixels: 1321
 Basin area: 1703.000000 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0001.txt assigned to Date
-Column 2 in file ./meteo/meteo0001.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0001.txt assigned to RH
-Column 3 in file ./meteo/meteo0001.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #2. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0002.txt assigned to Date
-Column 2 in file ./meteo/meteo0002.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0002.txt assigned to RH
-Column 3 in file ./meteo/meteo0002.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #3. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0003.txt assigned to Date
-Column 2 in file ./meteo/meteo0003.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0003.txt assigned to RH
-Column 3 in file ./meteo/meteo0003.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #4. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0004.txt assigned to Date
-Column 2 in file ./meteo/meteo0004.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0004.txt assigned to RH
-Column 3 in file ./meteo/meteo0004.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #5. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0005.txt assigned to Date
-Column 2 in file ./meteo/meteo0005.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0005.txt assigned to RH
-Column 3 in file ./meteo/meteo0005.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #6. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0006.txt assigned to Date
-Column 2 in file ./meteo/meteo0006.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0006.txt assigned to RH
-Column 3 in file ./meteo/meteo0006.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #7. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0007.txt assigned to Date
-Column 2 in file ./meteo/meteo0007.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0007.txt assigned to RH
-Column 3 in file ./meteo/meteo0007.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #8. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0008.txt assigned to Date
-Column 2 in file ./meteo/meteo0008.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0008.txt assigned to RH
-Column 3 in file ./meteo/meteo0008.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #9. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0009.txt assigned to Date
-Column 2 in file ./meteo/meteo0009.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0009.txt assigned to RH
-Column 3 in file ./meteo/meteo0009.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #10. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0010.txt assigned to Date
-Column 2 in file ./meteo/meteo0010.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0010.txt assigned to RH
-Column 3 in file ./meteo/meteo0010.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #11. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0011.txt assigned to Date
-Column 2 in file ./meteo/meteo0011.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0011.txt assigned to RH
-Column 3 in file ./meteo/meteo0011.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #12. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0012.txt assigned to Date
-Column 2 in file ./meteo/meteo0012.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0012.txt assigned to RH
-Column 3 in file ./meteo/meteo0012.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #13. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0013.txt assigned to Date
-Column 2 in file ./meteo/meteo0013.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0013.txt assigned to RH
-Column 3 in file ./meteo/meteo0013.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #14. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0014.txt assigned to Date
-Column 2 in file ./meteo/meteo0014.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0014.txt assigned to RH
-Column 3 in file ./meteo/meteo0014.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #15. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0015.txt assigned to Date
-Column 2 in file ./meteo/meteo0015.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0015.txt assigned to RH
-Column 3 in file ./meteo/meteo0015.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #16. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0016.txt assigned to Date
-Column 2 in file ./meteo/meteo0016.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0016.txt assigned to RH
-Column 3 in file ./meteo/meteo0016.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #17. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0017.txt assigned to Date
-Column 2 in file ./meteo/meteo0017.txt assigned to JDfrom0
-Column 4 in file ./meteo/meteo0017.txt assigned to RH
-Column 3 in file ./meteo/meteo0017.txt assigned to AirT
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to JDfrom0
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to RH
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #18. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0018.txt assigned to Date
-Column 2 in file ./meteo/meteo0018.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0018.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #19. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0019.txt assigned to Date
-Column 2 in file ./meteo/meteo0019.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0019.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #20. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0020.txt assigned to Date
-Column 2 in file ./meteo/meteo0020.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0020.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #21. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0021.txt assigned to Date
-Column 2 in file ./meteo/meteo0021.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0021.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #22. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0022.txt assigned to Date
-Column 2 in file ./meteo/meteo0022.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0022.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #23. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0023.txt assigned to Date
-Column 2 in file ./meteo/meteo0023.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0023.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #24. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0024.txt assigned to Date
-Column 2 in file ./meteo/meteo0024.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0024.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #25. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0025.txt assigned to Date
-Column 2 in file ./meteo/meteo0025.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0025.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #26. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0026.txt assigned to Date
-Column 2 in file ./meteo/meteo0026.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0026.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #27. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0027.txt assigned to Date
-Column 2 in file ./meteo/meteo0027.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0027.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #28. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0028.txt assigned to Date
-Column 2 in file ./meteo/meteo0028.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0028.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #29. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0029.txt assigned to Date
-Column 2 in file ./meteo/meteo0029.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0029.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #30. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0030.txt assigned to Date
-Column 2 in file ./meteo/meteo0030.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0030.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #31. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0031.txt assigned to Date
-Column 2 in file ./meteo/meteo0031.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0031.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #32. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0032.txt assigned to Date
-Column 2 in file ./meteo/meteo0032.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0032.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #33. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0033.txt assigned to Date
-Column 2 in file ./meteo/meteo0033.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0033.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #34. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0034.txt assigned to Date
-Column 2 in file ./meteo/meteo0034.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0034.txt assigned to Iprec
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #35. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0035.txt assigned to Date
-Column 2 in file ./meteo/meteo0035.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0035.txt assigned to Iprec
-Column 4 in file ./meteo/meteo0035.txt assigned to RH
-Column 5 in file ./meteo/meteo0035.txt assigned to AirT
-Column 6 in file ./meteo/meteo0035.txt assigned to Swglob
-Column 7 in file ./meteo/meteo0035.txt assigned to CloudTrans
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Iprec
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to RH
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Swglob
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to CloudTrans
 
 Warning:: No horizon file found for meteo station #36. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0036.txt assigned to Date
-Column 2 in file ./meteo/meteo0036.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0036.txt assigned to Iprec
-Column 4 in file ./meteo/meteo0036.txt assigned to RH
-Column 5 in file ./meteo/meteo0036.txt assigned to AirT
-Column 6 in file ./meteo/meteo0036.txt assigned to Swglob
-Column 7 in file ./meteo/meteo0036.txt assigned to CloudTrans
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Iprec
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to RH
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Swglob
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to CloudTrans
 
 Warning:: No horizon file found for meteo station #37. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file ./meteo/meteo0037.txt assigned to Date
-Column 2 in file ./meteo/meteo0037.txt assigned to JDfrom0
-Column 3 in file ./meteo/meteo0037.txt assigned to Iprec
-Column 4 in file ./meteo/meteo0037.txt assigned to RH
-Column 5 in file ./meteo/meteo0037.txt assigned to AirT
-Column 6 in file ./meteo/meteo0037.txt assigned to Swglob
-Column 7 in file ./meteo/meteo0037.txt assigned to CloudTrans
+Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Date
+Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to JDfrom0
+Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Iprec
+Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to RH
+Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to AirT
+Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Swglob
+Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to CloudTrans
 Shortwave radiation measurements from station 35
 Cloudiness measurements from station 35
 WARNING: NO longwave radiation measurements available
@@ -1958,43 +1958,43 @@ Channel pixels: 181
 Soil water evaporates from the first 5 layers
 Soil water transpires from the first 8 layers
 No wind measurements, used the value of the previous time step
-16/10/2010 13:00 25.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+16/10/2010 13:00 25.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 
 16/10/2010 13:00 JD:288.541667 (1^ simulation day) 25.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.56 s, t_sub:  0.56 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.47 s, t_sub:  0.47 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 77.31 W/m2  LW:-34.51 W/m2  H= 20.06 W/m2  LE=-11.57 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.10 mm  
- Max Error Richards=5.490961e-12 mm/h 
- Tot Error Richards=5.490961e-12 mm Mean Time Step=3600.000000 s
+ Max Error Richards=5.490337e-12 mm/h 
+ Tot Error Richards=5.490337e-12 mm Mean Time Step=3600.000000 s
 
 No wind measurements, used the value of the previous time step
-16/10/2010 14:00 50.00% - Time elapsed (h:m:s)  0:00:12 Time remaining (h:m)  0:00  
+16/10/2010 14:00 50.00% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
 
 16/10/2010 14:00 JD:288.583333 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.37 s, t_blowingsnow:  0.00 s, t_water: 12.00 s, t_sub: 12.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water: 10.23 s, t_sub: 10.23 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 48.99 W/m2  LW:-24.95 W/m2  H= 20.36 W/m2  LE= -9.04 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.11 mm  
- Max Error Richards=2.451371e-12 mm/h 
- Tot Error Richards=7.942332e-12 mm Mean Time Step=3600.000000 s
+ Max Error Richards=2.451345e-12 mm/h 
+ Tot Error Richards=7.941682e-12 mm Mean Time Step=3600.000000 s
 
 No wind measurements, used the value of the previous time step
-16/10/2010 15:00 75.00% - Time elapsed (h:m:s)  0:00:26 Time remaining (h:m)  0:00  
+16/10/2010 15:00 75.00% - Time elapsed (h:m:s)  0:00:24 Time remaining (h:m)  0:00  
 
 16/10/2010 15:00 JD:288.625000 (1^ simulation day) 75.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.79 s, t_blowingsnow:  0.00 s, t_water: 26.92 s, t_sub: 26.92 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.68 s, t_blowingsnow:  0.00 s, t_water: 22.25 s, t_sub: 22.25 s, t_sup:  0.00 s, t_out:  0.02 s
  SW= 28.80 W/m2  LW:-17.36 W/m2  H=  8.98 W/m2  LE=  1.17 W/m2 
  Pvert=  0.20 mm Prain=  0.10 mm  Psnow=  0.11 mm  
- Max Error Richards=6.342637e-12 mm/h 
- Tot Error Richards=1.428497e-11 mm Mean Time Step=3600.000000 s
+ Max Error Richards=6.351694e-12 mm/h 
+ Tot Error Richards=1.429338e-11 mm Mean Time Step=3600.000000 s
 
 No wind measurements, used the value of the previous time step
-16/10/2010 16:00 100.00% - Time elapsed (h:m:s)  0:00:39 Time remaining (h:m) -1:59  
+16/10/2010 16:00 100.00% - Time elapsed (h:m:s)  0:00:34 Time remaining (h:m) -1:59  
 
 16/10/2010 16:00 JD:288.666667 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.01 s, t_energy:  1.11 s, t_blowingsnow:  0.00 s, t_water: 38.52 s, t_sub: 38.52 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  1.02 s, t_blowingsnow:  0.00 s, t_water: 31.93 s, t_sub: 31.93 s, t_sup:  0.00 s, t_out:  0.03 s
  SW= 14.25 W/m2  LW:-15.26 W/m2  H=  6.61 W/m2  LE=  3.31 W/m2 
  Pvert=  0.12 mm Prain=  0.09 mm  Psnow=  0.12 mm  
- Max Error Richards=5.992619e-12 mm/h 
- Tot Error Richards=2.027759e-11 mm Mean Time Step=3600.000000 s
+ Max Error Richards=6.026834e-12 mm/h 
+ Tot Error Richards=2.032021e-11 mm Mean Time Step=3600.000000 s
 
 Number of times the simulation #1 has been run: 1
