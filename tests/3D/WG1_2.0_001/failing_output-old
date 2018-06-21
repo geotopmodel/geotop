@@ -1,0 +1,240 @@
+Comparing output-tabs/basin.txt and output-tabs-SE27XX/basin.txt
+----------------
+          <==
+##2       ==> 05/10/2009 00:00,734051.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.027428,3.252562,4.813555,4.450453,0.410519,0.000000,12.030582,7.687981,102.526767,-61.851154,0.000000,0.000000,0.000000,0.000000,135.469993,247.491004,0.000000,3600.000000
+
+
+***  End of file "output-tabs/basin.txt" reached while trying to read line 2.
+***  File "output-tabs-SE27XX/basin.txt" has more lines than file "output-tabs/basin.txt",
+***  line 2 is the last one read from file "output-tabs-SE27XX/basin.txt"
+
+
++++  File "output-tabs/basin.txt" differs from file "output-tabs-SE27XX/basin.txt"
+Comparing output-tabs/discharge.txt and output-tabs-SE27XX/discharge.txt
+----------------
+          <==
+##13      ==> 04/10/2009 12:00,0.500000,734050.500000,276.500000,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
+
+
+***  End of file "output-tabs/discharge.txt" reached while trying to read line 13.
+***  File "output-tabs-SE27XX/discharge.txt" has more lines than file "output-tabs/discharge.txt",
+***  line 13 is the last one read from file "output-tabs-SE27XX/discharge.txt"
+
+
++++  File "output-tabs/discharge.txt" differs from file "output-tabs-SE27XX/discharge.txt"
+Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
+----------------
+          <==
+##13      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,0.000000,0.000000,0.000000,0.000000,0.000000,1.028437,216.924237,0.457574,0.000000,7.554598,-3.390810,20.159176,13.331172,-9999.000000,218.814319,218.814319,545.825662,347.619532,198.206130,227.580150,267.521292,172.729481,436.660530,-125.993494,47.020138,44.832579,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,47.020138,44.674733,0.000000,0.000000,0.065561,0.000000,0.000000,0.000000,-9999.000000,0.019883,0.003972,-9999.000000,-13.690703,0.000000,-9999.000000,0.000000,109.165132,411.965750,0.000000,0.000000,0.000000,0.000000,-9999.000000,-9999.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,-9999.000000,-9999.000000,0.000000,0.000000,47030.000000,0.000000,1999.599141,1999.599141
+
+
+***  End of file "output-tabs/point0001.txt" reached while trying to read line 13.
+***  File "output-tabs-SE27XX/point0001.txt" has more lines than file "output-tabs/point0001.txt",
+***  line 13 is the last one read from file "output-tabs-SE27XX/point0001.txt"
+
+
++++  File "output-tabs/point0001.txt" differs from file "output-tabs-SE27XX/point0001.txt"
+Comparing output-tabs/point0002.txt and output-tabs-SE27XX/point0002.txt
+----------------
+          <==
+##13      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,0.000000,0.000000,0.000000,0.000000,0.000000,0.979562,217.807118,0.474199,0.000000,10.057952,-0.616255,15.905459,9.556835,-9999.000000,185.612190,185.612190,397.011841,193.287127,203.724713,227.857614,278.456929,192.843020,317.609473,-89.042789,18.721024,24.233469,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,18.721024,24.161308,0.000000,0.000000,0.035312,0.000000,0.000000,0.000000,-9999.000000,0.014612,0.004699,-9999.000000,29.341178,0.000000,-9999.000000,0.000000,79.402368,389.110278,0.000000,0.000000,0.000000,0.000000,-9999.000000,-9999.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,-9999.000000,-9999.000000,0.000000,0.000000,47030.000000,0.000000,1999.527584,1999.527584
+
+
+***  End of file "output-tabs/point0002.txt" reached while trying to read line 13.
+***  File "output-tabs-SE27XX/point0002.txt" has more lines than file "output-tabs/point0002.txt",
+***  line 13 is the last one read from file "output-tabs-SE27XX/point0002.txt"
+
+
++++  File "output-tabs/point0002.txt" differs from file "output-tabs-SE27XX/point0002.txt"
+Comparing output-tabs/psiz0001.txt and output-tabs-SE27XX/psiz0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,-1940.428444,-1866.874340,-1785.643921,-1401.368575,-562.262636,1510.689111,5456.501841,13841.553129,32092.846309 
+
+
+***  End of file "output-tabs/psiz0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/psiz0001.txt" has more lines than file "output-tabs/psiz0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/psiz0001.txt"
+
+
++++  File "output-tabs/psiz0001.txt" differs from file "output-tabs-SE27XX/psiz0001.txt"
+Comparing output-tabs/psiz0002.txt and output-tabs-SE27XX/psiz0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,-1941.461729,-1875.283270,-1743.365685,-1387.725839,-556.902638,1496.545819,5404.764472,13709.961651,31787.701140 
+
+
+***  End of file "output-tabs/psiz0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/psiz0002.txt" has more lines than file "output-tabs/psiz0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/psiz0002.txt"
+
+
++++  File "output-tabs/psiz0002.txt" differs from file "output-tabs-SE27XX/psiz0002.txt"
+Comparing output-tabs/snowDepth0001.txt and output-tabs-SE27XX/snowDepth0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowDepth0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowDepth0001.txt" has more lines than file "output-tabs/snowDepth0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowDepth0001.txt"
+
+
++++  File "output-tabs/snowDepth0001.txt" differs from file "output-tabs-SE27XX/snowDepth0001.txt"
+Comparing output-tabs/snowDepth0002.txt and output-tabs-SE27XX/snowDepth0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowDepth0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowDepth0002.txt" has more lines than file "output-tabs/snowDepth0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowDepth0002.txt"
+
+
++++  File "output-tabs/snowDepth0002.txt" differs from file "output-tabs-SE27XX/snowDepth0002.txt"
+Comparing output-tabs/snowIceCont0001.txt and output-tabs-SE27XX/snowIceCont0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowIceCont0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowIceCont0001.txt" has more lines than file "output-tabs/snowIceCont0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowIceCont0001.txt"
+
+
++++  File "output-tabs/snowIceCont0001.txt" differs from file "output-tabs-SE27XX/snowIceCont0001.txt"
+Comparing output-tabs/snowIceCont0002.txt and output-tabs-SE27XX/snowIceCont0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowIceCont0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowIceCont0002.txt" has more lines than file "output-tabs/snowIceCont0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowIceCont0002.txt"
+
+
++++  File "output-tabs/snowIceCont0002.txt" differs from file "output-tabs-SE27XX/snowIceCont0002.txt"
+Comparing output-tabs/snowLiqCont0001.txt and output-tabs-SE27XX/snowLiqCont0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowLiqCont0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowLiqCont0001.txt" has more lines than file "output-tabs/snowLiqCont0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowLiqCont0001.txt"
+
+
++++  File "output-tabs/snowLiqCont0001.txt" differs from file "output-tabs-SE27XX/snowLiqCont0001.txt"
+Comparing output-tabs/snowLiqCont0002.txt and output-tabs-SE27XX/snowLiqCont0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowLiqCont0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowLiqCont0002.txt" has more lines than file "output-tabs/snowLiqCont0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowLiqCont0002.txt"
+
+
++++  File "output-tabs/snowLiqCont0002.txt" differs from file "output-tabs-SE27XX/snowLiqCont0002.txt"
+Comparing output-tabs/snowTemp0001.txt and output-tabs-SE27XX/snowTemp0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowTemp0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowTemp0001.txt" has more lines than file "output-tabs/snowTemp0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowTemp0001.txt"
+
+
++++  File "output-tabs/snowTemp0001.txt" differs from file "output-tabs-SE27XX/snowTemp0001.txt"
+Comparing output-tabs/snowTemp0002.txt and output-tabs-SE27XX/snowTemp0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000,-9999.000000 
+
+
+***  End of file "output-tabs/snowTemp0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/snowTemp0002.txt" has more lines than file "output-tabs/snowTemp0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/snowTemp0002.txt"
+
+
++++  File "output-tabs/snowTemp0002.txt" differs from file "output-tabs-SE27XX/snowTemp0002.txt"
+Comparing output-tabs/soilTz0001.txt and output-tabs-SE27XX/soilTz0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,16.509733,5.211790,0.775268,0.499793,0.499982,0.500000,0.500000,0.500000,0.500000 
+
+
+***  End of file "output-tabs/soilTz0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/soilTz0001.txt" has more lines than file "output-tabs/soilTz0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/soilTz0001.txt"
+
+
++++  File "output-tabs/soilTz0001.txt" differs from file "output-tabs-SE27XX/soilTz0001.txt"
+Comparing output-tabs/soilTz0002.txt and output-tabs-SE27XX/soilTz0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,12.807841,4.001916,0.690955,0.499074,0.499982,0.500000,0.500000,0.500000,0.500000 
+
+
+***  End of file "output-tabs/soilTz0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/soilTz0002.txt" has more lines than file "output-tabs/soilTz0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/soilTz0002.txt"
+
+
++++  File "output-tabs/soilTz0002.txt" differs from file "output-tabs-SE27XX/soilTz0002.txt"
+Comparing output-tabs/thetaice0001.txt and output-tabs-SE27XX/thetaice0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000 
+
+
+***  End of file "output-tabs/thetaice0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/thetaice0001.txt" has more lines than file "output-tabs/thetaice0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/thetaice0001.txt"
+
+
++++  File "output-tabs/thetaice0001.txt" differs from file "output-tabs-SE27XX/thetaice0001.txt"
+Comparing output-tabs/thetaice0002.txt and output-tabs-SE27XX/thetaice0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000 
+
+
+***  End of file "output-tabs/thetaice0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/thetaice0002.txt" has more lines than file "output-tabs/thetaice0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/thetaice0002.txt"
+
+
++++  File "output-tabs/thetaice0002.txt" differs from file "output-tabs-SE27XX/thetaice0002.txt"
+Comparing output-tabs/thetaliq0001.txt and output-tabs-SE27XX/thetaliq0001.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,1,0.303621,0.306053,0.308876,0.324644,0.387378,0.500000,0.500000,0.500000,0.500000 
+
+
+***  End of file "output-tabs/thetaliq0001.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/thetaliq0001.txt" has more lines than file "output-tabs/thetaliq0001.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/thetaliq0001.txt"
+
+
++++  File "output-tabs/thetaliq0001.txt" differs from file "output-tabs-SE27XX/thetaliq0001.txt"
+Comparing output-tabs/thetaliq0002.txt and output-tabs-SE27XX/thetaliq0002.txt
+----------------
+          <==
+##14      ==> 04/10/2009 12:00,734050.500000,0.500000,1,1,2,0.303587,0.305769,0.310406,0.325294,0.388032,0.500000,0.500000,0.500000,0.500000 
+
+
+***  End of file "output-tabs/thetaliq0002.txt" reached while trying to read line 14.
+***  File "output-tabs-SE27XX/thetaliq0002.txt" has more lines than file "output-tabs/thetaliq0002.txt",
+***  line 14 is the last one read from file "output-tabs-SE27XX/thetaliq0002.txt"
+
+
++++  File "output-tabs/thetaliq0002.txt" differs from file "output-tabs-SE27XX/thetaliq0002.txt"
