@@ -269,7 +269,7 @@ SoilPlotDepths = 100, 200, 500
 
 
 !=============================================================================
-! POINT OUTPUT: SURFAEC FLUXES AND PROPERTIES 
+! POINT OUTPUT: SURFACE FLUXES AND PROPERTIES 
 !=============================================================================
 
 !--- STRUCTURE ------------
