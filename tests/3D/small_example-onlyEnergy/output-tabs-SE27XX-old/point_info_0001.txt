@@ -1,0 +1,47 @@
+ The main properties of the pixel E=     642991.000 N=    5006525.000, row=  10 col=   4 are:
+ Elevation above sea level:    950.000 m
+ Gauckler-Strickler [m^1/3/s]: 0.500000
+ Residual water content[-] of the layer 1: 0.000000
+ Residual water content[-] of the layer 2: 0.000000
+ Residual water content[-] of the layer 3: 0.000000
+ Saturated water content[-] of the layer 1: 0.400000
+ Saturated water content[-] of the layer 2: 0.350000
+ Saturated water content[-] of the layer 3: 0.350000
+ Alpha of van Genuchten[mm^-1] of the layer 1: 0.004000
+ Alpha of van Genuchten[mm^-1] of the layer 2: 0.004000
+ Alpha of van Genuchten[mm^-1] of the layer 3: 0.004000
+ n of van Genuchten[-] of the layer 1: 1.100000
+ n of van Genuchten[-] of the layer 2: 1.100000
+ n of van Genuchten[-] of the layer 3: 1.100000
+ m of van Genuchten[-] of the layer 1: 0.090909
+ m of van Genuchten[-] of the layer 2: 0.090909
+ m of van Genuchten[-] of the layer 3: 0.090909
+ v of van Genuchten[-] of the layer 1: 0.500000
+ v of van Genuchten[-] of the layer 2: 0.500000
+ v of van Genuchten[-] of the layer 3: 0.500000
+ Water content of wilting point [-] of the layer 1: 0.115651
+ Water content of wilting point [-] of the layer 2: 0.115651
+ Water content of wilting point [-] of the layer 3: 0.115651
+ Water content of field capacity [-] of the layer 1: 0.030000
+ Water content of field capacity [-] of the layer 2: 0.030000
+ Water content of field capacity [-] of the layer 3: 0.030000
+ Kv_sat of layer 1 [mm/s]: 0.000000
+ Kv_sat of layer 2 [mm/s]: 0.000000
+ Kv_sat of layer 3 [mm/s]: 0.000000
+ Kh_sat of layer 1 [mm/s]: 0.000000
+ Kh_sat of layer 2 [mm/s]: 0.000000
+ Kh_sat of layer 3 [mm/s]: 0.000000
+ Terrain elevation [m]: 950.000000
+ Sky view factor [-]: 0.500000
+ The pixel-type is 0 
+ Aspect [deg] [0=Nord, clockwise]: 144.000000 
+ Mean slope of the pixel [deg]: 4.920000 
+ Land use number is 1 
+ The root fraction [-] of layer 1: 0.000000
+ The root fraction [-] of layer 2: 0.000000
+ The root fraction [-] of layer 3: 0.000000
+ Surface fraction of land covered by vegetation [-]: 0.000000 
+ Leaf and Stem Area Index [-]: 0.000000 
+ Momentum roughness length z0soil [m]: 0.010000 
+ Vegetation height [m]: 0.000000 
+ 
