@@ -229,4 +229,4 @@ NetPrecipitationMapFile = "NetPrec/NetPrec"
 !  RECOVERY FILE NAMES
 !=============================================================================
 SubfolderRecoveryFiles="rec"
-ContinuousRecovery=1
+ContinuousRecovery=0
