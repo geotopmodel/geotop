@@ -1,0 +1,1825 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+TimeStepEnergyAndWater[1] = 3.600000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.610201e+11 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.910201e+11 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 1.000000e+00 
+DtPlotDischarge[1] = 0.000000e+00 (default) 
+DtPlotPoint[1] = 1.000000e+00 
+DtPlotBasin[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 0.000000e+00 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 9.000000e+00 
+SoilRoughness[1] = 1.000000e+01 
+ThresSnowSoilRough[1] = 1.000000e+01 
+VegHeight[1] = 0.000000e+00 
+ThresSnowVegUp[1] = 0.000000e+00 
+ThresSnowVegDown[1] = 0.000000e+00 
+LSAI[1] = 0.000000e+00 
+CanopyFraction[1] = 0.000000e+00 
+DecayCoeffCanopy[1] = 0.000000e+00 
+VegSnowBurying[1] = 1.000000e+00 
+RootDepth[1] = 0.000000e+00 
+MinStomatalRes[1] = 0.000000e+00 
+VegReflectVis[1] = 0.000000e+00 
+VegReflNIR[1] = 0.000000e+00 
+VegTransVis[1] = 0.000000e+00 
+VegTransNIR[1] = 0.000000e+00 
+LeafAngles[1] = 0.000000e+00 
+CanDensSurface[1] = 0.000000e+00 
+SoilAlbVisDry[1] = 1.600000e-01 
+SoilAlbNIRDry[1] = 3.300000e-01 
+SoilAlbVisWet[1] = 8.000000e-02 
+SoilAlbNIRWet[1] = 1.600000e-01 
+SoilEmissiv[1] = 9.900000e-01 
+SurFlowResLand[1] = 5.000000e-01 (default) 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+SoilRoughness[2] = 1.000000e+01 
+ThresSnowSoilRough[2] = 1.000000e+01 
+VegHeight[2] = 2.000000e+02 
+ThresSnowVegUp[2] = 2.000000e+02 
+ThresSnowVegDown[2] = 2.000000e+02 
+LSAI[2] = 2.000000e+00 
+CanopyFraction[2] = 0.000000e+00 (default) 
+DecayCoeffCanopy[2] = 2.500000e+00 
+VegSnowBurying[2] = 1.000000e+00 
+RootDepth[2] = 3.000000e+01 
+MinStomatalRes[2] = 6.000000e+01 
+VegReflectVis[2] = 1.500000e-01 
+VegReflNIR[2] = 4.000000e-01 
+VegTransVis[2] = 7.000000e-02 
+VegTransNIR[2] = 3.200000e-01 
+LeafAngles[2] = 3.000000e-01 
+CanDensSurface[2] = 1.000000e+00 
+SoilAlbVisDry[2] = 1.600000e-01 
+SoilAlbNIRDry[2] = 3.300000e-01 
+SoilAlbVisWet[2] = 8.000000e-02 
+SoilAlbNIRWet[2] = 1.600000e-01 
+SoilEmissiv[2] = 9.900000e-01 
+SurFlowResLand[2] = 5.000000e-01 (default) 
+RoughElemXUnitArea[2] = 0.000000e+00 (default) 
+RoughElemDiam[2] = 5.000000e+01 (default) 
+SoilRoughness[3] = 1.000000e+01 
+ThresSnowSoilRough[3] = 1.000000e+01 
+VegHeight[3] = 0.000000e+00 
+ThresSnowVegUp[3] = 0.000000e+00 
+ThresSnowVegDown[3] = 0.000000e+00 
+LSAI[3] = 0.000000e+00 
+CanopyFraction[3] = 0.000000e+00 (default) 
+DecayCoeffCanopy[3] = 0.000000e+00 
+VegSnowBurying[3] = 1.000000e+00 
+RootDepth[3] = 0.000000e+00 
+MinStomatalRes[3] = 0.000000e+00 
+VegReflectVis[3] = 0.000000e+00 
+VegReflNIR[3] = 0.000000e+00 
+VegTransVis[3] = 0.000000e+00 
+VegTransNIR[3] = 0.000000e+00 
+LeafAngles[3] = 0.000000e+00 
+CanDensSurface[3] = 0.000000e+00 
+SoilAlbVisDry[3] = 1.600000e-01 
+SoilAlbNIRDry[3] = 3.300000e-01 
+SoilAlbVisWet[3] = 8.000000e-02 
+SoilAlbNIRWet[3] = 1.600000e-01 
+SoilEmissiv[3] = 9.900000e-01 
+SurFlowResLand[3] = 5.000000e-01 (default) 
+RoughElemXUnitArea[3] = 0.000000e+00 (default) 
+RoughElemDiam[3] = 5.000000e+01 (default) 
+SoilRoughness[4] = 1.000000e+01 
+ThresSnowSoilRough[4] = 1.000000e+01 
+VegHeight[4] = 2.000000e+02 
+ThresSnowVegUp[4] = 2.000000e+02 
+ThresSnowVegDown[4] = 2.000000e+02 
+LSAI[4] = 2.000000e+00 
+CanopyFraction[4] = 0.000000e+00 (default) 
+DecayCoeffCanopy[4] = 2.500000e+00 
+VegSnowBurying[4] = 1.000000e+00 
+RootDepth[4] = 3.000000e+01 
+MinStomatalRes[4] = 6.000000e+01 
+VegReflectVis[4] = 1.500000e-01 
+VegReflNIR[4] = 4.000000e-01 
+VegTransVis[4] = 7.000000e-02 
+VegTransNIR[4] = 3.200000e-01 
+LeafAngles[4] = 3.000000e-01 
+CanDensSurface[4] = 1.000000e+00 
+SoilAlbVisDry[4] = 1.600000e-01 
+SoilAlbNIRDry[4] = 3.300000e-01 
+SoilAlbVisWet[4] = 8.000000e-02 
+SoilAlbNIRWet[4] = 1.600000e-01 
+SoilEmissiv[4] = 9.900000e-01 
+SurFlowResLand[4] = 5.000000e-01 (default) 
+RoughElemXUnitArea[4] = 0.000000e+00 (default) 
+RoughElemDiam[4] = 5.000000e+01 (default) 
+SoilRoughness[5] = 1.000000e+01 
+ThresSnowSoilRough[5] = 1.000000e+01 
+VegHeight[5] = 0.000000e+00 
+ThresSnowVegUp[5] = 0.000000e+00 
+ThresSnowVegDown[5] = 0.000000e+00 
+LSAI[5] = 0.000000e+00 
+CanopyFraction[5] = 0.000000e+00 (default) 
+DecayCoeffCanopy[5] = 0.000000e+00 
+VegSnowBurying[5] = 1.000000e+00 
+RootDepth[5] = 0.000000e+00 
+MinStomatalRes[5] = 0.000000e+00 
+VegReflectVis[5] = 0.000000e+00 
+VegReflNIR[5] = 0.000000e+00 
+VegTransVis[5] = 0.000000e+00 
+VegTransNIR[5] = 0.000000e+00 
+LeafAngles[5] = 0.000000e+00 
+CanDensSurface[5] = 0.000000e+00 
+SoilAlbVisDry[5] = 1.600000e-01 
+SoilAlbNIRDry[5] = 3.300000e-01 
+SoilAlbVisWet[5] = 8.000000e-02 
+SoilAlbNIRWet[5] = 1.600000e-01 
+SoilEmissiv[5] = 9.900000e-01 
+SurFlowResLand[5] = 5.000000e-01 (default) 
+RoughElemXUnitArea[5] = 0.000000e+00 (default) 
+RoughElemDiam[5] = 5.000000e+01 (default) 
+SoilRoughness[6] = 1.000000e+01 
+ThresSnowSoilRough[6] = 1.000000e+01 
+VegHeight[6] = 1.900000e+03 
+ThresSnowVegUp[6] = 1.900000e+03 
+ThresSnowVegDown[6] = 1.900000e+03 
+LSAI[6] = 4.000000e+00 
+CanopyFraction[6] = 0.000000e+00 (default) 
+DecayCoeffCanopy[6] = 4.000000e+00 
+VegSnowBurying[6] = 1.000000e+00 
+RootDepth[6] = 2.000000e+03 
+MinStomatalRes[6] = 6.000000e+01 
+VegReflectVis[6] = 1.200000e-01 
+VegReflNIR[6] = 4.300000e-01 
+VegTransVis[6] = 4.000000e-02 
+VegTransNIR[6] = 2.200000e-01 
+LeafAngles[6] = 1.000000e-01 
+CanDensSurface[6] = 2.000000e+01 
+SoilAlbVisDry[6] = 1.600000e-01 
+SoilAlbNIRDry[6] = 3.300000e-01 
+SoilAlbVisWet[6] = 8.000000e-02 
+SoilAlbNIRWet[6] = 1.600000e-01 
+SoilEmissiv[6] = 9.900000e-01 
+SurFlowResLand[6] = 5.000000e-01 (default) 
+RoughElemXUnitArea[6] = 0.000000e+00 (default) 
+RoughElemDiam[6] = 5.000000e+01 (default) 
+SoilRoughness[7] = 1.000000e+01 
+ThresSnowSoilRough[7] = 1.000000e+01 
+VegHeight[7] = 1.900000e+03 
+ThresSnowVegUp[7] = 1.900000e+03 
+ThresSnowVegDown[7] = 1.900000e+03 
+LSAI[7] = 4.000000e+00 
+CanopyFraction[7] = 0.000000e+00 (default) 
+DecayCoeffCanopy[7] = 4.000000e+00 
+VegSnowBurying[7] = 1.000000e+00 
+RootDepth[7] = 2.000000e+03 
+MinStomatalRes[7] = 6.000000e+01 
+VegReflectVis[7] = 9.000000e-02 
+VegReflNIR[7] = 3.600000e-01 
+VegTransVis[7] = 4.000000e-02 
+VegTransNIR[7] = 9.000000e-02 
+LeafAngles[7] = 1.000000e-02 
+CanDensSurface[7] = 2.000000e+01 
+SoilAlbVisDry[7] = 1.600000e-01 
+SoilAlbNIRDry[7] = 3.300000e-01 
+SoilAlbVisWet[7] = 8.000000e-02 
+SoilAlbNIRWet[7] = 1.600000e-01 
+SoilEmissiv[7] = 9.900000e-01 
+SurFlowResLand[7] = 5.000000e-01 (default) 
+RoughElemXUnitArea[7] = 0.000000e+00 (default) 
+RoughElemDiam[7] = 5.000000e+01 (default) 
+SoilRoughness[8] = 1.000000e+01 
+ThresSnowSoilRough[8] = 1.000000e+01 
+VegHeight[8] = 8.000000e+02 
+ThresSnowVegUp[8] = 8.000000e+02 
+ThresSnowVegDown[8] = 8.000000e+02 
+LSAI[8] = 2.000000e+00 
+CanopyFraction[8] = 0.000000e+00 (default) 
+DecayCoeffCanopy[8] = 2.500000e+00 
+VegSnowBurying[8] = 1.000000e+00 
+RootDepth[8] = 3.000000e+02 
+MinStomatalRes[8] = 6.000000e+01 
+VegReflectVis[8] = 1.500000e-01 
+VegReflNIR[8] = 4.000000e-01 
+VegTransVis[8] = 7.000000e-02 
+VegTransNIR[8] = 3.200000e-01 
+LeafAngles[8] = 1.000000e-02 
+CanDensSurface[8] = 5.000000e+00 
+SoilAlbVisDry[8] = 1.600000e-01 
+SoilAlbNIRDry[8] = 3.300000e-01 
+SoilAlbVisWet[8] = 8.000000e-02 
+SoilAlbNIRWet[8] = 1.600000e-01 
+SoilEmissiv[8] = 9.900000e-01 
+SurFlowResLand[8] = 5.000000e-01 (default) 
+RoughElemXUnitArea[8] = 0.000000e+00 (default) 
+RoughElemDiam[8] = 5.000000e+01 (default) 
+SoilRoughness[9] = 1.000000e+01 (default) 
+ThresSnowSoilRough[9] = 1.000000e+01 (default) 
+VegHeight[9] = 8.000000e+02 (default) 
+ThresSnowVegUp[9] = 8.000000e+02 (default) 
+ThresSnowVegDown[9] = 8.000000e+02 (default) 
+LSAI[9] = 2.000000e+00 (default) 
+CanopyFraction[9] = 0.000000e+00 (default) 
+DecayCoeffCanopy[9] = 2.500000e+00 (default) 
+VegSnowBurying[9] = 1.000000e+00 (default) 
+RootDepth[9] = 3.000000e+02 (default) 
+MinStomatalRes[9] = 6.000000e+01 (default) 
+VegReflectVis[9] = 1.500000e-01 (default) 
+VegReflNIR[9] = 4.000000e-01 (default) 
+VegTransVis[9] = 7.000000e-02 (default) 
+VegTransNIR[9] = 3.200000e-01 (default) 
+LeafAngles[9] = 1.000000e-02 (default) 
+CanDensSurface[9] = 5.000000e+00 (default) 
+SoilAlbVisDry[9] = 1.600000e-01 (default) 
+SoilAlbNIRDry[9] = 3.300000e-01 (default) 
+SoilAlbVisWet[9] = 8.000000e-02 (default) 
+SoilAlbNIRWet[9] = 1.600000e-01 (default) 
+SoilEmissiv[9] = 9.900000e-01 (default) 
+SurFlowResLand[9] = 5.000000e-01 (default) 
+RoughElemXUnitArea[9] = 0.000000e+00 (default) 
+RoughElemDiam[9] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 1.000000e+00 (default) 
+RichardTol[1] = 1.000000e-06 (default) 
+RichardMaxIter[1] = 1.000000e+02 (default) 
+RichardInitForc[1] = 1.000000e-02 (default) 
+MinLambdaWater[1] = 1.000000e-07 (default) 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 (default) 
+MinTimeStep[1] = 1.000000e+01 (default) 
+SurFlowResExp[1] = 6.666667e-01 (default) 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-01 (default) 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e+00 (default) 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-02 (default) 
+Latitude[1] = 4.630000e+01 
+Longitude[1] = 1.170000e+01 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-06 
+HeatEqMaxIter[1] = 7.000000e+02 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 
+InitSnowDensity[1] = 2.500000e+02 
+InitSnowTemp[1] = 0.000000e+00 
+InitSnowAge[1] = 0.000000e+00 
+ThresTempRain[1] = 1.000000e+00 
+ThresTempSnow[1] = 5.000000e-01 
+DewTempOrNormTemp[1] = 1.000000e+00 
+AlbExtParSnow[1] = 1.000000e+01 
+FreshSnowReflVis[1] = 9.500000e-01 
+FreshSnowReflNIR[1] = 6.500000e-01 
+IrriducibleWatSatSnow[1] = 2.000000e-02 
+SnowEmissiv[1] = 9.800000e-01 
+SnowRoughness[1] = 1.000000e-01 
+SnowCorrFactor[1] = 1.300000e+00 
+RainCorrFactor[1] = 1.000000e+00 
+MaxSnowPorosity[1] = 7.000000e-01 
+DrySnowDefRate[1] = 1.000000e+00 
+SnowDensityCutoff[1] = 1.000000e+02 
+WetSnowDefRate[1] = 1.500000e+00 
+SnowViscosity[1] = 1.000000e+06 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 3.600000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+00 
+MaxWaterEqSnowLayerContent[1] = 1.000000e+01 
+MaxSnowLayersMiddle[1] = 5.000000e+00 
+SWEbottom[1] = 2.000000e+01 
+SWEtop[1] = 5.000000e+01 
+Max snow layer number: 12, of which 2 at the bottom, 5 in the middle, and 5 at the top.
+Infinite Snow layer numbers are numbers: 3 4 5 6 7 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 7.000000e+00 
+MoninObukhov[1] = 2.000000e+00 
+Surroundings[1] = 1.000000e+00 
+WaterBalance[1] = 0.000000e+00 (default) 
+EnergyBalance[1] = 1.000000e+00 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = -9.999000e+03 (default) 
+CoordinatePointY[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 2.400000e+01 
+OutputSnowMaps[1] = 2.400000e+01 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 2.400000e+01 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 2.400000e+01 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 
+InitWaterTableDepth[1] = 1.000000e+03 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = -9.999000e+03 (default) 
+SoilLayerNumber[1] = 5.000000e+00 (default) 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 5.000000e+00 
+NormalHydrConductivity[1] = 1.000000e-04 (default) 
+LateralHydrConductivity[1] = 1.000000e-04 (default) 
+ThetaRes[1] = 5.000000e-02 (default) 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 5.000000e-01 (default) 
+AlphaVanGenuchten[1] = 4.000000e-03 (default) 
+NVanGenuchten[1] = 1.300000e+00 (default) 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 
+ThermalCapacitySoilSolids[1] = 2.300000e+06 
+SpecificStorativity[1] = 1.000000e-07 (default) 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 5.000000e+00 (default) 
+NormalHydrConductivity[2] = 1.000000e-04 (default) 
+LateralHydrConductivity[2] = 1.000000e-04 (default) 
+ThetaRes[2] = 5.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 5.000000e-01 (default) 
+AlphaVanGenuchten[2] = 4.000000e-03 (default) 
+NVanGenuchten[2] = 1.300000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 2.300000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-07 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 5.000000e+00 (default) 
+NormalHydrConductivity[3] = 1.000000e-04 (default) 
+LateralHydrConductivity[3] = 1.000000e-04 (default) 
+ThetaRes[3] = 5.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 5.000000e-01 (default) 
+AlphaVanGenuchten[3] = 4.000000e-03 (default) 
+NVanGenuchten[3] = 1.300000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 2.300000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-07 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 5.000000e+00 (default) 
+NormalHydrConductivity[4] = 1.000000e-04 (default) 
+LateralHydrConductivity[4] = 1.000000e-04 (default) 
+ThetaRes[4] = 5.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 5.000000e-01 (default) 
+AlphaVanGenuchten[4] = 4.000000e-03 (default) 
+NVanGenuchten[4] = 1.300000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 2.300000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-07 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 5.000000e+00 (default) 
+NormalHydrConductivity[5] = 1.000000e-04 (default) 
+LateralHydrConductivity[5] = 1.000000e-04 (default) 
+ThetaRes[5] = 5.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 5.000000e-01 (default) 
+AlphaVanGenuchten[5] = 4.000000e-03 (default) 
+NVanGenuchten[5] = 1.300000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 2.300000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-07 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 3.300000e+01 
+MeteoStationCoordinateX[1] = 6.747052e+05 
+MeteoStationCoordinateY[1] = 5.089977e+06 
+MeteoStationLatitude[1] = 4.594110e+01 
+MeteoStationLongitude[1] = 1.125390e+01 
+MeteoStationElevation[1] = 1.155000e+03 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 
+MeteoStationCoordinateX[2] = 6.620686e+05 
+MeteoStationCoordinateY[2] = 5.092696e+06 
+MeteoStationLatitude[2] = 4.596870e+01 
+MeteoStationLongitude[2] = 1.109190e+01 
+MeteoStationElevation[2] = 1.820000e+02 
+MeteoStationSkyViewFactor[2] = 1.000000e+00 (default) 
+MeteoStationStandardTime[2] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[3] = 6.585724e+05 
+MeteoStationCoordinateY[3] = 5.084628e+06 
+MeteoStationLatitude[3] = 4.589690e+01 
+MeteoStationLongitude[3] = 1.104410e+01 
+MeteoStationElevation[3] = 2.030000e+02 
+MeteoStationSkyViewFactor[3] = 1.000000e+00 (default) 
+MeteoStationStandardTime[3] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[4] = 6.669248e+05 
+MeteoStationCoordinateY[4] = 5.083013e+06 
+MeteoStationLatitude[4] = 4.588040e+01 
+MeteoStationLongitude[4] = 1.115110e+01 
+MeteoStationElevation[4] = 8.000000e+02 
+MeteoStationSkyViewFactor[4] = 1.000000e+00 (default) 
+MeteoStationStandardTime[4] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[5] = 6.606815e+05 
+MeteoStationCoordinateY[5] = 5.067246e+06 
+MeteoStationLatitude[5] = 4.574010e+01 
+MeteoStationLongitude[5] = 1.106550e+01 
+MeteoStationElevation[5] = 6.920000e+02 
+MeteoStationSkyViewFactor[5] = 1.000000e+00 (default) 
+MeteoStationStandardTime[5] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[6] = 6.457278e+05 
+MeteoStationCoordinateY[6] = 5.081433e+06 
+MeteoStationLatitude[6] = 4.587100e+01 
+MeteoStationLongitude[6] = 1.087770e+01 
+MeteoStationElevation[6] = 9.000000e+01 
+MeteoStationSkyViewFactor[6] = 1.000000e+00 (default) 
+MeteoStationStandardTime[6] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[7] = 6.678528e+05 
+MeteoStationCoordinateY[7] = 5.087016e+06 
+MeteoStationLatitude[7] = 4.591620e+01 
+MeteoStationLongitude[7] = 1.116450e+01 
+MeteoStationElevation[7] = 1.121000e+03 
+MeteoStationSkyViewFactor[7] = 1.000000e+00 (default) 
+MeteoStationStandardTime[7] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[8] = 6.460178e+05 
+MeteoStationCoordinateY[8] = 5.087231e+06 
+MeteoStationLatitude[8] = 4.592310e+01 
+MeteoStationLongitude[8] = 1.088320e+01 
+MeteoStationElevation[8] = 1.150000e+02 
+MeteoStationSkyViewFactor[8] = 1.000000e+00 (default) 
+MeteoStationStandardTime[8] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[9] = 6.307841e+05 
+MeteoStationCoordinateY[9] = 5.077930e+06 
+MeteoStationLatitude[9] = 4.584250e+01 
+MeteoStationLongitude[9] = 1.068420e+01 
+MeteoStationElevation[9] = 1.560000e+03 
+MeteoStationSkyViewFactor[9] = 1.000000e+00 (default) 
+MeteoStationStandardTime[9] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[10] = 6.590804e+05 
+MeteoStationCoordinateY[10] = 5.097714e+06 
+MeteoStationLatitude[10] = 4.601450e+01 
+MeteoStationLongitude[10] = 1.105500e+01 
+MeteoStationElevation[10] = 1.490000e+03 
+MeteoStationSkyViewFactor[10] = 1.000000e+00 (default) 
+MeteoStationStandardTime[10] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[11] = 6.710790e+05 
+MeteoStationCoordinateY[11] = 5.087476e+06 
+MeteoStationLatitude[11] = 4.591960e+01 
+MeteoStationLongitude[11] = 1.120620e+01 
+MeteoStationElevation[11] = 1.360000e+03 
+MeteoStationSkyViewFactor[11] = 1.000000e+00 (default) 
+MeteoStationStandardTime[11] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[12] = 6.599035e+05 
+MeteoStationCoordinateY[12] = 5.074819e+06 
+MeteoStationLatitude[12] = 4.580840e+01 
+MeteoStationLongitude[12] = 1.105800e+01 
+MeteoStationElevation[12] = 1.620000e+03 
+MeteoStationSkyViewFactor[12] = 1.000000e+00 (default) 
+MeteoStationStandardTime[12] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[13] = 6.503740e+05 
+MeteoStationCoordinateY[13] = 5.094202e+06 
+MeteoStationLatitude[13] = 4.598490e+01 
+MeteoStationLongitude[13] = 1.094150e+01 
+MeteoStationElevation[13] = 2.820000e+02 
+MeteoStationSkyViewFactor[13] = 1.000000e+00 (default) 
+MeteoStationStandardTime[13] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[14] = 6.522331e+05 
+MeteoStationCoordinateY[14] = 5.076455e+06 
+MeteoStationLatitude[14] = 4.582480e+01 
+MeteoStationLongitude[14] = 1.095990e+01 
+MeteoStationElevation[14] = 7.270000e+02 
+MeteoStationSkyViewFactor[14] = 1.000000e+00 (default) 
+MeteoStationStandardTime[14] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[15] = 6.793461e+05 
+MeteoStationCoordinateY[15] = 5.076240e+06 
+MeteoStationLatitude[15] = 4.581640e+01 
+MeteoStationLongitude[15] = 1.130860e+01 
+MeteoStationElevation[15] = 4.300000e+02 
+MeteoStationSkyViewFactor[15] = 1.000000e+00 (default) 
+MeteoStationStandardTime[15] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[16] = 6.870963e+05 
+MeteoStationCoordinateY[16] = 5.089084e+06 
+MeteoStationLatitude[16] = 4.593120e+01 
+MeteoStationLongitude[16] = 1.141330e+01 
+MeteoStationElevation[16] = 2.015000e+03 
+MeteoStationSkyViewFactor[16] = 1.000000e+00 (default) 
+MeteoStationStandardTime[16] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[17] = 6.700839e+05 
+MeteoStationCoordinateY[17] = 5.063574e+06 
+MeteoStationLatitude[17] = 4.570480e+01 
+MeteoStationLongitude[17] = 1.118500e+01 
+MeteoStationElevation[17] = 7.050000e+02 
+MeteoStationSkyViewFactor[17] = 1.000000e+00 (default) 
+MeteoStationStandardTime[17] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[18] = 7.129180e+05 
+MeteoStationCoordinateY[18] = 5.076189e+06 
+MeteoStationLatitude[18] = 4.580640e+01 
+MeteoStationLongitude[18] = 1.174020e+01 
+MeteoStationElevation[18] = 6.750000e+02 
+MeteoStationSkyViewFactor[18] = 1.000000e+00 (default) 
+MeteoStationStandardTime[18] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[19] = 6.722230e+05 
+MeteoStationCoordinateY[19] = 5.054978e+06 
+MeteoStationLatitude[19] = 4.562700e+01 
+MeteoStationLongitude[19] = 1.120940e+01 
+MeteoStationElevation[19] = 3.820000e+02 
+MeteoStationSkyViewFactor[19] = 1.000000e+00 (default) 
+MeteoStationStandardTime[19] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[20] = 6.379051e+05 
+MeteoStationCoordinateY[20] = 5.042149e+06 
+MeteoStationLatitude[20] = 4.551920e+01 
+MeteoStationLongitude[20] = 1.076580e+01 
+MeteoStationElevation[20] = 1.650000e+02 
+MeteoStationSkyViewFactor[20] = 1.000000e+00 (default) 
+MeteoStationStandardTime[20] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[21] = 7.004967e+05 
+MeteoStationCoordinateY[21] = 5.066312e+06 
+MeteoStationLatitude[21] = 4.572130e+01 
+MeteoStationLongitude[21] = 1.157640e+01 
+MeteoStationElevation[21] = 1.820000e+02 
+MeteoStationSkyViewFactor[21] = 1.000000e+00 (default) 
+MeteoStationStandardTime[21] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[22] = 6.948465e+05 
+MeteoStationCoordinateY[22] = 5.084260e+06 
+MeteoStationLatitude[22] = 4.588430e+01 
+MeteoStationLongitude[22] = 1.151110e+01 
+MeteoStationElevation[22] = 1.010000e+03 
+MeteoStationSkyViewFactor[22] = 1.000000e+00 (default) 
+MeteoStationStandardTime[22] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[23] = 6.589476e+05 
+MeteoStationCoordinateY[23] = 5.053876e+06 
+MeteoStationLatitude[23] = 4.562020e+01 
+MeteoStationLongitude[23] = 1.103880e+01 
+MeteoStationElevation[23] = 1.050000e+03 
+MeteoStationSkyViewFactor[23] = 1.000000e+00 (default) 
+MeteoStationStandardTime[23] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[24] = 7.054461e+05 
+MeteoStationCoordinateY[24] = 5.092460e+06 
+MeteoStationLatitude[24] = 4.595490e+01 
+MeteoStationLongitude[24] = 1.165110e+01 
+MeteoStationElevation[24] = 1.428000e+03 
+MeteoStationSkyViewFactor[24] = 1.000000e+00 (default) 
+MeteoStationStandardTime[24] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[25] = 6.450403e+05 
+MeteoStationCoordinateY[25] = 5.070591e+06 
+MeteoStationLatitude[25] = 4.577360e+01 
+MeteoStationLongitude[25] = 1.086550e+01 
+MeteoStationElevation[25] = 1.760000e+03 
+MeteoStationSkyViewFactor[25] = 1.000000e+00 (default) 
+MeteoStationStandardTime[25] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[26] = 7.159657e+05 
+MeteoStationCoordinateY[26] = 5.083402e+06 
+MeteoStationLatitude[26] = 4.587030e+01 
+MeteoStationLongitude[26] = 1.178260e+01 
+MeteoStationElevation[26] = 1.540000e+03 
+MeteoStationSkyViewFactor[26] = 1.000000e+00 (default) 
+MeteoStationStandardTime[26] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[27] = 6.611290e+05 
+MeteoStationCoordinateY[27] = 5.061052e+06 
+MeteoStationLatitude[27] = 4.568430e+01 
+MeteoStationLongitude[27] = 1.106920e+01 
+MeteoStationElevation[27] = 1.620000e+03 
+MeteoStationSkyViewFactor[27] = 1.000000e+00 (default) 
+MeteoStationStandardTime[27] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[28] = 6.687272e+05 
+MeteoStationCoordinateY[28] = 5.066262e+06 
+MeteoStationLatitude[28] = 4.572930e+01 
+MeteoStationLongitude[28] = 1.116850e+01 
+MeteoStationElevation[28] = 1.464000e+03 
+MeteoStationSkyViewFactor[28] = 1.000000e+00 (default) 
+MeteoStationStandardTime[28] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[29] = 6.764085e+05 
+MeteoStationCoordinateY[29] = 5.082561e+06 
+MeteoStationLatitude[29] = 4.587400e+01 
+MeteoStationLongitude[29] = 1.127310e+01 
+MeteoStationElevation[29] = 1.735000e+03 
+MeteoStationSkyViewFactor[29] = 1.000000e+00 (default) 
+MeteoStationStandardTime[29] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[30] = 6.874353e+05 
+MeteoStationCoordinateY[30] = 5.092957e+06 
+MeteoStationLatitude[30] = 4.596460e+01 
+MeteoStationLongitude[30] = 1.141910e+01 
+MeteoStationElevation[30] = 1.605000e+03 
+MeteoStationSkyViewFactor[30] = 1.000000e+00 (default) 
+MeteoStationStandardTime[30] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[31] = 6.463408e+05 
+MeteoStationCoordinateY[31] = 5.068995e+06 
+MeteoStationLatitude[31] = 4.575900e+01 
+MeteoStationLongitude[31] = 1.088180e+01 
+MeteoStationElevation[31] = 1.430000e+03 
+MeteoStationSkyViewFactor[31] = 1.000000e+00 (default) 
+MeteoStationStandardTime[31] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[32] = 7.006370e+05 
+MeteoStationCoordinateY[32] = 5.095083e+06 
+MeteoStationLatitude[32] = 4.598000e+01 
+MeteoStationLongitude[32] = 1.159020e+01 
+MeteoStationElevation[32] = 1.345000e+03 
+MeteoStationSkyViewFactor[32] = 1.000000e+00 (default) 
+MeteoStationStandardTime[32] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[33] = 6.691220e+05 
+MeteoStationCoordinateY[33] = 5.069571e+06 
+MeteoStationLatitude[33] = 4.575900e+01 
+MeteoStationLongitude[33] = 1.117470e+01 
+MeteoStationElevation[33] = 1.170000e+03 
+MeteoStationSkyViewFactor[33] = 1.000000e+00 (default) 
+MeteoStationStandardTime[33] = 1.000000e+00 (default) 
+MeteoStationWindVelocitySensorHeight[1] = 5.000000e+00 
+MeteoStationTemperatureSensorHeight[1] = 2.000000e+00 
+LapseRateTemp[1] = 6.500000e+00 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -2.000000e-01 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 0.000000e+00 (default) 
+DatePoint[1] = 1.000000e+00 
+JulianDayFromYear0Point[1] = -1.000000e+00 (default) 
+TimeFromStartPoint[1] = -1.000000e+00 (default) 
+PeriodPoint[1] = -1.000000e+00 (default) 
+RunPoint[1] = -1.000000e+00 (default) 
+IDPointPoint[1] = -1.000000e+00 (default) 
+PsnowPoint[1] = 2.000000e+00 
+PrainPoint[1] = 3.000000e+00 
+PsnowNetPoint[1] = -1.000000e+00 (default) 
+PrainNetPoint[1] = -1.000000e+00 (default) 
+PrainOnSnowPoint[1] = -1.000000e+00 (default) 
+WindSpeedPoint[1] = -1.000000e+00 (default) 
+WindDirPoint[1] = -1.000000e+00 (default) 
+RHPoint[1] = -1.000000e+00 (default) 
+AirPressPoint[1] = -1.000000e+00 (default) 
+AirTempPoint[1] = 6.000000e+00 
+TDewPoint[1] = -1.000000e+00 (default) 
+TsurfPoint[1] = 7.000000e+00 
+TvegPoint[1] = -1.000000e+00 (default) 
+TCanopyAirPoint[1] = -1.000000e+00 (default) 
+SurfaceEBPoint[1] = -1.000000e+00 (default) 
+SoilHeatFluxPoint[1] = -1.000000e+00 (default) 
+SWinPoint[1] = -1.000000e+00 (default) 
+SWbeamPoint[1] = -1.000000e+00 (default) 
+SWdiffPoint[1] = -1.000000e+00 (default) 
+LWinPoint[1] = -1.000000e+00 (default) 
+LWinMinPoint[1] = -1.000000e+00 (default) 
+LWinMaxPoint[1] = -1.000000e+00 (default) 
+SWNetPoint[1] = -1.000000e+00 (default) 
+LWNetPoint[1] = -1.000000e+00 (default) 
+HPoint[1] = -1.000000e+00 (default) 
+LEPoint[1] = -1.000000e+00 (default) 
+CanopyFractionPoint[1] = -1.000000e+00 (default) 
+LSAIPoint[1] = -1.000000e+00 (default) 
+z0vegPoint[1] = -1.000000e+00 (default) 
+d0vegPoint[1] = -1.000000e+00 (default) 
+EstoredCanopyPoint[1] = -1.000000e+00 (default) 
+SWvPoint[1] = -1.000000e+00 (default) 
+LWvPoint[1] = -1.000000e+00 (default) 
+HvPoint[1] = -1.000000e+00 (default) 
+LEvPoint[1] = -1.000000e+00 (default) 
+HgUnvegPoint[1] = -1.000000e+00 (default) 
+LEgUnvegPoint[1] = -1.000000e+00 (default) 
+HgVegPoint[1] = -1.000000e+00 (default) 
+LEgVegPoint[1] = -1.000000e+00 (default) 
+EvapSurfacePoint[1] = -1.000000e+00 (default) 
+TraspCanopyPoint[1] = -1.000000e+00 (default) 
+WaterOnCanopyPoint[1] = -1.000000e+00 (default) 
+SnowOnCanopyPoint[1] = -1.000000e+00 (default) 
+QVegPoint[1] = -1.000000e+00 (default) 
+QSurfPoint[1] = -1.000000e+00 (default) 
+QAirPoint[1] = -1.000000e+00 (default) 
+QCanopyAirPoint[1] = -1.000000e+00 (default) 
+LObukhovPoint[1] = -1.000000e+00 (default) 
+LObukhovCanopyPoint[1] = -1.000000e+00 (default) 
+WindSpeedTopCanopyPoint[1] = -1.000000e+00 (default) 
+DecayKCanopyPoint[1] = -1.000000e+00 (default) 
+SWupPoint[1] = -1.000000e+00 (default) 
+LWupPoint[1] = -1.000000e+00 (default) 
+HupPoint[1] = -1.000000e+00 (default) 
+LEupPoint[1] = -1.000000e+00 (default) 
+SnowDepthPoint[1] = 4.000000e+00 
+SWEPoint[1] = 5.000000e+00 
+SnowDensityPoint[1] = -1.000000e+00 (default) 
+SnowTempPoint[1] = -1.000000e+00 (default) 
+SnowMeltedPoint[1] = -1.000000e+00 (default) 
+SnowSublPoint[1] = -1.000000e+00 (default) 
+SWEBlownPoint[1] = -1.000000e+00 (default) 
+SWESublBlownPoint[1] = -1.000000e+00 (default) 
+GlacDepthPoint[1] = -1.000000e+00 (default) 
+GWEPoint[1] = -1.000000e+00 (default) 
+GlacDensityPoint[1] = -1.000000e+00 (default) 
+GlacTempPoint[1] = -1.000000e+00 (default) 
+GlacMeltedPoint[1] = -1.000000e+00 (default) 
+GlacSublPoint[1] = -1.000000e+00 (default) 
+LowestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+HighestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+LowestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+HighestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+BasinAll[1] = 0.000000e+00 (default) 
+DateBasin[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Basin[1] = -1.000000e+00 (default) 
+TimeFromStartBasin[1] = -1.000000e+00 (default) 
+PeriodBasin[1] = -1.000000e+00 (default) 
+RunBasin[1] = -1.000000e+00 (default) 
+PRainNetBasin[1] = -1.000000e+00 (default) 
+PSnowNetBasin[1] = -1.000000e+00 (default) 
+PRainBasin[1] = -1.000000e+00 (default) 
+PSnowBasin[1] = -1.000000e+00 (default) 
+PNetBasin[1] = -1.000000e+00 (default) 
+AirTempBasin[1] = -1.000000e+00 (default) 
+TSurfBasin[1] = -1.000000e+00 (default) 
+TvegBasin[1] = -1.000000e+00 (default) 
+EvapSurfaceBasin[1] = -1.000000e+00 (default) 
+TraspCanopyBasin[1] = -1.000000e+00 (default) 
+LEBasin[1] = -1.000000e+00 (default) 
+HBasin[1] = -1.000000e+00 (default) 
+SWNetBasin[1] = -1.000000e+00 (default) 
+LWNetBasin[1] = -1.000000e+00 (default) 
+LEvBasin[1] = -1.000000e+00 (default) 
+HvBasin[1] = -1.000000e+00 (default) 
+SWvBasin[1] = -1.000000e+00 (default) 
+LWvBasin[1] = -1.000000e+00 (default) 
+SWinBasin[1] = -1.000000e+00 (default) 
+LWinBasin[1] = -1.000000e+00 (default) 
+MassErrorBasin[1] = -1.000000e+00 (default) 
+MeanTimeStep[1] = -1.000000e+00 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 0.000000e+00 (default) 
+DateSoil[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Soil[1] = -1.000000e+00 (default) 
+TimeFromStartSoil[1] = -1.000000e+00 (default) 
+PeriodSoil[1] = -1.000000e+00 (default) 
+RunSoil[1] = -1.000000e+00 (default) 
+IDPointSoil[1] = -1.000000e+00 (default) 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+LinearInterpolation[2] = 0.000000e+00 (default) 
+LinearInterpolation[3] = 0.000000e+00 (default) 
+LinearInterpolation[4] = 0.000000e+00 (default) 
+LinearInterpolation[5] = 0.000000e+00 (default) 
+LinearInterpolation[6] = 0.000000e+00 (default) 
+LinearInterpolation[7] = 0.000000e+00 (default) 
+LinearInterpolation[8] = 0.000000e+00 (default) 
+LinearInterpolation[9] = 0.000000e+00 (default) 
+LinearInterpolation[10] = 0.000000e+00 (default) 
+LinearInterpolation[11] = 0.000000e+00 (default) 
+LinearInterpolation[12] = 0.000000e+00 (default) 
+LinearInterpolation[13] = 0.000000e+00 (default) 
+LinearInterpolation[14] = 0.000000e+00 (default) 
+LinearInterpolation[15] = 0.000000e+00 (default) 
+LinearInterpolation[16] = 0.000000e+00 (default) 
+LinearInterpolation[17] = 0.000000e+00 (default) 
+LinearInterpolation[18] = 0.000000e+00 (default) 
+LinearInterpolation[19] = 0.000000e+00 (default) 
+LinearInterpolation[20] = 0.000000e+00 (default) 
+LinearInterpolation[21] = 0.000000e+00 (default) 
+LinearInterpolation[22] = 0.000000e+00 (default) 
+LinearInterpolation[23] = 0.000000e+00 (default) 
+LinearInterpolation[24] = 0.000000e+00 (default) 
+LinearInterpolation[25] = 0.000000e+00 (default) 
+LinearInterpolation[26] = 0.000000e+00 (default) 
+LinearInterpolation[27] = 0.000000e+00 (default) 
+LinearInterpolation[28] = 0.000000e+00 (default) 
+LinearInterpolation[29] = 0.000000e+00 (default) 
+LinearInterpolation[30] = 0.000000e+00 (default) 
+LinearInterpolation[31] = 0.000000e+00 (default) 
+LinearInterpolation[32] = 0.000000e+00 (default) 
+LinearInterpolation[33] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 1.000000e+00 (default) 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = Date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = Iprec
+HeaderPrec = none
+HeaderWindVelocity = WindSp
+HeaderWindDirection = WindDir
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = RH
+HeaderAirTemp = AirT
+HeaderDewTemp = none
+HeaderSWglobal = Swglob
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = CloudTrans
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = Dz
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = Kv
+HeaderLateralHydrConductivity = Kh
+HeaderThetaRes = res
+HeaderWiltingPoint = none
+HeaderFieldCapacity = fc
+HeaderThetaSat = sat
+HeaderAlpha = a
+HeaderN = n
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = SS
+HeaderHorizonAngle = az
+HeaderHorizonHeight = el
+TimeStepsFile = none
+SoilParFile = soil/soil
+MeteoFile = meteo/meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = horizon_meteo/horizon
+PointFile = ListPoints
+HorizonPointFile = horizon_point/horizon
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = input_maps/dem
+LandCoverMapFile = input_maps/lc
+SoilMapFile = input_maps/st
+DaysDelayMapFile = none
+SkyViewFactorMapFile = input_maps/sky
+SlopeMapFile = input_maps/slp
+RiverNetwork = none
+AspectMapFile = input_maps/asp
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = none
+BasinOutputFile = none
+BasinOutputFileWriteEnd = none
+PointOutputFile = output-tabs/point
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = none
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = none
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = none
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = output-maps/snowdepth
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = output-maps/SWE
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = ID
+HeaderCoordinatePointX = X
+HeaderCoordinatePointY = Y
+HeaderPointElevation = none
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = none
+HeaderPointAspect = none
+HeaderPointSkyViewFactor = none
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = rec
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to fc
+Column 6 in file ./soil/soil0001.txt assigned to sat
+Column 7 in file ./soil/soil0001.txt assigned to a
+Column 8 in file ./soil/soil0001.txt assigned to n
+Column 9 in file ./soil/soil0001.txt assigned to SS
+
+Soil Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Soil Bedrock Layers: 3
+-> Soil Type: 1
+HeaderSoilDz: 280.000000(2.80e+02), 500.000000(5.00e+02), 2000.000000(2.00e+03)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderLateralHydrConductivity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
+HeaderThetaRes: 0.000000(0.00e+00), 0.000000(0.00e+00), 0.000000(0.00e+00)
+HeaderWiltingPoint: 0.115651(1.16e-01), 0.115651(1.16e-01), 0.115651(1.16e-01)
+HeaderFieldCapacity: 0.030000(3.00e-02), 0.030000(3.00e-02), 0.030000(3.00e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.350000(3.50e-01), 0.350000(3.50e-01)
+HeaderAlpha: 0.004000(4.00e-03), 0.004000(4.00e-03), 0.004000(4.00e-03)
+HeaderN: 1.100000(1.10e+00), 1.100000(1.10e+00), 1.100000(1.10e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
+HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
+
+Column 1 in file ./ListPoints.txt assigned to ID
+Column 4 in file ./ListPoints.txt assigned to X
+Column 5 in file ./ListPoints.txt assigned to Y
+Attempting to read 'DemFile' in the file './input_maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file './input_maps/lc': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/sky': EXISTING in format 3
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file './input_maps/st': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file './input_maps/slp': EXISTING in format 3
+Slope Min:0.000000 (0.000000 deg) Max:0.034571 (1.980000 deg) 
+Attempting to read 'AspectMapFile' in the file './input_maps/asp': EXISTING in format 3
+Curvature N-S Min:-0.017766  Max:0.011595 
+Curvature W-E Min:-0.016874  Max:0.015296 
+Curvature NW-SE Min:-0.017909  Max:0.018845 
+Curvature NE-SW Min:-0.019552  Max:0.017597 
+Attempting to read 'RiverNetwork' in the file 'none': not present in file list
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+Valid pixels: 68259
+Number of nodes: 273036
+Novalue pixels: 299485
+Basin area: 4266.187500 km2
+
+Horizon file FOUND for meteo station #1
+Column 1 in file ./horizon_meteo/horizon0001.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0001.txt assigned to el
+Column 1 in file ./meteo/meteo0001.txt assigned to Date
+Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0001.txt assigned to AirT
+
+Horizon file FOUND for meteo station #2
+Column 1 in file ./horizon_meteo/horizon0002.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0002.txt assigned to el
+Column 1 in file ./meteo/meteo0002.txt assigned to Date
+Column 2 in file ./meteo/meteo0002.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0002.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0002.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0002.txt assigned to RH
+Column 6 in file ./meteo/meteo0002.txt assigned to AirT
+Column 7 in file ./meteo/meteo0002.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0002.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #3
+Column 1 in file ./horizon_meteo/horizon0003.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0003.txt assigned to el
+Column 1 in file ./meteo/meteo0003.txt assigned to Date
+Column 2 in file ./meteo/meteo0003.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0003.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0003.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0003.txt assigned to RH
+Column 6 in file ./meteo/meteo0003.txt assigned to AirT
+Column 7 in file ./meteo/meteo0003.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0003.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #4
+Column 1 in file ./horizon_meteo/horizon0004.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0004.txt assigned to el
+Column 1 in file ./meteo/meteo0004.txt assigned to Date
+Column 2 in file ./meteo/meteo0004.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0004.txt assigned to AirT
+
+Horizon file FOUND for meteo station #5
+Column 1 in file ./horizon_meteo/horizon0005.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0005.txt assigned to el
+Column 1 in file ./meteo/meteo0005.txt assigned to Date
+Column 2 in file ./meteo/meteo0005.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0005.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0005.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0005.txt assigned to AirT
+Column 6 in file ./meteo/meteo0005.txt assigned to Swglob
+Column 7 in file ./meteo/meteo0005.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #6
+Column 1 in file ./horizon_meteo/horizon0006.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0006.txt assigned to el
+Column 1 in file ./meteo/meteo0006.txt assigned to Date
+Column 2 in file ./meteo/meteo0006.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0006.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0006.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0006.txt assigned to RH
+Column 6 in file ./meteo/meteo0006.txt assigned to AirT
+Column 7 in file ./meteo/meteo0006.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0006.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #7
+Column 1 in file ./horizon_meteo/horizon0007.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0007.txt assigned to el
+Column 1 in file ./meteo/meteo0007.txt assigned to Date
+Column 2 in file ./meteo/meteo0007.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0007.txt assigned to AirT
+
+Horizon file FOUND for meteo station #8
+Column 1 in file ./horizon_meteo/horizon0008.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0008.txt assigned to el
+Column 1 in file ./meteo/meteo0008.txt assigned to Date
+Column 2 in file ./meteo/meteo0008.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0008.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0008.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0008.txt assigned to RH
+Column 6 in file ./meteo/meteo0008.txt assigned to AirT
+
+Horizon file FOUND for meteo station #9
+Column 1 in file ./horizon_meteo/horizon0009.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0009.txt assigned to el
+Column 1 in file ./meteo/meteo0009.txt assigned to Date
+Column 2 in file ./meteo/meteo0009.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0009.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0009.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0009.txt assigned to RH
+Column 6 in file ./meteo/meteo0009.txt assigned to AirT
+Column 7 in file ./meteo/meteo0009.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0009.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #10
+Column 1 in file ./horizon_meteo/horizon0010.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0010.txt assigned to el
+Column 1 in file ./meteo/meteo0010.txt assigned to Date
+Column 2 in file ./meteo/meteo0010.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0010.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0010.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0010.txt assigned to RH
+Column 6 in file ./meteo/meteo0010.txt assigned to AirT
+Column 7 in file ./meteo/meteo0010.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0010.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #11
+Column 1 in file ./horizon_meteo/horizon0011.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0011.txt assigned to el
+Column 1 in file ./meteo/meteo0011.txt assigned to Date
+Column 2 in file ./meteo/meteo0011.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0011.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0011.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0011.txt assigned to RH
+Column 6 in file ./meteo/meteo0011.txt assigned to AirT
+Column 7 in file ./meteo/meteo0011.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0011.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #12
+Column 1 in file ./horizon_meteo/horizon0012.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0012.txt assigned to el
+Column 1 in file ./meteo/meteo0012.txt assigned to Date
+Column 2 in file ./meteo/meteo0012.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0012.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0012.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0012.txt assigned to RH
+Column 6 in file ./meteo/meteo0012.txt assigned to AirT
+Column 7 in file ./meteo/meteo0012.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0012.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #13
+Column 1 in file ./horizon_meteo/horizon0013.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0013.txt assigned to el
+Column 1 in file ./meteo/meteo0013.txt assigned to Date
+Column 2 in file ./meteo/meteo0013.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0013.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0013.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0013.txt assigned to RH
+Column 6 in file ./meteo/meteo0013.txt assigned to AirT
+Column 7 in file ./meteo/meteo0013.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0013.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #14
+Column 1 in file ./horizon_meteo/horizon0014.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0014.txt assigned to el
+Column 1 in file ./meteo/meteo0014.txt assigned to Date
+Column 2 in file ./meteo/meteo0014.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0014.txt assigned to AirT
+
+Horizon file FOUND for meteo station #15
+Column 1 in file ./horizon_meteo/horizon0015.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0015.txt assigned to el
+Column 1 in file ./meteo/meteo0015.txt assigned to Date
+Column 2 in file ./meteo/meteo0015.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0015.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0015.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0015.txt assigned to RH
+Column 6 in file ./meteo/meteo0015.txt assigned to AirT
+
+Horizon file FOUND for meteo station #16
+Column 1 in file ./horizon_meteo/horizon0016.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0016.txt assigned to el
+Column 1 in file ./meteo/meteo0016.txt assigned to Date
+Column 2 in file ./meteo/meteo0016.txt assigned to WindSp
+Column 3 in file ./meteo/meteo0016.txt assigned to WindDir
+Column 4 in file ./meteo/meteo0016.txt assigned to AirT
+
+Horizon file FOUND for meteo station #17
+Column 1 in file ./horizon_meteo/horizon0017.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0017.txt assigned to el
+Column 1 in file ./meteo/meteo0017.txt assigned to Date
+Column 2 in file ./meteo/meteo0017.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0017.txt assigned to RH
+Column 4 in file ./meteo/meteo0017.txt assigned to AirT
+Column 5 in file ./meteo/meteo0017.txt assigned to Swglob
+Column 6 in file ./meteo/meteo0017.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #18
+Column 1 in file ./horizon_meteo/horizon0018.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0018.txt assigned to el
+Column 1 in file ./meteo/meteo0018.txt assigned to Date
+Column 2 in file ./meteo/meteo0018.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0018.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0018.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0018.txt assigned to RH
+Column 6 in file ./meteo/meteo0018.txt assigned to AirT
+
+Horizon file FOUND for meteo station #19
+Column 1 in file ./horizon_meteo/horizon0019.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0019.txt assigned to el
+Column 1 in file ./meteo/meteo0019.txt assigned to Date
+Column 2 in file ./meteo/meteo0019.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0019.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0019.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0019.txt assigned to RH
+Column 6 in file ./meteo/meteo0019.txt assigned to AirT
+Column 7 in file ./meteo/meteo0019.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0019.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #20
+Column 1 in file ./horizon_meteo/horizon0020.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0020.txt assigned to el
+Column 1 in file ./meteo/meteo0020.txt assigned to Date
+Column 2 in file ./meteo/meteo0020.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0020.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0020.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0020.txt assigned to RH
+Column 6 in file ./meteo/meteo0020.txt assigned to AirT
+Column 7 in file ./meteo/meteo0020.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0020.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #21
+Column 1 in file ./horizon_meteo/horizon0021.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0021.txt assigned to el
+Column 1 in file ./meteo/meteo0021.txt assigned to Date
+Column 2 in file ./meteo/meteo0021.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0021.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0021.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0021.txt assigned to RH
+Column 6 in file ./meteo/meteo0021.txt assigned to AirT
+Column 7 in file ./meteo/meteo0021.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0021.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #22
+Column 1 in file ./horizon_meteo/horizon0022.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0022.txt assigned to el
+Column 1 in file ./meteo/meteo0022.txt assigned to Date
+Column 2 in file ./meteo/meteo0022.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0022.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0022.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0022.txt assigned to RH
+Column 6 in file ./meteo/meteo0022.txt assigned to AirT
+Column 7 in file ./meteo/meteo0022.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0022.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #23
+Column 1 in file ./horizon_meteo/horizon0023.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0023.txt assigned to el
+Column 1 in file ./meteo/meteo0023.txt assigned to Date
+Column 2 in file ./meteo/meteo0023.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0023.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0023.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0023.txt assigned to RH
+Column 6 in file ./meteo/meteo0023.txt assigned to AirT
+Column 7 in file ./meteo/meteo0023.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0023.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #24
+Column 1 in file ./horizon_meteo/horizon0024.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0024.txt assigned to el
+Column 1 in file ./meteo/meteo0024.txt assigned to Date
+Column 2 in file ./meteo/meteo0024.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0024.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0024.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0024.txt assigned to RH
+Column 6 in file ./meteo/meteo0024.txt assigned to AirT
+Column 7 in file ./meteo/meteo0024.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0024.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #25
+Column 1 in file ./horizon_meteo/horizon0025.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0025.txt assigned to el
+Column 1 in file ./meteo/meteo0025.txt assigned to Date
+Column 2 in file ./meteo/meteo0025.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0025.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0025.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0025.txt assigned to RH
+Column 6 in file ./meteo/meteo0025.txt assigned to AirT
+Column 7 in file ./meteo/meteo0025.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0025.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #26
+Column 1 in file ./horizon_meteo/horizon0026.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0026.txt assigned to el
+Column 1 in file ./meteo/meteo0026.txt assigned to Date
+Column 2 in file ./meteo/meteo0026.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0026.txt assigned to RH
+Column 4 in file ./meteo/meteo0026.txt assigned to AirT
+Column 5 in file ./meteo/meteo0026.txt assigned to Swglob
+Column 6 in file ./meteo/meteo0026.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #27
+Column 1 in file ./horizon_meteo/horizon0027.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0027.txt assigned to el
+Column 1 in file ./meteo/meteo0027.txt assigned to Date
+Column 2 in file ./meteo/meteo0027.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0027.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0027.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0027.txt assigned to RH
+Column 6 in file ./meteo/meteo0027.txt assigned to AirT
+Column 7 in file ./meteo/meteo0027.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0027.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #28
+Column 1 in file ./horizon_meteo/horizon0028.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0028.txt assigned to el
+Column 1 in file ./meteo/meteo0028.txt assigned to Date
+Column 2 in file ./meteo/meteo0028.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0028.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0028.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0028.txt assigned to RH
+Column 6 in file ./meteo/meteo0028.txt assigned to AirT
+Column 7 in file ./meteo/meteo0028.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0028.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #29
+Column 1 in file ./horizon_meteo/horizon0029.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0029.txt assigned to el
+Column 1 in file ./meteo/meteo0029.txt assigned to Date
+Column 2 in file ./meteo/meteo0029.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0029.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0029.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0029.txt assigned to AirT
+
+Horizon file FOUND for meteo station #30
+Column 1 in file ./horizon_meteo/horizon0030.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0030.txt assigned to el
+Column 1 in file ./meteo/meteo0030.txt assigned to Date
+Column 2 in file ./meteo/meteo0030.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0030.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0030.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0030.txt assigned to RH
+Column 6 in file ./meteo/meteo0030.txt assigned to AirT
+Column 7 in file ./meteo/meteo0030.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0030.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #31
+Column 1 in file ./horizon_meteo/horizon0031.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0031.txt assigned to el
+Column 1 in file ./meteo/meteo0031.txt assigned to Date
+Column 2 in file ./meteo/meteo0031.txt assigned to Iprec
+
+Horizon file FOUND for meteo station #32
+Column 1 in file ./horizon_meteo/horizon0032.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0032.txt assigned to el
+Column 1 in file ./meteo/meteo0032.txt assigned to Date
+Column 2 in file ./meteo/meteo0032.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0032.txt assigned to AirT
+
+Horizon file FOUND for meteo station #33
+Column 1 in file ./horizon_meteo/horizon0033.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0033.txt assigned to el
+Column 1 in file ./meteo/meteo0033.txt assigned to Date
+Column 2 in file ./meteo/meteo0033.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0033.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0033.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0033.txt assigned to AirT
+Column 6 in file ./meteo/meteo0033.txt assigned to Swglob
+Column 7 in file ./meteo/meteo0033.txt assigned to CloudTrans
+Shortwave radiation measurements from station 2
+Cloudiness measurements from station 2
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 3 layers
+16/10/2013 8:00 1.39% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:05  
+16/10/2013 9:00 2.78% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:05  
+16/10/2013 10:00 4.17% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:05  
+16/10/2013 11:00 5.56% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:04  
+16/10/2013 12:00 6.94% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:04  
+16/10/2013 13:00 8.33% - Time elapsed (h:m:s)  0:00:23 Time remaining (h:m)  0:04  
+16/10/2013 14:00 9.72% - Time elapsed (h:m:s)  0:00:25 Time remaining (h:m)  0:04  
+16/10/2013 15:00 11.11% - Time elapsed (h:m:s)  0:00:29 Time remaining (h:m)  0:03  
+16/10/2013 16:00 12.50% - Time elapsed (h:m:s)  0:00:32 Time remaining (h:m)  0:03  
+16/10/2013 17:00 13.89% - Time elapsed (h:m:s)  0:00:35 Time remaining (h:m)  0:03  
+16/10/2013 18:00 15.28% - Time elapsed (h:m:s)  0:00:41 Time remaining (h:m)  0:03  
+16/10/2013 19:00 16.67% - Time elapsed (h:m:s)  0:00:43 Time remaining (h:m)  0:03  
+16/10/2013 20:00 18.06% - Time elapsed (h:m:s)  0:00:44 Time remaining (h:m)  0:03  
+16/10/2013 21:00 19.44% - Time elapsed (h:m:s)  0:00:46 Time remaining (h:m)  0:03  
+16/10/2013 22:00 20.83% - Time elapsed (h:m:s)  0:00:48 Time remaining (h:m)  0:03  
+16/10/2013 23:00 22.22% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:02  
+17/10/2013 0:00 23.61% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:02  
+17/10/2013 1:00 25.00% - Time elapsed (h:m:s)  0:00:53 Time remaining (h:m)  0:02  
+17/10/2013 2:00 26.39% - Time elapsed (h:m:s)  0:00:55 Time remaining (h:m)  0:02  
+17/10/2013 3:00 27.78% - Time elapsed (h:m:s)  0:00:57 Time remaining (h:m)  0:02  
+17/10/2013 4:00 29.17% - Time elapsed (h:m:s)  0:00:58 Time remaining (h:m)  0:02  
+17/10/2013 5:00 30.56% - Time elapsed (h:m:s)  0:01:00 Time remaining (h:m)  0:02  
+17/10/2013 6:00 31.94% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:02  
+17/10/2013 7:00 33.33% - Time elapsed (h:m:s)  0:01:06 Time remaining (h:m)  0:02  
+17/10/2013 8:00 34.72% - Time elapsed (h:m:s)  0:01:10 Time remaining (h:m)  0:02  
+17/10/2013 9:00 36.11% - Time elapsed (h:m:s)  0:01:12 Time remaining (h:m)  0:02  
+17/10/2013 10:00 37.50% - Time elapsed (h:m:s)  0:01:16 Time remaining (h:m)  0:02  
+17/10/2013 11:00 38.89% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:02  
+17/10/2013 12:00 40.28% - Time elapsed (h:m:s)  0:01:23 Time remaining (h:m)  0:02  
+17/10/2013 13:00 41.67% - Time elapsed (h:m:s)  0:01:26 Time remaining (h:m)  0:02  
+17/10/2013 14:00 43.06% - Time elapsed (h:m:s)  0:01:29 Time remaining (h:m)  0:01  
+17/10/2013 15:00 44.44% - Time elapsed (h:m:s)  0:01:32 Time remaining (h:m)  0:01  
+17/10/2013 16:00 45.83% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:01  
+17/10/2013 17:00 47.22% - Time elapsed (h:m:s)  0:01:38 Time remaining (h:m)  0:01  
+17/10/2013 18:00 48.61% - Time elapsed (h:m:s)  0:01:43 Time remaining (h:m)  0:01  
+17/10/2013 19:00 50.00% - Time elapsed (h:m:s)  0:01:46 Time remaining (h:m)  0:01  
+17/10/2013 20:00 51.39% - Time elapsed (h:m:s)  0:01:47 Time remaining (h:m)  0:01  
+17/10/2013 21:00 52.78% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:01  
+17/10/2013 22:00 54.17% - Time elapsed (h:m:s)  0:01:51 Time remaining (h:m)  0:01  
+17/10/2013 23:00 55.56% - Time elapsed (h:m:s)  0:01:53 Time remaining (h:m)  0:01  
+18/10/2013 0:00 56.94% - Time elapsed (h:m:s)  0:01:54 Time remaining (h:m)  0:01  
+18/10/2013 1:00 58.33% - Time elapsed (h:m:s)  0:01:56 Time remaining (h:m)  0:01  
+18/10/2013 2:00 59.72% - Time elapsed (h:m:s)  0:01:58 Time remaining (h:m)  0:01  
+18/10/2013 3:00 61.11% - Time elapsed (h:m:s)  0:02:00 Time remaining (h:m)  0:01  
+18/10/2013 4:00 62.50% - Time elapsed (h:m:s)  0:02:02 Time remaining (h:m)  0:01  
+18/10/2013 5:00 63.89% - Time elapsed (h:m:s)  0:02:03 Time remaining (h:m)  0:01  
+18/10/2013 6:00 65.28% - Time elapsed (h:m:s)  0:02:06 Time remaining (h:m)  0:01  
+18/10/2013 7:00 66.67% - Time elapsed (h:m:s)  0:02:10 Time remaining (h:m)  0:01  
+18/10/2013 8:00 68.06% - Time elapsed (h:m:s)  0:02:15 Time remaining (h:m)  0:01  
+18/10/2013 9:00 69.44% - Time elapsed (h:m:s)  0:02:17 Time remaining (h:m)  0:01  
+18/10/2013 10:00 70.83% - Time elapsed (h:m:s)  0:02:21 Time remaining (h:m)  0:00  
+18/10/2013 11:00 72.22% - Time elapsed (h:m:s)  0:02:30 Time remaining (h:m)  0:00  
+18/10/2013 12:00 73.61% - Time elapsed (h:m:s)  0:02:33 Time remaining (h:m)  0:00  
+18/10/2013 13:00 75.00% - Time elapsed (h:m:s)  0:02:37 Time remaining (h:m)  0:00  
+18/10/2013 14:00 76.39% - Time elapsed (h:m:s)  0:02:40 Time remaining (h:m)  0:00  
+18/10/2013 15:00 77.78% - Time elapsed (h:m:s)  0:02:44 Time remaining (h:m)  0:00  
+18/10/2013 16:00 79.17% - Time elapsed (h:m:s)  0:02:46 Time remaining (h:m)  0:00  
+18/10/2013 17:00 80.56% - Time elapsed (h:m:s)  0:02:51 Time remaining (h:m)  0:00  
+18/10/2013 18:00 81.94% - Time elapsed (h:m:s)  0:02:56 Time remaining (h:m)  0:00  
+18/10/2013 19:00 83.33% - Time elapsed (h:m:s)  0:02:58 Time remaining (h:m)  0:00  
+18/10/2013 20:00 84.72% - Time elapsed (h:m:s)  0:03:00 Time remaining (h:m)  0:00  
+18/10/2013 21:00 86.11% - Time elapsed (h:m:s)  0:03:01 Time remaining (h:m)  0:00  
+18/10/2013 22:00 87.50% - Time elapsed (h:m:s)  0:03:04 Time remaining (h:m)  0:00  
+18/10/2013 23:00 88.89% - Time elapsed (h:m:s)  0:03:06 Time remaining (h:m)  0:00  
+19/10/2013 0:00 90.28% - Time elapsed (h:m:s)  0:03:08 Time remaining (h:m)  0:00  
+19/10/2013 1:00 91.67% - Time elapsed (h:m:s)  0:03:08 Time remaining (h:m)  0:00  
+19/10/2013 2:00 93.06% - Time elapsed (h:m:s)  0:03:11 Time remaining (h:m)  0:00  
+19/10/2013 3:00 94.44% - Time elapsed (h:m:s)  0:03:13 Time remaining (h:m)  0:00  
+19/10/2013 4:00 95.83% - Time elapsed (h:m:s)  0:03:15 Time remaining (h:m)  0:00  
+19/10/2013 5:00 97.22% - Time elapsed (h:m:s)  0:03:16 Time remaining (h:m)  0:00  
+19/10/2013 6:00 98.61% - Time elapsed (h:m:s)  0:03:19 Time remaining (h:m)  0:00  
+19/10/2013 7:00 100.00% - Time elapsed (h:m:s)  0:03:24 Time remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
