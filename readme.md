@@ -1,11 +1,3 @@
-# Previously
-type from this path:
-
-mkdir bin # This is the directory for the executable file
-make -f geotop.make
-
-This will put the executable in the subdirectory "bin"
-
 # Using build system tools
 Now you can compile using a build system tool.
 Build tools are programs that automate the creation of executable applications
@@ -91,4 +83,5 @@ drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 tests
 - Compile: 
 ```
 ninja
+```
 ```
