@@ -209,7 +209,7 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
         {
           n++;
           if (n==nmax) out=-1;
-          if (sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1;
+          if (sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1; // look here!
         }
       while (out==0);
 

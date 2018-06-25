@@ -250,7 +250,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
               D = find_watertabledepth_up(Dthaw, j, sl->type->co[r][c], sl);
               odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
               std::cout << "333333333333333333333333333333" << std::endl;
-              D = find_watertabledepth_dw(Dthaw, j, sl->type->co[r][c], sl);
+             D = find_watertabledepth_dw(Dthaw, j, sl->type->co[r][c], sl); // look here!
               std::cout << "44444444444444444444444444" << std::endl;
               odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
             }
