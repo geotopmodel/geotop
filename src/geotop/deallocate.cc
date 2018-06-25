@@ -133,7 +133,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free_longmatrix(sl->type);
   free_doubletensor(sl->pa);
   free_doubletensor(sl->ET);
-  deallocate_soil_state(sl->SS);
+  delete sl->SS;
 
   if (par->state_pixel == 1)
     {
@@ -220,7 +220,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   free_longmatrix(top->lrc_cont);
 
-  n = Fminlong(par->Nl_spinup->co[par->init_date->nh],Nl);
+  n = Fminlong((*par->Nl_spinup)(par->init_date->nh),Nl);
   for (l=0; l<=n; l++)
     {
       for (r=1; r<=Nr; r++)
@@ -239,10 +239,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free(top->j_cont);
 
   free_doubletensor(top->Z);
-
-  free_longvector(top->Lp);
-  free_longvector(top->Li);
-
+  
   free_longmatrix(top->BC_counter);
 
   if (par->point_sim==1)
@@ -291,20 +288,16 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct CHANNEL "channel": */
   printf("Deallocating channel network\n");
-  free_longvector(cnet->r);
-  free_longvector(cnet->c);
   free_longmatrix(cnet->ch);
-  free_longvector(cnet->ch_down);
   for (l=0; l<=Nl; l++)
     {
       free(cnet->ch3[l]);
     }
   free(cnet->ch3);
   free_longmatrix(cnet->lch);
-  free_longvector(cnet->soil_type);
   free_doublematrix(cnet->th);
   free_doublematrix(cnet->ET);
-  deallocate_soil_state(cnet->SS);
+  delete cnet->SS;
   //  free(cnet);
 
   /* Deallocation of struct T_INIT "UV": */
@@ -316,9 +309,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
-          free_longvector(egy->nDt_shadow);
-          free_longvector(egy->nDt_sun);
-          free_shortvector(egy->shad);
         }
     }
 
@@ -385,7 +375,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
     }
 
-  deallocate_statevar_3D(snow->S);
+  delete snow->S;
 
   if (par->blowing_snow==1)
     {
@@ -410,7 +400,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
       if (strcmp(files[fsndur], string_novalue) != 0)
         {
-          free_shortvector(snow->yes);
         }
       if (strcmp(files[fsnowmelt], string_novalue) != 0)
         {
@@ -420,13 +409,12 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
     }
 
-  if (par->blowing_snow==1) free_longvector(snow->change_dir_wind);
   //  free(snow);
 
   printf("Deallocating glacier\n");
   if (par->max_glac_layers>0)
     {
-      deallocate_statevar_3D(glac->G);
+      delete glac->G;
       if (par->output_glac_bin == 1)
         {
           if (strcmp(files[fglacmelt], string_novalue) != 0)
@@ -499,7 +487,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free(met->LRcnc);
   free(met->LRd);
 
-  free_longvector(met->imeteo_stations);
 //  dealloc_meteostations(met->st);
 
   free(met->qinv);
@@ -527,32 +514,17 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   /* Deallocation of struct PAR "par": */
   printf("Deallocating par\n");
-  free_shortvector(par->vegflag);
   if (par->state_pixel == 1)
     {
-      free_longvector(par->jplot);
       free_longmatrix(par->rc);
-      free_longvector(par->IDpoint);
     }
 
 
-  free_longvector(par->run_times);
 
   if (par->point_sim == 1) free_doublematrix(par->maxSWE);
 
-  free_shortvector(par->plot_discharge_with_Dt_integration);
-  free_shortvector(par->plot_point_with_Dt_integration);
-  free_shortvector(par->plot_basin_with_Dt_integration);
 
 
-
-
-  free_shortvector(par->linear_interpolation_meteo);
-
-  free_longvector(par->inf_snow_layers);
-  free_longvector(par->inf_glac_layers);
-
-  free_longvector(par->Nl_spinup);
 
   //  free(par);
 
@@ -573,28 +545,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void dealloc_meteostations(METEO_STATIONS *st)
-{
-
-  free(st);
-
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void deallocate_soil_state(SOIL_STATE *S)
-{
-
-  free_doublematrix(S->T);
-  free_doublematrix(S->P);
-  free_doublematrix(S->thi);
-  free(S);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -666,8 +620,8 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac,
 
       if (strcmp(files[fshadow], string_novalue) != 0)
         {
-          initialize_longvector(egy->nDt_shadow, 0);
-          initialize_longvector(egy->nDt_sun, 0);
+          (*egy->nDt_shadow) = 0;
+          (*egy->nDt_sun) = 0;
         }
 
     }

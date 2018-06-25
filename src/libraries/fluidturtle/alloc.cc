@@ -42,60 +42,6 @@ float *vector(long nl, long nh)
 }
 
 
-/*-----------------------------------------------------------------------*/
-
-
-long *lvector(long nl, long nh)
-
-
-/* allocate an integer vector  with subscript range v[nl ....nh] */
-
-
-{
-
-
-  long *v;
-
-
-  v = (long *) malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(long)));
-
-
-  if (!v) t_error("allocation failure in fvector()");
-
-
-  return v - nl + NR_END;
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-short *svector(long nl, long nh)
-
-
-/* allocate an integer vector  with subscript range v[nl ....nh] */
-
-
-{
-
-
-  short *v;
-
-
-  v = (short *) malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(short)));
-
-
-  if (!v) t_error("allocation failure in fvector()");
-
-
-  return v - nl + NR_END;
-
-
-}
-
-
 /*------------------------------------------------------------------------
 
 
@@ -441,75 +387,6 @@ Wrappers for vectors and matrixes
 /*-----------------------------------------------------------------------*/
 
 
-
-
-
-SHORTVECTOR *new_shortvector(long nh) {
-
-
-  SHORTVECTOR *m;
-
-
-  m = (SHORTVECTOR *) malloc(sizeof(SHORTVECTOR));
-
-
-  if (!m) t_error("allocation failure in SHORTVECTOR()");
-
-
-  m->isdynamic = isDynamic;
-
-
-  m->nl = NL;
-
-
-  m->nh = nh;
-
-
-  m->co = svector(1, nh);
-
-
-  return m;
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-LONGVECTOR *new_longvector(long nh) {
-
-
-  LONGVECTOR *m;
-
-
-  m = (LONGVECTOR *) malloc(sizeof(LONGVECTOR));
-
-
-  if (!m) t_error("allocation failure in LONGVECTOR()");
-
-
-  m->isdynamic = isDynamic;
-
-
-  m->nl = NL;
-
-
-  m->nh = nh;
-
-
-  m->co = lvector(m->nl, nh);
-
-
-  return m;
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
 SHORTMATRIX *new_shortmatrix(long nrh, long nch) {
 
 
@@ -701,39 +578,6 @@ DOUBLEMATRIX *new_doublematrix_0(long nrh, long nch) {
 }
 
 
-/*------------------------------------------------------------------------
-
-
-Memory deallocation routines
-
-
---------------------------------------------------------------------------*/
-
-
-
-
-
-void free_svector(short *v, long nl) {
-
-
-  free((FREE_ARG) (v + nl - NR_END));
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-void free_lvector(long *v, long nl) {
-
-
-  free((FREE_ARG) (v + nl - NR_END));
-
-
-}
-
-
 
 
 
@@ -783,90 +627,6 @@ void free_dmatrix(double **m, long nrl, long ncl) {
 
 
   free((FREE_ARG) (m + nrl - NR_END));
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-
-
-
-void free_shortvector(SHORTVECTOR *v) {
-
-
-  if (v == NULL || v->co == NULL) {
-
-
-    t_error("This shortvector was never allocated");
-
-
-  } else if (v->isdynamic == 1) {
-
-
-    free_svector(v->co, NL);
-
-
-    v->isdynamic = v->nl = v->nh = -1;
-
-
-    free(v);
-
-
-    return;
-
-
-  } else {
-
-
-    printf("\nWarning::An attemp was made to free a non dynamic vector 1\n");
-
-
-  }
-
-
-}
-
-
-/*-----------------------------------------------------------------------*/
-
-
-
-
-
-void free_longvector(LONGVECTOR *v) {
-
-
-  if (v == NULL || v->co == NULL) {
-
-
-    t_error("This longvector was never allocated");
-
-
-  } else if (v->isdynamic == 1) {
-
-
-    free_lvector(v->co, NL);
-
-
-    v->isdynamic = v->nl = v->nh = -1;
-
-
-    free(v);
-
-
-    return;
-
-
-  } else {
-
-
-    printf("\nWarning::An attemp was made to free a non dynamic vector 4\n");
-
-
-  }
 
 
 }

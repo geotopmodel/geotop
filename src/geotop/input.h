@@ -60,10 +60,6 @@ DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
 
 short file_exists(short key, FILE *flog);
 
-double peat_thickness(double dist_from_channel);
-
-void initialize_soil_state(SOIL_STATE *S, long n, long nl);
-
 void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to);
 
 void initialize_veg_state(STATE_VEG *V, long n);

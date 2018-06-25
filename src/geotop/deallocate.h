@@ -21,8 +21,6 @@
 
 void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
                  PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times);
-void dealloc_meteostations(METEO_STATIONS *st);
-void deallocate_soil_state(SOIL_STATE *S);
 
 void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac,
                    ENERGY *egy, METEO *met, WATER *wat);

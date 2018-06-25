@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/
+WORKING DIRECTORY: ./
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.022012e+10 
@@ -1169,19 +1169,19 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05), 0.000010(1.00e-05)
 
-Attempting to read 'DemFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/dtm_map': EXISTING in format 3
+Attempting to read 'DemFile' in the file './input-maps/dtm_map': EXISTING in format 3
 Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
 Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
 Attempting to read 'SoilMapFile' in the file 'none': not present in file list
-Attempting to read 'SlopeMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/slope': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
 Slope Min:0.253756 (14.238623 deg) Max:0.253756 (14.238626 deg) 
-Attempting to read 'AspectMapFile' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/aspect': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file './input-maps/aspect': EXISTING in format 3
 Curvature N-S Min:-0.002758  Max:0.002758 
 Curvature W-E Min:-0.000000  Max:0.000000 
 Curvature NW-SE Min:-0.002758  Max:0.002758 
 Curvature NE-SW Min:-0.002758  Max:0.002758 
-Attempting to read 'RiverNetwork' in the file '/home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-maps/net': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Valid pixels: 20
 Number of nodes: 240
@@ -1189,19 +1189,19 @@ Novalue pixels: 61
 Basin area: 0.000020 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to Date
-Column 2 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to JDfrom0
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to Iprec
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to WindSp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to WindDir
-Column 6 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to RelHum
-Column 7 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to AirT
-Column 8 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to SWglobal
-Column 9 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input-meteo/meteo0001.txt assigned to CloudTrans
-Column 1 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to Date
-Column 3 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRateTemp
-Column 4 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRateDewTemp
-Column 5 in file /home/ecor/local/src/geotop_dev/tests/3D/panola_25pixel/input/lapserate.txt assigned to LapseRatePrec
+Column 1 in file ./input-meteo/meteo0001.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0001.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0001.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0001.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0001.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0001.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0001.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file ./input/lapserate.txt assigned to Date
+Column 3 in file ./input/lapserate.txt assigned to LapseRateTemp
+Column 4 in file ./input/lapserate.txt assigned to LapseRateDewTemp
+Column 5 in file ./input/lapserate.txt assigned to LapseRatePrec
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available
@@ -1236,7 +1236,7 @@ Soil water transpires from the first 11 layers
 2/2/2012 0:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=240.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.674753e-08 mm/h 

@@ -34,7 +34,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
 
 /*----------------------------------------------------------------------------------------------------------*/
 void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow,
-                            double Ta, LONGVECTOR *inf, double SWEmax_layer, double SWEmax_tot,
+                            double Ta, Vector<long> *inf, double SWEmax_layer, double SWEmax_tot,
                             FILE *flog);
 
 /*----------------------------------------------------------------------------------------------------------*/
@@ -140,13 +140,6 @@ double dtheta_snow(double a, double b, double T);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double max_dtheta_snow(double a, double b);
-
-/*----------------------------------------------------------------------------------------------------------*/
-void allocate_and_initialize_statevar_3D(STATEVAR_3D *V, double nan, long nl,
-                                         long nr, long nc);
-
-/*----------------------------------------------------------------------------------------------------------*/
-void deallocate_statevar_3D(STATEVAR_3D *V);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void allocate_and_initialize_statevar_1D(STATEVAR_1D *V, double nan, long nl);

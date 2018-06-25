@@ -29,7 +29,8 @@
 *.hex
 
 *build*
-#Testing
+
+# Testing
 _SUCCESSFUL_RUN*
 _FAILED_RUN*
 _TEST_FAILED*
@@ -42,5 +43,22 @@ output_tabs/*
 output_tabs/
 output_maps/*
 output_maps/
+*.old
+input*
 failing_output
 *.log
+rec/*
+NetPrec/*
+
+# Emacs back-up files
+*~
+
+# Ouput from IDEs
+.idea/
+
+# Doxygen folder
+*doxygen_generated_doc/*
+
+# Folders in suproject to not keep track
+googletest-release-1.8.0*
+packagecache*

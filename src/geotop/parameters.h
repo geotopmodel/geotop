@@ -44,6 +44,6 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
 
 short read_point_file(char *name, char **key_header, PAR *par, FILE *flog);
 
-short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name,
+short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name,
                               char **key_header, FILE *flog);
 

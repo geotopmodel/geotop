@@ -186,7 +186,7 @@ HeaderN					=	"n"
 HeaderSpecificStorativity		=	"stor"
 HeaderKthSoilSolids			=	"Kth"
 HeaderCthSoilSolids			=	"Cth"
-HeaderSoilInitPres			= "InitPsi"
+HeaderSoilInitPres			= 	"InitPsi"
 
 FreeDrainageAtBottom			=	0
 
@@ -220,7 +220,7 @@ DischargeFile			=	"output-tabs/discharge"
 PointOutputFile			=	"output-tabs/point" 
 PointAll = 1
 !SnowProfileFile		=	"output-tabs/snow"
-SnowDepthLayersFile		=   "output-tabs/snowDepth"
+SnowDepthLayersFile		=	"output-tabs/snowDepth"
 SnowTempProfileFile		=	"output-tabs/snowT"
 SnowLiqContentProfileFile	= 	"output-tabs/snowLiq"
 SnowIceContentProfileFile	= 	"output-tabs/snowIce"
@@ -232,22 +232,22 @@ SoilLiqWaterPressProfileFile	=	"output-tabs/psiz"
 SoilLiqContentProfileFile	=	"output-tabs/thetaliq" 
 SoilIceContentProfileFile	=	"output-tabs/thetaice" 
 SoilAll = 1
-! Maps
-SoilAveragedTempTensorFile	=	"maps/T"
-SoilLiqContentTensorFile	=	"maps/thetaliq"
-IceLiqContentTensorFile		=	"maps/thetaice"
-SoilLiqWaterPressTensorFile	=	"maps/psiz"
+! Output-Maps
+SoilAveragedTempTensorFile	=	"output-maps/T"
+SoilLiqContentTensorFile	=	"output-maps/thetaliq"
+IceLiqContentTensorFile		=	"output-maps/thetaice"
+SoilLiqWaterPressTensorFile	=	"output-maps/psiz"
 
-LandSurfaceWaterDepthMapFile	=	"maps/hsup"
-WaterTableDepthMapFile		=	"maps/watertable"
+LandSurfaceWaterDepthMapFile	=	"output-maps/hsup"
+WaterTableDepthMapFile		=	"output-maps/watertable"
 
-SWEMapFile			=	"maps/SWE"
-SnowDepthMapFile		=	"maps/snowdepth"
+SWEMapFile			=	"output-maps/SWE"
+SnowDepthMapFile		=	"output-maps/snowdepth"
 
-SurfaceHeatFluxMapFile		=	"maps/EB"
-SurfaceSensibleHeatFluxMapFile	=	"maps/H"
-SurfaceLatentHeatFluxMapFile	=	"maps/LE"
-SurfaceTempMapFile		=	"maps/Ts"
+SurfaceHeatFluxMapFile		=	"output-maps/EB"
+SurfaceSensibleHeatFluxMapFile	=	"output-maps/H"
+SurfaceLatentHeatFluxMapFile	=	"output-maps/LE"
+SurfaceTempMapFile		=	"output-maps/Ts"
 
 !======================================= 
 !=======================================

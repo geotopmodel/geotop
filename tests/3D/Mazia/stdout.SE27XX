@@ -6,122 +6,122 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/
+WORKING DIRECTORY: ./
 
-LOGFILE: /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/geotop.log
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0001.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0002.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0003.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0004.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0005.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0006.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0007.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0008.txt assigned to SS
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to wilt
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to fc
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to sat
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to a
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to n
-Column 10 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soil/soil0009.txt assigned to SS
-Attempting to read 'DemFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/dem': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/dem
-Attempting to read 'LandCoverMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/landcover': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/landcover
-Attempting to read 'SkyViewFactorMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/sky': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/sky
+LOGFILE: ./geotop.log
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to wilt
+Column 6 in file ./soil/soil0001.txt assigned to fc
+Column 7 in file ./soil/soil0001.txt assigned to sat
+Column 8 in file ./soil/soil0001.txt assigned to a
+Column 9 in file ./soil/soil0001.txt assigned to n
+Column 10 in file ./soil/soil0001.txt assigned to SS
+Column 1 in file ./soil/soil0002.txt assigned to Dz
+Column 3 in file ./soil/soil0002.txt assigned to Kv
+Column 2 in file ./soil/soil0002.txt assigned to Kh
+Column 4 in file ./soil/soil0002.txt assigned to res
+Column 5 in file ./soil/soil0002.txt assigned to wilt
+Column 6 in file ./soil/soil0002.txt assigned to fc
+Column 7 in file ./soil/soil0002.txt assigned to sat
+Column 8 in file ./soil/soil0002.txt assigned to a
+Column 9 in file ./soil/soil0002.txt assigned to n
+Column 10 in file ./soil/soil0002.txt assigned to SS
+Column 1 in file ./soil/soil0003.txt assigned to Dz
+Column 3 in file ./soil/soil0003.txt assigned to Kv
+Column 2 in file ./soil/soil0003.txt assigned to Kh
+Column 4 in file ./soil/soil0003.txt assigned to res
+Column 5 in file ./soil/soil0003.txt assigned to wilt
+Column 6 in file ./soil/soil0003.txt assigned to fc
+Column 7 in file ./soil/soil0003.txt assigned to sat
+Column 8 in file ./soil/soil0003.txt assigned to a
+Column 9 in file ./soil/soil0003.txt assigned to n
+Column 10 in file ./soil/soil0003.txt assigned to SS
+Column 1 in file ./soil/soil0004.txt assigned to Dz
+Column 3 in file ./soil/soil0004.txt assigned to Kv
+Column 2 in file ./soil/soil0004.txt assigned to Kh
+Column 4 in file ./soil/soil0004.txt assigned to res
+Column 5 in file ./soil/soil0004.txt assigned to wilt
+Column 6 in file ./soil/soil0004.txt assigned to fc
+Column 7 in file ./soil/soil0004.txt assigned to sat
+Column 8 in file ./soil/soil0004.txt assigned to a
+Column 9 in file ./soil/soil0004.txt assigned to n
+Column 10 in file ./soil/soil0004.txt assigned to SS
+Column 1 in file ./soil/soil0005.txt assigned to Dz
+Column 3 in file ./soil/soil0005.txt assigned to Kv
+Column 2 in file ./soil/soil0005.txt assigned to Kh
+Column 4 in file ./soil/soil0005.txt assigned to res
+Column 5 in file ./soil/soil0005.txt assigned to wilt
+Column 6 in file ./soil/soil0005.txt assigned to fc
+Column 7 in file ./soil/soil0005.txt assigned to sat
+Column 8 in file ./soil/soil0005.txt assigned to a
+Column 9 in file ./soil/soil0005.txt assigned to n
+Column 10 in file ./soil/soil0005.txt assigned to SS
+Column 1 in file ./soil/soil0006.txt assigned to Dz
+Column 3 in file ./soil/soil0006.txt assigned to Kv
+Column 2 in file ./soil/soil0006.txt assigned to Kh
+Column 4 in file ./soil/soil0006.txt assigned to res
+Column 5 in file ./soil/soil0006.txt assigned to wilt
+Column 6 in file ./soil/soil0006.txt assigned to fc
+Column 7 in file ./soil/soil0006.txt assigned to sat
+Column 8 in file ./soil/soil0006.txt assigned to a
+Column 9 in file ./soil/soil0006.txt assigned to n
+Column 10 in file ./soil/soil0006.txt assigned to SS
+Column 1 in file ./soil/soil0007.txt assigned to Dz
+Column 3 in file ./soil/soil0007.txt assigned to Kv
+Column 2 in file ./soil/soil0007.txt assigned to Kh
+Column 4 in file ./soil/soil0007.txt assigned to res
+Column 5 in file ./soil/soil0007.txt assigned to wilt
+Column 6 in file ./soil/soil0007.txt assigned to fc
+Column 7 in file ./soil/soil0007.txt assigned to sat
+Column 8 in file ./soil/soil0007.txt assigned to a
+Column 9 in file ./soil/soil0007.txt assigned to n
+Column 10 in file ./soil/soil0007.txt assigned to SS
+Column 1 in file ./soil/soil0008.txt assigned to Dz
+Column 3 in file ./soil/soil0008.txt assigned to Kv
+Column 2 in file ./soil/soil0008.txt assigned to Kh
+Column 4 in file ./soil/soil0008.txt assigned to res
+Column 5 in file ./soil/soil0008.txt assigned to wilt
+Column 6 in file ./soil/soil0008.txt assigned to fc
+Column 7 in file ./soil/soil0008.txt assigned to sat
+Column 8 in file ./soil/soil0008.txt assigned to a
+Column 9 in file ./soil/soil0008.txt assigned to n
+Column 10 in file ./soil/soil0008.txt assigned to SS
+Column 1 in file ./soil/soil0009.txt assigned to Dz
+Column 3 in file ./soil/soil0009.txt assigned to Kv
+Column 2 in file ./soil/soil0009.txt assigned to Kh
+Column 4 in file ./soil/soil0009.txt assigned to res
+Column 5 in file ./soil/soil0009.txt assigned to wilt
+Column 6 in file ./soil/soil0009.txt assigned to fc
+Column 7 in file ./soil/soil0009.txt assigned to sat
+Column 8 in file ./soil/soil0009.txt assigned to a
+Column 9 in file ./soil/soil0009.txt assigned to n
+Column 10 in file ./soil/soil0009.txt assigned to SS
+Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
+./input-maps/dem
+Attempting to read 'LandCoverMapFile' in the file './input-maps/landcover': EXISTING in format 3
+./input-maps/landcover
+Attempting to read 'SkyViewFactorMapFile' in the file './input-maps/sky': EXISTING in format 3
+./input-maps/sky
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soiltype': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/soiltype
-Attempting to read 'SlopeMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/slope': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/slope
+Attempting to read 'SoilMapFile' in the file './soiltype': EXISTING in format 3
+./soiltype
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
+./input-maps/slope
 Slope Min:0.010755 (0.616192 deg) Max:0.922823 (42.701544 deg) 
-Attempting to read 'AspectMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/aspect': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/aspect
+Attempting to read 'AspectMapFile' in the file './input-maps/aspect': EXISTING in format 3
+./input-maps/aspect
 Curvature N-S Min:-0.001038  Max:0.001225 
 Curvature W-E Min:-0.000934  Max:0.001191 
 Curvature NW-SE Min:-0.001269  Max:0.001477 
 Curvature NE-SW Min:-0.001451  Max:0.001674 
-Attempting to read 'RiverNetwork' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/net': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/net
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
+./input-maps/net
 Channel networks has 181 pixels set to channel
-Attempting to read 'BedrockDepthMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/bedrock2': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/input-maps/bedrock2
+Attempting to read 'BedrockDepthMapFile' in the file './input-maps/bedrock2': EXISTING in format 3
+./input-maps/bedrock2
 
 Valid pixels: 1703
 Number of nodes: 15327
@@ -130,218 +130,218 @@ Basin area: 1703.000000 km2
 
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0001.txt assigned to AirT
+Column 1 in file ./meteo/meteo0001.txt assigned to Date
+Column 2 in file ./meteo/meteo0001.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0001.txt assigned to RH
+Column 3 in file ./meteo/meteo0001.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #2. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0002.txt assigned to AirT
+Column 1 in file ./meteo/meteo0002.txt assigned to Date
+Column 2 in file ./meteo/meteo0002.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0002.txt assigned to RH
+Column 3 in file ./meteo/meteo0002.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #3. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0003.txt assigned to AirT
+Column 1 in file ./meteo/meteo0003.txt assigned to Date
+Column 2 in file ./meteo/meteo0003.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0003.txt assigned to RH
+Column 3 in file ./meteo/meteo0003.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #4. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0004.txt assigned to AirT
+Column 1 in file ./meteo/meteo0004.txt assigned to Date
+Column 2 in file ./meteo/meteo0004.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0004.txt assigned to RH
+Column 3 in file ./meteo/meteo0004.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #5. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0005.txt assigned to AirT
+Column 1 in file ./meteo/meteo0005.txt assigned to Date
+Column 2 in file ./meteo/meteo0005.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0005.txt assigned to RH
+Column 3 in file ./meteo/meteo0005.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #6. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0006.txt assigned to AirT
+Column 1 in file ./meteo/meteo0006.txt assigned to Date
+Column 2 in file ./meteo/meteo0006.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0006.txt assigned to RH
+Column 3 in file ./meteo/meteo0006.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #7. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0007.txt assigned to AirT
+Column 1 in file ./meteo/meteo0007.txt assigned to Date
+Column 2 in file ./meteo/meteo0007.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0007.txt assigned to RH
+Column 3 in file ./meteo/meteo0007.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #8. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0008.txt assigned to AirT
+Column 1 in file ./meteo/meteo0008.txt assigned to Date
+Column 2 in file ./meteo/meteo0008.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0008.txt assigned to RH
+Column 3 in file ./meteo/meteo0008.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #9. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0009.txt assigned to AirT
+Column 1 in file ./meteo/meteo0009.txt assigned to Date
+Column 2 in file ./meteo/meteo0009.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0009.txt assigned to RH
+Column 3 in file ./meteo/meteo0009.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #10. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0010.txt assigned to AirT
+Column 1 in file ./meteo/meteo0010.txt assigned to Date
+Column 2 in file ./meteo/meteo0010.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0010.txt assigned to RH
+Column 3 in file ./meteo/meteo0010.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #11. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0011.txt assigned to AirT
+Column 1 in file ./meteo/meteo0011.txt assigned to Date
+Column 2 in file ./meteo/meteo0011.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0011.txt assigned to RH
+Column 3 in file ./meteo/meteo0011.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #12. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0012.txt assigned to AirT
+Column 1 in file ./meteo/meteo0012.txt assigned to Date
+Column 2 in file ./meteo/meteo0012.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0012.txt assigned to RH
+Column 3 in file ./meteo/meteo0012.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #13. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0013.txt assigned to AirT
+Column 1 in file ./meteo/meteo0013.txt assigned to Date
+Column 2 in file ./meteo/meteo0013.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0013.txt assigned to RH
+Column 3 in file ./meteo/meteo0013.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #14. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0014.txt assigned to AirT
+Column 1 in file ./meteo/meteo0014.txt assigned to Date
+Column 2 in file ./meteo/meteo0014.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0014.txt assigned to RH
+Column 3 in file ./meteo/meteo0014.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #15. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0015.txt assigned to AirT
+Column 1 in file ./meteo/meteo0015.txt assigned to Date
+Column 2 in file ./meteo/meteo0015.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0015.txt assigned to RH
+Column 3 in file ./meteo/meteo0015.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #16. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0016.txt assigned to AirT
+Column 1 in file ./meteo/meteo0016.txt assigned to Date
+Column 2 in file ./meteo/meteo0016.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0016.txt assigned to RH
+Column 3 in file ./meteo/meteo0016.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #17. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to JDfrom0
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to RH
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0017.txt assigned to AirT
+Column 1 in file ./meteo/meteo0017.txt assigned to Date
+Column 2 in file ./meteo/meteo0017.txt assigned to JDfrom0
+Column 4 in file ./meteo/meteo0017.txt assigned to RH
+Column 3 in file ./meteo/meteo0017.txt assigned to AirT
 
 Warning:: No horizon file found for meteo station #18. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0018.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0018.txt assigned to Date
+Column 2 in file ./meteo/meteo0018.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0018.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #19. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0019.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0019.txt assigned to Date
+Column 2 in file ./meteo/meteo0019.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0019.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #20. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0020.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0020.txt assigned to Date
+Column 2 in file ./meteo/meteo0020.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0020.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #21. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0021.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0021.txt assigned to Date
+Column 2 in file ./meteo/meteo0021.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0021.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #22. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0022.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0022.txt assigned to Date
+Column 2 in file ./meteo/meteo0022.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0022.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #23. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0023.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0023.txt assigned to Date
+Column 2 in file ./meteo/meteo0023.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0023.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #24. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0024.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0024.txt assigned to Date
+Column 2 in file ./meteo/meteo0024.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0024.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #25. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0025.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0025.txt assigned to Date
+Column 2 in file ./meteo/meteo0025.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0025.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #26. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0026.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0026.txt assigned to Date
+Column 2 in file ./meteo/meteo0026.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0026.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #27. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0027.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0027.txt assigned to Date
+Column 2 in file ./meteo/meteo0027.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0027.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #28. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0028.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0028.txt assigned to Date
+Column 2 in file ./meteo/meteo0028.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0028.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #29. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0029.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0029.txt assigned to Date
+Column 2 in file ./meteo/meteo0029.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0029.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #30. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0030.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0030.txt assigned to Date
+Column 2 in file ./meteo/meteo0030.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0030.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #31. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0031.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0031.txt assigned to Date
+Column 2 in file ./meteo/meteo0031.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0031.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #32. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0032.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0032.txt assigned to Date
+Column 2 in file ./meteo/meteo0032.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0032.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #33. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0033.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0033.txt assigned to Date
+Column 2 in file ./meteo/meteo0033.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0033.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #34. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0034.txt assigned to Iprec
+Column 1 in file ./meteo/meteo0034.txt assigned to Date
+Column 2 in file ./meteo/meteo0034.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0034.txt assigned to Iprec
 
 Warning:: No horizon file found for meteo station #35. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Iprec
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to RH
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to AirT
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to Swglob
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0035.txt assigned to CloudTrans
+Column 1 in file ./meteo/meteo0035.txt assigned to Date
+Column 2 in file ./meteo/meteo0035.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0035.txt assigned to Iprec
+Column 4 in file ./meteo/meteo0035.txt assigned to RH
+Column 5 in file ./meteo/meteo0035.txt assigned to AirT
+Column 6 in file ./meteo/meteo0035.txt assigned to Swglob
+Column 7 in file ./meteo/meteo0035.txt assigned to CloudTrans
 
 Warning:: No horizon file found for meteo station #36. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Iprec
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to RH
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to AirT
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to Swglob
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0036.txt assigned to CloudTrans
+Column 1 in file ./meteo/meteo0036.txt assigned to Date
+Column 2 in file ./meteo/meteo0036.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0036.txt assigned to Iprec
+Column 4 in file ./meteo/meteo0036.txt assigned to RH
+Column 5 in file ./meteo/meteo0036.txt assigned to AirT
+Column 6 in file ./meteo/meteo0036.txt assigned to Swglob
+Column 7 in file ./meteo/meteo0036.txt assigned to CloudTrans
 
 Warning:: No horizon file found for meteo station #37. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Iprec
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to RH
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to AirT
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to Swglob
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/Mazia/meteo/meteo0037.txt assigned to CloudTrans
+Column 1 in file ./meteo/meteo0037.txt assigned to Date
+Column 2 in file ./meteo/meteo0037.txt assigned to JDfrom0
+Column 3 in file ./meteo/meteo0037.txt assigned to Iprec
+Column 4 in file ./meteo/meteo0037.txt assigned to RH
+Column 5 in file ./meteo/meteo0037.txt assigned to AirT
+Column 6 in file ./meteo/meteo0037.txt assigned to Swglob
+Column 7 in file ./meteo/meteo0037.txt assigned to CloudTrans
 Shortwave radiation measurements from station 35
 Cloudiness measurements from station 35
 WARNING: NO longwave radiation measurements available
@@ -416,11 +416,11 @@ cnt:23 res:9.450114e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.094122
 16/10/2010 13:00 25.00% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
 
 16/10/2010 13:00 JD:288.541667 (1^ simulation day) 25.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.12 s, t_blowingsnow:  0.00 s, t_water:  0.47 s, t_sub:  0.47 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.59 s, t_sub:  0.59 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 77.31 W/m2  LW:-34.51 W/m2  H= 20.06 W/m2  LE=-11.57 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.10 mm  
- Max Error Richards=5.490337e-12 mm/h 
- Tot Error Richards=5.490337e-12 mm Mean Time Step=3600.000000 s
+ Max Error Richards=5.490961e-12 mm/h 
+ Tot Error Richards=5.490961e-12 mm Mean Time Step=3600.000000 s
 
 cnt:1 res:1.511360e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:2 res:1.340522e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
@@ -1897,7 +1897,7 @@ cnt:369 res:7.088843e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:369 res:3.066182e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:369 res:1.394035e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
 cnt:370 res:1.567370e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
-cnt:370 res:6.518055e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
+cnt:370 res:6.518054e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:370 res:3.173616e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:370 res:1.387065e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
 cnt:371 res:1.567145e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
@@ -1969,7 +1969,7 @@ cnt:388 res:1.001093e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:388 res:4.853602e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:388 res:2.120049e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:388 res:1.076056e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
-cnt:389 res:8.688580e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
+cnt:389 res:8.688579e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:389 res:4.218212e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:389 res:1.948818e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:389 res:1.070158e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
@@ -1981,11 +1981,11 @@ cnt:391 res:5.468318e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:391 res:2.648694e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:391 res:1.110329e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:391 res:1.058013e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
-cnt:392 res:4.067447e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
+cnt:392 res:4.067446e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:392 res:1.962357e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
-cnt:392 res:6.777578e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
+cnt:392 res:6.777577e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:392 res:1.051916e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
-cnt:393 res:3.010141e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
+cnt:393 res:3.010140e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:393 res:1.444229e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
 cnt:393 res:3.490883e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:393 res:1.045895e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
@@ -1995,7 +1995,7 @@ cnt:394 res:1.239985e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:394 res:1.039977e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.091461
 cnt:395 res:1.741184e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:395 res:8.235018e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
-cnt:395 res:5.216632e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
+cnt:395 res:5.216629e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.091461
 cnt:395 res:9.836466e+01 lambda:2.498859e-02 Dt:3600.000000 P:0.091461
 cnt:396 res:3.205597e+07 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:396 res:1.361210e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.091461
@@ -2013,15 +2013,15 @@ cnt:401 res:4.706068e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:402 res:6.247697e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:403 res:1.458606e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 cnt:404 res:8.354558e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
-cnt:405 res:4.870152e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
+cnt:405 res:4.870149e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 16/10/2010 14:00 50.00% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:00  
 
 16/10/2010 14:00 JD:288.583333 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.26 s, t_blowingsnow:  0.00 s, t_water: 10.23 s, t_sub: 10.23 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.01 s, t_energy:  0.35 s, t_blowingsnow:  0.00 s, t_water: 11.09 s, t_sub: 11.09 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 48.99 W/m2  LW:-24.95 W/m2  H= 20.36 W/m2  LE= -9.04 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.11 mm  
- Max Error Richards=2.451345e-12 mm/h 
- Tot Error Richards=7.941682e-12 mm Mean Time Step=3600.000000 s
+ Max Error Richards=2.451371e-12 mm/h 
+ Tot Error Richards=7.942332e-12 mm Mean Time Step=3600.000000 s
 
 cnt:1 res:1.517209e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:2 res:1.511915e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
@@ -3678,7 +3678,7 @@ cnt:414 res:5.865013e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:414 res:1.539750e+02 lambda:9.137027e-03 Dt:3600.000000 P:0.203211
 cnt:415 res:2.577967e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:415 res:9.059066e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:415 res:9.084131e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:415 res:9.084132e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:415 res:1.501259e+02 lambda:2.499813e-02 Dt:3600.000000 P:0.203211
 cnt:416 res:2.577751e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:416 res:9.475969e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
@@ -3942,12 +3942,12 @@ cnt:481 res:1.110157e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:481 res:8.732772e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:482 res:2.385164e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:482 res:1.059974e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:482 res:7.517049e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:482 res:8.664429e+01 lambda:7.825862e-03 Dt:3600.000000 P:0.203211
+cnt:482 res:7.517050e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:482 res:8.664429e+01 lambda:7.825861e-03 Dt:3600.000000 P:0.203211
 cnt:483 res:2.384981e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:483 res:1.065833e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:483 res:2.525748e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:483 res:8.495120e+01 lambda:1.953886e-02 Dt:3600.000000 P:0.203211
+cnt:483 res:2.525749e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:483 res:8.495120e+01 lambda:1.953885e-02 Dt:3600.000000 P:0.203211
 cnt:484 res:2.384409e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:484 res:1.069830e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
 cnt:484 res:8.070186e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
@@ -3965,14 +3965,14 @@ cnt:487 res:1.004095e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:487 res:7.949726e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:488 res:2.379852e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:488 res:1.012156e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:488 res:5.562226e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:488 res:7.854963e+01 lambda:1.191649e-02 Dt:3600.000000 P:0.203211
+cnt:488 res:5.562230e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:488 res:7.854963e+01 lambda:1.191648e-02 Dt:3600.000000 P:0.203211
 cnt:489 res:2.378021e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:489 res:1.027539e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
 cnt:489 res:7.460980e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:490 res:2.354577e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:490 res:1.083341e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:490 res:3.716768e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:490 res:3.716767e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:490 res:7.423633e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:491 res:2.348720e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:491 res:1.086768e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
@@ -3980,92 +3980,92 @@ cnt:491 res:3.856750e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:491 res:7.386463e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:492 res:2.341304e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:492 res:1.089370e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:492 res:3.597087e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:492 res:3.597088e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:492 res:7.349463e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:493 res:2.331767e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:493 res:1.090861e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:493 res:2.929403e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:493 res:2.929406e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:493 res:7.312627e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:494 res:2.319289e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:494 res:1.090827e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:494 res:2.043410e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:494 res:2.043413e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:494 res:7.275946e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:495 res:2.302647e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:495 res:1.088648e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:495 res:1.230441e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:495 res:1.230444e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:495 res:7.239405e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
 cnt:496 res:2.279977e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:496 res:1.083383e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:496 res:6.448733e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:496 res:7.160261e+01 lambda:1.075961e-02 Dt:3600.000000 P:0.203211
-cnt:497 res:2.193485e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:496 res:6.448702e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:496 res:7.160261e+01 lambda:1.075968e-02 Dt:3600.000000 P:0.203211
+cnt:497 res:2.193484e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:497 res:1.053012e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:497 res:2.658639e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:497 res:2.658649e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:497 res:7.123934e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:498 res:2.122992e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:498 res:1.023468e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:498 res:3.389622e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:498 res:2.122991e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:498 res:1.023467e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:498 res:3.389630e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:498 res:7.087502e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:499 res:2.018174e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:499 res:9.765565e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:499 res:3.910082e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:499 res:2.018172e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:499 res:9.765558e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:499 res:3.910086e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:499 res:7.050777e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:500 res:1.862751e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:500 res:9.040532e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:500 res:1.862749e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:500 res:9.040522e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
 cnt:500 res:4.122505e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:500 res:7.013471e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:501 res:1.641041e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:501 res:7.979915e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:501 res:3.924716e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:501 res:6.975233e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:502 res:1.354286e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:502 res:6.588295e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:502 res:3.291841e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:501 res:1.641038e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:501 res:7.979901e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:501 res:3.924711e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:501 res:6.975232e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
+cnt:502 res:1.354283e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:502 res:6.588278e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:502 res:3.291831e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:502 res:6.937936e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:503 res:1.040535e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:503 res:5.054314e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:503 res:2.383770e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:503 res:1.040532e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:503 res:5.054296e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:503 res:2.383759e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:503 res:6.903246e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:504 res:7.603725e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:504 res:3.680254e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:504 res:1.491304e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:504 res:7.603696e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:504 res:3.680240e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:504 res:1.491295e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
 cnt:504 res:6.868730e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:505 res:5.489519e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:505 res:2.642768e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:505 res:8.069309e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:505 res:6.834387e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:506 res:4.028913e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:506 res:1.926699e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:506 res:3.470691e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:506 res:6.800215e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
-cnt:507 res:3.040279e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:507 res:1.442893e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:507 res:5.246249e+05 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:507 res:6.687932e+01 lambda:1.651164e-02 Dt:3600.000000 P:0.203211
-cnt:508 res:1.099128e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:508 res:4.986935e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:508 res:6.353535e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:509 res:8.806289e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:509 res:2.475045e+06 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:509 res:6.035859e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
-cnt:510 res:4.378509e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:510 res:5.777167e+05 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:510 res:5.067773e+01 lambda:1.603891e-01 Dt:3600.000000 P:0.203211
-cnt:511 res:3.454341e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:511 res:2.957515e+01 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
-cnt:512 res:9.290624e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:513 res:1.894332e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:514 res:1.259767e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
-cnt:515 res:6.421113e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:505 res:5.489498e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:505 res:2.642758e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:505 res:8.069242e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:505 res:6.834386e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
+cnt:506 res:4.028899e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:506 res:1.926692e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:506 res:3.470648e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:506 res:6.800214e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.203211
+cnt:507 res:3.040269e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:507 res:1.442889e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:507 res:5.245973e+05 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:507 res:6.687929e+01 lambda:1.651207e-02 Dt:3600.000000 P:0.203211
+cnt:508 res:1.099088e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:508 res:4.986740e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:508 res:6.353532e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:509 res:8.806248e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:509 res:2.475027e+06 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:509 res:6.035856e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.203211
+cnt:510 res:4.378492e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:510 res:5.777100e+05 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:510 res:5.067764e+01 lambda:1.603900e-01 Dt:3600.000000 P:0.203211
+cnt:511 res:3.454151e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:511 res:2.957510e+01 lambda:5.000000e-01 Dt:3600.000000 P:0.203211
+cnt:512 res:9.290606e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:513 res:1.894327e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:514 res:1.259760e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
+cnt:515 res:6.421042e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 cnt:516 res:4.132788e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 16/10/2010 15:00 75.00% - Times: Elapsed (h:m:s)  0:00:24 Remaining (h:m)  0:00  
 
 16/10/2010 15:00 JD:288.625000 (1^ simulation day) 75.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.68 s, t_blowingsnow:  0.00 s, t_water: 22.25 s, t_sub: 22.25 s, t_sup:  0.00 s, t_out:  0.02 s
+ t_meteo:  0.01 s, t_energy:  0.76 s, t_blowingsnow:  0.00 s, t_water: 24.67 s, t_sub: 24.66 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 28.80 W/m2  LW:-17.36 W/m2  H=  8.98 W/m2  LE=  1.17 W/m2 
  Pvert=  0.20 mm Prain=  0.10 mm  Psnow=  0.11 mm  
- Max Error Richards=6.351694e-12 mm/h 
- Tot Error Richards=1.429338e-11 mm Mean Time Step=3600.000000 s
+ Max Error Richards=6.342637e-12 mm/h 
+ Tot Error Richards=1.428497e-11 mm Mean Time Step=3600.000000 s
 
 cnt:1 res:1.460268e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:2 res:1.398205e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
@@ -4919,7 +4919,7 @@ cnt:213 res:3.384811e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:213 res:3.759132e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:214 res:2.711178e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:214 res:1.051883e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:214 res:3.987040e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:214 res:3.987039e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:214 res:3.740336e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:215 res:2.711177e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:215 res:1.011305e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
@@ -5091,8 +5091,8 @@ cnt:256 res:4.659877e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:256 res:3.002735e+02 lambda:1.403842e-02 Dt:3600.000000 P:0.118849
 cnt:257 res:2.711143e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:257 res:9.981252e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:257 res:4.307019e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:257 res:2.958132e+02 lambda:1.485389e-02 Dt:3600.000000 P:0.118849
+cnt:257 res:4.307018e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:257 res:2.958132e+02 lambda:1.485390e-02 Dt:3600.000000 P:0.118849
 cnt:258 res:2.711141e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:258 res:9.543326e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
 cnt:258 res:2.945190e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
@@ -5123,7 +5123,7 @@ cnt:264 res:1.669663e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:264 res:2.856138e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:265 res:2.711137e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:265 res:8.091258e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:265 res:9.506090e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:265 res:9.506089e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:265 res:2.841857e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:266 res:2.711136e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:266 res:8.145463e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
@@ -5260,18 +5260,18 @@ cnt:298 res:2.408596e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:299 res:2.711118e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:299 res:8.203372e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
 cnt:299 res:6.614255e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:299 res:2.395906e+02 lambda:5.268370e-03 Dt:3600.000000 P:0.118849
+cnt:299 res:2.395906e+02 lambda:5.268371e-03 Dt:3600.000000 P:0.118849
 cnt:300 res:2.711118e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:300 res:8.226627e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
 cnt:300 res:3.336826e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:300 res:2.358797e+02 lambda:1.548859e-02 Dt:3600.000000 P:0.118849
+cnt:300 res:2.358797e+02 lambda:1.548860e-02 Dt:3600.000000 P:0.118849
 cnt:301 res:2.711116e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:301 res:8.388144e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:301 res:1.856912e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:301 res:2.311841e+02 lambda:1.990700e-02 Dt:3600.000000 P:0.118849
+cnt:301 res:1.856918e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:301 res:2.311841e+02 lambda:1.990698e-02 Dt:3600.000000 P:0.118849
 cnt:302 res:2.711114e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:302 res:8.581869e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:302 res:2.636135e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:302 res:2.636134e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:302 res:2.300281e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:303 res:2.711113e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:303 res:8.626469e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
@@ -5279,406 +5279,389 @@ cnt:303 res:2.839229e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:303 res:2.288780e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:304 res:2.711113e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:304 res:8.669057e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:304 res:2.770299e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:304 res:2.770300e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:304 res:2.277336e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:305 res:2.711112e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:305 res:8.709214e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:305 res:2.406150e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:305 res:2.406151e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:305 res:2.265949e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:306 res:2.711111e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:306 res:8.746389e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:306 res:1.826221e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:306 res:1.826223e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:306 res:2.254620e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:307 res:2.711111e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:307 res:8.779851e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:307 res:1.203152e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:307 res:1.203153e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:307 res:2.243347e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:308 res:2.711110e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:308 res:8.808619e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:308 res:6.839125e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:308 res:2.229750e+02 lambda:6.060868e-03 Dt:3600.000000 P:0.118849
+cnt:308 res:8.808618e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:308 res:6.839139e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:308 res:2.229750e+02 lambda:6.060827e-03 Dt:3600.000000 P:0.118849
 cnt:309 res:2.711110e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 cnt:309 res:8.835253e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:309 res:2.381062e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:309 res:2.187900e+02 lambda:1.876901e-02 Dt:3600.000000 P:0.118849
+cnt:309 res:2.381098e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:309 res:2.187900e+02 lambda:1.876891e-02 Dt:3600.000000 P:0.118849
 cnt:310 res:2.711108e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:310 res:8.810318e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:310 res:8.810319e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
 cnt:310 res:2.078505e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:311 res:2.711102e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:311 res:6.504517e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:311 res:1.997067e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:311 res:6.504514e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:311 res:1.997089e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:311 res:2.068112e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:312 res:2.711101e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:312 res:6.606756e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:312 res:1.619629e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:312 res:6.606752e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:312 res:1.619647e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:312 res:2.057772e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:313 res:2.711100e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:313 res:6.708478e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:313 res:1.173792e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:313 res:6.708475e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:313 res:1.173811e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:313 res:2.047483e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:314 res:2.711100e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:314 res:6.809688e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:314 res:7.358116e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:314 res:2.037245e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:314 res:6.809685e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:314 res:7.358286e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:314 res:2.037246e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:315 res:2.711099e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:315 res:6.910387e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:315 res:3.778018e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:315 res:2.012822e+02 lambda:1.198821e-02 Dt:3600.000000 P:0.118849
+cnt:315 res:6.910384e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:315 res:3.778148e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:315 res:2.012824e+02 lambda:1.198774e-02 Dt:3600.000000 P:0.118849
 cnt:316 res:2.711098e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:316 res:7.150598e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:316 res:1.912181e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:316 res:7.150586e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:316 res:1.912182e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:317 res:2.711091e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:317 res:8.140042e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:317 res:1.816572e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:317 res:8.140030e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:317 res:1.816573e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:318 res:2.711083e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:318 res:9.078879e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:318 res:7.557543e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:318 res:1.807489e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:318 res:9.078868e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:318 res:7.558335e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:318 res:1.807490e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:319 res:2.711083e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:319 res:9.167964e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:319 res:4.531846e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:319 res:1.783449e+02 lambda:1.330007e-02 Dt:3600.000000 P:0.118849
+cnt:319 res:9.167953e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:319 res:4.532547e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:319 res:1.783454e+02 lambda:1.329815e-02 Dt:3600.000000 P:0.118849
 cnt:320 res:2.711080e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:320 res:9.403628e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:320 res:1.694277e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:320 res:9.403583e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:320 res:1.694281e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:321 res:2.711071e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:321 res:1.027544e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:321 res:1.609563e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:321 res:1.027539e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:321 res:1.609567e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:322 res:2.711061e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:322 res:1.109512e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:322 res:1.624865e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:322 res:1.601515e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:322 res:1.109508e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:322 res:1.625497e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:322 res:1.601519e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:323 res:2.711060e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:323 res:1.117197e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:323 res:1.018307e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:323 res:1.593507e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:323 res:1.117193e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:323 res:1.018845e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:323 res:1.593512e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:324 res:2.711059e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:324 res:1.124815e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:324 res:5.459041e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:324 res:1.571958e+02 lambda:1.352347e-02 Dt:3600.000000 P:0.118849
+cnt:324 res:1.124811e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:324 res:5.462914e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:324 res:1.571975e+02 lambda:1.351487e-02 Dt:3600.000000 P:0.118849
 cnt:325 res:2.711055e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:325 res:1.145139e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:325 res:1.493360e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:325 res:1.145122e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:325 res:1.493376e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
 cnt:326 res:2.711042e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:326 res:1.213549e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:326 res:1.741423e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:326 res:1.485893e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:326 res:1.213536e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:326 res:1.740704e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:326 res:1.485910e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:327 res:2.711040e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:327 res:1.218828e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:327 res:1.947382e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:327 res:1.478463e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:327 res:1.218817e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:327 res:1.947084e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:327 res:1.478480e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:328 res:2.711039e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:328 res:1.223599e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:328 res:1.967248e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:328 res:1.471071e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:328 res:1.223589e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:328 res:1.967454e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:328 res:1.471088e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:329 res:2.711037e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:329 res:1.227714e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:329 res:1.783931e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:329 res:1.463716e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:329 res:1.227706e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:329 res:1.784629e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:329 res:1.463732e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:330 res:2.711036e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:330 res:1.230969e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:330 res:1.433056e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:330 res:1.456397e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:330 res:1.230963e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:330 res:1.434077e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:330 res:1.456413e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:331 res:2.711034e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:331 res:1.233073e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:331 res:2.181431e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:331 res:1.449115e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:331 res:1.233070e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:331 res:2.179498e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:331 res:1.449131e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:332 res:2.711033e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:332 res:1.233602e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:332 res:2.969113e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:332 res:1.441869e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:332 res:1.233603e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:332 res:2.967480e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:332 res:1.441886e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:333 res:2.711031e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:333 res:1.231926e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:333 res:3.593765e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:333 res:1.434660e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:333 res:1.231933e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:333 res:3.592584e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:333 res:1.434676e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:334 res:2.711029e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:334 res:1.227090e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:334 res:3.973385e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:334 res:1.427487e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:334 res:1.227105e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:334 res:3.972877e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:334 res:1.427503e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:335 res:2.711027e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:335 res:1.217611e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:335 res:4.002738e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:335 res:1.420349e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:335 res:1.217639e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:335 res:4.003147e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:335 res:1.420365e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:336 res:2.711026e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:336 res:1.201149e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:336 res:3.599282e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:336 res:1.413248e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:336 res:1.201197e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:336 res:3.600693e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:336 res:1.413264e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:337 res:2.711024e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:337 res:1.173984e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:337 res:3.565712e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:337 res:1.406181e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:337 res:1.174061e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:337 res:3.563866e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:337 res:1.406197e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:338 res:2.711022e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:338 res:1.130284e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:338 res:4.267041e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:338 res:1.399150e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:338 res:1.130407e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:338 res:4.265751e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:338 res:1.399166e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:339 res:2.711020e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:339 res:1.061527e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:339 res:4.667086e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:339 res:1.392155e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:339 res:1.061719e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:339 res:4.666613e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:339 res:1.392170e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:340 res:2.711018e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:340 res:9.575993e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:340 res:4.642665e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:340 res:1.385194e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:340 res:9.578803e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:340 res:4.643283e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:340 res:1.385210e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:341 res:2.711016e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:341 res:8.253899e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:341 res:4.109973e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:341 res:1.378268e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:341 res:8.253917e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:341 res:4.111733e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:341 res:1.378284e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:342 res:2.711014e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:342 res:8.237801e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:342 res:3.156422e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:342 res:1.371377e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:342 res:8.237857e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:342 res:3.158850e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:342 res:1.371392e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:343 res:2.711012e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:343 res:8.201749e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:343 res:2.085751e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:343 res:1.364520e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:343 res:8.201858e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:343 res:2.088045e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:343 res:1.364535e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:344 res:2.711010e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:344 res:8.137936e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:344 res:1.196098e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:344 res:1.357697e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:344 res:8.138119e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:344 res:1.197801e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:344 res:1.357712e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:345 res:2.711008e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:345 res:8.117829e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:345 res:6.181297e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:345 res:1.348932e+02 lambda:6.455802e-03 Dt:3600.000000 P:0.118849
+cnt:345 res:8.117682e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:345 res:6.165970e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:345 res:1.348880e+02 lambda:6.505202e-03 Dt:3600.000000 P:0.118849
 cnt:346 res:2.711005e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:346 res:8.201535e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:346 res:1.427499e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:346 res:1.342187e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:346 res:8.202029e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:346 res:1.431894e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:346 res:1.342136e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:347 res:2.711003e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:347 res:8.265863e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:347 res:1.926203e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:347 res:1.335476e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:347 res:8.266354e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:347 res:1.929560e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:347 res:1.335425e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:348 res:2.711000e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:348 res:8.329787e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:348 res:2.269366e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:348 res:1.328799e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:348 res:8.330276e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:348 res:2.271311e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:348 res:1.328748e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:349 res:2.710998e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:349 res:8.393302e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:349 res:2.407771e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:349 res:1.322155e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:349 res:8.393787e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:349 res:2.407927e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:349 res:1.322104e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:350 res:2.710996e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:350 res:8.456396e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:350 res:2.303555e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:350 res:1.315544e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:350 res:8.456878e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:350 res:2.301757e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:350 res:1.315494e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:351 res:2.710993e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:351 res:8.519061e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:351 res:1.965316e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:351 res:1.308967e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:351 res:8.519539e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:351 res:1.961913e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:351 res:1.308916e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:352 res:2.710991e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:352 res:8.581283e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:352 res:1.475904e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:352 res:1.302422e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:352 res:8.581758e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:352 res:1.471811e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:352 res:1.302372e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:353 res:2.710988e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:353 res:8.643047e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:353 res:9.636738e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:353 res:1.295910e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:353 res:8.643519e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:353 res:9.598753e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:353 res:1.295860e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:354 res:2.710985e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:354 res:8.704337e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:354 res:5.277466e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:354 res:1.282331e+02 lambda:1.047807e-02 Dt:3600.000000 P:0.118849
+cnt:354 res:8.704805e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:354 res:5.247577e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:354 res:1.282167e+02 lambda:1.056642e-02 Dt:3600.000000 P:0.118849
 cnt:355 res:2.710979e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:355 res:8.831497e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:355 res:1.218214e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:356 res:2.710946e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:356 res:9.406052e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:356 res:8.585674e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:356 res:1.212123e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:355 res:8.833025e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:355 res:1.218058e+02 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:356 res:2.710945e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:356 res:9.407338e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:356 res:8.790106e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:356 res:1.211968e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:357 res:2.710942e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:357 res:9.455529e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:357 res:1.603837e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:357 res:1.206062e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:357 res:9.456766e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:357 res:1.622348e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:357 res:1.205908e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:358 res:2.710938e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:358 res:9.502937e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:358 res:2.259959e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:358 res:1.200032e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:358 res:9.504116e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:358 res:2.275634e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:358 res:1.199879e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:359 res:2.710934e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:359 res:9.547825e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:359 res:2.784339e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:359 res:1.194032e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:359 res:9.548933e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:359 res:2.795810e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:359 res:1.193879e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:360 res:2.710930e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:360 res:9.589592e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:360 res:3.114936e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:360 res:1.188061e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:360 res:9.590610e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:360 res:3.120308e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:360 res:1.187910e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:361 res:2.710925e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:361 res:9.627429e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:361 res:3.174080e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:361 res:1.182121e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:361 res:9.628334e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:361 res:3.171298e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:361 res:1.181970e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:362 res:2.710921e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:362 res:9.660229e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:362 res:2.900543e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:362 res:1.176211e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:362 res:9.660988e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:362 res:2.888832e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:362 res:1.176060e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:363 res:2.710916e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:363 res:9.686451e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:363 res:2.323475e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:363 res:1.170329e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:363 res:9.687017e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:363 res:2.305519e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:363 res:1.170180e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:364 res:2.710912e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:364 res:9.703915e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:364 res:1.610469e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:364 res:1.164478e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:364 res:9.704221e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:364 res:1.591964e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:364 res:1.164329e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:365 res:2.710907e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:365 res:9.709467e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:365 res:9.678956e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:365 res:1.158655e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:365 res:9.709416e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:365 res:9.531756e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:365 res:1.158507e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:366 res:2.710902e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:366 res:9.698461e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:366 res:4.936305e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:366 res:1.143669e+02 lambda:1.293415e-02 Dt:3600.000000 P:0.118849
+cnt:366 res:9.697908e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:366 res:4.834802e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:366 res:1.143221e+02 lambda:1.319457e-02 Dt:3600.000000 P:0.118849
 cnt:367 res:2.710888e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:367 res:9.528555e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:367 res:1.565786e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:367 res:1.137951e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:368 res:2.710883e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:368 res:9.364619e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:368 res:2.339049e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:368 res:1.132261e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:367 res:9.518306e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:367 res:1.630773e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:367 res:1.137505e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:368 res:2.710882e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:368 res:9.347822e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:368 res:2.395812e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:368 res:1.131818e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:369 res:2.710877e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:369 res:9.099584e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:369 res:2.987085e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:369 res:1.126600e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:369 res:9.072738e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:369 res:3.031552e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:369 res:1.126159e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:370 res:2.710871e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:370 res:8.680263e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:370 res:3.447852e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:370 res:1.120967e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:371 res:2.710865e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:371 res:8.034689e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:371 res:3.635826e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:371 res:1.115362e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:372 res:2.710859e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:372 res:7.094098e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:372 res:3.462345e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:372 res:1.109785e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:370 res:8.638258e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:370 res:3.474031e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:370 res:1.120528e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:371 res:2.710864e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:371 res:7.971373e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:371 res:3.636231e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:371 res:1.114925e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:372 res:2.710858e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:372 res:7.005879e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:372 res:3.431512e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:372 res:1.109351e+02 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
 cnt:373 res:2.710852e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:373 res:5.864020e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:373 res:4.067316e+07 lambda:5.936818e-02 Dt:3600.000000 P:0.118849
-cnt:373 res:1.103196e+02 lambda:5.936818e-03 Dt:3600.000000 P:0.118849
-cnt:374 res:2.710844e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:374 res:4.466741e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:374 res:8.838035e+07 lambda:1.271183e-01 Dt:3600.000000 P:0.118849
-cnt:374 res:1.089173e+02 lambda:1.271183e-02 Dt:3600.000000 P:0.118849
-cnt:375 res:2.710826e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:375 res:4.754466e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:375 res:1.991443e+07 lambda:1.149248e-01 Dt:3600.000000 P:0.118849
-cnt:375 res:1.073317e+02 lambda:1.455772e-02 Dt:3600.000000 P:0.118849
-cnt:376 res:2.710803e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:376 res:5.079771e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:376 res:2.940347e+06 lambda:1.001409e-01 Dt:3600.000000 P:0.118849
-cnt:376 res:1.025960e+02 lambda:4.412054e-02 Dt:3600.000000 P:0.118849
-cnt:377 res:2.710714e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:377 res:6.051226e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:377 res:9.746585e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:378 res:2.710567e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:378 res:7.103285e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:378 res:9.259202e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:379 res:2.710334e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:379 res:8.102240e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:379 res:8.796141e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:380 res:2.709939e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:380 res:9.050320e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:380 res:8.356120e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:381 res:2.709201e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:381 res:9.949082e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:381 res:7.937747e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:382 res:2.707607e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:382 res:1.079826e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:382 res:7.538608e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:383 res:2.703286e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:383 res:1.159055e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:383 res:7.135390e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:384 res:2.685242e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:384 res:1.227244e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:384 res:1.495160e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:384 res:7.097715e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:385 res:2.680940e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:385 res:1.232383e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:385 res:1.425158e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:385 res:7.059505e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:386 res:2.675574e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:386 res:1.236943e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:386 res:1.211816e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:386 res:7.020739e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:387 res:2.668787e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:387 res:1.240742e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:387 res:9.079425e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:387 res:6.960651e+01 lambda:7.235256e-03 Dt:3600.000000 P:0.118849
-cnt:388 res:2.655328e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:388 res:1.244345e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:388 res:4.324962e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:388 res:6.761028e+01 lambda:1.689823e-02 Dt:3600.000000 P:0.118849
-cnt:389 res:2.588013e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:389 res:1.234531e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:389 res:1.639715e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:389 res:6.724328e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:390 res:2.548331e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:390 res:1.221457e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:390 res:2.727113e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:390 res:6.688068e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:391 res:2.489981e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:391 res:1.198917e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:391 res:3.695893e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:391 res:6.652214e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:392 res:2.401962e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:392 res:1.161363e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:392 res:4.482311e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:392 res:6.616735e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:393 res:2.266974e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:393 res:1.100072e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:393 res:4.985939e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:393 res:6.581606e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:394 res:2.061418e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:394 res:1.003128e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:394 res:5.066716e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:394 res:6.546804e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:395 res:1.765599e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:395 res:8.605101e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:395 res:4.592998e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:395 res:6.512310e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:396 res:1.394023e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:396 res:6.792473e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:396 res:3.594950e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:396 res:6.478107e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:397 res:1.018057e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:397 res:4.948383e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:397 res:2.394158e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:397 res:6.444181e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:398 res:7.157750e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:398 res:3.463134e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:398 res:1.379806e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:398 res:6.410520e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:399 res:5.070583e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:399 res:2.438024e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:399 res:6.872112e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:399 res:6.377112e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:400 res:3.702945e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:400 res:1.767368e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:400 res:2.534855e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:400 res:6.343948e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
-cnt:401 res:2.799474e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:401 res:1.325310e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:401 res:1.022588e+03 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:401 res:6.150169e+01 lambda:2.498372e-02 Dt:3600.000000 P:0.118849
-cnt:402 res:4.800495e+07 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:402 res:2.024281e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:402 res:5.723583e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:403 res:1.148758e+07 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:403 res:3.372232e+06 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:403 res:5.374970e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
-cnt:404 res:5.605482e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:404 res:8.369526e+05 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:404 res:4.652240e+01 lambda:1.435685e-01 Dt:3600.000000 P:0.118849
-cnt:405 res:1.250691e+03 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:405 res:2.832375e+01 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
-cnt:406 res:8.972180e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:407 res:1.821793e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:408 res:1.163317e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:409 res:5.434438e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-cnt:410 res:4.421229e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
-16/10/2010 16:00 100.00% - Times: Elapsed (h:m:s)  0:00:34 Remaining (h:m) -1:59  
+cnt:373 res:5.757559e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:373 res:4.720461e+07 lambda:6.538476e-02 Dt:3600.000000 P:0.118849
+cnt:373 res:1.102097e+02 lambda:6.538476e-03 Dt:3600.000000 P:0.118849
+cnt:374 res:2.710843e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:374 res:4.489297e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:374 res:8.113117e+07 lambda:1.261904e-01 Dt:3600.000000 P:0.118849
+cnt:374 res:1.088190e+02 lambda:1.261904e-02 Dt:3600.000000 P:0.118849
+cnt:375 res:2.710824e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:375 res:4.774637e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:375 res:1.838131e+07 lambda:1.140400e-01 Dt:3600.000000 P:0.118849
+cnt:375 res:1.068784e+02 lambda:1.783247e-02 Dt:3600.000000 P:0.118849
+cnt:376 res:2.710796e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:376 res:5.172755e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:376 res:5.154592e+05 lambda:9.570406e-02 Dt:3600.000000 P:0.118849
+cnt:376 res:1.018769e+02 lambda:4.679434e-02 Dt:3600.000000 P:0.118849
+cnt:377 res:2.710697e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:377 res:6.198707e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:377 res:9.678274e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:378 res:2.710541e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:378 res:7.243338e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:378 res:9.194301e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:379 res:2.710292e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:379 res:8.235196e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:379 res:8.734476e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:380 res:2.709864e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:380 res:9.176445e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:380 res:8.297512e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:381 res:2.709052e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:381 res:1.006849e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:381 res:7.881971e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:382 res:2.707255e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:382 res:1.091061e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:382 res:7.485001e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:383 res:2.702167e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:383 res:1.169327e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:383 res:7.063780e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:384 res:2.678888e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:384 res:1.234329e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:384 res:1.241244e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:384 res:7.025071e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:385 res:2.672991e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:385 res:1.238603e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:385 res:9.438004e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:385 res:6.972786e+01 lambda:6.441264e-03 Dt:3600.000000 P:0.118849
+cnt:386 res:2.662932e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:386 res:1.242813e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:386 res:5.208278e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:386 res:6.805629e+01 lambda:1.515859e-02 Dt:3600.000000 P:0.118849
+cnt:387 res:2.618326e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:387 res:1.242037e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:387 res:3.377439e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:387 res:6.615562e+01 lambda:1.871074e-02 Dt:3600.000000 P:0.118849
+cnt:388 res:2.430016e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:388 res:1.173633e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:388 res:4.288954e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:388 res:6.580444e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:389 res:2.310101e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:389 res:1.119958e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:389 res:4.882945e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:389 res:6.545653e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:390 res:2.126477e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:390 res:1.034097e+09 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:390 res:5.095458e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:390 res:6.511169e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:391 res:1.856249e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:391 res:9.044446e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:391 res:4.782080e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:391 res:6.476975e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:392 res:1.500668e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:392 res:7.314131e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:392 res:3.908388e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:392 res:6.443058e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:393 res:1.116728e+09 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:393 res:5.432895e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:393 res:2.719482e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:393 res:6.409405e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:394 res:7.893512e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:394 res:3.824683e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:394 res:1.627364e+07 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:394 res:6.376006e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:395 res:5.561450e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:395 res:2.678996e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:395 res:8.478722e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:395 res:6.342850e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:396 res:4.023636e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:396 res:1.924501e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:396 res:3.527982e+06 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:396 res:6.309930e+01 lambda:5.000000e-03 Dt:3600.000000 P:0.118849
+cnt:397 res:3.013529e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:397 res:1.429943e+08 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:397 res:4.716239e+05 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:397 res:6.185601e+01 lambda:1.732700e-02 Dt:3600.000000 P:0.118849
+cnt:398 res:1.008651e+08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:398 res:4.549429e+07 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:398 res:5.749060e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:399 res:8.312145e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:399 res:1.986374e+06 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:399 res:5.414928e+01 lambda:5.000000e-02 Dt:3600.000000 P:0.118849
+cnt:400 res:4.321605e+06 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:400 res:3.212385e+05 lambda:5.000000e-01 Dt:3600.000000 P:0.118849
+cnt:400 res:4.415823e+01 lambda:2.063511e-01 Dt:3600.000000 P:0.118849
+cnt:401 res:4.059220e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:402 res:9.598717e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:403 res:8.918304e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:404 res:1.066721e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:405 res:4.230549e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+cnt:406 res:4.421183e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
+16/10/2010 16:00 100.00% - Times: Elapsed (h:m:s)  0:00:36 Remaining (h:m) -1:59  
 
 16/10/2010 16:00 JD:288.666667 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.01 s, t_energy:  1.02 s, t_blowingsnow:  0.00 s, t_water: 31.93 s, t_sub: 31.93 s, t_sup:  0.00 s, t_out:  0.03 s
+ t_meteo:  0.01 s, t_energy:  1.09 s, t_blowingsnow:  0.00 s, t_water: 35.23 s, t_sub: 35.23 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 14.25 W/m2  LW:-15.26 W/m2  H=  6.61 W/m2  LE=  3.31 W/m2 
  Pvert=  0.12 mm Prain=  0.09 mm  Psnow=  0.12 mm  
- Max Error Richards=6.026834e-12 mm/h 
- Tot Error Richards=2.032021e-11 mm Mean Time Step=3600.000000 s
+ Max Error Richards=5.992619e-12 mm/h 
+ Tot Error Richards=2.027759e-11 mm Mean Time Step=3600.000000 s
 
 Number of times the simulation #1 has been run: 1
 Close files

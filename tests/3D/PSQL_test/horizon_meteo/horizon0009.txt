@@ -1,4 +1,4 @@
-! Horizon file for met station or point #9 
+! Horizon file for met station or point #10 
 ! All measures in degrees
 
 az,el

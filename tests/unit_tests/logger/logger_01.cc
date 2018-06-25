@@ -1,17 +1,17 @@
 #include<gtest/gtest.h>
 #include <logger.h>
 
-
 TEST(Logger, default_constructor) {
   Logger l{};
-  EXPECT_EQ(l.pop(), "geotop:");
+  EXPECT_EQ(l.prefix(), "geotop:");
 }
 
 TEST(Logger, push_pop) {
   Logger l{};
   l.push("alberto");
-  EXPECT_EQ(l.pop(), "geotop:alberto:");
-  EXPECT_EQ(l.pop(), "geotop:");
+  EXPECT_EQ(l.prefix(), "geotop:alberto:");
+  l.pop();
+  EXPECT_EQ(l.prefix(), "geotop:");
 }
 
 TEST(Logger, geolog) {
@@ -27,6 +27,11 @@ TEST(ScopedPrefix, basic_test) {
   EXPECT_EQ(l.prefix(), "geotop:");
   {
     Logger::ScopedPrefix p{__func__}; // let us use the function name 
+    EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
+  }
+  // do the same using the macro
+  {
+    GEOLOG_PREFIX(__func__); // let us use the function name 
     EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
   }
   l.pop();

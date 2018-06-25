@@ -1,0 +1,285 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+./listpoints.txt
+Column 1 in file ./listpoints.txt assigned to id
+Column 2 in file ./listpoints.txt assigned to xcoord
+Column 3 in file ./listpoints.txt assigned to ycoord
+Attempting to read 'DemFile' in the file './INmaps500/dem': EXISTING in format 3
+./INmaps500/dem
+Attempting to read 'LandCoverMapFile' in the file './INmaps500/landcover': EXISTING in format 3
+./INmaps500/landcover
+Attempting to read 'SkyViewFactorMapFile' in the file './INmaps500/svf': EXISTING in format 3
+./INmaps500/svf
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file './INmaps500/slope': EXISTING in format 3
+./INmaps500/slope
+Slope Min:0.083285 (4.760875 deg) Max:0.450491 (24.251116 deg) 
+Attempting to read 'AspectMapFile' in the file './INmaps500/aspect': EXISTING in format 3
+./INmaps500/aspect
+Curvature N-S Min:-0.000097  Max:0.000087 
+Curvature W-E Min:-0.000068  Max:0.000044 
+Curvature NW-SE Min:-0.000104  Max:0.000136 
+Curvature NE-SW Min:-0.000117  Max:0.000095 
+Attempting to read 'RiverNetwork' in the file './INmaps500/channelnet': not existing
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+
+Valid pixels: 247
+Number of nodes: 2470
+Novalue pixels: 212
+Basin area: 61.750000 km2
+
+
+Horizon file FOUND for meteo station #1
+Column 1 in file ./INhorizon/horizon0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0001.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0001.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0001.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0001.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0001.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0001.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0001.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0001.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0001.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #2
+Column 1 in file ./INhorizon/horizon0002.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0002.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0002.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0002.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0002.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0002.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0002.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0002.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0002.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0002.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0002.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #3
+Column 1 in file ./INhorizon/horizon0003.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0003.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0003.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0003.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0003.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0003.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0003.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0003.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0003.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0003.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0003.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #4
+Column 1 in file ./INhorizon/horizon0004.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0004.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0004.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0004.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0004.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0004.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0004.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0004.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0004.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0004.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0004.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #5
+Column 1 in file ./INhorizon/horizon0005.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0005.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0005.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0005.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0005.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0005.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0005.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0005.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0005.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0005.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0005.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #6
+Column 1 in file ./INhorizon/horizon0006.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0006.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0006.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0006.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0006.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0006.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0006.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0006.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0006.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0006.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0006.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #7
+Column 1 in file ./INhorizon/horizon0007.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0007.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0007.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0007.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0007.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0007.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0007.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0007.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0007.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0007.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0007.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #8
+Column 1 in file ./INhorizon/horizon0008.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0008.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0008.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0008.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0008.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0008.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0008.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0008.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0008.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0008.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0008.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #9
+Column 1 in file ./INhorizon/horizon0009.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0009.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0009.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0009.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0009.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0009.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0009.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0009.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0009.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0009.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0009.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #10
+Column 1 in file ./INhorizon/horizon0010.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0010.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0010.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0010.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0010.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0010.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0010.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0010.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0010.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0010.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0010.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #11
+Column 1 in file ./INhorizon/horizon0011.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./INhorizon/horizon0011.txt assigned to HorizonHeight
+Column 1 in file ./INmeteo/meteo0011.txt assigned to Date
+Column 2 in file ./INmeteo/meteo0011.txt assigned to JDfrom0
+Column 3 in file ./INmeteo/meteo0011.txt assigned to Iprec
+Column 4 in file ./INmeteo/meteo0011.txt assigned to WindSp
+Column 5 in file ./INmeteo/meteo0011.txt assigned to WindDir
+Column 6 in file ./INmeteo/meteo0011.txt assigned to RelHum
+Column 7 in file ./INmeteo/meteo0011.txt assigned to AirT
+Column 8 in file ./INmeteo/meteo0011.txt assigned to SWglobal
+Column 9 in file ./INmeteo/meteo0011.txt assigned to CloudTrans
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 2 layers
+Soil water transpires from the first 7 layers
+Initial condition on snow depth from file ./INmaps500/SnowDepth
+./INmaps500/SnowDepth
+Initial condition on snow water equivalent from file ./INmaps500/SWE
+./INmaps500/SWE
+cnt:1 res:1.411336e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:2 res:3.072778e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:3 res:1.497908e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+4/10/2009 1:00 9.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:4.668711e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:2 res:3.185371e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:3 res:1.557252e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:4 res:1.224804e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+4/10/2009 2:00 18.18% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:7.255733e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:2 res:7.756370e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:3 res:9.284911e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:4 res:7.925678e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+4/10/2009 3:00 27.27% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:9.499772e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:2 res:1.372866e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:3 res:2.983117e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:4 res:1.036062e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+4/10/2009 4:00 36.36% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:1.124782e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:2 res:2.018029e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:3 res:6.706455e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+cnt:4 res:1.085784e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
+4/10/2009 5:00 45.45% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.765726e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+cnt:2 res:4.060042e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+cnt:2 res:2.725223e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.000767
+cnt:3 res:4.088185e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+cnt:4 res:2.919785e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+cnt:5 res:1.528639e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+cnt:6 res:4.271562e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000767
+4/10/2009 6:00 54.55% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.752144e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+cnt:2 res:4.056413e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+cnt:2 res:2.724797e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.001239
+cnt:3 res:4.127405e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+cnt:4 res:2.982387e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+cnt:5 res:1.599043e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+cnt:6 res:4.720053e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.001239
+4/10/2009 7:00 63.64% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.738208e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+cnt:2 res:4.051595e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+cnt:2 res:2.722826e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.001297
+cnt:3 res:4.120067e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+cnt:4 res:2.971873e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+cnt:5 res:1.588034e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+cnt:6 res:4.565027e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.001297
+4/10/2009 8:00 72.73% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.725892e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+cnt:2 res:4.045725e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+cnt:2 res:2.718750e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.001373
+cnt:3 res:4.092633e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+cnt:4 res:2.930160e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+cnt:5 res:1.542544e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+cnt:6 res:4.329870e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.001373
+4/10/2009 9:00 81.82% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.713833e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+cnt:2 res:4.038861e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+cnt:2 res:2.713489e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.001423
+cnt:3 res:4.054088e+01 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+cnt:4 res:2.871939e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+cnt:5 res:1.480024e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+cnt:6 res:3.951487e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.001423
+4/10/2009 10:00 90.91% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+cnt:1 res:2.701675e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+cnt:2 res:4.031084e+02 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+cnt:2 res:2.707400e+02 lambda:5.000000e-01 Dt:3600.000000 P:0.001456
+cnt:2 res:1.679372e+02 lambda:2.478282e-01 Dt:3600.000000 P:0.001456
+cnt:3 res:4.733398e+00 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+cnt:4 res:3.020523e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+cnt:5 res:1.120291e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+cnt:6 res:1.687322e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.001456
+4/10/2009 11:00 100.00% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!

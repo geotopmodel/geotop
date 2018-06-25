@@ -13,8 +13,8 @@ a structure of the same type.
 
 struct  longpair
 {
-  long i,j;
-  struct longpair *next;
+    long i,j;
+    struct longpair *next;
 };
 
 typedef struct longpair LONGPAIR;
@@ -34,8 +34,8 @@ a structure of the same type.
 
 struct  longpoker
 {
-  long i,j,k,l;
-  struct longpoker *next;
+    long i,j,k,l;
+    struct longpoker *next;
 };
 
 typedef struct longpoker LONGPOKER;
@@ -55,8 +55,8 @@ a structure of the same type.
 
 struct  realpair
 {
-  double x,y;
-  struct realpair *next;
+    double x,y;
+    struct realpair *next;
 };
 
 typedef struct realpair REALPAIR;
@@ -77,9 +77,9 @@ a structure of the same type.
 
 struct  ix
 {
-  long i;
-  double x;
-  struct ix *next;
+    long i;
+    double x;
+    struct ix *next;
 };
 
 typedef struct ix IX;
@@ -98,9 +98,9 @@ a structure of the same type.
 
 struct  ijx
 {
-  long i,j;
-  double x;
-  struct ijx *next;
+    long i,j;
+    double x;
+    struct ijx *next;
 };
 
 typedef struct ijx IJX;
@@ -119,8 +119,8 @@ a structure of the same type.
 
 struct  xyz
 {
-  double x,y,z;
-  struct xyz *next;
+    double x,y,z;
+    struct xyz *next;
 };
 
 typedef struct xyz XYZ;
@@ -129,13 +129,11 @@ typedef struct xyz XYZ;
 struct measure
 {
 
-  long i,j;                     /*Pixel coordinates                                     */
-  DOUBLEVECTOR
-  *data;           /*Pointing to a vector containing a set of measures     */
-  DOUBLEVECTOR
-  *precision;      /*Pointing to a vector containing the precision of each
+    long i,j;                     /*Pixel coordinates                                     */
+    Vector<double> *data;           /*Pointing to a vector containing a set of measures     */
+    Vector<double> *precision;      /*Pointing to a vector containing the precision of each
                               measure. Usually a  vector gloabally defined         */
-  struct measure *next;
+    struct measure *next;
 
 };
 
@@ -147,9 +145,9 @@ typedef struct measure MEASURES;
 struct phrase
 {
 
-  char  *word;
-  long   nh;
-  struct phrase *next;
+    char  *word;
+    long   nh;
+    struct phrase *next;
 
 };
 

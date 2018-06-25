@@ -54,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
                      INIT_TOOLS *itools, char *filename, FILE *flog)
 {
-Logger::ScopedPrefix p{__func__};
+  GEOLOG_PREFIX(__func__);
   //variables
   FILE *f;
 
@@ -1085,7 +1085,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                METEO *met, INIT_TOOLS *itools, double **num_param,
                                long *num_param_components, char **keyword, FILE *flog)
 {
-  Logger::ScopedPrefix p {__func__};
+  GEOLOG_PREFIX(__func__);
   short occurring;
   long cod, codn, i, j, k, n, m, nsoillayers, nmeteo_stations, npoints;
   double a, minDt=1.E99;
@@ -1163,13 +1163,13 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //run times
   cod = 3;
-  par->run_times = new_longvector(par->init_date->nh);
-  par->run_times->co[1] = (long)assignation_number(flog, cod, 0, keyword,
+  par->run_times.reset(new Vector<long>{par->init_date->nh});
+    (*par->run_times)(1) = (long)assignation_number(flog, cod, 0, keyword,
                                                    num_param, num_param_components, 1., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->run_times->co[i] = (long)assignation_number(flog, cod, i-1, keyword,
-                                                       num_param, num_param_components, (double)par->run_times->co[i-1], 0);
+        (*par->run_times)(i) = (long)assignation_number(flog, cod, i-1, keyword,
+                                                       num_param, num_param_components, (double)(*par->run_times)(i-1), 0);
     }
 
   par->ST = assignation_number(flog, 4, 0, keyword, num_param,
@@ -1184,7 +1184,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_discharge->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                         num_param, num_param_components, par->Dtplot_discharge->co[i-1], 0);
     }
-  par->plot_discharge_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_discharge_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_discharge = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
@@ -1192,11 +1192,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       if (par->Dtplot_discharge->co[i] > 1.E-5
           && par->Dtplot_discharge->co[i] <= minDt)
         {
-          par->plot_discharge_with_Dt_integration->co[i]=1;
+          (*par->plot_discharge_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_discharge_with_Dt_integration->co[i]=0;
+          (*par->plot_discharge_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_discharge->co[i] > 1.E-5) par->state_discharge = 1;
     }
@@ -1210,18 +1210,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_point->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                     num_param, num_param_components, par->Dtplot_point->co[i-1], 0);
     }
-  par->plot_point_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_point_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_pixel = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->Dtplot_point->co[i] *= 3600.;
       if (par->Dtplot_point->co[i] > 1.E-5 && par->Dtplot_point->co[i] <= minDt)
         {
-          par->plot_point_with_Dt_integration->co[i]=1;
+          (*par->plot_point_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_point_with_Dt_integration->co[i]=0;
+          (*par->plot_point_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
     }
@@ -1235,18 +1235,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
       par->Dtplot_basin->co[i] = assignation_number(flog, cod, i-1, keyword,
                                                     num_param, num_param_components, par->Dtplot_basin->co[i-1], 0);
     }
-  par->plot_basin_with_Dt_integration = new_shortvector(par->init_date->nh);
+  par->plot_basin_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_basin = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
       par->Dtplot_basin->co[i] *= 3600.;
       if (par->Dtplot_basin->co[i] > 1.E-5 && par->Dtplot_basin->co[i] <= minDt)
         {
-          par->plot_basin_with_Dt_integration->co[i]=1;
+          (*par->plot_basin_with_Dt_integration)(i)=1;
         }
       else
         {
-          par->plot_basin_with_Dt_integration->co[i]=0;
+          (*par->plot_basin_with_Dt_integration)(i)=0;
         }
       if (par->Dtplot_basin->co[i] > 1.E-5) par->state_basin = 1;
     }
@@ -1517,8 +1517,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                     num_param_components, 20., 0);
   par->max_snow_layers = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                          (long)floor(par->SWE_top/par->max_weq_snow) + n;
-  par->inf_snow_layers = new_longvector(n);
-
+  par->inf_snow_layers.reset(new Vector<long>{n});
   geolog << "Max snow layer number: " << par->max_snow_layers
          <<", of which " << floor(par->SWE_bottom/par->max_weq_snow)
          << " at the bottom, " << n << " in the middle, and "
@@ -1530,9 +1529,9 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   geolog << "Infinite Snow layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
-      par->inf_snow_layers->co[i] = (long)floor(par->SWE_bottom/par->max_weq_snow) +
+      (*par->inf_snow_layers)(i) = (long)floor(par->SWE_bottom/par->max_weq_snow) +
                                     i;
-      geolog << par->inf_snow_layers->co[i] << " ";
+      geolog << (*par->inf_snow_layers)(i) << " ";
     }
   geolog << std::endl;
 
@@ -1566,7 +1565,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   par->max_glac_layers = (long)floor(par->GWE_bottom/par->max_weq_glac) +
                          (long)floor(par->GWE_top/par->max_weq_glac) + n;
-  par->inf_glac_layers = new_longvector(n);
+  par->inf_glac_layers.reset(new Vector<long>{n});
   geolog << "Max glac layer number: "<< par->max_glac_layers << ", of which "
          << floor(par->GWE_bottom/par->max_weq_glac) << " at the bottom, "
          << n << "in the middle, and " << floor(par->GWE_top/par->max_weq_glac) << "at the top." << std::endl;
@@ -1574,9 +1573,9 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
   geolog << "Infinite Glac layer numbers are numbers: ";
   for (i=1; i<=n; i++)
     {
-      par->inf_glac_layers->co[i] = (long)floor(par->GWE_bottom/par->max_weq_glac) +
+      (*par->inf_glac_layers)(i) = (long)floor(par->GWE_bottom/par->max_weq_glac) +
                                     i;
-      fprintf(flog, "%ld ",par->inf_glac_layers->co[i]);
+      fprintf(flog, "%ld ",(*par->inf_glac_layers)(i));
     }
   fprintf(flog,"\n");
 
@@ -1959,14 +1958,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
   //meteo stations
   cod = 199;
-  met->imeteo_stations = new_longvector(num_param_components[cod]);
-  met->imeteo_stations->co[1] = (long)assignation_number(flog, cod, 0, keyword,
+  met->imeteo_stations.reset(new Vector<long>{num_param_components[cod]});
+  (*met->imeteo_stations)(1) = (long)assignation_number(flog, cod, 0, keyword,
                                                          num_param, num_param_components, (double)number_novalue, 0);
-  if ( met->imeteo_stations->co[1] != number_novalue )
+  if ( (*met->imeteo_stations)(1) != number_novalue )
     {
       for (i=2; i<=num_param_components[cod]; i++)
         {
-          met->imeteo_stations->co[i] = (long)assignation_number(flog, cod, i-1,
+          (*met->imeteo_stations)(i) = (long)assignation_number(flog, cod, i-1,
                                                                  keyword, num_param, num_param_components, 0., 1);
         }
       nmeteo_stations = num_param_components[cod];
@@ -2388,14 +2387,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
                                               num_param_components, 0., 0);
 
   cod = 370;
-  par->linear_interpolation_meteo = new_shortvector(nmeteo_stations);
-  par->linear_interpolation_meteo->co[1] = (short)assignation_number(flog, cod,
+  par->linear_interpolation_meteo.reset(new Vector<short>{nmeteo_stations});
+  (*par->linear_interpolation_meteo)(1) = (short)assignation_number(flog, cod,
                                            0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=nmeteo_stations; i++)
     {
-      par->linear_interpolation_meteo->co[i] = (short)assignation_number(flog, cod,
+      (*par->linear_interpolation_meteo)(i) = (short)assignation_number(flog, cod,
                                                i-1, keyword, num_param, num_param_components,
-                                               par->linear_interpolation_meteo->co[i-1], 0);
+                                               (*par->linear_interpolation_meteo)(i-1), 0);
     }
 
   cod = 371;
@@ -2441,15 +2440,15 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
 
 
   cod = 381;
-  par->Nl_spinup = new_longvector(par->end_date->nh);
-  par->Nl_spinup->co[1] = assignation_number(flog, cod, 0, keyword, num_param,
+  par->Nl_spinup.reset(new Vector<long>{par->end_date->nh});
+  (*par->Nl_spinup)(1) = assignation_number(flog, cod, 0, keyword, num_param,
                                              num_param_components, 10000., 0);
   for (i=2; i<=par->end_date->nh; i++)
     {
-      par->Nl_spinup->co[i] = assignation_number(flog, cod, i-1, keyword, num_param,
-                                                 num_param_components, par->Nl_spinup->co[i-1], 0);
+        (*par->Nl_spinup)(i) = assignation_number(flog, cod, i-1, keyword, num_param,
+                                                 num_param_components, (*par->Nl_spinup)(i-1), 0);
     }
-  if (par->Nl_spinup->co[1]<10000. && par->point_sim!=1)
+  if ((*par->Nl_spinup)(1)<10000. && par->point_sim!=1)
     {
       printf("You can use %s only if %s is set to 1\n",keyword[cod],keyword[12]);
       fprintf(flog,"You can use %s only if %s is set to 1\n",keyword[cod],
@@ -2560,6 +2559,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
                           double **num_param, long *num_param_components, double default_value,
                           short code_error)
 {
+  GEOLOG_PREFIX(__func__);
 
   double a;
 
@@ -2600,6 +2600,7 @@ double assignation_number(FILE *flog, long i, long j, char **keyword,
 
 char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 {
+  GEOLOG_PREFIX(__func__);
 
   char *a;
   long j, dimstring = strlen(string_param[i]);
@@ -2625,6 +2626,7 @@ char *assignation_string(FILE *f, long i, char **keyword, char **string_param)
 short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
                            FILE *flog)
 {
+  GEOLOG_PREFIX(__func__);
 
   short ok;
   long i, j, k, n, nlines, nlinesprev;
@@ -2651,13 +2653,8 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
           nlines = count_lines(temp, 33, 44);
           if (nlinesprev >= 0 && nlines != nlinesprev)
             {
-              f = fopen(FailedRunFile, "w");
-              fprintf(f,
-                      "Error:: The file %s with soil paramaters has a number of layers %ld, which different from the numbers %ld of the other soil parameter files\n",
-                      temp,nlines,nlinesprev);
-              fprintf(f,
-                      "In Geotop it is only possible to have the same number of layers in any soil parameter files\n");
-              fclose(f);
+              geolog << "Error:: The file "<< temp  <<" with soil paramaters has a number of layers "<< nlines <<", which different from the numbers "<< nlinesprev <<" of the other soil parameter files" << std::endl;
+              geolog << "In Geotop it is only possible to have the same number of layers in any soil parameter files" << std::endl;
               t_error("Fatal Error! Geotop is closed. See failing report.");
             }
           nlinesprev = nlines;
@@ -2666,9 +2663,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
         {
           if (i==0 && strcmp(name, string_novalue) != 0)
             {
-              f = fopen(FailedRunFile, "w");
-              fprintf(f,"Error:: Soil file %s not existing.\n",name);
-              fclose(f);
+              geolog << "Error:: Soil file "<< name <<" not existing." << std::endl;
               t_error("Fatal Error! Geotop is closed. See failing report.");
             }
         }
@@ -2754,13 +2749,8 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
                 {
                   if ( i > 1 && fabs( sl->pa->co[i][n][j] - sl->pa->co[i-1][n][j] ) > 1.E-5 )
                     {
-                      f = fopen(FailedRunFile, "w");
-                      fprintf(f,
-                              "Error:: For soil type %ld it has been given a set of soil layer thicknesses different from the other ones.\n",
-                              i);
-                      fprintf(f,
-                              "In Geotop it is only possible to have the soil layer discretization in any soil parameter files.\n");
-                      fclose(f);
+		      geolog << "Error:: For soil type " << i  << " it has been given a set of soil layer thicknesses different from the other ones." << std::endl;
+		      geolog << "In Geotop it is only possible to have the soil layer discretization in any soil parameter files." << std::endl;
                       t_error("Fatal Error! Geotop is closed. See failing report.");
                     }
                 }
@@ -2838,21 +2828,21 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
     }
 
   //write on the screen the soil paramater
-  fprintf(flog,"\n");
+  
   k = (long)nmet;
-  fprintf(flog,"Soil Layers: %ld\n",sl->pa->nch);
+  geolog << "Soil Layers: " << sl->pa->nch  << std::endl;
   for (i=1; i<=sl->pa->ndh; i++)
     {
-      fprintf(flog,"-> Soil Type: %ld\n",i);
+      geolog << "-> Soil Type: " << i  << std::endl;
       for (n=1; n<=nsoilprop; n++)
         {
-          fprintf(flog,"%s: ",keywords_char[k+n-1]);
+          geolog << keywords_char[k+n-1]  << ": ";
           for (j=1; j<=sl->pa->nch; j++)
             {
-              fprintf(flog,"%f(%.2e)",sl->pa->co[i][n][j],sl->pa->co[i][n][j]);
-              if (j<sl->pa->nch)fprintf(flog,", ");
+	      geolog << sl->pa->co[i][n][j]  << "(" << sl->pa->co[i][n][j]  << ")";
+              if (j<sl->pa->nch) geolog << ", ";
             }
-          fprintf(flog,"\n");
+          geolog << std::endl;
         }
     }
 
@@ -2902,24 +2892,23 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
     }
   free_doubletensor(old_sl_par);
 
-  fprintf(flog,"\n");
   k = (long)nmet;
-  fprintf(flog,"Soil Bedrock Layers: %ld\n",sl->pa->nch);
+  geolog << "Soil Bedrock Layers: " << sl->pa->nch  << std::endl;
   for (i=1; i<=IT->pa_bed->ndh; i++)
     {
-      fprintf(flog,"-> Soil Type: %ld\n",i);
+      geolog << "-> Soil Type: " << i  << std::endl;
       for (n=1; n<=nsoilprop; n++)
         {
-          fprintf(flog,"%s: ",keywords_char[k+n-1]);
+	  geolog << keywords_char[k+n-1]  << ": ";
           for (j=1; j<=sl->pa->nch; j++)
             {
-              fprintf(flog,"%f(%.2e)",IT->pa_bed->co[i][n][j],IT->pa_bed->co[i][n][j]);
-              if (j<sl->pa->nch)fprintf(flog,", ");
+              geolog << IT->pa_bed->co[i][n][j]  << "(" << IT->pa_bed->co[i][n][j]  << ")";
+              if (j<sl->pa->nch) geolog << ", ";
             }
-          fprintf(flog,"\n");
+          geolog << std::endl;
         }
     }
-  fprintf(flog,"\n");
+  geolog << std::endl;
 
   return 1;
 
@@ -2932,6 +2921,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
 
 short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 {
+  GEOLOG_PREFIX(__func__);
 
   DOUBLEMATRIX *chkpt2;
   double **points;
@@ -2941,7 +2931,7 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
   if (existing_file_wext(name, textfile)==1)
     {
       temp = join_strings(name, textfile);
-      printf("%s\n",temp);
+      geolog << temp << std::endl;
       points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines,
                                flog);
       free(temp);
@@ -2994,11 +2984,8 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
           if ( (long)par->chkpt->co[n][ptX] == number_novalue
                || (long)par->chkpt->co[n][ptY] == number_novalue)
             {
-              fprintf(flog,
-                      "Warning: The points to plot specific results are not completely specified\n");
-              fprintf(flog,"Output for single point output is deactivated.\n");
-              printf("Warning: The points to plot specific results are not completely specified\n");
-              printf("Output for single point output is deactivated.\n");
+	      geolog << "Warning: The points to plot specific results are not completely specified\n"
+		     << "Output for single point output is deactivated." << std::endl;
               par->state_pixel = 0;
             }
         }
@@ -3013,9 +3000,10 @@ short read_point_file(char *name, char **key_header, PAR *par, FILE *flog)
 /***********************************************************/
 /***********************************************************/
 
-short read_meteostations_file(LONGVECTOR *i, METEO_STATIONS *S, char *name,
+short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name,
                               char **key_header, FILE *flog)
 {
+  GEOLOG_PREFIX(__func__);
 
   double **M;
   long nlines, n, j, k;

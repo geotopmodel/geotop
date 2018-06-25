@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/
+WORKING DIRECTORY: ./
 
 TimeStepEnergyAndWater[1] = 1.800000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.012000e+10 
@@ -14,7 +14,7 @@ SimulationHours[1] = 1.000000e+00 (default)
 EndDateDDMMYYYYhhmm[1] = 1.012000e+10 
 NumSimulationTimes[1] = 1.000000e+00 (default) 
 StandardTimeSimulation[1] = 1.000000e+00 
-DtPlotDischarge[1] = 2.500000e-01 
+DtPlotDischarge[1] = 5.000000e-01 
 DtPlotPoint[1] = 2.500000e-01 
 DtPlotBasin[1] = 1.000000e+00 
 NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
@@ -1050,19 +1050,19 @@ HeaderSpecificStorativity: 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00
 
 Warning: The points to plot specific results are not completely specified
 Output for single point output is deactivated.
-Attempting to read 'DemFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-maps/dem': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-maps/land': EXISTING in format 3
+Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file './input-maps/land': EXISTING in format 3
 Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
 Attempting to read 'SoilMapFile' in the file 'none': not present in file list
-Attempting to read 'SlopeMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-maps/slope': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
 Slope Min:0.020000 (1.145763 deg) Max:0.053852 (3.082495 deg) 
 Attempting to read 'AspectMapFile' in the file 'none': not present in file list
 Curvature N-S Min:0.000000  Max:0.000000 
 Curvature W-E Min:0.000000  Max:0.010000 
 Curvature NW-SE Min:0.000000  Max:0.010000 
 Curvature NE-SW Min:0.000000  Max:0.010000 
-Attempting to read 'RiverNetwork' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-maps/net': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Valid pixels: 110
 Number of nodes: 1210
@@ -1070,8 +1070,8 @@ Novalue pixels: 46
 Basin area: 0.011000 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-meteo/meteo0001.txt assigned to date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/bonn_1/input-meteo/meteo0001.txt assigned to IPrec
+Column 1 in file ./input-meteo/meteo0001.txt assigned to date
+Column 2 in file ./input-meteo/meteo0001.txt assigned to IPrec
 WARNING: NO shortwave radiation measurements available
 WARNING: NO cloudiness measurements available
 WARNING: NO longwave radiation measurements available
@@ -1090,27 +1090,27 @@ No wind measurements, used the value of the previous time step
 1/1/2000 1:00 25.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 1/1/2000 1:00 JD:0.041667 (1^ simulation day) 25.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.27 s, t_sub:  0.03 s, t_sup:  0.24 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.26 s, t_sub:  0.03 s, t_sup:  0.23 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.153282e-08 mm/h 
- Tot Error Richards=1.153282e-08 mm Mean Time Step=1800.000000 s
+ Max Error Richards=1.153631e-08 mm/h 
+ Tot Error Richards=1.153631e-08 mm Mean Time Step=1800.000000 s
 
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
-1/1/2000 1:30 37.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+1/1/2000 1:30 37.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 1/1/2000 2:00 50.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 
 1/1/2000 2:00 JD:0.083333 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  1.02 s, t_sub:  0.05 s, t_sup:  0.97 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.83 s, t_sub:  0.05 s, t_sup:  0.78 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.326525e-08 mm/h 
- Tot Error Richards=2.479807e-08 mm Mean Time Step=1800.000000 s
+ Max Error Richards=1.326640e-08 mm/h 
+ Tot Error Richards=2.480271e-08 mm Mean Time Step=1800.000000 s
 
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
@@ -1122,11 +1122,11 @@ No wind measurements, used the value of the previous time step
 1/1/2000 3:00 75.00% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
 
 1/1/2000 3:00 JD:0.125000 (1^ simulation day) 75.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  3.09 s, t_sub:  0.08 s, t_sup:  3.01 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  2.52 s, t_sub:  0.07 s, t_sup:  2.45 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=2.214130e-08 mm/h 
- Tot Error Richards=4.693936e-08 mm Mean Time Step=1800.000000 s
+ Max Error Richards=2.211616e-08 mm/h 
+ Tot Error Richards=4.691887e-08 mm Mean Time Step=1800.000000 s
 
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
@@ -1138,10 +1138,10 @@ No wind measurements, used the value of the previous time step
 1/1/2000 4:00 100.00% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m) -1:59  
 
 1/1/2000 4:00 JD:0.166667 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  6.54 s, t_sub:  0.10 s, t_sup:  6.44 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  5.39 s, t_sub:  0.09 s, t_sup:  5.30 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.364000e-08 mm/h 
- Tot Error Richards=6.057937e-08 mm Mean Time Step=1800.000000 s
+ Max Error Richards=1.364079e-08 mm/h 
+ Tot Error Richards=6.055966e-08 mm Mean Time Step=1800.000000 s
 
 Number of times the simulation #1 has been run: 1

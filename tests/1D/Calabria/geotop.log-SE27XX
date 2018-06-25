@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/
+WORKING DIRECTORY: ./
 
 TimeStepEnergyAndWater[1] = 3.000000e+02 
 InitDateDDMMYYYYhhmm[1] = 1.706201e+11 
@@ -888,15 +888,15 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = none
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to Dz
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to Kv
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to Kh
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to res
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to fc
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to sat
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to a
-Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to n
-Column 9 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/soil/soil0001.txt assigned to SS
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to fc
+Column 6 in file ./soil/soil0001.txt assigned to sat
+Column 7 in file ./soil/soil0001.txt assigned to a
+Column 8 in file ./soil/soil0001.txt assigned to n
+Column 9 in file ./soil/soil0001.txt assigned to SS
 
 Soil Layers: 9
 -> Soil Type: 1
@@ -934,17 +934,17 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/listpoints.txt assigned to ID
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/listpoints.txt assigned to xcoord
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/listpoints.txt assigned to ycoord
-Attempting to read 'DemFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/dem_mybasin_2': EXISTING in format 3
-Warning: Dem file home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/dem_mybasin_2 present
-Attempting to read 'LandCoverMapFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/landcover_mybasin_2': EXISTING in format 3
-Attempting to read 'SoilMapFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/soiltype_mybasin_2': EXISTING in format 3
-Attempting to read 'SlopeMapFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/gradient_grad_mybasin_2': EXISTING in format 3
+Column 1 in file ./listpoints.txt assigned to ID
+Column 2 in file ./listpoints.txt assigned to xcoord
+Column 3 in file ./listpoints.txt assigned to ycoord
+Attempting to read 'DemFile' in the file './input_maps/dem_mybasin_2': EXISTING in format 3
+Warning: Dem file /input_maps/dem_mybasin_2 present
+Attempting to read 'LandCoverMapFile' in the file './input_maps/landcover_mybasin_2': EXISTING in format 3
+Attempting to read 'SoilMapFile' in the file './input_maps/soiltype_mybasin_2': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file './input_maps/gradient_grad_mybasin_2': EXISTING in format 3
 Slope Min:0.000000 (0.000000 deg) Max:0.641975 (32.699466 deg) 
-Attempting to read 'AspectMapFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/aspect_mybasin_2': EXISTING in format 3
-Attempting to read 'SkyViewFactorMapFile' in the file '/home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/input_maps/skyview_mybasin_2': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file './aspect_mybasin_2': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/skyview_mybasin_2': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Warning: Sky view factor file not present
 Curvature N-S Min:-0.074140  Max:0.102456 
@@ -963,14 +963,14 @@ Novalue pixels: 0
 Basin area: 0.000001 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to POSIX
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to Iprec
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to WindSp
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to WindDir
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to RH
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to AirT
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to Swglob
-Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/Calabria/meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file ./meteo/meteo0001.txt assigned to POSIX
+Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0001.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0001.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0001.txt assigned to RH
+Column 6 in file ./meteo/meteo0001.txt assigned to AirT
+Column 7 in file ./meteo/meteo0001.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0001.txt assigned to CloudTrans
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available
@@ -3513,426 +3513,426 @@ No precipitation measurements, considered it 0.0
 26/6/2014 12:40 39.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 26/6/2014 12:45 39.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 26/6/2014 12:50 39.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-26/6/2014 12:55 39.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:00 39.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:05 39.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:10 39.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:15 39.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:20 39.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:25 39.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:30 39.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:35 39.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:40 39.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:45 39.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:50 39.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 13:55 39.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:00 39.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:05 39.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:10 39.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:15 39.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:20 39.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:25 39.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:30 39.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:35 39.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:40 39.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:45 39.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:50 39.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 14:55 39.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:00 40.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:05 40.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:10 40.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:15 40.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:20 40.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:25 40.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:30 40.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:35 40.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:40 40.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:45 40.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:50 40.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 15:55 40.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:00 40.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:05 40.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:10 40.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:15 40.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:20 40.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:25 40.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:30 40.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:35 40.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:40 40.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:45 40.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:50 40.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 16:55 40.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:00 40.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:05 40.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:10 40.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:15 40.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:20 40.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:25 40.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:30 40.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:35 40.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:40 40.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:45 40.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:50 40.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 17:55 40.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:00 40.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:05 40.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:10 40.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:15 40.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:20 40.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:25 40.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:30 40.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:35 40.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:40 40.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:45 40.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:50 40.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 18:55 40.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:00 40.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:05 40.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:10 40.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:15 40.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:20 40.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:25 40.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:30 40.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:35 40.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:40 40.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:45 40.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:50 40.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 19:55 40.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:00 40.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:05 40.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:10 40.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:15 40.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:20 41.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:25 41.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:30 41.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:35 41.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:40 41.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:45 41.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:50 41.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 20:55 41.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:00 41.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:05 41.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:10 41.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:15 41.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:20 41.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:25 41.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:30 41.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:35 41.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:40 41.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:45 41.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:50 41.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 21:55 41.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:00 41.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:05 41.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:10 41.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:15 41.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:20 41.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:25 41.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:30 41.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:35 41.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:40 41.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:45 41.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:50 41.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 22:55 41.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:00 41.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:05 41.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:10 41.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:15 41.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:20 41.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:25 41.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:30 41.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:35 41.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:40 41.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:45 41.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:50 41.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-26/6/2014 23:55 41.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:00 41.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:05 41.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:10 41.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:15 41.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:20 41.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:25 41.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:30 41.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:35 41.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:40 41.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:45 41.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:50 41.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 0:55 41.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:00 41.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:05 41.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:10 41.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:15 41.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:20 41.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:25 41.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:30 41.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:35 42.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:40 42.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:45 42.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:50 42.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 1:55 42.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:00 42.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:05 42.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:10 42.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:15 42.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:20 42.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:25 42.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:30 42.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:35 42.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:40 42.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:45 42.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:50 42.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 2:55 42.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:00 42.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:05 42.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:10 42.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:15 42.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:20 42.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:25 42.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:30 42.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:35 42.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:40 42.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:45 42.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:50 42.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 3:55 42.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:00 42.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:05 42.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:10 42.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:15 42.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:20 42.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:25 42.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:30 42.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:35 42.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:40 42.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:45 42.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:50 42.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 4:55 42.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:00 42.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:05 42.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:10 42.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:15 42.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:20 42.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:25 42.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:30 42.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:35 42.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:40 42.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:45 42.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:50 42.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 5:55 42.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:00 42.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:05 42.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:10 42.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:15 42.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:20 42.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:25 42.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:30 42.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:35 42.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:40 42.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:45 42.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:50 42.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 6:55 43.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:00 43.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:05 43.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:10 43.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:15 43.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:20 43.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:25 43.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:30 43.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:35 43.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:40 43.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:45 43.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:50 43.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 7:55 43.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:00 43.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:05 43.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:10 43.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:15 43.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:20 43.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:25 43.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:30 43.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:35 43.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:40 43.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:45 43.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:50 43.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 8:55 43.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:00 43.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:05 43.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:10 43.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:15 43.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:20 43.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:25 43.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:30 43.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:35 43.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:40 43.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:45 43.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:50 43.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 9:55 43.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:00 43.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:05 43.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:10 43.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:15 43.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:20 43.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:25 43.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:30 43.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:35 43.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:40 43.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:45 43.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:50 43.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 10:55 43.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:00 43.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:05 43.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:10 43.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:15 43.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:20 43.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:25 43.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:30 43.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:35 43.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:40 43.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:45 43.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:50 43.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 11:55 43.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:00 43.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:05 43.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:10 43.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:15 44.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:20 44.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:25 44.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:30 44.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:35 44.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:40 44.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:45 44.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:50 44.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 12:55 44.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:00 44.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:05 44.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:10 44.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:15 44.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:20 44.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:25 44.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:30 44.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:35 44.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:40 44.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:45 44.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:50 44.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 13:55 44.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:00 44.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:05 44.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:10 44.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:15 44.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:20 44.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:25 44.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:30 44.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:35 44.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:40 44.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:45 44.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:50 44.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 14:55 44.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:00 44.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:05 44.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:10 44.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:15 44.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:20 44.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:25 44.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:30 44.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:35 44.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:40 44.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:45 44.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:50 44.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 15:55 44.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:00 44.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:05 44.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:10 44.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:15 44.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:20 44.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:25 44.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:30 44.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:35 44.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:40 44.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:45 44.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:50 44.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 16:55 44.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:00 44.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:05 44.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:10 44.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:15 44.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:20 44.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:25 44.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:30 45.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:35 45.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:40 45.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:45 45.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:50 45.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 17:55 45.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:00 45.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:05 45.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:10 45.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:15 45.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:20 45.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:25 45.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:30 45.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:35 45.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:40 45.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:45 45.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:50 45.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 18:55 45.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:00 45.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:05 45.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:10 45.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:15 45.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:20 45.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:25 45.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:30 45.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:35 45.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:40 45.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:45 45.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:50 45.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 19:55 45.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:00 45.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:05 45.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:10 45.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:15 45.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:20 45.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:25 45.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:30 45.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:35 45.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:40 45.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:45 45.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:50 45.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 20:55 45.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:00 45.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:05 45.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:10 45.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:15 45.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:20 45.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:25 45.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:30 45.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:35 45.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:40 45.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:45 45.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:50 45.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 21:55 45.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:00 45.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:05 45.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:10 45.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:15 45.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:20 45.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:25 45.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:30 45.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:35 45.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:40 45.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:45 45.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:50 46.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 22:55 46.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:00 46.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:05 46.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:10 46.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:15 46.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:20 46.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:25 46.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:30 46.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:35 46.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:40 46.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:45 46.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-27/6/2014 23:50 46.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+26/6/2014 12:55 39.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:00 39.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:05 39.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:10 39.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:15 39.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:20 39.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:25 39.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:30 39.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:35 39.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:40 39.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:45 39.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:50 39.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 13:55 39.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:00 39.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:05 39.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:10 39.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:15 39.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:20 39.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:25 39.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:30 39.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:35 39.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:40 39.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:45 39.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:50 39.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 14:55 39.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:00 40.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:05 40.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:10 40.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:15 40.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:20 40.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:25 40.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:30 40.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:35 40.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:40 40.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:45 40.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:50 40.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 15:55 40.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:00 40.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:05 40.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:10 40.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:15 40.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:20 40.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:25 40.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:30 40.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:35 40.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:40 40.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:45 40.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:50 40.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 16:55 40.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:00 40.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:05 40.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:10 40.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:15 40.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:20 40.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:25 40.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:30 40.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:35 40.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:40 40.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:45 40.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:50 40.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 17:55 40.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:00 40.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:05 40.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:10 40.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:15 40.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:20 40.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:25 40.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:30 40.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:35 40.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:40 40.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:45 40.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:50 40.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 18:55 40.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:00 40.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:05 40.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:10 40.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:15 40.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:20 40.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:25 40.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:30 40.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:35 40.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:40 40.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:45 40.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:50 40.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 19:55 40.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:00 40.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:05 40.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:10 40.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:15 40.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:20 41.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:25 41.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:30 41.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:35 41.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:40 41.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:45 41.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:50 41.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 20:55 41.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:00 41.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:05 41.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:10 41.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:15 41.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:20 41.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:25 41.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:30 41.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:35 41.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:40 41.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:45 41.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:50 41.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 21:55 41.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:00 41.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:05 41.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:10 41.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:15 41.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:20 41.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:25 41.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:30 41.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:35 41.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:40 41.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:45 41.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:50 41.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 22:55 41.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:00 41.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:05 41.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:10 41.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:15 41.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:20 41.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:25 41.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:30 41.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:35 41.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:40 41.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:45 41.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:50 41.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+26/6/2014 23:55 41.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:00 41.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:05 41.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:10 41.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:15 41.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:20 41.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:25 41.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:30 41.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:35 41.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:40 41.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:45 41.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:50 41.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 0:55 41.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:00 41.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:05 41.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:10 41.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:15 41.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:20 41.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:25 41.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:30 41.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:35 42.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:40 42.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:45 42.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:50 42.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 1:55 42.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:00 42.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:05 42.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:10 42.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:15 42.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:20 42.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:25 42.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:30 42.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:35 42.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:40 42.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:45 42.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:50 42.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 2:55 42.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:00 42.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:05 42.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:10 42.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:15 42.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:20 42.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:25 42.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:30 42.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:35 42.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:40 42.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:45 42.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:50 42.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 3:55 42.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:00 42.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:05 42.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:10 42.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:15 42.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:20 42.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:25 42.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:30 42.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:35 42.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:40 42.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:45 42.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:50 42.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 4:55 42.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:00 42.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:05 42.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:10 42.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:15 42.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:20 42.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:25 42.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:30 42.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:35 42.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:40 42.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:45 42.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:50 42.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 5:55 42.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:00 42.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:05 42.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:10 42.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:15 42.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:20 42.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:25 42.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:30 42.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:35 42.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:40 42.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:45 42.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:50 42.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 6:55 43.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:00 43.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:05 43.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:10 43.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:15 43.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:20 43.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:25 43.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:30 43.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:35 43.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:40 43.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:45 43.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:50 43.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 7:55 43.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:00 43.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:05 43.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:10 43.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:15 43.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:20 43.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:25 43.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:30 43.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:35 43.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:40 43.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:45 43.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:50 43.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 8:55 43.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:00 43.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:05 43.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:10 43.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:15 43.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:20 43.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:25 43.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:30 43.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:35 43.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:40 43.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:45 43.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:50 43.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 9:55 43.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:00 43.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:05 43.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:10 43.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:15 43.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:20 43.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:25 43.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:30 43.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:35 43.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:40 43.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:45 43.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:50 43.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 10:55 43.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:00 43.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:05 43.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:10 43.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:15 43.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:20 43.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:25 43.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:30 43.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:35 43.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:40 43.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:45 43.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:50 43.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 11:55 43.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:00 43.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:05 43.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:10 43.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:15 44.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:20 44.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:25 44.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:30 44.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:35 44.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:40 44.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:45 44.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:50 44.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 12:55 44.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:00 44.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:05 44.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:10 44.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:15 44.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:20 44.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:25 44.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:30 44.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:35 44.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:40 44.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:45 44.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:50 44.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 13:55 44.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:00 44.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:05 44.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:10 44.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:15 44.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:20 44.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:25 44.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:30 44.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:35 44.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:40 44.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:45 44.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:50 44.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 14:55 44.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:00 44.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:05 44.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:10 44.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:15 44.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:20 44.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:25 44.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:30 44.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:35 44.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:40 44.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:45 44.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:50 44.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 15:55 44.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:00 44.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:05 44.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:10 44.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:15 44.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:20 44.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:25 44.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:30 44.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:35 44.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:40 44.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:45 44.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:50 44.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 16:55 44.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:00 44.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:05 44.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:10 44.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:15 44.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:20 44.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:25 44.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:30 45.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:35 45.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:40 45.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:45 45.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:50 45.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 17:55 45.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:00 45.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:05 45.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:10 45.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:15 45.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:20 45.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:25 45.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:30 45.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:35 45.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:40 45.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:45 45.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:50 45.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 18:55 45.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:00 45.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:05 45.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:10 45.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:15 45.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:20 45.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:25 45.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:30 45.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:35 45.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:40 45.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:45 45.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:50 45.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 19:55 45.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:00 45.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:05 45.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:10 45.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:15 45.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:20 45.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:25 45.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:30 45.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:35 45.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:40 45.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:45 45.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:50 45.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 20:55 45.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:00 45.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:05 45.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:10 45.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:15 45.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:20 45.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:25 45.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:30 45.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:35 45.77% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:40 45.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:45 45.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:50 45.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 21:55 45.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:00 45.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:05 45.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:10 45.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:15 45.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:20 45.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:25 45.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:30 45.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:35 45.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:40 45.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:45 45.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:50 46.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 22:55 46.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:00 46.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:05 46.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:10 46.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:15 46.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:20 46.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:25 46.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:30 46.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:35 46.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:40 46.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:45 46.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+27/6/2014 23:50 46.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 27/6/2014 23:55 46.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 28/6/2014 0:00 46.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 28/6/2014 0:05 46.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
@@ -9432,735 +9432,735 @@ No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 8:50 97.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 8:50 97.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 8:55 97.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 8:55 97.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:00 97.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:00 97.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:05 97.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:05 97.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:10 97.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:10 97.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:15 97.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:15 97.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:20 97.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:20 97.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:25 97.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:25 97.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:30 97.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:30 97.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:35 97.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:35 97.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:40 97.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:40 97.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:45 97.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:45 97.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:50 97.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:50 97.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 9:55 97.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 9:55 97.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:00 97.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:00 97.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:05 97.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:05 97.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:10 97.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:10 97.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:15 97.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:15 97.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:20 97.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:20 97.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:25 98.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:25 98.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:30 98.02% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:30 98.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:35 98.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:35 98.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:40 98.05% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:40 98.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:45 98.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:45 98.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:50 98.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:50 98.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 10:55 98.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 10:55 98.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:00 98.11% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:00 98.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:05 98.13% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:05 98.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:10 98.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:10 98.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:15 98.16% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:15 98.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:20 98.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:20 98.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:25 98.19% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:25 98.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:30 98.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:30 98.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:35 98.22% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:35 98.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:40 98.24% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:40 98.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:45 98.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:45 98.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:50 98.27% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:50 98.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 11:55 98.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 11:55 98.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:00 98.30% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:00 98.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:05 98.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:05 98.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:10 98.33% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:10 98.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:15 98.35% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:15 98.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:20 98.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:20 98.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:25 98.38% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:25 98.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:30 98.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:30 98.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:35 98.41% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:35 98.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:40 98.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:40 98.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:45 98.44% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:45 98.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:50 98.46% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:50 98.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 12:55 98.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 12:55 98.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:00 98.49% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:00 98.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:05 98.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:05 98.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:10 98.52% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:10 98.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:15 98.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:15 98.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:20 98.55% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:20 98.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:25 98.57% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:25 98.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:30 98.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:30 98.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:35 98.60% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:35 98.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:40 98.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:40 98.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:45 98.63% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:45 98.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:50 98.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:50 98.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 13:55 98.66% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 13:55 98.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:00 98.68% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:00 98.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:05 98.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:05 98.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:10 98.71% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:10 98.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:15 98.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:15 98.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:20 98.74% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:20 98.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:25 98.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:25 98.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:30 98.77% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:30 98.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:35 98.79% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:35 98.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:40 98.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:40 98.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:45 98.82% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:45 98.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:50 98.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:50 98.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 14:55 98.85% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 14:55 98.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:00 98.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:00 98.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:05 98.88% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:05 98.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:10 98.90% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:10 98.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:15 98.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:15 98.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:20 98.93% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:20 98.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:25 98.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:25 98.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:30 98.96% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:30 98.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:35 98.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:35 98.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:40 98.99% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:40 98.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:45 99.01% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:45 99.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:50 99.03% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:50 99.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 15:55 99.04% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 15:55 99.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:00 99.06% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:00 99.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:05 99.07% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:05 99.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:10 99.09% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:10 99.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:15 99.10% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:15 99.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:20 99.12% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:20 99.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:25 99.14% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:25 99.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:30 99.15% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:30 99.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:35 99.17% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:35 99.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:40 99.18% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:40 99.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:45 99.20% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:45 99.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:50 99.21% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:50 99.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 16:55 99.23% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 16:55 99.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:00 99.25% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:00 99.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:05 99.26% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:05 99.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:10 99.28% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:10 99.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:15 99.29% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:15 99.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:20 99.31% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:20 99.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:25 99.32% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:25 99.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:30 99.34% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:30 99.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:35 99.36% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:35 99.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:40 99.37% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:40 99.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:45 99.39% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:45 99.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:50 99.40% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:50 99.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 17:55 99.42% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 17:55 99.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:00 99.43% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:00 99.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:05 99.45% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:05 99.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:10 99.47% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:10 99.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:15 99.48% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:15 99.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:20 99.50% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:20 99.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:25 99.51% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:25 99.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:30 99.53% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:30 99.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:35 99.54% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:35 99.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:40 99.56% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:40 99.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:45 99.58% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:45 99.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:50 99.59% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:50 99.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 18:55 99.61% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 18:55 99.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:00 99.62% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:00 99.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:05 99.64% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:05 99.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:10 99.65% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:10 99.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:15 99.67% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:15 99.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:20 99.69% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:20 99.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:25 99.70% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:25 99.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:30 99.72% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:30 99.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:35 99.73% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:35 99.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:40 99.75% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:40 99.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:45 99.76% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:45 99.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:50 99.78% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:50 99.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 19:55 99.80% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 19:55 99.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:00 99.81% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:00 99.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:05 99.83% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:05 99.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:10 99.84% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:10 99.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:15 99.86% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:15 99.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:20 99.87% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:20 99.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:25 99.89% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:25 99.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:30 99.91% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:30 99.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:35 99.92% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:35 99.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:40 99.94% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:40 99.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:45 99.95% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:45 99.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:50 99.97% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:50 99.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 20:55 99.98% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 20:55 99.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-9/7/2014 21:00 100.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+9/7/2014 21:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 Number of times the simulation #1 has been run: 1

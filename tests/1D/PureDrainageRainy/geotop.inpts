@@ -36,7 +36,6 @@ HeaderAirTemp = "AirT"
 HeaderSWglobal = "Swglob"
 HeaderCloudSWTransmissivity = "CloudTrans"
 
-
 !********************************************
 !****** INIT AND BOUNDARY CONDITIONS ********
 !********************************************

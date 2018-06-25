@@ -29,7 +29,7 @@ void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch);
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
                                  DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, long nch, long nl);
 
-void cont_nonzero_values_matrix3(LONGVECTOR *Lp, LONGVECTOR *Li,
+void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                                  CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, long nch,
                                  long nl);
 

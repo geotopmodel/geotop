@@ -138,7 +138,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
 /******************************************************************************************************************************************/
 
 void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow,
-                            double Ta, LONGVECTOR *inf, double SWEmax_layer, double SWEmax_tot,
+                            double Ta, Vector<long> *inf, double SWEmax_layer, double SWEmax_tot,
                             FILE *flog)
 
 {
@@ -1428,42 +1428,10 @@ double dtheta_snow(double a, double b, double T)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void allocate_and_initialize_statevar_3D(STATEVAR_3D *V, double nan, long nl,
-                                         long nr, long nc)
-{
-
-  V->type = new_shortmatrix(nr, nc);
-  initialize_shortmatrix(V->type, 2);
-  V->lnum = new_longmatrix(nr, nc);
-  initialize_longmatrix(V->lnum, 0);
-  V->Dzl = new_doubletensor(nl, nr, nc);
-  initialize_doubletensor(V->Dzl, 0.);
-  V->T = new_doubletensor(nl, nr, nc);
-  initialize_doubletensor(V->T, nan);
-  V->w_ice = new_doubletensor(nl, nr, nc);
-  initialize_doubletensor(V->w_ice, 0.);
-  V->w_liq = new_doubletensor(nl, nr, nc);
-  initialize_doubletensor(V->w_liq, 0.);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-void deallocate_statevar_3D(STATEVAR_3D *V)
-{
-
-  free_shortmatrix(V->type);
-  free_longmatrix(V->lnum);
-  free_doubletensor(V->Dzl);
-  free_doubletensor(V->T);
-  free_doubletensor(V->w_ice);
-  free_doubletensor(V->w_liq);
-  free(V);
-}
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
