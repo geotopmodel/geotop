@@ -804,28 +804,18 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
           remaining_time = (total_time - elapsed_time);
 
-          printf("%ld/%ld/%ld %ld:%02.0f %.2f%% - Times: Elapsed (h:m:s) %2.0f:%02.0f:%02.0f \
-Remaining (h:m) %2.0f:%02.0f  \n",
-                 day,month,year,hour,(float)minute,percent_done,
-                 floor(elapsed_time / 3600.0),
-                 floor(((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60.),
-                 floor((((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. - floor( ((
-                          elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. ))*60.),
-                 floor(remaining_time / 3600.0),
-                 floor(((remaining_time/3600)-floor(remaining_time / 3600.0))*60.) );
-
-          flog = fopen(logfile, "a");
-          fprintf(flog,
-                  "%ld/%ld/%ld %ld:%02.0f %.2f%% - Time elapsed (h:m:s) %2.0f:%02.0f:%02.0f \
-Time remaining (h:m) %2.0f:%02.0f  \n",
-		  day,month,year,hour,(float)minute,percent_done,
-                  floor(elapsed_time / 3600.0),
-                  floor(((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60.),
-                  floor((((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. - floor( ((
-                           elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. ))*60.),
-                  floor(remaining_time / 3600.0),
-                  floor(((remaining_time/3600)-floor(remaining_time / 3600.0))*60.) );
-          fclose(flog);
+          geolog<< day << "/"
+                << month << "/"
+                << year << " "
+                << hour << ":"
+                << float(minute) << " "
+                << percent_done << " - Times: Elapsed (h:m:s) "
+                << floor(elapsed_time / 3600.0) << ":"
+                << floor(((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60.)    << ":"
+                <<  floor((((elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. - floor( ((
+                          elapsed_time/3600)-floor(elapsed_time / 3600.0))*60. ))*60.) << " \ Remaining (h:m) "
+                << floor(remaining_time / 3600.0) << ":"  <<     floor(((remaining_time/3600)-floor(remaining_time / 3600.0))*60.)
+                << std::endl;
 
           t_point = 0.0;
 
@@ -953,40 +943,30 @@ Time remaining (h:m) %2.0f:%02.0f  \n",
 
           mass_error_tot += odbsn[oomasserror];
 
-          printf("\n%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
-                 day,month,year,hour,(float)minute,JD,(long)(floor(times->time/86400))+1,
-                 percent_done);
+	  geolog << day << "/" << month << "/"<< year << " " << hour <<":"<<float(minute) << " JD:"
+		 << JD << " (" << long(floor(times->time/86400))+1<< "^ simulation day) "
+		 << percent_done << "% completed!" << std::endl; 
+	    
+          geolog << " t_meteo:" <<t_meteo<<" s, t_energy:"<<t_energy
+		 <<" s, t_blowingsnow:"<< t_blowingsnow <<" s, t_water:"
+		 << t_water << " s, t_sub:"<< t_sub << " s, t_sup:"
+		 << t_sup << " s, t_out: " << t_out<<" s" << std::endl;
 
-          printf(" t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, \
-t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n",
-		 t_meteo,t_energy,t_blowingsnow,t_water,t_sub,t_sup,t_out);
-          printf(" SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm \
-Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm \
-Mean Time Step=%f s\n\n",
-                 odbsn[ooSW],odbsn[ooLW],odbsn[ooH],odbsn[ooLE],odbsn[oopnet],
-                 odbsn[oorainover],
-                 odbsn[oosnowover],odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim],
-                 mass_error_tot,odbsn[ootimestep]);
 
-          flog = fopen(logfile, "a");
-          fprintf(flog,
-                  "\n%ld/%ld/%ld %ld:%02.0f JD:%f (%ld^ simulation day) %5.2f%% completed! \n",
-                  day,month,year,hour,(float)minute,JD,(long)(floor(times->time/86400))+1,
-                  percent_done);
-          fprintf(flog,
-                  " t_meteo:%6.2f s, t_energy:%6.2f s, t_blowingsnow:%6.2f s, t_water:%6.2f s, \
-t_sub:%6.2f s, t_sup:%6.2f s, t_out:%6.2f s\n",
-                  t_meteo,t_energy,t_blowingsnow,t_water,t_sub,t_sup,t_out);
-          fprintf(flog,
-                  " SW=%6.2f W/m2  LW:%6.2f W/m2  H=%6.2f W/m2  LE=%6.2f W/m2 \n Pvert=%6.2f mm \
-Prain=%6.2f mm  Psnow=%6.2f mm  \n Max Error Richards=%e mm/h \n Tot Error Richards=%e mm \
-Mean Time Step=%f s\n\n",
-                  odbsn[ooSW],odbsn[ooLW],odbsn[ooH],odbsn[ooLE],odbsn[oopnet],
-                  odbsn[oorainover],
-                  odbsn[oosnowover],odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim],
-                  mass_error_tot,odbsn[ootimestep]);
+	  geolog << " SW=" << odbsn[ooSW]  << " W/m2  LW:"
+		 << odbsn[ooLW] << " W/m2  H="
+		 << odbsn[ooH] << " W/m2  LE="
+		 << odbsn[ooLE] << " W/m2" << std::endl;
+	  geolog <<" Pvert="  
+		 << odbsn[oopnet] << " mm Prain="
+                 << odbsn[oorainover] << " mm  Psnow="
+                 << odbsn[oosnowover] << " mm" << std::endl;
+		 
+	  geolog << " Max Error Richards="
+		 << odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim] << " mm/h" <<std::endl;
+	  geolog << " Tot Error Richards=" <<  mass_error_tot << " mm Mean Time Step="
+		 << odbsn[ootimestep] <<" s" << std::endl;
 
-          fclose(flog);
 
 
           for (j=0; j<ootot; j++)
@@ -1922,11 +1902,7 @@ Mean Time Step=%f s\n\n",
       if ( fabs(par->init_date->co[i_sim]+(times->time+par->Dt)/86400. -
                 times->JD_plots->co[j+1]) < 1.E-5 )
         {
-          flog = fopen(logfile, "a");
-          fprintf(flog,"Printing plot number %ld \n",i);
-          fclose(flog);
-
-          printf("Printing plot number %ld \n",i);
+	  geolog << "Printing plot number "<<i << std::endl;
 
           V.reset(new Vector<double>{par->total_pixel});
 
@@ -2115,11 +2091,9 @@ Mean Time Step=%f s\n\n",
             {
               isavings+=1;
 
-              printf("Writing recovering files, saving point number %ld\n",isavings);
+	      geolog <<"Writing recovering files, saving point number " << isavings <<std::endl;
 
-              flog = fopen(logfile, "a");
-              fprintf(flog, "Writing recovering files, saving point number %ld\n",isavings);
-              fclose(flog);
+
 
               write_suffix(NNNN, isavings, 0);
 
@@ -2306,10 +2280,7 @@ Mean Time Step=%f s\n\n",
       if (fabs(t_rec - par->ContRecovery*secinday)<1.E-5)
         {
           t_rec = 0.;
-          printf("Writing continuous-recovering files\n");
-          flog = fopen(logfile, "a");
-          fprintf(flog, "Writing continuous-recovering files\n");
-          fclose(flog);
+	  geolog << "Writing continuous-recovering files" << std::endl;
 
           if (strcmp(files[rtime], string_novalue) != 0)
             {
