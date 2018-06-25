@@ -1,0 +1,222 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to fc
+Column 6 in file ./soil/soil0001.txt assigned to sat
+Column 7 in file ./soil/soil0001.txt assigned to a
+Column 8 in file ./soil/soil0001.txt assigned to n
+Column 9 in file ./soil/soil0001.txt assigned to SS
+./ListPoints.txt
+Column 1 in file ./ListPoints.txt assigned to ID
+Column 2 in file ./ListPoints.txt assigned to X
+Column 3 in file ./ListPoints.txt assigned to Y
+Attempting to read 'DemFile' in the file './input_maps/dem': EXISTING in format 3
+./input_maps/dem
+Attempting to read 'LandCoverMapFile' in the file './input_maps/lc': EXISTING in format 3
+./input_maps/lc
+Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/svf': EXISTING in format 3
+./input_maps/svf
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file './input_maps/st': EXISTING in format 3
+./input_maps/st
+Attempting to read 'SlopeMapFile' in the file './input_maps/slp': EXISTING in format 3
+./input_maps/slp
+Slope Min:0.000000 (0.000000 deg) Max:2.050304 (64.000000 deg) 
+Attempting to read 'AspectMapFile' in the file './input_maps/asp': EXISTING in format 3
+./input_maps/asp
+Curvature N-S Min:-0.015950  Max:0.014300 
+Curvature W-E Min:-0.020150  Max:0.017175 
+Curvature NW-SE Min:-0.017925  Max:0.015000 
+Curvature NE-SW Min:-0.029475  Max:0.017475 
+Attempting to read 'RiverNetwork' in the file 'none': not present in file list
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+
+Valid pixels: 52154
+Number of nodes: 208616
+Novalue pixels: 946
+Basin area: 2086.160000 km2
+
+
+Horizon file FOUND for meteo station #1
+Column 1 in file ./horizon_meteo/horizon0001.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0001.txt assigned to el
+Column 1 in file ./meteo/meteo0001.txt assigned to Date
+Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0001.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0001.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0001.txt assigned to RH
+Column 6 in file ./meteo/meteo0001.txt assigned to AirT
+Column 7 in file ./meteo/meteo0001.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #2
+Column 1 in file ./horizon_meteo/horizon0002.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0002.txt assigned to el
+Column 1 in file ./meteo/meteo0002.txt assigned to Date
+Column 2 in file ./meteo/meteo0002.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0002.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0002.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0002.txt assigned to RH
+Column 6 in file ./meteo/meteo0002.txt assigned to AirT
+Column 7 in file ./meteo/meteo0002.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #3
+Column 1 in file ./horizon_meteo/horizon0003.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0003.txt assigned to el
+Column 1 in file ./meteo/meteo0003.txt assigned to Date
+Column 2 in file ./meteo/meteo0003.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0003.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0003.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0003.txt assigned to RH
+Column 6 in file ./meteo/meteo0003.txt assigned to AirT
+Column 7 in file ./meteo/meteo0003.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #4
+Column 1 in file ./horizon_meteo/horizon0004.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0004.txt assigned to el
+Column 1 in file ./meteo/meteo0004.txt assigned to Date
+Column 2 in file ./meteo/meteo0004.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0004.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0004.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0004.txt assigned to RH
+Column 6 in file ./meteo/meteo0004.txt assigned to AirT
+Column 7 in file ./meteo/meteo0004.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #5
+Column 1 in file ./horizon_meteo/horizon0005.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0005.txt assigned to el
+Column 1 in file ./meteo/meteo0005.txt assigned to Date
+Column 2 in file ./meteo/meteo0005.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0005.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0005.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0005.txt assigned to RH
+Column 6 in file ./meteo/meteo0005.txt assigned to AirT
+Column 7 in file ./meteo/meteo0005.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #6
+Column 1 in file ./horizon_meteo/horizon0006.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0006.txt assigned to el
+Column 1 in file ./meteo/meteo0006.txt assigned to Date
+Column 2 in file ./meteo/meteo0006.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0006.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0006.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0006.txt assigned to RH
+Column 6 in file ./meteo/meteo0006.txt assigned to AirT
+Column 7 in file ./meteo/meteo0006.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #7
+Column 1 in file ./horizon_meteo/horizon0007.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0007.txt assigned to el
+Column 1 in file ./meteo/meteo0007.txt assigned to Date
+Column 2 in file ./meteo/meteo0007.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0007.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0007.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0007.txt assigned to RH
+Column 6 in file ./meteo/meteo0007.txt assigned to AirT
+Column 7 in file ./meteo/meteo0007.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #8
+Column 1 in file ./horizon_meteo/horizon0008.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0008.txt assigned to el
+Column 1 in file ./meteo/meteo0008.txt assigned to Date
+Column 2 in file ./meteo/meteo0008.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0008.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0008.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0008.txt assigned to RH
+Column 6 in file ./meteo/meteo0008.txt assigned to AirT
+Column 7 in file ./meteo/meteo0008.txt assigned to Swglob
+
+Horizon file FOUND for meteo station #9
+Column 1 in file ./horizon_meteo/horizon0009.txt assigned to az
+Column 2 in file ./horizon_meteo/horizon0009.txt assigned to el
+Column 1 in file ./meteo/meteo0009.txt assigned to Date
+Column 2 in file ./meteo/meteo0009.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0009.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0009.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0009.txt assigned to RH
+Column 6 in file ./meteo/meteo0009.txt assigned to AirT
+Column 7 in file ./meteo/meteo0009.txt assigned to Swglob
+Shortwave radiation measurements from station 1
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 3 layers
+14/1/2014 1:00 2.08% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:01  
+14/1/2014 2:00 4.17% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:01  
+14/1/2014 3:00 6.25% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:01  
+14/1/2014 4:00 8.33% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:01  
+14/1/2014 5:00 10.42% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:01  
+14/1/2014 6:00 12.50% - Times: Elapsed (h:m:s)  0:00:08 Remaining (h:m)  0:00  
+14/1/2014 7:00 14.58% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
+14/1/2014 8:00 16.67% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:00  
+14/1/2014 9:00 18.75% - Times: Elapsed (h:m:s)  0:00:16 Remaining (h:m)  0:01  
+14/1/2014 10:00 20.83% - Times: Elapsed (h:m:s)  0:00:18 Remaining (h:m)  0:01  
+14/1/2014 11:00 22.92% - Times: Elapsed (h:m:s)  0:00:19 Remaining (h:m)  0:01  
+14/1/2014 12:00 25.00% - Times: Elapsed (h:m:s)  0:00:21 Remaining (h:m)  0:01  
+14/1/2014 13:00 27.08% - Times: Elapsed (h:m:s)  0:00:23 Remaining (h:m)  0:01  
+14/1/2014 14:00 29.17% - Times: Elapsed (h:m:s)  0:00:24 Remaining (h:m)  0:01  
+14/1/2014 15:00 31.25% - Times: Elapsed (h:m:s)  0:00:26 Remaining (h:m)  0:00  
+14/1/2014 16:00 33.33% - Times: Elapsed (h:m:s)  0:00:30 Remaining (h:m)  0:01  
+14/1/2014 17:00 35.42% - Times: Elapsed (h:m:s)  0:00:35 Remaining (h:m)  0:01  
+14/1/2014 18:00 37.50% - Times: Elapsed (h:m:s)  0:00:36 Remaining (h:m)  0:01  
+14/1/2014 19:00 39.58% - Times: Elapsed (h:m:s)  0:00:38 Remaining (h:m)  0:00  
+14/1/2014 20:00 41.67% - Times: Elapsed (h:m:s)  0:00:39 Remaining (h:m)  0:00  
+14/1/2014 21:00 43.75% - Times: Elapsed (h:m:s)  0:00:40 Remaining (h:m)  0:00  
+14/1/2014 22:00 45.83% - Times: Elapsed (h:m:s)  0:00:42 Remaining (h:m)  0:00  
+14/1/2014 23:00 47.92% - Times: Elapsed (h:m:s)  0:00:43 Remaining (h:m)  0:00  
+15/1/2014 0:00 50.00% - Times: Elapsed (h:m:s)  0:00:44 Remaining (h:m)  0:00  
+15/1/2014 1:00 52.08% - Times: Elapsed (h:m:s)  0:00:45 Remaining (h:m)  0:00  
+15/1/2014 2:00 54.17% - Times: Elapsed (h:m:s)  0:00:47 Remaining (h:m)  0:00  
+15/1/2014 3:00 56.25% - Times: Elapsed (h:m:s)  0:00:48 Remaining (h:m)  0:00  
+15/1/2014 4:00 58.33% - Times: Elapsed (h:m:s)  0:00:49 Remaining (h:m)  0:00  
+15/1/2014 5:00 60.42% - Times: Elapsed (h:m:s)  0:00:49 Remaining (h:m)  0:00  
+15/1/2014 6:00 62.50% - Times: Elapsed (h:m:s)  0:00:51 Remaining (h:m)  0:00  
+15/1/2014 7:00 64.58% - Times: Elapsed (h:m:s)  0:00:53 Remaining (h:m)  0:00  
+15/1/2014 8:00 66.67% - Times: Elapsed (h:m:s)  0:00:56 Remaining (h:m)  0:00  
+15/1/2014 9:00 68.75% - Times: Elapsed (h:m:s)  0:00:58 Remaining (h:m)  0:00  
+15/1/2014 10:00 70.83% - Times: Elapsed (h:m:s)  0:01:00 Remaining (h:m)  0:00  
+15/1/2014 11:00 72.92% - Times: Elapsed (h:m:s)  0:01:01 Remaining (h:m)  0:00  
+15/1/2014 12:00 75.00% - Times: Elapsed (h:m:s)  0:01:03 Remaining (h:m)  0:00  
+15/1/2014 13:00 77.08% - Times: Elapsed (h:m:s)  0:01:07 Remaining (h:m)  0:00  
+15/1/2014 14:00 79.17% - Times: Elapsed (h:m:s)  0:01:11 Remaining (h:m)  0:00  
+15/1/2014 15:00 81.25% - Times: Elapsed (h:m:s)  0:01:12 Remaining (h:m)  0:00  
+15/1/2014 16:00 83.33% - Times: Elapsed (h:m:s)  0:01:15 Remaining (h:m)  0:00  
+15/1/2014 17:00 85.42% - Times: Elapsed (h:m:s)  0:01:20 Remaining (h:m)  0:00  
+15/1/2014 18:00 87.50% - Times: Elapsed (h:m:s)  0:01:20 Remaining (h:m)  0:00  
+15/1/2014 19:00 89.58% - Times: Elapsed (h:m:s)  0:01:22 Remaining (h:m)  0:00  
+15/1/2014 20:00 91.67% - Times: Elapsed (h:m:s)  0:01:23 Remaining (h:m)  0:00  
+15/1/2014 21:00 93.75% - Times: Elapsed (h:m:s)  0:01:24 Remaining (h:m)  0:00  
+15/1/2014 22:00 95.83% - Times: Elapsed (h:m:s)  0:01:26 Remaining (h:m)  0:00  
+15/1/2014 23:00 97.92% - Times: Elapsed (h:m:s)  0:01:26 Remaining (h:m)  0:00  
+16/1/2014 0:00 100.00% - Times: Elapsed (h:m:s)  0:01:28 Remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!
