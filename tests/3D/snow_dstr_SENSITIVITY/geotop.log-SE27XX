@@ -1365,19 +1365,19 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 593
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:37 Time remaining (h:m)  0:00  
+5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:00  
 
 5/10/2009 23:30 JD:277.979167 (1^ simulation day) 94.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.88 s, t_blowingsnow:  0.00 s, t_water: 91.48 s, t_sub:  1.21 s, t_sup: 90.27 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  4.83 s, t_blowingsnow:  0.00 s, t_water: 89.28 s, t_sub:  1.19 s, t_sup: 88.09 s, t_out:  0.00 s
  SW= 52.13 W/m2  LW:-41.01 W/m2  H=  1.44 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.321058e-10 mm/h 
  Tot Error Richards=1.720449e-08 mm Mean Time Step=84600.000000 s
 
-6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:50 Time remaining (h:m) -1:57  
+6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:40 Time remaining (h:m) -1:57  
 
 6/10/2009 23:00 JD:278.958333 (1^ simulation day) 188.00% completed! 
- t_meteo:  0.01 s, t_energy: 10.54 s, t_blowingsnow:  0.00 s, t_water:277.14 s, t_sub:  3.99 s, t_sup:273.15 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy: 10.06 s, t_blowingsnow:  0.00 s, t_water:268.22 s, t_sub:  3.79 s, t_sup:264.43 s, t_out:  0.00 s
  SW= 56.95 W/m2  LW:-36.74 W/m2  H=  4.94 W/m2  LE=  3.32 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.040169e-09 mm/h 
