@@ -1,0 +1,379 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Attempting to read 'DemFile' in the file './input-maps/dtm_map': EXISTING in format 3
+./input-maps/dtm_map
+Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
+Land cover type assumed to be always 1
+Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
+./input-maps/slope
+Slope Min:0.253756 (14.238623 deg) Max:0.253756 (14.238626 deg) 
+Attempting to read 'AspectMapFile' in the file './input-maps/aspect': EXISTING in format 3
+./input-maps/aspect
+Curvature N-S Min:-0.002758  Max:0.002758 
+Curvature W-E Min:-0.000000  Max:0.000000 
+Curvature NW-SE Min:-0.002758  Max:0.002758 
+Curvature NE-SW Min:-0.002758  Max:0.002758 
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
+./input-maps/net
+Channel networks has 0 pixels set to channel
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+
+Valid pixels: 20
+Number of nodes: 240
+Novalue pixels: 61
+Basin area: 0.000020 km2
+
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file ./input-meteo/meteo0001.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0001.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0001.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0001.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0001.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0001.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0001.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file ./input/lapserate.txt assigned to Date
+Column 3 in file ./input/lapserate.txt assigned to LapseRateTemp
+Column 4 in file ./input/lapserate.txt assigned to LapseRateDewTemp
+Column 5 in file ./input/lapserate.txt assigned to LapseRatePrec
+
+Lapse rate file read
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 11 layers
+cnt:1 res:2.182205e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:2.028865e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:3 res:3.719212e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:1.109466e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:1.970788e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:9.026206e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:1.985301e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:8 res:3.629609e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 1:00 4.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.434051e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:7.555576e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:3 res:7.208298e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:3 res:3.206411e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:3 res:2.753416e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:2.520584e-02 lambda:2.358894e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:7.537753e-03 lambda:2.358894e-03 Dt:3600.000000 P:10.000000
+cnt:4 res:5.985351e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:2.598340e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:4 res:2.609378e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:4 res:2.462468e-02 lambda:2.338113e-02 Dt:3600.000000 P:10.000000
+cnt:4 res:7.520128e-03 lambda:2.338113e-03 Dt:3600.000000 P:10.000000
+cnt:5 res:5.297763e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:2.253171e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:5 res:2.524191e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:5 res:2.428914e-02 lambda:2.321569e-02 Dt:3600.000000 P:10.000000
+cnt:5 res:7.502669e-03 lambda:2.321569e-03 Dt:3600.000000 P:10.000000
+cnt:6 res:4.883859e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:2.047552e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:6 res:2.471967e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:6 res:1.327484e-02 lambda:2.309132e-02 Dt:3600.000000 P:10.000000
+cnt:6 res:7.485344e-03 lambda:2.309132e-03 Dt:3600.000000 P:10.000000
+cnt:7 res:4.614831e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:1.919287e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:7 res:2.438050e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:7 res:7.313134e-03 lambda:2.300099e-02 Dt:3600.000000 P:10.000000
+cnt:8 res:3.670031e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:8 res:1.508887e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:8 res:6.947131e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:9 res:3.631818e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:9 res:1.597838e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:9 res:6.597317e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:10 res:3.542949e+01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:10 res:1.655102e+01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:10 res:5.708048e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:11 res:2.450188e+00 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:11 res:1.005299e+00 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:11 res:5.195640e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:12 res:8.245959e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:12 res:2.647307e-01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:12 res:4.861404e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:13 res:4.541168e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:13 res:1.074964e-01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:13 res:4.572187e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:14 res:2.526236e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:14 res:2.406891e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:14 res:2.900230e-03 lambda:2.033700e-01 Dt:3600.000000 P:10.000000
+cnt:15 res:2.773777e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:16 res:5.306183e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:17 res:8.088849e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:18 res:8.092343e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:19 res:1.000456e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:20 res:1.744772e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 2:00 8.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:9.103236e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.540981e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.715715e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.819586e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:2 res:9.057663e-03 lambda:5.000000e-03 Dt:3600.000000 P:10.000000
+cnt:3 res:1.146881e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:8.355601e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:4.075809e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:7.315383e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 3:00 12.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.097015e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:2.009789e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:2.058786e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.828358e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:2 res:1.091525e-02 lambda:5.000000e-03 Dt:3600.000000 P:10.000000
+cnt:3 res:1.232798e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:3 res:1.441956e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:3 res:1.036974e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:4 res:5.253011e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:2.910366e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:1.790324e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:1.507561e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:8 res:1.074434e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:9 res:1.663916e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 4:00 16.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.171580e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.715716e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.928504e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.250876e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:2 res:1.165720e-02 lambda:5.000000e-03 Dt:3600.000000 P:10.000000
+cnt:3 res:1.478943e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:3 res:1.718907e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:3 res:1.107445e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:4 res:5.401774e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:1.891812e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:4.792027e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.355234e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:8 res:2.904411e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 5:00 20.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.218796e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.615248e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.850507e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.157948e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:6.405616e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:2.434684e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:2.490211e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:1.012456e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:2.348182e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 6:00 25.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.251625e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.634980e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.816085e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.189079e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:7.697771e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:3.676548e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:1.446494e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:2.350561e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.251113e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 7:00 29.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.267346e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.652574e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.780976e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.204205e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:8.327492e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.127267e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:3.330952e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:1.035980e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:1.829279e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 8:00 33.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.274408e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.666132e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.752304e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.210843e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:8.723891e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.343454e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:4.858899e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:1.907116e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:3.305888e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 9:00 37.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.277429e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.674599e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.731694e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.213552e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:8.975744e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.451314e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:5.924871e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:2.545106e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.264827e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 10:00 41.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278881e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.679785e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.716991e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214925e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.137132e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.509293e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:6.634033e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:2.954240e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.727424e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 11:00 45.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.279342e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.683423e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.706204e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.215360e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.241897e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.542610e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.101293e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.208396e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.997526e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 12:00 50.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.279376e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.686173e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.698182e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.215390e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.311516e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.563170e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.417180e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.371869e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.224748e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 13:00 54.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.279234e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.688089e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.692255e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.215253e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.358294e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.576527e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.633341e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.480322e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.424801e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 14:00 58.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.279025e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.689321e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.687961e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.215053e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.389632e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.585439e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.779799e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.553126e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.590800e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 15:00 62.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278799e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.690108e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.684905e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214838e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.410448e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.591428e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.878039e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.602393e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.723324e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 16:00 66.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278587e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.690650e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.682725e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214637e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.424302e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.595536e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.944709e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.636715e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.828788e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 17:00 70.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278405e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691029e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.681146e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214463e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.433583e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.598407e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:7.990625e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.661118e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.912245e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 18:00 75.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278257e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691282e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.679985e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214322e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.439853e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.600420e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.022224e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.678450e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:5.976120e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 19:00 79.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278140e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691445e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.679122e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214211e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.444090e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.601823e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.043748e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.690659e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.465386e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 20:00 83.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.278050e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691551e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.678478e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214126e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.446932e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.602812e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.058449e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.699362e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.560967e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 21:00 87.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.277981e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691621e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.677999e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214060e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.448818e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.603532e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.068685e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.705744e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.631973e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 22:00 91.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.277927e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691669e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.677645e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.214008e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.450078e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.604058e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.075876e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.710450e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.684574e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+1/2/2012 23:00 95.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+cnt:1 res:1.277885e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.691701e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:2 res:1.677388e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
+cnt:2 res:1.213968e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
+cnt:3 res:9.450955e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:4 res:4.604420e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:5 res:8.080785e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:6 res:3.713753e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+cnt:7 res:4.723473e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
+2/2/2012 0:00 100.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+
+2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=240.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=9.674753e-08 mm/h 
+ Tot Error Richards=2.321941e-06 mm Mean Time Step=3600.000000 s
+
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!
