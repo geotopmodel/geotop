@@ -1,0 +1,470 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Column 1 in file ./input/soil0001.txt assigned to Dz
+Column 3 in file ./input/soil0001.txt assigned to Kv
+Column 2 in file ./input/soil0001.txt assigned to Kh
+Column 4 in file ./input/soil0001.txt assigned to res
+Column 5 in file ./input/soil0001.txt assigned to fc
+Column 6 in file ./input/soil0001.txt assigned to sat
+Column 7 in file ./input/soil0001.txt assigned to a
+Column 8 in file ./input/soil0001.txt assigned to n
+Column 9 in file ./input/soil0001.txt assigned to SS
+Column 1 in file ./input/soil0002.txt assigned to Dz
+Column 3 in file ./input/soil0002.txt assigned to Kv
+Column 2 in file ./input/soil0002.txt assigned to Kh
+Column 4 in file ./input/soil0002.txt assigned to res
+Column 5 in file ./input/soil0002.txt assigned to fc
+Column 6 in file ./input/soil0002.txt assigned to sat
+Column 7 in file ./input/soil0002.txt assigned to a
+Column 8 in file ./input/soil0002.txt assigned to n
+Column 9 in file ./input/soil0002.txt assigned to SS
+Column 1 in file ./input/soil0003.txt assigned to Dz
+Column 3 in file ./input/soil0003.txt assigned to Kv
+Column 2 in file ./input/soil0003.txt assigned to Kh
+Column 4 in file ./input/soil0003.txt assigned to res
+Column 5 in file ./input/soil0003.txt assigned to fc
+Column 6 in file ./input/soil0003.txt assigned to sat
+Column 7 in file ./input/soil0003.txt assigned to a
+Column 8 in file ./input/soil0003.txt assigned to n
+Column 9 in file ./input/soil0003.txt assigned to SS
+Column 1 in file ./input/soil0004.txt assigned to Dz
+Column 3 in file ./input/soil0004.txt assigned to Kv
+Column 2 in file ./input/soil0004.txt assigned to Kh
+Column 4 in file ./input/soil0004.txt assigned to res
+Column 5 in file ./input/soil0004.txt assigned to fc
+Column 6 in file ./input/soil0004.txt assigned to sat
+Column 7 in file ./input/soil0004.txt assigned to a
+Column 8 in file ./input/soil0004.txt assigned to n
+Column 9 in file ./input/soil0004.txt assigned to SS
+Column 1 in file ./input/soil0005.txt assigned to Dz
+Column 3 in file ./input/soil0005.txt assigned to Kv
+Column 2 in file ./input/soil0005.txt assigned to Kh
+Column 4 in file ./input/soil0005.txt assigned to res
+Column 5 in file ./input/soil0005.txt assigned to fc
+Column 6 in file ./input/soil0005.txt assigned to sat
+Column 7 in file ./input/soil0005.txt assigned to a
+Column 8 in file ./input/soil0005.txt assigned to n
+Column 9 in file ./input/soil0005.txt assigned to SS
+Column 1 in file ./input/soil0006.txt assigned to Dz
+Column 3 in file ./input/soil0006.txt assigned to Kv
+Column 2 in file ./input/soil0006.txt assigned to Kh
+Column 4 in file ./input/soil0006.txt assigned to res
+Column 5 in file ./input/soil0006.txt assigned to fc
+Column 6 in file ./input/soil0006.txt assigned to sat
+Column 7 in file ./input/soil0006.txt assigned to a
+Column 8 in file ./input/soil0006.txt assigned to n
+Column 9 in file ./input/soil0006.txt assigned to SS
+Column 1 in file ./input/soil0007.txt assigned to Dz
+Column 3 in file ./input/soil0007.txt assigned to Kv
+Column 2 in file ./input/soil0007.txt assigned to Kh
+Column 4 in file ./input/soil0007.txt assigned to res
+Column 5 in file ./input/soil0007.txt assigned to fc
+Column 6 in file ./input/soil0007.txt assigned to sat
+Column 7 in file ./input/soil0007.txt assigned to a
+Column 8 in file ./input/soil0007.txt assigned to n
+Column 9 in file ./input/soil0007.txt assigned to SS
+Column 1 in file ./input/soil0008.txt assigned to Dz
+Column 3 in file ./input/soil0008.txt assigned to Kv
+Column 2 in file ./input/soil0008.txt assigned to Kh
+Column 4 in file ./input/soil0008.txt assigned to res
+Column 5 in file ./input/soil0008.txt assigned to fc
+Column 6 in file ./input/soil0008.txt assigned to sat
+Column 7 in file ./input/soil0008.txt assigned to a
+Column 8 in file ./input/soil0008.txt assigned to n
+Column 9 in file ./input/soil0008.txt assigned to SS
+Column 1 in file ./input/soil0009.txt assigned to Dz
+Column 3 in file ./input/soil0009.txt assigned to Kv
+Column 2 in file ./input/soil0009.txt assigned to Kh
+Column 4 in file ./input/soil0009.txt assigned to res
+Column 5 in file ./input/soil0009.txt assigned to fc
+Column 6 in file ./input/soil0009.txt assigned to sat
+Column 7 in file ./input/soil0009.txt assigned to a
+Column 8 in file ./input/soil0009.txt assigned to n
+Column 9 in file ./input/soil0009.txt assigned to SS
+Warning: The points to plot specific results are not completely specified
+Output for single point output is deactivated.
+Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
+./input-maps/dem
+Attempting to read 'LandCoverMapFile' in the file './input-maps/landcover': EXISTING in format 3
+./input-maps/landcover
+Attempting to read 'SkyViewFactorMapFile' in the file './input-maps/sky': EXISTING in format 3
+./input-maps/sky
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file './input-maps/soiltype': EXISTING in format 3
+./input-maps/soiltype
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
+./input-maps/slope
+Slope Min:0.000504 (0.028889 deg) Max:1.979070 (63.193087 deg) 
+Attempting to read 'AspectMapFile' in the file './input-maps/aspect': EXISTING in format 3
+./input-maps/aspect
+Curvature N-S Min:-0.002009  Max:0.001823 
+Curvature W-E Min:-0.002338  Max:0.001982 
+Curvature NW-SE Min:-0.004030  Max:0.002742 
+Curvature NE-SW Min:-0.005202  Max:0.002850 
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
+./input-maps/net
+Channel networks has 1494 pixels set to channel
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+
+Valid pixels: 68631
+Number of nodes: 686310
+Novalue pixels: 46889
+Basin area: 686.310000 km2
+
+
+Horizon file FOUND for meteo station #1
+Column 1 in file ./input-meteo/horizon0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0001.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0001.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0001.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0001.txt assigned to AirT
+
+Horizon file FOUND for meteo station #2
+Column 1 in file ./input-meteo/horizon0002.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0002.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0002.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0002.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0002.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0002.txt assigned to AirT
+
+Horizon file FOUND for meteo station #3
+Column 1 in file ./input-meteo/horizon0003.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0003.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0003.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0003.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0003.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0003.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0003.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0003.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0003.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0003.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0003.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #4
+Column 1 in file ./input-meteo/horizon0004.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0004.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0004.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0004.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0004.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0004.txt assigned to AirT
+
+Horizon file FOUND for meteo station #5
+Column 1 in file ./input-meteo/horizon0005.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0005.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0005.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0005.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0005.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0005.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0005.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0005.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0005.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0005.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0005.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #6
+Column 1 in file ./input-meteo/horizon0006.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0006.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0006.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0006.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0006.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0006.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0006.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0006.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0006.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0006.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0006.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #7
+Column 1 in file ./input-meteo/horizon0007.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0007.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0007.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0007.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0007.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0007.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0007.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0007.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0007.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0007.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0007.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #8
+Column 1 in file ./input-meteo/horizon0008.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0008.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0008.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0008.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0008.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0008.txt assigned to AirT
+
+Horizon file FOUND for meteo station #9
+Column 1 in file ./input-meteo/horizon0009.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0009.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0009.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0009.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0009.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0009.txt assigned to AirT
+
+Horizon file FOUND for meteo station #10
+Column 1 in file ./input-meteo/horizon0010.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0010.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0010.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0010.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0010.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0010.txt assigned to AirT
+
+Horizon file FOUND for meteo station #11
+Column 1 in file ./input-meteo/horizon0011.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0011.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0011.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0011.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0011.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0011.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0011.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0011.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0011.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0011.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0011.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #12
+Column 1 in file ./input-meteo/horizon0012.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0012.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0012.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0012.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0012.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0012.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0012.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0012.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0012.txt assigned to AirT
+
+Horizon file FOUND for meteo station #13
+Column 1 in file ./input-meteo/horizon0013.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0013.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0013.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0013.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0013.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0013.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0013.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0013.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0013.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0013.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0013.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #14
+Column 1 in file ./input-meteo/horizon0014.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0014.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0014.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0014.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0014.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0014.txt assigned to AirT
+
+Horizon file FOUND for meteo station #15
+Column 1 in file ./input-meteo/horizon0015.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0015.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0015.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0015.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0015.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0015.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0015.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0015.txt assigned to AirT
+Column 7 in file ./input-meteo/meteo0015.txt assigned to SWglobal
+Column 8 in file ./input-meteo/meteo0015.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #16
+Column 1 in file ./input-meteo/horizon0016.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0016.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0016.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0016.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0016.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0016.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0016.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0016.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0016.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0016.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0016.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #17
+Column 1 in file ./input-meteo/horizon0017.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0017.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0017.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0017.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0017.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0017.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0017.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0017.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0017.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0017.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0017.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #18
+Column 1 in file ./input-meteo/horizon0018.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0018.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0018.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0018.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0018.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0018.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0018.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0018.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0018.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0018.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0018.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #19
+Column 1 in file ./input-meteo/horizon0019.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0019.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0019.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0019.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0019.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0019.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0019.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0019.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0019.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0019.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0019.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #20
+Column 1 in file ./input-meteo/horizon0020.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0020.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0020.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0020.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0020.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0020.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0020.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0020.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0020.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0020.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0020.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #21
+Column 1 in file ./input-meteo/horizon0021.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0021.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0021.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0021.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0021.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0021.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0021.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0021.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0021.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0021.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0021.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #22
+Column 1 in file ./input-meteo/horizon0022.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0022.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0022.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0022.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0022.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0022.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0022.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0022.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0022.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0022.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0022.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #23
+Column 1 in file ./input-meteo/horizon0023.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0023.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0023.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0023.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0023.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0023.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0023.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0023.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0023.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0023.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0023.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #24
+Column 1 in file ./input-meteo/horizon0024.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0024.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0024.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0024.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0024.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0024.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0024.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0024.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0024.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0024.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0024.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #25
+Column 1 in file ./input-meteo/horizon0025.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0025.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0025.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0025.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0025.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0025.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0025.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0025.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0025.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0025.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0025.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #26
+Column 1 in file ./input-meteo/horizon0026.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0026.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0026.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0026.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0026.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0026.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0026.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0026.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0026.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0026.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0026.txt assigned to CloudTrans
+
+Horizon file FOUND for meteo station #27
+Column 1 in file ./input-meteo/horizon0027.txt assigned to AngleFromNorthClockwise
+Column 2 in file ./input-meteo/horizon0027.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteo0027.txt assigned to Date
+Column 2 in file ./input-meteo/meteo0027.txt assigned to JDfrom0
+Column 3 in file ./input-meteo/meteo0027.txt assigned to Iprec
+Column 4 in file ./input-meteo/meteo0027.txt assigned to WindSp
+Column 5 in file ./input-meteo/meteo0027.txt assigned to WindDir
+Column 6 in file ./input-meteo/meteo0027.txt assigned to RelHum
+Column 7 in file ./input-meteo/meteo0027.txt assigned to AirT
+Column 8 in file ./input-meteo/meteo0027.txt assigned to SWglobal
+Column 9 in file ./input-meteo/meteo0027.txt assigned to CloudTrans
+Shortwave radiation measurements from station 3
+Cloudiness measurements from station 3
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 2 layers
+Soil water transpires from the first 7 layers
+1/3/2014 1:00 10.00% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
+1/3/2014 2:00 20.00% - Times: Elapsed (h:m:s)  0:00:08 Remaining (h:m)  0:00  
+1/3/2014 3:00 30.00% - Times: Elapsed (h:m:s)  0:00:12 Remaining (h:m)  0:00  
+1/3/2014 4:00 40.00% - Times: Elapsed (h:m:s)  0:00:17 Remaining (h:m)  0:00  
+1/3/2014 5:00 50.00% - Times: Elapsed (h:m:s)  0:00:20 Remaining (h:m)  0:00  
+1/3/2014 6:00 60.00% - Times: Elapsed (h:m:s)  0:00:23 Remaining (h:m)  0:00  
+1/3/2014 7:00 70.00% - Times: Elapsed (h:m:s)  0:00:25 Remaining (h:m)  0:00  
+1/3/2014 8:00 80.00% - Times: Elapsed (h:m:s)  0:00:35 Remaining (h:m)  0:00  
+1/3/2014 9:00 90.00% - Times: Elapsed (h:m:s)  0:00:40 Remaining (h:m)  0:00  
+1/3/2014 10:00 100.00% - Times: Elapsed (h:m:s)  0:00:45 Remaining (h:m) -1:59  
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!
