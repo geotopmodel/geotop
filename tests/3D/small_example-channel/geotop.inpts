@@ -165,8 +165,8 @@ SWEtop = 50
 !*******************************
 !******* LAPSE RATES **********
 !*******************************
-!LapseRateFile="LapseRates"
-!HeaderDateDDMMYYYYhhmmLapseRates="Date"
+! LapseRateFile="LapseRates"
+! HeaderDateDDMMYYYYhhmmLapseRates="Date"
 !HeaderLapseRateTemp="dTa_dz"
 !HeaderLapseRateDewTemp="dTd_dz"
 !HeaderLapseRatePrec="dprec_dz"
