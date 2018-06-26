@@ -37,7 +37,7 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
   double thresh=0.0;
   long n;// number of layer below the threshold
   long nmax=sl->pa->nch;
-  long l;//counter
+    long l;//counter
   short out=0;
 
   n = nmax;
@@ -89,7 +89,7 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
   double thresh=0.0;
   long n;// number of layer below the threshold
   long nmax=sl->pa->nch;
-  long l;//counter
+    long l;//counter
   short out=0;
 
   n = 1;
@@ -140,7 +140,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
   short out=0;
 
   n = nlayer(Z, sl->pa->co[ty][jdz], sl->pa->nch, -1);
-
+// std::cout << "nlayer = " << n << std::endl;
   if (n>1)
     {
 
@@ -196,7 +196,7 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
   double table=0.0;
   double thresh=0.0;
   long n;// number of layer below the threshold
-  long nmax=sl->pa->nch;
+  long nmax=sl->pa->nch; // nmax(small_example-channel = 3)
   long l;//counter
   short out=0;
 

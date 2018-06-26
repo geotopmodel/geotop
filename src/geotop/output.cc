@@ -241,17 +241,22 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 }
 
               D = find_activelayerdepth_up(j, sl->type->co[r][c], sl);
+              std::cout << "D1 (active layer up) = " << D << std::endl;
               odpnt[othawedup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
               Dthaw = D;
 
-              D = find_activelayerdepth_dw(j, sl->type->co[r][c], sl);
-              odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                D = find_activelayerdepth_dw(j, sl->type->co[r][c], sl);
+                std::cout << "D2 (active layer dw) = " << D << std::endl;
+                odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
 
               D = find_watertabledepth_up(Dthaw, j, sl->type->co[r][c], sl);
-              odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                std::cout << "D3 (water table up) = " << D << std::endl;
+                odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
               std::cout << "333333333333333333333333333333" << std::endl;
+
              D = find_watertabledepth_dw(Dthaw, j, sl->type->co[r][c], sl); // look here!
-              std::cout << "44444444444444444444444444" << std::endl;
+                std::cout << "D4 (water table dw) = " << D << std::endl;
+                std::cout << "44444444444444444444444444" << std::endl;
               odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
             }
         }
@@ -945,8 +950,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
 	  geolog << day << "/" << month << "/"<< year << " " << hour <<":"<<float(minute) << " JD:"
 		 << JD << " (" << long(floor(times->time/86400))+1<< "^ simulation day) "
-		 << percent_done << "% completed!" << std::endl; 
-	    
+		 << percent_done << "% completed!" << std::endl;
+
           geolog << " t_meteo:" <<t_meteo<<" s, t_energy:"<<t_energy
 		 <<" s, t_blowingsnow:"<< t_blowingsnow <<" s, t_water:"
 		 << t_water << " s, t_sub:"<< t_sub << " s, t_sup:"
@@ -957,11 +962,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 		 << odbsn[ooLW] << " W/m2  H="
 		 << odbsn[ooH] << " W/m2  LE="
 		 << odbsn[ooLE] << " W/m2" << std::endl;
-	  geolog <<" Pvert="  
+	  geolog <<" Pvert="
 		 << odbsn[oopnet] << " mm Prain="
                  << odbsn[oorainover] << " mm  Psnow="
                  << odbsn[oosnowover] << " mm" << std::endl;
-		 
+
 	  geolog << " Max Error Richards="
 		 << odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim] << " mm/h" <<std::endl;
 	  geolog << " Tot Error Richards=" <<  mass_error_tot << " mm Mean Time Step="
@@ -2010,55 +2015,55 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
               || strcmp(files[pHg], string_novalue) != 0
               || strcmp(files[pG], string_novalue) != 0)
                   *(egy->Hgplot) = 0.0;
-	  
+
           if (strcmp(files[pLE], string_novalue) != 0
               || strcmp(files[pLEg], string_novalue) != 0
               || strcmp(files[pG], string_novalue) != 0)
 	    *(egy->LEgplot) = 0.;
-	  
+
           if (strcmp(files[pH], string_novalue) != 0
               || strcmp(files[pHv], string_novalue) != 0)
 	    *(egy->Hvplot) = 0.;
-	  
+
           if (strcmp(files[pLE], string_novalue) != 0
               || strcmp(files[pLEv], string_novalue) != 0)
 	    *(egy->LEvplot) = 0.;
-	  
+
           if (strcmp(files[pSWin], string_novalue) != 0)
 	    *(egy->SWinplot) = 0.;
-	  
+
           if (strcmp(files[pSWg], string_novalue) != 0
               || strcmp(files[pG], string_novalue) != 0)
 	    *(egy->SWgplot) = 0.;
-	  
+
           if (strcmp(files[pSWv], string_novalue) != 0)
 	    *(egy->SWvplot) = 0.;
-	  
+
           if (strcmp(files[pLWin], string_novalue) != 0)
 	    *(egy->LWinplot) = 0.;
-	  
+
           if (strcmp(files[pLWg], string_novalue) != 0
               || strcmp(files[pG], string_novalue) != 0)
 	    *(egy->LWgplot) = 0.;
-	  
+
           if (strcmp(files[pLWv], string_novalue) != 0)
 	    *(egy->LWvplot) = 0.;
-	  
+
           if (strcmp(files[pTs], string_novalue) != 0)
 	    *(egy->Tsplot) = 0.;
-	  
+
           if (strcmp(files[pTg], string_novalue) != 0)
 	    *(egy->Tgplot) = 0.;
-	  
+
           if (strcmp(files[pTv], string_novalue) != 0)
 	    *(egy->Tvplot) = 0.;
-	  
+
           if (strcmp(files[pD], string_novalue) != 0)
 	    *(snow->Dplot) = 0.;
-	  
+
           if (strcmp(files[pTa], string_novalue) != 0)
 	    *(met->Taplot) = 0.;
-	  
+
           if (strcmp(files[pVspd], string_novalue) != 0
               || strcmp(files[pVdir], string_novalue) != 0)
             {
@@ -2276,7 +2281,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
   if (par->ContRecovery > 0)
     {
       t_rec += par->Dt;
-      
+
       if (fabs(t_rec - par->ContRecovery*secinday)<1.E-5)
         {
           t_rec = 0.;
@@ -3038,7 +3043,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
           write_snow_header(2, 1, 1, ffsnowd, par->snow_plot_depths.get(), snow->S->Dzl);
           free(name);
         }
-      
+
       root_fraction.reset(new Vector<double>{Nl});
 
       // DATA POINTS
