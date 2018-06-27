@@ -223,7 +223,6 @@ SnowIceContentProfileFile="output-tabs/snowice"
 SnowDepthLayersFile="output-tabs/snowly"
 SnowAll=1
 
-!SWEMapFile= "output-maps/SWE"
 SnowDepthMapFile = "output-maps/snowdepth"
 FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
 !NetShortwaveRadiationMapFile = "output-maps/Rn"
