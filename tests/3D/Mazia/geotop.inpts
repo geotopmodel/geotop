@@ -26,11 +26,11 @@ DtPlotPoint = 1
 DtPlotBasin = 1
 
 !Output maps Dt in hours 
-OutputSoilMaps = 24
-!OutputSurfEBALMaps = 24
-OutputMeteoMaps = 24
-OutputSnowMaps = 24
-OutputGlacierMaps	=	24
+OutputSoilMaps = 1
+!OutputSurfEBALMaps = 1
+OutputMeteoMaps = 1
+OutputSnowMaps = 1
+OutputGlacierMaps =	1
 
 !=======================================
 ! METEO STATIONS
