@@ -33,48 +33,47 @@ extern T_INIT *UV;
 double find_activelayerdepth_up(long i, long ty, SOIL *sl)
 
 {
-  double table=0.0;
-  double thresh=0.0;
-  long n;// number of layer below the threshold
-  long nmax=sl->pa->nch;
+    double table=0.0;
+    double thresh=0.0;
+    long n;// number of layer below the threshold
+    long nmax=sl->pa->nch;
     long l;//counter
-  short out=0;
+    short out=0;
 
-  n = nmax;
+    n = nmax;
 
-  if (sl->SS->T->co[n][i]>=thresh)
+    if (sl->SS->T->co[n][i]>=thresh)
     {
-      for (l=1; l<=n; l++)
+        for (l=1; l<=n; l++)
         {
-          table += sl->pa->co[ty][jdz][l];
+            table += sl->pa->co[ty][jdz][l];
         }
 
     }
-  else
+    else
     {
 
-      do
+        do
         {
-          n--;
-          if (n==1) out=-1;
-          if (sl->SS->T->co[n+1][i]<thresh && sl->SS->T->co[n][i]>=thresh) out=1;
+            n--;
+            if (n==1) out=-1;
+            if (sl->SS->T->co[n+1][i]<thresh && sl->SS->T->co[n][i]>=thresh) out=1;
         }
-      while (out==0);
+        while (out==0);
 
-      if (out==1)
+        if (out==1)
         {
-
-          for (l=1; l<=n; l++)
+            for (l=1; l<=n; l++)
             {
-              table += sl->pa->co[ty][jdz][l];
+                table += sl->pa->co[ty][jdz][l];
             }
 
-          table += (1.-sl->SS->thi->co[n+1][i]/(sl->SS->thi->co[n+1][i]+sl->th->co[n
-                                                +1][i]-sl->pa->co[ty][jres][n+1]))*sl->pa->co[ty][jdz][n+1];
+            table += (1.-sl->SS->thi->co[n+1][i]/(sl->SS->thi->co[n+1][i]+sl->th->co[n
+                                                                                     +1][i]-sl->pa->co[ty][jres][n+1]))*sl->pa->co[ty][jdz][n+1];
         }
     }
 
-  return table;
+    return table;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -85,44 +84,44 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
 double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 
 {
-  double table=0.0;
-  double thresh=0.0;
-  long n;// number of layer below the threshold
-  long nmax=sl->pa->nch;
+    double table=0.0;
+    double thresh=0.0;
+    long n;// number of layer below the threshold
+    long nmax=sl->pa->nch;
     long l;//counter
-  short out=0;
+    short out=0;
 
-  n = 1;
+    n = 1;
 
-  if (sl->SS->T->co[n][i]<thresh && nmax>1)
+    if (sl->SS->T->co[n][i]<thresh && nmax>1)
     {
 
-      do
+        do
         {
-          n++;
-          if (n==nmax) out=-1;
-          if (sl->SS->T->co[n][i]>=thresh && sl->SS->T->co[n-1][i]<thresh) out=1;
+            n++;
+            if (n==nmax) out=-1;
+            if (sl->SS->T->co[n][i]>=thresh && sl->SS->T->co[n-1][i]<thresh) out=1;
         }
-      while (out==0);
+        while (out==0);
 
-      for (l=1; l<n-1; l++)
+        for (l=1; l<n-1; l++)
         {
-          table += sl->pa->co[ty][jdz][l];
+            table += sl->pa->co[ty][jdz][l];
         }
 
-      if (out==1)
+        if (out==1)
         {
-          table += (sl->SS->thi->co[n-1][i]/(sl->SS->thi->co[n-1][i]+sl->th->co[n-1][i]
-                                             -sl->pa->co[ty][jres][n-1]))*sl->pa->co[ty][jdz][n-1];
+            table += (sl->SS->thi->co[n-1][i]/(sl->SS->thi->co[n-1][i]+sl->th->co[n-1][i]
+                                               -sl->pa->co[ty][jres][n-1]))*sl->pa->co[ty][jdz][n-1];
         }
-      else
+        else
         {
-          table = 0.;
+            table = 0.;
         }
 
     }
 
-  return table;
+    return table;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -133,56 +132,57 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 
 {
-  double table=0.0;
-  double thresh=0.0;
-  long n;// number of layer below the threshold
-  long l;//counter
-  short out=0;
+    double table=0.0;
+    double thresh=0.0;
+    long n;// number of layer below the threshold
+    long l;//counter
+    short out=0;
 
-  n = nlayer(Z, sl->pa->co[ty][jdz], sl->pa->nch, -1);
-// std::cout << "nlayer = " << n << std::endl;
-  if (n>1)
+    n = nlayer(Z, sl->pa->co[ty][jdz], sl->pa->nch, -1);
+ //   std::cout << "nlayer = " << n << std::endl;
+
+    if (n>1)
     {
 
-      if (sl->Ptot->co[n][i] < thresh)
+        if (sl->Ptot->co[n][i] < thresh)
         {
 
-          for (l=1; l<=n; l++)
+            for (l=1; l<=n; l++)
             {
-              table += sl->pa->co[ty][jdz][l];
+                table += sl->pa->co[ty][jdz][l];
             }
 
         }
-      else
+        else
         {
 
-          do
+            do
             {
-              n--;
-              if (n==1) out=-1;
-              if (sl->Ptot->co[n+1][i] >= thresh && sl->Ptot->co[n][i] < thresh) out=1;
+                n--;
+                if (n==1) out=-1;
+                if (sl->Ptot->co[n+1][i] >= thresh && sl->Ptot->co[n][i] < thresh) out=1;
             }
-          while (out==0);
+            while (out==0);
 
-          if (out==1)
+            if (out==1)
             {
 
-              for (l=1; l<=n; l++)
+                for (l=1; l<=n; l++)
                 {
-                  table += sl->pa->co[ty][jdz][l];
+                    table += sl->pa->co[ty][jdz][l];
                 }
 
-              table += 0.5 * sl->pa->co[ty][jdz][n+1];
-              table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) *
-                       (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-sl->Ptot->co[n][i]);
+                table += 0.5 * sl->pa->co[ty][jdz][n+1];
+                table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) *
+                         (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-sl->Ptot->co[n][i]);
 
             }
         }
     }
 
-  if (table>Z) table = Z;
+    if (table>Z) table = Z;
 
-  return table;
+    return table;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -193,46 +193,51 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 
 {
-  double table=0.0;
-  double thresh=0.0;
-  long n;// number of layer below the threshold
-  long nmax=sl->pa->nch; // nmax(small_example-channel = 3)
-  long l;//counter
-  short out=0;
+    double table=0.0;
+    double thresh=0.0;
+    long n;// number of layer below the threshold
+    long nmax=sl->pa->nch;
 
-  n = 3;
+    long l;//counter
+    short out=0;
 
-  if (sl->Ptot->co[n][i] < thresh)
+    n = 3;
+ //   std::cout << "sl->Ptot->co[n][i] = " << sl->Ptot->co[n][i] << std::endl;
+    if (sl->Ptot->co[n][i] < thresh)
     {
 
-      do
+        do
         {
-          n++;
-          if (n==nmax) out=-1;
-          if (sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1; // look here!
-        }
-      while (out==0);
+            n++;
+          if (n>=nmax) out=-1;
+          if (n<=nmax && sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1;
+//            Previosuly written:
+//            if (n==nmax) out=-1;
+//            if (sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1; // look here!
 
-      for (l=1; l<n; l++)
+        }
+        while (out==0);
+
+        for (l=1; l<n; l++)
         {
-          table += sl->pa->co[ty][jdz][l];
+            table += sl->pa->co[ty][jdz][l];
         }
 
-      if (out==1)
+        if (out==1)
         {
-          table += ( 0.5*sl->pa->co[ty][jdz][n] - (sl->Ptot->co[n][i]-thresh)*0.5*
-                     (sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/(sl->Ptot->co[n][i]
-                         -sl->Ptot->co[n-1][i]) );
+            table += ( 0.5*sl->pa->co[ty][jdz][n] - (sl->Ptot->co[n][i]-thresh)*0.5*
+                                                    (sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/(sl->Ptot->co[n][i]
+                                                                                                       -sl->Ptot->co[n-1][i]) );
         }
-      else
+        else
         {
-          table += sl->pa->co[ty][jdz][n];
+            table += sl->pa->co[ty][jdz][n];
         }
     }
 
-  if (table>Z) table = Z;
+    if (table>Z) table = Z;
 
-  return table;
+    return table;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -244,39 +249,39 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 long nlayer(double D, double *dz, long max, short d)
 {
 
-  double z=0.;
-  long l=1;
+    double z=0.;
+    long l=1;
 
-  do
+    do
     {
-      if (l>1) z += dz[l-1]/2.;
-      z += dz[l]/2.;
-      l++;
+        if (l>1) z += dz[l-1]/2.;
+        z += dz[l]/2.;
+        l++;
     }
-  while (z<D && l<=max);
+    while (z<D && l<=max);
 
 
-  if (z>=D)
+    if (z>=D)
     {
-      if (d==-1)
+        if (d==-1)
         {
-          return (l-1);
+            return (l-1);
         }
-      else
+        else
         {
-          if (fabs(z-D)<1.E-5 || l-1==1)
+            if (fabs(z-D)<1.E-5 || l-1==1)
             {
-              return (l-1);
+                return (l-1);
             }
-          else
+            else
             {
-              return (l-2);
+                return (l-2);
             }
         }
     }
-  else
+    else
     {
-      return (l-1);
+        return (l-1);
     }
 }
 
