@@ -193,7 +193,7 @@ HeatEqMaxIter=700
 !=============================================================================
 !  OUTPUT TIME SERIES
 !=============================================================================
-
+! Output point Dt in hours 
 DtPlotPoint = 1
 PointOutputFile = "output-tabs/point"
 !SnowProfileFile = "output-tabs/snow"
@@ -209,6 +209,7 @@ SWbeamPoint=9
 SWdiffPoint=10
 LWinPoint=11
 
+! Output maps Dt in hours 
 OutputSnowMaps = 24
 OutputSoilMaps = 24
 !!OutputSurfEBALMaps = 24
