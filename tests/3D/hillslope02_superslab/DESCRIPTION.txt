@@ -1,8 +1,19 @@
 Model: GEOtop
-Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1) 
-Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
-Author: Emanuele Cordano (emanuele.cordano@rendena100.eu)
-Date: 29-08-2016
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
 Name: hillslope02_suberslab
-Description: Slope-uniform hillslope (sand with two clay slabs) (100 meters long 10% steep) with a heavy rainfall (50 mm/hr for 3 hours). Inspired by the Superslab Case (WRR, Kollet at al, submitted)
-Output: Soil Water Maps at 1.5 hours since the beginning
+
+Description: Uniform hillslope (sand) (100 meters long 10% steep)
+with a heavy rainfall (50 mm/hr for 3 hours).
+Inspired by the Superslab Case (WRR, Kollet at al, submitted)
+
+Time:
+- 01/01/2000 00:00 
+- 01/01/2000 00:03
+
+Output:
+- tabs (14): every 3 minutes (basin,discharge,psiliq,thetaliq)
+- maps (204): every 3 minutes (hsup,psiliq,thetaliq,wt,wttop)
