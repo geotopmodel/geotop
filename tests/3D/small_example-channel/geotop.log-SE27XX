@@ -331,10 +331,10 @@ PointID[1] = -9.999000e+03 (default)
 CoordinatePointX[1] = -9.999000e+03 (default) 
 CoordinatePointY[1] = -9.999000e+03 (default) 
 SavingPoints[1] = 0.000000e+00 (default) 
-OutputSoilMaps[1] = 0.000000e+00 (default) 
-OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 2.400000e+01 
+OutputSnowMaps[1] = 2.400000e+01 
 OutputGlacierMaps[1] = 0.000000e+00 (default) 
-OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 2.400000e+01 
 OutputVegetationMaps[1] = 0.000000e+00 (default) 
 OutputMeteoMaps[1] = 0.000000e+00 (default) 
 SpecialPlotBegin[1] = 0.000000e+00 (default) 
@@ -1261,27 +1261,27 @@ Soil water transpires from the first 3 layers
 24/2/2012 0:00 38.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 24/2/2012 1:00 39.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 24/2/2012 2:00 39.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 3:00 40.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 4:00 40.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 5:00 41.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 6:00 41.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 7:00 42.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 8:00 42.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 9:00 43.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 10:00 43.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 11:00 43.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 12:00 44.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 13:00 44.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 14:00 45.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 15:00 45.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 16:00 46.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 17:00 46.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 18:00 47.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 19:00 47.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 20:00 48.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 21:00 48.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 22:00 49.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-24/2/2012 23:00 49.54% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+24/2/2012 3:00 40.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 4:00 40.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 5:00 41.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 6:00 41.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 7:00 42.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 8:00 42.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 9:00 43.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 10:00 43.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 11:00 43.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 12:00 44.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 13:00 44.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 14:00 45.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 15:00 45.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 16:00 46.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 17:00 46.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 18:00 47.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 19:00 47.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 20:00 48.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 21:00 48.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 22:00 49.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+24/2/2012 23:00 49.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 25/2/2012 0:00 50.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 25/2/2012 1:00 50.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
 25/2/2012 2:00 50.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  

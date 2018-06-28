@@ -83,7 +83,6 @@ cnt:9 res:2.718948e-02 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:10 res:2.919011e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:11 res:5.934040e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:12 res:3.367939e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:00 10.00% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:01  
 cnt:1 res:3.904885e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.799945e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:3 res:1.705118e+05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
@@ -158,7 +157,6 @@ cnt:24 res:2.438185e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:25 res:2.860153e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:26 res:4.949916e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:27 res:2.480739e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 20.00% - Times: Elapsed (h:m:s)  0:00:46 Remaining (h:m)  0:03  
 cnt:1 res:3.669996e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.161246e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.219407e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -259,7 +257,6 @@ cnt:31 res:3.329907e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:32 res:4.404367e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:33 res:9.808393e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:34 res:5.074995e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 30.00% - Times: Elapsed (h:m:s)  0:01:26 Remaining (h:m)  0:03  
 cnt:1 res:3.445363e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.918752e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.692412e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -365,7 +362,6 @@ cnt:32 res:3.541317e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:33 res:3.765906e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:34 res:5.051773e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:35 res:2.112280e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 40.00% - Times: Elapsed (h:m:s)  0:01:58 Remaining (h:m)  0:02  
 cnt:1 res:3.239712e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.949341e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.929715e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -446,7 +442,6 @@ cnt:26 res:4.122311e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:27 res:3.606923e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:28 res:3.126143e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:29 res:2.506723e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 50.00% - Times: Elapsed (h:m:s)  0:02:17 Remaining (h:m)  0:02  
 cnt:1 res:3.061305e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.728082e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:3.077739e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -497,7 +492,6 @@ cnt:18 res:1.568362e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:19 res:4.214893e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:20 res:3.151565e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:21 res:1.250380e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 60.00% - Times: Elapsed (h:m:s)  0:02:27 Remaining (h:m)  0:01  
 cnt:1 res:2.911068e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.450526e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:3.182910e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -535,7 +529,6 @@ cnt:13 res:1.019917e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:14 res:1.552460e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:15 res:1.901232e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:16 res:4.883738e-10 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 70.00% - Times: Elapsed (h:m:s)  0:02:33 Remaining (h:m)  0:01  
 cnt:1 res:2.783603e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.401191e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:3.264555e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -552,7 +545,6 @@ cnt:6 res:3.913858e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.303907e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:1.453499e-07 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:9 res:1.177369e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 80.00% - Times: Elapsed (h:m:s)  0:02:37 Remaining (h:m)  0:00  
 cnt:1 res:2.672448e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.403871e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:3.331141e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -565,7 +557,6 @@ cnt:4 res:5.309945e-02 lambda:5.000000e-01 Dt:18.000000 P:0.250000
 cnt:5 res:7.355415e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:4.076579e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:6.649752e-10 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:03 90.00% - Times: Elapsed (h:m:s)  0:02:40 Remaining (h:m)  0:00  
 cnt:1 res:2.572770e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.403872e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:3.386277e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -577,7 +568,15 @@ cnt:5 res:1.444231e-02 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:1.382455e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.453646e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:4.950962e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:02:41 Remaining (h:m) -1:59  
+1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:00:48 Remaining (h:m) -1:59  
+
+1/1/2000 0:03 JD:0.002083 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 47.90 s, t_sub: 47.90 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  2.50 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.081874e-05 mm/h 
+ Tot Error Richards=5.409368e-07 mm Mean Time Step=18.000000 s
+
 Number of times the simulation #1 has been run: 1
 Close files
 Deallocating global variables

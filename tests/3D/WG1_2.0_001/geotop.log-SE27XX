@@ -16,7 +16,7 @@ NumSimulationTimes[1] = 1.000000e+00 (default)
 StandardTimeSimulation[1] = 1.000000e+00 
 DtPlotDischarge[1] = 1.000000e+00 
 DtPlotPoint[1] = 1.000000e+00 
-DtPlotBasin[1] = 2.400000e+01 
+DtPlotBasin[1] = 1.000000e+00 
 NumLowPassFilterOnDemForAll[1] = 2.000000e+00 
 NumLowPassFilterOnDemForCurv[1] = 2.000000e+01 
 FlagSkyViewFactor[1] = 1.000000e+00 
@@ -381,12 +381,12 @@ PointID[1] = -9.999000e+03 (default)
 CoordinatePointX[1] = -9.999000e+03 (default) 
 CoordinatePointY[1] = -9.999000e+03 (default) 
 SavingPoints[1] = 0.000000e+00 (default) 
-OutputSoilMaps[1] = 2.400000e+01 
-OutputSnowMaps[1] = 2.400000e+01 
+OutputSoilMaps[1] = 1.000000e+00 
+OutputSnowMaps[1] = 1.000000e+00 
 OutputGlacierMaps[1] = 0.000000e+00 (default) 
-OutputSurfEBALMaps[1] = 2.400000e+01 
+OutputSurfEBALMaps[1] = 1.000000e+00 
 OutputVegetationMaps[1] = 0.000000e+00 (default) 
-OutputMeteoMaps[1] = 2.400000e+01 
+OutputMeteoMaps[1] = 1.000000e+00 
 SpecialPlotBegin[1] = 0.000000e+00 (default) 
 SpecialPlotEnd[1] = 0.000000e+00 (default) 
 SoilLayerTypes[1] = 1.000000e+00 (default) 
@@ -911,7 +911,7 @@ RunSoilMaximumTotalSoilMoistureFile = none
 RunSoilMinimumTotalSoilMoistureFile = none
 SoilTempTensorFile = none
 FirstSoilLayerTempMapFile = none
-SoilAveragedTempTensorFile = output-maps/T
+SoilAveragedTempTensorFile = none
 FirstSoilLayerAveragedTempMapFile = none
 SoilLiqContentTensorFile = none
 FirstSoilLayerLiqContentMapFile = none
@@ -931,7 +931,7 @@ ShadowFractionTimeMapFile = none
 SurfaceHeatFluxMapFile = none
 SurfaceSensibleHeatFluxMapFile = none
 SurfaceLatentHeatFluxMapFile = none
-SurfaceTempMapFile = output-maps/Ts
+SurfaceTempMapFile = none
 PrecipitationMapFile = output-maps/Prec
 CanopyInterceptedWaterMapFile = none
 SoilLiqWaterPressTensorFile = none
@@ -946,7 +946,7 @@ AirTempMapFile = output-maps/Ta
 WindSpeedMapFile = none
 WindDirMapFile = none
 RelHumMapFile = none
-SWEMapFile = output-maps/SWE
+SWEMapFile = none
 GlacierWaterEqMapFile = none
 SnowDurationMapFile = none
 ThawedSoilDepthMapFile = none
@@ -1383,14 +1383,102 @@ Channel pixels: 0
 Soil water evaporates from the first 2 layers
 Soil water transpires from the first 7 layers
 4/10/2009 1:00 9.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
-4/10/2009 2:00 18.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 3:00 27.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 4:00 36.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 5:00 45.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 6:00 54.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 7:00 63.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 8:00 72.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 9:00 81.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 10:00 90.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
-4/10/2009 11:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+
+4/10/2009 1:00 JD:276.041667 (1^ simulation day)  9.09% completed! 
+ t_meteo:  0.00 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-37.38 W/m2  H= -4.66 W/m2  LE=  1.36 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.951979e-11 mm/h 
+ Tot Error Richards=1.951979e-11 mm Mean Time Step=3600.000000 s
+
+4/10/2009 2:00 18.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 2:00 JD:276.083333 (1^ simulation day) 18.18% completed! 
+ t_meteo:  0.00 s, t_energy:  0.07 s, t_blowingsnow:  0.00 s, t_water:  0.03 s, t_sub:  0.03 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-37.76 W/m2  H= -3.31 W/m2  LE=  1.30 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.535819e-12 mm/h 
+ Tot Error Richards=2.705561e-11 mm Mean Time Step=3600.000000 s
+
+4/10/2009 3:00 27.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 3:00 JD:276.125000 (1^ simulation day) 27.27% completed! 
+ t_meteo:  0.00 s, t_energy:  0.08 s, t_blowingsnow:  0.00 s, t_water:  0.04 s, t_sub:  0.04 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-38.83 W/m2  H= -2.71 W/m2  LE=  1.76 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=6.957526e-12 mm/h 
+ Tot Error Richards=3.401314e-11 mm Mean Time Step=3600.000000 s
+
+4/10/2009 4:00 36.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 4:00 JD:276.166667 (1^ simulation day) 36.36% completed! 
+ t_meteo:  0.00 s, t_energy:  0.09 s, t_blowingsnow:  0.00 s, t_water:  0.05 s, t_sub:  0.05 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-39.19 W/m2  H= -2.60 W/m2  LE=  2.33 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.570197e-12 mm/h 
+ Tot Error Richards=4.158333e-11 mm Mean Time Step=3600.000000 s
+
+4/10/2009 5:00 45.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 5:00 JD:276.208333 (1^ simulation day) 45.45% completed! 
+ t_meteo:  0.00 s, t_energy:  0.10 s, t_blowingsnow:  0.00 s, t_water:  0.06 s, t_sub:  0.06 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-40.37 W/m2  H= -2.01 W/m2  LE=  2.45 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=7.639941e-12 mm/h 
+ Tot Error Richards=4.922327e-11 mm Mean Time Step=3600.000000 s
+
+4/10/2009 6:00 54.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 6:00 JD:276.250000 (1^ simulation day) 54.55% completed! 
+ t_meteo:  0.00 s, t_energy:  0.11 s, t_blowingsnow:  0.00 s, t_water:  0.08 s, t_sub:  0.08 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:-40.74 W/m2  H= -1.25 W/m2  LE=  2.58 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.381955e-10 mm/h 
+ Tot Error Richards=3.874188e-10 mm Mean Time Step=3600.000000 s
+
+4/10/2009 7:00 63.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 7:00 JD:276.291667 (1^ simulation day) 63.64% completed! 
+ t_meteo:  0.00 s, t_energy:  0.13 s, t_blowingsnow:  0.00 s, t_water:  0.09 s, t_sub:  0.09 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW=  8.10 W/m2  LW:-42.02 W/m2  H= -2.15 W/m2  LE=  3.29 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.706039e-10 mm/h 
+ Tot Error Richards=7.580227e-10 mm Mean Time Step=3600.000000 s
+
+4/10/2009 8:00 72.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 8:00 JD:276.333333 (1^ simulation day) 72.73% completed! 
+ t_meteo:  0.00 s, t_energy:  0.14 s, t_blowingsnow:  0.00 s, t_water:  0.11 s, t_sub:  0.11 s, t_sup:  0.00 s, t_out:  0.00 s
+ SW= 71.22 W/m2  LW:-50.33 W/m2  H= -7.34 W/m2  LE=  6.18 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.616057e-10 mm/h 
+ Tot Error Richards=1.119628e-09 mm Mean Time Step=3600.000000 s
+
+4/10/2009 9:00 81.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 9:00 JD:276.375000 (1^ simulation day) 81.82% completed! 
+ t_meteo:  0.00 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.13 s, t_sub:  0.12 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=174.78 W/m2  LW:-58.34 W/m2  H= -7.70 W/m2  LE=  8.36 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.425573e-10 mm/h 
+ Tot Error Richards=1.462186e-09 mm Mean Time Step=3600.000000 s
+
+4/10/2009 10:00 90.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 10:00 JD:276.416667 (1^ simulation day) 90.91% completed! 
+ t_meteo:  0.00 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.14 s, t_sub:  0.14 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=276.37 W/m2  LW:-75.29 W/m2  H=  1.60 W/m2  LE=  8.71 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=3.103621e-10 mm/h 
+ Tot Error Richards=1.772548e-09 mm Mean Time Step=3600.000000 s
+
+4/10/2009 11:00 100.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+4/10/2009 11:00 JD:276.458333 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.16 s, t_sub:  0.15 s, t_sup:  0.00 s, t_out:  0.01 s
+ SW=347.20 W/m2  LW:-99.45 W/m2  H= 13.10 W/m2  LE= 16.63 W/m2 
+ Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.584231e-11 mm/h 
+ Tot Error Richards=1.788390e-09 mm Mean Time Step=3600.000000 s
+
 Number of times the simulation #1 has been run: 1
