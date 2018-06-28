@@ -2,7 +2,7 @@ Model: GEOtop
 Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
 Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
 Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
-Date: 27-06-2018
+Date: 28-06-2018
 
 Name: panola
 
