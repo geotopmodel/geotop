@@ -12,7 +12,7 @@ WaterBalance = 1
 
 !Output timeseries Dt in hours 
 DtPlotDischarge = 0.5
-DtPlotPoint = 0.25
+DtPlotPoint = 0.5
 OutputSoilMaps = 2
 
 DtPlotBasin = 1
