@@ -3,7 +3,8 @@
 !=============================================================================
 Latitude               = 46.75604
 Longitude              = 10.70311
-TimeStepEnergyAndWater = 84600
+TimeStepEnergyAndWater = 86400
+!old: TimeStepEnergyAndWater = 84600
 InitDateDDMMYYYYhhmm = 05/10/2009 00:00
 EndDateDDMMYYYYhhmm = 06/10/2009 01:00
 !EndDateDDMMYYYYhhmm =  24/11/2013 23:00
@@ -18,7 +19,7 @@ OutputSoilMaps = 24
 OutputSurfEBALMaps = 24
 OutputMeteoMaps = 24
 OutputSnowMaps = 24
-OutputGlacierMaps	=	24
+OutputGlacierMaps=24
 
 !=============================================================================
 !  RECOVERY
@@ -234,8 +235,10 @@ ThetaSat = 0.487
 ThetaRes = 0.057
 AlphaVanGenuchten             = 0.001
 NVanGenuchten                 = 1.6
-NormalHydrConductivity        = 0.05  !forced to react quicker
-LateralHydrConductivity       = 1     !forced to react quicker 
+NormalHydrConductivity        = 0.05
+!forced to react quicker
+LateralHydrConductivity       = 1
+!forced to react quicker 
 
 !=======================================
 ! CHANNELS
@@ -336,32 +339,32 @@ SoilAll = 1
 
 
 
-AirTempMapFile = "output-maps/Ta"
+! AirTempMapFile = "output-maps/Ta"
 
-EvapotranspirationFromSoilMapFile = "output-maps/ETsoil" 
+! EvapotranspirationFromSoilMapFile = "output-maps/ETsoil" 
 
-NetLongwaveRadiationMapFile = "output-maps/netLW"
-NetPrecipitationMapFile = "output-maps/Pnet"
+! NetLongwaveRadiationMapFile = "output-maps/netLW"
+! NetPrecipitationMapFile = "output-maps/Pnet"
 
-NetRadiationMapFile = "output-maps/netRad"
-NetShortwaveRadiationMapFile = "output-maps/netSW"
-PrecipitationMapFile = "output-maps/P"
-RelHumMapFile = "output-maps/RHrel"
+! NetRadiationMapFile = "output-maps/netRad"
+! NetShortwaveRadiationMapFile = "output-maps/netSW"
+! PrecipitationMapFile = "output-maps/P"
+! RelHumMapFile = "output-maps/RHrel"
 
-SWEMapFile = "output-maps/SWE"
+!SWEMapFile = "output-maps/SWE"
 
 SnowDepthMapFile ="output-maps/snowdepth"
 SnowDurationMapFile = "output-maps/snowduration"
 SnowMeltedMapFile = "output-maps/snowmelted"
 SnowSublMapFile = "output-maps/snowsubl"
 
-GlacierDepthMapFile = "output-maps/glacierdepth"
-GlacierMeltedMapFile = "output-maps/glaciermelted"
-GlacierSublimatedMapFile = "output-maps/glaciersubl"
+!GlacierDepthMapFile = "output-maps/glacierdepth"
+!GlacierMeltedMapFile = "output-maps/glaciermelted"
+!GlacierSublimatedMapFile = "output-maps/glaciersubl"
 
-SurfaceTempMapFile = "output-maps/SurfTemp"
-ThawedSoilDepthMapFile = "output-maps/thawedsoildepth"
-WaterTableDepthMapFile = "output-maps/watertable" 
+! SurfaceTempMapFile = "output-maps/SurfTemp"
+! ThawedSoilDepthMapFile = "output-maps/thawedsoildepth"
+! WaterTableDepthMapFile = "output-maps/watertable" 
 
 
 !=============================================================================
