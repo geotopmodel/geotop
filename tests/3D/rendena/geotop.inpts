@@ -33,7 +33,7 @@ EnergyBalance = 1
 !Output timeseries Dt in hours 
 DtPlotDischarge = 1
 DtPlotPoint = 1
-DtPlotBasin = 24
+DtPlotBasin = 1
 
 !Output maps Dt in hours 
 OutputSoilMaps =10 

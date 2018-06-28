@@ -1,9 +1,22 @@
 Model: GEOtop
-Compiler: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1) 
-Processor: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
-Author: Emanuele Cordano (emanuele.cordano@rendena100.eu)
-Date: `10-01-2017
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
 Name: rendena
-Oldname: rendena
-Description: Simulations of Snow Map for two days in march 2014 in the higher Sarca Basin (Val Rendena), Trentino, Italy
-Output: ...
+
+Description: Simulations of Snow Map for two days in march 2014 in the higher
+Sarca Basin (Val Rendena), Trentino, Italy
+
+Time:
+- 01/03/2014 00:00
+- 01/03/2014 10:00
+
+Output:
+- tabs (3): every 1 hour (basin,discharge,snowcover)
+- maps (4): every 10 hours (hsup,snowdepth,SWEDENSITY,SWE)
+
+Comments:
+SnowProfileFile = "output-tabs/snow"
+is NOT printed.
