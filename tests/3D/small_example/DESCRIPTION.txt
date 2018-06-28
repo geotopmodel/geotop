@@ -1,0 +1,18 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: small_example
+
+Description: ...
+
+Time:
+- 20/01/2012 12:00
+- 21/01/2012 12:00
+
+Output:
+- tabs (15): every 1 hour (point,soiltemp,snowtemp,snowliq,snowice,snowly)
+- maps (169): every 1 day (MMGST,snowdepth,SWEDENISTY,SWE,T)
+
