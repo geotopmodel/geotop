@@ -6,9 +6,7 @@
 - Date: 28-06-2018
 
 - Source code: modified (see following comments)
-- geotop.inpts: modified for 3D tests in order to print some variables
-not previously printed, since the printing output frequency was higher
-than the simulation time (see following comments)
+- geotop.inpts: modified (see following comments)
 
 ## Source code modified
 The function "find_watertabledepth_dw" in the file __tables.cc__ (in src/geotop)
@@ -105,7 +103,12 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 }
 ```
 ### geotop.inpts
-For unknown reasons some parameters are not printed for the following 3D tests:
+More parameters are now printed for some 3D test cases respect to the
+previous test results; actually in the geotop.inpts the old printing output
+frequency was higher than the simulation time so some variables
+did not appear.
+The presence of all the requested output files is now fulfilled
+except in the following cases and for the following parameters:
 - panola: Pnet
 - panola_25pixel: Pnet
 - prealpiC: HN, NetPrec
@@ -257,7 +260,56 @@ Failing tests: 2/40.
 
 The full output is:
 ```
+elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/meson-build-release[v3.0*] $ meson test --suite geotop:3D --num-processes 4
+ninja: Entering directory `/home/elisa/Scrivania/MHPC/geotop_3.0/meson-build-release'
+ninja: no work to do.
+ 1/40 geotop:3D+Borden05m / 3D/Borden05m      OK      103.63 s
+ 2/40 geotop:3D+example / 3D/example          OK      15.39 s
+ 3/40 geotop:3D+hillslope01 / 3D/hillslope01  OK      72.52 s
+ 4/40 geotop:3D+hillslope02_superslab / 3D/hillslope02_superslab  OK      23.63 s
+ 5/40 geotop:3D+Mazia / 3D/Mazia              OK      63.27 s
+ 6/40 geotop:3D+no_reflection / 3D/no_reflection  OK       2.30 s
+ 7/40 geotop:3D+onepoint_hydrostatic / 3D/onepoint_hydrostatic  OK       9.41 s
+ 8/40 geotop:3D+panola / 3D/panola            OK      72.13 s
+ 9/40 geotop:3D+panola_25pixel / 3D/panola_25pixel  OK       3.00 s
+10/40 geotop:3D+panola_25pixel_nobed / 3D/panola_25pixel_nobed  OK      59.40 s
+11/40 geotop:3D+panola_25pixel_nobed_hydrostatic / 3D/panola_25pixel_nobed_hydrostatic  OK      57.23 s
+12/40 geotop:3D+prealpiC / 3D/prealpiC        OK      230.08 s
+13/40 geotop:3D+PSQL_test / 3D/PSQL_test      OK      92.66 s
+14/40 geotop:3D+rendena / 3D/rendena          OK      51.72 s
+15/40 geotop:3D+small_example / 3D/small_example  OK       1.87 s
+16/40 geotop:3D+small_example-channel / 3D/small_example-channel  OK       3.21 s
+17/40 geotop:3D+small_example-onlyEnergy / 3D/small_example-onlyEnergy  OK       2.25 s
+18/40 geotop:3D+snow_dstr_SENSITIVITY / 3D/snow_dstr_SENSITIVITY  OK      310.30 s
+19/40 geotop:3D+Vshape / 3D/Vshape            OK       6.03 s
+20/40 geotop:3D+WG1_2.0_001 / 3D/WG1_2.0_001  OK      53.14 s
+21/40 geotop:3D+Borden05m / 3D/Borden05m.test_runner  OK       1.14 s
+22/40 geotop:3D+example / 3D/example.test_runner  OK       0.19 s
+23/40 geotop:3D+hillslope01 / 3D/hillslope01.test_runner  OK       0.45 s
+24/40 geotop:3D+hillslope02_superslab / 3D/hillslope02_superslab.test_runner  OK       0.47 s
+25/40 geotop:3D+Mazia / 3D/Mazia.test_runner  FAIL     1.34 s
+26/40 geotop:3D+no_reflection / 3D/no_reflection.test_runner  OK       0.28 s
+27/40 geotop:3D+onepoint_hydrostatic / 3D/onepoint_hydrostatic.test_runner  OK       0.13 s
+28/40 geotop:3D+panola / 3D/panola.test_runner  OK       0.12 s
+29/40 geotop:3D+panola_25pixel / 3D/panola_25pixel.test_runner  OK       0.04 s
+30/40 geotop:3D+panola_25pixel_nobed / 3D/panola_25pixel_nobed.test_runner  OK       0.13 s
+31/40 geotop:3D+panola_25pixel_nobed_hydrostatic / 3D/panola_25pixel_nobed_hydrostatic.test_runner  OK       0.14 s
+32/40 geotop:3D+prealpiC / 3D/prealpiC.test_runner  OK      13.89 s
+33/40 geotop:3D+PSQL_test / 3D/PSQL_test.test_runner  OK       1.21 s
+34/40 geotop:3D+rendena / 3D/rendena.test_runner  OK       1.55 s
+35/40 geotop:3D+small_example / 3D/small_example.test_runner  OK       0.04 s
+36/40 geotop:3D+small_example-channel / 3D/small_example-channel.test_runner  OK       0.13 s
+37/40 geotop:3D+small_example-onlyEnergy / 3D/small_example-onlyEnergy.test_runner  OK       0.23 s
+38/40 geotop:3D+snow_dstr_SENSITIVITY / 3D/snow_dstr_SENSITIVITY.test_runner  FAIL     0.30 s
+39/40 geotop:3D+Vshape / 3D/Vshape.test_runner  OK       0.04 s
+40/40 geotop:3D+WG1_2.0_001 / 3D/WG1_2.0_001.test_runner  OK       0.12 s
 
+OK:        38
+FAIL:       2
+SKIP:       0
+TIMEOUT:    0
+
+Full log written to /home/elisa/Scrivania/MHPC/geotop_3.0/meson-build-release/meson-logs/testlog.txt
 ```
 
 #### Mazia.test_runner 
@@ -290,6 +342,15 @@ obtained after running geotop-2.0 and geotop-3.0.
 
 Precisely the failing_ouput file is the following:
 ```
+Comparing output-tabs/discharge.txt and output-tabs-SE27XX/discharge.txt
+----------------
+##3       #:8   <== 4.450588e+02
+##3       #:8   ==> 1.712429e+02
+@ Absolute error = 2.7381590000e+2, Relative error = 1.5989912574e+0
+##3       #:9   <== 1.598672e+02
+##3       #:9   ==> 5.257873e+01
+@ Absolute error = 1.0728847000e+2, Relative error = 2.0405298873e+0
 
++++  File "output-tabs/discharge.txt" differs from file "output-tabs-SE27XX/discharge.txt"
 ```
 Since the relative error is small we can consider the test valid.
