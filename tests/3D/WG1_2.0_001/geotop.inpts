@@ -14,7 +14,7 @@ PointSim   = 0
 
 TimeStepEnergyAndWater =	3600
 InitDateDDMMYYYYhhmm   =	04/10/2009 00:00
-!EndDateDDMMYYYYhhmm   =	01/10/2011 :00
+!EndDateDDMMYYYYhhmm   =	01/10/2011 00:00
 ! Simulation time reduced to avoid overflow when example run with meteoio
 ! interpolation active
 ! SC 14.11.2016
@@ -38,13 +38,13 @@ RecoverSim		=	0
 ! Output timeseries Dt in hours 
 DtPlotDischarge	       	= 	1
 DtPlotPoint		=	1
-DtPlotBasin		=	24
+DtPlotBasin		=	1
 
 ! Output maps Dt in hours 
-OutputSoilMaps	        =	24
-OutputSurfEBALMaps	=	24
-OutputMeteoMaps		=	24
-OutputSnowMaps		=	24
+OutputSoilMaps	        =	1
+OutputSurfEBALMaps	=	1
+OutputMeteoMaps		=	1
+OutputSnowMaps		=	1
 
 !=======================================
 ! METEO STATIONS Input
@@ -319,7 +319,6 @@ InitSnowDepthMapFile		= "INmaps500/SnowDepth"
 InitSWEMapFile 			= "INmaps500/SWE"
 !InitSnowAgeMapFile 		= "INmaps500/SnowAge"
 
-! FROM NOW ON, ALL WILL BE COMMENTED
 ! Output files
 
 ! Tabs 

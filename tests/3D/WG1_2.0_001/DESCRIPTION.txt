@@ -1,10 +1,21 @@
 Model: GEOtop
-Compiler: icc (ICC) 16.0.0 20150815 (Scientific Linux release 6.8 (Carbon)2.6.32-573.22.1.el6.x86_64)
-Storage: VMware datastore
-Host: VM CentOS release 6.8 (Final)  2.6.32-642.6.1.el6.x86_64
-Processor: Intel(R) Xeon(R) CPU E5-2667 v2 @ 3.30GHz 
-Author: Giacomo Bertoldi (giacomo.bertoldi@eurac.edu)
-Date: 03-11-2016
-Name: WG1
-Description: 
-Output: 
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: WG1_2.0_001
+
+Description: Distributed simulation Mazia / Muntatschini basin 1
+Used Maps resolution: 500m
+provided by Giacomo Bertoldi, Institute for Alpine Environment
+
+
+Time:
+- 04/10/2009 00:00
+- 04/10/2009 11:00
+
+Output:
+- tabs (23): every 1 hour (basin,discharge,point,psiz,snowDepth,snowIceCont,
+       	    	    	 snowLiqCont,snowTemp,soilTz,thetaice,thetaliq)
+- maps (176): every 1 day (PrecSNOW,PrecTOTAL,SWEDENSITY,SWE,Ta,Ts,watertable)
