@@ -1,11 +1,14 @@
 !*******************************
 !******* CONFIGURATION FOR GEOTOP V.2.0 UZH *********
 !*******************************
-TimeStepEnergyAndWater = 20   
+TimeStepEnergyAndWater = 20
+!Integrations time step [s] for energy and water balance equation 
 InitDateDDMMYYYYhhmm = 01/06/2000 12:00
 EndDateDDMMYYYYhhmm =  01/06/2000 12:10
 EnergyBalance = 0
+!Activate energy balance (Yes=1,No=0)
 WaterBalance=1
+!Activate water balance (Yes=1,No=0)
 PointSim=0
 RecoverSim = 0
 
@@ -217,10 +220,12 @@ RichardMaxIter=700
 
 PointOutputFile = "output-tabs/point"
 DtPlotPoint = 0.016666667
+! 1 minute
 PointAll = 1
 
 DischargeFile = "output-tabs/discharge"
 DtPlotDischarge=0.016666667
+! 1 minute
 
 SoilTempProfileFile="output-tabs/soiltemp"
 SoilLiqContentProfileFile = "output-tabs/soilwater"
@@ -229,6 +234,7 @@ SoilAll=1
 
 BasinOutputFile = "output-tabs/basin"
 DtPlotBasin=0.016666667
+! 1 minute
 BasinAll = 1
 
 ! 
@@ -239,10 +245,9 @@ GlacAll = 1
 !=============================================================================
 
 ! Output maps Dt in hours 
-
-OutputSoilMaps=0.5
-OutputSurfEBALMaps=0.5
-OutputMeteoMaps = 0.5
+OutputSoilMaps=0.1 	  
+OutputSurfEBALMaps=0.1	  
+OutputMeteoMaps = 0.1
 
 ! soil moisture & temperature
 !FirstSoilLayerAveragedTempMapFile = "output-maps/MMGST"

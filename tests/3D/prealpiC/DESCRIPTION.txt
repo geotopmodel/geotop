@@ -1,0 +1,22 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: prealpiC
+
+Description: Study area between Veneto and Trentino Alto-Adige
+
+Time:
+- 16/10/2013 07:00
+- 19/10/2013 07:00
+
+Output:
+- tabs (28): every 1 hour (point)	    	    	
+- maps (9): every 1 day (snowdepth,SWEDENSITY,SWE)
+
+Comments:
+- HNMapFile = "output-maps/HN"
+- NetPrecipitationFile = "output-maps/NetPrec"
+are NOT printed.

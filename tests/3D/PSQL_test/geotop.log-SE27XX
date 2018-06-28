@@ -356,12 +356,12 @@ PointID[1] = -9.999000e+03 (default)
 CoordinatePointX[1] = -9.999000e+03 (default) 
 CoordinatePointY[1] = -9.999000e+03 (default) 
 SavingPoints[1] = 0.000000e+00 (default) 
-OutputSoilMaps[1] = 1.000000e+00 
-OutputSnowMaps[1] = 1.000000e+00 
+OutputSoilMaps[1] = 2.400000e+01 
+OutputSnowMaps[1] = 2.400000e+01 
 OutputGlacierMaps[1] = 0.000000e+00 (default) 
-OutputSurfEBALMaps[1] = 1.000000e+00 
+OutputSurfEBALMaps[1] = 2.400000e+01 
 OutputVegetationMaps[1] = 0.000000e+00 (default) 
-OutputMeteoMaps[1] = 1.000000e+00 
+OutputMeteoMaps[1] = 2.400000e+01 
 SpecialPlotBegin[1] = 0.000000e+00 (default) 
 SpecialPlotEnd[1] = 0.000000e+00 (default) 
 SoilLayerTypes[1] = 1.000000e+00 
@@ -1314,49 +1314,49 @@ Soil water transpires from the first 3 layers
 14/1/2014 1:00 2.08% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:01  
 14/1/2014 2:00 4.17% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:01  
 14/1/2014 3:00 6.25% - Time elapsed (h:m:s)  0:00:04 Time remaining (h:m)  0:01  
-14/1/2014 4:00 8.33% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:01  
+14/1/2014 4:00 8.33% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:00  
 14/1/2014 5:00 10.42% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:01  
 14/1/2014 6:00 12.50% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:00  
 14/1/2014 7:00 14.58% - Time elapsed (h:m:s)  0:00:09 Time remaining (h:m)  0:00  
-14/1/2014 8:00 16.67% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:00  
-14/1/2014 9:00 18.75% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:01  
-14/1/2014 10:00 20.83% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:01  
-14/1/2014 11:00 22.92% - Time elapsed (h:m:s)  0:00:19 Time remaining (h:m)  0:01  
-14/1/2014 12:00 25.00% - Time elapsed (h:m:s)  0:00:21 Time remaining (h:m)  0:01  
-14/1/2014 13:00 27.08% - Time elapsed (h:m:s)  0:00:23 Time remaining (h:m)  0:01  
-14/1/2014 14:00 29.17% - Time elapsed (h:m:s)  0:00:24 Time remaining (h:m)  0:01  
-14/1/2014 15:00 31.25% - Time elapsed (h:m:s)  0:00:26 Time remaining (h:m)  0:00  
-14/1/2014 16:00 33.33% - Time elapsed (h:m:s)  0:00:30 Time remaining (h:m)  0:01  
-14/1/2014 17:00 35.42% - Time elapsed (h:m:s)  0:00:35 Time remaining (h:m)  0:01  
-14/1/2014 18:00 37.50% - Time elapsed (h:m:s)  0:00:36 Time remaining (h:m)  0:01  
-14/1/2014 19:00 39.58% - Time elapsed (h:m:s)  0:00:38 Time remaining (h:m)  0:00  
-14/1/2014 20:00 41.67% - Time elapsed (h:m:s)  0:00:39 Time remaining (h:m)  0:00  
-14/1/2014 21:00 43.75% - Time elapsed (h:m:s)  0:00:40 Time remaining (h:m)  0:00  
-14/1/2014 22:00 45.83% - Time elapsed (h:m:s)  0:00:42 Time remaining (h:m)  0:00  
-14/1/2014 23:00 47.92% - Time elapsed (h:m:s)  0:00:43 Time remaining (h:m)  0:00  
-15/1/2014 0:00 50.00% - Time elapsed (h:m:s)  0:00:44 Time remaining (h:m)  0:00  
-15/1/2014 1:00 52.08% - Time elapsed (h:m:s)  0:00:45 Time remaining (h:m)  0:00  
-15/1/2014 2:00 54.17% - Time elapsed (h:m:s)  0:00:47 Time remaining (h:m)  0:00  
-15/1/2014 3:00 56.25% - Time elapsed (h:m:s)  0:00:48 Time remaining (h:m)  0:00  
-15/1/2014 4:00 58.33% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:00  
-15/1/2014 5:00 60.42% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:00  
-15/1/2014 6:00 62.50% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:00  
-15/1/2014 7:00 64.58% - Time elapsed (h:m:s)  0:00:53 Time remaining (h:m)  0:00  
-15/1/2014 8:00 66.67% - Time elapsed (h:m:s)  0:00:56 Time remaining (h:m)  0:00  
-15/1/2014 9:00 68.75% - Time elapsed (h:m:s)  0:00:58 Time remaining (h:m)  0:00  
-15/1/2014 10:00 70.83% - Time elapsed (h:m:s)  0:01:00 Time remaining (h:m)  0:00  
-15/1/2014 11:00 72.92% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:00  
-15/1/2014 12:00 75.00% - Time elapsed (h:m:s)  0:01:03 Time remaining (h:m)  0:00  
-15/1/2014 13:00 77.08% - Time elapsed (h:m:s)  0:01:07 Time remaining (h:m)  0:00  
-15/1/2014 14:00 79.17% - Time elapsed (h:m:s)  0:01:11 Time remaining (h:m)  0:00  
-15/1/2014 15:00 81.25% - Time elapsed (h:m:s)  0:01:12 Time remaining (h:m)  0:00  
-15/1/2014 16:00 83.33% - Time elapsed (h:m:s)  0:01:15 Time remaining (h:m)  0:00  
-15/1/2014 17:00 85.42% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:00  
-15/1/2014 18:00 87.50% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:00  
-15/1/2014 19:00 89.58% - Time elapsed (h:m:s)  0:01:22 Time remaining (h:m)  0:00  
-15/1/2014 20:00 91.67% - Time elapsed (h:m:s)  0:01:23 Time remaining (h:m)  0:00  
-15/1/2014 21:00 93.75% - Time elapsed (h:m:s)  0:01:24 Time remaining (h:m)  0:00  
-15/1/2014 22:00 95.83% - Time elapsed (h:m:s)  0:01:26 Time remaining (h:m)  0:00  
-15/1/2014 23:00 97.92% - Time elapsed (h:m:s)  0:01:26 Time remaining (h:m)  0:00  
-16/1/2014 0:00 100.00% - Time elapsed (h:m:s)  0:01:28 Time remaining (h:m)  0:00  
+14/1/2014 8:00 16.67% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:00  
+14/1/2014 9:00 18.75% - Time elapsed (h:m:s)  0:00:15 Time remaining (h:m)  0:01  
+14/1/2014 10:00 20.83% - Time elapsed (h:m:s)  0:00:16 Time remaining (h:m)  0:01  
+14/1/2014 11:00 22.92% - Time elapsed (h:m:s)  0:00:18 Time remaining (h:m)  0:01  
+14/1/2014 12:00 25.00% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:01  
+14/1/2014 13:00 27.08% - Time elapsed (h:m:s)  0:00:22 Time remaining (h:m)  0:00  
+14/1/2014 14:00 29.17% - Time elapsed (h:m:s)  0:00:23 Time remaining (h:m)  0:00  
+14/1/2014 15:00 31.25% - Time elapsed (h:m:s)  0:00:24 Time remaining (h:m)  0:00  
+14/1/2014 16:00 33.33% - Time elapsed (h:m:s)  0:00:26 Time remaining (h:m)  0:00  
+14/1/2014 17:00 35.42% - Time elapsed (h:m:s)  0:00:32 Time remaining (h:m)  0:00  
+14/1/2014 18:00 37.50% - Time elapsed (h:m:s)  0:00:34 Time remaining (h:m)  0:00  
+14/1/2014 19:00 39.58% - Time elapsed (h:m:s)  0:00:35 Time remaining (h:m)  0:00  
+14/1/2014 20:00 41.67% - Time elapsed (h:m:s)  0:00:36 Time remaining (h:m)  0:00  
+14/1/2014 21:00 43.75% - Time elapsed (h:m:s)  0:00:37 Time remaining (h:m)  0:00  
+14/1/2014 22:00 45.83% - Time elapsed (h:m:s)  0:00:38 Time remaining (h:m)  0:00  
+14/1/2014 23:00 47.92% - Time elapsed (h:m:s)  0:00:39 Time remaining (h:m)  0:00  
+15/1/2014 0:00 50.00% - Time elapsed (h:m:s)  0:00:40 Time remaining (h:m)  0:00  
+15/1/2014 1:00 52.08% - Time elapsed (h:m:s)  0:00:42 Time remaining (h:m)  0:00  
+15/1/2014 2:00 54.17% - Time elapsed (h:m:s)  0:00:43 Time remaining (h:m)  0:00  
+15/1/2014 3:00 56.25% - Time elapsed (h:m:s)  0:00:44 Time remaining (h:m)  0:00  
+15/1/2014 4:00 58.33% - Time elapsed (h:m:s)  0:00:45 Time remaining (h:m)  0:00  
+15/1/2014 5:00 60.42% - Time elapsed (h:m:s)  0:00:46 Time remaining (h:m)  0:00  
+15/1/2014 6:00 62.50% - Time elapsed (h:m:s)  0:00:47 Time remaining (h:m)  0:00  
+15/1/2014 7:00 64.58% - Time elapsed (h:m:s)  0:00:48 Time remaining (h:m)  0:00  
+15/1/2014 8:00 66.67% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:00  
+15/1/2014 9:00 68.75% - Time elapsed (h:m:s)  0:00:53 Time remaining (h:m)  0:00  
+15/1/2014 10:00 70.83% - Time elapsed (h:m:s)  0:00:55 Time remaining (h:m)  0:00  
+15/1/2014 11:00 72.92% - Time elapsed (h:m:s)  0:00:57 Time remaining (h:m)  0:00  
+15/1/2014 12:00 75.00% - Time elapsed (h:m:s)  0:00:58 Time remaining (h:m)  0:00  
+15/1/2014 13:00 77.08% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:00  
+15/1/2014 14:00 79.17% - Time elapsed (h:m:s)  0:01:04 Time remaining (h:m)  0:00  
+15/1/2014 15:00 81.25% - Time elapsed (h:m:s)  0:01:06 Time remaining (h:m)  0:00  
+15/1/2014 16:00 83.33% - Time elapsed (h:m:s)  0:01:08 Time remaining (h:m)  0:00  
+15/1/2014 17:00 85.42% - Time elapsed (h:m:s)  0:01:12 Time remaining (h:m)  0:00  
+15/1/2014 18:00 87.50% - Time elapsed (h:m:s)  0:01:14 Time remaining (h:m)  0:00  
+15/1/2014 19:00 89.58% - Time elapsed (h:m:s)  0:01:15 Time remaining (h:m)  0:00  
+15/1/2014 20:00 91.67% - Time elapsed (h:m:s)  0:01:16 Time remaining (h:m)  0:00  
+15/1/2014 21:00 93.75% - Time elapsed (h:m:s)  0:01:18 Time remaining (h:m)  0:00  
+15/1/2014 22:00 95.83% - Time elapsed (h:m:s)  0:01:19 Time remaining (h:m)  0:00  
+15/1/2014 23:00 97.92% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:00  
+16/1/2014 0:00 100.00% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:00  
 Number of times the simulation #1 has been run: 1

@@ -1,0 +1,18 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: snow_dstr_SENSITIVITY
+
+Description: The study area is in Trentino Alto-Adige
+
+Time:
+- 05/10/2009 00:00
+- 06/10/2009 01:00
+
+Output:
+- tabs (30): every 1 hour (basin,discharge,point,snowcover,snowice,snowliq,
+			  snowly,snowtemp,soilTz,thetaice,thetaliq)
+- maps (8): every 1 day (snowdepth,snowduration,snowmelted,snowsubl)

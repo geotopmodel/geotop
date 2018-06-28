@@ -14,13 +14,14 @@ PointSim   = 0
 
 TimeStepEnergyAndWater =	3600
 InitDateDDMMYYYYhhmm   =	04/10/2009 00:00
-!EndDateDDMMYYYYhhmm   =	01/10/2011 :00
+EndDateDDMMYYYYhhmm    =	04/10/2009 11:00
+
 ! Simulation time reduced to avoid overflow when example run with meteoio
 ! interpolation active
 ! SC 14.11.2016
 ! Simulation time further reduced to avoid instability with with meteoio
 ! interpolation active
-EndDateDDMMYYYYhhmm    =	04/10/2009 11:00
+!EndDateDDMMYYYYhhmm   =	01/10/2011 00:00
 
 ! Catchment centroid (for Sun position) 
 Latitude    	     	  = 46.75
@@ -38,13 +39,13 @@ RecoverSim		=	0
 ! Output timeseries Dt in hours 
 DtPlotDischarge	       	= 	1
 DtPlotPoint		=	1
-DtPlotBasin		=	24
+DtPlotBasin		=	1
 
 ! Output maps Dt in hours 
-OutputSoilMaps	        =	24
-OutputSurfEBALMaps	=	24
-OutputMeteoMaps		=	24
-OutputSnowMaps		=	24
+OutputSoilMaps	        =	1
+OutputSurfEBALMaps	=	1
+OutputMeteoMaps		=	1
+OutputSnowMaps		=	1
 
 !=======================================
 ! METEO STATIONS Input
@@ -319,7 +320,6 @@ InitSnowDepthMapFile		= "INmaps500/SnowDepth"
 InitSWEMapFile 			= "INmaps500/SWE"
 !InitSnowAgeMapFile 		= "INmaps500/SnowAge"
 
-! FROM NOW ON, ALL WILL BE COMMENTED
 ! Output files
 
 ! Tabs 
@@ -346,8 +346,8 @@ SoilAll = 1
 
 ! ! Maps
 ! ! soil moisture & temperature
-SoilAveragedTempTensorFile	= 	"output-maps/T"
-SurfaceTempMapFile		= 	"output-maps/Ts"
+!SoilAveragedTempTensorFile	= 	"output-maps/T"
+!SurfaceTempMapFile		= 	"output-maps/Ts"
 
 ! SoilLiqContentTensorFile	= 	"output-maps/thetaliq" 
 ! SoilIceContentTensorFile	= 	"output-maps/thetaice" 
@@ -358,7 +358,7 @@ SurfaceTempMapFile		= 	"output-maps/Ts"
 WaterTableDepthMapFile		= 	"output-maps/watertable"
 
 ! snow & ice
-SWEMapFile			= 	"output-maps/SWE" 
+!SWEMapFile			= 	"output-maps/SWE" 
 !SnowDepthMapFile		= 	"output-maps/snowdepth"
 !SnowDurationMapFile		=	"output-maps/snowduration"
 

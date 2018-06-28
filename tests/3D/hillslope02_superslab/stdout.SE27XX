@@ -564,7 +564,6 @@ cnt:11 res:1.300209e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:12 res:4.922439e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:13 res:7.499874e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:14 res:1.276082e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:00 10.00% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
 cnt:1 res:1.882431e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:8.861823e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.019479e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -602,7 +601,6 @@ cnt:13 res:4.107818e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:14 res:3.832268e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:15 res:3.835906e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:16 res:1.719241e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 20.00% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
 cnt:1 res:1.724831e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:4.342094e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.542280e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -622,7 +620,6 @@ cnt:8 res:6.440882e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:9 res:8.875441e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:10 res:2.197523e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:11 res:1.283251e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 30.00% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
 cnt:1 res:1.597982e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.201936e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.553391e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -639,7 +636,6 @@ cnt:7 res:3.763477e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:1.846916e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:9 res:5.886206e-07 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:10 res:1.323202e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:01 40.00% - Times: Elapsed (h:m:s)  0:00:10 Remaining (h:m)  0:00  
 cnt:1 res:1.503734e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.199126e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.594249e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -650,7 +646,6 @@ cnt:4 res:6.597711e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:5 res:7.685607e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:1.175577e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:6.570082e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 50.00% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:00  
 cnt:1 res:1.431452e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.236075e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.612960e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -662,7 +657,6 @@ cnt:6 res:2.802439e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.031522e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:4.939559e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:9 res:4.104990e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 60.00% - Times: Elapsed (h:m:s)  0:00:12 Remaining (h:m)  0:00  
 cnt:1 res:1.372199e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.184738e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.613619e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -672,7 +666,6 @@ cnt:4 res:6.071249e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:5 res:2.488054e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:1.461350e-06 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:2.889752e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 70.00% - Times: Elapsed (h:m:s)  0:00:12 Remaining (h:m)  0:00  
 cnt:1 res:1.321658e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.176046e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.603863e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -682,7 +675,6 @@ cnt:4 res:5.164282e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:5 res:1.788384e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:2.320312e-07 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:5.663586e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:02 80.00% - Times: Elapsed (h:m:s)  0:00:14 Remaining (h:m)  0:00  
 cnt:1 res:1.277348e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.167159e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.592268e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -692,7 +684,6 @@ cnt:4 res:5.430564e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:5 res:1.892925e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:2.646610e-07 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.223645e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:03 90.00% - Times: Elapsed (h:m:s)  0:00:15 Remaining (h:m)  0:00  
 cnt:1 res:1.237707e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:2.158177e-01 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:2 res:1.590743e-01 lambda:5.000000e-01 Dt:18.000000 P:0.250000
@@ -703,7 +694,15 @@ cnt:5 res:1.954636e-04 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:3.048200e-07 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.980566e-08 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:5.266718e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:00:17 Remaining (h:m) -1:59  
+1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:00:15 Remaining (h:m) -1:59  
+
+1/1/2000 0:03 JD:0.002083 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 15.56 s, t_sub: 13.46 s, t_sup:  2.09 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=  2.50 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=4.604265e-06 mm/h 
+ Tot Error Richards=2.302132e-07 mm Mean Time Step=18.000000 s
+
 Number of times the simulation #1 has been run: 1
 Close files
 Deallocating global variables

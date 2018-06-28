@@ -165,8 +165,8 @@ SWEtop = 50
 !*******************************
 !******* LAPSE RATES **********
 !*******************************
-!LapseRateFile="LapseRates"
-!HeaderDateDDMMYYYYhhmmLapseRates="Date"
+! LapseRateFile="LapseRates"
+! HeaderDateDDMMYYYYhhmmLapseRates="Date"
 !HeaderLapseRateTemp="dTa_dz"
 !HeaderLapseRateDewTemp="dTd_dz"
 !HeaderLapseRatePrec="dprec_dz"
@@ -230,9 +230,9 @@ SnowDepthLayersFile="output-tabs/snowly"
 DischargeFile = "output-tabs/discharge"
 
 ! added to debug netCDF
-!OutputSnowMaps = 1
-!OutputSoilMaps=1
-!OutputSurfEBALMaps=1
+OutputSnowMaps = 24
+OutputSoilMaps=24
+OutputSurfEBALMaps=24
 !SWEMapFile= "output-maps/SWE"
 
 

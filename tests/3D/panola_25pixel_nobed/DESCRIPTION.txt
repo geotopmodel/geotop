@@ -1,0 +1,19 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: panola_25pixel_nobed
+
+Description: Distributed simulation Panola13 catchment
+(Comparison with Boussinesq Model)
+Toy catchment 1 m resolution
+
+Time:
+- 01/02/2012 00:00
+- 02/02/2012 00:00
+
+Output:
+- tabs (5): every 1 hour (discharge,point,psiliq,thetaliq)
+- maps (96): every 1 day (hsup,psiliq,thetaliq)

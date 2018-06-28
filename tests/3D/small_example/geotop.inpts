@@ -223,16 +223,15 @@ SnowIceContentProfileFile="output-tabs/snowice"
 SnowDepthLayersFile="output-tabs/snowly"
 SnowAll=1
 
-!SWEMapFile= "output-maps/SWE"
 SnowDepthMapFile = "output-maps/snowdepth"
 FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
 !NetShortwaveRadiationMapFile = "output-maps/Rn"
 !DischargeFile = "output-tabs/discharge"
 
 ! added to debug netCDF
-OutputSnowMaps = 1
-OutputSoilMaps=1
-!OutputSurfEBALMaps=1
+OutputSnowMaps = 24
+OutputSoilMaps=24
+OutputSurfEBALMaps=24
 SWEMapFile= "output-maps/SWE"
 
 

@@ -35,14 +35,14 @@ FlagSkyViewFactor = 0
 !Output timeseries Dt in hours 
 DtPlotDischarge = 1
 DtPlotPoint = 1
-DtPlotBasin = 24
+DtPlotBasin = 1
 
 !Output maps Dt in hours 
 OutputSoilMaps = 24
 OutputSurfEBALMaps = 24
-OutputMeteoMaps = 0
-OutputSnowMaps = 0
-OutputGlacierMaps	=	0
+OutputMeteoMaps = 24
+OutputSnowMaps = 24
+OutputGlacierMaps=24
 
 CoordinatePointX = -1
 !!0,0 
@@ -153,9 +153,9 @@ SlopeMapFile = "input-maps/slope"
 ! Output files
 
 ! Tabs 
-!DischargeFile = "output-tabs/discharge"
+DischargeFile = "output-tabs/discharge"
 SoilAll = 1
-!PointOutputFile = "output-tabs/point"
+PointOutputFile = "output-tabs/point"
 SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
 SoilLiqContentProfileFile = "output-tabs/thetaliq"
 !SoilIceContentProfileFile = "output-tabs/I"

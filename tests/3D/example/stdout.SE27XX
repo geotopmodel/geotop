@@ -6,41 +6,41 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/
+WORKING DIRECTORY: ./
 
-LOGFILE: /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/geotop.log
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to Dz
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to Kv
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to Kh
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to res
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to fc
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to sat
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to a
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to n
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/soil/soil0001.txt assigned to SS
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/ListPoints.txt
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/ListPoints.txt assigned to ID
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/ListPoints.txt assigned to Xwgs
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/ListPoints.txt assigned to Ywgs
-Attempting to read 'DemFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/pit_CentroCad250m': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/pit_CentroCad250m
-Attempting to read 'LandCoverMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/LC_CentroCad250m': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/LC_CentroCad250m
-Attempting to read 'SkyViewFactorMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/sky_CentroCad250m': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/sky_CentroCad250m
+LOGFILE: ./geotop.log
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to fc
+Column 6 in file ./soil/soil0001.txt assigned to sat
+Column 7 in file ./soil/soil0001.txt assigned to a
+Column 8 in file ./soil/soil0001.txt assigned to n
+Column 9 in file ./soil/soil0001.txt assigned to SS
+./ListPoints.txt
+Column 1 in file ./ListPoints.txt assigned to ID
+Column 2 in file ./ListPoints.txt assigned to Xwgs
+Column 3 in file ./ListPoints.txt assigned to Ywgs
+Attempting to read 'DemFile' in the file './input_maps/pit_CentroCad250m': EXISTING in format 3
+./input_maps/pit_CentroCad250m
+Attempting to read 'LandCoverMapFile' in the file './input_maps/LC_CentroCad250m': EXISTING in format 3
+./input_maps/LC_CentroCad250m
+Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/sky_CentroCad250m': EXISTING in format 3
+./input_maps/sky_CentroCad250m
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/soil_CentroCad250m': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/soil_CentroCad250m
-Attempting to read 'SlopeMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/grad_CentroCad250m_deg': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/grad_CentroCad250m_deg
+Attempting to read 'SoilMapFile' in the file './input_maps/soil_CentroCad250m': EXISTING in format 3
+./input_maps/soil_CentroCad250m
+Attempting to read 'SlopeMapFile' in the file './input_maps/grad_CentroCad250m_deg': EXISTING in format 3
+./input_maps/grad_CentroCad250m_deg
 Slope Min:0.000000 (0.000000 deg) Max:1.777711 (60.641329 deg) 
-Attempting to read 'AspectMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/asp_CentroCad250m': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/asp_CentroCad250m
+Attempting to read 'AspectMapFile' in the file './input_maps/asp_CentroCad250m': EXISTING in format 3
+./input_maps/asp_CentroCad250m
 Curvature N-S Min:-0.011745  Max:0.009154 
 Curvature W-E Min:-0.017133  Max:0.011417 
 Curvature NW-SE Min:-0.014900  Max:0.012999 
 Curvature NE-SW Min:-0.016089  Max:0.012701 
-Attempting to read 'RiverNetwork' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/example/input_maps/net_CentroCad250m_geo.asc': not existing
+Attempting to read 'RiverNetwork' in the file './input_maps/net_CentroCad250m_geo.asc': not existing
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 
 Valid pixels: 12089
@@ -50,83 +50,83 @@ Basin area: 755.562500 km2
 
 
 Horizon file FOUND for meteo station #1
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0001.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0001.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0001.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0001.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0001.txt assigned to Date
+Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0001.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0001.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0001.txt assigned to RH
+Column 6 in file ./meteo/meteo0001.txt assigned to AirT
+Column 7 in file ./meteo/meteo0001.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0001.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #2
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0002.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0002.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0002.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0002.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0002.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0002.txt assigned to Date
+Column 2 in file ./meteo/meteo0002.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0002.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0002.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0002.txt assigned to RH
+Column 6 in file ./meteo/meteo0002.txt assigned to AirT
+Column 7 in file ./meteo/meteo0002.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0002.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #3
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0003.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0003.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0003.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0003.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0003.txt assigned to AirT
+Column 1 in file ./hor_meteo/horizon0003.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0003.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0003.txt assigned to Date
+Column 2 in file ./meteo/meteo0003.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0003.txt assigned to AirT
 
 Horizon file FOUND for meteo station #4
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0004.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0004.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0004.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0004.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0004.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0004.txt assigned to Date
+Column 2 in file ./meteo/meteo0004.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0004.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0004.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0004.txt assigned to RH
+Column 6 in file ./meteo/meteo0004.txt assigned to AirT
+Column 7 in file ./meteo/meteo0004.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0004.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #5
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0005.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0005.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0005.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0005.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0005.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0005.txt assigned to Date
+Column 2 in file ./meteo/meteo0005.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0005.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0005.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0005.txt assigned to RH
+Column 6 in file ./meteo/meteo0005.txt assigned to AirT
+Column 7 in file ./meteo/meteo0005.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0005.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #6
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0006.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0006.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0006.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0006.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0006.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0006.txt assigned to Date
+Column 2 in file ./meteo/meteo0006.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0006.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0006.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0006.txt assigned to RH
+Column 6 in file ./meteo/meteo0006.txt assigned to AirT
+Column 7 in file ./meteo/meteo0006.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0006.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #7
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0007.txt assigned to azimuth
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/hor_meteo/horizon0007.txt assigned to horizon_ele
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to Iprec
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to WindSp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to WindDir
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to RH
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to AirT
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to Swglob
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/example/meteo/meteo0007.txt assigned to CloudTrans
+Column 1 in file ./hor_meteo/horizon0007.txt assigned to azimuth
+Column 2 in file ./hor_meteo/horizon0007.txt assigned to horizon_ele
+Column 1 in file ./meteo/meteo0007.txt assigned to Date
+Column 2 in file ./meteo/meteo0007.txt assigned to Iprec
+Column 3 in file ./meteo/meteo0007.txt assigned to WindSp
+Column 4 in file ./meteo/meteo0007.txt assigned to WindDir
+Column 5 in file ./meteo/meteo0007.txt assigned to RH
+Column 6 in file ./meteo/meteo0007.txt assigned to AirT
+Column 7 in file ./meteo/meteo0007.txt assigned to Swglob
+Column 8 in file ./meteo/meteo0007.txt assigned to CloudTrans
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available
@@ -138,26 +138,26 @@ Soil water transpires from the first 3 layers
 15/10/2011 14:00 8.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 15/10/2011 15:00 12.50% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
 15/10/2011 16:00 16.67% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
-15/10/2011 17:00 20.83% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
-15/10/2011 18:00 25.00% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
-15/10/2011 19:00 29.17% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
+15/10/2011 17:00 20.83% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
+15/10/2011 18:00 25.00% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
+15/10/2011 19:00 29.17% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
 15/10/2011 20:00 33.33% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
-15/10/2011 21:00 37.50% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
-15/10/2011 22:00 41.67% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
-15/10/2011 23:00 45.83% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
+15/10/2011 21:00 37.50% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
+15/10/2011 22:00 41.67% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
+15/10/2011 23:00 45.83% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
 16/10/2011 0:00 50.00% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
-16/10/2011 1:00 54.17% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
-16/10/2011 2:00 58.33% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
-16/10/2011 3:00 62.50% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
-16/10/2011 4:00 66.67% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
-16/10/2011 5:00 70.83% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
-16/10/2011 6:00 75.00% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
-16/10/2011 7:00 79.17% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
-16/10/2011 8:00 83.33% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
-16/10/2011 9:00 87.50% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
-16/10/2011 10:00 91.67% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
-16/10/2011 11:00 95.83% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
-16/10/2011 12:00 100.00% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
+16/10/2011 1:00 54.17% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
+16/10/2011 2:00 58.33% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
+16/10/2011 3:00 62.50% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
+16/10/2011 4:00 66.67% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
+16/10/2011 5:00 70.83% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
+16/10/2011 6:00 75.00% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
+16/10/2011 7:00 79.17% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
+16/10/2011 8:00 83.33% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
+16/10/2011 9:00 87.50% - Times: Elapsed (h:m:s)  0:00:08 Remaining (h:m)  0:00  
+16/10/2011 10:00 91.67% - Times: Elapsed (h:m:s)  0:00:08 Remaining (h:m)  0:00  
+16/10/2011 11:00 95.83% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
+16/10/2011 12:00 100.00% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
 Number of times the simulation #1 has been run: 1
 Close files
 Deallocating global variables

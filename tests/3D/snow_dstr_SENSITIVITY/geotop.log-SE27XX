@@ -8,7 +8,7 @@ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FI
 
 WORKING DIRECTORY: ./
 
-TimeStepEnergyAndWater[1] = 8.460000e+04 
+TimeStepEnergyAndWater[1] = 8.640000e+04 
 InitDateDDMMYYYYhhmm[1] = 5.102009e+10 
 SimulationHours[1] = 1.000000e+00 (default) 
 EndDateDDMMYYYYhhmm[1] = 6.102009e+10 
@@ -323,7 +323,7 @@ SnowViscosity[1] = 1.000000e+06
 FetchUp[1] = 1.000000e+03 (default) 
 FetchDown[1] = 1.000000e+02 (default) 
 BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
-TimeStepBlowingSnow[1] = 8.460000e+04 (default) 
+TimeStepBlowingSnow[1] = 8.640000e+04 (default) 
 SnowSMIN[1] = 3.000000e+01 (default) 
 SnowSMAX[1] = 8.000000e+01 (default) 
 SnowCURV[1] = -2.000000e+02 (default) 
@@ -962,40 +962,40 @@ FirstSoilLayerIceContentMapFile = none
 SoilAveragedIceContentTensorFile = none
 LandSurfaceWaterDepthMapFile = none
 ChannelSurfaceWaterDepthMapFile = none
-NetRadiationMapFile = output-maps/netRad
+NetRadiationMapFile = none
 InLongwaveRadiationMapFile = none
-NetLongwaveRadiationMapFile = output-maps/netLW
-NetShortwaveRadiationMapFile = output-maps/netSW
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
 InShortwaveRadiationMapFile = none
 DirectInShortwaveRadiationMapFile = none
 ShadowFractionTimeMapFile = none
 SurfaceHeatFluxMapFile = none
 SurfaceSensibleHeatFluxMapFile = none
 SurfaceLatentHeatFluxMapFile = none
-SurfaceTempMapFile = output-maps/SurfTemp
-PrecipitationMapFile = output-maps/P
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
 CanopyInterceptedWaterMapFile = none
 SoilLiqWaterPressTensorFile = none
 SoilTotWaterPressTensorFile = none
 SnowDepthMapFile = output-maps/snowdepth
-GlacierDepthMapFile = output-maps/glacierdepth
+GlacierDepthMapFile = none
 SnowMeltedMapFile = output-maps/snowmelted
 SnowSublMapFile = output-maps/snowsubl
-GlacierMeltedMapFile = output-maps/glaciermelted
-GlacierSublimatedMapFile = output-maps/glaciersubl
-AirTempMapFile = output-maps/Ta
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
 WindSpeedMapFile = none
 WindDirMapFile = none
-RelHumMapFile = output-maps/RHrel
-SWEMapFile = output-maps/SWE
+RelHumMapFile = none
+SWEMapFile = none
 GlacierWaterEqMapFile = none
 SnowDurationMapFile = output-maps/snowduration
-ThawedSoilDepthMapFile = output-maps/thawedsoildepth
+ThawedSoilDepthMapFile = none
 ThawedSoilDepthFromAboveMapFile = none
-WaterTableDepthMapFile = output-maps/watertable
+WaterTableDepthMapFile = none
 WaterTableDepthFromAboveMapFile = none
-NetPrecipitationMapFile = output-maps/Pnet
-EvapotranspirationFromSoilMapFile = output-maps/ETsoil
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
 SpecificPlotSurfaceHeatFluxMapFile = none
 SpecificPlotTotalSensibleHeatFluxMapFile = none
 SpecificPlotTotalLatentHeatFluxMapFile = none
@@ -1365,22 +1365,22 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 593
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-5/10/2009 23:30 94.00% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:00  
+6/10/2009 0:00 96.00% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:00  
 
-5/10/2009 23:30 JD:277.979167 (1^ simulation day) 94.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.83 s, t_blowingsnow:  0.00 s, t_water: 89.28 s, t_sub:  1.19 s, t_sup: 88.09 s, t_out:  0.00 s
- SW= 52.13 W/m2  LW:-41.01 W/m2  H=  1.44 W/m2  LE=  0.40 W/m2 
+6/10/2009 0:00 JD:278.000000 (1^ simulation day) 96.00% completed! 
+ t_meteo:  0.01 s, t_energy:  4.59 s, t_blowingsnow:  0.00 s, t_water: 90.06 s, t_sub:  1.68 s, t_sup: 88.38 s, t_out:  0.00 s
+ SW= 51.03 W/m2  LW:-40.73 W/m2  H=  1.43 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=7.321058e-10 mm/h 
- Tot Error Richards=1.720449e-08 mm Mean Time Step=84600.000000 s
+ Max Error Richards=5.851988e-10 mm/h 
+ Tot Error Richards=1.404477e-08 mm Mean Time Step=86400.000000 s
 
-6/10/2009 23:00 188.00% - Time elapsed (h:m:s)  0:04:40 Time remaining (h:m) -1:57  
+7/10/2009 0:00 192.00% - Time elapsed (h:m:s)  0:04:00 Time remaining (h:m) -1:58  
 
-6/10/2009 23:00 JD:278.958333 (1^ simulation day) 188.00% completed! 
- t_meteo:  0.01 s, t_energy: 10.06 s, t_blowingsnow:  0.00 s, t_water:268.22 s, t_sub:  3.79 s, t_sup:264.43 s, t_out:  0.00 s
- SW= 56.95 W/m2  LW:-36.74 W/m2  H=  4.94 W/m2  LE=  3.32 W/m2 
+7/10/2009 0:00 JD:279.000000 (2^ simulation day) 192.00% completed! 
+ t_meteo:  0.01 s, t_energy:  9.13 s, t_blowingsnow:  0.00 s, t_water:229.05 s, t_sub:  5.31 s, t_sup:223.73 s, t_out:  0.01 s
+ SW= 55.73 W/m2  LW:-36.47 W/m2  H=  4.68 W/m2  LE=  3.04 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.040169e-09 mm/h 
- Tot Error Richards=4.164846e-08 mm Mean Time Step=84600.000000 s
+ Max Error Richards=1.079297e-09 mm/h 
+ Tot Error Richards=3.994789e-08 mm Mean Time Step=86400.000000 s
 
 Number of times the simulation #1 has been run: 1

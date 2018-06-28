@@ -14,16 +14,21 @@ WaterBalance = 1
 !Output timeseries Dt in hours
 ## print discharge every 3 minutes (180/3600=0.05)
 DtPlotDischarge = 0.05
+
+! print timeseries of Points every 3 minutes (180/3600=0.05)
+DtPlotPoint = 0.05
+
+!old
 ## # print timeseries of Points every 18 seconds (18/3600=0.005)
-DtPlotPoint = 0.005
+!DtPlotPoint = 0.005
 
 ## print timeseries of Maps every 3 minutes (180/3600=0.05)
 OutputSoilMaps =0.05 
 
 
-DtPlotBasin = 0.1
+DtPlotBasin = 0.05
 BasinAll = 1
-!BasinOutputFile = "output-tabs/basin" 
+BasinOutputFile = "output-tabs/basin" 
 
 CoordinatePointX = 2,8,40,50,60,90
 CoordinatePointY = 5,5,5,5,5,5
@@ -142,6 +147,6 @@ WaterTableDepthMapFile  = "output-maps/wt"
 WaterTableDepthFromAboveMapFile  = "output-maps/wttop"
 
 ! Tens
-SoilLiqContentTensorFile = "output-maps/thetaliq"
+!SoilLiqContentTensorFile = "output-maps/thetaliq"
 SoilLiqWaterPressTensorFile = "output-maps/psiliq"
 
