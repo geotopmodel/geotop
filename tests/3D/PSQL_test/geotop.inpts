@@ -215,10 +215,10 @@ LWNetPoint=17
 SWNetPoint=18
 
 
-OutputMeteoMaps = 1
-OutputSurfEBALMaps = 1
-OutputSnowMaps = 1
-OutputSoilMaps = 1
+OutputMeteoMaps = 24
+OutputSurfEBALMaps = 24
+OutputSnowMaps = 24
+OutputSoilMaps = 24
 SWEMapFile= "output-maps/SWE"
 SnowDepthMapFile = "output-maps/snowdepth"
 HNMapFile = "output-maps/HN"
