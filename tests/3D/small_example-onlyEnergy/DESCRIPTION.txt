@@ -14,8 +14,7 @@ Time:
 
 Output:
 - tabs (14): every 1 hour (point,snowice,snowliq,snowly,snowtemp,soiltemp)
-- maps (153): every 1 day (LWin,MMGST,psiz,RadNet,snowdepth,SWEDENSITY,SWE,
-       	   	       SWin,thetaliq,T)
+- maps (90): every 1 day (LWin,psiz,RadNet,snowdepth,SWin,thetaliq,T)
 
 Comments:
 IceLiqContentTensorFile = "output-maps/thetaice"

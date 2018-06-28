@@ -221,7 +221,7 @@ SnowAll=1
 
 !SWEMapFile= "output-maps/SWE"
 SnowDepthMapFile = "output-maps/snowdepth"
-FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
+!FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
 !NetShortwaveRadiationMapFile = "output-maps/Rn"
 !DischargeFile = "output-tabs/discharge"
 
@@ -229,14 +229,13 @@ FirstSoilLayerAveragedTempMapFile="output-maps/MMGST"
 OutputSnowMaps=24 
 OutputSoilMaps=24
 OutputSurfEBALMaps=24
-SWEMapFile= "output-maps/SWE"
 
 
 SoilAll=1
 SoilAveragedTempTensorFile = "output-maps/T"
 SoilLiqContentTensorFile = "output-maps/thetaliq"
 IceLiqContentTensorFile = "output-maps/thetaice"
-SoilLiqWaterPressTensorFile = "output-maps/psiz"
+!SoilLiqWaterPressTensorFile = "output-maps/psiz"
 !RadiationMapFile= "output-maps/Rad"
 InShortwaveRadiationMapFile= "output-maps/SWin"
 InLongwaveRadiationMapFile= "output-maps/LWin"

@@ -16,4 +16,4 @@ Time:
 
 Output:
 - tabs (14): every 3 minutes (basin,discharge,psiliq,thetaliq)
-- maps (204): every 3 minutes (hsup,psiliq,thetaliq,wt,wttop)
+- maps (104): every 3 minutes (hsup,psiliq,wt,wttop)

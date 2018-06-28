@@ -14,5 +14,5 @@ Time:
 
 Output:
 - tabs (15): every 1 hour (point,soiltemp,snowtemp,snowliq,snowice,snowly)
-- maps (169): every 1 day (MMGST,snowdepth,SWEDENISTY,SWE,T)
+- maps (7): every 1 day (MMGST,snowdepth,SWEDENSITY,SWE,T)
 

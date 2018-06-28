@@ -18,4 +18,4 @@ Time:
 Output:
 - tabs (23): every 1 hour (basin,discharge,point,psiz,snowDepth,snowIceCont,
        	    	    	 snowLiqCont,snowTemp,soilTz,thetaice,thetaliq)
-- maps (176): every 1 day (PrecSNOW,PrecTOTAL,SWEDENSITY,SWE,Ta,Ts,watertable)
+- maps (44): every 1 day (PrecSNOW,PrecTOTAL,SWEDENSITY,Ta,Ts,watertable)
