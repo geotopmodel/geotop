@@ -5,7 +5,7 @@ gtest_without_main = dependency('gtest', main: false,
                                 fallback : ['gtest', 'gtest_dep'],
                                 required: false)
 
-dirs = ['logger', 'vector', 'asserts']
+dirs = ['logger', 'vector', 'asserts', 'date']
 
 if (gtest.found())
     foreach _d : dirs
