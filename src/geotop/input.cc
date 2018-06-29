@@ -2554,7 +2554,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
     FILE *f;
 
     // reading TOPOGRAPHY
-    flag = file_exists(fdem, flog);
+    flag = file_exists(fdem);
     if (flag == 1)
     {
         M=new_doublematrix(1,1);
@@ -2593,7 +2593,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
     }
 
     // reading LAND COVER TYPE
-    flag = file_exists(flu, flog);
+    flag = file_exists(flu);
     if (flag == 1)
     {
         land->LC=read_map(1, files[flu], top->Z0, UV, (double)number_novalue);
@@ -2679,7 +2679,7 @@ to the land cover type\n");
             if (par->rc->co[i][1] == number_novalue
                 || par->rc->co[i][2] == number_novalue)
             {
-                printf("Point #%4ld is out of the domain",i);
+                geolog << "Point #" << i << " is out of the domain";
                 fprintf(flog, "Point #%4ld is out of the domain",i);
                 fclose(flog);
 
@@ -2714,7 +2714,7 @@ to the land cover type\n");
 
     /*************************************************************************************************/
     // reading SKY VIEW FACTOR
-    flag = file_exists(fsky, flog);
+    flag = file_exists(fsky);
     if (flag == 1)
     {
         top->sky=read_map(2, files[fsky], land->LC, UV, (double)number_novalue);
@@ -2739,7 +2739,7 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     // reading DELAY
-    flag = file_exists(fdelay, flog);
+    flag = file_exists(fdelay);
     if (flag == 1)
     {
         land->delay = read_map(2, files[fdelay], land->LC, UV,
@@ -2755,7 +2755,7 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     // reading SOIL MAP
-    flag = file_exists(fsoil, flog);
+    flag = file_exists(fsoil);
     if (flag == 1)
     {
         M=read_map(2, files[fsoil], land->LC, UV, (double)number_novalue);
@@ -2794,7 +2794,7 @@ to the soil type map");
     find_slope(UV->U->co[1], UV->U->co[2], top->Z0, top->dzdE, top->dzdN,
                (double)number_novalue);
 
-    flag = file_exists(fslp, flog);
+    flag = file_exists(fslp);
     if (flag == 1)
     {
         top->slope=read_map(2, files[fslp], land->LC, UV, (double)number_novalue); // reads in degrees
@@ -2812,7 +2812,7 @@ to the soil type map");
 
     /**************************************************************************************************/
     // ASPECT
-    flag = file_exists(fasp, flog);
+    flag = file_exists(fasp);
     if (flag == 1)
     {
         top->aspect=read_map(2, files[fasp], land->LC, UV, (double)number_novalue);
@@ -2887,7 +2887,7 @@ to the soil type map");
     //pixel type = -1 land pixel where an incoming discharge from outside is considered (as rain)
     */
 
-    flag = file_exists(fnet, flog);
+    flag = file_exists(fnet);
     if (flag == 1)
     {
         M=read_map(2, files[fnet], land->LC, UV, (double)number_novalue);
@@ -2992,7 +2992,7 @@ to the soil type map");
     }
 
     // bedrock
-    flag = file_exists(fbed, flog);
+    flag = file_exists(fbed);
     if (flag == 1)
     {
         IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
@@ -3069,7 +3069,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
     }
     if (read_dem==1)
     {
-        flag = file_exists(fdem, flog);
+        flag = file_exists(fdem);
         if (flag == 1)
         {
             printf("Warning: Dem file %s present\n",files[fdem]+1);
@@ -3128,7 +3128,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_lu=0;
     if (read_lu==1)
     {
-        flag = file_exists(flu, flog);
+        flag = file_exists(flu);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3190,7 +3190,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_soil=0;
     if (read_soil==1)
     {
-        flag = file_exists(fsoil, flog);
+        flag = file_exists(fsoil);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3237,7 +3237,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_sl=0;
     if (read_sl==1)
     {
-        flag = file_exists(fslp, flog);
+        flag = file_exists(fslp);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3305,7 +3305,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_as=0;
     if (read_as==1)
     {
-        flag = file_exists(fasp, flog);
+        flag = file_exists(fasp);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3366,7 +3366,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_sk=0;
     if (read_sk==1)
     {
-        flag = file_exists(fsky, flog);
+        flag = file_exists(fsky);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3426,7 +3426,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_bed=0;
     if (read_bed==1)
     {
-        flag = file_exists(fbed, flog);
+        flag = file_exists(fbed);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -4017,36 +4017,30 @@ DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
 /***************************************************************************************************/
 /***************************************************************************************************/
 
-short file_exists(short key, FILE *flog)
+short file_exists(short key)
 {
     GEOLOG_PREFIX(__func__);
     //no keyword -> -1
     //keyword but does not exist -> 0
     //keyword and exists -> 1
 
-    printf("Attempting to read '%s' in the file '%s': ",
-           keywords_char[key+nmet+nsoilprop+2],files[key]);
-    fprintf(flog,"Attempting to read '%s' in the file '%s': ",
-            keywords_char[key+nmet+nsoilprop+2],files[key]);
+    geolog << "Attempting to read '"<< keywords_char[key+nmet+nsoilprop+2] << "' in the file '" << files[key]<< "': ";
 
     if (strcmp(files[key], string_novalue) == 0)
     {
-        printf("not present in file list\n");
-        fprintf(flog,"not present in file list\n");
+        geolog << "not present in file list" << std::endl;
         return (-1);
     }
     else
     {
         if (existing_file(files[key])>0)
         {
-            printf("EXISTING in format %d\n",existing_file(files[key]));
-            fprintf(flog, "EXISTING in format %d\n",existing_file(files[key]));
+            geolog << "EXISTING in format " << existing_file(files[key]) << std::endl;
             return (1);
         }
         else
         {
-            printf("not existing\n");
-            fprintf(flog, "not existing\n");
+            geolog << "not existing" << std::endl;
             return (0);
         }
     }
