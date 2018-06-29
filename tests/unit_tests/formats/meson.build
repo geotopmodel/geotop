@@ -1,4 +1,4 @@
-_tests = ['date.cc', 'parameter.cc']
+_tests = ['date.cc']
 
 foreach _t : _tests
     _e = executable(_t, [_t], dependencies: gtest, include_directories: include_dirs)
