@@ -22,28 +22,21 @@
 
 
 
-short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met,
-                     INIT_TOOLS *itools, char *filename, FILE *flog);
+short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename);
 
-void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl,
-                               METEO *met, INIT_TOOLS *itools, double **num_param,
-                               long *num_param_components, char **keyword, FILE *flog);
+void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools,
+                               double **num_param, long *num_param_components, char **keyword);
 
-char **assign_string_parameter(FILE *f, long beg, long end,
-                               char **string_param, char **keyword);
+char **assign_string_parameter(long beg, long end, char **string_param, char **keyword);
 
-double assignation_number(FILE *f, long i, long j, char **keyword,
-                          double **num_param, long *num_param_components, double default_value,
+double assignation_number(long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value,
                           short code_error);
 
-char *assignation_string(FILE *f, long i, char **keyword,
-                         char **string_param);
+char *assignation_string(long i, char **keyword, char **string_param);
 
-short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed,
-                           FILE *flog);
+short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed);
 
-short read_point_file(char *name, char **key_header, PAR *par, FILE *flog);
+short read_point_file(char *name, char **key_header, PAR *par);
 
-short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name,
-                              char **key_header, FILE *flog);
+short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header);
 

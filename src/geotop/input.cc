@@ -69,7 +69,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 {
     GEOLOG_PREFIX(__func__);
 
-    FILE *flog, *f;
+    FILE *flog; /** log file */
+    FILE *f; /** failed run file*/
     DOUBLEMATRIX *M;
     std::unique_ptr<INIT_TOOLS> IT;
 
@@ -91,7 +92,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
     // reads the parameters in __control_parameters
     temp = join_strings(WORKING_DIRECTORY, program_name);
-    success = read_inpts_par(par, land, times, sl, met, IT.get(), temp, flog);
+    success = read_inpts_par(par, land, times, sl, met, IT.get(), temp);
     free(temp);
 
     // correct state pixel
@@ -154,12 +155,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
     // soil parameters
-    success = read_soil_parameters(files[fspar], IT.get(), sl,
-                                   par->soil_type_bedr_default, flog);
+    success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
     // pointlist files
-    success = read_point_file(files[fpointlist], IT->point_col_names, par, flog);
+    success = read_point_file(files[fpointlist], IT->point_col_names, par);
 
     // max time that the simulation is supposed to model
     max_time = 0.;
@@ -350,8 +350,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 
-    success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(),
-                                      files[fmetstlist], IT->meteostations_col_names, flog);
+    success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
+                                      IT->meteostations_col_names);
 
     for (i=1; i<=met->st->E->nh; i++)
     {
@@ -383,8 +383,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
             // read matrix
             temp=namefile_i(files[fmet], ist);
-            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet,
-                                             &num_lines, flog);
+            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
             if ((long)met->data[i-1][0][iDate12] == number_absent
                 && (long)met->data[i-1][0][iJDfrom0] == number_absent)
@@ -537,8 +536,7 @@ used default values" << std::endl;
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
-        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot,
-                                   &num_lines, flog);
+        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot, &num_lines);
         free(temp);
         met->LRsnr = num_lines;
         par->LRflag=1;
@@ -697,7 +695,7 @@ used default values" << std::endl;
         temp2 = (char **)malloc(2*sizeof(char *));
         temp2[0] = assign_string("Time");
         temp2[1] = assign_string("Qx");
-        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines, flog);
+        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines);
         free(temp);
         free(temp2[0]);
         free(temp2[1]);

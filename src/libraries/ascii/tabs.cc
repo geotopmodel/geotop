@@ -661,8 +661,7 @@ char **ReadHeader(FILE *f, char *filename, long *num_cols)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
-                  char **header, long num_cols_header, FILE *flog)
+long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols, char **header, long num_cols_header)
 {
   GEOLOG_PREFIX(__func__);
   long *coder, i, j;
@@ -827,8 +826,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_txt_matrix(char *filename, long comment_char, long sep_char,
-                         char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog)
+double **read_txt_matrix(char *filename, long comment_char, long sep_char, char **Col_Descr, long ncolsCol_Descr, long *nlines)
 {
   GEOLOG_PREFIX(__func__);
   /*Read header, and create a **double with the same columns as the header. Then fill with number_absent the columns
@@ -849,7 +847,7 @@ double **read_txt_matrix(char *filename, long comment_char, long sep_char,
     }
   Header = ReadHeader(f, filename, &ncols);
 
-  Coder = ColumnCoder(filename, Col_Descr, ncolsCol_Descr, Header, ncols, flog);
+  Coder = ColumnCoder(filename, Col_Descr, ncolsCol_Descr, Header, ncols);
   Data = read_datamatrix(f, filename, comment_char, sep_char, *nlines, ncols);
   fclose(f);
 

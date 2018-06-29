@@ -49,16 +49,14 @@ double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
 
 char **ReadHeader(FILE *f, char *filename, long *num_cols);
 
-long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols,
-                  char **header, long num_cols_header, FILE *flog);
+long *ColumnCoder(char *filename, char **ColDescr, long max_num_cols, char **header, long num_cols_header);
 
 long count_lines(char *meteo_file_name, long comment_char, long sep_char);
 
 double **read_datamatrix(FILE *f, char *filename, long comment_char,
                          long sep_char, long number_lines, long components_header);
 
-double **read_txt_matrix(char *filename, long comment_char, long sep_char,
-                         char **Col_Descr, long ncolsCol_Descr, long *nlines, FILE *flog);
+double **read_txt_matrix(char *filename, long comment_char, long sep_char, char **Col_Descr, long ncolsCol_Descr, long *nlines);
 
 double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
                            long ncolsCol_Descr, long *nlines);

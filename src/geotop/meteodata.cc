@@ -586,7 +586,7 @@ double **read_horizon(short a, long i, char *name, char **ColDescr,
         }
 
       temp = namefile_i(name,i);
-      hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines, flog);
+      hor = read_txt_matrix(temp, 33, 44, ColDescr, 2, num_lines);
       free(temp);
 
       if ( (long)hor[0][0] == number_absent || (long)hor[0][1] == number_absent)
