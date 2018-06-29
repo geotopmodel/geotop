@@ -296,6 +296,8 @@ void time_loop(ALLDATA *A)
                       Voutsub = 0.;
                       Voutsup = 0.;
                       Vbottom = 0.;
+		      *Vsub_ch = 0.;
+		      *Vsup_ch = 0.;
 
                       // meteo
                       tstart=clock();
