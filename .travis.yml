@@ -36,6 +36,6 @@ install:
 
 
 script:
-  - meson.py test --suite geotop:unit_tests
-  - meson.py test --suite geotop:1D
-  - travis_wait 90 meson.py test --suite geotop:3D
+  - meson.py test --suite geotop:unit_tests --print-errorlogs
+  - meson.py test --suite geotop:1D --print-errorlogs
+  - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
