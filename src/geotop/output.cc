@@ -195,7 +195,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 		  free(name);
 
 		  t_discharge = 0.0;
-
+		  *(cnet->Vsub) = 0;
+		  *(cnet->Vsup) = 0;
 		  cnet->Vout = 0.;
 		  wat->Voutbottom = 0.;
 		  wat->Voutlandsub = 0.;
