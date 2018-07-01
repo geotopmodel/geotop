@@ -35,9 +35,7 @@ _SUCCESSFUL_RUN*
 _FAILED_RUN*
 _TEST_FAILED*
 Testing/
-output-tabs/*
 output-tabs/
-output-maps/*
 output-maps/
 *.old
 input*
