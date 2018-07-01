@@ -66,7 +66,7 @@ FILE *t_fopen(const char *name, const char *mode) {
     free(basedir);
     exit(1);
   }
-  free(basedir);
+/*  free(basedir); */
 
   fp = fopen(name, mode);
   if (fp == NULL) {
