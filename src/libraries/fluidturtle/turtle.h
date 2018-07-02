@@ -27,31 +27,17 @@
 #define LABELINCREMENT 64   /*The same as above */
 
 
-
-#define NR_END    1         /* Required by the Numerical Recipes' allocation routines
-              */
-
-
+#define NR_END    1         /* Required by the Numerical Recipes' allocation routines */
 
 #define FREE_ARG  char*     /* The same as above */
 
-
-
 #define OK 1
-
-
 
 #define NOK -1
 
-
-
 #define WOK 0
 
-
-
 #define MAX_KEYWORD_LENGTH 10
-
-
 
 #define PRINT 1
 
@@ -59,21 +45,16 @@
                            in some functions */
 
 
-#define NL 1              /* Numerical Recipes allocation routines allow to have
+#define NL 1   /* Numerical Recipes allocation routines allow to have
                arbitrary  subscripts for vector and matrixes. The
                fluid turtle library restrict this freedom by setting
                  their  lower value to NL  */
 
-
-
 #define TEST 1
-
 
 #define NOTEST 0
 
-
 #define SQRT2  1.414213562373095
-
 
 /**-------------------------------------------------------------------
 
@@ -82,24 +63,15 @@ SHORTMATRIX, INTMATRIX, LONGMATRIX, FLOATMATRIX, DOUBLEMATRIX
 
 ---------------------------------------------------------------------*/
 
-
-
 typedef struct
 {
+    short isdynamic;         /* see FLOAT VECTOR */
 
-  short isdynamic;         /* see FLOAT VECTOR */
+    const char *name;
 
-  const char *name;
-
-  long nrl,nrh,ncl,nch;    /* lower and upper bound for rows: nrl, nrh;
-
-                              lower and upper bounds for columns: ncl, nch
-
-                           */
-
-  short **co;
-
-
+    long nrl,nrh,ncl,nch;    /* lower and upper bound for rows: nrl, nrh;
+                              lower and upper bounds for columns: ncl, nch */
+    short **co;
 
 } SHORTMATRIX;
 
@@ -107,73 +79,54 @@ typedef struct
 
 typedef struct
 {
+    short isdynamic;
 
-  short isdynamic;
+    const char *name;
 
-  const char *name;
+    long nrl,nrh,ncl,nch;
 
-  long nrl,nrh,ncl,nch;
-
-  int **co;
-
-
+    int **co;
 
 } INTMATRIX;
 
 
-
-
-
 typedef struct
 {
 
-  short isdynamic;
+    short isdynamic;
 
-  const char *name;
+    const char *name;
 
-  long nrl,nrh,ncl,nch;
+    long nrl,nrh,ncl,nch;
 
-  float **co;
-
-
+    float **co;
 
 } FLOATMATRIX;
 
 
-
-
-
 typedef struct
 {
 
-  short isdynamic;
+    short isdynamic;
 
-  const char *name;
+    const char *name;
 
-  long nrl,nrh,ncl,nch;
+    long nrl,nrh,ncl,nch;
 
-  double **co;
-
-
+    double **co;
 
 } DOUBLEMATRIX;
 
 
-
-
-
 typedef struct
 {
+    short isdynamic;
 
-  short isdynamic;
+    const char *name;
 
-  const char *name;
+    long nrl,nrh,ncl,nch;
 
-  long nrl,nrh,ncl,nch;
-
-  long **co;
-
-
+    long **co;
 
 } LONGMATRIX;
 
@@ -182,16 +135,13 @@ typedef struct
 
 typedef struct
 {
+    short isdynamic;
 
-  short isdynamic;
+    const char *name;
 
-  const char *name;
+    long nrl,nrh,ncl,nch,ndl,ndh;
 
-  long nrl,nrh,ncl,nch,ndl,ndh;
-
-  double ***co;
-
-
+    double ***co;
 
 } DOUBLETENSOR;
 
@@ -229,8 +179,8 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
 /*header of maps in fluid turtle format*/
 struct T_INIT
 {
-  std::unique_ptr<Vector<double>> U;  /*dx,dy*/
-  std::unique_ptr<Vector<double>> V;  /*sign of novalue,novalue*/
+    std::unique_ptr<Vector<double>> U;  /*dx,dy*/
+    std::unique_ptr<Vector<double>> V;  /*sign of novalue,novalue*/
 };
 
 

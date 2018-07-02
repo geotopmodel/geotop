@@ -8,360 +8,200 @@ for documentation refer to turtle.h
 
 --------------------------------------------------------------------------*/
 
-
-
-
-
-
-
-
 float *vector(long nl, long nh)
 
-
-
-
-
 /* allocate a float vector  with subscript range v[nl ....nh] */
-
-
 {
-
 
   float *v;
 
-
   v = (float *) malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(float)));
-
 
   if (!v) t_error("allocation failure in fvector()");
 
-
   return v - nl + NR_END;
-
 
 }
 
 
 /*------------------------------------------------------------------------
 
-
 Standard NR allocation routines for matrixes:
-
-
 for documentation refer to turtle.h
-
 
 --------------------------------------------------------------------------*/
 
-
-
-
-
 float **matrix(long nrl, long nrh, long ncl, long nch)
 
-
 /* Allocate a float matrix  with subscript range v[nrl ....nrh][ncl ....nrh] */
-
-
 {
 
-
   long i, rows = nrh - nrl + 1, cols = nch - ncl + 1;
-
 
   float **m;
 
-
-
-
-
   /* Allocate array of pointers to arrays */
-
-
-
-
 
   m = (float **) malloc((size_t) ((rows + NR_END) * sizeof(float *)));
 
-
   if (!m) t_error("Allocation failure 1 in matrix()");
-
 
   m += NR_END;
 
-
   m -= nrl;
 
-
-
-
-
   /* Allocate rows and set pointers to them   */
-
-
-
-
 
   m[nrl] = (float *) malloc((size_t) ((rows * cols + NR_END) * sizeof(float)));
 
-
   if (!m) t_error("Allocation failure 2 in matrix()");
-
 
   m[nrl] += NR_END;
 
-
   m[nrl] -= ncl;
-
 
   /* Returns pointer to array of pointers to rows */
 
-
   for (i = nrl + 1; i <= nrh; i++) {
-
 
     m[i] = m[i - 1] + cols;
 
-
   }
-
 
   return m;
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 short **smatrix(long nrl, long nrh, long ncl, long nch)
 
-
 /* Allocate an int matrix  with subscript range v[nrl ....nrh][ncl ....nrh] */
-
 
 {
 
-
   long i, rows = nrh - nrl + 1, cols = nch - ncl + 1;
-
 
   short **m;
 
-
-
-
-
   /* Allocate array of pointers to arrays */
-
-
-
-
 
   m = (short **) malloc((size_t) ((rows + NR_END) * sizeof(short *)));
 
-
   if (!m) t_error("Allocation failure 1 in matrix()");
-
 
   m += NR_END;
 
-
   m -= nrl;
 
-
-
-
-
   /* Allocate rows and set pointers to them   */
-
-
-
-
 
   m[nrl] = (short *) malloc((size_t) ((rows * cols + NR_END) * sizeof(short)));
 
-
   if (!m) t_error("Allocation failure 2 in matrix()");
-
 
   m[nrl] += NR_END;
 
-
   m[nrl] -= ncl;
-
 
   /* Returns pointer to array of pointers to rows */
 
-
   for (i = nrl + 1; i <= nrh; i++) {
-
 
     m[i] = m[i - 1] + cols;
 
-
   }
-
 
   return m;
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 long **lmatrix(long nrl, long nrh, long ncl, long nch)
 
-
 /* Allocate a long matrix  with subscript range v[nrl ....nrh][ncl ....nrh] */
-
 
 {
 
-
   long i, rows = nrh - nrl + 1, cols = nch - ncl + 1;
-
 
   long **m;
 
-
-
-
-
   /* Allocate array of pointers to arrays */
-
-
-
-
 
   m = (long **) malloc((size_t) ((rows + NR_END) * sizeof(long *)));
 
-
   if (!m) t_error("Allocation failure 1 in matrix()");
-
 
   m += NR_END;
 
-
   m -= nrl;
 
-
-
-
-
   /* Allocate rows and set pointers to them   */
-
-
-
-
 
   m[nrl] = (long *) malloc((size_t) ((rows * cols + NR_END) * sizeof(long)));
 
-
   if (!m) t_error("Allocation failure 2 in matrix()");
-
 
   m[nrl] += NR_END;
 
-
   m[nrl] -= ncl;
-
 
   /* Returns pointer to array of pointers to rows */
 
-
   for (i = nrl + 1; i <= nrh; i++) {
-
 
     m[i] = m[i - 1] + cols;
 
-
   }
-
 
   return m;
 
-
 }
-
 
 /*-----------------------------------------------------------------------*/
 
-
 double **dmatrix(long nrl, long nrh, long ncl, long nch)
-
 
 /* Allocate a long matrix  with subscript range v[nrl ....nrh][ncl ....nrh] */
 
-
 {
-
 
   long i, rows = nrh - nrl + 1, cols = nch - ncl + 1;
 
-
   double **m;
-
-
-
-
 
   /* Allocate array of pointers to arrays */
 
-
-
-
-
   m = (double **) malloc((size_t) ((rows + NR_END) * sizeof(double *)));
-
 
   if (!m) t_error("Allocation failure 1 in matrix()");
 
-
   m += NR_END;
-
 
   m -= nrl;
 
 
-
-
-
   /* Allocate rows and set pointers to them   */
-
-
-
-
 
   m[nrl] = (double *) malloc((size_t) ((rows * cols + NR_END) * sizeof(double)));
 
-
   if (!m) t_error("Allocation failure 2 in matrix()");
-
 
   m[nrl] += NR_END;
 
-
   m[nrl] -= ncl;
-
 
   /* Returns pointer to array of pointers to rows */
 
-
   for (i = nrl + 1; i <= nrh; i++) {
-
 
     m[i] = m[i - 1] + cols;
 
-
   }
 
-
   return m;
-
 
 }
 
